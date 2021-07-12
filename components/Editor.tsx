@@ -26,14 +26,14 @@ export const Editor = ({ setRef }: any) => {
                 const annotations = (t as any).annotations as {
                   value: string
                 }[]
-                console.log(t)
+                //console.log(t)
                 if (annotations.some((a) => a.value == 'drop')) {
-                  console.log((t as any).changes.inserted[0])
+                  //console.log((t as any).changes.inserted[0])
 
                   indentSelection(view)
                   simplifySelection(view)
                   indentSelection(view)
-                  console.log((t as any).changes.inserted[0])
+                  //console.log((t as any).changes.inserted[0])
                   if (
                     (t as any).changes.inserted.some((x: any) =>
                       x.text.some((x: any) => x.includes('wiederhole solange'))
@@ -87,7 +87,8 @@ export const Editor = ({ setRef }: any) => {
 
       return () => view.destroy()
     }
-  }, [editor, setRef])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor])
 
   return <div ref={editor} />
 }

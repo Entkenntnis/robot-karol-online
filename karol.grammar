@@ -1,49 +1,47 @@
-@precedence {prio1, prio2}
-
-@top Program { whitespace* tllisting whitespace* }
-
-tllisting { ( expression | Cmd)  (~ambi whitespace+ (expression | Cmd))* ~ambi}
-
-
-listing { expression  (~ambi whitespace+ expression)* ~ambi}
+@top Program { (expression | Cmd)* }
 
 expression {
-  !prio1 Command |
-  !prio1 Repeat |
-  !prio1 IfThen |
-  !prio2 idx
+  Command |
+  Repeat |
+  IfThen |
+  idx
 }
 
 Command { 
-  @specialize<idx, "Hinlegen"> |
   @specialize<idx, "Schritt"> | 
   @specialize<idx, "LinksDrehen"> |
   @specialize<idx, "RechtsDrehen"> |
-  @specialize<idx, "Aufheben">
+  @specialize<idx, "Hinlegen"> |
+  @specialize<idx, "Aufheben"> |
+  @specialize<idx, "MarkeSetzen"> |
+  @specialize<idx, "MarkeLöschen">
 }
 
 Repeat {
-  RepeatStart whitespace+ (RepeatAlwaysKey | (RepeatWhileKey whitespace+ Condition) | (Times whitespace+ RepeatTimesKey) ) whitespace+ ~ambi listing? whitespace+ RepeatEnd
-}
-
-Times {
-  number
+  RepeatStart ((RepeatWhileKey Condition?) | (Times RepeatTimesKey)) expression* RepeatEnd
 }
 
 RepeatStart[closedBy="RepeatEnd"] { @specialize<idx, "wiederhole"> }
 
 RepeatEnd { @specialize<idx, "endewiederhole"> }
 
-RepeatAlwaysKey { @specialize<idx, "immer"> }
-
 RepeatWhileKey { @specialize<idx, "solange"> }
 
 RepeatTimesKey { @specialize<idx, "mal"> }
 
-Condition { "IstWand" | "NichtIstWand" | "IstZiegel" | "NichtIstZiegel" }
+Times { number }
+
+Condition {
+  @specialize<idx, "IstWand"> |
+  @specialize<idx, "NichtIstWand"> |
+  @specialize<idx, "IstZiegel"> |
+  @specialize<idx, "NichtIstZiegel"> |
+  @specialize<idx, "IstMarke"> |
+  @specialize<idx, "NichtIstMarke">
+}
 
 IfThen {
-  IfKey whitespace+ Condition whitespace+ ThenKey whitespace+ ~ambi (listing whitespace+)? (whitespace+ ElseKey whitespace+ ~ambi listing?)? IfEndKey
+  IfKey Condition? ThenKey expression* (ElseKey expression*)? IfEndKey
 }
 
 IfKey[closedBy="IfEndKey"] { @specialize<idx, "wenn"> }
@@ -55,7 +53,7 @@ IfEndKey { @specialize<idx, "endewenn"> }
 ElseKey { @specialize<idx, "sonst"> }
 
 Cmd {
-  CmdStart whitespace+ CmdName whitespace+ (listing whitespace+)? CmdEnd
+  CmdStart CmdName expression* CmdEnd
 }
 
 CmdName { idx }
@@ -72,7 +70,6 @@ CmdEnd { @specialize<idx, "endeAnweisung"> }
   Comment { "{" ![}]* "}" }
 
   idx { $[A-Za-z_]+ $[0-9A-Za-z_]? }
-
 }
 
-@skip { Comment }
+@skip { Comment | whitespace }
