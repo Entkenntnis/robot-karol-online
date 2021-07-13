@@ -1,9 +1,11 @@
-@top Program { (expression | Cmd)* }
+@top Program { (expression | Cmd | Cond)* }
 
 expression {
   Command |
+  SpecialCommand |
   Repeat |
   IfThen |
+  TF |
   idx
 }
 
@@ -14,7 +16,15 @@ Command {
   @specialize<idx, "Hinlegen"> |
   @specialize<idx, "Aufheben"> |
   @specialize<idx, "MarkeSetzen"> |
-  @specialize<idx, "MarkeLöschen">
+  @specialize<idx, "MarkeLöschen"> |
+  @specialize<idx, "Ton"> |
+  @specialize<idx, "Beenden"> |
+  @specialize<idx, "Warten">
+}
+
+SpecialCommand {
+  @specialize<idx, "schnell"> |
+  @specialize<idx, "langsam">
 }
 
 Repeat {
@@ -32,13 +42,20 @@ RepeatTimesKey { @specialize<idx, "mal"> }
 Times { number }
 
 Condition {
-  @specialize<idx, "IstWand"> |
+  Not?
+  (@specialize<idx, "IstWand"> |
   @specialize<idx, "NichtIstWand"> |
   @specialize<idx, "IstZiegel"> |
   @specialize<idx, "NichtIstZiegel"> |
   @specialize<idx, "IstMarke"> |
-  @specialize<idx, "NichtIstMarke">
+  @specialize<idx, "NichtIstMarke"> |
+  @specialize<idx, "IstOsten"> |
+  @specialize<idx, "IstSüden"> |
+  @specialize<idx, "IstWesten"> |
+  @specialize<idx, "IstNorden">)
 }
+
+Not { @specialize<idx, "nicht"> }
 
 IfThen {
   IfKey Condition? ThenKey expression* (ElseKey expression*)? IfEndKey
@@ -62,6 +79,21 @@ CmdStart[closedBy="CmdEnd"] { @specialize<idx, "Anweisung"> }
 
 CmdEnd { @specialize<idx, "endeAnweisung"> }
 
+Cond {
+  CondStart CondName expression* CondEnd
+}
+
+CondName { idxExt }
+
+CondStart[closedBy="CondEnd"] { @specialize<idx, "Bedingung"> }
+
+CondEnd { @specialize<idx, "endeBedingung"> }
+
+TF {
+  @specialize<idx, "wahr"> |
+  @specialize<idx, "falsch">
+}
+
 @tokens {
   whitespace { $[ \n\r\t]+ }
 
@@ -69,7 +101,9 @@ CmdEnd { @specialize<idx, "endeAnweisung"> }
 
   Comment { "{" ![}]* "}" }
 
-  idx { $[A-Za-z_]+ $[0-9A-Za-z_]? }
+  idx { $[A-Za-z_] $[0-9A-Za-z_]* }
+
+  idxExt { $[A-Za-z_] $[0-9A-Za-z_()]* }
 }
 
 @skip { Comment | whitespace }

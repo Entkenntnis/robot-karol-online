@@ -82,11 +82,18 @@ const parserWithMetadata = parser.configure({
       Times: t.strong,
       Comment: t.comment,
       Condition: t.className,
+      Not: t.strong,
+      SpecialCommand: t.strong,
+      CondStart: t.keyword,
+      CondEnd: t.keyword,
+      CondName: t.emphasis,
+      TF: t.typeName,
     }),
     indentNodeProp.add({
       Repeat: continuedIndent({ except: /^\s*ende/ }),
       IfThen: continuedIndent({ except: /^\s*(ende|sonst)/ }),
       Cmd: continuedIndent({ except: /^\s*ende/ }),
+      Cond: continuedIndent({ except: /^\s*ende/ }),
     }),
   ],
 })
@@ -94,7 +101,7 @@ const parserWithMetadata = parser.configure({
 const exampleLanguage = LezerLanguage.define({
   parser: parserWithMetadata,
   languageData: {
-    indentOnInput: /^\s*ende/,
+    indentOnInput: /^\s*(ende|sonst)/,
   },
 })
 
