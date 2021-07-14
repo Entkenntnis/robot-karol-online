@@ -24,19 +24,25 @@ import istmarkeImg from '../public/istmarke.png'
 import nichtistmarkeImg from '../public/nichtistmarke.png'
 
 import anweisungImg from '../public/anweisung.png'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { EditorView } from '@codemirror/basic-setup'
 import clsx from 'clsx'
 import { Scrollbars } from 'react-custom-scrollbars'
 
-import dummyImg from '../public/dummy.png'
+import { Heading, KarolWorld, View } from '../components/View'
 
 export default function Home() {
   const editor = useRef<EditorView | null>(null)
 
   const [section, setSection] = useState('Bewegung')
 
-  console.log('rerender')
+  const [counter, setCounter] = useState(0)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCounter(counter + 1)
+    }, 100)
+  }, [counter])
 
   return (
     <>
@@ -48,9 +54,7 @@ export default function Home() {
         <div className="w-full text-base h-full overflow-y-auto">
           <Editor setRef={(e: EditorView) => (editor.current = e)} />
         </div>
-        <div className="w-full border">
-          <Image src={dummyImg} alt="Placeholder" />
-        </div>
+        <Player />
       </div>
     </>
   )
@@ -208,5 +212,185 @@ export default function Home() {
         />
       </div>
     )
+  }
+}
+
+function Player() {
+  const [world, setWorld] = useState<KarolWorld>({
+    height: 6,
+    width: 5,
+    length: 10,
+    karol: {
+      x: 0,
+      y: 0,
+      dir: 'south',
+    },
+    bricks: [
+      [6, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+    ],
+    marks: [
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+    ],
+  })
+
+  return (
+    <div
+      onKeyDown={(e) => {
+        if (e.code == 'ArrowLeft') {
+          const newWorld = cloneWorld(world)
+          newWorld.karol.dir = {
+            north: 'west',
+            west: 'south',
+            south: 'east',
+            east: 'north',
+          }[newWorld.karol.dir] as any
+          setWorld(newWorld)
+          e.preventDefault()
+        }
+        if (e.code == 'ArrowRight') {
+          const newWorld = cloneWorld(world)
+          newWorld.karol.dir = {
+            north: 'east',
+            east: 'south',
+            south: 'west',
+            west: 'north',
+          }[newWorld.karol.dir] as any
+          setWorld(newWorld)
+          e.preventDefault()
+        }
+        if (e.code == 'ArrowUp') {
+          const newWorld = cloneWorld(world)
+
+          const newPos = move(
+            world.karol.x,
+            world.karol.y,
+            world.karol.dir,
+            world
+          )
+
+          if (newPos) {
+            newWorld.karol.x = newPos.x
+            newWorld.karol.y = newPos.y
+          }
+
+          setWorld(newWorld)
+          e.preventDefault()
+        }
+        if (e.code == 'ArrowDown') {
+          const newWorld = cloneWorld(world)
+
+          if (world.karol.dir == 'west') {
+            if (world.karol.x + 1 < world.width) {
+              newWorld.karol.x++
+            }
+          }
+          if (world.karol.dir == 'east') {
+            if (world.karol.x > 0) {
+              newWorld.karol.x--
+            }
+          }
+          if (world.karol.dir == 'north') {
+            if (world.karol.y + 1 < world.length) {
+              newWorld.karol.y++
+            }
+          }
+          if (world.karol.dir == 'south') {
+            if (world.karol.y > 0) {
+              newWorld.karol.y--
+            }
+          }
+          setWorld(newWorld)
+          e.preventDefault()
+        }
+        if (e.code == 'KeyM') {
+          const newWorld = cloneWorld(world)
+
+          newWorld.marks[world.karol.y][world.karol.x] =
+            !newWorld.marks[world.karol.y][world.karol.x]
+
+          setWorld(newWorld)
+          e.preventDefault()
+        }
+        if (e.code == 'KeyH') {
+          const newWorld = cloneWorld(world)
+
+          const pos = move(world.karol.x, world.karol.y, world.karol.dir, world)
+
+          if (pos) {
+            newWorld.bricks[pos.y][pos.x] = Math.min(
+              world.height,
+              newWorld.bricks[pos.y][pos.x] + 1
+            )
+          }
+
+          setWorld(newWorld)
+          e.preventDefault()
+        }
+        if (e.code == 'KeyA') {
+          const newWorld = cloneWorld(world)
+
+          const pos = move(world.karol.x, world.karol.y, world.karol.dir, world)
+
+          if (pos) {
+            newWorld.bricks[pos.y][pos.x] = Math.max(
+              0,
+              newWorld.bricks[pos.y][pos.x] - 1
+            )
+          }
+
+          setWorld(newWorld)
+          e.preventDefault()
+        }
+      }}
+      tabIndex={1}
+      className="focus:border-green-200 border-white border-2"
+    >
+      <View world={world} />
+    </div>
+  )
+}
+
+function cloneWorld(world: KarolWorld): KarolWorld {
+  return JSON.parse(JSON.stringify(world))
+}
+
+function move(x: number, y: number, dir: Heading, world: KarolWorld) {
+  if (dir == 'east') {
+    if (x + 1 < world.width) {
+      return { x: x + 1, y }
+    }
+  }
+  if (dir == 'west') {
+    if (x > 0) {
+      return { x: x - 1, y }
+    }
+  }
+  if (dir == 'south') {
+    if (y + 1 < world.length) {
+      return { x, y: y + 1 }
+    }
+  }
+  if (dir == 'north') {
+    if (y > 0) {
+      return { x, y: y - 1 }
+    }
   }
 }
