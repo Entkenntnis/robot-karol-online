@@ -1,22 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-
-export type Heading = 'north' | 'south' | 'east' | 'west'
-
-export interface KarolWorld {
-  width: number
-  length: number
-  height: number
-  karol: {
-    x: number
-    y: number
-    dir: Heading
-  }
-  bricks: number[][]
-  marks: boolean[][]
-}
+import { World } from '../lib/model'
 
 interface ViewProps {
-  world: KarolWorld
+  world: World
 }
 
 interface Resources {
@@ -26,6 +12,7 @@ interface Resources {
   robotS: HTMLImageElement
   robotW: HTMLImageElement
   marke: HTMLImageElement
+  quader: HTMLImageElement
   ctx: CanvasRenderingContext2D
 }
 
@@ -33,10 +20,10 @@ export function View({ world }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
-  const width = 30 * world.width + 15 * world.length + 1
-  const height = 15 * world.length + 15 * world.height + 1 + 61
+  const width = 30 * world.dimX + 15 * world.dimY + 1
+  const height = 15 * world.dimY + 15 * world.height + 1 + 61
 
-  const originX = 15 * world.length
+  const originX = 15 * world.dimY
   const originY = 15 * world.height + 61
 
   function to2d(x: number, y: number, z: number) {
@@ -82,7 +69,21 @@ export function View({ world }: ViewProps) {
             marke.onload = r
             marke.src = '/marke.png'
           })
-          setResources({ ziegel, ctx, robotN, robotE, robotS, robotW, marke })
+          const quader = new Image()
+          await new Promise((r) => {
+            quader.onload = r
+            quader.src = '/quader.png'
+          })
+          setResources({
+            ziegel,
+            ctx,
+            robotN,
+            robotE,
+            robotS,
+            robotW,
+            marke,
+            quader,
+          })
         }
       }
     }
@@ -91,48 +92,57 @@ export function View({ world }: ViewProps) {
 
   useEffect(() => {
     if (resources && canvas.current) {
-      const { ctx, ziegel, robotN, robotE, robotS, robotW, marke } = resources
+      const { ctx, ziegel, robotN, robotE, robotS, robotW, marke, quader } =
+        resources
 
       ctx.save()
       ctx.clearRect(0, 0, width, height)
 
       ctx.strokeStyle = 'blue'
 
-      for (let i = 0; i <= world.width; i++) {
+      for (let i = 0; i <= world.dimX; i++) {
         const start = to2d(i, 0, 0)
-        const end = to2d(i, world.length, 0)
+        const end = to2d(i, world.dimY, 0)
         ctx.beginPath()
         ctx.moveTo(start.x + 0.5, start.y + 0.5)
         ctx.lineTo(end.x + 0.5, end.y + 0.5)
         ctx.stroke()
       }
 
-      for (let i = 0; i <= world.length; i++) {
+      for (let i = 0; i <= world.dimY; i++) {
         const start = to2d(0, i, 0)
-        const end = to2d(world.width, i, 0)
+        const end = to2d(world.dimX, i, 0)
         ctx.beginPath()
         ctx.moveTo(start.x + 0.5, start.y + 0.5)
         ctx.lineTo(end.x + 0.5, end.y + 0.5)
         ctx.stroke()
       }
 
-      for (let i = 0; i <= world.width; i++) {
+      for (let i = 0; i <= world.dimX; i++) {
         const start = to2d(i, 0, 0)
         const end = to2d(i, 0, world.height)
         renderDashed(ctx, start, end)
       }
 
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= world.dimY; i++) {
         const start = to2d(0, i, 0)
-        const end = to2d(0, i, 6)
+        const end = to2d(0, i, world.height)
         renderDashed(ctx, start, end)
       }
 
-      renderDashed(ctx, to2d(0, 10, 6), to2d(0, 0, 6))
-      renderDashed(ctx, to2d(5, 0, 6), to2d(0, 0, 6))
+      renderDashed(
+        ctx,
+        to2d(0, world.dimY, world.height),
+        to2d(0, 0, world.height)
+      )
+      renderDashed(
+        ctx,
+        to2d(world.dimX, 0, world.height),
+        to2d(0, 0, world.height)
+      )
 
-      for (let x = 0; x < world.width; x++) {
-        for (let y = 0; y < world.length; y++) {
+      for (let x = 0; x < world.dimX; x++) {
+        for (let y = 0; y < world.dimY; y++) {
           for (let i = 0; i < world.bricks[y][x]; i++) {
             const p = to2d(x, y, i)
             ctx.drawImage(ziegel, p.x - 15, p.y - 16)
@@ -140,6 +150,10 @@ export function View({ world }: ViewProps) {
           if (world.marks[y][x]) {
             const p = to2d(x, y, world.bricks[y][x])
             ctx.drawImage(marke, p.x - 15, p.y - 16)
+          }
+          if (world.blocks[y][x]) {
+            const p = to2d(x, y, 0)
+            ctx.drawImage(quader, p.x - 15, p.y - 30)
           }
           if (world.karol.x == x && world.karol.y == y) {
             const karol = {
@@ -153,14 +167,20 @@ export function View({ world }: ViewProps) {
 
             ctx.drawImage(
               karol,
-              point.x - 13,
-              point.y - 60 - (world.karol.dir == 'south' ? 2 : 0)
+              point.x -
+                13 -
+                (world.karol.dir == 'south'
+                  ? 3
+                  : world.karol.dir == 'north'
+                  ? -2
+                  : 0),
+              point.y - 60
             )
           }
         }
       }
 
-      //ctx.drawImage(ziegel, originX - 0.5, originY - 1.5)
+      //ctx.drawImage(ziegel, originX - 0.5, originY - 1.5)</div>
 
       ctx.restore()
     }

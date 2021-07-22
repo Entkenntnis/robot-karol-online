@@ -27,34 +27,103 @@ import istmarkeImg from '../public/istmarke.png'
 import nichtistmarkeImg from '../public/nichtistmarke.png'
 
 import anweisungImg from '../public/anweisung.png'
+import { parser } from '../lib/parser'
+import { useProject } from '../lib/model'
+
+function isKnow(str: string) {
+  return str
+}
 
 export function EditArea() {
   const editor = useRef<EditorView | null>(null)
 
-  const [section, setSection] = useState('Bewegung')
+  const [code, setCode] = useState('')
+
+  const [section, setSection] = useState('')
+
+  const [menuVisible, setMenuVisible] = useState(false)
+
+  // we can parse the code here
+  //const tokens = tokenize(code)
+
+  //console.log(tokens)
+
+  const { controller } = useProject()
+
+  /*const tree = parser.parse(code)
+  const cursor = tree.cursor()
+  do {
+    console.log(`Node ${cursor.name} from ${cursor.from} to ${cursor.to}`)
+  } while (cursor.next())*/
 
   return (
     <>
+      <style jsx global>{`
+        .cm-editor {
+          outline: none !important;
+        }
+      `}</style>
       {renderBlockMenu()}
-      <div className="w-full text-base h-full overflow-y-auto">
-        <Editor setRef={(e: EditorView) => (editor.current = e)} />
+      <div data-label="gutter" className="w-8 h-full bg-gray-400"></div>
+      <div className="w-full text-base h-full overflow-y-auto flex flex-col outline-none">
+        <Editor
+          setRef={(e: EditorView) => (editor.current = e)}
+          onUpdate={setCode}
+        />
+        <div
+          className="bg-gray-50 flex-grow"
+          onClick={() => {
+            editor.current?.focus()
+          }}
+        />
+        <div className="bg-white h-12">
+          <button
+            className="bg-green-400 rounded-2xl p-1 m-1"
+            onClick={async () => {
+              /*for (const token of tokens) {
+                if (token.type == 'word') {
+                  if (token.value == 'Schritt') {
+                    controller.forward()
+                  }
+                  if (token.value == 'LinksDrehen') {
+                    controller.left()
+                  }
+                  if (token.value == 'RechtsDrehen') {
+                    controller.right()
+                  }
+                  if (token.value == 'Hinlegen') {
+                    controller.brick()
+                  }
+                  if (token.value == 'Aufheben') {
+                    controller.unbrick()
+                  }
+                  await new Promise((r) => setTimeout(r, 200))
+                }
+              }*/
+            }}
+          >
+            Code ausführen
+          </button>
+        </div>
       </div>
     </>
   )
 
   function renderBlockMenu() {
     return (
-      <div className="h-full bg-gray-50 flex">
-        <div className="h-full bg-white flex flex-col">
-          {renderCategory('Bewegung')}
-          {renderCategory('Steuerung')}
-          {renderCategory('Fühlen')}
-          {renderCategory('Anweisung')}
+      <div className="bg-gray-50 flex relative h-full border-r border-gray-300">
+        <div className="bg-white flex flex-col h-full justify-between">
+          <div className="flex flex-col">
+            {renderCategory('Bewegung')}
+            {renderCategory('Steuerung')}
+            {renderCategory('Fühlen')}
+            {renderCategory('Anweisung')}
+          </div>
         </div>
-        <div className="h-full border-l border-gray-300">
-          <Scrollbars
-            style={{ height: 800, width: 200 }}
-            universal
+
+        <div className={clsx('h-full', !menuVisible && 'hidden')}>
+          <div
+            className="w-52 h-full overflow-y-scroll"
             onScroll={(e: any) => {
               const scrollTop = e.currentTarget.scrollTop
               if (scrollTop < 470) {
@@ -116,7 +185,7 @@ export function EditArea() {
               nichtistmarkeImg,
               'NichtIstMarke'
             )}
-            <div className="h-[100vh]">
+            <div className="h-[calc(100vh-20px)]">
               {renderCategoryTitle('Anweisung')}
               {buildProtoBlock(
                 'anweisung',
@@ -124,7 +193,7 @@ export function EditArea() {
                 'Anweisung NeueAnweisung\n  \nendeAnweisung'
               )}
             </div>
-          </Scrollbars>
+          </div>
         </div>
       </div>
     )
@@ -140,8 +209,14 @@ export function EditArea() {
           name == section && 'bg-gray-200'
         )}
         onClick={() => {
+          if (section == name) {
+            setSection('')
+            setMenuVisible(false)
+            return
+          }
           setSection(name)
-          document.getElementById(name)?.scrollIntoView()
+          setMenuVisible(true)
+          setTimeout(() => document.getElementById(name)?.scrollIntoView(), 10)
         }}
       >
         <div
