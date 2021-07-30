@@ -1,5 +1,5 @@
 import { EditorView } from '@codemirror/view'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -29,20 +29,26 @@ import nichtistmarkeImg from '../public/nichtistmarke.png'
 import anweisungImg from '../public/anweisung.png'
 import { parser } from '../lib/parser'
 import { useProject } from '../lib/model'
-
-function isKnow(str: string) {
-  return str
-}
+import { editable } from '../lib/basicSetup'
+import { EditorState } from '@codemirror/state'
+import { ensureSyntaxTree } from '@codemirror/language'
 
 export function EditArea() {
   const editor = useRef<EditorView | null>(null)
-
-  const [code, setCode] = useState('')
 
   const [section, setSection] = useState('')
 
   const [menuVisible, setMenuVisible] = useState(false)
 
+  const [codeState, setCodeState] = useState('loading')
+
+  useEffect(() => {
+    editor.current?.dispatch({
+      effects: editable.reconfigure(
+        EditorView.editable.of(codeState != 'running')
+      ),
+    })
+  }, [codeState])
   // we can parse the code here
   //const tokens = tokenize(code)
 
@@ -63,12 +69,29 @@ export function EditArea() {
           outline: none !important;
         }
       `}</style>
-      {renderBlockMenu()}
-      <div data-label="gutter" className="w-8 h-full bg-gray-400"></div>
+      <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
+        {renderBlockMenu()}
+      </div>
+      {codeState == 'running' && (
+        <div data-label="gutter" className="w-8 h-full bg-gray-400 relative">
+          <div className="top-[48.8px] bg-red-500 rounded-full absolute w-5 h-5 left-1"></div>
+        </div>
+      )}
       <div className="w-full text-base h-full overflow-y-auto flex flex-col outline-none">
         <Editor
           setRef={(e: EditorView) => (editor.current = e)}
-          onUpdate={setCode}
+          onLint={(view: EditorView) => {
+            const tree = ensureSyntaxTree(view.state, 1000000, 1000)
+            console.log('lint')
+            setCodeState('ready')
+            return []
+          }}
+          onUpdate={(event) => {
+            if (event == 'input' || event == 'drop' || event == 'delete') {
+              console.log('update', event)
+              setCodeState((state) => (state == 'ready' ? 'loading' : state))
+            }
+          }}
         />
         <div
           className="bg-gray-50 flex-grow"
@@ -77,33 +100,36 @@ export function EditArea() {
           }}
         />
         <div className="bg-white h-12">
-          <button
-            className="bg-green-400 rounded-2xl p-1 m-1"
-            onClick={async () => {
-              /*for (const token of tokens) {
-                if (token.type == 'word') {
-                  if (token.value == 'Schritt') {
-                    controller.forward()
-                  }
-                  if (token.value == 'LinksDrehen') {
-                    controller.left()
-                  }
-                  if (token.value == 'RechtsDrehen') {
-                    controller.right()
-                  }
-                  if (token.value == 'Hinlegen') {
-                    controller.brick()
-                  }
-                  if (token.value == 'Aufheben') {
-                    controller.unbrick()
-                  }
-                  await new Promise((r) => setTimeout(r, 200))
-                }
-              }*/
-            }}
-          >
-            Code ausführen
-          </button>
+          {codeState == 'running' ? (
+            <button
+              className="bg-red-400 rounded-2xl p-1 m-1"
+              onClick={async () => {
+                setCodeState('ready')
+              }}
+            >
+              Ausführung stoppen
+            </button>
+          ) : codeState == 'ready' ? (
+            <button
+              className="bg-green-400 rounded-2xl p-1 m-1"
+              onClick={async () => {
+                setCodeState('running')
+              }}
+            >
+              Code ausführen
+            </button>
+          ) : codeState == 'loading' ? (
+            <button
+              className="bg-green-50 rounded-2xl p-1 m-1 text-gray-400"
+              disabled
+            >
+              Code ausführen
+            </button>
+          ) : codeState == 'error' ? (
+            <div>Fehler</div>
+          ) : (
+            <div>unbekannt</div>
+          )}
         </div>
       </div>
     </>

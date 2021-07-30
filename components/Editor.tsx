@@ -9,8 +9,17 @@ import {
   cursorCharLeft,
 } from '@codemirror/commands'
 import { Transaction } from '@codemirror/state'
+import { Diagnostic } from '@codemirror/lint'
 
-export const Editor = ({ setRef, onUpdate }: any) => {
+export const Editor = ({
+  setRef,
+  onLint,
+  onUpdate,
+}: {
+  setRef: any
+  onLint: (view: EditorView) => Diagnostic[]
+  onUpdate: (event?: string) => void
+}) => {
   const editor = useRef(null)
 
   useEffect(() => {
@@ -21,12 +30,14 @@ export const Editor = ({ setRef, onUpdate }: any) => {
         state: EditorState.create({
           doc: '{ Schreibe hier dein Programm }\n\n\n\n\n\n\n\n\n',
           extensions: [
-            basicSetup,
+            basicSetup(onLint),
             EditorView.updateListener.of((e) => {
-              onUpdate(e.state.doc.sliceString(0))
+              //onUpdate(e.state.doc.sliceString(0))
               if (e.transactions.length > 0) {
                 const t = e.transactions[0]
-                //console.log(t.annotation(Transaction.userEvent))
+                const userEvent = t.annotation(Transaction.userEvent)
+
+                onUpdate(userEvent)
                 const annotations = (t as any).annotations as {
                   value: string
                 }[]

@@ -4,7 +4,7 @@ import {
   drawSelection,
   highlightActiveLine,
 } from '@codemirror/view'
-import { Extension, EditorState } from '@codemirror/state'
+import { Extension, EditorState, Compartment } from '@codemirror/state'
 import { history, historyKeymap } from '@codemirror/history'
 import { foldGutter, foldKeymap } from '@codemirror/fold'
 import { indentOnInput, continuedIndent } from '@codemirror/language'
@@ -106,7 +106,9 @@ const exampleLanguage = LezerLanguage.define({
   },
 })
 
-export const basicSetup: Extension = [
+export const editable = new Compartment()
+
+export const basicSetup = (l: any) => [
   lineNumbers(),
   highlightActiveLineGutter(),
   history(),
@@ -122,20 +124,10 @@ export const basicSetup: Extension = [
     defaultTabBinding,
   ]),
   EditorState.tabSize.of(2),
+  editable.of(EditorView.editable.of(true)),
   exampleLanguage,
-  /*linter((view) => {
-    const tree = ensureSyntaxTree(view.state, 1000000, 1000)
-    console.log(tree)
-    return [
-      {
-        from: view.state.doc.line(3).from,
-        to: view.state.doc.line(3).to,
-        severity: 'warning',
-        message: 'Hi Buddy',
-      },
-    ]
-  }),
-  EditorView.domEventHandlers({
+  linter(l),
+  /*EditorView.domEventHandlers({
     drop(e) {
       console.log(e)
     },

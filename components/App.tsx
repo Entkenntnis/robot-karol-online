@@ -59,7 +59,7 @@ export function App() {
               </ReflexElement>
             </ReflexContainer>
           </div>
-          <div className="bg-yellow-500 h-10 flex justify-between items-center flex-shrink-0">
+          <div className="bg-yellow-500 hidden justify-between items-center flex-shrink-0">
             <div>Sprunghöhe: [Dropdown Menu]</div>
             <div>PosX</div>
             <div>PosY</div>
