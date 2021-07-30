@@ -1,5 +1,5 @@
 import { EditorView } from '@codemirror/view'
-import { useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 import clsx from 'clsx'
 import Image from 'next/image'

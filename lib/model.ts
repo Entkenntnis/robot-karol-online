@@ -54,20 +54,16 @@ export function useProjectContext() {
 
 function createController(setAppState: Updater<Project>) {
   return {
-    forward() {
-      setAppState((state) => {
-        const newPos = move(
-          state.world.karol.x,
-          state.world.karol.y,
-          state.world.karol.dir,
-          state.world
-        )
-
-        if (newPos) {
+    forward(world: World) {
+      const newPos = move(world.karol.x, world.karol.y, world.karol.dir, world)
+      if (newPos) {
+        setAppState((state) => {
           state.world.karol.x = newPos.x
           state.world.karol.y = newPos.y
-        }
-      })
+        })
+      } else {
+        return 'Karol kann sich nicht in diese Richtung bewegen.'
+      }
     },
     left() {
       setAppState((state) => {
@@ -89,22 +85,24 @@ function createController(setAppState: Updater<Project>) {
         }[state.world.karol.dir] as Heading
       })
     },
-    back() {
-      setAppState((state) => {
-        const newPos = move(
-          state.world.karol.x,
-          state.world.karol.y,
-          { north: 'south', south: 'north', east: 'west', west: 'east' }[
-            state.world.karol.dir
-          ] as Heading,
-          state.world
-        )
+    back(world: World) {
+      const newPos = move(
+        world.karol.x,
+        world.karol.y,
+        { north: 'south', south: 'north', east: 'west', west: 'east' }[
+          world.karol.dir
+        ] as Heading,
+        world
+      )
 
-        if (newPos) {
+      if (newPos) {
+        setAppState((state) => {
           state.world.karol.x = newPos.x
           state.world.karol.y = newPos.y
-        }
-      })
+        })
+      } else {
+        return 'Karol kann sich nicht in diese Richtung bewegen.'
+      }
     },
     mark() {
       setAppState((state) => {
@@ -113,50 +111,65 @@ function createController(setAppState: Updater<Project>) {
           !world.marks[world.karol.y][world.karol.x]
       })
     },
-    brick() {
-      setAppState((state) => {
-        const { world } = state
-        const pos = move(world.karol.x, world.karol.y, world.karol.dir, world)
+    brick(world: World) {
+      const pos = move(world.karol.x, world.karol.y, world.karol.dir, world)
 
-        if (pos) {
-          world.bricks[pos.y][pos.x] = Math.min(
-            world.height,
-            world.bricks[pos.y][pos.x] + 1
-          )
+      if (pos) {
+        if (world.bricks[pos.y][pos.x] >= world.height) {
+          return 'Maximale Stapelhöhe erreicht.'
+        } else {
         }
-      })
+
+        setAppState((state) => {
+          state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] + 1
+        })
+      } else {
+        return 'Karol kann dort keinen Ziegel aufstellen.'
+      }
     },
-    unbrick() {
-      setAppState((state) => {
-        const { world } = state
-        const pos = move(world.karol.x, world.karol.y, world.karol.dir, world)
+    unbrick(world: World) {
+      const pos = move(world.karol.x, world.karol.y, world.karol.dir, world)
 
-        if (pos) {
-          world.bricks[pos.y][pos.x] = Math.max(
-            0,
-            world.bricks[pos.y][pos.x] - 1
-          )
+      if (pos) {
+        if (world.bricks[pos.y][pos.x] <= 0) {
+          return 'Keine Ziegel zum Aufheben'
+        } else {
+          setAppState((state) => {
+            state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] - 1
+          })
         }
-      })
+      } else {
+        return 'Karol kann dort keine Ziegel aufheben.'
+      }
     },
     block(world: World) {
-      setAppState((state) => {
-        const pos = moveRaw(
-          world.karol.x,
-          world.karol.y,
-          world.karol.dir,
-          world
-        )
-        if (pos) {
-          if (world.blocks[pos.y][pos.x]) {
+      const pos = moveRaw(world.karol.x, world.karol.y, world.karol.dir, world)
+      if (pos) {
+        if (world.blocks[pos.y][pos.x]) {
+          setAppState((state) => {
             state.world.blocks[pos.y][pos.x] = false
-          } else if (
-            !world.marks[pos.y][pos.x] &&
-            world.bricks[pos.y][pos.x] == 0
-          ) {
+          })
+        } else if (
+          !world.marks[pos.y][pos.x] &&
+          world.bricks[pos.y][pos.x] == 0
+        ) {
+          setAppState((state) => {
             state.world.blocks[pos.y][pos.x] = true
+          })
+        } else {
+          if (world.marks[pos.y][pos.x]) {
+            return 'Karol kann keinen Quader aufstellen, vor ihm liegt eine Marke.'
+          } else {
+            return 'Karol kann keinen Quader aufstellen, vor ihm liegen Ziegel.'
           }
         }
+      } else {
+        return 'Karol kann keinen Quader aufstellen, er steht vor einer Wand.'
+      }
+    },
+    newWorld(x: number, y: number, z: number) {
+      setAppState((state) => {
+        state.world = createWorld(x, y, z)
       })
     },
   }

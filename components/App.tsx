@@ -27,14 +27,20 @@ export function App() {
       </style>
       <ProjectProvider value={projectContext}>
         <div className="w-full h-full  min-w-[900px] flex flex-col">
-          <div className="bg-green-500 h-12 flex justify-between items-center flex-shrink-0">
-            <div>LOGO</div>
-            <div>Robot Karol Web</div>
-            <div>[Projektname]</div>
-            <div>Projekt laden</div>
-            <div>Projekt speichern</div>
-            <div>Neue Welt</div>
-            <div>Github</div>
+          <div className="bg-green-500 h-8 flex justify-between items-center flex-shrink-0">
+            <div>
+              <h1 className="font-bold ml-4">Robot Karol Web</h1>
+            </div>
+            <div>
+              <a
+                href="https://github.com/Entkenntnis/robot-karol-web"
+                className="hover:underline mr-4"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Homepage
+              </a>
+            </div>
           </div>
           <div className="overflow-hidden flex-grow">
             <ReflexContainer
@@ -42,19 +48,14 @@ export function App() {
               windowResizeAware
               className="h-full"
             >
-              <ReflexElement className="flex h-full" minSize={520}>
+              <ReflexElement className="flex h-full" minSize={400}>
                 <EditArea />
               </ReflexElement>
 
               <ReflexSplitter style={{ width: 3 }} />
 
-              <ReflexElement className="flex flex-col" minSize={350}>
-                <div className="flex-grow overflow-auto flex flex-col justify-center h-full">
-                  <div className="min-h-0 w-full">
-                    <Player />
-                  </div>
-                </div>
-                <div className="flex-shrink-0">LEFT UP RIGHT H A M Q L</div>
+              <ReflexElement minSize={350}>
+                <Player />
               </ReflexElement>
             </ReflexContainer>
           </div>

@@ -17,13 +17,14 @@ import { autocompletion, completionKeymap } from '@codemirror/autocomplete'
 import { commentKeymap } from '@codemirror/comment'
 import { rectangularSelection } from '@codemirror/rectangular-selection'
 import { defaultHighlightStyle } from '@codemirror/highlight'
-import { lintKeymap } from '@codemirror/lint'
+import { linter, lintKeymap } from '@codemirror/lint'
 import { parser } from '../lib/parser.js'
 import {
   foldNodeProp,
   foldInside,
   indentNodeProp,
   LezerLanguage,
+  ensureSyntaxTree,
 } from '@codemirror/language'
 import { styleTags, tags as t } from '@codemirror/highlight'
 import { EditorView } from '@codemirror/view'
@@ -117,8 +118,26 @@ export const basicSetup: Extension = [
     ...closeBracketsKeymap,
     ...defaultKeymap,
     ...historyKeymap,
+    ...lintKeymap,
     defaultTabBinding,
   ]),
   EditorState.tabSize.of(2),
   exampleLanguage,
+  /*linter((view) => {
+    const tree = ensureSyntaxTree(view.state, 1000000, 1000)
+    console.log(tree)
+    return [
+      {
+        from: view.state.doc.line(3).from,
+        to: view.state.doc.line(3).to,
+        severity: 'warning',
+        message: 'Hi Buddy',
+      },
+    ]
+  }),
+  EditorView.domEventHandlers({
+    drop(e) {
+      console.log(e)
+    },
+  }),*/
 ]
