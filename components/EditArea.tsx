@@ -33,6 +33,14 @@ import { editable } from '../lib/basicSetup'
 import { EditorState } from '@codemirror/state'
 import { ensureSyntaxTree } from '@codemirror/language'
 
+interface ActionOp {
+  type: 'action'
+  command: 'forward' | 'left' | 'right' | 'brick' | 'unbrick'
+  line: number
+}
+
+type Op = ActionOp
+
 export function EditArea() {
   const editor = useRef<EditorView | null>(null)
 
@@ -42,6 +50,25 @@ export function EditArea() {
 
   const [codeState, setCodeState] = useState('loading')
 
+  const [byteCode, setByteCode] = useState<Op[]>([])
+  const [pc, setPc] = useState(0)
+  const [gutter, setGutter] = useState(0)
+  const { project, controller } = useProject()
+
+  const data = useRef({
+    pc: 0,
+    codeState: 'loading',
+    world: project.world,
+  })
+
+  useEffect(() => {
+    data.current.pc = pc
+    data.current.codeState = codeState
+    data.current.world = project.world
+  }, [pc, codeState, project])
+
+  console.log('gutter', gutter)
+
   useEffect(() => {
     editor.current?.dispatch({
       effects: editable.reconfigure(
@@ -49,18 +76,6 @@ export function EditArea() {
       ),
     })
   }, [codeState])
-  // we can parse the code here
-  //const tokens = tokenize(code)
-
-  //console.log(tokens)
-
-  const { controller } = useProject()
-
-  /*const tree = parser.parse(code)
-  const cursor = tree.cursor()
-  do {
-    console.log(`Node ${cursor.name} from ${cursor.from} to ${cursor.to}`)
-  } while (cursor.next())*/
 
   return (
     <>
@@ -74,7 +89,12 @@ export function EditArea() {
       </div>
       {codeState == 'running' && (
         <div data-label="gutter" className="w-8 h-full bg-gray-400 relative">
-          <div className="top-[48.8px] bg-red-500 rounded-full absolute w-5 h-5 left-1"></div>
+          {gutter > 0 && (
+            <div
+              className="bg-red-500 rounded-full absolute w-5 h-5 left-1"
+              style={{ top: `${4 + (gutter - 1) * 22.4}px` }}
+            ></div>
+          )}
         </div>
       )}
       <div className="w-full text-base h-full overflow-y-auto flex flex-col outline-none">
@@ -82,13 +102,66 @@ export function EditArea() {
           setRef={(e: EditorView) => (editor.current = e)}
           onLint={(view: EditorView) => {
             const tree = ensureSyntaxTree(view.state, 1000000, 1000)
-            console.log('lint')
+            const output: Op[] = []
+            if (tree) {
+              let cursor = tree.cursor()
+              do {
+                /*console.log(
+                  `Node ${cursor.name} from ${cursor.from} to ${cursor.to}`
+                )*/
+                if (cursor.name == 'Command') {
+                  const code = view.state.doc.sliceString(
+                    cursor.from,
+                    cursor.to
+                  )
+                  const line = view.state.doc.lineAt(cursor.from).number
+                  console.log(line)
+                  if (code == 'Schritt') {
+                    output.push({
+                      type: 'action',
+                      command: 'forward',
+                      line,
+                    })
+                  }
+                  if (code == 'LinksDrehen') {
+                    output.push({
+                      type: 'action',
+                      command: 'left',
+                      line,
+                    })
+                  }
+                  if (code == 'RechtsDrehen') {
+                    output.push({
+                      type: 'action',
+                      command: 'right',
+                      line,
+                    })
+                  }
+                  if (code == 'Hinlegen') {
+                    output.push({
+                      type: 'action',
+                      command: 'brick',
+                      line,
+                    })
+                  }
+                  if (code == 'Aufheben') {
+                    output.push({
+                      type: 'action',
+                      command: 'unbrick',
+                      line,
+                    })
+                  }
+                }
+              } while (cursor.next())
+            }
+            setByteCode(output)
+            setPc(0)
             setCodeState('ready')
             return []
           }}
           onUpdate={(event) => {
             if (event == 'input' || event == 'drop' || event == 'delete') {
-              console.log('update', event)
+              //console.log('update', event)
               setCodeState((state) => (state == 'ready' ? 'loading' : state))
             }
           }}
@@ -114,6 +187,7 @@ export function EditArea() {
               className="bg-green-400 rounded-2xl p-1 m-1"
               onClick={async () => {
                 setCodeState('running')
+                setTimeout(step, 500)
               }}
             >
               Code ausführen
@@ -134,6 +208,42 @@ export function EditArea() {
       </div>
     </>
   )
+
+  function step() {
+    const { pc, codeState, world } = data.current
+    if (pc >= byteCode.length) {
+      setPc(0)
+      setGutter(0)
+      setCodeState('ready')
+      return // reached end
+    }
+    if (codeState != 'running') {
+      setPc(0)
+      setGutter(0)
+      return
+    }
+    const op = byteCode[pc]
+    if (op.type == 'action') {
+      if (op.command == 'forward') {
+        controller.forward(world)
+      }
+      if (op.command == 'left') {
+        controller.left()
+      }
+      if (op.command == 'right') {
+        controller.right()
+      }
+      if (op.command == 'brick') {
+        controller.brick(world)
+      }
+      if (op.command == 'unbrick') {
+        controller.unbrick(world)
+      }
+      setPc((pc) => pc + 1)
+      setGutter(op.line)
+      setTimeout(step, 1000)
+    }
+  }
 
   function renderBlockMenu() {
     return (
