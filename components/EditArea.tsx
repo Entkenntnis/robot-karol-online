@@ -1,6 +1,5 @@
 import { EditorView } from '@codemirror/view'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import Scrollbars from 'react-custom-scrollbars'
 import clsx from 'clsx'
 import Image from 'next/image'
 
@@ -32,6 +31,11 @@ import { editable } from '../lib/basicSetup'
 import { EditorState } from '@codemirror/state'
 import produce from 'immer'
 import { useCore } from '../lib/core'
+import {
+  selectAll,
+  indentSelection,
+  cursorDocStart,
+} from '@codemirror/commands'
 
 export function EditArea() {
   const editor = useRef<EditorView | null>(null)
@@ -79,7 +83,7 @@ export function EditArea() {
         {renderBlockMenu()}
       </div>
       {codeState == 'running' && (
-        <div data-label="gutter" className="w-8 h-full bg-gray-400 relative">
+        <div data-label="gutter" className="w-8 h-full bg-gray-50 relative">
           {core.current.ui.gutter > 0 && (
             <div
               className="text-blue-500 absolute w-5 h-5 left-1"
@@ -112,7 +116,7 @@ export function EditArea() {
             editor.current?.focus()
           }}
         />
-        <div className="bg-white h-12">
+        <div className="bg-white h-12 flex justify-between">
           {codeState == 'running' ? (
             <button
               className="bg-red-400 rounded-2xl p-1 m-1"
@@ -126,6 +130,11 @@ export function EditArea() {
             <button
               className="bg-green-300 rounded-2xl p-1 px-3 m-1 mt-2 ml-3"
               onClick={() => {
+                if (editor.current) {
+                  selectAll(editor.current)
+                  indentSelection(editor.current)
+                  cursorDocStart(editor.current)
+                }
                 core.run()
               }}
             >

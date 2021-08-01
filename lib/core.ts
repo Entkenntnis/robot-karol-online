@@ -251,7 +251,7 @@ class Core {
     }
     const ts = Date.now()
     const lastMessage = newMessages[newMessages.length - 1]
-    if (lastMessage?.text == text && ts - lastMessage.ts < 1000) {
+    if (lastMessage?.text == text) {
       newMessages[newMessages.length - 1] = {
         text,
         ts,
@@ -272,6 +272,9 @@ class Core {
   }
 
   lint(view: EditorView) {
+    if (this.current.ui.state == 'running') {
+      return [] // auto formatting, ignore
+    }
     const code = view.state.doc.sliceString(0)
     this.mutate((state) => {
       state.code = code
@@ -359,6 +362,9 @@ class Core {
   }
 
   setLoading() {
+    if (this.current.ui.state == 'running') {
+      return // auto formatting, ignore
+    }
     this.mutate(({ ui }) => {
       ui.state = 'loading'
     })
@@ -376,7 +382,7 @@ class Core {
     const byteCode = this.current.vm.bytecode
     const state = this.current.ui.state
 
-    console.log('step', pc, byteCode, state)
+    //console.log('step', pc, byteCode, state)
 
     if (!byteCode || state != 'running') {
       // ignore
@@ -392,29 +398,34 @@ class Core {
       return
     }
     const op = byteCode[pc]
-    if (op.type == 'action') {
-      if (op.command == 'forward') {
-        this.forward()
+    const core = this
+
+    this.mutate((state) => {
+      state.ui.gutter = op.line
+    })
+    setTimeout(() => {
+      if (op.type == 'action') {
+        if (op.command == 'forward') {
+          core.forward()
+        }
+        if (op.command == 'left') {
+          core.left()
+        }
+        if (op.command == 'right') {
+          core.right()
+        }
+        if (op.command == 'brick') {
+          core.brick()
+        }
+        if (op.command == 'unbrick') {
+          core.unbrick()
+        }
+        core.mutate((state) => {
+          state.vm.pc++
+        })
+        setTimeout(() => core.step(), 500)
       }
-      if (op.command == 'left') {
-        this.left()
-      }
-      if (op.command == 'right') {
-        this.right()
-      }
-      if (op.command == 'brick') {
-        this.brick()
-      }
-      if (op.command == 'unbrick') {
-        this.unbrick()
-      }
-      this.mutate((state) => {
-        state.vm.pc++
-        state.ui.gutter = op.line
-      })
-      const core = this
-      setTimeout(() => core.step(), 500)
-    }
+    }, 500)
   }
 
   serialize() {
