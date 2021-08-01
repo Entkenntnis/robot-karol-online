@@ -13,7 +13,11 @@ import { defaultKeymap, defaultTabBinding } from '@codemirror/commands'
 import { bracketMatching } from '@codemirror/matchbrackets'
 import { closeBrackets, closeBracketsKeymap } from '@codemirror/closebrackets'
 import { searchKeymap, highlightSelectionMatches } from '@codemirror/search'
-import { autocompletion, completionKeymap } from '@codemirror/autocomplete'
+import {
+  autocompletion,
+  completionKeymap,
+  completeFromList,
+} from '@codemirror/autocomplete'
 import { commentKeymap } from '@codemirror/comment'
 import { rectangularSelection } from '@codemirror/rectangular-selection'
 import { defaultHighlightStyle } from '@codemirror/highlight'
@@ -103,6 +107,13 @@ const exampleLanguage = LezerLanguage.define({
   parser: parserWithMetadata,
   languageData: {
     indentOnInput: /^\s*(ende|sonst)/,
+    autocomplete: completeFromList([
+      { label: 'Schritt' },
+      { label: 'LinksDrehen' },
+      { label: 'RechtsDrehen' },
+      { label: 'Hinlegen' },
+      { label: 'Aufheben' },
+    ]),
   },
 })
 
@@ -121,8 +132,10 @@ export const basicSetup = (l: any) => [
     ...defaultKeymap,
     ...historyKeymap,
     ...lintKeymap,
+    ...completionKeymap,
     defaultTabBinding,
   ]),
+  autocompletion(),
   EditorState.tabSize.of(2),
   editable.of(EditorView.editable.of(true)),
   exampleLanguage,

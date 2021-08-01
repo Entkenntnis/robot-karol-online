@@ -29,17 +29,65 @@ export function App() {
         <div className="w-full h-full  min-w-[900px] flex flex-col">
           <div className="bg-yellow-400 h-8 flex justify-between items-center flex-shrink-0">
             <div>
-              <h1 className="font-bold ml-4">Robot Karol Web</h1>
+              <h1 className="font-bold ml-4 hover:underline">
+                <a
+                  href="https://github.com/Entkenntnis/robot-karol-web"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Robot Karol Web
+                </a>
+              </h1>
             </div>
             <div>
-              <a
-                href="https://github.com/Entkenntnis/robot-karol-web"
-                className="hover:underline mr-4"
-                target="_blank"
-                rel="noreferrer"
+              <input
+                type="file"
+                id="load_project"
+                multiple={false}
+                accept=".json"
+                className="hidden"
+                onChange={(e) => {
+                  const fr = new FileReader()
+
+                  const files = e.target.files
+
+                  if (files) {
+                    fr.readAsText(files[0])
+
+                    fr.onload = () => {
+                      core.deserialize(fr.result?.toString())
+                    }
+                  }
+                }}
+              />
+              <button
+                className="mx-3 px-2 bg-green-300 rounded-2xl"
+                onClick={() => {
+                  document.getElementById('load_project')?.click()
+                }}
               >
-                Homepage
-              </a>
+                Projekt laden
+              </button>
+              <button
+                className="mx-3 px-2 bg-blue-300 rounded-2xl"
+                onClick={() => {
+                  const filename = 'robot_karol.json'
+                  const contentType = 'application/json;charset=utf-8;'
+                  var a = document.createElement('a')
+                  a.download = filename
+                  a.href =
+                    'data:' +
+                    contentType +
+                    ',' +
+                    encodeURIComponent(JSON.stringify(core.serialize()))
+                  a.target = '_blank'
+                  document.body.appendChild(a)
+                  a.click()
+                  document.body.removeChild(a)
+                }}
+              >
+                Projekt speichern
+              </button>
             </div>
           </div>
           <div className="overflow-hidden flex-grow">

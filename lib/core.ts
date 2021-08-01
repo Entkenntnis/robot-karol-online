@@ -40,6 +40,7 @@ export interface Ui {
   messages: Message[]
   gutter: number
   state: 'ready' | 'loading' | 'running' | 'error'
+  needTextRefresh: boolean
 }
 
 export interface Vm {
@@ -329,6 +330,14 @@ class Core {
             to: cursor.to,
             severity: 'error',
             message: `"${code}" ist kein bekannter Befehl`,
+            actions: [
+              {
+                name: 'Löschen',
+                apply: (view, from, to) => {
+                  view.dispatch({ changes: { from, to, insert: '' } })
+                },
+              },
+            ],
           })
         }
       } while (cursor.next())
@@ -407,6 +416,33 @@ class Core {
       setTimeout(() => core.step(), 500)
     }
   }
+
+  serialize() {
+    const { world, code } = this.current
+    return { world, code }
+  }
+
+  deserialize(file?: string) {
+    try {
+      const { world, code } = JSON.parse(file ?? '{}')
+      if (!world || !code) {
+        throw new Error()
+      }
+      this.mutate((state) => {
+        state.world = world
+        state.code = code
+        state.ui.needTextRefresh = true
+      })
+    } catch (e) {
+      alert('Laden fehlgeschlagen')
+    }
+  }
+
+  refreshDone() {
+    this.mutate((state) => {
+      state.ui.needTextRefresh = false
+    })
+  }
 }
 
 function getDefaultCoreState(): CoreState {
@@ -417,6 +453,7 @@ function getDefaultCoreState(): CoreState {
       messages: [],
       gutter: 0,
       state: 'loading',
+      needTextRefresh: false,
     },
     vm: { pc: 0 },
   }

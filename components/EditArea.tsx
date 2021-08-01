@@ -47,6 +47,20 @@ export function EditArea() {
   //console.log('gutter', gutter)
 
   useEffect(() => {
+    if (core.current.ui.needTextRefresh && editor.current) {
+      console.log('refresh editor', core.current.code)
+      editor.current.dispatch({
+        changes: {
+          from: 0,
+          to: editor.current.state.doc.length,
+          insert: core.current.code,
+        },
+      })
+      core.refreshDone()
+    }
+  })
+
+  useEffect(() => {
     editor.current?.dispatch({
       effects: editable.reconfigure(
         EditorView.editable.of(codeState != 'running')
