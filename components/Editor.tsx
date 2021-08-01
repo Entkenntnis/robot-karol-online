@@ -10,6 +10,7 @@ import {
 } from '@codemirror/commands'
 import { Transaction } from '@codemirror/state'
 import { Diagnostic } from '@codemirror/lint'
+import { useCore } from '../lib/core'
 
 export const Editor = ({
   setRef,
@@ -21,6 +22,7 @@ export const Editor = ({
   onUpdate: (event?: string) => void
 }) => {
   const editor = useRef(null)
+  const core = useCore()
 
   useEffect(() => {
     const currentEditor = editor.current
@@ -28,7 +30,7 @@ export const Editor = ({
     if (currentEditor) {
       const view = new EditorView({
         state: EditorState.create({
-          doc: '{ Schreibe hier dein Programm }\n\n\n\n\n\n\n\n\n',
+          doc: core.current.code,
           extensions: [
             basicSetup(onLint),
             EditorView.updateListener.of((e) => {

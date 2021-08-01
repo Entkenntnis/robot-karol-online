@@ -1,36 +1,15 @@
+import clsx from 'clsx'
 import { useState } from 'react'
-import { ProjectProvider, useProject } from '../lib/model'
+import { useCore } from '../lib/core'
 import { View } from './View'
 
 export function Player() {
-  const { project, controller } = useProject()
+  const core = useCore()
 
   const [showNewWorldModal, setShowNewWorldModal] = useState(false)
 
-  const [messages, setMessages] = useState<
-    { message: string; ts: number; count: number }[]
-  >([])
-
   function addMessage(text: string) {
-    const newMessages = messages.slice(0)
-    while (newMessages.length >= 5) {
-      newMessages.shift()
-    }
-    const ts = Date.now()
-    const lastMessage = newMessages[newMessages.length - 1]
-    if (lastMessage?.message == text && ts - lastMessage.ts < 1000) {
-      newMessages[newMessages.length - 1] = {
-        message: text,
-        ts,
-        count: lastMessage.count + 1,
-      }
-    } else {
-      newMessages.push({ message: text, ts, count: 1 })
-    }
-    setMessages(newMessages)
-    setTimeout(() => {
-      setMessages((m) => m.filter((m) => m.ts != ts))
-    }, 3000)
+    return
   }
 
   return (
@@ -40,132 +19,115 @@ export function Player() {
           <div
             onKeyDown={(e) => {
               if (e.code == 'ArrowLeft') {
-                controller.left()
+                core.left()
                 e.preventDefault()
               }
               if (e.code == 'ArrowRight') {
-                controller.right()
+                core.right()
                 e.preventDefault()
               }
               if (e.code == 'ArrowUp') {
-                const result = controller.forward(project.world)
-                if (result) {
-                  addMessage(result)
-                }
+                core.forward()
                 e.preventDefault()
               }
               if (e.code == 'ArrowDown') {
-                const result = controller.back(project.world)
-                if (result) {
-                  addMessage(result)
-                }
+                core.forward({ reverse: true })
                 e.preventDefault()
               }
               if (e.code == 'KeyM') {
-                controller.mark()
+                core.toggleMark()
                 e.preventDefault()
               }
               if (e.code == 'KeyH') {
-                const result = controller.brick(project.world)
-                if (result) {
-                  addMessage(result)
-                }
+                core.brick()
                 e.preventDefault()
               }
               if (e.code == 'KeyQ') {
-                const result = controller.block(project.world)
-                if (result) {
-                  addMessage(result)
-                }
+                core.toggleBlock()
                 e.preventDefault()
               }
               if (e.code == 'KeyA') {
-                const result = controller.unbrick(project.world)
-                if (result) {
-                  addMessage(result)
-                }
+                core.unbrick()
                 e.preventDefault()
               }
             }}
             tabIndex={1}
             className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto"
           >
-            <View world={project.world} />
+            <View world={core.current.world} />
           </div>
           <div className="absolute bottom-3 left-3">
-            {messages.map((m, i) => (
+            {core.current.ui.messages.map((m) => (
               <div key={`${m.ts}`}>
-                {m.message}
+                {m.text}
                 {m.count > 1 && <span> (x{m.count})</span>}
               </div>
             ))}
           </div>
         </div>
       </div>
-      <div className="flex-shrink-0 flex justify-between items-center">
+      <div className="flex-shrink-0 flex justify-between items-center border-t">
         <div>
-          <button className="mx-3" onClick={() => controller.left()}>
-            LEFT
+          <button
+            className="mx-3 text-xl py-2"
+            onClick={() => core.left()}
+            title="LinksDrehen"
+          >
+            🠔
           </button>{' '}
           <button
-            className="mx-3"
-            onClick={() => {
-              const result = controller.forward(project.world)
-              if (result) {
-                addMessage(result)
-              }
-            }}
+            className="mx-3 text-xl px-2"
+            onClick={() => core.forward()}
+            title="Schritt"
           >
-            UP
+            🠕
           </button>
-          <button className="mx-3" onClick={() => controller.right()}>
-            RIGHT
+          <button
+            className="mx-3 text-xl py-2"
+            onClick={() => core.right()}
+            title="RechtsDrehen"
+          >
+            🠖
           </button>
           <button
             className="mx-3"
-            onClick={() => {
-              const result = controller.brick(project.world)
-              if (result) {
-                addMessage(result)
-              }
-            }}
+            onClick={() => core.brick()}
+            title="Hinlegen"
           >
             H
           </button>
           <button
-            className="mx-3"
-            onClick={() => {
-              const result = controller.unbrick(project.world)
-              if (result) {
-                addMessage(result)
-              }
-            }}
+            className="mx-3 "
+            onClick={() => core.unbrick()}
+            title="Aufheben"
           >
             A
           </button>
-          <button className="mx-3" onClick={() => controller.mark()}>
+          <button
+            className="mx-3"
+            onClick={() => core.toggleMark()}
+            title="MarkeSetzen / MarkeLöschen"
+          >
             M
           </button>
           <button
             className="mx-3"
             onClick={() => {
-              const result = controller.block(project.world)
-              if (result) {
-                addMessage(result)
-              }
+              core.toggleBlock()
             }}
+            title="Quader setzen oder löschen"
           >
             Q
           </button>
         </div>
         <div>
           <button
-            className="px-2 py-1 m-1 rounded-2xl bg-green-200"
+            className="px-2 py-1 m-1 rounded-2xl bg-indigo-400"
             onClick={() => {
               setShowNewWorldModal(true)
             }}
           >
-            Neue Welt
+            Neue Welt ...
           </button>
         </div>
       </div>
@@ -178,12 +140,12 @@ export function Player() {
             onClick={(e) => {
               e.stopPropagation()
             }}
-            className="fixed top-[30vh] mx-auto z-[300] bg-white opacity-100 w-[500px]"
+            className="fixed top-[30vh] mx-auto z-[300] bg-white opacity-100 w-[400px]"
           >
             <NewWorldSettings
-              dimX={project.world.dimX}
-              dimY={project.world.dimY}
-              height={project.world.height}
+              dimX={core.current.world.dimX}
+              dimY={core.current.world.dimY}
+              height={core.current.world.height}
               onDone={() => setShowNewWorldModal(false)}
             />
           </div>
@@ -209,28 +171,32 @@ function NewWorldSettings({
 
   const [localHeight, setLocalHeight] = useState(height)
 
-  const { controller } = useProject()
+  const core = useCore()
 
   return (
     <>
-      <div>Neue Welt erstellen</div>
-      <div>
-        Breite:{' '}
+      <div className="m-3 mb-6 text-xl font-bold">Neue Welt erstellen</div>
+      <div className="flex justify-between m-3">
+        <span>⟷ Breite:</span>
         <input
           type="number"
+          className="border-2"
           value={localDimX}
           onChange={(e) => {
             const val = parseInt(e.target.value)
-            if (val && val > 0 && val <= 100) {
+            if (val >= 0 && val <= 100) {
               setLocalDimX(val)
             }
           }}
         />
       </div>
-      <div>
-        Länge:{' '}
+      <div className="flex justify-between m-3">
+        <span>
+          <span className="inline-block -rotate-45">⟷</span> Länge:
+        </span>
         <input
           type="number"
+          className="border-2"
           value={localDimY}
           onChange={(e) => {
             const val = parseInt(e.target.value)
@@ -240,8 +206,10 @@ function NewWorldSettings({
           }}
         />
       </div>
-      <div>
-        Höhe:{' '}
+      <div className="flex justify-between m-3">
+        <span>
+          <span className="inline-block rotate-90">⟷</span> Höhe:
+        </span>
         <input
           value={localHeight}
           onChange={(e) => {
@@ -251,13 +219,20 @@ function NewWorldSettings({
             }
           }}
           type="number"
+          className="border-2"
         />
       </div>
       <div className="my-4">
         <button
-          className="ml-4 rounded-2xl px-2 py-1 bg-green-300"
+          className={clsx(
+            'ml-4 rounded-2xl px-2 py-1',
+            localDimX && localDimY && localHeight
+              ? 'bg-green-300'
+              : 'bg-gray-50'
+          )}
+          disabled={localDimX && localDimY && localHeight ? undefined : true}
           onClick={() => {
-            controller.newWorld(localDimX, localDimY, localHeight)
+            core.createWorld(localDimX, localDimY, localHeight)
             onDone()
           }}
         >

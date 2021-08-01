@@ -6,10 +6,10 @@ import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 import { createContext, useContext, useMemo } from 'react'
 import { Player } from './Player'
 import { EditArea } from './EditArea'
-import { ProjectProvider, useProjectContext } from '../lib/model'
+import { CoreProvider, useCore, useCreateCore } from '../lib/core'
 
 export function App() {
-  const projectContext = useProjectContext()
+  const core = useCreateCore()
 
   return (
     <>
@@ -25,9 +25,9 @@ export function App() {
           }
         `}
       </style>
-      <ProjectProvider value={projectContext}>
+      <CoreProvider value={core}>
         <div className="w-full h-full  min-w-[900px] flex flex-col">
-          <div className="bg-green-500 h-8 flex justify-between items-center flex-shrink-0">
+          <div className="bg-yellow-400 h-8 flex justify-between items-center flex-shrink-0">
             <div>
               <h1 className="font-bold ml-4">Robot Karol Web</h1>
             </div>
@@ -66,7 +66,7 @@ export function App() {
             <div>Blickrichtung</div>
           </div>
         </div>
-      </ProjectProvider>
+      </CoreProvider>
     </>
   )
 }

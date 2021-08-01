@@ -6,7 +6,7 @@ expression {
   Repeat |
   IfThen |
   TF |
-  idx
+  CustomRef
 }
 
 Command { 
@@ -93,6 +93,8 @@ TF {
   @specialize<idx, "wahr"> |
   @specialize<idx, "falsch">
 }
+
+CustomRef { idx}
 
 @tokens {
   whitespace { $[ \n\r\t]+ }

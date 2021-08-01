@@ -109,7 +109,7 @@ const exampleLanguage = LezerLanguage.define({
 export const editable = new Compartment()
 
 export const basicSetup = (l: any) => [
-  lineNumbers(),
+  //lineNumbers(),
   highlightActiveLineGutter(),
   history(),
   drawSelection(),
