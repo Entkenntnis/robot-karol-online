@@ -46,6 +46,13 @@ export interface Ui {
 export interface Vm {
   bytecode?: Op[]
   pc: number
+  checkpoint?: World
+}
+
+export type Speed = 'slow' | 'fast' | 'step'
+
+export interface Settings {
+  speed: Speed
 }
 
 export interface CoreState {
@@ -53,6 +60,7 @@ export interface CoreState {
   ui: Ui
   code: string
   vm: Vm
+  settings: Settings
 }
 
 export interface ActionOp {
@@ -365,14 +373,25 @@ class Core {
     if (this.current.ui.state == 'running') {
       return // auto formatting, ignore
     }
-    this.mutate(({ ui }) => {
+    this.mutate(({ ui, vm }) => {
       ui.state = 'loading'
+      vm.checkpoint = undefined
+    })
+  }
+
+  restore() {
+    this.mutate((state) => {
+      if (state.vm.checkpoint) {
+        state.world = state.vm.checkpoint
+        state.vm.checkpoint = undefined
+      }
     })
   }
 
   run() {
-    this.mutate(({ ui }) => {
+    this.mutate(({ ui, vm }) => {
       ui.state = 'running'
+      vm.checkpoint = this.current.world
     })
     setTimeout(this.step.bind(this), 500)
   }
@@ -403,6 +422,14 @@ class Core {
     this.mutate((state) => {
       state.ui.gutter = op.line
     })
+
+    const delay =
+      this.current.settings.speed == 'slow'
+        ? 500
+        : this.current.settings.speed == 'fast'
+        ? 50
+        : 0
+
     setTimeout(() => {
       if (op.type == 'action') {
         if (op.command == 'forward') {
@@ -423,9 +450,11 @@ class Core {
         core.mutate((state) => {
           state.vm.pc++
         })
-        setTimeout(() => core.step(), 500)
+        if (this.current.settings.speed !== 'step') {
+          setTimeout(() => core.step(), delay)
+        }
       }
-    }, 500)
+    }, delay)
   }
 
   serialize() {
@@ -454,12 +483,29 @@ class Core {
       state.ui.needTextRefresh = false
     })
   }
+
+  setSpeed(val: Speed) {
+    this.mutate((state) => {
+      state.settings.speed = val
+    })
+    if (val != 'step' && this.current.ui.state == 'running') {
+      this.step()
+    }
+  }
+
+  abort() {
+    this.mutate((state) => {
+      state.ui.gutter = 0
+      state.ui.state = 'ready'
+      state.vm.pc = 0
+    })
+  }
 }
 
 function getDefaultCoreState(): CoreState {
   return {
     world: createWorld(5, 10, 6),
-    code: '{ Schreibe hier dein Programm }\n\n\n\n\n\n\n\n\n\n',
+    code: '\n\n\n\n\n\n\n\n\n\n\n\n\n\n',
     ui: {
       messages: [],
       gutter: 0,
@@ -467,6 +513,9 @@ function getDefaultCoreState(): CoreState {
       needTextRefresh: false,
     },
     vm: { pc: 0 },
+    settings: {
+      speed: 'slow',
+    },
   }
 }
 

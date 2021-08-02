@@ -30,7 +30,7 @@ import { parser } from '../lib/parser'
 import { editable } from '../lib/basicSetup'
 import { EditorState } from '@codemirror/state'
 import produce from 'immer'
-import { useCore } from '../lib/core'
+import { Speed, useCore } from '../lib/core'
 import {
   selectAll,
   indentSelection,
@@ -111,22 +111,42 @@ export function EditArea() {
           }}
         />
         <div
-          className="bg-gray-50 flex-grow"
+          className="bg-gray-50 flex-grow relative"
           onClick={() => {
             editor.current?.focus()
           }}
-        />
-        <div className="bg-white h-12 flex justify-between">
-          {codeState == 'running' ? (
-            <button
-              className="bg-red-400 rounded-2xl p-1 m-1"
-              onClick={async () => {
-                //setCodeState('ready')
-              }}
-            >
-              Ausführung stoppen
-            </button>
-          ) : codeState == 'ready' ? (
+        >
+          {core.current.vm.checkpoint && codeState == 'ready' && (
+            <div className="absolute right-2 bottom-2">
+              <button
+                className="bg-gray-300 rounded-2xl px-3 py-1"
+                onClick={() => {
+                  core.restore()
+                }}
+              >
+                letzte Programmausführung rückgängig machen
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="bg-white h-12 flex justify-between items-center">
+          {renderProgramControl()}
+        </div>
+      </div>
+    </>
+  )
+
+  function renderProgramControl() {
+    if (codeState == 'ready') {
+      if (!core.current.vm.bytecode || core.current.vm.bytecode.length == 0) {
+        return (
+          <div className="m-3 text-yellow-700 font-bold">
+            Fange an, im Editor ein Programm zu schreiben!
+          </div>
+        )
+      } else {
+        return (
+          <>
             <button
               className="bg-green-300 rounded-2xl p-1 px-3 m-1 mt-2 ml-3"
               onClick={() => {
@@ -134,37 +154,96 @@ export function EditArea() {
                   selectAll(editor.current)
                   indentSelection(editor.current)
                   cursorDocStart(editor.current)
+                  editor.current.dispatch({
+                    effects: editable.reconfigure(
+                      EditorView.editable.of(false)
+                    ),
+                  })
                 }
                 core.run()
               }}
             >
               Programm ausführen
             </button>
-          ) : codeState == 'loading' ? (
-            <button
-              className="bg-green-50 rounded-2xl p-1 m-1 text-gray-400 mt-2 ml-3"
-              disabled
+            <select
+              className="h-9 mr-3"
+              value={core.current.settings.speed}
+              onChange={(e) => {
+                core.setSpeed(e.target.value as Speed)
+              }}
             >
-              ... beschäftigt
-            </button>
-          ) : codeState == 'error' ? (
-            <button
-              className="bg-red-300 rounded-2xl p-1 px-3 m-1 mt-2 ml-3"
-              disabled
-            >
-              Programm enthält Fehler!
-            </button>
-          ) : (
-            <div>unbekannt</div>
-          )}
+              <option value="fast">schnell</option>
+              <option value="slow">langsam</option>
+              <option value="step">Einzelschritt</option>
+            </select>
+          </>
+        )
+      }
+    }
+
+    if (codeState == 'loading') {
+      return (
+        <button
+          className="bg-green-50 rounded-2xl p-1 m-1 text-gray-400 mt-2 ml-3"
+          disabled
+        >
+          ... ... ... ...
+        </button>
+      )
+    }
+
+    if (codeState == 'error') {
+      return (
+        <div className="text-red-600 p-1 px-3 m-1 mt-2 ml-3">
+          Programm enthält Fehler. Bitte überprüfen!
         </div>
-      </div>
-    </>
-  )
+      )
+    }
+
+    if (codeState == 'running') {
+      return (
+        <>
+          <span>
+            {core.current.settings.speed == 'step' && (
+              <button
+                className="bg-yellow-400 rounded-2xl p-1 px-3 m-1"
+                onClick={() => {
+                  core.step()
+                }}
+              >
+                Weiter
+              </button>
+            )}
+            <button
+              className="bg-red-400 rounded-2xl p-1 px-3 m-1"
+              onClick={() => {
+                core.abort()
+              }}
+            >
+              Stop
+            </button>
+          </span>
+          <select
+            className="h-9 mr-3"
+            value={core.current.settings.speed}
+            onChange={(e) => {
+              core.setSpeed(e.target.value as Speed)
+            }}
+          >
+            <option value="fast">schnell</option>
+            <option value="slow">langsam</option>
+            <option value="step">Einzelschritt</option>
+          </select>
+        </>
+      )
+    }
+
+    return <div>unbekannt</div>
+  }
 
   function renderBlockMenu() {
     return (
-      <div className="bg-gray-50 flex relative h-full border-r border-gray-300">
+      <div className="bg-gray-50 flex relative h-full border-r-4 border-gray-100">
         <div className="bg-white flex flex-col h-full justify-between">
           <div className="flex flex-col">
             {renderCategory('Bewegung')}

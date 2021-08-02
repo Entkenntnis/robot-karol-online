@@ -127,7 +127,7 @@ export function Player() {
               setShowNewWorldModal(true)
             }}
           >
-            Neue Welt ...
+            Neue Welt
           </button>
         </div>
       </div>
