@@ -126,12 +126,20 @@ export function EditArea() {
               {core.current.vm.checkpoint && codeState == 'ready' && (
                 <div className="absolute right-2 bottom-2">
                   <button
-                    className="bg-gray-300 rounded-2xl px-3 py-1"
+                    className="bg-gray-300 rounded-2xl px-3 py-0.5"
                     onClick={() => {
                       core.restore()
                     }}
                   >
-                    letzte Programmausführung rückgängig machen
+                    letzte Ausführung rückgängig machen
+                  </button>
+                  <button
+                    className="ml-2 bg-gray-200 rounded-2xl px-2 py-0.5"
+                    onClick={() => {
+                      core.resetCheckpoint()
+                    }}
+                  >
+                    schließen
                   </button>
                 </div>
               )}

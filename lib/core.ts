@@ -410,11 +410,7 @@ class Core {
     }
     if (pc >= byteCode.length) {
       // end reached
-      this.mutate((state) => {
-        state.ui.gutter = 0
-        state.ui.state = 'ready'
-        state.vm.pc = 0
-      })
+      this.abort()
       return
     }
     const op = byteCode[pc]
@@ -534,6 +530,12 @@ class Core {
       state.ui.state = 'ready'
       state.vm.pc = 0
       state.vm.handler = undefined
+    })
+  }
+
+  resetCheckpoint() {
+    this.mutate(({ vm }) => {
+      vm.checkpoint = undefined
     })
   }
 }
