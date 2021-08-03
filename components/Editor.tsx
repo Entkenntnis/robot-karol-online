@@ -7,10 +7,12 @@ import {
   cursorLineUp,
   cursorLineEnd,
   cursorCharLeft,
+  insertNewlineAndIndent,
 } from '@codemirror/commands'
 import { Transaction } from '@codemirror/state'
 import { Diagnostic } from '@codemirror/lint'
 import { useCore } from '../lib/core'
+import { countColumn } from '@codemirror/text'
 
 export const Editor = ({
   setRef,
@@ -39,7 +41,10 @@ export const Editor = ({
                 const t = e.transactions[0]
                 const userEvent = t.annotation(Transaction.userEvent)
 
-                onUpdate(userEvent)
+                if (t.docChanged) {
+                  onUpdate()
+                }
+
                 const annotations = (t as any).annotations as {
                   value: string
                 }[]
@@ -50,6 +55,7 @@ export const Editor = ({
                   indentSelection(view)
                   simplifySelection(view)
                   indentSelection(view)
+
                   //console.log((t as any).changes.inserted[0])
                   if (
                     (t as any).changes.inserted.some((x: any) =>
@@ -91,6 +97,26 @@ export const Editor = ({
                     cursorCharLeft(view)
                     cursorCharLeft(view)
                     cursorCharLeft(view)
+                  } else {
+                    t.changes.iterChanges((from, to, fromB, toB, inserted) => {
+                      if (
+                        [
+                          'Schritt',
+                          'LinksDrehen',
+                          'RechtsDrehen',
+                          'Hinlegen',
+                          'Aufheben',
+                          'MarkeSetzen',
+                          'MarkeLöschen',
+                        ].includes(inserted.toString())
+                      ) {
+                        const line = t.newDoc.lineAt(fromB)
+                        const col = fromB - line.from
+                        if (col == 0) {
+                          insertNewlineAndIndent(view)
+                        }
+                      }
+                    })
                   }
                 }
               }

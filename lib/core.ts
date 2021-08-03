@@ -47,6 +47,7 @@ export interface Vm {
   bytecode?: Op[]
   pc: number
   checkpoint?: World
+  handler?: NodeJS.Timeout
 }
 
 export type Speed = 'slow' | 'fast' | 'step'
@@ -430,7 +431,7 @@ class Core {
         ? 50
         : 0
 
-    setTimeout(() => {
+    const h = setTimeout(() => {
       if (op.type == 'action') {
         if (op.command == 'forward') {
           core.forward()
@@ -451,10 +452,16 @@ class Core {
           state.vm.pc++
         })
         if (this.current.settings.speed !== 'step') {
-          setTimeout(() => core.step(), delay)
+          const h = setTimeout(() => core.step(), delay)
+          this.mutate(({ vm }) => {
+            vm.handler = h
+          })
         }
       }
     }, delay)
+    this.mutate(({ vm }) => {
+      vm.handler = h
+    })
   }
 
   serialize() {
@@ -464,17 +471,40 @@ class Core {
 
   deserialize(file?: string) {
     try {
-      const { world, code } = JSON.parse(file ?? '{}')
+      const { world, code }: { world: World; code: string } = JSON.parse(
+        file ?? '{}'
+      )
       if (!world || !code) {
-        throw new Error()
+        throw new Error('Datei unvollständig')
       }
+      // minimal sanity check
+      if (!world.dimX || !world.dimY || !world.height) {
+        throw new Error('Welt beschädigt')
+      }
+      if (world.dimX > 100 || world.dimY > 100 || world.height > 10) {
+        throw new Error('Welt ungültig')
+      }
+      for (let x = 0; x < world.dimX; x++) {
+        for (let y = 0; y < world.dimY; y++) {
+          if (
+            typeof world.blocks[y][x] !== 'boolean' ||
+            world.bricks[y][x] === undefined ||
+            world.bricks[y][x] < 0 ||
+            world.bricks[y][x] > world.height ||
+            typeof world.marks[y][x] != 'boolean'
+          ) {
+            throw new Error('Welt enthält ungültigen Wert')
+          }
+        }
+      }
+      const ok = world
       this.mutate((state) => {
         state.world = world
         state.code = code
         state.ui.needTextRefresh = true
       })
     } catch (e) {
-      alert('Laden fehlgeschlagen')
+      alert(e.message ?? 'Laden fehlgeschlagen')
     }
   }
 
@@ -483,21 +513,27 @@ class Core {
       state.ui.needTextRefresh = false
     })
   }
-
-  setSpeed(val: Speed) {
-    this.mutate((state) => {
-      state.settings.speed = val
-    })
+  setSpeedHot(val: Speed) {
+    clearTimeout(this.current.vm.handler!)
+    this.setSpeed(val)
     if (val != 'step' && this.current.ui.state == 'running') {
       this.step()
     }
   }
 
+  setSpeed(val: Speed) {
+    this.mutate((state) => {
+      state.settings.speed = val
+    })
+  }
+
   abort() {
+    clearTimeout(this.current.vm.handler!)
     this.mutate((state) => {
       state.ui.gutter = 0
       state.ui.state = 'ready'
       state.vm.pc = 0
+      state.vm.handler = undefined
     })
   }
 }

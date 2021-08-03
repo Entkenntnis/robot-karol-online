@@ -113,6 +113,8 @@ const exampleLanguage = LezerLanguage.define({
       { label: 'RechtsDrehen' },
       { label: 'Hinlegen' },
       { label: 'Aufheben' },
+      /*{ label: 'MarkeSetzen', boost: 2 },
+      { label: 'MarkeLöschen' },*/
     ]),
   },
 })

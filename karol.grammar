@@ -103,9 +103,9 @@ CustomRef { idx}
 
   Comment { "{" ![}]* "}" }
 
-  idx { $[A-Za-z_] $[0-9A-Za-z_]* }
+  idx { $[A-Za-zäüöÄÜÖß_] $[0-9A-Za-zäüöÄÜÖß_]* }
 
-  idxExt { $[A-Za-z_] $[0-9A-Za-z_()]* }
+  idxExt { $[A-Za-zäüöÄÜÖß_] $[0-9A-Za-z_äüöÄÜÖß()]* }
 }
 
 @skip { Comment | whitespace }

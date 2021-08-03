@@ -52,7 +52,7 @@ export function EditArea() {
 
   useEffect(() => {
     if (core.current.ui.needTextRefresh && editor.current) {
-      console.log('refresh editor', core.current.code)
+      //console.log('refresh editor', core.current.code)
       editor.current.dispatch({
         changes: {
           from: 0,
@@ -65,11 +65,12 @@ export function EditArea() {
   })
 
   useEffect(() => {
-    editor.current?.dispatch({
-      effects: editable.reconfigure(
-        EditorView.editable.of(codeState != 'running')
-      ),
-    })
+    if (codeState == 'ready') {
+      //console.log('enable editable')
+      editor.current?.dispatch({
+        effects: editable.reconfigure(EditorView.editable.of(true)),
+      })
+    }
   }, [codeState])
 
   return (
@@ -78,58 +79,66 @@ export function EditArea() {
         .cm-editor {
           outline: none !important;
         }
+        .cm-scroller {
+          overflow-x: initial !important;
+        }
       `}</style>
-      <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
-        {renderBlockMenu()}
-      </div>
-      {codeState == 'running' && (
-        <div data-label="gutter" className="w-8 h-full bg-gray-50 relative">
-          {core.current.ui.gutter > 0 && (
+      <div className="w-full text-base h-full overflow-auto flex flex-col outline-none">
+        <div className="flex h-full overflow-y-auto">
+          <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
+            {renderBlockMenu()}
+          </div>
+          {codeState == 'running' && (
             <div
-              className="text-blue-500 absolute w-5 h-5 left-1"
-              style={{
-                top: `${4 + (core.current.ui.gutter - 1) * 22.4 - 2}px`,
+              data-label="gutter"
+              className="w-8 h-full bg-gray-50 relative border-r"
+            >
+              {core.current.ui.gutter > 0 && (
+                <div
+                  className="text-blue-500 absolute w-5 h-5 left-1"
+                  style={{
+                    top: `${4 + (core.current.ui.gutter - 1) * 22.4 - 2}px`,
+                  }}
+                >
+                  🡆
+                </div>
+              )}
+            </div>
+          )}
+          <div className="w-full overflow-auto h-full flex flex-col">
+            <Editor
+              setRef={(e: EditorView) => (editor.current = e)}
+              onLint={(view: EditorView) => {
+                return core.lint(view)
+              }}
+              onUpdate={() => {
+                if (core.current.ui.state == 'ready') {
+                  core.setLoading()
+                }
+              }}
+            />
+            <div
+              className="bg-gray-50 flex-grow relative border-t"
+              onClick={() => {
+                editor.current?.focus()
               }}
             >
-              🡆
+              {core.current.vm.checkpoint && codeState == 'ready' && (
+                <div className="absolute right-2 bottom-2">
+                  <button
+                    className="bg-gray-300 rounded-2xl px-3 py-1"
+                    onClick={() => {
+                      core.restore()
+                    }}
+                  >
+                    letzte Programmausführung rückgängig machen
+                  </button>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
-      )}
-      <div className="w-full text-base h-full overflow-y-auto flex flex-col outline-none">
-        <Editor
-          setRef={(e: EditorView) => (editor.current = e)}
-          onLint={(view: EditorView) => {
-            return core.lint(view)
-          }}
-          onUpdate={(event) => {
-            if (event == 'input' || event == 'drop' || event == 'delete') {
-              if (core.current.ui.state == 'ready') {
-                core.setLoading()
-              }
-            }
-          }}
-        />
-        <div
-          className="bg-gray-50 flex-grow relative"
-          onClick={() => {
-            editor.current?.focus()
-          }}
-        >
-          {core.current.vm.checkpoint && codeState == 'ready' && (
-            <div className="absolute right-2 bottom-2">
-              <button
-                className="bg-gray-300 rounded-2xl px-3 py-1"
-                onClick={() => {
-                  core.restore()
-                }}
-              >
-                letzte Programmausführung rückgängig machen
-              </button>
-            </div>
-          )}
-        </div>
-        <div className="bg-white h-12 flex justify-between items-center">
+        <div className="bg-white h-12 flex justify-between items-center border-t">
           {renderProgramControl()}
         </div>
       </div>
@@ -148,17 +157,19 @@ export function EditArea() {
         return (
           <>
             <button
-              className="bg-green-300 rounded-2xl p-1 px-3 m-1 mt-2 ml-3"
+              className="bg-green-300 rounded-2xl py-0.5 px-3 m-1 ml-3"
               onClick={() => {
                 if (editor.current) {
                   selectAll(editor.current)
                   indentSelection(editor.current)
                   cursorDocStart(editor.current)
+                  //console.log('disable editable')
                   editor.current.dispatch({
                     effects: editable.reconfigure(
                       EditorView.editable.of(false)
                     ),
                   })
+                  editor.current.contentDOM.blur()
                 }
                 core.run()
               }}
@@ -166,7 +177,7 @@ export function EditArea() {
               Programm ausführen
             </button>
             <select
-              className="h-9 mr-3"
+              className="h-8 mr-2"
               value={core.current.settings.speed}
               onChange={(e) => {
                 core.setSpeed(e.target.value as Speed)
@@ -184,17 +195,17 @@ export function EditArea() {
     if (codeState == 'loading') {
       return (
         <button
-          className="bg-green-50 rounded-2xl p-1 m-1 text-gray-400 mt-2 ml-3"
+          className="bg-green-50 rounded-2xl p-0.5 m-1 text-gray-400 ml-3"
           disabled
         >
-          ... ... ... ...
+          ... wird eingelesen
         </button>
       )
     }
 
     if (codeState == 'error') {
       return (
-        <div className="text-red-600 p-1 px-3 m-1 mt-2 ml-3">
+        <div className="text-red-600 px-3 ml-3">
           Programm enthält Fehler. Bitte überprüfen!
         </div>
       )
@@ -206,7 +217,7 @@ export function EditArea() {
           <span>
             {core.current.settings.speed == 'step' && (
               <button
-                className="bg-yellow-400 rounded-2xl p-1 px-3 m-1"
+                className="bg-yellow-400 rounded-2xl p-1 px-3 ml-3"
                 onClick={() => {
                   core.step()
                 }}
@@ -215,19 +226,19 @@ export function EditArea() {
               </button>
             )}
             <button
-              className="bg-red-400 rounded-2xl p-1 px-3 m-1"
+              className="bg-red-400 rounded-2xl p-0.5 px-3 ml-3"
               onClick={() => {
                 core.abort()
               }}
             >
-              Stop
+              Stopp
             </button>
           </span>
           <select
             className="h-9 mr-3"
             value={core.current.settings.speed}
             onChange={(e) => {
-              core.setSpeed(e.target.value as Speed)
+              core.setSpeedHot(e.target.value as Speed)
             }}
           >
             <option value="fast">schnell</option>
@@ -270,17 +281,13 @@ export function EditArea() {
             }}
           >
             {renderCategoryTitle('Bewegung')}
-            {buildProtoBlock('schritt', schrittImg, 'Schritt\n')}
-            {buildProtoBlock('linksdrehen', linksdrehenImg, 'LinksDrehen\n')}
-            {buildProtoBlock('rechtsdrehen', rechtsdrehenImg, 'RechtsDrehen\n')}
-            {buildProtoBlock('hinlegen', hinlegenImg, 'Hinlegen\n')}
-            {buildProtoBlock('aufheben', aufhebenImg, 'Aufheben\n')}
-            {buildProtoBlock('markesetzen', markesetzenImg, 'MarkeSetzen\n')}
-            {buildProtoBlock(
-              'markeloeschen',
-              markeloeschenImg,
-              'MarkeLöschen\n'
-            )}
+            {buildProtoBlock('schritt', schrittImg, 'Schritt')}
+            {buildProtoBlock('linksdrehen', linksdrehenImg, 'LinksDrehen')}
+            {buildProtoBlock('rechtsdrehen', rechtsdrehenImg, 'RechtsDrehen')}
+            {buildProtoBlock('hinlegen', hinlegenImg, 'Hinlegen')}
+            {buildProtoBlock('aufheben', aufhebenImg, 'Aufheben')}
+            {buildProtoBlock('markesetzen', markesetzenImg, 'MarkeSetzen')}
+            {buildProtoBlock('markeloeschen', markeloeschenImg, 'MarkeLöschen')}
             {renderCategoryTitle('Steuerung')}
             {buildProtoBlock(
               'wiederholenmal',
@@ -317,7 +324,7 @@ export function EditArea() {
               nichtistmarkeImg,
               'NichtIstMarke'
             )}
-            <div className="h-[calc(100vh-20px)]">
+            <div className="h-[calc(100vh-32px-48px)]">
               {renderCategoryTitle('Anweisung')}
               {buildProtoBlock(
                 'anweisung',

@@ -27,18 +27,16 @@ export function App() {
       </style>
       <CoreProvider value={core}>
         <div className="w-full h-full  min-w-[900px] flex flex-col">
-          <div className="bg-yellow-400 h-8 flex justify-between items-center flex-shrink-0">
-            <div>
-              <h1 className="font-bold ml-4 hover:underline">
-                <a
-                  href="https://github.com/Entkenntnis/robot-karol-web"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Robot Karol Web
-                </a>
-              </h1>
-            </div>
+          <div className="h-8 flex justify-between items-center flex-shrink-0 bg-gray-200">
+            <h1 className="font-bold pl-4 hover:underline bg-yellow-400 h-full pt-1 pr-4">
+              <a
+                href="https://github.com/Entkenntnis/robot-karol-web"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Robot Karol Web
+              </a>
+            </h1>
             <div>
               <input
                 type="file"
@@ -96,7 +94,7 @@ export function App() {
               windowResizeAware
               className="h-full"
             >
-              <ReflexElement className="flex h-full" minSize={400}>
+              <ReflexElement className="h-full" minSize={400}>
                 <EditArea />
               </ReflexElement>
 
