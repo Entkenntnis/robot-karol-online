@@ -46,8 +46,10 @@ export interface Ui {
 export interface Vm {
   bytecode?: Op[]
   pc: number
+  entry: number
   checkpoint?: World
   handler?: NodeJS.Timeout
+  counter: { [index: number]: number }
 }
 
 export type Speed = 'slow' | 'fast' | 'step'
@@ -66,11 +68,45 @@ export interface CoreState {
 
 export interface ActionOp {
   type: 'action'
-  command: 'forward' | 'left' | 'right' | 'brick' | 'unbrick'
+  command:
+    | 'forward'
+    | 'left'
+    | 'right'
+    | 'brick'
+    | 'unbrick'
+    | 'setMark'
+    | 'resetMark'
   line: number
 }
 
-export type Op = ActionOp
+export interface Condition {
+  type: 'brick' | 'mark' | 'wall'
+  negated: boolean
+}
+
+export interface JumpNOp {
+  type: 'jumpn'
+  target: number
+  count: number
+}
+
+export interface JumpCondOp {
+  type: 'jumpcond'
+  targetT: number
+  targetF: number
+  condition: Condition
+}
+
+export interface CallOp {
+  type: 'call'
+  target: number
+}
+
+export interface ReturnOp {
+  type: 'return'
+}
+
+export type Op = ActionOp | JumpNOp | JumpCondOp | CallOp | ReturnOp
 
 export function useCreateCore() {
   const [coreState, setCoreState] = useState<CoreState>(() =>
@@ -211,6 +247,20 @@ class Core {
     })
   }
 
+  setMark() {
+    this.mutate((state) => {
+      const world = state.world
+      world.marks[world.karol.y][world.karol.x] = true
+    })
+  }
+
+  resetMark() {
+    this.mutate((state) => {
+      const world = state.world
+      world.marks[world.karol.y][world.karol.x] = false
+    })
+  }
+
   toggleBlock() {
     const { world } = this.current
     const pos = moveRaw(world.karol.x, world.karol.y, world.karol.dir, world)
@@ -291,10 +341,12 @@ class Core {
     const tree = ensureSyntaxTree(view.state, 1000000, 1000)
     const output: Op[] = []
     const warnings: Diagnostic[] = []
+    const parseStack: any[] = []
     if (tree) {
       let cursor = tree.cursor()
       do {
         const code = view.state.doc.sliceString(cursor.from, cursor.to)
+        console.log(cursor.name)
         if (cursor.name == 'Command') {
           const line = view.state.doc.lineAt(cursor.from).number
           if (code == 'Schritt') {
@@ -327,6 +379,18 @@ class Core {
               command: 'unbrick',
               line,
             })
+          } else if (code == 'MarkeSetzen') {
+            output.push({
+              type: 'action',
+              command: 'setMark',
+              line,
+            })
+          } else if (code == 'MarkeLöschen') {
+            output.push({
+              type: 'action',
+              command: 'resetMark',
+              line,
+            })
           } else {
             warnings.push({
               from: cursor.from,
@@ -350,6 +414,105 @@ class Core {
                 },
               },
             ],
+          })
+        }
+        if (cursor.name == 'Repeat') {
+          parseStack.push({ type: 'repeat', from: cursor.from, stage: 0 })
+        }
+        if (cursor.name == 'RepeatStart') {
+          const st = parseStack[parseStack.length - 1]
+          if (st.type == 'repeat' && st.stage == 0) {
+            st.stage++
+            if (code !== 'wiederhole') {
+              warnings.push({
+                from: cursor.from,
+                to: cursor.to,
+                severity: 'error',
+                message: 'Schlüsselwort "wiederhole" fehlt',
+              })
+            }
+          } else {
+            warnings.push({
+              from: cursor.from,
+              to: cursor.to,
+              severity: 'error',
+              message: 'ungültige Wiederholung',
+            })
+          }
+        }
+        if (cursor.name == 'Times') {
+          const st = parseStack[parseStack.length - 1]
+          if (st.type == 'repeat' && st.stage == 1) {
+            st.stage++
+            st.times = parseInt(code)
+            if (!code || isNaN(st.times) || st.times < 1) {
+              warnings.push({
+                from: cursor.from - 3,
+                to: cursor.to + 3,
+                severity: 'error',
+                message:
+                  'Anzahl der Wiederholung muss eine natürliche Zahl sein',
+              })
+            }
+          } else {
+            warnings.push({
+              from: cursor.from,
+              to: cursor.to,
+              severity: 'error',
+              message: 'ungültige Wiederholung',
+            })
+          }
+        }
+        if (cursor.name == 'RepeatTimesKey') {
+          const st = parseStack[parseStack.length - 1]
+          if (st.type == 'repeat' && st.stage == 2) {
+            st.stage++
+            st.start = output.length
+            if (code !== 'mal') {
+              warnings.push({
+                from: st.from,
+                to: cursor.to,
+                severity: 'error',
+                message: 'Schlüsselwort "mal" fehlt.',
+              })
+            }
+          } else {
+            warnings.push({
+              from: cursor.from,
+              to: cursor.to,
+              severity: 'error',
+              message: 'ungültige Wiederholung',
+            })
+          }
+        }
+        if (cursor.name == 'RepeatEnd') {
+          const st = parseStack[parseStack.length - 1]
+          if (st.type == 'repeat' && st.stage == 3) {
+            output.push({ type: 'jumpn', count: st.times, target: st.start })
+            parseStack.pop()
+            if (code !== 'endewiederhole') {
+              warnings.push({
+                from: cursor.from,
+                to: cursor.to,
+                severity: 'error',
+                message: 'Schlüsselwort "endewiederhole" fehlt.',
+              })
+            }
+          } else {
+            warnings.push({
+              from: cursor.from,
+              to: cursor.to,
+              severity: 'error',
+              message: 'ungültige Wiederholung',
+            })
+          }
+        }
+        if (cursor.type.isError) {
+          warnings.push({
+            from: cursor.from - 2,
+            to: cursor.to + 2,
+            severity: 'error',
+            message: 'Fehler',
           })
         }
       } while (cursor.next())
@@ -393,7 +556,10 @@ class Core {
     this.mutate(({ ui, vm }) => {
       ui.state = 'running'
       vm.checkpoint = this.current.world
+      vm.pc = vm.entry
+      vm.counter = {}
     })
+    console.log(this.current.vm.bytecode)
     setTimeout(this.step.bind(this), 500)
   }
 
@@ -416,48 +582,80 @@ class Core {
     const op = byteCode[pc]
     const core = this
 
-    this.mutate((state) => {
-      state.ui.gutter = op.line
-    })
+    if (op.type == 'action') {
+      this.mutate((state) => {
+        state.ui.gutter = op.line
+      })
 
-    const delay =
-      this.current.settings.speed == 'slow'
-        ? 500
-        : this.current.settings.speed == 'fast'
-        ? 50
-        : 0
+      const delay =
+        this.current.settings.speed == 'slow'
+          ? 500
+          : this.current.settings.speed == 'fast'
+          ? 50
+          : 0
 
-    const h = setTimeout(() => {
-      if (op.type == 'action') {
-        if (op.command == 'forward') {
-          core.forward()
-        }
-        if (op.command == 'left') {
-          core.left()
-        }
-        if (op.command == 'right') {
-          core.right()
-        }
-        if (op.command == 'brick') {
-          core.brick()
-        }
-        if (op.command == 'unbrick') {
-          core.unbrick()
-        }
-        core.mutate((state) => {
-          state.vm.pc++
-        })
-        if (this.current.settings.speed !== 'step') {
-          const h = setTimeout(() => core.step(), delay)
-          this.mutate(({ vm }) => {
-            vm.handler = h
+      const h = setTimeout(() => {
+        if (op.type == 'action') {
+          if (op.command == 'forward') {
+            core.forward()
+          }
+          if (op.command == 'left') {
+            core.left()
+          }
+          if (op.command == 'right') {
+            core.right()
+          }
+          if (op.command == 'brick') {
+            core.brick()
+          }
+          if (op.command == 'unbrick') {
+            core.unbrick()
+          }
+          if (op.command == 'setMark') {
+            core.setMark()
+          }
+          if (op.command == 'resetMark') {
+            core.resetMark()
+          }
+          core.mutate((state) => {
+            state.vm.pc++
           })
+          if (this.current.settings.speed !== 'step') {
+            const h = setTimeout(() => core.step(), delay)
+            this.mutate(({ vm }) => {
+              vm.handler = h
+            })
+          }
+        }
+      }, delay)
+      this.mutate(({ vm }) => {
+        vm.handler = h
+      })
+    } else {
+      if (op.type == 'jumpn') {
+        this.mutate(({ vm }) => {
+          if (!vm.counter[pc]) {
+            vm.counter[pc] = op.count
+          }
+          vm.counter[pc]--
+        })
+        if (this.current.vm.counter[pc] == 0) {
+          core.mutate((state) => {
+            state.vm.pc++
+          })
+          setTimeout(() => {
+            core.step()
+          }, 0)
+        } else {
+          core.mutate((state) => {
+            state.vm.pc = op.target
+          })
+          setTimeout(() => {
+            core.step()
+          }, 0)
         }
       }
-    }, delay)
-    this.mutate(({ vm }) => {
-      vm.handler = h
-    })
+    }
   }
 
   serialize() {
@@ -550,7 +748,7 @@ function getDefaultCoreState(): CoreState {
       state: 'loading',
       needTextRefresh: false,
     },
-    vm: { pc: 0 },
+    vm: { pc: 0, entry: 0, counter: {} },
     settings: {
       speed: 'slow',
     },

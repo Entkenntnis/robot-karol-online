@@ -78,13 +78,14 @@ export function EditArea() {
       <style jsx global>{`
         .cm-editor {
           outline: none !important;
+          min-height: 300px;
         }
         .cm-scroller {
           overflow-x: initial !important;
         }
       `}</style>
       <div className="w-full text-base h-full overflow-auto flex flex-col outline-none">
-        <div className="flex h-full overflow-y-auto">
+        <div className="flex h-full overflow-y-auto relative">
           <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
             {renderBlockMenu()}
           </div>
@@ -118,33 +119,32 @@ export function EditArea() {
               }}
             />
             <div
-              className="bg-gray-50 flex-grow relative border-t"
+              className="bg-gray-50 flex-grow border-t"
               onClick={() => {
                 editor.current?.focus()
               }}
-            >
-              {core.current.vm.checkpoint && codeState == 'ready' && (
-                <div className="absolute right-2 bottom-2">
-                  <button
-                    className="bg-gray-300 rounded-2xl px-3 py-0.5"
-                    onClick={() => {
-                      core.restore()
-                    }}
-                  >
-                    letzte Ausführung rückgängig machen
-                  </button>
-                  <button
-                    className="ml-2 bg-gray-200 rounded-2xl px-2 py-0.5"
-                    onClick={() => {
-                      core.resetCheckpoint()
-                    }}
-                  >
-                    schließen
-                  </button>
-                </div>
-              )}
-            </div>
+            ></div>
           </div>
+          {core.current.vm.checkpoint && codeState == 'ready' && false && (
+            <div className="absolute right-2 bottom-2">
+              <button
+                className="bg-gray-300 rounded-2xl px-3 py-0.5"
+                onClick={() => {
+                  core.restore()
+                }}
+              >
+                letzte Ausführung rückgängig machen
+              </button>
+              <button
+                className="ml-2 bg-gray-200 rounded-2xl px-2 py-0.5"
+                onClick={() => {
+                  core.resetCheckpoint()
+                }}
+              >
+                schließen
+              </button>
+            </div>
+          )}
         </div>
         <div className="bg-white h-12 flex justify-between items-center border-t">
           {renderProgramControl()}
