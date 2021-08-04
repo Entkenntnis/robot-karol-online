@@ -41,6 +41,8 @@ export interface Ui {
   gutter: number
   state: 'ready' | 'loading' | 'running' | 'error'
   needTextRefresh: boolean
+  filename?: string
+  originalWorld?: World
 }
 
 export interface Vm {
@@ -543,11 +545,10 @@ class Core {
     })
   }
 
-  restore() {
+  restoreWorld() {
     this.mutate((state) => {
-      if (state.vm.checkpoint) {
-        state.world = state.vm.checkpoint
-        state.vm.checkpoint = undefined
+      if (state.ui.originalWorld) {
+        state.world = state.ui.originalWorld
       }
     })
   }
@@ -663,7 +664,7 @@ class Core {
     return { world, code }
   }
 
-  deserialize(file?: string) {
+  deserialize(file?: string, filename?: string) {
     try {
       const { world, code }: { world: World; code: string } = JSON.parse(
         file ?? '{}'
@@ -691,11 +692,12 @@ class Core {
           }
         }
       }
-      const ok = world
       this.mutate((state) => {
         state.world = world
         state.code = code
         state.ui.needTextRefresh = true
+        state.ui.originalWorld = world
+        state.ui.filename = filename
       })
     } catch (e) {
       alert(e.message ?? 'Laden fehlgeschlagen')
