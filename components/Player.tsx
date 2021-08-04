@@ -66,17 +66,18 @@ export function Player() {
               </div>
             ))}
           </div>
-          {core.current.ui.originalWorld && (
-            <div className="absolute top-2 left-2 bg-gray-50">
-              <button
-                onClick={() => {
-                  core.restoreWorld()
-                }}
-              >
-                ⭯ Welt wiederherstellen
-              </button>
-            </div>
-          )}
+          {core.current.ui.originalWorld &&
+            core.current.ui.originalWorld != core.current.world && (
+              <div className="absolute top-2 left-2 bg-gray-50">
+                <button
+                  onClick={() => {
+                    core.restoreWorld()
+                  }}
+                >
+                  ⭯ Welt wiederherstellen
+                </button>
+              </div>
+            )}
         </div>
       </div>
       <div className="flex-shrink-0 flex justify-between items-center border-t h-12">
