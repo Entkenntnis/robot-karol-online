@@ -51,7 +51,7 @@ export interface Vm {
   entry: number
   checkpoint?: World
   handler?: NodeJS.Timeout
-  counter: { [index: number]: number }
+  frames: { [index: number]: number }[]
   callstack: number[]
 }
 
@@ -825,9 +825,9 @@ class Core {
       ui.state = 'running'
       vm.checkpoint = this.current.world
       vm.pc = vm.entry
-      vm.counter = {}
+      vm.frames = [{}]
     })
-    console.log(this.current.vm.bytecode)
+    //console.log(this.current.vm.bytecode)
     setTimeout(this.step.bind(this), 500)
   }
 
@@ -909,14 +909,17 @@ class Core {
     } else {
       if (op.type == 'jumpn') {
         this.mutate(({ vm }) => {
-          if (vm.counter[pc] === undefined) {
-            vm.counter[pc] = op.count
+          const frame = vm.frames[vm.frames.length - 1]
+          if (frame[pc] === undefined) {
+            frame[pc] = op.count
           }
         })
-        if (this.current.vm.counter[pc] == 0) {
+        const frame = this.current.vm.frames[this.current.vm.frames.length - 1]
+        if (frame[pc] == 0) {
           core.mutate((state) => {
+            const frame = state.vm.frames[state.vm.frames.length - 1]
             state.vm.pc++
-            delete state.vm.counter[pc]
+            delete frame[pc]
           })
           setTimeout(() => {
             core.step()
@@ -924,8 +927,9 @@ class Core {
           return
         } else {
           core.mutate((state) => {
+            const frame = state.vm.frames[state.vm.frames.length - 1]
             state.vm.pc = op.target
-            state.vm.counter[pc]--
+            frame[pc]--
           })
           setTimeout(() => {
             core.step()
@@ -946,6 +950,7 @@ class Core {
       if (op.type == 'call') {
         this.mutate(({ vm }) => {
           vm.callstack.push(vm.pc + 1)
+          vm.frames.push({})
           vm.pc = op.target
         })
         setTimeout(() => {
@@ -956,6 +961,7 @@ class Core {
       if (op.type == 'return') {
         this.mutate(({ vm }) => {
           const target = vm.callstack.pop()
+          vm.frames.pop()
           vm.pc = target ?? Infinity
         })
         setTimeout(() => {
@@ -1082,7 +1088,7 @@ function getDefaultCoreState(): CoreState {
       state: 'loading',
       needTextRefresh: false,
     },
-    vm: { pc: 0, entry: 0, counter: {}, callstack: [] },
+    vm: { pc: 0, entry: 0, frames: [{}], callstack: [] },
     settings: {
       speed: 'fast',
     },
