@@ -12,7 +12,6 @@ import {
 import { Transaction } from '@codemirror/state'
 import { Diagnostic } from '@codemirror/lint'
 import { useCore } from '../lib/core'
-import { countColumn } from '@codemirror/text'
 
 export const Editor = ({
   setRef,
@@ -36,6 +35,13 @@ export const Editor = ({
           extensions: [
             basicSetup(onLint),
             EditorView.updateListener.of((e) => {
+              if (e.docChanged) {
+                if (!e.state.doc.sliceString(0).endsWith('\n')) {
+                  view.dispatch({
+                    changes: { from: e.state.doc.length, insert: '\n' },
+                  })
+                }
+              }
               //onUpdate(e.state.doc.sliceString(0))
               if (e.transactions.length > 0) {
                 const t = e.transactions[0]

@@ -60,7 +60,7 @@ export function App() {
                     fr.readAsText(files[0])
 
                     fr.onload = () => {
-                      console.log(files[0].name)
+                      //console.log(files[0].name)
                       core.deserialize(fr.result?.toString(), files[0].name)
                     }
                   }

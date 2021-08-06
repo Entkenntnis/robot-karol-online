@@ -6,7 +6,8 @@ expression {
   Repeat |
   IfThen |
   TF |
-  CustomRef
+  CustomRef |
+  Return
 }
 
 Command { 
@@ -94,7 +95,9 @@ TF {
   @specialize<idx, "falsch">
 }
 
-CustomRef { idx}
+CustomRef { idx }
+
+Return { @specialize<idx, "Unterbrechen"> }
 
 @tokens {
   whitespace { $[ \n\r\t]+ }

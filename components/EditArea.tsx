@@ -1,5 +1,5 @@
 import { EditorView } from '@codemirror/view'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import Image from 'next/image'
 
@@ -26,10 +26,9 @@ import istmarkeImg from '../public/istmarke.png'
 import nichtistmarkeImg from '../public/nichtistmarke.png'
 
 import anweisungImg from '../public/anweisung.png'
-import { parser } from '../lib/parser'
+import unterbrechenImg from '../public/unterbrechen.png'
+
 import { editable } from '../lib/basicSetup'
-import { EditorState } from '@codemirror/state'
-import produce from 'immer'
 import { Speed, useCore } from '../lib/core'
 import {
   selectAll,
@@ -319,6 +318,7 @@ export function EditArea() {
                 anweisungImg,
                 'Anweisung NeueAnweisung\n  \nendeAnweisung'
               )}
+              {buildProtoBlock('unterbrechen', unterbrechenImg, 'Unterbrechen')}
             </div>
           </div>
         </div>

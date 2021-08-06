@@ -93,12 +93,13 @@ const parserWithMetadata = parser.configure({
       CondEnd: t.keyword,
       CondName: t.emphasis,
       TF: t.typeName,
+      Return: t.unit,
     }),
     indentNodeProp.add({
-      Repeat: continuedIndent({ except: /^\s*ende/ }),
-      IfThen: continuedIndent({ except: /^\s*(ende|sonst)/ }),
-      Cmd: continuedIndent({ except: /^\s*ende/ }),
-      Cond: continuedIndent({ except: /^\s*ende/ }),
+      Repeat: continuedIndent({ except: /^\s*en/ }),
+      IfThen: continuedIndent({ except: /^\s*(en|so)/ }),
+      Cmd: continuedIndent({ except: /^\s*en/ }),
+      Cond: continuedIndent({ except: /^\s*en/ }),
     }),
   ],
 })
@@ -106,7 +107,7 @@ const parserWithMetadata = parser.configure({
 const exampleLanguage = LezerLanguage.define({
   parser: parserWithMetadata,
   languageData: {
-    indentOnInput: /^\s*(ende|sonst)/,
+    indentOnInput: /^\s*(en|so)/,
     autocomplete: completeFromList([
       { label: 'Schritt' },
       { label: 'LinksDrehen' },
@@ -118,6 +119,20 @@ const exampleLanguage = LezerLanguage.define({
       { label: 'wiederhole' },
       { label: 'endewiederhole' },
       { label: 'mal' },
+      { label: 'solange' },
+      { label: 'IstWand' },
+      { label: 'NichtIstWand' },
+      { label: 'IstZiegel' },
+      { label: 'NichtIstZiegel' },
+      { label: 'IstMarke' },
+      { label: 'NichtIstMarke' },
+      { label: 'wenn' },
+      { label: 'dann' },
+      { label: 'endewenn' },
+      { label: 'sonst' },
+      { label: 'Anweisung' },
+      { label: 'endeAnweisung' },
+      { label: 'Unterbrechen' },
     ]),
   },
 })
