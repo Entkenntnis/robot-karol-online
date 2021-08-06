@@ -417,7 +417,7 @@ class Core {
           const st = parseStack[parseStack.length - 1]
           if (st.type == 'repeat' && st.stage == 0) {
             st.stage = 1
-            const op: Op = { type: 'jumpn', target: -1 }
+            const op: Op = { type: 'jumpn', target: -1, count: 1 }
             output.push(op)
             st.op = op
             if (code !== 'wiederhole') {
