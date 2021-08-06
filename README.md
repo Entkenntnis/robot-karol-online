@@ -1,10 +1,8 @@
 # Robot Karol Web
 
-Robot Karol direkt im Browser:
+![grafik](https://user-images.githubusercontent.com/13507950/128488062-3c1bdba3-0992-4354-b944-7f1af8ca1fa1.png)
 
-![grafik](https://user-images.githubusercontent.com/13507950/128486187-20db55e5-d524-4a40-b8fe-378062b938ac.png)
-
-Dein spielerische Einstieg in die Programmierung - probiere es gleich hier aus: https://robot-karol-web.vercel.app/
+Dein spielerische Einstieg in die Programmierung - direkt im Browser. Probiere es gleich hier aus: https://robot-karol-web.vercel.app/
 
 ## Didaktik
 
