@@ -351,7 +351,7 @@ class Core {
       let cursor = tree.cursor()
       do {
         const code = view.state.doc.sliceString(cursor.from, cursor.to)
-        console.log(cursor.name)
+        //console.log(cursor.name)
         if (cursor.name == 'Command') {
           const line = view.state.doc.lineAt(cursor.from).number
           if (code == 'Schritt') {
@@ -836,8 +836,6 @@ class Core {
     const byteCode = this.current.vm.bytecode
     const state = this.current.ui.state
 
-    //console.log('step', pc, byteCode, state)
-
     if (!byteCode || state != 'running') {
       // ignore
       return
@@ -849,6 +847,14 @@ class Core {
     }
     const op = byteCode[pc]
     const core = this
+
+    /*console.log(
+      'step',
+      pc,
+      op,
+      this.current.vm.counter,
+      this.current.vm.callstack
+    )*/
 
     if (op.type == 'action') {
       this.mutate((state) => {
@@ -893,6 +899,7 @@ class Core {
             this.mutate(({ vm }) => {
               vm.handler = h
             })
+            return
           }
         }
       }, delay)
@@ -909,10 +916,12 @@ class Core {
         if (this.current.vm.counter[pc] == 0) {
           core.mutate((state) => {
             state.vm.pc++
+            delete state.vm.counter[pc]
           })
           setTimeout(() => {
             core.step()
           }, 0)
+          return
         } else {
           core.mutate((state) => {
             state.vm.pc = op.target
@@ -921,6 +930,7 @@ class Core {
           setTimeout(() => {
             core.step()
           }, 0)
+          return
         }
       }
       if (op.type == 'jumpcond') {
@@ -931,6 +941,7 @@ class Core {
         setTimeout(() => {
           core.step()
         }, 0)
+        return
       }
       if (op.type == 'call') {
         this.mutate(({ vm }) => {
@@ -940,6 +951,7 @@ class Core {
         setTimeout(() => {
           core.step()
         }, 0)
+        return
       }
       if (op.type == 'return') {
         this.mutate(({ vm }) => {
@@ -949,6 +961,7 @@ class Core {
         setTimeout(() => {
           core.step()
         }, 0)
+        return
       }
     }
   }
@@ -1071,7 +1084,7 @@ function getDefaultCoreState(): CoreState {
     },
     vm: { pc: 0, entry: 0, counter: {}, callstack: [] },
     settings: {
-      speed: 'slow',
+      speed: 'fast',
     },
   }
 }
