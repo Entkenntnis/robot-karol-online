@@ -417,7 +417,7 @@ class Core {
           const st = parseStack[parseStack.length - 1]
           if (st.type == 'repeat' && st.stage == 0) {
             st.stage = 1
-            const op: Op = { type: 'jumpn', target: -1, count: 1 }
+            const op: Op = { type: 'jumpn', target: -1, count: Infinity }
             output.push(op)
             st.op = op
             if (code !== 'wiederhole') {
@@ -563,7 +563,7 @@ class Core {
               })
             } else {
               st.op.targetF = output.length + 1
-              const op: Op = { type: 'jumpn', count: 1, target: -1 }
+              const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
               output.push(op)
               st.stage = 4
               st.op = op
@@ -726,7 +726,7 @@ class Core {
           if (st.type == 'function' && st.stage == 1) {
             st.stage = 2
             st.name = code
-            const op: Op = { type: 'jumpn', count: 1, target: -1 }
+            const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
             output.push(op)
             st.skipper = op
           } else {
