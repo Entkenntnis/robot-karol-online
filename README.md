@@ -1,38 +1,32 @@
-# robot-karol-web
+# Robot Karol Web
 
-A web-based version of Robot Karol
+Robot Karol direkt im Browser:
 
-https://robot-karol-web.vercel.app/
+![grafik](https://user-images.githubusercontent.com/13507950/128486187-20db55e5-d524-4a40-b8fe-378062b938ac.png)
 
-## Kompatibilität
+Dein spielerische Einstieg in die Programmierung - probiere es gleich hier aus: https://robot-karol-web.vercel.app/
 
-Konsole: wird ersetzt, Rückmeldungen erfolgen direkt im jeweiligen Fenster
+## Didaktik
 
-Übersicht: wird ersetzt durch das Blockmenü im Editor
+### Lernziele:
 
-Statusleiste: nicht benötigt?
+Die Schülerinnen und Schüler ...
 
-Welt/Programm einzeln laden/speichern: wird vereinfacht, man kann immer gesamtes Projekt laden/speichern
+- analysieren und strukturieren geeignete Problemstellungen u. a. aus ihrer Erfahrungswelt (z. B. Bedienung eines Geräts), entwickeln Algorithmen zu deren Lösung und beschreiben diese unter effizienter Verwendung von Kontrollstrukturen.
+- setzen unter sinnvoller Nutzung algorithmischer Bausteine einfache Algorithmen mithilfe geeigneter Programmierwerkzeuge um. 
 
-Anzeige geladenes Projekt: **fehlt**
+### Inhalte
 
-2D Ansicht: (noch) nicht implementiert
+- Algorithmus: Definition des Begriffs, Strukturelemente (Anweisung, Sequenz, ein- und zweiseitig bedingte Anweisung, Wiederholung mit fester Anzahl, Wiederholung mit Bedingung)
+- Fachbegriffe: Algorithmus, Anweisung, Sequenz, ein- und zweiseitig bedingte Anweisung, Wiederholung mit fester Anzahl, Wiederholung mit Bedingung 
 
-Welt als Bild speichern: geht über Browser
+Quelle: [Lehrplan Bayern, NT7 2.3](https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/7/nt_gym)
 
-Welt zoomen: geht über Browser (aber verpixelt)
+## Sprachumfang
 
-Struktogramm: nicht implementiert
+- Grundbefehle: Schritt, LinksDrehen, RechtsDrehen, Hinlegen, Aufheben, MarkeSetzen, MarkeLöschen
+- Steuerung: wenn - dann, wenn - dann - sonst, wiederhole n mal, wiederhole solange
+- Bedingungen: IstWand, IstZiegel, IstMarke, NichtIstWand, NichtIstZiegel, NichtIstMarke
+- Anweisungen: Anweisung, Unterbrechen
 
-Suchen/Ersetzen: nicht aktiviert
-
-Figur wechseln: nicht implementiert
-
-Farben: nicht implementiert
-
-Himmelsrichtungen: nicht implementiert
-
-Rucksack: nicht implementiert
-
-Einstellungen: teilweise implementiert
-
+Für mehr Funktionen kann auf die Originalversion von Robot Karol unter https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/ zurückgegriffen werden.
