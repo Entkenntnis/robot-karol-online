@@ -6,6 +6,8 @@ Dein spielerische Einstieg in die Programmierung - direkt im Browser.
 
 Probiere es gleich hier aus: https://robot-karol-web.vercel.app/
 
+Beispieldateien: https://github.com/Entkenntnis/robot-karol-web/tree/main/examples
+
 ## Didaktik
 
 ### Lernziele:
