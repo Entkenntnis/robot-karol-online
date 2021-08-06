@@ -655,7 +655,7 @@ class Core {
             st.op.target = output.length
             output.push({
               type: 'jumpn',
-              count: st.times - 1,
+              count: st.times,
               target: st.start,
             })
             parseStack.pop()
