@@ -1051,6 +1051,7 @@ class Core {
           }
         }
       }
+      this.abort()
       this.mutate((state) => {
         state.world = world
         state.code = code

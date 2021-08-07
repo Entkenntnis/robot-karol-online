@@ -89,41 +89,44 @@ export function EditArea() {
           <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
             {renderBlockMenu()}
           </div>
-          {codeState == 'running' && (
-            <div
-              data-label="gutter"
-              className="w-8 h-full bg-gray-50 relative border-r"
-            >
-              {core.current.ui.gutter > 0 && (
-                <div
-                  className="text-blue-500 absolute w-5 h-5 left-1"
-                  style={{
-                    top: `${4 + (core.current.ui.gutter - 1) * 22.4 - 2}px`,
-                  }}
-                >
-                  🡆
-                </div>
-              )}
+
+          <div className="w-full overflow-auto h-full flex">
+            {codeState == 'running' && (
+              <div
+                data-label="gutter"
+                className="w-8 h-full bg-gray-50 relative border-r"
+              >
+                {core.current.ui.gutter > 0 && (
+                  <div
+                    className="text-blue-500 absolute w-5 h-5 left-1"
+                    style={{
+                      top: `${4 + (core.current.ui.gutter - 1) * 22.4 - 2}px`,
+                    }}
+                  >
+                    🡆
+                  </div>
+                )}
+              </div>
+            )}
+            <div className="w-full h-full flex flex-col">
+              <Editor
+                setRef={(e: EditorView) => (editor.current = e)}
+                onLint={(view: EditorView) => {
+                  return core.lint(view)
+                }}
+                onUpdate={() => {
+                  if (core.current.ui.state == 'ready') {
+                    core.setLoading()
+                  }
+                }}
+              />
+              <div
+                className="bg-gray-50 flex-grow border-t"
+                onClick={() => {
+                  editor.current?.focus()
+                }}
+              ></div>
             </div>
-          )}
-          <div className="w-full overflow-auto h-full flex flex-col">
-            <Editor
-              setRef={(e: EditorView) => (editor.current = e)}
-              onLint={(view: EditorView) => {
-                return core.lint(view)
-              }}
-              onUpdate={() => {
-                if (core.current.ui.state == 'ready') {
-                  core.setLoading()
-                }
-              }}
-            />
-            <div
-              className="bg-gray-50 flex-grow border-t"
-              onClick={() => {
-                editor.current?.focus()
-              }}
-            ></div>
           </div>
         </div>
         <div className="bg-white h-12 flex justify-between items-center border-t">
