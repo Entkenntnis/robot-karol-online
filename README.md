@@ -57,4 +57,12 @@ Multiplikation: https://robot-karol-web.vercel.app/?project=https://entkenntnis.
 
 ### Sortieren
 
-Karol sortiert eine Reihe von Ziegelstapel der Größe nach: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren.json
+Karol sortiert eine Reihe von Ziegelstapel der Größe nach.
+
+6 Stapel: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren.json
+
+8 Stapel: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren_verbessert.json
+
+### Raum verlassen
+
+Karol findet einen Weg aus einem Raum mit Mauern: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/raum_verlassen.json
