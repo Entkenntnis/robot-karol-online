@@ -55,7 +55,7 @@ export interface Vm {
   callstack: number[]
 }
 
-export type Speed = 'slow' | 'fast' | 'step'
+export type Speed = 'slow' | 'fast' | 'step' | 'turbo'
 
 export interface Settings {
   speed: Speed
@@ -396,6 +396,15 @@ class Core {
               command: 'resetMark',
               line,
             })
+          } else if (code == 'Beenden') {
+            // jump into the black hole
+            output.push({
+              type: 'jumpn',
+              target: Infinity,
+              count: Infinity,
+            })
+          } else if (code == 'Unterbrechen') {
+            output.push({ type: 'return' })
           } else {
             warnings.push({
               from: cursor.from,
@@ -752,9 +761,6 @@ class Core {
               message: 'ungültige Anweisung',
             })
           }
-        }
-        if (cursor.name == 'Return') {
-          output.push({ type: 'return' })
         }
         if (cursor.type.isError) {
           warnings.push({

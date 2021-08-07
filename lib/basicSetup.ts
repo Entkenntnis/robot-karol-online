@@ -133,6 +133,7 @@ const exampleLanguage = LezerLanguage.define({
       { label: 'Anweisung' },
       { label: 'endeAnweisung' },
       { label: 'Unterbrechen' },
+      { label: 'Beenden' },
     ]),
   },
 })

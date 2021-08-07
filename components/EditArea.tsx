@@ -17,6 +17,7 @@ import wenndannImg from '../public/wenndann.png'
 import wenndannsonstImg from '../public/wenndannsonst.png'
 import wiederholenmalImg from '../public/wiederholenmal.png'
 import wiederholesolangeImg from '../public/wiederholesolange.png'
+import beendenImg from '../public/beenden.png'
 
 import istwandImg from '../public/istwand.png'
 import nichtistwandImg from '../public/nichtistwand.png'
@@ -170,6 +171,7 @@ export function EditArea() {
                 core.setSpeed(e.target.value as Speed)
               }}
             >
+              <option value="turbo">Turbo</option>
               <option value="fast">schnell</option>
               <option value="slow">langsam</option>
               <option value="step">Einzelschritt</option>
@@ -228,6 +230,7 @@ export function EditArea() {
               core.setSpeedHot(e.target.value as Speed)
             }}
           >
+            <option value="turbo">Turbo</option>
             <option value="fast">schnell</option>
             <option value="slow">langsam</option>
             <option value="step">Einzelschritt</option>
@@ -296,6 +299,7 @@ export function EditArea() {
               wenndannsonstImg,
               'wenn  dann\n  \nsonst\n  \nendewenn'
             )}
+            {buildProtoBlock('beenden', beendenImg, 'Beenden')}
             {renderCategoryTitle('Fühlen')}
             {buildProtoBlock('istwand', istwandImg, 'IstWand')}
             {buildProtoBlock('nichtistwand', nichtistwandImg, 'NichtIstWand')}

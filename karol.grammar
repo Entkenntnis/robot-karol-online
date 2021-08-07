@@ -2,12 +2,10 @@
 
 expression {
   Command |
-  SpecialCommand |
   Repeat |
   IfThen |
   TF |
-  CustomRef |
-  Return
+  CustomRef
 }
 
 Command { 
@@ -18,14 +16,8 @@ Command {
   @specialize<idx, "Aufheben"> |
   @specialize<idx, "MarkeSetzen"> |
   @specialize<idx, "MarkeLöschen"> |
-  @specialize<idx, "Ton"> |
   @specialize<idx, "Beenden"> |
-  @specialize<idx, "Warten">
-}
-
-SpecialCommand {
-  @specialize<idx, "schnell"> |
-  @specialize<idx, "langsam">
+  @specialize<idx, "Unterbrechen">
 }
 
 Repeat {
@@ -43,20 +35,13 @@ RepeatTimesKey { @specialize<idx, "mal"> }
 Times { number }
 
 Condition {
-  Not?
-  (@specialize<idx, "IstWand"> |
+  @specialize<idx, "IstWand"> |
   @specialize<idx, "NichtIstWand"> |
   @specialize<idx, "IstZiegel"> |
   @specialize<idx, "NichtIstZiegel"> |
   @specialize<idx, "IstMarke"> |
-  @specialize<idx, "NichtIstMarke"> |
-  @specialize<idx, "IstOsten"> |
-  @specialize<idx, "IstSüden"> |
-  @specialize<idx, "IstWesten"> |
-  @specialize<idx, "IstNorden">)
+  @specialize<idx, "NichtIstMarke">
 }
-
-Not { @specialize<idx, "nicht"> }
 
 IfThen {
   IfKey Condition? ThenKey expression* (ElseKey expression*)? IfEndKey
@@ -97,7 +82,6 @@ TF {
 
 CustomRef { idx }
 
-Return { @specialize<idx, "Unterbrechen"> }
 
 @tokens {
   whitespace { $[ \n\r\t]+ }
