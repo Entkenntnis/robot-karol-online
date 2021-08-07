@@ -8,10 +8,6 @@ export function Player() {
 
   const [showNewWorldModal, setShowNewWorldModal] = useState(false)
 
-  function addMessage(text: string) {
-    return
-  }
-
   return (
     <div className="flex flex-col w-full h-full">
       <div className="flex-grow h-full min-h-0 relative">
@@ -55,7 +51,10 @@ export function Player() {
               tabIndex={1}
               className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer"
             >
-              <View world={core.current.world} />
+              <View
+                world={core.current.world}
+                wireframe={core.current.ui.wireframe}
+              />
             </div>
           </div>
           <div className="absolute bottom-2 left-2 bg-gray-50">
@@ -133,6 +132,19 @@ export function Player() {
           >
             Q
           </button>
+          {
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={
+                core.current.ui.wireframe ? '/Ziegel_wire.png' : '/Ziegel.png'
+              }
+              alt="umschalten"
+              className="inline-block h-5 pb-1 pl-1"
+              onClick={() => {
+                core.toggleWireframe()
+              }}
+            />
+          }
         </div>
         <div>
           <button

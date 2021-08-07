@@ -43,6 +43,7 @@ export interface Ui {
   needTextRefresh: boolean
   filename?: string
   originalWorld?: World
+  wireframe: boolean
 }
 
 export interface Vm {
@@ -1098,6 +1099,12 @@ class Core {
       vm.checkpoint = undefined
     })
   }
+
+  toggleWireframe() {
+    this.mutate(({ ui }) => {
+      ui.wireframe = !ui.wireframe
+    })
+  }
 }
 
 function getDefaultCoreState(): CoreState {
@@ -1109,6 +1116,7 @@ function getDefaultCoreState(): CoreState {
       gutter: 0,
       state: 'loading',
       needTextRefresh: false,
+      wireframe: true,
     },
     vm: { pc: 0, entry: 0, frames: [{}], callstack: [] },
     settings: {

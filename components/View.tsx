@@ -3,6 +3,7 @@ import { World } from '../lib/core'
 
 interface ViewProps {
   world: World
+  wireframe: boolean
 }
 
 interface Resources {
@@ -13,10 +14,11 @@ interface Resources {
   robotW: HTMLImageElement
   marke: HTMLImageElement
   quader: HTMLImageElement
+  ziegelWire: HTMLImageElement
   ctx: CanvasRenderingContext2D
 }
 
-export function View({ world }: ViewProps) {
+export function View({ world, wireframe }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
@@ -43,6 +45,11 @@ export function View({ world }: ViewProps) {
           await new Promise((r) => {
             ziegel.onload = r
             ziegel.src = '/Ziegel.png'
+          })
+          const ziegelWire = new Image()
+          await new Promise((r) => {
+            ziegelWire.onload = r
+            ziegelWire.src = '/Ziegel_wire.png'
           })
           const robotN = new Image()
           await new Promise((r) => {
@@ -83,6 +90,7 @@ export function View({ world }: ViewProps) {
             robotW,
             marke,
             quader,
+            ziegelWire,
           })
         }
       }
@@ -92,8 +100,17 @@ export function View({ world }: ViewProps) {
 
   useEffect(() => {
     if (resources && canvas.current) {
-      const { ctx, ziegel, robotN, robotE, robotS, robotW, marke, quader } =
-        resources
+      const {
+        ctx,
+        ziegel,
+        robotN,
+        robotE,
+        robotS,
+        robotW,
+        marke,
+        quader,
+        ziegelWire,
+      } = resources
 
       ctx.save()
       ctx.clearRect(0, 0, width, height)
@@ -145,7 +162,7 @@ export function View({ world }: ViewProps) {
         for (let y = 0; y < world.dimY; y++) {
           for (let i = 0; i < world.bricks[y][x]; i++) {
             const p = to2d(x, y, i)
-            ctx.drawImage(ziegel, p.x - 15, p.y - 16)
+            ctx.drawImage(wireframe ? ziegelWire : ziegel, p.x - 15, p.y - 16)
           }
           if (world.marks[y][x]) {
             const p = to2d(x, y, world.bricks[y][x])
@@ -185,7 +202,7 @@ export function View({ world }: ViewProps) {
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world])
+  }, [resources, world, wireframe])
 
   return (
     <canvas ref={canvas} width={width} height={height} className="m-4"></canvas>

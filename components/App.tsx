@@ -128,7 +128,7 @@ export function App() {
 
               <ReflexSplitter style={{ width: 3 }} />
 
-              <ReflexElement minSize={350}>
+              <ReflexElement minSize={400}>
                 <Player />
               </ReflexElement>
             </ReflexContainer>
