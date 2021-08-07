@@ -46,3 +46,9 @@ Karol findet aus einem Labyrinth heraus. Mauern bestehen aus 2 Ziegeln, das Ziel
 ![grafik](https://user-images.githubusercontent.com/13507950/128593525-dbb6576a-2011-4725-a5da-403c54b58a41.png)
 
 Öffnen: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/labyrinth.json
+
+### Brainfuck
+
+Hier ein Beweis, dass die Sprache von Robot Karol turing-vollständig ist. Der Beweis gelingt durch die Implementation eines Interpreter für die esoterische Sprache Brainfuck.
+
+Öffnen: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck.json
