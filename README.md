@@ -6,8 +6,6 @@ Dein spielerische Einstieg in die Programmierung - direkt im Browser.
 
 Probiere es gleich hier aus: https://robot-karol-web.vercel.app/
 
-Beispieldateien: https://github.com/Entkenntnis/robot-karol-web/tree/main/examples
-
 ## Didaktik
 
 ### Lernziele:
@@ -34,3 +32,13 @@ Quelle: [Lehrplan Bayern, NT7 2.3](https://www.lehrplanplus.bayern.de/fachlehrpl
 (Unterbrechen beendet die Ausführung einer selbstdefinierten Anweisung, entspricht einem `return`. Das ist eine Erweiterung zu Robot Karol. Damit werden keine selbstdefinierten Bedingungen benötigt, sondern können über entsprechende Anweisungen umgesetzt werden)
 
 Für mehr Funktionen kann auf die Originalversion von Robot Karol unter https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/ zurückgegriffen werden.
+
+## Beispiele
+
+### Labyrinth
+
+Karol findet aus einem Labyrinth heraus. Mauern bestehen aus 2 Ziegeln, das Ziel besteht asu einem Ziegel.
+
+![grafik](https://user-images.githubusercontent.com/13507950/128593525-dbb6576a-2011-4725-a5da-403c54b58a41.png)
+
+Öffnen: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/labyrinth.json
