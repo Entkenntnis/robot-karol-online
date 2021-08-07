@@ -35,6 +35,10 @@ Für mehr Funktionen kann auf die Originalversion von Robot Karol unter https://
 
 ## Beispiele
 
+### Schwimmbad
+
+Karol baut ein Schwimmbad und schwimmt hindurch: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/schwimmbad.json
+
 ### Labyrinth
 
 Karol findet aus einem Labyrinth heraus. Mauern bestehen aus 2 Ziegeln, das Ziel besteht asu einem Ziegel.
