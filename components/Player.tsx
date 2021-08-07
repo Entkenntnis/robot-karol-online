@@ -138,8 +138,9 @@ export function Player() {
               src={
                 core.current.ui.wireframe ? '/Ziegel_wire.png' : '/Ziegel.png'
               }
+              title="Darstellung der Ziegel umschalten"
               alt="umschalten"
-              className="inline-block h-5 pb-1 pl-1"
+              className="inline-block h-5 pb-1 pl-1 cursor-pointer"
               onClick={() => {
                 core.toggleWireframe()
               }}
