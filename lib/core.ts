@@ -1013,7 +1013,7 @@ class Core {
       const { world, code }: { world: World; code: string } = JSON.parse(
         file ?? '{}'
       )
-      if (!world || !code) {
+      if (!world || code === undefined) {
         throw new Error('Datei unvollständig')
       }
       // minimal sanity check

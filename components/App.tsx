@@ -3,13 +3,33 @@ import { useImmer } from 'use-immer'
 
 import 'react-reflex/styles.css'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
-import { createContext, useContext, useMemo } from 'react'
+import { createContext, useContext, useEffect, useMemo } from 'react'
 import { Player } from './Player'
 import { EditArea } from './EditArea'
-import { CoreProvider, useCore, useCreateCore } from '../lib/core'
+import { CoreProvider, useCreateCore } from '../lib/core'
 
 export function App() {
   const core = useCreateCore()
+
+  useEffect(() => {
+    const address = window.location.search
+
+    // Returns a URLSearchParams object instance
+    const parameterList = new URLSearchParams(address)
+
+    const file = parameterList.get('project')
+
+    if (file) {
+      console.log(file)
+      try {
+        ;(async () => {
+          const res = await fetch(file)
+          const text = await res.text()
+          core.deserialize(text)
+        })()
+      } catch (e) {}
+    }
+  }, [core])
 
   return (
     <>
