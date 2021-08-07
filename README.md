@@ -53,7 +53,7 @@ Hier ein Beweis, dass die Sprache von Robot Karol turing-vollständig ist. Der B
 
 Addition: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck.json
 
-Multiplikation: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck_multiplikation.json
+Multiplikation: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck_multiplizieren.json
 
 ### Sortieren
 
