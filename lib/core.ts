@@ -927,9 +927,12 @@ class Core {
             state.vm.pc++
             delete frame[pc]
           })
-          setTimeout(() => {
+          const h = setTimeout(() => {
             core.step()
           }, 0)
+          this.mutate(({ vm }) => {
+            vm.handler = h
+          })
           return
         } else {
           core.mutate((state) => {
@@ -937,9 +940,12 @@ class Core {
             state.vm.pc = op.target
             frame[pc]--
           })
-          setTimeout(() => {
+          const h = setTimeout(() => {
             core.step()
           }, 0)
+          this.mutate(({ vm }) => {
+            vm.handler = h
+          })
           return
         }
       }
@@ -948,9 +954,12 @@ class Core {
         this.mutate((state) => {
           state.vm.pc = flag ? op.targetT : op.targetF
         })
-        setTimeout(() => {
+        const h = setTimeout(() => {
           core.step()
         }, 0)
+        this.mutate(({ vm }) => {
+          vm.handler = h
+        })
         return
       }
       if (op.type == 'call') {
@@ -959,9 +968,12 @@ class Core {
           vm.frames.push({})
           vm.pc = op.target
         })
-        setTimeout(() => {
+        const h = setTimeout(() => {
           core.step()
         }, 0)
+        this.mutate(({ vm }) => {
+          vm.handler = h
+        })
         return
       }
       if (op.type == 'return') {
@@ -970,9 +982,12 @@ class Core {
           vm.frames.pop()
           vm.pc = target ?? Infinity
         })
-        setTimeout(() => {
+        const h = setTimeout(() => {
           core.step()
         }, 0)
+        this.mutate(({ vm }) => {
+          vm.handler = h
+        })
         return
       }
     }
