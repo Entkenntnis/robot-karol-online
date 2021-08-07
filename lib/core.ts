@@ -1116,7 +1116,7 @@ function getDefaultCoreState(): CoreState {
       gutter: 0,
       state: 'loading',
       needTextRefresh: false,
-      wireframe: true,
+      wireframe: false,
     },
     vm: { pc: 0, entry: 0, frames: [{}], callstack: [] },
     settings: {
