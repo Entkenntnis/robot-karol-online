@@ -253,7 +253,11 @@ function buildMyAutocomplete(): CompletionSource {
       options.push({ label })
     }
 
-    if (lastEndedNode.name == 'RepeatTimesKey') {
+    if (
+      lastEndedNode.name == 'RepeatTimesKey' ||
+      (lastEndedNode.name == 'Condition' &&
+        lastEndedNode.parent?.name == 'Repeat')
+    ) {
       options.forEach((o) => {
         if (o.label == 'endewiederhole') {
           o.boost = 3

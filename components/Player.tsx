@@ -149,7 +149,7 @@ export function Player() {
         </div>
         <div>
           <button
-            className="px-2 py-0.5 mr-2 rounded-2xl bg-indigo-300"
+            className="px-2 py-0.5 mr-2 rounded-2xl bg-indigo-300 hover:bg-indigo-400 transition-colors"
             onClick={() => {
               setShowNewWorldModal(true)
             }}

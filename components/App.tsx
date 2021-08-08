@@ -49,7 +49,7 @@ export function App() {
         <div className="w-full h-full  min-w-[900px] flex flex-col">
           <div className="h-8 flex justify-between items-center flex-shrink-0 bg-gray-200">
             <div className="h-full flex items-center">
-              <h1 className="font-bold pl-4 hover:underline bg-yellow-400 h-full pt-1 pr-4">
+              <h1 className="pl-4 hover:underline bg-yellow-400 h-full pt-1 pr-4">
                 <a
                   href="https://github.com/Entkenntnis/robot-karol-web"
                   target="_blank"
@@ -87,7 +87,7 @@ export function App() {
                 }}
               />
               <button
-                className="mx-3 px-2 bg-green-300 rounded-2xl"
+                className="mx-3 px-2 bg-green-300 rounded-2xl hover:bg-green-400 transition-colors"
                 onClick={() => {
                   document.getElementById('load_project')?.click()
                 }}
@@ -95,7 +95,7 @@ export function App() {
                 Projekt laden
               </button>
               <button
-                className="mx-3 px-2 bg-blue-300 rounded-2xl"
+                className="mx-3 px-2 bg-blue-300 rounded-2xl hover:bg-blue-400 transition-colors"
                 onClick={() => {
                   const filename = 'robot_karol.json'
                   const contentType = 'application/json;charset=utf-8;'

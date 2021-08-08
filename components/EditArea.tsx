@@ -139,7 +139,7 @@ export function EditArea() {
         return (
           <>
             <button
-              className="bg-green-300 rounded-2xl py-0.5 px-3 m-1 ml-3"
+              className="bg-green-300 rounded-2xl py-0.5 px-3 m-1 ml-3 hover:bg-green-400 transition-colors"
               onClick={() => {
                 if (editor.current) {
                   selectAll(editor.current)
@@ -200,7 +200,7 @@ export function EditArea() {
           <span>
             {core.current.settings.speed == 'step' && (
               <button
-                className="bg-yellow-400 rounded-2xl p-1 px-3 ml-3"
+                className="bg-yellow-400 rounded-2xl p-1 px-3 ml-3 hover:bg-yellow-500 transition-colors"
                 onClick={() => {
                   core.step()
                 }}
@@ -209,7 +209,7 @@ export function EditArea() {
               </button>
             )}
             <button
-              className="bg-red-400 rounded-2xl p-0.5 px-3 ml-3"
+              className="bg-red-400 rounded-2xl p-0.5 px-3 ml-3 hover:bg-red-500 transition-colors"
               onClick={() => {
                 core.abort()
               }}
