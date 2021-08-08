@@ -225,7 +225,7 @@ function buildMyAutocomplete(): CompletionSource {
 
     if (around.name == 'CmdName' || endingHere.name == 'CmdName') return null // no completion in function name
 
-    let options = generalOptions.slice(0)
+    let options = generalOptions.map((o) => ({ ...o }))
 
     for (const label of cmdNames) {
       options.push({ label })
