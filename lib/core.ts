@@ -734,11 +734,20 @@ class Core {
         if (cursor.name == 'CmdName') {
           const st = parseStack[parseStack.length - 1]
           if (st.type == 'function' && st.stage == 1) {
-            st.stage = 2
-            st.name = code
-            const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
-            output.push(op)
-            st.skipper = op
+            if (declarations[code]) {
+              warnings.push({
+                from: cursor.from,
+                to: cursor.to,
+                severity: 'error',
+                message: 'Anweisung mit diesem Namen bereits vorhanden',
+              })
+            } else {
+              st.stage = 2
+              st.name = code
+              const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
+              output.push(op)
+              st.skipper = op
+            }
           } else {
             warnings.push({
               from: cursor.from,
