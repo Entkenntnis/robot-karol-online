@@ -1,5 +1,5 @@
 import { EditorView } from '@codemirror/view'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import clsx from 'clsx'
 import Image from 'next/image'
 
@@ -73,12 +73,16 @@ export function EditArea() {
     }
   }, [codeState])
 
+  // eslint is not able to detect deps properly ...
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const blockMenu = useMemo(renderBlockMenu, [section, menuVisible]) // block menu is slow to render
+
   return (
     <>
       <div className="w-full text-base h-full overflow-auto flex flex-col outline-none">
         <div className="flex h-full overflow-y-auto relative">
           <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
-            {renderBlockMenu()}
+            {blockMenu}
           </div>
 
           <div className="w-full overflow-auto h-full flex">
