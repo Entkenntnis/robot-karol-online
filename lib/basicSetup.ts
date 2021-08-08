@@ -178,7 +178,6 @@ const generalOptions = [
   { label: 'wiederhole' },
   { label: 'endewiederhole' },
   { label: 'wenn' },
-  { label: 'dann' },
   { label: 'endewenn' },
   { label: 'sonst' },
   { label: 'Anweisung' },
@@ -288,6 +287,11 @@ function buildMyAutocomplete(): CompletionSource {
       options = conditions
     } else if (lastEndedNode.name == 'Times') {
       options = [{ label: 'mal' }]
+    } else if (
+      lastEndedNode.name == 'Condition' &&
+      lastEndedNode.parent?.name == 'IfThen'
+    ) {
+      options = [{ label: 'dann' }]
     }
 
     return token || context.explicit
