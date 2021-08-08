@@ -66,3 +66,7 @@ Karol sortiert eine Reihe von Ziegelstapel der Größe nach.
 ### Raum verlassen
 
 Karol findet einen Weg aus einem Raum mit Mauern: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/raum_verlassen.json
+
+### Floodfill
+
+Karol füllt eine Fläche: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/füllen.json
