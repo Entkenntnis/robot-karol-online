@@ -1,10 +1,9 @@
-@top Program { (expression | Cmd | Cond)* }
+@top Program { (expression | Cmd )* }
 
 expression {
   Command |
   Repeat |
   IfThen |
-  TF |
   CustomRef
 }
 
@@ -65,21 +64,6 @@ CmdStart[closedBy="CmdEnd"] { @specialize<idx, "Anweisung"> }
 
 CmdEnd { @specialize<idx, "endeAnweisung"> }
 
-Cond {
-  CondStart CondName expression* CondEnd
-}
-
-CondName { idxExt }
-
-CondStart[closedBy="CondEnd"] { @specialize<idx, "Bedingung"> }
-
-CondEnd { @specialize<idx, "endeBedingung"> }
-
-TF {
-  @specialize<idx, "wahr"> |
-  @specialize<idx, "falsch">
-}
-
 CustomRef { idx }
 
 
@@ -91,8 +75,6 @@ CustomRef { idx }
   Comment { "{" ![}]* "}"? }
 
   idx { $[A-Za-zäüöÄÜÖß_] $[0-9A-Za-zäüöÄÜÖß_]* }
-
-  idxExt { $[A-Za-zäüöÄÜÖß_] $[0-9A-Za-z_äüöÄÜÖß()]* }
 }
 
 @skip { Comment | whitespace }

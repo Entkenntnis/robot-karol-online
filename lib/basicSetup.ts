@@ -16,7 +16,8 @@ import { searchKeymap, highlightSelectionMatches } from '@codemirror/search'
 import {
   autocompletion,
   completionKeymap,
-  completeFromList,
+  CompletionSource,
+  Completion,
 } from '@codemirror/autocomplete'
 import { commentKeymap } from '@codemirror/comment'
 import { rectangularSelection } from '@codemirror/rectangular-selection'
@@ -29,6 +30,7 @@ import {
   indentNodeProp,
   LezerLanguage,
   ensureSyntaxTree,
+  syntaxTree,
 } from '@codemirror/language'
 import { styleTags, tags as t } from '@codemirror/highlight'
 import { EditorView } from '@codemirror/view'
@@ -108,33 +110,7 @@ const exampleLanguage = LezerLanguage.define({
   parser: parserWithMetadata,
   languageData: {
     indentOnInput: /^\s*(en|so)/,
-    autocomplete: completeFromList([
-      { label: 'Schritt' },
-      { label: 'LinksDrehen' },
-      { label: 'RechtsDrehen' },
-      { label: 'Hinlegen' },
-      { label: 'Aufheben' },
-      { label: 'MarkeSetzen', boost: 2 },
-      { label: 'MarkeLöschen' },
-      { label: 'wiederhole' },
-      { label: 'endewiederhole' },
-      { label: 'mal' },
-      { label: 'solange' },
-      { label: 'IstWand' },
-      { label: 'NichtIstWand' },
-      { label: 'IstZiegel' },
-      { label: 'NichtIstZiegel' },
-      { label: 'IstMarke' },
-      { label: 'NichtIstMarke' },
-      { label: 'wenn' },
-      { label: 'dann' },
-      { label: 'endewenn' },
-      { label: 'sonst' },
-      { label: 'Anweisung' },
-      { label: 'endeAnweisung' },
-      { label: 'Unterbrechen' },
-      { label: 'Beenden' },
-    ]),
+    autocomplete: buildMyAutocomplete(),
   },
 })
 
@@ -167,3 +143,136 @@ export const basicSetup = (l: any) => [
     },
   }),*/
 ]
+
+const generalOptions = [
+  { label: 'Schritt' },
+  { label: 'LinksDrehen' },
+  { label: 'RechtsDrehen' },
+  { label: 'Hinlegen' },
+  { label: 'Aufheben' },
+  { label: 'MarkeSetzen', boost: 2 },
+  { label: 'MarkeLöschen' },
+  { label: 'wiederhole' },
+  { label: 'endewiederhole' },
+  { label: 'wenn' },
+  { label: 'dann' },
+  { label: 'endewenn' },
+  { label: 'sonst' },
+  { label: 'Anweisung' },
+  { label: 'endeAnweisung' },
+  { label: 'Unterbrechen' },
+  { label: 'Beenden' },
+]
+
+const conditions = [
+  { label: 'IstWand' },
+  { label: 'NichtIstWand' },
+  { label: 'IstZiegel' },
+  { label: 'NichtIstZiegel' },
+  { label: 'IstMarke' },
+  { label: 'NichtIstMarke' },
+]
+
+const span = /[a-zA-Z_0-9äöüÄÜÖß]*$/
+
+function buildMyAutocomplete(): CompletionSource {
+  return (context) => {
+    const token = context.matchBefore(/[a-zA-Z_0-9äöüÄÜÖß]+$/)
+    const tree = syntaxTree(context.state)
+
+    const around = tree.resolve(context.pos)
+    const endingHere = around.resolve(context.pos, -1)
+
+    let pos = context.pos - (token?.text.length ?? 0)
+    while (
+      pos > 0 &&
+      [' ', '\n'].includes(context.state.doc.sliceString(pos - 1, pos))
+    ) {
+      pos--
+    }
+
+    const lastEndedNode = tree.resolve(pos, -1)
+
+    const cmdNames = []
+
+    const c = tree.cursor()
+    do {
+      if (c.name == 'CmdName') {
+        const code = context.state.doc.sliceString(c.from, c.to)
+        cmdNames.push(code)
+      }
+    } while (c.next())
+
+    // debug
+    /*const cursor = tree.cursor()
+    console.log('-- tree start --')
+    do {
+      console.log(`Node ${cursor.name} from ${cursor.from} to ${cursor.to}`)
+    } while (cursor.next())
+    console.log('-- tree end --')
+
+    console.log('around', around.name)
+    console.log('endingHere', endingHere.name)
+    console.log('pos', context.pos)
+
+    console.log('ending of previous', pos)
+    console.log('last ended node', lastEndedNode.name)
+
+    console.log('-- debug end --')*/
+    // debug
+
+    if (around.name == 'Comment') return null // no completion within comments
+
+    if (around.name == 'CmdName' || endingHere.name == 'CmdName') return null // no completion in function name
+
+    let options = generalOptions.slice(0)
+
+    for (const label of cmdNames) {
+      options.push({ label })
+    }
+
+    if (lastEndedNode.name == 'RepeatTimesKey') {
+      options.forEach((o) => {
+        if (o.label == 'endewiederhole') {
+          o.boost = 3
+        }
+      })
+    }
+
+    if (lastEndedNode.name == 'CmdName') {
+      options.forEach((o) => {
+        if (o.label == 'endeAnweisung') {
+          o.boost = 3
+        }
+      })
+    }
+
+    if (lastEndedNode.name == 'ThenKey' || lastEndedNode.name == 'ElseKey') {
+      console.log('test')
+      options.forEach((o) => {
+        if (o.label == 'endewenn') {
+          o.boost = 3
+        }
+      })
+    }
+
+    if (lastEndedNode.name == 'RepeatStart') {
+      options = [{ label: 'solange' }]
+    } else if (
+      lastEndedNode.name == 'IfKey' ||
+      lastEndedNode.name == 'RepeatWhileKey'
+    ) {
+      options = conditions
+    } else if (lastEndedNode.name == 'Times') {
+      options = [{ label: 'mal' }]
+    }
+
+    return token || context.explicit
+      ? {
+          from: token ? token.from : context.pos,
+          options,
+          span,
+        }
+      : null
+  }
+}
