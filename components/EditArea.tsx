@@ -30,7 +30,7 @@ import anweisungImg from '../public/anweisung.png'
 import unterbrechenImg from '../public/unterbrechen.png'
 
 import { editable } from '../lib/basicSetup'
-import { Speed, useCore } from '../lib/core'
+import { useCore } from '../lib/core'
 import {
   selectAll,
   indentSelection,
@@ -38,26 +38,24 @@ import {
 } from '@codemirror/commands'
 
 export function EditArea() {
-  const editor = useRef<EditorView | null>(null)
-
   const [section, setSection] = useState('')
 
   const [menuVisible, setMenuVisible] = useState(false)
 
   const core = useCore()
 
-  const codeState = core.current.ui.state
+  const codeState = core.state.ui.state
 
   //console.log('gutter', gutter)
 
   useEffect(() => {
-    if (core.current.ui.needTextRefresh && editor.current) {
+    if (core.state.ui.needTextRefresh && core.view) {
       //console.log('refresh editor', core.current.code)
-      editor.current.dispatch({
+      core.view.dispatch({
         changes: {
           from: 0,
-          to: editor.current.state.doc.length,
-          insert: core.current.code,
+          to: core.view.state.doc.length,
+          insert: core.state.code,
         },
       })
       core.refreshDone()
@@ -67,11 +65,11 @@ export function EditArea() {
   useEffect(() => {
     if (codeState == 'ready') {
       //console.log('enable editable')
-      editor.current?.dispatch({
+      core.view?.dispatch({
         effects: editable.reconfigure(EditorView.editable.of(true)),
       })
     }
-  }, [codeState])
+  }, [codeState, core.view])
 
   // eslint is not able to detect deps properly ...
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,11 +89,11 @@ export function EditArea() {
                 data-label="gutter"
                 className="w-8 h-full bg-gray-50 relative border-r"
               >
-                {core.current.ui.gutter > 0 && (
+                {core.state.ui.gutter > 0 && (
                   <div
                     className="text-blue-500 absolute w-5 h-5 left-1"
                     style={{
-                      top: `${4 + (core.current.ui.gutter - 1) * 22.4 - 2}px`,
+                      top: `${4 + (core.state.ui.gutter - 1) * 22.4 - 2}px`,
                     }}
                   >
                     🡆
@@ -104,21 +102,11 @@ export function EditArea() {
               </div>
             )}
             <div className="w-full h-full flex flex-col">
-              <Editor
-                setRef={(e: EditorView) => (editor.current = e)}
-                onLint={(view: EditorView) => {
-                  return core.lint(view)
-                }}
-                onUpdate={() => {
-                  if (core.current.ui.state == 'ready') {
-                    core.setLoading()
-                  }
-                }}
-              />
+              <Editor />
               <div
                 className="bg-gray-50 flex-grow border-t"
                 onClick={() => {
-                  editor.current?.focus()
+                  core.view?.focus()
                 }}
               ></div>
             </div>
@@ -133,7 +121,7 @@ export function EditArea() {
 
   function renderProgramControl() {
     if (codeState == 'ready') {
-      if (!core.current.vm.bytecode || core.current.vm.bytecode.length == 0) {
+      if (!core.state.vm.bytecode || core.state.vm.bytecode.length == 0) {
         return (
           <div className="m-3 text-yellow-700 font-bold">
             Fange an, im Editor ein Programm zu schreiben!
@@ -145,17 +133,17 @@ export function EditArea() {
             <button
               className="bg-green-300 rounded-2xl py-0.5 px-3 m-1 ml-3 hover:bg-green-400 transition-colors"
               onClick={() => {
-                if (editor.current) {
-                  selectAll(editor.current)
-                  indentSelection(editor.current)
-                  cursorDocStart(editor.current)
+                if (core.view) {
+                  selectAll(core.view)
+                  indentSelection(core.view)
+                  cursorDocStart(core.view)
                   //console.log('disable editable')
-                  editor.current.dispatch({
+                  core.view.dispatch({
                     effects: editable.reconfigure(
                       EditorView.editable.of(false)
                     ),
                   })
-                  editor.current.contentDOM.blur()
+                  core.view.contentDOM.blur()
                 }
                 core.run()
               }}
@@ -164,9 +152,9 @@ export function EditArea() {
             </button>
             <select
               className="h-8 mr-2"
-              value={core.current.settings.speed}
+              value={core.state.settings.speed}
               onChange={(e) => {
-                core.setSpeed(e.target.value as Speed)
+                core.setSpeed(e.target.value)
               }}
             >
               <option value="turbo">Turbo</option>
@@ -202,7 +190,7 @@ export function EditArea() {
       return (
         <>
           <span>
-            {core.current.settings.speed == 'step' && (
+            {core.state.settings.speed == 'step' && (
               <button
                 className="bg-yellow-400 rounded-2xl p-1 px-3 ml-3 hover:bg-yellow-500 transition-colors"
                 onClick={() => {
@@ -223,9 +211,9 @@ export function EditArea() {
           </span>
           <select
             className="h-9 mr-3"
-            value={core.current.settings.speed}
+            value={core.state.settings.speed}
             onChange={(e) => {
-              core.setSpeedHot(e.target.value as Speed)
+              core.setSpeedHot(e.target.value)
             }}
           >
             <option value="turbo">Turbo</option>
@@ -376,11 +364,9 @@ export function EditArea() {
         <Image
           className="cursor-pointer"
           onDoubleClick={() => {
-            if (editor.current) {
-              editor.current.dispatch(
-                editor.current.state.replaceSelection(code)
-              )
-              editor.current.focus()
+            if (core.view) {
+              core.view.dispatch(core.view.state.replaceSelection(code))
+              core.view.focus()
             }
           }}
           src={image}

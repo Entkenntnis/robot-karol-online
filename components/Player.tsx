@@ -52,21 +52,21 @@ export function Player() {
               className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer"
             >
               <View
-                world={core.current.world}
-                wireframe={core.current.ui.wireframe}
+                world={core.state.world}
+                wireframe={core.state.ui.wireframe}
               />
             </div>
           </div>
           <div className="absolute bottom-2 left-2 bg-gray-50">
-            {core.current.ui.messages.map((m) => (
+            {core.state.ui.messages.map((m) => (
               <div key={`${m.ts}`}>
                 {m.text}
                 {m.count > 1 && <span> (x{m.count})</span>}
               </div>
             ))}
           </div>
-          {core.current.ui.originalWorld &&
-            core.current.ui.originalWorld != core.current.world && (
+          {core.state.ui.originalWorld &&
+            core.state.ui.originalWorld != core.state.world && (
               <div className="absolute top-2 left-2 bg-gray-50">
                 <button
                   onClick={() => {
@@ -135,9 +135,7 @@ export function Player() {
           {
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={
-                core.current.ui.wireframe ? '/Ziegel_wire.png' : '/Ziegel.png'
-              }
+              src={core.state.ui.wireframe ? '/Ziegel_wire.png' : '/Ziegel.png'}
               title="Darstellung der Ziegel umschalten"
               alt="umschalten"
               className="inline-block h-5 pb-1 pl-1 cursor-pointer"
@@ -170,9 +168,9 @@ export function Player() {
             className="fixed top-[30vh] mx-auto z-[300] bg-white opacity-100 w-[400px] rounded"
           >
             <NewWorldSettings
-              dimX={core.current.world.dimX}
-              dimY={core.current.world.dimY}
-              height={core.current.world.height}
+              dimX={core.state.world.dimX}
+              dimY={core.state.world.dimY}
+              height={core.state.world.height}
               onDone={() => setShowNewWorldModal(false)}
             />
           </div>

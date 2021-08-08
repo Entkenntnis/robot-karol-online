@@ -1,75 +1,34 @@
 import {
   keymap,
-  highlightSpecialChars,
   drawSelection,
   highlightActiveLine,
+  EditorView,
 } from '@codemirror/view'
-import { Extension, EditorState, Compartment } from '@codemirror/state'
-import { history, historyKeymap } from '@codemirror/history'
-import { foldGutter, foldKeymap } from '@codemirror/fold'
-import { indentOnInput, continuedIndent } from '@codemirror/language'
-import { lineNumbers, highlightActiveLineGutter } from '@codemirror/gutter'
+import { EditorState, Compartment } from '@codemirror/state'
+import {
+  indentOnInput,
+  continuedIndent,
+  indentNodeProp,
+  LezerLanguage,
+  syntaxTree,
+} from '@codemirror/language'
 import { defaultKeymap, defaultTabBinding } from '@codemirror/commands'
-import { bracketMatching } from '@codemirror/matchbrackets'
-import { closeBrackets, closeBracketsKeymap } from '@codemirror/closebrackets'
-import { searchKeymap, highlightSelectionMatches } from '@codemirror/search'
+import { history, historyKeymap } from '@codemirror/history'
+import { lineNumbers, highlightActiveLineGutter } from '@codemirror/gutter'
 import {
   autocompletion,
   completionKeymap,
   CompletionSource,
-  Completion,
 } from '@codemirror/autocomplete'
-import { commentKeymap } from '@codemirror/comment'
-import { rectangularSelection } from '@codemirror/rectangular-selection'
-import { defaultHighlightStyle } from '@codemirror/highlight'
-import { linter, lintKeymap } from '@codemirror/lint'
-import { parser } from '../lib/parser.js'
 import {
-  foldNodeProp,
-  foldInside,
-  indentNodeProp,
-  LezerLanguage,
-  ensureSyntaxTree,
-  syntaxTree,
-} from '@codemirror/language'
-import { styleTags, tags as t } from '@codemirror/highlight'
-import { EditorView } from '@codemirror/view'
+  defaultHighlightStyle,
+  styleTags,
+  tags as t,
+} from '@codemirror/highlight'
+import { linter, lintKeymap } from '@codemirror/lint'
 
-/// This is an extension value that just pulls together a whole lot of
-/// extensions that you might want in a basic editor. It is meant as a
-/// convenient helper to quickly set up CodeMirror without installing
-/// and importing a lot of packages.
-///
-/// Specifically, it includes...
-///
-///  - [the default command bindings](#commands.defaultKeymap)
-///  - [line numbers](#gutter.lineNumbers)
-///  - [special character highlighting](#view.highlightSpecialChars)
-///  - [the undo history](#history.history)
-///  - [a fold gutter](#fold.foldGutter)
-///  - [custom selection drawing](#view.drawSelection)
-///  - [multiple selections](#state.EditorState^allowMultipleSelections)
-///  - [reindentation on input](#language.indentOnInput)
-///  - [the default highlight style](#highlight.defaultHighlightStyle) (as fallback)
-///  - [bracket matching](#matchbrackets.bracketMatching)
-///  - [bracket closing](#closebrackets.closeBrackets)
-///  - [autocompletion](#autocomplete.autocompletion)
-///  - [rectangular selection](#rectangular-selection.rectangularSelection)
-///  - [active line highlighting](#view.highlightActiveLine)
-///  - [active line gutter highlighting](#gutter.highlightActiveLineGutter)
-///  - [selection match highlighting](#search.highlightSelectionMatches)
-///  - [search](#search.searchKeymap)
-///  - [commenting](#comment.commentKeymap)
-///  - [linting](#lint.lintKeymap)
-///
-/// (You'll probably want to add some language package to your setup
-/// too.)
-///
-/// This package does not allow customization. The idea is that, once
-/// you decide you want to configure your editor more precisely, you
-/// take this package's source (which is just a bunch of imports and
-/// an array literal), copy it into your own code, and adjust it as
-/// desired.
+import { parser } from './parser/parser.js'
+
 const parserWithMetadata = parser.configure({
   props: [
     styleTags({
@@ -147,7 +106,6 @@ export const basicSetup = (l: any) => [
   defaultHighlightStyle.fallback,
   highlightActiveLine(),
   keymap.of([
-    ...closeBracketsKeymap,
     ...defaultKeymap,
     ...historyKeymap,
     ...lintKeymap,
@@ -160,11 +118,6 @@ export const basicSetup = (l: any) => [
   exampleLanguage,
   linter(l),
   Theme,
-  /*EditorView.domEventHandlers({
-    drop(e) {
-      console.log(e)
-    },
-  }),*/
 ]
 
 const generalOptions = [

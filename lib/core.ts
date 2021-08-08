@@ -1,5 +1,3 @@
-import { EditorView } from '@codemirror/view'
-import produce from 'immer'
 import {
   createContext,
   Dispatch,
@@ -10,118 +8,26 @@ import {
   useRef,
   useState,
 } from 'react'
-import { DraftFunction } from 'use-immer'
-import { ensureSyntaxTree } from '@codemirror/language'
-import { Diagnostic } from '@codemirror/lint'
 
-export type Heading = 'north' | 'east' | 'south' | 'west'
+import produce, { Draft } from 'immer'
 
-export interface World {
-  dimX: number
-  dimY: number
-  height: number
-  karol: {
-    x: number
-    y: number
-    dir: Heading
-  }
-  bricks: number[][]
-  marks: boolean[][]
-  blocks: boolean[][]
-}
+import { EditorView } from '@codemirror/view'
 
-export interface Message {
-  text: string
-  count: number
-  ts: number
-}
+import { Condition, CoreRefs, CoreState, Heading, Speed, World } from './types'
+import { compile } from './compiler'
 
-export interface Ui {
-  messages: Message[]
-  gutter: number
-  state: 'ready' | 'loading' | 'running' | 'error'
-  needTextRefresh: boolean
-  filename?: string
-  originalWorld?: World
-  wireframe: boolean
-}
-
-export interface Vm {
-  bytecode?: Op[]
-  pc: number
-  entry: number
-  checkpoint?: World
-  handler?: NodeJS.Timeout
-  frames: { [index: number]: number }[]
-  callstack: number[]
-}
-
-export type Speed = 'slow' | 'fast' | 'step' | 'turbo'
-
-export interface Settings {
-  speed: Speed
-}
-
-export interface CoreState {
-  world: World
-  ui: Ui
-  code: string
-  vm: Vm
-  settings: Settings
-}
-
-export interface ActionOp {
-  type: 'action'
-  command:
-    | 'forward'
-    | 'left'
-    | 'right'
-    | 'brick'
-    | 'unbrick'
-    | 'setMark'
-    | 'resetMark'
-  line: number
-}
-
-export interface Condition {
-  type: 'brick' | 'mark' | 'wall'
-  negated: boolean
-}
-
-export interface JumpNOp {
-  type: 'jumpn'
-  target: number
-  count: number
-}
-
-export interface JumpCondOp {
-  type: 'jumpcond'
-  targetT: number
-  targetF: number
-  condition: Condition
-}
-
-export interface CallOp {
-  type: 'call'
-  target: number
-}
-
-export interface ReturnOp {
-  type: 'return'
-}
-
-export type Op = ActionOp | JumpNOp | JumpCondOp | CallOp | ReturnOp
-
+// set up core within app
 export function useCreateCore() {
   const [coreState, setCoreState] = useState<CoreState>(() =>
     getDefaultCoreState()
   )
-  const coreStateRef = useRef<CoreState>(coreState)
-  return useMemo(() => new Core(setCoreState, coreStateRef), [])
+  const coreRef = useRef<CoreRefs>({ state: coreState })
+  return useMemo(() => new Core(setCoreState, coreRef), [])
 }
 
 const CoreContext = createContext<Core | null>(null)
 
+// access to core
 export function useCore() {
   const val = useContext(CoreContext)
   if (val) {
@@ -130,48 +36,58 @@ export function useCore() {
   throw new Error('Bad usage of core state')
 }
 
+// wrap App
 export const CoreProvider = CoreContext.Provider
 
 class Core {
   setCoreState: Dispatch<SetStateAction<CoreState>>
-  coreStateRef: MutableRefObject<CoreState>
+  coreRef: MutableRefObject<CoreRefs>
 
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,
-    coreStateRef: MutableRefObject<CoreState>
+    coreRef: MutableRefObject<CoreRefs>
   ) {
     this.setCoreState = setCoreState
-    this.coreStateRef = coreStateRef
+    this.coreRef = coreRef
   }
 
-  get current() {
-    return this.coreStateRef.current
+  // async-safe way to access core state
+  get state() {
+    return this.coreRef.current.state
   }
 
-  mutate(updater: DraftFunction<CoreState>) {
-    const newState = produce(this.coreStateRef.current, updater)
-    this.coreStateRef.current = newState
+  // always mutate core state with this function
+  mutate(updater: (draft: Draft<CoreState>) => void) {
+    const newState = produce(this.state, updater)
+    this.coreRef.current.state = newState
     this.setCoreState(newState)
   }
 
-  forward(opts?: { reverse: boolean }) {
-    const { world } = this.current
-    const dir = opts?.reverse
-      ? ({ north: 'south', south: 'north', east: 'west', west: 'east' }[
-          world.karol.dir
-        ] as Heading)
-      : world.karol.dir
-    const newPos = move(world.karol.x, world.karol.y, dir, world)
-    if (newPos) {
-      const myBricks = world.bricks[world.karol.y][world.karol.x]
-      const newBricks = world.bricks[newPos.y][newPos.x]
+  // give core a reference to editor view
+  injectEditorView(view: EditorView) {
+    this.coreRef.current.view = view
+  }
 
-      if (Math.abs(myBricks - newBricks) > 1) {
+  // access editor view instance - if present
+  get view() {
+    return this.coreRef.current.view
+  }
+
+  forward(opts?: { reverse: boolean }) {
+    const { world } = this.state
+    const { karol, bricks } = world
+    const dir = opts?.reverse ? reverse(karol.dir) : karol.dir
+    const target = move(karol.x, karol.y, dir, world)
+    if (target) {
+      const currentBrickCount = bricks[karol.y][karol.x]
+      const targetBrickCount = bricks[target.y][target.x]
+
+      if (Math.abs(currentBrickCount - targetBrickCount) > 1) {
         this.addMessage('Karol kann diese Höhe nicht überwinden.')
       } else {
         this.mutate(({ world }) => {
-          world.karol.x = newPos.x
-          world.karol.y = newPos.y
+          world.karol.x = target.x
+          world.karol.y = target.y
         })
         return true
       }
@@ -182,33 +98,24 @@ class Core {
   }
 
   left() {
-    this.mutate((state) => {
-      state.world.karol.dir = {
-        north: 'west',
-        west: 'south',
-        south: 'east',
-        east: 'north',
-      }[state.world.karol.dir] as Heading
+    this.mutate(({ world }) => {
+      world.karol.dir = turnLeft(world.karol.dir)
     })
   }
 
   right() {
-    this.mutate((state) => {
-      state.world.karol.dir = {
-        north: 'east',
-        east: 'south',
-        south: 'west',
-        west: 'north',
-      }[state.world.karol.dir] as Heading
+    this.mutate(({ world }) => {
+      world.karol.dir = turnRight(world.karol.dir)
     })
   }
 
   brick() {
-    const { world } = this.current
-    const pos = move(world.karol.x, world.karol.y, world.karol.dir, world)
+    const { world } = this.state
+    const { karol, bricks, height } = world
+    const pos = move(karol.x, karol.y, karol.dir, world)
 
     if (pos) {
-      if (world.bricks[pos.y][pos.x] >= world.height) {
+      if (bricks[pos.y][pos.x] >= height) {
         this.addMessage('Maximale Stapelhöhe erreicht.')
         return false
       } else {
@@ -218,17 +125,18 @@ class Core {
         return true
       }
     } else {
-      this.addMessage('Karol kann dort keinen Ziegel aufstellen.')
+      this.addMessage('Karol kann hier keinen Ziegel aufstellen.')
       return false
     }
   }
 
   unbrick() {
-    const { world } = this.current
-    const pos = move(world.karol.x, world.karol.y, world.karol.dir, world)
+    const { world } = this.state
+    const { karol, bricks } = world
+    const pos = move(karol.x, karol.y, karol.dir, world)
 
     if (pos) {
-      if (world.bricks[pos.y][pos.x] <= 0) {
+      if (bricks[pos.y][pos.x] <= 0) {
         this.addMessage('Keine Ziegel zum Aufheben')
         return false
       } else {
@@ -238,65 +146,54 @@ class Core {
         return true
       }
     } else {
-      this.addMessage('Karol kann dort keine Ziegel aufheben.')
+      this.addMessage('Karol kann hier keine Ziegel aufheben.')
       return false
     }
   }
 
   toggleMark() {
-    this.mutate((state) => {
-      const world = state.world
+    this.mutate(({ world }) => {
       world.marks[world.karol.y][world.karol.x] =
         !world.marks[world.karol.y][world.karol.x]
     })
   }
 
   setMark() {
-    this.mutate((state) => {
-      const world = state.world
+    this.mutate(({ world }) => {
       world.marks[world.karol.y][world.karol.x] = true
     })
   }
 
   resetMark() {
-    this.mutate((state) => {
-      const world = state.world
+    this.mutate(({ world }) => {
       world.marks[world.karol.y][world.karol.x] = false
     })
   }
 
   toggleBlock() {
-    const { world } = this.current
-    const pos = moveRaw(world.karol.x, world.karol.y, world.karol.dir, world)
+    const { world } = this.state
+    const { karol, blocks, bricks, marks } = world
+    const pos = moveRaw(karol.x, karol.y, karol.dir, world)
     if (pos) {
-      if (world.blocks[pos.y][pos.x]) {
-        this.mutate((state) => {
-          state.world.blocks[pos.y][pos.x] = false
+      if (blocks[pos.y][pos.x]) {
+        this.mutate(({ world }) => {
+          world.blocks[pos.y][pos.x] = false
         })
         return true
-      } else if (
-        !world.marks[pos.y][pos.x] &&
-        world.bricks[pos.y][pos.x] == 0
-      ) {
-        this.mutate((state) => {
-          state.world.blocks[pos.y][pos.x] = true
+      } else if (!marks[pos.y][pos.x] && bricks[pos.y][pos.x] == 0) {
+        this.mutate(({ world }) => {
+          world.blocks[pos.y][pos.x] = true
         })
         return true
       } else {
-        if (world.marks[pos.y][pos.x]) {
-          this.addMessage(
-            'Karol kann keinen Quader aufstellen, vor ihm liegt eine Marke.'
-          )
+        if (marks[pos.y][pos.x]) {
+          this.addMessage('Karol kann keinen Quader auf eine Marke stellen.')
         } else {
-          this.addMessage(
-            'Karol kann keinen Quader aufstellen, vor ihm liegen Ziegel.'
-          )
+          this.addMessage('Karol kann keinen Quader auf Ziegel stellen.')
         }
       }
     } else {
-      this.addMessage(
-        'Karol kann keinen Quader aufstellen, er steht vor einer Wand.'
-      )
+      this.addMessage('Karol kann hier keinen Quader aufstellen.')
     }
     return false
   }
@@ -307,511 +204,57 @@ class Core {
     })
   }
 
+  // show message that something didn't work out - auto-stacking and hiding
   addMessage(text: string) {
-    const newMessages = this.current.ui.messages.slice(0)
-    while (newMessages.length >= 5) {
-      newMessages.shift()
-    }
     const ts = Date.now()
-    const lastMessage = newMessages[newMessages.length - 1]
-    if (lastMessage?.text == text) {
-      newMessages[newMessages.length - 1] = {
-        text,
-        ts,
-        count: lastMessage.count + 1,
-      }
-    } else {
-      newMessages.push({ text, ts, count: 1 })
-    }
     this.mutate(({ ui }) => {
-      ui.messages = newMessages
+      while (ui.messages.length >= 5) {
+        ui.messages.shift()
+      }
+      const lastIndex = ui.messages.length - 1
+      if (lastIndex >= 0 && ui.messages[lastIndex].text == text) {
+        ui.messages[lastIndex].count++
+      } else {
+        ui.messages.push({ text, ts, count: 1 })
+      }
     })
-    const core = this
     setTimeout(() => {
-      core.mutate(({ ui }) => {
+      this.mutate(({ ui }) => {
         ui.messages = ui.messages.filter((m) => m.ts != ts)
       })
     }, 2500)
   }
 
-  lint(view: EditorView) {
-    if (this.current.ui.state == 'running') {
+  lint() {
+    if (this.state.ui.state == 'running' || !this.view) {
       return [] // auto formatting, ignore
     }
-    const code = view.state.doc.sliceString(0)
+    // good place to sync code with state
+    const code = this.view.state.doc.sliceString(0)
     this.mutate((state) => {
       state.code = code
     })
-    const tree = ensureSyntaxTree(view.state, 1000000, 1000)
-    const output: Op[] = []
-    const warnings: Diagnostic[] = []
-    const parseStack: any[] = []
-    const functions: any[] = []
-    const declarations: any = {}
-    if (tree) {
-      let cursor = tree.cursor()
-      do {
-        const code = view.state.doc.sliceString(cursor.from, cursor.to)
-        //console.log(cursor.name)
-        if (cursor.name == 'Command') {
-          const line = view.state.doc.lineAt(cursor.from).number
-          if (code == 'Schritt') {
-            output.push({
-              type: 'action',
-              command: 'forward',
-              line,
-            })
-          } else if (code == 'LinksDrehen') {
-            output.push({
-              type: 'action',
-              command: 'left',
-              line,
-            })
-          } else if (code == 'RechtsDrehen') {
-            output.push({
-              type: 'action',
-              command: 'right',
-              line,
-            })
-          } else if (code == 'Hinlegen') {
-            output.push({
-              type: 'action',
-              command: 'brick',
-              line,
-            })
-          } else if (code == 'Aufheben') {
-            output.push({
-              type: 'action',
-              command: 'unbrick',
-              line,
-            })
-          } else if (code == 'MarkeSetzen') {
-            output.push({
-              type: 'action',
-              command: 'setMark',
-              line,
-            })
-          } else if (code == 'MarkeLöschen') {
-            output.push({
-              type: 'action',
-              command: 'resetMark',
-              line,
-            })
-          } else if (code == 'Beenden') {
-            // jump into the black hole
-            output.push({
-              type: 'jumpn',
-              target: Infinity,
-              count: Infinity,
-            })
-          } else if (code == 'Unterbrechen') {
-            output.push({ type: 'return' })
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: `"${code}" ist kein bekannter Befehl`,
-            })
-          }
-        }
-        if (cursor.name == 'CustomRef') {
-          const op: Op = { type: 'call', target: -1 }
-          functions.push({ op, code, from: cursor.from, to: cursor.to })
-          output.push(op)
-        }
-        if (cursor.name == 'Repeat') {
-          parseStack.push({ type: 'repeat', from: cursor.from, stage: 0 })
-        }
-        if (cursor.name == 'RepeatStart') {
-          const st = parseStack[parseStack.length - 1]
-          if (st.type == 'repeat' && st.stage == 0) {
-            st.stage = 1
-            const op: Op = { type: 'jumpn', target: -1, count: Infinity }
-            output.push(op)
-            st.op = op
-            if (code !== 'wiederhole') {
-              warnings.push({
-                from: cursor.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Schlüsselwort "wiederhole" fehlt',
-              })
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige Wiederholung',
-            })
-          }
-        }
-        if (cursor.name == 'RepeatWhileKey') {
-          const st = parseStack[parseStack.length - 1]
-          if (st.type == 'repeat' && st.stage == 1) {
-            st.stage = 10
-            if (code !== 'solange') {
-              warnings.push({
-                from: cursor.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Schlüsselwort "solange" fehlt',
-              })
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige Wiederholung',
-            })
-          }
-        }
-        if (cursor.name == 'Condition') {
-          const st = parseStack[parseStack.length - 1]
-          let cond: Condition = {} as Condition
-          if (code == 'NichtIstWand') {
-            cond = { type: 'wall', negated: true }
-          } else if (code == 'IstWand') {
-            cond = { type: 'wall', negated: false }
-          } else if (code == 'NichtIstZiegel') {
-            cond = { type: 'brick', negated: true }
-          } else if (code == 'IstZiegel') {
-            cond = { type: 'brick', negated: false }
-          } else if (code == 'NichtIstMarke') {
-            cond = { type: 'mark', negated: true }
-          } else if (code == 'IstMarke') {
-            cond = { type: 'mark', negated: false }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'unbekannte Bedingung',
-            })
-          }
-          if (st && st.type == 'repeat' && st.stage == 10) {
-            st.stage = 11
-            st.start = output.length
-            st.condition = cond
-          } else if (st && st.type == 'if' && st.stage == 1) {
-            st.condition = cond
-            st.stage = 2
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige Wiederholung',
-            })
-          }
-        }
-        if (cursor.name == 'IfThen') {
-          parseStack.push({ type: 'if', from: cursor.from, stage: 0 })
-        }
-        if (cursor.name == 'IfKey') {
-          const st = parseStack[parseStack.length - 1]
-          if (st.type == 'if' && st.stage == 0) {
-            st.stage = 1
-            if (code !== 'wenn') {
-              warnings.push({
-                from: cursor.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Schlüsselwort "wenn" fehlt',
-              })
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige bedingte Anweisung',
-            })
-          }
-        }
-        if (cursor.name == 'ThenKey') {
-          const st = parseStack[parseStack.length - 1]
-          if (st.type == 'if' && st.stage == 2) {
-            st.stage = 3
-            if (code !== 'dann') {
-              warnings.push({
-                from: cursor.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Schlüsselwort "dann" fehlt',
-              })
-            } else {
-              const op: Op = {
-                type: 'jumpcond',
-                condition: st.condition,
-                targetT: output.length + 1,
-                targetF: -1,
-              }
-              output.push(op)
-              st.op = op
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige bedingte Anweisung',
-            })
-          }
-        }
-        if (cursor.name == 'ElseKey') {
-          const st = parseStack[parseStack.length - 1]
-          if (st && st.type == 'if' && st.stage == 3) {
-            if (code !== 'sonst') {
-              warnings.push({
-                from: cursor.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Schlüsselwort "sonst" fehlt',
-              })
-            } else {
-              st.op.targetF = output.length + 1
-              const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
-              output.push(op)
-              st.stage = 4
-              st.op = op
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige bedingte Anweisung',
-            })
-          }
-        }
-        if (cursor.name == 'IfEndKey') {
-          const st = parseStack[parseStack.length - 1]
-          if (st && st.type == 'if') {
-            if (code !== 'endewenn') {
-              warnings.push({
-                from: cursor.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Schlüsselwort "endewenn" fehlt',
-              })
-            } else {
-              if (st.stage == 3) {
-                st.op.targetF = output.length
-              } else if (st.stage == 4) {
-                st.op.target = output.length
-              }
-              parseStack.pop()
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige bedingte Anweisung',
-            })
-          }
-        }
-        if (cursor.name == 'Times') {
-          const st = parseStack[parseStack.length - 1]
-          if (st.type == 'repeat' && st.stage == 1) {
-            st.stage++
-            st.times = parseInt(code)
-            if (!code || isNaN(st.times) || st.times < 1) {
-              warnings.push({
-                from: cursor.from - 3,
-                to: Math.min(cursor.to + 3, view.state.doc.length - 1),
-                severity: 'error',
-                message:
-                  'Anzahl der Wiederholung muss eine natürliche Zahl sein',
-              })
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige Wiederholung',
-            })
-          }
-        }
-        if (cursor.name == 'RepeatTimesKey') {
-          const st = parseStack[parseStack.length - 1]
-          if (st.type == 'repeat' && st.stage == 2) {
-            st.stage++
-            st.start = output.length
-            if (code !== 'mal') {
-              warnings.push({
-                from: st.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Schlüsselwort "mal" fehlt.',
-              })
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige Wiederholung',
-            })
-          }
-        }
-        if (cursor.name == 'RepeatEnd') {
-          const st = parseStack[parseStack.length - 1]
-          if (st.type == 'repeat' && st.stage == 3) {
-            st.op.target = output.length
-            output.push({
-              type: 'jumpn',
-              count: st.times,
-              target: st.start,
-            })
-            parseStack.pop()
-            if (code !== 'endewiederhole') {
-              warnings.push({
-                from: cursor.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Schlüsselwort "endewiederhole" fehlt.',
-              })
-            }
-          } else if (st.type == 'repeat' && st.stage == 11) {
-            st.op.target = output.length
-            output.push({
-              type: 'jumpcond',
-              targetT: st.start,
-              targetF: output.length + 1,
-              condition: st.condition,
-            })
-            parseStack.pop()
-            if (code !== 'endewiederhole') {
-              warnings.push({
-                from: cursor.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Schlüsselwort "endewiederhole" fehlt.',
-              })
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige Wiederholung',
-            })
-          }
-        }
-        if (cursor.name == 'Cmd') {
-          parseStack.push({
-            type: 'function',
-            target: output.length + 1,
-            stage: 0,
-          })
-        }
-        if (cursor.name == 'CmdStart') {
-          const st = parseStack[parseStack.length - 1]
-          if (st.type == 'function' && st.stage == 0) {
-            st.stage = 1
-            if (code !== 'Anweisung') {
-              warnings.push({
-                from: cursor.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Schlüsselwort "Anweisung" fehlt',
-              })
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige Anweisung',
-            })
-          }
-        }
-        if (cursor.name == 'CmdName') {
-          const st = parseStack[parseStack.length - 1]
-          if (st.type == 'function' && st.stage == 1) {
-            if (declarations[code]) {
-              warnings.push({
-                from: cursor.from,
-                to: cursor.to,
-                severity: 'error',
-                message: 'Anweisung mit diesem Namen bereits vorhanden',
-              })
-            } else {
-              st.stage = 2
-              st.name = code
-              const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
-              output.push(op)
-              st.skipper = op
-            }
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige Anweisung',
-            })
-          }
-        }
-        if (cursor.name == 'CmdEnd') {
-          const st = parseStack[parseStack.length - 1]
-          if (st.type == 'function' && st.stage == 2) {
-            declarations[st.name] = { target: st.target }
-            output.push({ type: 'return' })
-            st.skipper.target = output.length
-          } else {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'ungültige Anweisung',
-            })
-          }
-        }
-        if (cursor.type.isError) {
-          warnings.push({
-            from: cursor.from - 2,
-            to: Math.min(cursor.to + 2, view.state.doc.length - 1),
-            severity: 'error',
-            message: 'Fehler',
-          })
-        }
-      } while (cursor.next())
-    }
-    for (const f of functions) {
-      if (declarations[f.code]) {
-        f.op.target = declarations[f.code].target
-      } else {
-        warnings.push({
-          from: f.from,
-          to: f.to,
-          severity: 'error',
-          message: `"${f.code}" ist kein bekannter Befehl`,
-        })
-      }
-    }
+
+    const { warnings, output } = compile(this.view)
+
     if (warnings.length == 0) {
-      this.mutate((state) => {
-        state.vm.bytecode = output
-        state.vm.pc = 0
-        state.ui.state = 'ready'
+      this.mutate(({ vm, ui }) => {
+        vm.bytecode = output
+        vm.pc = 0
+        ui.state = 'ready'
       })
     } else {
-      this.mutate((state) => {
-        state.vm.bytecode = undefined
-        state.vm.pc = 0
-        state.ui.state = 'error'
+      this.mutate(({ vm, ui }) => {
+        vm.bytecode = undefined
+        vm.pc = 0
+        ui.state = 'error'
       })
     }
     return warnings
   }
 
   setLoading() {
-    if (this.current.ui.state == 'running') {
+    if (this.state.ui.state == 'running') {
       return // auto formatting, ignore
     }
     this.mutate(({ ui, vm }) => {
@@ -831,7 +274,7 @@ class Core {
   run() {
     this.mutate(({ ui, vm }) => {
       ui.state = 'running'
-      vm.checkpoint = this.current.world
+      vm.checkpoint = this.state.world
       vm.pc = vm.entry
       vm.frames = [{}]
     })
@@ -840,9 +283,9 @@ class Core {
   }
 
   step() {
-    const pc = this.current.vm.pc
-    const byteCode = this.current.vm.bytecode
-    const state = this.current.ui.state
+    const pc = this.state.vm.pc
+    const byteCode = this.state.vm.bytecode
+    const state = this.state.ui.state
 
     if (!byteCode || state != 'running') {
       // ignore
@@ -870,9 +313,9 @@ class Core {
       })
 
       const delay =
-        this.current.settings.speed == 'slow'
+        this.state.settings.speed == 'slow'
           ? 500
-          : this.current.settings.speed == 'fast'
+          : this.state.settings.speed == 'fast'
           ? 50
           : 0
 
@@ -902,7 +345,7 @@ class Core {
           core.mutate((state) => {
             state.vm.pc++
           })
-          if (this.current.settings.speed !== 'step') {
+          if (this.state.settings.speed !== 'step') {
             const h = setTimeout(() => core.step(), delay)
             this.mutate(({ vm }) => {
               vm.handler = h
@@ -922,7 +365,7 @@ class Core {
             frame[pc] = op.count
           }
         })
-        const frame = this.current.vm.frames[this.current.vm.frames.length - 1]
+        const frame = this.state.vm.frames[this.state.vm.frames.length - 1]
         if (frame[pc] == 0) {
           core.mutate((state) => {
             const frame = state.vm.frames[state.vm.frames.length - 1]
@@ -996,32 +439,32 @@ class Core {
   }
 
   testCondition(cond: Condition) {
-    const { x, y, dir } = this.current.world.karol
+    const { x, y, dir } = this.state.world.karol
     if (cond.type == 'mark') {
-      const val = this.current.world.marks[y][x]
+      const val = this.state.world.marks[y][x]
       if (cond.negated) {
         return !val
       }
       return val
     } else if (cond.type == 'wall') {
-      const newpos = move(x, y, dir, this.current.world)
+      const newpos = move(x, y, dir, this.state.world)
       if (cond.negated) {
         return !!newpos
       }
       return !newpos
     } else {
-      const newpos = moveRaw(x, y, dir, this.current.world)
+      const newpos = moveRaw(x, y, dir, this.state.world)
       if (!newpos) {
         return cond.negated ? true : false
       } else {
-        const count = this.current.world.bricks[newpos.y][newpos.x]
+        const count = this.state.world.bricks[newpos.y][newpos.x]
         return cond.negated ? count == 0 : count > 0
       }
     }
   }
 
   serialize() {
-    const { world, code } = this.current
+    const { world, code } = this.state
     return { world, code }
   }
 
@@ -1071,22 +514,22 @@ class Core {
       state.ui.needTextRefresh = false
     })
   }
-  setSpeedHot(val: Speed) {
-    clearTimeout(this.current.vm.handler!)
+  setSpeedHot(val: string) {
+    clearTimeout(this.state.vm.handler!)
     this.setSpeed(val)
-    if (val != 'step' && this.current.ui.state == 'running') {
+    if (val != 'step' && this.state.ui.state == 'running') {
       this.step()
     }
   }
 
-  setSpeed(val: Speed) {
+  setSpeed(val: string) {
     this.mutate((state) => {
-      state.settings.speed = val
+      state.settings.speed = val as Speed
     })
   }
 
   abort() {
-    clearTimeout(this.current.vm.handler!)
+    clearTimeout(this.state.vm.handler!)
     this.mutate((state) => {
       state.ui.gutter = 0
       state.ui.state = 'ready'
@@ -1107,6 +550,8 @@ class Core {
     })
   }
 }
+
+// ----- pure helper functions
 
 function getDefaultCoreState(): CoreState {
   return {
@@ -1177,4 +622,28 @@ function moveRaw(x: number, y: number, dir: Heading, world: World) {
       return { x, y: y - 1 }
     }
   }
+}
+
+function reverse(h: Heading) {
+  return { north: 'south', south: 'north', east: 'west', west: 'east' }[
+    h
+  ] as Heading
+}
+
+function turnLeft(h: Heading) {
+  return {
+    north: 'west',
+    west: 'south',
+    south: 'east',
+    east: 'north',
+  }[h] as Heading
+}
+
+function turnRight(h: Heading) {
+  return {
+    north: 'east',
+    east: 'south',
+    south: 'west',
+    west: 'north',
+  }[h] as Heading
 }

@@ -1,4 +1,3 @@
-import { EditorState, EditorView } from '@codemirror/basic-setup'
 import { useEffect, useRef } from 'react'
 import { basicSetup } from '../lib/basicSetup'
 import {
@@ -9,31 +8,25 @@ import {
   cursorCharLeft,
   insertNewlineAndIndent,
 } from '@codemirror/commands'
-import { Transaction } from '@codemirror/state'
-import { Diagnostic } from '@codemirror/lint'
+import { EditorState, Transaction } from '@codemirror/state'
 import { useCore } from '../lib/core'
+import { EditorView } from '@codemirror/view'
 
-export const Editor = ({
-  setRef,
-  onLint,
-  onUpdate,
-}: {
-  setRef: any
-  onLint: (view: EditorView) => Diagnostic[]
-  onUpdate: (event?: string) => void
-}) => {
-  const editor = useRef(null)
+export const Editor = () => {
+  const editorDiv = useRef(null)
   const core = useCore()
 
   useEffect(() => {
-    const currentEditor = editor.current
+    const currentEditor = editorDiv.current
 
     if (currentEditor) {
       const view = new EditorView({
         state: EditorState.create({
-          doc: core.current.code,
+          doc: core.state.code,
           extensions: [
-            basicSetup(onLint),
+            basicSetup(() => {
+              return core.lint()
+            }),
             EditorView.updateListener.of((e) => {
               if (e.docChanged) {
                 if (!e.state.doc.sliceString(0).endsWith('\n')) {
@@ -48,7 +41,9 @@ export const Editor = ({
                 const userEvent = t.annotation(Transaction.userEvent)
 
                 if (t.docChanged) {
-                  onUpdate()
+                  if (core.state.ui.state == 'ready') {
+                    core.setLoading()
+                  }
                 }
 
                 const annotations = (t as any).annotations as {
@@ -132,12 +127,12 @@ export const Editor = ({
         parent: currentEditor,
       })
 
-      setRef(view)
+      core.injectEditorView(view)
 
       return () => view.destroy()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editor])
+  }, [editorDiv])
 
-  return <div ref={editor} />
+  return <div ref={editorDiv} />
 }

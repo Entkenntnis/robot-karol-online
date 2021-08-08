@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { useImmer } from 'use-immer'
 
 import 'react-reflex/styles.css'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
@@ -58,9 +57,9 @@ export function App() {
                   Robot Karol Web
                 </a>
               </h1>
-              {core.current.ui.filename && (
+              {core.state.ui.filename && (
                 <div className="ml-2">
-                  Datei: <strong>{core.current.ui.filename}</strong>
+                  Datei: <strong>{core.state.ui.filename}</strong>
                 </div>
               )}
             </div>
