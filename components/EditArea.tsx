@@ -75,15 +75,6 @@ export function EditArea() {
 
   return (
     <>
-      <style jsx global>{`
-        .cm-editor {
-          outline: none !important;
-          min-height: 300px;
-        }
-        .cm-scroller {
-          overflow-x: initial !important;
-        }
-      `}</style>
       <div className="w-full text-base h-full overflow-auto flex flex-col outline-none">
         <div className="flex h-full overflow-y-auto relative">
           <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>

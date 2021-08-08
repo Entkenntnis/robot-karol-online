@@ -791,14 +791,6 @@ class Core {
           to: f.to,
           severity: 'error',
           message: `"${f.code}" ist kein bekannter Befehl`,
-          actions: [
-            {
-              name: 'Löschen',
-              apply: (view, from, to) => {
-                view.dispatch({ changes: { from, to, insert: '' } })
-              },
-            },
-          ],
         })
       }
     }

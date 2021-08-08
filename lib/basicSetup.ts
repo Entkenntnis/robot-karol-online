@@ -114,6 +114,28 @@ const exampleLanguage = LezerLanguage.define({
   },
 })
 
+const Theme = EditorView.theme({
+  '&': {
+    outline: 'none !important',
+  },
+  '.cm-content': {
+    minHeight: '300px',
+  },
+  '.cm-gutters': {
+    minHeight: '300px',
+    minWidth: '30px',
+    display: 'flex',
+    justifyContent: 'end',
+  },
+  '.cm-scroller': {
+    overflowX: 'initial !important',
+    fontFamily: 'Hack, monospace',
+  },
+  '.cm-completionLabel': {
+    fontFamily: 'Hack, monospace',
+  },
+})
+
 export const editable = new Compartment()
 
 export const basicSetup = (l: any) => [
@@ -137,6 +159,7 @@ export const basicSetup = (l: any) => [
   editable.of(EditorView.editable.of(true)),
   exampleLanguage,
   linter(l),
+  Theme,
   /*EditorView.domEventHandlers({
     drop(e) {
       console.log(e)
