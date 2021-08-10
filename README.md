@@ -1,10 +1,8 @@
 # Robot Karol Web
 
-![grafik](https://user-images.githubusercontent.com/13507950/128488062-3c1bdba3-0992-4354-b944-7f1af8ca1fa1.png)
+Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung: https://robot-karol-web.vercel.app/
 
-Dein spielerische Einstieg in die Programmierung - direkt im Browser.
-
-Probiere es gleich hier aus: https://robot-karol-web.vercel.app/
+[![grafik](https://user-images.githubusercontent.com/13507950/128869418-bb857426-1206-46f5-90ac-59875d181de0.png)](https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/karol.json)
 
 ## Didaktik
 
