@@ -16,16 +16,46 @@ Quelle: https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/
 
 ## Funktionsumfang
 
+Aufbauend auf derProgrammierumgebung von [Robot Karol 3.0](https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/) bietet Robot Karol Web folgende Funktionen und **Erweiterungen**:
+
 - Editor für die Sprache Karol, mit Syntaxhervorhebung und **Autovervollständigung**
 - Syntaxüberprüfung im Hintergrund mit **Fehlerhervorhebung direkt im Code**
 - grafischen Darstellung einer 3D-Welt, die den Roboter Karol als Figur im Raum zeigt und diese je nach Anweisungen bewegt
 - Implementation als Web-App, damit ohne Installation **im Browser lauffähig**
 
-Die markierten Funktionen sind Ergänzungen zur Desktop-Version von [Robot Karol 3.0](https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/).
-
 ## Sprache
 
-- Grundbefehle: Schritt, LinksDrehen, RechtsDrehen, Hinlegen, Aufheben, MarkeSetzen, MarkeLöschen
+Über die letzten Jahre hat Robot Karol immer wieder weiterentwickelt und hat neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Das Ergebnis wir hier nun vorgestellt:
+
+### Bewegungen
+
+`Schritt` - Karol geht einen Schritt nach vorne. Befehl hat keine Wirkung, wenn Karol vor einer Wand oder einem Quader steht, oder wenn er dabei zwei oder mehr Ziegelhöhen überwinden muss.
+
+`LinksDrehen` - Karol dreht sich um 90° nach links.
+
+`RechtsDrehen` - Karol dreht sich um 90° nach rechts.
+
+`Hinlegen` - Karol legt vor sich einen Ziegel. Befehl hat keine Wirkung, wenn Karol vor einer Wand oder einem Quader steht, oder wenn der Ziegelstapel bereits die maximale Höhe der Welt erreicht hat.
+
+`Aufheben` - Karol hebt einen Ziegel vor sich auf. Befehl hat keine Wirkung, wenn Karol nicht vor einem Ziegel steht.
+
+`MarkeSetzen` - Karol setzt unter sich eine Marke. Befehl hat keine Wirkung, wenn Marke bereits vorhanden.
+
+`MarkeLöschen` - Karol löscht Marke unter sich. Befehl hat keine Wirkung, wenn keine Marke vorhanden.
+
+### Steuerung
+
+`wiederhole {n} mal {Anweisungen} endewiederhole` - Wiederholung mit fester Anzahl, die *Anweisungen* werden *n*-mal wiederholt.
+
+`wiederhole solange {Bedingung} {Anweisungen} endewiederhole` - Wiederholung mit Bedingung, solange die *Bedingung* erfüllt ist, werden die `{Anweisungen}` wiederholt.
+
+`wenn {Bedingung} dann {Anweisungen} endewenn` - Einseitige bedingte Anweisung, die *Anweisungen* werden nur ausgeführt, wenn die *Bedingung* erfüllt ist.
+
+`wenn {Bedingung} dann {Anweisungen A} sonst {Anweisungen B} endewenn` - Zweiseitig bedingte Anweisung, je nach dem, ob die *Bedinung* erfüllt ist, werden entweder *Anweisungen A* oder *Anweisungen B* ausgeführt.
+
+`Beenden` - Karol beendet die Ausführung des Programms.
+
+### OLD
 - Steuerung: wenn - dann, wenn - dann - sonst, wiederhole n mal, wiederhole solange
 - Bedingungen: IstWand, IstZiegel, IstMarke, NichtIstWand, NichtIstZiegel, NichtIstMarke
 - Anweisungen: Anweisung, Unterbrechen(*)
