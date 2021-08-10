@@ -1,6 +1,8 @@
 # Robot Karol Web
 
-Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung: https://robot-karol-web.vercel.app/
+Zum Editor → https://robot-karol-web.vercel.app/
+
+Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.
 
 [![grafik](https://user-images.githubusercontent.com/13507950/128869418-bb857426-1206-46f5-90ac-59875d181de0.png)](https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/karol.json)
 
