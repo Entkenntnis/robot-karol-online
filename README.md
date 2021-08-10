@@ -76,9 +76,9 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 Über die letzten Jahre hat sich Robot Karol immer wieder weiterentwickelt und neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Beim Umstieg sind bezüglich der Sprache folgende Punkte zu beachten:
 
 - Um den Quelltext einheitlicher zu gestalten, wird nun zwischen Groß- und Kleinschreibung unterschieden. Die Autovervollständigung hilft bei der korrekten Schreibung
-- Alte Versionen oder alternative Varianten wie `*wenn`, `*Anweisung` oder `Programm` werden nicht mehr unterstützt
+- Alte oder alternative Varianten der Kontrollstrukturen wie `*wenn`, `*Anweisung` oder `Programm` werden nicht mehr unterstützt
 - Bedingungen fallen raus, d.h. es lassen sich über `Bedingung`, `wahr` und `falsch` keine eigenen Bedingungen mehr definieren, sondern wird durch den Befehl `Unterbrechen` ersetzt
-- Farben sind nicht implementiert
+- Farbige Ziegel und Marken sind nicht implementiert
 - Zur Vereinfachung fallen auch alle anderen parametrisierten Varianten raus, dazu gehören `Schritt(n)`, `Hinlegen(farbe)`, `IstZiegel(n)` usw. Die übrigen Funktionen lassen sich mit dem vorhandenen Befehlssatz umsetzen.
 - Der Rucksack ist nicht implementiert
 - Himmelsrichtungen sind nicht implementiert
