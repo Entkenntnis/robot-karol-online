@@ -168,16 +168,6 @@ function buildMyAutocomplete(): CompletionSource {
 
     const lastEndedNode = tree.resolve(pos, -1)
 
-    const cmdNames = []
-
-    const c = tree.cursor()
-    do {
-      if (c.name == 'CmdName') {
-        const code = context.state.doc.sliceString(c.from, c.to)
-        cmdNames.push(code)
-      }
-    } while (c.next())
-
     // debug
     /*const cursor = tree.cursor()
     console.log('-- tree start --')
@@ -202,15 +192,43 @@ function buildMyAutocomplete(): CompletionSource {
 
     let options = generalOptions.map((o) => ({ ...o }))
 
-    for (const label of cmdNames) {
-      options.push({ label })
-    }
+    const pendings: ('repeat' | 'if' | 'cmd')[] = []
 
-    if (
-      lastEndedNode.name == 'RepeatTimesKey' ||
-      (lastEndedNode.name == 'Condition' &&
-        lastEndedNode.parent?.name == 'Repeat')
-    ) {
+    const c = tree.cursor()
+    do {
+      if (c.name == 'CmdName') {
+        const code = context.state.doc.sliceString(c.from, c.to)
+        options.push({ label: code })
+      }
+      if (c.name == 'RepeatStart' && c.to <= pos) {
+        pendings.push('repeat')
+      }
+      if (c.name == 'RepeatEnd' && c.to <= pos) {
+        if (pendings[pendings.length - 1] == 'repeat') {
+          pendings.pop()
+        }
+      }
+      if (c.name == 'IfKey' && c.to <= pos) {
+        pendings.push('if')
+      }
+      if (c.name == 'IfEndKey' && c.to <= pos) {
+        if (pendings[pendings.length - 1] == 'if') {
+          pendings.pop()
+        }
+      }
+      if (c.name == 'CmdStart' && c.to <= pos) {
+        pendings.push('cmd')
+      }
+      if (c.name == 'CmdEnd' && c.to <= pos) {
+        if (pendings[pendings.length - 1] == 'cmd') {
+          pendings.pop()
+        }
+      }
+    } while (c.next())
+
+    const last = pendings.pop()
+
+    if (last == 'repeat') {
       options.forEach((o) => {
         if (o.label == 'endewiederhole') {
           o.boost = 3
@@ -218,7 +236,7 @@ function buildMyAutocomplete(): CompletionSource {
       })
     }
 
-    if (lastEndedNode.name == 'CmdName') {
+    if (last == 'cmd') {
       options.forEach((o) => {
         if (o.label == 'endeAnweisung') {
           o.boost = 3
@@ -226,8 +244,7 @@ function buildMyAutocomplete(): CompletionSource {
       })
     }
 
-    if (lastEndedNode.name == 'ThenKey' || lastEndedNode.name == 'ElseKey') {
-      console.log('test')
+    if (last == 'if') {
       options.forEach((o) => {
         if (o.label == 'endewenn') {
           o.boost = 3
