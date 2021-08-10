@@ -27,7 +27,7 @@ Aufbauend auf derProgrammierumgebung von [Robot Karol 3.0](https://www.mebis.bay
 
 Über die letzten Jahre hat Robot Karol immer wieder weiterentwickelt und hat neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Das Ergebnis wir hier nun vorgestellt:
 
-### Bewegungen
+### Bewegung
 
 `Schritt` - Karol geht einen Schritt nach vorne. Befehl hat keine Wirkung, wenn Karol vor einer Wand oder einem Quader steht, oder wenn er dabei zwei oder mehr Ziegelhöhen überwinden muss.
 
@@ -55,7 +55,26 @@ Aufbauend auf derProgrammierumgebung von [Robot Karol 3.0](https://www.mebis.bay
 
 `Beenden` - Karol beendet die Ausführung des Programms.
 
-### OLD
+### Bedingung
+
+`IstWand` / `NichtIstWand` - Karol testet, ob vor ihm eine Wand (oder ein Quader) ist oder nicht.
+
+`IstZiegel` / `NichtIstZiegel` - Karol testet, ob vor ihm Ziegel liegen oder nicht.
+
+`IstMarke` / `NichtIstMarke` - Karol testet, ob er auf einer Marke steht oder nicht.
+
+### Anweisungen
+
+`Anweisung {Name} endeAnweisung` - Definiert eine Anweisung, die innerhalb des Programms verwendet werden kann.
+
+`Unterbrechen` - Karol unterbricht die Ausführung der aktuellen Anweisung und springt zum Aufrufer zurück.
+
+### Ausgelassene Funktionen
+
+TODO
+
+
+## LALALA
 - Steuerung: wenn - dann, wenn - dann - sonst, wiederhole n mal, wiederhole solange
 - Bedingungen: IstWand, IstZiegel, IstMarke, NichtIstWand, NichtIstZiegel, NichtIstMarke
 - Anweisungen: Anweisung, Unterbrechen(*)
