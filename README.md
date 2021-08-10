@@ -98,6 +98,18 @@ Diese Beispiele sollen zeigen, welche Algorithmen mit Robot Karol umsetzbar sind
 
 Karol baut ein Schwimmbad und schwimmt hindurch: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/schwimmbad.json
 
+### Schachbrett
+
+Karol legt mit Marken ein Schachbrettmuster: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/schachbrett.json
+
+### Invertieren
+
+Karol invertiert den gesamten Boden: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/invertieren.json
+
+### Aufräumen
+
+Karol hebt alle Ziegel auf und plaziert sie hinter dem gelben Streifen: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/stapeln.json
+
 ### Raum verlassen
 
 Karol findet den Weg aus einem beliebigen Raum heraus: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/raum_verlassen.json
