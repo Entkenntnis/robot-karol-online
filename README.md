@@ -6,23 +6,24 @@ Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.
 
 [![grafik](https://user-images.githubusercontent.com/13507950/128869418-bb857426-1206-46f5-90ac-59875d181de0.png)](https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/karol.json)
 
-## Didaktik
+## Übersicht
 
-### Lernziele:
+> Robot Karol ist eine Programmierumgebung mit einer Programmiersprache, die für Schülerinnen und Schüler zum Erlernen des Programmierens und zur Einführung in die Algorithmik gedacht ist. Robot Karol folgt der Tradition der “Mini-Languages”. Dies sind Programmiersprachen, die bewusst über einen kleinen, übersichtlichen Sprachumfang verfügen, um den Einstieg in die Algorithmik zu erleichtern.
 
-Die Schülerinnen und Schüler ...
+> Dem Programm Robot Karol liegt die Idee von [„Karel the Robot“](https://www.cs.mtsu.edu/~untch/karel/index.html) zugrunde, wie sie zum ersten Mal von Richard E. Pattis in “Karel the Robot: A Gentle Introduction to the Art of Programming” veröffentlicht wurde. Die Idee ist, einen Roboter zu programmieren, der in einer “Bildschirmwelt” lebt. Wenn Karol-Programme ablaufen, sehen die Schülerinnen und Schüler an der Reaktion des Roboters sofort, was sie programmiert haben und ob ihr Programm die Aufgabenstellung erfüllt.
 
-- analysieren und strukturieren geeignete Problemstellungen u. a. aus ihrer Erfahrungswelt (z. B. Bedienung eines Geräts), entwickeln Algorithmen zu deren Lösung und beschreiben diese unter effizienter Verwendung von Kontrollstrukturen.
-- setzen unter sinnvoller Nutzung algorithmischer Bausteine einfache Algorithmen mithilfe geeigneter Programmierwerkzeuge um. 
+Quelle: https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/
 
-### Inhalte
+## Funktionsumfang
 
-- Algorithmus: Definition des Begriffs, Strukturelemente (Anweisung, Sequenz, ein- und zweiseitig bedingte Anweisung, Wiederholung mit fester Anzahl, Wiederholung mit Bedingung)
-- Fachbegriffe: Algorithmus, Anweisung, Sequenz, ein- und zweiseitig bedingte Anweisung, Wiederholung mit fester Anzahl, Wiederholung mit Bedingung 
+- Editor für die Sprache Karol, mit Syntaxhervorhebung und **Autovervollständigung**
+- Syntaxüberprüfung im Hintergrund mit **Fehlerhervorhebung direkt im Code**
+- grafischen Darstellung einer 3D-Welt, die den Roboter Karol als Figur im Raum zeigt und diese je nach Anweisungen bewegt
+- Implementation als Web-App, damit ohne Installation **im Browser lauffähig**
 
-Quelle: [Lehrplan Bayern, NT7 2.3](https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/7/nt_gym)
+Die markierten Funktionen sind Ergänzungen zur Desktop-Version von [Robot Karol 3.0](https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/).
 
-## Sprachumfang
+## Sprache
 
 - Grundbefehle: Schritt, LinksDrehen, RechtsDrehen, Hinlegen, Aufheben, MarkeSetzen, MarkeLöschen
 - Steuerung: wenn - dann, wenn - dann - sonst, wiederhole n mal, wiederhole solange
