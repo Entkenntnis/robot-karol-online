@@ -25,8 +25,6 @@ Aufbauend auf derProgrammierumgebung von [Robot Karol 3.0](https://www.mebis.bay
 
 ## Sprache
 
-Über die letzten Jahre hat Robot Karol immer wieder weiterentwickelt und hat neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Das Ergebnis wir hier nun vorgestellt:
-
 ### Bewegung
 
 `Schritt` - Karol geht einen Schritt nach vorne. Befehl hat keine Wirkung, wenn Karol vor einer Wand oder einem Quader steht, oder wenn er dabei zwei oder mehr Ziegelhöhen überwinden muss.
@@ -55,7 +53,7 @@ Aufbauend auf derProgrammierumgebung von [Robot Karol 3.0](https://www.mebis.bay
 
 `Beenden` - Karol beendet die Ausführung des Programms.
 
-### Bedingung
+### Bedingungen
 
 `IstWand` / `NichtIstWand` - Karol testet, ob vor ihm eine Wand (oder ein Quader) ist oder nicht.
 
@@ -63,25 +61,34 @@ Aufbauend auf derProgrammierumgebung von [Robot Karol 3.0](https://www.mebis.bay
 
 `IstMarke` / `NichtIstMarke` - Karol testet, ob er auf einer Marke steht oder nicht.
 
-### Anweisungen
+### Eigene Anweisungen
 
-`Anweisung {Name} endeAnweisung` - Definiert eine Anweisung, die innerhalb des Programms verwendet werden kann.
+`Anweisung {Name} endeAnweisung` - Definiert eine eigene Anweisung, die innerhalb des Programms verwendet werden kann.
 
 `Unterbrechen` - Karol unterbricht die Ausführung der aktuellen Anweisung und springt zum Aufrufer zurück.
 
-### Ausgelassene Funktionen
+### Kommentare
 
-TODO
+`{ Kommentar }` - Text, der in geschweifte Klammern steht, wird bei der Ausführung ignoriert.
 
+## Umstieg
 
-## LALALA
-- Steuerung: wenn - dann, wenn - dann - sonst, wiederhole n mal, wiederhole solange
-- Bedingungen: IstWand, IstZiegel, IstMarke, NichtIstWand, NichtIstZiegel, NichtIstMarke
-- Anweisungen: Anweisung, Unterbrechen(*)
+Über die letzten Jahre hat sich Robot Karol immer wieder weiterentwickelt und neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Beim Umstieg sind bezüglich der Sprache folgende Punkte zu beachten:
 
-(Unterbrechen beendet die Ausführung einer selbstdefinierten Anweisung, entspricht einem `return`. Das ist eine Erweiterung zu Robot Karol. Damit werden keine selbstdefinierten Bedingungen benötigt, sondern können über entsprechende Anweisungen umgesetzt werden)
+- Um den Quelltext einheitlicher zu gestalten, wird nun zwischen Groß- und Kleinschreibung unterschieden. Die Autovervollständigung hilft bei der korrekten Schreibung
+- Alte Versionen oder alternative Varianten wie `*wenn`, `*Anweisung` oder `Programm` werden nicht mehr unterstützt
+- Bedingungen fallen raus, d.h. es lassen sich über `Bedingung`, `wahr` und `falsch` keine eigenen Bedingungen mehr definieren, sondern wird durch den Befehl `Unterbrechen` ersetzt
+- Farben sind nicht implementiert
+- Zur Vereinfachung fallen auch alle anderen parametrisierten Varianten raus, dazu gehören `Schritt(n)`, `Hinlegen(farbe)`, `IstZiegel(n)` usw. Die übrigen Funktionen lassen sich mit dem vorhandenen Befehlssatz umsetzen.
+- Der Rucksack ist nicht implementiert
+- Himmelsrichtungen sind nicht implementiert
+- Alternative Schleifen-Varianten (wiederhole immer, wiederhole bis, ...) sind nicht unterstützt, außerdem wird das `nicht` Schlüsselwort bei Bedingungen nicht mehr benötigt
+- Objekt-Notation und Semikolon sind nicht implementiert
+- Ton nicht implementiert
+- schnell/langsam ist nicht implementiert
+- Einbindung von Bibliothek nicht implementiert
 
-Für mehr Funktionen kann auf die Originalversion von Robot Karol unter https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/ zurückgegriffen werden.
+Falls eine dieser Punkte den Einsatz von Robot Karol Web verhindert, würde ich mich über eine Nachricht freuen. Dann kann ich nochmal die Vorteile und Nachteile eines Einbezugs untersuchen. Ansonsten steht es natürlich weiterhin frei, die vorhandene Desktop-Version von Robot Karol zu nutzen.
 
 ## Beispiele
 
@@ -94,14 +101,6 @@ Karol baut ein Schwimmbad und schwimmt hindurch: https://robot-karol-web.vercel.
 Karol findet aus einem Labyrinth heraus. Mauern bestehen aus 2 Ziegeln, das Ziel besteht asu einem Ziegel.
 
 Öffnen: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/labyrinth.json
-
-### Brainfuck
-
-Hier ein Beweis, dass die Sprache von Robot Karol turing-vollständig ist. Der Beweis gelingt durch die Implementation eines Interpreter für die esoterische Sprache Brainfuck.
-
-Addition: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck.json
-
-Multiplikation: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck_multiplizieren.json
 
 ### Sortieren
 
@@ -118,3 +117,11 @@ Karol findet einen Weg aus einem Raum mit Mauern: https://robot-karol-web.vercel
 ### Floodfill
 
 Karol füllt eine Fläche: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/füllen.json
+
+### Brainf*ck
+
+Hier ein Beweis, dass die Sprache von Robot Karol turing-vollständig ist. Der Beweis gelingt durch die Implementation eines Interpreter für die esoterische Sprache Brainfuck.
+
+Addition: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck.json
+
+Multiplikation: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck_multiplizieren.json
