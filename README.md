@@ -16,7 +16,7 @@ Quelle: https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/
 
 ## Funktionsumfang
 
-Aufbauend auf derProgrammierumgebung von [Robot Karol 3.0](https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/) bietet Robot Karol Web folgende Funktionen und **Erweiterungen**:
+Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/) bietet Robot Karol Web folgende Funktionen und **Erweiterungen**:
 
 - Editor für die Sprache Karol, mit Syntaxhervorhebung und **Autovervollständigung**
 - Syntaxüberprüfung im Hintergrund mit **Fehlerhervorhebung direkt im Code**
@@ -84,9 +84,9 @@ Aufbauend auf derProgrammierumgebung von [Robot Karol 3.0](https://www.mebis.bay
 - Himmelsrichtungen sind nicht implementiert
 - Alternative Schleifen-Varianten (wiederhole immer, wiederhole bis, ...) sind nicht unterstützt, außerdem wird das `nicht` Schlüsselwort bei Bedingungen nicht mehr benötigt
 - Objekt-Notation und Semikolon sind nicht implementiert
-- Ton nicht implementiert
+- Ton ist nicht implementiert
 - schnell/langsam ist nicht implementiert
-- Einbindung von Bibliothek nicht implementiert
+- Einbindung von Bibliothek ist nicht implementiert
 
 Falls eine dieser Punkte den Einsatz von Robot Karol Web verhindert, würde ich mich über eine Nachricht freuen. Dann kann ich nochmal die Vorteile und Nachteile eines Einbezugs untersuchen. Ansonsten steht es natürlich weiterhin frei, die vorhandene Desktop-Version von Robot Karol zu nutzen.
 
