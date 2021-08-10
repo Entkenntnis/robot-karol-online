@@ -27,31 +27,31 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 
 ### Bewegung
 
-`Schritt` - Karol geht einen Schritt nach vorne. Befehl hat keine Wirkung, wenn Karol vor einer Wand oder einem Quader steht, oder wenn er dabei zwei oder mehr Ziegelhöhen überwinden muss.
+`Schritt` - Karol geht einen Schritt nach vorne.
 
 `LinksDrehen` - Karol dreht sich um 90° nach links.
 
 `RechtsDrehen` - Karol dreht sich um 90° nach rechts.
 
-`Hinlegen` - Karol legt vor sich einen Ziegel. Befehl hat keine Wirkung, wenn Karol vor einer Wand oder einem Quader steht, oder wenn der Ziegelstapel bereits die maximale Höhe der Welt erreicht hat.
+`Hinlegen` - Karol legt vor sich einen Ziegel.
 
-`Aufheben` - Karol hebt einen Ziegel vor sich auf. Befehl hat keine Wirkung, wenn Karol nicht vor einem Ziegel steht.
+`Aufheben` - Karol hebt einen Ziegel vor sich auf.
 
-`MarkeSetzen` - Karol setzt unter sich eine Marke. Befehl hat keine Wirkung, wenn Marke bereits vorhanden.
+`MarkeSetzen` - Karol setzt unter sich eine Marke.
 
-`MarkeLöschen` - Karol löscht Marke unter sich. Befehl hat keine Wirkung, wenn keine Marke vorhanden.
+`MarkeLöschen` - Karol löscht Marke unter sich.
 
 ### Steuerung
 
-`wiederhole {n} mal {Anweisungen} endewiederhole` - Wiederholung mit fester Anzahl, die *Anweisungen* werden *n*-mal wiederholt.
+`wiederhole {n} mal {Anweisungen} endewiederhole` - Wiederholung mit fester Anzahl
 
-`wiederhole solange {Bedingung} {Anweisungen} endewiederhole` - Wiederholung mit Bedingung, solange die *Bedingung* erfüllt ist, werden die `{Anweisungen}` wiederholt.
+`wiederhole solange {Bedingung} {Anweisungen} endewiederhole` - Wiederholung mit Bedingung
 
-`wenn {Bedingung} dann {Anweisungen} endewenn` - Einseitige bedingte Anweisung, die *Anweisungen* werden nur ausgeführt, wenn die *Bedingung* erfüllt ist.
+`wenn {Bedingung} dann {Anweisungen} endewenn` - Einseitige bedingte Anweisung
 
-`wenn {Bedingung} dann {Anweisungen A} sonst {Anweisungen B} endewenn` - Zweiseitig bedingte Anweisung, je nach dem, ob die *Bedinung* erfüllt ist, werden entweder *Anweisungen A* oder *Anweisungen B* ausgeführt.
+`wenn {Bedingung} dann {Anweisungen A} sonst {Anweisungen B} endewenn` - Zweiseitig bedingte Anweisung
 
-`Beenden` - Karol beendet die Ausführung des Programms.
+`Beenden` - Karol beendet an dieser Stelle die Ausführung des Programms.
 
 ### Bedingungen
 
@@ -65,7 +65,7 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 
 `Anweisung {Name} endeAnweisung` - Definiert eine eigene Anweisung, die innerhalb des Programms verwendet werden kann.
 
-`Unterbrechen` - Karol unterbricht die Ausführung der aktuellen Anweisung und springt zum Aufrufer zurück.
+`Unterbrechen` - Karol unterbricht die Ausführung der aktuellen Anweisung und springt zum Aufrufer zurück (d.h. ein _return_-statement).
 
 ### Kommentare
 
@@ -92,15 +92,23 @@ Falls eine dieser Punkte den Einsatz von Robot Karol Web verhindert, würde ich 
 
 ## Beispiele
 
+Diese Beispiele sollen zeigen, welche Algorithmen mit Robot Karol umsetzbar sind. Dabei sind der Kreativität kaum Grenzen gesetzt.
+
 ### Schwimmbad
 
 Karol baut ein Schwimmbad und schwimmt hindurch: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/schwimmbad.json
 
+### Raum verlassen
+
+Karol findet den Weg aus einem beliebigen Raum heraus: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/raum_verlassen.json
+
+### Floodfill
+
+Karol füllt eine Fläche mit dem rekursivenFloodfill-Algorithmus: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/füllen.json
+
 ### Labyrinth
 
-Karol findet aus einem Labyrinth heraus. Mauern bestehen aus 2 Ziegeln, das Ziel besteht asu einem Ziegel.
-
-Öffnen: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/labyrinth.json
+Karol findet das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Ziel besteht aus einem Ziegel: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/labyrinth.json
 
 ### Sortieren
 
@@ -110,18 +118,18 @@ Karol sortiert eine Reihe von Ziegelstapel der Größe nach.
 
 8 Stapel: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren_verbessert.json
 
-### Raum verlassen
+### Turing-Vollständigkeit
 
-Karol findet einen Weg aus einem Raum mit Mauern: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/raum_verlassen.json
+Zum krönenden Abschluss soll in diesem Beispiel bewiesen werden, dass Robot Karol turing-vollständig ist. Das heißt, dass jede berechenbare Funktion von Karol implementiert werden kann.
 
-### Floodfill
+Der Beweis gelingt durch die Nutzung von brainf_ck - einer esoterischen Sprache, die an sich bereits turing-vollständig ist. Gelingt es, diese Sprache umzusetzen, dann ist die Vollständigkeit bewiesen.
 
-Karol füllt eine Fläche: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/füllen.json
-
-### Brainf*ck
-
-Hier ein Beweis, dass die Sprache von Robot Karol turing-vollständig ist. Der Beweis gelingt durch die Implementation eines Interpreter für die esoterische Sprache Brainfuck.
+Ein solcher Interpreter ist möglich. Die beiden folgenden Dateien zeigen einmal ein Beispiel für die Addition und einmal für die Multiplikation. Der brainf_uck Quellcode steht an der hinteren Wand. Die Speicherzellen finden sich an der linken Wand.
 
 Addition: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck.json
 
 Multiplikation: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck_multiplizieren.json
+
+## Kontakt
+
+Nachrichten können gerne direkt auf Github in den Issues angelegt werden.
