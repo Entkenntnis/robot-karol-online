@@ -134,9 +134,10 @@ export function EditArea() {
               className="bg-green-300 rounded-2xl py-0.5 px-3 m-1 ml-3 hover:bg-green-400 transition-colors"
               onClick={() => {
                 if (core.view) {
+                  const selection = core.view.state.selection
                   selectAll(core.view)
                   indentSelection(core.view)
-                  cursorDocStart(core.view)
+                  core.view.dispatch({ selection })
                   //console.log('disable editable')
                   core.view.dispatch({
                     effects: editable.reconfigure(
