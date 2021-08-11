@@ -122,7 +122,7 @@ Karol füllt eine Fläche mit dem rekursivenFloodfill-Algorithmus: https://robot
 
 Karol findet das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Ziel besteht aus einem Ziegel: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/labyrinth.json
 
-### Binärzahl als Dezimalzahl darstellen
+### Binärzahl als Dezimalzahl ausgeben
 
 Karol liest eine Binärzahl ein und zeigt diese in dezimal an: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/binär_konverter.json
 
