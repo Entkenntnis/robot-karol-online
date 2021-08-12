@@ -85,10 +85,7 @@ export function EditArea() {
 
           <div className="w-full overflow-auto h-full flex">
             {codeState == 'running' && (
-              <div
-                data-label="gutter"
-                className="w-8 h-full bg-gray-50 relative border-r"
-              >
+              <div data-label="gutter" className="w-8 h-full relative">
                 {core.state.ui.gutter > 0 && (
                   <div
                     className="text-blue-500 absolute w-5 h-5 left-1"
@@ -98,7 +95,18 @@ export function EditArea() {
                   >
                     🡆
                   </div>
-                )}
+                )}{' '}
+                {core.state.ui.gutterReturns.map((pos, i) => (
+                  <div
+                    key={i}
+                    className="text-yellow-300 absolute w-5 h-5 left-3"
+                    style={{
+                      top: `${4 + (pos - 1) * 22.4 - 2}px`,
+                    }}
+                  >
+                    ⮮
+                  </div>
+                ))}
               </div>
             )}
             <div className="w-full h-full flex flex-col">

@@ -277,6 +277,7 @@ class Core {
       vm.checkpoint = this.state.world
       vm.pc = vm.entry
       vm.frames = [{}]
+      ui.gutterReturns = []
     })
     //console.log(this.current.vm.bytecode)
     setTimeout(this.step.bind(this), 500)
@@ -306,6 +307,8 @@ class Core {
       this.current.vm.counter,
       this.current.vm.callstack
     )*/
+
+    console.log(this.state.ui.gutterReturns)
 
     if (op.type == 'action') {
       this.mutate((state) => {
@@ -408,10 +411,11 @@ class Core {
         return
       }
       if (op.type == 'call') {
-        this.mutate(({ vm }) => {
+        this.mutate(({ vm, ui }) => {
           vm.callstack.push(vm.pc + 1)
           vm.frames.push({})
           vm.pc = op.target
+          ui.gutterReturns.push(op.line)
         })
         const h = setTimeout(() => {
           core.step()
@@ -422,7 +426,8 @@ class Core {
         return
       }
       if (op.type == 'return') {
-        this.mutate(({ vm }) => {
+        this.mutate(({ vm, ui }) => {
+          ui.gutterReturns.pop()
           const target = vm.callstack.pop()
           vm.frames.pop()
           vm.pc = target ?? Infinity
@@ -560,6 +565,7 @@ function getDefaultCoreState(): CoreState {
     ui: {
       messages: [],
       gutter: 0,
+      gutterReturns: [],
       state: 'loading',
       needTextRefresh: false,
       wireframe: false,

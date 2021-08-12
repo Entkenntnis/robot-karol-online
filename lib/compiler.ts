@@ -79,7 +79,8 @@ export function compile(view: EditorView) {
         }
       }
       if (cursor.name == 'CustomRef') {
-        const op: Op = { type: 'call', target: -1 }
+        const line = view.state.doc.lineAt(cursor.from).number
+        const op: Op = { type: 'call', target: -1, line }
         functions.push({ op, code, from: cursor.from, to: cursor.to })
         output.push(op)
       }

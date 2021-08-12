@@ -25,6 +25,7 @@ export interface Message {
 export interface Ui {
   messages: Message[]
   gutter: number
+  gutterReturns: number[]
   state: 'ready' | 'loading' | 'running' | 'error'
   needTextRefresh: boolean
   filename?: string
@@ -95,6 +96,7 @@ export interface JumpCondOp {
 export interface CallOp {
   type: 'call'
   target: number
+  line: number
 }
 
 export interface ReturnOp {
