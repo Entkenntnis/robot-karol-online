@@ -92,7 +92,7 @@ Falls eine dieser Punkte den Einsatz von Robot Karol Web verhindert, würde ich 
 
 ## Einleitung
 
-Siehe https://github.com/Entkenntnis/robot-karol-web/main/algorithmen.md.
+Siehe https://github.com/Entkenntnis/robot-karol-web/blob/main/algorithmen.md
 
 ## Beispiele
 
