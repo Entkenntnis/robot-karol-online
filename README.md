@@ -138,6 +138,10 @@ Karol sortiert eine Reihe von Ziegelstapel der Größe nach.
 
 8 Stapel: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren_verbessert.json
 
+### Game of Life
+
+Karol simuliert Conways Game of Life: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/game_of_life.json
+
 ### Turing-Vollständigkeit
 
 Zum krönenden Abschluss soll in diesem Beispiel bewiesen werden, dass Robot Karol turing-vollständig ist. Das heißt, dass jede berechenbare Funktion von Karol implementiert werden kann.
