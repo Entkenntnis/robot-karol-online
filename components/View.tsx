@@ -15,6 +15,7 @@ interface Resources {
   marke: HTMLImageElement
   quader: HTMLImageElement
   ziegelWire: HTMLImageElement
+  inverter: HTMLImageElement
   ctx: CanvasRenderingContext2D
 }
 
@@ -81,6 +82,11 @@ export function View({ world, wireframe }: ViewProps) {
             quader.onload = r
             quader.src = '/quader.png'
           })
+          const inverter = new Image()
+          await new Promise((r) => {
+            inverter.onload = r
+            inverter.src = '/chips/inverter.png'
+          })
           setResources({
             ziegel,
             ctx,
@@ -91,6 +97,7 @@ export function View({ world, wireframe }: ViewProps) {
             marke,
             quader,
             ziegelWire,
+            inverter,
           })
         }
       }
@@ -110,6 +117,7 @@ export function View({ world, wireframe }: ViewProps) {
         marke,
         quader,
         ziegelWire,
+        inverter,
       } = resources
 
       ctx.save()
@@ -157,6 +165,13 @@ export function View({ world, wireframe }: ViewProps) {
         to2d(world.dimX, 0, world.height),
         to2d(0, 0, world.height)
       )
+
+      for (const chip of world.chips) {
+        if (chip.type == 'inverter') {
+          const p = to2d(chip.x, chip.y, 0)
+          ctx.drawImage(inverter, p.x - 47, p.y - 3)
+        }
+      }
 
       for (let x = 0; x < world.dimX; x++) {
         for (let y = 0; y < world.dimY; y++) {

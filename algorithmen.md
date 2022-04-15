@@ -1,1 +1,0 @@
-# Algorithmen mit Robot Karol

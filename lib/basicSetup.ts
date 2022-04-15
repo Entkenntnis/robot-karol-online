@@ -9,10 +9,16 @@ import {
   indentOnInput,
   continuedIndent,
   indentNodeProp,
-  LezerLanguage,
+  LRLanguage,
   syntaxTree,
 } from '@codemirror/language'
-import { defaultKeymap, defaultTabBinding } from '@codemirror/commands'
+import {
+  defaultKeymap,
+  indentSelection,
+  indentWithTab,
+  selectAll,
+  simplifySelection,
+} from '@codemirror/commands'
 import { history, historyKeymap } from '@codemirror/history'
 import { lineNumbers, highlightActiveLineGutter } from '@codemirror/gutter'
 import {
@@ -65,7 +71,7 @@ const parserWithMetadata = parser.configure({
   ],
 })
 
-const exampleLanguage = LezerLanguage.define({
+const exampleLanguage = LRLanguage.define({
   parser: parserWithMetadata,
   languageData: {
     indentOnInput: /^\s*(en|so)/,
@@ -78,7 +84,7 @@ const Theme = EditorView.theme({
     outline: 'none !important',
   },
   '.cm-content': {
-    minHeight: '300px',
+    minHeight: '280px',
   },
   '.cm-gutters': {
     minHeight: '300px',
@@ -110,7 +116,19 @@ export const basicSetup = (l: any) => [
     ...historyKeymap,
     ...lintKeymap,
     ...completionKeymap,
-    defaultTabBinding,
+    indentWithTab,
+    {
+      key: 'Ctrl-s',
+      run: (view) => {
+        // auto format
+        const selection = view.state.selection
+        selectAll(view)
+        indentSelection(view)
+        simplifySelection(view)
+        view.dispatch({ selection })
+        return true
+      },
+    },
   ]),
   autocompletion(),
   EditorState.tabSize.of(2),

@@ -1,11 +1,12 @@
 import Head from 'next/head'
 
-import 'react-reflex/styles.css'
-import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
-import { createContext, useContext, useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { Player } from './Player'
 import { EditArea } from './EditArea'
 import { CoreProvider, useCreateCore } from '../lib/core'
+import { Research } from './Research'
+import { Workspace } from './Workspace'
+import clsx from 'clsx'
 
 export function App() {
   const core = useCreateCore()
@@ -24,7 +25,7 @@ export function App() {
         ;(async () => {
           const res = await fetch(file)
           const text = await res.text()
-          core.deserialize(text)
+          //core.deserialize(text)
         })()
       } catch (e) {}
     }
@@ -45,10 +46,10 @@ export function App() {
         `}
       </style>
       <CoreProvider value={core}>
-        <div className="w-full h-full  min-w-[900px] flex flex-col">
-          <div className="h-8 flex justify-between items-center flex-shrink-0 bg-gray-200">
+        <div className="w-full h-full  min-w-[900px] flex flex-col relative">
+          <div className="h-8 flex justify-between items-center flex-shrink-0 bg-gray-200 hidden">
             <div className="h-full flex items-center">
-              <h1 className="pl-4 hover:underline bg-yellow-400 h-full pt-1 pr-4">
+              <h1 className="pl-4 hover:underline bg-red-700 text-white h-full pt-1 pr-4">
                 <a
                   href="https://github.com/Entkenntnis/robot-karol-web"
                   target="_blank"
@@ -80,12 +81,12 @@ export function App() {
 
                     fr.onload = () => {
                       //console.log(files[0].name)
-                      core.deserialize(fr.result?.toString(), files[0].name)
+                      //core.deserialize(fr.result?.toString(), files[0].name)
                     }
                   }
                 }}
               />
-              <button
+              {/*<button
                 className="mx-3 px-2 bg-green-300 rounded-2xl hover:bg-green-400 transition-colors"
                 onClick={() => {
                   document.getElementById('load_project')?.click()
@@ -112,32 +113,25 @@ export function App() {
                 }}
               >
                 Projekt speichern
-              </button>
+              </button>*/}
             </div>
           </div>
-          <div className="overflow-hidden flex-grow">
-            <ReflexContainer
-              orientation="vertical"
-              windowResizeAware
-              className="h-full"
+          {!core.state.showResearchCenter && (
+            <button
+              className={clsx(
+                'absolute right-1 top-1 rounded z-10',
+                'px-2 py-0.5 bg-blue-300 hover:bg-blue-400'
+              )}
+              onClick={() => {
+                core.state.showResearchCenter
+                  ? core.hideResearchCenter()
+                  : core.showResearchCenter()
+              }}
             >
-              <ReflexElement className="h-full" minSize={400}>
-                <EditArea />
-              </ReflexElement>
-
-              <ReflexSplitter style={{ width: 3 }} />
-
-              <ReflexElement minSize={400}>
-                <Player />
-              </ReflexElement>
-            </ReflexContainer>
-          </div>
-          <div className="bg-yellow-500 hidden justify-between items-center flex-shrink-0">
-            <div>Sprunghöhe: [Dropdown Menu]</div>
-            <div>PosX</div>
-            <div>PosY</div>
-            <div>Blickrichtung</div>
-          </div>
+              Forschungszentrum
+            </button>
+          )}
+          {core.state.showResearchCenter ? <Research /> : <Workspace />}
         </div>
       </CoreProvider>
     </>

@@ -14,6 +14,12 @@ export interface World {
   bricks: number[][]
   marks: boolean[][]
   blocks: boolean[][]
+  chips: {
+    x: number
+    y: number
+    type: 'inverter'
+    init: boolean
+  }[]
 }
 
 export interface Message {
@@ -31,6 +37,8 @@ export interface Ui {
   filename?: string
   originalWorld?: World
   wireframe: boolean
+  progress: number
+  showTechTree: boolean
 }
 
 export interface Vm {
@@ -49,7 +57,21 @@ export interface Settings {
   speed: Speed
 }
 
+export interface WorkspaceState {
+  title: string
+
+  world: World
+  ui: Ui
+  code: string
+  vm: Vm
+  settings: Settings
+}
+
 export interface CoreState {
+  workspaces: WorkspaceState[]
+  currentWorkspace: number
+  showResearchCenter: boolean
+
   world: World
   ui: Ui
   code: string

@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { basicSetup } from '../lib/basicSetup'
 import {
   indentSelection,
   simplifySelection,
@@ -9,12 +8,14 @@ import {
   insertNewlineAndIndent,
 } from '@codemirror/commands'
 import { EditorState, Transaction } from '@codemirror/state'
-import { useCore } from '../lib/core'
 import { EditorView } from '@codemirror/view'
+
+import { basicSetup } from '../lib/basicSetup'
+import { useWorkspace } from '../lib/workspace'
 
 export const Editor = () => {
   const editorDiv = useRef(null)
-  const core = useCore()
+  const workspace = useWorkspace()
 
   useEffect(() => {
     const currentEditor = editorDiv.current
@@ -22,10 +23,11 @@ export const Editor = () => {
     if (currentEditor) {
       const view = new EditorView({
         state: EditorState.create({
-          doc: core.state.code,
+          doc: workspace.state.code,
           extensions: [
             basicSetup(() => {
-              return core.lint()
+              console.log('trigger lint')
+              return workspace.lint(view)
             }),
             EditorView.updateListener.of((e) => {
               if (e.docChanged) {
@@ -36,14 +38,18 @@ export const Editor = () => {
                 }
               }
               //onUpdate(e.state.doc.sliceString(0))
+              console.log('update listener')
               if (e.transactions.length > 0) {
+                console.log('contains transactions')
                 const t = e.transactions[0]
                 const userEvent = t.annotation(Transaction.userEvent)
 
                 if (t.docChanged) {
-                  if (core.state.ui.state == 'ready') {
-                    core.setLoading()
-                  }
+                  console.log('transaction changes doc')
+                  //if (workspace.state.ui.state == 'ready') {
+                  console.log('set loading')
+                  workspace.setLoading()
+                  //}
                 }
 
                 const annotations = (t as any).annotations as {
@@ -127,7 +133,7 @@ export const Editor = () => {
         parent: currentEditor,
       })
 
-      core.injectEditorView(view)
+      workspace.injectEditorView(view)
 
       return () => view.destroy()
     }

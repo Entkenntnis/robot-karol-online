@@ -1,10 +1,12 @@
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { useState } from 'react'
-import { useCore } from '../lib/core'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { useWorkspace } from '../lib/workspace'
+import { FaIcon } from './FaIcon'
 import { View } from './View'
 
 export function Player() {
-  const core = useCore()
+  const workspace = useWorkspace()
 
   const [showNewWorldModal, setShowNewWorldModal] = useState(false)
 
@@ -16,35 +18,35 @@ export function Player() {
             <div
               onKeyDown={(e) => {
                 if (e.code == 'ArrowLeft') {
-                  core.left()
+                  workspace.left()
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowRight') {
-                  core.right()
+                  workspace.right()
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowUp') {
-                  core.forward()
+                  workspace.forward()
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowDown') {
-                  core.forward({ reverse: true })
+                  workspace.forward({ reverse: true })
                   e.preventDefault()
                 }
                 if (e.code == 'KeyM') {
-                  core.toggleMark()
+                  workspace.toggleMark()
                   e.preventDefault()
                 }
                 if (e.code == 'KeyH') {
-                  core.brick()
+                  workspace.brick()
                   e.preventDefault()
                 }
                 if (e.code == 'KeyQ') {
-                  core.toggleBlock()
+                  workspace.toggleBlock()
                   e.preventDefault()
                 }
                 if (e.code == 'KeyA') {
-                  core.unbrick()
+                  workspace.unbrick()
                   e.preventDefault()
                 }
               }}
@@ -52,73 +54,94 @@ export function Player() {
               className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer"
             >
               <View
-                world={core.state.world}
-                wireframe={core.state.ui.wireframe}
+                world={workspace.state.world}
+                wireframe={workspace.state.ui.wireframe}
               />
             </div>
           </div>
           <div className="absolute bottom-2 left-2 bg-gray-50">
-            {core.state.ui.messages.map((m) => (
+            {workspace.state.ui.messages.map((m) => (
               <div key={`${m.ts}`}>
                 {m.text}
                 {m.count > 1 && <span> (x{m.count})</span>}
               </div>
             ))}
           </div>
-          {core.state.ui.originalWorld &&
-            core.state.ui.originalWorld != core.state.world && (
+          {workspace.state.ui.originalWorld &&
+            workspace.state.ui.originalWorld != workspace.state.world && (
               <div className="absolute top-2 left-2 bg-gray-50">
                 <button
                   onClick={() => {
-                    core.restoreWorld()
+                    workspace.restoreWorld()
                   }}
                 >
                   ⭯ Welt wiederherstellen
                 </button>
               </div>
             )}
+          <button
+            className={clsx(
+              'absolute left-1 top-1 rounded',
+              'px-2 py-0.5 bg-gray-100 hover:bg-gray-200'
+            )}
+            onClick={() => {
+              setShowNewWorldModal(true)
+            }}
+          >
+            Neue Welt
+          </button>
         </div>
       </div>
-      <div className="flex-shrink-0 flex justify-between items-center border-t h-12">
+      {/*<div className="border-t h-12 flex justify-between items-center select-none">
+        <div className="pl-4">Inverter:</div>
+        <div className="bg-gray-200 w-full px-1 mx-3 relative flex justify-around items-center">
+          <div
+            className="bg-green-300 absolute left-0 top-0 bottom-0"
+            style={{ width: `${core.state.ui.progress}%` }}
+          ></div>
+          <div className="z-10">{core.state.ui.progress} / 100</div>
+        </div>
+      </div>*/}
+      <div className="flex-shrink-0 flex justify-around items-center border-t h-12">
         <div>
           <button
             className="mx-3 text-xl py-2"
-            onClick={() => core.left()}
+            onClick={() => workspace.left()}
             title="LinksDrehen"
           >
             🠔
-          </button>{' '}
+          </button>
           <button
             className="text-xl px-2"
-            onClick={() => core.forward()}
+            onClick={() => workspace.forward()}
             title="Schritt"
           >
             🠕
           </button>
           <button
             className="mx-3 text-xl py-2"
-            onClick={() => core.right()}
+            onClick={() => workspace.right()}
             title="RechtsDrehen"
           >
             🠖
           </button>
           <button
             className="mx-2"
-            onClick={() => core.brick()}
+            onClick={() => workspace.brick()}
             title="Hinlegen"
           >
             H
           </button>
           <button
-            className="mx-3 "
-            onClick={() => core.unbrick()}
+            className="mx-3"
+            onClick={() => workspace.unbrick()}
             title="Aufheben"
           >
             A
           </button>
           <button
             className="mx-3"
-            onClick={() => core.toggleMark()}
+            onClick={() => workspace.toggleMark()}
             title="MarkeSetzen / MarkeLöschen"
           >
             M
@@ -126,34 +149,29 @@ export function Player() {
           <button
             className="mx-3"
             onClick={() => {
-              core.toggleBlock()
+              workspace.toggleBlock()
             }}
             title="Quader setzen oder löschen"
           >
             Q
           </button>
+          <span className="ml-4 h-7 border-r"></span>
           {
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={core.state.ui.wireframe ? '/Ziegel_wire.png' : '/Ziegel.png'}
+              src={
+                workspace.state.ui.wireframe
+                  ? '/Ansicht_frame.png'
+                  : '/Ansicht_voll.png'
+              }
               title="Darstellung der Ziegel umschalten"
               alt="umschalten"
-              className="inline-block h-5 pb-1 pl-1 cursor-pointer"
+              className="inline-block h-5 pb-0.5 pl-1.5 cursor-pointer ml-3"
               onClick={() => {
-                core.toggleWireframe()
+                workspace.toggleWireframe()
               }}
             />
           }
-        </div>
-        <div>
-          <button
-            className="px-2 py-0.5 mr-2 rounded-2xl bg-indigo-300 hover:bg-indigo-400 transition-colors"
-            onClick={() => {
-              setShowNewWorldModal(true)
-            }}
-          >
-            Neue Welt
-          </button>
         </div>
       </div>
       {showNewWorldModal && (
@@ -168,11 +186,17 @@ export function Player() {
             className="fixed top-[30vh] mx-auto z-[300] bg-white opacity-100 w-[400px] rounded"
           >
             <NewWorldSettings
-              dimX={core.state.world.dimX}
-              dimY={core.state.world.dimY}
-              height={core.state.world.height}
+              dimX={workspace.state.world.dimX}
+              dimY={workspace.state.world.dimY}
+              height={workspace.state.world.height}
               onDone={() => setShowNewWorldModal(false)}
             />
+            <div
+              className="absolute top-2 right-2 h-3 w-3 cursor-pointer"
+              onClick={() => setShowNewWorldModal(false)}
+            >
+              <FaIcon icon={faXmark} />
+            </div>
           </div>
         </div>
       )}
@@ -196,85 +220,38 @@ function NewWorldSettings({
 
   const [localHeight, setLocalHeight] = useState(height)
 
-  const core = useCore()
+  const workspace = useWorkspace()
+
+  const canCreate = localDimX > 0 && localDimY > 0 && localHeight > 0
 
   return (
     <>
       <div className="m-3 mb-6 text-xl font-bold">Neue Welt erstellen</div>
       <div className="flex justify-between m-3">
         <span>⟷ Breite:</span>
-        <input
-          type="number"
-          className="border-2"
-          value={localDimX == -1 ? '' : localDimX}
-          onChange={(e) => {
-            const val = parseInt(e.target.value)
-            if (isNaN(val)) {
-              setLocalDimX(-1)
-            }
-            if (val >= 0 && val <= 100) {
-              setLocalDimX(val)
-            }
-          }}
-          min={1}
-          max={100}
-        />
+        {buildInput(localDimX, setLocalDimX, 100)}
       </div>
       <div className="flex justify-between m-3">
         <span>
           <span className="inline-block -rotate-45">⟷</span> Länge:
         </span>
-        <input
-          type="number"
-          className="border-2"
-          value={localDimY == -1 ? '' : localDimY}
-          onChange={(e) => {
-            const val = parseInt(e.target.value)
-            if (isNaN(val)) {
-              setLocalDimY(-1)
-            }
-            if (val >= 0 && val <= 100) {
-              setLocalDimY(val)
-            }
-          }}
-          min={1}
-          max={100}
-        />
+        {buildInput(localDimY, setLocalDimY, 100)}
       </div>
       <div className="flex justify-between m-3">
         <span>
           <span className="inline-block rotate-90">⟷</span> Höhe:
         </span>
-        <input
-          value={localHeight == -1 ? '' : localHeight}
-          onChange={(e) => {
-            const val = parseInt(e.target.value)
-            if (isNaN(val)) {
-              setLocalHeight(-1)
-            }
-            if (val >= 0 && val <= 10) {
-              setLocalHeight(val)
-            }
-          }}
-          type="number"
-          className="border-2"
-          min={1}
-          max={10}
-        />
+        {buildInput(localHeight, setLocalHeight, 10)}
       </div>
       <div className="my-4">
         <button
           className={clsx(
-            'ml-4 rounded-2xl px-2 py-1',
-            localDimX > 0 && localDimY > 0 && localHeight > 0
-              ? 'bg-green-300'
-              : 'bg-gray-50'
+            'ml-4 rounded px-2 py-0.5',
+            canCreate ? 'bg-green-300' : 'bg-gray-50'
           )}
-          disabled={
-            localDimX > 0 && localDimY > 0 && localHeight > 0 ? undefined : true
-          }
+          disabled={canCreate ? undefined : true}
           onClick={() => {
-            core.createWorld(localDimX, localDimY, localHeight)
+            workspace.createWorld(localDimX, localDimY, localHeight)
             onDone()
           }}
         >
@@ -283,4 +260,35 @@ function NewWorldSettings({
       </div>
     </>
   )
+
+  function buildInput(
+    val: number,
+    setter: Dispatch<SetStateAction<number>>,
+    max: number
+  ) {
+    return (
+      <input
+        value={val == -1 ? '' : val}
+        onChange={(e) => {
+          const val = parseInt(e.target.value)
+          if (isNaN(val)) {
+            setter(-1)
+          }
+          if (val >= 0 && val <= max) {
+            setter(val)
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key == 'Enter' && canCreate) {
+            workspace.createWorld(localDimX, localDimY, localHeight)
+            onDone()
+          }
+        }}
+        type="number"
+        className="border-2"
+        min={1}
+        max={max}
+      />
+    )
+  }
 }
