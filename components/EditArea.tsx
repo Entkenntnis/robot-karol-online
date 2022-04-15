@@ -29,8 +29,8 @@ import nichtistmarkeImg from '../public/nichtistmarke.png'
 import anweisungImg from '../public/anweisung.png'
 import unterbrechenImg from '../public/unterbrechen.png'
 
-import { editable } from '../lib/basicSetup'
-import { useCore } from '../lib/core'
+import { editable } from '../lib/codemirror/basicSetup'
+import { useCore } from '../lib/state/core'
 import {
   selectAll,
   indentSelection,
@@ -52,12 +52,12 @@ export function EditArea() {
   //console.log('gutter', gutter)
 
   useEffect(() => {
-    if (workspace.state.ui.needTextRefresh && workspace.view) {
+    if (workspace.state.ui.needTextRefresh && view.current) {
       //console.log('refresh editor', core.current.code)
-      workspace.view.dispatch({
+      view.current.dispatch({
         changes: {
           from: 0,
-          to: workspace.view.state.doc.length,
+          to: view.current.state.doc.length,
           insert: workspace.state.code,
         },
       })
@@ -68,11 +68,11 @@ export function EditArea() {
   useEffect(() => {
     if (codeState == 'ready') {
       //console.log('enable editable')
-      workspace.view?.dispatch({
+      view.current?.dispatch({
         effects: editable.reconfigure(EditorView.editable.of(true)),
       })
     }
-  }, [codeState, workspace.view])
+  }, [codeState])
 
   // eslint is not able to detect deps properly ...
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,11 +115,11 @@ export function EditArea() {
               </div>
             )}
             <div className="w-full h-full flex flex-col">
-              <Editor />
+              <Editor innerRef={view} />
               <div
                 className="bg-gray-50 flex-grow border-t"
                 onClick={() => {
-                  workspace.view?.focus()
+                  view.current?.focus()
                 }}
               ></div>
             </div>
@@ -150,18 +150,18 @@ export function EditArea() {
             <button
               className="bg-green-300 rounded px-2 py-0.5 m-1 ml-2 hover:bg-green-400 transition-colors"
               onClick={() => {
-                if (workspace.view) {
-                  const selection = workspace.view.state.selection
-                  selectAll(workspace.view)
-                  indentSelection(workspace.view)
-                  workspace.view.dispatch({ selection })
+                if (view.current) {
+                  const selection = view.current.state.selection
+                  selectAll(view.current)
+                  indentSelection(view.current)
+                  view.current.dispatch({ selection })
                   //console.log('disable editable')
-                  workspace.view.dispatch({
+                  view.current.dispatch({
                     effects: editable.reconfigure(
                       EditorView.editable.of(false)
                     ),
                   })
-                  workspace.view.contentDOM.blur()
+                  view.current.contentDOM.blur()
                 }
                 workspace.run()
               }}
@@ -382,11 +382,9 @@ export function EditArea() {
         <Image
           className="cursor-pointer"
           onDoubleClick={() => {
-            if (workspace.view) {
-              workspace.view.dispatch(
-                workspace.view.state.replaceSelection(code)
-              )
-              workspace.view.focus()
+            if (view.current) {
+              view.current.dispatch(view.current.state.replaceSelection(code))
+              view.current.focus()
             }
           }}
           src={image}

@@ -2,7 +2,7 @@ import { ensureSyntaxTree } from '@codemirror/language'
 import { Diagnostic } from '@codemirror/lint'
 import { EditorView } from '@codemirror/view'
 
-import { Op, Condition } from './types'
+import { Op, Condition } from '../state/types'
 
 export function compile(view: EditorView) {
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)

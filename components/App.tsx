@@ -1,12 +1,14 @@
 import Head from 'next/head'
-
 import { useEffect } from 'react'
-import { Player } from './Player'
-import { EditArea } from './EditArea'
-import { CoreProvider, useCreateCore } from '../lib/core'
+import clsx from 'clsx'
+
+import { CoreProvider, useCreateCore } from '../lib/state/core'
 import { Research } from './Research'
 import { Workspace } from './Workspace'
-import clsx from 'clsx'
+import {
+  hideResearchCenter,
+  showResearchCenter,
+} from '../lib/commands/researchCenter'
 
 export function App() {
   const core = useCreateCore()
@@ -58,11 +60,11 @@ export function App() {
                   Robot Karol Web
                 </a>
               </h1>
-              {core.state.ui.filename && (
+              {/*core.state.ui.filename && (
                 <div className="ml-2">
                   Datei: <strong>{core.state.ui.filename}</strong>
                 </div>
-              )}
+              )*/}
             </div>
             <div>
               <input
@@ -124,8 +126,8 @@ export function App() {
               )}
               onClick={() => {
                 core.state.showResearchCenter
-                  ? core.hideResearchCenter()
-                  : core.showResearchCenter()
+                  ? hideResearchCenter(core)
+                  : showResearchCenter(core)
               }}
             >
               Forschungszentrum

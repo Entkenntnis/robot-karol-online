@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import { useCore } from '../lib/core'
+import { switchToWorkspace } from '../lib/commands/researchCenter'
+import { useCore } from '../lib/state/core'
 
 export function Research() {
   const core = useCore()
@@ -19,7 +20,7 @@ export function Research() {
             )}
             key={ws.title}
             onClick={() => {
-              core.switchToWorkspace(i)
+              switchToWorkspace(core, i)
             }}
           >
             {ws.title}

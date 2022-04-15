@@ -1,12 +1,25 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useState } from 'react'
+
+import {
+  brick,
+  createWorldCmd,
+  forward,
+  left,
+  right,
+  toggleBlock,
+  toggleMark,
+  unbrick,
+} from '../lib/commands/world'
+import { useCore } from '../lib/state/core'
 import { useWorkspace } from '../lib/workspace'
 import { FaIcon } from './FaIcon'
 import { View } from './View'
 
 export function Player() {
   const workspace = useWorkspace()
+  const core = useCore()
 
   const [showNewWorldModal, setShowNewWorldModal] = useState(false)
 
@@ -18,35 +31,35 @@ export function Player() {
             <div
               onKeyDown={(e) => {
                 if (e.code == 'ArrowLeft') {
-                  workspace.left()
+                  left(core)
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowRight') {
-                  workspace.right()
+                  right(core)
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowUp') {
-                  workspace.forward()
+                  forward(core)
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowDown') {
-                  workspace.forward({ reverse: true })
+                  forward(core, { reverse: true })
                   e.preventDefault()
                 }
                 if (e.code == 'KeyM') {
-                  workspace.toggleMark()
+                  toggleMark(core)
                   e.preventDefault()
                 }
                 if (e.code == 'KeyH') {
-                  workspace.brick()
+                  brick(core)
                   e.preventDefault()
                 }
                 if (e.code == 'KeyQ') {
-                  workspace.toggleBlock()
+                  toggleBlock(core)
                   e.preventDefault()
                 }
                 if (e.code == 'KeyA') {
-                  workspace.unbrick()
+                  unbrick(core)
                   e.preventDefault()
                 }
               }}
@@ -106,42 +119,38 @@ export function Player() {
         <div>
           <button
             className="mx-3 text-xl py-2"
-            onClick={() => workspace.left()}
+            onClick={() => left(core)}
             title="LinksDrehen"
           >
             🠔
           </button>
           <button
             className="text-xl px-2"
-            onClick={() => workspace.forward()}
+            onClick={() => forward(core)}
             title="Schritt"
           >
             🠕
           </button>
           <button
             className="mx-3 text-xl py-2"
-            onClick={() => workspace.right()}
+            onClick={() => right(core)}
             title="RechtsDrehen"
           >
             🠖
           </button>
-          <button
-            className="mx-2"
-            onClick={() => workspace.brick()}
-            title="Hinlegen"
-          >
+          <button className="mx-2" onClick={() => brick(core)} title="Hinlegen">
             H
           </button>
           <button
             className="mx-3"
-            onClick={() => workspace.unbrick()}
+            onClick={() => unbrick(core)}
             title="Aufheben"
           >
             A
           </button>
           <button
             className="mx-3"
-            onClick={() => workspace.toggleMark()}
+            onClick={() => toggleMark(core)}
             title="MarkeSetzen / MarkeLöschen"
           >
             M
@@ -149,7 +158,7 @@ export function Player() {
           <button
             className="mx-3"
             onClick={() => {
-              workspace.toggleBlock()
+              toggleBlock(core)
             }}
             title="Quader setzen oder löschen"
           >
@@ -221,6 +230,7 @@ function NewWorldSettings({
   const [localHeight, setLocalHeight] = useState(height)
 
   const workspace = useWorkspace()
+  const core = useCore()
 
   const canCreate = localDimX > 0 && localDimY > 0 && localHeight > 0
 
@@ -251,7 +261,7 @@ function NewWorldSettings({
           )}
           disabled={canCreate ? undefined : true}
           onClick={() => {
-            workspace.createWorld(localDimX, localDimY, localHeight)
+            createWorldCmd(core, localDimX, localDimY, localHeight)
             onDone()
           }}
         >
@@ -280,7 +290,7 @@ function NewWorldSettings({
         }}
         onKeyDown={(e) => {
           if (e.key == 'Enter' && canCreate) {
-            workspace.createWorld(localDimX, localDimY, localHeight)
+            createWorldCmd(core, localDimX, localDimY, localHeight)
             onDone()
           }
         }}

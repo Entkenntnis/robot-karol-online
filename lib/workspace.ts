@@ -1,215 +1,46 @@
 import { EditorView } from '@codemirror/view'
 import { Draft } from 'immer'
 import { WritableDraft } from 'immer/dist/internal'
-import { compile } from './compiler'
-import { Core, createWorld, useCore } from './core'
-import { Condition, Heading, Speed, WorkspaceState, World } from './types'
+
+import {
+  forward,
+  left,
+  right,
+  brick,
+  unbrick,
+  setMark,
+  resetMark,
+  move,
+  moveRaw,
+} from './commands/world'
+import { compile } from './language/compiler'
+import { Core, useCore } from './state/core'
+import { Condition, Speed, WorkspaceState, World } from './state/types'
 
 export function useWorkspace() {
   const core = useCore()
   const workspaceIndex = core.state.currentWorkspace
   if (workspaceIndex >= 0 && workspaceIndex < core.state.workspaces.length) {
-    return new Workspace(core.state.workspaces[workspaceIndex], core)
-    if (core.workspaces[workspaceIndex]) {
-      console.log('reuse existing workspace')
-      return core.workspaces[workspaceIndex]
-    } else {
-      console.log('create new workspace')
-      core.workspaces[workspaceIndex] = new Workspace(
-        core.state.workspaces[workspaceIndex],
-        core
-      )
-      return core.workspaces[workspaceIndex]
-    }
+    return new Workspace(core)
   }
   throw new Error('Invalid index to workspace!')
 }
 
 export class Workspace {
   _core: Core
-  state: WorkspaceState
 
-  constructor(state: WorkspaceState, core: Core) {
-    this.state = state
+  constructor(core: Core) {
     this._core = core
+  }
+
+  get state() {
+    return this._core.state.workspaces[this._core.state.currentWorkspace]
   }
 
   // proxy call to core, workspace aware
   mutate(updater: (draft: Draft<WorkspaceState>) => void) {
-    this._core.mutate((state) => {
+    this._core.mutateCore((state) => {
       updater(state.workspaces[state.currentWorkspace])
-    })
-  }
-
-  forward(opts?: { reverse: boolean }) {
-    const { world } = this.state
-    const { karol, bricks } = world
-    const dir = opts?.reverse ? reverse(karol.dir) : karol.dir
-    const target = move(karol.x, karol.y, dir, world)
-    if (target) {
-      const currentBrickCount = bricks[karol.y][karol.x]
-      const targetBrickCount = bricks[target.y][target.x]
-
-      if (Math.abs(currentBrickCount - targetBrickCount) > 1) {
-        this.addMessage('Karol kann diese Höhe nicht überwinden.')
-      } else {
-        this.mutate(({ world }) => {
-          world.karol.x = target.x
-          world.karol.y = target.y
-        })
-        return true
-      }
-    } else {
-      this.addMessage('Karol kann sich nicht in diese Richtung bewegen.')
-    }
-    return false
-  }
-
-  left() {
-    this.mutate(({ world }) => {
-      world.karol.dir = turnLeft(world.karol.dir)
-    })
-  }
-
-  right() {
-    this.mutate(({ world }) => {
-      world.karol.dir = turnRight(world.karol.dir)
-    })
-  }
-
-  brick() {
-    const { world } = this.state
-    const { karol, bricks, height } = world
-    const pos = move(karol.x, karol.y, karol.dir, world)
-
-    if (pos) {
-      if (bricks[pos.y][pos.x] >= height) {
-        this.addMessage('Maximale Stapelhöhe erreicht.')
-        return false
-      } else {
-        this.mutate((state) => {
-          state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] + 1
-        })
-        return true
-      }
-    } else {
-      this.addMessage('Karol kann hier keinen Ziegel aufstellen.')
-      return false
-    }
-  }
-
-  unbrick() {
-    const { world } = this.state
-    const { karol, bricks } = world
-    const pos = move(karol.x, karol.y, karol.dir, world)
-
-    if (pos) {
-      if (bricks[pos.y][pos.x] <= 0) {
-        this.addMessage('Keine Ziegel zum Aufheben')
-        return false
-      } else {
-        this.mutate((state) => {
-          state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] - 1
-        })
-        return true
-      }
-    } else {
-      this.addMessage('Karol kann hier keine Ziegel aufheben.')
-      return false
-    }
-  }
-
-  toggleMark() {
-    this.mutate(({ world }) => {
-      world.marks[world.karol.y][world.karol.x] =
-        !world.marks[world.karol.y][world.karol.x]
-    })
-    this.checkChipActive()
-  }
-
-  setMark() {
-    this.mutate(({ world }) => {
-      world.marks[world.karol.y][world.karol.x] = true
-    })
-    this.checkChipActive()
-  }
-
-  resetMark() {
-    this.mutate(({ world }) => {
-      world.marks[world.karol.y][world.karol.x] = false
-    })
-  }
-
-  checkChipActive() {
-    const { world } = this.state
-    const { karol, chips } = world
-    for (const chip of chips) {
-      if (chip.type == 'inverter') {
-        if (
-          karol.x == chip.x + 2 &&
-          karol.y == chip.y + 2 &&
-          world.marks[karol.y][karol.x]
-        ) {
-          const input = world.bricks[chip.y + 1][chip.x]
-          const output = world.bricks[chip.y + 1][chip.x + 4]
-          if ((input == 1 && output == 0) || (input == 0 && output == 1)) {
-            this.mutate(({ ui }) => {
-              ui.progress++
-            })
-            const val = Math.random() < 0.5
-            this.mutate(({ world }) => {
-              world.bricks[chip.y + 1][chip.x] = val ? 1 : 0
-            })
-            this.addMessage(
-              'Inverter: Korrekte Belegung! Neue Eingabe gesetzt.'
-            )
-          } else {
-            this.addMessage(
-              'Inverter: Falsche Belegung! Fortschritt zurückgesetzt.'
-            )
-            this.mutate(({ ui }) => {
-              ui.progress = 0
-            })
-            this.mutate(({ world }) => {
-              world.marks[karol.y][karol.x] = false
-            })
-          }
-        }
-      }
-    }
-  }
-
-  toggleBlock() {
-    const { world } = this.state
-    const { karol, blocks, bricks, marks } = world
-    const pos = moveRaw(karol.x, karol.y, karol.dir, world)
-    if (pos) {
-      if (blocks[pos.y][pos.x]) {
-        this.mutate(({ world }) => {
-          world.blocks[pos.y][pos.x] = false
-        })
-        return true
-      } else if (!marks[pos.y][pos.x] && bricks[pos.y][pos.x] == 0) {
-        this.mutate(({ world }) => {
-          world.blocks[pos.y][pos.x] = true
-        })
-        return true
-      } else {
-        if (marks[pos.y][pos.x]) {
-          this.addMessage('Karol kann keinen Quader auf eine Marke stellen.')
-        } else {
-          this.addMessage('Karol kann keinen Quader auf Ziegel stellen.')
-        }
-      }
-    } else {
-      this.addMessage('Karol kann hier keinen Quader aufstellen.')
-    }
-    return false
-  }
-
-  createWorld(x: number, y: number, z: number) {
-    this.mutate((state) => {
-      state.world = createWorld(x, y, z)
     })
   }
 
@@ -249,16 +80,6 @@ export class Workspace {
   }
 
   // -- next part
-
-  // give core a reference to editor view
-  injectEditorView(view: EditorView) {
-    this._core.injectEditorView(view)
-  }
-
-  // access editor view instance - if present
-  get view() {
-    return this._core.view
-  }
 
   lint(view: EditorView) {
     if (this.state.ui.state == 'running' || !view) {
@@ -357,25 +178,25 @@ export class Workspace {
       const h = setTimeout(() => {
         if (op.type == 'action') {
           if (op.command == 'forward') {
-            core.forward()
+            forward(this._core)
           }
           if (op.command == 'left') {
-            core.left()
+            left(this._core)
           }
           if (op.command == 'right') {
-            core.right()
+            right(this._core)
           }
           if (op.command == 'brick') {
-            core.brick()
+            brick(this._core)
           }
           if (op.command == 'unbrick') {
-            core.unbrick()
+            unbrick(this._core)
           }
           if (op.command == 'setMark') {
-            core.setMark()
+            setMark(this._core)
           }
           if (op.command == 'resetMark') {
-            core.resetMark()
+            resetMark(this._core)
           }
           core.mutate((state) => {
             state.vm.pc++
@@ -588,60 +409,6 @@ export class Workspace {
       vm.checkpoint = undefined
     })
   }
-}
-
-function move(x: number, y: number, dir: Heading, world: World) {
-  const pos = moveRaw(x, y, dir, world)
-  if (pos && !world.blocks[pos.y][pos.x]) {
-    return pos
-  }
-}
-
-function moveRaw(x: number, y: number, dir: Heading, world: World) {
-  if (dir == 'east') {
-    if (x + 1 < world.dimX) {
-      return { x: x + 1, y }
-    }
-  }
-  if (dir == 'west') {
-    if (x > 0) {
-      return { x: x - 1, y }
-    }
-  }
-  if (dir == 'south') {
-    if (y + 1 < world.dimY) {
-      return { x, y: y + 1 }
-    }
-  }
-  if (dir == 'north') {
-    if (y > 0) {
-      return { x, y: y - 1 }
-    }
-  }
-}
-
-function reverse(h: Heading) {
-  return { north: 'south', south: 'north', east: 'west', west: 'east' }[
-    h
-  ] as Heading
-}
-
-function turnLeft(h: Heading) {
-  return {
-    north: 'west',
-    west: 'south',
-    south: 'east',
-    east: 'north',
-  }[h] as Heading
-}
-
-function turnRight(h: Heading) {
-  return {
-    north: 'east',
-    east: 'south',
-    south: 'west',
-    west: 'north',
-  }[h] as Heading
 }
 
 function setGutter(state: WritableDraft<WorkspaceState>) {

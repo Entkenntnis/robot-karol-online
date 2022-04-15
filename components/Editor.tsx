@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { MutableRefObject, useEffect, useRef } from 'react'
 import {
   indentSelection,
   simplifySelection,
@@ -10,10 +10,14 @@ import {
 import { EditorState, Transaction } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 
-import { basicSetup } from '../lib/basicSetup'
+import { basicSetup } from '../lib/codemirror/basicSetup'
 import { useWorkspace } from '../lib/workspace'
 
-export const Editor = () => {
+interface EditorProps {
+  innerRef: MutableRefObject<EditorView | undefined>
+}
+
+export const Editor = ({ innerRef }: EditorProps) => {
   const editorDiv = useRef(null)
   const workspace = useWorkspace()
 
@@ -133,7 +137,7 @@ export const Editor = () => {
         parent: currentEditor,
       })
 
-      workspace.injectEditorView(view)
+      innerRef.current = view
 
       return () => view.destroy()
     }

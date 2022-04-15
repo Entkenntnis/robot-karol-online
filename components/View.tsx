@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { World } from '../lib/types'
+import { World } from '../lib/state/types'
 
 interface ViewProps {
   world: World

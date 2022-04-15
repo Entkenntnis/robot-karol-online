@@ -1,5 +1,3 @@
-import type { EditorView } from '@codemirror/view'
-
 export type Heading = 'north' | 'east' | 'south' | 'west'
 
 export interface World {
@@ -71,17 +69,10 @@ export interface CoreState {
   workspaces: WorkspaceState[]
   currentWorkspace: number
   showResearchCenter: boolean
-
-  world: World
-  ui: Ui
-  code: string
-  vm: Vm
-  settings: Settings
 }
 
 export interface CoreRefs {
   state: CoreState
-  view?: EditorView
 }
 
 export interface ActionOp {

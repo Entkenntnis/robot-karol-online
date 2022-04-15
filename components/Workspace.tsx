@@ -1,7 +1,7 @@
 import { ReflexElement, ReflexSplitter, ReflexContainer } from 'react-reflex'
 import 'react-reflex/styles.css'
 
-import { useCore } from '../lib/core'
+import { useCore } from '../lib/state/core'
 import { EditArea } from './EditArea'
 import { Player } from './Player'
 
@@ -9,7 +9,9 @@ export function Workspace() {
   const core = useCore()
 
   if (
-    core.state.workspaces[core.state.currentWorkspace].title == 'Freier Modus'
+    core.state.workspaces[core.state.currentWorkspace].title.startsWith(
+      'Freier Modus'
+    )
   ) {
     return (
       <div className="overflow-hidden flex-grow">
