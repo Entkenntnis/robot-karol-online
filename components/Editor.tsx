@@ -11,7 +11,8 @@ import { EditorState, Transaction } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 
 import { basicSetup } from '../lib/codemirror/basicSetup'
-import { useWorkspace } from '../lib/workspace'
+import { useCore } from '../lib/state/core'
+import { lint, setLoading } from '../lib/commands/vm'
 
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>
@@ -19,19 +20,21 @@ interface EditorProps {
 
 export const Editor = ({ innerRef }: EditorProps) => {
   const editorDiv = useRef(null)
-  const workspace = useWorkspace()
+  const core = useCore()
 
   useEffect(() => {
     const currentEditor = editorDiv.current
 
     if (currentEditor) {
-      const view = new EditorView({
+      const view: EditorView = new EditorView({
         state: EditorState.create({
-          doc: workspace.state.code,
+          doc: core.ws.code,
           extensions: [
-            basicSetup(() => {
-              console.log('trigger lint')
-              return workspace.lint(view)
+            basicSetup({
+              l: () => {
+                console.log('trigger lint')
+                return lint(core, view)
+              },
             }),
             EditorView.updateListener.of((e) => {
               if (e.docChanged) {
@@ -50,10 +53,10 @@ export const Editor = ({ innerRef }: EditorProps) => {
 
                 if (t.docChanged) {
                   console.log('transaction changes doc')
-                  //if (workspace.state.ui.state == 'ready') {
-                  console.log('set loading')
-                  workspace.setLoading()
-                  //}
+                  if (core.ws.ui.state == 'ready') {
+                    console.log('set loading')
+                    setLoading(core)
+                  }
                 }
 
                 const annotations = (t as any).annotations as {

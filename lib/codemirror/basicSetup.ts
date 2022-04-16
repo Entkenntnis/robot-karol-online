@@ -103,7 +103,11 @@ const Theme = EditorView.theme({
 
 export const editable = new Compartment()
 
-export const basicSetup = (l: any) => [
+interface BasicSetupProps {
+  l: Parameters<typeof linter>[0]
+}
+
+export const basicSetup = (props: BasicSetupProps) => [
   lineNumbers(),
   highlightActiveLineGutter(),
   history(),
@@ -134,7 +138,7 @@ export const basicSetup = (l: any) => [
   EditorState.tabSize.of(2),
   editable.of(EditorView.editable.of(true)),
   exampleLanguage,
-  linter(l),
+  linter(props.l),
   Theme,
 ]
 

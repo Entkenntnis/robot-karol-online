@@ -31,37 +31,40 @@ import unterbrechenImg from '../public/unterbrechen.png'
 
 import { editable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
+import { selectAll, indentSelection } from '@codemirror/commands'
 import {
-  selectAll,
-  indentSelection,
-  cursorDocStart,
-} from '@codemirror/commands'
-import { useWorkspace } from '../lib/workspace'
+  abort,
+  refreshDone,
+  run,
+  setSpeed,
+  setSpeedHot,
+  step,
+} from '../lib/commands/vm'
 
 export function EditArea() {
   const [section, setSection] = useState('')
 
   const [menuVisible, setMenuVisible] = useState(false)
 
-  const workspace = useWorkspace()
+  const core = useCore()
 
-  const codeState = workspace.state.ui.state
+  const codeState = core.ws.ui.state
 
   const view = useRef<EditorView>()
 
   //console.log('gutter', gutter)
 
   useEffect(() => {
-    if (workspace.state.ui.needTextRefresh && view.current) {
+    if (core.ws.ui.needTextRefresh && view.current) {
       //console.log('refresh editor', core.current.code)
       view.current.dispatch({
         changes: {
           from: 0,
           to: view.current.state.doc.length,
-          insert: workspace.state.code,
+          insert: core.ws.code,
         },
       })
-      workspace.refreshDone()
+      refreshDone(core)
     }
   })
 
@@ -89,19 +92,17 @@ export function EditArea() {
           <div className="w-full overflow-auto h-full flex">
             {codeState == 'running' && (
               <div data-label="gutter" className="w-8 h-full relative">
-                {workspace.state.ui.gutter > 0 && (
+                {core.ws.ui.gutter > 0 && (
                   <div
                     className="text-blue-500 absolute w-5 h-5 left-1"
                     style={{
-                      top: `${
-                        4 + (workspace.state.ui.gutter - 1) * 22.4 - 2
-                      }px`,
+                      top: `${4 + (core.ws.ui.gutter - 1) * 22.4 - 2}px`,
                     }}
                   >
                     🡆
                   </div>
                 )}{' '}
-                {workspace.state.ui.gutterReturns.map((pos, i) => (
+                {core.ws.ui.gutterReturns.map((pos, i) => (
                   <div
                     key={i}
                     className="text-yellow-300 absolute w-5 h-5 left-3"
@@ -134,10 +135,7 @@ export function EditArea() {
 
   function renderProgramControl() {
     if (codeState == 'ready') {
-      if (
-        !workspace.state.vm.bytecode ||
-        workspace.state.vm.bytecode.length == 0
-      ) {
+      if (!core.ws.vm.bytecode || core.ws.vm.bytecode.length == 0) {
         return (
           <div className="m-[11px]">
             Klicke auf Karol, um ihn mit der Tastatur zu steuern oder schreibe
@@ -163,16 +161,16 @@ export function EditArea() {
                   })
                   view.current.contentDOM.blur()
                 }
-                workspace.run()
+                run(core)
               }}
             >
               Programm ausführen
             </button>
             <select
               className="h-8 mr-2"
-              value={workspace.state.settings.speed}
+              value={core.ws.settings.speed}
               onChange={(e) => {
-                workspace.setSpeed(e.target.value)
+                setSpeed(core, e.target.value)
               }}
             >
               <option value="turbo">Turbo</option>
@@ -208,11 +206,11 @@ export function EditArea() {
       return (
         <>
           <span>
-            {workspace.state.settings.speed == 'step' && (
+            {core.ws.settings.speed == 'step' && (
               <button
                 className="bg-yellow-400 rounded px-2 py-0.5 ml-2 hover:bg-yellow-500 transition-colors"
                 onClick={() => {
-                  workspace.step()
+                  step(core)
                 }}
               >
                 Weiter
@@ -221,7 +219,7 @@ export function EditArea() {
             <button
               className="bg-red-400 rounded px-2 py-0.5 ml-2 hover:bg-red-500 transition-colors"
               onClick={() => {
-                workspace.abort()
+                abort(core)
               }}
             >
               Stopp
@@ -229,9 +227,9 @@ export function EditArea() {
           </span>
           <select
             className="h-8 mr-2"
-            value={workspace.state.settings.speed}
+            value={core.ws.settings.speed}
             onChange={(e) => {
-              workspace.setSpeedHot(e.target.value)
+              setSpeedHot(core, e.target.value)
             }}
           >
             <option value="turbo">Turbo</option>

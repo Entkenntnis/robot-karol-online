@@ -1,6 +1,7 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useState } from 'react'
+import { toggleWireframe } from '../lib/commands/view'
 
 import {
   brick,
@@ -13,12 +14,10 @@ import {
   unbrick,
 } from '../lib/commands/world'
 import { useCore } from '../lib/state/core'
-import { useWorkspace } from '../lib/workspace'
 import { FaIcon } from './FaIcon'
 import { View } from './View'
 
 export function Player() {
-  const workspace = useWorkspace()
   const core = useCore()
 
   const [showNewWorldModal, setShowNewWorldModal] = useState(false)
@@ -66,22 +65,19 @@ export function Player() {
               tabIndex={1}
               className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer"
             >
-              <View
-                world={workspace.state.world}
-                wireframe={workspace.state.ui.wireframe}
-              />
+              <View world={core.ws.world} wireframe={core.ws.ui.wireframe} />
             </div>
           </div>
           <div className="absolute bottom-2 left-2 bg-gray-50">
-            {workspace.state.ui.messages.map((m) => (
+            {core.ws.ui.messages.map((m) => (
               <div key={`${m.ts}`}>
                 {m.text}
                 {m.count > 1 && <span> (x{m.count})</span>}
               </div>
             ))}
           </div>
-          {workspace.state.ui.originalWorld &&
-            workspace.state.ui.originalWorld != workspace.state.world && (
+          {/*core.ws.ui.originalWorld &&
+            core.ws.state.ui.originalWorld != workspace.state.world && (
               <div className="absolute top-2 left-2 bg-gray-50">
                 <button
                   onClick={() => {
@@ -91,7 +87,7 @@ export function Player() {
                   ⭯ Welt wiederherstellen
                 </button>
               </div>
-            )}
+                )*/}
           <button
             className={clsx(
               'absolute left-1 top-1 rounded',
@@ -169,7 +165,7 @@ export function Player() {
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={
-                workspace.state.ui.wireframe
+                core.ws.ui.wireframe
                   ? '/Ansicht_frame.png'
                   : '/Ansicht_voll.png'
               }
@@ -177,7 +173,7 @@ export function Player() {
               alt="umschalten"
               className="inline-block h-5 pb-0.5 pl-1.5 cursor-pointer ml-3"
               onClick={() => {
-                workspace.toggleWireframe()
+                toggleWireframe(core)
               }}
             />
           }
@@ -195,9 +191,9 @@ export function Player() {
             className="fixed top-[30vh] mx-auto z-[300] bg-white opacity-100 w-[400px] rounded"
           >
             <NewWorldSettings
-              dimX={workspace.state.world.dimX}
-              dimY={workspace.state.world.dimY}
-              height={workspace.state.world.height}
+              dimX={core.ws.world.dimX}
+              dimY={core.ws.world.dimY}
+              height={core.ws.world.height}
               onDone={() => setShowNewWorldModal(false)}
             />
             <div
@@ -229,7 +225,6 @@ function NewWorldSettings({
 
   const [localHeight, setLocalHeight] = useState(height)
 
-  const workspace = useWorkspace()
   const core = useCore()
 
   const canCreate = localDimX > 0 && localDimY > 0 && localHeight > 0
