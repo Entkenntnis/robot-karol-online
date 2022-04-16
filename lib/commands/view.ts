@@ -6,8 +6,8 @@ export function toggleWireframe(core: Core) {
   })
 }
 
-export function refreshDone(core: Core) {
+/*export function refreshDone(core: Core) {
   core.mutateWs((state) => {
     state.ui.needTextRefresh = false
   })
-}
+}*/

@@ -1,20 +1,39 @@
-import { CoreState, WorkspaceState, World } from './types'
+import { levels } from '../data/levels'
+import { CoreState, WorkspaceState, WorkspaceStateBase, World } from './types'
 
 export function createDefaultCoreState(): CoreState {
   return {
-    workspaces: [
-      createFreeModeWorkspaceState(0),
-      createFreeModeWorkspaceState(1),
-      createFreeModeWorkspaceState(2),
-    ],
+    workspaces: [createLevel1WorkspaceState(), createFreeModeWorkspaceState()],
     currentWorkspace: 0,
     showResearchCenter: false,
   }
 }
 
-export function createFreeModeWorkspaceState(id: number): WorkspaceState {
+export function createLevel1WorkspaceState(): WorkspaceState {
+  const state: WorkspaceState = {
+    ...createBaseWorkspace(),
+    world: createWorld(13, 10, 6),
+    title: levels[0].title,
+    type: 'level',
+    progress: 0,
+    levelId: 0,
+    worldInit: false,
+  }
+  state.world.chips.push({ tag: 'inverter', x: 4, y: 3 })
+  return state
+}
+
+export function createFreeModeWorkspaceState(): WorkspaceState {
   return {
-    title: 'Freier Modus ' + id.toString(),
+    ...createBaseWorkspace(),
+    title: 'Freier Modus',
+    type: 'free',
+  }
+}
+
+function createBaseWorkspace(): WorkspaceStateBase {
+  return {
+    title: '',
     world: createWorld(5, 10, 6),
     code: '\n',
     ui: {
@@ -22,14 +41,10 @@ export function createFreeModeWorkspaceState(id: number): WorkspaceState {
       gutter: 0,
       gutterReturns: [],
       state: 'loading',
-      needTextRefresh: false,
       wireframe: false,
-      progress: 0,
-      showTechTree: false,
     },
     vm: {
       pc: 0,
-      entry: 0,
       frames: [{}],
       callstack: [],
       needsConfirmation: false,
@@ -61,18 +76,7 @@ export function createWorld(dimX: number, dimY: number, height: number): World {
     blocks: Array(dimY)
       .fill(0)
       .map(() => Array(dimX).fill(false)),
-    chips: [
-      /*{ type: 'inverter', x: 3, y: 2, init: false }*/
-    ],
-  }
-  for (const chip of world.chips) {
-    chip.init = true
-    if (chip.type == 'inverter') {
-      const val = Math.random() < 0.5
-      if (val) {
-        world.bricks[chip.y + 1][chip.x] = 1
-      }
-    }
+    chips: [],
   }
   return world
 }

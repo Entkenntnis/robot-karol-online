@@ -1,3 +1,5 @@
+import { ChildProcess } from 'child_process'
+import { chips } from '../data/chips'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { Heading, World } from '../state/types'
@@ -49,10 +51,20 @@ export function brick(core: Core) {
       addMessage(core, 'Maximale Stapelhöhe erreicht.')
       return false
     } else {
-      core.mutateWs((state) => {
-        state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] + 1
-      })
-      return true
+      if (
+        world.chips.every(
+          (chip) =>
+            chips[chip.tag].isReadOnly(core, chip, pos.x, pos.y) == false
+        )
+      ) {
+        core.mutateWs((state) => {
+          state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] + 1
+        })
+        return true
+      } else {
+        addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+        return false
+      }
     }
   } else {
     addMessage(core, 'Karol kann hier keinen Ziegel aufstellen.')
@@ -70,10 +82,20 @@ export function unbrick(core: Core) {
       addMessage(core, 'Keine Ziegel zum Aufheben')
       return false
     } else {
-      core.mutateWs((state) => {
-        state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] - 1
-      })
-      return true
+      if (
+        world.chips.every(
+          (chip) =>
+            chips[chip.tag].isReadOnly(core, chip, pos.x, pos.y) == false
+        )
+      ) {
+        core.mutateWs((state) => {
+          state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] - 1
+        })
+        return true
+      } else {
+        addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+        return false
+      }
     }
   } else {
     addMessage(core, 'Karol kann hier keine Ziegel aufheben.')
@@ -82,61 +104,59 @@ export function unbrick(core: Core) {
 }
 
 export function toggleMark(core: Core) {
-  core.mutateWs(({ world }) => {
-    world.marks[world.karol.y][world.karol.x] =
-      !world.marks[world.karol.y][world.karol.x]
-  })
+  const karol = core.ws.world.karol
+  if (
+    core.ws.world.chips.every(
+      (chip) =>
+        chips[chip.tag].isReadOnly(core, chip, karol.x, karol.y) == false
+    )
+  ) {
+    core.mutateWs(({ world }) => {
+      world.marks[world.karol.y][world.karol.x] =
+        !world.marks[world.karol.y][world.karol.x]
+    })
+  } else {
+    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+  }
   checkChipActive(core)
 }
 
 export function setMark(core: Core) {
-  core.mutateWs(({ world }) => {
-    world.marks[world.karol.y][world.karol.x] = true
-  })
+  const karol = core.ws.world.karol
+  if (
+    core.ws.world.chips.every(
+      (chip) =>
+        chips[chip.tag].isReadOnly(core, chip, karol.x, karol.y) == false
+    )
+  ) {
+    core.mutateWs(({ world }) => {
+      world.marks[world.karol.y][world.karol.x] = true
+    })
+  } else {
+    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+  }
   checkChipActive(core)
 }
 
 export function resetMark(core: Core) {
-  core.mutateWs(({ world }) => {
-    world.marks[world.karol.y][world.karol.x] = false
-  })
+  const karol = core.ws.world.karol
+  if (
+    core.ws.world.chips.every(
+      (chip) =>
+        chips[chip.tag].isReadOnly(core, chip, karol.x, karol.y) == false
+    )
+  ) {
+    core.mutateWs(({ world }) => {
+      world.marks[world.karol.y][world.karol.x] = false
+    })
+  } else {
+    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+  }
 }
 
 function checkChipActive(core: Core) {
-  const { world } = core.ws
-  const { karol, chips } = world
-  for (const chip of chips) {
-    if (chip.type == 'inverter') {
-      if (
-        karol.x == chip.x + 2 &&
-        karol.y == chip.y + 2 &&
-        world.marks[karol.y][karol.x]
-      ) {
-        const input = world.bricks[chip.y + 1][chip.x]
-        const output = world.bricks[chip.y + 1][chip.x + 4]
-        if ((input == 1 && output == 0) || (input == 0 && output == 1)) {
-          core.mutateWs(({ ui }) => {
-            ui.progress++
-          })
-          const val = Math.random() < 0.5
-          core.mutateWs(({ world }) => {
-            world.bricks[chip.y + 1][chip.x] = val ? 1 : 0
-          })
-          addMessage(core, 'Inverter: Korrekte Belegung! Neue Eingabe gesetzt.')
-        } else {
-          addMessage(
-            core,
-            'Inverter: Falsche Belegung! Fortschritt zurückgesetzt.'
-          )
-          core.mutateWs(({ ui }) => {
-            ui.progress = 0
-          })
-          core.mutateWs(({ world }) => {
-            world.marks[karol.y][karol.x] = false
-          })
-        }
-      }
-    }
+  for (const chip of core.ws.world.chips) {
+    chips[chip.tag].checkAction(core, chip)
   }
 }
 
@@ -151,10 +171,20 @@ export function toggleBlock(core: Core) {
       })
       return true
     } else if (!marks[pos.y][pos.x] && bricks[pos.y][pos.x] == 0) {
-      core.mutateWs(({ world }) => {
-        world.blocks[pos.y][pos.x] = true
-      })
-      return true
+      if (
+        world.chips.every(
+          (chip) =>
+            chips[chip.tag].isReadOnly(core, chip, pos.x, pos.y) == false
+        )
+      ) {
+        core.mutateWs(({ world }) => {
+          world.blocks[pos.y][pos.x] = true
+        })
+        return true
+      } else {
+        addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+        return false
+      }
     } else {
       if (marks[pos.y][pos.x]) {
         addMessage(core, 'Karol kann keinen Quader auf eine Marke stellen.')
@@ -171,6 +201,27 @@ export function toggleBlock(core: Core) {
 export function createWorldCmd(core: Core, x: number, y: number, z: number) {
   core.mutateWs((state) => {
     state.world = createWorld(x, y, z)
+  })
+}
+
+export function initWorld(core: Core) {
+  core.ws.world.chips.forEach((chip) => {
+    chips[chip.tag].initAction(core, chip)
+  })
+
+  core.mutateWs((state) => {
+    if (state.type == 'level') {
+      state.worldInit = true
+      state.worldCheckpoint = state.world
+    }
+  })
+}
+
+export function resetWorld(core: Core) {
+  core.mutateWs((state) => {
+    if (state.type == 'level' && state.worldCheckpoint) {
+      state.world = state.worldCheckpoint
+    }
   })
 }
 

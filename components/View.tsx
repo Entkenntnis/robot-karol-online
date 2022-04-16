@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { chips } from '../lib/data/chips'
 import { World } from '../lib/state/types'
 
 interface ViewProps {
@@ -15,7 +16,7 @@ interface Resources {
   marke: HTMLImageElement
   quader: HTMLImageElement
   ziegelWire: HTMLImageElement
-  inverter: HTMLImageElement
+  chipsImages: { [key: string]: HTMLImageElement }
   ctx: CanvasRenderingContext2D
 }
 
@@ -42,51 +43,22 @@ export function View({ world, wireframe }: ViewProps) {
         const ctx = canvas.current.getContext('2d')
 
         if (ctx) {
-          const ziegel = new Image()
-          await new Promise((r) => {
-            ziegel.onload = r
-            ziegel.src = '/Ziegel.png'
-          })
-          const ziegelWire = new Image()
-          await new Promise((r) => {
-            ziegelWire.onload = r
-            ziegelWire.src = '/Ziegel_wire.png'
-          })
-          const robotN = new Image()
-          await new Promise((r) => {
-            robotN.onload = r
-            robotN.src = '/robotN.png'
-          })
-          const robotE = new Image()
-          await new Promise((r) => {
-            robotE.onload = r
-            robotE.src = '/robotE.png'
-          })
-          const robotS = new Image()
-          await new Promise((r) => {
-            robotS.onload = r
-            robotS.src = '/robotS.png'
-          })
-          const robotW = new Image()
-          await new Promise((r) => {
-            robotW.onload = r
-            robotW.src = '/robotW.png'
-          })
-          const marke = new Image()
-          await new Promise((r) => {
-            marke.onload = r
-            marke.src = '/marke.png'
-          })
-          const quader = new Image()
-          await new Promise((r) => {
-            quader.onload = r
-            quader.src = '/quader.png'
-          })
-          const inverter = new Image()
-          await new Promise((r) => {
-            inverter.onload = r
-            inverter.src = '/chips/inverter.png'
-          })
+          const ziegel = await loadImage('/Ziegel.png')
+          const ziegelWire = await loadImage('/Ziegel_wire.png')
+          const robotN = await loadImage('/robotN.png')
+          const robotE = await loadImage('/robotE.png')
+          const robotS = await loadImage('/robotS.png')
+          const robotW = await loadImage('/robotW.png')
+          const marke = await loadImage('/marke.png')
+          const quader = await loadImage('/quader.png')
+
+          const chipsImages: { [key: string]: HTMLImageElement } = {}
+
+          for (const key in chips) {
+            const img = await loadImage(chips[key].image)
+            chipsImages[key] = img
+          }
+
           setResources({
             ziegel,
             ctx,
@@ -97,7 +69,7 @@ export function View({ world, wireframe }: ViewProps) {
             marke,
             quader,
             ziegelWire,
-            inverter,
+            chipsImages,
           })
         }
       }
@@ -117,7 +89,7 @@ export function View({ world, wireframe }: ViewProps) {
         marke,
         quader,
         ziegelWire,
-        inverter,
+        chipsImages,
       } = resources
 
       ctx.save()
@@ -167,10 +139,13 @@ export function View({ world, wireframe }: ViewProps) {
       )
 
       for (const chip of world.chips) {
-        if (chip.type == 'inverter') {
-          const p = to2d(chip.x, chip.y, 0)
-          ctx.drawImage(inverter, p.x - 47, p.y - 3)
-        }
+        const img = chipsImages[chip.tag]
+        const p = to2d(chip.x, chip.y, 0)
+        ctx.drawImage(
+          img,
+          p.x + chips[chip.tag].imageXOffset,
+          p.y + chips[chip.tag].imageYOffset
+        )
       }
 
       for (let x = 0; x < world.dimX; x++) {
@@ -254,4 +229,13 @@ function renderDashed(
     draw = !draw
   }
   ctx.stroke()
+}
+
+async function loadImage(src: string) {
+  const image = new Image()
+  await new Promise((r) => {
+    image.onload = r
+    image.src = src
+  })
+  return image
 }

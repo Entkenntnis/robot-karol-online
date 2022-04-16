@@ -1,3 +1,5 @@
+import { Core } from './core'
+
 export type Heading = 'north' | 'east' | 'south' | 'west'
 
 export interface World {
@@ -12,12 +14,13 @@ export interface World {
   bricks: number[][]
   marks: boolean[][]
   blocks: boolean[][]
-  chips: {
-    x: number
-    y: number
-    type: 'inverter'
-    init: boolean
-  }[]
+  chips: ChipInWorld[]
+}
+
+export interface ChipInWorld {
+  x: number
+  y: number
+  tag: string
 }
 
 export interface Message {
@@ -31,19 +34,12 @@ export interface Ui {
   gutter: number
   gutterReturns: number[]
   state: 'ready' | 'loading' | 'running' | 'error'
-  needTextRefresh: boolean
-  filename?: string
-  originalWorld?: World
   wireframe: boolean
-  progress: number
-  showTechTree: boolean
 }
 
 export interface Vm {
   bytecode?: Op[]
   pc: number
-  entry: number
-  checkpoint?: World
   handler?: NodeJS.Timeout
   frames: { [index: number]: number }[]
   callstack: number[]
@@ -57,7 +53,23 @@ export interface Settings {
   speed: Speed
 }
 
-export interface WorkspaceState {
+export interface Level {
+  title: string
+  target: number
+  description: string
+}
+
+export interface Chip {
+  tag: string
+  checkAction: (core: Core, chip: ChipInWorld) => void
+  initAction: (core: Core, chip: ChipInWorld) => void
+  isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => boolean
+  image: string
+  imageXOffset: number
+  imageYOffset: number
+}
+
+export interface WorkspaceStateBase {
   title: string
 
   world: World
@@ -66,6 +78,20 @@ export interface WorkspaceState {
   vm: Vm
   settings: Settings
 }
+
+interface WorkspaceStateFreeMode extends WorkspaceStateBase {
+  type: 'free'
+}
+
+interface WorkspaceStateLevelMode extends WorkspaceStateBase {
+  type: 'level'
+  progress: number
+  levelId: number
+  worldInit: boolean
+  worldCheckpoint?: World
+}
+
+export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStateLevelMode
 
 export interface CoreState {
   workspaces: WorkspaceState[]

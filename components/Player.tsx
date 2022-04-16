@@ -1,4 +1,8 @@
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCheck,
+  faCheckCircle,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { toggleWireframe } from '../lib/commands/view'
@@ -8,11 +12,13 @@ import {
   createWorldCmd,
   forward,
   left,
+  resetWorld,
   right,
   toggleBlock,
   toggleMark,
   unbrick,
 } from '../lib/commands/world'
+import { levels } from '../lib/data/levels'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
 import { View } from './View'
@@ -88,29 +94,66 @@ export function Player() {
                 </button>
               </div>
                 )*/}
-          <button
-            className={clsx(
-              'absolute left-1 top-1 rounded',
-              'px-2 py-0.5 bg-gray-100 hover:bg-gray-200'
-            )}
-            onClick={() => {
-              setShowNewWorldModal(true)
-            }}
-          >
-            Neue Welt
-          </button>
+          {core.ws.type == 'free' ? (
+            <button
+              className={clsx(
+                'absolute left-1 top-1 rounded',
+                'px-2 py-0.5 bg-gray-100 hover:bg-gray-200'
+              )}
+              onClick={() => {
+                setShowNewWorldModal(true)
+              }}
+            >
+              Neue Welt
+            </button>
+          ) : (
+            <button
+              className={clsx(
+                'absolute left-1 top-1 rounded',
+                'px-2 py-0.5 bg-gray-100 hover:bg-gray-200'
+              )}
+              onClick={() => {
+                resetWorld(core)
+              }}
+            >
+              Welt wiederherstellen
+            </button>
+          )}
         </div>
       </div>
-      {/*<div className="border-t h-12 flex justify-between items-center select-none">
-        <div className="pl-4">Inverter:</div>
-        <div className="bg-gray-200 w-full px-1 mx-3 relative flex justify-around items-center">
-          <div
-            className="bg-green-300 absolute left-0 top-0 bottom-0"
-            style={{ width: `${core.state.ui.progress}%` }}
-          ></div>
-          <div className="z-10">{core.state.ui.progress} / 100</div>
+      {core.ws.type == 'level' && (
+        <div className="border-t">
+          <div className="flex justify-between items-center select-none h-12 border-b">
+            {core.ws.progress < levels[core.ws.levelId].target ? (
+              <>
+                <div className="pl-4 font-bold">{core.ws.title}</div>
+                <div className="bg-gray-200 w-full px-1 mx-3 relative flex justify-around items-center">
+                  <div
+                    className="bg-green-300 absolute left-0 top-0 bottom-0"
+                    style={{
+                      width: `${Math.round(
+                        (core.ws.progress / levels[core.ws.levelId].target) *
+                          100
+                      )}%`,
+                    }}
+                  ></div>
+                  <div className="z-10">
+                    {core.ws.progress} / {levels[core.ws.levelId].target}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="m-3">
+                {core.ws.title}:{' '}
+                <span className="text-green-600">
+                  abgeschlossen <FaIcon icon={faCheckCircle} />
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="p-3">{levels[core.ws.levelId].description}</div>
         </div>
-      </div>*/}
+      )}
       <div className="flex-shrink-0 flex justify-around items-center border-t h-12">
         <div>
           <button

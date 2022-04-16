@@ -33,7 +33,6 @@ import { editable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
 import { selectAll, indentSelection } from '@codemirror/commands'
 import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
-import { refreshDone } from '../lib/commands/view'
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -49,7 +48,7 @@ export function EditArea() {
   //console.log('gutter', gutter)
 
   useEffect(() => {
-    if (core.ws.ui.needTextRefresh && view.current) {
+    /*if (core.ws.ui.needTextRefresh && view.current) {
       //console.log('refresh editor', core.current.code)
       view.current.dispatch({
         changes: {
@@ -59,7 +58,7 @@ export function EditArea() {
         },
       })
       refreshDone(core)
-    }
+    }*/
   })
 
   useEffect(() => {

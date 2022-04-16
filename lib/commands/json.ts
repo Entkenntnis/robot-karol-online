@@ -38,17 +38,17 @@ export function deserialize_TO_REWRITE(
         }
       }
     }
-    if (!world.chips) {
+    /*if (!world.chips) {
       // patch old save files
       world.chips = []
-    }
+    }*/
     //this.abort()
     core.mutateWs((state) => {
       state.world = world
       state.code = code
-      state.ui.needTextRefresh = true
-      state.ui.originalWorld = world
-      state.ui.filename = filename
+      //state.ui.needTextRefresh = true
+      //state.ui.originalWorld = world
+      //state.ui.filename = filename
     })
   } catch (e) {
     // @ts-ignore don't know why this suddenly fails

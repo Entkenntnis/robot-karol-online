@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "analyze": "cross-env ANALYZE=true next build",
     "grammar": "lezer-generator karol.grammar -o ./lib/codemirror/parser/parser.js"
   },
   "dependencies": {
@@ -29,9 +30,11 @@
   },
   "devDependencies": {
     "@lezer/generator": "^0.15.4",
+    "@next/bundle-analyzer": "^12.1.5",
     "@types/node": "^17.0.24",
     "@types/react": "^18.0.5",
     "autoprefixer": "^10.4.4",
+    "cross-env": "^7.0.3",
     "eslint": "^8.13.0",
     "eslint-config-next": "^12.1.5",
     "postcss": "^8.4.12",
