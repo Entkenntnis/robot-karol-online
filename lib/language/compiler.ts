@@ -68,7 +68,7 @@ export function compile(view: EditorView) {
             count: Infinity,
           })
         } else if (code == 'Unterbrechen') {
-          output.push({ type: 'return' })
+          output.push({ type: 'return', line: undefined })
         } else {
           warnings.push({
             from: cursor.from,
@@ -430,7 +430,7 @@ export function compile(view: EditorView) {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'function' && st.stage == 2) {
           declarations[st.name] = { target: st.target }
-          output.push({ type: 'return' })
+          output.push({ type: 'return', line: undefined })
           st.skipper.target = output.length
         } else {
           warnings.push({

@@ -27,7 +27,14 @@ export function createFreeModeWorkspaceState(id: number): WorkspaceState {
       progress: 0,
       showTechTree: false,
     },
-    vm: { pc: 0, entry: 0, frames: [{}], callstack: [] },
+    vm: {
+      pc: 0,
+      entry: 0,
+      frames: [{}],
+      callstack: [],
+      needsConfirmation: false,
+      confirmation: false,
+    },
     settings: {
       speed: 'fast',
     },
