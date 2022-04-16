@@ -32,14 +32,8 @@ import unterbrechenImg from '../public/unterbrechen.png'
 import { editable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
 import { selectAll, indentSelection } from '@codemirror/commands'
-import {
-  abort,
-  refreshDone,
-  run,
-  setSpeed,
-  setSpeedHot,
-  step,
-} from '../lib/commands/vm'
+import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
+import { refreshDone } from '../lib/commands/view'
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -148,12 +142,13 @@ export function EditArea() {
             <button
               className="bg-green-300 rounded px-2 py-0.5 m-1 ml-2 hover:bg-green-400 transition-colors"
               onClick={() => {
+                console.log(view)
                 if (view.current) {
                   const selection = view.current.state.selection
                   selectAll(view.current)
                   indentSelection(view.current)
                   view.current.dispatch({ selection })
-                  //console.log('disable editable')
+                  console.log('disable editable')
                   view.current.dispatch({
                     effects: editable.reconfigure(
                       EditorView.editable.of(false)
@@ -210,7 +205,7 @@ export function EditArea() {
               <button
                 className="bg-yellow-400 rounded px-2 py-0.5 ml-2 hover:bg-yellow-500 transition-colors"
                 onClick={() => {
-                  step(core)
+                  confirmStep(core)
                 }}
               >
                 Weiter
@@ -229,7 +224,7 @@ export function EditArea() {
             className="h-8 mr-2"
             value={core.ws.settings.speed}
             onChange={(e) => {
-              setSpeedHot(core, e.target.value)
+              setSpeed(core, e.target.value)
             }}
           >
             <option value="turbo">Turbo</option>

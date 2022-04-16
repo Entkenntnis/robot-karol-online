@@ -12,7 +12,7 @@ import { EditorView } from '@codemirror/view'
 
 import { basicSetup } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
-import { lint, setLoading } from '../lib/commands/vm'
+import { lint, setLoading } from '../lib/commands/editing'
 
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>

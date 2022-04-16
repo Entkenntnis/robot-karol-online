@@ -1,9 +1,7 @@
-import { EditorView } from '@codemirror/view'
 import { WritableDraft } from 'immer/dist/internal'
 
-import { compile } from '../language/compiler'
 import { Core } from '../state/core'
-import { Condition, Speed, WorkspaceState } from '../state/types'
+import { Condition, Op, Speed, WorkspaceState } from '../state/types'
 import {
   forward,
   left,
@@ -16,75 +14,43 @@ import {
   moveRaw,
 } from './world'
 
-export function lint(core: Core, view: EditorView) {
-  if (core.ws.ui.state == 'running' || !view) {
-    return [] // auto formatting, ignore
-  }
-  // good place to sync code with state
-  const code = view.state.doc.sliceString(0)
-  core.mutateWs((state) => {
-    state.code = code
-  })
-
-  console.log('lint')
-
-  const { warnings, output } = compile(view)
-
-  if (warnings.length == 0) {
-    core.mutateWs(({ vm, ui }) => {
-      vm.bytecode = output
-      vm.pc = 0
-      ui.state = 'ready'
-    })
-  } else {
-    core.mutateWs(({ vm, ui }) => {
-      vm.bytecode = undefined
-      vm.pc = 0
-      ui.state = 'error'
-    })
-  }
-
-  console.log('lint done')
-  return warnings
-}
-
-export function setLoading(core: Core) {
-  if (core.ws.ui.state == 'running') {
-    return // auto formatting, ignore
-  }
-  core.mutateWs(({ ui, vm }) => {
-    console.log('set loading')
-    ui.state = 'loading'
-    vm.checkpoint = undefined
+export function patch(core: Core, bytecode: Op[]) {
+  core.mutateWs(({ vm, ui }) => {
+    vm.bytecode = bytecode
+    ui.state = 'ready'
   })
 }
 
 export function run(core: Core) {
   core.mutateWs(({ ui, vm }) => {
     ui.state = 'running'
-    vm.checkpoint = core.ws.world
-    vm.pc = vm.entry
+    vm.pc = 0
     vm.frames = [{}]
     ui.gutterReturns = []
+    vm.needsConfirmation = false
+    vm.confirmation = false
   })
-  //console.log(this.current.vm.bytecode)
-  setTimeout(() => step(core), 500)
+  internal_step(core)
 }
 
-export function step(core: Core) {
+function internal_step(core: Core) {
   const pc = core.ws.vm.pc
   const byteCode = core.ws.vm.bytecode
   const state = core.ws.ui.state
 
-  if (!byteCode || state != 'running') {
-    // ignore
-    return
+  if (state != 'running') {
+    throw new Error('internal step assumes running state')
   }
+
+  if (!byteCode)
+    throw new Error("Invalid bytecode, shouldn't be in running state")
+
   if (pc >= byteCode.length) {
     // end reached
-    abort(core)
+    callWithDelay(core, () => abort(core), 500)
     return
   }
+
   const op = byteCode[pc]
 
   /*console.log(
@@ -95,59 +61,76 @@ export function step(core: Core) {
     this.current.vm.callstack
   )*/
 
+  const delay =
+    core.ws.settings.speed == 'slow'
+      ? 500
+      : core.ws.settings.speed == 'fast'
+      ? 50
+      : 0
+
   //console.log(this.state.ui.gutterReturns)
 
-  if (op.type == 'action') {
-    /*this.mutate((state) => {
-      state.ui.gutter = op.line
-    })*/
-
-    const delay =
-      core.ws.settings.speed == 'slow'
-        ? 500
-        : core.ws.settings.speed == 'fast'
-        ? 50
-        : 0
-
-    const h = setTimeout(() => {
-      if (op.type == 'action') {
-        if (op.command == 'forward') {
-          forward(core)
-        }
-        if (op.command == 'left') {
-          left(core)
-        }
-        if (op.command == 'right') {
-          right(core)
-        }
-        if (op.command == 'brick') {
-          brick(core)
-        }
-        if (op.command == 'unbrick') {
-          unbrick(core)
-        }
-        if (op.command == 'setMark') {
-          setMark(core)
-        }
-        if (op.command == 'resetMark') {
-          resetMark(core)
-        }
-        core.mutateWs((state) => {
-          state.vm.pc++
-          setGutter(state)
-        })
-        if (core.ws.settings.speed !== 'step') {
-          const h = setTimeout(() => step(core), delay)
-          core.mutateWs(({ vm }) => {
-            vm.handler = h
-          })
-          return
-        }
-      }
-    }, delay)
-    core.mutateWs(({ vm }) => {
-      vm.handler = h
+  if (op.line) {
+    const line = op.line
+    core.mutateWs(({ ui }) => {
+      ui.gutter = line
     })
+
+    if (core.ws.settings.speed == 'step') {
+      if (core.ws.vm.needsConfirmation && core.ws.vm.confirmation) {
+        // ok, confirmation is given
+        core.mutateWs(({ vm }) => {
+          vm.needsConfirmation = false
+          vm.confirmation = false
+        })
+      } else if (core.ws.vm.needsConfirmation && !core.ws.vm.confirmation) {
+        // no confirmation given yet
+        return
+      } else {
+        core.mutateWs(({ vm }) => {
+          vm.needsConfirmation = true
+          vm.confirmation = false
+        })
+        return
+      }
+    }
+  }
+
+  if (op.type == 'action') {
+    callWithDelay(
+      core,
+      () => {
+        if (op.type == 'action') {
+          if (op.command == 'forward') {
+            forward(core)
+          }
+          if (op.command == 'left') {
+            left(core)
+          }
+          if (op.command == 'right') {
+            right(core)
+          }
+          if (op.command == 'brick') {
+            brick(core)
+          }
+          if (op.command == 'unbrick') {
+            unbrick(core)
+          }
+          if (op.command == 'setMark') {
+            setMark(core)
+          }
+          if (op.command == 'resetMark') {
+            resetMark(core)
+          }
+          core.mutateWs((state) => {
+            state.vm.pc++
+          })
+          callWithDelay(core, () => internal_step(core))
+        }
+      },
+      delay
+    )
+    return
   } else {
     if (op.type == 'jumpn') {
       core.mutateWs(({ vm }) => {
@@ -163,12 +146,7 @@ export function step(core: Core) {
           state.vm.pc++
           delete frame[pc]
         })
-        const h = setTimeout(() => {
-          step(core)
-        }, 0)
-        core.mutateWs(({ vm }) => {
-          vm.handler = h
-        })
+        callWithDelay(core, () => internal_step(core))
         return
       } else {
         core.mutateWs((state) => {
@@ -176,12 +154,7 @@ export function step(core: Core) {
           state.vm.pc = op.target
           frame[pc]--
         })
-        const h = setTimeout(() => {
-          step(core)
-        }, 0)
-        core.mutateWs(({ vm }) => {
-          vm.handler = h
-        })
+        callWithDelay(core, () => internal_step(core))
         return
       }
     }
@@ -190,12 +163,7 @@ export function step(core: Core) {
       core.mutateWs((state) => {
         state.vm.pc = flag ? op.targetT : op.targetF
       })
-      const h = setTimeout(() => {
-        step(core)
-      }, 0)
-      core.mutateWs(({ vm }) => {
-        vm.handler = h
-      })
+      callWithDelay(core, () => internal_step(core))
       return
     }
     if (op.type == 'call') {
@@ -205,15 +173,9 @@ export function step(core: Core) {
         vm.frames.push({})
         vm.pc = op.target
         ui.gutterReturns.push(op.line)
-        setGutter(state)
       })
-      if (core.ws.settings.speed !== 'step') {
-        const h = setTimeout(() => step(core), 0)
-        core.mutateWs(({ vm }) => {
-          vm.handler = h
-        })
-        return
-      }
+      callWithDelay(core, () => internal_step(core))
+      return
     }
     if (op.type == 'return') {
       core.mutateWs(({ vm, ui }) => {
@@ -222,12 +184,7 @@ export function step(core: Core) {
         vm.frames.pop()
         vm.pc = target ?? Infinity
       })
-      const h = setTimeout(() => {
-        step(core)
-      }, 0)
-      core.mutateWs(({ vm }) => {
-        vm.handler = h
-      })
+      callWithDelay(core, () => internal_step(core))
       return
     }
   }
@@ -257,24 +214,15 @@ export function testCondition(core: Core, cond: Condition) {
     }
   }
 }
-
-export function refreshDone(core: Core) {
-  core.mutateWs((state) => {
-    state.ui.needTextRefresh = false
-  })
-}
-export function setSpeedHot(core: Core, val: string) {
-  clearTimeout(core.ws.vm.handler!)
-  setSpeed(core, val)
-  if (val != 'step' && core.ws.ui.state == 'running') {
-    step(core)
-  }
-}
-
 export function setSpeed(core: Core, val: string) {
+  const speed = val as Speed
+  clearTimeout(core.ws.vm.handler!)
   core.mutateWs((state) => {
-    state.settings.speed = val as Speed
+    state.settings.speed = speed
   })
+  if (core.ws.ui.state == 'running') {
+    internal_step(core)
+  }
 }
 
 export function abort(core: Core) {
@@ -284,21 +232,22 @@ export function abort(core: Core) {
     state.ui.state = 'ready'
     state.vm.pc = 0
     state.vm.handler = undefined
+    state.ui.gutterReturns = []
   })
 }
 
-export function resetCheckpoint(core: Core) {
-  core.mutateWs(({ vm }) => {
-    vm.checkpoint = undefined
-  })
-}
-
-function setGutter(state: WritableDraft<WorkspaceState>) {
-  const pc = state.vm.pc
-  if (state.vm.bytecode && pc < state.vm.bytecode.length) {
-    const op = state.vm.bytecode[pc]
-    if (op.type == 'action' || op.type == 'call') {
-      state.ui.gutter = op.line
-    }
+export function confirmStep(core: Core) {
+  if (core.ws.vm.needsConfirmation) {
+    core.mutateWs(({ vm }) => {
+      vm.confirmation = true
+    })
+    internal_step(core)
   }
+}
+
+function callWithDelay(core: Core, f: () => void, delay: number = 0) {
+  const h = setTimeout(f, delay)
+  core.mutateWs(({ vm }) => {
+    vm.handler = h
+  })
 }

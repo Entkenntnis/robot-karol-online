@@ -1,9 +1,11 @@
 import { Core } from '../state/core'
+import { abort } from './vm'
 
 export function showResearchCenter(core: Core) {
   core.mutateCore((state) => {
     state.showResearchCenter = true
   })
+  abort(core)
 }
 
 export function hideResearchCenter(core: Core) {

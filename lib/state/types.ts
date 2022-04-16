@@ -47,6 +47,8 @@ export interface Vm {
   handler?: NodeJS.Timeout
   frames: { [index: number]: number }[]
   callstack: number[]
+  needsConfirmation: boolean
+  confirmation: boolean
 }
 
 export type Speed = 'slow' | 'fast' | 'step' | 'turbo'
@@ -97,6 +99,7 @@ export interface JumpNOp {
   type: 'jumpn'
   target: number
   count: number
+  line?: number
 }
 
 export interface JumpCondOp {
@@ -104,6 +107,7 @@ export interface JumpCondOp {
   targetT: number
   targetF: number
   condition: Condition
+  line: number
 }
 
 export interface CallOp {
@@ -114,6 +118,7 @@ export interface CallOp {
 
 export interface ReturnOp {
   type: 'return'
+  line: undefined
 }
 
 export type Op = ActionOp | JumpNOp | JumpCondOp | CallOp | ReturnOp

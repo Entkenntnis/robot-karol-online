@@ -197,6 +197,7 @@ export function compile(view: EditorView) {
       }
       if (cursor.name == 'ThenKey') {
         const st = parseStack[parseStack.length - 1]
+        const line = view.state.doc.lineAt(st.from).number
         if (st.type == 'if' && st.stage == 2) {
           st.stage = 3
           if (code !== 'dann') {
@@ -212,6 +213,7 @@ export function compile(view: EditorView) {
               condition: st.condition,
               targetT: output.length + 1,
               targetF: -1,
+              line,
             }
             output.push(op)
             st.op = op
@@ -324,12 +326,14 @@ export function compile(view: EditorView) {
       }
       if (cursor.name == 'RepeatEnd') {
         const st = parseStack[parseStack.length - 1]
+        const line = view.state.doc.lineAt(st.from).number
         if (st.type == 'repeat' && st.stage == 3) {
           st.op.target = output.length
           output.push({
             type: 'jumpn',
             count: st.times,
             target: st.start,
+            line,
           })
           parseStack.pop()
           if (code !== 'endewiederhole') {
@@ -342,11 +346,13 @@ export function compile(view: EditorView) {
           }
         } else if (st.type == 'repeat' && st.stage == 11) {
           st.op.target = output.length
+          const line = view.state.doc.lineAt(st.from).number
           output.push({
             type: 'jumpcond',
             targetT: st.start,
             targetF: output.length + 1,
             condition: st.condition,
+            line,
           })
           parseStack.pop()
           if (code !== 'endewiederhole') {
