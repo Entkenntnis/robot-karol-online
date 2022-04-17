@@ -1,4 +1,3 @@
-import { ChildProcess } from 'child_process'
 import { chips } from '../data/chips'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
@@ -10,23 +9,25 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
   const { karol, bricks } = world
   const dir = opts?.reverse ? reverse(karol.dir) : karol.dir
   const target = move(karol.x, karol.y, dir, world)
-  if (target) {
-    const currentBrickCount = bricks[karol.y][karol.x]
-    const targetBrickCount = bricks[target.y][target.x]
 
-    if (Math.abs(currentBrickCount - targetBrickCount) > 1) {
-      addMessage(core, 'Karol kann diese Höhe nicht überwinden.')
-    } else {
-      core.mutateWs(({ world }) => {
-        world.karol.x = target.x
-        world.karol.y = target.y
-      })
-      return true
-    }
-  } else {
+  if (!target) {
     addMessage(core, 'Karol kann sich nicht in diese Richtung bewegen.')
+    return false
   }
-  return false
+
+  const currentBrickCount = bricks[karol.y][karol.x]
+  const targetBrickCount = bricks[target.y][target.x]
+
+  if (Math.abs(currentBrickCount - targetBrickCount) > 1) {
+    addMessage(core, 'Karol kann diese Höhe nicht überwinden.')
+    return false
+  }
+
+  core.mutateWs(({ world }) => {
+    world.karol.x = target.x
+    world.karol.y = target.y
+  })
+  return true
 }
 
 export function left(core: Core) {
@@ -46,30 +47,25 @@ export function brick(core: Core) {
   const { karol, bricks, height } = world
   const pos = move(karol.x, karol.y, karol.dir, world)
 
-  if (pos) {
-    if (bricks[pos.y][pos.x] >= height) {
-      addMessage(core, 'Maximale Stapelhöhe erreicht.')
-      return false
-    } else {
-      if (
-        world.chips.every(
-          (chip) =>
-            chips[chip.tag].isReadOnly(core, chip, pos.x, pos.y) == false
-        )
-      ) {
-        core.mutateWs((state) => {
-          state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] + 1
-        })
-        return true
-      } else {
-        addMessage(core, 'Dieses Feld kann nicht verändert werden.')
-        return false
-      }
-    }
-  } else {
+  if (!pos) {
     addMessage(core, 'Karol kann hier keinen Ziegel aufstellen.')
     return false
   }
+
+  if (bricks[pos.y][pos.x] >= height) {
+    addMessage(core, 'Maximale Stapelhöhe erreicht.')
+    return false
+  }
+
+  if (isReadOnly(core, pos.x, pos.y)) {
+    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    return false
+  }
+
+  core.mutateWs((state) => {
+    state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] + 1
+  })
+  return true
 }
 
 export function unbrick(core: Core) {
@@ -77,82 +73,77 @@ export function unbrick(core: Core) {
   const { karol, bricks } = world
   const pos = move(karol.x, karol.y, karol.dir, world)
 
-  if (pos) {
-    if (bricks[pos.y][pos.x] <= 0) {
-      addMessage(core, 'Keine Ziegel zum Aufheben')
-      return false
-    } else {
-      if (
-        world.chips.every(
-          (chip) =>
-            chips[chip.tag].isReadOnly(core, chip, pos.x, pos.y) == false
-        )
-      ) {
-        core.mutateWs((state) => {
-          state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] - 1
-        })
-        return true
-      } else {
-        addMessage(core, 'Dieses Feld kann nicht verändert werden.')
-        return false
-      }
-    }
-  } else {
+  if (!pos) {
     addMessage(core, 'Karol kann hier keine Ziegel aufheben.')
     return false
   }
+
+  if (bricks[pos.y][pos.x] <= 0) {
+    addMessage(core, 'Keine Ziegel zum Aufheben')
+    return false
+  }
+
+  if (isReadOnly(core, pos.x, pos.y)) {
+    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    return false
+  }
+
+  core.mutateWs((state) => {
+    state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] - 1
+  })
+  return true
 }
 
 export function toggleMark(core: Core) {
   const karol = core.ws.world.karol
-  if (
-    core.ws.world.chips.every(
-      (chip) =>
-        chips[chip.tag].isReadOnly(core, chip, karol.x, karol.y) == false
-    )
-  ) {
-    core.mutateWs(({ world }) => {
-      world.marks[world.karol.y][world.karol.x] =
-        !world.marks[world.karol.y][world.karol.x]
-    })
-    checkChipActive(core)
-  } else {
+
+  if (isReadOnly(core, karol.x, karol.y)) {
     addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    return false
   }
+
+  core.mutateWs(({ world }) => {
+    world.marks[world.karol.y][world.karol.x] =
+      !world.marks[world.karol.y][world.karol.x]
+  })
+  checkChipActive(core)
+  return true
 }
 
 export function setMark(core: Core) {
-  const karol = core.ws.world.karol
-  if (
-    core.ws.world.chips.every(
-      (chip) =>
-        chips[chip.tag].isReadOnly(core, chip, karol.x, karol.y) == false
-    )
-  ) {
-    core.mutateWs(({ world }) => {
-      world.marks[world.karol.y][world.karol.x] = true
-    })
-    checkChipActive(core)
-  } else {
+  const { world } = core.ws
+  const karol = world.karol
+
+  if (isReadOnly(core, karol.x, karol.y)) {
     addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    return false
   }
+
+  const previousMark = world.marks[world.karol.y][world.karol.x]
+
+  core.mutateWs(({ world }) => {
+    world.marks[world.karol.y][world.karol.x] = true
+  })
+  if (!previousMark) checkChipActive(core)
+  return true
 }
 
 export function resetMark(core: Core) {
-  const karol = core.ws.world.karol
-  if (
-    core.ws.world.chips.every(
-      (chip) =>
-        chips[chip.tag].isReadOnly(core, chip, karol.x, karol.y) == false
-    )
-  ) {
-    core.mutateWs(({ world }) => {
-      world.marks[world.karol.y][world.karol.x] = false
-    })
-    checkChipActive(core)
-  } else {
+  const { world } = core.ws
+  const karol = world.karol
+
+  if (isReadOnly(core, karol.x, karol.y)) {
     addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    return false
   }
+
+  const previousMark = world.marks[world.karol.y][world.karol.x]
+
+  core.mutateWs(({ world }) => {
+    world.marks[world.karol.y][world.karol.x] = false
+  })
+  if (previousMark) checkChipActive(core)
+  return true
 }
 
 function checkChipActive(core: Core) {
@@ -165,48 +156,36 @@ export function toggleBlock(core: Core) {
   const { world } = core.ws
   const { karol, blocks, bricks, marks } = world
   const pos = moveRaw(karol.x, karol.y, karol.dir, world)
-  if (pos) {
-    if (blocks[pos.y][pos.x]) {
-      if (
-        world.chips.every(
-          (chip) =>
-            chips[chip.tag].isReadOnly(core, chip, pos.x, pos.y) == false
-        )
-      ) {
-        core.mutateWs(({ world }) => {
-          world.blocks[pos.y][pos.x] = false
-        })
-        return true
-      } else {
-        addMessage(core, 'Dieses Feld kann nicht verändert werden.')
-        return false
-      }
-    } else if (!marks[pos.y][pos.x] && bricks[pos.y][pos.x] == 0) {
-      if (
-        world.chips.every(
-          (chip) =>
-            chips[chip.tag].isReadOnly(core, chip, pos.x, pos.y) == false
-        )
-      ) {
-        core.mutateWs(({ world }) => {
-          world.blocks[pos.y][pos.x] = true
-        })
-        return true
-      } else {
-        addMessage(core, 'Dieses Feld kann nicht verändert werden.')
-        return false
-      }
-    } else {
-      if (marks[pos.y][pos.x]) {
-        addMessage(core, 'Karol kann keinen Quader auf eine Marke stellen.')
-      } else {
-        addMessage(core, 'Karol kann keinen Quader auf Ziegel stellen.')
-      }
-    }
-  } else {
+
+  if (!pos) {
     addMessage(core, 'Karol kann hier keinen Quader aufstellen.')
+    return false
   }
-  return false
+
+  if (isReadOnly(core, pos.x, pos.y)) {
+    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    return false
+  }
+
+  if (blocks[pos.y][pos.x]) {
+    core.mutateWs(({ world }) => {
+      world.blocks[pos.y][pos.x] = false
+    })
+    return true
+  } else {
+    if (bricks[pos.y][pos.x] > 0) {
+      addMessage(core, 'Karol kann keinen Quader auf Ziegel stellen.')
+      return false
+    }
+    if (marks[pos.y][pos.x]) {
+      addMessage(core, 'Karol kann keinen Quader auf eine Marke stellen.')
+      return false
+    }
+    core.mutateWs(({ world }) => {
+      world.blocks[pos.y][pos.x] = true
+    })
+    return true
+  }
 }
 
 export function createWorldCmd(core: Core, x: number, y: number, z: number) {
@@ -289,4 +268,10 @@ function turnRight(h: Heading) {
     south: 'west',
     west: 'north',
   }[h] as Heading
+}
+
+function isReadOnly(core: Core, x: number, y: number) {
+  return core.ws.world.chips.some((chip) =>
+    chips[chip.tag].isReadOnly(core, chip, x, y)
+  )
 }

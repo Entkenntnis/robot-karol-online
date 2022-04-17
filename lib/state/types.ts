@@ -90,7 +90,7 @@ interface WorkspaceStateFreeMode extends WorkspaceStateBase {
   type: 'free'
 }
 
-interface WorkspaceStateLevelMode extends WorkspaceStateBase {
+export interface WorkspaceStateLevelMode extends WorkspaceStateBase {
   type: 'level'
   progress: number
   levelId: number

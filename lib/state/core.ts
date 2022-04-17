@@ -10,7 +10,12 @@ import {
 } from 'react'
 import produce, { Draft } from 'immer'
 
-import { CoreRefs, CoreState, WorkspaceState } from './types'
+import {
+  CoreRefs,
+  CoreState,
+  WorkspaceState,
+  WorkspaceStateLevelMode,
+} from './types'
 import { createDefaultCoreState } from './create'
 
 // set up core within app
@@ -57,6 +62,14 @@ export class Core {
     return this.state.workspaces[this.state.currentWorkspace]
   }
 
+  get level() {
+    if (this.ws.type !== 'level') {
+      return undefined
+    } else {
+      return this.ws
+    }
+  }
+
   // always mutate core state with this function
   mutateCore(updater: (draft: Draft<CoreState>) => void) {
     const newState = produce(this.state, updater)
@@ -69,6 +82,15 @@ export class Core {
   mutateWs(updater: (draft: Draft<WorkspaceState>) => void) {
     this.mutateCore((state) => {
       updater(state.workspaces[state.currentWorkspace])
+    })
+  }
+
+  mutateLevel(updater: (draft: Draft<WorkspaceStateLevelMode>) => void) {
+    this.mutateCore((state) => {
+      const ws = state.workspaces[state.currentWorkspace]
+      if (ws.type == 'level') {
+        updater(ws)
+      }
     })
   }
 }

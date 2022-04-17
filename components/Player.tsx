@@ -6,16 +6,9 @@ import {
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import {
-  createRef,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
-import { toggleWireframe } from '../lib/commands/view'
+import { createRef, Dispatch, SetStateAction, useEffect, useState } from 'react'
 
+import { toggleWireframe } from '../lib/commands/view'
 import {
   brick,
   createWorldCmd,
@@ -88,22 +81,13 @@ export function Player() {
               }}
               tabIndex={1}
               className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer outline-none"
-              onWheel={(e) => {
-                /*if (e.deltaY < 0) {
-                  setScale((scale) => scale * 1.05)
-                }
-                if (e.deltaY > 0) {
-                  setScale((scale) => scale / 1.05)
-                }
-                e.preventDefault()*/
-              }}
               ref={wrapper}
               style={{ transform: `scale(${scale})` }}
             >
               <View
                 world={core.ws.world}
                 wireframe={core.ws.ui.wireframe}
-                sparkle={core.ws.type == 'level' ? core.ws.sparkle : undefined}
+                sparkle={core.level?.sparkle}
               />
             </div>
           </div>
@@ -143,18 +127,6 @@ export function Player() {
               <FaIcon icon={faMagnifyingGlassPlus} className="cursor-pointer" />
             </span>
           </div>
-          {/*core.ws.ui.originalWorld &&
-            core.ws.state.ui.originalWorld != workspace.state.world && (
-              <div className="absolute top-2 left-2 bg-gray-50">
-                <button
-                  onClick={() => {
-                    workspace.restoreWorld()
-                  }}
-                >
-                  ⭯ Welt wiederherstellen
-                </button>
-              </div>
-                )*/}
           {core.ws.type == 'free' ? (
             <button
               className={clsx(

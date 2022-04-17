@@ -1,4 +1,5 @@
 import { addMessage } from '../commands/messages'
+import { createSparkle } from '../commands/sparkle'
 import { Core } from '../state/core'
 import { Chip, ChipInWorld } from '../state/types'
 import { levels } from './levels'
@@ -14,88 +15,35 @@ export const chips: { [key: string]: Chip } = {
           const input = world.bricks[chip.y + 1][chip.x]
           const output = world.bricks[chip.y + 1][chip.x + 4]
           if ((input == 1 && output == 0) || (input == 0 && output == 1)) {
-            core.mutateWs((state) => {
-              if (state.type == 'level') {
-                state.progress++
-              }
+            core.mutateLevel((state) => {
+              state.progress++
             })
-            /*addMessage(
-              core,
-              'Lösche die Marke, um eine neue Belegung zu erhalten.'
-            )*/
-            ;(async () => {
-              for (let i = 0; i < 20; i++) {
-                console.log('update', i)
-                core.mutateWs((state) => {
-                  if (state.type == 'level') {
-                    state.sparkle = {
-                      type: 'happy',
-                      posX: 260,
-                      posY: 80 - i * 4,
-                    }
-                  }
-                })
-                await sleep(20)
-              }
-              await sleep(500)
-              core.mutateWs((state) => {
-                if (state.type == 'level') {
-                  state.sparkle = undefined
-                }
+            createSparkle(core, 260, 80, 'happy')
+
+            if (core.level!.progress >= levels[core.level!.levelId].target) {
+              core.mutateWs(({ world }) => {
+                world.bricks[chip.y + 1][chip.x] = 0
+                world.blocks[chip.y + 1][chip.x] = true
+                world.marks[chip.y + 1][chip.x] = false
+                world.bricks[chip.y + 1][chip.x + 4] = 0
+                world.blocks[chip.y + 1][chip.x + 4] = true
+                world.marks[chip.y + 1][chip.x + 4] = false
               })
-            })()
+            }
           } else {
-            if (
-              core.ws.type == 'level' &&
-              core.ws.progress < levels[core.ws.levelId].target
-            ) {
+            if (core.level!.progress < levels[core.level!.levelId].target) {
               addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
-              core.mutateWs((state) => {
-                if (state.type == 'level') {
-                  state.progress = 0
-                }
+              core.mutateLevel((state) => {
+                state.progress = 0
               })
               core.mutateWs(({ world }) => {
                 world.marks[karol.y][karol.x] = false
               })
-              ;(async () => {
-                for (let i = 0; i < 20; i++) {
-                  console.log('update', i)
-                  core.mutateWs((state) => {
-                    if (state.type == 'level') {
-                      state.sparkle = {
-                        type: 'fail',
-                        posX: 260,
-                        posY: 80 - i * 4,
-                      }
-                    }
-                  })
-                  await sleep(20)
-                }
-                await sleep(500)
-                core.mutateWs((state) => {
-                  if (state.type == 'level') {
-                    state.sparkle = undefined
-                  }
-                })
-              })()
             }
           }
         } else {
-          if (
-            core.ws.type == 'level' &&
-            core.ws.progress < levels[core.ws.levelId].target
-          ) {
+          if (core.level!.progress < levels[core.level!.levelId].target) {
             chips['inverter'].initAction(core, chip)
-          } else {
-            core.mutateWs(({ world }) => {
-              world.bricks[chip.y + 1][chip.x] = 0
-              world.blocks[chip.y + 1][chip.x] = true
-              world.marks[chip.y + 1][chip.x] = false
-              world.bricks[chip.y + 1][chip.x + 4] = 0
-              world.blocks[chip.y + 1][chip.x + 4] = true
-              world.marks[chip.y + 1][chip.x + 4] = false
-            })
           }
         }
       }
@@ -127,8 +75,4 @@ export const chips: { [key: string]: Chip } = {
     imageXOffset: -47,
     imageYOffset: -2,
   },
-}
-
-function sleep(t: number) {
-  return new Promise((res) => setTimeout(res, t))
 }
