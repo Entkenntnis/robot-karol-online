@@ -58,6 +58,7 @@ export interface Level {
   title: string
   target: number
   description: React.ReactNode
+  previewImage: string
 }
 
 export interface Sparkle {

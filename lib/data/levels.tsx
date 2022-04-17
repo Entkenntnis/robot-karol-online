@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { Level } from '../state/types'
 
 export const levels: Level[] = [
@@ -15,6 +14,7 @@ export const levels: Level[] = [
         />
       </div>
     ),
+    previewImage: '/levels/preview_inverter.png',
   },
 ]
 

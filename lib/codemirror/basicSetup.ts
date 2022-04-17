@@ -73,7 +73,7 @@ const parserWithMetadata = parser.configure({
 const exampleLanguage = LRLanguage.define({
   parser: parserWithMetadata,
   languageData: {
-    indentOnInput: /^\s*(en|so)/,
+    indentOnInput: /^\s*(ende(wiederhole|wenn|Anweisung)|sonst)/,
     autocomplete: buildMyAutocomplete(),
   },
 })
