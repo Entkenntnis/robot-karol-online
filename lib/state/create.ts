@@ -20,6 +20,8 @@ export function createLevel1WorkspaceState(): WorkspaceState {
     worldInit: false,
   }
   state.world.chips.push({ tag: 'inverter', x: 4, y: 3 })
+  state.world.karol.x = 6
+  state.world.karol.y = 3
   return state
 }
 

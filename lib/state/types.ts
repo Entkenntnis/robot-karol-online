@@ -1,3 +1,4 @@
+import React from 'react'
 import { Core } from './core'
 
 export type Heading = 'north' | 'east' | 'south' | 'west'
@@ -56,7 +57,13 @@ export interface Settings {
 export interface Level {
   title: string
   target: number
-  description: string
+  description: React.ReactNode
+}
+
+export interface Sparkle {
+  type: 'happy' | 'fail'
+  posX: number
+  posY: number
 }
 
 export interface Chip {
@@ -89,6 +96,7 @@ interface WorkspaceStateLevelMode extends WorkspaceStateBase {
   levelId: number
   worldInit: boolean
   worldCheckpoint?: World
+  sparkle?: Sparkle
 }
 
 export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStateLevelMode

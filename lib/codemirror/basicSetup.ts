@@ -63,10 +63,9 @@ const parserWithMetadata = parser.configure({
       Return: t.unit,
     }),
     indentNodeProp.add({
-      Repeat: continuedIndent({ except: /^\s*en/ }),
-      IfThen: continuedIndent({ except: /^\s*(en|so)/ }),
-      Cmd: continuedIndent({ except: /^\s*en/ }),
-      Cond: continuedIndent({ except: /^\s*en/ }),
+      Repeat: continuedIndent({ except: /^\s*endewiederhole(\s|$)/ }),
+      IfThen: continuedIndent({ except: /^\s*(endewenn|sonst)(\s|$)/ }),
+      Cmd: continuedIndent({ except: /^\s*endeAnweisung(\s|$)/ }),
     }),
   ],
 })

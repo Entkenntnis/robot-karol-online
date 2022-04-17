@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { CSSProperties, useEffect, useRef, useState } from 'react'
 import { chips } from '../lib/data/chips'
-import { World } from '../lib/state/types'
+import { Sparkle, World } from '../lib/state/types'
 
 interface ViewProps {
   world: World
   wireframe: boolean
+  sparkle?: Sparkle
+  style?: CSSProperties
 }
 
 interface Resources {
@@ -16,11 +18,13 @@ interface Resources {
   marke: HTMLImageElement
   quader: HTMLImageElement
   ziegelWire: HTMLImageElement
+  sparkleImg: HTMLImageElement
+  failImg: HTMLImageElement
   chipsImages: { [key: string]: HTMLImageElement }
   ctx: CanvasRenderingContext2D
 }
 
-export function View({ world, wireframe }: ViewProps) {
+export function View({ world, wireframe, sparkle, style }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
@@ -51,6 +55,8 @@ export function View({ world, wireframe }: ViewProps) {
           const robotW = await loadImage('/robotW.png')
           const marke = await loadImage('/marke.png')
           const quader = await loadImage('/quader.png')
+          const sparkleImg = await loadImage('/sparkle.png')
+          const failImg = await loadImage('/fehler.png')
 
           const chipsImages: { [key: string]: HTMLImageElement } = {}
 
@@ -69,6 +75,8 @@ export function View({ world, wireframe }: ViewProps) {
             marke,
             quader,
             ziegelWire,
+            sparkleImg,
+            failImg,
             chipsImages,
           })
         }
@@ -89,6 +97,8 @@ export function View({ world, wireframe }: ViewProps) {
         marke,
         quader,
         ziegelWire,
+        sparkleImg,
+        failImg,
         chipsImages,
       } = resources
 
@@ -187,15 +197,29 @@ export function View({ world, wireframe }: ViewProps) {
         }
       }
 
+      if (sparkle) {
+        ctx.drawImage(
+          sparkle.type == 'happy' ? sparkleImg : failImg,
+          sparkle.posX,
+          sparkle.posY
+        )
+      }
+
       //ctx.drawImage(ziegel, originX - 0.5, originY - 1.5)</div>
 
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world, wireframe])
+  }, [resources, world, wireframe, sparkle])
 
   return (
-    <canvas ref={canvas} width={width} height={height} className="m-4"></canvas>
+    <canvas
+      ref={canvas}
+      width={width}
+      height={height}
+      className="m-4"
+      style={style}
+    ></canvas>
   )
 }
 

@@ -115,10 +115,10 @@ export function toggleMark(core: Core) {
       world.marks[world.karol.y][world.karol.x] =
         !world.marks[world.karol.y][world.karol.x]
     })
+    checkChipActive(core)
   } else {
     addMessage(core, 'Dieses Feld kann nicht verändert werden.')
   }
-  checkChipActive(core)
 }
 
 export function setMark(core: Core) {
@@ -132,10 +132,10 @@ export function setMark(core: Core) {
     core.mutateWs(({ world }) => {
       world.marks[world.karol.y][world.karol.x] = true
     })
+    checkChipActive(core)
   } else {
     addMessage(core, 'Dieses Feld kann nicht verändert werden.')
   }
-  checkChipActive(core)
 }
 
 export function resetMark(core: Core) {
@@ -149,6 +149,7 @@ export function resetMark(core: Core) {
     core.mutateWs(({ world }) => {
       world.marks[world.karol.y][world.karol.x] = false
     })
+    checkChipActive(core)
   } else {
     addMessage(core, 'Dieses Feld kann nicht verändert werden.')
   }
@@ -166,10 +167,20 @@ export function toggleBlock(core: Core) {
   const pos = moveRaw(karol.x, karol.y, karol.dir, world)
   if (pos) {
     if (blocks[pos.y][pos.x]) {
-      core.mutateWs(({ world }) => {
-        world.blocks[pos.y][pos.x] = false
-      })
-      return true
+      if (
+        world.chips.every(
+          (chip) =>
+            chips[chip.tag].isReadOnly(core, chip, pos.x, pos.y) == false
+        )
+      ) {
+        core.mutateWs(({ world }) => {
+          world.blocks[pos.y][pos.x] = false
+        })
+        return true
+      } else {
+        addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+        return false
+      }
     } else if (!marks[pos.y][pos.x] && bricks[pos.y][pos.x] == 0) {
       if (
         world.chips.every(
@@ -221,6 +232,7 @@ export function resetWorld(core: Core) {
   core.mutateWs((state) => {
     if (state.type == 'level' && state.worldCheckpoint) {
       state.world = state.worldCheckpoint
+      state.progress = 0
     }
   })
 }

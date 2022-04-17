@@ -1,14 +1,20 @@
+/* eslint-disable @next/next/no-img-element */
 import { Level } from '../state/types'
 
 export const levels: Level[] = [
   {
     title: 'Inverter',
     target: 50,
-    description:
-      'Ein Inverter dreht seine Eingabe um. Liegt links ein Ziegel,' +
-      ' dann soll rechts leer sein. Ist links leer, dann soll rechts' +
-      ' ein Ziegel liegen. Du kannst den Inverter aktivieren, in dem' +
-      ' du auf das gelbe Feld eine Marke setzt. Damit kannst du den Fortschritt erhöhen.',
+    description: (
+      <div className="flex flex-wrap justify-around">
+        <img src="/levels/correct1.png" alt="Erfolgreiche Belegung" />
+        <img
+          src="/levels/correct2.png"
+          alt="Erfolgreiche Belegung"
+          className="ml-3 inline-block"
+        />
+      </div>
+    ),
   },
 ]
 

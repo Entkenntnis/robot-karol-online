@@ -1,10 +1,19 @@
 import {
-  faCheck,
   faCheckCircle,
+  faEquals,
+  faMagnifyingGlassMinus,
+  faMagnifyingGlassPlus,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { Dispatch, SetStateAction, useState } from 'react'
+import {
+  createRef,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { toggleWireframe } from '../lib/commands/view'
 
 import {
@@ -27,6 +36,15 @@ export function Player() {
   const core = useCore()
 
   const [showNewWorldModal, setShowNewWorldModal] = useState(false)
+
+  const [scale, setScale] = useState(1)
+
+  const wrapper = createRef<HTMLDivElement>()
+
+  useEffect(() => {
+    wrapper.current?.focus()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -69,9 +87,24 @@ export function Player() {
                 }
               }}
               tabIndex={1}
-              className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer"
+              className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer outline-none"
+              onWheel={(e) => {
+                /*if (e.deltaY < 0) {
+                  setScale((scale) => scale * 1.05)
+                }
+                if (e.deltaY > 0) {
+                  setScale((scale) => scale / 1.05)
+                }
+                e.preventDefault()*/
+              }}
+              ref={wrapper}
+              style={{ transform: `scale(${scale})` }}
             >
-              <View world={core.ws.world} wireframe={core.ws.ui.wireframe} />
+              <View
+                world={core.ws.world}
+                wireframe={core.ws.ui.wireframe}
+                sparkle={core.ws.type == 'level' ? core.ws.sparkle : undefined}
+              />
             </div>
           </div>
           <div className="absolute bottom-2 left-2 bg-gray-50">
@@ -81,6 +114,34 @@ export function Player() {
                 {m.count > 1 && <span> (x{m.count})</span>}
               </div>
             ))}
+          </div>
+          <div className="absolute right-3 bottom-2">
+            <span
+              onClick={() => {
+                setScale((scale) => scale / 1.1)
+              }}
+            >
+              <FaIcon
+                icon={faMagnifyingGlassMinus}
+                className="cursor-pointer"
+              />
+            </span>
+            <span className="inline-block w-4" />
+            <span
+              onClick={() => {
+                setScale(1)
+              }}
+            >
+              <FaIcon icon={faEquals} className="cursor-pointer" />
+            </span>
+            <span className="inline-block w-4" />
+            <span
+              onClick={() => {
+                setScale((scale) => scale * 1.1)
+              }}
+            >
+              <FaIcon icon={faMagnifyingGlassPlus} className="cursor-pointer" />
+            </span>
           </div>
           {/*core.ws.ui.originalWorld &&
             core.ws.state.ui.originalWorld != workspace.state.world && (
@@ -116,7 +177,7 @@ export function Player() {
                 resetWorld(core)
               }}
             >
-              Welt wiederherstellen
+              Neu starten
             </button>
           )}
         </div>
