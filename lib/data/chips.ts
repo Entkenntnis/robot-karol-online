@@ -39,6 +39,11 @@ export const chips: { [key: string]: Chip } = {
         } else {
           if (core.level!.progress < levels[core.level!.levelId].target) {
             chips['inverter'].initAction(core, chip)
+          } else {
+            core.mutateWs(({ world }) => {
+              world.marks[karol.y][karol.x] = true
+            })
+            addMessage(core, 'Fertig!')
           }
         }
       }
@@ -60,8 +65,8 @@ export const chips: { [key: string]: Chip } = {
       if (
         core.ws.type == 'level' &&
         core.ws.progress >= levels[core.ws.levelId].target &&
-        ((x == chip.x + 4 && y == chip.y + 1) ||
-          (x == chip.x + 2 && y == chip.y))
+        x == chip.x + 4 &&
+        y == chip.y + 1
       ) {
         return true
       }
