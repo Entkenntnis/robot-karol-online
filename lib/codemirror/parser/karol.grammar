@@ -72,9 +72,9 @@ CustomRef { idx }
 
   number { $[0-9]+ }
 
-  Comment { "{" ![}]* "}"? }
-
   idx { $[A-Za-zäüöÄÜÖß_] $[0-9A-Za-zäüöÄÜÖß_]* }
 }
+
+@external tokens nestedComment from "./nestedComment" { Comment }
 
 @skip { Comment | whitespace }

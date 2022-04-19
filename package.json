@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
-    "grammar": "lezer-generator karol.grammar -o ./lib/codemirror/parser/parser.js"
+    "grammar": "lezer-generator ./lib/codemirror/parser/karol.grammar -o ./lib/codemirror/parser/parser.js"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^0.19.0",

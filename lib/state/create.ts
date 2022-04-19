@@ -10,7 +10,7 @@ export function createDefaultCoreState(): CoreState {
       createLevel1WorkspaceState(),
       createLevel4WorkspaceState(),
     ],
-    currentWorkspace: 3,
+    currentWorkspace: 0,
     showResearchCenter: false,
   }
 }
