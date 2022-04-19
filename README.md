@@ -105,7 +105,7 @@ Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?project=htt
 
 ### Invertieren
 
-Karol invertiert den gesamten Boden: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/invertieren.json
+Karol invertiert den gesamten Boden: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/allesinvertieren.json
 
 ### Aufräumen
 
