@@ -1,4 +1,5 @@
-import type { EditorView } from '@codemirror/view'
+import React from 'react'
+import { Core } from './core'
 
 export type Heading = 'north' | 'east' | 'south' | 'west'
 
@@ -14,6 +15,13 @@ export interface World {
   bricks: number[][]
   marks: boolean[][]
   blocks: boolean[][]
+  chips: ChipInWorld[]
+}
+
+export interface ChipInWorld {
+  x: number
+  y: number
+  tag: string
 }
 
 export interface Message {
@@ -27,20 +35,18 @@ export interface Ui {
   gutter: number
   gutterReturns: number[]
   state: 'ready' | 'loading' | 'running' | 'error'
-  needTextRefresh: boolean
-  filename?: string
-  originalWorld?: World
   wireframe: boolean
+  needsTextRefresh: boolean
 }
 
 export interface Vm {
   bytecode?: Op[]
   pc: number
-  entry: number
-  checkpoint?: World
   handler?: NodeJS.Timeout
   frames: { [index: number]: number }[]
   callstack: number[]
+  needsConfirmation: boolean
+  confirmation: boolean
 }
 
 export type Speed = 'slow' | 'fast' | 'step' | 'turbo'
@@ -49,7 +55,32 @@ export interface Settings {
   speed: Speed
 }
 
-export interface CoreState {
+export interface Level {
+  title: string
+  target: number
+  description: React.ReactNode
+  previewImage: string
+}
+
+export interface Sparkle {
+  type: 'happy' | 'fail'
+  posX: number
+  posY: number
+}
+
+export interface Chip {
+  tag: string
+  checkAction: (core: Core, chip: ChipInWorld) => void
+  initAction: (core: Core, chip: ChipInWorld) => void
+  isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => boolean
+  image: string
+  imageXOffset: number
+  imageYOffset: number
+}
+
+export interface WorkspaceStateBase {
+  title: string
+
   world: World
   ui: Ui
   code: string
@@ -57,9 +88,29 @@ export interface CoreState {
   settings: Settings
 }
 
+interface WorkspaceStateFreeMode extends WorkspaceStateBase {
+  type: 'free'
+}
+
+export interface WorkspaceStateLevelMode extends WorkspaceStateBase {
+  type: 'level'
+  progress: number
+  levelId: number
+  worldInit: boolean
+  worldCheckpoint?: World
+  sparkle?: Sparkle
+}
+
+export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStateLevelMode
+
+export interface CoreState {
+  workspaces: WorkspaceState[]
+  currentWorkspace: number
+  showResearchCenter: boolean
+}
+
 export interface CoreRefs {
   state: CoreState
-  view?: EditorView
 }
 
 export interface ActionOp {
@@ -84,6 +135,7 @@ export interface JumpNOp {
   type: 'jumpn'
   target: number
   count: number
+  line?: number
 }
 
 export interface JumpCondOp {
@@ -91,6 +143,7 @@ export interface JumpCondOp {
   targetT: number
   targetF: number
   condition: Condition
+  line: number
 }
 
 export interface CallOp {
@@ -101,6 +154,7 @@ export interface CallOp {
 
 export interface ReturnOp {
   type: 'return'
+  line: undefined
 }
 
 export type Op = ActionOp | JumpNOp | JumpCondOp | CallOp | ReturnOp

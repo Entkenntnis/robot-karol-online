@@ -1,7 +1,7 @@
 import { EditorView } from '@codemirror/view'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import clsx from 'clsx'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 
 import { Editor } from './Editor'
 
@@ -29,13 +29,10 @@ import nichtistmarkeImg from '../public/nichtistmarke.png'
 import anweisungImg from '../public/anweisung.png'
 import unterbrechenImg from '../public/unterbrechen.png'
 
-import { editable } from '../lib/basicSetup'
-import { useCore } from '../lib/core'
-import {
-  selectAll,
-  indentSelection,
-  cursorDocStart,
-} from '@codemirror/commands'
+import { editable } from '../lib/codemirror/basicSetup'
+import { useCore } from '../lib/state/core'
+import { selectAll, indentSelection } from '@codemirror/commands'
+import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -44,32 +41,34 @@ export function EditArea() {
 
   const core = useCore()
 
-  const codeState = core.state.ui.state
+  const codeState = core.ws.ui.state
+
+  const view = useRef<EditorView>()
 
   //console.log('gutter', gutter)
 
   useEffect(() => {
-    if (core.state.ui.needTextRefresh && core.view) {
+    if (core.ws.ui.needsTextRefresh && view.current) {
       //console.log('refresh editor', core.current.code)
-      core.view.dispatch({
+      view.current.dispatch({
         changes: {
           from: 0,
-          to: core.view.state.doc.length,
-          insert: core.state.code,
+          to: view.current.state.doc.length,
+          insert: core.ws.code,
         },
       })
-      core.refreshDone()
+      core.mutateWs(({ ui }) => (ui.needsTextRefresh = false))
     }
   })
 
   useEffect(() => {
     if (codeState == 'ready') {
       //console.log('enable editable')
-      core.view?.dispatch({
+      view.current?.dispatch({
         effects: editable.reconfigure(EditorView.editable.of(true)),
       })
     }
-  }, [codeState, core.view])
+  }, [codeState])
 
   // eslint is not able to detect deps properly ...
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,17 +85,17 @@ export function EditArea() {
           <div className="w-full overflow-auto h-full flex">
             {codeState == 'running' && (
               <div data-label="gutter" className="w-8 h-full relative">
-                {core.state.ui.gutter > 0 && (
+                {core.ws.ui.gutter > 0 && (
                   <div
                     className="text-blue-500 absolute w-5 h-5 left-1"
                     style={{
-                      top: `${4 + (core.state.ui.gutter - 1) * 22.4 - 2}px`,
+                      top: `${4 + (core.ws.ui.gutter - 1) * 22.4 - 2}px`,
                     }}
                   >
                     🡆
                   </div>
                 )}{' '}
-                {core.state.ui.gutterReturns.map((pos, i) => (
+                {core.ws.ui.gutterReturns.map((pos, i) => (
                   <div
                     key={i}
                     className="text-yellow-300 absolute w-5 h-5 left-3"
@@ -110,17 +109,17 @@ export function EditArea() {
               </div>
             )}
             <div className="w-full h-full flex flex-col">
-              <Editor />
+              <Editor innerRef={view} />
               <div
                 className="bg-gray-50 flex-grow border-t"
                 onClick={() => {
-                  core.view?.focus()
+                  view.current?.focus()
                 }}
               ></div>
             </div>
           </div>
         </div>
-        <div className="bg-white h-12 flex justify-between items-center border-t">
+        <div className="bg-white flex justify-between items-center border-t min-h-[48px]">
           {renderProgramControl()}
         </div>
       </div>
@@ -129,41 +128,43 @@ export function EditArea() {
 
   function renderProgramControl() {
     if (codeState == 'ready') {
-      if (!core.state.vm.bytecode || core.state.vm.bytecode.length == 0) {
+      if (!core.ws.vm.bytecode || core.ws.vm.bytecode.length == 0) {
         return (
-          <div className="m-3 text-yellow-700 font-bold">
-            Fange an, im Editor ein Programm zu schreiben!
+          <div className="m-[11px]">
+            Klicke auf Karol, um ihn mit der Tastatur zu steuern oder schreibe
+            ein Programm.
           </div>
         )
       } else {
         return (
           <>
             <button
-              className="bg-green-300 rounded-2xl py-0.5 px-3 m-1 ml-3 hover:bg-green-400 transition-colors"
+              className="bg-green-300 rounded px-2 py-0.5 m-1 ml-2 hover:bg-green-400 transition-colors"
               onClick={() => {
-                if (core.view) {
-                  const selection = core.view.state.selection
-                  selectAll(core.view)
-                  indentSelection(core.view)
-                  core.view.dispatch({ selection })
-                  //console.log('disable editable')
-                  core.view.dispatch({
+                console.log(view)
+                if (view.current) {
+                  const selection = view.current.state.selection
+                  selectAll(view.current)
+                  indentSelection(view.current)
+                  view.current.dispatch({ selection })
+                  console.log('disable editable')
+                  view.current.dispatch({
                     effects: editable.reconfigure(
                       EditorView.editable.of(false)
                     ),
                   })
-                  core.view.contentDOM.blur()
+                  view.current.contentDOM.blur()
                 }
-                core.run()
+                run(core)
               }}
             >
               Programm ausführen
             </button>
             <select
               className="h-8 mr-2"
-              value={core.state.settings.speed}
+              value={core.ws.settings.speed}
               onChange={(e) => {
-                core.setSpeed(e.target.value)
+                setSpeed(core, e.target.value)
               }}
             >
               <option value="turbo">Turbo</option>
@@ -179,7 +180,7 @@ export function EditArea() {
     if (codeState == 'loading') {
       return (
         <button
-          className="bg-green-50 rounded-2xl p-0.5 m-1 text-gray-400 ml-3"
+          className="bg-green-50 rounded px-2 py-0.5 m-1 text-gray-400 ml-2"
           disabled
         >
           ... wird eingelesen
@@ -189,7 +190,7 @@ export function EditArea() {
 
     if (codeState == 'error') {
       return (
-        <div className="text-red-600 px-3 ml-3">
+        <div className="text-red-600 px-3">
           Programm enthält Fehler. Bitte überprüfen!
         </div>
       )
@@ -199,30 +200,30 @@ export function EditArea() {
       return (
         <>
           <span>
-            {core.state.settings.speed == 'step' && (
+            {core.ws.settings.speed == 'step' && (
               <button
-                className="bg-yellow-400 rounded-2xl p-1 px-3 ml-3 hover:bg-yellow-500 transition-colors"
+                className="bg-yellow-400 rounded px-2 py-0.5 ml-2 hover:bg-yellow-500 transition-colors"
                 onClick={() => {
-                  core.step()
+                  confirmStep(core)
                 }}
               >
                 Weiter
               </button>
             )}
             <button
-              className="bg-red-400 rounded-2xl p-0.5 px-3 ml-3 hover:bg-red-500 transition-colors"
+              className="bg-red-400 rounded px-2 py-0.5 ml-2 hover:bg-red-500 transition-colors"
               onClick={() => {
-                core.abort()
+                abort(core)
               }}
             >
               Stopp
             </button>
           </span>
           <select
-            className="h-9 mr-3"
-            value={core.state.settings.speed}
+            className="h-8 mr-2"
+            value={core.ws.settings.speed}
             onChange={(e) => {
-              core.setSpeedHot(e.target.value)
+              setSpeed(core, e.target.value)
             }}
           >
             <option value="turbo">Turbo</option>
@@ -254,7 +255,7 @@ export function EditArea() {
             className="w-52 h-full overflow-y-scroll"
             onScroll={(e: any) => {
               const scrollTop = e.currentTarget.scrollTop
-              if (scrollTop < 470) {
+              if (scrollTop < 465) {
                 setSection('Bewegung')
               } else if (scrollTop < 976) {
                 setSection('Steuerung')
@@ -329,7 +330,7 @@ export function EditArea() {
     return (
       <div
         className={clsx(
-          'flex flex-col items-center pb-3 px-2',
+          'flex flex-col items-center pb-3 px-2 mt-2',
           'hover:cursor-pointer text-gray-800 hover:text-blue-500',
           'transition-colors select-none',
           name == section && 'bg-gray-200'
@@ -373,9 +374,9 @@ export function EditArea() {
         <Image
           className="cursor-pointer"
           onDoubleClick={() => {
-            if (core.view) {
-              core.view.dispatch(core.view.state.replaceSelection(code))
-              core.view.focus()
+            if (view.current) {
+              view.current.dispatch(view.current.state.replaceSelection(code))
+              view.current.focus()
             }
           }}
           src={image}

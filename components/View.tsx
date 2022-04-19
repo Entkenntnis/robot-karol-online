@@ -1,9 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
-import { World } from '../lib/types'
+import { CSSProperties, useEffect, useRef, useState } from 'react'
+import { chips } from '../lib/data/chips'
+import { Sparkle, World } from '../lib/state/types'
 
 interface ViewProps {
   world: World
   wireframe: boolean
+  sparkle?: Sparkle
+  style?: CSSProperties
 }
 
 interface Resources {
@@ -15,10 +18,13 @@ interface Resources {
   marke: HTMLImageElement
   quader: HTMLImageElement
   ziegelWire: HTMLImageElement
+  sparkleImg: HTMLImageElement
+  failImg: HTMLImageElement
+  chipsImages: { [key: string]: HTMLImageElement }
   ctx: CanvasRenderingContext2D
 }
 
-export function View({ world, wireframe }: ViewProps) {
+export function View({ world, wireframe, sparkle, style }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
@@ -41,46 +47,24 @@ export function View({ world, wireframe }: ViewProps) {
         const ctx = canvas.current.getContext('2d')
 
         if (ctx) {
-          const ziegel = new Image()
-          await new Promise((r) => {
-            ziegel.onload = r
-            ziegel.src = '/Ziegel.png'
-          })
-          const ziegelWire = new Image()
-          await new Promise((r) => {
-            ziegelWire.onload = r
-            ziegelWire.src = '/Ziegel_wire.png'
-          })
-          const robotN = new Image()
-          await new Promise((r) => {
-            robotN.onload = r
-            robotN.src = '/robotN.png'
-          })
-          const robotE = new Image()
-          await new Promise((r) => {
-            robotE.onload = r
-            robotE.src = '/robotE.png'
-          })
-          const robotS = new Image()
-          await new Promise((r) => {
-            robotS.onload = r
-            robotS.src = '/robotS.png'
-          })
-          const robotW = new Image()
-          await new Promise((r) => {
-            robotW.onload = r
-            robotW.src = '/robotW.png'
-          })
-          const marke = new Image()
-          await new Promise((r) => {
-            marke.onload = r
-            marke.src = '/marke.png'
-          })
-          const quader = new Image()
-          await new Promise((r) => {
-            quader.onload = r
-            quader.src = '/quader.png'
-          })
+          const ziegel = await loadImage('/Ziegel.png')
+          const ziegelWire = await loadImage('/Ziegel_wire.png')
+          const robotN = await loadImage('/robotN.png')
+          const robotE = await loadImage('/robotE.png')
+          const robotS = await loadImage('/robotS.png')
+          const robotW = await loadImage('/robotW.png')
+          const marke = await loadImage('/marke.png')
+          const quader = await loadImage('/quader.png')
+          const sparkleImg = await loadImage('/sparkle.png')
+          const failImg = await loadImage('/fehler.png')
+
+          const chipsImages: { [key: string]: HTMLImageElement } = {}
+
+          for (const key in chips) {
+            const img = await loadImage(chips[key].image)
+            chipsImages[key] = img
+          }
+
           setResources({
             ziegel,
             ctx,
@@ -91,6 +75,9 @@ export function View({ world, wireframe }: ViewProps) {
             marke,
             quader,
             ziegelWire,
+            sparkleImg,
+            failImg,
+            chipsImages,
           })
         }
       }
@@ -110,6 +97,9 @@ export function View({ world, wireframe }: ViewProps) {
         marke,
         quader,
         ziegelWire,
+        sparkleImg,
+        failImg,
+        chipsImages,
       } = resources
 
       ctx.save()
@@ -158,6 +148,16 @@ export function View({ world, wireframe }: ViewProps) {
         to2d(0, 0, world.height)
       )
 
+      for (const chip of world.chips) {
+        const img = chipsImages[chip.tag]
+        const p = to2d(chip.x, chip.y, 0)
+        ctx.drawImage(
+          img,
+          p.x + chips[chip.tag].imageXOffset,
+          p.y + chips[chip.tag].imageYOffset
+        )
+      }
+
       for (let x = 0; x < world.dimX; x++) {
         for (let y = 0; y < world.dimY; y++) {
           for (let i = 0; i < world.bricks[y][x]; i++) {
@@ -197,15 +197,29 @@ export function View({ world, wireframe }: ViewProps) {
         }
       }
 
+      if (sparkle) {
+        ctx.drawImage(
+          sparkle.type == 'happy' ? sparkleImg : failImg,
+          sparkle.posX,
+          sparkle.posY
+        )
+      }
+
       //ctx.drawImage(ziegel, originX - 0.5, originY - 1.5)</div>
 
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world, wireframe])
+  }, [resources, world, wireframe, sparkle])
 
   return (
-    <canvas ref={canvas} width={width} height={height} className="m-4"></canvas>
+    <canvas
+      ref={canvas}
+      width={width}
+      height={height}
+      className="m-4"
+      style={style}
+    ></canvas>
   )
 }
 
@@ -239,4 +253,13 @@ function renderDashed(
     draw = !draw
   }
   ctx.stroke()
+}
+
+async function loadImage(src: string) {
+  const image = new Image()
+  await new Promise((r) => {
+    image.onload = r
+    image.src = src
+  })
+  return image
 }

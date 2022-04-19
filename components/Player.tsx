@@ -1,12 +1,46 @@
+import {
+  faCheckCircle,
+  faDownload,
+  faEquals,
+  faFileImport,
+  faMagnifyingGlassMinus,
+  faMagnifyingGlassPlus,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { useState } from 'react'
-import { useCore } from '../lib/core'
+import { createRef, Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { serialize } from '../lib/commands/json'
+
+import { toggleWireframe } from '../lib/commands/view'
+import {
+  brick,
+  createWorldCmd,
+  forward,
+  left,
+  resetWorld,
+  right,
+  toggleBlock,
+  toggleMark,
+  unbrick,
+} from '../lib/commands/world'
+import { levels } from '../lib/data/levels'
+import { useCore } from '../lib/state/core'
+import { FaIcon } from './FaIcon'
 import { View } from './View'
 
 export function Player() {
   const core = useCore()
 
   const [showNewWorldModal, setShowNewWorldModal] = useState(false)
+
+  const [scale, setScale] = useState(1)
+
+  const wrapper = createRef<HTMLDivElement>()
+
+  useEffect(() => {
+    wrapper.current?.focus()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -16,109 +50,211 @@ export function Player() {
             <div
               onKeyDown={(e) => {
                 if (e.code == 'ArrowLeft') {
-                  core.left()
+                  left(core)
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowRight') {
-                  core.right()
+                  right(core)
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowUp') {
-                  core.forward()
+                  forward(core)
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowDown') {
-                  core.forward({ reverse: true })
+                  forward(core, { reverse: true })
                   e.preventDefault()
                 }
                 if (e.code == 'KeyM') {
-                  core.toggleMark()
+                  toggleMark(core)
                   e.preventDefault()
                 }
                 if (e.code == 'KeyH') {
-                  core.brick()
+                  brick(core)
                   e.preventDefault()
                 }
                 if (e.code == 'KeyQ') {
-                  core.toggleBlock()
+                  toggleBlock(core)
                   e.preventDefault()
                 }
                 if (e.code == 'KeyA') {
-                  core.unbrick()
+                  unbrick(core)
                   e.preventDefault()
                 }
               }}
               tabIndex={1}
-              className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer"
+              className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer outline-none"
+              ref={wrapper}
+              style={{ transform: `scale(${scale})` }}
             >
               <View
-                world={core.state.world}
-                wireframe={core.state.ui.wireframe}
+                world={core.ws.world}
+                wireframe={core.ws.ui.wireframe}
+                sparkle={core.level?.sparkle}
               />
             </div>
           </div>
           <div className="absolute bottom-2 left-2 bg-gray-50">
-            {core.state.ui.messages.map((m) => (
+            {core.ws.ui.messages.map((m) => (
               <div key={`${m.ts}`}>
                 {m.text}
                 {m.count > 1 && <span> (x{m.count})</span>}
               </div>
             ))}
           </div>
-          {core.state.ui.originalWorld &&
-            core.state.ui.originalWorld != core.state.world && (
-              <div className="absolute top-2 left-2 bg-gray-50">
-                <button
-                  onClick={() => {
-                    core.restoreWorld()
-                  }}
-                >
-                  ⭯ Welt wiederherstellen
-                </button>
-              </div>
-            )}
+          <div className="absolute right-3 bottom-2">
+            <span
+              onClick={() => {
+                setScale((scale) => scale / 1.1)
+              }}
+            >
+              <FaIcon
+                icon={faMagnifyingGlassMinus}
+                className="cursor-pointer"
+              />
+            </span>
+            <span className="inline-block w-4" />
+            <span
+              onClick={() => {
+                setScale(1)
+              }}
+            >
+              <FaIcon icon={faEquals} className="cursor-pointer" />
+            </span>
+            <span className="inline-block w-4" />
+            <span
+              onClick={() => {
+                setScale((scale) => scale * 1.1)
+              }}
+            >
+              <FaIcon icon={faMagnifyingGlassPlus} className="cursor-pointer" />
+            </span>
+          </div>
+          {core.ws.type == 'free' ? (
+            <div className="absolute left-1 top-1">
+              <button
+                className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
+                onClick={() => {
+                  setShowNewWorldModal(true)
+                }}
+              >
+                Neue Welt
+              </button>
+              <button
+                className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
+                onClick={() => {
+                  document.getElementById('load_project')?.click()
+                }}
+              >
+                <FaIcon icon={faFileImport} /> Import
+              </button>
+              <button
+                className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
+                onClick={() => {
+                  const filename =
+                    new Date().toLocaleDateString('en-CA').replace(/\-/g, '_') +
+                    '_robot_karol.json'
+                  const contentType = 'application/json;charset=utf-8;'
+                  var a = document.createElement('a')
+                  a.download = filename
+                  a.href =
+                    'data:' +
+                    contentType +
+                    ',' +
+                    encodeURIComponent(JSON.stringify(serialize(core)))
+                  a.target = '_blank'
+                  document.body.appendChild(a)
+                  a.click()
+                  document.body.removeChild(a)
+                }}
+              >
+                <FaIcon icon={faDownload} /> Export
+              </button>
+            </div>
+          ) : (
+            <button
+              className={clsx(
+                'absolute left-1 top-1 rounded',
+                'px-2 py-0.5 bg-gray-100 hover:bg-gray-200'
+              )}
+              onClick={() => {
+                resetWorld(core)
+              }}
+            >
+              Neu starten
+            </button>
+          )}
         </div>
       </div>
-      <div className="flex-shrink-0 flex justify-between items-center border-t h-12">
+      {core.ws.type == 'level' && (
+        <div className="border-t">
+          <div className="flex justify-between items-center select-none h-12 border-b">
+            {core.ws.progress < levels[core.ws.levelId].target ? (
+              <>
+                <div className="pl-4 font-bold">{core.ws.title}</div>
+                <div className="bg-gray-200 w-full px-1 mx-3 relative flex justify-around items-center">
+                  <div
+                    className="bg-green-300 absolute left-0 top-0 bottom-0"
+                    style={{
+                      width: `${Math.round(
+                        (core.ws.progress / levels[core.ws.levelId].target) *
+                          100
+                      )}%`,
+                    }}
+                  ></div>
+                  <div className="z-10">
+                    {core.ws.progress} / {levels[core.ws.levelId].target}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="m-3">
+                {core.ws.title}:{' '}
+                <span className="text-green-600">
+                  abgeschlossen <FaIcon icon={faCheckCircle} />
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="p-3">{levels[core.ws.levelId].description}</div>
+        </div>
+      )}
+      <div className="flex-shrink-0 flex justify-around items-center border-t h-12">
         <div>
           <button
             className="mx-3 text-xl py-2"
-            onClick={() => core.left()}
+            onClick={() => left(core)}
             title="LinksDrehen"
           >
             🠔
-          </button>{' '}
+          </button>
           <button
             className="text-xl px-2"
-            onClick={() => core.forward()}
+            onClick={() => forward(core)}
             title="Schritt"
           >
             🠕
           </button>
           <button
             className="mx-3 text-xl py-2"
-            onClick={() => core.right()}
+            onClick={() => right(core)}
             title="RechtsDrehen"
           >
             🠖
           </button>
-          <button
-            className="mx-2"
-            onClick={() => core.brick()}
-            title="Hinlegen"
-          >
+          <button className="mx-2" onClick={() => brick(core)} title="Hinlegen">
             H
           </button>
           <button
-            className="mx-3 "
-            onClick={() => core.unbrick()}
+            className="mx-3"
+            onClick={() => unbrick(core)}
             title="Aufheben"
           >
             A
           </button>
           <button
             className="mx-3"
-            onClick={() => core.toggleMark()}
+            onClick={() => toggleMark(core)}
             title="MarkeSetzen / MarkeLöschen"
           >
             M
@@ -126,34 +262,29 @@ export function Player() {
           <button
             className="mx-3"
             onClick={() => {
-              core.toggleBlock()
+              toggleBlock(core)
             }}
             title="Quader setzen oder löschen"
           >
             Q
           </button>
+          <span className="ml-4 h-7 border-r"></span>
           {
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={core.state.ui.wireframe ? '/Ziegel_wire.png' : '/Ziegel.png'}
+              src={
+                core.ws.ui.wireframe
+                  ? '/Ansicht_frame.png'
+                  : '/Ansicht_voll.png'
+              }
               title="Darstellung der Ziegel umschalten"
               alt="umschalten"
-              className="inline-block h-5 pb-1 pl-1 cursor-pointer"
+              className="inline-block h-5 pb-0.5 pl-1.5 cursor-pointer ml-3"
               onClick={() => {
-                core.toggleWireframe()
+                toggleWireframe(core)
               }}
             />
           }
-        </div>
-        <div>
-          <button
-            className="px-2 py-0.5 mr-2 rounded-2xl bg-indigo-300 hover:bg-indigo-400 transition-colors"
-            onClick={() => {
-              setShowNewWorldModal(true)
-            }}
-          >
-            Neue Welt
-          </button>
         </div>
       </div>
       {showNewWorldModal && (
@@ -168,11 +299,17 @@ export function Player() {
             className="fixed top-[30vh] mx-auto z-[300] bg-white opacity-100 w-[400px] rounded"
           >
             <NewWorldSettings
-              dimX={core.state.world.dimX}
-              dimY={core.state.world.dimY}
-              height={core.state.world.height}
+              dimX={core.ws.world.dimX}
+              dimY={core.ws.world.dimY}
+              height={core.ws.world.height}
               onDone={() => setShowNewWorldModal(false)}
             />
+            <div
+              className="absolute top-2 right-2 h-3 w-3 cursor-pointer"
+              onClick={() => setShowNewWorldModal(false)}
+            >
+              <FaIcon icon={faXmark} />
+            </div>
           </div>
         </div>
       )}
@@ -198,83 +335,36 @@ function NewWorldSettings({
 
   const core = useCore()
 
+  const canCreate = localDimX > 0 && localDimY > 0 && localHeight > 0
+
   return (
     <>
       <div className="m-3 mb-6 text-xl font-bold">Neue Welt erstellen</div>
       <div className="flex justify-between m-3">
         <span>⟷ Breite:</span>
-        <input
-          type="number"
-          className="border-2"
-          value={localDimX == -1 ? '' : localDimX}
-          onChange={(e) => {
-            const val = parseInt(e.target.value)
-            if (isNaN(val)) {
-              setLocalDimX(-1)
-            }
-            if (val >= 0 && val <= 100) {
-              setLocalDimX(val)
-            }
-          }}
-          min={1}
-          max={100}
-        />
+        {buildInput(localDimX, setLocalDimX, 100)}
       </div>
       <div className="flex justify-between m-3">
         <span>
           <span className="inline-block -rotate-45">⟷</span> Länge:
         </span>
-        <input
-          type="number"
-          className="border-2"
-          value={localDimY == -1 ? '' : localDimY}
-          onChange={(e) => {
-            const val = parseInt(e.target.value)
-            if (isNaN(val)) {
-              setLocalDimY(-1)
-            }
-            if (val >= 0 && val <= 100) {
-              setLocalDimY(val)
-            }
-          }}
-          min={1}
-          max={100}
-        />
+        {buildInput(localDimY, setLocalDimY, 100)}
       </div>
       <div className="flex justify-between m-3">
         <span>
           <span className="inline-block rotate-90">⟷</span> Höhe:
         </span>
-        <input
-          value={localHeight == -1 ? '' : localHeight}
-          onChange={(e) => {
-            const val = parseInt(e.target.value)
-            if (isNaN(val)) {
-              setLocalHeight(-1)
-            }
-            if (val >= 0 && val <= 10) {
-              setLocalHeight(val)
-            }
-          }}
-          type="number"
-          className="border-2"
-          min={1}
-          max={10}
-        />
+        {buildInput(localHeight, setLocalHeight, 10)}
       </div>
       <div className="my-4">
         <button
           className={clsx(
-            'ml-4 rounded-2xl px-2 py-1',
-            localDimX > 0 && localDimY > 0 && localHeight > 0
-              ? 'bg-green-300'
-              : 'bg-gray-50'
+            'ml-4 rounded px-2 py-0.5',
+            canCreate ? 'bg-green-300' : 'bg-gray-50'
           )}
-          disabled={
-            localDimX > 0 && localDimY > 0 && localHeight > 0 ? undefined : true
-          }
+          disabled={canCreate ? undefined : true}
           onClick={() => {
-            core.createWorld(localDimX, localDimY, localHeight)
+            createWorldCmd(core, localDimX, localDimY, localHeight)
             onDone()
           }}
         >
@@ -283,4 +373,35 @@ function NewWorldSettings({
       </div>
     </>
   )
+
+  function buildInput(
+    val: number,
+    setter: Dispatch<SetStateAction<number>>,
+    max: number
+  ) {
+    return (
+      <input
+        value={val == -1 ? '' : val}
+        onChange={(e) => {
+          const val = parseInt(e.target.value)
+          if (isNaN(val)) {
+            setter(-1)
+          }
+          if (val >= 0 && val <= max) {
+            setter(val)
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key == 'Enter' && canCreate) {
+            createWorldCmd(core, localDimX, localDimY, localHeight)
+            onDone()
+          }
+        }}
+        type="number"
+        className="border-2"
+        min={1}
+        max={max}
+      />
+    )
+  }
 }

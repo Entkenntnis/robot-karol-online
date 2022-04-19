@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react'
-import { basicSetup } from '../lib/basicSetup'
+import { MutableRefObject, useEffect, useRef } from 'react'
 import {
   indentSelection,
   simplifySelection,
@@ -9,10 +8,17 @@ import {
   insertNewlineAndIndent,
 } from '@codemirror/commands'
 import { EditorState, Transaction } from '@codemirror/state'
-import { useCore } from '../lib/core'
 import { EditorView } from '@codemirror/view'
 
-export const Editor = () => {
+import { basicSetup } from '../lib/codemirror/basicSetup'
+import { useCore } from '../lib/state/core'
+import { lint, setLoading } from '../lib/commands/editing'
+
+interface EditorProps {
+  innerRef: MutableRefObject<EditorView | undefined>
+}
+
+export const Editor = ({ innerRef }: EditorProps) => {
   const editorDiv = useRef(null)
   const core = useCore()
 
@@ -20,12 +26,15 @@ export const Editor = () => {
     const currentEditor = editorDiv.current
 
     if (currentEditor) {
-      const view = new EditorView({
+      const view: EditorView = new EditorView({
         state: EditorState.create({
-          doc: core.state.code,
+          doc: core.ws.code,
           extensions: [
-            basicSetup(() => {
-              return core.lint()
+            basicSetup({
+              l: () => {
+                console.log('trigger lint')
+                return lint(core, view)
+              },
             }),
             EditorView.updateListener.of((e) => {
               if (e.docChanged) {
@@ -36,13 +45,17 @@ export const Editor = () => {
                 }
               }
               //onUpdate(e.state.doc.sliceString(0))
+              console.log('update listener')
               if (e.transactions.length > 0) {
+                console.log('contains transactions')
                 const t = e.transactions[0]
                 const userEvent = t.annotation(Transaction.userEvent)
 
                 if (t.docChanged) {
-                  if (core.state.ui.state == 'ready') {
-                    core.setLoading()
+                  console.log('transaction changes doc')
+                  if (core.ws.ui.state == 'ready') {
+                    console.log('set loading')
+                    setLoading(core)
                   }
                 }
 
@@ -127,7 +140,7 @@ export const Editor = () => {
         parent: currentEditor,
       })
 
-      core.injectEditorView(view)
+      innerRef.current = view
 
       return () => view.destroy()
     }

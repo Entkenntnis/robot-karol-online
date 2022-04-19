@@ -9,10 +9,16 @@ import {
   indentOnInput,
   continuedIndent,
   indentNodeProp,
-  LezerLanguage,
+  LRLanguage,
   syntaxTree,
 } from '@codemirror/language'
-import { defaultKeymap, defaultTabBinding } from '@codemirror/commands'
+import {
+  defaultKeymap,
+  indentSelection,
+  indentWithTab,
+  selectAll,
+  simplifySelection,
+} from '@codemirror/commands'
 import { history, historyKeymap } from '@codemirror/history'
 import { lineNumbers, highlightActiveLineGutter } from '@codemirror/gutter'
 import {
@@ -57,18 +63,17 @@ const parserWithMetadata = parser.configure({
       Return: t.unit,
     }),
     indentNodeProp.add({
-      Repeat: continuedIndent({ except: /^\s*en/ }),
-      IfThen: continuedIndent({ except: /^\s*(en|so)/ }),
-      Cmd: continuedIndent({ except: /^\s*en/ }),
-      Cond: continuedIndent({ except: /^\s*en/ }),
+      Repeat: continuedIndent({ except: /^\s*endewiederhole(\s|$)/ }),
+      IfThen: continuedIndent({ except: /^\s*(endewenn|sonst)(\s|$)/ }),
+      Cmd: continuedIndent({ except: /^\s*endeAnweisung(\s|$)/ }),
     }),
   ],
 })
 
-const exampleLanguage = LezerLanguage.define({
+const exampleLanguage = LRLanguage.define({
   parser: parserWithMetadata,
   languageData: {
-    indentOnInput: /^\s*(en|so)/,
+    indentOnInput: /^\s*(ende(wiederhole|wenn|Anweisung)|sonst)/,
     autocomplete: buildMyAutocomplete(),
   },
 })
@@ -78,7 +83,7 @@ const Theme = EditorView.theme({
     outline: 'none !important',
   },
   '.cm-content': {
-    minHeight: '300px',
+    minHeight: '280px',
   },
   '.cm-gutters': {
     minHeight: '300px',
@@ -97,7 +102,11 @@ const Theme = EditorView.theme({
 
 export const editable = new Compartment()
 
-export const basicSetup = (l: any) => [
+interface BasicSetupProps {
+  l: Parameters<typeof linter>[0]
+}
+
+export const basicSetup = (props: BasicSetupProps) => [
   lineNumbers(),
   highlightActiveLineGutter(),
   history(),
@@ -110,13 +119,25 @@ export const basicSetup = (l: any) => [
     ...historyKeymap,
     ...lintKeymap,
     ...completionKeymap,
-    defaultTabBinding,
+    indentWithTab,
+    {
+      key: 'Ctrl-s',
+      run: (view) => {
+        // auto format
+        const selection = view.state.selection
+        selectAll(view)
+        indentSelection(view)
+        simplifySelection(view)
+        view.dispatch({ selection })
+        return true
+      },
+    },
   ]),
   autocompletion(),
   EditorState.tabSize.of(2),
   editable.of(EditorView.editable.of(true)),
   exampleLanguage,
-  linter(l),
+  linter(props.l),
   Theme,
 ]
 
