@@ -82,9 +82,6 @@ const Theme = EditorView.theme({
   '&': {
     outline: 'none !important',
   },
-  '.cm-content': {
-    minHeight: '280px',
-  },
   '.cm-gutters': {
     minHeight: '300px',
     minWidth: '30px',

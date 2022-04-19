@@ -95,7 +95,7 @@ function createBaseWorkspace(): WorkspaceStateBase {
   return {
     title: '',
     world: createWorld(5, 10, 6),
-    code: '\n',
+    code: '',
     ui: {
       messages: [],
       gutter: 0,

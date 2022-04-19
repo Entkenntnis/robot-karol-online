@@ -113,11 +113,13 @@ export function EditArea() {
             <div className="w-full h-full flex flex-col">
               <Editor innerRef={view} />
               <div
-                className="bg-gray-50 flex-grow border-t"
+                className="flex-grow"
                 onClick={() => {
                   view.current?.focus()
                 }}
-              ></div>
+              >
+                <div className="w-[30px] border-r h-full bg-neutral-100"></div>
+              </div>
             </div>
           </div>
         </div>
