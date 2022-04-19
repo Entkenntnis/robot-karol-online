@@ -39,6 +39,7 @@ export const chips: { [key: string]: Chip } = {
               core.mutateWs(({ world }) => {
                 world.marks[karol.y][karol.x] = false
               })
+              createSparkle(core, 260, 80, 'fail')
             }
           }
         } else {
@@ -74,5 +75,60 @@ export const chips: { [key: string]: Chip } = {
     image: '/chips/inverter.png',
     imageXOffset: -47,
     imageYOffset: -2,
+  },
+  start: {
+    tag: 'start',
+    checkAction: (core: Core, chip: ChipInWorld) => {
+      const world = core.ws.world
+      const { karol } = world
+      if (karol.x == chip.x + 1 && karol.y == chip.y) {
+        if (world.marks[karol.y][karol.x]) {
+          const output = world.bricks[chip.y + 1][chip.x + 3]
+          if (output == 1) {
+            core.mutateLevel((state) => {
+              state.progress++
+            })
+            createSparkle(core, 250, 80, 'happy')
+            addMessage(core, 'Lösche die Marke, um weiter zu machen.')
+
+            if (core.level!.progress >= levels[core.level!.levelId].target) {
+              core.mutateWs(({ world }) => {
+                world.bricks[chip.y + 1][chip.x + 3] = 0
+                world.blocks[chip.y + 1][chip.x + 3] = true
+                world.marks[chip.y + 1][chip.x + 3] = false
+              })
+            }
+          } else {
+            if (core.level!.progress < levels[core.level!.levelId].target) {
+              addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
+              core.mutateLevel((state) => {
+                state.progress = 0
+              })
+              core.mutateWs(({ world }) => {
+                world.marks[karol.y][karol.x] = false
+              })
+              createSparkle(core, 250, 80, 'fail')
+            }
+          }
+        } else {
+          if (core.level!.progress < levels[core.level!.levelId].target) {
+            chips['start'].initAction(core, chip)
+          }
+        }
+      }
+    },
+    initAction: (core: Core, chip: ChipInWorld) => {
+      core.mutateWs(({ world }) => {
+        world.bricks[chip.y + 1][chip.x + 3] = 0
+        world.blocks[chip.y + 1][chip.x + 3] = false
+        world.marks[chip.y + 1][chip.x + 3] = false
+      })
+    },
+    isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
+      return false
+    },
+    image: '/chips/start.png',
+    imageXOffset: -43,
+    imageYOffset: -1,
   },
 }

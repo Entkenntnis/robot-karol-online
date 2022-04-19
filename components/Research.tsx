@@ -23,7 +23,7 @@ export function Research() {
               switchToWorkspace(core, i)
             }}
           >
-            <p className="text-center mt-3">{ws.title}</p>
+            <p className="text-center mt-3 font-bold">{ws.title}</p>
             {ws.type == 'level' ? (
               <>
                 <div className="px-3 mt-2">

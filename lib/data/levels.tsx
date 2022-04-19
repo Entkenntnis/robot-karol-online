@@ -16,6 +16,26 @@ export const levels: Level[] = [
     ),
     previewImage: '/levels/preview_inverter.png',
   },
+  {
+    title: 'Start',
+    target: 10,
+    description: (
+      <>
+        <p>
+          Herzlich Willkommen bei deinem ersten Forschungsprojekt. Wir brauchen
+          dringend Software Ingeneure (aka Programmierer), die uns bei der
+          Erforschung dieser Chips helfen! Als Hinweis haben wir folgendes Bild
+          erhalten:
+        </p>
+        <img
+          src="/levels/start_correct.png"
+          alt="Erfolgreiche Belegung"
+          className="ml-3 mt-3"
+        />
+      </>
+    ),
+    previewImage: '/levels/preview_start.png',
+  },
 ]
 
 /*

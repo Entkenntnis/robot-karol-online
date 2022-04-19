@@ -83,7 +83,7 @@ export function App() {
 
                     fr.onload = () => {
                       //console.log(files[0].name)
-                      //core.deserialize(fr.result?.toString(), files[0].name)
+                      //deserialize(core, fr.result?.toString(), files[0].name)
                     }
                   }
                 }}
