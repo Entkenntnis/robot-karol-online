@@ -124,7 +124,6 @@ export const basicSetup = (props: BasicSetupProps) => [
         const selection = view.state.selection
         selectAll(view)
         indentSelection(view)
-        simplifySelection(view)
         view.dispatch({ selection })
         return true
       },

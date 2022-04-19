@@ -289,7 +289,25 @@ export const chips: { [key: string]: Chip } = {
     },
     isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
       if (y == chip.y + 1 && x > chip.x && x <= chip.x + 3) {
-        return true
+        const diff = x - chip.x // 1, 2 or 3
+        if (diff == 1) return true
+        if (diff == 2) {
+          if (core.ws.world.marks[y][chip.x + 1]) {
+            return false
+          } else {
+            return true
+          }
+        }
+        if (diff == 3) {
+          if (
+            core.ws.world.marks[y][chip.x + 1] ||
+            core.ws.world.marks[y][chip.x + 2]
+          ) {
+            return false
+          } else {
+            return true
+          }
+        }
       }
       if (
         core.ws.type == 'level' &&
