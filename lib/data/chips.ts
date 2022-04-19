@@ -15,21 +15,15 @@ export const chips: { [key: string]: Chip } = {
           const input = world.bricks[chip.y + 1][chip.x]
           const output = world.bricks[chip.y + 1][chip.x + 4]
           if ((input == 1 && output == 0) || (input == 0 && output == 1)) {
+            const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
+            if (isGlitch) {
+              addMessage(core, 'Sorry, manchmal passieren Glitches.')
+              return
+            }
             core.mutateLevel((state) => {
               state.progress++
             })
             createSparkle(core, 260, 80, 'happy')
-
-            if (core.level!.progress >= levels[core.level!.levelId].target) {
-              core.mutateWs(({ world }) => {
-                world.bricks[chip.y + 1][chip.x] = 0
-                world.blocks[chip.y + 1][chip.x] = true
-                world.marks[chip.y + 1][chip.x] = false
-                world.bricks[chip.y + 1][chip.x + 4] = 0
-                world.blocks[chip.y + 1][chip.x + 4] = true
-                world.marks[chip.y + 1][chip.x + 4] = false
-              })
-            }
           } else {
             if (core.level!.progress < levels[core.level!.levelId].target) {
               addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
@@ -59,14 +53,15 @@ export const chips: { [key: string]: Chip } = {
       })
     },
     isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
+      if (x == 0 && y == 0) return true
       if (x == chip.x && y == chip.y + 1) {
         return true
       }
       if (
         core.ws.type == 'level' &&
         core.ws.progress >= levels[core.ws.levelId].target &&
-        x == chip.x + 4 &&
-        y == chip.y + 1
+        ((x == chip.x + 4 && y == chip.y + 1) ||
+          (x == chip.x + 2 && y == chip.y))
       ) {
         return true
       }

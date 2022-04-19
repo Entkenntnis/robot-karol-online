@@ -48,7 +48,7 @@ export function EditArea() {
   //console.log('gutter', gutter)
 
   useEffect(() => {
-    /*if (core.ws.ui.needTextRefresh && view.current) {
+    if (core.ws.ui.needsTextRefresh && view.current) {
       //console.log('refresh editor', core.current.code)
       view.current.dispatch({
         changes: {
@@ -57,8 +57,8 @@ export function EditArea() {
           insert: core.ws.code,
         },
       })
-      refreshDone(core)
-    }*/
+      core.mutateWs(({ ui }) => (ui.needsTextRefresh = false))
+    }
   })
 
   useEffect(() => {

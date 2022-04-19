@@ -5,14 +5,20 @@ export const levels: Level[] = [
     title: 'Inverter',
     target: 50,
     description: (
-      <div className="flex flex-wrap justify-around">
-        <img src="/levels/correct1.png" alt="Erfolgreiche Belegung" />
-        <img
-          src="/levels/correct2.png"
-          alt="Erfolgreiche Belegung"
-          className="ml-3 inline-block"
-        />
-      </div>
+      <>
+        <p>
+          Lege rechts einen Ziegel oder nicht und aktiviere dann den Chip mit
+          einer Marke:
+        </p>
+        <div className="flex flex-wrap justify-start mt-3">
+          <img src="/levels/correct1.png" alt="Erfolgreiche Belegung" />
+          <img
+            src="/levels/correct2.png"
+            alt="Erfolgreiche Belegung"
+            className="ml-3 inline-block"
+          />
+        </div>
+      </>
     ),
     previewImage: '/levels/preview_inverter.png',
   },

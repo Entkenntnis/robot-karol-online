@@ -1,16 +1,13 @@
 import { Core } from '../state/core'
 import { World } from '../state/types'
+import { abort } from './vm'
 
 export function serialize(core: Core) {
   const { world, code } = core.ws
   return { world, code }
 }
 
-export function deserialize_TO_REWRITE(
-  core: Core,
-  file?: string,
-  filename?: string
-) {
+export function deserialize(core: Core, file?: string) {
   try {
     const { world, code }: { world: World; code: string } = JSON.parse(
       file ?? '{}'
@@ -38,20 +35,17 @@ export function deserialize_TO_REWRITE(
         }
       }
     }
-    /*if (!world.chips) {
+    if (!world.chips) {
       // patch old save files
       world.chips = []
-    }*/
-    //this.abort()
+    }
+    abort(core)
     core.mutateWs((state) => {
       state.world = world
       state.code = code
-      //state.ui.needTextRefresh = true
-      //state.ui.originalWorld = world
-      //state.ui.filename = filename
+      state.ui.needsTextRefresh = true
     })
   } catch (e) {
-    // @ts-ignore don't know why this suddenly fails
-    alert(e.message ?? 'Laden fehlgeschlagen')
+    alert(e ?? 'Laden fehlgeschlagen')
   }
 }

@@ -36,6 +36,7 @@ export interface Ui {
   gutterReturns: number[]
   state: 'ready' | 'loading' | 'running' | 'error'
   wireframe: boolean
+  needsTextRefresh: boolean
 }
 
 export interface Vm {

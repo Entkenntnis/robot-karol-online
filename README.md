@@ -1,10 +1,10 @@
 # Robot Karol Web
 
-Zum Editor → https://robot-karol-web.vercel.app/
+Zum Editor → https://karol.arrrg.de/
 
 Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.
 
-[![grafik](https://user-images.githubusercontent.com/13507950/128869418-bb857426-1206-46f5-90ac-59875d181de0.png)](https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/karol.json)
+[![grafik](https://user-images.githubusercontent.com/13507950/128869418-bb857426-1206-46f5-90ac-59875d181de0.png)](https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/karol.json)
 
 ## Übersicht
 
@@ -22,6 +22,7 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 - Syntaxüberprüfung im Hintergrund mit **Fehlerhervorhebung direkt im Code**
 - grafischen Darstellung einer 3D-Welt, die den Roboter Karol als Figur im Raum zeigt und diese je nach Anweisungen bewegt
 - Implementation als Web-App, damit ohne Installation **im Browser lauffähig**
+- (alpha) Forschungszentrum mit Level, die im Editor bearbeitet werden können
 
 ## Sprache
 
@@ -96,47 +97,47 @@ Diese Beispiele sollen zeigen, welche Algorithmen mit Robot Karol umsetzbar sind
 
 ### Schwimmbad
 
-Karol baut ein Schwimmbad und schwimmt hindurch: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/schwimmbad.json
+Karol baut ein Schwimmbad und schwimmt hindurch: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/schwimmbad.json
 
 ### Schachbrett
 
-Karol legt mit Marken ein Schachbrettmuster: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/schachbrett.json
+Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/schachbrett.json
 
 ### Invertieren
 
-Karol invertiert den gesamten Boden: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/invertieren.json
+Karol invertiert den gesamten Boden: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/invertieren.json
 
 ### Aufräumen
 
-Karol hebt alle Ziegel auf und plaziert sie hinter dem gelben Streifen: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/stapeln.json
+Karol hebt alle Ziegel auf und plaziert sie hinter dem gelben Streifen: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/stapeln.json
 
 ### Raum verlassen
 
-Karol findet den Weg aus einem beliebigen Raum heraus: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/raum_verlassen.json
+Karol findet den Weg aus einem beliebigen Raum heraus: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/raum_verlassen.json
 
 ### Floodfill
 
-Karol füllt eine Fläche mit dem rekursivenFloodfill-Algorithmus: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/füllen.json
+Karol füllt eine Fläche mit dem rekursivenFloodfill-Algorithmus: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/füllen.json
 
 ### Labyrinth
 
-Karol findet das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Ziel besteht aus einem Ziegel: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/labyrinth.json
+Karol findet das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Ziel besteht aus einem Ziegel: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/labyrinth.json
 
 ### Binärzahl als Dezimalzahl ausgeben
 
-Karol liest eine Binärzahl ein und zeigt diese in dezimal an: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/binär_konverter.json
+Karol liest eine Binärzahl ein und zeigt diese in dezimal an: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/binär_konverter.json
 
 ### Sortieren
 
 Karol sortiert eine Reihe von Ziegelstapel der Größe nach.
 
-6 Stapel: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren.json
+6 Stapel: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren.json
 
-8 Stapel: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren_verbessert.json
+8 Stapel: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren_verbessert.json
 
 ### Game of Life
 
-Karol simuliert Conways Game of Life: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/game_of_life.json
+Karol simuliert Conways Game of Life: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/game_of_life.json
 
 ### Turing-Vollständigkeit
 
@@ -146,9 +147,9 @@ Der Beweis gelingt durch die Nutzung von brainf_ck - einer esoterischen Sprache,
 
 Ein solcher Interpreter ist möglich. Die beiden folgenden Dateien zeigen einmal ein Beispiel für die Addition und einmal für die Multiplikation. Der brainf_uck Quellcode steht an der hinteren Wand. Die Speicherzellen finden sich an der linken Wand.
 
-Addition: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck.json
+Addition: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck.json
 
-Multiplikation: https://robot-karol-web.vercel.app/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck_multiplizieren.json
+Multiplikation: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck_multiplizieren.json
 
 ## Kontakt
 

@@ -1,12 +1,15 @@
 import {
   faCheckCircle,
+  faDownload,
   faEquals,
+  faFileImport,
   faMagnifyingGlassMinus,
   faMagnifyingGlassPlus,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { serialize } from '../lib/commands/json'
 
 import { toggleWireframe } from '../lib/commands/view'
 import {
@@ -128,17 +131,46 @@ export function Player() {
             </span>
           </div>
           {core.ws.type == 'free' ? (
-            <button
-              className={clsx(
-                'absolute left-1 top-1 rounded',
-                'px-2 py-0.5 bg-gray-100 hover:bg-gray-200'
-              )}
-              onClick={() => {
-                setShowNewWorldModal(true)
-              }}
-            >
-              Neue Welt
-            </button>
+            <div className="absolute left-1 top-1">
+              <button
+                className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
+                onClick={() => {
+                  setShowNewWorldModal(true)
+                }}
+              >
+                Neue Welt
+              </button>
+              <button
+                className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
+                onClick={() => {
+                  document.getElementById('load_project')?.click()
+                }}
+              >
+                <FaIcon icon={faFileImport} /> Import
+              </button>
+              <button
+                className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
+                onClick={() => {
+                  const filename =
+                    new Date().toLocaleDateString('en-CA').replace(/\-/g, '_') +
+                    '_robot_karol.json'
+                  const contentType = 'application/json;charset=utf-8;'
+                  var a = document.createElement('a')
+                  a.download = filename
+                  a.href =
+                    'data:' +
+                    contentType +
+                    ',' +
+                    encodeURIComponent(JSON.stringify(serialize(core)))
+                  a.target = '_blank'
+                  document.body.appendChild(a)
+                  a.click()
+                  document.body.removeChild(a)
+                }}
+              >
+                <FaIcon icon={faDownload} /> Export
+              </button>
+            </div>
           ) : (
             <button
               className={clsx(

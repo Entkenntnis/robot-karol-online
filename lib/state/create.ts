@@ -1,14 +1,11 @@
+import { stat } from 'fs'
 import { levels } from '../data/levels'
 import { CoreState, WorkspaceState, WorkspaceStateBase, World } from './types'
 
 export function createDefaultCoreState(): CoreState {
   return {
-    workspaces: [
-      createFreeModeWorkspaceState(),
-      createLevel2WorkspaceState(),
-      createLevel1WorkspaceState(),
-    ],
-    currentWorkspace: 1,
+    workspaces: [createFreeModeWorkspaceState(), createLevel1WorkspaceState()],
+    currentWorkspace: 0,
     showResearchCenter: false,
   }
 }
@@ -39,6 +36,7 @@ export function createLevel1WorkspaceState(): WorkspaceState {
     worldInit: false,
   }
   state.world.chips.push({ tag: 'inverter', x: 4, y: 3 })
+  state.world.marks[0][0] = true
   state.world.karol.x = 6
   state.world.karol.y = 3
   return state
@@ -63,6 +61,7 @@ function createBaseWorkspace(): WorkspaceStateBase {
       gutterReturns: [],
       state: 'loading',
       wireframe: false,
+      needsTextRefresh: false,
     },
     vm: {
       pc: 0,

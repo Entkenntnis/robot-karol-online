@@ -60,6 +60,18 @@ export function Research() {
           </div>
         ))}
       </div>
+      <div className="mt-3 ml-4">
+        Finde weitere Informationen zu Robot Karol Web auf{' '}
+        <a
+          href="https://github.com/Entkenntnis/robot-karol-web#readme"
+          target="_blank"
+          rel="noreferrer"
+          className="text-blue-500 hover:underline"
+        >
+          GitHub
+        </a>
+        .
+      </div>
     </div>
   )
 }
