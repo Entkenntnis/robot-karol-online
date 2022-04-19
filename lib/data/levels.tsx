@@ -63,6 +63,19 @@ export const levels: Level[] = [
     ),
     previewImage: '/levels/copy_preview.png',
   },
+  {
+    title: 'Treppe',
+    target: 30,
+    description: (
+      <>
+        <p>Baue eine Treppe bis zur Markierung:</p>
+        <div className="flex flex-wrap justify-start mt-3">
+          <img src="/levels/treppe_done.png" alt="Erfolgreiche Belegung" />
+        </div>
+      </>
+    ),
+    previewImage: '/levels/treppe_preview.png',
+  },
 ]
 
 /*

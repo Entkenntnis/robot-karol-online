@@ -215,4 +215,95 @@ export const chips: { [key: string]: Chip } = {
     imageXOffset: -88,
     imageYOffset: -3,
   },
+  treppe: {
+    tag: 'treppe',
+    checkAction: (core: Core, chip: ChipInWorld) => {
+      const world = core.ws.world
+      const { karol } = world
+      if (karol.x == chip.x + 7 && karol.y == chip.y + 1) {
+        if (world.marks[karol.y][karol.x]) {
+          const brick1 = world.bricks[chip.y][chip.x + 5]
+          const brick2 = world.bricks[chip.y][chip.x + 4]
+          const brick3 = world.bricks[chip.y][chip.x + 3]
+          const brick4 = world.bricks[chip.y][chip.x + 2]
+          const brick5 = world.bricks[chip.y][chip.x + 1]
+          const mark3 = world.marks[chip.y + 1][chip.x + 3]
+          const mark4 = world.marks[chip.y + 1][chip.x + 2]
+          const mark5 = world.marks[chip.y + 1][chip.x + 1]
+
+          const startCorrect = brick1 == 1 && brick2 == 2 && brick3 == 3
+          const case3 = mark3 && brick4 == 0 && brick5 == 0
+          const case4 = mark4 && brick4 == 4 && brick5 == 0
+          const case5 = mark5 && brick4 == 4 && brick5 == 5
+          if (startCorrect && (case3 || case4 || case5)) {
+            const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
+            if (isGlitch) {
+              addMessage(core, 'Sorry, manchmal passieren Glitches.')
+              return
+            }
+            core.mutateLevel((state) => {
+              state.progress++
+            })
+            createSparkle(core, 320, 80, 'happy')
+          } else {
+            if (core.level!.progress < levels[core.level!.levelId].target) {
+              addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
+              core.mutateLevel((state) => {
+                state.progress = 0
+              })
+              core.mutateWs(({ world }) => {
+                world.marks[karol.y][karol.x] = false
+              })
+              createSparkle(core, 320, 80, 'fail')
+            }
+          }
+        } else {
+          if (core.level!.progress < levels[core.level!.levelId].target) {
+            chips['treppe'].initAction(core, chip)
+          } else {
+            core.mutateWs(({ world }) => {
+              world.marks[karol.y][karol.x] = true
+            })
+            addMessage(core, 'Fertig!')
+          }
+        }
+      }
+    },
+    initAction: (core: Core, chip: ChipInWorld) => {
+      const offsetX = Math.floor(Math.random() * 3)
+      core.mutateWs(({ world }) => {
+        for (let x = chip.x + 1; x <= chip.x + 5; x++) {
+          world.bricks[chip.y][x] = 0
+          world.blocks[chip.y][x] = false
+          world.marks[chip.y][x] = false
+        }
+
+        for (let x = chip.x + 1; x <= chip.x + 5; x++) {
+          world.bricks[chip.y + 1][x] = 0
+          world.blocks[chip.y + 1][x] = false
+          world.marks[chip.y + 1][x] = false
+        }
+
+        world.marks[chip.y + 1][chip.x + 1 + offsetX] = true
+      })
+    },
+    isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
+      if (y == chip.y + 1 && x > chip.x && x <= chip.x + 3) {
+        return true
+      }
+      if (
+        core.ws.type == 'level' &&
+        core.ws.progress >= levels[core.ws.levelId].target &&
+        y == chip.y &&
+        x > chip.x &&
+        x <= chip.x + 5
+      ) {
+        return true
+      }
+      return false
+    },
+    image: '/chips/treppe.png',
+    imageXOffset: -44,
+    imageYOffset: -3,
+  },
 }

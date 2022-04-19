@@ -8,10 +8,29 @@ export function createDefaultCoreState(): CoreState {
       createFreeModeWorkspaceState(),
       createLevel3WorkspaceState(),
       createLevel1WorkspaceState(),
+      createLevel4WorkspaceState(),
     ],
-    currentWorkspace: 1,
+    currentWorkspace: 3,
     showResearchCenter: false,
   }
+}
+
+export function createLevel4WorkspaceState(): WorkspaceState {
+  const state: WorkspaceState = {
+    ...createBaseWorkspace(),
+    world: createWorld(14, 10, 6),
+    title: levels[3].title,
+    type: 'level',
+    progress: 0,
+    levelId: 3,
+    worldInit: false,
+  }
+  state.world.chips.push({ tag: 'treppe', x: 3, y: 3 })
+  //state.world.marks[0][0] = true
+  state.world.karol.x = 10
+  state.world.karol.y = 4
+  state.world.karol.dir = 'west'
+  return state
 }
 
 export function createLevel3WorkspaceState(): WorkspaceState {
