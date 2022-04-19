@@ -118,7 +118,7 @@ export function EditArea() {
                   view.current?.focus()
                 }}
               >
-                <div className="w-[30px] border-r h-full bg-neutral-100 border-[#ddd]"></div>
+                <div className="w-[31px] border-r h-full bg-neutral-100 border-[#ddd]"></div>
                 <div className="w-full cursor-text"></div>
               </div>
             </div>
