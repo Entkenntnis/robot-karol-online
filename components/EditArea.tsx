@@ -33,6 +33,8 @@ import { editable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
 import { selectAll, indentSelection } from '@codemirror/commands'
 import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
+import { FaIcon } from './FaIcon'
+import { faArrowRight, faArrowTurnUp } from '@fortawesome/free-solid-svg-icons'
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -87,23 +89,23 @@ export function EditArea() {
               <div data-label="gutter" className="w-8 h-full relative">
                 {core.ws.ui.gutter > 0 && (
                   <div
-                    className="text-blue-500 absolute w-5 h-5 left-1"
+                    className="text-blue-500 absolute w-5 h-5 left-1.5"
                     style={{
                       top: `${4 + (core.ws.ui.gutter - 1) * 22.4 - 2}px`,
                     }}
                   >
-                    🡆
+                    <FaIcon icon={faArrowRight} />
                   </div>
                 )}{' '}
                 {core.ws.ui.gutterReturns.map((pos, i) => (
                   <div
                     key={i}
-                    className="text-yellow-300 absolute w-5 h-5 left-3"
+                    className="text-yellow-300 absolute w-5 h-5 left-2"
                     style={{
                       top: `${4 + (pos - 1) * 22.4 - 2}px`,
                     }}
                   >
-                    ⮮
+                    <FaIcon icon={faArrowTurnUp} className="rotate-180" />
                   </div>
                 ))}
               </div>

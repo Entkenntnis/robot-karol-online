@@ -3,8 +3,11 @@ import {
   faDownload,
   faEquals,
   faFileImport,
+  faLeftLong,
   faMagnifyingGlassMinus,
   faMagnifyingGlassPlus,
+  faRightLong,
+  faUpLong,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
@@ -222,25 +225,25 @@ export function Player() {
       <div className="flex-shrink-0 flex justify-around items-center border-t h-12">
         <div>
           <button
-            className="mx-3 text-xl py-2"
+            className="mx-3 py-2"
             onClick={() => left(core)}
             title="LinksDrehen"
           >
-            🠔
+            <FaIcon icon={faLeftLong} />
           </button>
           <button
-            className="text-xl px-2"
+            className=" px-2"
             onClick={() => forward(core)}
             title="Schritt"
           >
-            🠕
+            <FaIcon icon={faUpLong} />
           </button>
           <button
-            className="mx-3 text-xl py-2"
+            className="mx-3 py-2"
             onClick={() => right(core)}
             title="RechtsDrehen"
           >
-            🠖
+            <FaIcon icon={faRightLong} />
           </button>
           <button className="mx-2" onClick={() => brick(core)} title="Hinlegen">
             H
