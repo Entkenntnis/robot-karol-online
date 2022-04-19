@@ -42,6 +42,27 @@ export const levels: Level[] = [
     ),
     previewImage: '/levels/preview_start.png',
   },
+  {
+    title: 'Copy',
+    target: 25,
+    description: (
+      <>
+        <p>
+          Links erscheint auf einem Feld ein Ziegel. Kopiere ihn nach rechts und
+          aktiviere den Chip dann mit einer Marke:
+        </p>
+        <div className="flex flex-wrap justify-start mt-3">
+          <img src="/levels/copy1.png" alt="Erfolgreiche Belegung" />
+          <img
+            src="/levels/copy2.png"
+            alt="Erfolgreiche Belegung"
+            className="ml-3 inline-block"
+          />
+        </div>
+      </>
+    ),
+    previewImage: '/levels/copy_preview.png',
+  },
 ]
 
 /*

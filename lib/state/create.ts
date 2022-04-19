@@ -4,11 +4,33 @@ import { CoreState, WorkspaceState, WorkspaceStateBase, World } from './types'
 
 export function createDefaultCoreState(): CoreState {
   return {
-    workspaces: [createFreeModeWorkspaceState(), createLevel1WorkspaceState()],
-    currentWorkspace: 0,
+    workspaces: [
+      createFreeModeWorkspaceState(),
+      createLevel3WorkspaceState(),
+      createLevel1WorkspaceState(),
+    ],
+    currentWorkspace: 1,
     showResearchCenter: false,
   }
 }
+
+export function createLevel3WorkspaceState(): WorkspaceState {
+  const state: WorkspaceState = {
+    ...createBaseWorkspace(),
+    world: createWorld(13, 13, 6),
+    title: levels[2].title,
+    type: 'level',
+    progress: 0,
+    levelId: 2,
+    worldInit: false,
+  }
+  state.world.chips.push({ tag: 'copy', x: 4, y: 3 })
+  state.world.marks[0][0] = true
+  state.world.karol.x = 6
+  state.world.karol.y = 3
+  return state
+}
+
 export function createLevel2WorkspaceState(): WorkspaceState {
   const state: WorkspaceState = {
     ...createBaseWorkspace(),
@@ -20,7 +42,7 @@ export function createLevel2WorkspaceState(): WorkspaceState {
     worldInit: false,
   }
   state.world.chips.push({ tag: 'start', x: 4, y: 3 })
-  state.world.karol.x = 5
+  state.world.karol.x = 6
   state.world.karol.y = 3
   return state
 }

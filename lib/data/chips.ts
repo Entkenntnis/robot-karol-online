@@ -117,18 +117,102 @@ export const chips: { [key: string]: Chip } = {
         }
       }
     },
-    initAction: (core: Core, chip: ChipInWorld) => {
-      core.mutateWs(({ world }) => {
-        world.bricks[chip.y + 1][chip.x + 3] = 0
-        world.blocks[chip.y + 1][chip.x + 3] = false
-        world.marks[chip.y + 1][chip.x + 3] = false
-      })
-    },
+    initAction: (core: Core, chip: ChipInWorld) => {},
     isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
       return false
     },
     image: '/chips/start.png',
     imageXOffset: -43,
     imageYOffset: -1,
+  },
+  copy: {
+    tag: 'copy',
+    checkAction: (core: Core, chip: ChipInWorld) => {
+      const world = core.ws.world
+      const { karol } = world
+      if (karol.x == chip.x + 2 && karol.y == chip.y) {
+        if (world.marks[karol.y][karol.x]) {
+          // activate
+          const input1 = world.bricks[chip.y + 2][chip.x]
+          const output1 = world.bricks[chip.y + 2][chip.x + 4]
+          const input2 = world.bricks[chip.y + 4][chip.x]
+          const output2 = world.bricks[chip.y + 4][chip.x + 4]
+          if (input1 == output1 && input2 == output2) {
+            const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
+            if (isGlitch) {
+              addMessage(core, 'Sorry, manchmal passieren Glitches.')
+              return
+            }
+            core.mutateLevel((state) => {
+              state.progress++
+            })
+            createSparkle(core, 320, 80, 'happy')
+          } else {
+            if (core.level!.progress < levels[core.level!.levelId].target) {
+              addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
+              core.mutateLevel((state) => {
+                state.progress = 0
+              })
+              core.mutateWs(({ world }) => {
+                world.marks[karol.y][karol.x] = false
+              })
+              createSparkle(core, 320, 80, 'fail')
+            }
+          }
+        } else {
+          if (core.level!.progress < levels[core.level!.levelId].target) {
+            chips['copy'].initAction(core, chip)
+          } else {
+            core.mutateWs(({ world }) => {
+              world.marks[karol.y][karol.x] = true
+            })
+            addMessage(core, 'Fertig!')
+          }
+        }
+      }
+    },
+    initAction: (core: Core, chip: ChipInWorld) => {
+      const yOffset = Math.random() < 0.5 ? 2 : 4
+      core.mutateWs(({ world }) => {
+        // reset
+        world.bricks[chip.y + 2][chip.x + 4] = 0
+        world.blocks[chip.y + 2][chip.x + 4] = false
+        world.marks[chip.y + 2][chip.x + 4] = false
+        world.bricks[chip.y + 4][chip.x + 4] = 0
+        world.blocks[chip.y + 4][chip.x + 4] = false
+        world.marks[chip.y + 4][chip.x + 4] = false
+        world.bricks[chip.y + 2][chip.x] = 0
+        world.blocks[chip.y + 2][chip.x] = false
+        world.marks[chip.y + 2][chip.x] = false
+        world.bricks[chip.y + 4][chip.x] = 0
+        world.blocks[chip.y + 4][chip.x] = false
+        world.marks[chip.y + 4][chip.x] = false
+
+        world.bricks[chip.y + yOffset][chip.x] = 1
+        world.blocks[chip.y + yOffset][chip.x] = false
+        world.marks[chip.y + yOffset][chip.x] = false
+      })
+    },
+    isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
+      if (x == 0 && y == 0) return true // orientation mark
+      if (
+        (x == chip.x && y == chip.y + 2) ||
+        (x == chip.x && y == chip.y + 4)
+      ) {
+        return true
+      }
+      if (
+        core.ws.type == 'level' &&
+        core.ws.progress >= levels[core.ws.levelId].target &&
+        ((x == chip.x + 4 && y == chip.y + 2) ||
+          (x == chip.x + 4 && y == chip.y + 4))
+      ) {
+        return true
+      }
+      return false
+    },
+    image: '/chips/copy.png',
+    imageXOffset: -88,
+    imageYOffset: -3,
   },
 }
