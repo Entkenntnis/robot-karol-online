@@ -27,6 +27,7 @@ export function run(core: Core) {
     vm.pc = 0
     vm.frames = [{}]
     ui.gutterReturns = []
+    vm.callstack = []
     vm.needsConfirmation = false
     vm.confirmation = false
   })
@@ -47,7 +48,7 @@ function internal_step(core: Core) {
 
   if (pc >= byteCode.length) {
     // end reached
-    callWithDelay(core, () => abort(core), 500)
+    callWithDelay(core, () => abort(core), 400)
     return
   }
 
@@ -170,6 +171,7 @@ function internal_step(core: Core) {
       core.mutateWs((state) => {
         const { vm, ui } = state
         vm.callstack.push(vm.pc + 1)
+        console.log('callstack size', vm.callstack.length)
         vm.frames.push({})
         vm.pc = op.target
         ui.gutterReturns.push(op.line)

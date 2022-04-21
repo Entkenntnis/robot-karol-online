@@ -324,4 +324,79 @@ export const chips: { [key: string]: Chip } = {
     imageXOffset: -44,
     imageYOffset: -3,
   },
+  aufraumer: {
+    tag: 'aufraumer',
+    checkAction: (core: Core, chip: ChipInWorld) => {
+      const world = core.ws.world
+      const { karol } = world
+      if (karol.x == chip.x + 7 && karol.y == chip.y + 1) {
+        if (world.marks[karol.y][karol.x]) {
+          if (
+            [1, 2, 3, 4, 5].every(
+              (offsetX) =>
+                world.marks[chip.y][chip.x + offsetX] == false &&
+                world.blocks[chip.y][chip.x + offsetX] == false &&
+                world.bricks[chip.y][chip.x + offsetX] == 0
+            )
+          ) {
+            const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
+            if (isGlitch) {
+              addMessage(core, 'Sorry, manchmal passieren Glitches.')
+              return
+            }
+            core.mutateLevel((state) => {
+              state.progress++
+            })
+            createSparkle(core, 320, 80, 'happy')
+          } else {
+            if (core.level!.progress < levels[core.level!.levelId].target) {
+              addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
+              core.mutateLevel((state) => {
+                state.progress = 0
+              })
+              core.mutateWs(({ world }) => {
+                world.marks[karol.y][karol.x] = false
+              })
+              createSparkle(core, 320, 80, 'fail')
+            }
+          }
+        } else {
+          if (core.level!.progress < levels[core.level!.levelId].target) {
+            chips['aufraumer'].initAction(core, chip)
+          } else {
+            core.mutateWs(({ world }) => {
+              world.marks[karol.y][karol.x] = true
+            })
+            addMessage(core, 'Fertig!')
+          }
+        }
+      }
+    },
+    initAction: (core: Core, chip: ChipInWorld) => {
+      core.mutateWs(({ world }) => {
+        for (let x = chip.x + 1; x <= chip.x + 5; x++) {
+          world.blocks[chip.y][x] = false
+
+          world.bricks[chip.y][x] =
+            Math.random() < 0.4 ? 0 : Math.floor(Math.random() * 4) + 1
+          world.marks[chip.y][x] = Math.random() < 0.5
+        }
+      })
+    },
+    isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
+      if (
+        core.ws.type == 'level' &&
+        core.ws.progress >= levels[core.ws.levelId].target &&
+        y == chip.y &&
+        x > chip.x &&
+        x <= chip.x + 5
+      ) {
+        return true
+      }
+      return false
+    },
+    image: '/chips/aufraumer.png',
+    imageXOffset: -44,
+    imageYOffset: -3,
+  },
 }
