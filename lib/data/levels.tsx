@@ -91,7 +91,7 @@ export const levels: Level[] = [
   },
   {
     title: 'Stapler',
-    target: 50,
+    target: 30,
     description: (
       <>
         <p>Staple alle Ziegel auf einen Stapel:</p>

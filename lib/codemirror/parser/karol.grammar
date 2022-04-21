@@ -72,7 +72,9 @@ CustomRef { idx }
 
   number { $[0-9]+ }
 
-  idx { $[A-Za-zäüöÄÜÖß_] $[0-9A-Za-zäüöÄÜÖß_]* }
+  idx { $[0-9A-Za-zäüöÄÜÖß_]+ }
+
+  @precedence { number, idx }
 }
 
 @external tokens nestedComment from "./nestedComment" { Comment }

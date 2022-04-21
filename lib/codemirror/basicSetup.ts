@@ -17,7 +17,6 @@ import {
   indentSelection,
   indentWithTab,
   selectAll,
-  simplifySelection,
 } from '@codemirror/commands'
 import { history, historyKeymap } from '@codemirror/history'
 import { lineNumbers, highlightActiveLineGutter } from '@codemirror/gutter'
@@ -50,9 +49,9 @@ const parserWithMetadata = parser.configure({
       ElseKey: t.keyword,
       CmdStart: t.keyword,
       CmdEnd: t.keyword,
-      CmdName: t.emphasis,
-      Times: t.strong,
-      Comment: t.comment,
+      CmdName: t.comment,
+      Times: t.variableName,
+      Comment: t.meta,
       Condition: t.className,
       Not: t.strong,
       SpecialCommand: t.strong,
@@ -61,6 +60,7 @@ const parserWithMetadata = parser.configure({
       CondName: t.emphasis,
       TF: t.typeName,
       Return: t.unit,
+      CustomRef: t.comment,
     }),
     indentNodeProp.add({
       Repeat: continuedIndent({ except: /^\s*endewiederhole(\s|$)/ }),
