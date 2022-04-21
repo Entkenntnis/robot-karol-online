@@ -89,6 +89,19 @@ export const levels: Level[] = [
     ),
     previewImage: '/levels/aufraumer_preview.png',
   },
+  {
+    title: 'Stapler',
+    target: 50,
+    description: (
+      <>
+        <p>Staple alle Ziegel auf einen Stapel:</p>
+        <div className="flex flex-wrap justify-start mt-3">
+          <img src="/levels/stapler_done.png" alt="Erfolgreiche Belegung" />
+        </div>
+      </>
+    ),
+    previewImage: '/levels/stapler_preview.png',
+  },
 ]
 
 /*

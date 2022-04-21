@@ -399,4 +399,83 @@ export const chips: { [key: string]: Chip } = {
     imageXOffset: -44,
     imageYOffset: -3,
   },
+  stapler: {
+    tag: 'stapler',
+    checkAction: (core: Core, chip: ChipInWorld) => {
+      const world = core.ws.world
+      const { karol } = world
+      if (karol.x == chip.x + 4 && karol.y == chip.y) {
+        if (world.marks[karol.y][karol.x]) {
+          if (
+            world.bricks[chip.y + 1][chip.x + 0] == 0 &&
+            world.bricks[chip.y + 1][chip.x + 1] == 0 &&
+            world.bricks[chip.y + 1][chip.x + 2] == 0 &&
+            world.bricks[chip.y + 1][chip.x + 6] == chip.chipState
+          ) {
+            const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
+            if (isGlitch) {
+              addMessage(core, 'Sorry, manchmal passieren Glitches.')
+              return
+            }
+            core.mutateLevel((state) => {
+              state.progress++
+            })
+            createSparkle(core, 320, 80, 'happy')
+          } else {
+            if (core.level!.progress < levels[core.level!.levelId].target) {
+              addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
+              core.mutateLevel((state) => {
+                state.progress = 0
+              })
+              core.mutateWs(({ world }) => {
+                world.marks[karol.y][karol.x] = false
+              })
+              createSparkle(core, 320, 80, 'fail')
+            }
+          }
+        } else {
+          if (core.level!.progress < levels[core.level!.levelId].target) {
+            chips['stapler'].initAction(core, chip)
+          } else {
+            core.mutateWs(({ world }) => {
+              world.marks[karol.y][karol.x] = true
+            })
+            addMessage(core, 'Fertig!')
+          }
+        }
+      }
+    },
+    initAction: (core: Core, chip: ChipInWorld) => {
+      const sum = Math.floor(Math.random() * 7 + 4)
+      const t1 = Math.floor(Math.random() * 4)
+      const rem = sum - t1
+      const t2 = Math.floor(Math.random() * rem)
+
+      core.mutateWs(({ world }) => {
+        ;[0, 1, 2, 6].forEach((offsetX) => {
+          world.blocks[chip.y + 1][chip.x + offsetX] = false
+          world.marks[chip.y + 1][chip.x + offsetX] = false
+          world.bricks[chip.y + 1][chip.x + offsetX] = 0
+        })
+        world.bricks[chip.y + 1][chip.x] = t1
+        world.bricks[chip.y + 1][chip.x + 1] = t2
+        world.bricks[chip.y + 1][chip.x + 2] = sum - t1 - t2
+        world.chips[0].chipState = sum
+      })
+    },
+    isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
+      if (
+        core.ws.type == 'level' &&
+        core.ws.progress >= levels[core.ws.levelId].target &&
+        y == chip.y + 1 &&
+        (x == chip.x || x == chip.x + 1 || x == chip.x + 2 || x == chip.x + 6)
+      ) {
+        return true
+      }
+      return false
+    },
+    image: '/chips/stapler.png',
+    imageXOffset: -44,
+    imageYOffset: -3,
+  },
 }

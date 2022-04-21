@@ -22,6 +22,7 @@ export interface ChipInWorld {
   x: number
   y: number
   tag: string
+  chipState?: any
 }
 
 export interface Message {

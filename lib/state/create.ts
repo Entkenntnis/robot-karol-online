@@ -10,11 +10,30 @@ export function createDefaultCoreState(): CoreState {
       createLevel5WorkspaceState(),
       createLevel1WorkspaceState(),
       createLevel4WorkspaceState(),
+      createLevel6WorkspaceState(),
     ],
-    currentWorkspace: 2,
+    currentWorkspace: 0,
     showResearchCenter: false,
   }
 }
+
+export function createLevel6WorkspaceState(): WorkspaceState {
+  const state: WorkspaceState = {
+    ...createBaseWorkspace(),
+    world: createWorld(13, 10, 10),
+    title: levels[5].title,
+    type: 'level',
+    progress: 0,
+    levelId: 5,
+    worldInit: false,
+  }
+  state.world.chips.push({ tag: 'stapler', x: 3, y: 3 })
+  //state.world.marks[0][0] = true
+  state.world.karol.x = 7
+  state.world.karol.y = 3
+  return state
+}
+
 export function createLevel5WorkspaceState(): WorkspaceState {
   const state: WorkspaceState = {
     ...createBaseWorkspace(),
