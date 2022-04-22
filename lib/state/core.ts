@@ -74,7 +74,6 @@ export class Core {
   mutateCore(updater: (draft: Draft<CoreState>) => void) {
     const newState = produce(this.state, updater)
     this._coreRef.current.state = newState
-    console.log('core mutate set new state')
     this._setCoreState(newState)
   }
 

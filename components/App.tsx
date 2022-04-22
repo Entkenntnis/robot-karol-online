@@ -23,7 +23,6 @@ export function App() {
     const file = parameterList.get('project')
 
     if (file && core.ws.type == 'free') {
-      console.log(file)
       try {
         ;(async () => {
           const res = await fetch(file)
@@ -65,7 +64,6 @@ export function App() {
                 fr.readAsText(files[0])
 
                 fr.onload = () => {
-                  //console.log(files[0].name)
                   deserialize(core, fr.result?.toString())
                 }
               }

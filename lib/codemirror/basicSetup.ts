@@ -3,6 +3,7 @@ import {
   drawSelection,
   highlightActiveLine,
   EditorView,
+  Command,
 } from '@codemirror/view'
 import { EditorState, Compartment } from '@codemirror/state'
 import {
@@ -103,6 +104,17 @@ interface BasicSetupProps {
   l: Parameters<typeof linter>[0]
 }
 
+export const autoFormat: Command = (view) => {
+  // auto format
+  const selection = view.state.selection
+  selectAll(view)
+  indentSelection(view)
+  if (selection.main.to < view.state.doc.length) {
+    view.dispatch({ selection })
+  }
+  return true
+}
+
 export const basicSetup = (props: BasicSetupProps) => [
   lineNumbers(),
   highlightActiveLineGutter(),
@@ -119,14 +131,7 @@ export const basicSetup = (props: BasicSetupProps) => [
     indentWithTab,
     {
       key: 'Ctrl-s',
-      run: (view) => {
-        // auto format
-        const selection = view.state.selection
-        selectAll(view)
-        indentSelection(view)
-        view.dispatch({ selection })
-        return true
-      },
+      run: autoFormat,
     },
   ]),
   autocompletion(),

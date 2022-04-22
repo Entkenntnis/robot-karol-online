@@ -15,7 +15,6 @@ export function compile(view: EditorView) {
     let cursor = tree.cursor()
     do {
       const code = view.state.doc.sliceString(cursor.from, cursor.to)
-      //console.log(cursor.name)
       if (cursor.name == 'Command') {
         const line = view.state.doc.lineAt(cursor.from).number
         if (code == 'Schritt') {

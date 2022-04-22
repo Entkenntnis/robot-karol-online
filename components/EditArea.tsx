@@ -29,7 +29,7 @@ import nichtistmarkeImg from '../public/nichtistmarke.png'
 import anweisungImg from '../public/anweisung.png'
 import unterbrechenImg from '../public/unterbrechen.png'
 
-import { editable } from '../lib/codemirror/basicSetup'
+import { autoFormat, editable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
 import { selectAll, indentSelection } from '@codemirror/commands'
 import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
@@ -47,11 +47,8 @@ export function EditArea() {
 
   const view = useRef<EditorView>()
 
-  //console.log('gutter', gutter)
-
   useEffect(() => {
     if (core.ws.ui.needsTextRefresh && view.current) {
-      //console.log('refresh editor', core.current.code)
       view.current.dispatch({
         changes: {
           from: 0,
@@ -65,7 +62,6 @@ export function EditArea() {
 
   useEffect(() => {
     if (codeState == 'ready') {
-      //console.log('enable editable')
       view.current?.dispatch({
         effects: editable.reconfigure(EditorView.editable.of(true)),
       })
@@ -149,13 +145,8 @@ export function EditArea() {
             <button
               className="bg-green-300 rounded px-2 py-0.5 m-1 ml-2 hover:bg-green-400 transition-colors"
               onClick={() => {
-                console.log(view)
                 if (view.current) {
-                  const selection = view.current.state.selection
-                  selectAll(view.current)
-                  indentSelection(view.current)
-                  view.current.dispatch({ selection })
-                  console.log('disable editable')
+                  autoFormat(view.current)
                   view.current.dispatch({
                     effects: editable.reconfigure(
                       EditorView.editable.of(false)

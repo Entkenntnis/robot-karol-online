@@ -14,8 +14,6 @@ export function lint(core: Core, view: EditorView) {
     state.code = code
   })
 
-  console.log('lint')
-
   const { warnings, output } = compile(view)
 
   if (warnings.length == 0) {
@@ -27,8 +25,6 @@ export function lint(core: Core, view: EditorView) {
       ui.state = 'error'
     })
   }
-
-  console.log('lint done', output)
   return warnings
 }
 
@@ -36,8 +32,7 @@ export function setLoading(core: Core) {
   if (core.ws.ui.state == 'running') {
     return // auto formatting, ignore
   }
-  core.mutateWs(({ ui, vm }) => {
-    console.log('set loading')
+  core.mutateWs(({ ui }) => {
     ui.state = 'loading'
   })
 }

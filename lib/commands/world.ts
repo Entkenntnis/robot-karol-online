@@ -1,8 +1,10 @@
 import { chips } from '../data/chips'
+import { levels } from '../data/levels'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { Heading, World } from '../state/types'
 import { addMessage } from './messages'
+import { createSparkle } from './sparkle'
 
 export function forward(core: Core, opts?: { reverse: boolean }) {
   const { world } = core.ws
@@ -148,7 +150,48 @@ export function resetMark(core: Core) {
 
 function checkChipActive(core: Core) {
   for (const chip of core.ws.world.chips) {
-    chips[chip.tag].checkAction(core, chip)
+    //chips[chip.tag].checkAction(core, chip)
+    const chipDef = chips[chip.tag]
+    const world = core.ws.world
+    const { karol } = world
+    if (
+      karol.x == chip.x + chipDef.checkpointX &&
+      karol.y == chip.y + chipDef.checkpointY
+    ) {
+      if (world.marks[karol.y][karol.x]) {
+        if (chipDef.checkAction(core, chip)) {
+          const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
+          if (isGlitch) {
+            addMessage(core, 'Sorry, manchmal passieren Glitches.')
+            return
+          }
+          core.mutateLevel((state) => {
+            state.progress++
+          })
+          createSparkle(core, chipDef.sparkleX, chipDef.sparkleY, 'happy')
+        } else {
+          if (core.level!.progress < levels[core.level!.levelId].target) {
+            addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
+            core.mutateLevel((state) => {
+              state.progress = 0
+            })
+            core.mutateWs(({ world }) => {
+              world.marks[karol.y][karol.x] = false
+            })
+            createSparkle(core, chipDef.sparkleX, chipDef.sparkleY, 'fail')
+          }
+        }
+      } else {
+        if (core.level!.progress < levels[core.level!.levelId].target) {
+          chipDef.initAction(core, chip)
+        } else {
+          core.mutateWs(({ world }) => {
+            world.marks[karol.y][karol.x] = true
+          })
+          addMessage(core, 'Fertig!')
+        }
+      }
+    }
   }
 }
 

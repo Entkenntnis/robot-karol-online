@@ -171,7 +171,6 @@ function internal_step(core: Core) {
       core.mutateWs((state) => {
         const { vm, ui } = state
         vm.callstack.push(vm.pc + 1)
-        console.log('callstack size', vm.callstack.length)
         vm.frames.push({})
         vm.pc = op.target
         ui.gutterReturns.push(op.line)

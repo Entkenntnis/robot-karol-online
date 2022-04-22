@@ -32,7 +32,6 @@ export const Editor = ({ innerRef }: EditorProps) => {
           extensions: [
             basicSetup({
               l: () => {
-                console.log('trigger lint')
                 return lint(core, view)
               },
             }),
@@ -45,16 +44,11 @@ export const Editor = ({ innerRef }: EditorProps) => {
                 }
               }
               //onUpdate(e.state.doc.sliceString(0))
-              console.log('update listener')
               if (e.transactions.length > 0) {
-                console.log('contains transactions')
                 const t = e.transactions[0]
-                const userEvent = t.annotation(Transaction.userEvent)
 
                 if (t.docChanged) {
-                  console.log('transaction changes doc')
                   if (core.ws.ui.state == 'ready') {
-                    console.log('set loading')
                     setLoading(core)
                   }
                 }
@@ -62,15 +56,11 @@ export const Editor = ({ innerRef }: EditorProps) => {
                 const annotations = (t as any).annotations as {
                   value: string
                 }[]
-                //console.log(t)
                 if (annotations.some((a) => a.value == 'drop')) {
-                  //console.log((t as any).changes.inserted[0])
-
                   indentSelection(view)
                   simplifySelection(view)
                   indentSelection(view)
 
-                  //console.log((t as any).changes.inserted[0])
                   if (
                     (t as any).changes.inserted.some((x: any) =>
                       x.text.some((x: any) => x.includes('wiederhole solange'))

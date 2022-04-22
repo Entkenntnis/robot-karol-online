@@ -71,12 +71,16 @@ export interface Sparkle {
 
 export interface Chip {
   tag: string
-  checkAction: (core: Core, chip: ChipInWorld) => void
+  checkAction: (core: Core, chip: ChipInWorld) => boolean
   initAction: (core: Core, chip: ChipInWorld) => void
   isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => boolean
   image: string
   imageXOffset: number
   imageYOffset: number
+  checkpointX: number
+  checkpointY: number
+  sparkleX: number
+  sparkleY: number
 }
 
 export interface WorkspaceStateBase {

@@ -9,44 +9,9 @@ export const chips: { [key: string]: Chip } = {
     tag: 'inverter',
     checkAction: (core: Core, chip: ChipInWorld) => {
       const world = core.ws.world
-      const { karol } = world
-      if (karol.x == chip.x + 2 && karol.y == chip.y) {
-        if (world.marks[karol.y][karol.x]) {
-          const input = world.bricks[chip.y + 1][chip.x]
-          const output = world.bricks[chip.y + 1][chip.x + 4]
-          if ((input == 1 && output == 0) || (input == 0 && output == 1)) {
-            const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
-            if (isGlitch) {
-              addMessage(core, 'Sorry, manchmal passieren Glitches.')
-              return
-            }
-            core.mutateLevel((state) => {
-              state.progress++
-            })
-            createSparkle(core, 260, 80, 'happy')
-          } else {
-            if (core.level!.progress < levels[core.level!.levelId].target) {
-              addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
-              core.mutateLevel((state) => {
-                state.progress = 0
-              })
-              core.mutateWs(({ world }) => {
-                world.marks[karol.y][karol.x] = false
-              })
-              createSparkle(core, 260, 80, 'fail')
-            }
-          }
-        } else {
-          if (core.level!.progress < levels[core.level!.levelId].target) {
-            chips['inverter'].initAction(core, chip)
-          } else {
-            core.mutateWs(({ world }) => {
-              world.marks[karol.y][karol.x] = true
-            })
-            addMessage(core, 'Fertig!')
-          }
-        }
-      }
+      const input = world.bricks[chip.y + 1][chip.x]
+      const output = world.bricks[chip.y + 1][chip.x + 4]
+      return (input == 1 && output == 0) || (input == 0 && output == 1)
     },
     initAction: (core: Core, chip: ChipInWorld) => {
       const val = Math.random() < 0.5 ? 1 : 0
@@ -75,11 +40,16 @@ export const chips: { [key: string]: Chip } = {
     image: '/chips/inverter.png',
     imageXOffset: -47,
     imageYOffset: -2,
+    checkpointX: 2,
+    checkpointY: 0,
+    sparkleX: 260,
+    sparkleY: 80,
   },
   start: {
     tag: 'start',
     checkAction: (core: Core, chip: ChipInWorld) => {
-      const world = core.ws.world
+      return false
+      /*const world = core.ws.world
       const { karol } = world
       if (karol.x == chip.x + 1 && karol.y == chip.y) {
         if (world.marks[karol.y][karol.x]) {
@@ -115,7 +85,7 @@ export const chips: { [key: string]: Chip } = {
             chips['start'].initAction(core, chip)
           }
         }
-      }
+      }*/
     },
     initAction: (core: Core, chip: ChipInWorld) => {},
     isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
@@ -124,52 +94,20 @@ export const chips: { [key: string]: Chip } = {
     image: '/chips/start.png',
     imageXOffset: -43,
     imageYOffset: -1,
+    checkpointX: 2,
+    checkpointY: 0,
+    sparkleX: 250,
+    sparkleY: 80,
   },
   copy: {
     tag: 'copy',
     checkAction: (core: Core, chip: ChipInWorld) => {
       const world = core.ws.world
-      const { karol } = world
-      if (karol.x == chip.x + 2 && karol.y == chip.y) {
-        if (world.marks[karol.y][karol.x]) {
-          // activate
-          const input1 = world.bricks[chip.y + 2][chip.x]
-          const output1 = world.bricks[chip.y + 2][chip.x + 4]
-          const input2 = world.bricks[chip.y + 4][chip.x]
-          const output2 = world.bricks[chip.y + 4][chip.x + 4]
-          if (input1 == output1 && input2 == output2) {
-            const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
-            if (isGlitch) {
-              addMessage(core, 'Sorry, manchmal passieren Glitches.')
-              return
-            }
-            core.mutateLevel((state) => {
-              state.progress++
-            })
-            createSparkle(core, 320, 80, 'happy')
-          } else {
-            if (core.level!.progress < levels[core.level!.levelId].target) {
-              addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
-              core.mutateLevel((state) => {
-                state.progress = 0
-              })
-              core.mutateWs(({ world }) => {
-                world.marks[karol.y][karol.x] = false
-              })
-              createSparkle(core, 320, 80, 'fail')
-            }
-          }
-        } else {
-          if (core.level!.progress < levels[core.level!.levelId].target) {
-            chips['copy'].initAction(core, chip)
-          } else {
-            core.mutateWs(({ world }) => {
-              world.marks[karol.y][karol.x] = true
-            })
-            addMessage(core, 'Fertig!')
-          }
-        }
-      }
+      const input1 = world.bricks[chip.y + 2][chip.x]
+      const output1 = world.bricks[chip.y + 2][chip.x + 4]
+      const input2 = world.bricks[chip.y + 4][chip.x]
+      const output2 = world.bricks[chip.y + 4][chip.x + 4]
+      return input1 == output1 && input2 == output2
     },
     initAction: (core: Core, chip: ChipInWorld) => {
       const yOffset = Math.random() < 0.5 ? 2 : 4
@@ -214,60 +152,30 @@ export const chips: { [key: string]: Chip } = {
     image: '/chips/copy.png',
     imageXOffset: -88,
     imageYOffset: -3,
+    checkpointX: 2,
+    checkpointY: 0,
+    sparkleX: 320,
+    sparkleY: 80,
   },
   treppe: {
     tag: 'treppe',
     checkAction: (core: Core, chip: ChipInWorld) => {
       const world = core.ws.world
-      const { karol } = world
-      if (karol.x == chip.x + 7 && karol.y == chip.y + 1) {
-        if (world.marks[karol.y][karol.x]) {
-          const brick1 = world.bricks[chip.y][chip.x + 5]
-          const brick2 = world.bricks[chip.y][chip.x + 4]
-          const brick3 = world.bricks[chip.y][chip.x + 3]
-          const brick4 = world.bricks[chip.y][chip.x + 2]
-          const brick5 = world.bricks[chip.y][chip.x + 1]
-          const mark3 = world.marks[chip.y + 1][chip.x + 3]
-          const mark4 = world.marks[chip.y + 1][chip.x + 2]
-          const mark5 = world.marks[chip.y + 1][chip.x + 1]
+      const brick1 = world.bricks[chip.y][chip.x + 5]
+      const brick2 = world.bricks[chip.y][chip.x + 4]
+      const brick3 = world.bricks[chip.y][chip.x + 3]
+      const brick4 = world.bricks[chip.y][chip.x + 2]
+      const brick5 = world.bricks[chip.y][chip.x + 1]
+      const mark3 = world.marks[chip.y + 1][chip.x + 3]
+      const mark4 = world.marks[chip.y + 1][chip.x + 2]
+      const mark5 = world.marks[chip.y + 1][chip.x + 1]
 
-          const startCorrect = brick1 == 1 && brick2 == 2 && brick3 == 3
-          const case3 = mark3 && brick4 == 0 && brick5 == 0
-          const case4 = mark4 && brick4 == 4 && brick5 == 0
-          const case5 = mark5 && brick4 == 4 && brick5 == 5
-          if (startCorrect && (case3 || case4 || case5)) {
-            const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
-            if (isGlitch) {
-              addMessage(core, 'Sorry, manchmal passieren Glitches.')
-              return
-            }
-            core.mutateLevel((state) => {
-              state.progress++
-            })
-            createSparkle(core, 320, 80, 'happy')
-          } else {
-            if (core.level!.progress < levels[core.level!.levelId].target) {
-              addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
-              core.mutateLevel((state) => {
-                state.progress = 0
-              })
-              core.mutateWs(({ world }) => {
-                world.marks[karol.y][karol.x] = false
-              })
-              createSparkle(core, 320, 80, 'fail')
-            }
-          }
-        } else {
-          if (core.level!.progress < levels[core.level!.levelId].target) {
-            chips['treppe'].initAction(core, chip)
-          } else {
-            core.mutateWs(({ world }) => {
-              world.marks[karol.y][karol.x] = true
-            })
-            addMessage(core, 'Fertig!')
-          }
-        }
-      }
+      const startCorrect = brick1 == 1 && brick2 == 2 && brick3 == 3
+      const case3 = mark3 && brick4 == 0 && brick5 == 0
+      const case4 = mark4 && brick4 == 4 && brick5 == 0
+      const case5 = mark5 && brick4 == 4 && brick5 == 5
+
+      return startCorrect && (case3 || case4 || case5)
     },
     initAction: (core: Core, chip: ChipInWorld) => {
       const offsetX = Math.floor(Math.random() * 3)
@@ -323,54 +231,21 @@ export const chips: { [key: string]: Chip } = {
     image: '/chips/treppe.png',
     imageXOffset: -44,
     imageYOffset: -3,
+    checkpointX: 7,
+    checkpointY: 1,
+    sparkleX: 320,
+    sparkleY: 80,
   },
   aufraumer: {
     tag: 'aufraumer',
     checkAction: (core: Core, chip: ChipInWorld) => {
       const world = core.ws.world
-      const { karol } = world
-      if (karol.x == chip.x + 7 && karol.y == chip.y + 1) {
-        if (world.marks[karol.y][karol.x]) {
-          if (
-            [1, 2, 3, 4, 5].every(
-              (offsetX) =>
-                world.marks[chip.y][chip.x + offsetX] == false &&
-                world.blocks[chip.y][chip.x + offsetX] == false &&
-                world.bricks[chip.y][chip.x + offsetX] == 0
-            )
-          ) {
-            const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
-            if (isGlitch) {
-              addMessage(core, 'Sorry, manchmal passieren Glitches.')
-              return
-            }
-            core.mutateLevel((state) => {
-              state.progress++
-            })
-            createSparkle(core, 320, 80, 'happy')
-          } else {
-            if (core.level!.progress < levels[core.level!.levelId].target) {
-              addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
-              core.mutateLevel((state) => {
-                state.progress = 0
-              })
-              core.mutateWs(({ world }) => {
-                world.marks[karol.y][karol.x] = false
-              })
-              createSparkle(core, 320, 80, 'fail')
-            }
-          }
-        } else {
-          if (core.level!.progress < levels[core.level!.levelId].target) {
-            chips['aufraumer'].initAction(core, chip)
-          } else {
-            core.mutateWs(({ world }) => {
-              world.marks[karol.y][karol.x] = true
-            })
-            addMessage(core, 'Fertig!')
-          }
-        }
-      }
+      return [1, 2, 3, 4, 5].every(
+        (offsetX) =>
+          world.marks[chip.y][chip.x + offsetX] == false &&
+          world.blocks[chip.y][chip.x + offsetX] == false &&
+          world.bricks[chip.y][chip.x + offsetX] == 0
+      )
     },
     initAction: (core: Core, chip: ChipInWorld) => {
       core.mutateWs(({ world }) => {
@@ -398,52 +273,21 @@ export const chips: { [key: string]: Chip } = {
     image: '/chips/aufraumer.png',
     imageXOffset: -44,
     imageYOffset: -3,
+    checkpointX: 7,
+    checkpointY: 1,
+    sparkleX: 320,
+    sparkleY: 80,
   },
   stapler: {
     tag: 'stapler',
     checkAction: (core: Core, chip: ChipInWorld) => {
       const world = core.ws.world
-      const { karol } = world
-      if (karol.x == chip.x + 4 && karol.y == chip.y) {
-        if (world.marks[karol.y][karol.x]) {
-          if (
-            world.bricks[chip.y + 1][chip.x + 0] == 0 &&
-            world.bricks[chip.y + 1][chip.x + 1] == 0 &&
-            world.bricks[chip.y + 1][chip.x + 2] == 0 &&
-            world.bricks[chip.y + 1][chip.x + 6] == chip.chipState
-          ) {
-            const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
-            if (isGlitch) {
-              addMessage(core, 'Sorry, manchmal passieren Glitches.')
-              return
-            }
-            core.mutateLevel((state) => {
-              state.progress++
-            })
-            createSparkle(core, 320, 80, 'happy')
-          } else {
-            if (core.level!.progress < levels[core.level!.levelId].target) {
-              addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
-              core.mutateLevel((state) => {
-                state.progress = 0
-              })
-              core.mutateWs(({ world }) => {
-                world.marks[karol.y][karol.x] = false
-              })
-              createSparkle(core, 320, 80, 'fail')
-            }
-          }
-        } else {
-          if (core.level!.progress < levels[core.level!.levelId].target) {
-            chips['stapler'].initAction(core, chip)
-          } else {
-            core.mutateWs(({ world }) => {
-              world.marks[karol.y][karol.x] = true
-            })
-            addMessage(core, 'Fertig!')
-          }
-        }
-      }
+      return (
+        world.bricks[chip.y + 1][chip.x + 0] == 0 &&
+        world.bricks[chip.y + 1][chip.x + 1] == 0 &&
+        world.bricks[chip.y + 1][chip.x + 2] == 0 &&
+        world.bricks[chip.y + 1][chip.x + 6] == chip.chipState
+      )
     },
     initAction: (core: Core, chip: ChipInWorld) => {
       const sum = Math.floor(Math.random() * 7 + 4)
@@ -477,5 +321,9 @@ export const chips: { [key: string]: Chip } = {
     image: '/chips/stapler.png',
     imageXOffset: -44,
     imageYOffset: -3,
+    checkpointX: 4,
+    checkpointY: 0,
+    sparkleX: 320,
+    sparkleY: 80,
   },
 }

@@ -26,9 +26,12 @@ export function Research() {
             <p className="text-center mt-3 font-bold">{ws.title}</p>
             {ws.type == 'level' ? (
               <>
-                <div className="px-3 mt-2">
-                  <img src={levels[ws.levelId].previewImage} alt="Vorschau" />
-                </div>
+                <div
+                  className="mx-3 mt-2 h-[110px] bg-contain bg-no-repeat bg-center"
+                  style={{
+                    backgroundImage: `url(${levels[ws.levelId].previewImage})`,
+                  }}
+                ></div>
                 <div
                   className={clsx(
                     'm-3 text-center',
