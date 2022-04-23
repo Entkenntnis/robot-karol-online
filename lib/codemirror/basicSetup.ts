@@ -50,7 +50,7 @@ const parserWithMetadata = parser.configure({
       ElseKey: t.keyword,
       CmdStart: t.keyword,
       CmdEnd: t.keyword,
-      CmdName: t.comment,
+      CmdName: t.variableName,
       Times: t.variableName,
       Comment: t.meta,
       Condition: t.className,
