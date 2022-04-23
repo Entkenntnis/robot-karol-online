@@ -11,16 +11,14 @@
     "grammar": "lezer-generator ./lib/codemirror/parser/karol.grammar -o ./lib/codemirror/parser/parser.js"
   },
   "dependencies": {
-    "@codemirror/autocomplete": "^0.19.0",
-    "@codemirror/commands": "^0.19.0",
-    "@codemirror/gutter": "^0.19.0",
-    "@codemirror/highlight": "^0.19.0",
-    "@codemirror/history": "^0.19.0",
-    "@codemirror/language": "^0.19.0",
-    "@codemirror/lint": "^0.19.0",
-    "@codemirror/state": "^0.19.0",
-    "@codemirror/view": "^0.19.0",
+    "@codemirror/autocomplete": "^0.20.0",
+    "@codemirror/commands": "^0.20.0",
+    "@codemirror/language": "^0.20.0",
+    "@codemirror/lint": "^0.20.0",
+    "@codemirror/state": "^0.20.0",
+    "@codemirror/view": "^0.20.0",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@lezer/highlight": "^0.16.0",
     "clsx": "^1.1.1",
     "immer": "^9.0.5",
     "next": "12",
@@ -29,7 +27,7 @@
     "react-reflex": "^4.0.6"
   },
   "devDependencies": {
-    "@lezer/generator": "^0.15.4",
+    "@lezer/generator": "^0.16.0",
     "@next/bundle-analyzer": "^12.1.5",
     "@types/node": "^17.0.24",
     "@types/react": "^18.0.5",

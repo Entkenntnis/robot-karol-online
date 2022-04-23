@@ -4,34 +4,38 @@ import {
   highlightActiveLine,
   EditorView,
   Command,
+  Decoration,
+  DecorationSet,
+  ViewPlugin,
+  ViewUpdate,
+  lineNumbers,
+  highlightActiveLineGutter,
 } from '@codemirror/view'
-import { EditorState, Compartment } from '@codemirror/state'
+import { EditorState, Compartment, Range } from '@codemirror/state'
 import {
   indentOnInput,
   continuedIndent,
   indentNodeProp,
   LRLanguage,
   syntaxTree,
+  defaultHighlightStyle,
+  syntaxHighlighting,
 } from '@codemirror/language'
 import {
   defaultKeymap,
+  history,
+  historyKeymap,
   indentSelection,
   indentWithTab,
   selectAll,
 } from '@codemirror/commands'
-import { history, historyKeymap } from '@codemirror/history'
-import { lineNumbers, highlightActiveLineGutter } from '@codemirror/gutter'
 import {
   autocompletion,
   completionKeymap,
   CompletionSource,
 } from '@codemirror/autocomplete'
-import {
-  defaultHighlightStyle,
-  styleTags,
-  tags as t,
-} from '@codemirror/highlight'
 import { linter, lintKeymap } from '@codemirror/lint'
+import { styleTags, tags as t } from '@lezer/highlight'
 
 import { parser } from './parser/parser.js'
 
@@ -50,7 +54,7 @@ const parserWithMetadata = parser.configure({
       ElseKey: t.keyword,
       CmdStart: t.keyword,
       CmdEnd: t.keyword,
-      CmdName: t.variableName,
+      CmdName: t.comment,
       Times: t.variableName,
       Comment: t.meta,
       Condition: t.className,
@@ -121,7 +125,7 @@ export const basicSetup = (props: BasicSetupProps) => [
   history(),
   drawSelection(),
   indentOnInput(),
-  defaultHighlightStyle.fallback,
+  syntaxHighlighting(defaultHighlightStyle),
   highlightActiveLine(),
   keymap.of([
     ...defaultKeymap,
@@ -140,6 +144,7 @@ export const basicSetup = (props: BasicSetupProps) => [
   exampleLanguage,
   linter(props.l),
   Theme,
+  myHighlightPlugin,
 ]
 
 const generalOptions = [
@@ -299,3 +304,49 @@ function buildMyAutocomplete(): CompletionSource {
       : null
   }
 }
+
+const colorMark = Decoration.mark({ class: 'text-[#9a4603]' })
+
+const myHighlightPlugin = ViewPlugin.fromClass(
+  class {
+    decorations: DecorationSet
+
+    constructor(view: EditorView) {
+      this.decorations = Decoration.none
+    }
+
+    update(update: ViewUpdate) {
+      if (update.docChanged || update.viewportChanged) {
+        const ranges: Range<Decoration>[] = []
+        const availableCommands: string[] = []
+        syntaxTree(update.view.state).iterate({
+          enter: (node) => {
+            if (node.name == 'CmdName') {
+              const str = Array.from(
+                update.view.state.doc.slice(node.from, node.to)
+              )[0]
+
+              availableCommands.push(str)
+            }
+          },
+        })
+        syntaxTree(update.view.state).iterate({
+          enter: (node) => {
+            if (node.name == 'CustomRef') {
+              const str = Array.from(
+                update.view.state.doc.slice(node.from, node.to)
+              )[0]
+              if (availableCommands.includes(str)) {
+                ranges.push(colorMark.range(node.from, node.to))
+              }
+            }
+          },
+        })
+        this.decorations = Decoration.set(ranges)
+      }
+    }
+  },
+  {
+    decorations: (v) => v.decorations,
+  }
+)

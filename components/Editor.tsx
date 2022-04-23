@@ -14,6 +14,9 @@ import { basicSetup } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
 import { lint, setLoading } from '../lib/commands/editing'
 
+// make tailwind happy
+// text-[#9a4603]
+
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>
 }

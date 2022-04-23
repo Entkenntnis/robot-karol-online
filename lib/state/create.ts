@@ -21,7 +21,7 @@ export function createDefaultCoreState(): CoreState {
 export function createLevel7WorkspaceState(): WorkspaceState {
   const state: WorkspaceState = {
     ...createBaseWorkspace(),
-    world: createWorld(11, 13, 6),
+    world: createWorld(11, 12, 6),
     title: levels[6].title,
     type: 'level',
     progress: 0,
