@@ -15,6 +15,7 @@ import { createRef, Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { serialize } from '../lib/commands/json'
 
 import { toggleWireframe } from '../lib/commands/view'
+import { abort } from '../lib/commands/vm'
 import {
   brick,
   createWorldCmd,
@@ -181,6 +182,7 @@ export function Player() {
                 'px-2 py-0.5 bg-gray-100 hover:bg-gray-200'
               )}
               onClick={() => {
+                abort(core)
                 resetWorld(core)
               }}
             >

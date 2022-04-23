@@ -12,10 +12,28 @@ export function createDefaultCoreState(): CoreState {
       createLevel1WorkspaceState(),
       createLevel4WorkspaceState(),
       createLevel6WorkspaceState(),
+      createLevel8WorkspaceState(),
     ],
     currentWorkspace: 0,
     showResearchCenter: false,
   }
+}
+
+export function createLevel8WorkspaceState(): WorkspaceState {
+  const state: WorkspaceState = {
+    ...createBaseWorkspace(),
+    world: createWorld(15, 14, 6),
+    title: levels[7].title,
+    type: 'level',
+    progress: 0,
+    levelId: 7,
+    worldInit: false,
+  }
+  state.world.chips.push({ tag: 'fullung', x: 3, y: 3 })
+  //state.world.marks[0][0] = true
+  state.world.karol.x = 7
+  state.world.karol.y = 3
+  return state
 }
 
 export function createLevel7WorkspaceState(): WorkspaceState {

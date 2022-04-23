@@ -115,6 +115,19 @@ export const levels: Level[] = [
     ),
     previewImage: '/levels/kopierer_preview.png',
   },
+  {
+    title: 'Füllung',
+    target: 20,
+    description: (
+      <>
+        <p>Fülle den Innenraum mit Marken:</p>
+        <div className="flex flex-wrap justify-start mt-3">
+          <img src="/levels/fullung_done.png" alt="Erfolgreiche Belegung" />
+        </div>
+      </>
+    ),
+    previewImage: '/levels/fullung_preview.png',
+  },
 ]
 
 /*

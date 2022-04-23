@@ -1,5 +1,3 @@
-import { addMessage } from '../commands/messages'
-import { createSparkle } from '../commands/sparkle'
 import { Core } from '../state/core'
 import { Chip, ChipInWorld } from '../state/types'
 import { levels } from './levels'
@@ -373,6 +371,120 @@ export const chips: { [key: string]: Chip } = {
     checkpointX: 2,
     checkpointY: 0,
     sparkleX: 290,
+    sparkleY: 80,
+  },
+  fullung: {
+    tag: 'fullung',
+    checkAction: (core: Core, chip: ChipInWorld) => {
+      const world = core.ws.world
+      return chip.chipState.every(({ x, y }: { x: number; y: number }) => {
+        return world.marks[y][x]
+      })
+    },
+    initAction: (core: Core, chip: ChipInWorld) => {
+      const leftA = Math.floor(Math.random() * 3)
+      const leftB = Math.floor(Math.random() * leftA)
+      const leftC = leftB + Math.floor(Math.random() * (3 - leftB))
+
+      const rightA = Math.floor(Math.random() * 3)
+      const rightB = Math.floor(Math.random() * rightA)
+      const rightC = rightB + Math.floor(Math.random() * (3 - rightB))
+
+      // leftA bis 2
+      // leftB bis leftA
+      // leftB
+      // leftB bis leftC
+      // left C bis right C
+
+      core.mutateWs(({ world }) => {
+        function reset(x: number, y: number) {
+          world.blocks[chip.y + y][chip.x + x] = false
+          world.marks[chip.y + y][chip.x + x] = false
+          world.bricks[chip.y + y][chip.x + x] = 0
+        }
+        function place(x: number, y: number) {
+          world.bricks[chip.y + y][chip.x + x] = 1
+        }
+        for (let x = 1; x <= 7; x++) {
+          for (let y = 2; y <= 6; y++) {
+            reset(x, y)
+          }
+        }
+        for (let i = leftA; i <= 2; i++) {
+          place(1 + i, 2)
+        }
+        for (let i = leftB; i <= leftA; i++) {
+          place(1 + i, 3)
+        }
+        place(1 + leftB, 4)
+        for (let i = leftB; i <= leftC; i++) {
+          place(1 + i, 5)
+        }
+        for (let i = leftC; i <= 3; i++) {
+          place(1 + i, 6)
+        }
+        for (let i = rightA; i <= 2; i++) {
+          place(7 - i, 2)
+        }
+        for (let i = rightB; i <= rightA; i++) {
+          place(7 - i, 3)
+        }
+        place(7 - rightB, 4)
+        for (let i = rightB; i <= rightC; i++) {
+          place(7 - i, 5)
+        }
+        for (let i = rightC; i <= 3; i++) {
+          place(7 - i, 6)
+        }
+        world.marks[chip.y + 2][chip.x + 4] = true
+        const expectFilled: any[] = [{ x: chip.x + 4, y: chip.y + 2 }]
+
+        function floodfill(x: number, y: number) {
+          if (
+            x < chip.x + 1 ||
+            x > chip.x + 7 ||
+            y < chip.y + 3 ||
+            y > chip.y + 5
+          ) {
+            return // out of bound
+          }
+          if (world.bricks[y][x] == 1) {
+            return // wall
+          }
+          if (expectFilled.some((e) => e.x == x && e.y == y)) {
+            return // already visited
+          }
+          expectFilled.push({ x, y })
+          floodfill(x, y + 1)
+          floodfill(x, y - 1)
+          floodfill(x - 1, y)
+          floodfill(x + 1, y)
+        }
+
+        floodfill(chip.x + 4, chip.y + 3)
+
+        world.chips[0].chipState = expectFilled
+      })
+    },
+    isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
+      if (
+        core.ws.type == 'level' &&
+        core.ws.progress >= levels[core.ws.levelId].target &&
+        x >= chip.x + 1 &&
+        x <= chip.x + 7 &&
+        y >= chip.y + 2 &&
+        y <= chip.y + 6
+      ) {
+        return true
+      }
+      return false
+    },
+    image: '/chips/fullung.png',
+    imageXOffset: -120,
+    imageYOffset: -1,
+    checkpointX: 4,
+    checkpointY: 0,
+    sparkleX: 350,
     sparkleY: 80,
   },
 }
