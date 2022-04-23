@@ -7,6 +7,7 @@ export function createDefaultCoreState(): CoreState {
     workspaces: [
       createFreeModeWorkspaceState(),
       createLevel3WorkspaceState(),
+      createLevel7WorkspaceState(),
       createLevel5WorkspaceState(),
       createLevel1WorkspaceState(),
       createLevel4WorkspaceState(),
@@ -15,6 +16,23 @@ export function createDefaultCoreState(): CoreState {
     currentWorkspace: 0,
     showResearchCenter: false,
   }
+}
+
+export function createLevel7WorkspaceState(): WorkspaceState {
+  const state: WorkspaceState = {
+    ...createBaseWorkspace(),
+    world: createWorld(11, 13, 6),
+    title: levels[6].title,
+    type: 'level',
+    progress: 0,
+    levelId: 6,
+    worldInit: false,
+  }
+  state.world.chips.push({ tag: 'kopierer', x: 3, y: 3 })
+  //state.world.marks[0][0] = true
+  state.world.karol.x = 5
+  state.world.karol.y = 3
+  return state
 }
 
 export function createLevel6WorkspaceState(): WorkspaceState {

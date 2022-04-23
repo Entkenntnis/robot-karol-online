@@ -326,4 +326,53 @@ export const chips: { [key: string]: Chip } = {
     sparkleX: 320,
     sparkleY: 80,
   },
+  kopierer: {
+    tag: 'kopierer',
+    checkAction: (core: Core, chip: ChipInWorld) => {
+      const world = core.ws.world
+      return [1, 2, 3, 4].every((offsetY) => {
+        return (
+          world.blocks[chip.y + offsetY][chip.x] == false &&
+          world.blocks[chip.y + offsetY][chip.x + 4] == false &&
+          world.marks[chip.y + offsetY][chip.x] ==
+            world.marks[chip.y + offsetY][chip.x + 4] &&
+          world.bricks[chip.y + offsetY][chip.x] ==
+            world.bricks[chip.y + offsetY][chip.x + 4]
+        )
+      })
+    },
+    initAction: (core: Core, chip: ChipInWorld) => {
+      core.mutateWs(({ world }) => {
+        ;[1, 2, 3, 4].forEach((offsetY) => {
+          world.blocks[chip.y + offsetY][chip.x] = false
+          world.marks[chip.y + offsetY][chip.x] = Math.random() < 0.5
+          world.bricks[chip.y + offsetY][chip.x] = Math.random() < 0.5 ? 0 : 1
+
+          world.blocks[chip.y + offsetY][chip.x + 4] = false
+          world.marks[chip.y + offsetY][chip.x + 4] = false
+          world.bricks[chip.y + offsetY][chip.x + 4] = 0
+        })
+      })
+    },
+    isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => {
+      if (x == chip.x && y > chip.y && y <= chip.y + 4) return true
+      if (
+        core.ws.type == 'level' &&
+        core.ws.progress >= levels[core.ws.levelId].target &&
+        x == chip.x + 4 &&
+        y > chip.y &&
+        y <= chip.y + 4
+      ) {
+        return true
+      }
+      return false
+    },
+    image: '/chips/kopierer.png',
+    imageXOffset: -89,
+    imageYOffset: -2,
+    checkpointX: 2,
+    checkpointY: 0,
+    sparkleX: 290,
+    sparkleY: 80,
+  },
 }

@@ -102,6 +102,19 @@ export const levels: Level[] = [
     ),
     previewImage: '/levels/stapler_preview.png',
   },
+  {
+    title: 'Kopierer',
+    target: 40,
+    description: (
+      <>
+        <p>Kopiere die Ziegel und Marken nach rechts:</p>
+        <div className="flex flex-wrap justify-start mt-3">
+          <img src="/levels/kopierer_done.png" alt="Erfolgreiche Belegung" />
+        </div>
+      </>
+    ),
+    previewImage: '/levels/kopierer_preview.png',
+  },
 ]
 
 /*

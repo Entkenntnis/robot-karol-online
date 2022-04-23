@@ -61,7 +61,7 @@ const parserWithMetadata = parser.configure({
       CondName: t.emphasis,
       TF: t.typeName,
       Return: t.unit,
-      CustomRef: t.comment,
+      CustomRef: t.variableName,
     }),
     indentNodeProp.add({
       Repeat: continuedIndent({ except: /^\s*endewiederhole(\s|$)/ }),
