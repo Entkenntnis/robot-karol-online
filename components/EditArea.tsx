@@ -1,7 +1,7 @@
 import { EditorView } from '@codemirror/view'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import clsx from 'clsx'
-import Image, { StaticImageData } from 'next/image'
+import { StaticImageData } from 'next/image'
 
 import { Editor } from './Editor'
 
@@ -316,7 +316,7 @@ export function EditArea() {
               nichtistmarkeImg,
               'NichtIstMarke'
             )}
-            <div className="h-[calc(100vh-32px-48px)]">
+            <div className="h-[calc(100vh-48px)]">
               {renderCategoryTitle('Anweisung')}
               {buildProtoBlock(
                 'anweisung',
@@ -376,19 +376,20 @@ export function EditArea() {
   function buildProtoBlock(id: string, image: StaticImageData, code: string) {
     return (
       <div className="mb-2 mx-2">
-        <Image
-          className="cursor-pointer"
+        <img
+          className="cursor-pointer inline-block mb-[5.5px]"
           onDoubleClick={() => {
             if (view.current) {
               view.current.dispatch(view.current.state.replaceSelection(code))
               view.current.focus()
             }
           }}
-          src={image}
+          src={image.src}
+          height={image.height}
+          width={image.width}
           alt={id}
           id={`protoblock-${id}`}
           draggable
-          layout="fixed"
           onDragStart={(e) => {
             e.dataTransfer.setDragImage(
               document.getElementById(`protoblock-${id}`)!,

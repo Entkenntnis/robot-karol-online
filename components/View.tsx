@@ -47,23 +47,43 @@ export function View({ world, wireframe, sparkle, style }: ViewProps) {
         const ctx = canvas.current.getContext('2d')
 
         if (ctx) {
-          const ziegel = await loadImage('/Ziegel.png')
-          const ziegelWire = await loadImage('/Ziegel_wire.png')
-          const robotN = await loadImage('/robotN.png')
-          const robotE = await loadImage('/robotE.png')
-          const robotS = await loadImage('/robotS.png')
-          const robotW = await loadImage('/robotW.png')
-          const marke = await loadImage('/marke.png')
-          const quader = await loadImage('/quader.png')
-          const sparkleImg = await loadImage('/sparkle.png')
-          const failImg = await loadImage('/fehler.png')
+          const [
+            ziegel,
+            ziegelWire,
+            robotN,
+            robotE,
+            robotS,
+            robotW,
+            marke,
+            quader,
+            sparkleImg,
+            failImg,
+          ] = await Promise.all([
+            loadImage('/Ziegel.png'),
+            loadImage('/Ziegel_wire.png'),
+            loadImage('/robotN.png'),
+            loadImage('/robotE.png'),
+            loadImage('/robotS.png'),
+            loadImage('/robotW.png'),
+            loadImage('/marke.png'),
+            loadImage('/quader.png'),
+            loadImage('/sparkle.png'),
+            loadImage('/fehler.png'),
+          ])
 
           const chipsImages: { [key: string]: HTMLImageElement } = {}
 
+          const chipImagePromises = []
+          const keys: string[] = []
+
           for (const key in chips) {
-            const img = await loadImage(chips[key].image)
-            chipsImages[key] = img
+            chipImagePromises.push(loadImage(chips[key].image))
+            keys.push(key)
           }
+          const result = await Promise.all(chipImagePromises)
+          result.forEach((r, i) => {
+            chipsImages[keys[i]] = r
+          })
 
           setResources({
             ziegel,
