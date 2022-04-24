@@ -143,7 +143,10 @@ export function EditArea() {
         return (
           <>
             <button
-              className="bg-green-300 rounded px-2 py-0.5 m-1 ml-2 hover:bg-green-400 transition-colors"
+              className={clsx(
+                'bg-green-300 rounded px-2 py-0.5 m-1 ml-2 transition-colors',
+                'hover:bg-green-400'
+              )}
               onClick={() => {
                 if (view.current) {
                   autoFormat(view.current)
@@ -201,7 +204,10 @@ export function EditArea() {
           <span>
             {core.ws.settings.speed == 'step' && (
               <button
-                className="bg-yellow-400 rounded px-2 py-0.5 ml-2 hover:bg-yellow-500 transition-colors"
+                className={clsx(
+                  'bg-yellow-400 rounded px-2 py-0.5 ml-2 transition-colors',
+                  'hover:bg-yellow-500'
+                )}
                 onClick={() => {
                   confirmStep(core)
                 }}

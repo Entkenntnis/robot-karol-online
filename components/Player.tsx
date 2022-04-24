@@ -87,7 +87,10 @@ export function Player() {
                 }
               }}
               tabIndex={1}
-              className="focus:border-green-200 border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer outline-none"
+              className={clsx(
+                'border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer',
+                'outline-none focus:border-green-200'
+              )}
               ref={wrapper}
               style={{ transform: `scale(${scale})` }}
             >
@@ -197,7 +200,12 @@ export function Player() {
             {core.ws.progress < levels[core.ws.levelId].target ? (
               <>
                 <div className="pl-4 font-bold">{core.ws.title}</div>
-                <div className="bg-gray-200 w-full px-1 mx-3 relative flex justify-around items-center">
+                <div
+                  className={clsx(
+                    'bg-gray-200 w-full px-1 mx-3 relative flex justify-around',
+                    'items-center'
+                  )}
+                >
                   <div
                     className="bg-green-300 absolute left-0 top-0 bottom-0"
                     style={{
@@ -224,7 +232,12 @@ export function Player() {
           <div className="p-3">{levels[core.ws.levelId].description}</div>
         </div>
       )}
-      <div className="flex-shrink-0 flex justify-around items-center border-t h-12">
+      <div
+        className={clsx(
+          'flex-shrink-0 flex justify-around items-center border-t',
+          'h-12'
+        )}
+      >
         <div>
           <button
             className="mx-3 py-2"
@@ -294,14 +307,20 @@ export function Player() {
       </div>
       {showNewWorldModal && (
         <div
-          className="fixed inset-0 bg-gray-300 bg-opacity-30 z-[200] flex justify-around items-center"
+          className={clsx(
+            'fixed inset-0 bg-gray-300 bg-opacity-30 flex justify-around',
+            'items-center z-[200]'
+          )}
           onClick={() => setShowNewWorldModal(false)}
         >
           <div
             onClick={(e) => {
               e.stopPropagation()
             }}
-            className="fixed top-[30vh] mx-auto z-[300] bg-white opacity-100 w-[400px] rounded"
+            className={clsx(
+              'fixed mx-auto bg-white opacity-100 rounded w-[400px] z-[300]',
+              'top-[30vh]'
+            )}
           >
             <NewWorldSettings
               dimX={core.ws.world.dimX}
