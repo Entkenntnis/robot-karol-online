@@ -31,6 +31,15 @@ export interface Message {
   ts: number
 }
 
+export interface Preview {
+  track: { x: number; y: number }[]
+  karol?: {
+    x: number
+    y: number
+    dir: Heading
+  }
+}
+
 export interface Ui {
   messages: Message[]
   gutter: number
@@ -38,6 +47,8 @@ export interface Ui {
   state: 'ready' | 'loading' | 'running' | 'error'
   wireframe: boolean
   needsTextRefresh: boolean
+  preview: Preview
+  showPreview: boolean
 }
 
 export interface Vm {

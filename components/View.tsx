@@ -1,12 +1,13 @@
 import { CSSProperties, useEffect, useRef, useState } from 'react'
 import { chips } from '../lib/data/chips'
-import { Sparkle, World } from '../lib/state/types'
+import { Preview, Sparkle, World } from '../lib/state/types'
 
 interface ViewProps {
   world: World
   wireframe: boolean
   sparkle?: Sparkle
   style?: CSSProperties
+  preview?: Preview
 }
 
 interface Resources {
@@ -24,7 +25,7 @@ interface Resources {
   ctx: CanvasRenderingContext2D
 }
 
-export function View({ world, wireframe, sparkle, style }: ViewProps) {
+export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
@@ -178,6 +179,34 @@ export function View({ world, wireframe, sparkle, style }: ViewProps) {
         )
       }
 
+      if (preview) {
+        // drawing track
+        let pos = null
+        ctx.save()
+        ctx.lineWidth = 5
+        ctx.lineCap = 'round'
+        ctx.lineJoin = 'round'
+        ctx.globalAlpha = 0.2
+        ctx.strokeStyle = '#341aff'
+        ctx.beginPath()
+        for (const t of preview.track) {
+          if (pos == null) {
+            pos = t
+            const start = to2d(t.x, t.y, 0)
+            ctx.moveTo(start.x + 9, start.y + 8)
+            continue
+          }
+          if (pos.x == t.x && pos.y == t.y) {
+            continue
+          }
+          pos = t
+          const dest = to2d(pos.x, pos.y, 0)
+          ctx.lineTo(dest.x + 9, dest.y + 8)
+        }
+        ctx.stroke()
+        ctx.restore()
+      }
+
       for (let x = 0; x < world.dimX; x++) {
         for (let y = 0; y < world.dimY; y++) {
           for (let i = 0; i < world.bricks[y][x]; i++) {
@@ -217,6 +246,31 @@ export function View({ world, wireframe, sparkle, style }: ViewProps) {
         }
       }
 
+      if (preview && preview.karol) {
+        const karol = {
+          north: robotN,
+          east: robotE,
+          south: robotS,
+          west: robotW,
+        }[preview.karol.dir]
+
+        const point = to2d(preview.karol.x, preview.karol.y, 0)
+        ctx.save()
+        ctx.globalAlpha = 0.3
+        ctx.drawImage(
+          karol,
+          point.x -
+            13 -
+            (preview.karol.dir == 'south'
+              ? 3
+              : preview.karol.dir == 'north'
+              ? -2
+              : 0),
+          point.y - 60
+        )
+        ctx.restore()
+      }
+
       if (sparkle) {
         ctx.drawImage(
           sparkle.type == 'happy' ? sparkleImg : failImg,
@@ -230,7 +284,7 @@ export function View({ world, wireframe, sparkle, style }: ViewProps) {
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world, wireframe, sparkle])
+  }, [resources, world, wireframe, sparkle, preview])
 
   return (
     <canvas

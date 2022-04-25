@@ -2,6 +2,7 @@ import { WritableDraft } from 'immer/dist/internal'
 
 import { Core } from '../state/core'
 import { Condition, Op, Speed, WorkspaceState } from '../state/types'
+import { execPreview } from './preview'
 import {
   forward,
   left,
@@ -30,6 +31,7 @@ export function run(core: Core) {
     vm.callstack = []
     vm.needsConfirmation = false
     vm.confirmation = false
+    ui.preview = { track: [] }
   })
   internal_step(core)
 }
@@ -235,6 +237,10 @@ export function abort(core: Core) {
     state.vm.handler = undefined
     state.ui.gutterReturns = []
   })
+
+  setTimeout(() => {
+    execPreview(core)
+  }, 10)
 }
 
 export function confirmStep(core: Core) {

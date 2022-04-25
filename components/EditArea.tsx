@@ -35,6 +35,7 @@ import { selectAll, indentSelection } from '@codemirror/commands'
 import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
 import { FaIcon } from './FaIcon'
 import { faArrowRight, faArrowTurnUp } from '@fortawesome/free-solid-svg-icons'
+import { execPreview } from '../lib/commands/preview'
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -142,26 +143,48 @@ export function EditArea() {
       } else {
         return (
           <>
-            <button
-              className={clsx(
-                'bg-green-300 rounded px-2 py-0.5 m-1 ml-2 transition-colors',
-                'hover:bg-green-400'
-              )}
-              onClick={() => {
-                if (view.current) {
-                  autoFormat(view.current)
-                  view.current.dispatch({
-                    effects: editable.reconfigure(
-                      EditorView.editable.of(false)
-                    ),
-                  })
-                  view.current.contentDOM.blur()
-                }
-                run(core)
-              }}
-            >
-              Programm ausführen
-            </button>
+            <span>
+              <button
+                className={clsx(
+                  'bg-green-300 rounded px-2 py-0.5 m-1 ml-2 transition-colors',
+                  'hover:bg-green-400'
+                )}
+                onClick={() => {
+                  if (view.current) {
+                    autoFormat(view.current)
+                    view.current.dispatch({
+                      effects: editable.reconfigure(
+                        EditorView.editable.of(false)
+                      ),
+                    })
+                    view.current.contentDOM.blur()
+                  }
+                  run(core)
+                }}
+              >
+                Programm ausführen
+              </button>
+              <label>
+                <input
+                  type="checkbox"
+                  className="inline-block ml-3"
+                  checked={core.ws.ui.showPreview}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      core.mutateWs(({ ui }) => {
+                        ui.showPreview = true
+                      })
+                      execPreview(core)
+                    } else {
+                      core.mutateWs(({ ui }) => {
+                        ui.showPreview = false
+                      })
+                    }
+                  }}
+                />{' '}
+                Vorschau
+              </label>
+            </span>
             <select
               className="h-8 mr-2"
               value={core.ws.settings.speed}

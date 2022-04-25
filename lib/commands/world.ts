@@ -289,13 +289,13 @@ export function moveRaw(x: number, y: number, dir: Heading, world: World) {
   }
 }
 
-function reverse(h: Heading) {
+export function reverse(h: Heading) {
   return { north: 'south', south: 'north', east: 'west', west: 'east' }[
     h
   ] as Heading
 }
 
-function turnLeft(h: Heading) {
+export function turnLeft(h: Heading) {
   return {
     north: 'west',
     west: 'south',
@@ -304,7 +304,7 @@ function turnLeft(h: Heading) {
   }[h] as Heading
 }
 
-function turnRight(h: Heading) {
+export function turnRight(h: Heading) {
   return {
     north: 'east',
     east: 'south',

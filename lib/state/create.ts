@@ -176,6 +176,8 @@ function createBaseWorkspace(): WorkspaceStateBase {
       state: 'loading',
       wireframe: false,
       needsTextRefresh: false,
+      preview: { track: [] },
+      showPreview: true,
     },
     vm: {
       pc: 0,

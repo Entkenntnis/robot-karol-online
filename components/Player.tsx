@@ -13,6 +13,7 @@ import {
 import clsx from 'clsx'
 import { createRef, Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { serialize } from '../lib/commands/json'
+import { execPreview } from '../lib/commands/preview'
 
 import { toggleWireframe } from '../lib/commands/view'
 import { abort } from '../lib/commands/vm'
@@ -55,34 +56,58 @@ export function Player() {
               onKeyDown={(e) => {
                 if (e.code == 'ArrowLeft') {
                   left(core)
+                  setTimeout(() => {
+                    execPreview(core)
+                  }, 10)
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowRight') {
                   right(core)
+                  setTimeout(() => {
+                    execPreview(core)
+                  }, 10)
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowUp') {
                   forward(core)
+                  setTimeout(() => {
+                    execPreview(core)
+                  }, 10)
                   e.preventDefault()
                 }
                 if (e.code == 'ArrowDown') {
                   forward(core, { reverse: true })
+                  setTimeout(() => {
+                    execPreview(core)
+                  }, 10)
                   e.preventDefault()
                 }
                 if (e.code == 'KeyM') {
                   toggleMark(core)
+                  setTimeout(() => {
+                    execPreview(core)
+                  }, 10)
                   e.preventDefault()
                 }
                 if (e.code == 'KeyH') {
                   brick(core)
+                  setTimeout(() => {
+                    execPreview(core)
+                  }, 10)
                   e.preventDefault()
                 }
                 if (e.code == 'KeyQ') {
                   toggleBlock(core)
+                  setTimeout(() => {
+                    execPreview(core)
+                  }, 10)
                   e.preventDefault()
                 }
                 if (e.code == 'KeyA') {
                   unbrick(core)
+                  setTimeout(() => {
+                    execPreview(core)
+                  }, 10)
                   e.preventDefault()
                 }
               }}
@@ -98,6 +123,9 @@ export function Player() {
                 world={core.ws.world}
                 wireframe={core.ws.ui.wireframe}
                 sparkle={core.level?.sparkle}
+                preview={
+                  core.ws.ui.showPreview ? core.ws.ui.preview : undefined
+                }
               />
             </div>
           </div>
@@ -241,38 +269,72 @@ export function Player() {
         <div>
           <button
             className="mx-3 py-2"
-            onClick={() => left(core)}
+            onClick={() => {
+              left(core)
+              setTimeout(() => {
+                execPreview(core)
+              }, 10)
+            }}
             title="LinksDrehen"
           >
             <FaIcon icon={faLeftLong} />
           </button>
           <button
             className=" px-2"
-            onClick={() => forward(core)}
+            onClick={() => {
+              forward(core)
+              setTimeout(() => {
+                execPreview(core)
+              }, 10)
+            }}
             title="Schritt"
           >
             <FaIcon icon={faUpLong} />
           </button>
           <button
             className="mx-3 py-2"
-            onClick={() => right(core)}
+            onClick={() => {
+              right(core)
+              setTimeout(() => {
+                execPreview(core)
+              }, 10)
+            }}
             title="RechtsDrehen"
           >
             <FaIcon icon={faRightLong} />
           </button>
-          <button className="mx-2" onClick={() => brick(core)} title="Hinlegen">
+          <button
+            className="mx-2"
+            onClick={() => {
+              brick(core)
+              setTimeout(() => {
+                execPreview(core)
+              }, 10)
+            }}
+            title="Hinlegen"
+          >
             H
           </button>
           <button
             className="mx-3"
-            onClick={() => unbrick(core)}
+            onClick={() => {
+              unbrick(core)
+              setTimeout(() => {
+                execPreview(core)
+              }, 10)
+            }}
             title="Aufheben"
           >
             A
           </button>
           <button
             className="mx-3"
-            onClick={() => toggleMark(core)}
+            onClick={() => {
+              toggleMark(core)
+              setTimeout(() => {
+                execPreview(core)
+              }, 10)
+            }}
             title="MarkeSetzen / MarkeLöschen"
           >
             M
@@ -281,6 +343,9 @@ export function Player() {
             className="mx-3"
             onClick={() => {
               toggleBlock(core)
+              setTimeout(() => {
+                execPreview(core)
+              }, 10)
             }}
             title="Quader setzen oder löschen"
           >
