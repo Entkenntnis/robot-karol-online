@@ -47,7 +47,7 @@ export interface Ui {
   state: 'ready' | 'loading' | 'running' | 'error'
   wireframe: boolean
   needsTextRefresh: boolean
-  preview: Preview
+  preview?: Preview
   showPreview: boolean
 }
 

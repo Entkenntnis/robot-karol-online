@@ -1,7 +1,8 @@
 // this will be a huge (ugly) file, but hey, let's try this
 
 import { Core } from '../state/core'
-import { Op, World } from '../state/types'
+import { World } from '../state/types'
+import { testCondition } from './vm'
 import { move, turnLeft, turnRight } from './world'
 
 export function execPreview(core: Core) {
@@ -13,9 +14,16 @@ export function execPreview(core: Core) {
     { x: world.karol.x, y: world.karol.y },
   ]
   let pc = 0
+  let counter = 0
   const callstack: number[] = []
-  const frames: { [index: number]: number }[] = []
+  const frames: { [index: number]: number }[] = [{}]
   while (pc < bytecode.length) {
+    counter++
+    if (counter > 400) {
+      // limit run time
+      pc = -1
+      break
+    }
     const instr = bytecode[pc]
     switch (instr.type) {
       case 'action':
@@ -45,7 +53,43 @@ export function execPreview(core: Core) {
             world.karol.y = target.y
             track.push(target)
             continue
+          case 'brick':
+            continue
+          case 'unbrick':
+            continue
+          case 'setMark':
+            continue
+          case 'resetMark':
+            continue
         }
+      case 'jumpn':
+        const frame = frames[frames.length - 1]
+        if (frame[pc] === undefined) {
+          frame[pc] = instr.count
+        }
+        if (frame[pc] == 0) {
+          pc++
+          delete frame[pc]
+          continue
+        } else {
+          frame[pc]--
+          pc = instr.target
+          continue
+        }
+      case 'jumpcond':
+        const flag = testCondition({ ws: { world } } as Core, instr.condition)
+        pc = flag ? instr.targetT : instr.targetF
+        continue
+      case 'call':
+        callstack.push(pc + 1)
+        frames.push({})
+        pc = instr.target
+        continue
+      case 'return':
+        const target = callstack.pop() ?? Infinity
+        frames.pop()
+        pc = target
+        continue
       default:
         console.log('not implemented', instr)
         pc++
@@ -53,7 +97,6 @@ export function execPreview(core: Core) {
   }
 
   core.mutateWs(({ ui }) => {
-    ui.preview.track = track
-    ui.preview.karol = world.karol
+    ui.preview = { track, karol: pc >= 0 ? world.karol : undefined }
   })
 }

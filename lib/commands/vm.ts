@@ -1,7 +1,5 @@
-import { WritableDraft } from 'immer/dist/internal'
-
 import { Core } from '../state/core'
-import { Condition, Op, Speed, WorkspaceState } from '../state/types'
+import { Condition, Op, Speed } from '../state/types'
 import { execPreview } from './preview'
 import {
   forward,
@@ -217,6 +215,7 @@ export function testCondition(core: Core, cond: Condition) {
     }
   }
 }
+
 export function setSpeed(core: Core, val: string) {
   const speed = val as Speed
   clearTimeout(core.ws.vm.handler!)
