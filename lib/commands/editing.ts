@@ -27,7 +27,7 @@ export function lint(core: Core, view: EditorView) {
       vm.bytecode = undefined
       vm.pc = 0
       ui.state = 'error'
-      ui.preview = { track: [] }
+      ui.preview = undefined
     })
   }
   return warnings

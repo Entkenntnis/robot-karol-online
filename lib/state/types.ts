@@ -38,6 +38,7 @@ export interface Preview {
     y: number
     dir: Heading
   }
+  world: World
 }
 
 export interface Ui {

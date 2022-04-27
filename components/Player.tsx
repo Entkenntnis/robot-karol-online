@@ -454,6 +454,9 @@ function NewWorldSettings({
           disabled={canCreate ? undefined : true}
           onClick={() => {
             createWorldCmd(core, localDimX, localDimY, localHeight)
+            setTimeout(() => {
+              execPreview(core)
+            }, 10)
             onDone()
           }}
         >

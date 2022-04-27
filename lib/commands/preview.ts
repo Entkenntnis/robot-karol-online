@@ -28,6 +28,12 @@ export function execPreview(core: Core) {
     switch (instr.type) {
       case 'action':
         pc++
+        const target = move(
+          world.karol.x,
+          world.karol.y,
+          world.karol.dir,
+          world
+        )
         switch (instr.command) {
           case 'left':
             world.karol.dir = turnLeft(world.karol.dir)
@@ -36,12 +42,6 @@ export function execPreview(core: Core) {
             world.karol.dir = turnRight(world.karol.dir)
             continue
           case 'forward':
-            const target = move(
-              world.karol.x,
-              world.karol.y,
-              world.karol.dir,
-              world
-            )
             if (!target) continue
 
             const currentBrickCount = world.bricks[world.karol.y][world.karol.x]
@@ -54,12 +54,21 @@ export function execPreview(core: Core) {
             track.push(target)
             continue
           case 'brick':
+            if (!target) continue
+            if (world.bricks[target.y][target.x] >= world.height) continue
+            world.bricks[target.y][target.x]++
             continue
           case 'unbrick':
+            if (!target) continue
+            if (world.bricks[target.y][target.x] <= 0) continue
+            world.bricks[target.y][target.x]--
             continue
           case 'setMark':
+            world.marks[world.karol.y][world.karol.x] = true
+            console.log(world.karol.x, world.karol.y)
             continue
           case 'resetMark':
+            world.marks[world.karol.y][world.karol.x] = false
             continue
         }
       case 'jumpn':
@@ -68,8 +77,8 @@ export function execPreview(core: Core) {
           frame[pc] = instr.count
         }
         if (frame[pc] == 0) {
-          pc++
           delete frame[pc]
+          pc++
           continue
         } else {
           frame[pc]--
@@ -86,9 +95,9 @@ export function execPreview(core: Core) {
         pc = instr.target
         continue
       case 'return':
-        const target = callstack.pop() ?? Infinity
+        const jump_target = callstack.pop() ?? Infinity
         frames.pop()
-        pc = target
+        pc = jump_target
         continue
       default:
         console.log('not implemented', instr)
@@ -97,6 +106,6 @@ export function execPreview(core: Core) {
   }
 
   core.mutateWs(({ ui }) => {
-    ui.preview = { track, karol: pc >= 0 ? world.karol : undefined }
+    ui.preview = { track, karol: pc >= 0 ? world.karol : undefined, world }
   })
 }

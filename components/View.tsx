@@ -12,11 +12,13 @@ interface ViewProps {
 
 interface Resources {
   ziegel: HTMLImageElement
+  ziegel_weg: HTMLImageElement
   robotN: HTMLImageElement
   robotE: HTMLImageElement
   robotS: HTMLImageElement
   robotW: HTMLImageElement
   marke: HTMLImageElement
+  marke_weg: HTMLImageElement
   quader: HTMLImageElement
   ziegelWire: HTMLImageElement
   sparkleImg: HTMLImageElement
@@ -59,6 +61,8 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
             quader,
             sparkleImg,
             failImg,
+            marke_weg,
+            ziegel_weg,
           ] = await Promise.all([
             loadImage('/Ziegel.png'),
             loadImage('/Ziegel_wire.png'),
@@ -70,6 +74,8 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
             loadImage('/quader.png'),
             loadImage('/sparkle.png'),
             loadImage('/fehler.png'),
+            loadImage('/marke_weg.png'),
+            loadImage('/Ziegel_weg.png'),
           ])
 
           const chipsImages: { [key: string]: HTMLImageElement } = {}
@@ -99,6 +105,8 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
             sparkleImg,
             failImg,
             chipsImages,
+            marke_weg,
+            ziegel_weg,
           })
         }
       }
@@ -121,6 +129,8 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
         sparkleImg,
         failImg,
         chipsImages,
+        marke_weg,
+        ziegel_weg,
       } = resources
 
       ctx.save()
@@ -209,13 +219,87 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
 
       for (let x = 0; x < world.dimX; x++) {
         for (let y = 0; y < world.dimY; y++) {
-          for (let i = 0; i < world.bricks[y][x]; i++) {
-            const p = to2d(x, y, i)
-            ctx.drawImage(wireframe ? ziegelWire : ziegel, p.x - 15, p.y - 16)
+          if (!preview) {
+            for (let i = 0; i < world.bricks[y][x]; i++) {
+              const p = to2d(x, y, i)
+              ctx.drawImage(wireframe ? ziegelWire : ziegel, p.x - 15, p.y - 16)
+            }
+          } else {
+            if (preview.world.bricks[y][x] >= world.bricks[y][x]) {
+              for (let i = 0; i < world.bricks[y][x]; i++) {
+                const p = to2d(x, y, i)
+                ctx.drawImage(
+                  wireframe ? ziegelWire : ziegel,
+                  p.x - 15,
+                  p.y - 16
+                )
+              }
+              for (
+                let i = world.bricks[y][x];
+                i < preview.world.bricks[y][x];
+                i++
+              ) {
+                const p = to2d(x, y, i)
+                ctx.save()
+                ctx.globalAlpha = 0.4
+                ctx.drawImage(
+                  wireframe ? ziegelWire : ziegel,
+                  p.x - 15,
+                  p.y - 16
+                )
+                ctx.restore()
+              }
+            } else {
+              for (let i = 0; i < preview.world.bricks[y][x]; i++) {
+                const p = to2d(x, y, i)
+                ctx.drawImage(
+                  wireframe ? ziegelWire : ziegel,
+                  p.x - 15,
+                  p.y - 16
+                )
+              }
+              for (
+                let i = preview.world.bricks[y][x];
+                i < world.bricks[y][x];
+                i++
+              ) {
+                const p = to2d(x, y, i) // crossed out
+                ctx.save()
+                ctx.globalAlpha = 0.2
+                ctx.drawImage(
+                  wireframe ? ziegelWire : ziegel_weg,
+                  p.x - 15,
+                  p.y - 16
+                )
+                ctx.restore()
+              }
+            }
           }
-          if (world.marks[y][x]) {
-            const p = to2d(x, y, world.bricks[y][x])
+          if (world.marks[y][x] && (!preview || preview?.world.marks[y][x])) {
+            const p = to2d(
+              x,
+              y,
+              preview ? preview.world.bricks[y][x] : world.bricks[y][x]
+            )
             ctx.drawImage(marke, p.x - 15, p.y - 16)
+          }
+          if (!world.marks[y][x] && preview?.world.marks[y][x]) {
+            const p = to2d(
+              x,
+              y,
+              preview ? preview.world.bricks[y][x] : world.bricks[y][x]
+            )
+            ctx.save()
+            ctx.globalAlpha = 0.4
+            ctx.drawImage(marke, p.x - 15, p.y - 16)
+            ctx.restore()
+          }
+          if (world.marks[y][x] && preview && !preview?.world.marks[y][x]) {
+            const p = to2d(x, y, preview.world.bricks[y][x])
+            ctx.save()
+            ctx.globalAlpha = 1
+            ctx.drawImage(marke_weg, p.x - 15, p.y - 16)
+            ctx.restore()
           }
           if (world.blocks[y][x]) {
             const p = to2d(x, y, 0)
@@ -246,7 +330,15 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
         }
       }
 
-      if (preview && preview.karol) {
+      if (
+        preview &&
+        preview.karol &&
+        !(
+          preview.karol.x == world.karol.x &&
+          preview.karol.y == world.karol.y &&
+          preview.karol.dir == world.karol.dir
+        )
+      ) {
         const karol = {
           north: robotN,
           east: robotE,
@@ -254,7 +346,11 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
           west: robotW,
         }[preview.karol.dir]
 
-        const point = to2d(preview.karol.x, preview.karol.y, 0)
+        const point = to2d(
+          preview.karol.x,
+          preview.karol.y,
+          preview.world.bricks[preview.karol.y][preview.karol.x]
+        )
         ctx.save()
         ctx.globalAlpha = 0.3
         ctx.drawImage(

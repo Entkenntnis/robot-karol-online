@@ -234,6 +234,7 @@ export function toggleBlock(core: Core) {
 export function createWorldCmd(core: Core, x: number, y: number, z: number) {
   core.mutateWs((state) => {
     state.world = createWorld(x, y, z)
+    state.ui.preview = undefined
   })
 }
 
