@@ -17,7 +17,6 @@ export function lint(core: Core, view: EditorView) {
     } else {
       if (!state.ui.needsTextRefresh) {
         state.tabs[state.currentTab] = code
-        console.log('saving code to tab', code, state.currentTab)
       }
     }
   })

@@ -3,17 +3,29 @@ import { World } from '../state/types'
 import { abort } from './vm'
 
 export function serialize(core: Core) {
-  const { world, code } = core.ws
-  return { world, code }
+  if (core.ws.type == 'level') {
+    throw new Error("Can't export level")
+  }
+  const { world, tabs } = core.ws
+  return { world, tabs }
 }
 
 export function deserialize(core: Core, file?: string) {
   try {
-    const { world, code }: { world: World; code: string } = JSON.parse(
-      file ?? '{}'
-    )
-    if (!world || code === undefined) {
+    let {
+      world,
+      code,
+      tabs,
+    }: {
+      world: World
+      code?: string
+      tabs?: [string, string, string, string]
+    } = JSON.parse(file ?? '{}')
+    if (!world || (code === undefined && tabs === undefined)) {
       throw new Error('Datei unvollständig')
+    }
+    if (!tabs) {
+      tabs = [code ?? '', '', '', '']
     }
     // minimal sanity check
     if (!world.dimX || !world.dimY || !world.height) {
@@ -42,7 +54,10 @@ export function deserialize(core: Core, file?: string) {
     abort(core)
     core.mutateWs((state) => {
       state.world = world
-      state.code = code
+      if (state.type == 'free') {
+        state.tabs = tabs!
+        state.currentTab = 0
+      }
       state.ui.needsTextRefresh = true
     })
   } catch (e) {

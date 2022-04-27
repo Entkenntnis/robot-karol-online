@@ -7,7 +7,7 @@ import { WorkspaceState, WorkspaceStateLevelMode } from '../lib/state/types'
 export function Research() {
   const core = useCore()
   return (
-    <div className="bg-blue-200 h-full">
+    <div className="bg-blue-200 h-full overflow-auto">
       <div>
         <h1 className="ml-4 mt-4 text-2xl">Forschungszentrum</h1>
         <div className="mt-3 ml-4 border-b pb-2">
@@ -92,7 +92,7 @@ export function Research() {
             )
         )}
       </div>
-      <p className="mt-3 mx-4">Software-Version: Mai 2022</p>
+      <p className="mt-3 mx-4 mb-3">Software-Version: Mai 2022</p>
     </div>
   )
 }

@@ -47,6 +47,15 @@ export function Player() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (core.ws.ui.shouldFocusWrapper) {
+      wrapper.current?.focus()
+      core.mutateWs(({ ui }) => {
+        ui.shouldFocusWrapper = false
+      })
+    }
+  })
+
   return (
     <div className="flex flex-col w-full h-full">
       <div className="flex-grow h-full min-h-0 relative">
@@ -186,9 +195,14 @@ export function Player() {
               <button
                 className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
                 onClick={() => {
+                  const date = new Date()
                   const filename =
-                    new Date().toLocaleDateString('en-CA').replace(/\-/g, '_') +
-                    '_robot_karol.json'
+                    date.toLocaleDateString('en-CA') +
+                    '_' +
+                    date.getHours().toString().padStart(2, '0') +
+                    date.getMinutes().toString().padStart(2, '0') +
+                    date.getSeconds().toString().padStart(2, '0') +
+                    '_robot-karol.json'
                   const contentType = 'application/json;charset=utf-8;'
                   var a = document.createElement('a')
                   a.download = filename

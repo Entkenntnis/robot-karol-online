@@ -182,6 +182,7 @@ function createBaseWorkspace(): WorkspaceStateBase {
       needsTextRefresh: false,
       preview: undefined,
       showPreview: false,
+      shouldFocusWrapper: false,
     },
     vm: {
       pc: 0,

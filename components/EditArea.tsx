@@ -35,6 +35,7 @@ import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
 import { FaIcon } from './FaIcon'
 import { faArrowRight, faArrowTurnUp } from '@fortawesome/free-solid-svg-icons'
 import { execPreview } from '../lib/commands/preview'
+import { forceLinting } from '@codemirror/lint'
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -59,6 +60,7 @@ export function EditArea() {
               : core.ws.tabs[core.ws.currentTab],
         },
       })
+      forceLinting(view.current)
       core.mutateWs(({ ui }) => (ui.needsTextRefresh = false))
     }
   })
@@ -176,11 +178,13 @@ export function EditArea() {
                       if (e.target.checked) {
                         core.mutateWs(({ ui }) => {
                           ui.showPreview = true
+                          ui.shouldFocusWrapper = true
                         })
                         execPreview(core)
                       } else {
                         core.mutateWs(({ ui }) => {
                           ui.showPreview = false
+                          ui.shouldFocusWrapper = true
                         })
                       }
                     }}
@@ -286,9 +290,16 @@ export function EditArea() {
         )}
         onClick={() => {
           core.mutateWs((state) => {
-            if (state.type == 'free' && state.currentTab != index) {
-              state.currentTab = index
-              state.ui.needsTextRefresh = true
+            if (state.type == 'free') {
+              if (state.currentTab != index) {
+                state.ui.needsTextRefresh = true
+                if (view.current) {
+                  state.tabs[state.currentTab] =
+                    view.current.state.doc.sliceString(0)
+                }
+                state.currentTab = index
+              }
+              state.ui.shouldFocusWrapper = true
             }
           })
         }}

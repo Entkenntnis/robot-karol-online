@@ -313,36 +313,37 @@ const myHighlightPlugin = ViewPlugin.fromClass(
 
     constructor(view: EditorView) {
       this.decorations = Decoration.none
+      this.work(view)
+    }
+
+    work(view: EditorView) {
+      const ranges: Range<Decoration>[] = []
+      const availableCommands: string[] = []
+      syntaxTree(view.state).iterate({
+        enter: (node) => {
+          if (node.name == 'CmdName') {
+            const str = Array.from(view.state.doc.slice(node.from, node.to))[0]
+
+            availableCommands.push(str)
+          }
+        },
+      })
+      syntaxTree(view.state).iterate({
+        enter: (node) => {
+          if (node.name == 'CustomRef') {
+            const str = Array.from(view.state.doc.slice(node.from, node.to))[0]
+            if (availableCommands.includes(str)) {
+              ranges.push(colorMark.range(node.from, node.to))
+            }
+          }
+        },
+      })
+      this.decorations = Decoration.set(ranges)
     }
 
     update(update: ViewUpdate) {
       if (update.docChanged || update.viewportChanged) {
-        const ranges: Range<Decoration>[] = []
-        const availableCommands: string[] = []
-        syntaxTree(update.view.state).iterate({
-          enter: (node) => {
-            if (node.name == 'CmdName') {
-              const str = Array.from(
-                update.view.state.doc.slice(node.from, node.to)
-              )[0]
-
-              availableCommands.push(str)
-            }
-          },
-        })
-        syntaxTree(update.view.state).iterate({
-          enter: (node) => {
-            if (node.name == 'CustomRef') {
-              const str = Array.from(
-                update.view.state.doc.slice(node.from, node.to)
-              )[0]
-              if (availableCommands.includes(str)) {
-                ranges.push(colorMark.range(node.from, node.to))
-              }
-            }
-          },
-        })
-        this.decorations = Decoration.set(ranges)
+        this.work(update.view)
       }
     }
   },

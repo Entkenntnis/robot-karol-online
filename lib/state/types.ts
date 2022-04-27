@@ -50,6 +50,7 @@ export interface Ui {
   needsTextRefresh: boolean
   preview?: Preview
   showPreview: boolean
+  shouldFocusWrapper: boolean
 }
 
 export interface Vm {

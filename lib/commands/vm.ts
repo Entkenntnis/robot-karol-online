@@ -48,7 +48,7 @@ function internal_step(core: Core) {
 
   if (pc >= byteCode.length) {
     // end reached
-    callWithDelay(core, () => abort(core), 400)
+    callWithDelay(core, () => abort(core), byteCode.length == 0 ? 400 : 0)
     return
   }
 
@@ -235,6 +235,9 @@ export function abort(core: Core) {
     state.vm.pc = 0
     state.vm.handler = undefined
     state.ui.gutterReturns = []
+    if (state.type == 'free') {
+      state.ui.shouldFocusWrapper = true
+    }
   })
 
   setTimeout(() => {
