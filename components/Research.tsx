@@ -92,6 +92,7 @@ export function Research() {
             )
         )}
       </div>
+      <p className="mt-3 mx-4">Software-Version: Mai 2022</p>
     </div>
   )
 }

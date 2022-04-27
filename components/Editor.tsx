@@ -31,7 +31,10 @@ export const Editor = ({ innerRef }: EditorProps) => {
     if (currentEditor) {
       const view: EditorView = new EditorView({
         state: EditorState.create({
-          doc: core.ws.code,
+          doc:
+            core.ws.type == 'level'
+              ? core.ws.code
+              : core.ws.tabs[core.ws.currentTab],
           extensions: [
             basicSetup({
               l: () => {

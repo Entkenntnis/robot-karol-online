@@ -161,6 +161,8 @@ export function createFreeModeWorkspaceState(): WorkspaceState {
     ...createBaseWorkspace(),
     title: 'Neue Welt',
     type: 'free',
+    tabs: ['', '', '', ''],
+    currentTab: 0,
   }
   ws.ui.showPreview = true
   return ws

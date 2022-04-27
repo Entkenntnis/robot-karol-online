@@ -53,7 +53,10 @@ export function EditArea() {
         changes: {
           from: 0,
           to: view.current.state.doc.length,
-          insert: core.ws.code,
+          insert:
+            core.ws.type == 'level'
+              ? core.ws.code
+              : core.ws.tabs[core.ws.currentTab],
         },
       })
       core.mutateWs(({ ui }) => (ui.needsTextRefresh = false))
@@ -70,14 +73,14 @@ export function EditArea() {
 
   // eslint is not able to detect deps properly ...
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const blockMenu = useMemo(renderBlockMenu, [section, menuVisible]) // block menu is slow to render
+  const blockMenuInner = useMemo(renderBlockMenuInner, [section, menuVisible]) // block menu is slow to render
 
   return (
     <>
-      <div className="w-full text-base h-full overflow-auto flex flex-col outline-none">
+      <div className="w-full text-base h-full overflow-auto flex flex-col outline-none ">
         <div className="flex h-full overflow-y-auto relative">
           <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
-            {blockMenu}
+            {renderBlockMenu()}
           </div>
 
           <div className="w-full overflow-auto h-full flex">
@@ -117,7 +120,7 @@ export function EditArea() {
                   view.current?.focus()
                 }}
               >
-                <div className="w-[31px] border-r h-full bg-neutral-100 border-[#ddd]"></div>
+                <div className="w-[30px] border-r h-full bg-neutral-100 border-[#ddd] flex-grow-0 flex-shrink-0"></div>
                 <div className="w-full cursor-text"></div>
               </div>
             </div>
@@ -267,90 +270,52 @@ export function EditArea() {
     return <div>unbekannt</div>
   }
 
+  function renderTab(index: number) {
+    return (
+      <button
+        key={index}
+        className={clsx(
+          'p-2 border-b',
+          core.ws.type == 'free' &&
+            core.ws.currentTab == index &&
+            'bg-gray-100',
+          core.ws.type == 'free' &&
+            core.ws.tabs[index].trim().length == 0 &&
+            index > 0 &&
+            'text-gray-400'
+        )}
+        onClick={() => {
+          core.mutateWs((state) => {
+            if (state.type == 'free' && state.currentTab != index) {
+              state.currentTab = index
+              state.ui.needsTextRefresh = true
+            }
+          })
+        }}
+      >
+        Tab {index + 1}
+      </button>
+    )
+  }
+
   function renderBlockMenu() {
     return (
       <div className="bg-gray-50 flex relative h-full border-r-4 border-gray-100">
-        <div className="bg-white flex flex-col h-full justify-between">
+        <div className="bg-white flex flex-col h-full justify-start">
           <div className="flex flex-col">
             {renderCategory('Bewegung')}
             {renderCategory('Steuerung')}
             {renderCategory('Fühlen')}
             {renderCategory('Anweisung')}
           </div>
+          {core.ws.type == 'free' && (
+            <div className="flex flex-col mt-4 border-t-2">
+              {[0, 1, 2, 3].map((i) => renderTab(i))}
+            </div>
+          )}
         </div>
 
-        <div className={clsx('h-full', !menuVisible && 'hidden')}>
-          <div
-            className="w-52 h-full overflow-y-scroll"
-            onScroll={(e: any) => {
-              const scrollTop = e.currentTarget.scrollTop
-              if (scrollTop < 465) {
-                setSection('Bewegung')
-              } else if (scrollTop < 976) {
-                setSection('Steuerung')
-              } else if (scrollTop < 1299) {
-                setSection('Fühlen')
-              } else {
-                setSection('Anweisung')
-              }
-            }}
-          >
-            {renderCategoryTitle('Bewegung')}
-            {buildProtoBlock('schritt', schrittImg, 'Schritt')}
-            {buildProtoBlock('linksdrehen', linksdrehenImg, 'LinksDrehen')}
-            {buildProtoBlock('rechtsdrehen', rechtsdrehenImg, 'RechtsDrehen')}
-            {buildProtoBlock('hinlegen', hinlegenImg, 'Hinlegen')}
-            {buildProtoBlock('aufheben', aufhebenImg, 'Aufheben')}
-            {buildProtoBlock('markesetzen', markesetzenImg, 'MarkeSetzen')}
-            {buildProtoBlock('markeloeschen', markeloeschenImg, 'MarkeLöschen')}
-            {renderCategoryTitle('Steuerung')}
-            {buildProtoBlock(
-              'wiederholenmal',
-              wiederholenmalImg,
-              'wiederhole 3 mal\n  \nendewiederhole'
-            )}
-            {buildProtoBlock(
-              'wiederholesolange',
-              wiederholesolangeImg,
-              'wiederhole solange \n  \nendewiederhole'
-            )}
-            {buildProtoBlock(
-              'wenndann',
-              wenndannImg,
-              'wenn  dann\n  \nendewenn'
-            )}
-            {buildProtoBlock(
-              'wenndannsonst',
-              wenndannsonstImg,
-              'wenn  dann\n  \nsonst\n  \nendewenn'
-            )}
-            {buildProtoBlock('beenden', beendenImg, 'Beenden')}
-            {renderCategoryTitle('Fühlen')}
-            {buildProtoBlock('istwand', istwandImg, 'IstWand')}
-            {buildProtoBlock('nichtistwand', nichtistwandImg, 'NichtIstWand')}
-            {buildProtoBlock('istziegel', istziegenImg, 'IstZiegel')}
-            {buildProtoBlock(
-              'nichtistziegel',
-              nichtistziegelImg,
-              'NichtIstZiegel'
-            )}{' '}
-            {buildProtoBlock('istmarke', istmarkeImg, 'IstMarke')}{' '}
-            {buildProtoBlock(
-              'nichtistmarke',
-              nichtistmarkeImg,
-              'NichtIstMarke'
-            )}
-            <div className="h-[calc(100vh-48px)]">
-              {renderCategoryTitle('Anweisung')}
-              {buildProtoBlock(
-                'anweisung',
-                anweisungImg,
-                'Anweisung NeueAnweisung\n  \nendeAnweisung'
-              )}
-              {buildProtoBlock('unterbrechen', unterbrechenImg, 'Unterbrechen')}
-            </div>
-          </div>
-        </div>
+        {blockMenuInner}
       </div>
     )
   }
@@ -384,6 +349,75 @@ export function EditArea() {
           })}
         ></div>
         <div className="text-xs">{name}</div>
+      </div>
+    )
+  }
+
+  function renderBlockMenuInner() {
+    return (
+      <div className={clsx('h-full', !menuVisible && 'hidden')}>
+        <div
+          className="w-52 h-full overflow-y-scroll"
+          onScroll={(e: any) => {
+            const scrollTop = e.currentTarget.scrollTop
+            if (scrollTop < 465) {
+              setSection('Bewegung')
+            } else if (scrollTop < 976) {
+              setSection('Steuerung')
+            } else if (scrollTop < 1299) {
+              setSection('Fühlen')
+            } else {
+              setSection('Anweisung')
+            }
+          }}
+        >
+          {renderCategoryTitle('Bewegung')}
+          {buildProtoBlock('schritt', schrittImg, 'Schritt')}
+          {buildProtoBlock('linksdrehen', linksdrehenImg, 'LinksDrehen')}
+          {buildProtoBlock('rechtsdrehen', rechtsdrehenImg, 'RechtsDrehen')}
+          {buildProtoBlock('hinlegen', hinlegenImg, 'Hinlegen')}
+          {buildProtoBlock('aufheben', aufhebenImg, 'Aufheben')}
+          {buildProtoBlock('markesetzen', markesetzenImg, 'MarkeSetzen')}
+          {buildProtoBlock('markeloeschen', markeloeschenImg, 'MarkeLöschen')}
+          {renderCategoryTitle('Steuerung')}
+          {buildProtoBlock(
+            'wiederholenmal',
+            wiederholenmalImg,
+            'wiederhole 3 mal\n  \nendewiederhole'
+          )}
+          {buildProtoBlock(
+            'wiederholesolange',
+            wiederholesolangeImg,
+            'wiederhole solange \n  \nendewiederhole'
+          )}
+          {buildProtoBlock('wenndann', wenndannImg, 'wenn  dann\n  \nendewenn')}
+          {buildProtoBlock(
+            'wenndannsonst',
+            wenndannsonstImg,
+            'wenn  dann\n  \nsonst\n  \nendewenn'
+          )}
+          {buildProtoBlock('beenden', beendenImg, 'Beenden')}
+          {renderCategoryTitle('Fühlen')}
+          {buildProtoBlock('istwand', istwandImg, 'IstWand')}
+          {buildProtoBlock('nichtistwand', nichtistwandImg, 'NichtIstWand')}
+          {buildProtoBlock('istziegel', istziegenImg, 'IstZiegel')}
+          {buildProtoBlock(
+            'nichtistziegel',
+            nichtistziegelImg,
+            'NichtIstZiegel'
+          )}{' '}
+          {buildProtoBlock('istmarke', istmarkeImg, 'IstMarke')}{' '}
+          {buildProtoBlock('nichtistmarke', nichtistmarkeImg, 'NichtIstMarke')}
+          <div className="h-[calc(100vh-48px)]">
+            {renderCategoryTitle('Anweisung')}
+            {buildProtoBlock(
+              'anweisung',
+              anweisungImg,
+              'Anweisung NeueAnweisung\n  \nendeAnweisung'
+            )}
+            {buildProtoBlock('unterbrechen', unterbrechenImg, 'Unterbrechen')}
+          </div>
+        </div>
       </div>
     )
   }

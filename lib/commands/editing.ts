@@ -12,7 +12,14 @@ export function lint(core: Core, view: EditorView) {
   // good place to sync code with state
   const code = view.state.doc.sliceString(0)
   core.mutateWs((state) => {
-    state.code = code
+    if (state.type == 'level') {
+      state.code = code
+    } else {
+      if (!state.ui.needsTextRefresh) {
+        state.tabs[state.currentTab] = code
+        console.log('saving code to tab', code, state.currentTab)
+      }
+    }
   })
 
   const { warnings, output } = compile(view)

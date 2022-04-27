@@ -107,6 +107,8 @@ export interface WorkspaceStateBase {
 
 interface WorkspaceStateFreeMode extends WorkspaceStateBase {
   type: 'free'
+  tabs: [string, string, string, string]
+  currentTab: number
 }
 
 export interface WorkspaceStateLevelMode extends WorkspaceStateBase {
