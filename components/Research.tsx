@@ -38,7 +38,9 @@ export function Research() {
                   switchToWorkspace(core, i)
                 }}
               >
-                <p className="text-center mt-3 font-bold">{ws.title}</p>
+                <p className="text-center mt-3 font-bold text-ellipsis overflow-hidden">
+                  {ws.title}
+                </p>
                 <div className="px-3 mt-2">
                   <img src="/levels/preview_free.png" alt="Vorschau" />
                 </div>

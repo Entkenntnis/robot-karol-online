@@ -10,6 +10,7 @@ import {
   showResearchCenter,
 } from '../lib/commands/researchCenter'
 import { deserialize } from '../lib/commands/json'
+import { WorkspaceState } from '../lib/state/types'
 
 export function App() {
   const core = useCreateCore()
@@ -22,11 +23,20 @@ export function App() {
 
     const file = parameterList.get('project')
 
-    if (file && core.ws.type == 'free') {
+    if (file) {
       try {
         ;(async () => {
           const res = await fetch(file)
           const text = await res.text()
+          const wsClone: WorkspaceState = JSON.parse(JSON.stringify(core.ws))
+          const title = file.match(/\/([^\/]+\.json)/)
+          if (title) {
+            wsClone.title = title[1]
+          }
+          core.mutateCore((state) => {
+            state.workspaces.splice(1, 0, wsClone)
+            state.currentWorkspace = 1
+          })
           deserialize(core, text)
         })()
       } catch (e) {}
