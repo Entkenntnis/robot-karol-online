@@ -31,7 +31,6 @@ import unterbrechenImg from '../public/unterbrechen.png'
 
 import { autoFormat, editable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
-import { selectAll, indentSelection } from '@codemirror/commands'
 import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
 import { FaIcon } from './FaIcon'
 import { faArrowRight, faArrowTurnUp } from '@fortawesome/free-solid-svg-icons'
@@ -164,26 +163,28 @@ export function EditArea() {
               >
                 Programm ausführen
               </button>
-              <label>
-                <input
-                  type="checkbox"
-                  className="inline-block ml-3"
-                  checked={core.ws.ui.showPreview}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      core.mutateWs(({ ui }) => {
-                        ui.showPreview = true
-                      })
-                      execPreview(core)
-                    } else {
-                      core.mutateWs(({ ui }) => {
-                        ui.showPreview = false
-                      })
-                    }
-                  }}
-                />{' '}
-                Vorschau
-              </label>
+              {core.ws.type == 'free' && (
+                <label>
+                  <input
+                    type="checkbox"
+                    className="inline-block ml-3"
+                    checked={core.ws.ui.showPreview}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        core.mutateWs(({ ui }) => {
+                          ui.showPreview = true
+                        })
+                        execPreview(core)
+                      } else {
+                        core.mutateWs(({ ui }) => {
+                          ui.showPreview = false
+                        })
+                      }
+                    }}
+                  />{' '}
+                  Vorschau
+                </label>
+              )}
             </span>
             <select
               className="h-8 mr-2"

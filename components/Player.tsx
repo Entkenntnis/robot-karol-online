@@ -365,6 +365,9 @@ export function Player() {
               className="inline-block h-5 pb-0.5 pl-1.5 cursor-pointer ml-3"
               onClick={() => {
                 toggleWireframe(core)
+                if (wrapper.current) {
+                  wrapper.current.focus()
+                }
               }}
             />
           }
@@ -391,7 +394,10 @@ export function Player() {
               dimX={core.ws.world.dimX}
               dimY={core.ws.world.dimY}
               height={core.ws.world.height}
-              onDone={() => setShowNewWorldModal(false)}
+              onDone={() => {
+                setShowNewWorldModal(false)
+                wrapper.current?.focus()
+              }}
             />
             <div
               className="absolute top-2 right-2 h-3 w-3 cursor-pointer"

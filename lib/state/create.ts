@@ -157,11 +157,13 @@ export function createLevel1WorkspaceState(): WorkspaceState {
 }
 
 export function createFreeModeWorkspaceState(): WorkspaceState {
-  return {
+  const ws: WorkspaceState = {
     ...createBaseWorkspace(),
-    title: 'Freier Modus',
+    title: 'Neue Welt',
     type: 'free',
   }
+  ws.ui.showPreview = true
+  return ws
 }
 
 function createBaseWorkspace(): WorkspaceStateBase {
@@ -177,7 +179,7 @@ function createBaseWorkspace(): WorkspaceStateBase {
       wireframe: false,
       needsTextRefresh: false,
       preview: undefined,
-      showPreview: true,
+      showPreview: false,
     },
     vm: {
       pc: 0,
