@@ -29,7 +29,7 @@ export function run(core: Core) {
     vm.callstack = []
     vm.needsConfirmation = false
     vm.confirmation = false
-    ui.preview = { track: [] }
+    ui.preview = undefined
   })
   internal_step(core)
 }
