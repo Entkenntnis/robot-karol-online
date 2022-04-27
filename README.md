@@ -4,8 +4,6 @@ Zum Editor → https://karol.arrrg.de/
 
 Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.
 
-[![grafik](https://user-images.githubusercontent.com/13507950/128869418-bb857426-1206-46f5-90ac-59875d181de0.png)](https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/karol.json)
-
 ## Übersicht
 
 > Robot Karol ist eine Programmierumgebung mit einer Programmiersprache, die für Schülerinnen und Schüler zum Erlernen des Programmierens und zur Einführung in die Algorithmik gedacht ist. Robot Karol folgt der Tradition der “Mini-Languages”. Dies sind Programmiersprachen, die bewusst über einen kleinen, übersichtlichen Sprachumfang verfügen, um den Einstieg in die Algorithmik zu erleichtern.
@@ -20,9 +18,10 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 
 - Editor für die Sprache Karol, mit Syntaxhervorhebung und **Autovervollständigung**
 - Syntaxüberprüfung im Hintergrund mit **Fehlerhervorhebung direkt im Code**
+- **Live-Vorschau** der Ausführung für direktes Feedback
 - grafischen Darstellung einer 3D-Welt, die den Roboter Karol als Figur im Raum zeigt und diese je nach Anweisungen bewegt
 - Implementation als Web-App, damit ohne Installation **im Browser lauffähig**
-- (alpha) Forschungszentrum mit Level, die im Editor bearbeitet werden können
+- **Level**, um die eigenen Programmierfähigkeiten zu testen und zu verbessern
 
 ## Sprache
 
