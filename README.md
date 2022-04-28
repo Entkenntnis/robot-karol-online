@@ -4,6 +4,8 @@ Zum Editor → https://karol.arrrg.de/
 
 Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.
 
+<img src="https://user-images.githubusercontent.com/13507950/165845031-a5f1b4ab-2dea-445c-a381-6f82a8f821ad.png" width=900 />
+
 ## Übersicht
 
 > Robot Karol ist eine Programmierumgebung mit einer Programmiersprache, die für Schülerinnen und Schüler zum Erlernen des Programmierens und zur Einführung in die Algorithmik gedacht ist. Robot Karol folgt der Tradition der “Mini-Languages”. Dies sind Programmiersprachen, die bewusst über einen kleinen, übersichtlichen Sprachumfang verfügen, um den Einstieg in die Algorithmik zu erleichtern.
