@@ -38,7 +38,7 @@ export function Research() {
                   switchToWorkspace(core, i)
                 }}
               >
-                <p className="text-center mt-3 font-bold text-ellipsis overflow-hidden">
+                <p className="text-center mt-3 font-bold text-ellipsis overflow-hiddeny">
                   {ws.title}
                 </p>
                 <div className="px-3 mt-2">
@@ -94,7 +94,44 @@ export function Research() {
             )
         )}
       </div>
-      <p className="mt-3 mx-4 mb-3">Software-Version: Mai 2022</p>
+      <p className="mt-3 mx-4">
+        Hinweise zu den Aufgaben:
+        <ul className="list-disc ml-3">
+          <li>
+            Die schwarze Platte ist der Chip. Jeder Chip hat einen
+            Anfangszustand und einen Zielzustand.
+          </li>
+          <li>
+            Je nach Aufgabe soll der Chip 20 - 50 mal aus dem Anfangszustand in
+            den Zielzustand gebracht werden. Die Aufgabenbeschreibung enthält
+            ein Bild wie der Zielzustand aussieht.
+          </li>
+          <li>
+            Wenn der Zielzustand erreicht ist, muss der Chip durch das Setzen
+            einer Marke auf dem Startfeld aktiviert werden. Wenn das erfolgreich
+            ist, wird der Fortschritt um eins erhöht.
+          </li>
+          <li>
+            Lösche danach die Marke wieder, um einen neuen Anfangszustand zu
+            generieren.
+          </li>
+          <li>
+            Nicht jede Aktivierung ist erfolgreich. In 10% der Fälle schlägt die
+            Aktivierung fehl. Wiederhole den Durchlauf nochmal.
+          </li>
+          <li>Nutze Wiederholungen, um dein Programm mehrfach auszuführen.</li>
+          <li>
+            Klicke auf Neu Starten, um das Spielfeld aufzuräumen (damit wird
+            auch der Fortschritt zurückgesetzt).
+          </li>
+          <li>
+            Sobald die Aufgabe abgeschlossen ist, kann die Marke auf dem
+            Startfeld nicht mehr entfernt werden. Dadurch kannst du das Ende der
+            Bearbeitung erkennen.
+          </li>
+        </ul>
+      </p>
+      <p className="mt-6 mx-4 mb-3">Software-Version: Mai 2022</p>
     </div>
   )
 }

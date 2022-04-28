@@ -7,9 +7,9 @@ export function createDefaultCoreState(): CoreState {
     workspaces: [
       createFreeModeWorkspaceState(),
       createLevel3WorkspaceState(),
-      createLevel7WorkspaceState(),
       createLevel5WorkspaceState(),
       createLevel1WorkspaceState(),
+      createLevel7WorkspaceState(),
       createLevel4WorkspaceState(),
       createLevel6WorkspaceState(),
       createLevel8WorkspaceState(),
