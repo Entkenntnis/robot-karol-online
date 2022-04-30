@@ -57,6 +57,7 @@ export function deserialize(core: Core, file?: string) {
       if (state.type == 'free') {
         state.tabs = tabs!
         state.currentTab = 0
+        state.ui.preview = undefined
       }
       state.ui.needsTextRefresh = true
     })

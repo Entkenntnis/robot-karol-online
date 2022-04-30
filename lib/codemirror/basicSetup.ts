@@ -23,10 +23,12 @@ import {
 } from '@codemirror/language'
 import {
   defaultKeymap,
+  deleteCharBackward,
   history,
   historyKeymap,
   indentSelection,
   indentWithTab,
+  insertNewlineAndIndent,
   selectAll,
 } from '@codemirror/commands'
 import {
@@ -132,6 +134,7 @@ export const basicSetup = (props: BasicSetupProps) => [
     ...historyKeymap,
     ...lintKeymap,
     ...completionKeymap,
+    { key: 'Tab', run: myTabExtension },
     indentWithTab,
     {
       key: 'Ctrl-s',
@@ -351,3 +354,19 @@ const myHighlightPlugin = ViewPlugin.fromClass(
     decorations: (v) => v.decorations,
   }
 )
+
+const myTabExtension: Command = (target: EditorView) => {
+  if (target.state.selection.ranges.length == 1) {
+    if (target.state.selection.main.empty) {
+      const pos = target.state.selection.main.from
+      const line = target.state.doc.lineAt(pos)
+      if (line.length == 0) {
+        // I am at the beginning of an empty line and pressing tab
+        deleteCharBackward(target)
+        insertNewlineAndIndent(target)
+        return true
+      }
+    }
+  }
+  return false
+}

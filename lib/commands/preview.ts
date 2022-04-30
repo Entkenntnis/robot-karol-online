@@ -65,7 +65,6 @@ export function execPreview(core: Core) {
             continue
           case 'setMark':
             world.marks[world.karol.y][world.karol.x] = true
-            console.log(world.karol.x, world.karol.y)
             continue
           case 'resetMark':
             world.marks[world.karol.y][world.karol.x] = false
@@ -100,8 +99,7 @@ export function execPreview(core: Core) {
         pc = jump_target
         continue
       default:
-        console.log('not implemented', instr)
-        pc++
+        throw new Error('this is not implemented')
     }
   }
 

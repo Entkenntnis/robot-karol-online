@@ -225,7 +225,7 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
               ctx.drawImage(wireframe ? ziegelWire : ziegel, p.x - 15, p.y - 16)
             }
           } else {
-            if (preview.world.bricks[y][x] >= world.bricks[y][x]) {
+            if (preview && preview.world.bricks[y][x] >= world.bricks[y][x]) {
               for (let i = 0; i < world.bricks[y][x]; i++) {
                 const p = to2d(x, y, i)
                 ctx.drawImage(
