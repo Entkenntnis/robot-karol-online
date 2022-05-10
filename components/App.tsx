@@ -79,14 +79,14 @@ export function App() {
               }
             }}
           />
-          {!core.state.showResearchCenter && (
+          {!core.coreState.showResearchCenter && (
             <button
               className={clsx(
                 'absolute right-1 top-1 rounded z-10',
                 'px-2 py-0.5 bg-blue-300 hover:bg-blue-400'
               )}
               onClick={() => {
-                core.state.showResearchCenter
+                core.coreState.showResearchCenter
                   ? hideResearchCenter(core)
                   : showResearchCenter(core)
               }}
@@ -94,7 +94,7 @@ export function App() {
               Forschungszentrum
             </button>
           )}
-          {core.state.showResearchCenter ? <Research /> : <Workspace />}
+          {core.coreState.showResearchCenter ? <Research /> : <Workspace />}
         </div>
       </CoreProvider>
     </>

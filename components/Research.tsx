@@ -2,7 +2,6 @@ import clsx from 'clsx'
 import { switchToWorkspace } from '../lib/commands/researchCenter'
 import { levels } from '../lib/data/levels'
 import { useCore } from '../lib/state/core'
-import { WorkspaceState, WorkspaceStateLevelMode } from '../lib/state/types'
 
 export function Research() {
   const core = useCore()
@@ -25,13 +24,13 @@ export function Research() {
         <p className="mt-3 mx-4">Kreativ:</p>
       </div>
       <div className=" w-full flex flex-wrap overflow-y-auto">
-        {core.state.workspaces.map(
+        {core.coreState.workspaces.map(
           (ws, i) =>
             ws.type == 'free' && (
               <div
                 className={clsx(
                   'w-48 h-64 border-2 rounded m-4 cursor-pointer',
-                  core.state.currentWorkspace == i && 'border-yellow-400'
+                  core.coreState.currentWorkspace == i && 'border-yellow-400'
                 )}
                 key={ws.title}
                 onClick={() => {
@@ -55,13 +54,13 @@ export function Research() {
       </div>
       <p className="mt-3 mx-4">Übe dich im Programmieren mit Robot Karol:</p>
       <div className=" w-full flex flex-wrap overflow-y-auto">
-        {core.state.workspaces.map(
+        {core.coreState.workspaces.map(
           (ws, i) =>
             ws.type == 'level' && (
               <div
                 className={clsx(
                   'w-48 h-64 border-2 rounded m-4 cursor-pointer',
-                  core.state.currentWorkspace == i && 'border-yellow-400'
+                  core.coreState.currentWorkspace == i && 'border-yellow-400'
                 )}
                 key={ws.title}
                 onClick={() => {

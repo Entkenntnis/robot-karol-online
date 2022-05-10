@@ -1,4 +1,5 @@
 import React from 'react'
+import { registry } from './config'
 import { Core } from './core'
 
 export type Heading = 'north' | 'east' | 'south' | 'west'
@@ -96,32 +97,24 @@ export interface Chip {
   sparkleY: number
 }
 
-export interface WorkspaceStateBase {
+export interface WorkspaceState {
   title: string
-
   world: World
   ui: Ui
   code: string
   vm: Vm
   settings: Settings
-}
-
-interface WorkspaceStateFreeMode extends WorkspaceStateBase {
-  type: 'free'
+  type: 'free' | 'level'
   tabs: [string, string, string, string]
   currentTab: number
-}
-
-export interface WorkspaceStateLevelMode extends WorkspaceStateBase {
-  type: 'level'
   progress: number
   levelId: number
   worldInit: boolean
   worldCheckpoint?: World
   sparkle?: Sparkle
-}
 
-export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStateLevelMode
+  configID: keyof typeof registry
+}
 
 export interface CoreState {
   workspaces: WorkspaceState[]
@@ -178,3 +171,7 @@ export interface ReturnOp {
 }
 
 export type Op = ActionOp | JumpNOp | JumpCondOp | CallOp | ReturnOp
+
+export interface WorkspaceConfig {}
+
+export type WorkspaceConfigRegistry = { [key: string]: WorkspaceConfig }

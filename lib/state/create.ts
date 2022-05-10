@@ -1,6 +1,5 @@
-import { stat } from 'fs'
 import { levels } from '../data/levels'
-import { CoreState, WorkspaceState, WorkspaceStateBase, World } from './types'
+import { CoreState, WorkspaceState, World } from './types'
 
 export function createDefaultCoreState(): CoreState {
   return {
@@ -168,7 +167,7 @@ export function createFreeModeWorkspaceState(): WorkspaceState {
   return ws
 }
 
-function createBaseWorkspace(): WorkspaceStateBase {
+function createBaseWorkspace(): WorkspaceState {
   return {
     title: '',
     world: createWorld(5, 10, 6),
@@ -194,6 +193,13 @@ function createBaseWorkspace(): WorkspaceStateBase {
     settings: {
       speed: 'fast',
     },
+    tabs: ['', '', '', ''],
+    currentTab: 0,
+    type: 'free',
+    progress: 0,
+    levelId: 0,
+    worldInit: false,
+    configID: 'freeplay',
   }
 }
 
