@@ -91,7 +91,7 @@ export function App() {
                   : showResearchCenter(core)
               }}
             >
-              Forschungszentrum
+              Lernzentrum
             </button>
           )}
           {core.coreState.showResearchCenter ? <Research /> : <Workspace />}

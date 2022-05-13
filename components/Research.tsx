@@ -1,29 +1,91 @@
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import { useState } from 'react'
 import { switchToWorkspace } from '../lib/commands/researchCenter'
 import { levels } from '../lib/data/levels'
 import { useCore } from '../lib/state/core'
+import { FaIcon } from './FaIcon'
 
 export function Research() {
   const core = useCore()
+
   return (
-    <div className="bg-blue-200 h-full overflow-auto">
-      <div>
-        <h1 className="ml-4 mt-4 text-2xl">Forschungszentrum</h1>
-        <div className="mt-3 ml-4 border-b pb-2">
-          Finde allgemeine Informationen auf{' '}
-          <a
-            href="https://github.com/Entkenntnis/robot-karol-web#readme"
-            target="_blank"
-            rel="noreferrer"
-            className="text-blue-500 hover:underline"
-          >
-            GitHub
-          </a>
-          .
+    <div className="bg-blue-200 h-full relative flex flex-col">
+      <h1 className="ml-4 mt-2 text-2xl mb-2">Robot Karol Web - Lernzentrum</h1>
+      <button
+        className="absolute right-4 top-2 text-2xl"
+        onClick={() => {
+          switchToWorkspace(core, core.coreState.currentWorkspace)
+        }}
+      >
+        <FaIcon icon={faTimes}></FaIcon>
+      </button>
+      <div className="flex-grow bg-gray-50 flex justify-center items-center">
+        <div className="bg-blue-200 border w-[400px] h-[350px] -mt-40">
+          <LoginRegisterForm />
         </div>
-        <p className="mt-3 mx-4">Kreativ:</p>
+        {/*<div className="ml-4 mt-4">
+          <p>Login</p>
+          <label>
+            Benutzername: <input></input>
+          </label>
+          <label>
+            Passwort: <input type="password"></input>
+          </label>
+        </div>
+        <div className="ml-4 mt-10">
+          <p>Registrierung</p>
+          <label>
+            Benutzername: <input></input>
+          </label>
+          <label>
+            Passwort: <input type="password"></input>
+          </label>
+      </div>*/}
       </div>
-      <div className=" w-full flex flex-wrap overflow-y-auto">
+      <p className="mt-3 mx-4 mb-3">
+        Version: Mai 2022 |{' '}
+        <a
+          href="https://github.com/Entkenntnis/robot-karol-web"
+          target="_blank"
+          rel="noreferrer"
+          className="text-blue-500 underline"
+        >
+          GitHub
+        </a>
+      </p>
+    </div>
+  )
+
+  return (
+    <div className="bg-blue-200 h-full overflow-auto relative">
+      <h1 className="ml-4 mt-4 text-2xl">Robot Karol Web</h1>
+      <button
+        className="absolute right-2 top-2 text-2xl"
+        onClick={() => {
+          switchToWorkspace(core, core.coreState.currentWorkspace)
+        }}
+      >
+        <FaIcon icon={faTimes}></FaIcon>
+      </button>
+      <div className="mt-3 ml-4 border-b pb-2">
+        Finde allgemeine Informationen auf{' '}
+        <a
+          href="https://github.com/Entkenntnis/robot-karol-web#readme"
+          target="_blank"
+          rel="noreferrer"
+          className="text-blue-500 hover:underline"
+        >
+          GitHub
+        </a>
+        .
+      </div>
+
+      <div className="mb-96 ml-4 mt-4">
+        <p>Neuer Workspace-Manager:</p>
+      </div>
+      <p className="mt-3 mx-4">Kreativ:</p>
+      <div className=" w-full flex flex-wrap">
         {core.coreState.workspaces.map(
           (ws, i) =>
             ws.type == 'free' && (
@@ -131,6 +193,96 @@ export function Research() {
         </ul>
       </p>
       <p className="mt-6 mx-4 mb-3">Software-Version: Mai 2022</p>
+    </div>
+  )
+}
+
+function LoginRegisterForm() {
+  const [tab, setTab] = useState<'login' | 'register'>('login')
+
+  return (
+    <div className="flex h-full w-full flex-col bg-white">
+      <div className="h-12 flex-grow-0 flex bg-blue-200">
+        <div
+          className={clsx(
+            'w-1/2 text-center cursor-pointer pt-2',
+            tab == 'login' && 'bg-white'
+          )}
+          onClick={() => {
+            setTab('login')
+          }}
+        >
+          Login
+        </div>
+        <div
+          className={clsx(
+            'w-1/2 text-center cursor-pointer pt-2',
+            tab == 'register' && 'bg-white'
+          )}
+          onClick={() => {
+            setTab('register')
+          }}
+        >
+          Registrieren
+        </div>
+      </div>
+      <div className="flex-grow ">
+        {tab == 'login' && (
+          <div className="ml-4 mt-4">
+            <p>
+              <label>
+                Name:
+                <br />
+                <input className="border"></input>
+              </label>
+            </p>
+            <p>
+              <label>
+                Passwort:
+                <br />
+                <input className="border" type="password"></input>
+              </label>
+            </p>
+            <p className="mt-3">
+              <button className="px-2 py-1 bg-green-300 rounded">Los</button>
+            </p>
+          </div>
+        )}
+        {tab == 'register' && (
+          <div className="mx-4 mt-4">
+            <p>
+              Erstelle kostenlos einen Account und steige spielerisch in die
+              Programmierung ein!
+            </p>
+            <p className="mt-3">
+              <label>
+                Name:
+                <br />
+                <input className="border"></input>
+              </label>
+            </p>
+            <p>
+              <label>
+                Passwort:
+                <br />
+                <input className="border" type="password"></input>
+              </label>
+            </p>
+            <p>
+              <label>
+                Passwort wiederholen:
+                <br />
+                <input className="border" type="password"></input>
+              </label>
+            </p>
+            <p className="mt-3">
+              <button className="px-2 py-1 bg-green-300 rounded">
+                Registrieren
+              </button>
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
