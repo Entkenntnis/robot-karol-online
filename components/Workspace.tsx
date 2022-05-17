@@ -25,7 +25,7 @@ export function Workspace() {
         className="h-full"
       >
         {/* @ts-ignore https://github.com/leefsmp/Re-Flex/issues/158 */}
-        <ReflexElement className="h-full" minSize={400}>
+        <ReflexElement className="h-full" minSize={430}>
           <EditArea />
         </ReflexElement>
 

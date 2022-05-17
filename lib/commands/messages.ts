@@ -17,5 +17,5 @@ export function addMessage(core: Core, text: string) {
     core.mutateWs(({ ui }) => {
       ui.messages = ui.messages.filter((m) => m.ts != ts)
     })
-  }, 2500)
+  }, 3500)
 }
