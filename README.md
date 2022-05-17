@@ -20,7 +20,7 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 
 - Implementation als Web-App, damit ohne Installation **im Browser lauffähig**
 - **Live-Vorschau** der Ausführung für direktes Feedback
-- **Level**, um die eigenen Programmierfähigkeiten zu testen und zu verbessern
+- **Aufgaben**, um die eigenen Programmierfähigkeiten zu testen und zu verbessern
 - Editor für die Sprache Karol, mit Syntaxhervorhebung und **Autovervollständigung**
 - Syntaxüberprüfung im Hintergrund mit **Fehlerhervorhebung direkt im Code**
 - grafischen Darstellung einer 3D-Welt, die den Roboter Karol als Figur im Raum zeigt und diese je nach Anweisungen bewegt
