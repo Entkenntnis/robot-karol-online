@@ -128,6 +128,7 @@ export interface CoreState {
   currentWorkspace: number
   showResearchCenter: boolean
   enableStats: boolean
+  projectTitle?: string
 }
 
 export interface CoreRefs {

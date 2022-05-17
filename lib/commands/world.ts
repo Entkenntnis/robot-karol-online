@@ -238,6 +238,9 @@ export function createWorldCmd(core: Core, x: number, y: number, z: number) {
     state.world = createWorld(x, y, z)
     state.ui.preview = undefined
   })
+  core.mutateCore((core) => {
+    core.projectTitle = undefined
+  })
 }
 
 export function initWorld(core: Core) {

@@ -35,16 +35,17 @@ export function App() {
         ;(async () => {
           const res = await fetch(file)
           const text = await res.text()
-          const wsClone: WorkspaceState = JSON.parse(JSON.stringify(core.ws))
           const title = file.match(/\/([^\/]+\.json)/)
           if (title) {
-            wsClone.title = title[1]
+            //wsClone.title = title[1]
+            core.mutateCore((core) => {
+              core.projectTitle = title[1]
+            })
           }
-          core.mutateCore((state) => {
-            state.workspaces.splice(1, 0, wsClone)
-            state.currentWorkspace = 1
-          })
           deserialize(core, text)
+          core.mutateWs((ws) => {
+            if (ws.type == 'free') ws.ui.showPreview = false
+          })
         })()
       } catch (e) {}
     }
@@ -53,7 +54,11 @@ export function App() {
   return (
     <>
       <Head>
-        <title>Robot Karol Web</title>
+        {core.state.projectTitle ? (
+          <title>{core.state.projectTitle} - Robot Karol Web</title>
+        ) : (
+          <title>Robot Karol Web</title>
+        )}
       </Head>
       <style jsx global>
         {`

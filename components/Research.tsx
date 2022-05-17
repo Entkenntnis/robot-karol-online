@@ -2,7 +2,6 @@ import clsx from 'clsx'
 import { switchToWorkspace } from '../lib/commands/researchCenter'
 import { levels } from '../lib/data/levels'
 import { useCore } from '../lib/state/core'
-import { WorkspaceState, WorkspaceStateLevelMode } from '../lib/state/types'
 import { submit_event } from '../lib/stats/submit'
 
 export function Research() {
@@ -26,7 +25,15 @@ export function Research() {
           .
         </div>
       </div>
-      <div className=" ml-4 mt-4 border-b pb-4 text-center">
+      <div className=" ml-4 mt-4 border-b pb-4">
+        <a
+          className="bg-gray-200 cursor-pointer px-2 py-1.5 rounded mr-4"
+          target="_blank"
+          href={`//${window.window.location.host}`}
+          rel="noreferrer"
+        >
+          Neues Fenster
+        </a>
         <button
           className="bg-green-400 px-2 py-1.5 rounded"
           onClick={() => switchToWorkspace(core, freeWorkspace)}
@@ -73,7 +80,7 @@ export function Research() {
                   <button className="rounded px-2 py-0.5 bg-blue-400">
                     {ws.progress >= levels[ws.levelId].target
                       ? 'Öffnen'
-                      : 'Erforschen'}
+                      : 'Bearbeiten'}
                   </button>
                 </div>
               </div>
@@ -117,6 +124,34 @@ export function Research() {
           </li>
         </ul>
       </div>
+
+      <h2 className="mt-5 mb-4 mx-4 text-xl">Beispiele</h2>
+      <div className="w-full flex flex-wrap border-b pb-3">
+        {demoData.map((data) => (
+          <a
+            className={clsx(
+              'w-48 h-56 border-2 rounded m-4 cursor-pointer block'
+            )}
+            key={data.title}
+            href={`//${window.location.host}?project=${data.projectUrl}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <p className="text-center mt-3 font-bold">{data.title}</p>
+            <div
+              className="mx-3 mt-2 h-[110px] bg-contain bg-no-repeat bg-center"
+              style={{
+                backgroundImage: `url(${data.imageSrc})`,
+              }}
+            ></div>
+            <div className="flex justify-around mt-3">
+              <button className="rounded px-2 py-0.5 bg-blue-400">
+                Öffnen
+              </button>
+            </div>
+          </a>
+        ))}
+      </div>
       <p className="my-4 ml-4 border-b pb-3">
         <input
           type="checkbox"
@@ -129,9 +164,77 @@ export function Research() {
         />{' '}
         Zur Entwicklung neuer Funktionen sammelt Robot Karol Web Statistiken zur
         Nutzung (Anzahl Aufrufe, bearbeitete Aufgaben, ausgeführte Programme).
-        Dein Code und der Inhalt der Welt werden nicht übertragen.
       </p>
       <p className="mt-4 mx-4 mb-3">Version: Juni 2022</p>
     </div>
   )
 }
+
+const demoData: { projectUrl: string; title: string; imageSrc: string }[] = [
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/schwimmbad.json',
+    title: 'Schwimmbad',
+    imageSrc: '/demo/schwimmbad.png',
+  },
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/schachbrett.json',
+    title: 'Schachbrett',
+    imageSrc: '/demo/schachbrett.png',
+  },
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/allesinvertieren.json',
+    title: 'Alles invertieren',
+    imageSrc: '/demo/allesinvertieren.png',
+  },
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/stapeln.json',
+    title: 'Stapeln',
+    imageSrc: '/demo/stapeln.png',
+  },
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/raum_verlassen.json',
+    title: 'Raum verlassen',
+    imageSrc: '/demo/raum_verlassen.png',
+  },
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/füllen.json',
+    title: 'Füllen',
+    imageSrc: '/demo/füllen.png',
+  },
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/labyrinth.json',
+    title: 'Labyrinth',
+    imageSrc: '/demo/labyrinth.png',
+  },
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/binär_konverter.json',
+    title: 'Binär-Konverter',
+    imageSrc: '/demo/konverter.png',
+  },
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/sortieren.json',
+    title: 'Sortieren',
+    imageSrc: '/demo/sortieren.png',
+  },
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/game_of_life.json',
+    title: 'Game of Life',
+    imageSrc: '/demo/gol.png',
+  },
+  {
+    projectUrl:
+      'https://entkenntnis.github.io/robot-karol-web/examples/bf.json',
+    title: 'BF Interpreter',
+    imageSrc: '/demo/bf.png',
+  },
+]
