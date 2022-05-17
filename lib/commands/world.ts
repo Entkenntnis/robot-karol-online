@@ -160,11 +160,6 @@ function checkChipActive(core: Core) {
     ) {
       if (world.marks[karol.y][karol.x]) {
         if (chipDef.checkAction(core, chip)) {
-          const isGlitch = Math.random() < 0.1 // 10 % chance of not progressing
-          if (isGlitch) {
-            addMessage(core, 'Sorry, manchmal passieren Glitches.')
-            return
-          }
           core.mutateLevel((state) => {
             state.progress++
           })
