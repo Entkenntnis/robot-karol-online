@@ -16,6 +16,7 @@ export function createDefaultCoreState(): CoreState {
     ],
     currentWorkspace: 0,
     showResearchCenter: false,
+    enableStats: true,
   }
 }
 

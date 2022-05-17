@@ -127,6 +127,7 @@ export interface CoreState {
   workspaces: WorkspaceState[]
   currentWorkspace: number
   showResearchCenter: boolean
+  enableStats: boolean
 }
 
 export interface CoreRefs {

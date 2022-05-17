@@ -11,9 +11,16 @@ import {
 } from '../lib/commands/researchCenter'
 import { deserialize } from '../lib/commands/json'
 import { WorkspaceState } from '../lib/state/types'
+import { submit_event } from '../lib/stats/submit'
 
 export function App() {
   const core = useCreateCore()
+
+  useEffect(() => {
+    submit_event('visit', core)
+    // only run on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     const address = window.location.search

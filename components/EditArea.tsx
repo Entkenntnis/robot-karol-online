@@ -36,6 +36,7 @@ import { FaIcon } from './FaIcon'
 import { faArrowRight, faArrowTurnUp } from '@fortawesome/free-solid-svg-icons'
 import { execPreview } from '../lib/commands/preview'
 import { forceLinting } from '@codemirror/lint'
+import { submit_event } from '../lib/stats/submit'
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -163,6 +164,7 @@ export function EditArea() {
                   view.current.contentDOM.blur()
                 }
                 run(core)
+                submit_event(`run_${core.ws.type}`, core)
               }}
             >
               Programm ausführen

@@ -3,6 +3,7 @@ import { levels } from '../data/levels'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { Heading, World } from '../state/types'
+import { submit_event } from '../stats/submit'
 import { addMessage } from './messages'
 import { createSparkle } from './sparkle'
 
@@ -163,6 +164,12 @@ function checkChipActive(core: Core) {
           core.mutateLevel((state) => {
             state.progress++
           })
+          if (core.level!.progress == levels[core.level!.levelId].target) {
+            submit_event(
+              `finish_${levels[core.level!.levelId].title.toLowerCase()}`,
+              core
+            )
+          }
           createSparkle(core, chipDef.sparkleX, chipDef.sparkleY, 'happy')
         } else {
           if (core.level!.progress < levels[core.level!.levelId].target) {

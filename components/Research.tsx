@@ -3,6 +3,7 @@ import { switchToWorkspace } from '../lib/commands/researchCenter'
 import { levels } from '../lib/data/levels'
 import { useCore } from '../lib/state/core'
 import { WorkspaceState, WorkspaceStateLevelMode } from '../lib/state/types'
+import { submit_event } from '../lib/stats/submit'
 
 export function Research() {
   const core = useCore()
@@ -25,7 +26,7 @@ export function Research() {
           .
         </div>
       </div>
-      <div className=" ml-4 mt-4 border-b pb-4">
+      <div className=" ml-4 mt-4 border-b pb-4 text-center">
         <button
           className="bg-green-400 px-2 py-1.5 rounded"
           onClick={() => switchToWorkspace(core, freeWorkspace)}
@@ -47,6 +48,10 @@ export function Research() {
                 key={ws.title}
                 onClick={() => {
                   switchToWorkspace(core, i)
+                  submit_event(
+                    `open_level_${levels[ws.levelId].title.toLowerCase()}`,
+                    core
+                  )
                 }}
               >
                 <p className="text-center mt-3 font-bold">{ws.title}</p>
@@ -75,7 +80,7 @@ export function Research() {
             )
         )}
       </div>
-      <p className="mt-3 mx-4  border-b pb-4">
+      <div className="mt-3 mx-4 border-b pb-5">
         Hinweise zu den Aufgaben:
         <ul className="list-disc ml-3">
           <li>
@@ -111,8 +116,22 @@ export function Research() {
             Bearbeitung erkennen.
           </li>
         </ul>
+      </div>
+      <p className="my-4 ml-4 border-b pb-3">
+        <input
+          type="checkbox"
+          checked={core.state.enableStats}
+          onChange={(e) => {
+            core.mutateCore((core) => {
+              core.enableStats = e.target.checked
+            })
+          }}
+        />{' '}
+        Zur Entwicklung neuer Funktionen sammelt Robot Karol Web Statistiken zur
+        Nutzung (Anzahl Aufrufe, bearbeitete Aufgaben, ausgeführte Programme).
+        Dein Code und der Inhalt der Welt werden nicht übertragen.
       </p>
-      <p className="mt-6 mx-4 mb-3">Version: Juni 2022</p>
+      <p className="mt-4 mx-4 mb-3">Version: Juni 2022</p>
     </div>
   )
 }
