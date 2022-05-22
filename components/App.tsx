@@ -10,7 +10,6 @@ import {
   showResearchCenter,
 } from '../lib/commands/researchCenter'
 import { deserialize } from '../lib/commands/json'
-import { WorkspaceState } from '../lib/state/types'
 import { submit_event } from '../lib/stats/submit'
 
 export function App() {
@@ -18,6 +17,7 @@ export function App() {
 
   useEffect(() => {
     submit_event('visit', core)
+    showResearchCenter(core)
     // only run on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -103,7 +103,7 @@ export function App() {
                   : showResearchCenter(core)
               }}
             >
-              Menu
+              Menü
             </button>
           )}
           {core.state.showResearchCenter ? <Research /> : <Workspace />}

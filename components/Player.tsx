@@ -14,9 +14,10 @@ import clsx from 'clsx'
 import { createRef, Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { serialize } from '../lib/commands/json'
 import { execPreview } from '../lib/commands/preview'
+import { showResearchCenter } from '../lib/commands/researchCenter'
 
 import { toggleWireframe } from '../lib/commands/view'
-import { abort } from '../lib/commands/vm'
+import { abort, run } from '../lib/commands/vm'
 import {
   brick,
   createWorldCmd,
@@ -55,6 +56,28 @@ export function Player() {
       })
     }
   })
+
+  // calculate progress
+  let progress = 0
+  if (core.ws.type == 'puzzle') {
+    let correctFields = 0
+    let nonEmptyFields = 0
+    for (let x = 0; x < core.ws.targetWorld.dimX; x++) {
+      for (let y = 0; y < core.ws.targetWorld.dimY; y++) {
+        if (core.ws.targetWorld.bricks[y][x] > 0) {
+          nonEmptyFields++
+          if (core.ws.world.bricks[y][x] == core.ws.targetWorld.bricks[y][x]) {
+            correctFields++
+          }
+        } else {
+          if (core.ws.world.bricks[y][x] !== core.ws.targetWorld.bricks[y][x]) {
+            correctFields = Math.max(0, correctFields - 1)
+          }
+        }
+      }
+    }
+    progress = Math.round((correctFields / nonEmptyFields) * 100)
+  }
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -118,6 +141,24 @@ export function Player() {
                     execPreview(core)
                   }, 10)
                   e.preventDefault()
+                }
+                if (e.code == 'KeyS') {
+                  run(core)
+                  e.preventDefault()
+                }
+                if (e.code == 'KeyV') {
+                  if (!core.ws.ui.showPreview) {
+                    core.mutateWs(({ ui }) => {
+                      ui.showPreview = true
+                      ui.shouldFocusWrapper = true
+                    })
+                    execPreview(core)
+                  } else {
+                    core.mutateWs(({ ui }) => {
+                      ui.showPreview = false
+                      ui.shouldFocusWrapper = true
+                    })
+                  }
                 }
               }}
               tabIndex={1}
@@ -228,7 +269,16 @@ export function Player() {
               )}
               onClick={() => {
                 abort(core)
-                resetWorld(core)
+                if (core.ws.type == 'level') {
+                  resetWorld(core)
+                } else {
+                  createWorldCmd(
+                    core,
+                    core.ws.world.dimX,
+                    core.ws.world.dimY,
+                    core.ws.world.height
+                  )
+                }
               }}
             >
               Neu starten
@@ -274,6 +324,24 @@ export function Player() {
           <div className="p-3">{levels[core.ws.levelId].description}</div>
         </div>
       )}
+      <div className="flex justify-between items-center select-none h-12 border-t flex-grow-0 flex-shrink-0">
+        <div className="pl-4">Fortschritt:</div>
+        <div
+          className={clsx(
+            'bg-gray-200 w-full px-1 mx-3 relative flex justify-around',
+            'items-center'
+          )}
+        >
+          <div
+            className="bg-green-300 absolute left-0 top-0 bottom-0"
+            style={{
+              width: `${progress}%`,
+            }}
+          ></div>
+          <div className="z-10">{progress}%</div>
+        </div>
+      </div>
+
       <div
         className={clsx(
           'flex-shrink-0 flex justify-around items-center border-t',
@@ -367,7 +435,6 @@ export function Player() {
           </button>
           <span className="ml-4 h-7 border-r"></span>
           {
-            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={
                 core.ws.ui.wireframe

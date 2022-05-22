@@ -33,10 +33,16 @@ import { autoFormat, editable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
 import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
 import { FaIcon } from './FaIcon'
-import { faArrowRight, faArrowTurnUp } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowRight,
+  faArrowTurnUp,
+  faPlay,
+} from '@fortawesome/free-solid-svg-icons'
 import { execPreview } from '../lib/commands/preview'
 import { forceLinting } from '@codemirror/lint'
 import { submit_event } from '../lib/stats/submit'
+import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
+import { showResearchCenter } from '../lib/commands/researchCenter'
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -56,7 +62,7 @@ export function EditArea() {
           from: 0,
           to: view.current.state.doc.length,
           insert:
-            core.ws.type == 'level'
+            core.ws.type == 'level' || core.ws.type == 'puzzle'
               ? core.ws.code
               : core.ws.tabs[core.ws.currentTab],
         },
@@ -78,57 +84,158 @@ export function EditArea() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const blockMenuInner = useMemo(renderBlockMenuInner, [section, menuVisible]) // block menu is slow to render
 
+  // calculate progress
+  let progress = 0
+  if (core.ws.type == 'puzzle') {
+    let correctFields = 0
+    let nonEmptyFields = 0
+    for (let x = 0; x < core.ws.targetWorld.dimX; x++) {
+      for (let y = 0; y < core.ws.targetWorld.dimY; y++) {
+        if (core.ws.targetWorld.bricks[y][x] > 0) {
+          nonEmptyFields++
+          if (core.ws.world.bricks[y][x] == core.ws.targetWorld.bricks[y][x]) {
+            correctFields++
+          }
+        } else {
+          if (core.ws.world.bricks[y][x] !== core.ws.targetWorld.bricks[y][x]) {
+            correctFields = Math.max(0, correctFields - 1)
+          }
+        }
+      }
+    }
+    progress = Math.round((correctFields / nonEmptyFields) * 100)
+  }
+
+  /*
+<ReflexContainer
+        orientation="vertical"
+        windowResizeAware
+        className="h-full"
+      >
+        <ReflexElement className="h-full" minSize={430}>
+          <EditArea />
+        </ReflexElement>
+
+        <ReflexSplitter style={{ width: 3 }} />
+
+        <ReflexElement minSize={400}>
+          <Player />
+        </ReflexElement>
+      </ReflexContainer>
+
+
+  */
+
   return (
     <>
       <div className="w-full text-base h-full overflow-auto flex flex-col outline-none ">
-        <div className="flex h-full overflow-y-auto relative">
-          <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
-            {renderBlockMenu()}
-          </div>
+        <ReflexContainer
+          orientation="horizontal"
+          windowResizeAware
+          className="h-full"
+        >
+          <ReflexElement minSize={100} propagateDimensions={true}>
+            {core.ws.type == 'puzzle' &&
+              (progress < 100 ? (
+                <div className="h-full flex flex-col">
+                  <div className="p-3 overflow-y-auto">
+                    <div>
+                      <p className="mb-2">
+                        Herzlich Willkommen bei Robot Karol! Du findest hier ein
+                        entspanntes Bau- und Puzzlespiel und bekommst dabei
+                        einen Einblick in die Welt des Programmierens. Fange mit
+                        dieser kleinen Welt an:
+                      </p>
+                      <img
+                        src={core.ws.targetImage}
+                        alt="target"
+                        className="mx-auto my-3 h-[180px]"
+                      ></img>
+                      <p className="mb-2">
+                        Klicke dafür auf Karol und steuere ihn mit den
+                        Pfeiltasten. Wenn sich die Vorschau in der richtigen
+                        Position befindet, dann drücke die Taste S um das
+                        Programm zu starten und die Ziegel zu legen.
+                      </p>
+                      <p className="mb-2">
+                        Wenn du dich verbaut hast, kannst du mit einem Klick auf
+                        &quot;Neu starten&quot; die Welt zurücksetzen.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="h-full p-3">
+                  Super gemacht!
+                  <p>
+                    <button
+                      onClick={() => {
+                        showResearchCenter(core)
+                      }}
+                    >
+                      Zum Menü zurückkehren
+                    </button>
+                  </p>
+                </div>
+              ))}
+          </ReflexElement>
+          <ReflexSplitter style={{ height: 3 }} />
 
-          <div className="w-full overflow-auto h-full flex">
-            {codeState == 'running' && (
-              <div
-                data-label="gutter"
-                className="w-8 h-full relative flex-shrink-0"
-              >
-                {core.ws.ui.gutter > 0 && (
+          <ReflexElement minSize={100}>
+            <div className="flex h-full overflow-y-auto relative">
+              {/*<div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
+            {renderBlockMenu()}
+          </div>*/}
+
+              <div className="w-full overflow-auto h-full flex">
+                {codeState == 'running' ? (
                   <div
-                    className="text-blue-500 absolute w-5 h-5 left-1.5"
-                    style={{
-                      top: `${4 + (core.ws.ui.gutter - 1) * 22.4 - 2}px`,
+                    data-label="gutter"
+                    className="w-8 h-full relative flex-shrink-0"
+                  >
+                    {core.ws.ui.gutter > 0 && (
+                      <div
+                        className="text-blue-500 absolute w-5 h-5 left-1.5"
+                        style={{
+                          top: `${4 + (core.ws.ui.gutter - 1) * 22.4 - 2}px`,
+                        }}
+                      >
+                        <FaIcon icon={faArrowRight} />
+                      </div>
+                    )}{' '}
+                    {Array.from(new Set(core.ws.ui.gutterReturns)).map(
+                      (pos, i) => (
+                        <div
+                          key={i}
+                          className="text-yellow-300 absolute w-5 h-5 left-2"
+                          style={{
+                            top: `${4 + (pos - 1) * 22.4 - 2}px`,
+                          }}
+                        >
+                          <FaIcon icon={faArrowTurnUp} className="rotate-180" />
+                        </div>
+                      )
+                    )}
+                  </div>
+                ) : (
+                  <div className="w-8 h-full relative flex-shrink-0"></div>
+                )}
+                <div className="w-full h-full flex flex-col">
+                  <Editor innerRef={view} />
+                  <div
+                    className="flex-grow flex"
+                    onClick={() => {
+                      view.current?.focus()
                     }}
                   >
-                    <FaIcon icon={faArrowRight} />
+                    <div className="w-[30px] border-r h-full bg-neutral-100 border-[#ddd] flex-grow-0 flex-shrink-0"></div>
+                    <div className="w-full cursor-text"></div>
                   </div>
-                )}{' '}
-                {Array.from(new Set(core.ws.ui.gutterReturns)).map((pos, i) => (
-                  <div
-                    key={i}
-                    className="text-yellow-300 absolute w-5 h-5 left-2"
-                    style={{
-                      top: `${4 + (pos - 1) * 22.4 - 2}px`,
-                    }}
-                  >
-                    <FaIcon icon={faArrowTurnUp} className="rotate-180" />
-                  </div>
-                ))}
-              </div>
-            )}
-            <div className="w-full h-full flex flex-col">
-              <Editor innerRef={view} />
-              <div
-                className="flex-grow flex"
-                onClick={() => {
-                  view.current?.focus()
-                }}
-              >
-                <div className="w-[30px] border-r h-full bg-neutral-100 border-[#ddd] flex-grow-0 flex-shrink-0"></div>
-                <div className="w-full cursor-text"></div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </ReflexElement>
+        </ReflexContainer>
         <div className="bg-white flex justify-between items-center border-t min-h-[48px]">
           {renderProgramControl()}
         </div>
@@ -167,10 +274,10 @@ export function EditArea() {
                 submit_event(`run_${core.ws.type}`, core)
               }}
             >
-              Programm ausführen
+              <FaIcon icon={faPlay} /> <span className="underline">S</span>tart
             </button>
             <span>
-              {core.ws.type == 'free' && (
+              {(core.ws.type == 'free' || core.ws.type == 'puzzle') && (
                 <label className="mr-4">
                   <input
                     type="checkbox"
@@ -191,7 +298,7 @@ export function EditArea() {
                       }
                     }}
                   />{' '}
-                  Vorschau
+                  <span className="underline">V</span>orschau
                 </label>
               )}
               <select

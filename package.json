@@ -24,7 +24,7 @@
     "next": "12",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-reflex": "^4.0.6"
+    "react-reflex": "^4.0.8"
   },
   "devDependencies": {
     "@lezer/generator": "^0.16.0",

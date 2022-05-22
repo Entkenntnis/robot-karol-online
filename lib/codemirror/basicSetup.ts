@@ -298,6 +298,8 @@ function buildMyAutocomplete(): CompletionSource {
       options = [{ label: 'dann' }]
     }
 
+    if (options.some((x) => x.label == token?.text)) return null
+
     return token || context.explicit
       ? {
           from: token ? token.from : context.pos,

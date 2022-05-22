@@ -112,6 +112,14 @@ interface WorkspaceStateFreeMode extends WorkspaceStateBase {
   currentTab: number
 }
 
+export interface WorkspaceStatePuzzleMode extends WorkspaceStateBase {
+  type: 'puzzle'
+  targetImage: string
+  posX: number
+  posY: number
+  targetWorld: World
+}
+
 export interface WorkspaceStateLevelMode extends WorkspaceStateBase {
   type: 'level'
   progress: number
@@ -121,7 +129,10 @@ export interface WorkspaceStateLevelMode extends WorkspaceStateBase {
   sparkle?: Sparkle
 }
 
-export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStateLevelMode
+export type WorkspaceState =
+  | WorkspaceStateFreeMode
+  | WorkspaceStateLevelMode
+  | WorkspaceStatePuzzleMode
 
 export interface CoreState {
   workspaces: WorkspaceState[]

@@ -1,6 +1,12 @@
 import { stat } from 'fs'
 import { levels } from '../data/levels'
-import { CoreState, WorkspaceState, WorkspaceStateBase, World } from './types'
+import {
+  CoreState,
+  WorkspaceState,
+  WorkspaceStateBase,
+  WorkspaceStatePuzzleMode,
+  World,
+} from './types'
 
 export function createDefaultCoreState(): CoreState {
   return {
@@ -13,6 +19,7 @@ export function createDefaultCoreState(): CoreState {
       createLevel4WorkspaceState(),
       createLevel6WorkspaceState(),
       createLevel8WorkspaceState(),
+      createPuzzle1WorkspaceState(),
     ],
     currentWorkspace: 0,
     showResearchCenter: false,
@@ -164,6 +171,74 @@ export function createFreeModeWorkspaceState(): WorkspaceState {
     type: 'free',
     tabs: ['', '', '', ''],
     currentTab: 0,
+  }
+  ws.ui.showPreview = true
+  return ws
+}
+
+export function createPuzzle1WorkspaceState(): WorkspaceStatePuzzleMode {
+  const ws: WorkspaceStatePuzzleMode = {
+    ...createBaseWorkspace(),
+    world: createWorld(10, 10, 6),
+    targetWorld: {
+      dimX: 10,
+      dimY: 10,
+      height: 6,
+      karol: { x: 0, y: 0, dir: 'south' },
+      bricks: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ],
+      marks: [
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+      ],
+      blocks: [
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+      ],
+      chips: [],
+    },
+    title: 'Start',
+    type: 'puzzle',
+    code: `Hinlegen
+Schritt
+RechtsDrehen
+Hinlegen
+LinksDrehen
+Hinlegen
+Schritt
+RechtsDrehen
+Hinlegen
+LinksDrehen
+Schritt`,
+    targetImage: '/puzzle/start.png',
+    posX: 253,
+    posY: 91,
   }
   ws.ui.showPreview = true
   return ws

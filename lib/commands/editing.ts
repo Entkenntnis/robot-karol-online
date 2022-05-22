@@ -12,7 +12,7 @@ export function lint(core: Core, view: EditorView) {
   // good place to sync code with state
   const code = view.state.doc.sliceString(0)
   core.mutateWs((state) => {
-    if (state.type == 'level') {
+    if (state.type == 'level' || state.type == 'puzzle') {
       state.code = code
     } else {
       if (!state.ui.needsTextRefresh) {

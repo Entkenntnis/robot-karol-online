@@ -32,7 +32,7 @@ export const Editor = ({ innerRef }: EditorProps) => {
       const view: EditorView = new EditorView({
         state: EditorState.create({
           doc:
-            core.ws.type == 'level'
+            core.ws.type == 'level' || core.ws.type == 'puzzle'
               ? core.ws.code
               : core.ws.tabs[core.ws.currentTab],
           extensions: [

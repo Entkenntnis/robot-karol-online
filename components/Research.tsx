@@ -29,7 +29,7 @@ export function Research() {
         <a
           className="bg-gray-200 cursor-pointer px-2 py-1.5 rounded mr-4"
           target="_blank"
-          href={`//${window.window.location.host}`}
+          href={`//${window.location.host}`}
           rel="noreferrer"
         >
           Neues Fenster
@@ -41,6 +41,40 @@ export function Research() {
           Zurück zum Editor
         </button>
       </div>
+
+      <div className="mx-4 flex justify-center mb-48 mt-8">
+        <div>
+          <h2 className="mt-3 mb-4 text-xl">Puzzle</h2>
+          <p className="mt-3">
+            Entdecke die Welt des Programmierens mit Robot Karol:
+          </p>
+          <div
+            className="h-[570px] w-[1059px] mt-4 relative"
+            style={{ backgroundImage: 'url(/puzzle/map.png)' }}
+          >
+            {core.state.workspaces.map(
+              (ws, i) =>
+                ws.type == 'puzzle' && (
+                  <div
+                    className="absolute cursor-pointer select-none"
+                    style={{ left: `${ws.posX}px`, top: `${ws.posY}px` }}
+                    onClick={() => {
+                      switchToWorkspace(core, i)
+                    }}
+                  >
+                    <div className="flex justify-center">
+                      <span className="bg-yellow-200 px-2 py-0.5 rounded">
+                        {ws.title}
+                      </span>
+                    </div>
+                    <img src="/marke.png" alt="Marke"></img>
+                  </div>
+                )
+            )}
+          </div>
+        </div>
+      </div>
+
       <h2 className="mt-3 mb-4 mx-4 text-xl">Aufgaben</h2>
       <p className="mt-3 mx-4">Übe dich im Programmieren mit Robot Karol:</p>
       <div className=" w-full flex flex-wrap overflow-y-auto">

@@ -18,20 +18,17 @@ export function Workspace() {
 
   return (
     <div className="overflow-hidden flex-grow">
-      {/* @ts-ignore https://github.com/leefsmp/Re-Flex/issues/158 */}
       <ReflexContainer
         orientation="vertical"
         windowResizeAware
         className="h-full"
       >
-        {/* @ts-ignore https://github.com/leefsmp/Re-Flex/issues/158 */}
-        <ReflexElement className="h-full" minSize={430}>
+        <ReflexElement className="h-full" minSize={330}>
           <EditArea />
         </ReflexElement>
 
         <ReflexSplitter style={{ width: 3 }} />
 
-        {/* @ts-ignore https://github.com/leefsmp/Re-Flex/issues/158 */}
         <ReflexElement minSize={400}>
           <Player />
         </ReflexElement>
