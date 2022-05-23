@@ -150,7 +150,7 @@ export function resetMark(core: Core) {
 }
 
 function checkChipActive(core: Core) {
-  for (const chip of core.ws.world.chips) {
+  /*for (const chip of core.ws.world.chips) {
     //chips[chip.tag].checkAction(core, chip)
     const chipDef = chips[chip.tag]
     const world = core.ws.world
@@ -194,7 +194,7 @@ function checkChipActive(core: Core) {
         }
       }
     }
-  }
+  }*/
 }
 
 export function toggleBlock(core: Core) {

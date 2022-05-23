@@ -16,7 +16,7 @@ export function hideResearchCenter(core: Core) {
 
 export function switchToWorkspace(core: Core, id: number) {
   core.mutateCore((state) => {
-    state.currentWorkspace = id
+    //state.currentWorkspace = id
     state.showResearchCenter = false
   })
 }

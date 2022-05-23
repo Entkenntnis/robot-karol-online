@@ -172,7 +172,6 @@ export function Player() {
               <View
                 world={core.ws.world}
                 wireframe={core.ws.ui.wireframe}
-                sparkle={core.level?.sparkle}
                 preview={
                   core.ws.ui.showPreview ? core.ws.ui.preview : undefined
                 }
@@ -269,16 +268,12 @@ export function Player() {
               )}
               onClick={() => {
                 abort(core)
-                if (core.ws.type == 'level') {
-                  resetWorld(core)
-                } else {
-                  createWorldCmd(
-                    core,
-                    core.ws.world.dimX,
-                    core.ws.world.dimY,
-                    core.ws.world.height
-                  )
-                }
+                createWorldCmd(
+                  core,
+                  core.ws.world.dimX,
+                  core.ws.world.dimY,
+                  core.ws.world.height
+                )
               }}
             >
               Neu starten
@@ -286,44 +281,7 @@ export function Player() {
           )}
         </div>
       </div>
-      {core.ws.type == 'level' && (
-        <div className="border-t">
-          <div className="flex justify-between items-center select-none h-12 border-b">
-            {core.ws.progress < levels[core.ws.levelId].target ? (
-              <>
-                <div className="pl-4 font-bold">{core.ws.title}</div>
-                <div
-                  className={clsx(
-                    'bg-gray-200 w-full px-1 mx-3 relative flex justify-around',
-                    'items-center'
-                  )}
-                >
-                  <div
-                    className="bg-green-300 absolute left-0 top-0 bottom-0"
-                    style={{
-                      width: `${Math.round(
-                        (core.ws.progress / levels[core.ws.levelId].target) *
-                          100
-                      )}%`,
-                    }}
-                  ></div>
-                  <div className="z-10">
-                    {core.ws.progress} / {levels[core.ws.levelId].target}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className="m-3">
-                {core.ws.title}:{' '}
-                <span className="text-green-600">
-                  abgeschlossen <FaIcon icon={faCheckCircle} />
-                </span>
-              </div>
-            )}
-          </div>
-          <div className="p-3">{levels[core.ws.levelId].description}</div>
-        </div>
-      )}
+
       <div className="flex justify-between items-center select-none h-12 border-t flex-grow-0 flex-shrink-0">
         <div className="pl-4">Fortschritt:</div>
         <div
@@ -333,7 +291,10 @@ export function Player() {
           )}
         >
           <div
-            className="bg-green-300 absolute left-0 top-0 bottom-0"
+            className={clsx(
+              'absolute left-0 top-0 bottom-0',
+              progress < 100 ? 'bg-yellow-200' : 'bg-green-300'
+            )}
             style={{
               width: `${progress}%`,
             }}

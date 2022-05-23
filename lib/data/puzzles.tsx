@@ -7,7 +7,7 @@ export const puzzles = [
     description: (
       <>
         <p className="mb-2">
-          Herzlich Willkommen bei Robot Karol! Du findest hier ein entspanntes
+          Herzlich Willkommen bei Robot Karol! Hier findest du ein entspanntes
           Bau- und Puzzlespiel und bekommst dabei einen Einblick in die Welt des
           Programmierens. Fange mit dieser kleinen Welt an:
         </p>
@@ -17,13 +17,11 @@ export const puzzles = [
           className="mx-auto my-3 h-[180px]"
         ></img>
         <p className="mb-2">
-          Klicke dafür auf Karol und steuere ihn mit den Pfeiltasten. Wenn sich
-          die Vorschau in der richtigen Position befindet, dann drücke die Taste
-          S um das Programm zu starten und die Ziegel zu legen.
-        </p>
-        <p className="mb-2">
-          Wenn du dich verbaut hast, kannst du mit einem Klick auf &quot;Neu
-          starten&quot; die Welt zurücksetzen.
+          Klicke dafür auf Karol und steuere ihn mit den Pfeiltasten. Es ist
+          bereits ein kleines Programm für dich vorbereitet. Die transparenten
+          Ziegel zeigen, was bei der Ausführung des Programms passiert. Bewege
+          zuerst Karol in die passende Position und drücke dann die Taste{' '}
+          <strong>S</strong> um das Programm zu starten und die Ziegel zu legen.
         </p>
       </>
     ),

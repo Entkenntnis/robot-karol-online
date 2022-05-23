@@ -59,15 +59,11 @@ export class Core {
   }
 
   get ws() {
-    return this.state.workspaces[this.state.currentWorkspace]
+    return this.state.puzzleWorkspace || this.state.editorWorkspace
   }
 
   get level() {
-    if (this.ws.type !== 'level') {
-      return undefined
-    } else {
-      return this.ws
-    }
+    throw 'not working anymore'
   }
 
   // always mutate core state with this function
@@ -80,16 +76,14 @@ export class Core {
   // proxy call to core, workspace aware
   mutateWs(updater: (draft: Draft<WorkspaceState>) => void) {
     this.mutateCore((state) => {
-      updater(state.workspaces[state.currentWorkspace])
+      updater(state.puzzleWorkspace || state.editorWorkspace)
     })
   }
 
   mutateLevel(updater: (draft: Draft<WorkspaceStateLevelMode>) => void) {
     this.mutateCore((state) => {
-      const ws = state.workspaces[state.currentWorkspace]
-      if (ws.type == 'level') {
-        updater(ws)
-      }
+      const ws = state.puzzleWorkspace || state.editorWorkspace
+      throw 'not working anymore'
     })
   }
 }

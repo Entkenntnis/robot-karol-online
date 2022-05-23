@@ -10,14 +10,11 @@ import { Player } from './Player'
 export function Workspace() {
   const core = useCore()
 
-  useEffect(() => {
-    if (core.ws.type == 'level' && !core.ws.worldInit) {
-      initWorld(core)
-    }
-  }, [core])
-
   return (
     <div className="overflow-hidden flex-grow">
+      {core.ws.type == 'puzzle' && core.ws.preMode && (
+        <div className="absolute inset-0 bg-gray-400/60 z-20"></div>
+      )}
       <ReflexContainer
         orientation="vertical"
         windowResizeAware

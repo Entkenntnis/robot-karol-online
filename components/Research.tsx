@@ -1,13 +1,13 @@
 import clsx from 'clsx'
 import { switchToWorkspace } from '../lib/commands/researchCenter'
 import { levels } from '../lib/data/levels'
+import { puzzles } from '../lib/data/puzzles'
 import { useCore } from '../lib/state/core'
 import { submit_event } from '../lib/stats/submit'
 
 export function Research() {
   const core = useCore()
 
-  const freeWorkspace = core.state.workspaces.findIndex((x) => x.type == 'free')
   return (
     <div className="bg-blue-200 h-full overflow-auto">
       <div>
@@ -36,7 +36,7 @@ export function Research() {
         </a>
         <button
           className="bg-green-400 px-2 py-1.5 rounded"
-          onClick={() => switchToWorkspace(core, freeWorkspace)}
+          onClick={() => switchToWorkspace(core, 0)}
         >
           Zurück zum Editor
         </button>
@@ -52,75 +52,30 @@ export function Research() {
             className="h-[570px] w-[1059px] mt-4 relative"
             style={{ backgroundImage: 'url(/puzzle/map.png)' }}
           >
-            {core.state.workspaces.map(
-              (ws, i) =>
-                ws.type == 'puzzle' && (
-                  <div
-                    className="absolute cursor-pointer select-none"
-                    style={{ left: `${ws.posX}px`, top: `${ws.posY}px` }}
-                    onClick={() => {
-                      switchToWorkspace(core, i)
-                    }}
-                  >
-                    <div className="flex justify-center">
-                      <span className="bg-yellow-200 px-2 py-0.5 rounded">
-                        {ws.title}
-                      </span>
-                    </div>
-                    <img src="/marke.png" alt="Marke"></img>
-                  </div>
-                )
-            )}
+            {puzzles.map((puzzle, i) => (
+              <div
+                className="absolute cursor-pointer select-none"
+                style={{ left: `${puzzle.posX}px`, top: `${puzzle.posY}px` }}
+                onClick={() => {
+                  switchToWorkspace(core, i)
+                }}
+                key={i}
+              >
+                <div className="flex justify-center">
+                  <span className="bg-yellow-200 px-2 py-0.5 rounded">
+                    {puzzle.title}
+                  </span>
+                </div>
+                <img src="/marke.png" alt="Marke"></img>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       <h2 className="mt-3 mb-4 mx-4 text-xl">Aufgaben</h2>
       <p className="mt-3 mx-4">Übe dich im Programmieren mit Robot Karol:</p>
-      <div className=" w-full flex flex-wrap overflow-y-auto">
-        {core.state.workspaces.map(
-          (ws, i) =>
-            ws.type == 'level' && (
-              <div
-                className={clsx(
-                  'w-48 h-64 border-2 rounded m-4 cursor-pointer',
-                  core.state.currentWorkspace == i && 'border-yellow-400'
-                )}
-                key={ws.title}
-                onClick={() => {
-                  switchToWorkspace(core, i)
-                  submit_event(
-                    `open_level_${levels[ws.levelId].title.toLowerCase()}`,
-                    core
-                  )
-                }}
-              >
-                <p className="text-center mt-3 font-bold">{ws.title}</p>
-                <div
-                  className="mx-3 mt-2 h-[110px] bg-contain bg-no-repeat bg-center"
-                  style={{
-                    backgroundImage: `url(${levels[ws.levelId].previewImage})`,
-                  }}
-                ></div>
-                <div
-                  className={clsx(
-                    'm-3 text-center',
-                    ws.progress >= levels[ws.levelId].target && 'text-green-700'
-                  )}
-                >
-                  Fortschritt: {ws.progress} / {levels[ws.levelId].target}
-                </div>
-                <div className="flex justify-around mt-3">
-                  <button className="rounded px-2 py-0.5 bg-blue-400">
-                    {ws.progress >= levels[ws.levelId].target
-                      ? 'Öffnen'
-                      : 'Bearbeiten'}
-                  </button>
-                </div>
-              </div>
-            )
-        )}
-      </div>
+      <div className=" w-full flex flex-wrap overflow-y-auto"></div>
       <div className="mt-3 mx-4 border-b pb-5">
         Hinweise zu den Aufgaben:
         <ul className="list-disc ml-3">

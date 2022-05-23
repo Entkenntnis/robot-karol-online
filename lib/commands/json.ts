@@ -3,8 +3,8 @@ import { World } from '../state/types'
 import { abort } from './vm'
 
 export function serialize(core: Core) {
-  if (core.ws.type == 'level') {
-    throw new Error("Can't export level")
+  if (core.ws.type == 'puzzle') {
+    throw new Error("Can't export puzzle")
   }
   const { world, tabs } = core.ws
   return { world, tabs }

@@ -36,6 +36,7 @@ import { FaIcon } from './FaIcon'
 import {
   faArrowRight,
   faArrowTurnUp,
+  faCheckCircle,
   faPlay,
 } from '@fortawesome/free-solid-svg-icons'
 import { execPreview } from '../lib/commands/preview'
@@ -43,6 +44,7 @@ import { forceLinting } from '@codemirror/lint'
 import { submit_event } from '../lib/stats/submit'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 import { showResearchCenter } from '../lib/commands/researchCenter'
+import { puzzles } from '../lib/data/puzzles'
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -62,7 +64,7 @@ export function EditArea() {
           from: 0,
           to: view.current.state.doc.length,
           insert:
-            core.ws.type == 'level' || core.ws.type == 'puzzle'
+            core.ws.type == 'puzzle'
               ? core.ws.code
               : core.ws.tabs[core.ws.currentTab],
         },
@@ -128,7 +130,7 @@ export function EditArea() {
 
   return (
     <>
-      <div className="w-full text-base h-full overflow-auto flex flex-col outline-none ">
+      <div className="w-full text-base h-full overflow-auto flex flex-col outline-none">
         <ReflexContainer
           orientation="horizontal"
           windowResizeAware
@@ -137,45 +139,50 @@ export function EditArea() {
           <ReflexElement minSize={100} propagateDimensions={true}>
             {core.ws.type == 'puzzle' &&
               (progress < 100 ? (
-                <div className="h-full flex flex-col">
+                <div className="h-full flex flex-col z-50 relative bg-white">
                   <div className="p-3 overflow-y-auto">
-                    <div>
-                      <p className="mb-2">
-                        Herzlich Willkommen bei Robot Karol! Du findest hier ein
-                        entspanntes Bau- und Puzzlespiel und bekommst dabei
-                        einen Einblick in die Welt des Programmierens. Fange mit
-                        dieser kleinen Welt an:
+                    {puzzles[0].description}
+                    {core.ws.preMode && (
+                      <p className="text-center mt-5 mb-5">
+                        <button
+                          className="bg-green-300 px-3 py-0.5 rounded z-10"
+                          onClick={() => {
+                            core.mutateWs((ws) => {
+                              if (ws.type == 'puzzle') {
+                                ws.preMode = false
+                                ws.ui.shouldFocusWrapper = true
+                              }
+                            })
+                          }}
+                        >
+                          Loslegen
+                        </button>
                       </p>
-                      <img
-                        src={core.ws.targetImage}
-                        alt="target"
-                        className="mx-auto my-3 h-[180px]"
-                      ></img>
-                      <p className="mb-2">
-                        Klicke dafür auf Karol und steuere ihn mit den
-                        Pfeiltasten. Wenn sich die Vorschau in der richtigen
-                        Position befindet, dann drücke die Taste S um das
-                        Programm zu starten und die Ziegel zu legen.
-                      </p>
-                      <p className="mb-2">
-                        Wenn du dich verbaut hast, kannst du mit einem Klick auf
-                        &quot;Neu starten&quot; die Welt zurücksetzen.
-                      </p>
-                    </div>
+                    )}
+                    <div className="absolute bottom-0 left-0 right-0 h-5 bg-gradient-to-t from-white"></div>
                   </div>
                 </div>
               ) : (
-                <div className="h-full p-3">
-                  Super gemacht!
-                  <p>
-                    <button
-                      onClick={() => {
-                        showResearchCenter(core)
-                      }}
-                    >
-                      Zum Menü zurückkehren
-                    </button>
-                  </p>
+                <div className="h-full p-3 text-center flex justify-center items-center">
+                  <div>
+                    <p>
+                      <FaIcon
+                        icon={faCheckCircle}
+                        className="text-3xl text-green-400"
+                      />
+                    </p>
+                    <p className="mt-4 mb-6">Super gemacht!</p>
+                    <p>
+                      <button
+                        onClick={() => {
+                          showResearchCenter(core)
+                        }}
+                        className="bg-blue-200 px-2 py-0.5 rounded"
+                      >
+                        Zum Menü zurückkehren
+                      </button>
+                    </p>
+                  </div>
                 </div>
               ))}
           </ReflexElement>

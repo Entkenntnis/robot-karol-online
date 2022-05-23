@@ -106,7 +106,7 @@ export interface WorkspaceStateBase {
   settings: Settings
 }
 
-interface WorkspaceStateFreeMode extends WorkspaceStateBase {
+export interface WorkspaceStateFreeMode extends WorkspaceStateBase {
   type: 'free'
   tabs: [string, string, string, string]
   currentTab: number
@@ -118,6 +118,7 @@ export interface WorkspaceStatePuzzleMode extends WorkspaceStateBase {
   posX: number
   posY: number
   targetWorld: World
+  preMode: boolean
 }
 
 export interface WorkspaceStateLevelMode extends WorkspaceStateBase {
@@ -135,11 +136,11 @@ export type WorkspaceState =
   | WorkspaceStatePuzzleMode
 
 export interface CoreState {
-  workspaces: WorkspaceState[]
-  currentWorkspace: number
   showResearchCenter: boolean
   enableStats: boolean
   projectTitle?: string
+  puzzleWorkspace?: WorkspaceStatePuzzleMode
+  editorWorkspace: WorkspaceStateFreeMode
 }
 
 export interface CoreRefs {

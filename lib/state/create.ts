@@ -1,29 +1,18 @@
-import { stat } from 'fs'
 import { levels } from '../data/levels'
 import {
   CoreState,
   WorkspaceState,
   WorkspaceStateBase,
+  WorkspaceStateFreeMode,
   WorkspaceStatePuzzleMode,
   World,
 } from './types'
 
 export function createDefaultCoreState(): CoreState {
   return {
-    workspaces: [
-      createFreeModeWorkspaceState(),
-      createLevel3WorkspaceState(),
-      createLevel1WorkspaceState(),
-      createLevel5WorkspaceState(),
-      createLevel7WorkspaceState(),
-      createLevel4WorkspaceState(),
-      createLevel6WorkspaceState(),
-      createLevel8WorkspaceState(),
-      createPuzzle1WorkspaceState(),
-    ],
-    currentWorkspace: 0,
     showResearchCenter: false,
     enableStats: true,
+    editorWorkspace: createFreeModeWorkspaceState(),
   }
 }
 
@@ -164,7 +153,7 @@ export function createLevel1WorkspaceState(): WorkspaceState {
   return state
 }
 
-export function createFreeModeWorkspaceState(): WorkspaceState {
+export function createFreeModeWorkspaceState(): WorkspaceStateFreeMode {
   const ws: WorkspaceState = {
     ...createBaseWorkspace(),
     title: 'Neue Welt',
@@ -239,6 +228,7 @@ Schritt`,
     targetImage: '/puzzle/start.png',
     posX: 253,
     posY: 91,
+    preMode: true,
   }
   ws.ui.showPreview = true
   return ws
