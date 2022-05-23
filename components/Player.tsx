@@ -2,6 +2,8 @@ import {
   faCheckCircle,
   faDownload,
   faEquals,
+  faExternalLink,
+  faExternalLinkSquare,
   faFileImport,
   faLeftLong,
   faMagnifyingGlassMinus,
@@ -143,7 +145,11 @@ export function Player() {
                   e.preventDefault()
                 }
                 if (e.code == 'KeyS') {
-                  run(core)
+                  if (core.ws.ui.state == 'ready') {
+                    run(core)
+                  } else if (core.ws.ui.state == 'running') {
+                    abort(core)
+                  }
                   e.preventDefault()
                 }
                 if (e.code == 'KeyV') {
@@ -214,53 +220,57 @@ export function Player() {
               <FaIcon icon={faMagnifyingGlassPlus} className="cursor-pointer" />
             </span>
           </div>
-          {core.ws.type == 'free' ? (
+          {core.ws.type == 'free' && (
             <div className="absolute left-1 top-1">
-              <button
-                className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
-                onClick={() => {
-                  setShowNewWorldModal(true)
-                }}
-              >
-                Neue Welt
-              </button>
-              <button
-                className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
-                onClick={() => {
-                  document.getElementById('load_project')?.click()
-                }}
-              >
-                <FaIcon icon={faFileImport} /> Import
-              </button>
-              <button
-                className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
-                onClick={() => {
-                  const date = new Date()
-                  const filename =
-                    date.toLocaleDateString('en-CA') +
-                    '_' +
-                    date.getHours().toString().padStart(2, '0') +
-                    date.getMinutes().toString().padStart(2, '0') +
-                    date.getSeconds().toString().padStart(2, '0') +
-                    '_robot-karol.json'
-                  const contentType = 'application/json;charset=utf-8;'
-                  var a = document.createElement('a')
-                  a.download = filename
-                  a.href =
-                    'data:' +
-                    contentType +
-                    ',' +
-                    encodeURIComponent(JSON.stringify(serialize(core)))
-                  a.target = '_blank'
-                  document.body.appendChild(a)
-                  a.click()
-                  document.body.removeChild(a)
-                }}
-              >
-                <FaIcon icon={faDownload} /> Export
-              </button>
+              {core.state.projectTitle ? (
+                <>
+                  <button
+                    className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
+                    onClick={() => {
+                      abort(core)
+                      core.mutateWs((ws) => {
+                        if (core.state.projectInitialWorld) {
+                          ws.world = core.state.projectInitialWorld
+                        }
+                      })
+                    }}
+                  >
+                    Welt zurücksetzen
+                  </button>
+                  <button
+                    className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
+                    onClick={() => {
+                      window.open(`//${window.location.host}`, '_blank')
+                    }}
+                  >
+                    Neues Fenster <FaIcon icon={faExternalLink} />
+                  </button>
+                  {renderExport()}
+                </>
+              ) : (
+                <>
+                  <button
+                    className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
+                    onClick={() => {
+                      setShowNewWorldModal(true)
+                    }}
+                  >
+                    Neue Welt
+                  </button>
+                  <button
+                    className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
+                    onClick={() => {
+                      document.getElementById('load_project')?.click()
+                    }}
+                  >
+                    <FaIcon icon={faFileImport} /> Laden
+                  </button>
+                  {renderExport()}
+                </>
+              )}
             </div>
-          ) : (
+          )}
+          {core.ws.type == 'puzzle' && (
             <button
               className={clsx(
                 'absolute left-1 top-1 rounded',
@@ -282,26 +292,28 @@ export function Player() {
         </div>
       </div>
 
-      <div className="flex justify-between items-center select-none h-12 border-t flex-grow-0 flex-shrink-0">
-        <div className="pl-4">Fortschritt:</div>
-        <div
-          className={clsx(
-            'bg-gray-200 w-full px-1 mx-3 relative flex justify-around',
-            'items-center'
-          )}
-        >
+      {core.ws.type == 'puzzle' && (
+        <div className="flex justify-between items-center select-none h-12 border-t flex-grow-0 flex-shrink-0">
+          <div className="pl-4">Fortschritt:</div>
           <div
             className={clsx(
-              'absolute left-0 top-0 bottom-0',
-              progress < 100 ? 'bg-yellow-200' : 'bg-green-300'
+              'bg-gray-200 w-full px-1 mx-3 relative flex justify-around',
+              'items-center'
             )}
-            style={{
-              width: `${progress}%`,
-            }}
-          ></div>
-          <div className="z-10">{progress}%</div>
+          >
+            <div
+              className={clsx(
+                'absolute left-0 top-0 bottom-0',
+                progress < 100 ? 'bg-yellow-200' : 'bg-green-300'
+              )}
+              style={{
+                width: `${progress}%`,
+              }}
+            ></div>
+            <div className="z-10">{progress}%</div>
+          </div>
         </div>
-      </div>
+      )}
 
       <div
         className={clsx(
@@ -452,6 +464,38 @@ export function Player() {
       )}
     </div>
   )
+
+  function renderExport() {
+    return (
+      <button
+        className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
+        onClick={() => {
+          const date = new Date()
+          const filename =
+            date.toLocaleDateString('en-CA') +
+            '_' +
+            date.getHours().toString().padStart(2, '0') +
+            date.getMinutes().toString().padStart(2, '0') +
+            date.getSeconds().toString().padStart(2, '0') +
+            '_robot-karol.json'
+          const contentType = 'application/json;charset=utf-8;'
+          var a = document.createElement('a')
+          a.download = filename
+          a.href =
+            'data:' +
+            contentType +
+            ',' +
+            encodeURIComponent(JSON.stringify(serialize(core)))
+          a.target = '_blank'
+          document.body.appendChild(a)
+          a.click()
+          document.body.removeChild(a)
+        }}
+      >
+        <FaIcon icon={faDownload} /> Speichern
+      </button>
+    )
+  }
 }
 
 function NewWorldSettings({

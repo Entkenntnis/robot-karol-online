@@ -2,14 +2,14 @@ export const puzzles = [
   {
     id: 1,
     title: 'Start',
-    posX: 253,
+    posX: 240,
     posY: 91,
     description: (
       <>
         <p className="mb-2">
-          Herzlich Willkommen bei Robot Karol! Hier findest du ein entspanntes
-          Bau- und Puzzlespiel und bekommst dabei einen Einblick in die Welt des
-          Programmierens. Fange mit dieser kleinen Welt an:
+          Herzlich Willkommen bei Robot Karol! In diesem Bereich lernst du im
+          Rahmen eines entspanntes Bau- und Puzzlespiel die ersten Grundlagen
+          der Programmierung kennen. Fangen wir mit dieser kleinen Welt an:
         </p>
         <img
           src="/puzzle/start.png"
@@ -21,7 +21,8 @@ export const puzzles = [
           bereits ein kleines Programm für dich vorbereitet. Die transparenten
           Ziegel zeigen, was bei der Ausführung des Programms passiert. Bewege
           zuerst Karol in die passende Position und drücke dann die Taste{' '}
-          <strong>S</strong> um das Programm zu starten und die Ziegel zu legen.
+          <strong>S</strong> (oder die Taste Start) um das Programm zu starten
+          und die Ziegel zu legen.
         </p>
       </>
     ),
@@ -70,14 +71,14 @@ export const puzzles = [
     },
     code: `Hinlegen
 Schritt
-RechtsDrehen
-Hinlegen
 LinksDrehen
+Hinlegen
+RechtsDrehen
 Hinlegen
 Schritt
-RechtsDrehen
-Hinlegen
 LinksDrehen
+Hinlegen
+RechtsDrehen
 Schritt`,
   },
 ]

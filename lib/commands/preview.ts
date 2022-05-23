@@ -19,7 +19,7 @@ export function execPreview(core: Core) {
   const frames: { [index: number]: number }[] = [{}]
   while (pc < bytecode.length) {
     counter++
-    if (counter > 400) {
+    if (counter > 4000) {
       // limit run time
       pc = -1
       break

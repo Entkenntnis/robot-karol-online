@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import clsx from 'clsx'
 
 import { CoreProvider, useCreateCore } from '../lib/state/core'
-import { Research } from './Research'
+import { Research } from './Menu'
 import { Workspace } from './Workspace'
 import {
   hideResearchCenter,
@@ -17,7 +17,6 @@ export function App() {
 
   useEffect(() => {
     submit_event('visit', core)
-    showResearchCenter(core)
     // only run on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

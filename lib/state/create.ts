@@ -16,150 +16,11 @@ export function createDefaultCoreState(): CoreState {
   }
 }
 
-export function createLevel8WorkspaceState(): WorkspaceState {
-  const state: WorkspaceState = {
-    ...createBaseWorkspace(),
-    world: createWorld(15, 14, 6),
-    title: levels[7].title,
-    type: 'level',
-    progress: 0,
-    levelId: 7,
-    worldInit: false,
-  }
-  state.world.chips.push({ tag: 'fullung', x: 3, y: 3 })
-  //state.world.marks[0][0] = true
-  state.world.karol.x = 7
-  state.world.karol.y = 3
-  return state
-}
-
-export function createLevel7WorkspaceState(): WorkspaceState {
-  const state: WorkspaceState = {
-    ...createBaseWorkspace(),
-    world: createWorld(11, 12, 6),
-    title: levels[6].title,
-    type: 'level',
-    progress: 0,
-    levelId: 6,
-    worldInit: false,
-  }
-  state.world.chips.push({ tag: 'kopierer', x: 3, y: 3 })
-  //state.world.marks[0][0] = true
-  state.world.karol.x = 5
-  state.world.karol.y = 3
-  return state
-}
-
-export function createLevel6WorkspaceState(): WorkspaceState {
-  const state: WorkspaceState = {
-    ...createBaseWorkspace(),
-    world: createWorld(13, 10, 10),
-    title: levels[5].title,
-    type: 'level',
-    progress: 0,
-    levelId: 5,
-    worldInit: false,
-  }
-  state.world.chips.push({ tag: 'stapler', x: 3, y: 3 })
-  //state.world.marks[0][0] = true
-  state.world.karol.x = 7
-  state.world.karol.y = 3
-  return state
-}
-
-export function createLevel5WorkspaceState(): WorkspaceState {
-  const state: WorkspaceState = {
-    ...createBaseWorkspace(),
-    world: createWorld(14, 10, 6),
-    title: levels[4].title,
-    type: 'level',
-    progress: 0,
-    levelId: 4,
-    worldInit: false,
-  }
-  state.world.chips.push({ tag: 'aufraumer', x: 3, y: 3 })
-  //state.world.marks[0][0] = true
-  state.world.karol.x = 10
-  state.world.karol.y = 4
-  state.world.karol.dir = 'west'
-  return state
-}
-
-export function createLevel4WorkspaceState(): WorkspaceState {
-  const state: WorkspaceState = {
-    ...createBaseWorkspace(),
-    world: createWorld(14, 10, 6),
-    title: levels[3].title,
-    type: 'level',
-    progress: 0,
-    levelId: 3,
-    worldInit: false,
-  }
-  state.world.chips.push({ tag: 'treppe', x: 3, y: 3 })
-  //state.world.marks[0][0] = true
-  state.world.karol.x = 10
-  state.world.karol.y = 4
-  state.world.karol.dir = 'west'
-  return state
-}
-
-export function createLevel3WorkspaceState(): WorkspaceState {
-  const state: WorkspaceState = {
-    ...createBaseWorkspace(),
-    world: createWorld(13, 13, 6),
-    title: levels[2].title,
-    type: 'level',
-    progress: 0,
-    levelId: 2,
-    worldInit: false,
-  }
-  state.world.chips.push({ tag: 'copy', x: 4, y: 3 })
-  state.world.marks[0][0] = true
-  state.world.karol.x = 6
-  state.world.karol.y = 3
-  return state
-}
-
-export function createLevel2WorkspaceState(): WorkspaceState {
-  const state: WorkspaceState = {
-    ...createBaseWorkspace(),
-    world: createWorld(12, 9, 6),
-    title: levels[1].title,
-    type: 'level',
-    progress: 0,
-    levelId: 1,
-    worldInit: false,
-  }
-  state.world.chips.push({ tag: 'start', x: 4, y: 3 })
-  state.world.karol.x = 6
-  state.world.karol.y = 3
-  return state
-}
-
-export function createLevel1WorkspaceState(): WorkspaceState {
-  const state: WorkspaceState = {
-    ...createBaseWorkspace(),
-    world: createWorld(13, 10, 6),
-    title: levels[0].title,
-    type: 'level',
-    progress: 0,
-    levelId: 0,
-    worldInit: false,
-  }
-  state.world.chips.push({ tag: 'inverter', x: 4, y: 3 })
-  state.world.marks[0][0] = true
-  state.world.karol.x = 6
-  state.world.karol.y = 3
-  return state
-}
-
 export function createFreeModeWorkspaceState(): WorkspaceStateFreeMode {
   const ws: WorkspaceState = {
     ...createBaseWorkspace(),
     title: 'Neue Welt',
     type: 'free',
-    tabs: ['', '', '', ''],
-    currentTab: 0,
   }
   ws.ui.showPreview = true
   return ws
@@ -214,16 +75,17 @@ export function createPuzzle1WorkspaceState(): WorkspaceStatePuzzleMode {
     },
     title: 'Start',
     type: 'puzzle',
+    id: 1,
     code: `Hinlegen
 Schritt
-RechtsDrehen
-Hinlegen
 LinksDrehen
+Hinlegen
+RechtsDrehen
 Hinlegen
 Schritt
-RechtsDrehen
-Hinlegen
 LinksDrehen
+Hinlegen
+RechtsDrehen
 Schritt`,
     targetImage: '/puzzle/start.png',
     posX: 253,

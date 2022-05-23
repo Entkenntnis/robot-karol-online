@@ -1,5 +1,8 @@
 import clsx from 'clsx'
-import { switchToWorkspace } from '../lib/commands/researchCenter'
+import {
+  switchToFreeWorkspace,
+  switchToPuzzle,
+} from '../lib/commands/researchCenter'
 import { levels } from '../lib/data/levels'
 import { puzzles } from '../lib/data/puzzles'
 import { useCore } from '../lib/state/core'
@@ -7,6 +10,77 @@ import { submit_event } from '../lib/stats/submit'
 
 export function Research() {
   const core = useCore()
+
+  return (
+    <div className="h-full  flex flex-col">
+      {renderTopbar()}
+      {renderMiddle()}
+      {renderFooter()}
+    </div>
+  )
+
+  function renderTopbar() {
+    return (
+      <div className="h-9 flex-grow-0 border-b flex items-center justify-between border-[blue]">
+        <div className="ml-3 text-2xl">
+          <img
+            src="/favicon.ico"
+            alt="Icon"
+            className="inline-block h-6 mr-2 -mt-1"
+          />
+          Robot Karol <span className="italic">Web</span>
+        </div>
+        <div>
+          <button
+            className="px-2 py-0.5 rounded mr-1 bg-blue-200 hover:bg-blue-400"
+            onClick={() => {
+              switchToFreeWorkspace(core)
+            }}
+          >
+            zurück zum Editor
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  function renderFooter() {
+    return (
+      <div className="h-9 flex-grow-0 border-t flex items-center justify-between border-[blue]">
+        <div className="ml-3">
+          Version: Juni 2022 | Befehlsübersicht | Beispiele | Quellcode
+        </div>
+        <div className="mr-3">Kontakt | Datenschutzerklärung</div>
+      </div>
+    )
+  }
+
+  function renderMiddle() {
+    return (
+      <div
+        className="flex-grow relative"
+        style={{ backgroundImage: 'url("/tile.png")' }}
+      >
+        {puzzles.map((puzzle, i) => (
+          <div
+            className="absolute cursor-pointer select-none"
+            style={{ left: `${puzzle.posX}px`, top: `${puzzle.posY}px` }}
+            onClick={() => {
+              switchToPuzzle(core)
+            }}
+            key={i}
+          >
+            <div className="flex justify-center">
+              <span className="bg-yellow-200 px-2 py-0.5 rounded">
+                {puzzle.title}
+              </span>
+            </div>
+            <img src="/marke.png" alt="Marke"></img>
+          </div>
+        ))}
+      </div>
+    )
+  }
 
   return (
     <div className="bg-blue-200 h-full overflow-auto">
@@ -34,10 +108,7 @@ export function Research() {
         >
           Neues Fenster
         </a>
-        <button
-          className="bg-green-400 px-2 py-1.5 rounded"
-          onClick={() => switchToWorkspace(core, 0)}
-        >
+        <button className="bg-green-400 px-2 py-1.5 rounded">
           Zurück zum Editor
         </button>
       </div>
@@ -51,25 +122,7 @@ export function Research() {
           <div
             className="h-[570px] w-[1059px] mt-4 relative"
             style={{ backgroundImage: 'url(/puzzle/map.png)' }}
-          >
-            {puzzles.map((puzzle, i) => (
-              <div
-                className="absolute cursor-pointer select-none"
-                style={{ left: `${puzzle.posX}px`, top: `${puzzle.posY}px` }}
-                onClick={() => {
-                  switchToWorkspace(core, i)
-                }}
-                key={i}
-              >
-                <div className="flex justify-center">
-                  <span className="bg-yellow-200 px-2 py-0.5 rounded">
-                    {puzzle.title}
-                  </span>
-                </div>
-                <img src="/marke.png" alt="Marke"></img>
-              </div>
-            ))}
-          </div>
+          ></div>
         </div>
       </div>
 

@@ -108,12 +108,11 @@ export interface WorkspaceStateBase {
 
 export interface WorkspaceStateFreeMode extends WorkspaceStateBase {
   type: 'free'
-  tabs: [string, string, string, string]
-  currentTab: number
 }
 
 export interface WorkspaceStatePuzzleMode extends WorkspaceStateBase {
   type: 'puzzle'
+  id: number
   targetImage: string
   posX: number
   posY: number
@@ -139,6 +138,7 @@ export interface CoreState {
   showResearchCenter: boolean
   enableStats: boolean
   projectTitle?: string
+  projectInitialWorld?: World
   puzzleWorkspace?: WorkspaceStatePuzzleMode
   editorWorkspace: WorkspaceStateFreeMode
 }

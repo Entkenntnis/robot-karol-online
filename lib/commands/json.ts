@@ -6,8 +6,8 @@ export function serialize(core: Core) {
   if (core.ws.type == 'puzzle') {
     throw new Error("Can't export puzzle")
   }
-  const { world, tabs } = core.ws
-  return { world, tabs }
+  const { world, code } = core.ws
+  return { world, code }
 }
 
 export function deserialize(core: Core, file?: string) {
@@ -24,8 +24,8 @@ export function deserialize(core: Core, file?: string) {
     if (!world || (code === undefined && tabs === undefined)) {
       throw new Error('Datei unvollständig')
     }
-    if (!tabs) {
-      tabs = [code ?? '', '', '', '']
+    if (tabs) {
+      code = tabs[0]
     }
     // minimal sanity check
     if (!world.dimX || !world.dimY || !world.height) {
@@ -55,11 +55,13 @@ export function deserialize(core: Core, file?: string) {
     core.mutateWs((state) => {
       state.world = world
       if (state.type == 'free') {
-        state.tabs = tabs!
-        state.currentTab = 0
+        state.code = code ?? ''
         state.ui.preview = undefined
       }
       state.ui.needsTextRefresh = true
+    })
+    core.mutateCore((state) => {
+      state.projectInitialWorld = world
     })
   } catch (e) {
     alert(e ?? 'Laden fehlgeschlagen')

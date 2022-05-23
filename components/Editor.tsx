@@ -31,10 +31,7 @@ export const Editor = ({ innerRef }: EditorProps) => {
     if (currentEditor) {
       const view: EditorView = new EditorView({
         state: EditorState.create({
-          doc:
-            core.ws.type == 'puzzle'
-              ? core.ws.code
-              : core.ws.tabs[core.ws.currentTab],
+          doc: core.ws.code,
           extensions: [
             basicSetup({
               l: () => {

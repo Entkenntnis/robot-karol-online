@@ -63,10 +63,7 @@ export function EditArea() {
         changes: {
           from: 0,
           to: view.current.state.doc.length,
-          insert:
-            core.ws.type == 'puzzle'
-              ? core.ws.code
-              : core.ws.tabs[core.ws.currentTab],
+          insert: core.ws.code,
         },
       })
       forceLinting(view.current)
@@ -131,14 +128,14 @@ export function EditArea() {
   return (
     <>
       <div className="w-full text-base h-full overflow-auto flex flex-col outline-none">
-        <ReflexContainer
-          orientation="horizontal"
-          windowResizeAware
-          className="h-full"
-        >
-          <ReflexElement minSize={100} propagateDimensions={true}>
-            {core.ws.type == 'puzzle' &&
-              (progress < 100 ? (
+        {core.ws.type == 'puzzle' && (
+          <ReflexContainer
+            orientation="horizontal"
+            windowResizeAware
+            className="h-full"
+          >
+            <ReflexElement minSize={100} propagateDimensions={true}>
+              {progress < 100 ? (
                 <div className="h-full flex flex-col z-50 relative bg-white">
                   <div className="p-3 overflow-y-auto">
                     {puzzles[0].description}
@@ -184,65 +181,14 @@ export function EditArea() {
                     </p>
                   </div>
                 </div>
-              ))}
-          </ReflexElement>
-          <ReflexSplitter style={{ height: 3 }} />
+              )}
+            </ReflexElement>
+            <ReflexSplitter style={{ height: 3 }} />
 
-          <ReflexElement minSize={100}>
-            <div className="flex h-full overflow-y-auto relative">
-              {/*<div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
-            {renderBlockMenu()}
-          </div>*/}
-
-              <div className="w-full overflow-auto h-full flex">
-                {codeState == 'running' ? (
-                  <div
-                    data-label="gutter"
-                    className="w-8 h-full relative flex-shrink-0"
-                  >
-                    {core.ws.ui.gutter > 0 && (
-                      <div
-                        className="text-blue-500 absolute w-5 h-5 left-1.5"
-                        style={{
-                          top: `${4 + (core.ws.ui.gutter - 1) * 22.4 - 2}px`,
-                        }}
-                      >
-                        <FaIcon icon={faArrowRight} />
-                      </div>
-                    )}{' '}
-                    {Array.from(new Set(core.ws.ui.gutterReturns)).map(
-                      (pos, i) => (
-                        <div
-                          key={i}
-                          className="text-yellow-300 absolute w-5 h-5 left-2"
-                          style={{
-                            top: `${4 + (pos - 1) * 22.4 - 2}px`,
-                          }}
-                        >
-                          <FaIcon icon={faArrowTurnUp} className="rotate-180" />
-                        </div>
-                      )
-                    )}
-                  </div>
-                ) : (
-                  <div className="w-8 h-full relative flex-shrink-0"></div>
-                )}
-                <div className="w-full h-full flex flex-col">
-                  <Editor innerRef={view} />
-                  <div
-                    className="flex-grow flex"
-                    onClick={() => {
-                      view.current?.focus()
-                    }}
-                  >
-                    <div className="w-[30px] border-r h-full bg-neutral-100 border-[#ddd] flex-grow-0 flex-shrink-0"></div>
-                    <div className="w-full cursor-text"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ReflexElement>
-        </ReflexContainer>
+            <ReflexElement minSize={100}>{renderEditor()}</ReflexElement>
+          </ReflexContainer>
+        )}
+        {core.ws.type == 'free' && renderEditor()}
         <div className="bg-white flex justify-between items-center border-t min-h-[48px]">
           {renderProgramControl()}
         </div>
@@ -250,8 +196,67 @@ export function EditArea() {
     </>
   )
 
+  function renderEditor() {
+    return (
+      <div className="flex h-full overflow-y-auto relative">
+        {core.ws.type == 'free' && (
+          <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
+            {renderBlockMenu()}
+          </div>
+        )}
+
+        <div className="w-full overflow-auto h-full flex">
+          {codeState == 'running' ? (
+            <div
+              data-label="gutter"
+              className="w-8 h-full relative flex-shrink-0"
+            >
+              {core.ws.ui.gutter > 0 && (
+                <div
+                  className="text-blue-500 absolute w-5 h-5 left-1.5"
+                  style={{
+                    top: `${4 + (core.ws.ui.gutter - 1) * 22.4 - 2}px`,
+                  }}
+                >
+                  <FaIcon icon={faArrowRight} />
+                </div>
+              )}{' '}
+              {Array.from(new Set(core.ws.ui.gutterReturns)).map((pos, i) => (
+                <div
+                  key={i}
+                  className="text-yellow-300 absolute w-5 h-5 left-2"
+                  style={{
+                    top: `${4 + (pos - 1) * 22.4 - 2}px`,
+                  }}
+                >
+                  <FaIcon icon={faArrowTurnUp} className="rotate-180" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            core.ws.type == 'puzzle' && (
+              <div className="w-8 h-full relative flex-shrink-0"></div>
+            )
+          )}
+          <div className="w-full h-full flex flex-col">
+            <Editor innerRef={view} />
+            <div
+              className="flex-grow flex"
+              onClick={() => {
+                view.current?.focus()
+              }}
+            >
+              <div className="w-[30px] border-r h-full bg-neutral-100 border-[#ddd] flex-grow-0 flex-shrink-0"></div>
+              <div className="w-full cursor-text"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   function renderProgramControl() {
-    if (codeState == 'ready') {
+    if (codeState == 'ready' || codeState == 'running') {
       if (!core.ws.vm.bytecode || core.ws.vm.bytecode.length == 0) {
         return (
           <div className="m-[11px]">
@@ -262,30 +267,21 @@ export function EditArea() {
       } else {
         return (
           <>
-            <button
-              className={clsx(
-                'bg-green-300 rounded px-2 py-0.5 m-1 ml-2 transition-colors',
-                'hover:bg-green-400'
-              )}
-              onClick={() => {
-                if (view.current) {
-                  autoFormat(view.current)
-                  view.current.dispatch({
-                    effects: editable.reconfigure(
-                      EditorView.editable.of(false)
-                    ),
-                  })
-                  view.current.contentDOM.blur()
-                }
-                run(core)
-                submit_event(`run_${core.ws.type}`, core)
-              }}
-            >
-              <FaIcon icon={faPlay} /> <span className="underline">S</span>tart
-            </button>
             <span>
-              {(core.ws.type == 'free' || core.ws.type == 'puzzle') && (
-                <label className="mr-4">
+              <select
+                className="h-7 mr-2 ml-2"
+                value={core.ws.settings.speed}
+                onChange={(e) => {
+                  setSpeed(core, e.target.value)
+                }}
+              >
+                <option value="turbo">Turbo</option>
+                <option value="fast">schnell</option>
+                <option value="slow">langsam</option>
+                <option value="step">Einzelschritt</option>
+              </select>
+              {codeState == 'ready' && (
+                <label className="ml-2">
                   <input
                     type="checkbox"
                     className="inline-block"
@@ -304,23 +300,59 @@ export function EditArea() {
                         })
                       }
                     }}
-                  />{' '}
-                  <span className="underline">V</span>orschau
+                  />
+                  <span className="underline ml-2">V</span>orschau
                 </label>
               )}
-              <select
-                className="h-8 mr-2"
-                value={core.ws.settings.speed}
-                onChange={(e) => {
-                  setSpeed(core, e.target.value)
+            </span>
+            {codeState == 'running' ? (
+              <span>
+                <button
+                  className="bg-red-400 rounded px-2 py-0.5 mr-2 hover:bg-red-500 transition-colors"
+                  onClick={() => {
+                    abort(core)
+                  }}
+                >
+                  <span className="underline">S</span>topp
+                </button>{' '}
+                {core.ws.settings.speed == 'step' && (
+                  <button
+                    className={clsx(
+                      'bg-yellow-400 rounded px-2 py-0.5 mr-2 transition-colors',
+                      'hover:bg-yellow-500'
+                    )}
+                    onClick={() => {
+                      confirmStep(core)
+                    }}
+                  >
+                    Weiter
+                  </button>
+                )}
+              </span>
+            ) : (
+              <button
+                className={clsx(
+                  'bg-green-300 rounded px-2 py-0.5 mr-2 transition-colors',
+                  'hover:bg-green-400'
+                )}
+                onClick={() => {
+                  if (view.current) {
+                    autoFormat(view.current)
+                    view.current.dispatch({
+                      effects: editable.reconfigure(
+                        EditorView.editable.of(false)
+                      ),
+                    })
+                    view.current.contentDOM.blur()
+                  }
+                  run(core)
+                  submit_event(`run_${core.ws.type}`, core)
                 }}
               >
-                <option value="turbo">Turbo</option>
-                <option value="fast">schnell</option>
-                <option value="slow">langsam</option>
-                <option value="step">Einzelschritt</option>
-              </select>
-            </span>
+                <FaIcon icon={faPlay} /> <span className="underline">S</span>
+                tart
+              </button>
+            )}
           </>
         )
       }
@@ -345,84 +377,7 @@ export function EditArea() {
       )
     }
 
-    if (codeState == 'running') {
-      return (
-        <>
-          <span>
-            {core.ws.settings.speed == 'step' && (
-              <button
-                className={clsx(
-                  'bg-yellow-400 rounded px-2 py-0.5 ml-2 transition-colors',
-                  'hover:bg-yellow-500'
-                )}
-                onClick={() => {
-                  confirmStep(core)
-                }}
-              >
-                Weiter
-              </button>
-            )}
-            <button
-              className="bg-red-400 rounded px-2 py-0.5 ml-2 hover:bg-red-500 transition-colors"
-              onClick={() => {
-                abort(core)
-              }}
-            >
-              Stopp
-            </button>
-          </span>
-          <select
-            className="h-8 mr-2"
-            value={core.ws.settings.speed}
-            onChange={(e) => {
-              setSpeed(core, e.target.value)
-            }}
-          >
-            <option value="turbo">Turbo</option>
-            <option value="fast">schnell</option>
-            <option value="slow">langsam</option>
-            <option value="step">Einzelschritt</option>
-          </select>
-        </>
-      )
-    }
-
     return <div>unbekannt</div>
-  }
-
-  function renderTab(index: number) {
-    return (
-      <button
-        key={index}
-        className={clsx(
-          'p-2 border-b',
-          core.ws.type == 'free' &&
-            core.ws.currentTab == index &&
-            'bg-gray-100',
-          core.ws.type == 'free' &&
-            core.ws.tabs[index].trim().length == 0 &&
-            index > 0 &&
-            'text-gray-400'
-        )}
-        onClick={() => {
-          core.mutateWs((state) => {
-            if (state.type == 'free') {
-              if (state.currentTab != index) {
-                state.ui.needsTextRefresh = true
-                if (view.current) {
-                  state.tabs[state.currentTab] =
-                    view.current.state.doc.sliceString(0)
-                }
-                state.currentTab = index
-              }
-              state.ui.shouldFocusWrapper = true
-            }
-          })
-        }}
-      >
-        Tab {index + 1}
-      </button>
-    )
   }
 
   function renderBlockMenu() {
@@ -435,11 +390,6 @@ export function EditArea() {
             {renderCategory('Fühlen')}
             {renderCategory('Anweisung')}
           </div>
-          {core.ws.type == 'free' && (
-            <div className="flex flex-col mt-4 border-t-2">
-              {[0, 1, 2, 3].map((i) => renderTab(i))}
-            </div>
-          )}
         </div>
 
         {blockMenuInner}
