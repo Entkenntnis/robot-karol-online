@@ -10,13 +10,9 @@ import {
 } from 'react'
 import produce, { Draft } from 'immer'
 
-import {
-  CoreRefs,
-  CoreState,
-  WorkspaceState,
-  WorkspaceStateLevelMode,
-} from './types'
+import { CoreRefs, CoreState, WorkspaceState } from './types'
 import { createDefaultCoreState } from './create'
+import { puzzles } from '../data/puzzles'
 
 // set up core within app
 export function useCreateCore() {
@@ -62,8 +58,11 @@ export class Core {
     return this.state.puzzleWorkspace || this.state.editorWorkspace
   }
 
-  get level() {
-    throw 'not working anymore'
+  get puzzle() {
+    if (!this.state.puzzleWorkspace) {
+      throw 'bad'
+    }
+    return puzzles.find((x) => x.id == this.state.puzzleWorkspace!.id)!
   }
 
   // always mutate core state with this function
@@ -77,13 +76,6 @@ export class Core {
   mutateWs(updater: (draft: Draft<WorkspaceState>) => void) {
     this.mutateCore((state) => {
       updater(state.puzzleWorkspace || state.editorWorkspace)
-    })
-  }
-
-  mutateLevel(updater: (draft: Draft<WorkspaceStateLevelMode>) => void) {
-    this.mutateCore((state) => {
-      const ws = state.puzzleWorkspace || state.editorWorkspace
-      throw 'not working anymore'
     })
   }
 }

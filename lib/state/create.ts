@@ -1,4 +1,4 @@
-import { levels } from '../data/levels'
+import { puzzles } from '../data/puzzles'
 import {
   CoreState,
   WorkspaceState,
@@ -13,92 +13,41 @@ export function createDefaultCoreState(): CoreState {
     showResearchCenter: false,
     enableStats: true,
     editorWorkspace: createFreeModeWorkspaceState(),
+    inviteMenu: true,
+    inviteStart: true,
   }
 }
 
 export function createFreeModeWorkspaceState(): WorkspaceStateFreeMode {
   const ws: WorkspaceState = {
     ...createBaseWorkspace(),
-    title: 'Neue Welt',
     type: 'free',
   }
-  ws.ui.showPreview = true
   return ws
 }
 
-export function createPuzzle1WorkspaceState(): WorkspaceStatePuzzleMode {
+export function createPuzzleWorkspaceState(
+  id: number
+): WorkspaceStatePuzzleMode {
+  const puzzle = puzzles.find((x) => x.id == id)!
   const ws: WorkspaceStatePuzzleMode = {
     ...createBaseWorkspace(),
-    world: createWorld(10, 10, 6),
-    targetWorld: {
-      dimX: 10,
-      dimY: 10,
-      height: 6,
-      karol: { x: 0, y: 0, dir: 'south' },
-      bricks: [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      ],
-      marks: [
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-      ],
-      blocks: [
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-      ],
-      chips: [],
-    },
-    title: 'Start',
+    world: createWorld(
+      puzzle.targetWorld.dimX,
+      puzzle.targetWorld.dimY,
+      puzzle.targetWorld.height
+    ),
+    code: puzzle.code,
     type: 'puzzle',
-    id: 1,
-    code: `Hinlegen
-Schritt
-LinksDrehen
-Hinlegen
-RechtsDrehen
-Hinlegen
-Schritt
-LinksDrehen
-Hinlegen
-RechtsDrehen
-Schritt`,
-    targetImage: '/puzzle/start.png',
-    posX: 253,
-    posY: 91,
+    id,
     preMode: true,
+    progress: 0,
   }
-  ws.ui.showPreview = true
   return ws
 }
 
 function createBaseWorkspace(): WorkspaceStateBase {
   return {
-    title: '',
     world: createWorld(5, 10, 6),
     code: '',
     ui: {
@@ -109,7 +58,7 @@ function createBaseWorkspace(): WorkspaceStateBase {
       wireframe: false,
       needsTextRefresh: false,
       preview: undefined,
-      showPreview: false,
+      showPreview: true,
       shouldFocusWrapper: false,
     },
     vm: {

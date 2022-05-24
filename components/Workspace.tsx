@@ -1,7 +1,5 @@
-import { useEffect } from 'react'
 import { ReflexElement, ReflexSplitter, ReflexContainer } from 'react-reflex'
 import 'react-reflex/styles.css'
-import { initWorld } from '../lib/commands/world'
 import { useCore } from '../lib/state/core'
 
 import { EditArea } from './EditArea'

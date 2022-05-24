@@ -69,7 +69,7 @@ export function App() {
         `}
       </style>
       <CoreProvider value={core}>
-        <div className="w-full h-full  min-w-[900px] flex flex-col relative">
+        <div className="w-full h-full  min-w-[900px] flex flex-col relative overflow-hidden">
           <input
             type="file"
             id="load_project"
@@ -90,21 +90,40 @@ export function App() {
               }
             }}
           />
-          {!core.state.showResearchCenter && (
+          {!core.state.showResearchCenter && core.ws.type == 'free' && (
             <button
               className={clsx(
                 'absolute right-1 top-1 rounded z-10',
                 'px-2 py-0.5 bg-blue-300 hover:bg-blue-400'
               )}
               onClick={() => {
-                core.state.showResearchCenter
-                  ? hideResearchCenter(core)
-                  : showResearchCenter(core)
+                showResearchCenter(core)
               }}
             >
               Menü
+              {core.state.inviteMenu && (
+                <span className="absolute -right-1 -top-1  flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400/75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500/60"></span>
+                </span>
+              )}
             </button>
           )}
+          {!core.state.showResearchCenter &&
+            core.ws.type == 'puzzle' &&
+            core.ws.progress < 100 && (
+              <button
+                className={clsx(
+                  'absolute right-1 top-1 rounded z-10',
+                  'px-2 py-0.5 bg-blue-300 hover:bg-blue-400'
+                )}
+                onClick={() => {
+                  showResearchCenter(core)
+                }}
+              >
+                Schließen
+              </button>
+            )}
           {core.state.showResearchCenter ? <Research /> : <Workspace />}
         </div>
       </CoreProvider>

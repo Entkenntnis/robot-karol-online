@@ -16,7 +16,6 @@ import clsx from 'clsx'
 import { createRef, Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { serialize } from '../lib/commands/json'
 import { execPreview } from '../lib/commands/preview'
-import { showResearchCenter } from '../lib/commands/researchCenter'
 
 import { toggleWireframe } from '../lib/commands/view'
 import { abort, run } from '../lib/commands/vm'
@@ -25,13 +24,11 @@ import {
   createWorldCmd,
   forward,
   left,
-  resetWorld,
   right,
   toggleBlock,
   toggleMark,
   unbrick,
 } from '../lib/commands/world'
-import { levels } from '../lib/data/levels'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
 import { View } from './View'
@@ -59,32 +56,15 @@ export function Player() {
     }
   })
 
-  // calculate progress
-  let progress = 0
-  if (core.ws.type == 'puzzle') {
-    let correctFields = 0
-    let nonEmptyFields = 0
-    for (let x = 0; x < core.ws.targetWorld.dimX; x++) {
-      for (let y = 0; y < core.ws.targetWorld.dimY; y++) {
-        if (core.ws.targetWorld.bricks[y][x] > 0) {
-          nonEmptyFields++
-          if (core.ws.world.bricks[y][x] == core.ws.targetWorld.bricks[y][x]) {
-            correctFields++
-          }
-        } else {
-          if (core.ws.world.bricks[y][x] !== core.ws.targetWorld.bricks[y][x]) {
-            correctFields = Math.max(0, correctFields - 1)
-          }
-        }
-      }
-    }
-    progress = Math.round((correctFields / nonEmptyFields) * 100)
-  }
-
   return (
     <div className="flex flex-col w-full h-full">
       <div className="flex-grow h-full min-h-0 relative">
-        <div className="flex-grow overflow-auto flex flex-col justify-center h-full">
+        <div
+          className="flex-grow overflow-auto flex flex-col justify-center h-full"
+          onClick={(e) => {
+            wrapper.current?.focus()
+          }}
+        >
           <div className="min-h-0 w-full">
             <div
               onKeyDown={(e) => {
@@ -170,7 +150,7 @@ export function Player() {
               tabIndex={1}
               className={clsx(
                 'border-white border-2 mb-32 mt-12 w-max h-max mx-auto cursor-pointer',
-                'outline-none focus:border-green-200'
+                'outline-none focus:border-green-200 active:border-green-200'
               )}
               ref={wrapper}
               style={{ transform: `scale(${scale})` }}
@@ -304,13 +284,13 @@ export function Player() {
             <div
               className={clsx(
                 'absolute left-0 top-0 bottom-0',
-                progress < 100 ? 'bg-yellow-200' : 'bg-green-300'
+                core.ws.progress < 100 ? 'bg-yellow-200' : 'bg-green-300'
               )}
               style={{
-                width: `${progress}%`,
+                width: `${core.ws.progress}%`,
               }}
             ></div>
-            <div className="z-10">{progress}%</div>
+            <div className="z-10">{core.ws.progress}%</div>
           </div>
         </div>
       )}

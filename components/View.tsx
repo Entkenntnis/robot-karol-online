@@ -1,11 +1,10 @@
 import { CSSProperties, useEffect, useRef, useState } from 'react'
-import { chips } from '../lib/data/chips'
-import { Preview, Sparkle, World } from '../lib/state/types'
+
+import { Preview, World } from '../lib/state/types'
 
 interface ViewProps {
   world: World
   wireframe: boolean
-  sparkle?: Sparkle
   style?: CSSProperties
   preview?: Preview
 }
@@ -21,13 +20,10 @@ interface Resources {
   marke_weg: HTMLImageElement
   quader: HTMLImageElement
   ziegelWire: HTMLImageElement
-  sparkleImg: HTMLImageElement
-  failImg: HTMLImageElement
-  chipsImages: { [key: string]: HTMLImageElement }
   ctx: CanvasRenderingContext2D
 }
 
-export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
+export function View({ world, wireframe, style, preview }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
@@ -59,8 +55,6 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
             robotW,
             marke,
             quader,
-            sparkleImg,
-            failImg,
             marke_weg,
             ziegel_weg,
           ] = await Promise.all([
@@ -72,25 +66,9 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
             loadImage('/robotW.png'),
             loadImage('/marke.png'),
             loadImage('/quader.png'),
-            loadImage('/sparkle.png'),
-            loadImage('/fehler.png'),
             loadImage('/marke_weg.png'),
             loadImage('/Ziegel_weg.png'),
           ])
-
-          const chipsImages: { [key: string]: HTMLImageElement } = {}
-
-          const chipImagePromises = []
-          const keys: string[] = []
-
-          for (const key in chips) {
-            chipImagePromises.push(loadImage(chips[key].image))
-            keys.push(key)
-          }
-          const result = await Promise.all(chipImagePromises)
-          result.forEach((r, i) => {
-            chipsImages[keys[i]] = r
-          })
 
           setResources({
             ziegel,
@@ -102,9 +80,6 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
             marke,
             quader,
             ziegelWire,
-            sparkleImg,
-            failImg,
-            chipsImages,
             marke_weg,
             ziegel_weg,
           })
@@ -126,9 +101,6 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
         marke,
         quader,
         ziegelWire,
-        sparkleImg,
-        failImg,
-        chipsImages,
         marke_weg,
         ziegel_weg,
       } = resources
@@ -178,16 +150,6 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
         to2d(world.dimX, 0, world.height),
         to2d(0, 0, world.height)
       )
-
-      for (const chip of world.chips) {
-        const img = chipsImages[chip.tag]
-        const p = to2d(chip.x, chip.y, 0)
-        ctx.drawImage(
-          img,
-          p.x + chips[chip.tag].imageXOffset,
-          p.y + chips[chip.tag].imageYOffset
-        )
-      }
 
       if (preview) {
         // drawing track
@@ -367,20 +329,12 @@ export function View({ world, wireframe, sparkle, style, preview }: ViewProps) {
         ctx.restore()
       }
 
-      if (sparkle) {
-        ctx.drawImage(
-          sparkle.type == 'happy' ? sparkleImg : failImg,
-          sparkle.posX,
-          sparkle.posY
-        )
-      }
-
       //ctx.drawImage(ziegel, originX - 0.5, originY - 1.5)</div>
 
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world, wireframe, sparkle, preview])
+  }, [resources, world, wireframe, preview])
 
   return (
     <canvas

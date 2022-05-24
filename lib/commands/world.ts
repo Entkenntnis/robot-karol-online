@@ -1,11 +1,9 @@
-import { chips } from '../data/chips'
-import { levels } from '../data/levels'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { Heading, World } from '../state/types'
-import { submit_event } from '../stats/submit'
 import { addMessage } from './messages'
-import { createSparkle } from './sparkle'
+
+const readOnlyMessage = 'Deine Aufgabe ist abgeschlossen.'
 
 export function forward(core: Core, opts?: { reverse: boolean }) {
   const { world } = core.ws
@@ -61,13 +59,14 @@ export function brick(core: Core) {
   }
 
   if (isReadOnly(core, pos.x, pos.y)) {
-    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    addMessage(core, readOnlyMessage)
     return false
   }
 
   core.mutateWs((state) => {
     state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] + 1
   })
+  onWorldChange(core)
   return true
 }
 
@@ -87,13 +86,14 @@ export function unbrick(core: Core) {
   }
 
   if (isReadOnly(core, pos.x, pos.y)) {
-    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    addMessage(core, readOnlyMessage)
     return false
   }
 
   core.mutateWs((state) => {
     state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] - 1
   })
+  onWorldChange(core)
   return true
 }
 
@@ -101,7 +101,7 @@ export function toggleMark(core: Core) {
   const karol = core.ws.world.karol
 
   if (isReadOnly(core, karol.x, karol.y)) {
-    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    addMessage(core, readOnlyMessage)
     return false
   }
 
@@ -109,7 +109,7 @@ export function toggleMark(core: Core) {
     world.marks[world.karol.y][world.karol.x] =
       !world.marks[world.karol.y][world.karol.x]
   })
-  checkChipActive(core)
+  onWorldChange(core)
   return true
 }
 
@@ -118,16 +118,14 @@ export function setMark(core: Core) {
   const karol = world.karol
 
   if (isReadOnly(core, karol.x, karol.y)) {
-    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    addMessage(core, readOnlyMessage)
     return false
   }
-
-  const previousMark = world.marks[world.karol.y][world.karol.x]
 
   core.mutateWs(({ world }) => {
     world.marks[world.karol.y][world.karol.x] = true
   })
-  if (!previousMark) checkChipActive(core)
+  onWorldChange(core)
   return true
 }
 
@@ -136,65 +134,15 @@ export function resetMark(core: Core) {
   const karol = world.karol
 
   if (isReadOnly(core, karol.x, karol.y)) {
-    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    addMessage(core, readOnlyMessage)
     return false
   }
-
-  const previousMark = world.marks[world.karol.y][world.karol.x]
 
   core.mutateWs(({ world }) => {
     world.marks[world.karol.y][world.karol.x] = false
   })
-  if (previousMark) checkChipActive(core)
+  onWorldChange(core)
   return true
-}
-
-function checkChipActive(core: Core) {
-  /*for (const chip of core.ws.world.chips) {
-    //chips[chip.tag].checkAction(core, chip)
-    const chipDef = chips[chip.tag]
-    const world = core.ws.world
-    const { karol } = world
-    if (
-      karol.x == chip.x + chipDef.checkpointX &&
-      karol.y == chip.y + chipDef.checkpointY
-    ) {
-      if (world.marks[karol.y][karol.x]) {
-        if (chipDef.checkAction(core, chip)) {
-          core.mutateLevel((state) => {
-            state.progress++
-          })
-          if (core.level!.progress == levels[core.level!.levelId].target) {
-            submit_event(
-              `finish_${levels[core.level!.levelId].title.toLowerCase()}`,
-              core
-            )
-          }
-          createSparkle(core, chipDef.sparkleX, chipDef.sparkleY, 'happy')
-        } else {
-          if (core.level!.progress < levels[core.level!.levelId].target) {
-            addMessage(core, 'Falsche Belegung! Fortschritt zurückgesetzt.')
-            core.mutateLevel((state) => {
-              state.progress = 0
-            })
-            core.mutateWs(({ world }) => {
-              world.marks[karol.y][karol.x] = false
-            })
-            createSparkle(core, chipDef.sparkleX, chipDef.sparkleY, 'fail')
-          }
-        }
-      } else {
-        if (core.level!.progress < levels[core.level!.levelId].target) {
-          chipDef.initAction(core, chip)
-        } else {
-          core.mutateWs(({ world }) => {
-            world.marks[karol.y][karol.x] = true
-          })
-          addMessage(core, 'Fertig!')
-        }
-      }
-    }
-  }*/
 }
 
 export function toggleBlock(core: Core) {
@@ -208,7 +156,7 @@ export function toggleBlock(core: Core) {
   }
 
   if (isReadOnly(core, pos.x, pos.y)) {
-    addMessage(core, 'Dieses Feld kann nicht verändert werden.')
+    addMessage(core, readOnlyMessage)
     return false
   }
 
@@ -216,6 +164,7 @@ export function toggleBlock(core: Core) {
     core.mutateWs(({ world }) => {
       world.blocks[pos.y][pos.x] = false
     })
+    onWorldChange(core)
     return true
   } else {
     if (bricks[pos.y][pos.x] > 0) {
@@ -229,6 +178,7 @@ export function toggleBlock(core: Core) {
     core.mutateWs(({ world }) => {
       world.blocks[pos.y][pos.x] = true
     })
+    onWorldChange(core)
     return true
   }
 }
@@ -240,28 +190,6 @@ export function createWorldCmd(core: Core, x: number, y: number, z: number) {
   })
   core.mutateCore((core) => {
     core.projectTitle = undefined
-  })
-}
-
-export function initWorld(core: Core) {
-  core.ws.world.chips.forEach((chip) => {
-    chips[chip.tag].initAction(core, chip)
-  })
-
-  core.mutateWs((state) => {
-    if (state.type == 'level') {
-      state.worldInit = true
-      state.worldCheckpoint = state.world
-    }
-  })
-}
-
-export function resetWorld(core: Core) {
-  core.mutateWs((state) => {
-    if (state.type == 'level' && state.worldCheckpoint) {
-      state.world = state.worldCheckpoint
-      state.progress = 0
-    }
   })
 }
 
@@ -320,7 +248,40 @@ export function turnRight(h: Heading) {
 }
 
 function isReadOnly(core: Core, x: number, y: number) {
-  return core.ws.world.chips.some((chip) =>
-    chips[chip.tag].isReadOnly(core, chip, x, y)
-  )
+  return core.ws.type == 'puzzle' && core.ws.progress == 100
+}
+
+function onWorldChange(core: Core) {
+  if (core.ws.type == 'puzzle') {
+    let correctFields = 0
+    let nonEmptyFields = 0
+    for (let x = 0; x < core.puzzle.targetWorld.dimX; x++) {
+      for (let y = 0; y < core.puzzle.targetWorld.dimY; y++) {
+        if (core.puzzle.targetWorld.bricks[y][x] > 0) {
+          nonEmptyFields++
+          if (
+            core.ws.world.bricks[y][x] == core.puzzle.targetWorld.bricks[y][x]
+          ) {
+            correctFields++
+          }
+        } else {
+          if (
+            core.ws.world.bricks[y][x] !== core.puzzle.targetWorld.bricks[y][x]
+          ) {
+            correctFields--
+          }
+        }
+      }
+    }
+    core.mutateWs((ws) => {
+      if (ws.type == 'puzzle') {
+        ws.progress = Math.round(
+          (Math.max(0, correctFields) / nonEmptyFields) * 100
+        )
+        if (ws.progress == 100) {
+          ws.ui.showPreview = false
+        }
+      }
+    })
+  }
 }

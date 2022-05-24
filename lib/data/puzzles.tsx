@@ -1,4 +1,6 @@
-export const puzzles = [
+import { Puzzle } from '../state/types'
+
+export const puzzles: Puzzle[] = [
   {
     id: 1,
     title: 'Start',

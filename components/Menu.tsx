@@ -3,10 +3,8 @@ import {
   switchToFreeWorkspace,
   switchToPuzzle,
 } from '../lib/commands/researchCenter'
-import { levels } from '../lib/data/levels'
 import { puzzles } from '../lib/data/puzzles'
 import { useCore } from '../lib/state/core'
-import { submit_event } from '../lib/stats/submit'
 
 export function Research() {
   const core = useCore()
@@ -66,13 +64,19 @@ export function Research() {
             className="absolute cursor-pointer select-none"
             style={{ left: `${puzzle.posX}px`, top: `${puzzle.posY}px` }}
             onClick={() => {
-              switchToPuzzle(core)
+              switchToPuzzle(core, puzzle.id)
             }}
-            key={i}
+            key={puzzle.id}
           >
             <div className="flex justify-center">
               <span className="bg-yellow-200 px-2 py-0.5 rounded">
                 {puzzle.title}
+                {puzzle.id == 1 && core.state.inviteStart && (
+                  <span className="absolute -right-1 -top-1  flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400/75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500/60"></span>
+                  </span>
+                )}
               </span>
             </div>
             <img src="/marke.png" alt="Marke"></img>

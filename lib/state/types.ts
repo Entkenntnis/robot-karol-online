@@ -69,36 +69,7 @@ export interface Settings {
   speed: Speed
 }
 
-export interface Level {
-  title: string
-  target: number
-  description: React.ReactNode
-  previewImage: string
-}
-
-export interface Sparkle {
-  type: 'happy' | 'fail'
-  posX: number
-  posY: number
-}
-
-export interface Chip {
-  tag: string
-  checkAction: (core: Core, chip: ChipInWorld) => boolean
-  initAction: (core: Core, chip: ChipInWorld) => void
-  isReadOnly: (core: Core, chip: ChipInWorld, x: number, y: number) => boolean
-  image: string
-  imageXOffset: number
-  imageYOffset: number
-  checkpointX: number
-  checkpointY: number
-  sparkleX: number
-  sparkleY: number
-}
-
 export interface WorkspaceStateBase {
-  title: string
-
   world: World
   ui: Ui
   code: string
@@ -113,26 +84,21 @@ export interface WorkspaceStateFreeMode extends WorkspaceStateBase {
 export interface WorkspaceStatePuzzleMode extends WorkspaceStateBase {
   type: 'puzzle'
   id: number
-  targetImage: string
+  preMode: boolean
+  progress: number
+}
+
+export interface Puzzle {
+  id: number
+  title: string
   posX: number
   posY: number
   targetWorld: World
-  preMode: boolean
+  description: JSX.Element
+  code: string
 }
 
-export interface WorkspaceStateLevelMode extends WorkspaceStateBase {
-  type: 'level'
-  progress: number
-  levelId: number
-  worldInit: boolean
-  worldCheckpoint?: World
-  sparkle?: Sparkle
-}
-
-export type WorkspaceState =
-  | WorkspaceStateFreeMode
-  | WorkspaceStateLevelMode
-  | WorkspaceStatePuzzleMode
+export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStatePuzzleMode
 
 export interface CoreState {
   showResearchCenter: boolean
@@ -141,6 +107,8 @@ export interface CoreState {
   projectInitialWorld?: World
   puzzleWorkspace?: WorkspaceStatePuzzleMode
   editorWorkspace: WorkspaceStateFreeMode
+  inviteMenu: boolean
+  inviteStart: boolean
 }
 
 export interface CoreRefs {

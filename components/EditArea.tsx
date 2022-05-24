@@ -83,48 +83,6 @@ export function EditArea() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const blockMenuInner = useMemo(renderBlockMenuInner, [section, menuVisible]) // block menu is slow to render
 
-  // calculate progress
-  let progress = 0
-  if (core.ws.type == 'puzzle') {
-    let correctFields = 0
-    let nonEmptyFields = 0
-    for (let x = 0; x < core.ws.targetWorld.dimX; x++) {
-      for (let y = 0; y < core.ws.targetWorld.dimY; y++) {
-        if (core.ws.targetWorld.bricks[y][x] > 0) {
-          nonEmptyFields++
-          if (core.ws.world.bricks[y][x] == core.ws.targetWorld.bricks[y][x]) {
-            correctFields++
-          }
-        } else {
-          if (core.ws.world.bricks[y][x] !== core.ws.targetWorld.bricks[y][x]) {
-            correctFields = Math.max(0, correctFields - 1)
-          }
-        }
-      }
-    }
-    progress = Math.round((correctFields / nonEmptyFields) * 100)
-  }
-
-  /*
-<ReflexContainer
-        orientation="vertical"
-        windowResizeAware
-        className="h-full"
-      >
-        <ReflexElement className="h-full" minSize={430}>
-          <EditArea />
-        </ReflexElement>
-
-        <ReflexSplitter style={{ width: 3 }} />
-
-        <ReflexElement minSize={400}>
-          <Player />
-        </ReflexElement>
-      </ReflexContainer>
-
-
-  */
-
   return (
     <>
       <div className="w-full text-base h-full overflow-auto flex flex-col outline-none">
@@ -135,7 +93,7 @@ export function EditArea() {
             className="h-full"
           >
             <ReflexElement minSize={100} propagateDimensions={true}>
-              {progress < 100 ? (
+              {core.ws.progress < 100 ? (
                 <div className="h-full flex flex-col z-50 relative bg-white">
                   <div className="p-3 overflow-y-auto">
                     {puzzles[0].description}
@@ -176,7 +134,7 @@ export function EditArea() {
                         }}
                         className="bg-blue-200 px-2 py-0.5 rounded"
                       >
-                        Zum Menü zurückkehren
+                        weiter
                       </button>
                     </p>
                   </div>
@@ -256,6 +214,7 @@ export function EditArea() {
   }
 
   function renderProgramControl() {
+    if (core.ws.type == 'puzzle' && core.ws.progress == 100) return null
     if (codeState == 'ready' || codeState == 'running') {
       if (!core.ws.vm.bytecode || core.ws.vm.bytecode.length == 0) {
         return (
