@@ -3,6 +3,14 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { StaticImageData } from 'next/image'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
+import {
+  faArrowRight,
+  faArrowTurnUp,
+  faCheckCircle,
+  faPlay,
+} from '@fortawesome/free-solid-svg-icons'
+import { forceLinting } from '@codemirror/lint'
+import { cursorDocEnd } from '@codemirror/commands'
 
 import schrittImg from '../public/schritt.png'
 import hinlegenImg from '../public/hinlegen.png'
@@ -28,25 +36,17 @@ import nichtistmarkeImg from '../public/nichtistmarke.png'
 import anweisungImg from '../public/anweisung.png'
 import unterbrechenImg from '../public/unterbrechen.png'
 
-import { autoFormat, editable, setEditable } from '../lib/codemirror/basicSetup'
+import { autoFormat, setEditable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
 import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
 import { FaIcon } from './FaIcon'
-import {
-  faArrowRight,
-  faArrowTurnUp,
-  faCheckCircle,
-  faPlay,
-} from '@fortawesome/free-solid-svg-icons'
 import { execPreview, hidePreview, showPreview } from '../lib/commands/preview'
-import { forceLinting } from '@codemirror/lint'
 import { submit_event } from '../lib/stats/submit'
 import { openMenu } from '../lib/commands/menu'
 import { Editor } from './Editor'
 import { textRefreshDone } from '../lib/commands/json'
 import { leavePreMode } from '../lib/commands/puzzle'
 import { focusWrapper } from '../lib/commands/focus'
-import { cursorDocEnd } from '@codemirror/commands'
 
 export function EditArea() {
   const [section, setSection] = useState('')

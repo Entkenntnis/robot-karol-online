@@ -22,6 +22,7 @@ import {
   syntaxHighlighting,
 } from '@codemirror/language'
 import {
+  cursorDocEnd,
   defaultKeymap,
   deleteCharBackward,
   history,
@@ -117,6 +118,8 @@ export const autoFormat: Command = (view) => {
   indentSelection(view)
   if (selection.main.to < view.state.doc.length) {
     view.dispatch({ selection })
+  } else {
+    cursorDocEnd(view)
   }
   return true
 }

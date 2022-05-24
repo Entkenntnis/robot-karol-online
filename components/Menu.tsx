@@ -1,18 +1,24 @@
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import { useState } from 'react'
 import { switchToEditor, switchToPuzzle } from '../lib/commands/menu'
 import { paths, puzzles } from '../lib/data/puzzles'
 import { useCore } from '../lib/state/core'
 import { ExternalLink } from './ExternalLink'
+import { FaIcon } from './FaIcon'
 import { Ping } from './Ping'
 
 export function Menu() {
   const core = useCore()
+
+  const [showPrivacy, setShowPrivacy] = useState(false)
 
   return (
     <div className="h-full flex flex-col">
       {renderTopbar()}
       {renderMiddle()}
       {renderFooter()}
+      {showPrivacy && renderPrivacyModal()}
     </div>
   )
 
@@ -151,7 +157,52 @@ export function Menu() {
             href="https://github.com/Entkenntnis/robot-karol-web#kontakt"
             title="Kontakt"
           />{' '}
-          | Datenschutzerklärung
+          |{' '}
+          <span
+            className="cursor-pointer"
+            onClick={() => {
+              setShowPrivacy(true)
+            }}
+          >
+            Datenschutzerklärung
+          </span>
+        </div>
+      </div>
+    )
+  }
+
+  function renderPrivacyModal() {
+    return (
+      <div
+        className={clsx(
+          'fixed inset-0 bg-gray-300 bg-opacity-30 flex justify-around',
+          'items-center z-[200]'
+        )}
+        onClick={() => setShowPrivacy(false)}
+      >
+        <div
+          onClick={(e) => {
+            e.stopPropagation()
+          }}
+          className={clsx(
+            'fixed mx-auto bg-white opacity-100 rounded w-[600px] z-[300]',
+            'top-[30vh]'
+          )}
+        >
+          <h1 className="m-3 mb-6 text-xl font-bold">Datenschutzerklärung</h1>
+          <p className="m-3">
+            Diese Website wird auf einem uberspace (https://uberspace.de)
+            gehostet. Es kommen keine Cookies zum Einsatz. Es werden
+            grundlegende Statistiken wie z.B. zu Aufrufen erfasst und auf dem
+            uberspace gespeichert. Die Datenverarbeitung findet vollständig in
+            Deutschland statt und unterliegt der DSGVO.
+          </p>
+          <div
+            className="absolute top-2 right-2 h-3 w-3 cursor-pointer"
+            onClick={() => setShowPrivacy(false)}
+          >
+            <FaIcon icon={faXmark} />
+          </div>
         </div>
       </div>
     )
