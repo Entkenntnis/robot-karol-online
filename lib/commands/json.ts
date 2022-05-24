@@ -63,3 +63,9 @@ export function deserialize(core: Core, file?: string) {
     alert(e ?? 'Laden fehlgeschlagen')
   }
 }
+
+export function textRefreshDone(core: Core) {
+  core.mutateWs((ws) => {
+    ws.ui.needsTextRefresh = false
+  })
+}

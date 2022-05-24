@@ -3,6 +3,7 @@ import { switchToEditor, switchToPuzzle } from '../lib/commands/menu'
 import { paths, puzzles } from '../lib/data/puzzles'
 import { useCore } from '../lib/state/core'
 import { ExternalLink } from './ExternalLink'
+import { Ping } from './Ping'
 
 export function Menu() {
   const core = useCore()
@@ -91,12 +92,7 @@ export function Menu() {
                     )}
                   >
                     {puzzle.title}
-                    {puzzle.id == 1 && core.state.inviteStart && (
-                      <span className="absolute -right-1 -top-1  flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400/75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500/60"></span>
-                      </span>
-                    )}
+                    {puzzle.id == 1 && core.state.inviteStart && <Ping />}
                   </span>
                 </div>
                 <img src="/Ziegel.png" alt="Ziegel" className="mt-3"></img>

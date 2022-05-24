@@ -2,8 +2,7 @@ import { EditorView } from '@codemirror/view'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { StaticImageData } from 'next/image'
-
-import { Editor } from './Editor'
+import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
 import schrittImg from '../public/schritt.png'
 import hinlegenImg from '../public/hinlegen.png'
@@ -29,7 +28,7 @@ import nichtistmarkeImg from '../public/nichtistmarke.png'
 import anweisungImg from '../public/anweisung.png'
 import unterbrechenImg from '../public/unterbrechen.png'
 
-import { autoFormat, editable } from '../lib/codemirror/basicSetup'
+import { autoFormat, editable, setEditable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
 import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
 import { FaIcon } from './FaIcon'
@@ -39,12 +38,15 @@ import {
   faCheckCircle,
   faPlay,
 } from '@fortawesome/free-solid-svg-icons'
-import { execPreview } from '../lib/commands/preview'
+import { execPreview, hidePreview, showPreview } from '../lib/commands/preview'
 import { forceLinting } from '@codemirror/lint'
 import { submit_event } from '../lib/stats/submit'
-import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 import { openMenu } from '../lib/commands/menu'
-import { puzzles } from '../lib/data/puzzles'
+import { Editor } from './Editor'
+import { textRefreshDone } from '../lib/commands/json'
+import { leavePreMode } from '../lib/commands/puzzle'
+import { focusWrapper } from '../lib/commands/focus'
+import { cursorDocEnd } from '@codemirror/commands'
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -58,7 +60,9 @@ export function EditArea() {
   const view = useRef<EditorView>()
 
   useEffect(() => {
+    console.log('refresh text test')
     if (core.ws.ui.needsTextRefresh && view.current) {
+      console.log('refresh text')
       view.current.dispatch({
         changes: {
           from: 0,
@@ -67,15 +71,13 @@ export function EditArea() {
         },
       })
       forceLinting(view.current)
-      core.mutateWs(({ ui }) => (ui.needsTextRefresh = false))
+      textRefreshDone(core)
     }
   })
 
   useEffect(() => {
     if (codeState == 'ready') {
-      view.current?.dispatch({
-        effects: editable.reconfigure(EditorView.editable.of(true)),
-      })
+      setEditable(view.current, true)
     }
   }, [codeState])
 
@@ -110,15 +112,11 @@ export function EditArea() {
                         <button
                           className="bg-green-300 px-3 py-0.5 rounded z-10"
                           onClick={() => {
-                            core.mutateWs((ws) => {
-                              if (ws.type == 'puzzle') {
-                                ws.preMode = false
-                                ws.ui.shouldFocusWrapper = true
-                              }
-                            })
+                            leavePreMode(core)
+                            focusWrapper(core)
                           }}
                         >
-                          Loslegen
+                          Los
                         </button>
                       </p>
                     )}
@@ -209,7 +207,10 @@ export function EditArea() {
             <div
               className="flex-grow flex"
               onClick={() => {
-                view.current?.focus()
+                if (view.current) {
+                  cursorDocEnd(view.current)
+                  view.current.focus()
+                }
               }}
             >
               <div className="w-[30px] border-r h-full bg-neutral-100 border-[#ddd] flex-grow-0 flex-shrink-0"></div>
@@ -244,6 +245,7 @@ export function EditArea() {
               >
                 <option value="turbo">Turbo</option>
                 <option value="fast">schnell</option>
+                <option value="normal">normal</option>
                 <option value="slow">langsam</option>
                 <option value="step">Einzelschritt</option>
               </select>
@@ -255,16 +257,12 @@ export function EditArea() {
                     checked={core.ws.ui.showPreview}
                     onChange={(e) => {
                       if (e.target.checked) {
-                        core.mutateWs(({ ui }) => {
-                          ui.showPreview = true
-                          ui.shouldFocusWrapper = true
-                        })
+                        showPreview(core)
+                        focusWrapper(core)
                         execPreview(core)
                       } else {
-                        core.mutateWs(({ ui }) => {
-                          ui.showPreview = false
-                          ui.shouldFocusWrapper = true
-                        })
+                        hidePreview(core)
+                        focusWrapper(core)
                       }
                     }}
                   />
@@ -305,11 +303,7 @@ export function EditArea() {
                 onClick={() => {
                   if (view.current) {
                     autoFormat(view.current)
-                    view.current.dispatch({
-                      effects: editable.reconfigure(
-                        EditorView.editable.of(false)
-                      ),
-                    })
+                    setEditable(view.current, false)
                     view.current.contentDOM.blur()
                   }
                   run(core)

@@ -44,6 +44,7 @@ export function createPuzzleWorkspaceState(
     preMode: true,
     progress: 0,
   }
+  ws.settings.speed = 'normal'
   return ws
 }
 

@@ -1,11 +1,10 @@
-import { CSSProperties, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { Preview, World } from '../lib/state/types'
 
 interface ViewProps {
   world: World
   wireframe: boolean
-  style?: CSSProperties
   preview?: Preview
 }
 
@@ -23,7 +22,7 @@ interface Resources {
   ctx: CanvasRenderingContext2D
 }
 
-export function View({ world, wireframe, style, preview }: ViewProps) {
+export function View({ world, wireframe, preview }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
@@ -243,7 +242,12 @@ export function View({ world, wireframe, style, preview }: ViewProps) {
               y,
               preview ? preview.world.bricks[y][x] : world.bricks[y][x]
             )
+            ctx.save()
+            if (preview && preview.world.bricks[y][x] != world.bricks[y][x]) {
+              ctx.globalAlpha = 0.4
+            }
             ctx.drawImage(marke, p.x - 15, p.y - 16)
+            ctx.restore()
           }
           if (!world.marks[y][x] && preview?.world.marks[y][x]) {
             const p = to2d(
@@ -337,13 +341,7 @@ export function View({ world, wireframe, style, preview }: ViewProps) {
   }, [resources, world, wireframe, preview])
 
   return (
-    <canvas
-      ref={canvas}
-      width={width}
-      height={height}
-      className="m-4"
-      style={style}
-    ></canvas>
+    <canvas ref={canvas} width={width} height={height} className="m-4"></canvas>
   )
 }
 

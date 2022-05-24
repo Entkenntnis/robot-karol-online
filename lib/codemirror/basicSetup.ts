@@ -121,6 +121,14 @@ export const autoFormat: Command = (view) => {
   return true
 }
 
+export function setEditable(view?: EditorView, value?: boolean) {
+  if (view) {
+    view.dispatch({
+      effects: editable.reconfigure(EditorView.editable.of(value ?? false)),
+    })
+  }
+}
+
 export const basicSetup = (props: BasicSetupProps) => [
   lineNumbers(),
   highlightActiveLineGutter(),

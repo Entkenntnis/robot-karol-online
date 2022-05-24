@@ -17,6 +17,7 @@ import { focusWrapper, focusWrapperDone } from '../lib/commands/focus'
 import { serialize } from '../lib/commands/json'
 import { restoreProject } from '../lib/commands/load'
 import { execPreview, hidePreview, showPreview } from '../lib/commands/preview'
+import { resetCode } from '../lib/commands/puzzle'
 import { toggleWireframe } from '../lib/commands/view'
 import { abort, run } from '../lib/commands/vm'
 import {
@@ -81,6 +82,13 @@ export function Player() {
     },
   }
 
+  function runAction(action: string) {
+    actions[action]()
+    setTimeout(() => {
+      execPreview(core)
+    }, 10)
+  }
+
   return (
     <div className="flex flex-col w-full h-full">
       <div className="flex-grow h-full min-h-0 relative">
@@ -94,10 +102,7 @@ export function Player() {
             <div
               onKeyDown={(e) => {
                 if (actions[e.code]) {
-                  actions[e.code]()
-                  setTimeout(() => {
-                    execPreview(core)
-                  }, 10)
+                  runAction(e.code)
                   e.preventDefault()
                   return
                 }
@@ -105,7 +110,8 @@ export function Player() {
                   if (
                     core.ws.ui.state == 'ready' &&
                     core.ws.vm.bytecode &&
-                    core.ws.vm.bytecode.length > 0
+                    core.ws.vm.bytecode.length > 0 &&
+                    (!(core.ws.type == 'puzzle') || core.ws.progress < 100)
                   ) {
                     run(core)
                   } else if (core.ws.ui.state == 'running') {
@@ -224,7 +230,7 @@ export function Player() {
               )}
             </div>
           )}
-          {core.ws.type == 'puzzle' && (
+          {core.ws.type == 'puzzle' && core.ws.progress < 100 && (
             <button
               className={clsx(
                 'absolute left-1 top-1 rounded',
@@ -238,6 +244,7 @@ export function Player() {
                   core.ws.world.dimY,
                   core.ws.world.height
                 )
+                resetCode(core)
               }}
             >
               Neu starten
@@ -279,10 +286,7 @@ export function Player() {
           <button
             className="mx-3 py-2"
             onClick={() => {
-              left(core)
-              setTimeout(() => {
-                execPreview(core)
-              }, 10)
+              runAction('ArrowLeft')
             }}
             title="LinksDrehen"
           >
@@ -291,10 +295,7 @@ export function Player() {
           <button
             className=" px-2"
             onClick={() => {
-              forward(core)
-              setTimeout(() => {
-                execPreview(core)
-              }, 10)
+              runAction('ArrowUp')
             }}
             title="Schritt"
           >
@@ -303,10 +304,7 @@ export function Player() {
           <button
             className="mx-3 py-2"
             onClick={() => {
-              right(core)
-              setTimeout(() => {
-                execPreview(core)
-              }, 10)
+              runAction('ArrowRight')
             }}
             title="RechtsDrehen"
           >
@@ -315,10 +313,7 @@ export function Player() {
           <button
             className="mx-2"
             onClick={() => {
-              brick(core)
-              setTimeout(() => {
-                execPreview(core)
-              }, 10)
+              runAction('KeyH')
             }}
             title="Hinlegen"
           >
@@ -327,10 +322,7 @@ export function Player() {
           <button
             className="mx-3"
             onClick={() => {
-              unbrick(core)
-              setTimeout(() => {
-                execPreview(core)
-              }, 10)
+              runAction('KeyA')
             }}
             title="Aufheben"
           >
@@ -339,10 +331,7 @@ export function Player() {
           <button
             className="mx-3"
             onClick={() => {
-              toggleMark(core)
-              setTimeout(() => {
-                execPreview(core)
-              }, 10)
+              runAction('KeyM')
             }}
             title="MarkeSetzen / MarkeLöschen"
           >
@@ -351,10 +340,7 @@ export function Player() {
           <button
             className="mx-3"
             onClick={() => {
-              toggleBlock(core)
-              setTimeout(() => {
-                execPreview(core)
-              }, 10)
+              runAction('KeyQ')
             }}
             title="Quader setzen oder löschen"
           >
@@ -373,9 +359,7 @@ export function Player() {
               className="inline-block h-5 pb-0.5 pl-1.5 cursor-pointer ml-3"
               onClick={() => {
                 toggleWireframe(core)
-                if (wrapper.current) {
-                  wrapper.current.focus()
-                }
+                wrapper.current?.focus()
               }}
             />
           }

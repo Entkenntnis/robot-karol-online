@@ -63,10 +63,12 @@ function internal_step(core: Core) {
   )*/
 
   const delay =
-    core.ws.settings.speed == 'slow'
-      ? 500
+    core.ws.settings.speed == 'normal'
+      ? 80
       : core.ws.settings.speed == 'fast'
-      ? 50
+      ? 20
+      : core.ws.settings.speed == 'slow'
+      ? 400
       : 0
 
   //console.log(this.state.ui.gutterReturns)
