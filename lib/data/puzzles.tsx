@@ -70,7 +70,6 @@ export const puzzles: Puzzle[] = [
         [false, false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false, false],
       ],
-      chips: [],
     },
     code: `Hinlegen
 Schritt
@@ -137,7 +136,6 @@ Schritt`,
         [false, false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false, false],
       ],
-      chips: [],
     },
     code: ``,
   },

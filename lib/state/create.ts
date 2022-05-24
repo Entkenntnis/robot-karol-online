@@ -10,7 +10,7 @@ import {
 
 export function createDefaultCoreState(): CoreState {
   return {
-    showResearchCenter: false,
+    showMenu: false,
     enableStats: true,
     editorWorkspace: createFreeModeWorkspaceState(),
     inviteMenu: true,
@@ -95,7 +95,6 @@ export function createWorld(dimX: number, dimY: number, height: number): World {
     blocks: Array(dimY)
       .fill(0)
       .map(() => Array(dimX).fill(false)),
-    chips: [],
   }
   return world
 }

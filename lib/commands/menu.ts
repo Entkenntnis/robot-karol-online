@@ -2,9 +2,9 @@ import { Core } from '../state/core'
 import { createPuzzleWorkspaceState } from '../state/create'
 import { abort } from './vm'
 
-export function showResearchCenter(core: Core) {
+export function openMenu(core: Core) {
   core.mutateCore((state) => {
-    state.showResearchCenter = true
+    state.showMenu = true
     if (state.inviteMenu) {
       state.inviteMenu = false
     }
@@ -12,23 +12,23 @@ export function showResearchCenter(core: Core) {
   abort(core)
 }
 
-export function hideResearchCenter(core: Core) {
+export function closeMenu(core: Core) {
   core.mutateCore((state) => {
-    state.showResearchCenter = false
+    state.showMenu = false
   })
 }
 
-export function switchToFreeWorkspace(core: Core) {
+export function switchToEditor(core: Core) {
   core.mutateCore((state) => {
-    state.showResearchCenter = false
+    state.showMenu = false
     state.puzzleWorkspace = undefined
   })
 }
 
 export function switchToPuzzle(core: Core, id: number) {
   core.mutateCore((state) => {
-    state.showResearchCenter = false
+    state.showMenu = false
     state.puzzleWorkspace = createPuzzleWorkspaceState(id)
-    state.inviteStart = false
+    if (id == 1) state.inviteStart = false
   })
 }

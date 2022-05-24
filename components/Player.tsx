@@ -1,9 +1,7 @@
 import {
-  faCheckCircle,
   faDownload,
   faEquals,
   faExternalLink,
-  faExternalLinkSquare,
   faFileImport,
   faLeftLong,
   faMagnifyingGlassMinus,
@@ -14,9 +12,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { serialize } from '../lib/commands/json'
-import { execPreview } from '../lib/commands/preview'
 
+import { focusWrapper, focusWrapperDone } from '../lib/commands/focus'
+import { serialize } from '../lib/commands/json'
+import { restoreProject } from '../lib/commands/load'
+import { execPreview, hidePreview, showPreview } from '../lib/commands/preview'
 import { toggleWireframe } from '../lib/commands/view'
 import { abort, run } from '../lib/commands/vm'
 import {
@@ -50,11 +50,36 @@ export function Player() {
   useEffect(() => {
     if (core.ws.ui.shouldFocusWrapper) {
       wrapper.current?.focus()
-      core.mutateWs(({ ui }) => {
-        ui.shouldFocusWrapper = false
-      })
+      focusWrapperDone(core)
     }
   })
+
+  const actions: { [key: string]: () => void } = {
+    ArrowLeft: () => {
+      left(core)
+    },
+    ArrowRight: () => {
+      right(core)
+    },
+    ArrowUp: () => {
+      forward(core)
+    },
+    ArrowDown: () => {
+      forward(core, { reverse: true })
+    },
+    KeyM: () => {
+      toggleMark(core)
+    },
+    KeyH: () => {
+      brick(core)
+    },
+    KeyQ: () => {
+      toggleBlock(core)
+    },
+    KeyA: () => {
+      unbrick(core)
+    },
+  }
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -68,64 +93,20 @@ export function Player() {
           <div className="min-h-0 w-full">
             <div
               onKeyDown={(e) => {
-                if (e.code == 'ArrowLeft') {
-                  left(core)
+                if (actions[e.code]) {
+                  actions[e.code]()
                   setTimeout(() => {
                     execPreview(core)
                   }, 10)
                   e.preventDefault()
-                }
-                if (e.code == 'ArrowRight') {
-                  right(core)
-                  setTimeout(() => {
-                    execPreview(core)
-                  }, 10)
-                  e.preventDefault()
-                }
-                if (e.code == 'ArrowUp') {
-                  forward(core)
-                  setTimeout(() => {
-                    execPreview(core)
-                  }, 10)
-                  e.preventDefault()
-                }
-                if (e.code == 'ArrowDown') {
-                  forward(core, { reverse: true })
-                  setTimeout(() => {
-                    execPreview(core)
-                  }, 10)
-                  e.preventDefault()
-                }
-                if (e.code == 'KeyM') {
-                  toggleMark(core)
-                  setTimeout(() => {
-                    execPreview(core)
-                  }, 10)
-                  e.preventDefault()
-                }
-                if (e.code == 'KeyH') {
-                  brick(core)
-                  setTimeout(() => {
-                    execPreview(core)
-                  }, 10)
-                  e.preventDefault()
-                }
-                if (e.code == 'KeyQ') {
-                  toggleBlock(core)
-                  setTimeout(() => {
-                    execPreview(core)
-                  }, 10)
-                  e.preventDefault()
-                }
-                if (e.code == 'KeyA') {
-                  unbrick(core)
-                  setTimeout(() => {
-                    execPreview(core)
-                  }, 10)
-                  e.preventDefault()
+                  return
                 }
                 if (e.code == 'KeyS') {
-                  if (core.ws.ui.state == 'ready') {
+                  if (
+                    core.ws.ui.state == 'ready' &&
+                    core.ws.vm.bytecode &&
+                    core.ws.vm.bytecode.length > 0
+                  ) {
                     run(core)
                   } else if (core.ws.ui.state == 'running') {
                     abort(core)
@@ -134,17 +115,14 @@ export function Player() {
                 }
                 if (e.code == 'KeyV') {
                   if (!core.ws.ui.showPreview) {
-                    core.mutateWs(({ ui }) => {
-                      ui.showPreview = true
-                      ui.shouldFocusWrapper = true
-                    })
+                    showPreview(core)
+                    focusWrapper(core)
                     execPreview(core)
                   } else {
-                    core.mutateWs(({ ui }) => {
-                      ui.showPreview = false
-                      ui.shouldFocusWrapper = true
-                    })
+                    hidePreview(core)
+                    focusWrapper(core)
                   }
+                  e.preventDefault()
                 }
               }}
               tabIndex={1}
@@ -208,11 +186,7 @@ export function Player() {
                     className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
                     onClick={() => {
                       abort(core)
-                      core.mutateWs((ws) => {
-                        if (core.state.projectInitialWorld) {
-                          ws.world = core.state.projectInitialWorld
-                        }
-                      })
+                      restoreProject(core)
                     }}
                   >
                     Welt zurücksetzen

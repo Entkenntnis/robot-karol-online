@@ -47,10 +47,6 @@ export function deserialize(core: Core, file?: string) {
         }
       }
     }
-    if (!world.chips) {
-      // patch old save files
-      world.chips = []
-    }
     abort(core)
     core.mutateWs((state) => {
       state.world = world

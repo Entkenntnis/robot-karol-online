@@ -5,6 +5,18 @@ import { World } from '../state/types'
 import { testCondition } from './vm'
 import { move, turnLeft, turnRight } from './world'
 
+export function showPreview(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.showPreview = true
+  })
+}
+
+export function hidePreview(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.showPreview = false
+  })
+}
+
 export function execPreview(core: Core) {
   const bytecode = core.ws.vm.bytecode
   if (!bytecode) return

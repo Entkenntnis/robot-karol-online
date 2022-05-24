@@ -1,13 +1,10 @@
 import clsx from 'clsx'
-import {
-  switchToFreeWorkspace,
-  switchToPuzzle,
-} from '../lib/commands/researchCenter'
+import { switchToEditor, switchToPuzzle } from '../lib/commands/menu'
 import { paths, puzzles } from '../lib/data/puzzles'
 import { useCore } from '../lib/state/core'
 import { ExternalLink } from './ExternalLink'
 
-export function Research() {
+export function Menu() {
   const core = useCore()
 
   return (
@@ -31,9 +28,9 @@ export function Research() {
         </div>
         <div>
           <button
-            className="px-2 py-0.5 rounded mr-1 bg-blue-200 hover:bg-blue-400"
+            className="px-2 py-0.5 rounded mr-1 bg-blue-300 hover:bg-blue-400"
             onClick={() => {
-              switchToFreeWorkspace(core)
+              switchToEditor(core)
             }}
           >
             zurück zum Editor

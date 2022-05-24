@@ -43,7 +43,7 @@ import { execPreview } from '../lib/commands/preview'
 import { forceLinting } from '@codemirror/lint'
 import { submit_event } from '../lib/stats/submit'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
-import { showResearchCenter } from '../lib/commands/researchCenter'
+import { openMenu } from '../lib/commands/menu'
 import { puzzles } from '../lib/data/puzzles'
 
 export function EditArea() {
@@ -102,7 +102,7 @@ export function EditArea() {
                         <button
                           className="px-3 py-0.5 rounded z-10 bg-blue-200 mr-4"
                           onClick={() => {
-                            showResearchCenter(core)
+                            openMenu(core)
                           }}
                         >
                           zurück
@@ -138,7 +138,7 @@ export function EditArea() {
                     <p>
                       <button
                         onClick={() => {
-                          showResearchCenter(core)
+                          openMenu(core)
                         }}
                         className="bg-blue-200 px-2 py-0.5 rounded"
                       >

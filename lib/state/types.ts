@@ -1,6 +1,3 @@
-import React from 'react'
-import { Core } from './core'
-
 export type Heading = 'north' | 'east' | 'south' | 'west'
 
 export interface World {
@@ -15,14 +12,6 @@ export interface World {
   bricks: number[][]
   marks: boolean[][]
   blocks: boolean[][]
-  chips: ChipInWorld[]
-}
-
-export interface ChipInWorld {
-  x: number
-  y: number
-  tag: string
-  chipState?: any
 }
 
 export interface Message {
@@ -102,7 +91,7 @@ export interface Puzzle {
 export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStatePuzzleMode
 
 export interface CoreState {
-  showResearchCenter: boolean
+  showMenu: boolean
   enableStats: boolean
   projectTitle?: string
   projectInitialWorld?: World
