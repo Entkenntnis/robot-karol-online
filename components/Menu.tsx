@@ -139,7 +139,7 @@ export function Menu() {
           Version: Juni 2022 (2) |{' '}
           <ExternalLink
             href="https://github.com/Entkenntnis/robot-karol-web#sprache"
-            title="Befehlsübersicht"
+            title="Sprachreferenz"
           />{' '}
           |{' '}
           <ExternalLink

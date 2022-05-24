@@ -41,3 +41,11 @@ export function setLoading(core: Core) {
     ui.state = 'loading'
   })
 }
+
+export function toggleHideKarol(core: Core) {
+  if (window.location.hostname === 'localhost' && core.ws.type == 'free') {
+    core.mutateWs((ws) => {
+      ws.ui.hideKarol = !ws.ui.hideKarol
+    })
+  }
+}

@@ -60,9 +60,7 @@ export function EditArea() {
   const view = useRef<EditorView>()
 
   useEffect(() => {
-    console.log('refresh text test')
     if (core.ws.ui.needsTextRefresh && view.current) {
-      console.log('refresh text')
       view.current.dispatch({
         changes: {
           from: 0,

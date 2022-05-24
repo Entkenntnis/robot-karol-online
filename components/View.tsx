@@ -6,6 +6,7 @@ interface ViewProps {
   world: World
   wireframe: boolean
   preview?: Preview
+  hideKarol: boolean
 }
 
 interface Resources {
@@ -22,7 +23,7 @@ interface Resources {
   ctx: CanvasRenderingContext2D
 }
 
-export function View({ world, wireframe, preview }: ViewProps) {
+export function View({ world, wireframe, hideKarol, preview }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
@@ -271,7 +272,7 @@ export function View({ world, wireframe, preview }: ViewProps) {
             const p = to2d(x, y, 0)
             ctx.drawImage(quader, p.x - 15, p.y - 30)
           }
-          if (world.karol.x == x && world.karol.y == y) {
+          if (world.karol.x == x && world.karol.y == y && !hideKarol) {
             const karol = {
               north: robotN,
               east: robotE,
@@ -338,7 +339,7 @@ export function View({ world, wireframe, preview }: ViewProps) {
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world, wireframe, preview])
+  }, [resources, world, wireframe, preview, hideKarol])
 
   return (
     <canvas ref={canvas} width={width} height={height} className="m-4"></canvas>

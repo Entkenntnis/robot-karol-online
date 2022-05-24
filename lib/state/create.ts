@@ -45,6 +45,9 @@ export function createPuzzleWorkspaceState(
     progress: 0,
   }
   ws.settings.speed = 'normal'
+  if (puzzle.initWorld) {
+    puzzle.initWorld(ws.world)
+  }
   return ws
 }
 
@@ -62,6 +65,8 @@ function createBaseWorkspace(): WorkspaceStateBase {
       preview: undefined,
       showPreview: true,
       shouldFocusWrapper: false,
+      hideKarol: false,
+      keepWorldPreference: false,
     },
     vm: {
       pc: 0,

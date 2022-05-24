@@ -12,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { toggleHideKarol } from '../lib/commands/editing'
 
 import { focusWrapper, focusWrapperDone } from '../lib/commands/focus'
 import { serialize } from '../lib/commands/json'
@@ -130,6 +131,10 @@ export function Player() {
                   }
                   e.preventDefault()
                 }
+                if (e.code == 'Digit0') {
+                  toggleHideKarol(core)
+                  e.preventDefault()
+                }
               }}
               tabIndex={1}
               className={clsx(
@@ -145,6 +150,7 @@ export function Player() {
                 preview={
                   core.ws.ui.showPreview ? core.ws.ui.preview : undefined
                 }
+                hideKarol={core.ws.ui.hideKarol}
               />
             </div>
           </div>
@@ -456,6 +462,8 @@ function NewWorldSettings({
 
   const canCreate = localDimX > 0 && localDimY > 0 && localHeight > 0
 
+  const [keep, setKeep] = useState(core.ws.ui.keepWorldPreference)
+
   return (
     <>
       <div className="m-3 mb-6 text-xl font-bold">Neue Welt erstellen</div>
@@ -475,6 +483,16 @@ function NewWorldSettings({
         </span>
         {buildInput(localHeight, setLocalHeight, 10)}
       </div>
+      <div className="ml-4 mt-5">
+        <label>
+          <input
+            type="checkbox"
+            checked={keep}
+            onChange={(e) => setKeep(e.target.checked)}
+          />{' '}
+          Inhalt der Welt behalten
+        </label>
+      </div>
       <div className="my-4">
         <button
           className={clsx(
@@ -483,11 +501,7 @@ function NewWorldSettings({
           )}
           disabled={canCreate ? undefined : true}
           onClick={() => {
-            createWorldCmd(core, localDimX, localDimY, localHeight)
-            setTimeout(() => {
-              execPreview(core)
-            }, 10)
-            onDone()
+            exec()
           }}
         >
           Welt erstellen
@@ -515,8 +529,7 @@ function NewWorldSettings({
         }}
         onKeyDown={(e) => {
           if (e.key == 'Enter' && canCreate) {
-            createWorldCmd(core, localDimX, localDimY, localHeight)
-            onDone()
+            exec()
           }
         }}
         type="number"
@@ -525,5 +538,13 @@ function NewWorldSettings({
         max={max}
       />
     )
+  }
+
+  function exec() {
+    createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+    setTimeout(() => {
+      execPreview(core)
+    }, 10)
+    onDone()
   }
 }

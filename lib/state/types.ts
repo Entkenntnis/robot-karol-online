@@ -40,6 +40,8 @@ export interface Ui {
   preview?: Preview
   showPreview: boolean
   shouldFocusWrapper: boolean
+  hideKarol: boolean
+  keepWorldPreference: boolean
 }
 
 export interface Vm {
@@ -86,6 +88,7 @@ export interface Puzzle {
   description: JSX.Element
   code: string
   deps: number[]
+  initWorld?: (world: World) => void
 }
 
 export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStatePuzzleMode

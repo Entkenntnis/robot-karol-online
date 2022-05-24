@@ -30,5 +30,6 @@ export function switchToPuzzle(core: Core, id: number) {
     state.showMenu = false
     state.puzzleWorkspace = createPuzzleWorkspaceState(id)
     if (id == 1) state.inviteStart = false
+    state.puzzleWorkspace.ui.needsTextRefresh = true
   })
 }

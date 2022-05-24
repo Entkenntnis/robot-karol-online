@@ -184,13 +184,33 @@ export function toggleBlock(core: Core) {
   }
 }
 
-export function createWorldCmd(core: Core, x: number, y: number, z: number) {
+export function createWorldCmd(
+  core: Core,
+  x: number,
+  y: number,
+  z: number,
+  keep?: boolean
+) {
+  const previous = core.ws.world
   core.mutateWs((state) => {
     state.world = createWorld(x, y, z)
     state.ui.preview = undefined
-  })
-  core.mutateCore((core) => {
-    core.projectTitle = undefined
+    // copy existing state
+    if (keep) {
+      for (let x2 = 0; x2 < x; x2++) {
+        for (let y2 = 0; y2 < y; y2++) {
+          if (x2 < previous.dimX && y2 < previous.dimY) {
+            state.world.marks[y2][x2] = previous.marks[y2][x2]
+            state.world.bricks[y2][x2] = previous.bricks[y2][x2]
+            state.world.blocks[y2][x2] = previous.blocks[y2][x2]
+          }
+        }
+      }
+      state.world.karol = previous.karol
+    }
+    if (keep !== undefined) {
+      state.ui.keepWorldPreference = keep
+    }
   })
 }
 
@@ -269,6 +289,16 @@ function onWorldChange(core: Core) {
           if (
             core.ws.world.bricks[y][x] !== core.puzzle.targetWorld.bricks[y][x]
           ) {
+            correctFields--
+          }
+        }
+        if (core.puzzle.targetWorld.marks[y][x]) {
+          nonEmptyFields++
+          if (core.ws.world.marks[y][x]) {
+            correctFields++
+          }
+        } else {
+          if (core.ws.world.marks[y][x]) {
             correctFields--
           }
         }
