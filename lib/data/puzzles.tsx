@@ -4,8 +4,9 @@ export const puzzles: Puzzle[] = [
   {
     id: 1,
     title: 'Start',
-    posX: 240,
-    posY: 91,
+    posX: 3,
+    posY: 3,
+    deps: [],
     description: (
       <>
         <p className="mb-2">
@@ -83,4 +84,73 @@ Hinlegen
 RechtsDrehen
 Schritt`,
   },
+
+  {
+    id: 2,
+    title: 'Handarbeit',
+    posX: 7,
+    posY: 3,
+    deps: [1],
+    description: (
+      <>
+        <p className="mb-2">Test 123</p>
+      </>
+    ),
+    targetWorld: {
+      dimX: 10,
+      dimY: 10,
+      height: 6,
+      karol: { x: 0, y: 0, dir: 'south' },
+      bricks: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ],
+      marks: [
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+      ],
+      blocks: [
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+      ],
+      chips: [],
+    },
+    code: ``,
+  },
 ]
+
+export const paths: {
+  [key: number]: { [key: number]: { x: number; y: number }[] }
+} = {
+  2: {
+    1: [
+      { x: 4, y: 3 },
+      { x: 5, y: 3 },
+      { x: 6, y: 3 },
+    ],
+  },
+}

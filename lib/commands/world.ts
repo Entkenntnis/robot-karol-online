@@ -1,3 +1,4 @@
+import { writeSync } from 'fs'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { Heading, World } from '../state/types'
@@ -273,15 +274,24 @@ function onWorldChange(core: Core) {
         }
       }
     }
+    const progress = Math.round(
+      (Math.max(0, correctFields) / nonEmptyFields) * 100
+    )
+
     core.mutateWs((ws) => {
       if (ws.type == 'puzzle') {
-        ws.progress = Math.round(
-          (Math.max(0, correctFields) / nonEmptyFields) * 100
-        )
-        if (ws.progress == 100) {
+        ws.progress = progress
+        if (progress == 100) {
           ws.ui.showPreview = false
         }
       }
     })
+
+    const id = core.ws.id
+    if (progress == 100 && !core.state.done.includes(id)) {
+      core.mutateCore((state) => {
+        state.done.push(id)
+      })
+    }
   }
 }

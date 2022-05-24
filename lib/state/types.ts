@@ -96,6 +96,7 @@ export interface Puzzle {
   targetWorld: World
   description: JSX.Element
   code: string
+  deps: number[]
 }
 
 export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStatePuzzleMode
@@ -109,6 +110,7 @@ export interface CoreState {
   editorWorkspace: WorkspaceStateFreeMode
   inviteMenu: boolean
   inviteStart: boolean
+  done: number[]
 }
 
 export interface CoreRefs {

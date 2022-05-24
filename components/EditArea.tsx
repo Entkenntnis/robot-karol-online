@@ -96,9 +96,17 @@ export function EditArea() {
               {core.ws.progress < 100 ? (
                 <div className="h-full flex flex-col z-50 relative bg-white">
                   <div className="p-3 overflow-y-auto">
-                    {puzzles[0].description}
+                    {core.puzzle.description}
                     {core.ws.preMode && (
                       <p className="text-center mt-5 mb-5">
+                        <button
+                          className="px-3 py-0.5 rounded z-10 bg-blue-200 mr-4"
+                          onClick={() => {
+                            showResearchCenter(core)
+                          }}
+                        >
+                          zurück
+                        </button>
                         <button
                           className="bg-green-300 px-3 py-0.5 rounded z-10"
                           onClick={() => {

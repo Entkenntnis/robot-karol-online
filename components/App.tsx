@@ -111,6 +111,7 @@ export function App() {
           )}
           {!core.state.showResearchCenter &&
             core.ws.type == 'puzzle' &&
+            !core.ws.preMode &&
             core.ws.progress < 100 && (
               <button
                 className={clsx(

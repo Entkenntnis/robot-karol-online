@@ -15,6 +15,7 @@ export function createDefaultCoreState(): CoreState {
     editorWorkspace: createFreeModeWorkspaceState(),
     inviteMenu: true,
     inviteStart: true,
+    done: [],
   }
 }
 
