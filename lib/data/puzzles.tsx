@@ -456,8 +456,7 @@ Hinlegen
 Schritt
 Schritt
 LinksDrehen
-Hinlegen
-    `,
+Hinlegen`,
     initWorld: (world) => {
       world.karol.x = 1
       ;[2, 4, 9, 11, 16, 18].forEach((x) => {
