@@ -4,7 +4,7 @@ Zum Editor → https://karol.arrrg.de/
 
 Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.
 
-<img src="https://user-images.githubusercontent.com/13507950/165845031-a5f1b4ab-2dea-445c-a381-6f82a8f821ad.png" width=900 />
+<img src="https://user-images.githubusercontent.com/13507950/170216019-869efcd5-dda6-40c1-a071-e8e4380cb3e7.png" width=900 />
 
 ## Übersicht
 
