@@ -243,7 +243,6 @@ export function EditArea() {
               >
                 <option value="turbo">Turbo</option>
                 <option value="fast">schnell</option>
-                <option value="normal">normal</option>
                 <option value="slow">langsam</option>
                 <option value="step">Einzelschritt</option>
               </select>

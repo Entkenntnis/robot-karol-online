@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { ReflexElement, ReflexSplitter, ReflexContainer } from 'react-reflex'
-import 'react-reflex/styles.css'
 
 import { openMenu } from '../lib/commands/menu'
 import { useCore } from '../lib/state/core'

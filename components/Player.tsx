@@ -12,13 +12,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { toggleHideKarol } from '../lib/commands/editing'
 
+import { toggleHideKarol } from '../lib/commands/editing'
 import { focusWrapper, focusWrapperDone } from '../lib/commands/focus'
 import { serialize } from '../lib/commands/json'
 import { restoreProject } from '../lib/commands/load'
 import { execPreview, hidePreview, showPreview } from '../lib/commands/preview'
-import { resetCode } from '../lib/commands/puzzle'
+import { initWorld, resetCode } from '../lib/commands/puzzle'
 import { toggleWireframe } from '../lib/commands/view'
 import { abort, run } from '../lib/commands/vm'
 import {
@@ -250,6 +250,7 @@ export function Player() {
                   core.ws.world.dimY,
                   core.ws.world.height
                 )
+                initWorld(core)
                 resetCode(core)
               }}
             >

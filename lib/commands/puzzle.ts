@@ -16,3 +16,16 @@ export function resetCode(core: Core) {
     }
   })
 }
+
+export function initWorld(core: Core) {
+  if (core.ws.type == 'puzzle') {
+    core.mutateWs((ws) => {
+      if (core.puzzle.initWorld) {
+        core.puzzle.initWorld(ws.world)
+      }
+      if (ws.type == 'puzzle') {
+        ws.progress = 0
+      }
+    })
+  }
+}

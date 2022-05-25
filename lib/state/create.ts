@@ -44,7 +44,6 @@ export function createPuzzleWorkspaceState(
     preMode: true,
     progress: 0,
   }
-  ws.settings.speed = 'normal'
   if (puzzle.initWorld) {
     puzzle.initWorld(ws.world)
   }

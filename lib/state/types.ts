@@ -54,7 +54,7 @@ export interface Vm {
   confirmation: boolean
 }
 
-export type Speed = 'slow' | 'fast' | 'step' | 'turbo' | 'normal'
+export type Speed = 'slow' | 'fast' | 'step' | 'turbo'
 
 export interface Settings {
   speed: Speed

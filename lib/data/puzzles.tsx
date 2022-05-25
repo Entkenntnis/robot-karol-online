@@ -10,135 +10,437 @@ export const puzzles: Puzzle[] = [
     description: (
       <>
         <p className="mb-2">
-          Herzlich Willkommen bei Robot Karol! In diesem Bereich lernst du im
-          Rahmen eines entspanntes Bau- und Puzzlespiel die ersten Grundlagen
-          der Programmierung kennen. Fangen wir mit dieser kleinen Welt an:
+          Herzlich Willkommen! Du hast Spaß am Bauen und Puzzlen? Und du
+          möchtest einen Einblick in die Programmierung erhalten? Dann bist du
+          hier bei Robot Karol am richtigen Ort!
+        </p>
+        <p className="mb-2">
+          Im Rahmen dieses kleinen Bau- und Puzzlespiels lernst du ein paar
+          grundlegende Prinzipien des Programmieren kennen. Schaue dir folgende
+          Welt an:
         </p>
         <img
           src="/puzzle/start.png"
           alt="target"
-          className="mx-auto my-3 h-[180px]"
+          className="mx-auto my-3 max-h-[120px]"
         ></img>
         <p className="mb-2">
-          Klicke dafür auf Karol und steuere ihn mit den Pfeiltasten. Es ist
-          bereits ein kleines Programm für dich vorbereitet. Die transparenten
-          Ziegel zeigen, was bei der Ausführung des Programms passiert. Bewege
-          zuerst Karol in die passende Position und drücke dann die Taste{' '}
-          <strong>S</strong> (oder die Taste Start) um das Programm zu starten
-          und die Ziegel zu legen.
+          Ziel der Aufgaben ist es immer, die vorgegebene Welt nachzubauen.
+          Manchmal sieht man sofort, was zu tun ist - und manchmal braucht es
+          etwas Kreativität. Meistens ist schon ein kleines Programm
+          vorbereitet, mit dem man arbeiten kann, wie auch in diesem Fall: Unten
+          links siehst du den Code für das Programm und rechts siehts du auch
+          eine <em>Vorschau</em>, was das Programm macht. Es ist alles bereit,
+          du musst nur noch das Programm starten.
         </p>
       </>
     ),
     targetWorld: {
-      dimX: 10,
-      dimY: 10,
+      dimX: 6,
+      dimY: 6,
       height: 6,
       karol: { x: 0, y: 0, dir: 'south' },
       bricks: [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-        [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0],
+        [0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
       ],
       marks: [
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false],
+        [false, false, false, false, false, false],
+        [false, false, false, false, false, false],
+        [false, false, false, false, false, false],
+        [false, false, false, false, false, false],
+        [false, false, false, false, false, false],
       ],
       blocks: [
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false],
+        [false, false, false, false, false, false],
+        [false, false, false, false, false, false],
+        [false, false, false, false, false, false],
+        [false, false, false, false, false, false],
+        [false, false, false, false, false, false],
       ],
     },
-    code: `Hinlegen
+    code: `Schritt
 Schritt
 LinksDrehen
-Hinlegen
+Schritt
+Hinlegen Schritt
 RechtsDrehen
 Hinlegen
-Schritt
 LinksDrehen
 Hinlegen
+Schritt
 RechtsDrehen
-Schritt`,
+Hinlegen`,
   },
 
   {
     id: 2,
-    title: 'Smiley',
+    title: 'Smileys',
     posX: 7,
     posY: 3,
     deps: [1],
     description: (
       <>
-        <p className="mb-2">Baue bei dieser Aufgabe einen Smiley:</p>
+        <p className="mb-2">
+          An manchen Tagen sind wir glücklich, an manchen nicht. Es ist nur eine
+          Frage der Ausrichtung:
+        </p>
         <img
-          src="/puzzle/smiley.png"
+          src="/puzzle/smileys.png"
           alt="target"
-          className="mx-auto my-3 h-[180px]"
+          className="mx-auto my-3 max-h-[160px]"
         ></img>
         <p className="mb-2">
-          Es gibt wieder ein Programm, doch es ist unvollständig. Du kannst die
-          fehlenden Teile per Hand bauen: Deaktiviere zuerst die Vorschau, in
-          dem du unten links den Haken entfernst. Drücke die Taste{' '}
-          <strong>H</strong>, um vor dir einen Ziegel zu legen und die Taste{' '}
-          <strong>M</strong>, um unter dir eine Marke zu setzen. Mit der Taste{' '}
-          <strong>A</strong> kannst du Ziegel wieder aufheben.
+          Füge den Gesichtern den richtigen Mund hinzu. Diesmal musst du Karol
+          ein wenig herumbewegen. Nutze dafür die Pfeiltasten.
         </p>
       </>
     ),
     targetWorld: {
-      dimX: 7,
+      dimX: 21,
       dimY: 7,
       height: 6,
-      karol: { x: 6, y: 0, dir: 'east' },
+      karol: { x: 20, y: 0, dir: 'south' },
       bricks: [
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 1, 0],
-        [0, 0, 1, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+        [0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       ],
       marks: [
-        [false, false, false, false, false, false, false],
-        [false, false, true, false, true, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
       ],
       blocks: [
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
       ],
     },
     code: `Hinlegen
@@ -157,7 +459,11 @@ LinksDrehen
 Hinlegen
     `,
     initWorld: (world) => {
-      world.karol.dir = 'east'
+      world.karol.x = 1
+      ;[2, 4, 9, 11, 16, 18].forEach((x) => {
+        world.bricks[1][x] = 1
+        world.marks[1][x] = true
+      })
     },
   },
 ]
