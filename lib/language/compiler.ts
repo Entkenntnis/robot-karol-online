@@ -17,56 +17,56 @@ export function compile(view: EditorView) {
       const code = view.state.doc.sliceString(cursor.from, cursor.to)
       if (cursor.name == 'Command') {
         const line = view.state.doc.lineAt(cursor.from).number
-        if (code == 'Schritt') {
+        if (code.toLowerCase() == 'schritt') {
           output.push({
             type: 'action',
             command: 'forward',
             line,
           })
-        } else if (code == 'LinksDrehen') {
+        } else if (code.toLowerCase() == 'linksdrehen') {
           output.push({
             type: 'action',
             command: 'left',
             line,
           })
-        } else if (code == 'RechtsDrehen') {
+        } else if (code.toLowerCase() == 'rechtsdrehen') {
           output.push({
             type: 'action',
             command: 'right',
             line,
           })
-        } else if (code == 'Hinlegen') {
+        } else if (code.toLowerCase() == 'hinlegen') {
           output.push({
             type: 'action',
             command: 'brick',
             line,
           })
-        } else if (code == 'Aufheben') {
+        } else if (code.toLowerCase() == 'aufheben') {
           output.push({
             type: 'action',
             command: 'unbrick',
             line,
           })
-        } else if (code == 'MarkeSetzen') {
+        } else if (code.toLowerCase() == 'markesetzen') {
           output.push({
             type: 'action',
             command: 'setMark',
             line,
           })
-        } else if (code == 'MarkeLöschen') {
+        } else if (code.toLowerCase() == 'markelöschen') {
           output.push({
             type: 'action',
             command: 'resetMark',
             line,
           })
-        } else if (code == 'Beenden') {
+        } else if (code.toLowerCase() == 'beenden') {
           // jump into the black hole
           output.push({
             type: 'jumpn',
             target: Infinity,
             count: Infinity,
           })
-        } else if (code == 'Unterbrechen') {
+        } else if (code.toLowerCase() == 'unterbrechen') {
           output.push({ type: 'return', line: undefined })
         } else {
           warnings.push({
@@ -134,17 +134,17 @@ export function compile(view: EditorView) {
       if (cursor.name == 'Condition') {
         const st = parseStack[parseStack.length - 1]
         let cond: Condition = {} as Condition
-        if (code == 'NichtIstWand') {
+        if (code.toLowerCase() == 'nichtistwand') {
           cond = { type: 'wall', negated: true }
-        } else if (code == 'IstWand') {
+        } else if (code.toLowerCase() == 'istwand') {
           cond = { type: 'wall', negated: false }
-        } else if (code == 'NichtIstZiegel') {
+        } else if (code.toLowerCase() == 'nichtistziegel') {
           cond = { type: 'brick', negated: true }
-        } else if (code == 'IstZiegel') {
+        } else if (code.toLowerCase() == 'istziegel') {
           cond = { type: 'brick', negated: false }
-        } else if (code == 'NichtIstMarke') {
+        } else if (code.toLowerCase() == 'nichtistmarke') {
           cond = { type: 'mark', negated: true }
-        } else if (code == 'IstMarke') {
+        } else if (code.toLowerCase() == 'istmarke') {
           cond = { type: 'mark', negated: false }
         } else {
           warnings.push({
@@ -255,7 +255,7 @@ export function compile(view: EditorView) {
       if (cursor.name == 'IfEndKey') {
         const st = parseStack[parseStack.length - 1]
         if (st && st.type == 'if') {
-          if (code !== 'endewenn') {
+          if (code.toLowerCase() !== 'endewenn') {
             warnings.push({
               from: cursor.from,
               to: cursor.to,
@@ -335,7 +335,7 @@ export function compile(view: EditorView) {
             line,
           })
           parseStack.pop()
-          if (code !== 'endewiederhole') {
+          if (code.toLowerCase() !== 'endewiederhole') {
             warnings.push({
               from: cursor.from,
               to: cursor.to,
@@ -354,7 +354,7 @@ export function compile(view: EditorView) {
             line,
           })
           parseStack.pop()
-          if (code !== 'endewiederhole') {
+          if (code.toLowerCase() !== 'endewiederhole') {
             warnings.push({
               from: cursor.from,
               to: cursor.to,
@@ -382,7 +382,7 @@ export function compile(view: EditorView) {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'function' && st.stage == 0) {
           st.stage = 1
-          if (code !== 'Anweisung') {
+          if (code.toLowerCase() !== 'anweisung') {
             warnings.push({
               from: cursor.from,
               to: cursor.to,

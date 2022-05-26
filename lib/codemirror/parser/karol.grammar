@@ -8,15 +8,32 @@ expression {
 }
 
 Command { 
-  @specialize<idx, "Schritt"> | 
+  @specialize<idx, "Schritt"> |
+  @specialize<idx, "schritt"> |
   @specialize<idx, "LinksDrehen"> |
+  @specialize<idx, "linksdrehen"> |
+  @specialize<idx, "linksDrehen"> |
+  @specialize<idx, "Linksdrehen"> |
   @specialize<idx, "RechtsDrehen"> |
+  @specialize<idx, "rechtsdrehen"> |
+  @specialize<idx, "rechtsDrehen"> |
+  @specialize<idx, "Rechtsdrehen"> |
   @specialize<idx, "Hinlegen"> |
+  @specialize<idx, "hinlegen"> |
   @specialize<idx, "Aufheben"> |
+  @specialize<idx, "aufheben"> |
   @specialize<idx, "MarkeSetzen"> |
+  @specialize<idx, "markesetzen"> |
+  @specialize<idx, "markeSetzen"> |
+  @specialize<idx, "Markesetzen"> |
   @specialize<idx, "MarkeLöschen"> |
+  @specialize<idx, "markelöschen"> |
+  @specialize<idx, "markeLöschen"> |
+  @specialize<idx, "Markelöschen"> |
   @specialize<idx, "Beenden"> |
-  @specialize<idx, "Unterbrechen">
+  @specialize<idx, "beenden"> |
+  @specialize<idx, "Unterbrechen"> |
+  @specialize<idx, "unterbrechen">
 }
 
 Repeat {
@@ -25,7 +42,7 @@ Repeat {
 
 RepeatStart[closedBy="RepeatEnd"] { @specialize<idx, "wiederhole"> }
 
-RepeatEnd { @specialize<idx, "endewiederhole"> }
+RepeatEnd { @specialize<idx, "endewiederhole"> | @specialize<idx, "endeWiederhole"> }
 
 RepeatWhileKey { @specialize<idx, "solange"> }
 
@@ -35,11 +52,26 @@ Times { number }
 
 Condition {
   @specialize<idx, "IstWand"> |
+  @specialize<idx, "istwand"> |
+  @specialize<idx, "Istwand"> |
+  @specialize<idx, "istWand"> |
   @specialize<idx, "NichtIstWand"> |
+  @specialize<idx, "nichtistwand"> |
+  @specialize<idx, "Nichtistwand"> |
   @specialize<idx, "IstZiegel"> |
+  @specialize<idx, "istziegel"> |
+  @specialize<idx, "istZiegel"> |
+  @specialize<idx, "Istziegel"> |
   @specialize<idx, "NichtIstZiegel"> |
+  @specialize<idx, "nichtistziegel"> |
+  @specialize<idx, "Nichtistziegel"> |
   @specialize<idx, "IstMarke"> |
+  @specialize<idx, "istmarke"> |
+  @specialize<idx, "istMarke"> |
+  @specialize<idx, "Istmarke"> |
   @specialize<idx, "NichtIstMarke">
+  @specialize<idx, "nichtistmarke">
+  @specialize<idx, "Nichtistmarke">
 }
 
 IfThen {
@@ -50,7 +82,7 @@ IfKey[closedBy="IfEndKey"] { @specialize<idx, "wenn"> }
 
 ThenKey { @specialize<idx, "dann"> }
 
-IfEndKey { @specialize<idx, "endewenn"> }
+IfEndKey { @specialize<idx, "endewenn"> | @specialize<idx, "endeWenn">}
 
 ElseKey { @specialize<idx, "sonst"> }
 
@@ -60,9 +92,9 @@ Cmd {
 
 CmdName { idx }
 
-CmdStart[closedBy="CmdEnd"] { @specialize<idx, "Anweisung"> }
+CmdStart[closedBy="CmdEnd"] { @specialize<idx, "Anweisung"> | @specialize<idx, "anweisung"> }
 
-CmdEnd { @specialize<idx, "endeAnweisung"> }
+CmdEnd { @specialize<idx, "endeAnweisung"> | @specialize<idx, "endeanweisung"> }
 
 CustomRef { idx }
 
