@@ -152,6 +152,20 @@ Addition: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-ka
 
 Multiplikation: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck_multiplizieren.json
 
+## Entwicklung
+
+Um das Repo zum Laufen zu bringen, benötigt es folgende Schritte:
+
+```
+git clone https://github.com/Entkenntnis/robot-karol-web.git
+cd robot-karol-web
+yarn
+yarn dev
+``
+
+Danach kannst du über `localhost:3000` auf deine lokale Version zugreifen.
+
 ## Kontakt
 
 Nachrichten können gerne direkt auf Github in den Issues angelegt werden.
+```
