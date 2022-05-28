@@ -69,18 +69,22 @@ export function Player() {
     ArrowDown: () => {
       forward(core, { reverse: true })
     },
-    KeyM: () => {
-      toggleMark(core)
-    },
-    KeyH: () => {
-      brick(core)
-    },
-    KeyQ: () => {
-      toggleBlock(core)
-    },
-    KeyA: () => {
-      unbrick(core)
-    },
+    ...(core.ws.type == 'free'
+      ? {
+          KeyM: () => {
+            toggleMark(core)
+          },
+          KeyH: () => {
+            brick(core)
+          },
+          KeyQ: () => {
+            toggleBlock(core)
+          },
+          KeyA: () => {
+            unbrick(core)
+          },
+        }
+      : {}),
   }
 
   function runAction(action: string) {
@@ -162,34 +166,11 @@ export function Player() {
               </div>
             ))}
           </div>
-          <div className="absolute right-3 bottom-2">
-            <span
-              onClick={() => {
-                setScale((scale) => scale / 1.1)
-              }}
-            >
-              <FaIcon
-                icon={faMagnifyingGlassMinus}
-                className="cursor-pointer"
-              />
-            </span>
-            <span className="inline-block w-4" />
-            <span
-              onClick={() => {
-                setScale(1)
-              }}
-            >
-              <FaIcon icon={faEquals} className="cursor-pointer" />
-            </span>
-            <span className="inline-block w-4" />
-            <span
-              onClick={() => {
-                setScale((scale) => scale * 1.1)
-              }}
-            >
-              <FaIcon icon={faMagnifyingGlassPlus} className="cursor-pointer" />
-            </span>
-          </div>
+          {core.ws.type == 'free' && (
+            <div className="absolute right-3 bottom-2">
+              {renderZoomControls()}
+            </div>
+          )}
           {core.ws.type == 'free' && (
             <div className="absolute left-1 top-1">
               {core.state.projectTitle ? (
@@ -317,59 +298,66 @@ export function Player() {
           >
             <FaIcon icon={faRightLong} />
           </button>
-          <button
-            className="mx-2"
-            onClick={() => {
-              runAction('KeyH')
-            }}
-            title="Hinlegen"
-          >
-            H
-          </button>
-          <button
-            className="mx-3"
-            onClick={() => {
-              runAction('KeyA')
-            }}
-            title="Aufheben"
-          >
-            A
-          </button>
-          <button
-            className="mx-3"
-            onClick={() => {
-              runAction('KeyM')
-            }}
-            title="MarkeSetzen / MarkeLöschen"
-          >
-            M
-          </button>
-          <button
-            className="mx-3"
-            onClick={() => {
-              runAction('KeyQ')
-            }}
-            title="Quader setzen oder löschen"
-          >
-            Q
-          </button>
+          {core.ws.type == 'free' && (
+            <>
+              <button
+                className="mx-2"
+                onClick={() => {
+                  runAction('KeyH')
+                }}
+                title="Hinlegen"
+              >
+                H
+              </button>
+              <button
+                className="mx-3"
+                onClick={() => {
+                  runAction('KeyA')
+                }}
+                title="Aufheben"
+              >
+                A
+              </button>
+              <button
+                className="mx-3"
+                onClick={() => {
+                  runAction('KeyM')
+                }}
+                title="MarkeSetzen / MarkeLöschen"
+              >
+                M
+              </button>
+              <button
+                className="mx-3"
+                onClick={() => {
+                  runAction('KeyQ')
+                }}
+                title="Quader setzen oder löschen"
+              >
+                Q
+              </button>
+            </>
+          )}
           <span className="ml-4 h-7 border-r"></span>
-          {
-            <img
-              src={
-                core.ws.ui.wireframe
-                  ? '/Ansicht_frame.png'
-                  : '/Ansicht_voll.png'
-              }
-              title="Darstellung der Ziegel umschalten"
-              alt="umschalten"
-              className="inline-block h-5 pb-0.5 pl-1.5 cursor-pointer ml-3"
-              onClick={() => {
-                toggleWireframe(core)
-                wrapper.current?.focus()
-              }}
-            />
-          }
+
+          <img
+            src={
+              core.ws.ui.wireframe ? '/Ansicht_frame.png' : '/Ansicht_voll.png'
+            }
+            title="Darstellung der Ziegel umschalten"
+            alt="umschalten"
+            className="inline-block h-5 pb-0.5 pl-1.5 cursor-pointer ml-3 select-none"
+            onClick={() => {
+              toggleWireframe(core)
+              wrapper.current?.focus()
+            }}
+          />
+          {core.ws.type == 'puzzle' && (
+            <>
+              <span className="ml-5 h-7 border-r mr-6"></span>
+              {renderZoomControls()}
+            </>
+          )}
         </div>
       </div>
       {showNewWorldModal && (
@@ -439,6 +427,39 @@ export function Player() {
       >
         <FaIcon icon={faDownload} /> Speichern
       </button>
+    )
+  }
+
+  function renderZoomControls() {
+    return (
+      <>
+        <span
+          onClick={() => {
+            setScale((scale) => scale / 1.1)
+          }}
+          title="Verkleinern"
+        >
+          <FaIcon icon={faMagnifyingGlassMinus} className="cursor-pointer" />
+        </span>
+        <span className="inline-block w-4" />
+        <span
+          onClick={() => {
+            setScale(1)
+          }}
+          title="Zoom zurücksetzen"
+        >
+          <FaIcon icon={faEquals} className="cursor-pointer" />
+        </span>
+        <span className="inline-block w-4" />
+        <span
+          onClick={() => {
+            setScale((scale) => scale * 1.1)
+          }}
+          title="Vergrößern"
+        >
+          <FaIcon icon={faMagnifyingGlassPlus} className="cursor-pointer" />
+        </span>
+      </>
     )
   }
 }

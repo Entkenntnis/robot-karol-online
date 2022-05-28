@@ -77,13 +77,14 @@ Hinlegen
 Schritt
 RechtsDrehen
 Hinlegen`,
+    startSpeed: 'slow',
   },
 
   {
     id: 2,
     title: 'Smileys',
     posX: 7,
-    posY: 3,
+    posY: 6,
     deps: [1],
     description: (
       <>
@@ -469,9 +470,9 @@ Hinlegen`,
   {
     id: 3,
     title: 'Fliesen',
-    posX: 9,
-    posY: 8,
-    deps: [2],
+    posX: 11,
+    posY: 9,
+    deps: [1],
     description: (
       <>
         <p className="mb-2">
@@ -520,10 +521,270 @@ Hinlegen`,
 
   {
     id: 4,
-    title: 'TODO',
-    posX: 12,
-    posY: 3,
-    deps: [2],
+    title: 'TODO 4',
+    posX: 15,
+    posY: 12,
+    deps: [1],
+    description: (
+      <>
+        <p className="mb-2">
+          Ein schöner Fußboden macht immer eine Freude. Lege bei dieser Aufgabe
+          den Boden einmal komplett mit Fliesen aus:
+        </p>
+        <img
+          src="/puzzle/fliesen.png"
+          alt="target"
+          className="mx-auto my-3 max-h-[120px]"
+        ></img>
+        <p className="mb-2">
+          Bei diesem Programm kommt eine Schleife zum Einsatz: Mit dem
+          Schlüsselwort <em>wiederhole solange</em> kann Karol eine Aktion
+          solange wiederholen, bis die Bedingung nicht mehr erfüllt ist. In
+          diesem Fall legt er Fliesen bis zur nächsten Wand.
+        </p>
+      </>
+    ),
+    targetWorld: {
+      dimX: 10,
+      dimY: 4,
+      height: 6,
+      karol: { x: 0, y: 3, dir: 'west' },
+      bricks: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ],
+      marks: [
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+      ],
+      blocks: [
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+      ],
+    },
+    code: 'wiederhole solange NichtIstWand\n  MarkeSetzen\n  Schritt\nendewiederhole\nMarkeSetzen',
+  },
+
+  {
+    id: 5,
+    title: 'TODO 5',
+    posX: 19,
+    posY: 15,
+    deps: [1],
+    description: (
+      <>
+        <p className="mb-2">
+          Ein schöner Fußboden macht immer eine Freude. Lege bei dieser Aufgabe
+          den Boden einmal komplett mit Fliesen aus:
+        </p>
+        <img
+          src="/puzzle/fliesen.png"
+          alt="target"
+          className="mx-auto my-3 max-h-[120px]"
+        ></img>
+        <p className="mb-2">
+          Bei diesem Programm kommt eine Schleife zum Einsatz: Mit dem
+          Schlüsselwort <em>wiederhole solange</em> kann Karol eine Aktion
+          solange wiederholen, bis die Bedingung nicht mehr erfüllt ist. In
+          diesem Fall legt er Fliesen bis zur nächsten Wand.
+        </p>
+      </>
+    ),
+    targetWorld: {
+      dimX: 10,
+      dimY: 4,
+      height: 6,
+      karol: { x: 0, y: 3, dir: 'west' },
+      bricks: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ],
+      marks: [
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+      ],
+      blocks: [
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+      ],
+    },
+    code: 'wiederhole solange NichtIstWand\n  MarkeSetzen\n  Schritt\nendewiederhole\nMarkeSetzen',
+  },
+
+  {
+    id: 6,
+    title: 'TODO 6',
+    posX: 23,
+    posY: 18,
+    deps: [1],
+    description: (
+      <>
+        <p className="mb-2">
+          Ein schöner Fußboden macht immer eine Freude. Lege bei dieser Aufgabe
+          den Boden einmal komplett mit Fliesen aus:
+        </p>
+        <img
+          src="/puzzle/fliesen.png"
+          alt="target"
+          className="mx-auto my-3 max-h-[120px]"
+        ></img>
+        <p className="mb-2">
+          Bei diesem Programm kommt eine Schleife zum Einsatz: Mit dem
+          Schlüsselwort <em>wiederhole solange</em> kann Karol eine Aktion
+          solange wiederholen, bis die Bedingung nicht mehr erfüllt ist. In
+          diesem Fall legt er Fliesen bis zur nächsten Wand.
+        </p>
+      </>
+    ),
+    targetWorld: {
+      dimX: 10,
+      dimY: 4,
+      height: 6,
+      karol: { x: 0, y: 3, dir: 'west' },
+      bricks: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ],
+      marks: [
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+      ],
+      blocks: [
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+      ],
+    },
+    code: 'wiederhole solange NichtIstWand\n  MarkeSetzen\n  Schritt\nendewiederhole\nMarkeSetzen',
+  },
+
+  {
+    id: 7,
+    title: 'TODO 7',
+    posX: 27,
+    posY: 21,
+    deps: [1],
+    description: (
+      <>
+        <p className="mb-2">
+          Ein schöner Fußboden macht immer eine Freude. Lege bei dieser Aufgabe
+          den Boden einmal komplett mit Fliesen aus:
+        </p>
+        <img
+          src="/puzzle/fliesen.png"
+          alt="target"
+          className="mx-auto my-3 max-h-[120px]"
+        ></img>
+        <p className="mb-2">
+          Bei diesem Programm kommt eine Schleife zum Einsatz: Mit dem
+          Schlüsselwort <em>wiederhole solange</em> kann Karol eine Aktion
+          solange wiederholen, bis die Bedingung nicht mehr erfüllt ist. In
+          diesem Fall legt er Fliesen bis zur nächsten Wand.
+        </p>
+      </>
+    ),
+    targetWorld: {
+      dimX: 10,
+      dimY: 4,
+      height: 6,
+      karol: { x: 0, y: 3, dir: 'west' },
+      bricks: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ],
+      marks: [
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+      ],
+      blocks: [
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+      ],
+    },
+    code: 'wiederhole solange NichtIstWand\n  MarkeSetzen\n  Schritt\nendewiederhole\nMarkeSetzen',
+  },
+
+  {
+    id: 8,
+    title: 'TODO 8',
+    posX: 31,
+    posY: 24,
+    deps: [1],
+    description: (
+      <>
+        <p className="mb-2">
+          Ein schöner Fußboden macht immer eine Freude. Lege bei dieser Aufgabe
+          den Boden einmal komplett mit Fliesen aus:
+        </p>
+        <img
+          src="/puzzle/fliesen.png"
+          alt="target"
+          className="mx-auto my-3 max-h-[120px]"
+        ></img>
+        <p className="mb-2">
+          Bei diesem Programm kommt eine Schleife zum Einsatz: Mit dem
+          Schlüsselwort <em>wiederhole solange</em> kann Karol eine Aktion
+          solange wiederholen, bis die Bedingung nicht mehr erfüllt ist. In
+          diesem Fall legt er Fliesen bis zur nächsten Wand.
+        </p>
+      </>
+    ),
+    targetWorld: {
+      dimX: 10,
+      dimY: 4,
+      height: 6,
+      karol: { x: 0, y: 3, dir: 'west' },
+      bricks: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ],
+      marks: [
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+        [true, true, true, true, true, true, true, true, true, true],
+      ],
+      blocks: [
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false],
+      ],
+    },
+    code: 'wiederhole solange NichtIstWand\n  MarkeSetzen\n  Schritt\nendewiederhole\nMarkeSetzen',
+  },
+
+  {
+    id: 9,
+    title: 'TODO 9',
+    posX: 35,
+    posY: 27,
+    deps: [1],
     description: (
       <>
         <p className="mb-2">
@@ -575,28 +836,27 @@ export const paths: {
   [key: number]: { [key: number]: { x: number; y: number }[] }
 } = {
   2: {
-    1: [
-      { x: 4, y: 3 },
-      { x: 5, y: 3 },
-      { x: 6, y: 3 },
-    ],
+    1: [],
   },
   3: {
-    2: [
-      { x: 7, y: 4 },
-      { x: 7, y: 5 },
-      { x: 7, y: 6 },
-      { x: 7, y: 7 },
-      { x: 7, y: 8 },
-      { x: 8, y: 8 },
-    ],
+    1: [],
   },
   4: {
-    2: [
-      { x: 8, y: 3 },
-      { x: 9, y: 3 },
-      { x: 10, y: 3 },
-      { x: 11, y: 3 },
-    ],
+    1: [],
+  },
+  5: {
+    1: [],
+  },
+  6: {
+    1: [],
+  },
+  7: {
+    1: [],
+  },
+  8: {
+    1: [],
+  },
+  9: {
+    1: [],
   },
 }

@@ -226,8 +226,8 @@ export function EditArea() {
       if (!core.ws.vm.bytecode || core.ws.vm.bytecode.length == 0) {
         return (
           <div className="m-[11px]">
-            Klicke auf Karol, um ihn mit der Tastatur zu steuern oder schreibe
-            ein Programm.
+            Schreibe ein Programm für Robot Karol im Editor oder klicke auf
+            &quot;Menü&quot; für eine Einführung.
           </div>
         )
       } else {

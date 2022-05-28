@@ -66,7 +66,7 @@ function internal_step(core: Core) {
     core.ws.settings.speed == 'slow'
       ? 300
       : core.ws.settings.speed == 'fast'
-      ? 40
+      ? 50
       : 0
 
   //console.log(this.state.ui.gutterReturns)

@@ -47,6 +47,9 @@ export function createPuzzleWorkspaceState(
   if (puzzle.initWorld) {
     puzzle.initWorld(ws.world)
   }
+  if (puzzle.startSpeed) {
+    ws.settings.speed = puzzle.startSpeed
+  }
   return ws
 }
 
