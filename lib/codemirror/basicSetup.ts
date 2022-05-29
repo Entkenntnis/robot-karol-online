@@ -196,6 +196,12 @@ function buildMyAutocomplete(): CompletionSource {
     const token = context.matchBefore(/[a-zA-Z_0-9äöüÄÜÖß]+$/)
     const tree = syntaxTree(context.state)
 
+    const charAfter = context.state.doc.sliceString(
+      context.pos,
+      context.pos + 1
+    )
+    if (charAfter.trim().length > 0 && !context.explicit) return null
+
     const around = tree.resolve(context.pos)
     const endingHere = around.resolve(context.pos, -1)
 

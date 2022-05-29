@@ -332,5 +332,5 @@ export const p4_säulen: Puzzle = {
       ],
     ],
   },
-  code: 'Hinlegen\nHinlegen\nHinlege\nHinlegentt\nLinksDrehen Schritt RechtsDrehen\nSchritt Schritt Schritt Schritt RechtsDrehen\nHinlägen\nHinlegen\nHinlegen\nHinlegen\nLinks Drehen\n',
+  code: 'Hinlegen\nHinlegen\nHinlege\nHinlegentt\nLinksDrehen Schritt RechtsDrehen\nSchritt Schritt Schritt Schritt RechtsDrehen\nHinlägen\nHinlogen\nHinligen\nHinlegen\nLinks Drehen\n',
 }
