@@ -2,7 +2,8 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { useState } from 'react'
 import { switchToEditor, switchToPuzzle } from '../lib/commands/menu'
-import { paths, puzzles } from '../lib/data/puzzles'
+import { paths } from '../lib/data/paths'
+import { puzzles } from '../lib/data/puzzles'
 import { useCore } from '../lib/state/core'
 import { ExternalLink } from './ExternalLink'
 import { FaIcon } from './FaIcon'
@@ -65,12 +66,14 @@ export function Menu() {
             }
 
             puzzle.deps.forEach((d) => {
-              const path = paths[puzzle.id][d]
-              for (const p of path) {
-                if (
-                  bricks.findIndex(({ x, y }) => x == p.x && y == p.y) === -1
-                ) {
-                  bricks.push(p)
+              const path = paths[puzzle.id]?.[d]
+              if (path) {
+                for (const p of path) {
+                  if (
+                    bricks.findIndex(({ x, y }) => x == p.x && y == p.y) === -1
+                  ) {
+                    bricks.push(p)
+                  }
                 }
               }
             })
