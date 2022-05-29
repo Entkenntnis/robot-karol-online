@@ -17,10 +17,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@codemirror/autocomplete@^0.20.0":
-  version "0.20.2"
-  resolved "https://registry.yarnpkg.com/@codemirror/autocomplete/-/autocomplete-0.20.2.tgz#4fd46dc751a82c1922abcfad9b64b9cb67826998"
-  integrity sha512-UBElAn5HTx9o0XDGyTm5RBJ9gegc16/Lmd9tjphW6nX0NMmnT0Kcd8k6Fn6ok60WyFQinSHPwOHQbdAXuLLjYA==
+"@codemirror/autocomplete@0.20.1":
+  version "0.20.1"
+  resolved "https://registry.yarnpkg.com/@codemirror/autocomplete/-/autocomplete-0.20.1.tgz#d9aa5cfc111469f9f014e80d239916bb0c21edf9"
+  integrity sha512-rWDAkE1Qn9O4LsV8tAm/KlzzqdQLaIxqDOLhVYja3rKQIWebD3dixIzg9BAKpjt+0dIaDwtIp3yinD9MefgbQQ==
   dependencies:
     "@codemirror/language" "^0.20.0"
     "@codemirror/state" "^0.20.0"
@@ -1802,10 +1802,10 @@ react-measure@^2.0.2:
     prop-types "^15.6.2"
     resize-observer-polyfill "^1.5.0"
 
-react-reflex@^4.0.8:
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/react-reflex/-/react-reflex-4.0.8.tgz#8dbce03e283ca415fb51c48ac6658c8758d8e642"
-  integrity sha512-2nOnDA93MRlmPwZ4n9jJD7XJWh537Xdy2H0b0pZ0R4Je0s70oRFvFsKX2RF/L4divqhTqAhU8M/rsiixTQyjNg==
+react-reflex@^4.0.9:
+  version "4.0.9"
+  resolved "https://registry.yarnpkg.com/react-reflex/-/react-reflex-4.0.9.tgz#3f20d0afacb43f5f37b93e0b56f5042b63b54d06"
+  integrity sha512-XFTNRekFK4ul8mzVd1lniKT/SI0FvNYhXyLNl5gagS1i3iW9QKlpFYcRfVhZlxxaYHb8UyLOs3+H4Ay5cjtbxQ==
   dependencies:
     "@babel/runtime" "^7.0.0"
     lodash.throttle "^4.1.1"
