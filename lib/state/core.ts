@@ -10,7 +10,7 @@ import {
 } from 'react'
 import produce, { Draft } from 'immer'
 
-import { CoreRefs, CoreState, WorkspaceState } from './types'
+import { CoreRefs, CoreState, WorkspaceState, World } from './types'
 import { createDefaultCoreState } from './create'
 import { puzzles } from '../data/puzzles'
 
@@ -40,6 +40,7 @@ export const CoreProvider = CoreContext.Provider
 export class Core {
   _setCoreState: Dispatch<SetStateAction<CoreState>>
   _coreRef: MutableRefObject<CoreRefs>
+  _workspaceStorage: { [key: string]: { world: World; code: string } }
 
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,
@@ -47,6 +48,7 @@ export class Core {
   ) {
     this._setCoreState = setCoreState
     this._coreRef = coreRef
+    this._workspaceStorage = {}
   }
 
   // async-safe way to access core state
@@ -77,5 +79,17 @@ export class Core {
     this.mutateCore((state) => {
       updater(state.puzzleWorkspace || state.editorWorkspace)
     })
+  }
+
+  retrieveWsFromStorage(id: number) {
+    return this._workspaceStorage[id.toString()]
+  }
+
+  setWsToStorage(id: number, world: World, code: string) {
+    this._workspaceStorage[id.toString()] = { world, code }
+  }
+
+  deleteWsFromStorage(id: number) {
+    delete this._workspaceStorage[id.toString()]
   }
 }

@@ -2,7 +2,7 @@ import { EditorView } from '@codemirror/view'
 
 import { compile } from '../language/compiler'
 import { Core } from '../state/core'
-import { execPreview } from './preview'
+import { execPreview, hidePreview } from './preview'
 import { patch } from './vm'
 
 export function lint(core: Core, view: EditorView) {
@@ -27,7 +27,7 @@ export function lint(core: Core, view: EditorView) {
       vm.bytecode = undefined
       vm.pc = 0
       ui.state = 'error'
-      ui.preview = undefined
+      //ui.preview = undefined
     })
   }
   return warnings
@@ -47,5 +47,8 @@ export function toggleHideKarol(core: Core) {
     core.mutateWs((ws) => {
       ws.ui.hideKarol = !ws.ui.hideKarol
     })
+    if (core.ws.ui.hideKarol) {
+      hidePreview(core)
+    }
   }
 }

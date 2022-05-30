@@ -1,4 +1,3 @@
-import { writeSync } from 'fs'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { Heading, World } from '../state/types'
@@ -272,7 +271,7 @@ function isReadOnly(core: Core, x: number, y: number) {
   return core.ws.type == 'puzzle' && core.ws.progress == 100
 }
 
-function onWorldChange(core: Core) {
+export function onWorldChange(core: Core) {
   if (core.ws.type == 'puzzle') {
     let correctFields = 0
     let nonEmptyFields = 0
@@ -322,6 +321,10 @@ function onWorldChange(core: Core) {
       core.mutateCore((state) => {
         state.done.push(id)
       })
+    }
+
+    if (progress == 100) {
+      core.deleteWsFromStorage(id)
     }
   }
 }

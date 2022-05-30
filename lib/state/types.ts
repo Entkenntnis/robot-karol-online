@@ -90,6 +90,7 @@ export interface Puzzle {
   deps: number[]
   initWorld?: (world: World) => void
   startSpeed?: Speed
+  disableMovement?: boolean
 }
 
 export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStatePuzzleMode

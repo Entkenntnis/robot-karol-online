@@ -223,7 +223,10 @@ export function EditArea() {
   function renderProgramControl() {
     if (core.ws.type == 'puzzle' && core.ws.progress == 100) return null
     if (codeState == 'ready' || codeState == 'running') {
-      if (!core.ws.vm.bytecode || core.ws.vm.bytecode.length == 0) {
+      if (
+        core.ws.type == 'free' &&
+        (!core.ws.vm.bytecode || core.ws.vm.bytecode.length == 0)
+      ) {
         return (
           <div className="m-[11px]">
             Schreibe ein Programm für Robot Karol im Editor oder klicke auf

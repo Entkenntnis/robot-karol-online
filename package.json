@@ -11,7 +11,7 @@
     "grammar": "lezer-generator ./lib/codemirror/parser/karol.grammar -o ./lib/codemirror/parser/parser.js"
   },
   "dependencies": {
-    "@codemirror/autocomplete": "0.20.1",
+    "@codemirror/autocomplete": "^0.20.3",
     "@codemirror/commands": "^0.20.0",
     "@codemirror/language": "^0.20.0",
     "@codemirror/lint": "^0.20.0",

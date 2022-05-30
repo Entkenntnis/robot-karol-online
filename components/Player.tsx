@@ -57,18 +57,22 @@ export function Player() {
   })
 
   const actions: { [key: string]: () => void } = {
-    ArrowLeft: () => {
-      left(core)
-    },
-    ArrowRight: () => {
-      right(core)
-    },
-    ArrowUp: () => {
-      forward(core)
-    },
-    ArrowDown: () => {
-      forward(core, { reverse: true })
-    },
+    ...(core.ws.type == 'free' || !core.puzzle.disableMovement
+      ? {
+          ArrowLeft: () => {
+            left(core)
+          },
+          ArrowRight: () => {
+            right(core)
+          },
+          ArrowUp: () => {
+            forward(core)
+          },
+          ArrowDown: () => {
+            forward(core, { reverse: true })
+          },
+        }
+      : {}),
     ...(core.ws.type == 'free'
       ? {
           KeyM: () => {
@@ -232,7 +236,14 @@ export function Player() {
                   core.ws.world.height
                 )
                 initWorld(core)
-                resetCode(core)
+                if (core.puzzle.code.trim() !== core.ws.code) {
+                  const val = confirm(
+                    'Der Code wurde verändert. Dieser wird auch zurückgesetzt. Fortfahren?'
+                  )
+                  if (val) {
+                    resetCode(core)
+                  }
+                }
               }}
             >
               Neu starten
@@ -271,33 +282,38 @@ export function Player() {
         )}
       >
         <div>
-          <button
-            className="mx-3 py-2"
-            onClick={() => {
-              runAction('ArrowLeft')
-            }}
-            title="LinksDrehen"
-          >
-            <FaIcon icon={faLeftLong} />
-          </button>
-          <button
-            className=" px-2"
-            onClick={() => {
-              runAction('ArrowUp')
-            }}
-            title="Schritt"
-          >
-            <FaIcon icon={faUpLong} />
-          </button>
-          <button
-            className="mx-3 py-2"
-            onClick={() => {
-              runAction('ArrowRight')
-            }}
-            title="RechtsDrehen"
-          >
-            <FaIcon icon={faRightLong} />
-          </button>
+          {core.ws.type !== 'puzzle' ||
+            (!core.puzzle.disableMovement && (
+              <>
+                <button
+                  className="mx-3 py-2"
+                  onClick={() => {
+                    runAction('ArrowLeft')
+                  }}
+                  title="LinksDrehen"
+                >
+                  <FaIcon icon={faLeftLong} />
+                </button>
+                <button
+                  className=" px-2"
+                  onClick={() => {
+                    runAction('ArrowUp')
+                  }}
+                  title="Schritt"
+                >
+                  <FaIcon icon={faUpLong} />
+                </button>
+                <button
+                  className="mx-3 py-2"
+                  onClick={() => {
+                    runAction('ArrowRight')
+                  }}
+                  title="RechtsDrehen"
+                >
+                  <FaIcon icon={faRightLong} />
+                </button>
+              </>
+            ))}
           {core.ws.type == 'free' && (
             <>
               <button

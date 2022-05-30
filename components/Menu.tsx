@@ -101,6 +101,7 @@ export function Menu() {
                     )}
                   >
                     {puzzle.title}
+                    {core.retrieveWsFromStorage(puzzle.id) && ' (*)'}
                     {puzzle.id == 1 && core.state.inviteStart && <Ping />}
                   </span>
                 </div>
