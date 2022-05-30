@@ -229,8 +229,8 @@ export function EditArea() {
       ) {
         return (
           <div className="m-[11px]">
-            Schreibe ein Programm für Robot Karol im Editor oder klicke auf
-            &quot;Menü&quot; für eine Einführung.
+            Schreibe ein Programm für Robot Karol im Editor oder klicke auf{' '}
+            <em>Menü</em> für eine Einführung.
           </div>
         )
       } else {

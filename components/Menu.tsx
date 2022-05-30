@@ -54,7 +54,7 @@ export function Menu() {
     return (
       <div className="flex-grow overflow-scroll">
         <div
-          className="relative min-h-[400px] h-full"
+          className="relative min-h-[600px] h-full"
           style={{ backgroundImage: 'url("/tile.png")' }}
         >
           {puzzles.map((puzzle, i) => {
@@ -163,7 +163,7 @@ export function Menu() {
           />{' '}
           |{' '}
           <span
-            className="cursor-pointer"
+            className="cursor-pointer underline"
             onClick={() => {
               setShowPrivacy(true)
             }}
@@ -194,7 +194,7 @@ export function Menu() {
           )}
         >
           <h1 className="m-3 mb-6 text-xl font-bold">Datenschutzerklärung</h1>
-          <p className="m-3">
+          <p className="m-3 mb-6">
             Diese Website wird auf einem uberspace (https://uberspace.de)
             gehostet. Bei einem Besuch kommen keine Cookies zum Einsatz. Es
             werden grundlegende Statistiken zu Aufrufen und gelösten Aufgaben

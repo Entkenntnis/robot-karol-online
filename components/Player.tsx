@@ -236,7 +236,7 @@ export function Player() {
                   core.ws.world.height
                 )
                 initWorld(core)
-                if (core.puzzle.code.trim() !== core.ws.code) {
+                if (core.puzzle.code.trim() !== core.ws.code.trim()) {
                   const val = confirm(
                     'Der Code wurde verändert. Dieser wird auch zurückgesetzt. Fortfahren?'
                   )
