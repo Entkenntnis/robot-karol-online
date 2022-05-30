@@ -1,6 +1,7 @@
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { Heading, World } from '../state/types'
+import { submit_event } from '../stats/submit'
 import { addMessage } from './messages'
 
 const readOnlyMessage = 'Deine Aufgabe ist abgeschlossen.'
@@ -321,6 +322,7 @@ export function onWorldChange(core: Core) {
       core.mutateCore((state) => {
         state.done.push(id)
       })
+      submit_event(`${id}_done`, core)
     }
 
     if (progress == 100) {

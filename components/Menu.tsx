@@ -180,7 +180,7 @@ export function Menu() {
       <div
         className={clsx(
           'fixed inset-0 bg-gray-300 bg-opacity-30 flex justify-around',
-          'items-center z-[200]'
+          'items-center z-[9999]'
         )}
         onClick={() => setShowPrivacy(false)}
       >
@@ -189,17 +189,18 @@ export function Menu() {
             e.stopPropagation()
           }}
           className={clsx(
-            'fixed mx-auto bg-white opacity-100 rounded w-[600px] z-[300]',
+            'fixed mx-auto bg-white rounded w-[600px] z-[99999]',
             'top-[30vh]'
           )}
         >
           <h1 className="m-3 mb-6 text-xl font-bold">Datenschutzerklärung</h1>
           <p className="m-3">
             Diese Website wird auf einem uberspace (https://uberspace.de)
-            gehostet. Es kommen keine Cookies zum Einsatz. Es werden
-            grundlegende Statistiken wie z.B. zu Aufrufen erfasst und auf dem
-            uberspace gespeichert. Die Datenverarbeitung findet vollständig in
-            Deutschland statt und unterliegt der DSGVO.
+            gehostet. Bei einem Besuch kommen keine Cookies zum Einsatz. Es
+            werden grundlegende Statistiken zu Aufrufen und gelösten Aufgaben
+            auf dem uberspace gespeichert. Es werden keine Daten an
+            Drittanbieter weitergeben. Außerdem findet die Datenverarbeitung
+            vollständig in Deutschland statt.
           </p>
           <div
             className="absolute top-2 right-2 h-3 w-3 cursor-pointer"

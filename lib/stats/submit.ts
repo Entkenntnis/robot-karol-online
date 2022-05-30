@@ -10,7 +10,7 @@ export function submit_event(event: string, core: Core) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ event }),
+          body: JSON.stringify({ event, userId: core.userId }),
         })
         //const content = await rawResponse.text()
         //console.log(content)
