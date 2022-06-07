@@ -242,6 +242,7 @@ export function Player() {
                   )
                   if (val) {
                     resetCode(core)
+                    core.deleteWsFromStorage(core.puzzle.id)
                   }
                 }
               }}

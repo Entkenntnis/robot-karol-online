@@ -3,14 +3,15 @@ import { Puzzle } from '../state/types'
 export const p2_smileys: Puzzle = {
   id: 2,
   title: 'Smileys',
-  posX: 7,
-  posY: 6,
+  posX: 4,
+  posY: 9,
   deps: [1],
   description: (
     <>
       <p className="mb-2">
-        An manchen Tagen sind wir glücklich, an manchen nicht. Es ist nur eine
-        Frage der Ausrichtung:
+        Ein einzelnes Programm kann für ganz verschiedene Sachen eingesetzt
+        werden. Ob der Smiley ein glückliches oder trauriges Gesicht zeigt, ist
+        nur eine Frage der Ausrichtung:
       </p>
       <img
         src="/puzzle/smileys.png"
@@ -18,9 +19,10 @@ export const p2_smileys: Puzzle = {
         className="mx-auto my-3 max-h-[160px]"
       ></img>
       <p className="mb-2">
-        Füge den Gesichtern den richtigen Mund hinzu. Klicke dazu zuerst auf
-        Karol (es erscheint ein grüner Rahmen) und steuere ihn dann mit den
-        Pfeiltasten.
+        Es ist bereits ein Programm vorgegeben, dass einen Mund baut. Platziere
+        Karol an der richtigen Position und füge damit den Gesichtern den
+        richtigen Mund hinzu. Du kannst Karol steuern, wenn du auf ihn klickst
+        und dann die Pfeiltasten drückst.
       </p>
     </>
   ),

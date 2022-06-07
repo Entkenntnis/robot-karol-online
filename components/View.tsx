@@ -303,7 +303,9 @@ export function View({ world, wireframe, hideKarol, preview }: ViewProps) {
         !(
           preview.karol.x == world.karol.x &&
           preview.karol.y == world.karol.y &&
-          preview.karol.dir == world.karol.dir
+          preview.karol.dir == world.karol.dir &&
+          world.bricks[world.karol.y][world.karol.x] ==
+            preview.world.bricks[world.karol.y][world.karol.x]
         )
       ) {
         const karol = {

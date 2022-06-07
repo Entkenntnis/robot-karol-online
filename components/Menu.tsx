@@ -67,7 +67,7 @@ export function Menu() {
 
             puzzle.deps.forEach((d) => {
               const path = paths[puzzle.id]?.[d]
-              if (path) {
+              if (path && core.state.done.includes(d)) {
                 for (const p of path) {
                   if (
                     bricks.findIndex(({ x, y }) => x == p.x && y == p.y) === -1
@@ -94,7 +94,7 @@ export function Menu() {
                 <div className="flex justify-center">
                   <span
                     className={clsx(
-                      'px-2 py-0.5 rounded',
+                      'px-2 py-0.5 rounded opacity-90',
                       core.state.done.includes(puzzle.id)
                         ? 'bg-gray-200'
                         : 'bg-[yellow]'
@@ -140,7 +140,7 @@ export function Menu() {
     return (
       <div className="h-9 flex-grow-0 border-t flex items-center justify-between border-[blue]">
         <div className="ml-3">
-          Version: Juni 2022 (2) |{' '}
+          Version: Juli 2022 |{' '}
           <ExternalLink
             href="https://github.com/Entkenntnis/robot-karol-web#sprache"
             title="Sprachreferenz"

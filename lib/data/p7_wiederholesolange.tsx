@@ -1,21 +1,21 @@
 import { Puzzle } from '../state/types'
 
-export const p1_start: Puzzle = {
-  id: 1,
-  title: 'Start',
-  posX: 3,
-  posY: 3,
-  deps: [],
+export const p7_wiederholesolange: Puzzle = {
+  id: 7,
+  title: 'wiederhole solange',
+  posX: 12,
+  posY: 13,
+  deps: [2, 4],
   description: (
     <>
       <p className="mb-2">
-        Herzlich Willkommen bei Robot Karol! Hier kannst du auf spielerische Art
-        deine ersten Schritte in die Programmierung tun. In einer Reihe von
-        Aufgaben mit zunehmender Schwierigkeit wird dein Verständnis von Code
-        herausgefordert und du lernst einige wichtige Ideen kennen.
+        Herzlich Willkommen! Du hast Spaß am Bauen und Puzzlen? Und du möchtest
+        einen Einblick in die Programmierung erhalten? Dann bist du hier bei
+        Robot Karol am richtigen Ort!
       </p>
       <p className="mb-2">
-        Das findet in einer übersichtlichen Umgebung statt. Schaue dir folgende
+        Im Rahmen dieses kleinen Bau- und Puzzlespiels lernst du ein paar
+        grundlegende Prinzipien des Programmieren kennen. Schaue dir folgende
         Welt an:
       </p>
       <img
@@ -28,9 +28,9 @@ export const p1_start: Puzzle = {
         Manchmal sieht man sofort, was zu tun ist - und manchmal braucht es
         etwas Kreativität. Meistens ist schon ein kleines Programm vorbereitet,
         mit dem man arbeiten kann, wie auch in diesem Fall: Unten links siehst
-        du den Code für das Programm und rechts siehts du auch eine Vorschau,
-        was das Programm macht. Es ist alles bereit, du musst nur noch das
-        Programm starten.
+        du den Code für das Programm und rechts siehts du auch eine{' '}
+        <em>Vorschau</em>, was das Programm macht. Es ist alles bereit, du musst
+        nur noch das Programm starten.
       </p>
     </>
   ),
@@ -68,8 +68,7 @@ export const p1_start: Puzzle = {
 Schritt
 LinksDrehen
 Schritt
-Hinlegen
-Schritt
+Hinlegen Schritt
 RechtsDrehen
 Hinlegen
 LinksDrehen
