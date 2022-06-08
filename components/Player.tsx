@@ -283,38 +283,37 @@ export function Player() {
         )}
       >
         <div>
-          {core.ws.type !== 'puzzle' ||
-            (!core.puzzle.disableMovement && (
-              <>
-                <button
-                  className="mx-3 py-2"
-                  onClick={() => {
-                    runAction('ArrowLeft')
-                  }}
-                  title="LinksDrehen"
-                >
-                  <FaIcon icon={faLeftLong} />
-                </button>
-                <button
-                  className=" px-2"
-                  onClick={() => {
-                    runAction('ArrowUp')
-                  }}
-                  title="Schritt"
-                >
-                  <FaIcon icon={faUpLong} />
-                </button>
-                <button
-                  className="mx-3 py-2"
-                  onClick={() => {
-                    runAction('ArrowRight')
-                  }}
-                  title="RechtsDrehen"
-                >
-                  <FaIcon icon={faRightLong} />
-                </button>
-              </>
-            ))}
+          {(core.ws.type !== 'puzzle' || !core.puzzle.disableMovement) && (
+            <>
+              <button
+                className="mx-3 py-2"
+                onClick={() => {
+                  runAction('ArrowLeft')
+                }}
+                title="LinksDrehen"
+              >
+                <FaIcon icon={faLeftLong} />
+              </button>
+              <button
+                className=" px-2"
+                onClick={() => {
+                  runAction('ArrowUp')
+                }}
+                title="Schritt"
+              >
+                <FaIcon icon={faUpLong} />
+              </button>
+              <button
+                className="mx-3 py-2"
+                onClick={() => {
+                  runAction('ArrowRight')
+                }}
+                title="RechtsDrehen"
+              >
+                <FaIcon icon={faRightLong} />
+              </button>
+            </>
+          )}
           {core.ws.type == 'free' && (
             <>
               <button
