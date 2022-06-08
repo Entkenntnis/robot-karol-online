@@ -36,6 +36,7 @@ export const p4_hinlegen: Puzzle = {
   },
   code: `Hinlegen
 Schritt
+Hinlegen
 
 `,
   startSpeed: 'slow',
