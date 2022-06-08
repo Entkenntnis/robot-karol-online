@@ -1,8 +1,8 @@
 import { Puzzle } from '../state/types'
 
-export const p4_hinlegen: Puzzle = {
+export const p4_befehle: Puzzle = {
   id: 4,
-  title: 'Hinlegen',
+  title: 'Befehle',
   posX: 10,
   posY: 8,
   deps: [1],
