@@ -19,7 +19,7 @@ export const p1_start: Puzzle = {
         Welt an:
       </p>
       <img
-        src="/puzzle/start.png"
+        src="/puzzle/p1.png"
         alt="target"
         className="mx-auto my-3 max-h-[120px]"
       ></img>

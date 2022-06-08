@@ -9,72 +9,101 @@ export const p9_linksundrechts: Puzzle = {
   description: (
     <>
       <p className="mb-2">
-        Herzlich Willkommen! Du hast Spaß am Bauen und Puzzlen? Und du möchtest
-        einen Einblick in die Programmierung erhalten? Dann bist du hier bei
-        Robot Karol am richtigen Ort!
-      </p>
-      <p className="mb-2">
-        Im Rahmen dieses kleinen Bau- und Puzzlespiels lernst du ein paar
-        grundlegende Prinzipien des Programmieren kennen. Schaue dir folgende
-        Welt an:
+        Das vorliegende Programm soll aus Ziegeln eine Form legen, die ein wenig
+        an ein Mensch-Ärger-Dich-Nicht-Spielfeld erinnert. Allerdings hatte der
+        Programmierer einige Male <em>LinksDrehen</em> und <em>RechtsDrehen</em>{' '}
+        verwechselt.
       </p>
       <img
-        src="/puzzle/start.png"
+        src="/puzzle/p9.png"
         alt="target"
-        className="mx-auto my-3 max-h-[120px]"
+        className="mx-auto my-3 max-h-[160px]"
       ></img>
       <p className="mb-2">
-        Ziel der Aufgaben ist es immer, die vorgegebene Welt nachzubauen.
-        Manchmal sieht man sofort, was zu tun ist - und manchmal braucht es
-        etwas Kreativität. Meistens ist schon ein kleines Programm vorbereitet,
-        mit dem man arbeiten kann, wie auch in diesem Fall: Unten links siehst
-        du den Code für das Programm und rechts siehts du auch eine{' '}
-        <em>Vorschau</em>, was das Programm macht. Es ist alles bereit, du musst
-        nur noch das Programm starten.
+        Korrigiere die Drehungen. Du siehst außerdem öfters den Befehl
+        ZweiZiegel. Karol hat die Möglichkeit, eigene Befehle mit dem
+        Schlüsselwort <em>Anweisung</em> zu definieren. Der Befehl ZweiZiegel
+        wird am Ende des Programms definiert.
+      </p>
+      <p className="mb-2">
+        Tipp: Du kannst die Vorschau mit der Taste V an- und ausschalten.
       </p>
     </>
   ),
   targetWorld: {
-    dimX: 6,
-    dimY: 6,
+    dimX: 9,
+    dimY: 9,
     height: 6,
-    karol: { x: 0, y: 0, dir: 'south' },
+    karol: { x: 1, y: 3, dir: 'east' },
     bricks: [
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 1, 1, 0, 0],
-      [0, 0, 1, 1, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 1, 1, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 0, 0, 0],
+      [0, 1, 1, 1, 0, 1, 1, 1, 0],
+      [0, 1, 0, 0, 0, 0, 0, 1, 0],
+      [0, 1, 1, 1, 0, 1, 1, 1, 0],
+      [0, 0, 0, 1, 0, 1, 0, 0, 0],
+      [0, 0, 0, 1, 1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
     ],
     marks: [
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
     ],
     blocks: [
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false, false, false],
     ],
   },
-  code: `Schritt
-Schritt
+  code: `ZweiZiegel
 LinksDrehen
-Schritt
-Hinlegen Schritt
-RechtsDrehen
-Hinlegen
+ZweiZiegel
 LinksDrehen
-Hinlegen
-Schritt
+ZweiZiegel
 RechtsDrehen
-Hinlegen`,
-  startSpeed: 'slow',
+ZweiZiegel
+LinksDrehen
+ZweiZiegel
+RechtsDrehen
+ZweiZiegel
+RechtsDrehen
+ZweiZiegel
+RechtsDrehen
+ZweiZiegel
+RechtsDrehen
+ZweiZiegel
+RechtsDrehen
+ZweiZiegel
+LinksDrehen
+ZweiZiegel
+LinksDrehen
+ZweiZiegel
+RechtsDrehen
+
+Anweisung ZweiZiegel
+  Hinlegen
+  Schritt
+  Hinlegen
+  Schritt
+endeAnweisung
+`,
+  initWorld: (world) => {
+    world.karol.dir = 'east'
+    world.karol.x = 1
+    world.karol.y = 3
+  },
 }

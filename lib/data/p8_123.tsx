@@ -9,72 +9,66 @@ export const p8_123: Puzzle = {
   description: (
     <>
       <p className="mb-2">
-        Herzlich Willkommen! Du hast Spaß am Bauen und Puzzlen? Und du möchtest
-        einen Einblick in die Programmierung erhalten? Dann bist du hier bei
-        Robot Karol am richtigen Ort!
-      </p>
-      <p className="mb-2">
-        Im Rahmen dieses kleinen Bau- und Puzzlespiels lernst du ein paar
-        grundlegende Prinzipien des Programmieren kennen. Schaue dir folgende
-        Welt an:
+        Mithilfe von geschweiften Klammern kann man zwischen den Programmen
+        Kommentare schreiben. Diese sollen den Code erklären, können aber auch
+        genutzt werden, um Teile des Programms zu aktivieren oder deaktiveren.
       </p>
       <img
-        src="/puzzle/start.png"
+        src="/puzzle/p8.png"
         alt="target"
-        className="mx-auto my-3 max-h-[120px]"
+        className="mx-auto my-3 max-h-[140px]"
       ></img>
       <p className="mb-2">
-        Ziel der Aufgaben ist es immer, die vorgegebene Welt nachzubauen.
-        Manchmal sieht man sofort, was zu tun ist - und manchmal braucht es
-        etwas Kreativität. Meistens ist schon ein kleines Programm vorbereitet,
-        mit dem man arbeiten kann, wie auch in diesem Fall: Unten links siehst
-        du den Code für das Programm und rechts siehts du auch eine{' '}
-        <em>Vorschau</em>, was das Programm macht. Es ist alles bereit, du musst
-        nur noch das Programm starten.
+        In diesem Programm steht alles bereit. Aktiviere die passende Teile, um
+        die drei Balken zu bauen.
       </p>
     </>
   ),
   targetWorld: {
-    dimX: 6,
-    dimY: 6,
+    dimX: 7,
+    dimY: 5,
     height: 6,
-    karol: { x: 0, y: 0, dir: 'south' },
+    karol: { x: 6, y: 0, dir: 'west' },
     bricks: [
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 1, 1, 0, 0],
-      [0, 0, 1, 1, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 1, 0, 1, 0],
+      [0, 1, 0, 1, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0],
     ],
     marks: [
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
+      [false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false],
+      [true, true, true, true, true, true, true],
     ],
     blocks: [
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
-      [false, false, false, false, false, false],
+      [false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false],
+      [false, false, false, false, false, false, false],
     ],
   },
-  code: `Schritt
-Schritt
-LinksDrehen
-Schritt
-Hinlegen Schritt
-RechtsDrehen
-Hinlegen
-LinksDrehen
-Hinlegen
-Schritt
-RechtsDrehen
-Hinlegen`,
-  startSpeed: 'slow',
+  code: `{ Teil 1: Marke bis zur Wand setzen }
+
+{
+MarkeSetzen
+wiederhole solange NichtIstWand
+  Schritt
+  MarkeSetzen
+endewiederhole
+}
+
+
+{ Teil 2: Balken setzen }
+
+{
+wiederhole 1 mal
+  Hinlegen
+  Schritt
+endewiederhole
+}
+`,
 }

@@ -14,7 +14,7 @@ export const p2_smileys: Puzzle = {
         nur eine Frage der Ausrichtung:
       </p>
       <img
-        src="/puzzle/smileys.png"
+        src="/puzzle/p2.png"
         alt="target"
         className="mx-auto my-3 max-h-[160px]"
       ></img>
