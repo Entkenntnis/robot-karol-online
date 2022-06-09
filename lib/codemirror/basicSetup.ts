@@ -60,6 +60,7 @@ const parserWithMetadata = parser.configure({
       CmdName: t.comment,
       Times: t.strong,
       Comment: t.meta,
+      LineComment: t.meta,
       Condition: t.className,
       Not: t.strong,
       SpecialCommand: t.strong,

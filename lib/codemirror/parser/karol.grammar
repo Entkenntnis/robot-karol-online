@@ -107,8 +107,10 @@ CustomRef { idx }
   idx { $[0-9A-Za-zäüöÄÜÖß_]+ }
 
   @precedence { number, idx }
+
+  LineComment { "//" ![\n]* }
 }
 
 @external tokens nestedComment from "./nestedComment" { Comment }
 
-@skip { Comment | whitespace }
+@skip { Comment | whitespace | LineComment }
