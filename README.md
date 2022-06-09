@@ -73,9 +73,11 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 
 Kommentare werden bei der Ausführung ignoriert.
 
-`// Kommentar` oder `# Kommentar` - einzeiliger Kommentar
+`// Kommentar` - einzeiliger Kommentar (Alternative: `# Kommentar`)
 
-`/* Kommentar */` oder `{ Kommentar }` - mehrzeiliger Kommentar
+`/* Kommentar */` - mehrzeiliger Kommentar (Alternative: `{ Kommentar }`)
+
+## Erweiterungen
 
 ### Objektnotation
 
