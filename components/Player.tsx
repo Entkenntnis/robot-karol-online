@@ -89,6 +89,12 @@ export function Player() {
           },
         }
       : {}),
+    ...{
+      KeyW: () => {
+        toggleWireframe(core)
+        wrapper.current?.focus()
+      },
+    },
   }
 
   function runAction(action: string) {
@@ -170,11 +176,11 @@ export function Player() {
               </div>
             ))}
           </div>
-          {core.ws.type == 'free' && (
+          {/*core.ws.type == 'free' && (
             <div className="absolute right-3 bottom-2">
               {renderZoomControls()}
             </div>
-          )}
+          )*/}
           {core.ws.type == 'free' && (
             <div className="absolute left-1 top-1">
               {core.state.projectTitle ? (
@@ -354,7 +360,7 @@ export function Player() {
               </button>
             </>
           )}
-          <span className="ml-4 h-7 border-r"></span>
+          {/* <span className="ml-4 h-7 border-r"></span>
 
           <img
             src={
@@ -367,13 +373,9 @@ export function Player() {
               toggleWireframe(core)
               wrapper.current?.focus()
             }}
-          />
-          {core.ws.type == 'puzzle' && (
-            <>
-              <span className="ml-5 h-7 border-r mr-6"></span>
-              {renderZoomControls()}
-            </>
-          )}
+          />*/}
+          <span className="ml-3 h-7 border-r mr-6"></span>
+          {renderZoomControls()}
         </div>
       </div>
       {showNewWorldModal && (
