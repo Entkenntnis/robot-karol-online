@@ -7,6 +7,7 @@ import {
   faArrowRight,
   faArrowTurnUp,
   faCheckCircle,
+  faCircleExclamation,
   faPlay,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
@@ -85,7 +86,7 @@ export function EditArea() {
 
   return (
     <>
-      <div className="w-full text-base h-full overflow-auto flex flex-col outline-none">
+      <div className="w-full text-base h-full flex flex-col outline-none">
         {core.ws.type == 'puzzle' && (
           <ReflexContainer
             orientation="horizontal"
@@ -151,8 +152,12 @@ export function EditArea() {
           </ReflexContainer>
         )}
         {core.ws.type == 'free' && renderEditor()}
-        <div className="bg-white flex justify-between items-center border-t min-h-[48px]">
-          {renderProgramControl()}
+        <div className="bg-white flex border-t">
+          <div className="w-full overflow-auto min-h-[47px] max-h-[200px]">
+            <div className="flex justify-between mt-[9px]">
+              {renderProgramControl()}
+            </div>
+          </div>
         </div>
       </div>
     </>
@@ -228,7 +233,7 @@ export function EditArea() {
         (!core.ws.vm.bytecode || core.ws.vm.bytecode.length == 0)
       ) {
         return (
-          <div className="m-[11px]">
+          <div className="m-[11px] mt-[2px]">
             Schreibe ein Programm für Robot Karol im Editor oder klicke auf{' '}
             <em>Menü</em> für eine Einführung.
           </div>
@@ -322,7 +327,7 @@ export function EditArea() {
     if (codeState == 'loading') {
       return (
         <button
-          className="bg-green-50 rounded px-2 py-0.5 m-1 text-gray-400 ml-2"
+          className="bg-green-50 rounded px-2 py-0.5 m-1 mt-0 text-gray-400 ml-2"
           disabled
         >
           ... wird eingelesen
@@ -332,8 +337,16 @@ export function EditArea() {
 
     if (codeState == 'error') {
       return (
-        <div className="text-red-600 px-3">
-          Programm enthält Fehler. Bitte überprüfen!
+        <div className="px-3 pb-1 pt-0">
+          <p className="mb-2">
+            <FaIcon icon={faCircleExclamation} className="text-red-600 mr-2" />
+            Beim Einlesen des Programms sind folgende Probleme aufgetreten:
+          </p>
+          {core.ws.ui.errorMessages.map((err, i) => (
+            <p className="mb-2" key={err + i.toString()}>
+              {err}
+            </p>
+          ))}
         </div>
       )
     }

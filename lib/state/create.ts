@@ -69,6 +69,7 @@ function createBaseWorkspace(): WorkspaceStateBase {
       shouldFocusWrapper: false,
       hideKarol: false,
       keepWorldPreference: false,
+      errorMessages: [],
     },
     vm: {
       pc: 0,

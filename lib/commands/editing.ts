@@ -16,6 +16,7 @@ export function lint(core: Core, view: EditorView) {
   })
 
   const { warnings, output } = compile(view)
+  warnings.sort((a, b) => a.from - b.from)
 
   if (warnings.length == 0) {
     patch(core, output)
@@ -27,6 +28,9 @@ export function lint(core: Core, view: EditorView) {
       vm.bytecode = undefined
       vm.pc = 0
       ui.state = 'error'
+      ui.errorMessages = warnings.map(
+        (w) => `Zeile ${view.state.doc.lineAt(w.from).number}: ${w.message}`
+      )
       //ui.preview = undefined
     })
   }

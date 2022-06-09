@@ -42,6 +42,7 @@ export interface Ui {
   shouldFocusWrapper: boolean
   hideKarol: boolean
   keepWorldPreference: boolean
+  errorMessages: string[]
 }
 
 export interface Vm {
