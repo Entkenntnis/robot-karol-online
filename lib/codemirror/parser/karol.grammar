@@ -1,4 +1,6 @@
-@top Program { (expression | Cmd )* }
+@top Program {
+  (expression | Cmd)*
+}
 
 expression {
   Command |
@@ -7,7 +9,11 @@ expression {
   CustomRef
 }
 
-Command { 
+Command {
+  (KarolPrefix ".")? ((commandPure ("(" ")")?) | (commandWithParameter ("(" Parameter ")")?))
+}
+
+commandWithParameter {
   @specialize<idx, "Schritt"> |
   @specialize<idx, "schritt"> |
   @specialize<idx, "LinksDrehen"> |
@@ -21,7 +27,10 @@ Command {
   @specialize<idx, "Hinlegen"> |
   @specialize<idx, "hinlegen"> |
   @specialize<idx, "Aufheben"> |
-  @specialize<idx, "aufheben"> |
+  @specialize<idx, "aufheben">
+}
+
+commandPure {
   @specialize<idx, "MarkeSetzen"> |
   @specialize<idx, "markesetzen"> |
   @specialize<idx, "markeSetzen"> |
@@ -40,15 +49,36 @@ Repeat {
   RepeatStart ((RepeatWhileKey Condition?) | (Times RepeatTimesKey)) expression* RepeatEnd
 }
 
-RepeatStart[closedBy="RepeatEnd"] { @specialize<idx, "wiederhole"> }
+RepeatStart[closedBy="RepeatEnd"] {
+  @specialize<idx, "wiederhole"> | 
+  @specialize<idx, "Wiederhole">
+}
 
-RepeatEnd { @specialize<idx, "endewiederhole"> | @specialize<idx, "endeWiederhole"> }
+RepeatEnd {
+  @specialize<idx, "endewiederhole"> |
+  @specialize<idx, "endeWiederhole"> |
+  @specialize<idx, "EndeWiederhole"> |
+  @specialize<idx, "EndeWiederhole"> |
+  legacyRepeatEnd
+}
 
-RepeatWhileKey { @specialize<idx, "solange"> }
+RepeatWhileKey {
+  @specialize<idx, "solange"> |
+  @specialize<idx, "Solange">
+}
 
-RepeatTimesKey { @specialize<idx, "mal"> }
+RepeatTimesKey {
+  @specialize<idx, "mal"> |
+  @specialize<idx, "Mal">
+}
 
-Times { number }
+Parameter {
+  number
+}
+
+Times {
+  number
+}
 
 Condition {
   @specialize<idx, "IstWand"> |
@@ -78,28 +108,70 @@ IfThen {
   IfKey Condition? ThenKey expression* (ElseKey expression*)? IfEndKey
 }
 
-IfKey[closedBy="IfEndKey"] { @specialize<idx, "wenn"> }
+IfKey[closedBy="IfEndKey"] {
+  @specialize<idx, "wenn"> |
+  @specialize<idx, "Wenn">
+}
 
-ThenKey { @specialize<idx, "dann"> }
+ThenKey { 
+  @specialize<idx, "dann"> |
+  @specialize<idx, "Dann">
+}
 
-IfEndKey { @specialize<idx, "endewenn"> | @specialize<idx, "endeWenn">}
+IfEndKey {
+  @specialize<idx, "endewenn"> |
+  @specialize<idx, "endeWenn"> |
+  @specialize<idx, "Endewenn"> |
+  @specialize<idx, "EndeWenn"> |
+  legacyIfEndKey
+}
 
-ElseKey { @specialize<idx, "sonst"> }
+ElseKey {
+  @specialize<idx, "sonst"> |
+  @specialize<idx, "Sonst">
+}
 
 Cmd {
   CmdStart CmdName expression* CmdEnd
 }
 
-CmdName { idx }
+CmdName {
+  idx
+}
 
-CmdStart[closedBy="CmdEnd"] { @specialize<idx, "Anweisung"> | @specialize<idx, "anweisung"> }
+CmdStart[closedBy="CmdEnd"] { 
+  @specialize<idx, "Anweisung"> | 
+  @specialize<idx, "anweisung"> 
+}
 
-CmdEnd { @specialize<idx, "endeAnweisung"> | @specialize<idx, "endeanweisung"> }
+CmdEnd { 
+  @specialize<idx, "endeAnweisung"> | 
+  @specialize<idx, "endeanweisung"> | 
+  @specialize<idx, "EndeAnweisung"> | 
+  @specialize<idx, "Endeanweisung"> | 
+  legacyCmdEnd 
+}
 
 CustomRef { idx }
 
 
 @tokens {
+  legacyRepeatEnd { "*wiederhole" | "*Wiederhole" }
+
+  legacyIfEndKey { "*wenn" | "*Wenn" }
+
+  legacyCmdEnd { "*anweisung" | "*Anweisung" }
+
+  KarolPrefix { "karol" | "Karol" }
+
+  "."
+
+  "("
+
+  ")"
+
+  @precedence { KarolPrefix, idx}
+
   whitespace { $[ \n\r\t]+ }
 
   number { $[0-9]+ }

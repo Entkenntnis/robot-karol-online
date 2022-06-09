@@ -17,56 +17,63 @@ export function compile(view: EditorView) {
       const code = view.state.doc.sliceString(cursor.from, cursor.to)
       if (cursor.name == 'Command') {
         const line = view.state.doc.lineAt(cursor.from).number
-        if (code.toLowerCase() == 'schritt') {
+        let preparedCode = code.toLowerCase()
+        if (preparedCode.startsWith('karol.')) {
+          preparedCode = preparedCode.substring(6)
+        }
+        if (preparedCode.endsWith('()')) {
+          preparedCode = preparedCode.substring(0, preparedCode.length - 2)
+        }
+        if (preparedCode == 'schritt') {
           output.push({
             type: 'action',
             command: 'forward',
             line,
           })
-        } else if (code.toLowerCase() == 'linksdrehen') {
+        } else if (preparedCode == 'linksdrehen') {
           output.push({
             type: 'action',
             command: 'left',
             line,
           })
-        } else if (code.toLowerCase() == 'rechtsdrehen') {
+        } else if (preparedCode == 'rechtsdrehen') {
           output.push({
             type: 'action',
             command: 'right',
             line,
           })
-        } else if (code.toLowerCase() == 'hinlegen') {
+        } else if (preparedCode == 'hinlegen') {
           output.push({
             type: 'action',
             command: 'brick',
             line,
           })
-        } else if (code.toLowerCase() == 'aufheben') {
+        } else if (preparedCode == 'aufheben') {
           output.push({
             type: 'action',
             command: 'unbrick',
             line,
           })
-        } else if (code.toLowerCase() == 'markesetzen') {
+        } else if (preparedCode == 'markesetzen') {
           output.push({
             type: 'action',
             command: 'setMark',
             line,
           })
-        } else if (code.toLowerCase() == 'markelöschen') {
+        } else if (preparedCode == 'markelöschen') {
           output.push({
             type: 'action',
             command: 'resetMark',
             line,
           })
-        } else if (code.toLowerCase() == 'beenden') {
+        } else if (preparedCode == 'beenden') {
           // jump into the black hole
           output.push({
             type: 'jumpn',
             target: Infinity,
             count: Infinity,
           })
-        } else if (code.toLowerCase() == 'unterbrechen') {
+        } else if (preparedCode == 'unterbrechen') {
           output.push({ type: 'return', line: undefined })
         } else {
           warnings.push({
@@ -335,7 +342,10 @@ export function compile(view: EditorView) {
             line,
           })
           parseStack.pop()
-          if (code.toLowerCase() !== 'endewiederhole') {
+          if (
+            code.toLowerCase() !== 'endewiederhole' &&
+            code.toLowerCase() !== '*wiederhole'
+          ) {
             warnings.push({
               from: cursor.from,
               to: cursor.to,
@@ -354,7 +364,10 @@ export function compile(view: EditorView) {
             line,
           })
           parseStack.pop()
-          if (code.toLowerCase() !== 'endewiederhole') {
+          if (
+            code.toLowerCase() !== 'endewiederhole' &&
+            code.toLowerCase() !== '*wiederhole'
+          ) {
             warnings.push({
               from: cursor.from,
               to: cursor.to,
