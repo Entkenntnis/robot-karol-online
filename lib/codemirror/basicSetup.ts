@@ -385,9 +385,21 @@ const myTabExtension: Command = (target: EditorView) => {
       const line = target.state.doc.lineAt(pos)
       if (line.length == 0) {
         // I am at the beginning of an empty line and pressing tab
-        deleteCharBackward(target)
-        insertNewlineAndIndent(target)
-        return true
+        if (line.number > 1) {
+          const preLine = target.state.doc
+            .line(line.number - 1)
+            .text.toLowerCase()
+          if (
+            preLine.includes('anweisung') ||
+            preLine.includes('wiederhole') ||
+            preLine.includes('wenn') ||
+            preLine.includes('sonst')
+          ) {
+            deleteCharBackward(target)
+            insertNewlineAndIndent(target)
+            return true
+          }
+        }
       }
     }
   }
