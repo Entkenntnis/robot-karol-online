@@ -10,7 +10,7 @@ expression {
 }
 
 Command {
-  (KarolPrefix ".")? ((commandPure ("(" ")")?) | (commandWithParameter ("(" Parameter ")")?))
+  (KarolPrefix ".")? ((commandPure (openPar closePar)?) | (commandWithParameter (openPar Parameter? closePar)?))
 }
 
 commandWithParameter {
@@ -166,9 +166,9 @@ CustomRef { idx }
 
   "."
 
-  "("
+  openPar { "(" }
 
-  ")"
+  closePar { ")" }
 
   @precedence { KarolPrefix, idx}
 

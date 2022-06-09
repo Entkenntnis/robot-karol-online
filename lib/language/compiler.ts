@@ -2,27 +2,39 @@ import { ensureSyntaxTree } from '@codemirror/language'
 import { Diagnostic } from '@codemirror/lint'
 import { EditorView } from '@codemirror/view'
 
-import { Op, Condition } from '../state/types'
+import { Op, Condition, CallOp } from '../state/types'
 
 export function compile(view: EditorView) {
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)
   const output: Op[] = []
   const warnings: Diagnostic[] = []
-  const parseStack: any[] = []
-  const functions: any[] = []
-  const declarations: any = {}
+  const parseStack: {
+    type: string
+    from: number
+    stage: number
+    op?: { target?: number; targetF?: number }
+    start?: number
+    condition?: Condition
+    times?: number
+    target?: number
+    name?: string
+    skipper?: { target?: number }
+  }[] = []
+  const functions: { op: CallOp; code: string; from: number; to: number }[] = []
+  const declarations: { [key: string]: { target: number } } = {}
   if (tree) {
     let cursor = tree.cursor()
     do {
       const code = view.state.doc.sliceString(cursor.from, cursor.to)
       if (cursor.name == 'Command') {
+        // console.log(cursor.node.firstChild?.name)
         const line = view.state.doc.lineAt(cursor.from).number
         let preparedCode = code.toLowerCase()
         if (preparedCode.startsWith('karol.')) {
           preparedCode = preparedCode.substring(6)
         }
-        if (preparedCode.endsWith('()')) {
-          preparedCode = preparedCode.substring(0, preparedCode.length - 2)
+        if (preparedCode.endsWith(')')) {
+          preparedCode = preparedCode.replace(/\([0-9]*\)/, '')
         }
         if (preparedCode == 'schritt') {
           output.push({
@@ -216,7 +228,7 @@ export function compile(view: EditorView) {
           } else {
             const op: Op = {
               type: 'jumpcond',
-              condition: st.condition,
+              condition: st.condition!,
               targetT: output.length + 1,
               targetF: -1,
               line,
@@ -244,7 +256,7 @@ export function compile(view: EditorView) {
               message: 'Schlüsselwort "sonst" fehlt',
             })
           } else {
-            st.op.targetF = output.length + 1
+            st.op!.targetF = output.length + 1
             const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
             output.push(op)
             st.stage = 4
@@ -262,7 +274,10 @@ export function compile(view: EditorView) {
       if (cursor.name == 'IfEndKey') {
         const st = parseStack[parseStack.length - 1]
         if (st && st.type == 'if') {
-          if (code.toLowerCase() !== 'endewenn') {
+          if (
+            code.toLowerCase() !== 'endewenn' &&
+            code.toLowerCase() !== '*wenn'
+          ) {
             warnings.push({
               from: cursor.from,
               to: cursor.to,
@@ -271,9 +286,9 @@ export function compile(view: EditorView) {
             })
           } else {
             if (st.stage == 3) {
-              st.op.targetF = output.length
+              st.op!.targetF = output.length
             } else if (st.stage == 4) {
-              st.op.target = output.length
+              st.op!.target = output.length
             }
             parseStack.pop()
           }
@@ -334,11 +349,11 @@ export function compile(view: EditorView) {
         const st = parseStack[parseStack.length - 1]
         const line = view.state.doc.lineAt(st.from).number
         if (st.type == 'repeat' && st.stage == 3) {
-          st.op.target = output.length
+          st.op!.target = output.length
           output.push({
             type: 'jumpn',
-            count: st.times,
-            target: st.start,
+            count: st.times!,
+            target: st.start!,
             line,
           })
           parseStack.pop()
@@ -354,13 +369,13 @@ export function compile(view: EditorView) {
             })
           }
         } else if (st.type == 'repeat' && st.stage == 11) {
-          st.op.target = output.length
+          st.op!.target = output.length
           const line = view.state.doc.lineAt(st.from).number
           output.push({
             type: 'jumpcond',
-            targetT: st.start,
+            targetT: st.start!,
             targetF: output.length + 1,
-            condition: st.condition,
+            condition: st.condition!,
             line,
           })
           parseStack.pop()
@@ -389,6 +404,7 @@ export function compile(view: EditorView) {
           type: 'function',
           target: output.length + 1,
           stage: 0,
+          from: cursor.from,
         })
       }
       if (cursor.name == 'CmdStart') {
@@ -441,9 +457,9 @@ export function compile(view: EditorView) {
       if (cursor.name == 'CmdEnd') {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'function' && st.stage == 2) {
-          declarations[st.name] = { target: st.target }
+          declarations[st.name!] = { target: st.target! }
           output.push({ type: 'return', line: undefined })
-          st.skipper.target = output.length
+          st.skipper!.target = output.length
         } else {
           warnings.push({
             from: cursor.from,
