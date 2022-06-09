@@ -71,30 +71,32 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 
 ### Kommentare
 
-Kommentare werden bei der Ausführung ignoriert. Es gibt verschiedene Möglichkeiten:
+Kommentare werden bei der Ausführung ignoriert.
 
-`// Kommentar` - einzeiliger Kommentar (C-Style)
+`// Kommentar` oder `# Kommentar` - einzeiliger Kommentar
 
-`# Kommentar` - einzeiliger Kommentar (Python-Style)
-
-`/* Kommentar */` mehrzeiliger Kommentar
-
-`{ Kommentar }` - alter Syntax aus Robot Karol
+`/* Kommentar */` oder `{ Kommentar }` - mehrzeiliger Kommentar
 
 ### Objektnotation
 
-Befehle lassen sich auch in der Schreibweise `karol.Schritt(4)` notieren.
+Befehle lassen sich in objektorientierter Schreibweise notieren:
 
-### `*`-Notation
+```
+karol.Schritt(4)
+karol.Hinlegen()
+karol.LinksDrehen()
+```
 
-Statt `ende` kann auch ein Sternchen geschrieben werden, also `*wenn`, `*wiederhole` oder `*Anweisung`
+### \*-Notation
+
+Statt `ende...` kann ein Sternchen geschrieben werden, also `*wenn`, `*wiederhole` oder `*Anweisung`.
 
 ## Umstieg
 
 Über die letzten Jahre hat sich Robot Karol immer wieder weiterentwickelt und neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Beim Umstieg sind bezüglich der Sprache folgende Punkte zu beachten:
 
 - Willkürliche Groß-/Kleinschreibungen wie z.B. `sCHritt` werden nicht mehr unterstützt. Stattdessen kann man entweder `schritt` oder `Schritt` schreiben, wobei letzteres empfohlen wird.
-- Die alternative Kontrollstrukturen `Programm` werden nicht mehr unterstützt
+- Die alternative Kontrollstrukturen `Programm` wird nicht mehr unterstützt
 - Bedingungen fallen raus, d.h. es lassen sich über `Bedingung`, `wahr` und `falsch` keine eigenen Bedingungen mehr definieren, sondern wird durch den Befehl `Unterbrechen` ersetzt
 - Farbige Ziegel und Marken sind nicht implementiert
 - Im Moment sind parametrisierten Varianten von Bedingungen z.B. `IstZiegel(n)` nicht implementiert
