@@ -27,7 +27,13 @@ export function compile(view: EditorView) {
     do {
       const code = view.state.doc.sliceString(cursor.from, cursor.to)
       if (cursor.name == 'Command') {
-        // console.log(cursor.node.firstChild?.name)
+        const repeat =
+          cursor.node.lastChild?.name == 'Parameter'
+            ? view.state.doc.sliceString(
+                cursor.node.lastChild.from,
+                cursor.node.lastChild.to
+              )
+            : 1
         const line = view.state.doc.lineAt(cursor.from).number
         let preparedCode = code.toLowerCase()
         if (preparedCode.startsWith('karol.')) {
@@ -37,35 +43,45 @@ export function compile(view: EditorView) {
           preparedCode = preparedCode.replace(/\([0-9]*\)/, '')
         }
         if (preparedCode == 'schritt') {
-          output.push({
-            type: 'action',
-            command: 'forward',
-            line,
-          })
+          for (let i = 0; i < repeat; i++) {
+            output.push({
+              type: 'action',
+              command: 'forward',
+              line,
+            })
+          }
         } else if (preparedCode == 'linksdrehen') {
-          output.push({
-            type: 'action',
-            command: 'left',
-            line,
-          })
+          for (let i = 0; i < repeat; i++) {
+            output.push({
+              type: 'action',
+              command: 'left',
+              line,
+            })
+          }
         } else if (preparedCode == 'rechtsdrehen') {
-          output.push({
-            type: 'action',
-            command: 'right',
-            line,
-          })
+          for (let i = 0; i < repeat; i++) {
+            output.push({
+              type: 'action',
+              command: 'right',
+              line,
+            })
+          }
         } else if (preparedCode == 'hinlegen') {
-          output.push({
-            type: 'action',
-            command: 'brick',
-            line,
-          })
+          for (let i = 0; i < repeat; i++) {
+            output.push({
+              type: 'action',
+              command: 'brick',
+              line,
+            })
+          }
         } else if (preparedCode == 'aufheben') {
-          output.push({
-            type: 'action',
-            command: 'unbrick',
-            line,
-          })
+          for (let i = 0; i < repeat; i++) {
+            output.push({
+              type: 'action',
+              command: 'unbrick',
+              line,
+            })
+          }
         } else if (preparedCode == 'markesetzen') {
           output.push({
             type: 'action',
