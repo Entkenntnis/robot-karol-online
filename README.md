@@ -91,6 +91,14 @@ karol.LinksDrehen()
 
 Statt `ende...` kann ein Sternchen geschrieben werden, also `*wenn`, `*wiederhole` oder `*Anweisung`.
 
+### Semikolon
+
+Befehle können optional mit einem Semikolon getrennt werden:
+
+```
+Hinlegen; Hinlegen; LinksDrehen
+```
+
 ## Umstieg
 
 Über die letzten Jahre hat sich Robot Karol immer wieder weiterentwickelt und neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Beim Umstieg sind bezüglich der Sprache folgende Punkte zu beachten:
@@ -103,7 +111,6 @@ Statt `ende...` kann ein Sternchen geschrieben werden, also `*wenn`, `*wiederhol
 - Der Rucksack ist nicht implementiert
 - Himmelsrichtungen sind nicht implementiert
 - Alternative Schleifen-Varianten (wiederhole immer, wiederhole bis, ...) sind nicht unterstützt, außerdem wird das `nicht` Schlüsselwort bei Bedingungen nicht mehr benötigt
-- Semikolon ist nicht implementiert
 - Ton ist nicht implementiert
 - Ausführungsgeschwindigkeit kann angepasst werden, aber die Schlüsselworte `schnell`/`langsam` sind nicht implementiert
 - Einbindung von Bibliothek ist nicht implementiert

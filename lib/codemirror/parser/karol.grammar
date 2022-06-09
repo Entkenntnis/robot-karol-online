@@ -193,4 +193,4 @@ CustomRef { idx }
 
 @external tokens nestedComment from "./nestedComment" { Comment }
 
-@skip { Comment | whitespace | LineComment | PythonComment | BlockComment }
+@skip { Comment | whitespace | LineComment | PythonComment | BlockComment | ";" }
