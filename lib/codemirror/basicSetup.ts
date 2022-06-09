@@ -61,6 +61,8 @@ const parserWithMetadata = parser.configure({
       Times: t.strong,
       Comment: t.meta,
       LineComment: t.meta,
+      PythonComment: t.meta,
+      BlockComment: t.meta,
       Condition: t.className,
       Not: t.strong,
       SpecialCommand: t.strong,
@@ -234,7 +236,8 @@ function buildMyAutocomplete(): CompletionSource {
     console.log('-- debug end --')*/
     // debug
 
-    if (around.name == 'Comment') return null // no completion within comments
+    if (around.name.includes('Comment') || endingHere.name.includes('Comment'))
+      return null // no completion within comments
 
     if (around.name == 'CmdName' || endingHere.name == 'CmdName') return null // no completion in function name
 

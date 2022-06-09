@@ -109,8 +109,16 @@ CustomRef { idx }
   @precedence { number, idx }
 
   LineComment { "//" ![\n]* }
+
+  PythonComment { "#" ![\n]* }
+
+  BlockComment { "/*" blockCommentRest }
+
+  blockCommentRest { ![*] blockCommentRest | "*" blockCommentAfterStar }
+
+  blockCommentAfterStar { "/" | "*" blockCommentAfterStar | ![/*] blockCommentRest }
 }
 
 @external tokens nestedComment from "./nestedComment" { Comment }
 
-@skip { Comment | whitespace | LineComment }
+@skip { Comment | whitespace | LineComment | PythonComment | BlockComment }
