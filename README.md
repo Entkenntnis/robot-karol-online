@@ -78,16 +78,16 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 Über die letzten Jahre hat sich Robot Karol immer wieder weiterentwickelt und neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Beim Umstieg sind bezüglich der Sprache folgende Punkte zu beachten:
 
 - Willkürliche Groß-/Kleinschreibungen wie z.B. `sCHritt` werden nicht mehr unterstützt. Stattdessen kann man entweder `schritt` oder `Schritt` schreiben, wobei letzteres empfohlen wird.
-- Alte oder alternative Varianten der Kontrollstrukturen wie `*wenn`, `*Anweisung` oder `Programm` werden nicht mehr unterstützt
+- Die alternative Kontrollstrukturen `Programm` werden nicht mehr unterstützt
 - Bedingungen fallen raus, d.h. es lassen sich über `Bedingung`, `wahr` und `falsch` keine eigenen Bedingungen mehr definieren, sondern wird durch den Befehl `Unterbrechen` ersetzt
 - Farbige Ziegel und Marken sind nicht implementiert
-- Zur Vereinfachung fallen auch alle anderen parametrisierten Varianten raus, dazu gehören `Schritt(n)`, `Hinlegen(farbe)`, `IstZiegel(n)` usw. Die übrigen Funktionen lassen sich mit dem vorhandenen Befehlssatz umsetzen.
+- Im Moment sind parametrisierten Varianten von Bedingungen z.B. `IstZiegel(n)` nicht implementiert
 - Der Rucksack ist nicht implementiert
 - Himmelsrichtungen sind nicht implementiert
 - Alternative Schleifen-Varianten (wiederhole immer, wiederhole bis, ...) sind nicht unterstützt, außerdem wird das `nicht` Schlüsselwort bei Bedingungen nicht mehr benötigt
-- Objekt-Notation und Semikolon sind nicht implementiert
+- Semikolon ist nicht implementiert
 - Ton ist nicht implementiert
-- schnell/langsam ist nicht implementiert
+- Ausführungsgeschwindigkeit kann angepasst werden, aber die Schlüsselworte `schnell`/`langsam` sind nicht implementiert
 - Einbindung von Bibliothek ist nicht implementiert
 
 Falls eine dieser Punkte den Einsatz von Robot Karol Web verhindert, würde ich mich über eine Nachricht freuen. Dann kann ich nochmal die Vorteile und Nachteile eines Einbezugs untersuchen. Ansonsten steht es natürlich weiterhin frei, die vorhandene Desktop-Version von Robot Karol zu nutzen.
