@@ -71,7 +71,23 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 
 ### Kommentare
 
-`{ Kommentar }` - Text, der in geschweifte Klammern steht, wird bei der Ausführung ignoriert.
+Kommentare werden bei der Ausführung ignoriert. Es gibt verschiedene Möglichkeiten:
+
+`// Kommentar` - einzeiliger Kommentar (C-Style)
+
+`# Kommentar` - einzeiliger Kommentar (Python-Style)
+
+`/* Kommentar */` mehrzeiliger Kommentar
+
+`{ Kommentar }` - alter Syntax aus Robot Karol
+
+### Objektnotation
+
+Befehle lassen sich auch in der Schreibweise `karol.Schritt(4)` notieren.
+
+### `*`-Notation
+
+Statt `ende` kann auch ein Sternchen geschrieben werden, also `*wenn`, `*wiederhole` oder `*Anweisung`
 
 ## Umstieg
 
