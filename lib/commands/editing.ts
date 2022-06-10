@@ -28,9 +28,13 @@ export function lint(core: Core, view: EditorView) {
       vm.bytecode = undefined
       vm.pc = 0
       ui.state = 'error'
-      ui.errorMessages = warnings.map(
-        (w) => `Zeile ${view.state.doc.lineAt(w.from).number}: ${w.message}`
-      )
+      ui.errorMessages = warnings
+        .map(
+          (w) => `Zeile ${view.state.doc.lineAt(w.from).number}: ${w.message}`
+        )
+        .filter(function (item, i, arr) {
+          return arr.indexOf(item) == i
+        })
       //ui.preview = undefined
     })
   }

@@ -50,7 +50,7 @@ commandPure {
 }
 
 Repeat {
-  RepeatStart ((RepeatWhileKey Condition?) | (Times RepeatTimesKey)) expression* RepeatEnd
+  RepeatStart ((RepeatWhileKey Condition) | (Times RepeatTimesKey)) expression* RepeatEnd
 }
 
 RepeatStart[closedBy="RepeatEnd"] {
@@ -103,13 +103,13 @@ Condition {
   @specialize<idx, "istmarke"> |
   @specialize<idx, "istMarke"> |
   @specialize<idx, "Istmarke"> |
-  @specialize<idx, "NichtIstMarke">
-  @specialize<idx, "nichtistmarke">
+  @specialize<idx, "NichtIstMarke"> |
+  @specialize<idx, "nichtistmarke"> |
   @specialize<idx, "Nichtistmarke">
 }
 
 IfThen {
-  IfKey Condition? ThenKey expression* (ElseKey expression*)? IfEndKey
+  IfKey Condition ThenKey expression* (ElseKey expression*)? IfEndKey
 }
 
 IfKey[closedBy="IfEndKey"] {

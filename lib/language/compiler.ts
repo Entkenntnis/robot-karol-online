@@ -101,13 +101,6 @@ export function compile(view: EditorView) {
             target: Infinity,
             count: Infinity,
           })
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: `"${code}" ist kein bekannter Befehl`,
-          })
         }
       }
       if (cursor.name === 'Return') {
@@ -129,42 +122,12 @@ export function compile(view: EditorView) {
           const op: Op = { type: 'jumpn', target: -1, count: Infinity }
           output.push(op)
           st.op = op
-          if (code !== 'wiederhole') {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'Schlüsselwort "wiederhole" fehlt',
-            })
-          }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige Wiederholung',
-          })
         }
       }
       if (cursor.name == 'RepeatWhileKey') {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'repeat' && st.stage == 1) {
           st.stage = 10
-          if (code !== 'solange') {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'Schlüsselwort "solange" fehlt',
-            })
-          }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige Wiederholung',
-          })
         }
       }
       if (cursor.name == 'Condition') {
@@ -182,13 +145,6 @@ export function compile(view: EditorView) {
           cond = { type: 'mark', negated: true }
         } else if (code.toLowerCase() == 'istmarke') {
           cond = { type: 'mark', negated: false }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'unbekannte Bedingung',
-          })
         }
         if (st && st.type == 'repeat' && st.stage == 10) {
           st.stage = 11
@@ -197,13 +153,6 @@ export function compile(view: EditorView) {
         } else if (st && st.type == 'if' && st.stage == 1) {
           st.condition = cond
           st.stage = 2
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige Wiederholung',
-          })
         }
       }
       if (cursor.name == 'IfThen') {
@@ -213,21 +162,6 @@ export function compile(view: EditorView) {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'if' && st.stage == 0) {
           st.stage = 1
-          if (code !== 'wenn') {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'Schlüsselwort "wenn" fehlt',
-            })
-          }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige bedingte Anweisung',
-          })
         }
       }
       if (cursor.name == 'ThenKey') {
@@ -235,87 +169,36 @@ export function compile(view: EditorView) {
         const line = view.state.doc.lineAt(st.from).number
         if (st.type == 'if' && st.stage == 2) {
           st.stage = 3
-          if (code !== 'dann') {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'Schlüsselwort "dann" fehlt',
-            })
-          } else {
-            const op: Op = {
-              type: 'jumpcond',
-              condition: st.condition!,
-              targetT: output.length + 1,
-              targetF: -1,
-              line,
-            }
-            output.push(op)
-            st.op = op
+          const op: Op = {
+            type: 'jumpcond',
+            condition: st.condition!,
+            targetT: output.length + 1,
+            targetF: -1,
+            line,
           }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige bedingte Anweisung',
-          })
+          output.push(op)
+          st.op = op
         }
       }
       if (cursor.name == 'ElseKey') {
         const st = parseStack[parseStack.length - 1]
         if (st && st.type == 'if' && st.stage == 3) {
-          if (code !== 'sonst') {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'Schlüsselwort "sonst" fehlt',
-            })
-          } else {
-            st.op!.targetF = output.length + 1
-            const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
-            output.push(op)
-            st.stage = 4
-            st.op = op
-          }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige bedingte Anweisung',
-          })
+          st.op!.targetF = output.length + 1
+          const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
+          output.push(op)
+          st.stage = 4
+          st.op = op
         }
       }
       if (cursor.name == 'IfEndKey') {
         const st = parseStack[parseStack.length - 1]
         if (st && st.type == 'if') {
-          if (
-            code.toLowerCase() !== 'endewenn' &&
-            code.toLowerCase() !== '*wenn'
-          ) {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'Schlüsselwort "endewenn" fehlt',
-            })
-          } else {
-            if (st.stage == 3) {
-              st.op!.targetF = output.length
-            } else if (st.stage == 4) {
-              st.op!.target = output.length
-            }
-            parseStack.pop()
+          if (st.stage == 3 && st.op) {
+            st.op.targetF = output.length
+          } else if (st.stage == 4 && st.op) {
+            st.op.target = output.length
           }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige bedingte Anweisung',
-          })
+          parseStack.pop()
         }
       }
       if (cursor.name == 'Times') {
@@ -324,6 +207,7 @@ export function compile(view: EditorView) {
           st.stage++
           st.times = parseInt(code)
           if (!code || isNaN(st.times) || st.times < 1) {
+            // additional compiler check
             warnings.push({
               from: cursor.from - 3,
               to: Math.min(cursor.to + 3, view.state.doc.length - 1),
@@ -331,13 +215,6 @@ export function compile(view: EditorView) {
               message: 'Anzahl der Wiederholung muss eine natürliche Zahl sein',
             })
           }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige Wiederholung',
-          })
         }
       }
       if (cursor.name == 'RepeatTimesKey') {
@@ -345,21 +222,6 @@ export function compile(view: EditorView) {
         if (st.type == 'repeat' && st.stage == 2) {
           st.stage++
           st.start = output.length
-          if (code !== 'mal') {
-            warnings.push({
-              from: st.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'Schlüsselwort "mal" fehlt.',
-            })
-          }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige Wiederholung',
-          })
         }
       }
       if (cursor.name == 'RepeatEnd') {
@@ -374,17 +236,6 @@ export function compile(view: EditorView) {
             line,
           })
           parseStack.pop()
-          if (
-            code.toLowerCase() !== 'endewiederhole' &&
-            code.toLowerCase() !== '*wiederhole'
-          ) {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'Schlüsselwort "endewiederhole" fehlt.',
-            })
-          }
         } else if (st.type == 'repeat' && st.stage == 11) {
           st.op!.target = output.length
           const line = view.state.doc.lineAt(st.from).number
@@ -396,24 +247,6 @@ export function compile(view: EditorView) {
             line,
           })
           parseStack.pop()
-          if (
-            code.toLowerCase() !== 'endewiederhole' &&
-            code.toLowerCase() !== '*wiederhole'
-          ) {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'Schlüsselwort "endewiederhole" fehlt.',
-            })
-          }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige Wiederholung',
-          })
         }
       }
       if (cursor.name == 'Cmd') {
@@ -428,27 +261,13 @@ export function compile(view: EditorView) {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'function' && st.stage == 0) {
           st.stage = 1
-          if (code.toLowerCase() !== 'anweisung') {
-            warnings.push({
-              from: cursor.from,
-              to: cursor.to,
-              severity: 'error',
-              message: 'Schlüsselwort "Anweisung" fehlt',
-            })
-          }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige Anweisung',
-          })
         }
       }
       if (cursor.name == 'CmdName') {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'function' && st.stage == 1) {
           if (declarations[code]) {
+            // additional compiler check
             warnings.push({
               from: cursor.from,
               to: cursor.to,
@@ -462,13 +281,6 @@ export function compile(view: EditorView) {
             output.push(op)
             st.skipper = op
           }
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige Anweisung',
-          })
         }
       }
       if (cursor.name == 'CmdEnd') {
@@ -477,21 +289,71 @@ export function compile(view: EditorView) {
           declarations[st.name!] = { target: st.target! }
           output.push({ type: 'return', line: undefined })
           st.skipper!.target = output.length
-        } else {
-          warnings.push({
-            from: cursor.from,
-            to: cursor.to,
-            severity: 'error',
-            message: 'ungültige Anweisung',
-          })
         }
       }
       if (cursor.type.isError) {
+        console.log(cursor.node, parseStack)
+        const topOfStack = parseStack[parseStack.length - 1]
+        let message = 'Kontrollstruktur unvollständig'
+        if (topOfStack) {
+          if (topOfStack.type == 'repeat') {
+            message = 'Schleife unvollständig'
+            if (topOfStack.stage == 1) {
+              message += ', Zahl oder "solange" erwartet'
+            }
+            if (topOfStack.stage == 2 && topOfStack.times) {
+              message += ', "mal" erwartet'
+            }
+            if (topOfStack.stage == 3) {
+              message += ', "endewiederhole" erwartet'
+            }
+            if (
+              topOfStack.stage == 10 ||
+              (topOfStack.stage == 11 && !topOfStack.condition?.type)
+            ) {
+              message += ', Bedingung erwartet'
+            }
+            if (topOfStack.stage == 11 && topOfStack.condition?.type) {
+              message += ', "endewiederhole" erwartet'
+            }
+          }
+          if (topOfStack.type == 'if') {
+            message = 'Bedingte Anweisung unvollständig'
+            if (
+              topOfStack.stage == 1 ||
+              (topOfStack.stage == 2 && !topOfStack.op)
+            ) {
+              message += ', Bedingung erwartet'
+            } else if (
+              topOfStack.stage == 2 ||
+              (topOfStack.stage > 2 && !topOfStack.op)
+            ) {
+              message += ', "dann" erwartet'
+            }
+            if (
+              (topOfStack.stage == 3 || topOfStack.stage == 4) &&
+              topOfStack.op
+            ) {
+              message += ', "endewenn" erwartet'
+            }
+          }
+          if (topOfStack.type == 'function') {
+            message = 'Anweisung unvollständig'
+            if (
+              cursor.node.parent?.name === 'CmdName' ||
+              topOfStack.stage == 1
+            ) {
+              message += ', Name der Anweisung erwartet'
+            } else {
+              message += ', "endeAnweisung" erwartet'
+            }
+          }
+        }
         warnings.push({
           from: cursor.from - 2,
           to: Math.min(cursor.to + 2, view.state.doc.length - 1),
           severity: 'error',
-          message: 'Fehler',
+          message,
         })
       }
     } while (cursor.next())
@@ -500,6 +362,7 @@ export function compile(view: EditorView) {
     if (declarations[f.code]) {
       f.op.target = declarations[f.code].target
     } else {
+      // additional compiler check
       warnings.push({
         from: f.from,
         to: f.to,
