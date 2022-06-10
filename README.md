@@ -119,7 +119,7 @@ In manchen Situationen kann ein Rücksprung aus einer Anweisung den Code deutlic
 - Ausführungsgeschwindigkeit kann angepasst werden, aber die Schlüsselworte `schnell`/`langsam` sind nicht implementiert
 - Einbindung von Bibliothek ist nicht implementiert
 
-Falls eine dieser Punkte den Einsatz von Robot Karol Web verhindert, würde ich mich über eine Nachricht freuen. Dann kann ich nochmal die Vorteile und Nachteile eines Einbezugs untersuchen. Ansonsten steht es natürlich weiterhin frei, die vorhandene Desktop-Version von Robot Karol zu nutzen.
+Falls eine dieser Punkte den Einsatz von Robot Karol Web verhindert, würde ich mich über eine Nachricht freuen. Dann kann ich nochmal die Vorteile und Nachteile eines Einbezugs untersuchen.
 
 ## Beispiele
 
