@@ -70,10 +70,10 @@ const parserWithMetadata = parser.configure({
       CondEnd: t.keyword,
       CondName: t.emphasis,
       TF: t.typeName,
-      Return: t.unit,
       CustomRef: t.variableName,
       KarolPrefix: t.labelName,
       Parameter: t.strong,
+      Return: t.keyword,
     }),
     indentNodeProp.add({
       Repeat: continuedIndent({ except: /^\s*(ende|\*)(w|W)iederhole(\s|$)/ }),
@@ -211,7 +211,7 @@ const generalOptions = [
   { label: 'sonst' },
   { label: 'Anweisung' },
   { label: 'endeAnweisung' },
-  { label: 'Unterbrechen' },
+  { label: 'return' },
   { label: 'Beenden' },
   { label: 'karol' },
 ]

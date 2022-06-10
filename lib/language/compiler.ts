@@ -101,8 +101,6 @@ export function compile(view: EditorView) {
             target: Infinity,
             count: Infinity,
           })
-        } else if (preparedCode == 'unterbrechen') {
-          output.push({ type: 'return', line: undefined })
         } else {
           warnings.push({
             from: cursor.from,
@@ -111,6 +109,9 @@ export function compile(view: EditorView) {
             message: `"${code}" ist kein bekannter Befehl`,
           })
         }
+      }
+      if (cursor.name === 'Return') {
+        output.push({ type: 'return', line: undefined })
       }
       if (cursor.name == 'CustomRef') {
         const line = view.state.doc.lineAt(cursor.from).number

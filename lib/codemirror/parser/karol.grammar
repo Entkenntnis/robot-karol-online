@@ -6,7 +6,13 @@ expression {
   Command |
   Repeat |
   IfThen |
-  CustomRef
+  CustomRef |
+  Return
+}
+
+Return {
+  @specialize<idx, "return"> |
+  @specialize<idx, "Return">
 }
 
 Command {
@@ -40,9 +46,7 @@ commandPure {
   @specialize<idx, "markeLöschen"> |
   @specialize<idx, "Markelöschen"> |
   @specialize<idx, "Beenden"> |
-  @specialize<idx, "beenden"> |
-  @specialize<idx, "Unterbrechen"> |
-  @specialize<idx, "unterbrechen">
+  @specialize<idx, "beenden">
 }
 
 Repeat {
@@ -153,7 +157,6 @@ CmdEnd {
 }
 
 CustomRef { idx }
-
 
 @tokens {
   legacyRepeatEnd { "*wiederhole" | "*Wiederhole" }

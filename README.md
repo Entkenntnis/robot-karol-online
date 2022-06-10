@@ -67,8 +67,6 @@ Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.ba
 
 `Anweisung {Name} endeAnweisung` - Definiert eine eigene Anweisung, die innerhalb des Programms verwendet werden kann.
 
-`Unterbrechen` - Karol unterbricht die Ausführung der aktuellen Anweisung und springt zum Aufrufer zurück (d.h. ein _return_-statement).
-
 ### Kommentare
 
 Kommentare werden bei der Ausführung ignoriert.
@@ -101,19 +99,23 @@ Befehle können optional mit einem Semikolon getrennt werden:
 Hinlegen; Hinlegen; LinksDrehen
 ```
 
+### Rücksprung aus Anweisung
+
+In manchen Situationen kann ein Rücksprung aus einer Anweisung den Code deutlich vereinfachen. Dafür gibt es das Schlüsselwort `return`.
+
 ## Umstieg
 
 Über die letzten Jahre hat sich Robot Karol immer wieder weiterentwickelt und neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Beim Umstieg sind bezüglich der Sprache folgende Punkte zu beachten:
 
-- Willkürliche Groß-/Kleinschreibungen wie z.B. `sCHritt` werden nicht mehr unterstützt. Stattdessen kann man entweder `schritt` oder `Schritt` schreiben, wobei letzteres empfohlen wird.
-- Die alternative Kontrollstrukturen `Programm` wird nicht mehr unterstützt
-- Bedingungen fallen raus, d.h. es lassen sich über `Bedingung`, `wahr` und `falsch` keine eigenen Bedingungen mehr definieren, sondern wird durch den Befehl `Unterbrechen` ersetzt
 - Farbige Ziegel und Marken sind nicht implementiert
-- Im Moment sind parametrisierten Varianten von Bedingungen z.B. `IstZiegel(n)` nicht implementiert
 - Der Rucksack ist nicht implementiert
 - Himmelsrichtungen sind nicht implementiert
-- Alternative Schleifen-Varianten (wiederhole immer, wiederhole bis, ...) sind nicht unterstützt, außerdem wird das `nicht` Schlüsselwort bei Bedingungen nicht mehr benötigt
 - Ton ist nicht implementiert
+- Bedingungen fallen raus, d.h. es lassen sich über `Bedingung`, `wahr` und `falsch` keine eigenen Bedingungen mehr definieren, sondern wird durch das Schlüsselwort `return` ersetzt
+- Willkürliche Groß-/Kleinschreibungen wie z.B. `sCHritt` werden nicht mehr unterstützt. Stattdessen kann man entweder `schritt` oder `Schritt` schreiben.
+- Der Platzhalter `Programm` wird nicht mehr unterstützt
+- Im Moment sind parametrisierten Varianten von Bedingungen z.B. `IstZiegel(n)` nicht implementiert
+- Alternative Schleifen-Varianten (wiederhole immer, wiederhole bis, ...) sind nicht unterstützt, außerdem wird das `nicht` Schlüsselwort bei Bedingungen nicht mehr benötigt
 - Ausführungsgeschwindigkeit kann angepasst werden, aber die Schlüsselworte `schnell`/`langsam` sind nicht implementiert
 - Einbindung von Bibliothek ist nicht implementiert
 

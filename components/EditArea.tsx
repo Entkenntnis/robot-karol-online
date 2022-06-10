@@ -35,7 +35,6 @@ import istmarkeImg from '../public/istmarke.png'
 import nichtistmarkeImg from '../public/nichtistmarke.png'
 
 import anweisungImg from '../public/anweisung.png'
-import unterbrechenImg from '../public/unterbrechen.png'
 
 import { autoFormat, setEditable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
@@ -466,7 +465,6 @@ export function EditArea() {
               anweisungImg,
               'Anweisung NeueAnweisung\n  \nendeAnweisung'
             )}
-            {buildProtoBlock('unterbrechen', unterbrechenImg, 'Unterbrechen')}
           </div>
         </div>
       </div>
