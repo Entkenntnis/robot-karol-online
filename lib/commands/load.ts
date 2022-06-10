@@ -21,6 +21,19 @@ export async function loadProject(core: Core) {
       })
     } catch (e) {}
   }
+
+  const id = parameterList.get('id')
+
+  if (id) {
+    try {
+      const res = await fetch(`https://stats-karol.arrrg.de/load/${id}`)
+      const text = await res.text()
+      deserialize(core, text)
+      core.mutateWs((ws) => {
+        if (ws.type == 'free') ws.ui.showPreview = false
+      })
+    } catch (e) {}
+  }
 }
 
 export function restoreProject(core: Core) {

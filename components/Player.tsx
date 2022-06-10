@@ -7,6 +7,8 @@ import {
   faMagnifyingGlassMinus,
   faMagnifyingGlassPlus,
   faRightLong,
+  faShare,
+  faSpinner,
   faUpLong,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
@@ -19,6 +21,7 @@ import { serialize } from '../lib/commands/json'
 import { restoreProject } from '../lib/commands/load'
 import { execPreview, hidePreview, showPreview } from '../lib/commands/preview'
 import { initWorld, resetCode } from '../lib/commands/puzzle'
+import { share } from '../lib/commands/share'
 import { toggleWireframe } from '../lib/commands/view'
 import { abort, run } from '../lib/commands/vm'
 import {
@@ -39,6 +42,7 @@ export function Player() {
   const core = useCore()
 
   const [showNewWorldModal, setShowNewWorldModal] = useState(false)
+  const [showShareModal, setShowShareModal] = useState(false)
 
   const [scale, setScale] = useState(1)
 
@@ -176,11 +180,18 @@ export function Player() {
               </div>
             ))}
           </div>
-          {/*core.ws.type == 'free' && (
+          {core.ws.type == 'free' && (
             <div className="absolute right-3 bottom-2">
-              {renderZoomControls()}
+              <button
+                className="px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
+                onClick={() => {
+                  setShowShareModal(true)
+                }}
+              >
+                <FaIcon icon={faShare} /> Teilen
+              </button>
             </div>
-          )*/}
+          )}
           {core.ws.type == 'free' && (
             <div className="absolute left-1 top-1">
               {core.state.projectTitle ? (
@@ -413,6 +424,33 @@ export function Player() {
           </div>
         </div>
       )}
+      {showShareModal && (
+        <div
+          className={clsx(
+            'fixed inset-0 bg-gray-300 bg-opacity-30 flex justify-around',
+            'items-center z-[200]'
+          )}
+          onClick={() => setShowShareModal(false)}
+        >
+          <div
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+            className={clsx(
+              'fixed mx-auto bg-white opacity-100 rounded w-[400px] z-[300]',
+              'top-[30vh]'
+            )}
+          >
+            <Share onClose={() => setShowShareModal(false)} />
+            <div
+              className="absolute top-2 right-2 h-3 w-3 cursor-pointer"
+              onClick={() => setShowShareModal(false)}
+            >
+              <FaIcon icon={faXmark} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 
@@ -587,4 +625,60 @@ function NewWorldSettings({
     }, 10)
     onDone()
   }
+}
+
+function Share(props: { onClose: () => void }) {
+  const [pending, setPending] = useState(false)
+  const [id, setId] = useState('')
+  const core = useCore()
+  return (
+    <>
+      <h1 className="m-3 mb-6 text-xl font-bold">Teilen</h1>
+      <p className="m-3 mb-6">
+        Du kannst den Inhalt der Welt und deinen Code freigeben und mit anderen
+        Personen teilen. Dazu wird der aktuelle Stand auf dem Server gespeichert
+        und ein eindeutiger Link erstellt:
+      </p>
+      {id ? (
+        <div className="px-3 mb-8">
+          <input
+            className="border w-full border-yellow-300 outline-none border-2"
+            value={`${window.location.protocol}//${window.location.host}/?id=${id}`}
+            readOnly
+          />
+          <button
+            className="px-2 py-0.5 rounded mt-7 bg-gray-100"
+            onClick={() => {
+              props.onClose()
+            }}
+          >
+            Schließen
+          </button>
+        </div>
+      ) : (
+        <button
+          className="px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded ml-3 mb-6"
+          onClick={async () => {
+            setPending(true)
+            try {
+              const id = await share(core)
+              setId(id)
+            } catch (e) {
+              alert('Fehler: ' + e)
+            }
+          }}
+          disabled={pending}
+        >
+          {pending ? (
+            <>
+              <FaIcon icon={faSpinner} className="animate-spin" /> wird geladen
+              ...
+            </>
+          ) : (
+            `Link erstellen`
+          )}
+        </button>
+      )}
+    </>
+  )
 }
