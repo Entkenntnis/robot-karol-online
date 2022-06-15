@@ -1,6 +1,7 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { useState } from 'react'
+import { impressum } from '../impressum'
 import { switchToEditor, switchToPuzzle } from '../lib/commands/menu'
 import { paths } from '../lib/data/paths'
 import { puzzles } from '../lib/data/puzzles'
@@ -12,14 +13,14 @@ import { Ping } from './Ping'
 export function Menu() {
   const core = useCore()
 
-  const [showPrivacy, setShowPrivacy] = useState(false)
+  const [modal, setModal] = useState<'none' | 'privacy' | 'contact'>('none')
 
   return (
     <div className="h-full flex flex-col">
       {renderTopbar()}
       {renderMiddle()}
       {renderFooter()}
-      {showPrivacy && renderPrivacyModal()}
+      {modal !== 'none' && renderPrivacyModal()}
     </div>
   )
 
@@ -157,15 +158,19 @@ export function Menu() {
           />
         </div>
         <div className="mr-3">
-          <ExternalLink
-            href="https://github.com/Entkenntnis/robot-karol-web#kontakt"
-            title="Kontakt"
-          />{' '}
+          <span
+            className="cursor-pointer underline"
+            onClick={() => {
+              setModal('contact')
+            }}
+          >
+            Kontakt / Impressum
+          </span>{' '}
           |{' '}
           <span
             className="cursor-pointer underline"
             onClick={() => {
-              setShowPrivacy(true)
+              setModal('privacy')
             }}
           >
             Datenschutzerklärung
@@ -182,7 +187,7 @@ export function Menu() {
           'fixed inset-0 bg-gray-300 bg-opacity-30 flex justify-around',
           'items-center z-[9999]'
         )}
-        onClick={() => setShowPrivacy(false)}
+        onClick={() => setModal('none')}
       >
         <div
           onClick={(e) => {
@@ -193,18 +198,34 @@ export function Menu() {
             'top-[30vh]'
           )}
         >
-          <h1 className="m-3 mb-6 text-xl font-bold">Datenschutzerklärung</h1>
-          <p className="m-3 mb-6">
-            Diese Website wird auf einem uberspace (https://uberspace.de)
-            gehostet. Bei einem Besuch kommen keine Cookies zum Einsatz. Es
-            werden grundlegende Statistiken zu Aufrufen und gelösten Aufgaben
-            auf dem uberspace gespeichert. Es werden keine Daten an
-            Drittanbieter weitergeben. Außerdem findet die Datenverarbeitung
-            vollständig in Deutschland statt.
-          </p>
+          <h1 className="m-3 mb-6 text-xl font-bold">
+            {modal == 'privacy'
+              ? 'Datenschutzerklärung'
+              : 'Kontakt / Impressum'}
+          </h1>
+          {modal == 'privacy' ? (
+            <p className="m-3 mb-6">
+              Diese Website wird auf einem uberspace (https://uberspace.de)
+              gehostet. Bei einem Besuch kommen keine Cookies zum Einsatz. Es
+              werden grundlegende Statistiken zu Aufrufen und gelösten Aufgaben
+              auf dem uberspace gespeichert. Es werden keine Daten an
+              Drittanbieter weitergeben. Außerdem findet die Datenverarbeitung
+              vollständig in Deutschland statt.
+            </p>
+          ) : (
+            <p className="m-3 mb-6">
+              {impressum.name}
+              <br />
+              {impressum.address1}
+              <br />
+              {impressum.address2}
+              <br />
+              {impressum.contact}
+            </p>
+          )}
           <div
             className="absolute top-2 right-2 h-3 w-3 cursor-pointer"
-            onClick={() => setShowPrivacy(false)}
+            onClick={() => setModal('none')}
           >
             <FaIcon icon={faXmark} />
           </div>
