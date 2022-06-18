@@ -22,6 +22,13 @@ Command {
 commandWithParameter {
   @specialize<idx, "Schritt"> |
   @specialize<idx, "schritt"> |
+  @specialize<idx, "Hinlegen"> |
+  @specialize<idx, "hinlegen"> |
+  @specialize<idx, "Aufheben"> |
+  @specialize<idx, "aufheben">
+}
+
+commandPure {
   @specialize<idx, "LinksDrehen"> |
   @specialize<idx, "linksdrehen"> |
   @specialize<idx, "linksDrehen"> |
@@ -30,13 +37,6 @@ commandWithParameter {
   @specialize<idx, "rechtsdrehen"> |
   @specialize<idx, "rechtsDrehen"> |
   @specialize<idx, "Rechtsdrehen"> |
-  @specialize<idx, "Hinlegen"> |
-  @specialize<idx, "hinlegen"> |
-  @specialize<idx, "Aufheben"> |
-  @specialize<idx, "aufheben">
-}
-
-commandPure {
   @specialize<idx, "MarkeSetzen"> |
   @specialize<idx, "markesetzen"> |
   @specialize<idx, "markeSetzen"> |

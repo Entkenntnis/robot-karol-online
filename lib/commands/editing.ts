@@ -25,7 +25,12 @@ export function lint(core: Core, view: EditorView) {
 
     const cursor = tree.cursor()
     do {
-      if (cursor.type.name.includes('Comment') || cursor.type.name == 'Cmd') {
+      if (
+        cursor.type.name.includes('Comment') ||
+        cursor.type.name == 'Cmd' ||
+        cursor.type.name == 'Return' ||
+        cursor.type.name == 'CustomRef'
+      ) {
         toWarn = true
       }
     } while (cursor.next())

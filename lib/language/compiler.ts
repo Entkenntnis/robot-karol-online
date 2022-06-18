@@ -293,7 +293,7 @@ export function compile(tree: Tree, doc: Text) {
         }
       }
       if (cursor.type.isError) {
-        console.log(cursor.node, parseStack)
+        //console.log(cursor.node, parseStack)
         const topOfStack = parseStack[parseStack.length - 1]
         let message = 'Kontrollstruktur unvollständig'
         if (topOfStack) {

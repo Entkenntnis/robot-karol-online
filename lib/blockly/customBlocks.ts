@@ -1,4 +1,4 @@
-// noinspection JSUnusedLocalSymbols
+// based on https://github.com/vanmeegen/react-three-karol/blob/main/src/blockly/CustomBlocks.ts
 
 import blocks from './KarolBlocks.json'
 import Blockly, { Block } from 'blockly'

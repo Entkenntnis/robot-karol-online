@@ -588,7 +588,7 @@ function BlockEditor() {
     if (editorDiv.current && !workspace) {
       //console.log('inject blockly')
 
-      const initialXml = codeToXml(core.ws.code)
+      const initialXml = codeToXml(core.ws.code.toLowerCase())
 
       console.log('initial', initialXml)
 
@@ -602,6 +602,7 @@ function BlockEditor() {
             colour: '#ccc',
             snap: true,
           },
+          scrollbars: true,
           trashcan: true,
         } as any /* wtf blockly types are weird*/
       )
@@ -611,6 +612,7 @@ function BlockEditor() {
         Blockly.Xml.textToDom(initialXml),
         blocklyWorkspace
       )
+
       /*setTimeout(
         () => blockyWorkspace.addTopBlock(new Block(blockyWorkspace, 'step')),
         1000
@@ -642,7 +644,8 @@ function BlockEditor() {
       }
       window.addEventListener('resize', onresize, false)
       onresize()
-      if (workspace) Blockly.svgResize(workspace)
+
+      blocklyWorkspace.scrollCenter()
 
       core.blockyResize = onresize
       //console.log('mount', core.blockyResize)
@@ -653,7 +656,7 @@ function BlockEditor() {
         const newXml = Blockly.Xml.domToText(
           Blockly.Xml.workspaceToDom(blocklyWorkspace)
         )
-        //console.log('xml', newXml)
+        console.log('xml', newXml)
         var code = (Blockly as any).karol.workspaceToCode(blocklyWorkspace)
 
         core.mutateWs((ws) => {
