@@ -1,11 +1,12 @@
 import { ensureSyntaxTree } from '@codemirror/language'
 import { Diagnostic } from '@codemirror/lint'
+import { Text } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
+import { Tree } from '@lezer/common'
 
 import { Op, Condition, CallOp } from '../state/types'
 
-export function compile(view: EditorView) {
-  const tree = ensureSyntaxTree(view.state, 1000000, 1000)
+export function compile(tree: Tree, doc: Text) {
   const output: Op[] = []
   const warnings: Diagnostic[] = []
   const parseStack: {
@@ -25,16 +26,16 @@ export function compile(view: EditorView) {
   if (tree) {
     let cursor = tree.cursor()
     do {
-      const code = view.state.doc.sliceString(cursor.from, cursor.to)
+      const code = doc.sliceString(cursor.from, cursor.to)
       if (cursor.name == 'Command') {
         const repeat =
           cursor.node.lastChild?.name == 'Parameter'
-            ? view.state.doc.sliceString(
+            ? doc.sliceString(
                 cursor.node.lastChild.from,
                 cursor.node.lastChild.to
               )
             : 1
-        const line = view.state.doc.lineAt(cursor.from).number
+        const line = doc.lineAt(cursor.from).number
         let preparedCode = code.toLowerCase()
         if (preparedCode.startsWith('karol.')) {
           preparedCode = preparedCode.substring(6)
@@ -107,7 +108,7 @@ export function compile(view: EditorView) {
         output.push({ type: 'return', line: undefined })
       }
       if (cursor.name == 'CustomRef') {
-        const line = view.state.doc.lineAt(cursor.from).number
+        const line = doc.lineAt(cursor.from).number
         const op: Op = { type: 'call', target: -1, line }
         functions.push({ op, code, from: cursor.from, to: cursor.to })
         output.push(op)
@@ -166,7 +167,7 @@ export function compile(view: EditorView) {
       }
       if (cursor.name == 'ThenKey') {
         const st = parseStack[parseStack.length - 1]
-        const line = view.state.doc.lineAt(st.from).number
+        const line = doc.lineAt(st.from).number
         if (st.type == 'if' && st.stage == 2) {
           st.stage = 3
           const op: Op = {
@@ -210,7 +211,7 @@ export function compile(view: EditorView) {
             // additional compiler check
             warnings.push({
               from: cursor.from - 3,
-              to: Math.min(cursor.to + 3, view.state.doc.length - 1),
+              to: Math.min(cursor.to + 3, doc.length - 1),
               severity: 'error',
               message: 'Anzahl der Wiederholung muss eine natürliche Zahl sein',
             })
@@ -226,7 +227,7 @@ export function compile(view: EditorView) {
       }
       if (cursor.name == 'RepeatEnd') {
         const st = parseStack[parseStack.length - 1]
-        const line = view.state.doc.lineAt(st.from).number
+        const line = doc.lineAt(st.from).number
         if (st.type == 'repeat' && st.stage == 3) {
           st.op!.target = output.length
           output.push({
@@ -238,7 +239,7 @@ export function compile(view: EditorView) {
           parseStack.pop()
         } else if (st.type == 'repeat' && st.stage == 11) {
           st.op!.target = output.length
-          const line = view.state.doc.lineAt(st.from).number
+          const line = doc.lineAt(st.from).number
           output.push({
             type: 'jumpcond',
             targetT: st.start!,
@@ -351,7 +352,7 @@ export function compile(view: EditorView) {
         }
         warnings.push({
           from: cursor.from - 2,
-          to: Math.min(cursor.to + 2, view.state.doc.length - 1),
+          to: Math.min(cursor.to + 2, doc.length - 1),
           severity: 'error',
           message,
         })

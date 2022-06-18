@@ -70,6 +70,7 @@ function createBaseWorkspace(): WorkspaceStateBase {
       hideKarol: false,
       keepWorldPreference: false,
       errorMessages: [],
+      toBlockWarning: false,
     },
     vm: {
       pc: 0,
@@ -80,6 +81,7 @@ function createBaseWorkspace(): WorkspaceStateBase {
     },
     settings: {
       speed: 'fast',
+      mode: 'blocks',
     },
   }
 }

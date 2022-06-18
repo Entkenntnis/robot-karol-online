@@ -1,0 +1,553 @@
+[
+  {
+    "type": "step",
+    "message0": "Schritt %1",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "COUNT",
+        "value": 1,
+        "min": 0
+      }
+    ],
+    "colour": 260,
+    "tooltip": "Gehe Anzahl Schritte geradeaus",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "turnleft",
+    "message0": "LinksDrehen",
+    "colour": 260,
+    "tooltip": "Drehe dich 90 Grad nach links",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "turnright",
+    "message0": "RechtsDrehen",
+    "colour": 260,
+    "tooltip": "Drehe dich 90 Grad nach rechts",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "laydown",
+    "message0": "Hinlegen %1",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "COUNT",
+        "value": 1,
+        "min": 0
+      }
+    ],
+    "colour": 260,
+    "tooltip": "Lege Anzahl Ziegel vor dich hin",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "laydown_color",
+    "lastDummyAlign0": "RIGHT",
+    "message0": "Hinlegen %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "COLOR",
+        "options": [
+          ["rot", "rot"],
+          ["gelb", "gelb"],
+          ["blau", "blau"],
+          ["grün", "grün"],
+          ["schwarz", "schwarz"]
+        ]
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 260,
+    "tooltip": "Lege einen farbigen Ziegel vor dich hin",
+    "helpUrl": ""
+  },
+  {
+    "type": "pickup",
+    "message0": "Aufheben %1",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "COUNT",
+        "value": 1,
+        "min": 0
+      }
+    ],
+    "colour": 260,
+    "tooltip": "Hebe Anzahl Ziegel vor dir auf",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "setmarker",
+    "message0": "MarkeSetzen",
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 260,
+    "tooltip": "Setze eine Marke unter dir",
+    "helpUrl": ""
+  },
+  {
+    "type": "deletemarker",
+    "message0": "MarkeLöschen",
+    "colour": 260,
+    "tooltip": "Lösche die Marke unter dir",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "wait",
+    "message0": "Warten %1",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "COUNT",
+        "value": 1000,
+        "min": 0
+      }
+    ],
+    "colour": 260,
+    "tooltip": "Warte Anzahl Millisekunden",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "beep",
+    "message0": "Ton",
+    "colour": 260,
+    "tooltip": "Mach einen Ton",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "stop",
+    "message0": "Beenden",
+    "colour": 260,
+    "tooltip": "Beende das Programm",
+    "helpUrl": "",
+    "previousStatement": null
+  },
+  {
+    "type": "repeat_times",
+    "message0": "wiederhole %1 mal %2 %3",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "COUNT",
+        "value": 10,
+        "min": 0
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "colour": 120,
+    "tooltip": "wiederhole n mal Anweisung",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "while_do",
+    "message0": "wiederhole solange %1 %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "CONDITION"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "wiederhole die Anweisungen solange die Bedingung wahr ist",
+    "helpUrl": ""
+  },
+  {
+    "type": "repeat_until",
+    "message0": "wiederhole %1 %2 bis %3",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      },
+      {
+        "type": "input_value",
+        "name": "CONDITION"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "wiederhole Anweisung bis Bedingung erfüllt",
+    "helpUrl": ""
+  },
+  {
+    "type": "repeat_while",
+    "message0": "wiederhole %1 %2 solange %3",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      },
+      {
+        "type": "input_value",
+        "name": "CONDITION"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "wiederhole Anweisung solange Bedingung erfüllt",
+    "helpUrl": ""
+  },
+  {
+    "type": "repeat_forever",
+    "message0": "wiederhole immer %1 %2",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "wiederhole bis programmabruch",
+    "helpUrl": ""
+  },
+  {
+    "type": "if_then",
+    "message0": "wenn %1 dann %2 %3",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "CONDITION"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      },
+      {
+        "type": "input_dummy"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "Wenn Bedingung wahr dann führe Anweisung aus",
+    "helpUrl": ""
+  },
+  {
+    "type": "if_then_else",
+    "message0": "wenn %1 dann %2 sonst %3",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "CONDITION"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS_2"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "Wenn Bedingung wahr dann führe Anweisung aus sonst führe andere Anweisung aus",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_wall",
+    "message0": "IstWand",
+    "output": "Boolean",
+    "colour": 210,
+    "tooltip": "Wenn er vor der Wand oder vor einem Quader steht und in diese\nRichtung schaut",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_wall",
+    "message0": "NichtIstWand",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstWand nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_brick",
+    "message0": "IstZiegel",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn er vor mindestens einem Ziegel beliebiger Farbe steht und zu diesem schaut",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_brick_count",
+    "message0": "IstZiegel(Anzahl) %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "COUNT",
+        "text": "1"
+      }
+    ],
+    "output": null,
+    "colour": 210,
+    "tooltip": "wenn er vor einem Ziegelstapel beliebiger Farbe mit n(=Anzahl) vielen Ziegeln steht und zu diesem schaut",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_brick_color",
+    "message0": "IstZiegel(Farbe) %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "COLOR",
+        "options": [
+          ["rot", "rot"],
+          ["gelb", "gelb"],
+          ["blau", "blau"],
+          ["grün", "grün"],
+          ["schwarz", "schwarz"]
+        ]
+      }
+    ],
+    "output": null,
+    "colour": 210,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_brick",
+    "message0": "NichtIstZiegel",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstZiegel nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_brick_count",
+    "message0": "NichtIstZiegel(Anzahl) %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "COUNT",
+        "text": "1"
+      }
+    ],
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstZiegel(Anzahl) nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_brick_color",
+    "message0": "NichtIstZiegel(Farbe) %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "COLOR",
+        "options": [
+          ["rot", "rot"],
+          ["gelb", "gelb"],
+          ["blau", "blau"],
+          ["grün", "grün"],
+          ["schwarz", "schwarz"]
+        ]
+      }
+    ],
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstZiegel(Anzahl) nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_marker",
+    "message0": "IstMarke",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol auf einer Marke steht",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_marker_color",
+    "message0": "IstMarke(Farbe) %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "COLOR",
+        "options": [
+          ["rot", "rot"],
+          ["gelb", "gelb"],
+          ["blau", "blau"],
+          ["grün", "grün"],
+          ["schwarz", "schwarz"]
+        ]
+      }
+    ],
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol auf einer Marke der angegebenen Farbe steht",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_marker",
+    "message0": "NichtIstMarke",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstMarke nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_marker_color",
+    "message0": "NichtIstMarke(Farbe) %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "COLOR",
+        "options": [
+          ["rot", "rot"],
+          ["gelb", "gelb"],
+          ["blau", "blau"],
+          ["grün", "grün"],
+          ["schwarz", "schwarz"]
+        ]
+      }
+    ],
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstMarke(Farbe) nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_south",
+    "message0": "IstSüden",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol nach Süden schaut",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_north",
+    "message0": "IstNorden",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol nach Norden schaut",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_west",
+    "message0": "IstWesten",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol nach Westen schaut",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_east",
+    "message0": "IstOsten",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol nach Osten schaut",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_full",
+    "message0": "IstVoll",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol seine maximale Tragfähigkeit erreicht hat",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_full",
+    "message0": "NichtIstVoll",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstVoll nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_empty",
+    "message0": "IstLeer",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol keinen Ziegel mit sich trägt",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_empty",
+    "message0": "NichtIstLeer",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstLeer nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "has_bricks",
+    "message0": "HatZiegel",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol mindestens einen Ziegel mit sich trägt",
+    "helpUrl": ""
+  },
+  {
+    "type": "has_bricks_count",
+    "message0": "HatZiegel(Anzahl) %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "COUNT",
+        "text": "1"
+      }
+    ],
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol genau n(=Anzahl) viele Ziegel mit sich trägt",
+    "helpUrl": ""
+  }
+]

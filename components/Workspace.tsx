@@ -84,7 +84,15 @@ export function Workspace() {
         windowResizeAware
         className="h-full"
       >
-        <ReflexElement className="h-full" minSize={330}>
+        <ReflexElement
+          className="h-full"
+          minSize={500}
+          onResize={() => {
+            if (core.blockyResize) {
+              core.blockyResize()
+            }
+          }}
+        >
           <EditArea />
         </ReflexElement>
 

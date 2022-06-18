@@ -1,3 +1,4 @@
+import { ensureSyntaxTree } from '@codemirror/language'
 import { EditorView } from '@codemirror/view'
 
 import { compile } from '../language/compiler'
@@ -15,10 +16,23 @@ export function lint(core: Core, view: EditorView) {
     state.code = code
   })
 
-  const { warnings, output } = compile(view)
+  const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
+  const { warnings, output } = compile(tree, view.state.doc)
   warnings.sort((a, b) => a.from - b.from)
 
   if (warnings.length == 0) {
+    let toWarn = false
+
+    const cursor = tree.cursor()
+    do {
+      if (cursor.type.name.includes('Comment') || cursor.type.name == 'Cmd') {
+        toWarn = true
+      }
+    } while (cursor.next())
+    core.mutateWs((ws) => {
+      ws.ui.toBlockWarning = toWarn
+    })
+
     patch(core, output)
     setTimeout(() => {
       execPreview(core)

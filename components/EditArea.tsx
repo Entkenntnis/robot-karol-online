@@ -4,14 +4,19 @@ import clsx from 'clsx'
 import { StaticImageData } from 'next/image'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 import {
+  faArrowLeft,
   faArrowRight,
   faArrowTurnUp,
   faCheckCircle,
   faCircleExclamation,
+  faLeftLong,
   faPlay,
+  faQuran,
+  faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 import { cursorDocEnd } from '@codemirror/commands'
+import Blockly, { Block, WorkspaceSvg } from 'blockly'
 
 import schrittImg from '../public/schritt.png'
 import hinlegenImg from '../public/hinlegen.png'
@@ -38,7 +43,7 @@ import anweisungImg from '../public/anweisung.png'
 
 import { autoFormat, setEditable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
-import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
+import { abort, confirmStep, patch, run, setSpeed } from '../lib/commands/vm'
 import { FaIcon } from './FaIcon'
 import { execPreview, hidePreview, showPreview } from '../lib/commands/preview'
 import { submit_event } from '../lib/stats/submit'
@@ -47,6 +52,16 @@ import { Editor } from './Editor'
 import { textRefreshDone } from '../lib/commands/json'
 import { leavePreMode } from '../lib/commands/puzzle'
 import { focusWrapper } from '../lib/commands/focus'
+import { setMode } from '../lib/commands/mode'
+import { KAROL_TOOLBOX } from '../lib/blockly/toolbox'
+import { initCustomBlocks } from '../lib/blockly/customBlocks'
+import { compile } from '../lib/language/compiler'
+import { Text } from '@codemirror/state'
+import { parser } from '../lib/codemirror/parser/parser'
+import { Tree } from '@lezer/common'
+import { codeToXml } from '../lib/blockly/codeToXml'
+
+initCustomBlocks()
 
 export function EditArea() {
   const [section, setSection] = useState('')
@@ -150,7 +165,16 @@ export function EditArea() {
             <ReflexElement minSize={100}>{renderEditor()}</ReflexElement>
           </ReflexContainer>
         )}
-        {core.ws.type == 'free' && renderEditor()}
+        {core.ws.type == 'free' &&
+          (core.ws.settings.mode == 'code' ? renderEditor() : <BlockEditor />)}
+        {
+          <div
+            className={clsx(
+              'absolute top-1 right-2 bg-gray-200 z-20 rounded',
+              core.ws.ui.state !== 'ready' && 'opacity-30 cursor-not-allowed'
+            )}
+          ></div>
+        }
         <div className="bg-white flex border-t">
           <div className="w-full overflow-auto min-h-[47px] max-h-[200px]">
             <div className="flex justify-between mt-[9px]">
@@ -165,12 +189,6 @@ export function EditArea() {
   function renderEditor() {
     return (
       <div className="flex h-full overflow-y-auto relative">
-        {core.ws.type == 'free' && (
-          <div className={clsx(codeState == 'running' ? 'hidden' : 'block')}>
-            {renderBlockMenu()}
-          </div>
-        )}
-
         <div className="w-full overflow-auto h-full flex">
           {codeState == 'running' ? (
             <div
@@ -200,9 +218,7 @@ export function EditArea() {
               ))}
             </div>
           ) : (
-            core.ws.type == 'puzzle' && (
-              <div className="w-8 h-full relative flex-shrink-0"></div>
-            )
+            <div className="w-8 h-full relative flex-shrink-0"></div>
           )}
           <div className="w-full h-full flex flex-col">
             <Editor innerRef={view} />
@@ -233,14 +249,18 @@ export function EditArea() {
       ) {
         return (
           <div className="m-[11px] mt-[2px]">
-            Schreibe ein Programm für Robot Karol im Editor oder klicke auf{' '}
-            <em>Menü</em> für eine Einführung.
+            <span className="-ml-3">{renderCodeBlockSwitch()}</span>{' '}
+            <FaIcon icon={faArrowLeft} /> Wähle deine Eingabemethode. Du kannst
+            jederzeit wechseln.{' '}
           </div>
         )
       } else {
         return (
           <>
             <span>
+              {core.ws.type == 'free' &&
+                codeState == 'ready' &&
+                renderCodeBlockSwitch()}
               <select
                 className="h-7 mr-2 ml-2"
                 value={core.ws.settings.speed}
@@ -351,6 +371,54 @@ export function EditArea() {
     }
 
     return <div>unbekannt</div>
+  }
+
+  function renderCodeBlockSwitch() {
+    return (
+      <span className="border mx-2 rounded">
+        <button
+          className={clsx(
+            'px-2 mx-1 my-0.5 rounded',
+            core.ws.settings.mode == 'code' && 'bg-orange-300',
+            core.ws.ui.state !== 'ready' && 'cursor-not-allowed'
+          )}
+          onClick={() => {
+            setMode(core, 'code')
+          }}
+          disabled={
+            core.ws.settings.mode == 'code' || core.ws.ui.state !== 'ready'
+          }
+        >
+          Code
+        </button>
+        <button
+          className={clsx(
+            'px-2 my-0.5 mx-1 rounded',
+            core.ws.settings.mode == 'blocks' && 'bg-orange-300',
+            core.ws.ui.state !== 'ready' && 'cursor-not-allowed'
+          )}
+          onClick={() => {
+            if (core.ws.ui.toBlockWarning) {
+              const result = confirm(
+                'Der Code enthält Elemente (z.B. Anweisungen oder Kommentare)' +
+                  ' die im Blockeditor nicht unterstützt werden.' +
+                  ' Beim Umschalten gehen diese Elemente verloren. Fortfahren?'
+              )
+              if (!result) return
+            }
+            setMode(core, 'blocks')
+          }}
+          disabled={
+            core.ws.settings.mode == 'blocks' || core.ws.ui.state !== 'ready'
+          }
+        >
+          Blöcke
+          {core.ws.ui.toBlockWarning && (
+            <FaIcon icon={faWarning} className="ml-2 text-yellow-300" />
+          )}
+        </button>
+      </span>
+    )
   }
 
   function renderBlockMenu() {
@@ -509,4 +577,170 @@ export function EditArea() {
       </div>
     )
   }
+}
+
+function BlockEditor() {
+  const editorDiv = useRef<HTMLDivElement>(null)
+  const [workspace, setWorkspace] = useState<WorkspaceSvg | null>(null)
+  const core = useCore()
+
+  useEffect(() => {
+    if (editorDiv.current && !workspace) {
+      //console.log('inject blockly')
+
+      const initialXml = codeToXml(core.ws.code)
+
+      console.log('initial', initialXml)
+
+      const blocklyWorkspace = Blockly.inject(
+        editorDiv.current,
+        {
+          toolbox: KAROL_TOOLBOX,
+          grid: {
+            spacing: 20,
+            length: 3,
+            colour: '#ccc',
+            snap: true,
+          },
+          trashcan: true,
+        } as any /* wtf blockly types are weird*/
+      )
+      setWorkspace(blocklyWorkspace)
+
+      Blockly.Xml.domToWorkspace(
+        Blockly.Xml.textToDom(initialXml),
+        blocklyWorkspace
+      )
+      /*setTimeout(
+        () => blockyWorkspace.addTopBlock(new Block(blockyWorkspace, 'step')),
+        1000
+      )*/
+
+      const blocklyArea = document.getElementById('blocklyArea')!
+      var blocklyDiv = document.getElementById('blocklyDiv')!
+
+      var onresize = function () {
+        //console.log('on resize function')
+        // Compute the absolute coordinates and dimensions of blocklyArea.
+        var element = blocklyArea
+        var x = 0
+        var y = 0
+        do {
+          x += element.offsetLeft
+          y += element.offsetTop
+          element = element.offsetParent as any
+        } while (element)
+        // Position blocklyDiv over blocklyArea.
+        blocklyDiv.style.left = x + 'px'
+        blocklyDiv.style.top = y + 'px'
+        blocklyDiv.style.width = blocklyArea.offsetWidth + 'px'
+        blocklyDiv.style.height = blocklyArea.offsetHeight + 'px'
+        if (blocklyWorkspace) {
+          Blockly.svgResize(blocklyWorkspace)
+          //console.log('blocky resize')
+        }
+      }
+      window.addEventListener('resize', onresize, false)
+      onresize()
+      if (workspace) Blockly.svgResize(workspace)
+
+      core.blockyResize = onresize
+      //console.log('mount', core.blockyResize)
+
+      const myUpdateFunction = () => {
+        if (blocklyWorkspace.isDragging()) return
+
+        const newXml = Blockly.Xml.domToText(
+          Blockly.Xml.workspaceToDom(blocklyWorkspace)
+        )
+        //console.log('xml', newXml)
+        var code = (Blockly as any).karol.workspaceToCode(blocklyWorkspace)
+
+        core.mutateWs((ws) => {
+          ws.code = code
+        })
+        const topBlocks = blocklyWorkspace
+          .getTopBlocks(false)
+          .filter((bl) => !(bl as any).isInsertionMarker_)
+
+        //console.log(code, topBlocks.length)
+
+        /*topBlocks.forEach((tp) => {
+          for (const key in tp) {
+            if (typeof tp[key] !== 'function') {
+              console.log(key, tp[key])
+            }
+          }
+        })*/
+
+        if (topBlocks.length > 1) {
+          core.mutateWs((ws) => {
+            ws.ui.state = 'error'
+            ws.ui.preview = undefined
+            ws.ui.errorMessages = [`Alle Blöcke müssen zusammenhängen.`]
+          })
+        } else {
+          const doc = Text.of(code.split('\n'))
+          const tree = parser.parse(code)
+          const { warnings, output } = compile(tree, doc)
+
+          //console.log(warnings, output)
+          warnings.sort((a, b) => a.from - b.from)
+
+          if (warnings.length == 0) {
+            patch(core, output)
+            setTimeout(() => {
+              execPreview(core)
+            }, 10)
+          } else {
+            core.mutateWs(({ vm, ui }) => {
+              vm.bytecode = undefined
+              vm.pc = 0
+              ui.state = 'error'
+              ui.errorMessages = warnings
+                .map((w) => `Zeile ${doc.lineAt(w.from).number}: ${w.message}`)
+                .filter(function (item, i, arr) {
+                  return arr.indexOf(item) == i
+                })
+              //ui.preview = undefined
+            })
+          }
+        }
+        setTimeout(onresize, 10)
+      }
+      blocklyWorkspace.addChangeListener(myUpdateFunction)
+
+      // Dispose of the workspace when our div ref goes away (Equivalent to didComponentUnmount)
+    }
+    /*return () => {
+      workspace?.dispose()
+      console.log('dispose')
+      core.blockyResize = undefined
+    }*/
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editorDiv.current])
+
+  useEffect(() => {
+    if (workspace) {
+      // console.log('resize')
+      Blockly.svgResize(workspace)
+    }
+  }, [
+    editorDiv.current?.offsetHeight,
+    editorDiv.current?.offsetWidth,
+    workspace,
+  ])
+
+  return (
+    <>
+      <div id="blocklyArea" className="w-full h-full flex-shrink">
+        <div className="absolute" ref={editorDiv} id="blocklyDiv" />
+      </div>
+      <style jsx global>{`
+        svg[display='none'] {
+          display: none;
+        }
+      `}</style>
+    </>
+  )
 }

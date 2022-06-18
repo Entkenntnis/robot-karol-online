@@ -44,6 +44,8 @@ export class Core {
 
   userId: string
 
+  blockyResize: any
+
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,
     coreRef: MutableRefObject<CoreRefs>

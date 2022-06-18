@@ -43,6 +43,7 @@ export interface Ui {
   hideKarol: boolean
   keepWorldPreference: boolean
   errorMessages: string[]
+  toBlockWarning: boolean
 }
 
 export interface Vm {
@@ -59,6 +60,7 @@ export type Speed = 'slow' | 'fast' | 'step' | 'turbo'
 
 export interface Settings {
   speed: Speed
+  mode: 'code' | 'blocks'
 }
 
 export interface WorkspaceStateBase {

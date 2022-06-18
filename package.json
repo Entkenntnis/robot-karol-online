@@ -19,6 +19,7 @@
     "@codemirror/view": "^0.20.0",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@lezer/highlight": "^0.16.0",
+    "blockly": "^8.0.3",
     "clsx": "^1.1.1",
     "immer": "^9.0.5",
     "next": "12",
