@@ -98,11 +98,11 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   [
     'if_then_else',
     (block: Block) =>
-      'wenn  ' +
+      'wenn ' +
       karolGenerator.valueToCode(block, 'CONDITION', 0) +
       ' dann\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nsonst' +
+      '\nsonst\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS_2') +
       '\nendewenn',
   ],

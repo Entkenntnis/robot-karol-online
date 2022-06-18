@@ -645,7 +645,10 @@ function BlockEditor() {
       window.addEventListener('resize', onresize, false)
       onresize()
 
-      blocklyWorkspace.scrollCenter()
+      blocklyWorkspace.scroll(
+        blocklyWorkspace.scrollX + 31,
+        blocklyWorkspace.scrollY + 30
+      )
 
       core.blockyResize = onresize
       //console.log('mount', core.blockyResize)
