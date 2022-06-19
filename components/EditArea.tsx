@@ -61,6 +61,10 @@ import { parser } from '../lib/codemirror/parser/parser'
 import { Tree } from '@lezer/common'
 import { codeToXml } from '../lib/blockly/codeToXml'
 
+import De from 'blockly/msg/de'
+
+Blockly.setLocale(De)
+
 initCustomBlocks()
 
 export function EditArea() {
@@ -604,6 +608,7 @@ function BlockEditor() {
           },
           scrollbars: true,
           trashcan: true,
+          comments: true,
         } as any /* wtf blockly types are weird*/
       )
       setWorkspace(blocklyWorkspace)

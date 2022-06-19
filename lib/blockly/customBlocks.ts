@@ -189,12 +189,47 @@ export function initCustomBlocks() {
     karolGenerator[blockName] = codeGenFct
   })
   karolGenerator.scrub_ = function (block: Block, code: string) {
+    //let commentCode = ''
+    // Only collect comments for blocks that aren't inline.
+    if (!block.outputConnection || !block.outputConnection.targetConnection) {
+      // Collect comment for this block.
+      let comment = block.getCommentText()
+      if (comment) {
+        //comment = stringUtils.wrap(comment, this.COMMENT_WRAP - 3)
+        commentCode += this.prefixLines(comment + '\n', '// ')
+      }
+      // Collect comments for all value arguments.
+      // Don't collect comments for nested statements.
+      /*for (let i = 0; i < block.inputList.length; i++) {
+        if (block.inputList[i].type === inputTypes.VALUE) {
+          const childBlock = block.inputList[i].connection.targetBlock()
+          if (childBlock) {
+            comment = this.allNestedComments(childBlock)
+            if (comment) {
+              commentCode += this.prefixLines(comment, '// ')
+            }
+          }
+        }
+      }*/
+    }
+    const comment = block.getCommentText()?.trim()
+
+    let commentCode = ''
+
+    if (comment) {
+      if (comment.trim().includes('\n')) {
+        commentCode = `/* ${comment?.trim()} */\n`
+      } else {
+        commentCode = `// ${comment.trim()}\n`
+      }
+    }
+
     const nextBlock = block.nextConnection && block.nextConnection.targetBlock()
     let nextCode = ''
     if (nextBlock) {
       nextCode = '\n' + karolGenerator.blockToCode(nextBlock)
     }
-    return code + nextCode
+    return commentCode + code + nextCode
   }
   ;(Blockly as any)['karol'] = karolGenerator
 }
