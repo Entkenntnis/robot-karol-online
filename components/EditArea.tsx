@@ -61,9 +61,9 @@ import { parser } from '../lib/codemirror/parser/parser'
 import { Tree } from '@lezer/common'
 import { codeToXml } from '../lib/blockly/codeToXml'
 
+// @ts-ignore
 import De from 'blockly/msg/de'
-
-Blockly.setLocale(De)
+;(Blockly as any).setLocale(De)
 
 initCustomBlocks()
 
@@ -649,6 +649,8 @@ function BlockEditor() {
       }
       window.addEventListener('resize', onresize, false)
       onresize()
+
+      blocklyWorkspace.cleanUp()
 
       blocklyWorkspace.scroll(
         blocklyWorkspace.scrollX + 31,
