@@ -158,6 +158,21 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
     'has_bricks_count',
     (block: Block) => ['HatZiegel(' + block.getFieldValue('COUNT') + ')', 0],
   ],
+  [
+    'anweisung',
+    (block: Block) =>
+      'Anweisung ' +
+      block.getFieldValue('COMMAND_NAME') +
+      '\n' +
+      karolGenerator.statementToCode(block, 'STATEMENTS') +
+      '\nendeAnweisung\n',
+  ],
+  [
+    'anweisung_aufruf',
+    (block: Block) => {
+      return block.getFieldValue('COMMAND_NAME')
+    },
+  ],
 ]
 
 export function initCustomBlocks() {

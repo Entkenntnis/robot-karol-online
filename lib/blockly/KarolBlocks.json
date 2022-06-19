@@ -549,5 +549,42 @@
     "colour": 210,
     "tooltip": "Wenn Karol genau n(=Anzahl) viele Ziegel mit sich trägt",
     "helpUrl": ""
+  },
+  {
+    "type": "anweisung",
+    "message0": "Anweisung %1 %2 %3",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "COMMAND_NAME",
+        "text": "befehl1"
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "colour": 0,
+    "tooltip": "Definiere eine eigene Anweisung",
+    "helpUrl": ""
+  },
+  {
+    "type": "anweisung_aufruf",
+    "message0": "Führe aus: %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "COMMAND_NAME",
+        "text": "befehl1"
+      }
+    ],
+    "colour": 0,
+    "tooltip": "Rufe eine Anweisung auf",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
   }
 ]

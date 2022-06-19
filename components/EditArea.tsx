@@ -668,6 +668,7 @@ function BlockEditor() {
         const topBlocks = blocklyWorkspace
           .getTopBlocks(false)
           .filter((bl) => !(bl as any).isInsertionMarker_)
+          .filter((bl) => bl.type !== 'anweisung')
 
         //console.log(code, topBlocks.length)
 
