@@ -14,16 +14,11 @@ Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.
 
 Quelle: https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/
 
-## Funktionsumfang
+Die Idee eines programmierbaren kleinen Roboters in einer Bildschirmwelt ist für den Einstieg in das Programmmieren kaum mehr wegzudenken. Die aktuell genutzte Implementierung ist [Robot Karol 3.0](https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/) und weitverbreitet. Das Design davon stammt aus dem Jahr 1993 und ist damit schon fast 30 Jahre alt! Das heißt erstmal: Es ist was Bewährtes. Aber es gib immer wieder Entwicklungen, bei denen es sich lohnt, nochmal über das Design einer Software nachzudenken.
 
-Aufbauend auf der Programmierumgebung von [Robot Karol 3.0](https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/) bietet Robot Karol Web folgende Funktionen und **Erweiterungen**:
+Eine dieser Entwicklungen ist aus meiner Sicht die block-basierte Programmierung. Es wird damit nicht nur das leidige Problem mit Syntaxfehler umgangen - sondern sie gibt dem Programmieren auch ein ganz anderes Gefühl - bisschen so wie Lego. Man hat seinen Baukasten mit unterschiedlichen Steinen und kann diese zu größeren Gebilde zusammenstecken. Nur dass es keine Plastikquader sind, sondern Befehle und Kontrollstrukturen. Ein solches Gefühl zu erleben ist zentral, vor allem beim Einstieg, denn das ist der Punkt, an dem Menschen sich entscheiden, weiterzumachen oder aufzuhören!
 
-- Implementation als Web-App, damit ohne Installation **im Browser lauffähig**
-- **Live-Vorschau** der Ausführung für direktes Feedback
-- **Aufgaben**, um die eigenen Programmierfähigkeiten zu testen und zu verbessern
-- Editor für die Sprache Karol, mit Syntaxhervorhebung und **Autovervollständigung**
-- Syntaxüberprüfung im Hintergrund mit **Fehlerhervorhebung direkt im Code**
-- grafischen Darstellung einer 3D-Welt, die den Roboter Karol als Figur im Raum zeigt und diese je nach Anweisungen bewegt
+Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mischen. Die Regeln der Welt und die graphische Darstellung sind geblieben (bis auf einen neuen Karol im Paper-Look) - dazu gesellt sich nun ein blockbasierter Editor (powered by [Blockly](https://github.com/google/blockly)). Programmieren mit Text ist weiterhin möglich und erwünscht, vor allem im Hinblick auf den Anschluss an gängige Programmiersprachen. Ein Wechsel zwischen Blöcken und Code (in beide Richtungen) ist möglich.
 
 ## Sprache
 
