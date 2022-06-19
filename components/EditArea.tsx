@@ -9,41 +9,15 @@ import {
   faArrowTurnUp,
   faCheckCircle,
   faCircleExclamation,
-  faLeftLong,
   faPlay,
-  faQuran,
   faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 import { cursorDocEnd } from '@codemirror/commands'
-import Blockly, { Block, WorkspaceSvg } from 'blockly'
-
-import schrittImg from '../public/schritt.png'
-import hinlegenImg from '../public/hinlegen.png'
-import aufhebenImg from '../public/aufheben.png'
-import linksdrehenImg from '../public/linksdrehen.png'
-import rechtsdrehenImg from '../public/rechtsdrehen.png'
-import markesetzenImg from '../public/markesetzen.png'
-import markeloeschenImg from '../public/markeloeschen.png'
-
-import wenndannImg from '../public/wenndann.png'
-import wenndannsonstImg from '../public/wenndannsonst.png'
-import wiederholenmalImg from '../public/wiederholenmal.png'
-import wiederholesolangeImg from '../public/wiederholesolange.png'
-import beendenImg from '../public/beenden.png'
-
-import istwandImg from '../public/istwand.png'
-import nichtistwandImg from '../public/nichtistwand.png'
-import istziegenImg from '../public/istziegel.png'
-import nichtistziegelImg from '../public/nichtistziegel.png'
-import istmarkeImg from '../public/istmarke.png'
-import nichtistmarkeImg from '../public/nichtistmarke.png'
-
-import anweisungImg from '../public/anweisung.png'
 
 import { autoFormat, setEditable } from '../lib/codemirror/basicSetup'
 import { useCore } from '../lib/state/core'
-import { abort, confirmStep, patch, run, setSpeed } from '../lib/commands/vm'
+import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
 import { FaIcon } from './FaIcon'
 import { execPreview, hidePreview, showPreview } from '../lib/commands/preview'
 import { submit_event } from '../lib/stats/submit'
@@ -53,21 +27,9 @@ import { textRefreshDone } from '../lib/commands/json'
 import { leavePreMode } from '../lib/commands/puzzle'
 import { focusWrapper } from '../lib/commands/focus'
 import { setMode } from '../lib/commands/mode'
-import { KAROL_TOOLBOX } from '../lib/blockly/toolbox'
-import { initCustomBlocks } from '../lib/blockly/customBlocks'
-import { compile } from '../lib/language/compiler'
-import { Text } from '@codemirror/state'
-import { parser } from '../lib/codemirror/parser/parser'
-import { Tree } from '@lezer/common'
-import { codeToXml } from '../lib/blockly/codeToXml'
-
-initCustomBlocks()
+import { BlockEditor } from './BlockEditor'
 
 export function EditArea() {
-  const [section, setSection] = useState('')
-
-  const [menuVisible, setMenuVisible] = useState(false)
-
   const core = useCore()
 
   const codeState = core.ws.ui.state
@@ -93,10 +55,6 @@ export function EditArea() {
       setEditable(view.current, true)
     }
   }, [codeState])
-
-  // eslint is not able to detect deps properly ...
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const blockMenuInner = useMemo(renderBlockMenuInner, [section, menuVisible]) // block menu is slow to render
 
   return (
     <>
@@ -250,8 +208,7 @@ export function EditArea() {
         return (
           <div className="m-[11px] mt-[2px]">
             <span className="-ml-3">{renderCodeBlockSwitch()}</span>{' '}
-            <FaIcon icon={faArrowLeft} /> Wähle deine Eingabemethode. Du kannst
-            jederzeit wechseln.{' '}
+            <FaIcon icon={faArrowLeft} /> Wähle deine Eingabemethode.
           </div>
         )
       } else {
@@ -399,12 +356,12 @@ export function EditArea() {
           )}
           onClick={() => {
             if (core.ws.ui.toBlockWarning) {
-              const result = confirm(
-                'Der Code enthält Elemente (z.B. Anweisungen oder Kommentare)' +
+              const result = alert(
+                'Der Code enthält Elemente (Kommentare und eigene Anweisungen)' +
                   ' die im Blockeditor nicht unterstützt werden.' +
-                  ' Beim Umschalten gehen diese Elemente verloren. Fortfahren?'
+                  ' Entferne diese Elemente, um zu Blöcke wechseln zu können.'
               )
-              if (!result) return
+              return
             }
             setMode(core, 'blocks')
           }}
@@ -420,333 +377,4 @@ export function EditArea() {
       </span>
     )
   }
-
-  function renderBlockMenu() {
-    return (
-      <div className="bg-gray-50 flex relative h-full border-r-4 border-gray-100">
-        <div className="bg-white flex flex-col h-full justify-start">
-          <div className="flex flex-col">
-            {renderCategory('Bewegung')}
-            {renderCategory('Steuerung')}
-            {renderCategory('Fühlen')}
-            {renderCategory('Anweisung')}
-          </div>
-        </div>
-
-        {blockMenuInner}
-      </div>
-    )
-  }
-
-  function renderCategory(name: string) {
-    return (
-      <div
-        className={clsx(
-          'flex flex-col items-center pb-3 px-2 mt-2',
-          'hover:cursor-pointer text-gray-800 hover:text-blue-500',
-          'transition-colors select-none',
-          name == section && 'bg-gray-200'
-        )}
-        onClick={() => {
-          if (section == name) {
-            setSection('')
-            setMenuVisible(false)
-            return
-          }
-          setSection(name)
-          setMenuVisible(true)
-          setTimeout(() => document.getElementById(name)?.scrollIntoView(), 10)
-        }}
-      >
-        <div
-          className={clsx('w-5 h-5 rounded-full border border-gray-800 mt-3', {
-            'bg-blue-500': name == 'Bewegung',
-            'bg-yellow-400': name == 'Steuerung',
-            'bg-[#06B6D4]': name == 'Fühlen',
-            'bg-red-500': name == 'Anweisung',
-          })}
-        ></div>
-        <div className="text-xs">{name}</div>
-      </div>
-    )
-  }
-
-  function renderBlockMenuInner() {
-    return (
-      <div className={clsx('h-full', !menuVisible && 'hidden')}>
-        <div
-          className="w-52 h-full overflow-y-scroll"
-          onScroll={(e: any) => {
-            const scrollTop = e.currentTarget.scrollTop
-            if (scrollTop < 465) {
-              setSection('Bewegung')
-            } else if (scrollTop < 976) {
-              setSection('Steuerung')
-            } else if (scrollTop < 1299) {
-              setSection('Fühlen')
-            } else {
-              setSection('Anweisung')
-            }
-          }}
-        >
-          {renderCategoryTitle('Bewegung')}
-          {buildProtoBlock('schritt', schrittImg, 'Schritt')}
-          {buildProtoBlock('linksdrehen', linksdrehenImg, 'LinksDrehen')}
-          {buildProtoBlock('rechtsdrehen', rechtsdrehenImg, 'RechtsDrehen')}
-          {buildProtoBlock('hinlegen', hinlegenImg, 'Hinlegen')}
-          {buildProtoBlock('aufheben', aufhebenImg, 'Aufheben')}
-          {buildProtoBlock('markesetzen', markesetzenImg, 'MarkeSetzen')}
-          {buildProtoBlock('markeloeschen', markeloeschenImg, 'MarkeLöschen')}
-          {renderCategoryTitle('Steuerung')}
-          {buildProtoBlock(
-            'wiederholenmal',
-            wiederholenmalImg,
-            'wiederhole 3 mal\n  \nendewiederhole'
-          )}
-          {buildProtoBlock(
-            'wiederholesolange',
-            wiederholesolangeImg,
-            'wiederhole solange \n  \nendewiederhole'
-          )}
-          {buildProtoBlock('wenndann', wenndannImg, 'wenn  dann\n  \nendewenn')}
-          {buildProtoBlock(
-            'wenndannsonst',
-            wenndannsonstImg,
-            'wenn  dann\n  \nsonst\n  \nendewenn'
-          )}
-          {buildProtoBlock('beenden', beendenImg, 'Beenden')}
-          {renderCategoryTitle('Fühlen')}
-          {buildProtoBlock('istwand', istwandImg, 'IstWand')}
-          {buildProtoBlock('nichtistwand', nichtistwandImg, 'NichtIstWand')}
-          {buildProtoBlock('istziegel', istziegenImg, 'IstZiegel')}
-          {buildProtoBlock(
-            'nichtistziegel',
-            nichtistziegelImg,
-            'NichtIstZiegel'
-          )}{' '}
-          {buildProtoBlock('istmarke', istmarkeImg, 'IstMarke')}{' '}
-          {buildProtoBlock('nichtistmarke', nichtistmarkeImg, 'NichtIstMarke')}
-          <div className="h-[calc(100vh-48px)]">
-            {renderCategoryTitle('Anweisung')}
-            {buildProtoBlock(
-              'anweisung',
-              anweisungImg,
-              'Anweisung NeueAnweisung\n  \nendeAnweisung'
-            )}
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  function renderCategoryTitle(name: string) {
-    return (
-      <>
-        <div id={name} className="pb-[1px]" />
-        <h2 className="my-3 ml-2 text-sm font-bold">{name}</h2>
-      </>
-    )
-  }
-
-  function buildProtoBlock(id: string, image: StaticImageData, code: string) {
-    return (
-      <div className="mb-2 mx-2">
-        <img
-          className="cursor-pointer inline-block mb-[5.5px]"
-          onDoubleClick={() => {
-            if (view.current) {
-              view.current.dispatch(view.current.state.replaceSelection(code))
-              view.current.focus()
-            }
-          }}
-          src={image.src}
-          height={image.height}
-          width={image.width}
-          alt={id}
-          id={`protoblock-${id}`}
-          draggable
-          onDragStart={(e) => {
-            e.dataTransfer.setDragImage(
-              document.getElementById(`protoblock-${id}`)!,
-              0,
-              0
-            )
-            e.dataTransfer.setData('text/plain', code)
-          }}
-        />
-      </div>
-    )
-  }
-}
-
-function BlockEditor() {
-  const editorDiv = useRef<HTMLDivElement>(null)
-  const [workspace, setWorkspace] = useState<WorkspaceSvg | null>(null)
-  const core = useCore()
-
-  useEffect(() => {
-    if (editorDiv.current && !workspace) {
-      //console.log('inject blockly')
-
-      const initialXml = codeToXml(core.ws.code.toLowerCase())
-
-      console.log('initial', initialXml)
-
-      const blocklyWorkspace = Blockly.inject(
-        editorDiv.current,
-        {
-          toolbox: KAROL_TOOLBOX,
-          grid: {
-            spacing: 20,
-            length: 3,
-            colour: '#ccc',
-            snap: true,
-          },
-          scrollbars: true,
-          trashcan: true,
-        } as any /* wtf blockly types are weird*/
-      )
-      setWorkspace(blocklyWorkspace)
-
-      Blockly.Xml.domToWorkspace(
-        Blockly.Xml.textToDom(initialXml),
-        blocklyWorkspace
-      )
-
-      /*setTimeout(
-        () => blockyWorkspace.addTopBlock(new Block(blockyWorkspace, 'step')),
-        1000
-      )*/
-
-      const blocklyArea = document.getElementById('blocklyArea')!
-      var blocklyDiv = document.getElementById('blocklyDiv')!
-
-      var onresize = function () {
-        //console.log('on resize function')
-        // Compute the absolute coordinates and dimensions of blocklyArea.
-        var element = blocklyArea
-        var x = 0
-        var y = 0
-        do {
-          x += element.offsetLeft
-          y += element.offsetTop
-          element = element.offsetParent as any
-        } while (element)
-        // Position blocklyDiv over blocklyArea.
-        blocklyDiv.style.left = x + 'px'
-        blocklyDiv.style.top = y + 'px'
-        blocklyDiv.style.width = blocklyArea.offsetWidth + 'px'
-        blocklyDiv.style.height = blocklyArea.offsetHeight + 'px'
-        if (blocklyWorkspace) {
-          Blockly.svgResize(blocklyWorkspace)
-          //console.log('blocky resize')
-        }
-      }
-      window.addEventListener('resize', onresize, false)
-      onresize()
-
-      blocklyWorkspace.scroll(
-        blocklyWorkspace.scrollX + 31,
-        blocklyWorkspace.scrollY + 30
-      )
-
-      core.blockyResize = onresize
-      //console.log('mount', core.blockyResize)
-
-      const myUpdateFunction = () => {
-        if (blocklyWorkspace.isDragging()) return
-
-        const newXml = Blockly.Xml.domToText(
-          Blockly.Xml.workspaceToDom(blocklyWorkspace)
-        )
-        console.log('xml', newXml)
-        var code = (Blockly as any).karol.workspaceToCode(blocklyWorkspace)
-
-        core.mutateWs((ws) => {
-          ws.code = code
-        })
-        const topBlocks = blocklyWorkspace
-          .getTopBlocks(false)
-          .filter((bl) => !(bl as any).isInsertionMarker_)
-
-        //console.log(code, topBlocks.length)
-
-        /*topBlocks.forEach((tp) => {
-          for (const key in tp) {
-            if (typeof tp[key] !== 'function') {
-              console.log(key, tp[key])
-            }
-          }
-        })*/
-
-        if (topBlocks.length > 1) {
-          core.mutateWs((ws) => {
-            ws.ui.state = 'error'
-            ws.ui.preview = undefined
-            ws.ui.errorMessages = [`Alle Blöcke müssen zusammenhängen.`]
-          })
-        } else {
-          const doc = Text.of(code.split('\n'))
-          const tree = parser.parse(code)
-          const { warnings, output } = compile(tree, doc)
-
-          //console.log(warnings, output)
-          warnings.sort((a, b) => a.from - b.from)
-
-          if (warnings.length == 0) {
-            patch(core, output)
-            setTimeout(() => {
-              execPreview(core)
-            }, 10)
-          } else {
-            core.mutateWs(({ vm, ui }) => {
-              vm.bytecode = undefined
-              vm.pc = 0
-              ui.state = 'error'
-              ui.errorMessages = warnings
-                .map((w) => `Zeile ${doc.lineAt(w.from).number}: ${w.message}`)
-                .filter(function (item, i, arr) {
-                  return arr.indexOf(item) == i
-                })
-              //ui.preview = undefined
-            })
-          }
-        }
-        setTimeout(onresize, 10)
-      }
-      blocklyWorkspace.addChangeListener(myUpdateFunction)
-
-      // Dispose of the workspace when our div ref goes away (Equivalent to didComponentUnmount)
-    }
-    /*return () => {
-      workspace?.dispose()
-      console.log('dispose')
-      core.blockyResize = undefined
-    }*/
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editorDiv.current])
-
-  useEffect(() => {
-    if (workspace) {
-      // console.log('resize')
-      Blockly.svgResize(workspace)
-    }
-  }, [
-    editorDiv.current?.offsetHeight,
-    editorDiv.current?.offsetWidth,
-    workspace,
-  ])
-
-  return (
-    <>
-      <div id="blocklyArea" className="w-full h-full flex-shrink">
-        <div className="absolute" ref={editorDiv} id="blocklyDiv" />
-      </div>
-      <style jsx global>{`
-        svg[display='none'] {
-          display: none;
-        }
-      `}</style>
-    </>
-  )
 }

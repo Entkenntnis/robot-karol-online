@@ -14,15 +14,15 @@ function parseTree(
   let callbackStack: ((val: string) => string)[] = []
 
   do {
-    console.log(cursor.type.name)
+    //console.log(cursor.type.name)
 
     const t = cursor.type.name
     const c = code.substring(cursor.from, cursor.to)
 
     if (breaker) {
-      console.log('breaker test', t)
+      //console.log('breaker test', t)
       if (breaker(t)) {
-        console.log('break', t)
+        //console.log('break', t)
         break
       }
     }
