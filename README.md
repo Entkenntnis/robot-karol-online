@@ -72,7 +72,7 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 ### Kommentare
 
-Kommentare werden bei der Ausführung ignoriert.
+![grafik](https://user-images.githubusercontent.com/13507950/174563384-07a9338d-1493-45de-a04c-2ab77f0b6069.png)
 
 `// Kommentar` - einzeiliger Kommentar
 
