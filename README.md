@@ -76,6 +76,31 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 `// Kommentar` - einzeiliger Kommentar
 
+## Beispiele
+
+Karol baut ein Schwimmbad und schwimmt hindurch: [https://karol.arrrg.de/?id=pJ_cAXSQB](https://karol.arrrg.de/?id=lwl8yufk4)
+
+Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?id=QytABXxX4
+
+(weitere Beispiele folgen)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+<hr>
+
 ## Erweiterungen (nur im Textmodus verfügbar)
 
 ### Eigene Anweisungen
