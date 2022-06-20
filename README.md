@@ -114,27 +114,11 @@ Im Textmodus gibt es einige Erweiterungen, die aus Robot Karol 3.0 übernommen w
 
 ## Beispiele mit Erweiterungen
 
-Diese Beispiele sollen zeigen, welche Algorithmen mit Robot Karol umsetzbar sind. Dabei sind der Kreativität kaum Grenzen gesetzt.
-
-### Schwimmbad
-
-Karol baut ein Schwimmbad und schwimmt hindurch: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/schwimmbad.json
-
-### Schachbrett
-
-Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/schachbrett.json
-
-### Invertieren
-
-Karol invertiert den gesamten Boden: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/allesinvertieren.json
+Mithilfe der Erweiterungen sind nochmal mehr Algorithmen mit Robot Karol umsetzbar. Dabei sind der Kreativität kaum Grenzen gesetzt.
 
 ### Aufräumen
 
 Karol hebt alle Ziegel auf und plaziert sie hinter dem gelben Streifen: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/stapeln.json
-
-### Raum verlassen
-
-Karol findet den Weg aus einem beliebigen Raum heraus: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/raum_verlassen.json
 
 ### Floodfill
 
@@ -192,7 +176,7 @@ Falls eine dieser Punkte den Einsatz von Robot Karol Web verhindert, würde ich 
 
 ## Entwicklung
 
-Um das Repo zum Laufen zu bringen, benötigt es folgende Schritte:
+Installiere node.js, git und yarn. Um das Repo dann zum Laufen zu bringen, benötigt es folgende Schritte:
 
 ```
 git clone https://github.com/Entkenntnis/robot-karol-web.git
@@ -201,4 +185,4 @@ yarn
 yarn dev
 ```
 
-Danach kannst du über `localhost:3000` auf deine lokale Version zugreifen.
+Danach ist die lokale Version über `localhost:3000` verfügbar.
