@@ -84,7 +84,7 @@ Karol baut eine kleine Burg: https://karol.arrrg.de/?id=H0rtb9iQo
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174608320-cfb76ed2-4ea8-4cf3-a984-96c6f332856c.png)
 
-Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?id=v7MDxgBrr
+Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?id=EUOOAJ3I7
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174608520-88f081d6-972c-4db2-bae8-c823211e35d9.png)
 
