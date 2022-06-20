@@ -32,7 +32,6 @@ export async function loadProject(core: Core) {
       deserialize(core, text)
       core.mutateWs((ws) => {
         if (ws.type == 'free') ws.ui.showPreview = false
-        ws.settings.mode = 'code'
       })
     } catch (e) {}
   }

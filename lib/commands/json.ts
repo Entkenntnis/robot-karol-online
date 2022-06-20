@@ -7,7 +7,7 @@ export function serialize(core: Core) {
     throw new Error("Can't export puzzle")
   }
   const { world, code } = core.ws
-  return { world, code }
+  return { world, code, mode: core.ws.settings.mode }
 }
 
 export function deserialize(core: Core, file?: string) {
@@ -16,10 +16,12 @@ export function deserialize(core: Core, file?: string) {
       world,
       code,
       tabs,
+      mode,
     }: {
       world: World
       code?: string
       tabs?: [string, string, string, string]
+      mode?: Core['ws']['settings']['mode']
     } = JSON.parse(file ?? '{}')
     if (!world || (code === undefined && tabs === undefined)) {
       throw new Error('Datei unvollständig')
@@ -53,6 +55,16 @@ export function deserialize(core: Core, file?: string) {
       if (state.type == 'free') {
         state.code = code ?? ''
         state.ui.preview = undefined
+      }
+      if (mode) {
+        state.settings.mode = 'code'
+        setTimeout(
+          () =>
+            core.mutateWs((ws) => {
+              ws.settings.mode = mode!
+            }),
+          100
+        )
       }
       state.ui.needsTextRefresh = true
     })
