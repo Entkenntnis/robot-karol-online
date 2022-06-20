@@ -24,7 +24,11 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 ### Bewegung
 
+![grafik](https://user-images.githubusercontent.com/13507950/174558915-005a88e7-19fd-415f-b97a-27a857eb36a1.png)
+
 `Schritt` - Karol geht einen Schritt nach vorne.
+
+`Schritt(anzahl)` - Karol geht `anzahl` Schritte nach vorne.
 
 `LinksDrehen` - Karol dreht sich um 90° nach links.
 
@@ -32,13 +36,21 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 `Hinlegen` - Karol legt vor sich einen Ziegel.
 
+`Hinlegen(anzahl)` - Karol legt vor sich `anzahl` Ziegel.
+
 `Aufheben` - Karol hebt einen Ziegel vor sich auf.
+
+`Aufheben(anzahl)` - Karol hebt `anzahl` Ziegel vor sich auf.
 
 `MarkeSetzen` - Karol setzt unter sich eine Marke.
 
 `MarkeLöschen` - Karol löscht Marke unter sich.
 
+`Beenden` - Karol beendet an dieser Stelle die Ausführung des Programms.
+
 ### Steuerung
+
+![grafik](https://user-images.githubusercontent.com/13507950/174559742-710a0d46-b8ea-4224-915f-e8bb692a0381.png)
 
 `wiederhole {n} mal {Anweisungen} endewiederhole` - Wiederholung mit fester Anzahl
 
@@ -48,9 +60,9 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 `wenn {Bedingung} dann {Anweisungen A} sonst {Anweisungen B} endewenn` - Zweiseitig bedingte Anweisung
 
-`Beenden` - Karol beendet an dieser Stelle die Ausführung des Programms.
-
 ### Bedingungen
+
+![grafik](https://user-images.githubusercontent.com/13507950/174559930-3424b63e-fb3c-44b3-a329-2bb04b4a7b4e.png)
 
 `IstWand` / `NichtIstWand` - Karol testet, ob vor ihm eine Wand (oder ein Quader) ist oder nicht.
 
@@ -58,19 +70,17 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 `IstMarke` / `NichtIstMarke` - Karol testet, ob er auf einer Marke steht oder nicht.
 
-### Eigene Anweisungen
-
-`Anweisung {Name} endeAnweisung` - Definiert eine eigene Anweisung, die innerhalb des Programms verwendet werden kann.
-
 ### Kommentare
 
 Kommentare werden bei der Ausführung ignoriert.
 
-`// Kommentar` - einzeiliger Kommentar (Alternative: `# Kommentar`)
+`// Kommentar` - einzeiliger Kommentar
 
-`/* Kommentar */` - mehrzeiliger Kommentar (Alternative: `{ Kommentar }`)
+## Erweiterungen (nur im Textmodus verfügbar)
 
-## Erweiterungen
+### Eigene Anweisungen
+
+`Anweisung {Name} endeAnweisung` - Definiert eine eigene Anweisung, die innerhalb des Programms verwendet werden kann.
 
 ### Objektnotation
 
@@ -93,6 +103,14 @@ Befehle können optional mit einem Semikolon getrennt werden:
 ```
 Hinlegen; Hinlegen; LinksDrehen
 ```
+
+### Weiterer Kommentarsyntax
+
+Kommentare werden bei der Ausführung ignoriert.
+
+(Alternative: `# Kommentar`)
+
+`/* Kommentar */` - mehrzeiliger Kommentar (Alternative: `{ Kommentar }`)
 
 ### Rücksprung aus Anweisung
 
