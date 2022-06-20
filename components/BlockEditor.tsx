@@ -14,6 +14,7 @@ import { execPreview } from '../lib/commands/preview'
 import { abort, patch } from '../lib/commands/vm'
 import { compile } from '../lib/language/compiler'
 import { useCore } from '../lib/state/core'
+import { sendStatusCode } from 'next/dist/server/api-utils'
 
 initCustomBlocks()
 ;(Blockly as any).setLocale(De)
@@ -23,6 +24,7 @@ export function BlockEditor() {
   const [blockIds, setBlockIds] = useState<(string | null)[]>([])
   const blocklyWorkspaceSvg = useRef<WorkspaceSvg | null>(null)
   const core = useCore()
+  const code = useRef('')
 
   // console.log('render component')
 
@@ -111,20 +113,17 @@ export function BlockEditor() {
 
     const myUpdateFunction = () => {
       if (blocklyWorkspace.isDragging()) return
-      if (core.ws.ui.state == 'running') {
-        abort(core)
-      }
 
       const newXml = Blockly.Xml.domToText(
         Blockly.Xml.workspaceToDom(blocklyWorkspace)
       )
       // console.log('xml', newXml)
-      const code = (Blockly as any).karol.workspaceToCode(
+      const newCode = (Blockly as any).karol.workspaceToCode(
         blocklyWorkspace
       ) as string
 
       setBlockIds(
-        code.split('\n').map((line) => {
+        newCode.split('\n').map((line) => {
           if (line.includes('//blockId:')) {
             return line.substring(line.length - 20)
           } else {
@@ -133,8 +132,17 @@ export function BlockEditor() {
         })
       )
 
+      if (core.ws.ui.state == 'running') {
+        if (code.current !== newCode) {
+          abort(core)
+        } else {
+          return
+        }
+      }
+      code.current = newCode
+
       core.mutateWs((ws) => {
-        ws.code = code.replace(/\/\/blockId:.*$/gm, '')
+        ws.code = newCode.replace(/\/\/blockId:.*$/gm, '')
       })
       const topBlocks = blocklyWorkspace
         .getTopBlocks(false)
@@ -158,8 +166,8 @@ export function BlockEditor() {
           ws.ui.errorMessages = [`Alle Blöcke müssen zusammenhängen.`]
         })
       } else {
-        const doc = Text.of(code.split('\n'))
-        const tree = parser.parse(code)
+        const doc = Text.of(newCode.split('\n'))
+        const tree = parser.parse(newCode)
         const { warnings, output } = compile(tree, doc)
 
         //console.log(warnings, output)
