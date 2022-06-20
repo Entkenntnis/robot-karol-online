@@ -78,77 +78,41 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 ## Beispiele
 
+![grafik](https://user-images.githubusercontent.com/13507950/174608128-dbb55c54-6196-48aa-84a8-d86cb909c71a.png)
+
 Karol baut eine kleine Burg: https://karol.arrrg.de/?id=H0rtb9iQo
+
+![grafik](https://user-images.githubusercontent.com/13507950/174608320-cfb76ed2-4ea8-4cf3-a984-96c6f332856c.png)
 
 Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?id=QytABXxX4
 
+![grafik](https://user-images.githubusercontent.com/13507950/174608520-88f081d6-972c-4db2-bae8-c823211e35d9.png)
+
 Karol baut ein Schwimmbad und schwimmt hindurch: [https://karol.arrrg.de/?id=pJ_cAXSQB](https://karol.arrrg.de/?id=lwl8yufk4)
+
+![grafik](https://user-images.githubusercontent.com/13507950/174608626-17a91c3b-1627-42b8-a5de-28db61692a6a.png)
 
 Karol findet Weg aus einem Raum: https://karol.arrrg.de/?id=fU4PXzhwB
 
-Karol invertiert den Boden: http://localhost:3000/?id=dGEbyMuNX
+![grafik](https://user-images.githubusercontent.com/13507950/174609057-b169791d-c097-46cc-9fb3-a8703eaccd52.png)
+
+Karol invertiert den Boden: https://karol.arrrg.de/?id=tqCB9cmOq
 
 <hr>
 
 ## Erweiterungen (nur im Textmodus verfügbar)
 
-### Eigene Anweisungen
+Im Textmodus gibt es einige Erweiterungen, die aus Robot Karol 3.0 übernommen wurden und die Sprache erweitern:
 
-`Anweisung {Name} endeAnweisung` - Definiert eine eigene Anweisung, die innerhalb des Programms verwendet werden kann.
+- Eigene Anweisungen können mit `Anweisung {Name} endeAnweisung` definiert werden und überall mit `Name` aufgerufen werden. Außerdem kann aus einer Anweisung mit `return` zurückgesprungen werden. (x)
+- Die meisten Befehle erlauben eine objektorientiere Schreibweise der Form `karol.Schritt(4)` oder ohne Parameter in der Form `karol.LinksDrehen()`.
+- Die alte Syntax mit `*wiederhole`, `*wenn` und `*Anweisung` wird weiterhin unterstützt.
+- Außerdem können weiterhin Kommentare mit `{ Kommentar }` geschrieben werden. Alternative Syntax für mehrzeilige Kommentare ist `/* Kommentar */`, Alternative für einzeiligen Kommentar ist `# Kommentar`. (x)
+- Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`
 
-### Objektnotation
+(x) Durch Nutzung dieser Erweiterungen ist ein Umschalten in den Blockeditor leider nicht mehr möglich.
 
-Befehle lassen sich in objektorientierter Schreibweise notieren:
-
-```
-karol.Schritt(4)
-karol.Hinlegen()
-karol.LinksDrehen()
-```
-
-### \*-Notation
-
-Statt `ende...` kann ein Sternchen geschrieben werden, also `*wenn`, `*wiederhole` oder `*Anweisung`.
-
-### Semikolon
-
-Befehle können optional mit einem Semikolon getrennt werden:
-
-```
-Hinlegen; Hinlegen; LinksDrehen
-```
-
-### Weiterer Kommentarsyntax
-
-Kommentare werden bei der Ausführung ignoriert.
-
-(Alternative: `# Kommentar`)
-
-`/* Kommentar */` - mehrzeiliger Kommentar (Alternative: `{ Kommentar }`)
-
-### Rücksprung aus Anweisung
-
-In manchen Situationen kann ein Rücksprung aus einer Anweisung den Code deutlich vereinfachen. Dafür gibt es das Schlüsselwort `return`.
-
-## Umstieg
-
-Über die letzten Jahre hat sich Robot Karol immer wieder weiterentwickelt und neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Beim Umstieg sind bezüglich der Sprache folgende Punkte zu beachten:
-
-- Farbige Ziegel und Marken sind nicht implementiert
-- Der Rucksack ist nicht implementiert
-- Himmelsrichtungen sind nicht implementiert
-- Ton ist nicht implementiert
-- Bedingungen fallen raus, d.h. es lassen sich über `Bedingung`, `wahr` und `falsch` keine eigenen Bedingungen mehr definieren, sondern wird durch das Schlüsselwort `return` ersetzt
-- Willkürliche Groß-/Kleinschreibungen wie z.B. `sCHritt` werden nicht mehr unterstützt. Stattdessen kann man entweder `schritt` oder `Schritt` schreiben.
-- Der Platzhalter `Programm` wird nicht mehr unterstützt
-- Im Moment sind parametrisierten Varianten von Bedingungen z.B. `IstZiegel(n)` nicht implementiert
-- Alternative Schleifen-Varianten (wiederhole immer, wiederhole bis, ...) sind nicht unterstützt, außerdem wird das `nicht` Schlüsselwort bei Bedingungen nicht mehr benötigt
-- Ausführungsgeschwindigkeit kann angepasst werden, aber die Schlüsselworte `schnell`/`langsam` sind nicht implementiert
-- Einbindung von Bibliothek ist nicht implementiert
-
-Falls eine dieser Punkte den Einsatz von Robot Karol Web verhindert, würde ich mich über eine Nachricht freuen. Dann kann ich nochmal die Vorteile und Nachteile eines Einbezugs untersuchen.
-
-## Beispiele
+## Beispiele mit Erweiterungen
 
 Diese Beispiele sollen zeigen, welche Algorithmen mit Robot Karol umsetzbar sind. Dabei sind der Kreativität kaum Grenzen gesetzt.
 
@@ -207,6 +171,24 @@ Ein solcher Interpreter ist möglich. Die beiden folgenden Dateien zeigen einmal
 Addition: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck.json
 
 Multiplikation: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck_multiplizieren.json
+
+## Umstieg
+
+Über die letzten Jahre hat sich Robot Karol immer wieder weiterentwickelt und neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Beim Umstieg sind bezüglich der Sprache folgende Punkte zu beachten:
+
+- Farbige Ziegel und Marken sind nicht implementiert
+- Der Rucksack ist nicht implementiert
+- Himmelsrichtungen sind nicht implementiert
+- Ton ist nicht implementiert
+- Bedingungen fallen raus, d.h. es lassen sich über `Bedingung`, `wahr` und `falsch` keine eigenen Bedingungen mehr definieren, sondern wird durch das Schlüsselwort `return` ersetzt
+- Willkürliche Groß-/Kleinschreibungen wie z.B. `sCHritt` werden nicht mehr unterstützt. Stattdessen kann man entweder `schritt` oder `Schritt` schreiben.
+- Der Platzhalter `Programm` wird nicht mehr unterstützt
+- Im Moment sind parametrisierten Varianten von Bedingungen z.B. `IstZiegel(n)` nicht implementiert
+- Alternative Schleifen-Varianten (wiederhole immer, wiederhole bis, ...) sind nicht unterstützt, außerdem wird das `nicht` Schlüsselwort bei Bedingungen nicht mehr benötigt
+- Ausführungsgeschwindigkeit kann angepasst werden, aber die Schlüsselworte `schnell`/`langsam` sind nicht implementiert
+- Einbindung von Bibliothek ist nicht implementiert
+
+Falls eine dieser Punkte den Einsatz von Robot Karol Web verhindert, würde ich mich über eine Nachricht freuen. Dann kann ich nochmal die Vorteile und Nachteile eines Einbezugs untersuchen.
 
 ## Entwicklung
 
