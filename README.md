@@ -88,22 +88,6 @@ Karol findet Weg aus einem Raum: https://karol.arrrg.de/?id=fU4PXzhwB
 
 Karol invertiert den Boden: http://localhost:3000/?id=dGEbyMuNX
 
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-```
-
 <hr>
 
 ## Erweiterungen (nur im Textmodus verfügbar)
