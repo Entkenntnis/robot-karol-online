@@ -11,7 +11,7 @@ import { initCustomBlocks } from '../lib/blockly/customBlocks'
 import { KAROL_TOOLBOX } from '../lib/blockly/toolbox'
 import { parser } from '../lib/codemirror/parser/parser'
 import { execPreview } from '../lib/commands/preview'
-import { patch } from '../lib/commands/vm'
+import { abort, patch } from '../lib/commands/vm'
 import { compile } from '../lib/language/compiler'
 import { useCore } from '../lib/state/core'
 
@@ -20,9 +20,29 @@ initCustomBlocks()
 
 export function BlockEditor() {
   const editorDiv = useRef<HTMLDivElement>(null)
+  const [blockIds, setBlockIds] = useState<(string | null)[]>([])
+  const blocklyWorkspaceSvg = useRef<WorkspaceSvg | null>(null)
   const core = useCore()
 
   // console.log('render component')
+
+  if (
+    blocklyWorkspaceSvg.current &&
+    core.ws.ui.state == 'running' &&
+    core.ws.ui.gutter
+  ) {
+    if (blockIds[core.ws.ui.gutter - 1]) {
+      blocklyWorkspaceSvg.current.highlightBlock(
+        blockIds[core.ws.ui.gutter - 1]
+      )
+    }
+  }
+
+  useEffect(() => {
+    if (blocklyWorkspaceSvg.current && core.ws.ui.state != 'running') {
+      blocklyWorkspaceSvg.current.highlightBlock(null)
+    }
+  }, [core.ws.ui.state])
 
   useEffect(() => {
     if (!editorDiv.current) {
@@ -48,6 +68,8 @@ export function BlockEditor() {
         trashcan: true,
       } as any /* wtf blockly types are weird*/
     )
+
+    blocklyWorkspaceSvg.current = blocklyWorkspace
 
     Blockly.Xml.domToWorkspace(
       Blockly.Xml.textToDom(initialXml),
@@ -89,15 +111,30 @@ export function BlockEditor() {
 
     const myUpdateFunction = () => {
       if (blocklyWorkspace.isDragging()) return
+      if (core.ws.ui.state == 'running') {
+        abort(core)
+      }
 
       const newXml = Blockly.Xml.domToText(
         Blockly.Xml.workspaceToDom(blocklyWorkspace)
       )
       // console.log('xml', newXml)
-      var code = (Blockly as any).karol.workspaceToCode(blocklyWorkspace)
+      const code = (Blockly as any).karol.workspaceToCode(
+        blocklyWorkspace
+      ) as string
+
+      setBlockIds(
+        code.split('\n').map((line) => {
+          if (line.includes('//blockId:')) {
+            return line.substring(line.length - 20)
+          } else {
+            return null
+          }
+        })
+      )
 
       core.mutateWs((ws) => {
-        ws.code = code
+        ws.code = code.replace(/\/\/blockId:.*$/gm, '')
       })
       const topBlocks = blocklyWorkspace
         .getTopBlocks(false)
@@ -126,7 +163,6 @@ export function BlockEditor() {
         const { warnings, output } = compile(tree, doc)
 
         //console.log(warnings, output)
-        warnings.sort((a, b) => a.from - b.from)
 
         if (warnings.length == 0) {
           patch(core, output)

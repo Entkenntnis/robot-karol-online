@@ -10,45 +10,43 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
     'step',
     (block: Block) => {
       const val = block.getFieldValue('COUNT')
+
       if (val == 1) {
-        return 'Schritt'
+        return 'Schritt' + '//blockId:' + block.id
       }
-      return 'Schritt(' + val + ')'
+      return 'Schritt(' + val + ')' + '//blockId:' + block.id
     },
   ],
-  ['turnleft', (block: Block) => 'LinksDrehen'],
-  ['turnright', (block: Block) => 'RechtsDrehen'],
+  ['turnleft', (block: Block) => 'LinksDrehen' + '//blockId:' + block.id],
+  ['turnright', (block: Block) => 'RechtsDrehen' + '//blockId:' + block.id],
   [
     'laydown',
     (block: Block) => {
       const val = block.getFieldValue('COUNT')
-      if (val == 1) return 'Hinlegen'
-      return 'Hinlegen(' + val + ')'
+      if (val == 1) return 'Hinlegen' + '//blockId:' + block.id
+      return 'Hinlegen(' + val + ')' + '//blockId:' + block.id
     },
-  ],
-  [
-    'laydown_color',
-    (block: Block) => 'Hinlegen(' + block.getFieldValue('COLOR') + ')',
   ],
   [
     'pickup',
     (block: Block) => {
       const val = block.getFieldValue('COUNT')
-      if (val == '1') return 'Aufheben'
-      return 'Aufheben(' + val + ')'
+      if (val == '1') return 'Aufheben' + '//blockId:' + block.id
+      return 'Aufheben(' + val + ')' + '//blockId:' + block.id
     },
   ],
-  ['setmarker', (block: Block) => 'MarkeSetzen'],
-  ['deletemarker', (block: Block) => 'MarkeLöschen'],
-  ['wait', (block: Block) => 'Warten(' + block.getFieldValue('COUNT') + ')'],
-  ['beep', (block: Block) => 'Ton'],
-  ['stop', (block: Block) => 'Beenden'],
+  ['setmarker', (block: Block) => 'MarkeSetzen' + '//blockId:' + block.id],
+  ['deletemarker', (block: Block) => 'MarkeLöschen' + '//blockId:' + block.id],
+  ['stop', (block: Block) => 'Beenden' + '//blockId:' + block.id],
   [
     'repeat_times',
     (block: Block) =>
       'wiederhole ' +
       block.getFieldValue('COUNT') +
-      ' mal\n' +
+      ' mal' +
+      '//blockId:' +
+      block.id +
+      '\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
       '\nendewiederhole',
   ],
@@ -57,32 +55,9 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
     (block: Block) =>
       'wiederhole solange ' +
       karolGenerator.valueToCode(block, 'CONDITION', 0) +
+      '//blockId:' +
+      block.id +
       '\n' +
-      karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nendewiederhole',
-  ],
-  [
-    'repeat_until',
-    (block: Block) =>
-      'wiederhole \n' +
-      karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nendewiederhole' +
-      '\nbis ' +
-      karolGenerator.valueToCode(block, 'CONDITION', 0),
-  ],
-  [
-    'repeat_while',
-    (block: Block) =>
-      'wiederhole \n' +
-      karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nendewiederhole' +
-      '\nsolange ' +
-      karolGenerator.valueToCode(block, 'CONDITION', 0),
-  ],
-  [
-    'repeat_forever',
-    (block: Block) =>
-      'wiederhole immer\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
       '\nendewiederhole',
   ],
@@ -91,7 +66,10 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
     (block: Block) =>
       'wenn ' +
       karolGenerator.valueToCode(block, 'CONDITION', 0) +
-      ' dann\n' +
+      ' dann' +
+      '//blockId:' +
+      block.id +
+      '\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
       '\nendewenn',
   ],
@@ -100,7 +78,10 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
     (block: Block) =>
       'wenn ' +
       karolGenerator.valueToCode(block, 'CONDITION', 0) +
-      ' dann\n' +
+      ' dann' +
+      '//blockId:' +
+      block.id +
+      '\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
       '\nsonst\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS_2') +
@@ -109,55 +90,9 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   ['is_wall', (block: Block) => ['IstWand', 0]],
   ["isn't_wall", (block: Block) => ['NichtIstWand', 0]],
   ['is_brick', (block: Block) => ['IstZiegel', 0]],
-  [
-    'is_brick_count',
-    (block: Block) => ['IstZiegel(' + block.getFieldValue('COUNT') + ')', 0],
-  ],
-  [
-    'is_brick_color',
-    (block: Block) => ['IstZiegel(' + block.getFieldValue('COLOR') + ')', 0],
-  ],
   ["isn't_brick", (block: Block) => ['NichtIstZiegel', 0]],
-  [
-    "isn't_brick_count",
-    (block: Block) => [
-      'NichtIstZiegel(' + block.getFieldValue('COUNT') + ')',
-      0,
-    ],
-  ],
-  [
-    "isn't_brick_color",
-    (block: Block) => [
-      'NichtIstZiegel(' + block.getFieldValue('COLOR') + ')',
-      0,
-    ],
-  ],
   ['is_marker', (block: Block) => ['IstMarke', 0]],
-  [
-    'is_marker_color',
-    (block: Block) => ['IstMarke(' + block.getFieldValue('COLOR') + ')', 0],
-  ],
   ["isn't_marker", (block: Block) => ['NichtIstMarke', 0]],
-  [
-    "isn't_marker_color",
-    (block: Block) => [
-      'NichtIstMarke(' + block.getFieldValue('COLOR') + ')',
-      0,
-    ],
-  ],
-  ['is_south', (block: Block) => ['IstSüden', 0]],
-  ['is_north', (block: Block) => ['IstNorden', 0]],
-  ['is_west', (block: Block) => ['IstWesten', 0]],
-  ['is_east', (block: Block) => ['IstOsten', 0]],
-  ['is_full', (block: Block) => ['IstVoll', 0]],
-  ["isn't_full", (block: Block) => ['NichtIstVoll', 0]],
-  ['is_empty', (block: Block) => ['IstLeer', 0]],
-  ["isn't_empty", (block: Block) => ['NichtIstLeer', 0]],
-  ['has_bricks', (block: Block) => ['HatZiegel', 0]],
-  [
-    'has_bricks_count',
-    (block: Block) => ['HatZiegel(' + block.getFieldValue('COUNT') + ')', 0],
-  ],
   ['line_comment', (block: Block) => '// ' + block.getFieldValue('TEXT')],
 ]
 
