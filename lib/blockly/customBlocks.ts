@@ -158,6 +158,7 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
     'has_bricks_count',
     (block: Block) => ['HatZiegel(' + block.getFieldValue('COUNT') + ')', 0],
   ],
+  ['line_comment', (block: Block) => '// ' + block.getFieldValue('TEXT')],
 ]
 
 export function initCustomBlocks() {

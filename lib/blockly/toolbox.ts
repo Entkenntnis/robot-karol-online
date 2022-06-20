@@ -73,6 +73,7 @@ export const KAROL_TOOLBOX = {
       kind: 'block',
       type: "isn't_marker",
     },
+    { kind: 'block', type: 'line_comment' },
     /*{
       kind: 'category',
       name: 'Anweisungen',

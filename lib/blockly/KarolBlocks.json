@@ -549,5 +549,21 @@
     "colour": 210,
     "tooltip": "Wenn Karol genau n(=Anzahl) viele Ziegel mit sich trägt",
     "helpUrl": ""
+  },
+  {
+    "type": "line_comment",
+    "message0": "// %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "TEXT",
+        "text": "Kommentar"
+      }
+    ],
+    "colour": 48,
+    "tooltip": "Ein Kommentar der den Code beschreibt",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
   }
 ]

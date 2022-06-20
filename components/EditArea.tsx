@@ -357,7 +357,7 @@ export function EditArea() {
           onClick={() => {
             if (core.ws.ui.toBlockWarning) {
               const result = alert(
-                'Der Code enthält Elemente (Kommentare und eigene Anweisungen)' +
+                'Der Code enthält Elemente (z.B. Block-Kommentare oder eigene Anweisungen)' +
                   ' die im Blockeditor nicht unterstützt werden.' +
                   ' Entferne diese Elemente, um zu Blöcke wechseln zu können.'
               )

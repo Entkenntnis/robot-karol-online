@@ -31,7 +31,7 @@ export function BlockEditor() {
     }
     //console.log('inject blockly')
 
-    const initialXml = codeToXml(core.ws.code.toLowerCase())
+    const initialXml = codeToXml(core.ws.code)
 
     //console.log('initial', initialXml)
 

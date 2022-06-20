@@ -17,7 +17,7 @@ function parseTree(
     //console.log(cursor.type.name)
 
     const t = cursor.type.name
-    const c = code.substring(cursor.from, cursor.to)
+    const c = code.substring(cursor.from, cursor.to).toLowerCase()
 
     if (breaker) {
       //console.log('breaker test', t)
@@ -83,15 +83,15 @@ function parseTree(
         )
       )
     } else if (t == 'Repeat') {
-      cursor.next() // RepeatStart
-      cursor.next() //
+      nextIgnoreComment(cursor) // RepeatStart
+      nextIgnoreComment(cursor) //
       if (cursor.type.name == 'Times') {
         const times = code.substring(cursor.from, cursor.to)
-        cursor.next() // RepeatTimesKey
-        cursor.next() // -> expression
+        nextIgnoreComment(cursor) // RepeatTimesKey
+        nextIgnoreComment(cursor) // -> expression
         const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
         //while ((cursor.type.name as string) !== 'RepeatEnd') cursor.next()
-        console.log('inner', inner)
+        //console.log('inner', inner)
         callbackStack.push(
           buildRepeatTimes(
             times,
@@ -101,9 +101,9 @@ function parseTree(
         )
         continue
       } else {
-        cursor.next() // Condition
+        nextIgnoreComment(cursor) // Condition
         const condition = code.substring(cursor.from, cursor.to)
-        cursor.next()
+        nextIgnoreComment(cursor)
         const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
         //while (cursor.type.name !== 'RepeatEnd') cursor.next()
         callbackStack.push(
@@ -116,10 +116,10 @@ function parseTree(
         continue
       }
     } else if (t == 'IfThen') {
-      cursor.next() // IfKey
-      cursor.next() // condition
+      nextIgnoreComment(cursor) // IfKey
+      nextIgnoreComment(cursor) // condition
       const condition = code.substring(cursor.from, cursor.to)
-      cursor.next() // ThenKey
+      nextIgnoreComment(cursor) // ThenKey
       if (!c.includes('sonst')) {
         const inner = parseTree(cursor, code, (t) => t == 'IfEndKey')
         //while (cursor.type.name !== 'IfEndKey') cursor.next()
@@ -146,6 +146,14 @@ function parseTree(
         )
         continue
       }
+    } else if (t == 'LineComment') {
+      const text = code.substring(cursor.from + 2, cursor.to).trim()
+      callbackStack.push(
+        buildCommentClosure(
+          text,
+          callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+        )
+      )
     }
   } while (cursor.next())
 
@@ -155,6 +163,11 @@ function parseTree(
     //console.log(output)
   }
   return output
+}
+
+function nextIgnoreComment(cursor: TreeCursor) {
+  cursor.next()
+  while (cursor.type.name.includes('Comment')) cursor.next()
 }
 
 function buildClosure(blockType: string, count: string, attrs?: string) {
@@ -223,7 +236,8 @@ function buildIfElse(
   }${inner ? `<next>${inner}</next>` : ''}</block>`
 }
 
-function buildCondition(type: string) {
+function buildCondition(typeRaw: string) {
+  const type = typeRaw.toLowerCase()
   if (type == 'istwand') return `<block type="is_wall"></block>`
   if (type == 'nichtistwand') return `<block type="isn't_wall"></block>`
   if (type == 'istziegel') return `<block type="is_brick"></block>`
@@ -231,4 +245,11 @@ function buildCondition(type: string) {
   if (type == 'istmarke') return `<block type="is_marker"></block>`
   if (type == 'nichtistmarke') return `<block type="isn't_marker"></block>`
   return ''
+}
+
+function buildCommentClosure(msg: string, attrs?: string) {
+  return (inner: string) =>
+    `<block type="line_comment" ${
+      attrs ?? ''
+    }><field name="TEXT">${msg}</field><next>${inner}</next></block>`
 }
