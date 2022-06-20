@@ -78,9 +78,15 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 ## Beispiele
 
-Karol baut ein Schwimmbad und schwimmt hindurch: [https://karol.arrrg.de/?id=pJ_cAXSQB](https://karol.arrrg.de/?id=lwl8yufk4)
+Karol baut eine kleine Burg: https://karol.arrrg.de/?id=H0rtb9iQo
 
 Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?id=QytABXxX4
+
+Karol baut ein Schwimmbad und schwimmt hindurch: [https://karol.arrrg.de/?id=pJ_cAXSQB](https://karol.arrrg.de/?id=lwl8yufk4)
+
+Karol findet Weg aus einem Raum: https://karol.arrrg.de/?id=fU4PXzhwB
+
+Karol invertiert den Boden: TODO
 
 (weitere Beispiele folgen)
 
