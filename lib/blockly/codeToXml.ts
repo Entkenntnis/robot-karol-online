@@ -87,8 +87,7 @@ function parseTree(
       nextIgnoreComment(cursor) //
       if (cursor.type.name == 'Times') {
         const times = code.substring(cursor.from, cursor.to)
-        nextIgnoreComment(cursor) // RepeatTimesKey
-        nextIgnoreComment(cursor) // -> expression
+        //nextIgnoreComment(cursor) // RepeatTimesKey
         const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
         //while ((cursor.type.name as string) !== 'RepeatEnd') cursor.next()
         //console.log('inner', inner)
@@ -103,7 +102,7 @@ function parseTree(
       } else {
         nextIgnoreComment(cursor) // Condition
         const condition = code.substring(cursor.from, cursor.to)
-        nextIgnoreComment(cursor)
+        cursor.next()
         const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
         //while (cursor.type.name !== 'RepeatEnd') cursor.next()
         callbackStack.push(
@@ -119,8 +118,15 @@ function parseTree(
       nextIgnoreComment(cursor) // IfKey
       nextIgnoreComment(cursor) // condition
       const condition = code.substring(cursor.from, cursor.to)
-      nextIgnoreComment(cursor) // ThenKey
-      if (!c.includes('sonst')) {
+      cursor.next()
+      let hasElse = false
+      const subcursor = cursor.node.cursor()
+      do {
+        if (subcursor.type.name == 'ElseKey') {
+          hasElse = true
+        }
+      } while (subcursor.nextSibling())
+      if (!hasElse) {
         const inner = parseTree(cursor, code, (t) => t == 'IfEndKey')
         //while (cursor.type.name !== 'IfEndKey') cursor.next()
         callbackStack.push(
