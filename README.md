@@ -100,7 +100,7 @@ Karol invertiert den Boden: https://karol.arrrg.de/?id=tqCB9cmOq
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174674749-26fb2b7a-57d4-409c-a3ff-5a9f71c8647f.png)
 
-Karol baut Treppen: https://karol.arrrg.de/?id=3GVYto-5C
+Karol baut Treppen: https://karol.arrrg.de/?id=uvGUlYKtO
 
 <hr>
 
