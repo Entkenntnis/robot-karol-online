@@ -82,6 +82,10 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 Karol baut eine kleine Burg: https://karol.arrrg.de/?id=H0rtb9iQo
 
+![grafik](https://user-images.githubusercontent.com/13507950/174683877-e4b18d6c-a8c0-40e2-87d6-06bfe8aca68c.png)
+
+Karol legt den Boden mit Ziegeln aus: https://karol.arrrg.de/?id=layIgGHgF
+
 ![grafik](https://user-images.githubusercontent.com/13507950/174608320-cfb76ed2-4ea8-4cf3-a984-96c6f332856c.png)
 
 Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?id=EUOOAJ3I7
@@ -93,6 +97,10 @@ Karol baut ein Schwimmbad und schwimmt hindurch: [https://karol.arrrg.de/?id=pJ_
 ![grafik](https://user-images.githubusercontent.com/13507950/174608626-17a91c3b-1627-42b8-a5de-28db61692a6a.png)
 
 Karol findet Weg aus einem Raum: https://karol.arrrg.de/?id=fU4PXzhwB
+
+![grafik](https://user-images.githubusercontent.com/13507950/174684341-9c35d570-1a50-4957-af78-379ba4edd00c.png)
+
+Karol spielt FizzBuzz: https://karol.arrrg.de/?id=w-ZnWgG-Z
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174609057-b169791d-c097-46cc-9fb3-a8703eaccd52.png)
 
