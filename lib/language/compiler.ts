@@ -207,13 +207,14 @@ export function compile(tree: Tree, doc: Text) {
         if (st.type == 'repeat' && st.stage == 1) {
           st.stage++
           st.times = parseInt(code)
-          if (!code || isNaN(st.times) || st.times < 1) {
+          if (!code || isNaN(st.times) || st.times < 0) {
             // additional compiler check
             warnings.push({
               from: cursor.from - 3,
               to: Math.min(cursor.to + 3, doc.length - 1),
               severity: 'error',
-              message: 'Anzahl der Wiederholung muss eine natürliche Zahl sein',
+              message:
+                'Anzahl der Wiederholung ist negativ, erwarte ein Zahl größer gleich 0',
             })
           }
         }
