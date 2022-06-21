@@ -68,6 +68,10 @@ export function BlockEditor() {
         },
         scrollbars: true,
         trashcan: true,
+        move: {
+          drag: true,
+          wheel: true,
+        },
       } as any /* wtf blockly types are weird*/
     )
 
