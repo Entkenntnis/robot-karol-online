@@ -6,6 +6,7 @@ import {
   faLeftLong,
   faMagnifyingGlassMinus,
   faMagnifyingGlassPlus,
+  faRefresh,
   faRightLong,
   faShare,
   faSpinner,
@@ -234,6 +235,17 @@ export function Player() {
                     <FaIcon icon={faFileImport} /> Laden
                   </button>
                   {renderExport()}
+                  {core.state.projectInitialWorld && (
+                    <button
+                      className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-3"
+                      onClick={() => {
+                        abort(core)
+                        restoreProject(core)
+                      }}
+                    >
+                      <FaIcon icon={faRefresh} /> Welt zurücksetzen
+                    </button>
+                  )}
                 </>
               )}
             </div>
