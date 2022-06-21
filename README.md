@@ -110,6 +110,10 @@ Karol invertiert den Boden: https://karol.arrrg.de/?id=tqCB9cmOq
 
 Karol baut Treppen: https://karol.arrrg.de/?id=uvGUlYKtO
 
+![grafik](https://user-images.githubusercontent.com/13507950/174771349-9ac376fb-8d17-4153-a3d9-60b55dca476e.png)
+
+Karol addiert zwei Zahlen (dargestellt als Balken): https://karol.arrrg.de/?id=X6L6m7x3I
+
 <hr>
 
 ## Erweiterungen (nur im Textmodus verfügbar)
