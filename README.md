@@ -68,13 +68,15 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 ### Bedingungen
 
-![grafik](https://user-images.githubusercontent.com/13507950/174559930-3424b63e-fb3c-44b3-a329-2bb04b4a7b4e.png)
+![grafik](https://user-images.githubusercontent.com/13507950/175011392-4ab45def-d18c-4096-b2c0-090f0b3e42fa.png)
 
 `IstWand` / `NichtIstWand` - Karol testet, ob vor ihm eine Wand (oder ein Quader) ist oder nicht.
 
 `IstZiegel` / `NichtIstZiegel` - Karol testet, ob vor ihm Ziegel liegen oder nicht.
 
 `IstMarke` / `NichtIstMarke` - Karol testet, ob er auf einer Marke steht oder nicht.
+
+`IstNorden` / `NichtIstNorden` - Karol testet, ob er nach Norden schaut oder nicht. (Norden = oben)
 
 ## Beispiele
 
@@ -182,7 +184,6 @@ Multiplikation: https://karol.arrrg.de/?id=WEjDr5yhw
 
 - Farbige Ziegel und Marken sind nicht implementiert
 - Der Rucksack ist nicht implementiert
-- Himmelsrichtungen sind nicht implementiert
 - Ton ist nicht implementiert
 - Bedingungen fallen raus, d.h. es lassen sich über `Bedingung`, `wahr` und `falsch` keine eigenen Bedingungen mehr definieren, sondern wird durch das Schlüsselwort `return` ersetzt
 - Willkürliche Groß-/Kleinschreibungen wie z.B. `sCHritt` werden nicht mehr unterstützt. Stattdessen kann man entweder `schritt` oder `Schritt` schreiben.
