@@ -90,7 +90,7 @@ Karol findet zurück zum Start: https://karol.arrrg.de/?id=lZtwOLmN9
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174683877-e4b18d6c-a8c0-40e2-87d6-06bfe8aca68c.png)
 
-Karol legt den Boden mit Ziegeln aus: http://localhost:3000/?id=MecEAhU2D
+Karol legt den Boden mit Ziegeln aus: https://karol.arrrg.de/?id=MecEAhU2D
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174608320-cfb76ed2-4ea8-4cf3-a984-96c6f332856c.png)
 
@@ -102,7 +102,7 @@ Karol räumt den Boden auf: https://karol.arrrg.de/?id=cEg42dNwy
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174608520-88f081d6-972c-4db2-bae8-c823211e35d9.png)
 
-Karol baut ein Schwimmbad und schwimmt hindurch: [https://karol.arrrg.de/?id=pJ_cAXSQB](https://karol.arrrg.de/?id=lwl8yufk4)
+Karol baut ein Schwimmbad und schwimmt hindurch: https://karol.arrrg.de/?id=lwl8yufk4
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174608626-17a91c3b-1627-42b8-a5de-28db61692a6a.png)
 
@@ -172,11 +172,7 @@ Der bisherige Algorithmus hat eine Laufzeit von O(n² &ast; m²). Wenn man rekur
 
 ### Mini-Interpreter für BF
 
-Zum krönenden Abschluss soll in diesem Beispiel bewiesen werden, dass Robot Karol turing-vollständig ist. Das heißt, dass jede berechenbare Funktion von Karol implementiert werden kann.
-
-Der Beweis gelingt durch die Nutzung von brainf_ck - einer esoterischen Sprache, die an sich bereits turing-vollständig ist. Gelingt es, diese Sprache umzusetzen, dann ist die Vollständigkeit bewiesen.
-
-Ein solcher Interpreter ist möglich. Die beiden folgenden Dateien zeigen einmal ein Beispiel für die Addition und einmal für die Multiplikation. Der brainf_uck Quellcode steht an der hinteren Wand. Die Speicherzellen finden sich an der linken Wand.
+Mit geeigneter Kodierung der Daten lässt sich auch ein kompletter Interpreter in Robot Karol schreiben:
 
 Addition: https://karol.arrrg.de/?id=G-AH8m_Km
 
