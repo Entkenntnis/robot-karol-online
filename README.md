@@ -135,6 +135,11 @@ Karol sortiert Stapel nach der Größe: https://karol.arrrg.de/?id=IAcMKSmST
 ![karol_ziffern](https://user-images.githubusercontent.com/13507950/175029596-f4742a3d-1392-4620-b5c1-e655788462ee.gif)
 
 Karol schreibt die Ziffern von 0 bis 9: https://karol.arrrg.de/?id=yHV8VsEak
+
+![gameoflifee](https://user-images.githubusercontent.com/13507950/175084189-adf18f24-afc2-4166-a865-cccd773f71c9.gif)
+
+Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=lypiXliaW (und damit ist Robot Karol Turing-vollständig)
+
 <hr>
 
 ## Erweiterungen (nur im Textmodus verfügbar)
@@ -164,10 +169,6 @@ Karol findet rekursiv das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln
 ### Effiziente Multiplikation
 
 Der bisherige Algorithmus hat eine Laufzeit von O(n² &ast; m²). Wenn man rekursive Aufrufe als "Gedächtnis" einsetzt, kann die ganze Funktion in O(n &ast; m) ausgeführt werden: https://karol.arrrg.de/?id=GibpaN88x
-
-### Game of Life
-
-Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=-NO0NkzUk -> gibt wenig Grund, das das nicht auch in Blöcken implementiert werden kann. Hausaufgabe! + Gif
 
 ### Mini-Interpreter für BF
 
