@@ -142,35 +142,27 @@ Mithilfe der Erweiterungen sind nochmal mehr Algorithmen mit Robot Karol umsetzb
 
 ### Aufräumen
 
-Karol hebt alle Ziegel auf und plaziert sie hinter dem gelben Streifen: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/stapeln.json
+Karol hebt alle Ziegel auf und plaziert sie hinter dem gelben Streifen: https://karol.arrrg.de/?id=cKTfqtvb6
 
 ### Floodfill
 
-Karol füllt eine Fläche mit dem rekursivenFloodfill-Algorithmus: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/füllen.json
+Karol füllt eine Fläche mit dem rekursivenFloodfill-Algorithmus: https://karol.arrrg.de/?id=lTjOXgMEA
 
 ### Labyrinth
 
-Karol findet das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Ziel besteht aus einem Ziegel: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/labyrinth.json
+Karol findet das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Ziel besteht aus einem Ziegel: https://karol.arrrg.de/?id=8DJ_I8yc5
 
 ### Binärzahl als Dezimalzahl ausgeben
 
-Karol liest eine Binärzahl ein und zeigt diese in dezimal an: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/binär_konverter.json
+Karol liest eine Binärzahl ein und zeigt diese in dezimal an: https://karol.arrrg.de/?id=e2OGDPHp0
 
 ### Effiziente Multiplikation
 
 Der bisherige Algorithmus hat eine Laufzeit von O(n² * m²). Das kann mithilfe von Rekursion auf O(n * m) verbessert werden: https://karol.arrrg.de/?id=GibpaN88x
 
-### Sortieren
-
-Karol sortiert eine Reihe von Ziegelstapel der Größe nach.
-
-6 Stapel: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren.json
-
-8 Stapel: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/sortieren_verbessert.json
-
 ### Game of Life
 
-Karol simuliert Conways Game of Life: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/game_of_life.json
+Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=-NO0NkzUk
 
 ### Turing-Vollständigkeit
 
@@ -180,9 +172,9 @@ Der Beweis gelingt durch die Nutzung von brainf_ck - einer esoterischen Sprache,
 
 Ein solcher Interpreter ist möglich. Die beiden folgenden Dateien zeigen einmal ein Beispiel für die Addition und einmal für die Multiplikation. Der brainf_uck Quellcode steht an der hinteren Wand. Die Speicherzellen finden sich an der linken Wand.
 
-Addition: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck.json
+Addition: https://karol.arrrg.de/?id=G-AH8m_Km
 
-Multiplikation: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/brainf_ck_multiplizieren.json
+Multiplikation: https://karol.arrrg.de/?id=WEjDr5yhw
 
 ## Umstieg
 
