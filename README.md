@@ -159,15 +159,15 @@ Karol füllt eine Fläche mit dem rekursivenFloodfill-Algorithmus: https://karol
 
 ### Labyrinth
 
-Karol findet das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Ziel besteht aus einem Ziegel: https://karol.arrrg.de/?id=8DJ_I8yc5
+Karol findet rekursiv das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Ziel besteht aus einem Ziegel: https://karol.arrrg.de/?id=8DJ_I8yc5
 
 ### Effiziente Multiplikation
 
-Der bisherige Algorithmus hat eine Laufzeit von O(n² _ m²). Das kann mithilfe von Rekursion auf O(n _ m) verbessert werden: https://karol.arrrg.de/?id=GibpaN88x
+Der bisherige Algorithmus hat eine Laufzeit von O(n² &ast; m²). Wenn man rekursive Aufrufe als "Gedächtnis" einsetzt, kann die ganze Funktion in O(n &ast; m) ausgeführt werden: https://karol.arrrg.de/?id=GibpaN88x
 
 ### Game of Life
 
-Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=-NO0NkzUk
+Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=-NO0NkzUk -> gibt wenig Grund, das das nicht auch in Blöcken implementiert werden kann. Hausaufgabe! + Gif
 
 ### Mini-Interpreter für BF
 
