@@ -52,7 +52,7 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174563384-07a9338d-1493-45de-a04c-2ab77f0b6069.png)
 
-`// Kommentar` - Nutze Kommentare, um deinen Code zu gliedern und die Struktur zu erklären.
+`// Kommentar` - Nutze Kommentare, um den Code zu gliedern und die Struktur zu erklären.
 
 ### Steuerung
 
