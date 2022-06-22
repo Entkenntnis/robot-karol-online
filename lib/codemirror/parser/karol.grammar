@@ -105,7 +105,14 @@ Condition {
   @specialize<idx, "Istmarke"> |
   @specialize<idx, "NichtIstMarke"> |
   @specialize<idx, "nichtistmarke"> |
-  @specialize<idx, "Nichtistmarke">
+  @specialize<idx, "Nichtistmarke"> |
+  @specialize<idx, "IstNorden"> |
+  @specialize<idx, "istnorden"> |
+  @specialize<idx, "istNorden"> |
+  @specialize<idx, "Istnorden"> |
+  @specialize<idx, "NichtIstNorden"> |
+  @specialize<idx, "nichtistnorden"> |
+  @specialize<idx, "Nichtistnorden">
 }
 
 IfThen {

@@ -205,6 +205,12 @@ export function testCondition(core: Core, cond: Condition) {
       return !!newpos
     }
     return !newpos
+  } else if (cond.type == 'north') {
+    if (cond.negated) {
+      return dir !== 'north'
+    } else {
+      return dir == 'north'
+    }
   } else {
     const newpos = moveRaw(x, y, dir, core.ws.world)
     if (!newpos) {

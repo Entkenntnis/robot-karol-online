@@ -129,7 +129,7 @@ export interface ActionOp {
 }
 
 export interface Condition {
-  type: 'brick' | 'mark' | 'wall'
+  type: 'brick' | 'mark' | 'wall' | 'north'
   negated: boolean
 }
 

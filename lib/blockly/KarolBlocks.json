@@ -480,6 +480,14 @@
     "helpUrl": ""
   },
   {
+    "type": "isn't_north",
+    "message0": "NichtIstNorden",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstNoden nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
     "type": "is_west",
     "message0": "IstWesten",
     "output": null,

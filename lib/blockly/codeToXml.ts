@@ -250,6 +250,8 @@ function buildCondition(typeRaw: string) {
   if (type == 'nichtistziegel') return `<block type="isn't_brick"></block>`
   if (type == 'istmarke') return `<block type="is_marker"></block>`
   if (type == 'nichtistmarke') return `<block type="isn't_marker"></block>`
+  if (type == 'istnorden') return `<block type="is_north"></block>`
+  if (type == 'nichtistnorden') return `<block type="isn't_north"></block>`
   return ''
 }
 

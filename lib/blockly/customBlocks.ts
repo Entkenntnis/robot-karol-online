@@ -93,6 +93,8 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   ["isn't_brick", (block: Block) => ['NichtIstZiegel', 0]],
   ['is_marker', (block: Block) => ['IstMarke', 0]],
   ["isn't_marker", (block: Block) => ['NichtIstMarke', 0]],
+  ['is_north', (block: Block) => ['IstNorden', 0]],
+  ["isn't_north", (block: Block) => ['NichtIstNorden', 0]],
   ['line_comment', (block: Block) => '// ' + block.getFieldValue('TEXT')],
 ]
 

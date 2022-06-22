@@ -74,6 +74,14 @@ export const KAROL_TOOLBOX = {
       kind: 'block',
       type: "isn't_marker",
     },
+    {
+      kind: 'block',
+      type: 'is_north',
+    },
+    {
+      kind: 'block',
+      type: "isn't_north",
+    },
     /*{
       kind: 'category',
       name: 'Anweisungen',

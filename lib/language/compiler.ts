@@ -146,6 +146,10 @@ export function compile(tree: Tree, doc: Text) {
           cond = { type: 'mark', negated: true }
         } else if (code.toLowerCase() == 'istmarke') {
           cond = { type: 'mark', negated: false }
+        } else if (code.toLowerCase() == 'nichtistnorden') {
+          cond = { type: 'north', negated: true }
+        } else if (code.toLowerCase() == 'istnorden') {
+          cond = { type: 'north', negated: false }
         }
         if (st && st.type == 'repeat' && st.stage == 10) {
           st.stage = 11
