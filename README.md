@@ -112,7 +112,13 @@ Karol baut Treppen: https://karol.arrrg.de/?id=uvGUlYKtO
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174771349-9ac376fb-8d17-4153-a3d9-60b55dca476e.png)
 
-Karol addiert zwei Zahlen (dargestellt als Balken): https://karol.arrrg.de/?id=X6L6m7x3I
+Karol addiert 5 und 7: https://karol.arrrg.de/?id=X6L6m7x3I
+
+![grafik](https://user-images.githubusercontent.com/13507950/174916495-072950e0-d76b-4abc-ad2f-3f3f3e0a5a2c.png)
+
+Karol multipliziert 3 und 5: https://karol.arrrg.de/?id=YhXnGAJZz
+
+Nerdfrage: Welche Laufzeit hat der Algorithmus? Kann man den Algorithmus auch schneller schreiben?
 
 <hr>
 
