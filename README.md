@@ -161,10 +161,6 @@ Karol füllt eine Fläche mit dem rekursivenFloodfill-Algorithmus: https://karol
 
 Karol findet das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Ziel besteht aus einem Ziegel: https://karol.arrrg.de/?id=8DJ_I8yc5
 
-### Binärzahl als Dezimalzahl ausgeben
-
-Karol liest eine Binärzahl ein und zeigt diese in dezimal an: https://karol.arrrg.de/?id=e2OGDPHp0
-
 ### Effiziente Multiplikation
 
 Der bisherige Algorithmus hat eine Laufzeit von O(n² _ m²). Das kann mithilfe von Rekursion auf O(n _ m) verbessert werden: https://karol.arrrg.de/?id=GibpaN88x
@@ -173,7 +169,7 @@ Der bisherige Algorithmus hat eine Laufzeit von O(n² _ m²). Das kann mithilfe 
 
 Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=-NO0NkzUk
 
-### Turing-Vollständigkeit
+### Mini-Interpreter für BF
 
 Zum krönenden Abschluss soll in diesem Beispiel bewiesen werden, dass Robot Karol turing-vollständig ist. Das heißt, dass jede berechenbare Funktion von Karol implementiert werden kann.
 
