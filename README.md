@@ -138,7 +138,7 @@ Karol schreibt die Ziffern von 0 bis 9: https://karol.arrrg.de/?id=yHV8VsEak
 
 ![gameoflifee](https://user-images.githubusercontent.com/13507950/175084189-adf18f24-afc2-4166-a865-cccd773f71c9.gif)
 
-Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=lypiXliaW (und damit ist Robot Karol Turing-vollständig)
+Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=lypiXliaW (damit zählt Robot Karol als [Turing-vollständig](https://de.wikipedia.org/wiki/Turing-Vollst%C3%A4ndigkeit) Programmiersprache)
 
 <hr>
 
@@ -160,7 +160,7 @@ Mithilfe der Erweiterungen sind nochmal mehr Algorithmen mit Robot Karol umsetzb
 
 ### Floodfill
 
-Karol füllt eine Fläche mit dem rekursivenFloodfill-Algorithmus: https://karol.arrrg.de/?id=lTjOXgMEA
+Karol füllt eine Fläche mit dem rekursiven Floodfill-Algorithmus: https://karol.arrrg.de/?id=lTjOXgMEA
 
 ### Labyrinth
 
