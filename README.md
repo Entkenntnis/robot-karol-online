@@ -88,6 +88,10 @@ Karol baut eine kleine Burg: https://karol.arrrg.de/?id=H0rtb9iQo
 
 Karol findet zurück zum Start: https://karol.arrrg.de/?id=lZtwOLmN9
 
+![grafik](https://user-images.githubusercontent.com/13507950/175125936-3983411e-8526-4e1c-bfa3-4ce3b9f8063f.png)
+
+Karol kopiert einen Stapel Ziegel: https://karol.arrrg.de/?id=RPXh1Tk1R
+
 ![grafik](https://user-images.githubusercontent.com/13507950/174683877-e4b18d6c-a8c0-40e2-87d6-06bfe8aca68c.png)
 
 Karol legt den Boden mit Ziegeln aus: https://karol.arrrg.de/?id=MecEAhU2D
