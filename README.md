@@ -96,6 +96,10 @@ Karol legt den Boden mit Ziegeln aus: http://localhost:3000/?id=MecEAhU2D
 
 Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?id=EUOOAJ3I7
 
+![grafik](https://user-images.githubusercontent.com/13507950/175024634-72014ceb-4319-44a0-baf8-750f196fa3b6.png)
+
+Karol räumt den Bode auf: https://karol.arrrg.de/?id=cEg42dNwy
+
 ![grafik](https://user-images.githubusercontent.com/13507950/174608520-88f081d6-972c-4db2-bae8-c823211e35d9.png)
 
 Karol baut ein Schwimmbad und schwimmt hindurch: [https://karol.arrrg.de/?id=pJ_cAXSQB](https://karol.arrrg.de/?id=lwl8yufk4)
@@ -145,10 +149,6 @@ Im Textmodus gibt es einige Erweiterungen, die aus Robot Karol 3.0 übernommen w
 ## Beispiele mit Erweiterungen
 
 Mithilfe der Erweiterungen sind nochmal mehr Algorithmen mit Robot Karol umsetzbar. Dabei ist vor allem die Möglichkeit von Rekursion entscheidend. Durch den Callstack erhält Karol quasi durch die Hintertür ein Gedächtnis. Eigentlich ist das ein wenig schummeln. Aber es lassen sich damit spannende Algorithmen umsetzen:
-
-### Aufräumen
-
-Karol hebt alle Ziegel auf und plaziert sie hinter dem gelben Streifen: https://karol.arrrg.de/?id=cKTfqtvb6
 
 ### Floodfill
 
