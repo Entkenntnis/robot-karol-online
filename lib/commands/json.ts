@@ -60,6 +60,7 @@ export function deserialize(core: Core, file?: string) {
         state.settings.mode = mode
       }
       state.ui.needsTextRefresh = true
+      state.ui.editorLoading = false
     })
     core.mutateCore((state) => {
       state.projectInitialWorld = world

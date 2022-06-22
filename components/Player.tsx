@@ -2,6 +2,7 @@ import {
   faDownload,
   faEquals,
   faExternalLink,
+  faExternalLinkSquare,
   faFileImport,
   faLeftLong,
   faMagnifyingGlassMinus,
@@ -226,15 +227,6 @@ export function Player() {
                   >
                     Neue Welt
                   </button>
-                  <button
-                    className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
-                    onClick={() => {
-                      document.getElementById('load_project')?.click()
-                    }}
-                  >
-                    <FaIcon icon={faFileImport} /> Laden
-                  </button>
-                  {renderExport()}
                   {core.state.projectInitialWorld && (
                     <button
                       className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-3"
@@ -596,6 +588,18 @@ function NewWorldSettings({
         >
           Welt erstellen
         </button>
+        <p className="mt-7 mx-3 text-sm text-gray-600 text-right">
+          Welt{' '}
+          <button
+            onClick={() => {
+              onDone()
+              document.getElementById('load_project')?.click()
+            }}
+            className="text-blue-500 hover:underline"
+          >
+            aus Datei laden
+          </button>
+        </p>
       </div>
     </>
   )
@@ -643,6 +647,8 @@ function Share(props: { onClose: () => void }) {
   const [pending, setPending] = useState(false)
   const [id, setId] = useState('')
   const core = useCore()
+
+  const link = `${window.location.protocol}//${window.location.host}/?id=${id}`
   return (
     <>
       <h1 className="m-3 mb-6 text-xl font-bold">Teilen</h1>
@@ -655,16 +661,16 @@ function Share(props: { onClose: () => void }) {
         <div className="px-3 mb-8">
           <input
             className="border w-full border-yellow-300 outline-none border-2"
-            value={`${window.location.protocol}//${window.location.host}/?id=${id}`}
+            value={link}
             readOnly
           />
           <button
-            className="px-2 py-0.5 rounded mt-7 bg-gray-100"
+            className="px-2 py-0.5 rounded mt-7 bg-green-300"
             onClick={() => {
-              props.onClose()
+              window.open(link, '_blank')
             }}
           >
-            Schließen
+            Link in neuem Tab öffnen <FaIcon icon={faExternalLinkSquare} />
           </button>
         </div>
       ) : (
@@ -691,6 +697,37 @@ function Share(props: { onClose: () => void }) {
           )}
         </button>
       )}
+      <p className="mt-7 mb-3 mx-3 text-sm text-gray-600 text-right">
+        Welt{' '}
+        <button
+          className="text-blue-500 hover:underline"
+          onClick={() => {
+            props.onClose()
+            const date = new Date()
+            const filename =
+              date.toLocaleDateString('en-CA') +
+              '_' +
+              date.getHours().toString().padStart(2, '0') +
+              date.getMinutes().toString().padStart(2, '0') +
+              date.getSeconds().toString().padStart(2, '0') +
+              '_robot-karol.json'
+            const contentType = 'application/json;charset=utf-8;'
+            var a = document.createElement('a')
+            a.download = filename
+            a.href =
+              'data:' +
+              contentType +
+              ',' +
+              encodeURIComponent(JSON.stringify(serialize(core)))
+            a.target = '_blank'
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+          }}
+        >
+          als Datei herunterladen
+        </button>
+      </p>
     </>
   )
 }

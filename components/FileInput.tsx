@@ -13,6 +13,10 @@ export function FileInput() {
       onChange={(e) => {
         const fr = new FileReader()
         const files = e.target.files
+        core.mutateWs((ws) => {
+          ws.ui.editorLoading = true
+          ws.settings.mode = 'code'
+        })
         if (files) {
           fr.readAsText(files[0])
           fr.onload = () => {
