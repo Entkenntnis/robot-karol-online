@@ -10,6 +10,7 @@ import {
   faCheckCircle,
   faCircleExclamation,
   faPlay,
+  faSpinner,
   faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
@@ -124,7 +125,13 @@ export function EditArea() {
           </ReflexContainer>
         )}
         {core.ws.type == 'free' &&
+          !core.ws.ui.editorLoading &&
           (core.ws.settings.mode == 'code' ? renderEditor() : <BlockEditor />)}
+        {core.ws.type == 'free' && core.ws.ui.editorLoading && (
+          <div className="h-full w-full flex justify-center items-center">
+            <FaIcon icon={faSpinner} className="animate-spin text-3xl" />
+          </div>
+        )}
         {
           <div
             className={clsx(

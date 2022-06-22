@@ -71,6 +71,7 @@ function createBaseWorkspace(): WorkspaceStateBase {
       keepWorldPreference: false,
       errorMessages: [],
       toBlockWarning: false,
+      editorLoading: false,
     },
     vm: {
       pc: 0,

@@ -44,6 +44,7 @@ export interface Ui {
   keepWorldPreference: boolean
   errorMessages: string[]
   toBlockWarning: boolean
+  editorLoading: boolean
 }
 
 export interface Vm {

@@ -57,14 +57,7 @@ export function deserialize(core: Core, file?: string) {
         state.ui.preview = undefined
       }
       if (mode) {
-        state.settings.mode = 'code'
-        setTimeout(
-          () =>
-            core.mutateWs((ws) => {
-              ws.settings.mode = mode!
-            }),
-          100
-        )
+        state.settings.mode = mode
       }
       state.ui.needsTextRefresh = true
     })

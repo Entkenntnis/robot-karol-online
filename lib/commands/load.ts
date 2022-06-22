@@ -27,11 +27,15 @@ export async function loadProject(core: Core) {
 
   if (id) {
     try {
+      core.mutateWs((ws) => {
+        ws.ui.editorLoading = true
+      })
       const res = await fetch(`https://stats-karol.arrrg.de/load/${id}`)
       const text = await res.text()
       deserialize(core, text)
       core.mutateWs((ws) => {
         if (ws.type == 'free') ws.ui.showPreview = false
+        ws.ui.editorLoading = false
       })
     } catch (e) {}
   }

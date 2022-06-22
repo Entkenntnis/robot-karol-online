@@ -69,8 +69,8 @@ function parseTree(
         callbackStack.push(
           buildClosureWithoutInner(
             'stop',
-            '',
-            callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            ''
+            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
           )
         )
         continue
@@ -78,8 +78,8 @@ function parseTree(
       callbackStack.push(
         buildClosure(
           blockType,
-          count,
-          callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+          count
+          //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
         )
       )
     } else if (t == 'Repeat') {
@@ -94,8 +94,8 @@ function parseTree(
         callbackStack.push(
           buildRepeatTimes(
             times,
-            inner,
-            callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            inner
+            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
           )
         )
         continue
@@ -108,8 +108,8 @@ function parseTree(
         callbackStack.push(
           buildRepeatWhile(
             buildCondition(condition),
-            inner,
-            callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            inner
+            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
           )
         )
         continue
@@ -132,8 +132,8 @@ function parseTree(
         callbackStack.push(
           buildIf(
             buildCondition(condition),
-            inner,
-            callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            inner
+            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
           )
         )
         continue
@@ -146,8 +146,8 @@ function parseTree(
           buildIfElse(
             buildCondition(condition),
             inner,
-            inner2,
-            callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            inner2
+            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
           )
         )
         continue
@@ -156,8 +156,8 @@ function parseTree(
       const text = code.substring(cursor.from + 2, cursor.to).trim()
       callbackStack.push(
         buildCommentClosure(
-          text,
-          callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+          text
+          //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
         )
       )
     }
