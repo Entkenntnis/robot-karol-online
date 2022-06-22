@@ -132,6 +132,9 @@ Karol multipliziert 3 und 5: https://karol.arrrg.de/?id=YhXnGAJZz (Nerdfrage: We
 
 Karol sortiert Stapel nach der Größe: https://karol.arrrg.de/?id=IAcMKSmST
 
+![karol_ziffern](https://user-images.githubusercontent.com/13507950/175029596-f4742a3d-1392-4620-b5c1-e655788462ee.gif)
+
+Karol schreibt die Ziffern von 0 bis 9: https://karol.arrrg.de/?id=yHV8VsEak
 <hr>
 
 ## Erweiterungen (nur im Textmodus verfügbar)
