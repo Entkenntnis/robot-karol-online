@@ -118,7 +118,7 @@ Karol addiert 5 und 7: https://karol.arrrg.de/?id=X6L6m7x3I
 
 Karol multipliziert 3 und 5: https://karol.arrrg.de/?id=YhXnGAJZz
 
-Nerdfrage: Welche Laufzeit hat der Algorithmus? Kann man den Algorithmus auch schneller schreiben?
+Nerdfrage: Welche Laufzeit hat der Algorithmus? Kann man den Algorithmus auch schneller schreiben? Auflösung [hier](https://github.com/Entkenntnis/robot-karol-web/edit/main/README.md#effiziente-multiplikation).
 
 <hr>
 
@@ -136,7 +136,7 @@ Im Textmodus gibt es einige Erweiterungen, die aus Robot Karol 3.0 übernommen w
 
 ## Beispiele mit Erweiterungen
 
-Mithilfe der Erweiterungen sind nochmal mehr Algorithmen mit Robot Karol umsetzbar. Dabei sind der Kreativität kaum Grenzen gesetzt.
+Mithilfe der Erweiterungen sind nochmal mehr Algorithmen mit Robot Karol umsetzbar. Dabei ist vor allem die Möglichkeit von Rekursion entscheidend. Durch den Callstack erhält Karol quasi durch die Hintertür ein Gedächtnis. Eigentlich ist das ein wenig schummeln. Aber es lassen sich damit spannende Algorithmen umsetzen:
 
 ### Aufräumen
 
@@ -153,6 +153,10 @@ Karol findet das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Zie
 ### Binärzahl als Dezimalzahl ausgeben
 
 Karol liest eine Binärzahl ein und zeigt diese in dezimal an: https://karol.arrrg.de/?project=https://entkenntnis.github.io/robot-karol-web/examples/binär_konverter.json
+
+### Effiziente Multiplikation
+
+Der bisherige Algorithmus hat eine Laufzeit von O(n² * m²). Das kann mithilfe von Rekursion auf O(n * m) verbessert werden: https://karol.arrrg.de/?id=GibpaN88x
 
 ### Sortieren
 
