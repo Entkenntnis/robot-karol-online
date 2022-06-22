@@ -98,6 +98,10 @@ export function execPreview(core: Core) {
         }
       case 'jumpcond':
         const flag = testCondition({ ws: { world } } as Core, instr.condition)
+        if (flag && pc == instr.targetT) {
+          pc = Infinity
+          continue
+        }
         pc = flag ? instr.targetT : instr.targetF
         continue
       case 'call':
