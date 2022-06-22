@@ -120,6 +120,10 @@ Karol multipliziert 3 und 5: https://karol.arrrg.de/?id=YhXnGAJZz
 
 Nerdfrage: Welche Laufzeit hat der Algorithmus? Kann man den Algorithmus auch schneller schreiben? Auflösung [hier](https://github.com/Entkenntnis/robot-karol-web/edit/main/README.md#effiziente-multiplikation).
 
+![grafik](https://user-images.githubusercontent.com/13507950/174922382-c52f64ac-bed6-4f93-9cbf-5ac325d724a3.png)
+
+Karol sortiert Stapel nach der Größe: https://karol.arrrg.de/?id=IAcMKSmST
+
 <hr>
 
 ## Erweiterungen (nur im Textmodus verfügbar)
