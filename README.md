@@ -98,7 +98,7 @@ Karol legt mit Marken ein Schachbrettmuster: https://karol.arrrg.de/?id=EUOOAJ3I
 
 ![grafik](https://user-images.githubusercontent.com/13507950/175024634-72014ceb-4319-44a0-baf8-750f196fa3b6.png)
 
-Karol räumt den Bode auf: https://karol.arrrg.de/?id=cEg42dNwy
+Karol räumt den Boden auf: https://karol.arrrg.de/?id=cEg42dNwy
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174608520-88f081d6-972c-4db2-bae8-c823211e35d9.png)
 
