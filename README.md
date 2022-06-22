@@ -22,7 +22,7 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 ## Sprache
 
-### Bewegung
+### Anweisungen
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174558915-005a88e7-19fd-415f-b97a-27a857eb36a1.png)
 
@@ -48,6 +48,12 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 `Beenden` - Karol beendet an dieser Stelle die Ausführung des Programms.
 
+### Kommentare
+
+![grafik](https://user-images.githubusercontent.com/13507950/174563384-07a9338d-1493-45de-a04c-2ab77f0b6069.png)
+
+`// Kommentar` - Nutze Kommentare, um deinen Code zu gliedern und die Struktur zu erklären.
+
 ### Steuerung
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174559742-710a0d46-b8ea-4224-915f-e8bb692a0381.png)
@@ -69,12 +75,6 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 `IstZiegel` / `NichtIstZiegel` - Karol testet, ob vor ihm Ziegel liegen oder nicht.
 
 `IstMarke` / `NichtIstMarke` - Karol testet, ob er auf einer Marke steht oder nicht.
-
-### Kommentare
-
-![grafik](https://user-images.githubusercontent.com/13507950/174563384-07a9338d-1493-45de-a04c-2ab77f0b6069.png)
-
-`// Kommentar` - einzeiliger Kommentar
 
 ## Beispiele
 
@@ -158,7 +158,7 @@ Karol liest eine Binärzahl ein und zeigt diese in dezimal an: https://karol.arr
 
 ### Effiziente Multiplikation
 
-Der bisherige Algorithmus hat eine Laufzeit von O(n² * m²). Das kann mithilfe von Rekursion auf O(n * m) verbessert werden: https://karol.arrrg.de/?id=GibpaN88x
+Der bisherige Algorithmus hat eine Laufzeit von O(n² _ m²). Das kann mithilfe von Rekursion auf O(n _ m) verbessert werden: https://karol.arrrg.de/?id=GibpaN88x
 
 ### Game of Life
 

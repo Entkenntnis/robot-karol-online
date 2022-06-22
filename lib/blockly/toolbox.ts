@@ -33,6 +33,7 @@ export const KAROL_TOOLBOX = {
       kind: 'block',
       type: 'stop',
     },
+    { kind: 'block', type: 'line_comment' },
     {
       kind: 'block',
       type: 'repeat_times',
@@ -73,7 +74,6 @@ export const KAROL_TOOLBOX = {
       kind: 'block',
       type: "isn't_marker",
     },
-    { kind: 'block', type: 'line_comment' },
     /*{
       kind: 'category',
       name: 'Anweisungen',
