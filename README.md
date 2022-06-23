@@ -144,6 +144,10 @@ Karol schreibt die Ziffern von 0 bis 9: https://karol.arrrg.de/?id=yHV8VsEak
 
 Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=lypiXliaW (damit zählt Robot Karol als [Turing-vollständig](https://de.wikipedia.org/wiki/Turing-Vollst%C3%A4ndigkeit) Programmiersprache)
 
+![image](https://user-images.githubusercontent.com/13507950/175257884-90e9f039-0b55-4900-a263-f2f46e0b8776.png)
+
+Karol findet Weg aus Labyrinth (Algorithmus ohne Rekursion): https://karol.arrrg.de/?id=YqIFUzg4B
+
 <hr>
 
 ## Erweiterungen (nur im Textmodus verfügbar)
