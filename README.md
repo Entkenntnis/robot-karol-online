@@ -146,7 +146,7 @@ Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=lypiXliaW (dami
 
 ![image](https://user-images.githubusercontent.com/13507950/175257884-90e9f039-0b55-4900-a263-f2f46e0b8776.png)
 
-Karol findet Weg aus Labyrinth (Algorithmus ohne Rekursion): https://karol.arrrg.de/?id=YqIFUzg4B
+Karol findet Weg aus Labyrinth (Algorithmus ohne Rekursion): https://karol.arrrg.de/?id=eHGQ1vYUR
 
 <hr>
 
