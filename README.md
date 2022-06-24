@@ -130,7 +130,7 @@ Karol addiert 5 und 7: https://karol.arrrg.de/?id=X6L6m7x3I
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174916495-072950e0-d76b-4abc-ad2f-3f3f3e0a5a2c.png)
 
-Karol multipliziert 3 und 5: https://karol.arrrg.de/?id=YhXnGAJZz (Nerdfrage: Welche Laufzeit hat der Algorithmus? Kann man den Algorithmus auch schneller schreiben? Auflösung [hier](https://github.com/Entkenntnis/robot-karol-web#effiziente-multiplikation).)
+Karol multipliziert 3 und 5: https://karol.arrrg.de/?id=YhXnGAJZz (Nerdfrage: Welche Laufzeit hat der Algorithmus? Kann man den Algorithmus auch schneller schreiben? Auflösung [hier](https://karol.arrrg.de/?id=5Wqwff3Mi))
 
 ![grafik](https://user-images.githubusercontent.com/13507950/174922382-c52f64ac-bed6-4f93-9cbf-5ac325d724a3.png)
 
@@ -146,7 +146,11 @@ Karol simuliert Conways Game of Life: https://karol.arrrg.de/?id=lypiXliaW (dami
 
 ![image](https://user-images.githubusercontent.com/13507950/175257884-90e9f039-0b55-4900-a263-f2f46e0b8776.png)
 
-Karol findet Weg aus Labyrinth (Algorithmus ohne Rekursion): https://karol.arrrg.de/?id=eHGQ1vYUR
+Karol findet Weg aus Labyrinth: https://karol.arrrg.de/?id=eHGQ1vYUR
+
+![grafik](https://user-images.githubusercontent.com/13507950/175704629-6f06ad33-a2f6-49f6-b730-232ff9454307.png)
+
+Karol füllt einen umrandeten Bereich: https://karol.arrrg.de/?id=Zm1p1pF-z
 
 <hr>
 
@@ -161,30 +165,6 @@ Im Textmodus gibt es einige Erweiterungen, die aus Robot Karol 3.0 übernommen w
 - Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`
 
 (x) Durch Nutzung dieser Erweiterungen ist ein Umschalten in den Blockeditor leider nicht mehr möglich.
-
-## Beispiele mit Erweiterungen
-
-Mithilfe der Erweiterungen sind nochmal mehr Algorithmen mit Robot Karol umsetzbar. Dabei ist vor allem die Möglichkeit von Rekursion entscheidend. Durch den Callstack erhält Karol quasi durch die Hintertür ein Gedächtnis. Eigentlich ist das ein wenig schummeln. Aber es lassen sich damit spannende Algorithmen umsetzen:
-
-### Floodfill
-
-Karol füllt eine Fläche mit dem rekursiven Floodfill-Algorithmus: https://karol.arrrg.de/?id=lTjOXgMEA
-
-### Labyrinth
-
-Karol findet rekursiv das Ziel in einem Labyrinth. Mauern bestehen aus 2 Ziegeln, das Ziel besteht aus einem Ziegel: https://karol.arrrg.de/?id=8DJ_I8yc5
-
-### Effiziente Multiplikation
-
-Der bisherige Algorithmus hat eine Laufzeit von O(n² &ast; m²). Wenn man rekursive Aufrufe als "Gedächtnis" einsetzt, kann die ganze Funktion in O(n &ast; m) ausgeführt werden: https://karol.arrrg.de/?id=GibpaN88x
-
-### Mini-Interpreter für BF
-
-Mit geeigneter Kodierung der Daten lässt sich auch ein kompletter Interpreter in Robot Karol schreiben:
-
-Addition: https://karol.arrrg.de/?id=G-AH8m_Km
-
-Multiplikation: https://karol.arrrg.de/?id=WEjDr5yhw
 
 ## Umstieg
 
