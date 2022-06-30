@@ -166,6 +166,10 @@ Im Textmodus gibt es einige Erweiterungen, die aus Robot Karol 3.0 übernommen w
 
 (x) Durch Nutzung dieser Erweiterungen ist ein Umschalten in den Blockeditor leider nicht mehr möglich.
 
+![grafik](https://user-images.githubusercontent.com/13507950/176788686-a952cdd8-4a3e-4745-ac92-51b072835623.png)
+
+Karol findet mit dem Algorithmus von Dijkstra den kürzesten Weg, einige Erweiterungen kommen hier zum Einsatz: https://karol.arrrg.de/?id=K4xfaLLnM
+
 ## Umstieg
 
 Über die letzten Jahre hat sich Robot Karol immer wieder weiterentwickelt und neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Web, den Umfang der Sprache vorsichtig wieder zu verschlanken. Beim Umstieg sind bezüglich der Sprache folgende Punkte zu beachten:
