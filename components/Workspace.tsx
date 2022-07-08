@@ -39,7 +39,7 @@ export function Workspace() {
               openMenu(core)
             }}
           >
-            Menü
+            Kurs
             {core.state.inviteMenu && <Ping />}
           </button>
         </div>
