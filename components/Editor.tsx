@@ -7,7 +7,7 @@ import {
   cursorCharLeft,
   insertNewlineAndIndent,
 } from '@codemirror/commands'
-import { EditorState, Transaction } from '@codemirror/state'
+import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 
 import { basicSetup } from '../lib/codemirror/basicSetup'

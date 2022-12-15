@@ -2,7 +2,12 @@ import { Core } from '../state/core'
 import { deserialize } from './json'
 
 export async function loadProject(core: Core) {
-  const parameterList = new URLSearchParams(window.location.search)
+  //
+  //
+  // I have to reimplement this, as the backend will be reimplemented + serialize format is changing
+  //
+  //
+  /*const parameterList = new URLSearchParams(window.location.search)
   const file = parameterList.get('project')
 
   if (file) {
@@ -11,9 +16,9 @@ export async function loadProject(core: Core) {
       const text = await res.text()
       const title = file.match(/\/([^\/]+\.json)/)
       if (title) {
-        /*core.mutateCore((core) => {
+        core.mutateCore((core) => {
           core.projectTitle = title[1]
-        })*/
+        })
       }
       deserialize(core, text)
       core.mutateWs((ws) => {
@@ -37,13 +42,5 @@ export async function loadProject(core: Core) {
         ws.ui.showPreview = false
       })
     } catch (e) {}
-  }
-}
-
-export function restoreProject(core: Core) {
-  core.mutateWs((ws) => {
-    /*if (core.state.projectInitialWorld) {
-      ws.world = core.state.projectInitialWorld
-    }*/
-  })
+  }*/
 }

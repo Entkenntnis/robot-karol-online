@@ -4,10 +4,10 @@ import { Preview, World } from '../lib/state/types'
 
 interface ViewProps {
   world: World
-  wireframe: boolean
+  wireframe?: boolean
   preview?: Preview
-  hideKarol: boolean
-  className: string
+  hideKarol?: boolean
+  className?: string
 }
 
 interface Resources {

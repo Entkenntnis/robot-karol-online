@@ -1,13 +1,13 @@
-import { faEye, faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faEye, faPlay } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { writeSync } from 'fs'
+
 import { run } from '../lib/commands/vm'
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
 import { View } from './View'
 
-export function Worlds() {
+export function Tasks() {
   const core = useCore()
 
   return (
@@ -24,10 +24,20 @@ export function Worlds() {
       <div className="flex-grow flex-shrink overflow-y-auto">
         {core.ws.tasks.map(renderTask)}
       </div>
-      <div className="h-8 flex-shrink-0 flex-grow-0 flex justify-center relative items-center border-t">
-        <p className="z-10">0 von {core.ws.tasks.length} Aufgaben gelöst</p>
-        <div className="absolute inset-0">
-          <div className="h-full bg-green-200" style={{ width: '0%' }}></div>
+      <div className="h-8 flex-shrink-0 flex-grow-0 border-t flex">
+        <div className="flex justify-center relative items-center flex-grow">
+          <p className="z-10">0 von {core.ws.tasks.length} Aufgaben gelöst</p>
+          <div className="absolute inset-0">
+            <div
+              className="h-full bg-green-200"
+              style={{ width: '100%' }}
+            ></div>
+          </div>
+        </div>
+        <div className="flex-grow-0 flex-shrink-0">
+          <button className="mx-2 mt-1 bg-gray-100 hover:bg-gray-200 px-2 rounded">
+            <FaIcon icon={faBars} className="mr-2" /> Menü
+          </button>
         </div>
       </div>
     </div>
