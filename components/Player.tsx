@@ -660,7 +660,7 @@ function Share(props: { onClose: () => void }) {
       {id ? (
         <div className="px-3 mb-8">
           <input
-            className="border w-full border-yellow-300 outline-none border-2"
+            className="w-full border-yellow-300 outline-none border-2"
             value={link}
             readOnly
           />

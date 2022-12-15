@@ -35,14 +35,14 @@ export function BlockEditor() {
   ) {
     if (blockIds[core.ws.ui.gutter - 1]) {
       blocklyWorkspaceSvg.current.highlightBlock(
-        blockIds[core.ws.ui.gutter - 1]
+        blockIds[core.ws.ui.gutter - 1] ?? ''
       )
     }
   }
 
   useEffect(() => {
     if (blocklyWorkspaceSvg.current && core.ws.ui.state != 'running') {
-      blocklyWorkspaceSvg.current.highlightBlock(null)
+      blocklyWorkspaceSvg.current.highlightBlock('')
     }
   }, [core.ws.ui.state])
 

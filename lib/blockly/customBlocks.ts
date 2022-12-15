@@ -102,7 +102,7 @@ export function initCustomBlocks() {
   blocks.forEach((block) => {
     Blockly.Blocks[block.type] = {
       init: function () {
-        this.jsonInit(block)
+        (this as any).jsonInit(block)
       },
     }
   })
