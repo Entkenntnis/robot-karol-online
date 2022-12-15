@@ -1,4 +1,3 @@
-import { puzzles } from '../data/puzzles'
 import {
   CoreState,
   WorkspaceState,
@@ -88,32 +87,6 @@ export function createFreeModeWorkspaceState(): WorkspaceStateFreeMode {
         },
       },
     ],
-  }
-  return ws
-}
-
-export function createPuzzleWorkspaceState(
-  id: number
-): WorkspaceStatePuzzleMode {
-  const puzzle = puzzles.find((x) => x.id == id)!
-  const ws: WorkspaceStatePuzzleMode = {
-    ...createBaseWorkspace(),
-    world: createWorld(
-      puzzle.targetWorld.dimX,
-      puzzle.targetWorld.dimY,
-      puzzle.targetWorld.height
-    ),
-    code: puzzle.code,
-    type: 'puzzle',
-    id,
-    preMode: true,
-    progress: 0,
-  }
-  if (puzzle.initWorld) {
-    puzzle.initWorld(ws.world)
-  }
-  if (puzzle.startSpeed) {
-    ws.settings.speed = puzzle.startSpeed
   }
   return ws
 }

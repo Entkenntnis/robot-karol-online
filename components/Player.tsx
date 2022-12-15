@@ -63,7 +63,7 @@ export function Player() {
   })
 
   const actions: { [key: string]: () => void } = {
-    ...(core.ws.type == 'free' || !core.puzzle.disableMovement
+    ...(core.ws.type == 'free'
       ? {
           ArrowLeft: () => {
             left(core)
@@ -257,15 +257,6 @@ export function Player() {
                   core.ws.world.height
                 )
                 initWorld(core)
-                if (core.puzzle.code.trim() !== core.ws.code.trim()) {
-                  const val = confirm(
-                    'Der Code wurde verändert. Dieser wird auch zurückgesetzt. Fortfahren?'
-                  )
-                  if (val) {
-                    resetCode(core)
-                    core.deleteWsFromStorage(core.puzzle.id)
-                  }
-                }
               }}
             >
               Neu starten
@@ -304,7 +295,7 @@ export function Player() {
         )}
       >
         <div>
-          {(core.ws.type !== 'puzzle' || !core.puzzle.disableMovement) && (
+          {core.ws.type !== 'puzzle' && (
             <>
               <button
                 className="mx-3 py-2"

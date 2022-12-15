@@ -44,54 +44,7 @@ export function Workspace() {
           </button>
         </div>
       )}
-      {core.ws.type == 'puzzle' &&
-        !core.ws.preMode &&
-        core.ws.progress < 100 &&
-        core.ws.ui.state !== 'running' && (
-          <div className="absolute right-1 top-1  z-10">
-            {core.ws.code.trim() !== core.puzzle.code.trim() &&
-              core.ws.progress > 0 && (
-                <button
-                  className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 rounded mr-2"
-                  onClick={() => {
-                    openMenu(core)
-                    core.setWsToStorage(
-                      core.puzzle.id,
-                      core.ws.world,
-                      core.ws.code
-                    )
-                  }}
-                >
-                  Speichern &amp; schließen
-                </button>
-              )}
-            <button
-              className={clsx(
-                'rounded',
-                'px-2 py-0.5 bg-blue-300 hover:bg-blue-400'
-              )}
-              onClick={() => {
-                if (
-                  core.ws.type == 'puzzle' &&
-                  core.ws.code.trim() !== core.puzzle.code.trim() &&
-                  core.ws.progress > 0
-                ) {
-                  const val = confirm(
-                    'Ungespeicherte Änderungen gehen verloren. Fortfahren?'
-                  )
-                  if (val) {
-                    core.deleteWsFromStorage(core.puzzle.id)
-                  } else {
-                    return
-                  }
-                }
-                openMenu(core)
-              }}
-            >
-              Schließen
-            </button>
-          </div>
-        )}
+
       <ReflexContainer
         orientation="vertical"
         windowResizeAware

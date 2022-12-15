@@ -3,8 +3,6 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { impressum } from '../impressum'
 import { switchToEditor, switchToPuzzle } from '../lib/commands/menu'
-import { paths } from '../lib/data/paths'
-import { puzzles } from '../lib/data/puzzles'
 import { useCore } from '../lib/state/core'
 import { ExternalLink } from './ExternalLink'
 import { FaIcon } from './FaIcon'
@@ -58,67 +56,6 @@ export function Menu() {
           className="relative min-h-[600px] h-full"
           style={{ backgroundImage: 'url("/tile.png")' }}
         >
-          {puzzles.map((puzzle, i) => {
-            if (
-              puzzle.id !== 1 &&
-              !puzzle.deps.some((i) => core.state.done.includes(i))
-            ) {
-              return null // deps failed
-            }
-
-            puzzle.deps.forEach((d) => {
-              const path = paths[puzzle.id]?.[d]
-              if (path && core.state.done.includes(d)) {
-                for (const p of path) {
-                  if (
-                    bricks.findIndex(({ x, y }) => x == p.x && y == p.y) === -1
-                  ) {
-                    bricks.push(p)
-                  }
-                }
-              }
-            })
-
-            return (
-              <div
-                className="absolute cursor-pointer select-none"
-                style={{
-                  left: `${105 + puzzle.posX * 30 - puzzle.posY * 15}px`,
-                  top: `${3 + puzzle.posY * 15}px`,
-                  zIndex: puzzle.posX + 100 * puzzle.posY,
-                }}
-                onClick={() => {
-                  switchToPuzzle(core, puzzle.id)
-                }}
-                key={puzzle.id}
-              >
-                <div className="flex justify-center">
-                  <span
-                    className={clsx(
-                      'px-2 py-0.5 rounded opacity-90',
-                      core.state.done.includes(puzzle.id)
-                        ? 'bg-gray-200'
-                        : 'bg-[yellow]'
-                    )}
-                  >
-                    {puzzle.title}
-                    {core.retrieveWsFromStorage(puzzle.id) && ' (*)'}
-                    {puzzle.id == 1 && core.state.inviteStart && <Ping />}
-                  </span>
-                </div>
-                <img src="/Ziegel.png" alt="Ziegel" className="mt-3"></img>
-                <img
-                  src={
-                    core.state.done.includes(puzzle.id)
-                      ? '/marke_grau.png'
-                      : '/marke.png'
-                  }
-                  alt="Marke"
-                  className={clsx('-mt-[46px]')}
-                ></img>
-              </div>
-            )
-          })}
           {bricks.map(({ x, y }, i) => (
             <img
               src="/Ziegel.png"

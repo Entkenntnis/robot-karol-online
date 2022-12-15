@@ -12,7 +12,6 @@ import produce, { Draft } from 'immer'
 
 import { CoreRefs, CoreState, WorkspaceState, World } from './types'
 import { createDefaultCoreState } from './create'
-import { puzzles } from '../data/puzzles'
 
 // set up core within app
 export function useCreateCore() {
@@ -66,10 +65,7 @@ export class Core {
   }
 
   get puzzle() {
-    if (!this.state.puzzleWorkspace) {
-      throw 'bad'
-    }
-    return puzzles.find((x) => x.id == this.state.puzzleWorkspace!.id)!
+    throw 'bad'
   }
 
   // always mutate core state with this function
