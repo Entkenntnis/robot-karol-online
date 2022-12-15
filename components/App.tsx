@@ -11,6 +11,7 @@ import { submit_event } from '../lib/stats/submit'
 import { loadProject } from '../lib/commands/load'
 import { Ping } from './Ping'
 import { FileInput } from './FileInput'
+import { Quest } from './Quest'
 
 export function App() {
   const core = useCore()
@@ -26,17 +27,16 @@ export function App() {
         <title>{getTitle()}</title>
       </Head>
       <div className="w-full h-full min-w-[900px] relative overflow-hidden">
-        <FileInput />
-        {core.state.showMenu ? <Menu /> : <Workspace />}
+        <Quest />
       </div>
     </>
   )
 
   function getTitle() {
     if (core.state.projectTitle) {
-      return `${core.state.projectTitle} - Robot Karol Web`
+      return `${core.state.projectTitle} - Robot Karol Quest`
     } else {
-      return 'Robot Karol Web'
+      return 'Robot Karol Quest'
     }
   }
 }

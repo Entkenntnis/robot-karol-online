@@ -23,6 +23,71 @@ export function createFreeModeWorkspaceState(): WorkspaceStateFreeMode {
   const ws: WorkspaceState = {
     ...createBaseWorkspace(),
     type: 'free',
+    tasks: [
+      {
+        title: 'Welt 1',
+        start: {
+          dimX: 6,
+          dimY: 6,
+          height: 6,
+          karol: { x: 0, y: 0, dir: 'south' },
+          bricks: [
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+          ],
+        },
+        target: {
+          dimX: 6,
+          dimY: 6,
+          height: 6,
+          karol: { x: 0, y: 0, dir: 'south' },
+          bricks: [
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 0, 0],
+            [0, 0, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [false, false, false, false, false, false],
+          ],
+        },
+      },
+    ],
   }
   return ws
 }
@@ -61,7 +126,7 @@ function createBaseWorkspace(): WorkspaceStateBase {
       messages: [],
       gutter: 0,
       gutterReturns: [],
-      state: 'loading',
+      state: 'quest',
       wireframe: false,
       needsTextRefresh: false,
       preview: undefined,

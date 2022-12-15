@@ -14,7 +14,6 @@ import { execPreview } from '../lib/commands/preview'
 import { abort, patch } from '../lib/commands/vm'
 import { compile } from '../lib/language/compiler'
 import { useCore } from '../lib/state/core'
-import { sendStatusCode } from 'next/dist/server/api-utils'
 
 initCustomBlocks()
 ;(Blockly as any).setLocale(De)

@@ -34,7 +34,7 @@ export interface Ui {
   messages: Message[]
   gutter: number
   gutterReturns: number[]
-  state: 'ready' | 'loading' | 'running' | 'error'
+  state: 'ready' | 'loading' | 'running' | 'error' | 'quest'
   wireframe: boolean
   needsTextRefresh: boolean
   preview?: Preview
@@ -72,8 +72,15 @@ export interface WorkspaceStateBase {
   settings: Settings
 }
 
+export interface QuestTask {
+  title: string
+  start: World
+  target: World
+}
+
 export interface WorkspaceStateFreeMode extends WorkspaceStateBase {
   type: 'free'
+  tasks: QuestTask[]
 }
 
 export interface WorkspaceStatePuzzleMode extends WorkspaceStateBase {
