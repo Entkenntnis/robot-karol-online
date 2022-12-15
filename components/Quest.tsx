@@ -1,18 +1,9 @@
-import {
-  faDiagramProject,
-  faBook,
-  faCode,
-  faShare,
-  faExternalLinkAlt,
-  faInfoCircle,
-  faInfo,
-  faCircleInfo,
-} from '@fortawesome/free-solid-svg-icons'
+import { faBook, faCode, faShare } from '@fortawesome/free-solid-svg-icons'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 import { useCore } from '../lib/state/core'
 import { EditArea } from './EditArea'
 import { FaIcon } from './FaIcon'
-import { Player } from './Player'
+import { Output } from './Output'
 import { Worlds } from './Worlds'
 
 export function Quest() {
@@ -36,7 +27,7 @@ export function Quest() {
         <ReflexSplitter style={{ width: 3 }} />
 
         <ReflexElement minSize={200}>
-          <Worlds />
+          {core.ws.ui.showOutput ? <Output /> : <Worlds />}
         </ReflexElement>
       </ReflexContainer>
       <div className="flex border-t h-[40px] flex-shrink-0">

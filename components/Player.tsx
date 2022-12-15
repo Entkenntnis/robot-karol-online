@@ -153,16 +153,7 @@ export function Player() {
               )}
               ref={wrapper}
               style={{ transform: `scale(${scale})` }}
-            >
-              <View
-                world={core.ws.world}
-                wireframe={core.ws.ui.wireframe}
-                preview={
-                  core.ws.ui.showPreview ? core.ws.ui.preview : undefined
-                }
-                hideKarol={core.ws.ui.hideKarol}
-              />
-            </div>
+            ></div>
           </div>
           <div className="absolute bottom-2 left-2 bg-gray-50">
             {core.ws.ui.messages.map((m) => (

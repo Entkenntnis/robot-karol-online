@@ -7,6 +7,7 @@ interface ViewProps {
   wireframe: boolean
   preview?: Preview
   hideKarol: boolean
+  className: string
 }
 
 interface Resources {
@@ -23,7 +24,13 @@ interface Resources {
   ctx: CanvasRenderingContext2D
 }
 
-export function View({ world, wireframe, hideKarol, preview }: ViewProps) {
+export function View({
+  world,
+  wireframe,
+  hideKarol,
+  preview,
+  className,
+}: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
@@ -348,7 +355,7 @@ export function View({ world, wireframe, hideKarol, preview }: ViewProps) {
       ref={canvas}
       width={width}
       height={height}
-      className="h-full w-full object-contain"
+      className={className}
     ></canvas>
   )
 }

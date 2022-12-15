@@ -15,7 +15,7 @@ export function createWorkspaceState(): WorkspaceState {
       messages: [],
       gutter: 0,
       gutterReturns: [],
-      state: 'quest',
+      state: 'loading',
       wireframe: false,
       needsTextRefresh: false,
       preview: undefined,
@@ -26,6 +26,7 @@ export function createWorkspaceState(): WorkspaceState {
       errorMessages: [],
       toBlockWarning: false,
       editorLoading: false,
+      showOutput: false,
     },
     vm: {
       pc: 0,

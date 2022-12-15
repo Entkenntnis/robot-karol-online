@@ -34,7 +34,7 @@ export interface Ui {
   messages: Message[]
   gutter: number
   gutterReturns: number[]
-  state: 'ready' | 'loading' | 'running' | 'error' | 'quest'
+  state: 'ready' | 'loading' | 'running' | 'error'
   wireframe: boolean
   needsTextRefresh: boolean
   preview?: Preview
@@ -45,6 +45,7 @@ export interface Ui {
   errorMessages: string[]
   toBlockWarning: boolean
   editorLoading: boolean
+  showOutput: boolean
 }
 
 export interface Vm {
