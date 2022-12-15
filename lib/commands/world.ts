@@ -67,7 +67,7 @@ export function brick(core: Core) {
   core.mutateWs((state) => {
     state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] + 1
   })
-  onWorldChange(core)
+  // onWorldChange(core)
   return true
 }
 
@@ -94,7 +94,7 @@ export function unbrick(core: Core) {
   core.mutateWs((state) => {
     state.world.bricks[pos.y][pos.x] = world.bricks[pos.y][pos.x] - 1
   })
-  onWorldChange(core)
+  // onWorldChange(core)
   return true
 }
 
@@ -110,7 +110,7 @@ export function toggleMark(core: Core) {
     world.marks[world.karol.y][world.karol.x] =
       !world.marks[world.karol.y][world.karol.x]
   })
-  onWorldChange(core)
+  // onWorldChange(core)
   return true
 }
 
@@ -126,7 +126,7 @@ export function setMark(core: Core) {
   core.mutateWs(({ world }) => {
     world.marks[world.karol.y][world.karol.x] = true
   })
-  onWorldChange(core)
+  //onWorldChange(core)
   return true
 }
 
@@ -142,7 +142,7 @@ export function resetMark(core: Core) {
   core.mutateWs(({ world }) => {
     world.marks[world.karol.y][world.karol.x] = false
   })
-  onWorldChange(core)
+  //onWorldChange(core)
   return true
 }
 
@@ -165,7 +165,7 @@ export function toggleBlock(core: Core) {
     core.mutateWs(({ world }) => {
       world.blocks[pos.y][pos.x] = false
     })
-    onWorldChange(core)
+    // onWorldChange(core)
     return true
   } else {
     if (bricks[pos.y][pos.x] > 0) {
@@ -179,7 +179,7 @@ export function toggleBlock(core: Core) {
     core.mutateWs(({ world }) => {
       world.blocks[pos.y][pos.x] = true
     })
-    onWorldChange(core)
+    // onWorldChange(core)
     return true
   }
 }
@@ -269,7 +269,5 @@ export function turnRight(h: Heading) {
 }
 
 function isReadOnly(core: Core, x: number, y: number) {
-  return core.ws.type == 'puzzle' && core.ws.progress == 100
+  return true
 }
-
-export function onWorldChange(core: Core) {}

@@ -3,9 +3,6 @@ import { World } from '../state/types'
 import { abort } from './vm'
 
 export function serialize(core: Core) {
-  if (core.ws.type == 'puzzle') {
-    throw new Error("Can't export puzzle")
-  }
   const { world, code } = core.ws
   return { world, code, mode: core.ws.settings.mode }
 }
@@ -52,19 +49,17 @@ export function deserialize(core: Core, file?: string) {
     abort(core)
     core.mutateWs((state) => {
       state.world = world
-      if (state.type == 'free') {
-        state.code = code ?? ''
-        state.ui.preview = undefined
-      }
+      state.code = code ?? ''
+      state.ui.preview = undefined
       if (mode) {
         state.settings.mode = mode
       }
       state.ui.needsTextRefresh = true
       state.ui.editorLoading = false
     })
-    core.mutateCore((state) => {
+    /*core.mutateCore((state) => {
       state.projectInitialWorld = world
-    })
+    })*/
   } catch (e) {
     alert(e ?? 'Laden fehlgeschlagen')
   }

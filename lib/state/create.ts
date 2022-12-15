@@ -1,27 +1,43 @@
-import {
-  CoreState,
-  WorkspaceState,
-  WorkspaceStateBase,
-  WorkspaceStateFreeMode,
-  WorkspaceStatePuzzleMode,
-  World,
-} from './types'
+import { CoreState, WorkspaceState, World } from './types'
 
 export function createDefaultCoreState(): CoreState {
   return {
-    showMenu: false,
     enableStats: true,
-    editorWorkspace: createFreeModeWorkspaceState(),
-    inviteMenu: true,
-    inviteStart: true,
-    done: [],
+    workspace: createWorkspaceState(),
   }
 }
 
-export function createFreeModeWorkspaceState(): WorkspaceStateFreeMode {
+export function createWorkspaceState(): WorkspaceState {
   const ws: WorkspaceState = {
-    ...createBaseWorkspace(),
-    type: 'free',
+    world: createWorld(5, 10, 6),
+    code: '',
+    ui: {
+      messages: [],
+      gutter: 0,
+      gutterReturns: [],
+      state: 'quest',
+      wireframe: false,
+      needsTextRefresh: false,
+      preview: undefined,
+      showPreview: true,
+      shouldFocusWrapper: false,
+      hideKarol: false,
+      keepWorldPreference: false,
+      errorMessages: [],
+      toBlockWarning: false,
+      editorLoading: false,
+    },
+    vm: {
+      pc: 0,
+      frames: [{}],
+      callstack: [],
+      needsConfirmation: false,
+      confirmation: false,
+    },
+    settings: {
+      speed: 'fast',
+      mode: 'blocks',
+    },
     tasks: [
       {
         title: 'Welt 1',
@@ -89,40 +105,6 @@ export function createFreeModeWorkspaceState(): WorkspaceStateFreeMode {
     ],
   }
   return ws
-}
-
-function createBaseWorkspace(): WorkspaceStateBase {
-  return {
-    world: createWorld(5, 10, 6),
-    code: '',
-    ui: {
-      messages: [],
-      gutter: 0,
-      gutterReturns: [],
-      state: 'quest',
-      wireframe: false,
-      needsTextRefresh: false,
-      preview: undefined,
-      showPreview: true,
-      shouldFocusWrapper: false,
-      hideKarol: false,
-      keepWorldPreference: false,
-      errorMessages: [],
-      toBlockWarning: false,
-      editorLoading: false,
-    },
-    vm: {
-      pc: 0,
-      frames: [{}],
-      callstack: [],
-      needsConfirmation: false,
-      confirmation: false,
-    },
-    settings: {
-      speed: 'fast',
-      mode: 'blocks',
-    },
-  }
 }
 
 export function createWorld(dimX: number, dimY: number, height: number): World {

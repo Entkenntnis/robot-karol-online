@@ -20,7 +20,7 @@ export function Worlds() {
         </p>
       </div>
       <div className="flex-grow flex-shrink overflow-y-scroll">
-        {core.ws.type == 'free' && core.ws.tasks.map(renderTask)}
+        {core.ws.tasks.map(renderTask)}
       </div>
       <div className="h-8 flex-shrink-0 flex-grow-0 flex justify-center relative items-center border-t">
         <p className="z-10">2 von 4 Aufgaben gelöst</p>
@@ -49,7 +49,7 @@ function renderTask(task: QuestTask) {
           </button>
         </p>
       </div>
-      <div className="h-48 w-72 m-3" style={{ transform: `scale(${0.7})` }}>
+      <div className="h-48 w-72 m-3">
         <View
           world={task.start}
           preview={{ track: [], world: task.target }}

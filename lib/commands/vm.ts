@@ -241,9 +241,6 @@ export function abort(core: Core) {
     state.vm.pc = 0
     state.vm.handler = undefined
     state.ui.gutterReturns = []
-    if (state.type == 'free' || state.type == 'puzzle') {
-      state.ui.shouldFocusWrapper = true
-    }
   })
 
   setTimeout(() => {

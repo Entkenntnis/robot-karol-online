@@ -71,7 +71,7 @@ export function setLoading(core: Core) {
 }
 
 export function toggleHideKarol(core: Core) {
-  if (window.location.hostname === 'localhost' && core.ws.type == 'free') {
+  if (window.location.hostname === 'localhost') {
     core.mutateWs((ws) => {
       ws.ui.hideKarol = !ws.ui.hideKarol
     })

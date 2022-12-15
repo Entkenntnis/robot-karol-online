@@ -22,7 +22,6 @@ import { focusWrapper, focusWrapperDone } from '../lib/commands/focus'
 import { serialize } from '../lib/commands/json'
 import { restoreProject } from '../lib/commands/load'
 import { execPreview, hidePreview, showPreview } from '../lib/commands/preview'
-import { initWorld, resetCode } from '../lib/commands/puzzle'
 import { share } from '../lib/commands/share'
 import { toggleWireframe } from '../lib/commands/view'
 import { abort, run } from '../lib/commands/vm'
@@ -63,38 +62,30 @@ export function Player() {
   })
 
   const actions: { [key: string]: () => void } = {
-    ...(core.ws.type == 'free'
-      ? {
-          ArrowLeft: () => {
-            left(core)
-          },
-          ArrowRight: () => {
-            right(core)
-          },
-          ArrowUp: () => {
-            forward(core)
-          },
-          ArrowDown: () => {
-            forward(core, { reverse: true })
-          },
-        }
-      : {}),
-    ...(core.ws.type == 'free'
-      ? {
-          KeyM: () => {
-            toggleMark(core)
-          },
-          KeyH: () => {
-            brick(core)
-          },
-          KeyQ: () => {
-            toggleBlock(core)
-          },
-          KeyA: () => {
-            unbrick(core)
-          },
-        }
-      : {}),
+    ArrowLeft: () => {
+      left(core)
+    },
+    ArrowRight: () => {
+      right(core)
+    },
+    ArrowUp: () => {
+      forward(core)
+    },
+    ArrowDown: () => {
+      forward(core, { reverse: true })
+    },
+    KeyM: () => {
+      toggleMark(core)
+    },
+    KeyH: () => {
+      brick(core)
+    },
+    KeyQ: () => {
+      toggleBlock(core)
+    },
+    KeyA: () => {
+      unbrick(core)
+    },
     ...{
       KeyW: () => {
         toggleWireframe(core)
@@ -131,8 +122,7 @@ export function Player() {
                   if (
                     core.ws.ui.state == 'ready' &&
                     core.ws.vm.bytecode &&
-                    core.ws.vm.bytecode.length > 0 &&
-                    (!(core.ws.type == 'puzzle') || core.ws.progress < 100)
+                    core.ws.vm.bytecode.length > 0
                   ) {
                     run(core)
                   } else if (core.ws.ui.state == 'running') {
@@ -182,111 +172,33 @@ export function Player() {
               </div>
             ))}
           </div>
-          {core.ws.type == 'free' && (
-            <div className="absolute right-3 bottom-2">
-              <button
-                className="px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
-                onClick={() => {
-                  setShowShareModal(true)
-                }}
-              >
-                <FaIcon icon={faShare} /> Teilen
-              </button>
-            </div>
-          )}
-          {core.ws.type == 'free' && (
-            <div className="absolute left-1 top-1">
-              {core.state.projectTitle ? (
-                <>
-                  <button
-                    className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
-                    onClick={() => {
-                      abort(core)
-                      restoreProject(core)
-                    }}
-                  >
-                    Welt zurücksetzen
-                  </button>
-                  <button
-                    className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-4"
-                    onClick={() => {
-                      window.open(`//${window.location.host}`, '_blank')
-                    }}
-                  >
-                    Neues Fenster <FaIcon icon={faExternalLink} />
-                  </button>
-                  {renderExport()}
-                </>
-              ) : (
-                <>
-                  <button
-                    className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
-                    onClick={() => {
-                      setShowNewWorldModal(true)
-                    }}
-                  >
-                    Neue Welt
-                  </button>
-                  {core.state.projectInitialWorld && (
-                    <button
-                      className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200 ml-3"
-                      onClick={() => {
-                        abort(core)
-                        restoreProject(core)
-                      }}
-                    >
-                      <FaIcon icon={faRefresh} /> Welt zurücksetzen
-                    </button>
-                  )}
-                </>
-              )}
-            </div>
-          )}
-          {core.ws.type == 'puzzle' && core.ws.progress < 100 && (
+          <div className="absolute right-3 bottom-2">
             <button
-              className={clsx(
-                'absolute left-1 top-1 rounded',
-                'px-2 py-0.5 bg-gray-100 hover:bg-gray-200'
-              )}
+              className="px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
               onClick={() => {
-                abort(core)
-                createWorldCmd(
-                  core,
-                  core.ws.world.dimX,
-                  core.ws.world.dimY,
-                  core.ws.world.height
-                )
-                initWorld(core)
+                setShowShareModal(true)
               }}
             >
-              Neu starten
+              <FaIcon icon={faShare} /> Teilen
             </button>
-          )}
-        </div>
-      </div>
+          </div>
 
-      {core.ws.type == 'puzzle' && (
-        <div className="flex justify-between items-center select-none h-12 border-t flex-grow-0 flex-shrink-0">
-          <div className="pl-4">Fortschritt:</div>
-          <div
-            className={clsx(
-              'bg-gray-200 w-full px-1 mx-3 relative flex justify-around',
-              'items-center'
-            )}
-          >
-            <div
-              className={clsx(
-                'absolute left-0 top-0 bottom-0',
-                core.ws.progress < 100 ? 'bg-yellow-200' : 'bg-green-300'
-              )}
-              style={{
-                width: `${core.ws.progress}%`,
-              }}
-            ></div>
-            <div className="z-10">{core.ws.progress}%</div>
+          <div className="absolute left-1 top-1">
+            (
+            <>
+              <button
+                className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
+                onClick={() => {
+                  setShowNewWorldModal(true)
+                }}
+              >
+                Neue Welt
+              </button>
+            </>
+            )
           </div>
         </div>
-      )}
+      </div>
 
       <div
         className={clsx(
@@ -295,77 +207,70 @@ export function Player() {
         )}
       >
         <div>
-          {core.ws.type !== 'puzzle' && (
-            <>
-              <button
-                className="mx-3 py-2"
-                onClick={() => {
-                  runAction('ArrowLeft')
-                }}
-                title="LinksDrehen"
-              >
-                <FaIcon icon={faLeftLong} />
-              </button>
-              <button
-                className=" px-2"
-                onClick={() => {
-                  runAction('ArrowUp')
-                }}
-                title="Schritt"
-              >
-                <FaIcon icon={faUpLong} />
-              </button>
-              <button
-                className="mx-3 py-2"
-                onClick={() => {
-                  runAction('ArrowRight')
-                }}
-                title="RechtsDrehen"
-              >
-                <FaIcon icon={faRightLong} />
-              </button>
-            </>
-          )}
-          {core.ws.type == 'free' && (
-            <>
-              <button
-                className="mx-2"
-                onClick={() => {
-                  runAction('KeyH')
-                }}
-                title="Hinlegen"
-              >
-                H
-              </button>
-              <button
-                className="mx-3"
-                onClick={() => {
-                  runAction('KeyA')
-                }}
-                title="Aufheben"
-              >
-                A
-              </button>
-              <button
-                className="mx-3"
-                onClick={() => {
-                  runAction('KeyM')
-                }}
-                title="MarkeSetzen / MarkeLöschen"
-              >
-                M
-              </button>
-              <button
-                className="mx-3"
-                onClick={() => {
-                  runAction('KeyQ')
-                }}
-                title="Quader setzen oder löschen"
-              >
-                Q
-              </button>
-            </>
-          )}
+          <button
+            className="mx-3 py-2"
+            onClick={() => {
+              runAction('ArrowLeft')
+            }}
+            title="LinksDrehen"
+          >
+            <FaIcon icon={faLeftLong} />
+          </button>
+          <button
+            className=" px-2"
+            onClick={() => {
+              runAction('ArrowUp')
+            }}
+            title="Schritt"
+          >
+            <FaIcon icon={faUpLong} />
+          </button>
+          <button
+            className="mx-3 py-2"
+            onClick={() => {
+              runAction('ArrowRight')
+            }}
+            title="RechtsDrehen"
+          >
+            <FaIcon icon={faRightLong} />
+          </button>
+
+          <button
+            className="mx-2"
+            onClick={() => {
+              runAction('KeyH')
+            }}
+            title="Hinlegen"
+          >
+            H
+          </button>
+          <button
+            className="mx-3"
+            onClick={() => {
+              runAction('KeyA')
+            }}
+            title="Aufheben"
+          >
+            A
+          </button>
+          <button
+            className="mx-3"
+            onClick={() => {
+              runAction('KeyM')
+            }}
+            title="MarkeSetzen / MarkeLöschen"
+          >
+            M
+          </button>
+          <button
+            className="mx-3"
+            onClick={() => {
+              runAction('KeyQ')
+            }}
+            title="Quader setzen oder löschen"
+          >
+            Q
+          </button>
           {/* <span className="ml-4 h-7 border-r"></span>
 
           <img

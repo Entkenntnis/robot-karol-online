@@ -22,10 +22,8 @@ import { abort, confirmStep, run, setSpeed } from '../lib/commands/vm'
 import { FaIcon } from './FaIcon'
 import { execPreview, hidePreview, showPreview } from '../lib/commands/preview'
 import { submit_event } from '../lib/stats/submit'
-import { openMenu } from '../lib/commands/menu'
 import { Editor } from './Editor'
 import { textRefreshDone } from '../lib/commands/json'
-import { leavePreMode } from '../lib/commands/puzzle'
 import { focusWrapper } from '../lib/commands/focus'
 import { setMode } from '../lib/commands/mode'
 import { BlockEditor } from './BlockEditor'
@@ -114,12 +112,8 @@ export function EditArea() {
   }
 
   function renderProgramControl() {
-    if (core.ws.type == 'puzzle' && core.ws.progress == 100) return null
     if (codeState == 'ready' || codeState == 'running') {
-      if (
-        core.ws.type == 'free' &&
-        (!core.ws.vm.bytecode || core.ws.vm.bytecode.length == 0)
-      ) {
+      if (!core.ws.vm.bytecode || core.ws.vm.bytecode.length == 0) {
         return (
           <div className="m-[11px] mt-[2px]">
             <span className="-ml-3">{renderCodeBlockSwitch()}</span>{' '}
@@ -130,9 +124,7 @@ export function EditArea() {
         return (
           <>
             <span>
-              {core.ws.type == 'free' &&
-                codeState == 'ready' &&
-                renderCodeBlockSwitch()}
+              {codeState == 'ready' && renderCodeBlockSwitch()}
               <select
                 className="h-7 mr-2 ml-2"
                 value={core.ws.settings.speed}
@@ -203,7 +195,7 @@ export function EditArea() {
                     view.current.contentDOM.blur()
                   }
                   run(core)
-                  submit_event(`run_${core.ws.type}`, core)
+                  submit_event(`run_free`, core)
                 }}
               >
                 <FaIcon icon={faPlay} /> <span className="underline">S</span>

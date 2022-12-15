@@ -344,7 +344,12 @@ export function View({ world, wireframe, hideKarol, preview }: ViewProps) {
   }, [resources, world, wireframe, preview, hideKarol])
 
   return (
-    <canvas ref={canvas} width={width} height={height} className="m-4"></canvas>
+    <canvas
+      ref={canvas}
+      width={width}
+      height={height}
+      className="h-full w-full object-contain"
+    ></canvas>
   )
 }
 

@@ -64,12 +64,13 @@ export interface Settings {
   mode: 'code' | 'blocks'
 }
 
-export interface WorkspaceStateBase {
+export interface WorkspaceState {
   world: World
   ui: Ui
   code: string
   vm: Vm
   settings: Settings
+  tasks: QuestTask[]
 }
 
 export interface QuestTask {
@@ -78,44 +79,9 @@ export interface QuestTask {
   target: World
 }
 
-export interface WorkspaceStateFreeMode extends WorkspaceStateBase {
-  type: 'free'
-  tasks: QuestTask[]
-}
-
-export interface WorkspaceStatePuzzleMode extends WorkspaceStateBase {
-  type: 'puzzle'
-  id: number
-  preMode: boolean
-  progress: number
-}
-
-export interface Puzzle {
-  id: number
-  title: string
-  posX: number
-  posY: number
-  targetWorld: World
-  description: JSX.Element
-  code: string
-  deps: number[]
-  initWorld?: (world: World) => void
-  startSpeed?: Speed
-  disableMovement?: boolean
-}
-
-export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStatePuzzleMode
-
 export interface CoreState {
-  showMenu: boolean
   enableStats: boolean
-  projectTitle?: string
-  projectInitialWorld?: World
-  puzzleWorkspace?: WorkspaceStatePuzzleMode
-  editorWorkspace: WorkspaceStateFreeMode
-  inviteMenu: boolean
-  inviteStart: boolean
-  done: number[]
+  workspace: WorkspaceState
 }
 
 export interface CoreRefs {

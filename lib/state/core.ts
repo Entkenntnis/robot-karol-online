@@ -61,11 +61,7 @@ export class Core {
   }
 
   get ws() {
-    return this.state.puzzleWorkspace || this.state.editorWorkspace
-  }
-
-  get puzzle() {
-    throw 'bad'
+    return this.state.workspace
   }
 
   // always mutate core state with this function
@@ -78,7 +74,7 @@ export class Core {
   // proxy call to core, workspace aware
   mutateWs(updater: (draft: Draft<WorkspaceState>) => void) {
     this.mutateCore((state) => {
-      updater(state.puzzleWorkspace || state.editorWorkspace)
+      updater(state.workspace)
     })
   }
 

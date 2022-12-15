@@ -11,13 +11,13 @@ export async function loadProject(core: Core) {
       const text = await res.text()
       const title = file.match(/\/([^\/]+\.json)/)
       if (title) {
-        core.mutateCore((core) => {
+        /*core.mutateCore((core) => {
           core.projectTitle = title[1]
-        })
+        })*/
       }
       deserialize(core, text)
       core.mutateWs((ws) => {
-        if (ws.type == 'free') ws.ui.showPreview = false
+        ws.ui.showPreview = false
         ws.settings.mode = 'code'
       })
     } catch (e) {}
@@ -34,7 +34,7 @@ export async function loadProject(core: Core) {
       const text = await res.text()
       deserialize(core, text)
       core.mutateWs((ws) => {
-        if (ws.type == 'free') ws.ui.showPreview = false
+        ws.ui.showPreview = false
       })
     } catch (e) {}
   }
@@ -42,8 +42,8 @@ export async function loadProject(core: Core) {
 
 export function restoreProject(core: Core) {
   core.mutateWs((ws) => {
-    if (core.state.projectInitialWorld) {
+    /*if (core.state.projectInitialWorld) {
       ws.world = core.state.projectInitialWorld
-    }
+    }*/
   })
 }

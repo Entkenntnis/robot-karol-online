@@ -5,7 +5,6 @@ import clsx from 'clsx'
 import { useCore } from '../lib/state/core'
 import { Menu } from './Menu'
 import { Workspace } from './Workspace'
-import { openMenu } from '../lib/commands/menu'
 import { deserialize } from '../lib/commands/json'
 import { submit_event } from '../lib/stats/submit'
 import { loadProject } from '../lib/commands/load'
@@ -24,19 +23,11 @@ export function App() {
   return (
     <>
       <Head>
-        <title>{getTitle()}</title>
+        <title>Robot Karol Quest</title>
       </Head>
       <div className="w-full h-full min-w-[900px] relative overflow-hidden">
         <Quest />
       </div>
     </>
   )
-
-  function getTitle() {
-    if (core.state.projectTitle) {
-      return `${core.state.projectTitle} - Robot Karol Quest`
-    } else {
-      return 'Robot Karol Quest'
-    }
-  }
 }

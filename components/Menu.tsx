@@ -2,7 +2,6 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { useState } from 'react'
 import { impressum } from '../impressum'
-import { switchToEditor, switchToPuzzle } from '../lib/commands/menu'
 import { useCore } from '../lib/state/core'
 import { ExternalLink } from './ExternalLink'
 import { FaIcon } from './FaIcon'
@@ -33,16 +32,7 @@ export function Menu() {
           />
           Robot Karol <span className="italic">Web</span>
         </div>
-        <div>
-          <button
-            className="px-2 py-0.5 rounded mr-1 bg-blue-300 hover:bg-blue-400"
-            onClick={() => {
-              switchToEditor(core)
-            }}
-          >
-            zurück zum Editor
-          </button>
-        </div>
+        <div></div>
       </div>
     )
   }
