@@ -18,20 +18,13 @@ export function createWorkspaceState(): WorkspaceState {
       state: 'loading',
       wireframe: false,
       needsTextRefresh: false,
-      preview: undefined,
-      showPreview: true,
-      shouldFocusWrapper: false,
-      hideKarol: false,
-      keepWorldPreference: false,
       errorMessages: [],
       toBlockWarning: false,
       editorLoading: false,
       showOutput: false,
       speedSliderValue: 4.4,
       showMenu: false,
-      progress: 0,
       showPreviewOfTarget: false,
-      completed: [],
     },
     vm: {
       pc: 0,
@@ -41,78 +34,83 @@ export function createWorkspaceState(): WorkspaceState {
       confirmation: false,
     },
     settings: {
-      speed: 'fast',
       mode: 'blocks',
     },
-    title: 'Herzlich Willkommen',
-    description:
-      'Hallo, das ist eine Quest von Robot Karol. Es geht darum, ein Programm zu schreiben,' +
-      'dass in der Lage ist, alle Welten auf den Zielzustand zu bringen. Baue dazu im Block-Editor deine Welt zusammen und starte dann das Programm.',
-    tasks: [
-      {
-        title: 'Auftrag 1: Ziegel in der Mitte',
-        start: {
-          dimX: 6,
-          dimY: 6,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'south' },
-          bricks: [
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-          ],
-          marks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
-          blocks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
+    quest: {
+      progress: 0,
+      title: 'Herzlich Willkommen',
+      description:
+        'Hallo, das ist eine Quest von Robot Karol. Es geht darum, ein Programm zu schreiben,' +
+        'dass in der Lage ist, alle Welten auf den Zielzustand zu bringen. Baue dazu im Block-Editor deine Welt zusammen und starte dann das Programm.',
+      completed: [],
+      tasks: [
+        {
+          title: 'Auftrag 1: Ziegel in der Mitte',
+          start: {
+            dimX: 6,
+            dimY: 6,
+            height: 6,
+            karol: { x: 0, y: 0, dir: 'south' },
+            bricks: [
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+            ],
+            marks: [
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+            blocks: [
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+          },
+          target: {
+            dimX: 6,
+            dimY: 6,
+            height: 6,
+            karol: { x: 0, y: 0, dir: 'south' },
+            bricks: [
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 1, 1, 0, 0],
+              [0, 0, 1, 1, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+            ],
+            marks: [
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+            blocks: [
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+          },
         },
-        target: {
-          dimX: 6,
-          dimY: 6,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'south' },
-          bricks: [
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 1, 0, 0],
-            [0, 0, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-          ],
-          marks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
-          blocks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
-        },
-      },
-      /*{
+      ],
+    },
+
+    /*{
         title: 'Welt 2',
         start: {
           dimX: 6,
@@ -301,7 +299,6 @@ export function createWorkspaceState(): WorkspaceState {
           ],
         },
       },*/
-    ],
   }
   return ws
 }

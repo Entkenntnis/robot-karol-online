@@ -50,7 +50,6 @@ export function deserialize(core: Core, file?: string) {
     console.log(code)
     core.mutateWs((state) => {
       state.code = code ?? ''
-      state.ui.preview = undefined
       if (mode) {
         state.settings.mode = mode
       }
@@ -58,7 +57,9 @@ export function deserialize(core: Core, file?: string) {
       state.ui.editorLoading = false
     })
     core.mutateCore((state) => {
-      state.workspace.tasks = [{ start: world, title: 'Welt', target: world }]
+      state.workspace.quest.tasks = [
+        { start: world, title: 'Welt', target: world },
+      ]
     })
   } catch (e) {
     alert(e ?? 'Laden fehlgeschlagen')

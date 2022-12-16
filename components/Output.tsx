@@ -22,9 +22,10 @@ export function Output() {
           world={core.ws.world}
           preview={
             core.ws.ui.showPreviewOfTarget &&
-            core.ws.ui.lastStartedTask !== undefined
+            core.ws.quest.lastStartedTask !== undefined
               ? {
-                  world: core.ws.tasks[core.ws.ui.lastStartedTask!].target,
+                  world:
+                    core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target,
                   track: [],
                 }
               : undefined
@@ -43,11 +44,11 @@ export function Output() {
 
       <div className="h-8 flex-shrink-0 flex-grow-0 border-t flex select-none">
         <div className="flex justify-center relative items-center flex-grow">
-          <p className="z-10">Fortschritt: {core.ws.ui.progress}%</p>
+          <p className="z-10">Fortschritt: {core.ws.quest.progress}%</p>
           <div className="absolute inset-0 border-r">
             <div
               className="h-full bg-green-200"
-              style={{ width: `${core.ws.ui.progress}%` }}
+              style={{ width: `${core.ws.quest.progress}%` }}
             ></div>
           </div>
         </div>

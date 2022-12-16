@@ -9,7 +9,6 @@ import { codeToXml } from '../lib/blockly/codeToXml'
 import { initCustomBlocks } from '../lib/blockly/customBlocks'
 import { KAROL_TOOLBOX } from '../lib/blockly/toolbox'
 import { parser } from '../lib/codemirror/parser/parser'
-import { execPreview } from '../lib/commands/preview'
 import { abort, patch } from '../lib/commands/vm'
 import { compile } from '../lib/language/compiler'
 import { useCore } from '../lib/state/core'
@@ -158,7 +157,6 @@ export function BlockEditor() {
       if (topBlocks.length > 1) {
         core.mutateWs((ws) => {
           ws.ui.state = 'error'
-          ws.ui.preview = undefined
           ws.ui.errorMessages = [`Alle Blöcke müssen zusammenhängen.`]
         })
       } else {
@@ -170,9 +168,6 @@ export function BlockEditor() {
 
         if (warnings.length == 0) {
           patch(core, output)
-          setTimeout(() => {
-            execPreview(core)
-          }, 10)
         } else {
           core.mutateWs(({ vm, ui }) => {
             vm.bytecode = undefined

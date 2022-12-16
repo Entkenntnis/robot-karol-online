@@ -37,21 +37,13 @@ export interface Ui {
   state: 'ready' | 'loading' | 'running' | 'error' | 'stopped'
   wireframe: boolean
   needsTextRefresh: boolean
-  preview?: Preview
-  showPreview: boolean
-  shouldFocusWrapper: boolean
-  hideKarol: boolean
-  keepWorldPreference: boolean
   errorMessages: string[]
   toBlockWarning: boolean
   editorLoading: boolean
   showOutput: boolean
   speedSliderValue: number
-  lastStartedTask?: number
   showMenu: boolean
-  progress: number
   showPreviewOfTarget: boolean
-  completed: number[]
 }
 
 export interface Vm {
@@ -64,11 +56,17 @@ export interface Vm {
   confirmation: boolean
 }
 
-export type Speed = 'slow' | 'fast' | 'step' | 'turbo'
-
 export interface Settings {
-  speed: Speed
   mode: 'code' | 'blocks'
+}
+
+export interface Quest {
+  tasks: QuestTask[]
+  title: string
+  description: string
+  completed: number[]
+  progress: number
+  lastStartedTask?: number
 }
 
 export interface WorkspaceState {
@@ -77,9 +75,7 @@ export interface WorkspaceState {
   code: string
   vm: Vm
   settings: Settings
-  tasks: QuestTask[]
-  title: string
-  description: string
+  quest: Quest
 }
 
 export interface QuestTask {

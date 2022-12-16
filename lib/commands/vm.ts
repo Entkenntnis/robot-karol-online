@@ -1,7 +1,6 @@
 import { Core } from '../state/core'
-import { Condition, Op, Speed } from '../state/types'
+import { Condition, Op } from '../state/types'
 import { addMessage } from './messages'
-import { execPreview } from './preview'
 import {
   forward,
   left,
@@ -30,7 +29,6 @@ export function run(core: Core) {
     vm.callstack = []
     vm.needsConfirmation = false
     vm.confirmation = false
-    ui.preview = undefined
   })
   const now = new Date()
 
@@ -90,25 +88,6 @@ function internal_step(core: Core) {
     core.mutateWs(({ ui }) => {
       ui.gutter = line
     })
-
-    if (core.ws.settings.speed == 'step') {
-      if (core.ws.vm.needsConfirmation && core.ws.vm.confirmation) {
-        // ok, confirmation is given
-        core.mutateWs(({ vm }) => {
-          vm.needsConfirmation = false
-          vm.confirmation = false
-        })
-      } else if (core.ws.vm.needsConfirmation && !core.ws.vm.confirmation) {
-        // no confirmation given yet
-        return
-      } else {
-        core.mutateWs(({ vm }) => {
-          vm.needsConfirmation = true
-          vm.confirmation = false
-        })
-        return
-      }
-    }
   }
 
   if (op.type == 'action') {
@@ -240,17 +219,6 @@ export function testCondition(core: Core, cond: Condition) {
   }
 }
 
-export function setSpeed(core: Core, val: string) {
-  const speed = val as Speed
-  clearTimeout(core.ws.vm.handler!)
-  core.mutateWs((state) => {
-    state.settings.speed = speed
-  })
-  if (core.ws.ui.state == 'running') {
-    internal_step(core)
-  }
-}
-
 export function abort(core: Core) {
   clearTimeout(core.ws.vm.handler!)
   core.mutateWs((state) => {
@@ -260,10 +228,6 @@ export function abort(core: Core) {
     state.vm.handler = undefined
     state.ui.gutterReturns = []
   })
-
-  setTimeout(() => {
-    execPreview(core)
-  }, 10)
 }
 
 export function confirmStep(core: Core) {

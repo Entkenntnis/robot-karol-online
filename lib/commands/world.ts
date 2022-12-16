@@ -194,7 +194,6 @@ export function createWorldCmd(
   const previous = core.ws.world
   core.mutateWs((state) => {
     state.world = createWorld(x, y, z)
-    state.ui.preview = undefined
     // copy existing state
     if (keep) {
       for (let x2 = 0; x2 < x; x2++) {
@@ -207,9 +206,6 @@ export function createWorldCmd(
         }
       }
       state.world.karol = previous.karol
-    }
-    if (keep !== undefined) {
-      state.ui.keepWorldPreference = keep
     }
   })
 }
@@ -278,8 +274,8 @@ function karolCrashed(core: Core, error: string) {
 }
 
 export function onWorldChange(core: Core) {
-  if (core.ws.ui.lastStartedTask === undefined) return
-  const task = core.ws.tasks[core.ws.ui.lastStartedTask]
+  if (core.ws.quest.lastStartedTask === undefined) return
+  const task = core.ws.quest.tasks[core.ws.quest.lastStartedTask]
 
   let correctFields = 0
   let nonEmptyFields = 0
@@ -312,7 +308,7 @@ export function onWorldChange(core: Core) {
   )
 
   core.mutateWs((ws) => {
-    ws.ui.progress = progress
+    ws.quest.progress = progress
   })
 
   /*const id = core.ws.id

@@ -3,7 +3,7 @@ import { deserialize } from './json'
 
 export async function loadProject(core: Core) {
   const parameterList = new URLSearchParams(window.location.search)
-  const file = parameterList.get('project')
+  /*const file = parameterList.get('project')
 
   if (file) {
     try {
@@ -21,7 +21,7 @@ export async function loadProject(core: Core) {
         ws.settings.mode = 'code'
       })
     } catch (e) {}
-  }
+  }*/
 
   const id = parameterList.get('id')
 
@@ -33,9 +33,6 @@ export async function loadProject(core: Core) {
       const res = await fetch(`https://stats-karol.arrrg.de/load/${id}`)
       const text = await res.text()
       deserialize(core, text)
-      core.mutateWs((ws) => {
-        ws.ui.showPreview = false
-      })
     } catch (e) {}
   }
 }

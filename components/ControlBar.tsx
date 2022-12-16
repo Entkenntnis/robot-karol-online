@@ -1,5 +1,6 @@
 import {
   faCaretLeft,
+  faCircleCheck,
   faRotateRight,
   faStop,
   faTrashCan,
@@ -11,6 +12,34 @@ import { FaIcon } from './FaIcon'
 
 export function ControlBar() {
   const core = useCore()
+  if (
+    core.ws.quest.progress == 100 &&
+    core.ws.ui.state != 'running' &&
+    core.ws.ui.messages.some((m) => m.text.includes('Ausführung beendet'))
+  ) {
+    return (
+      <div className="flex items-center justify-center p-2">
+        <p className="text-center">
+          Gut gemacht! Du hast den Auftrag erfolgreich erfüllt.
+          <br />
+          <button
+            onClick={() => {
+              core.mutateWs((ws) => {
+                ws.ui.showOutput = false
+                ws.ui.state = 'ready'
+                ws.quest.completed.push(ws.quest.lastStartedTask!)
+              })
+            }}
+            className="px-2 py-0.5 rounded bg-green-200 ml-3 mt-3 mb-2"
+          >
+            <FaIcon icon={faCircleCheck} className="mr-1" />
+            Abschließen
+          </button>
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="flex justify-between items-center">
       <div>
@@ -32,9 +61,10 @@ export function ControlBar() {
           <>
             <button
               onClick={() => {
-                if (core.ws.ui.lastStartedTask !== undefined) {
+                if (core.ws.quest.lastStartedTask !== undefined) {
                   core.mutateWs((ws) => {
-                    ws.world = ws.tasks[core.ws.ui.lastStartedTask!].start
+                    ws.world =
+                      ws.quest.tasks[core.ws.quest.lastStartedTask!].start
                     ws.ui.messages = []
                   })
                   run(core)
@@ -46,12 +76,13 @@ export function ControlBar() {
               Programm neu starten
             </button>
             {core.ws.world !=
-              core.ws.tasks[core.ws.ui.lastStartedTask!].start && (
+              core.ws.quest.tasks[core.ws.quest.lastStartedTask!].start && (
               <button
                 onClick={() => {
-                  if (core.ws.ui.lastStartedTask !== undefined) {
+                  if (core.ws.quest.lastStartedTask !== undefined) {
                     core.mutateWs((ws) => {
-                      ws.world = ws.tasks[core.ws.ui.lastStartedTask!].start
+                      ws.world =
+                        ws.quest.tasks[core.ws.quest.lastStartedTask!].start
                       ws.ui.messages = []
                     })
                     //run(core)
@@ -77,6 +108,7 @@ export function ControlBar() {
           </button>
         )}
       </div>
+
       <div className="w-64 mr-3 my-1">
         Geschwindigkeit:{' '}
         {(
