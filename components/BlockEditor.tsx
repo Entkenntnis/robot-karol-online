@@ -1,6 +1,5 @@
 import Blockly, { WorkspaceSvg } from 'blockly'
 import { useRef, useState, useEffect } from 'react'
-import { Tree } from '@lezer/common'
 import { Text } from '@codemirror/state'
 
 // @ts-ignore
@@ -56,23 +55,20 @@ export function BlockEditor() {
 
     //console.log('initial', initialXml)
 
-    const blocklyWorkspace = Blockly.inject(
-      editorDiv.current,
-      {
-        toolbox: KAROL_TOOLBOX,
-        grid: {
-          spacing: 20,
-          length: 3,
-          colour: '#ccc',
-        },
-        scrollbars: true,
-        trashcan: true,
-        move: {
-          drag: true,
-          wheel: true,
-        },
-      } as any /* wtf blockly types are weird*/
-    )
+    const blocklyWorkspace = Blockly.inject(editorDiv.current, {
+      toolbox: KAROL_TOOLBOX,
+      grid: {
+        spacing: 20,
+        length: 3,
+        colour: '#ccc',
+      },
+      scrollbars: true,
+      trashcan: true,
+      move: {
+        drag: true,
+        wheel: true,
+      },
+    })
 
     blocklyWorkspaceSvg.current = blocklyWorkspace
 

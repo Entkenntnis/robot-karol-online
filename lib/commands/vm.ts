@@ -1,5 +1,6 @@
 import { Core } from '../state/core'
 import { Condition, Op, Speed } from '../state/types'
+import { addMessage } from './messages'
 import { execPreview } from './preview'
 import {
   forward,
@@ -31,6 +32,20 @@ export function run(core: Core) {
     vm.confirmation = false
     ui.preview = undefined
   })
+  const now = new Date()
+
+  // TODO: move to separate file
+  core.mutateWs(({ ui }) => {
+    ui.messages = []
+  })
+
+  addMessage(
+    core,
+    `[${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}:${now
+      .getSeconds()
+      .toString()
+      .padStart(2, '0')}] Programm gestartet.`
+  )
   internal_step(core)
 }
 
@@ -49,6 +64,7 @@ function internal_step(core: Core) {
   if (pc >= byteCode.length) {
     // end reached
     callWithDelay(core, () => abort(core), byteCode.length == 0 ? 400 : 0)
+    addMessage(core, 'Ausführung beendet.')
     return
   }
 
@@ -62,12 +78,10 @@ function internal_step(core: Core) {
     this.current.vm.callstack
   )*/
 
-  const delay =
-    core.ws.settings.speed == 'slow'
-      ? 300
-      : core.ws.settings.speed == 'fast'
-      ? 50
-      : 0
+  const delay = Math.round(
+    1000 / ((Math.exp(core.ws.ui.speedSliderValue) / Math.exp(5.5)) * 60)
+  )
+  console.log(delay)
 
   //console.log(this.state.ui.gutterReturns)
 
@@ -102,8 +116,9 @@ function internal_step(core: Core) {
       core,
       () => {
         if (op.type == 'action') {
+          let result = undefined
           if (op.command == 'forward') {
-            forward(core)
+            result = forward(core)
           }
           if (op.command == 'left') {
             left(core)
@@ -112,16 +127,19 @@ function internal_step(core: Core) {
             right(core)
           }
           if (op.command == 'brick') {
-            brick(core)
+            result = brick(core)
           }
           if (op.command == 'unbrick') {
-            unbrick(core)
+            result = unbrick(core)
           }
           if (op.command == 'setMark') {
-            setMark(core)
+            result = setMark(core)
           }
           if (op.command == 'resetMark') {
-            resetMark(core)
+            result = resetMark(core)
+          }
+          if (result === false) {
+            return
           }
           core.mutateWs((state) => {
             state.vm.pc++
@@ -237,7 +255,7 @@ export function abort(core: Core) {
   clearTimeout(core.ws.vm.handler!)
   core.mutateWs((state) => {
     state.ui.gutter = 0
-    state.ui.state = 'ready'
+    state.ui.state = 'stopped'
     state.vm.pc = 0
     state.vm.handler = undefined
     state.ui.gutterReturns = []

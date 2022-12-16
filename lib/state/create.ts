@@ -27,6 +27,11 @@ export function createWorkspaceState(): WorkspaceState {
       toBlockWarning: false,
       editorLoading: false,
       showOutput: false,
+      speedSliderValue: 4.4,
+      showMenu: false,
+      progress: 0,
+      showPreviewOfTarget: false,
+      completed: [],
     },
     vm: {
       pc: 0,
@@ -39,9 +44,13 @@ export function createWorkspaceState(): WorkspaceState {
       speed: 'fast',
       mode: 'blocks',
     },
+    title: 'Herzlich Willkommen',
+    description:
+      'Hallo, das ist eine Quest von Robot Karol. Es geht darum, ein Programm zu schreiben,' +
+      'dass in der Lage ist, alle Welten auf den Zielzustand zu bringen. Baue dazu im Block-Editor deine Welt zusammen und starte dann das Programm.',
     tasks: [
       {
-        title: 'Welt 1',
+        title: 'Auftrag 1: Ziegel in der Mitte',
         start: {
           dimX: 6,
           dimY: 6,
@@ -103,7 +112,7 @@ export function createWorkspaceState(): WorkspaceState {
           ],
         },
       },
-      {
+      /*{
         title: 'Welt 2',
         start: {
           dimX: 6,
@@ -291,7 +300,7 @@ export function createWorkspaceState(): WorkspaceState {
             [false, false, false, false, false, false],
           ],
         },
-      },
+      },*/
     ],
   }
   return ws

@@ -12,30 +12,32 @@ export function Tasks() {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="p-4 border-b border-yellow-300 flex-shrink-0 flex-grow-0 bg-yellow-100">
-        <h1 className="mb-3 text-xl font-bold">Herzlich Willkommen</h1>
-        <p>
-          Hallo, das ist eine Quest von Robot Karol. Es geht darum, ein Programm
-          zu schreiben, dass in der Lage ist, alle Welten auf den Zielzustand zu
-          bringen. Baue dazu im Block-Editor deine Welt zusammen und starte dann
-          das Programm.
-        </p>
+      <div className="p-4 flex-shrink-0 flex-grow-0 bg-yellow-100">
+        <h1 className="mb-3 text-xl font-bold">{core.ws.title}</h1>
+        <p>{core.ws.description}</p>
       </div>
-      <div className="flex-grow flex-shrink overflow-y-auto">
+      <div className="flex-grow flex-shrink overflow-y-auto bg-gray-100">
         {core.ws.tasks.map(renderTask)}
       </div>
-      <div className="h-8 flex-shrink-0 flex-grow-0 border-t flex">
+      <div className="h-8 flex-shrink-0 flex-grow-0 flex">
         <div className="flex justify-center relative items-center flex-grow">
-          <p className="z-10">0 von {core.ws.tasks.length} Aufgaben gelöst</p>
+          <p className="z-10">
+            0 von {core.ws.tasks.length} Aufträgen erledigt
+          </p>
           <div className="absolute inset-0">
-            <div
-              className="h-full bg-green-200"
-              style={{ width: '100%' }}
-            ></div>
+            <div className="h-full bg-green-200" style={{ width: '40%' }}></div>
           </div>
         </div>
         <div className="flex-grow-0 flex-shrink-0">
-          <button className="mx-2 mt-1 bg-gray-100 hover:bg-gray-200 px-2 rounded">
+          <button
+            className="mx-2 mt-1 bg-gray-100 hover:bg-gray-200 px-2 rounded"
+            onClick={() => {
+              // TODO: as command
+              core.mutateWs(({ ui }) => {
+                ui.showMenu = true
+              })
+            }}
+          >
             <FaIcon icon={faBars} className="mr-2" /> Menü
           </button>
         </div>
@@ -43,24 +45,12 @@ export function Tasks() {
     </div>
   )
 
-  function renderTask(task: QuestTask) {
+  function renderTask(task: QuestTask, index: number) {
     return (
-      <div className="m-3 rounded-xl border-2 border-gray-200 flex justify-between">
+      <div className="m-3 rounded-xl bg-white flex justify-between" key={index}>
         <div className="ml-4 mt-6">
           <h2 className="text-lg font-bold">{task.title}</h2>
-          <p className="mt-4 whitespace-nowrap">
-            {' '}
-            <button
-              className={clsx(
-                'bg-blue-50 rounded px-2 py-0.5 mr-2 transition-colors',
-                'hover:bg-blue-100'
-              )}
-            >
-              <FaIcon icon={faEye} className="mr-2" />
-              Anzeigen
-            </button>
-          </p>
-          <p className="mt-4">
+          <p className="mt-6">
             <button
               className={clsx(
                 'bg-yellow-300 rounded px-2 py-0.5 mr-2 transition-colors',
@@ -77,6 +67,7 @@ export function Tasks() {
                     core.mutateWs((ws) => {
                       ws.world = task.start
                       ws.ui.showOutput = true
+                      ws.ui.lastStartedTask = index
                     })
                     run(core)
                   }

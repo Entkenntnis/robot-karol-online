@@ -47,8 +47,8 @@ export function deserialize(core: Core, file?: string) {
       }
     }
     abort(core)
+    console.log(code)
     core.mutateWs((state) => {
-      state.world = world
       state.code = code ?? ''
       state.ui.preview = undefined
       if (mode) {
@@ -57,9 +57,9 @@ export function deserialize(core: Core, file?: string) {
       state.ui.needsTextRefresh = true
       state.ui.editorLoading = false
     })
-    /*core.mutateCore((state) => {
-      state.projectInitialWorld = world
-    })*/
+    core.mutateCore((state) => {
+      state.workspace.tasks = [{ start: world, title: 'Welt', target: world }]
+    })
   } catch (e) {
     alert(e ?? 'Laden fehlgeschlagen')
   }

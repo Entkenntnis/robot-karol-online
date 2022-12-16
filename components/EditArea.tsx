@@ -1,6 +1,11 @@
 import { EditorView } from '@codemirror/view'
 import { useEffect, useRef } from 'react'
-import { faArrowRight, faArrowTurnUp } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowRight,
+  faArrowTurnUp,
+  faCircleExclamation,
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 import { cursorDocEnd } from '@codemirror/commands'
 
@@ -37,6 +42,43 @@ export function EditArea() {
       setEditable(view.current, true)
     }
   }, [codeState])
+
+  if (core.ws.ui.editorLoading) {
+    return (
+      <div className="h-full w-full flex justify-center items-center">
+        <FaIcon icon={faSpinner} className="animate-spin text-3xl" />
+      </div>
+    )
+  }
+
+  if (core.ws.settings.mode == 'code') {
+    return (
+      <div className="h-full flex flex-col">
+        {renderEditor()}
+        {core.ws.ui.state == 'error' && (
+          <div className="w-full overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
+            <div className="flex justify-between mt-[9px]">
+              <div className="px-3 pb-1 pt-0">
+                <p className="mb-2">
+                  <FaIcon
+                    icon={faCircleExclamation}
+                    className="text-red-600 mr-2"
+                  />
+                  Beim Einlesen des Programms sind folgende Probleme
+                  aufgetreten:
+                </p>
+                {core.ws.ui.errorMessages.map((err, i) => (
+                  <p className="mb-2" key={err + i.toString()}>
+                    {err}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
 
   return <BlockEditor />
 

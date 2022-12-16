@@ -34,7 +34,7 @@ export interface Ui {
   messages: Message[]
   gutter: number
   gutterReturns: number[]
-  state: 'ready' | 'loading' | 'running' | 'error'
+  state: 'ready' | 'loading' | 'running' | 'error' | 'stopped'
   wireframe: boolean
   needsTextRefresh: boolean
   preview?: Preview
@@ -46,6 +46,12 @@ export interface Ui {
   toBlockWarning: boolean
   editorLoading: boolean
   showOutput: boolean
+  speedSliderValue: number
+  lastStartedTask?: number
+  showMenu: boolean
+  progress: number
+  showPreviewOfTarget: boolean
+  completed: number[]
 }
 
 export interface Vm {
@@ -72,6 +78,8 @@ export interface WorkspaceState {
   vm: Vm
   settings: Settings
   tasks: QuestTask[]
+  title: string
+  description: string
 }
 
 export interface QuestTask {
