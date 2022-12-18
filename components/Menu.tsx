@@ -1,4 +1,4 @@
-import { setMode } from '../lib/commands/mode'
+import { closeMenu, setMode } from '../lib/commands/mode'
 import { useCore } from '../lib/state/core'
 
 export function Menu() {
@@ -10,9 +10,7 @@ export function Menu() {
           <button
             className="px-2 py-1 bg-gray-100 rounded"
             onClick={() => {
-              core.mutateWs(({ ui }) => {
-                ui.showMenu = false
-              })
+              closeMenu(core)
             }}
           >
             Schließen
@@ -29,9 +27,7 @@ export function Menu() {
               selected={core.ws.settings.mode == 'blocks'}
               onClick={() => {
                 setMode(core, 'blocks')
-                core.mutateWs(({ ui }) => {
-                  ui.showMenu = false
-                })
+                closeMenu(core)
               }}
             >
               block-basiert
@@ -40,9 +36,7 @@ export function Menu() {
               selected={core.ws.settings.mode == 'code'}
               onClick={() => {
                 setMode(core, 'code')
-                core.mutateWs(({ ui }) => {
-                  ui.showMenu = false
-                })
+                closeMenu(core)
               }}
             >
               text-basiert

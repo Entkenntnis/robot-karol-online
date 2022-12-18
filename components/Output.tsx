@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { isUint16Array } from 'util/types'
 
+import { setShowTarget } from '../lib/commands/mode'
 import { useCore } from '../lib/state/core'
 import { ControlBar } from './ControlBar'
 import { View } from './View'
@@ -59,9 +59,7 @@ export function Output() {
               className="mr-1"
               checked={core.ws.ui.showPreviewOfTarget}
               onChange={(e) => {
-                core.mutateWs(({ ui }) => {
-                  ui.showPreviewOfTarget = e.target.checked
-                })
+                setShowTarget(core, e.target.checked)
               }}
             />{' '}
             Ziel einblenden

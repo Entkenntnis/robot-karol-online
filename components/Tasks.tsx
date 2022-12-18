@@ -1,10 +1,14 @@
 import {
   faBars,
+  faCheck,
   faCircleCheck,
   faEye,
   faPlay,
+  faRotateRight,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import { showMenu } from '../lib/commands/mode'
+import { runTask } from '../lib/commands/quest'
 
 import { run } from '../lib/commands/vm'
 import { useCore } from '../lib/state/core'
@@ -15,32 +19,62 @@ import { View } from './View'
 export function Tasks() {
   const core = useCore()
 
+  const completed = core.ws.quest.completed.length
+  const completedPercent = Math.round(
+    (completed / core.ws.quest.tasks.length) * 100
+  )
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className="p-4 flex-shrink-0 flex-grow-0 bg-yellow-100">
-        <h1 className="mb-3 text-xl font-bold">{core.ws.quest.title}</h1>
+        <h1 className="mb-3 text-xl font-bold">
+          {core.ws.quest.title}{' '}
+          {completedPercent == 100 && (
+            <span className="text-green-600 text-base ml-4">
+              <FaIcon icon={faCircleCheck} /> Quest abgeschlossen
+            </span>
+          )}
+        </h1>
         <p>{core.ws.quest.description}</p>
       </div>
       <div className="flex-grow flex-shrink overflow-y-auto bg-gray-100">
         {core.ws.quest.tasks.map(renderTask)}
       </div>
-      <div className="h-8 flex-shrink-0 flex-grow-0 flex">
+      <div className="h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 select-none py-1">
         <div className="flex justify-center relative items-center flex-grow">
-          <p className="z-10">
-            0 von {core.ws.quest.tasks.length} Aufträgen erledigt
-          </p>
-          <div className="absolute inset-0">
-            <div className="h-full bg-green-200" style={{ width: '40%' }}></div>
+          {completed == core.ws.quest.tasks.length ? (
+            <p className="z-10">
+              <button className="px-2 py-0.5 rounded-lg bg-yellow-600 text-white font-bold">
+                Quest-Auswahl öffnen
+              </button>
+            </p>
+          ) : (
+            <p className="z-10">
+              {completed} von {core.ws.quest.tasks.length}{' '}
+              {core.ws.quest.tasks.length == 1 ? 'Auftrag' : 'Aufträgen'}{' '}
+              erledigt
+            </p>
+          )}
+          <div className="absolute inset-1 rounded-md bg-white left-3 right-2">
+            <div
+              className={clsx(
+                'h-full',
+                completedPercent > 90
+                  ? 'rounded-md'
+                  : 'rounded-tl-md rounded-bl-md',
+                completedPercent < 100 ? 'bg-green-200' : 'bg-gray-100'
+              )}
+              style={{
+                width: `${completedPercent}%`,
+              }}
+            ></div>
           </div>
         </div>
         <div className="flex-grow-0 flex-shrink-0">
           <button
-            className="mx-2 mt-1 bg-gray-100 hover:bg-gray-200 px-2 rounded"
+            className="mx-2 mt-1 bg-gray-200 hover:bg-gray-300 px-2 rounded"
             onClick={() => {
-              // TODO: as command
-              core.mutateWs(({ ui }) => {
-                ui.showMenu = true
-              })
+              showMenu(core)
             }}
           >
             <FaIcon icon={faBars} className="mr-2" /> Menü
@@ -55,11 +89,28 @@ export function Tasks() {
       <div className="m-3 rounded-xl bg-white flex justify-between" key={index}>
         <div className="ml-4 mt-6">
           <h2 className="text-lg font-bold">{task.title}</h2>
-          <p className="mt-6">
+          <p className="mt-6 flex flex-wrap">
             {core.ws.quest.completed.includes(index) ? (
-              <span className="text-green-600">
-                <FaIcon icon={faCircleCheck} /> abgeschlossen
-              </span>
+              <>
+                <div className="text-green-600 mr-5 whitespace-nowrap">
+                  <FaIcon icon={faCheck} /> abgeschlossen
+                </div>
+                <div>
+                  <button
+                    className="underline text-gray-700 select-none whitespace-nowrap"
+                    onClick={() => {
+                      runTask(core, index)
+                    }}
+                  >
+                    <FaIcon
+                      icon={faRotateRight}
+                      className="mr-1 text-sm"
+                      style={{ verticalAlign: '-2.5px' }}
+                    />
+                    erneut ausführen
+                  </button>
+                </div>
+              </>
             ) : (
               <button
                 className={clsx(
@@ -67,21 +118,7 @@ export function Tasks() {
                   'hover:bg-yellow-400'
                 )}
                 onClick={() => {
-                  // TODO: make this a command
-                  if (core.ws.ui.state == 'error') {
-                    alert('Programm enthält Fehler, bitte korrigieren!')
-                  } else {
-                    if (core.ws.ui.state == 'loading') {
-                      alert('Programm wird geladen, bitte nochmal probieren')
-                    } else {
-                      core.mutateWs((ws) => {
-                        ws.world = task.start
-                        ws.ui.showOutput = true
-                        ws.quest.lastStartedTask = index
-                      })
-                      run(core)
-                    }
-                  }
+                  runTask(core, index)
                 }}
               >
                 <FaIcon icon={faPlay} className="mr-2" />

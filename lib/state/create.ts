@@ -10,7 +10,7 @@ export function createDefaultCoreState(): CoreState {
 export function createWorkspaceState(): WorkspaceState {
   const ws: WorkspaceState = {
     world: createWorld(5, 10, 6),
-    code: '',
+    code: 'Schritt Schritt LinksDrehen Schritt Hinlegen Schritt Hinlegen RechtsDrehen Hinlegen Schritt LinksDrehen Hinlegen',
     ui: {
       messages: [],
       gutter: 0,
@@ -24,7 +24,7 @@ export function createWorkspaceState(): WorkspaceState {
       showOutput: false,
       speedSliderValue: 4.4,
       showMenu: false,
-      showPreviewOfTarget: false,
+      showPreviewOfTarget: true,
     },
     vm: {
       pc: 0,
@@ -40,8 +40,8 @@ export function createWorkspaceState(): WorkspaceState {
       progress: 0,
       title: 'Herzlich Willkommen',
       description:
-        'Hallo, das ist eine Quest von Robot Karol. Es geht darum, ein Programm zu schreiben,' +
-        'dass in der Lage ist, alle Welten auf den Zielzustand zu bringen. Baue dazu im Block-Editor deine Welt zusammen und starte dann das Programm.',
+        'Hallo, das ist eine Quest von Robot Karol. Es geht darum, ein Programm zu schreiben, ' +
+        'das in der Lage ist, alle Aufträge zu erfüllen. Erstelle dazu im Block-Editor dein Programm und starte es.',
       completed: [],
       tasks: [
         {
@@ -88,6 +88,69 @@ export function createWorkspaceState(): WorkspaceState {
               [0, 0, 1, 1, 0, 0],
               [0, 0, 0, 0, 0, 0],
               [0, 0, 0, 0, 0, 0],
+            ],
+            marks: [
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+            blocks: [
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+          },
+        },
+        {
+          title: 'Auftrag 2: Fülle die Mitte',
+          start: {
+            dimX: 6,
+            dimY: 6,
+            height: 6,
+            karol: { x: 5, y: 5, dir: 'north' },
+            bricks: [
+              [1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1],
+              [1, 1, 0, 0, 1, 1],
+              [1, 1, 0, 0, 1, 1],
+              [1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1],
+            ],
+            marks: [
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+            blocks: [
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+          },
+          target: {
+            dimX: 6,
+            dimY: 6,
+            height: 6,
+            karol: { x: 0, y: 0, dir: 'south' },
+            bricks: [
+              [1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1],
             ],
             marks: [
               [false, false, false, false, false, false],

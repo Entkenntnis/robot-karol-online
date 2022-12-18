@@ -5,8 +5,15 @@ import {
   faStop,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
-import { abort, run } from '../lib/commands/vm'
 
+import { setSpeedSliderValue } from '../lib/commands/mode'
+import {
+  closeOutput,
+  finishTask,
+  resetOutput,
+  restartProgram,
+} from '../lib/commands/quest'
+import { abort, run } from '../lib/commands/vm'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
 
@@ -24,11 +31,7 @@ export function ControlBar() {
           <br />
           <button
             onClick={() => {
-              core.mutateWs((ws) => {
-                ws.ui.showOutput = false
-                ws.ui.state = 'ready'
-                ws.quest.completed.push(ws.quest.lastStartedTask!)
-              })
+              finishTask(core)
             }}
             className="px-2 py-0.5 rounded bg-green-200 ml-3 mt-3 mb-2"
           >
@@ -46,10 +49,7 @@ export function ControlBar() {
         {core.ws.ui.state != 'running' && (
           <button
             onClick={() => {
-              core.mutateWs((ws) => {
-                ws.ui.showOutput = false
-                ws.ui.state = 'ready'
-              })
+              closeOutput(core)
             }}
             className="px-2 py-0.5 rounded bg-gray-200 ml-3"
           >
@@ -61,14 +61,7 @@ export function ControlBar() {
           <>
             <button
               onClick={() => {
-                if (core.ws.quest.lastStartedTask !== undefined) {
-                  core.mutateWs((ws) => {
-                    ws.world =
-                      ws.quest.tasks[core.ws.quest.lastStartedTask!].start
-                    ws.ui.messages = []
-                  })
-                  run(core)
-                }
+                restartProgram(core)
               }}
               className="px-2 py-0.5 rounded bg-yellow-200 ml-3"
             >
@@ -79,14 +72,7 @@ export function ControlBar() {
               core.ws.quest.tasks[core.ws.quest.lastStartedTask!].start && (
               <button
                 onClick={() => {
-                  if (core.ws.quest.lastStartedTask !== undefined) {
-                    core.mutateWs((ws) => {
-                      ws.world =
-                        ws.quest.tasks[core.ws.quest.lastStartedTask!].start
-                      ws.ui.messages = []
-                    })
-                    //run(core)
-                  }
+                  resetOutput(core)
                 }}
                 className="px-2 py-0.5 rounded bg-gray-200 ml-3"
               >
@@ -123,9 +109,7 @@ export function ControlBar() {
           type="range"
           value={core.ws.ui.speedSliderValue}
           onChange={(val) => {
-            core.mutateWs((ws) => {
-              ws.ui.speedSliderValue = parseFloat(val.target.value)
-            })
+            setSpeedSliderValue(core, parseFloat(val.target.value))
           }}
           min="0"
           max="5.5"

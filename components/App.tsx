@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import { loadProject } from '../lib/commands/load'
 import { useCore } from '../lib/state/core'
-import { submit_event } from '../lib/stats/submit'
+import { submit_event } from '../lib/statistics/submit'
 import { Quest } from './Quest'
 
 export function App() {
