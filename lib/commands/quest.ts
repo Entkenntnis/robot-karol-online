@@ -31,7 +31,8 @@ export function finishTask(core: Core) {
   core.mutateWs((ws) => {
     ws.ui.showOutput = false
     ws.ui.state = 'ready'
-    ws.quest.completed.push(ws.quest.lastStartedTask!)
+    if (!ws.quest.completed.includes(ws.quest.lastStartedTask!))
+      ws.quest.completed.push(ws.quest.lastStartedTask!)
   })
 }
 
@@ -50,6 +51,10 @@ export function resetOutput(core: Core) {
     core.mutateWs((ws) => {
       ws.world = ws.quest.tasks[core.ws.quest.lastStartedTask!].start
       ws.ui.messages = []
+      ws.ui.state = 'ready'
+      ws.quest.progress = 0
+      ws.ui.isEndOfRun = false
+      ws.ui.karolCrashMessage = undefined
     })
   }
 }

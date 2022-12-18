@@ -1,8 +1,13 @@
 import {
   faCaretLeft,
   faCircleCheck,
+  faExclamationTriangle,
+  faGenderless,
+  faPersonWalking,
+  faPlay,
   faRotateRight,
   faStop,
+  faThumbsUp,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,7 +18,7 @@ import {
   resetOutput,
   restartProgram,
 } from '../lib/commands/quest'
-import { abort, run } from '../lib/commands/vm'
+import { abort } from '../lib/commands/vm'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
 
@@ -22,7 +27,8 @@ export function ControlBar() {
   if (
     core.ws.quest.progress == 100 &&
     core.ws.ui.state != 'running' &&
-    core.ws.ui.messages.some((m) => m.text.includes('Ausführung beendet'))
+    !core.ws.ui.karolCrashMessage &&
+    !core.ws.quest.completed.includes(core.ws.quest.lastStartedTask!)
   ) {
     return (
       <div className="flex items-center justify-center p-2">
@@ -46,56 +52,62 @@ export function ControlBar() {
   return (
     <div className="flex justify-between items-center">
       <div>
-        {core.ws.ui.state != 'running' && (
-          <button
-            onClick={() => {
-              closeOutput(core)
-            }}
-            className="px-2 py-0.5 rounded bg-gray-200 ml-3"
-          >
-            <FaIcon icon={faCaretLeft} className="mr-1" />
-            Übersicht
-          </button>
-        )}
-        {core.ws.ui.state != 'running' && (
-          <>
+        <p className="mb-2 ml-7 font-bold">{renderStatus()}</p>
+        <p className="ml-2 mb-1">
+          {core.ws.ui.state != 'running' && (
             <button
               onClick={() => {
-                restartProgram(core)
+                closeOutput(core)
               }}
-              className="px-2 py-0.5 rounded bg-yellow-200 ml-3"
+              className="px-2 py-0.5 rounded bg-gray-200 ml-3"
             >
-              <FaIcon icon={faRotateRight} className="mr-1" />
-              Programm neu starten
+              <FaIcon icon={faCaretLeft} className="mr-1" />
+              Übersicht
             </button>
-            {core.ws.world !=
-              core.ws.quest.tasks[core.ws.quest.lastStartedTask!].start && (
+          )}
+          {core.ws.ui.state != 'running' && (
+            <>
               <button
                 onClick={() => {
-                  resetOutput(core)
+                  restartProgram(core)
                 }}
-                className="px-2 py-0.5 rounded bg-gray-200 ml-3"
+                className="px-2 py-0.5 rounded bg-yellow-200 ml-3"
               >
-                <FaIcon icon={faTrashCan} className="mr-1" />
-                zurücksetzen
+                <FaIcon
+                  icon={core.ws.ui.isEndOfRun ? faRotateRight : faPlay}
+                  className="mr-1"
+                />
+                Programm {core.ws.ui.isEndOfRun ? 'neu' : ''} starten
               </button>
-            )}
-          </>
-        )}
-        {core.ws.ui.state == 'running' && (
-          <button
-            onClick={() => {
-              abort(core)
-            }}
-            className="px-2 py-0.5 rounded bg-red-200 ml-3"
-          >
-            <FaIcon icon={faStop} className="mr-1" />
-            Beenden
-          </button>
-        )}
+              {core.ws.world !=
+                core.ws.quest.tasks[core.ws.quest.lastStartedTask!].start && (
+                <button
+                  onClick={() => {
+                    resetOutput(core)
+                  }}
+                  className="px-2 py-0.5 rounded bg-gray-200 ml-3"
+                >
+                  <FaIcon icon={faTrashCan} className="mr-1" />
+                  zurücksetzen
+                </button>
+              )}
+            </>
+          )}
+          {core.ws.ui.state == 'running' && (
+            <button
+              onClick={() => {
+                abort(core)
+              }}
+              className="px-2 py-0.5 rounded bg-red-200 ml-3"
+            >
+              <FaIcon icon={faStop} className="mr-1" />
+              Abbrechen
+            </button>
+          )}
+        </p>
       </div>
 
-      <div className="w-64 mr-3 my-1">
+      <div className="w-64 mr-3 my-3">
         Geschwindigkeit:{' '}
         {(
           Math.round(
@@ -114,9 +126,49 @@ export function ControlBar() {
           min="0"
           max="5.5"
           step="0.1"
-          className="w-full h-3 cursor-pointer"
+          className="w-full h-3 cursor-pointer mt-4"
         />
       </div>
     </div>
   )
+
+  function renderStatus() {
+    const state = core.ws.ui.state
+    if (state == 'error' || state == 'loading') {
+      return <>&nbsp;</>
+    }
+    if (state == 'running') {
+      return (
+        <>
+          <FaIcon icon={faPersonWalking} className="mr-1" /> Programm wird
+          ausgeführt
+        </>
+      )
+    } else {
+      if (core.ws.ui.karolCrashMessage) {
+        return (
+          <span className="text-red-600">
+            {' '}
+            <FaIcon
+              icon={faExclamationTriangle}
+              className="mr-1"
+            /> Fehler: {core.ws.ui.karolCrashMessage}
+          </span>
+        )
+      }
+      if (core.ws.ui.isEndOfRun) {
+        return (
+          <>
+            <FaIcon icon={faGenderless} className="mr-1" /> Ausführung beendet{' '}
+            {core.ws.ui.isManualAbort ? ' (abgebrochen)' : ''}
+          </>
+        )
+      }
+      return (
+        <>
+          <FaIcon icon={faThumbsUp} className="mr-1" /> bereit
+        </>
+      )
+    }
+  }
 }

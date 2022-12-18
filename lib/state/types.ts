@@ -34,7 +34,7 @@ export interface Ui {
   messages: Message[]
   gutter: number
   gutterReturns: number[]
-  state: 'ready' | 'loading' | 'running' | 'error' | 'stopped'
+  state: 'ready' | 'loading' | 'running' | 'error'
   wireframe: boolean
   needsTextRefresh: boolean
   errorMessages: string[]
@@ -44,6 +44,9 @@ export interface Ui {
   speedSliderValue: number
   showMenu: boolean
   showPreviewOfTarget: boolean
+  karolCrashMessage?: string
+  isManualAbort: boolean
+  isEndOfRun: boolean
 }
 
 export interface Vm {

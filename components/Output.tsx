@@ -9,7 +9,7 @@ export function Output() {
   const core = useCore()
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-grow-0 flex-shrink-0 border-b">
+      <div className="flex-grow-0 flex-shrink-0 h-[80px] bg-gray-100">
         <ControlBar />
       </div>
       <div
@@ -30,16 +30,11 @@ export function Output() {
                 }
               : undefined
           }
-          className="mb-32 mt-12"
+          className={clsx(
+            'mb-32 mt-12 p-6',
+            core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
+          )}
         />
-        <div className="absolute bottom-2 left-2 bg-gray-50">
-          {core.ws.ui.messages.map((m) => (
-            <div key={`${m.ts}`}>
-              {m.text}
-              {m.count > 1 && <span> (x{m.count})</span>}
-            </div>
-          ))}
-        </div>
       </div>
 
       <div className="h-8 flex-shrink-0 flex-grow-0 border-t flex select-none">

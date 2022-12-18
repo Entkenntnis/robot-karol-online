@@ -26,7 +26,7 @@ export function Tasks() {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="p-4 flex-shrink-0 flex-grow-0 bg-yellow-100">
+      <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100">
         <h1 className="mb-3 text-xl font-bold">
           {core.ws.quest.title}{' '}
           {completedPercent == 100 && (
@@ -40,12 +40,12 @@ export function Tasks() {
       <div className="flex-grow flex-shrink overflow-y-auto bg-gray-100">
         {core.ws.quest.tasks.map(renderTask)}
       </div>
-      <div className="h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 select-none py-1">
+      <div className="h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1">
         <div className="flex justify-center relative items-center flex-grow">
           {completed == core.ws.quest.tasks.length ? (
             <p className="z-10">
               <button className="px-2 py-0.5 rounded-lg bg-yellow-600 text-white font-bold">
-                Quest-Auswahl öffnen
+                Neue Quest auswählen
               </button>
             </p>
           ) : (

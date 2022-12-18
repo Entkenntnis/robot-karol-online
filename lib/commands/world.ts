@@ -2,7 +2,7 @@ import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { Heading, World } from '../state/types'
 import { addMessage } from './messages'
-import { abort } from './vm'
+import { endExecution } from './vm'
 
 const readOnlyMessage = 'Deine Aufgabe ist abgeschlossen.'
 
@@ -268,9 +268,12 @@ function isReadOnly(core: Core, x: number, y: number) {
   return false
 }
 function karolCrashed(core: Core, error: string) {
-  addMessage(core, error)
-  addMessage(core, 'Ausführung abgebrochen.')
-  abort(core)
+  core.mutateWs(({ ui }) => {
+    ui.karolCrashMessage = error
+  })
+  //addMessage(core, error)
+  //addMessage(core, 'Ausführung abgebrochen.')
+  endExecution(core)
 }
 
 export function onWorldChange(core: Core) {

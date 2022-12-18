@@ -22,25 +22,16 @@ export function Menu() {
         <p className="ml-4 mt-3 underline">Einstellungen</p>
         <p className="ml-4 mt-1">
           Eingabemethode:
-          <select className="ml-2 p-1">
-            <option
-              selected={core.ws.settings.mode == 'blocks'}
-              onClick={() => {
-                setMode(core, 'blocks')
-                closeMenu(core)
-              }}
-            >
-              block-basiert
-            </option>
-            <option
-              selected={core.ws.settings.mode == 'code'}
-              onClick={() => {
-                setMode(core, 'code')
-                closeMenu(core)
-              }}
-            >
-              text-basiert
-            </option>
+          <select
+            className="ml-2 p-1"
+            value={core.ws.settings.mode}
+            onChange={(e) => {
+              setMode(core, e.target.value as 'blocks' | 'code')
+              closeMenu(core)
+            }}
+          >
+            <option value="blocks">block-basiert</option>
+            <option value="code">text-basiert</option>
           </select>
         </p>
         <p className="ml-4 mt-1">

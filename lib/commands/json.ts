@@ -1,6 +1,6 @@
 import { Core } from '../state/core'
 import { World } from '../state/types'
-import { abort } from './vm'
+import { endExecution } from './vm'
 
 export function serialize(core: Core) {
   const { world, code } = core.ws
@@ -46,7 +46,7 @@ export function deserialize(core: Core, file?: string) {
         }
       }
     }
-    abort(core)
+    endExecution(core)
     console.log(code)
     core.mutateWs((state) => {
       state.code = code ?? ''

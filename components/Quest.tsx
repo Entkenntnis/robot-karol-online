@@ -25,15 +25,22 @@ export function Quest() {
         >
           <EditArea />
           {core.ws.quest.completed.length > 0 && (
-            <div className="absolute inset-0 bg-black/40 z-[100] flex justify-center items-center">
-              <FaIcon
-                icon={faLock}
-                className="text-xl bg-white rounded-full  inline-block"
-              />{' '}
-              Code gesperrt. Wenn du Code bearbeiten willst wird Fortschritt
-              zurückgesetzt.
-              <br />
-              <button>Code bearbeiten</button>
+            <div className="absolute inset-0 bg-gray-700/20 z-[100]">
+              <div className="bottom-8 left-6 right-6 h-24 absolute bg-white rounded-lg pl-6 pt-3">
+                <p>
+                  <FaIcon
+                    icon={faLock}
+                    className="text-xl bg-white rounded-full  inline-block"
+                  />{' '}
+                  Code eingefroren
+                </p>
+                <p>
+                  Wenn du Code bearbeiten willst wird Fortschritt zurückgesetzt.
+                </p>
+                <p>
+                  <button>Code bearbeiten</button>
+                </p>
+              </div>
             </div>
           )}
         </ReflexElement>

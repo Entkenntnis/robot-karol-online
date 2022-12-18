@@ -9,7 +9,7 @@ import { codeToXml } from '../lib/blockly/codeToXml'
 import { initCustomBlocks } from '../lib/blockly/customBlocks'
 import { KAROL_TOOLBOX } from '../lib/blockly/toolbox'
 import { parser } from '../lib/codemirror/parser/parser'
-import { abort, patch } from '../lib/commands/vm'
+import { endExecution, patch } from '../lib/commands/vm'
 import { compile } from '../lib/language/compiler'
 import { useCore } from '../lib/state/core'
 
@@ -129,7 +129,7 @@ export function BlockEditor() {
 
       if (core.ws.ui.state == 'running') {
         if (code.current !== newCode) {
-          abort(core)
+          endExecution(core)
         } else {
           return
         }

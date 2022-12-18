@@ -10,7 +10,7 @@ export function createDefaultCoreState(): CoreState {
 export function createWorkspaceState(): WorkspaceState {
   const ws: WorkspaceState = {
     world: createWorld(5, 10, 6),
-    code: 'Schritt Schritt LinksDrehen Schritt Hinlegen Schritt Hinlegen RechtsDrehen Hinlegen Schritt LinksDrehen Hinlegen',
+    code: 'Schritt Schritt LinksDrehen Schritt Hinlegen Schritt Hinlegen RechtsDrehen Hinlegen wiederhole 1000 mal LinksDrehen *wiederhole // Schritt LinksDrehen Hinlegen',
     ui: {
       messages: [],
       gutter: 0,
@@ -22,9 +22,11 @@ export function createWorkspaceState(): WorkspaceState {
       toBlockWarning: false,
       editorLoading: false,
       showOutput: false,
-      speedSliderValue: 4.4,
+      speedSliderValue: 0.4, //4.4,
       showMenu: false,
       showPreviewOfTarget: true,
+      isManualAbort: false,
+      isEndOfRun: false,
     },
     vm: {
       pc: 0,
@@ -45,7 +47,7 @@ export function createWorkspaceState(): WorkspaceState {
       completed: [],
       tasks: [
         {
-          title: 'Auftrag 1: Ziegel in der Mitte',
+          title: 'Auftrag 1: Ziegelquadrat',
           start: {
             dimX: 6,
             dimY: 6,
@@ -166,6 +168,69 @@ export function createWorkspaceState(): WorkspaceState {
               [false, false, false, false, false, false],
               [false, false, false, false, false, false],
               [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+          },
+        },
+        {
+          title: 'Auftrag 3: Zwischen den Säulen',
+          start: {
+            dimX: 6,
+            dimY: 6,
+            height: 6,
+            karol: { x: 5, y: 0, dir: 'west' },
+            bricks: [
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+            ],
+            marks: [
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+            blocks: [
+              [false, false, false, false, false, false],
+              [false, true, false, false, true, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, true, false, false, true, false],
+              [false, false, false, false, false, false],
+            ],
+          },
+          target: {
+            dimX: 6,
+            dimY: 6,
+            height: 6,
+            karol: { x: 0, y: 0, dir: 'south' },
+            bricks: [
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 1, 1, 0, 0],
+              [0, 0, 1, 1, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0],
+            ],
+            marks: [
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+            ],
+            blocks: [
+              [false, false, false, false, false, false],
+              [false, true, false, false, true, false],
+              [false, false, false, false, false, false],
+              [false, false, false, false, false, false],
+              [false, true, false, false, true, false],
               [false, false, false, false, false, false],
             ],
           },

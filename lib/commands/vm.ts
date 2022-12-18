@@ -1,6 +1,5 @@
 import { Core } from '../state/core'
 import { Condition, Op } from '../state/types'
-import { addMessage } from './messages'
 import {
   forward,
   left,
@@ -23,6 +22,9 @@ export function patch(core: Core, bytecode: Op[]) {
 export function run(core: Core) {
   core.mutateWs(({ ui, vm }) => {
     ui.state = 'running'
+    ui.isManualAbort = false
+    ui.isEndOfRun = false
+    ui.karolCrashMessage = undefined
     vm.pc = 0
     vm.frames = [{}]
     ui.gutterReturns = []
@@ -32,18 +34,6 @@ export function run(core: Core) {
   })
   const now = new Date()
 
-  // TODO: move to separate file
-  core.mutateWs(({ ui }) => {
-    ui.messages = []
-  })
-
-  addMessage(
-    core,
-    `[${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}:${now
-      .getSeconds()
-      .toString()
-      .padStart(2, '0')}] Programm gestartet.`
-  )
   internal_step(core)
 }
 
@@ -61,8 +51,11 @@ function internal_step(core: Core) {
 
   if (pc >= byteCode.length) {
     // end reached
-    callWithDelay(core, () => abort(core), byteCode.length == 0 ? 400 : 0)
-    addMessage(core, 'Ausführung beendet.')
+    callWithDelay(
+      core,
+      () => endExecution(core),
+      byteCode.length == 0 ? 400 : 0
+    )
     return
   }
 
@@ -220,13 +213,21 @@ export function testCondition(core: Core, cond: Condition) {
 }
 
 export function abort(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.isManualAbort = true
+  })
+  endExecution(core)
+}
+
+export function endExecution(core: Core) {
   clearTimeout(core.ws.vm.handler!)
   core.mutateWs((state) => {
     state.ui.gutter = 0
-    state.ui.state = 'stopped'
+    state.ui.state = 'ready'
     state.vm.pc = 0
     state.vm.handler = undefined
     state.ui.gutterReturns = []
+    state.ui.isEndOfRun = true
   })
 }
 
