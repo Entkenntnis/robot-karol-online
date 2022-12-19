@@ -206,6 +206,7 @@ const generalOptions = [
   { label: 'MarkeLöschen' },
   { label: 'wiederhole' },
   { label: 'endewiederhole' },
+  { label: 'immer' },
   { label: 'wenn' },
   { label: 'endewenn' },
   { label: 'sonst' },
@@ -339,7 +340,7 @@ function buildMyAutocomplete(): CompletionSource {
     }
 
     if (lastEndedNode.name == 'RepeatStart') {
-      options = [{ label: 'solange' }]
+      options = [{ label: 'solange', boost: 2 }, { label: 'immer' }]
     } else if (
       lastEndedNode.name == 'IfKey' ||
       lastEndedNode.name == 'RepeatWhileKey'

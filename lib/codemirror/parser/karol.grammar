@@ -50,7 +50,7 @@ commandPure {
 }
 
 Repeat {
-  RepeatStart ((RepeatWhileKey Condition) | (Times RepeatTimesKey)) expression* RepeatEnd
+  RepeatStart ((RepeatWhileKey Condition) | (Times RepeatTimesKey) | RepeatAlwaysKey) expression* RepeatEnd
 }
 
 RepeatStart[closedBy="RepeatEnd"] {
@@ -74,6 +74,11 @@ RepeatWhileKey {
 RepeatTimesKey {
   @specialize<idx, "mal"> |
   @specialize<idx, "Mal">
+}
+
+RepeatAlwaysKey {
+  @specialize<idx, "immer"> |
+  @specialize<idx, "Immer">
 }
 
 Parameter {

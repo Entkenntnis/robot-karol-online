@@ -62,6 +62,16 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
       '\nendewiederhole',
   ],
   [
+    'repeat_forever',
+    (block: Block) =>
+      'wiederhole immer ' +
+      '//blockId:' +
+      block.id +
+      '\n' +
+      karolGenerator.statementToCode(block, 'STATEMENTS') +
+      '\nendewiederhole',
+  ],
+  [
     'if_then',
     (block: Block) =>
       'wenn ' +
@@ -102,7 +112,7 @@ export function initCustomBlocks() {
   blocks.forEach((block) => {
     Blockly.Blocks[block.type] = {
       init: function () {
-        (this as any).jsonInit(block)
+        ;(this as any).jsonInit(block)
       },
     }
   })

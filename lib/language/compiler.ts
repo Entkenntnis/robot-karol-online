@@ -125,6 +125,13 @@ export function compile(tree: Tree, doc: Text) {
           st.op = op
         }
       }
+      if (cursor.name == 'RepeatAlwaysKey') {
+        const st = parseStack[parseStack.length - 1]
+        if (st.type == 'repeat' && st.stage == 1) {
+          st.start = output.length
+          st.stage = 20
+        }
+      }
       if (cursor.name == 'RepeatWhileKey') {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'repeat' && st.stage == 1) {
@@ -250,6 +257,17 @@ export function compile(tree: Tree, doc: Text) {
             targetT: st.start!,
             targetF: output.length + 1,
             condition: st.condition!,
+            line,
+          })
+          parseStack.pop()
+        } else if (st.type == 'repeat' && st.stage == 20) {
+          console.log('stack value', st)
+          st.op!.target = output.length
+          const line = doc.lineAt(st.from).number
+          output.push({
+            type: 'jumpn',
+            count: Infinity,
+            target: st.start!,
             line,
           })
           parseStack.pop()

@@ -38,6 +38,8 @@ export function lint(core: Core, view: EditorView) {
       ws.ui.toBlockWarning = toWarn
     })
 
+    console.log(output)
+
     patch(core, output)
   } else {
     core.mutateWs(({ vm, ui }) => {

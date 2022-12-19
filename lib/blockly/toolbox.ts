@@ -44,6 +44,10 @@ export const KAROL_TOOLBOX = {
     },
     {
       kind: 'block',
+      type: 'repeat_forever',
+    },
+    {
+      kind: 'block',
       type: 'if_then',
     },
     {
