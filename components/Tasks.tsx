@@ -5,10 +5,12 @@ import {
   faEye,
   faPlay,
   faRotateRight,
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import { useEffect } from 'react'
 import { showMenu } from '../lib/commands/mode'
-import { runTask } from '../lib/commands/quest'
+import { endTaskWaiting, runTask } from '../lib/commands/quest'
 
 import { run } from '../lib/commands/vm'
 import { useCore } from '../lib/state/core'
@@ -23,6 +25,16 @@ export function Tasks() {
   const completedPercent = Math.round(
     (completed / core.ws.quest.tasks.length) * 100
   )
+
+  useEffect(() => {
+    if (core.ws.ui.state !== 'loading') {
+      if (core.ws.ui.taskWaitingToLoad !== undefined) {
+        const taskIndex = core.ws.ui.taskWaitingToLoad
+        endTaskWaiting(core)
+        runTask(core, taskIndex)
+      }
+    }
+  }, [core, core.ws.ui.state])
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -120,8 +132,13 @@ export function Tasks() {
                 onClick={() => {
                   runTask(core, index)
                 }}
+                disabled={core.ws.ui.taskWaitingToLoad !== undefined}
               >
-                <FaIcon icon={faPlay} className="mr-2" />
+                {core.ws.ui.taskWaitingToLoad !== index ? (
+                  <FaIcon icon={faPlay} className="mr-2" />
+                ) : (
+                  <FaIcon icon={faSpinner} className="mr-2 animate-spin" />
+                )}
                 Start
               </button>
             )}

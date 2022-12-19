@@ -47,6 +47,8 @@ export interface Ui {
   karolCrashMessage?: string
   isManualAbort: boolean
   isEndOfRun: boolean
+  taskWaitingToLoad?: number
+  showErrorModal: boolean
 }
 
 export interface Vm {

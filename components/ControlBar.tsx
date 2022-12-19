@@ -11,7 +11,7 @@ import {
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 
-import { setSpeedSliderValue } from '../lib/commands/mode'
+import { setSpeedSliderValue, showErrorModal } from '../lib/commands/mode'
 import {
   closeOutput,
   finishTask,
@@ -65,7 +65,17 @@ export function ControlBar() {
               Übersicht
             </button>
           )}
-          {core.ws.ui.state != 'running' && (
+          {core.ws.ui.state == 'error' && (
+            <button
+              onClick={() => {
+                showErrorModal(core)
+              }}
+              className="px-2 py-0.5 rounded bg-red-200 ml-3"
+            >
+              Probleme anzeigen
+            </button>
+          )}
+          {core.ws.ui.state == 'ready' && (
             <>
               <button
                 onClick={() => {
@@ -79,8 +89,7 @@ export function ControlBar() {
                 />
                 Programm {core.ws.ui.isEndOfRun ? 'neu' : ''} starten
               </button>
-              {core.ws.world !=
-                core.ws.quest.tasks[core.ws.quest.lastStartedTask!].start && (
+              {core.ws.ui.isEndOfRun && (
                 <button
                   onClick={() => {
                     resetOutput(core)
@@ -134,8 +143,16 @@ export function ControlBar() {
 
   function renderStatus() {
     const state = core.ws.ui.state
-    if (state == 'error' || state == 'loading') {
-      return <>&nbsp;</>
+    if (state == 'error') {
+      return (
+        <>
+          <FaIcon icon={faExclamationTriangle} className="mr-1" /> Programm
+          unvollständig
+        </>
+      )
+    }
+    if (state == 'loading' && !core.ws.ui.isEndOfRun) {
+      return <span className="text-gray-400">Programm wird eingelesen ...</span>
     }
     if (state == 'running') {
       return (

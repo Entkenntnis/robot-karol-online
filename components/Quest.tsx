@@ -3,6 +3,7 @@ import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
 import { useCore } from '../lib/state/core'
 import { EditArea } from './EditArea'
+import { ErrorModal } from './ErrorModal'
 import { FaIcon } from './FaIcon'
 import { Menu } from './Menu'
 import { Output } from './Output'
@@ -55,6 +56,7 @@ export function Quest() {
         </ReflexElement>
       </ReflexContainer>
       {core.ws.ui.showMenu && <Menu />}
+      {core.ws.ui.showErrorModal && <ErrorModal />}
     </>
   )
 }

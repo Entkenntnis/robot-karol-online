@@ -30,3 +30,15 @@ export function setSpeedSliderValue(core: Core, val: number) {
     ws.ui.speedSliderValue = val
   })
 }
+
+export function showErrorModal(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.showErrorModal = true
+  })
+}
+
+export function hideErrorModal(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.showErrorModal = false
+  })
+}

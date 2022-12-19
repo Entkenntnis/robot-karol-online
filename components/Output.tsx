@@ -36,31 +36,6 @@ export function Output() {
           )}
         />
       </div>
-
-      <div className="h-8 flex-shrink-0 flex-grow-0 border-t flex select-none">
-        <div className="flex justify-center relative items-center flex-grow">
-          <p className="z-10">Fortschritt: {core.ws.quest.progress}%</p>
-          <div className="absolute inset-0 border-r">
-            <div
-              className="h-full bg-green-200"
-              style={{ width: `${core.ws.quest.progress}%` }}
-            ></div>
-          </div>
-        </div>
-        <div className="flex-grow-0 flex-shrink-0 mx-2 flex items-center justify-center">
-          <label>
-            <input
-              type="checkbox"
-              className="mr-1"
-              checked={core.ws.ui.showPreviewOfTarget}
-              onChange={(e) => {
-                setShowTarget(core, e.target.checked)
-              }}
-            />{' '}
-            Ziel einblenden
-          </label>
-        </div>
-      </div>
     </div>
   )
 }

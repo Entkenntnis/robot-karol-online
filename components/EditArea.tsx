@@ -4,6 +4,7 @@ import {
   faArrowRight,
   faArrowTurnUp,
   faCircleExclamation,
+  faExclamationTriangle,
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
@@ -15,6 +16,7 @@ import { FaIcon } from './FaIcon'
 import { Editor } from './Editor'
 import { textRefreshDone } from '../lib/commands/json'
 import { BlockEditor } from './BlockEditor'
+import { showErrorModal } from '../lib/commands/mode'
 
 export function EditArea() {
   const core = useCore()
@@ -22,6 +24,8 @@ export function EditArea() {
   const codeState = core.ws.ui.state
 
   const view = useRef<EditorView>()
+
+  core.view = view
 
   useEffect(() => {
     if (core.ws.ui.needsTextRefresh && view.current) {
@@ -80,7 +84,24 @@ export function EditArea() {
     )
   }
 
-  return <BlockEditor />
+  return (
+    <>
+      <BlockEditor />
+      {core.ws.ui.state == 'error' && !core.ws.ui.showOutput && (
+        <div className="absolute right-3 top-3 z-[100]">
+          <button
+            className="rounded px-2 py-0.5 bg-red-200 hover:bg-red-300"
+            onClick={() => {
+              showErrorModal(core)
+            }}
+          >
+            <FaIcon icon={faExclamationTriangle} className="mr-2" />
+            Programm unvollständig
+          </button>
+        </div>
+      )}
+    </>
+  )
 
   // TODO for later stage: readd text editor
   function renderEditor() {

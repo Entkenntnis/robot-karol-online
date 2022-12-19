@@ -4,8 +4,18 @@ import { useCore } from '../lib/state/core'
 export function Menu() {
   const core = useCore()
   return (
-    <div className="bg-black/20 absolute inset-0 flex justify-center items-center z-[150]">
-      <div className="h-[300px] w-[300px] bg-white z-[200] rounded-xl relative">
+    <div
+      className="bg-black/20 absolute inset-0 flex justify-center items-center z-[150]"
+      onClick={() => {
+        closeMenu(core)
+      }}
+    >
+      <div
+        className="h-[300px] w-[300px] bg-white z-[200] rounded-xl relative"
+        onClick={(e) => {
+          e.stopPropagation()
+        }}
+      >
         <div className="absolute right-1 top-1">
           <button
             className="px-2 py-1 bg-gray-100 rounded"

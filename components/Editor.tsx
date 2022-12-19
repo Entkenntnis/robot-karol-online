@@ -1,12 +1,4 @@
 import { MutableRefObject, useEffect, useRef } from 'react'
-import {
-  indentSelection,
-  simplifySelection,
-  cursorLineUp,
-  cursorLineEnd,
-  cursorCharLeft,
-  insertNewlineAndIndent,
-} from '@codemirror/commands'
 import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 

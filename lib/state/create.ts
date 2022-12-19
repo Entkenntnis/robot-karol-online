@@ -22,11 +22,12 @@ export function createWorkspaceState(): WorkspaceState {
       toBlockWarning: false,
       editorLoading: false,
       showOutput: false,
-      speedSliderValue: 0.4, //4.4,
+      speedSliderValue: 4.4,
       showMenu: false,
       showPreviewOfTarget: true,
       isManualAbort: false,
       isEndOfRun: false,
+      showErrorModal: false,
     },
     vm: {
       pc: 0,

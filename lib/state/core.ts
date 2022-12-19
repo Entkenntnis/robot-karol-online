@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react'
 import produce, { Draft } from 'immer'
+import { EditorView } from '@codemirror/view'
 
 import { CoreRefs, CoreState, WorkspaceState, World } from './types'
 import { createDefaultCoreState } from './create'
@@ -44,6 +45,8 @@ export class Core {
   userId: string
 
   blockyResize: any
+
+  view?: MutableRefObject<EditorView | undefined> // WOW, this is bad
 
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,
