@@ -337,7 +337,7 @@
     ],
     "output": null,
     "colour": 210,
-    "tooltip": "wenn er vor einem Ziegelstapel beliebiger Farbe mit n(=Anzahl) vielen Ziegeln steht und zu diesem schaut",
+    "tooltip": "wenn er vor einem Ziegelstapel mit n(=Anzahl) vielen Ziegeln steht und zu diesem schaut",
     "helpUrl": ""
   },
   {
