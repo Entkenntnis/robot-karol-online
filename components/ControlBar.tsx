@@ -19,6 +19,7 @@ import {
   restartProgram,
 } from '../lib/commands/quest'
 import { abort } from '../lib/commands/vm'
+import { sliderToDelay } from '../lib/helper/speedSlider'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
 
@@ -119,9 +120,8 @@ export function ControlBar() {
       <div className="w-64 mr-3 my-3">
         Geschwindigkeit:{' '}
         {(
-          Math.round(
-            (Math.exp(core.ws.ui.speedSliderValue) / Math.exp(5.5)) * 60 * 10
-          ) / 10
+          Math.round((1000 / sliderToDelay(core.ws.ui.speedSliderValue)) * 10) /
+          10
         )
           .toFixed(1)
           .replace('.', ',')}{' '}
@@ -133,8 +133,8 @@ export function ControlBar() {
             setSpeedSliderValue(core, parseFloat(val.target.value))
           }}
           min="0"
-          max="5.5"
-          step="0.1"
+          max="20"
+          step="1"
           className="w-full h-3 cursor-pointer mt-4"
         />
       </div>

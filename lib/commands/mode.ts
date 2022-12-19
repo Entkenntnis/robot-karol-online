@@ -1,3 +1,4 @@
+import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
@@ -26,8 +27,14 @@ export function setShowTarget(core: Core, val: boolean) {
 }
 
 export function setSpeedSliderValue(core: Core, val: number) {
+  // WELP, some TODOs here
   core.mutateWs((ws) => {
+    const previousDelay = sliderToDelay(ws.ui.speedSliderValue)
     ws.ui.speedSliderValue = val
+    const delay = sliderToDelay(ws.ui.speedSliderValue)
+    const now = Date.now()
+    const excessTime = now - ws.vm.startTime - ws.vm.steps * previousDelay
+    ws.vm.startTime = Date.now() - ws.vm.steps * delay - excessTime
   })
 }
 

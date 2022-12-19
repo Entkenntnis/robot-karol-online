@@ -22,7 +22,7 @@ export function createWorkspaceState(): WorkspaceState {
       toBlockWarning: false,
       editorLoading: false,
       showOutput: false,
-      speedSliderValue: 4.4,
+      speedSliderValue: 10,
       showMenu: false,
       showPreviewOfTarget: true,
       isManualAbort: false,
@@ -35,6 +35,8 @@ export function createWorkspaceState(): WorkspaceState {
       callstack: [],
       needsConfirmation: false,
       confirmation: false,
+      steps: 0,
+      startTime: 0,
     },
     settings: {
       mode: 'blocks',

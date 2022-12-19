@@ -59,6 +59,8 @@ export interface Vm {
   callstack: number[]
   needsConfirmation: boolean
   confirmation: boolean
+  startTime: number
+  steps: number
 }
 
 export interface Settings {
