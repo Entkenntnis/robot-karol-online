@@ -101,6 +101,14 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   ["isn't_wall", (block: Block) => ['NichtIstWand', 0]],
   ['is_brick', (block: Block) => ['IstZiegel', 0]],
   ["isn't_brick", (block: Block) => ['NichtIstZiegel', 0]],
+  [
+    'is_brick_count',
+    (block: Block) => [`IstZiegel(${block.getFieldValue('COUNT')})`, 0],
+  ],
+  [
+    "isn't_brick_count",
+    (block: Block) => [`NichtIstZiegel(${block.getFieldValue('COUNT')})`, 0],
+  ],
   ['is_marker', (block: Block) => ['IstMarke', 0]],
   ["isn't_marker", (block: Block) => ['NichtIstMarke', 0]],
   ['is_north', (block: Block) => ['IstNorden', 0]],

@@ -117,7 +117,14 @@ Condition {
   @specialize<idx, "Istnorden"> |
   @specialize<idx, "NichtIstNorden"> |
   @specialize<idx, "nichtistnorden"> |
-  @specialize<idx, "Nichtistnorden">
+  @specialize<idx, "Nichtistnorden"> |
+  (@specialize<idx, "IstZiegel"> openPar Parameter closePar) |
+  (@specialize<idx, "istziegel"> openPar Parameter closePar) |
+  (@specialize<idx, "istZiegel"> openPar Parameter closePar) |
+  (@specialize<idx, "Istziegel"> openPar Parameter closePar) |
+  (@specialize<idx, "NichtIstZiegel"> openPar Parameter closePar) |
+  (@specialize<idx, "nichtistziegel"> openPar Parameter closePar) |
+  (@specialize<idx, "Nichtistziegel"> openPar Parameter closePar)
 }
 
 IfThen {

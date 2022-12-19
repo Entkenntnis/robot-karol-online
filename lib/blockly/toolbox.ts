@@ -80,6 +80,14 @@ export const KAROL_TOOLBOX = {
     },
     {
       kind: 'block',
+      type: 'is_brick_count',
+    },
+    {
+      kind: 'block',
+      type: "isn't_brick_count",
+    },
+    {
+      kind: 'block',
       type: 'is_north',
     },
     {

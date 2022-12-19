@@ -263,6 +263,14 @@ function buildCondition(typeRaw: string) {
   if (type == 'nichtistmarke') return `<block type="isn't_marker"></block>`
   if (type == 'istnorden') return `<block type="is_north"></block>`
   if (type == 'nichtistnorden') return `<block type="isn't_north"></block>`
+  if (type.startsWith('istziegel(')) {
+    const count = type.replace('istziegel(', '').replace(')', '')
+    return `<block type="is_brick_count"><field name="COUNT">${count}</field></block>`
+  }
+  if (type.startsWith('nichtistziegel(')) {
+    const count = type.replace('nichtistziegel(', '').replace(')', '')
+    return `<block type="isn't_brick_count"><field name="COUNT">${count}</field></block>`
+  }
   return ''
 }
 

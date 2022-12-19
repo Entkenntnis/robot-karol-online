@@ -327,12 +327,12 @@
   },
   {
     "type": "is_brick_count",
-    "message0": "IstZiegel(Anzahl) %1",
+    "message0": "IstZiegel %1",
     "args0": [
       {
         "type": "field_input",
         "name": "COUNT",
-        "text": "1"
+        "text": "2"
       }
     ],
     "output": null,
@@ -371,12 +371,12 @@
   },
   {
     "type": "isn't_brick_count",
-    "message0": "NichtIstZiegel(Anzahl) %1",
+    "message0": "NichtIstZiegel %1",
     "args0": [
       {
         "type": "field_input",
         "name": "COUNT",
-        "text": "1"
+        "text": "2"
       }
     ],
     "output": null,

@@ -233,6 +233,14 @@ export function testCondition(core: Core, cond: Condition) {
     } else {
       return dir == 'north'
     }
+  } else if (cond.type == 'brick_count') {
+    const newpos = moveRaw(x, y, dir, core.ws.world)
+    if (!newpos) {
+      return cond.negated ? true : false
+    } else {
+      const count = core.ws.world.bricks[newpos.y][newpos.x]
+      return cond.negated ? count != cond.count! : count == cond.count!
+    }
   } else {
     const newpos = moveRaw(x, y, dir, core.ws.world)
     if (!newpos) {

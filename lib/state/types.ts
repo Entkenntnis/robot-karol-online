@@ -116,7 +116,8 @@ export interface ActionOp {
 }
 
 export interface Condition {
-  type: 'brick' | 'mark' | 'wall' | 'north'
+  type: 'brick' | 'mark' | 'wall' | 'north' | 'brick_count'
+  count?: number
   negated: boolean
 }
 
