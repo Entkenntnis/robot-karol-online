@@ -58,8 +58,11 @@ export function deserialize(core: Core, file?: string) {
     })
     core.mutateCore((state) => {
       state.workspace.quest.tasks = [
-        { start: world, title: 'Welt', target: world },
+        { start: world, title: 'Welt', target: null },
       ]
+      state.workspace.quest.title = 'Importiertes Projekt'
+      state.workspace.quest.description =
+        'Dieses Projekt wurde aus einer früheren Version von Robot Karol importiert. Es ist keine Quest, allerdings kannst du das Programm ausführen und anschauen.'
     })
   } catch (e) {
     alert(e ?? 'Laden fehlgeschlagen')

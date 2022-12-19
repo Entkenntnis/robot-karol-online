@@ -260,6 +260,11 @@ export function endExecution(core: Core) {
     state.vm.handler = undefined
     state.ui.gutterReturns = []
     state.ui.isEndOfRun = true
+    if (!state.ui.isManualAbort) {
+      if (state.quest.progress == 100) {
+        state.ui.freezeCode = true
+      }
+    }
   })
 }
 

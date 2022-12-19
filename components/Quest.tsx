@@ -1,5 +1,6 @@
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
+import { editCodeAndResetProgress } from '../lib/commands/mode'
 
 import { useCore } from '../lib/state/core'
 import { EditArea } from './EditArea'
@@ -25,23 +26,34 @@ export function Quest() {
           }}
         >
           <EditArea />
-          {core.ws.quest.completed.length > 0 && (
+          {core.ws.ui.freezeCode && (
             <div className="absolute inset-0 bg-gray-700/20 z-[100]">
-              <div className="bottom-8 left-6 right-6 h-24 absolute bg-white rounded-lg pl-6 pt-3">
-                <p>
-                  <FaIcon
-                    icon={faLock}
-                    className="text-xl bg-white rounded-full  inline-block"
-                  />{' '}
-                  Code eingefroren
-                </p>
-                <p>
-                  Wenn du Code bearbeiten willst wird Fortschritt zurückgesetzt.
-                </p>
-                <p>
-                  <button>Code bearbeiten</button>
-                </p>
-              </div>
+              {!(
+                core.ws.ui.isEndOfRun &&
+                core.ws.quest.progress == 100 &&
+                core.ws.ui.showOutput &&
+                core.ws.quest.completed.length == 0
+              ) &&
+                !(
+                  core.ws.quest.completed.length == core.ws.quest.tasks.length
+                ) && (
+                  <div className="bottom-6 left-6 right-6 h-28 absolute  rounded-lg pl-4 pt-3 flex justify-around flex-col bg-gray-200">
+                    <p className="ml-2">
+                      Dein Programm hat einen Auftrag gelöst. Wenn du das
+                      Programm bearbeitest, wird dein Fortschritt zurückgesetzt:
+                    </p>
+                    <p className="mb-3">
+                      <button
+                        className="px-2 py-0.5 bg-gray-300 rounded"
+                        onClick={() => {
+                          editCodeAndResetProgress(core)
+                        }}
+                      >
+                        Programm bearbeiten
+                      </button>
+                    </p>
+                  </div>
+                )}
             </div>
           )}
         </ReflexElement>

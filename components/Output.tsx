@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import { setShowTarget } from '../lib/commands/mode'
 import { useCore } from '../lib/state/core'
 import { ControlBar } from './ControlBar'
+import { Tasks } from './Tasks'
 import { View } from './View'
 
 export function Output() {
@@ -22,10 +23,11 @@ export function Output() {
           world={core.ws.world}
           preview={
             core.ws.ui.showPreviewOfTarget &&
-            core.ws.quest.lastStartedTask !== undefined
+            core.ws.quest.lastStartedTask !== undefined &&
+            core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target
               ? {
                   world:
-                    core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target,
+                    core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!,
                   track: [],
                 }
               : undefined

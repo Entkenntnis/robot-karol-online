@@ -49,3 +49,12 @@ export function hideErrorModal(core: Core) {
     ui.showErrorModal = false
   })
 }
+
+export function editCodeAndResetProgress(core: Core) {
+  core.mutateWs(({ quest, ui }) => {
+    quest.completed = []
+    ui.freezeCode = false
+    ui.showOutput = false
+    quest.progress = 0
+  })
+}

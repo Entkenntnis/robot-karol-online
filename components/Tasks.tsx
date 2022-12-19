@@ -8,11 +8,10 @@ import {
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { useEffect } from 'react'
+import { createRef, useEffect } from 'react'
 import { showMenu } from '../lib/commands/mode'
 import { endTaskWaiting, runTask } from '../lib/commands/quest'
 
-import { run } from '../lib/commands/vm'
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
@@ -20,6 +19,8 @@ import { View } from './View'
 
 export function Tasks() {
   const core = useCore()
+
+  const taskContainer = createRef<HTMLDivElement>()
 
   const completed = core.ws.quest.completed.length
   const completedPercent = Math.round(
@@ -36,6 +37,13 @@ export function Tasks() {
     }
   }, [core, core.ws.ui.state])
 
+  useEffect(() => {
+    if (taskContainer.current && core.ws.ui.taskScroll > 0) {
+      taskContainer.current.scrollTop = core.ws.ui.taskScroll
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100">
@@ -49,7 +57,10 @@ export function Tasks() {
         </h1>
         <p>{core.ws.quest.description}</p>
       </div>
-      <div className="flex-grow flex-shrink overflow-y-auto bg-gray-100">
+      <div
+        className="flex-grow flex-shrink overflow-y-auto bg-gray-100"
+        ref={taskContainer}
+      >
         {core.ws.quest.tasks.map(renderTask)}
       </div>
       <div className="h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1">
@@ -101,7 +112,7 @@ export function Tasks() {
       <div className="m-3 rounded-xl bg-white flex justify-between" key={index}>
         <div className="ml-4 mt-6">
           <h2 className="text-lg font-bold">{task.title}</h2>
-          <p className="mt-6 flex flex-wrap">
+          <div className="mt-6 flex flex-wrap">
             {core.ws.quest.completed.includes(index) ? (
               <>
                 <div className="text-green-600 mr-5 whitespace-nowrap">
@@ -112,6 +123,9 @@ export function Tasks() {
                     className="underline text-gray-700 select-none whitespace-nowrap"
                     onClick={() => {
                       runTask(core, index)
+                      core.mutateWs(({ ui }) => {
+                        ui.taskScroll = taskContainer.current?.scrollTop ?? -1
+                      })
                     }}
                   >
                     <FaIcon
@@ -131,6 +145,9 @@ export function Tasks() {
                 )}
                 onClick={() => {
                   runTask(core, index)
+                  core.mutateWs(({ ui }) => {
+                    ui.taskScroll = taskContainer.current?.scrollTop ?? -1
+                  })
                 }}
                 disabled={core.ws.ui.taskWaitingToLoad !== undefined}
               >
@@ -142,12 +159,16 @@ export function Tasks() {
                 Start
               </button>
             )}
-          </p>
+          </div>
         </div>
         <div className="h-48 mb-6 mr-8">
           <View
             world={task.start}
-            preview={{ track: [], world: task.target }}
+            preview={
+              task.target === null
+                ? undefined
+                : { track: [], world: task.target }
+            }
             hideKarol={false}
             wireframe={false}
             className="h-full w-full object-contain"

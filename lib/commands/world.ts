@@ -279,6 +279,7 @@ function karolCrashed(core: Core, error: string) {
 export function onWorldChange(core: Core) {
   if (core.ws.quest.lastStartedTask === undefined) return
   const task = core.ws.quest.tasks[core.ws.quest.lastStartedTask]
+  if (task.target === null) return
 
   let correctFields = 0
   let nonEmptyFields = 0

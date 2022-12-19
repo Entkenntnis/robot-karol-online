@@ -49,6 +49,8 @@ export interface Ui {
   isEndOfRun: boolean
   taskWaitingToLoad?: number
   showErrorModal: boolean
+  freezeCode: boolean
+  taskScroll: number
 }
 
 export interface Vm {
@@ -88,7 +90,7 @@ export interface WorkspaceState {
 export interface QuestTask {
   title: string
   start: World
-  target: World
+  target: World | null
 }
 
 export interface CoreState {
