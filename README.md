@@ -1,4 +1,4 @@
-<a href="https://karol.arrrg.de/"><img src="https://user-images.githubusercontent.com/13507950/208775586-7c0f3280-b8cd-4999-80fe-653ec17c1a65.png" alt="Robot Karol Quest"/></a>
+<a href="https://karol.arrrg.de/"><img src="https://user-images.githubusercontent.com/13507950/208775985-db971660-26f0-46d5-a773-55841cfc4d56.png" alt="Robot Karol Quest"/></a>
 
 Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.
 
