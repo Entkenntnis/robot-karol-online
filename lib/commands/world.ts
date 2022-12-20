@@ -1,8 +1,8 @@
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { Heading, World } from '../state/types'
-import { submit_event } from '../stats/submit'
 import { addMessage } from './messages'
+import { endExecution } from './vm'
 
 const readOnlyMessage = 'Deine Aufgabe ist abgeschlossen.'
 
@@ -13,7 +13,7 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
   const target = move(karol.x, karol.y, dir, world)
 
   if (!target) {
-    addMessage(core, 'Karol kann sich nicht in diese Richtung bewegen.')
+    karolCrashed(core, 'Karol kann sich nicht in diese Richtung bewegen.')
     return false
   }
 
@@ -21,7 +21,7 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
   const targetBrickCount = bricks[target.y][target.x]
 
   if (Math.abs(currentBrickCount - targetBrickCount) > 1) {
-    addMessage(core, 'Karol kann diese Höhe nicht überwinden.')
+    karolCrashed(core, 'Karol kann diese Höhe nicht überwinden.')
     return false
   }
 
@@ -50,17 +50,17 @@ export function brick(core: Core) {
   const pos = move(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
-    addMessage(core, 'Karol kann hier keinen Ziegel aufstellen.')
+    karolCrashed(core, 'Karol kann hier keinen Ziegel aufstellen.')
     return false
   }
 
   if (bricks[pos.y][pos.x] >= height) {
-    addMessage(core, 'Maximale Stapelhöhe erreicht.')
+    karolCrashed(core, 'Maximale Stapelhöhe erreicht.')
     return false
   }
 
   if (isReadOnly(core, pos.x, pos.y)) {
-    addMessage(core, readOnlyMessage)
+    karolCrashed(core, readOnlyMessage)
     return false
   }
 
@@ -77,17 +77,17 @@ export function unbrick(core: Core) {
   const pos = move(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
-    addMessage(core, 'Karol kann hier keine Ziegel aufheben.')
+    karolCrashed(core, 'Karol kann hier keine Ziegel aufheben.')
     return false
   }
 
   if (bricks[pos.y][pos.x] <= 0) {
-    addMessage(core, 'Keine Ziegel zum Aufheben')
+    karolCrashed(core, 'Keine Ziegel zum Aufheben')
     return false
   }
 
   if (isReadOnly(core, pos.x, pos.y)) {
-    addMessage(core, readOnlyMessage)
+    karolCrashed(core, readOnlyMessage)
     return false
   }
 
@@ -102,7 +102,7 @@ export function toggleMark(core: Core) {
   const karol = core.ws.world.karol
 
   if (isReadOnly(core, karol.x, karol.y)) {
-    addMessage(core, readOnlyMessage)
+    karolCrashed(core, readOnlyMessage)
     return false
   }
 
@@ -119,7 +119,7 @@ export function setMark(core: Core) {
   const karol = world.karol
 
   if (isReadOnly(core, karol.x, karol.y)) {
-    addMessage(core, readOnlyMessage)
+    karolCrashed(core, readOnlyMessage)
     return false
   }
 
@@ -135,7 +135,7 @@ export function resetMark(core: Core) {
   const karol = world.karol
 
   if (isReadOnly(core, karol.x, karol.y)) {
-    addMessage(core, readOnlyMessage)
+    karolCrashed(core, readOnlyMessage)
     return false
   }
 
@@ -152,12 +152,12 @@ export function toggleBlock(core: Core) {
   const pos = moveRaw(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
-    addMessage(core, 'Karol kann hier keinen Quader aufstellen.')
+    karolCrashed(core, 'Karol kann hier keinen Quader aufstellen.')
     return false
   }
 
   if (isReadOnly(core, pos.x, pos.y)) {
-    addMessage(core, readOnlyMessage)
+    karolCrashed(core, readOnlyMessage)
     return false
   }
 
@@ -169,11 +169,11 @@ export function toggleBlock(core: Core) {
     return true
   } else {
     if (bricks[pos.y][pos.x] > 0) {
-      addMessage(core, 'Karol kann keinen Quader auf Ziegel stellen.')
+      karolCrashed(core, 'Karol kann keinen Quader auf Ziegel stellen.')
       return false
     }
     if (marks[pos.y][pos.x]) {
-      addMessage(core, 'Karol kann keinen Quader auf eine Marke stellen.')
+      karolCrashed(core, 'Karol kann keinen Quader auf eine Marke stellen.')
       return false
     }
     core.mutateWs(({ world }) => {
@@ -194,7 +194,6 @@ export function createWorldCmd(
   const previous = core.ws.world
   core.mutateWs((state) => {
     state.world = createWorld(x, y, z)
-    state.ui.preview = undefined
     // copy existing state
     if (keep) {
       for (let x2 = 0; x2 < x; x2++) {
@@ -207,9 +206,6 @@ export function createWorldCmd(
         }
       }
       state.world.karol = previous.karol
-    }
-    if (keep !== undefined) {
-      state.ui.keepWorldPreference = keep
     }
   })
 }
@@ -269,64 +265,65 @@ export function turnRight(h: Heading) {
 }
 
 function isReadOnly(core: Core, x: number, y: number) {
-  return core.ws.type == 'puzzle' && core.ws.progress == 100
+  return false
+}
+function karolCrashed(core: Core, error: string) {
+  core.mutateWs(({ ui }) => {
+    ui.karolCrashMessage = error
+  })
+  //addMessage(core, error)
+  //addMessage(core, 'Ausführung abgebrochen.')
+  endExecution(core)
 }
 
 export function onWorldChange(core: Core) {
-  if (core.ws.type == 'puzzle') {
-    let correctFields = 0
-    let nonEmptyFields = 0
-    for (let x = 0; x < core.puzzle.targetWorld.dimX; x++) {
-      for (let y = 0; y < core.puzzle.targetWorld.dimY; y++) {
-        if (core.puzzle.targetWorld.bricks[y][x] > 0) {
-          nonEmptyFields++
-          if (
-            core.ws.world.bricks[y][x] == core.puzzle.targetWorld.bricks[y][x]
-          ) {
-            correctFields++
-          }
-        } else {
-          if (
-            core.ws.world.bricks[y][x] !== core.puzzle.targetWorld.bricks[y][x]
-          ) {
-            correctFields--
-          }
+  if (core.ws.quest.lastStartedTask === undefined) return
+  const task = core.ws.quest.tasks[core.ws.quest.lastStartedTask]
+  if (task.target === null) return
+
+  let correctFields = 0
+  let nonEmptyFields = 0
+  for (let x = 0; x < task.target.dimX; x++) {
+    for (let y = 0; y < task.target.dimY; y++) {
+      if (task.target.bricks[y][x] > 0) {
+        nonEmptyFields++
+        if (core.ws.world.bricks[y][x] == task.target.bricks[y][x]) {
+          correctFields++
         }
-        if (core.puzzle.targetWorld.marks[y][x]) {
-          nonEmptyFields++
-          if (core.ws.world.marks[y][x]) {
-            correctFields++
-          }
-        } else {
-          if (core.ws.world.marks[y][x]) {
-            correctFields--
-          }
+      } else {
+        if (core.ws.world.bricks[y][x] !== task.target.bricks[y][x]) {
+          correctFields--
         }
       }
-    }
-    const progress = Math.round(
-      (Math.max(0, correctFields) / nonEmptyFields) * 100
-    )
-
-    core.mutateWs((ws) => {
-      if (ws.type == 'puzzle') {
-        ws.progress = progress
-        if (progress == 100) {
-          ws.ui.showPreview = false
+      if (task.target.marks[y][x]) {
+        nonEmptyFields++
+        if (core.ws.world.marks[y][x]) {
+          correctFields++
+        }
+      } else {
+        if (core.ws.world.marks[y][x]) {
+          correctFields--
         }
       }
-    })
-
-    const id = core.ws.id
-    if (progress == 100 && !core.state.done.includes(id)) {
-      core.mutateCore((state) => {
-        state.done.push(id)
-      })
-      submit_event(`${id}_done`, core)
-    }
-
-    if (progress == 100) {
-      core.deleteWsFromStorage(id)
     }
   }
+  const progress = Math.round(
+    (Math.max(0, correctFields) / nonEmptyFields) * 100
+  )
+
+  core.mutateWs((ws) => {
+    ws.quest.progress = progress
+  })
+
+  /*const id = core.ws.id
+  if (progress == 100 && !core.state.done.includes(id)) {
+    core.mutateCore((state) => {
+      state.done.push(id)
+    })
+    submit_event(`${id}_done`, core)
+  }
+
+  if (progress == 100) {
+    core.deleteWsFromStorage(id)
+  }*/
 }

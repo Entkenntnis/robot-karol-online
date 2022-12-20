@@ -9,10 +9,10 @@ import {
   useState,
 } from 'react'
 import produce, { Draft } from 'immer'
+import { EditorView } from '@codemirror/view'
 
 import { CoreRefs, CoreState, WorkspaceState, World } from './types'
 import { createDefaultCoreState } from './create'
-import { puzzles } from '../data/puzzles'
 
 // set up core within app
 export function useCreateCore() {
@@ -46,6 +46,8 @@ export class Core {
 
   blockyResize: any
 
+  view?: MutableRefObject<EditorView | undefined> // WOW, this is bad
+
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,
     coreRef: MutableRefObject<CoreRefs>
@@ -62,14 +64,7 @@ export class Core {
   }
 
   get ws() {
-    return this.state.puzzleWorkspace || this.state.editorWorkspace
-  }
-
-  get puzzle() {
-    if (!this.state.puzzleWorkspace) {
-      throw 'bad'
-    }
-    return puzzles.find((x) => x.id == this.state.puzzleWorkspace!.id)!
+    return this.state.workspace
   }
 
   // always mutate core state with this function
@@ -82,7 +77,7 @@ export class Core {
   // proxy call to core, workspace aware
   mutateWs(updater: (draft: Draft<WorkspaceState>) => void) {
     this.mutateCore((state) => {
-      updater(state.puzzleWorkspace || state.editorWorkspace)
+      updater(state.workspace)
     })
   }
 

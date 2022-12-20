@@ -1,13 +1,5 @@
 import { MutableRefObject, useEffect, useRef } from 'react'
-import {
-  indentSelection,
-  simplifySelection,
-  cursorLineUp,
-  cursorLineEnd,
-  cursorCharLeft,
-  insertNewlineAndIndent,
-} from '@codemirror/commands'
-import { EditorState, Transaction } from '@codemirror/state'
+import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 
 import { basicSetup } from '../lib/codemirror/basicSetup'
@@ -53,77 +45,6 @@ export const Editor = ({ innerRef }: EditorProps) => {
                 if (t.docChanged) {
                   if (core.ws.ui.state == 'ready') {
                     setLoading(core)
-                  }
-                }
-
-                const annotations = (t as any).annotations as {
-                  value: string
-                }[]
-                if (annotations.some((a) => a.value == 'drop')) {
-                  indentSelection(view)
-                  simplifySelection(view)
-                  indentSelection(view)
-
-                  if (
-                    (t as any).changes.inserted.some((x: any) =>
-                      x.text.some((x: any) => x.includes('wiederhole solange'))
-                    )
-                  ) {
-                    cursorLineUp(view)
-                    cursorLineUp(view)
-                    cursorLineEnd(view)
-                  } else if (
-                    (t as any).changes.inserted.some((x: any) =>
-                      x.text.some((x: any) => x.includes('wiederhole immer'))
-                    )
-                  ) {
-                    cursorLineUp(view)
-                  } else if (
-                    (t as any).changes.inserted.some(
-                      (x: any) =>
-                        x.text?.some((x: any) => x.includes('wenn  dann')) &&
-                        x.text.length == 3
-                    )
-                  ) {
-                    cursorLineUp(view)
-                    cursorLineUp(view)
-                    cursorCharLeft(view)
-                    cursorCharLeft(view)
-                    cursorCharLeft(view)
-                  } else if (
-                    (t as any).changes.inserted.some(
-                      (x: any) =>
-                        x.text?.some((x: any) => x.includes('wenn  dann')) &&
-                        x.text.length == 5
-                    )
-                  ) {
-                    cursorLineUp(view)
-                    cursorLineUp(view)
-                    cursorLineUp(view)
-                    cursorLineUp(view)
-                    cursorCharLeft(view)
-                    cursorCharLeft(view)
-                    cursorCharLeft(view)
-                  } else {
-                    t.changes.iterChanges((from, to, fromB, toB, inserted) => {
-                      if (
-                        [
-                          'Schritt',
-                          'LinksDrehen',
-                          'RechtsDrehen',
-                          'Hinlegen',
-                          'Aufheben',
-                          'MarkeSetzen',
-                          'MarkeLöschen',
-                        ].includes(inserted.toString())
-                      ) {
-                        const line = t.newDoc.lineAt(fromB)
-                        const col = fromB - line.from
-                        if (col == 0) {
-                          insertNewlineAndIndent(view)
-                        }
-                      }
-                    })
                   }
                 }
               }

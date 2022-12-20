@@ -1,62 +1,16 @@
-import { puzzles } from '../data/puzzles'
-import {
-  CoreState,
-  WorkspaceState,
-  WorkspaceStateBase,
-  WorkspaceStateFreeMode,
-  WorkspaceStatePuzzleMode,
-  World,
-} from './types'
+import { CoreState, WorkspaceState, World } from './types'
 
 export function createDefaultCoreState(): CoreState {
   return {
-    showMenu: false,
     enableStats: true,
-    editorWorkspace: createFreeModeWorkspaceState(),
-    inviteMenu: true,
-    inviteStart: true,
-    done: [],
+    workspace: createWorkspaceState(),
   }
 }
 
-export function createFreeModeWorkspaceState(): WorkspaceStateFreeMode {
+export function createWorkspaceState(): WorkspaceState {
   const ws: WorkspaceState = {
-    ...createBaseWorkspace(),
-    type: 'free',
-  }
-  return ws
-}
-
-export function createPuzzleWorkspaceState(
-  id: number
-): WorkspaceStatePuzzleMode {
-  const puzzle = puzzles.find((x) => x.id == id)!
-  const ws: WorkspaceStatePuzzleMode = {
-    ...createBaseWorkspace(),
-    world: createWorld(
-      puzzle.targetWorld.dimX,
-      puzzle.targetWorld.dimY,
-      puzzle.targetWorld.height
-    ),
-    code: puzzle.code,
-    type: 'puzzle',
-    id,
-    preMode: true,
-    progress: 0,
-  }
-  if (puzzle.initWorld) {
-    puzzle.initWorld(ws.world)
-  }
-  if (puzzle.startSpeed) {
-    ws.settings.speed = puzzle.startSpeed
-  }
-  return ws
-}
-
-function createBaseWorkspace(): WorkspaceStateBase {
-  return {
     world: createWorld(5, 10, 6),
-    code: '',
+    code: '', // 'Schritt Schritt LinksDrehen Schritt Hinlegen Schritt Hinlegen RechtsDrehen Hinlegen Schritt LinksDrehen Hinlegen',
     ui: {
       messages: [],
       gutter: 0,
@@ -64,14 +18,19 @@ function createBaseWorkspace(): WorkspaceStateBase {
       state: 'loading',
       wireframe: false,
       needsTextRefresh: false,
-      preview: undefined,
-      showPreview: true,
-      shouldFocusWrapper: false,
-      hideKarol: false,
-      keepWorldPreference: false,
       errorMessages: [],
       toBlockWarning: false,
       editorLoading: false,
+      showOutput: false,
+      speedSliderValue: 10,
+      showMenu: false,
+      showPreviewOfTarget: true,
+      isManualAbort: false,
+      isEndOfRun: false,
+      showErrorModal: false,
+      freezeCode: false,
+      taskScroll: 0,
+      showQuestOverview: true,
     },
     vm: {
       pc: 0,
@@ -79,12 +38,21 @@ function createBaseWorkspace(): WorkspaceStateBase {
       callstack: [],
       needsConfirmation: false,
       confirmation: false,
+      steps: 0,
+      startTime: 0,
     },
     settings: {
-      speed: 'fast',
       mode: 'blocks',
     },
+    quest: {
+      progress: 0,
+      title: '',
+      description: '',
+      completed: [],
+      tasks: [],
+    },
   }
+  return ws
 }
 
 export function createWorld(dimX: number, dimY: number, height: number): World {

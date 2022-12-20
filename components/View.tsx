@@ -4,9 +4,10 @@ import { Preview, World } from '../lib/state/types'
 
 interface ViewProps {
   world: World
-  wireframe: boolean
+  wireframe?: boolean
   preview?: Preview
-  hideKarol: boolean
+  hideKarol?: boolean
+  className?: string
 }
 
 interface Resources {
@@ -23,7 +24,13 @@ interface Resources {
   ctx: CanvasRenderingContext2D
 }
 
-export function View({ world, wireframe, hideKarol, preview }: ViewProps) {
+export function View({
+  world,
+  wireframe,
+  hideKarol,
+  preview,
+  className,
+}: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
@@ -344,7 +351,12 @@ export function View({ world, wireframe, hideKarol, preview }: ViewProps) {
   }, [resources, world, wireframe, preview, hideKarol])
 
   return (
-    <canvas ref={canvas} width={width} height={height} className="m-4"></canvas>
+    <canvas
+      ref={canvas}
+      width={width}
+      height={height}
+      className={className}
+    ></canvas>
   )
 }
 

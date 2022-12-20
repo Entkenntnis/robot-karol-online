@@ -13,9 +13,9 @@ export function addMessage(core: Core, text: string) {
       ui.messages.push({ text, ts, count: 1 })
     }
   })
-  setTimeout(() => {
+  /*setTimeout(() => {
     core.mutateWs(({ ui }) => {
       ui.messages = ui.messages.filter((m) => m.ts != ts)
     })
-  }, 3500)
+  }, 3500)*/
 }

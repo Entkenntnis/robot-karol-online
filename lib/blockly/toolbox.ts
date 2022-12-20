@@ -44,6 +44,10 @@ export const KAROL_TOOLBOX = {
     },
     {
       kind: 'block',
+      type: 'repeat_forever',
+    },
+    {
+      kind: 'block',
       type: 'if_then',
     },
     {
@@ -73,6 +77,14 @@ export const KAROL_TOOLBOX = {
     {
       kind: 'block',
       type: "isn't_marker",
+    },
+    {
+      kind: 'block',
+      type: 'is_brick_count',
+    },
+    {
+      kind: 'block',
+      type: "isn't_brick_count",
     },
     {
       kind: 'block',

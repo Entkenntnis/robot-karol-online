@@ -125,6 +125,13 @@ export function compile(tree: Tree, doc: Text) {
           st.op = op
         }
       }
+      if (cursor.name == 'RepeatAlwaysKey') {
+        const st = parseStack[parseStack.length - 1]
+        if (st.type == 'repeat' && st.stage == 1) {
+          st.start = output.length
+          st.stage = 20
+        }
+      }
       if (cursor.name == 'RepeatWhileKey') {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'repeat' && st.stage == 1) {
@@ -134,13 +141,24 @@ export function compile(tree: Tree, doc: Text) {
       if (cursor.name == 'Condition') {
         const st = parseStack[parseStack.length - 1]
         let cond: Condition = {} as Condition
+
+        const repeat =
+          cursor.node.lastChild?.name == 'Parameter'
+            ? doc.sliceString(
+                cursor.node.lastChild.from,
+                cursor.node.lastChild.to
+              )
+            : null
+
+        const preparedCode = code.toLowerCase().replace(/\([0-9]*\)/, '')
+
         if (code.toLowerCase() == 'nichtistwand') {
           cond = { type: 'wall', negated: true }
         } else if (code.toLowerCase() == 'istwand') {
           cond = { type: 'wall', negated: false }
-        } else if (code.toLowerCase() == 'nichtistziegel') {
+        } else if (code.toLowerCase() == 'nichtistziegel' && repeat === null) {
           cond = { type: 'brick', negated: true }
-        } else if (code.toLowerCase() == 'istziegel') {
+        } else if (code.toLowerCase() == 'istziegel' && repeat === null) {
           cond = { type: 'brick', negated: false }
         } else if (code.toLowerCase() == 'nichtistmarke') {
           cond = { type: 'mark', negated: true }
@@ -150,6 +168,14 @@ export function compile(tree: Tree, doc: Text) {
           cond = { type: 'north', negated: true }
         } else if (code.toLowerCase() == 'istnorden') {
           cond = { type: 'north', negated: false }
+        } else if (preparedCode == 'istziegel' && repeat !== null) {
+          cond = {
+            type: 'brick_count',
+            negated: false,
+            count: parseInt(repeat),
+          }
+        } else if (preparedCode == 'nichtistziegel' && repeat !== null) {
+          cond = { type: 'brick_count', negated: true, count: parseInt(repeat) }
         }
         if (st && st.type == 'repeat' && st.stage == 10) {
           st.stage = 11
@@ -250,6 +276,16 @@ export function compile(tree: Tree, doc: Text) {
             targetT: st.start!,
             targetF: output.length + 1,
             condition: st.condition!,
+            line,
+          })
+          parseStack.pop()
+        } else if (st.type == 'repeat' && st.stage == 20) {
+          st.op!.target = output.length
+          const line = doc.lineAt(st.from).number
+          output.push({
+            type: 'jumpn',
+            count: Infinity,
+            target: st.start!,
             line,
           })
           parseStack.pop()
@@ -356,7 +392,7 @@ export function compile(tree: Tree, doc: Text) {
           }
         }
         warnings.push({
-          from: cursor.from - 2,
+          from: Math.max(0, cursor.from - 2),
           to: Math.min(cursor.to + 2, doc.length - 1),
           severity: 'error',
           message,

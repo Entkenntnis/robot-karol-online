@@ -3,7 +3,6 @@ import { EditorView } from '@codemirror/view'
 
 import { compile } from '../language/compiler'
 import { Core } from '../state/core'
-import { execPreview, hidePreview } from './preview'
 import { patch } from './vm'
 
 export function lint(core: Core, view: EditorView) {
@@ -38,11 +37,7 @@ export function lint(core: Core, view: EditorView) {
     core.mutateWs((ws) => {
       ws.ui.toBlockWarning = toWarn
     })
-
     patch(core, output)
-    setTimeout(() => {
-      execPreview(core)
-    }, 10)
   } else {
     core.mutateWs(({ vm, ui }) => {
       vm.bytecode = undefined
@@ -68,15 +63,4 @@ export function setLoading(core: Core) {
   core.mutateWs(({ ui }) => {
     ui.state = 'loading'
   })
-}
-
-export function toggleHideKarol(core: Core) {
-  if (window.location.hostname === 'localhost' && core.ws.type == 'free') {
-    core.mutateWs((ws) => {
-      ws.ui.hideKarol = !ws.ui.hideKarol
-    })
-    if (core.ws.ui.hideKarol) {
-      hidePreview(core)
-    }
-  }
 }

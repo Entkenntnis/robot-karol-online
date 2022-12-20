@@ -251,7 +251,7 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 120,
-    "tooltip": "wiederhole bis programmabruch",
+    "tooltip": "wiederhole bis Programmabbruch",
     "helpUrl": ""
   },
   {
@@ -327,17 +327,17 @@
   },
   {
     "type": "is_brick_count",
-    "message0": "IstZiegel(Anzahl) %1",
+    "message0": "IstZiegel %1",
     "args0": [
       {
         "type": "field_input",
         "name": "COUNT",
-        "text": "1"
+        "text": "2"
       }
     ],
     "output": null,
     "colour": 210,
-    "tooltip": "wenn er vor einem Ziegelstapel beliebiger Farbe mit n(=Anzahl) vielen Ziegeln steht und zu diesem schaut",
+    "tooltip": "wenn er vor einem Ziegelstapel mit n(=Anzahl) vielen Ziegeln steht und zu diesem schaut",
     "helpUrl": ""
   },
   {
@@ -371,12 +371,12 @@
   },
   {
     "type": "isn't_brick_count",
-    "message0": "NichtIstZiegel(Anzahl) %1",
+    "message0": "NichtIstZiegel %1",
     "args0": [
       {
         "type": "field_input",
         "name": "COUNT",
-        "text": "1"
+        "text": "2"
       }
     ],
     "output": null,

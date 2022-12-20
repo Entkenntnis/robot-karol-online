@@ -37,14 +37,21 @@ export interface Ui {
   state: 'ready' | 'loading' | 'running' | 'error'
   wireframe: boolean
   needsTextRefresh: boolean
-  preview?: Preview
-  showPreview: boolean
-  shouldFocusWrapper: boolean
-  hideKarol: boolean
-  keepWorldPreference: boolean
   errorMessages: string[]
   toBlockWarning: boolean
   editorLoading: boolean
+  showOutput: boolean
+  speedSliderValue: number
+  showMenu: boolean
+  showPreviewOfTarget: boolean
+  karolCrashMessage?: string
+  isManualAbort: boolean
+  isEndOfRun: boolean
+  taskWaitingToLoad?: number
+  showErrorModal: boolean
+  freezeCode: boolean
+  taskScroll: number
+  showQuestOverview: boolean
 }
 
 export interface Vm {
@@ -55,60 +62,41 @@ export interface Vm {
   callstack: number[]
   needsConfirmation: boolean
   confirmation: boolean
+  startTime: number
+  steps: number
 }
 
-export type Speed = 'slow' | 'fast' | 'step' | 'turbo'
-
 export interface Settings {
-  speed: Speed
   mode: 'code' | 'blocks'
 }
 
-export interface WorkspaceStateBase {
+export interface Quest {
+  tasks: QuestTask[]
+  title: string
+  description: string
+  completed: number[]
+  progress: number
+  lastStartedTask?: number
+}
+
+export interface WorkspaceState {
   world: World
   ui: Ui
   code: string
   vm: Vm
   settings: Settings
+  quest: Quest
 }
 
-export interface WorkspaceStateFreeMode extends WorkspaceStateBase {
-  type: 'free'
-}
-
-export interface WorkspaceStatePuzzleMode extends WorkspaceStateBase {
-  type: 'puzzle'
-  id: number
-  preMode: boolean
-  progress: number
-}
-
-export interface Puzzle {
-  id: number
+export interface QuestTask {
   title: string
-  posX: number
-  posY: number
-  targetWorld: World
-  description: JSX.Element
-  code: string
-  deps: number[]
-  initWorld?: (world: World) => void
-  startSpeed?: Speed
-  disableMovement?: boolean
+  start: World
+  target: World | null
 }
-
-export type WorkspaceState = WorkspaceStateFreeMode | WorkspaceStatePuzzleMode
 
 export interface CoreState {
-  showMenu: boolean
   enableStats: boolean
-  projectTitle?: string
-  projectInitialWorld?: World
-  puzzleWorkspace?: WorkspaceStatePuzzleMode
-  editorWorkspace: WorkspaceStateFreeMode
-  inviteMenu: boolean
-  inviteStart: boolean
-  done: number[]
+  workspace: WorkspaceState
 }
 
 export interface CoreRefs {
@@ -129,7 +117,8 @@ export interface ActionOp {
 }
 
 export interface Condition {
-  type: 'brick' | 'mark' | 'wall' | 'north'
+  type: 'brick' | 'mark' | 'wall' | 'north' | 'brick_count'
+  count?: number
   negated: boolean
 }
 
@@ -160,3 +149,10 @@ export interface ReturnOp {
 }
 
 export type Op = ActionOp | JumpNOp | JumpCondOp | CallOp | ReturnOp
+
+export interface QuestData {
+  title: string
+  description: string
+  tasks: QuestTask[]
+  difficulty: string
+}

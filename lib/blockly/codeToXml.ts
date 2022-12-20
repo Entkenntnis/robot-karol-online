@@ -85,7 +85,18 @@ function parseTree(
     } else if (t == 'Repeat') {
       nextIgnoreComment(cursor) // RepeatStart
       nextIgnoreComment(cursor) //
-      if (cursor.type.name == 'Times') {
+      if (cursor.type.name == 'RepeatAlwaysKey') {
+        const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
+        //while ((cursor.type.name as string) !== 'RepeatEnd') cursor.next()
+        //console.log('inner', inner)
+        callbackStack.push(
+          buildRepeatAlways(
+            inner
+            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+          )
+        )
+        continue
+      } else if (cursor.type.name == 'Times') {
         const times = code.substring(cursor.from, cursor.to)
         //nextIgnoreComment(cursor) // RepeatTimesKey
         const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
@@ -252,6 +263,14 @@ function buildCondition(typeRaw: string) {
   if (type == 'nichtistmarke') return `<block type="isn't_marker"></block>`
   if (type == 'istnorden') return `<block type="is_north"></block>`
   if (type == 'nichtistnorden') return `<block type="isn't_north"></block>`
+  if (type.startsWith('istziegel(')) {
+    const count = type.replace('istziegel(', '').replace(')', '')
+    return `<block type="is_brick_count"><field name="COUNT">${count}</field></block>`
+  }
+  if (type.startsWith('nichtistziegel(')) {
+    const count = type.replace('nichtistziegel(', '').replace(')', '')
+    return `<block type="isn't_brick_count"><field name="COUNT">${count}</field></block>`
+  }
   return ''
 }
 
@@ -260,4 +279,10 @@ function buildCommentClosure(msg: string, attrs?: string) {
     `<block type="line_comment" ${
       attrs ?? ''
     }><field name="TEXT">${msg}</field><next>${inner}</next></block>`
+}
+function buildRepeatAlways(statements: string) {
+  return (inner: String) => `<block type="repeat_forever">
+  ${
+    statements ? `<statement name="STATEMENTS">${statements}</statement>` : ''
+  }${inner ? `<next>${inner}</next>` : ''}</block>`
 }

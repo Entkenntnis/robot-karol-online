@@ -62,6 +62,16 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
       '\nendewiederhole',
   ],
   [
+    'repeat_forever',
+    (block: Block) =>
+      'wiederhole immer ' +
+      '//blockId:' +
+      block.id +
+      '\n' +
+      karolGenerator.statementToCode(block, 'STATEMENTS') +
+      '\nendewiederhole',
+  ],
+  [
     'if_then',
     (block: Block) =>
       'wenn ' +
@@ -91,6 +101,14 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   ["isn't_wall", (block: Block) => ['NichtIstWand', 0]],
   ['is_brick', (block: Block) => ['IstZiegel', 0]],
   ["isn't_brick", (block: Block) => ['NichtIstZiegel', 0]],
+  [
+    'is_brick_count',
+    (block: Block) => [`IstZiegel(${block.getFieldValue('COUNT')})`, 0],
+  ],
+  [
+    "isn't_brick_count",
+    (block: Block) => [`NichtIstZiegel(${block.getFieldValue('COUNT')})`, 0],
+  ],
   ['is_marker', (block: Block) => ['IstMarke', 0]],
   ["isn't_marker", (block: Block) => ['NichtIstMarke', 0]],
   ['is_north', (block: Block) => ['IstNorden', 0]],
@@ -102,7 +120,7 @@ export function initCustomBlocks() {
   blocks.forEach((block) => {
     Blockly.Blocks[block.type] = {
       init: function () {
-        this.jsonInit(block)
+        ;(this as any).jsonInit(block)
       },
     }
   })

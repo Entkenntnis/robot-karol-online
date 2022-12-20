@@ -1,6 +1,5 @@
 import Blockly, { WorkspaceSvg } from 'blockly'
 import { useRef, useState, useEffect } from 'react'
-import { Tree } from '@lezer/common'
 import { Text } from '@codemirror/state'
 
 // @ts-ignore
@@ -10,11 +9,9 @@ import { codeToXml } from '../lib/blockly/codeToXml'
 import { initCustomBlocks } from '../lib/blockly/customBlocks'
 import { KAROL_TOOLBOX } from '../lib/blockly/toolbox'
 import { parser } from '../lib/codemirror/parser/parser'
-import { execPreview } from '../lib/commands/preview'
-import { abort, patch } from '../lib/commands/vm'
+import { abort, endExecution, patch } from '../lib/commands/vm'
 import { compile } from '../lib/language/compiler'
 import { useCore } from '../lib/state/core'
-import { sendStatusCode } from 'next/dist/server/api-utils'
 
 initCustomBlocks()
 ;(Blockly as any).setLocale(De)
@@ -35,14 +32,14 @@ export function BlockEditor() {
   ) {
     if (blockIds[core.ws.ui.gutter - 1]) {
       blocklyWorkspaceSvg.current.highlightBlock(
-        blockIds[core.ws.ui.gutter - 1]
+        blockIds[core.ws.ui.gutter - 1] ?? ''
       )
     }
   }
 
   useEffect(() => {
     if (blocklyWorkspaceSvg.current && core.ws.ui.state != 'running') {
-      blocklyWorkspaceSvg.current.highlightBlock(null)
+      blocklyWorkspaceSvg.current.highlightBlock('')
     }
   }, [core.ws.ui.state])
 
@@ -57,23 +54,20 @@ export function BlockEditor() {
 
     //console.log('initial', initialXml)
 
-    const blocklyWorkspace = Blockly.inject(
-      editorDiv.current,
-      {
-        toolbox: KAROL_TOOLBOX,
-        grid: {
-          spacing: 20,
-          length: 3,
-          colour: '#ccc',
-        },
-        scrollbars: true,
-        trashcan: true,
-        move: {
-          drag: true,
-          wheel: true,
-        },
-      } as any /* wtf blockly types are weird*/
-    )
+    const blocklyWorkspace = Blockly.inject(editorDiv.current, {
+      toolbox: KAROL_TOOLBOX,
+      grid: {
+        spacing: 20,
+        length: 3,
+        colour: '#ccc',
+      },
+      scrollbars: true,
+      trashcan: true,
+      move: {
+        drag: true,
+        wheel: true,
+      },
+    })
 
     blocklyWorkspaceSvg.current = blocklyWorkspace
 
@@ -135,11 +129,13 @@ export function BlockEditor() {
 
       if (core.ws.ui.state == 'running') {
         if (code.current !== newCode) {
+          // <- this check is unreliable
           abort(core)
         } else {
           return
         }
       }
+
       code.current = newCode
 
       core.mutateWs((ws) => {
@@ -161,9 +157,11 @@ export function BlockEditor() {
         })*/
 
       if (topBlocks.length > 1) {
+        if (core.ws.ui.state == 'running') {
+          abort(core)
+        }
         core.mutateWs((ws) => {
           ws.ui.state = 'error'
-          ws.ui.preview = undefined
           ws.ui.errorMessages = [`Alle Blöcke müssen zusammenhängen.`]
         })
       } else {
@@ -175,9 +173,6 @@ export function BlockEditor() {
 
         if (warnings.length == 0) {
           patch(core, output)
-          setTimeout(() => {
-            execPreview(core)
-          }, 10)
         } else {
           core.mutateWs(({ vm, ui }) => {
             vm.bytecode = undefined

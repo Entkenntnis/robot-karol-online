@@ -1,11 +1,8 @@
 import { Core } from '../state/core'
 import { World } from '../state/types'
-import { abort } from './vm'
+import { endExecution } from './vm'
 
 export function serialize(core: Core) {
-  if (core.ws.type == 'puzzle') {
-    throw new Error("Can't export puzzle")
-  }
   const { world, code } = core.ws
   return { world, code, mode: core.ws.settings.mode }
 }
@@ -49,13 +46,10 @@ export function deserialize(core: Core, file?: string) {
         }
       }
     }
-    abort(core)
+    endExecution(core)
+    console.log(code)
     core.mutateWs((state) => {
-      state.world = world
-      if (state.type == 'free') {
-        state.code = code ?? ''
-        state.ui.preview = undefined
-      }
+      state.code = code ?? ''
       if (mode) {
         state.settings.mode = mode
       }
@@ -63,7 +57,12 @@ export function deserialize(core: Core, file?: string) {
       state.ui.editorLoading = false
     })
     core.mutateCore((state) => {
-      state.projectInitialWorld = world
+      state.workspace.quest.tasks = [
+        { start: world, title: 'Welt', target: null },
+      ]
+      state.workspace.quest.title = 'Importiertes Projekt'
+      state.workspace.quest.description =
+        'Dieses Projekt wurde aus einer früheren Version von Robot Karol importiert. Es ist keine Quest, allerdings kannst du das Programm ausführen und anschauen.'
     })
   } catch (e) {
     alert(e ?? 'Laden fehlgeschlagen')
