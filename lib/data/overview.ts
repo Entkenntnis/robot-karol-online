@@ -1,1 +1,1 @@
-export const overviewData = [1]
+export const overviewData = [1, 2]

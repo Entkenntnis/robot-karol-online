@@ -4,6 +4,38 @@ export const questData: { [key: number]: QuestData } = {
   1: {
     title: 'Herzlich Willkommen',
     description:
+      'Karol ist ein kleiner Roboter, der in der Bildschirmwelt lebt. ' +
+      'Du kannst ihn steuern, indem du links im Block-Editor ein Programm schreibst. ' +
+      'Dieses Programm soll dann den ersten Auftrag erfüllen. Lege in diesem Fall ein paar Ziegel.',
+    difficulty: 'Tutorial',
+    tasks: [
+      {
+        title: 'Ziegelsteine legen',
+        start: {
+          dimX: 7,
+          dimY: 1,
+          height: 6,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0, 0, 0, 0, 0, 0, 0]],
+          marks: [[false, false, false, false, false, false, false]],
+          blocks: [[false, false, false, false, false, false, false]],
+        },
+        target: {
+          dimX: 7,
+          dimY: 1,
+          height: 6,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0, 1, 0, 1, 0, 1, 0]],
+          marks: [[false, false, false, false, false, false, true]],
+          blocks: [[false, false, false, false, false, false, false]],
+        },
+      },
+    ],
+  },
+
+  2: {
+    title: 'Erstes Bauprojekt',
+    description:
       'Hallo, das ist eine Quest von Robot Karol. Es geht darum, ein Programm zu schreiben, ' +
       'das in der Lage ist, alle Aufträge zu erfüllen. Erstelle dazu im Block-Editor dein Programm und starte es.',
     difficulty: 'Tutorial',
