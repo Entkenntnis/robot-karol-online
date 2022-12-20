@@ -84,32 +84,13 @@ Die Aufgaben beginnen mit einer Reihe von Tutorials, die die Grundlagen der Spra
 
 ## Textmodus
 
-Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen unterstützt.
+Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen unterstützt, außerdem gibt es noch folgende Möglichkeiten:
 
-### Selbstdefinierte Anweisungen
-
-Eigene Anweisungen können mit `Anweisung {Name} endeAnweisung` definiert werden und überall mit `Name` aufgerufen werden. Außerdem kann aus einer Anweisung mit `return` zurückgesprungen werden.
-
-### Syntax
-
+- Eigene Anweisungen können mit `Anweisung {Name} endeAnweisung` definiert werden und überall mit `Name` aufgerufen werden. Außerdem kann aus einer Anweisung mit `return` zurückgesprungen werden.
 - Die meisten Befehle erlauben eine objektorientiere Schreibweise der Form `karol.Schritt(4)` oder ohne Parameter in der Form `karol.LinksDrehen()`.
 - Die alte Syntax mit `*wiederhole`, `*wenn` und `*Anweisung` wird weiterhin unterstützt.
 - Außerdem können weiterhin Kommentare mit `{ Kommentar }` geschrieben werden. Alternative Syntax für mehrzeilige Kommentare ist `/* Kommentar */`, Alternative für einzeiligen Kommentar ist `# Kommentar`.
 - Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`
-
-## Umstieg
-
-Über die letzten Jahre hat sich Robot Karol immer wieder weiterentwickelt und neue Sprachelemente erhalten. Dadurch ist der Umfang der Sprache immer wieder angewachsen und besitzt nun eine gewisse Komplexität. Um wieder zurück zu einer "Minisprache" zu kommen, versucht Robot Karol Quest, den Umfang der Sprache vorsichtig wieder zu verschlanken. Beim Umstieg sind bezüglich der Sprache folgende Punkte zu beachten:
-
-- Farbige Ziegel und Marken sind nicht implementiert
-- Der Rucksack ist nicht implementiert
-- Ton ist nicht implementiert
-- Bedingungen fallen raus, d.h. es lassen sich über `Bedingung`, `wahr` und `falsch` keine eigenen Bedingungen mehr definieren, sondern wird durch das Schlüsselwort `return` ersetzt
-- Willkürliche Groß-/Kleinschreibungen wie z.B. `sCHritt` werden nicht mehr unterstützt. Stattdessen kann man entweder `schritt` oder `Schritt` schreiben.
-- Der Platzhalter `Programm` wird nicht mehr unterstützt
-- Die Wiederholung mit Endprüfung fällt raus, außerdem wird das `nicht` Schlüsselwort bei Bedingungen nicht mehr benötigt
-- Ausführungsgeschwindigkeit kann angepasst werden, aber die Schlüsselworte `schnell`/`langsam` sind nicht implementiert
-- Einbindung von Bibliothek ist nicht implementiert
 
 ## Entwicklung
 
