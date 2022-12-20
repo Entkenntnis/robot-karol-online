@@ -1,10 +1,6 @@
-# Robot Karol Web
-
-Zum Editor → https://karol.arrrg.de/
+<a href="https://karol.arrrg.de/"><img src="https://user-images.githubusercontent.com/13507950/208775586-7c0f3280-b8cd-4999-80fe-653ec17c1a65.png" alt="Robot Karol Quest"/></a>
 
 Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.
-
-<img src="https://user-images.githubusercontent.com/13507950/174500998-32a2f0f0-ceb2-45b3-8bfd-78668a5053c8.png"/>
 
 ## Übersicht
 
