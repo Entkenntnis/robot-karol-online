@@ -1,20 +1,26 @@
 <a href="https://karol.arrrg.de/"><img src="https://user-images.githubusercontent.com/13507950/208775985-db971660-26f0-46d5-a773-55841cfc4d56.png" alt="Robot Karol Quest"/></a>
 
-Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.
+*Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.*
 
 ## Übersicht
 
-> Robot Karol ist eine Programmierumgebung mit einer Programmiersprache, die für Schülerinnen und Schüler zum Erlernen des Programmierens und zur Einführung in die Algorithmik gedacht ist. Robot Karol folgt der Tradition der “Mini-Languages”. Dies sind Programmiersprachen, die bewusst über einen kleinen, übersichtlichen Sprachumfang verfügen, um den Einstieg in die Algorithmik zu erleichtern.
+<blockquote>
 
-> Dem Programm Robot Karol liegt die Idee von [„Karel the Robot“](https://www.cs.mtsu.edu/~untch/karel/index.html) zugrunde, wie sie zum ersten Mal von Richard E. Pattis in “Karel the Robot: A Gentle Introduction to the Art of Programming” veröffentlicht wurde. Die Idee ist, einen Roboter zu programmieren, der in einer “Bildschirmwelt” lebt. Wenn Karol-Programme ablaufen, sehen die Schülerinnen und Schüler an der Reaktion des Roboters sofort, was sie programmiert haben und ob ihr Programm die Aufgabenstellung erfüllt.
+Robot Karol ist eine Programmierumgebung mit einer Programmiersprache, die für Schülerinnen und Schüler zum Erlernen des Programmierens und zur Einführung in die Algorithmik gedacht ist. Robot Karol folgt der Tradition der “Mini-Languages”. Dies sind Programmiersprachen, die bewusst über einen kleinen, übersichtlichen Sprachumfang verfügen, um den Einstieg in die Algorithmik zu erleichtern.
 
-Quelle: https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/
+Dem Programm Robot Karol liegt die Idee von [„Karel the Robot“](https://www.cs.mtsu.edu/~untch/karel/index.html) zugrunde, wie sie zum ersten Mal von Richard E. Pattis in “Karel the Robot: A Gentle Introduction to the Art of Programming” veröffentlicht wurde. Die Idee ist, einen Roboter zu programmieren, der in einer “Bildschirmwelt” lebt. Wenn Karol-Programme ablaufen, sehen die Schülerinnen und Schüler an der Reaktion des Roboters sofort, was sie programmiert haben und ob ihr Programm die Aufgabenstellung erfüllt.
 
-Die Idee eines programmierbaren kleinen Roboters in einer Bildschirmwelt ist für den Einstieg in das Programmmieren kaum mehr wegzudenken. Die aktuell genutzte Implementierung ist [Robot Karol 3.0](https://www.mebis.bayern.de/infoportal/empfehlung/robot-karol/) und weitverbreitet. Das Design davon stammt aus dem Jahr 1993 und ist damit schon fast 30 Jahre alt! Das heißt erstmal: Es ist was Bewährtes. Aber es gib immer wieder Entwicklungen, bei denen es sich lohnt, nochmal über das Design einer Software nachzudenken.
+Quelle: https://mebis.bycs.de/beitrag/robot-karol
 
-Eine dieser Entwicklungen ist aus meiner Sicht die block-basierte Programmierung. Es wird damit nicht nur das leidige Problem mit Syntaxfehler umgangen - sondern sie gibt dem Programmieren auch ein ganz anderes Gefühl - bisschen so wie Lego. Man hat seinen Baukasten mit unterschiedlichen Steinen und kann diese zu größeren Gebilde zusammenstecken. Nur dass es keine Plastikquader sind, sondern Befehle und Kontrollstrukturen. Ein solches Gefühl zu erleben ist zentral, vor allem beim Einstieg, denn das ist der Punkt, an dem Menschen sich entscheiden, weiterzumachen oder aufzuhören!
+</blockquote>
 
-Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mischen. Die Regeln der Welt und die graphische Darstellung sind geblieben (bis auf einen neuen Karol im Paper-Look) - dazu gesellt sich nun ein blockbasierter Editor (powered by [Blockly](https://github.com/google/blockly)). Programmieren mit Text ist weiterhin möglich und erwünscht, vor allem im Hinblick auf den Anschluss an gängige Programmiersprachen. Ein Wechsel zwischen Blöcken und Code (in beide Richtungen) ist möglich.
+**Robot Karol Quest** erweitert die bisherigen Implementationen von Robot Karol um einen blockbasierten Editor und einer eingebauten Aufgabensammlung. Damit werden die Einstiegshürden nochmal deutlich gesenkt: Für den Anfang muss man sich um Syntax-Fehler keine Sorgen machen und das beigefügte Tutorial und die Aufgaben bieten sofortiges Feedback für die ersten eigenen Programme.
+
+Die Aufgabensammmlung besteht aus einzelnen Quests. Jede Quest besteht wiederum aus einen oder mehreren Aufträgen, die mit *einem* Programm gelöst werden müssen. Bei jedem Auftrag geht es darum, eine vorgegebene Welt mit Karol nachzubauen - beziehungsweise das passende Programm dazu zu schreiben. Dadurch, dass alle Aufträge mit einem Programm gelöst werden, ist der Einsatz von Bedingungen unverzichtbar. Sobald ein Auftrag erledigt ist, wird das in Robot Karol Quest markiert und man kann damit seinen Fortschritt nachverfolgen.
+
+Die Aufgaben beginnen mit einer Reihe von Tutorials, die die Grundlagen der Sprache vermitteln. Danach gibt es eine Reihe an einfachen und mittleren Aufgaben um die Grundlagen gut einzuüben.
+
+
 
 ## Sprache
 
@@ -52,25 +58,29 @@ Diese Neuimplementation versucht, das Bewährte zu erhalten und mit Neuem zu mis
 
 ### Steuerung
 
-![grafik](https://user-images.githubusercontent.com/13507950/174559742-710a0d46-b8ea-4224-915f-e8bb692a0381.png)
+![grafik](https://user-images.githubusercontent.com/13507950/208776391-bd902daf-72e1-4bef-959a-9ae1e4d28fb2.png)
 
 `wiederhole {n} mal {Anweisungen} endewiederhole` - Wiederholung mit fester Anzahl
 
 `wiederhole solange {Bedingung} {Anweisungen} endewiederhole` - Wiederholung mit Bedingung
 
-`wenn {Bedingung} dann {Anweisungen} endewenn` - Einseitige bedingte Anweisung
+`wiederhole immer {Anweisungen} endewiederhole` - Wiederholung bis zum Programmabbruch
+
+`wenn {Bedingung} dann {Anweisungen} endewenn` - Einseitig bedingte Anweisung
 
 `wenn {Bedingung} dann {Anweisungen A} sonst {Anweisungen B} endewenn` - Zweiseitig bedingte Anweisung
 
 ### Bedingungen
 
-![grafik](https://user-images.githubusercontent.com/13507950/175011392-4ab45def-d18c-4096-b2c0-090f0b3e42fa.png)
+![grafik](https://user-images.githubusercontent.com/13507950/208776560-15d88203-900c-45e7-b788-abcf8da8b27c.png)
 
 `IstWand` / `NichtIstWand` - Karol testet, ob vor ihm eine Wand (oder ein Quader) ist oder nicht.
 
 `IstZiegel` / `NichtIstZiegel` - Karol testet, ob vor ihm Ziegel liegen oder nicht.
 
 `IstMarke` / `NichtIstMarke` - Karol testet, ob er auf einer Marke steht oder nicht.
+
+`IstZiegel(anzahl)` / `NichtIstZiegel(anzahl)` - Karol testet, ob vor ihm genau `anzahl` Ziegel liegen oder nicht.
 
 `IstNorden` / `NichtIstNorden` - Karol testet, ob er nach Norden schaut oder nicht. (Norden = oben)
 
