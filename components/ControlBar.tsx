@@ -63,7 +63,7 @@ export function ControlBar() {
               className="px-2 py-0.5 rounded bg-gray-200 ml-3"
             >
               <FaIcon icon={faCaretLeft} className="mr-1" />
-              Übersicht
+              zurück
             </button>
           )}
           {core.ws.ui.state == 'error' && (
@@ -82,7 +82,7 @@ export function ControlBar() {
                 onClick={() => {
                   restartProgram(core)
                 }}
-                className="px-2 py-0.5 rounded bg-yellow-200 ml-3"
+                className="px-2 py-0.5 rounded bg-green-300 ml-3"
               >
                 <FaIcon
                   icon={core.ws.ui.isEndOfRun ? faRotateRight : faPlay}
@@ -98,7 +98,7 @@ export function ControlBar() {
                   className="px-2 py-0.5 rounded bg-gray-200 ml-3"
                 >
                   <FaIcon icon={faTrashCan} className="mr-1" />
-                  zurücksetzen
+                  Ausgabe leeren
                 </button>
               )}
             </>
@@ -108,7 +108,7 @@ export function ControlBar() {
               onClick={() => {
                 abort(core)
               }}
-              className="px-2 py-0.5 rounded bg-red-200 ml-3"
+              className="px-2 py-0.5 rounded bg-amber-400 ml-3"
             >
               <FaIcon icon={faStop} className="mr-1" />
               Abbrechen

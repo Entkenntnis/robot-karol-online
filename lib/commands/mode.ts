@@ -66,3 +66,15 @@ export function editCodeAndResetProgress(core: Core) {
     quest.progress = 0
   })
 }
+
+export function showQuestOverview(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.showQuestOverview = true
+  })
+}
+
+export function dummyOpenQuest(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.showQuestOverview = false
+  })
+}

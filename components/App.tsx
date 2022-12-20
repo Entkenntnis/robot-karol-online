@@ -5,6 +5,7 @@ import { loadProject } from '../lib/commands/load'
 import { useCore } from '../lib/state/core'
 import { submit_event } from '../lib/helper/submit'
 import { Quest } from './Quest'
+import { Overview } from './Overview'
 
 export function App() {
   const core = useCore()
@@ -20,7 +21,7 @@ export function App() {
         <title>Robot Karol Quest</title>
       </Head>
       <div className="w-full h-full min-w-[900px] relative overflow-hidden">
-        <Quest />
+        {core.ws.ui.showQuestOverview ? <Overview /> : <Quest />}
       </div>
     </>
   )

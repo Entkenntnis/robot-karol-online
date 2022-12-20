@@ -1,7 +1,7 @@
-import { closeMenu, setMode } from '../lib/commands/mode'
+import { closeMenu, setMode, showQuestOverview } from '../lib/commands/mode'
 import { useCore } from '../lib/state/core'
 
-export function Menu() {
+export function Options() {
   const core = useCore()
   return (
     <div
@@ -11,7 +11,7 @@ export function Menu() {
       }}
     >
       <div
-        className="h-[300px] w-[300px] bg-white z-[200] rounded-xl relative"
+        className="h-[400px] w-[500px] bg-white z-[200] rounded-xl relative"
         onClick={(e) => {
           e.stopPropagation()
         }}
@@ -28,7 +28,17 @@ export function Menu() {
         </div>
         <p className="ml-4 font-bold text-lg mt-2">Menü</p>
         <p className="ml-4 mt-3 underline">Quests</p>
-        <p className="ml-4 mt-1">Wähle eine Quest aus: TODO</p>
+        <p className="ml-4 mt-1">
+          <button
+            className="px-2 bg-gray-200 hover:bg-gray-300 rounded"
+            onClick={() => {
+              showQuestOverview(core)
+              closeMenu(core)
+            }}
+          >
+            zur Quest-Auswahl
+          </button>
+        </p>
         <p className="ml-4 mt-3 underline">Einstellungen</p>
         <p className="ml-4 mt-1">
           Eingabemethode:
@@ -43,9 +53,6 @@ export function Menu() {
             <option value="blocks">block-basiert</option>
             <option value="code">text-basiert</option>
           </select>
-        </p>
-        <p className="ml-4 mt-1">
-          Editor-Modus aktivieren: <input type="checkbox" />
         </p>
         <p className="ml-4 mt-3 underline">Informationen</p>
         <p className="ml-4 mt-1">Dokumentation | Kontakt / Datenschutz</p>

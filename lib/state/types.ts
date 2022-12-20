@@ -51,6 +51,7 @@ export interface Ui {
   showErrorModal: boolean
   freezeCode: boolean
   taskScroll: number
+  showQuestOverview: boolean
 }
 
 export interface Vm {
@@ -148,3 +149,10 @@ export interface ReturnOp {
 }
 
 export type Op = ActionOp | JumpNOp | JumpCondOp | CallOp | ReturnOp
+
+export interface QuestData {
+  title: string
+  description: string
+  tasks: QuestTask[]
+  difficulty: string
+}

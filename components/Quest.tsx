@@ -6,7 +6,7 @@ import { useCore } from '../lib/state/core'
 import { EditArea } from './EditArea'
 import { ErrorModal } from './ErrorModal'
 import { FaIcon } from './FaIcon'
-import { Menu } from './Menu'
+import { Options } from './Options'
 import { Output } from './Output'
 import { Tasks } from './Tasks'
 
@@ -67,7 +67,7 @@ export function Quest() {
           {core.ws.ui.showOutput ? <Output /> : <Tasks />}
         </ReflexElement>
       </ReflexContainer>
-      {core.ws.ui.showMenu && <Menu />}
+      {core.ws.ui.showMenu && <Options />}
       {core.ws.ui.showErrorModal && <ErrorModal />}
     </>
   )

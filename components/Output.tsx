@@ -1,9 +1,7 @@
 import clsx from 'clsx'
 
-import { setShowTarget } from '../lib/commands/mode'
 import { useCore } from '../lib/state/core'
 import { ControlBar } from './ControlBar'
-import { Tasks } from './Tasks'
 import { View } from './View'
 
 export function Output() {

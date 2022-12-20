@@ -30,6 +30,7 @@ export function createWorkspaceState(): WorkspaceState {
       showErrorModal: false,
       freezeCode: false,
       taskScroll: 0,
+      showQuestOverview: true,
     },
     vm: {
       pc: 0,

@@ -1,4 +1,5 @@
 import { autoFormat, setEditable } from '../codemirror/basicSetup'
+import { questData } from '../data/quests'
 import { Core } from '../state/core'
 import { showErrorModal } from './mode'
 import { run } from './vm'
@@ -28,6 +29,15 @@ export function runTask(core: Core, index: number) {
       run(core)
     }
   }
+}
+
+export function openTask(core: Core, index: number) {
+  const task = core.ws.quest.tasks[index]
+  core.mutateWs((ws) => {
+    ws.world = task.start
+    ws.ui.showOutput = true
+    ws.quest.lastStartedTask = index
+  })
 }
 
 export function closeOutput(core: Core) {
@@ -66,5 +76,23 @@ export function resetOutput(core: Core) {
 export function endTaskWaiting(core: Core) {
   core.mutateWs(({ ui }) => {
     ui.taskWaitingToLoad = undefined
+  })
+}
+
+export function startQuest(core: Core, id: number) {
+  const data = questData[id]
+  core.mutateWs((ws) => {
+    const { ui, quest } = ws
+
+    ui.showOutput = false
+    quest.progress = 0
+    quest.completed = []
+    quest.title = data.title
+    quest.description = data.description
+    quest.tasks = data.tasks
+    ui.showQuestOverview = false
+    ui.isEndOfRun = false
+
+    ws.code = ''
   })
 }

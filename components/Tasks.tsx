@@ -2,15 +2,16 @@ import {
   faBars,
   faCheck,
   faCircleCheck,
-  faEye,
+  faGear,
+  faGrip,
   faPlay,
   faRotateRight,
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
-import { showMenu } from '../lib/commands/mode'
-import { endTaskWaiting, runTask } from '../lib/commands/quest'
+import { showMenu, showQuestOverview } from '../lib/commands/mode'
+import { endTaskWaiting, openTask, runTask } from '../lib/commands/quest'
 
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
@@ -46,7 +47,7 @@ export function Tasks() {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100">
+      <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100 relative">
         <h1 className="mb-3 text-xl font-bold">
           {core.ws.quest.title}{' '}
           {completedPercent == 100 && (
@@ -56,6 +57,14 @@ export function Tasks() {
           )}
         </h1>
         <p>{core.ws.quest.description}</p>
+        <button
+          className="absolute right-2 top-2 px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
+          onClick={() => {
+            showQuestOverview(core)
+          }}
+        >
+          <FaIcon icon={faGrip} className="mr-1" /> Quest auswählen
+        </button>
       </div>
       <div
         className="flex-grow flex-shrink overflow-y-auto bg-gray-100"
@@ -100,7 +109,7 @@ export function Tasks() {
               showMenu(core)
             }}
           >
-            <FaIcon icon={faBars} className="mr-2" /> Menü
+            <FaIcon icon={faGear} className="mr-2" /> Optionen
           </button>
         </div>
       </div>
@@ -109,7 +118,16 @@ export function Tasks() {
 
   function renderTask(task: QuestTask, index: number) {
     return (
-      <div className="m-3 rounded-xl bg-white flex justify-between" key={index}>
+      <div
+        className="m-3 rounded-xl bg-white flex justify-between cursor-pointer hover:bg-green-50"
+        key={index}
+        onClick={() => {
+          openTask(core, index)
+          core.mutateWs(({ ui }) => {
+            ui.taskScroll = taskContainer.current?.scrollTop ?? -1
+          })
+        }}
+      >
         <div className="ml-4 mt-6">
           <h2 className="text-lg font-bold">{task.title}</h2>
           <div className="mt-6 flex flex-wrap">
@@ -118,47 +136,8 @@ export function Tasks() {
                 <div className="text-green-600 mr-5 whitespace-nowrap">
                   <FaIcon icon={faCheck} /> abgeschlossen
                 </div>
-                <div>
-                  <button
-                    className="underline text-gray-700 select-none whitespace-nowrap"
-                    onClick={() => {
-                      runTask(core, index)
-                      core.mutateWs(({ ui }) => {
-                        ui.taskScroll = taskContainer.current?.scrollTop ?? -1
-                      })
-                    }}
-                  >
-                    <FaIcon
-                      icon={faRotateRight}
-                      className="mr-1 text-sm"
-                      style={{ verticalAlign: '-2.5px' }}
-                    />
-                    erneut ausführen
-                  </button>
-                </div>
               </>
-            ) : (
-              <button
-                className={clsx(
-                  'bg-yellow-300 rounded px-2 py-0.5 mr-2 transition-colors',
-                  'hover:bg-yellow-400'
-                )}
-                onClick={() => {
-                  runTask(core, index)
-                  core.mutateWs(({ ui }) => {
-                    ui.taskScroll = taskContainer.current?.scrollTop ?? -1
-                  })
-                }}
-                disabled={core.ws.ui.taskWaitingToLoad !== undefined}
-              >
-                {core.ws.ui.taskWaitingToLoad !== index ? (
-                  <FaIcon icon={faPlay} className="mr-2" />
-                ) : (
-                  <FaIcon icon={faSpinner} className="mr-2 animate-spin" />
-                )}
-                Start
-              </button>
-            )}
+            ) : null}
           </div>
         </div>
         <div className="h-48 mb-6 mr-8">
