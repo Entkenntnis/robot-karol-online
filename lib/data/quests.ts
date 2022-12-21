@@ -3,10 +3,11 @@ import { QuestData } from '../state/types'
 export const questData: { [key: number]: QuestData } = {
   1: {
     title: 'Herzlich Willkommen',
-    description:
-      'Karol ist ein kleiner Roboter, der in der Bildschirmwelt lebt. ' +
-      'Du kannst ihn steuern, indem du links im Block-Editor ein Programm schreibst. ' +
-      'Dieses Programm soll dann den ersten Auftrag erfüllen. Lege in diesem Fall ein drei Ziegel.',
+    description: `
+      Karol ist ein kleiner Roboter, der in der Bildschirmwelt lebt.
+      Du kannst ihn steuern, indem du links im Block-Editor ein Programm schreibst.
+      Dieses Programm soll dann den ersten Auftrag erfüllen. Lege in diesem Fall ein drei Ziegel.
+    `,
     difficulty: 'Tutorial',
     tasks: [
       {

@@ -10,7 +10,7 @@ export function createDefaultCoreState(): CoreState {
 export function createWorkspaceState(): WorkspaceState {
   const ws: WorkspaceState = {
     world: createWorld(5, 10, 6),
-    code: '', // 'Schritt Schritt LinksDrehen Schritt Hinlegen Schritt Hinlegen RechtsDrehen Hinlegen Schritt LinksDrehen Hinlegen',
+    code: '',
     ui: {
       messages: [],
       gutter: 0,

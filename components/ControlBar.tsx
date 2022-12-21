@@ -8,16 +8,10 @@ import {
   faRotateRight,
   faStop,
   faThumbsUp,
-  faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 
 import { setSpeedSliderValue, showErrorModal } from '../lib/commands/mode'
-import {
-  closeOutput,
-  finishTask,
-  resetOutput,
-  restartProgram,
-} from '../lib/commands/quest'
+import { closeOutput, finishTask, restartProgram } from '../lib/commands/quest'
 import { abort } from '../lib/commands/vm'
 import { sliderToDelay } from '../lib/helper/speedSlider'
 import { useCore } from '../lib/state/core'
