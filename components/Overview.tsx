@@ -42,7 +42,7 @@ export function Overview() {
           <h1 className="text-5xl whitespace-nowrap">Robot Karol Quest</h1>
         </div>
       </div>
-      <div className="flex-auto flex flex-col mx-auto overflow-hidden">
+      <div className="flex-auto flex flex-col overflow-hidden mx-12 lg:mx-16 xl:mx-24">
         <div className="mt-6 mb-4 rounded-lg overflow-auto flex flex-wrap">
           {overviewData.map(renderQuest)}
         </div>

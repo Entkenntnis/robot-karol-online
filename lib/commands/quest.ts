@@ -41,6 +41,7 @@ export function openTask(core: Core, index: number) {
     ws.quest.lastStartedTask = index
     ws.ui.isEndOfRun = false
     ws.quest.progress = 0
+    ws.ui.karolCrashMessage = undefined
   })
 }
 

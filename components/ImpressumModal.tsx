@@ -30,6 +30,7 @@ export function ImpressumModal() {
             <br />
             {impressum.contact}
           </p>
+          <p className="m-3">Software-Version: Dezember 2022</p>
         </div>
         <p className="text-center mb-5 mt-3">
           <button

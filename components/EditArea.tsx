@@ -84,24 +84,7 @@ export function EditArea() {
     )
   }
 
-  return (
-    <>
-      <BlockEditor />
-      {core.ws.ui.state == 'error' && !core.ws.ui.showOutput && (
-        <div className="absolute right-3 top-3 z-[100]">
-          <button
-            className="rounded px-2 py-0.5 bg-red-200 hover:bg-red-300"
-            onClick={() => {
-              showErrorModal(core)
-            }}
-          >
-            <FaIcon icon={faExclamationTriangle} className="mr-2" />
-            Programm unvollständig
-          </button>
-        </div>
-      )}
-    </>
-  )
+  return <BlockEditor />
 
   // TODO for later stage: readd text editor
   function renderEditor() {

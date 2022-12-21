@@ -231,4 +231,88 @@ export const questData: { [key: number]: QuestData } = {
       },
     ],
   },
+
+  3: {
+    title: 'Fließenleger',
+    description: '123',
+    difficulty: 'Dummy',
+    tasks: [
+      {
+        title: 'leer',
+        start: {
+          dimX: 1,
+          dimY: 1,
+          height: 1,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0]],
+          marks: [[false]],
+          blocks: [[false]],
+        },
+        target: null,
+      },
+    ],
+  },
+
+  4: {
+    title: 'Noch eine Quest',
+    description: '123',
+    difficulty: 'Dummy',
+    tasks: [
+      {
+        title: 'leer',
+        start: {
+          dimX: 1,
+          dimY: 1,
+          height: 1,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0]],
+          marks: [[false]],
+          blocks: [[false]],
+        },
+        target: null,
+      },
+    ],
+  },
+
+  5: {
+    title: 'Und noch eine Quest',
+    description: '123',
+    difficulty: 'Dummy',
+    tasks: [
+      {
+        title: 'leer',
+        start: {
+          dimX: 1,
+          dimY: 1,
+          height: 1,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0]],
+          marks: [[false]],
+          blocks: [[false]],
+        },
+        target: null,
+      },
+    ],
+  },
+
+  6: {
+    title: 'Schön mal die Breite checken',
+    description: '123',
+    difficulty: 'Dummy',
+    tasks: [
+      {
+        title: 'leer',
+        start: {
+          dimX: 1,
+          dimY: 1,
+          height: 1,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0]],
+          marks: [[false]],
+          blocks: [[false]],
+        },
+        target: null,
+      },
+    ],
+  },
 }

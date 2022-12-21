@@ -38,17 +38,25 @@ export function Output() {
             core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
           )}
         />
-        {core.ws.ui.isEndOfRun && (
-          <button
-            onClick={() => {
-              resetOutput(core)
-            }}
-            className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2"
-          >
-            <FaIcon icon={faTrashCan} className="mr-1" />
-            Ausgabe leeren
-          </button>
-        )}
+        {core.ws.ui.isEndOfRun &&
+          !(
+            (
+              core.ws.quest.progress == 100 &&
+              core.ws.ui.state != 'running' &&
+              !core.ws.ui.karolCrashMessage &&
+              !core.ws.quest.completed.includes(core.ws.quest.lastStartedTask!)
+            ) // holy shit, this duplication here ...
+          ) && (
+            <button
+              onClick={() => {
+                resetOutput(core)
+              }}
+              className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2"
+            >
+              <FaIcon icon={faTrashCan} className="mr-1" />
+              Ausgabe leeren
+            </button>
+          )}
       </div>
     </div>
   )
