@@ -97,8 +97,8 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 Installiere node.js und git. Um das Repo dann zum Laufen zu bringen, benötigt es folgende Schritte:
 
 ```
-git clone https://github.com/Entkenntnis/robot-karol-web.git
-cd robot-karol-web
+git clone https://github.com/Entkenntnis/robot-karol-quest.git
+cd robot-karol-quest
 npm install
 npm run dev
 ```
