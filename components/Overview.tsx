@@ -116,9 +116,9 @@ export function Overview() {
         <div className="text-gray-700 text-sml mt-2">
           {data.difficulty}
           {sessionData && sessionData.completed.length == data.tasks.length && (
-            <span className="text-green-600">
+            <span className="text-green-600 ml-2">
               {' '}
-              <FaIcon icon={faCircleCheck} /> Quest abgeschlossen
+              <FaIcon icon={faCircleCheck} /> abgeschlossen
             </span>
           )}
           {sessionData &&

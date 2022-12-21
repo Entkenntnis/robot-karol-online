@@ -55,6 +55,7 @@ export interface Ui {
   isImportedProject: boolean
   showImpressum: boolean
   showPrivacy: boolean
+  isAlreadyCompleted: boolean
 }
 
 export interface Vm {
@@ -165,4 +166,5 @@ export interface QuestSessionData {
   id: number
   completed: number[]
   code: string
+  mode: Settings['mode']
 }

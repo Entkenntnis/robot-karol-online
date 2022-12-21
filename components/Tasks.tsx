@@ -35,16 +35,9 @@ export function Tasks() {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100 relative">
-        <h1 className="mb-3 text-xl font-bold">
-          {core.ws.quest.title}{' '}
-          {completedPercent == 100 && (
-            <span className="text-green-600 text-base ml-4">
-              <FaIcon icon={faCircleCheck} /> Quest abgeschlossen
-            </span>
-          )}
-        </h1>
+        <h1 className="mb-3 text-xl font-bold">{core.ws.quest.title}</h1>
         <p>{core.ws.quest.description}</p>
-        {!core.ws.ui.isImportedProject && (
+        {!core.ws.ui.isImportedProject && completedPercent !== 100 && (
           <button
             className="absolute right-2 top-2 px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
             onClick={() => {
@@ -75,6 +68,29 @@ export function Tasks() {
                 Quest auswählen <FaIcon icon={faExternalLink} />
               </a>
             </p>
+          ) : completedPercent == 100 ? (
+            <p className="z-10">
+              <button
+                className={clsx(
+                  'px-2 py-0.5 rounded-lg  ',
+                  core.ws.ui.isAlreadyCompleted
+                    ? 'bg-yellow-200'
+                    : 'bg-yellow-600 text-white font-bold'
+                )}
+                onClick={() => {
+                  storeQuestToSession(core)
+                  showQuestOverview(core)
+                }}
+              >
+                <FaIcon
+                  icon={core.ws.ui.isAlreadyCompleted ? faGrip : faCircleCheck}
+                  className="mr-2"
+                />
+                {core.ws.ui.isAlreadyCompleted
+                  ? 'Neue Quest auswählen'
+                  : 'Quest abschließen'}
+              </button>
+            </p>
           ) : (
             <p className="z-10">
               {completed} von {core.ws.quest.tasks.length}{' '}
@@ -86,10 +102,11 @@ export function Tasks() {
             <div className="absolute inset-1 rounded-md bg-white left-3 right-2">
               <div
                 className={clsx(
-                  'h-full bg-green-200',
+                  'h-full',
                   completedPercent > 90
                     ? 'rounded-md'
-                    : 'rounded-tl-md rounded-bl-md'
+                    : 'rounded-tl-md rounded-bl-md',
+                  completedPercent == 100 ? 'bg-gray-100' : 'bg-green-200'
                 )}
                 style={{
                   width: `${completedPercent}%`,
@@ -125,7 +142,14 @@ export function Tasks() {
         }}
       >
         <div className="ml-4 mt-6">
-          <h2 className="text-lg font-bold">{task.title}</h2>
+          <h2
+            className={clsx(
+              'text-lg',
+              !core.ws.quest.completed.includes(index) && 'font-bold'
+            )}
+          >
+            {task.title}
+          </h2>
           <div className="mt-6 flex flex-wrap">
             {core.ws.quest.completed.includes(index) ? (
               <>

@@ -99,6 +99,7 @@ export function startQuest(core: Core, id: number) {
     ui.freezeCode = false
     ws.code = ''
     quest.id = id
+    ui.isAlreadyCompleted = false
   })
 }
 
@@ -107,6 +108,7 @@ export function storeQuestToSession(core: Core) {
     completed: core.ws.quest.completed,
     code: core.ws.code,
     id: core.ws.quest.id,
+    mode: core.ws.settings.mode,
   }
   sessionStorage.setItem(
     `karol_quest_beta_${core.ws.quest.id}`,
@@ -121,8 +123,10 @@ export function restoreQuestFromSessionData(
   core.mutateWs((ws) => {
     ws.code = data.code
     ws.quest.completed = data.completed
+    ws.settings.mode = data.mode
     if (data.completed.length == ws.quest.tasks.length) {
       ws.ui.freezeCode = true
+      ws.ui.isAlreadyCompleted = true
     }
   })
 }

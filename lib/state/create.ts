@@ -34,6 +34,7 @@ export function createWorkspaceState(): WorkspaceState {
       isImportedProject: false,
       showImpressum: false,
       showPrivacy: false,
+      isAlreadyCompleted: false,
     },
     vm: {
       pc: 0,

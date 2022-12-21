@@ -27,22 +27,78 @@ export function OptionsModal() {
           </button>
         </div>
         <p className="ml-4 font-bold text-lg mt-2">Optionen</p>
-        <p className="ml-4 mt-3 underline">Einstellungen</p>
-        <p className="ml-4 mt-1">
-          Eingabemethode:
-          <select
-            className="ml-2 p-1"
-            value={core.ws.settings.mode}
-            onChange={(e) => {
-              setMode(core, e.target.value as 'blocks' | 'code')
-              closeMenu(core)
-            }}
-          >
-            <option value="blocks">block-basiert</option>
-            <option value="code">text-basiert</option>
-          </select>
+        <p className="ml-4 mt-7">
+          Eingabemethode:{' '}
+          {core.ws.settings.mode == 'blocks' ? 'blockbasiert' : 'textbasiert'}
         </p>
+        <p className="ml-4 mt-2">{renderSwitch()}</p>
       </div>
     </div>
   )
+
+  function renderSwitch() {
+    if (core.ws.ui.state == 'error') {
+      return (
+        <span className="text-red-600">
+          Modus kann nicht geändert werden, da es Probleme beim Einlesen deines
+          Programms gibt.
+        </span>
+      )
+    } else if (core.ws.ui.state == 'loading') {
+      return (
+        <span className="text-gray-600">
+          Dein Programm wird gerade eingelesen ...
+        </span>
+      )
+    } else if (core.ws.ui.state == 'running') {
+      return null
+    } else {
+      // ready
+      if (core.ws.ui.freezeCode) {
+        return (
+          <span className="text-gray-600">
+            Aktiviere zuerst die Bearbeitung des Programms um den Modus zu
+            ändern.
+          </span>
+        )
+      }
+
+      if (core.ws.settings.mode == 'blocks') {
+        // nothing preventing me now?
+        return (
+          <button
+            className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+            onClick={() => {
+              setMode(core, 'code')
+              closeMenu(core)
+            }}
+          >
+            zum Text-Editor wechseln
+          </button>
+        )
+      } else {
+        if (core.ws.ui.toBlockWarning) {
+          return (
+            <span className="text-yellow-600">
+              Modus kann nicht geändert werden, da dein Programm Funktionen
+              nutzt, die nur im Textmodus verfügbar sind.
+            </span>
+          )
+        }
+        return (
+          <button
+            className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+            onClick={() => {
+              setMode(core, 'blocks')
+              closeMenu(core)
+            }}
+          >
+            zum Block-Editor wechseln
+          </button>
+        )
+      }
+    }
+
+    return null
+  }
 }

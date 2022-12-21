@@ -2,14 +2,6 @@ import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
-  if (core.ws.ui.state !== 'ready') {
-    alert('Kann im Moment nicht konvertieren')
-  }
-
-  if (mode == 'blocks' && core.ws.ui.toBlockWarning) {
-    alert('Kann aus Gründen nicht konvertieren zu Blocks')
-    return
-  }
   core.mutateWs(({ settings, ui }) => {
     settings.mode = mode
     ui.toBlockWarning = false
