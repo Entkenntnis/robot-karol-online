@@ -1,8 +1,10 @@
 import {
   faBars,
+  faCircleCheck,
   faExternalLink,
   faExternalLinkAlt,
   faExternalLinkSquare,
+  faPencil,
   faPlay,
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,10 +15,11 @@ import {
   setShowPrivacy,
   showMenu,
 } from '../lib/commands/mode'
-import { startQuest } from '../lib/commands/quest'
+import { restoreQuestFromSessionData, startQuest } from '../lib/commands/quest'
 import { overviewData } from '../lib/data/overview'
 import { questData } from '../lib/data/quests'
 import { useCore } from '../lib/state/core'
+import { QuestSessionData } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
 import { ImpressumModal } from './ImpressumModal'
 import { OptionsModal } from './OptionsModal'
@@ -93,18 +96,40 @@ export function Overview() {
 
   function renderQuest(index: number) {
     const data = questData[index]
+    const rawSessionData = sessionStorage.getItem(`karol_quest_beta_${index}`)
+    const sessionData: QuestSessionData | null = rawSessionData
+      ? JSON.parse(rawSessionData)
+      : null
+
     return (
       <div
         className="m-4 mr-6 p-3 bg-white rounded-md cursor-pointer hover:bg-yellow-100 w-[280px]"
         key={index}
         onClick={() => {
           startQuest(core, index)
+          if (sessionData) restoreQuestFromSessionData(core, sessionData)
         }}
       >
         <div className="flex justify-between items-baseline">
           <span className="font-bold py-1 inline-block">{data.title}</span>
         </div>
-        <div className="text-gray-700 text-sml mt-2">{data.difficulty}</div>
+        <div className="text-gray-700 text-sml mt-2">
+          {data.difficulty}
+          {sessionData && sessionData.completed.length == data.tasks.length && (
+            <span className="text-green-600">
+              {' '}
+              <FaIcon icon={faCircleCheck} /> Quest abgeschlossen
+            </span>
+          )}
+          {sessionData &&
+            sessionData.completed.length < data.tasks.length &&
+            (sessionData.completed.length > 0 || sessionData.code) && (
+              <span className="text-yellow-600 ml-2">
+                {' '}
+                <FaIcon icon={faPencil} /> in Bearbeitung
+              </span>
+            )}
+        </div>
       </div>
     )
   }

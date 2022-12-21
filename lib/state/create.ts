@@ -53,6 +53,7 @@ export function createWorkspaceState(): WorkspaceState {
       description: '',
       completed: [],
       tasks: [],
+      id: -1,
     },
   }
   return ws

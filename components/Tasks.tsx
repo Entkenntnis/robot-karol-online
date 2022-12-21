@@ -8,7 +8,7 @@ import {
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
 import { showMenu, showQuestOverview } from '../lib/commands/mode'
-import { openTask } from '../lib/commands/quest'
+import { openTask, storeQuestToSession } from '../lib/commands/quest'
 
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
@@ -48,6 +48,7 @@ export function Tasks() {
           <button
             className="absolute right-2 top-2 px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
             onClick={() => {
+              storeQuestToSession(core)
               showQuestOverview(core)
             }}
           >

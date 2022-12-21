@@ -1,6 +1,8 @@
+import { uiPosition } from 'blockly'
 import { autoFormat, setEditable } from '../codemirror/basicSetup'
 import { questData } from '../data/quests'
 import { Core } from '../state/core'
+import { QuestSessionData } from '../state/types'
 import { showErrorModal } from './mode'
 import { run } from './vm'
 
@@ -96,5 +98,31 @@ export function startQuest(core: Core, id: number) {
     ui.isEndOfRun = false
     ui.freezeCode = false
     ws.code = ''
+    quest.id = id
+  })
+}
+
+export function storeQuestToSession(core: Core) {
+  const data: QuestSessionData = {
+    completed: core.ws.quest.completed,
+    code: core.ws.code,
+    id: core.ws.quest.id,
+  }
+  sessionStorage.setItem(
+    `karol_quest_beta_${core.ws.quest.id}`,
+    JSON.stringify(data)
+  )
+}
+
+export function restoreQuestFromSessionData(
+  core: Core,
+  data: QuestSessionData
+) {
+  core.mutateWs((ws) => {
+    ws.code = data.code
+    ws.quest.completed = data.completed
+    if (data.completed.length == ws.quest.tasks.length) {
+      ws.ui.freezeCode = true
+    }
   })
 }

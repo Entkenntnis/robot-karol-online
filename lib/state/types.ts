@@ -80,6 +80,7 @@ export interface Quest {
   completed: number[]
   progress: number
   lastStartedTask?: number
+  id: number
 }
 
 export interface WorkspaceState {
@@ -158,4 +159,10 @@ export interface QuestData {
   description: string
   tasks: QuestTask[]
   difficulty: string
+}
+
+export interface QuestSessionData {
+  id: number
+  completed: number[]
+  code: string
 }
