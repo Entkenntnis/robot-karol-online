@@ -1,7 +1,7 @@
 import { closeMenu, setMode, showQuestOverview } from '../lib/commands/mode'
 import { useCore } from '../lib/state/core'
 
-export function Options() {
+export function OptionsModal() {
   const core = useCore()
   return (
     <div
@@ -26,19 +26,7 @@ export function Options() {
             Schließen
           </button>
         </div>
-        <p className="ml-4 font-bold text-lg mt-2">Menü</p>
-        <p className="ml-4 mt-3 underline">Quests</p>
-        <p className="ml-4 mt-1">
-          <button
-            className="px-2 bg-gray-200 hover:bg-gray-300 rounded"
-            onClick={() => {
-              showQuestOverview(core)
-              closeMenu(core)
-            }}
-          >
-            zur Quest-Auswahl
-          </button>
-        </p>
+        <p className="ml-4 font-bold text-lg mt-2">Optionen</p>
         <p className="ml-4 mt-3 underline">Einstellungen</p>
         <p className="ml-4 mt-1">
           Eingabemethode:
@@ -54,8 +42,6 @@ export function Options() {
             <option value="code">text-basiert</option>
           </select>
         </p>
-        <p className="ml-4 mt-3 underline">Informationen</p>
-        <p className="ml-4 mt-1">Dokumentation | Kontakt / Datenschutz</p>
       </div>
     </div>
   )

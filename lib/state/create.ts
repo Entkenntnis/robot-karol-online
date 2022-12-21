@@ -22,7 +22,7 @@ export function createWorkspaceState(): WorkspaceState {
       toBlockWarning: false,
       editorLoading: false,
       showOutput: false,
-      speedSliderValue: 10,
+      speedSliderValue: 11,
       showMenu: false,
       showPreviewOfTarget: true,
       isManualAbort: false,
@@ -31,6 +31,9 @@ export function createWorkspaceState(): WorkspaceState {
       freezeCode: false,
       taskScroll: 0,
       showQuestOverview: true,
+      isImportedProject: false,
+      showImpressum: false,
+      showPrivacy: false,
     },
     vm: {
       pc: 0,

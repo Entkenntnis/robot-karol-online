@@ -1,12 +1,26 @@
-import { faBars, faPlay } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBars,
+  faExternalLink,
+  faExternalLinkAlt,
+  faExternalLinkSquare,
+  faPlay,
+} from '@fortawesome/free-solid-svg-icons'
 
-import { dummyOpenQuest, setMode, showMenu } from '../lib/commands/mode'
+import {
+  dummyOpenQuest,
+  setMode,
+  setShowImpressum,
+  setShowPrivacy,
+  showMenu,
+} from '../lib/commands/mode'
 import { startQuest } from '../lib/commands/quest'
 import { overviewData } from '../lib/data/overview'
 import { questData } from '../lib/data/quests'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
-import { Options } from './Options'
+import { ImpressumModal } from './ImpressumModal'
+import { OptionsModal } from './OptionsModal'
+import { PrivacyModal } from './PrivacyModal'
 
 export function Overview() {
   const core = useCore()
@@ -15,7 +29,13 @@ export function Overview() {
     <div className="bg-yellow-200 h-full flex flex-col relative">
       <div className="flex justify-center">
         <div className="flex mt-6 items-center rounded-xl bg-yellow-100 p-4 px-12 border-l-4 border-r-red-500 border-r-4 border-l-blue-600">
-          <img src="/robotE.png" alt="Bild von Karol" className="mr-8" />
+          <img
+            src="/robotE.png"
+            alt="Bild von Karol"
+            className="mr-8"
+            height={71}
+            width={40}
+          />
           <h1 className="text-5xl whitespace-nowrap">Robot Karol Quest</h1>
         </div>
       </div>
@@ -24,11 +44,50 @@ export function Overview() {
           {overviewData.map(renderQuest)}
         </div>
       </div>
-      <div className="text-center bg-white mb-4">
-        Erstelle eine eigene Quest mit dem Quest-Editor | Programmiere nach Lust
-        und Laune in einer Freie Welt
+      <div className="text-center mb-2">
+        <button
+          className="hover:underline"
+          onClick={() => {
+            setShowImpressum(core, true)
+          }}
+        >
+          Impressum
+        </button>{' '}
+        |{' '}
+        <button
+          className="hover:underline"
+          onClick={() => {
+            setShowPrivacy(core, true)
+          }}
+        >
+          Datenschutz
+        </button>{' '}
+        |{' '}
+        <a
+          href="https://github.com/Entkenntnis/robot-karol-quest"
+          className="hover:underline"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Quellcode <FaIcon icon={faExternalLink} className="text-xs" />
+        </a>{' '}
+        |{' '}
+        <a
+          href={
+            window.location.protocol +
+            '//' +
+            window.location.host +
+            '/?id=Z9xO1rVGj'
+          }
+          target="_blank"
+          className="hover:underline"
+          rel="noreferrer"
+        >
+          Spielwiese <FaIcon icon={faExternalLink} className="text-xs" />
+        </a>{' '}
       </div>
-      <div className="text-center mb-2">Impressum | Datenschutz | Github</div>
+      {core.ws.ui.showImpressum && <ImpressumModal />}
+      {core.ws.ui.showPrivacy && <PrivacyModal />}
     </div>
   )
 

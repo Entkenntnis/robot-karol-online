@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadProject } from '../lib/commands/load'
 import { useCore } from '../lib/state/core'
@@ -10,9 +10,12 @@ import { Overview } from './Overview'
 export function App() {
   const core = useCore()
 
+  const [loaded, setLoaded] = useState(false)
+
   useEffect(() => {
     submit_event('visit', core)
     void loadProject(core)
+    setLoaded(true)
   }, [core])
 
   return (
@@ -21,7 +24,7 @@ export function App() {
         <title>Robot Karol Quest</title>
       </Head>
       <div className="w-full h-full min-w-[900px] relative overflow-hidden">
-        {core.ws.ui.showQuestOverview ? <Overview /> : <Quest />}
+        {loaded && (core.ws.ui.showQuestOverview ? <Overview /> : <Quest />)}
       </div>
     </>
   )

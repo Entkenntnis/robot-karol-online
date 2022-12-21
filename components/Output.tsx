@@ -1,7 +1,10 @@
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import { resetOutput } from '../lib/commands/quest'
 
 import { useCore } from '../lib/state/core'
 import { ControlBar } from './ControlBar'
+import { FaIcon } from './FaIcon'
 import { View } from './View'
 
 export function Output() {
@@ -35,6 +38,17 @@ export function Output() {
             core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
           )}
         />
+        {core.ws.ui.isEndOfRun && (
+          <button
+            onClick={() => {
+              resetOutput(core)
+            }}
+            className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2"
+          >
+            <FaIcon icon={faTrashCan} className="mr-1" />
+            Ausgabe leeren
+          </button>
+        )}
       </div>
     </div>
   )

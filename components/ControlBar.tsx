@@ -53,14 +53,14 @@ export function ControlBar() {
   return (
     <div className="flex justify-between items-center">
       <div>
-        <p className="mb-2 ml-7 font-bold">{renderStatus()}</p>
+        <p className="ml-7 font-bold">{renderStatus()}</p>
         <p className="ml-2 mb-1">
           {core.ws.ui.state != 'running' && (
             <button
               onClick={() => {
                 closeOutput(core)
               }}
-              className="px-2 py-0.5 rounded bg-gray-200 ml-3"
+              className="px-2 py-0.5 rounded bg-gray-200 ml-3 mt-2"
             >
               <FaIcon icon={faCaretLeft} className="mr-1" />
               zurück
@@ -82,25 +82,14 @@ export function ControlBar() {
                 onClick={() => {
                   restartProgram(core)
                 }}
-                className="px-2 py-0.5 rounded bg-green-300 ml-3"
+                className="px-2 py-0.5 rounded bg-green-300 ml-3 mt-2"
               >
                 <FaIcon
                   icon={core.ws.ui.isEndOfRun ? faRotateRight : faPlay}
                   className="mr-1"
                 />
-                Programm {core.ws.ui.isEndOfRun ? 'neu' : ''} starten
+                Programm starten
               </button>
-              {core.ws.ui.isEndOfRun && (
-                <button
-                  onClick={() => {
-                    resetOutput(core)
-                  }}
-                  className="px-2 py-0.5 rounded bg-gray-200 ml-3"
-                >
-                  <FaIcon icon={faTrashCan} className="mr-1" />
-                  Ausgabe leeren
-                </button>
-              )}
             </>
           )}
           {core.ws.ui.state == 'running' && (
@@ -108,7 +97,7 @@ export function ControlBar() {
               onClick={() => {
                 abort(core)
               }}
-              className="px-2 py-0.5 rounded bg-amber-400 ml-3"
+              className="px-2 py-0.5 rounded bg-amber-400 ml-3 mt-2"
             >
               <FaIcon icon={faStop} className="mr-1" />
               Abbrechen
@@ -117,8 +106,7 @@ export function ControlBar() {
         </p>
       </div>
 
-      <div className="w-64 mr-3 my-3">
-        Geschwindigkeit:{' '}
+      <div className="max-w-[230px] mr-3 my-3">
         {(
           Math.round((1000 / sliderToDelay(core.ws.ui.speedSliderValue)) * 10) /
           10

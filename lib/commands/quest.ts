@@ -37,6 +37,8 @@ export function openTask(core: Core, index: number) {
     ws.world = task.start
     ws.ui.showOutput = true
     ws.quest.lastStartedTask = index
+    ws.ui.isEndOfRun = false
+    ws.quest.progress = 0
   })
 }
 
@@ -92,7 +94,7 @@ export function startQuest(core: Core, id: number) {
     quest.tasks = data.tasks
     ui.showQuestOverview = false
     ui.isEndOfRun = false
-
+    ui.freezeCode = false
     ws.code = ''
   })
 }

@@ -78,3 +78,14 @@ export function dummyOpenQuest(core: Core) {
     ui.showQuestOverview = false
   })
 }
+
+export function setShowImpressum(core: Core, val: boolean) {
+  core.mutateWs(({ ui }) => {
+    ui.showImpressum = val
+  })
+}
+export function setShowPrivacy(core: Core, val: boolean) {
+  core.mutateWs(({ ui }) => {
+    ui.showPrivacy = val
+  })
+}

@@ -52,6 +52,9 @@ export interface Ui {
   freezeCode: boolean
   taskScroll: number
   showQuestOverview: boolean
+  isImportedProject: boolean
+  showImpressum: boolean
+  showPrivacy: boolean
 }
 
 export interface Vm {

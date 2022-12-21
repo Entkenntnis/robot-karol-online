@@ -29,6 +29,7 @@ export async function loadProject(core: Core) {
     try {
       core.mutateWs((ws) => {
         ws.ui.editorLoading = true
+        ws.ui.showQuestOverview = false
       })
       const res = await fetch(`https://stats-karol.arrrg.de/load/${id}`)
       const text = await res.text()

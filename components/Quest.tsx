@@ -6,7 +6,7 @@ import { useCore } from '../lib/state/core'
 import { EditArea } from './EditArea'
 import { ErrorModal } from './ErrorModal'
 import { FaIcon } from './FaIcon'
-import { Options } from './Options'
+import { OptionsModal } from './OptionsModal'
 import { Output } from './Output'
 import { Tasks } from './Tasks'
 
@@ -33,27 +33,24 @@ export function Quest() {
                 core.ws.quest.progress == 100 &&
                 core.ws.ui.showOutput &&
                 core.ws.quest.completed.length == 0
-              ) &&
-                !(
-                  core.ws.quest.completed.length == core.ws.quest.tasks.length
-                ) && (
-                  <div className="bottom-6 left-6 right-6 h-28 absolute  rounded-lg pl-4 pt-3 flex justify-around flex-col bg-gray-200">
-                    <p className="ml-2">
-                      Dein Programm hat einen Auftrag gelöst. Wenn du das
-                      Programm bearbeitest, wird dein Fortschritt zurückgesetzt:
-                    </p>
-                    <p className="mb-3">
-                      <button
-                        className="px-2 py-0.5 bg-gray-300 rounded"
-                        onClick={() => {
-                          editCodeAndResetProgress(core)
-                        }}
-                      >
-                        Programm bearbeiten
-                      </button>
-                    </p>
-                  </div>
-                )}
+              ) && (
+                <div className="bottom-6 left-6 right-6 h-28 absolute  rounded-lg pl-4 pt-3 flex justify-around flex-col bg-gray-200">
+                  <p className="ml-2">
+                    Dein Programm hat einen Auftrag gelöst. Wenn du das Programm
+                    bearbeitest, wird dein Fortschritt zurückgesetzt:
+                  </p>
+                  <p className="mb-3">
+                    <button
+                      className="px-2 py-0.5 bg-gray-300 rounded"
+                      onClick={() => {
+                        editCodeAndResetProgress(core)
+                      }}
+                    >
+                      Programm bearbeiten
+                    </button>
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </ReflexElement>
@@ -67,7 +64,7 @@ export function Quest() {
           {core.ws.ui.showOutput ? <Output /> : <Tasks />}
         </ReflexElement>
       </ReflexContainer>
-      {core.ws.ui.showMenu && <Options />}
+      {core.ws.ui.showMenu && <OptionsModal />}
       {core.ws.ui.showErrorModal && <ErrorModal />}
     </>
   )

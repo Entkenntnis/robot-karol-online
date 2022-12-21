@@ -1,17 +1,14 @@
 import {
-  faBars,
   faCheck,
   faCircleCheck,
+  faExternalLink,
   faGear,
   faGrip,
-  faPlay,
-  faRotateRight,
-  faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
 import { showMenu, showQuestOverview } from '../lib/commands/mode'
-import { endTaskWaiting, openTask, runTask } from '../lib/commands/quest'
+import { openTask } from '../lib/commands/quest'
 
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
@@ -27,16 +24,6 @@ export function Tasks() {
   const completedPercent = Math.round(
     (completed / core.ws.quest.tasks.length) * 100
   )
-
-  useEffect(() => {
-    if (core.ws.ui.state !== 'loading') {
-      if (core.ws.ui.taskWaitingToLoad !== undefined) {
-        const taskIndex = core.ws.ui.taskWaitingToLoad
-        endTaskWaiting(core)
-        runTask(core, taskIndex)
-      }
-    }
-  }, [core, core.ws.ui.state])
 
   useEffect(() => {
     if (taskContainer.current && core.ws.ui.taskScroll > 0) {
@@ -57,14 +44,16 @@ export function Tasks() {
           )}
         </h1>
         <p>{core.ws.quest.description}</p>
-        <button
-          className="absolute right-2 top-2 px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
-          onClick={() => {
-            showQuestOverview(core)
-          }}
-        >
-          <FaIcon icon={faGrip} className="mr-1" /> Quest auswählen
-        </button>
+        {!core.ws.ui.isImportedProject && (
+          <button
+            className="absolute right-2 top-2 px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
+            onClick={() => {
+              showQuestOverview(core)
+            }}
+          >
+            <FaIcon icon={faGrip} className="mr-1" /> Quest auswählen
+          </button>
+        )}
       </div>
       <div
         className="flex-grow flex-shrink overflow-y-auto bg-gray-100"
@@ -74,11 +63,16 @@ export function Tasks() {
       </div>
       <div className="h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1">
         <div className="flex justify-center relative items-center flex-grow">
-          {completed == core.ws.quest.tasks.length ? (
+          {core.ws.ui.isImportedProject ? (
             <p className="z-10">
-              <button className="px-2 py-0.5 rounded-lg bg-yellow-600 text-white font-bold">
-                Neue Quest auswählen
-              </button>
+              <a
+                className="px-2 py-0.5 rounded-lg bg-yellow-600 text-white font-bold"
+                href={window.location.protocol + '//' + window.location.host}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Quest auswählen <FaIcon icon={faExternalLink} />
+              </a>
             </p>
           ) : (
             <p className="z-10">
@@ -87,20 +81,21 @@ export function Tasks() {
               erledigt
             </p>
           )}
-          <div className="absolute inset-1 rounded-md bg-white left-3 right-2">
-            <div
-              className={clsx(
-                'h-full',
-                completedPercent > 90
-                  ? 'rounded-md'
-                  : 'rounded-tl-md rounded-bl-md',
-                completedPercent < 100 ? 'bg-green-200' : 'bg-gray-100'
-              )}
-              style={{
-                width: `${completedPercent}%`,
-              }}
-            ></div>
-          </div>
+          {!core.ws.ui.isImportedProject && (
+            <div className="absolute inset-1 rounded-md bg-white left-3 right-2">
+              <div
+                className={clsx(
+                  'h-full bg-green-200',
+                  completedPercent > 90
+                    ? 'rounded-md'
+                    : 'rounded-tl-md rounded-bl-md'
+                )}
+                style={{
+                  width: `${completedPercent}%`,
+                }}
+              ></div>
+            </div>
+          )}
         </div>
         <div className="flex-grow-0 flex-shrink-0">
           <button
