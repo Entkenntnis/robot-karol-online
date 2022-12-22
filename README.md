@@ -18,7 +18,7 @@ Quelle: https://mebis.bycs.de/beitrag/robot-karol
 
 Die Aufgabensammmlung besteht aus einzelnen Quests. Jede Quest besteht wiederum aus einen oder mehreren Aufträgen, die mit *einem* Programm gelöst werden müssen. Bei jedem Auftrag geht es darum, eine vorgegebene Welt mit Karol nachzubauen - beziehungsweise das passende Programm dazu zu schreiben. Dadurch, dass alle Aufträge mit einem Programm gelöst werden, ist der Einsatz von Bedingungen unverzichtbar. Sobald ein Auftrag erledigt ist, wird das in Robot Karol Quest markiert und man kann damit seinen Fortschritt nachverfolgen.
 
-Die Aufgaben beginnen mit einer Reihe von Tutorials, die die Grundlagen der Sprache vermitteln. Danach gibt es eine Reihe an einfachen und mittleren Aufgaben, um die Grundlagen einzuüben. Für ehrgeizige Spieler bieten dann die schweren Aufgaben eine ordentliche Herausforderung. Dabei kann außerdem in den textbasierten Editor gewechselt werden, der zusätzlich Möglichkeiten bietet, wie z.B. die Definition eigener Anweisugen.
+Die Aufgaben beginnen mit Tutorials, die die Grundlagen der Sprache vermitteln. Danach gibt es eine Reihe an einfachen und mittleren Aufgaben, um die Grundlagen einzuüben. Für ehrgeizige Spieler bieten dann die schweren Aufgaben eine ordentliche Herausforderung. Dabei kann außerdem in den textbasierten Editor gewechselt werden, der zusätzlich Möglichkeiten bietet, wie z.B. die Definition eigener Anweisugen.
 
 ## Sprache
 
