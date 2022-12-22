@@ -72,15 +72,15 @@ Die Aufgaben beginnen mit Tutorials, die die Grundlagen der Sprache vermitteln. 
 
 ![grafik](https://user-images.githubusercontent.com/13507950/208776560-15d88203-900c-45e7-b788-abcf8da8b27c.png)
 
-`IstWand` / `NichtIstWand` - Karol testet, ob vor ihm eine Wand (oder ein Quader) ist oder nicht.
+`IstWand` / `NichtIstWand` - Karol testet, ob vor ihr eine Wand (oder ein Quader) ist oder nicht.
 
-`IstZiegel` / `NichtIstZiegel` - Karol testet, ob vor ihm Ziegel liegen oder nicht.
+`IstZiegel` / `NichtIstZiegel` - Karol testet, ob vor ihr Ziegel liegen oder nicht.
 
-`IstMarke` / `NichtIstMarke` - Karol testet, ob er auf einer Marke steht oder nicht.
+`IstMarke` / `NichtIstMarke` - Karol testet, ob sie auf einer Marke steht oder nicht.
 
-`IstZiegel(anzahl)` / `NichtIstZiegel(anzahl)` - Karol testet, ob vor ihm genau `anzahl` Ziegel liegen oder nicht.
+`IstZiegel(anzahl)` / `NichtIstZiegel(anzahl)` - Karol testet, ob vor ihr genau `anzahl` Ziegel liegen oder nicht.
 
-`IstNorden` / `NichtIstNorden` - Karol testet, ob er nach Norden schaut oder nicht. (Norden = oben)
+`IstNorden` / `NichtIstNorden` - Karol testet, ob sie nach Norden schaut oder nicht. (Norden = oben)
 
 ## Textmodus
 
