@@ -1,5 +1,6 @@
 import {
   faBars,
+  faCheck,
   faCircleCheck,
   faExternalLink,
   faExternalLinkAlt,
@@ -7,6 +8,7 @@ import {
   faPencil,
   faPlay,
 } from '@fortawesome/free-solid-svg-icons'
+import clsx from 'clsx'
 
 import {
   dummyOpenQuest,
@@ -105,6 +107,9 @@ export function Overview() {
       ? JSON.parse(rawSessionData)
       : null
 
+    const taskDone =
+      sessionData && sessionData.completed.length == data.tasks.length
+
     return (
       <div
         className="m-4 mr-6 p-3 bg-white rounded-md cursor-pointer hover:bg-blue-100 w-[280px]"
@@ -115,14 +120,16 @@ export function Overview() {
         }}
       >
         <div className="flex justify-between items-baseline">
-          <span className="font-bold py-1 inline-block">{data.title}</span>
+          <span className={clsx('py-1 inline-block', !taskDone && 'font-bold')}>
+            {data.title}
+          </span>
         </div>
         <div className="text-gray-700 text-sml mt-2">
           {data.difficulty}
-          {sessionData && sessionData.completed.length == data.tasks.length && (
+          {taskDone && (
             <span className="text-green-600 ml-2">
               {' '}
-              <FaIcon icon={faCircleCheck} /> abgeschlossen
+              <FaIcon icon={faCheck} /> abgeschlossen
             </span>
           )}
           {sessionData &&

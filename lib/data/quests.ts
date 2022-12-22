@@ -168,38 +168,112 @@ export const questData: { [key: number]: QuestData } = {
   3: {
     title: 'Bedingte Anweisung',
     description: `
-      Wenn Karol nur vorgegebene Muster legen soll, dann langweilit sie sich schnell.
+      Wenn Karol nur vorgegebene Muster legen soll, dann langweilt sie sich schnell.
       Interessant werden Programme, wenn sie auf die Welt herum reagieren können.
-      
-      Zusammenhang mit Bedingungen
+      Dazu gibt es die blauen Blöcke, die wie Puzzle-Teile aussehen. Diese stellen Bedingungen dar.
+      Damit kann Karol wahrnehmen, was unter und vor ihr passiert.
 
-      Einseitig, zweiseitig
+      Der Block \`wenn dann sonst\` nimmt eine solche Bedingung.
+      Ziehe diesen Block auf die Arbeitsfläche.
+      Fülle ihn mit der Bedingung \`IstMarke\`.
+      Damit erhältst du die Kontrollstruktur der zweiseitig bedingten Anweisung.
 
-      UI: Quest besteht aus mehreren Aufträgen, diese müssen mit gleichem Programm erfüllt werden.
+      Die zweiseitig bedingte Anweisung enthält zwei Lücken. Die obere Lücke wird ausgeführt, wenn die Bedingung erfüllt ist.
+      Die untere Lücke wird ausgeführt, wenn die Bedingung nicht erfüllt ist. Es gibt auch eine Version ohne zweite Lücke.
+      Diese heißt entsprechend einseitig bedingte Anweisung.
 
-      Kleine Rundschau von verfügbaren Bedingungen
+      Diese Quest besitzt zwei Aufträge. Schreibe ein Programm, dass beide Aufträge erfüllt. Nutze dafür eine bedingte Anweisung.
     `,
     difficulty: 'Tutorial',
     tasks: [
       {
-        title: 'Ziegelsteine legen',
+        title: 'Steht auf Marke ➔ lege Ziegel vor sich',
         start: {
-          dimX: 7,
-          dimY: 1,
+          dimX: 5,
+          dimY: 3,
           height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 0, 0, 0, 0, 0, 0]],
-          marks: [[false, false, false, false, false, false, false]],
-          blocks: [[false, false, false, false, false, false, false]],
+          karol: { x: 2, y: 1, dir: 'east' },
+          bricks: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false],
+            [false, false, true, false, false],
+            [false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
         },
         target: {
-          dimX: 7,
-          dimY: 1,
+          dimX: 5,
+          dimY: 3,
           height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 1, 0, 1, 0, 1, 0]],
-          marks: [[false, false, false, false, false, false, false]],
-          blocks: [[false, false, false, false, false, false, false]],
+          karol: { x: 1, y: 1, dir: 'east' },
+          bricks: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false],
+            [false, false, true, false, false],
+            [false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+        },
+      },
+      {
+        title: 'Steht nicht auf Marke ➔ lege Ziegel hinter sich',
+        start: {
+          dimX: 5,
+          dimY: 3,
+          height: 6,
+          karol: { x: 2, y: 1, dir: 'east' },
+          bricks: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+        },
+        target: {
+          dimX: 5,
+          dimY: 3,
+          height: 6,
+          karol: { x: 1, y: 1, dir: 'east' },
+          bricks: [
+            [0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
         },
       },
     ],
