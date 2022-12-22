@@ -56,6 +56,7 @@ export interface Ui {
   showImpressum: boolean
   showPrivacy: boolean
   isAlreadyCompleted: boolean
+  showStructogram: boolean
 }
 
 export interface Vm {

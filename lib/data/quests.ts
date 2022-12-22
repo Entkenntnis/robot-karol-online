@@ -4,22 +4,22 @@ export const questData: { [key: number]: QuestData } = {
   1: {
     title: 'Erste Schritte',
     description: `
-      Herzlich Willkommen bei Robot Karol Quest! Auf dieser Webseite lernst du, wie du die kleine Roboterin Karol
+      Herzlich Willkommen bei Robot Karol Quest! Auf dieser Website lernst du, wie du die Roboterin Karol
       in ihrer Bildschirmwelt steuerst und stellst dabei dein Programmiergeschick unter Beweis.
-      Das Tutorial macht dich mit den Grundlagen dafür vertraut.
+      Das Tutorial macht dich mit den Grundlagen dafür vertraut:
 
       Du programmierst, indem du Blöcke aus der Auswahl auf die Arbeitsfläche ziehst und verbindest.
       Verbundene Blöcke werden von oben nach unten ausgeführt.
-      Die grundlegenden Blöcke sind \`Schritt\` und \`Hinlegen\`. 
+      Im ersten Auftrag "Drei Ziegel" geht es darum, die gezeigte Welt nachzubauen.
 
-      Jetzt bist du startklar. Klicke auf den ersten Auftrag "Ziegelsteine legen"
-      und schreibe ein Programm, das die drei angezeigten Ziegel legt.
+      Klicke auf den Auftrag und schreibe dein erstes Programm.
+      Beginne mit den Blöcken \`Hinlegen\` und \`Schritt\`.
       Starte dann dein Programm.
     `,
     difficulty: 'Tutorial',
     tasks: [
       {
-        title: 'Ziegelsteine legen',
+        title: 'Drei Ziegel',
         start: {
           dimX: 7,
           dimY: 1,
@@ -45,35 +45,33 @@ export const questData: { [key: number]: QuestData } = {
   2: {
     title: 'Wiederholung mit fester Anzahl',
     description: `
-      Konzept Kontrollstruktur
+      Die violetten Blöcken stellen Befehle dar, die Karol ausführt.
+      Diese kennst aus dem ersten Tutorial.
+      Die nächsten Tutorials werden sich mit den grünen Blöcken beschäftigen, die Kontrollstrukturen darstellen.
 
-      Aufbau: Einklammerung von Befehlen
+      In diesem Tutorial geht es um den Block \`wiederhole n mal\`.
+      Wie der Name schon andeutet lassen sich damit Befehle mehrfach ausführen.
+      In der Fachsprache spricht man von einer Wiederholung mit fester Anzahl.
 
-      Wiederholung mit fester Anzahl, praktisch für häufig wiederholte Aufgaben
+      Ziehe den Block auf die Arbeitsfläche.
+      Wenn du auf die Zahl klickst, kannst du die Anzahl der Wiederholungen ändern.
+      Füge nun einen oder mehrere Befehle dazwischen ein, um diese zu wiederholen.
 
-      einzelner Auftrag (Level nachbauen)
-
-      Konzept MarkeSetzen
+      Beim folgenden Auftrag kommt dir das gelegen, denn du sollst hier ein wiederholendes Muster aus Ziegeln und Marken legen.
     `,
     difficulty: 'Tutorial',
     tasks: [
       {
         title: 'Ziegel und Marken im Wechsel',
         start: {
-          dimX: 21,
+          dimX: 17,
           dimY: 1,
           height: 6,
           karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          ],
+          bricks: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
           marks: [
             [
-              false,
-              false,
-              false,
-              false,
-              false,
+              true,
               false,
               false,
               false,
@@ -94,10 +92,6 @@ export const questData: { [key: number]: QuestData } = {
           ],
           blocks: [
             [
-              false,
-              false,
-              false,
-              false,
               false,
               false,
               false,
@@ -123,15 +117,9 @@ export const questData: { [key: number]: QuestData } = {
           dimY: 1,
           height: 6,
           karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [
-            [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-          ],
+          bricks: [[0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]],
           marks: [
             [
-              false,
-              false,
-              true,
-              false,
               true,
               false,
               true,
@@ -153,10 +141,6 @@ export const questData: { [key: number]: QuestData } = {
           ],
           blocks: [
             [
-              false,
-              false,
-              false,
-              false,
               false,
               false,
               false,
@@ -347,7 +331,7 @@ export const questData: { [key: number]: QuestData } = {
   },
 
   5: {
-    title: 'Ziegel zählen im hohen Norden',
+    title: 'Kontrollstrukturen verbinden',
     description: `
       Eigentlich sind damit alle Elemente gezeigt.
 

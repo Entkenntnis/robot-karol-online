@@ -22,6 +22,10 @@ export function App() {
     <>
       <Head>
         <title>Robot Karol Quest</title>
+        <meta
+          name="description"
+          content="Online/Web Version von Robot Karol, blockbasiert oder textbasiert, inklusive Tutorial und vielen Aufgaben - der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung. "
+        />
       </Head>
       <div className="w-full h-full min-w-[900px] relative overflow-hidden">
         {loaded && (core.ws.ui.showQuestOverview ? <Overview /> : <Quest />)}

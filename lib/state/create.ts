@@ -35,6 +35,7 @@ export function createWorkspaceState(): WorkspaceState {
       showImpressum: false,
       showPrivacy: false,
       isAlreadyCompleted: false,
+      showStructogram: false,
     },
     vm: {
       pc: 0,

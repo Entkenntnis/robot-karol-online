@@ -1,5 +1,12 @@
-import { closeMenu, setMode, showQuestOverview } from '../lib/commands/mode'
+import { faDiagramSuccessor, faSquare } from '@fortawesome/free-solid-svg-icons'
+import {
+  closeMenu,
+  setMode,
+  setShowStructogram,
+  showQuestOverview,
+} from '../lib/commands/mode'
 import { useCore } from '../lib/state/core'
+import { FaIcon } from './FaIcon'
 
 export function OptionsModal() {
   const core = useCore()
@@ -32,6 +39,18 @@ export function OptionsModal() {
           {core.ws.settings.mode == 'blocks' ? 'blockbasiert' : 'textbasiert'}
         </p>
         <p className="ml-4 mt-2">{renderSwitch()}</p>
+        <p className="ml-4 mt-12">
+          <button
+            className="px-2 py-0.5 rounded bg-gray-200 hover:bg-gray-300"
+            onClick={() => {
+              setShowStructogram(core, true)
+              closeMenu(core)
+            }}
+          >
+            <FaIcon icon={faDiagramSuccessor} className="mr-1" /> Struktogramm
+            anzeigen
+          </button>
+        </p>
       </div>
     </div>
   )

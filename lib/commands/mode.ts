@@ -76,8 +76,15 @@ export function setShowImpressum(core: Core, val: boolean) {
     ui.showImpressum = val
   })
 }
+
 export function setShowPrivacy(core: Core, val: boolean) {
   core.mutateWs(({ ui }) => {
     ui.showPrivacy = val
+  })
+}
+
+export function setShowStructogram(core: Core, val: boolean) {
+  core.mutateWs(({ ui }) => {
+    ui.showStructogram = val
   })
 }

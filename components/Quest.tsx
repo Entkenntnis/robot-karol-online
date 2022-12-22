@@ -8,6 +8,7 @@ import { ErrorModal } from './ErrorModal'
 import { FaIcon } from './FaIcon'
 import { OptionsModal } from './OptionsModal'
 import { Output } from './Output'
+import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
 
 export function Quest() {
@@ -61,7 +62,13 @@ export function Quest() {
         />
 
         <ReflexElement minSize={400}>
-          {core.ws.ui.showOutput ? <Output /> : <Tasks />}
+          {core.ws.ui.showOutput ? (
+            <Output />
+          ) : core.ws.ui.showStructogram ? (
+            <Structogram />
+          ) : (
+            <Tasks />
+          )}
         </ReflexElement>
       </ReflexContainer>
       {core.ws.ui.showMenu && <OptionsModal />}
