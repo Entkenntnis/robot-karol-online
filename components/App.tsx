@@ -13,7 +13,6 @@ export function App() {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    submit_event('visit', core)
     void loadProject(core)
     setLoaded(true)
   }, [core])

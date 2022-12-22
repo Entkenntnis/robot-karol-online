@@ -1,5 +1,6 @@
 import {
   faCheck,
+  faCircle,
   faCircleCheck,
   faExternalLink,
   faGear,
@@ -16,6 +17,7 @@ import {
   storeQuestToSession,
 } from '../lib/commands/quest'
 import { replaceWithJSX } from '../lib/helper/replaceWithJSX'
+import { submit_event } from '../lib/helper/submit'
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
@@ -41,7 +43,14 @@ export function Tasks() {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100 relative">
-        <h1 className="mb-2 text-xl font-bold mt-1">{core.ws.quest.title}</h1>
+        <h1 className="mb-2 text-xl font-bold mt-1">
+          {core.ws.quest.title}
+          {core.ws.ui.isAlreadyCompleted && (
+            <span className="text-base text-green-600 ml-3 font-normal">
+              <FaIcon icon={faCheck} /> abgeschlossen
+            </span>
+          )}
+        </h1>
         {!core.ws.ui.isImportedProject && (
           <div className="mb-4">
             <button
@@ -92,37 +101,30 @@ export function Tasks() {
                 target="_blank"
                 rel="noreferrer"
               >
-                Quest auswählen <FaIcon icon={faExternalLink} />
+                Robot Karol Online öffnen <FaIcon icon={faExternalLink} />
               </a>
             </p>
           ) : completedPercent == 100 && !core.ws.ui.isAlreadyCompleted ? (
             <p className="z-10">
               <button
                 className={clsx(
-                  'px-2 py-0.5 rounded-lg  ',
-                  core.ws.ui.isAlreadyCompleted
-                    ? 'bg-yellow-200'
-                    : 'bg-yellow-300 font-bold'
+                  'px-2 py-0.5 rounded-lg bg-yellow-300 font-bold'
                 )}
                 onClick={() => {
                   storeQuestToSession(core)
                   showQuestOverview(core)
+                  submit_event(`quest_complete_${core.ws.quest.id}`, core)
                 }}
               >
-                <FaIcon
-                  icon={core.ws.ui.isAlreadyCompleted ? faGrip : faCircleCheck}
-                  className="mr-2"
-                />
-                {core.ws.ui.isAlreadyCompleted
-                  ? 'Neue Quest auswählen'
-                  : 'Quest abschließen'}
+                <FaIcon icon={faCircleCheck} className="mr-2" /> Quest
+                abschließen
               </button>
             </p>
           ) : core.ws.ui.isTesting ? (
             <p className="z-10">
               {completed} von {core.ws.quest.tasks.length}{' '}
               {core.ws.quest.tasks.length == 1 ? 'Auftrag' : 'Aufträgen'}{' '}
-              erledigt
+              überprüft
             </p>
           ) : (
             <p className="z-10">
@@ -218,7 +220,7 @@ export function Tasks() {
             {core.ws.quest.completed.includes(index) ? (
               <>
                 <div className="text-green-600 mr-5 whitespace-nowrap">
-                  <FaIcon icon={faCheck} /> erledigt
+                  <FaIcon icon={faCheck} /> überprüft
                 </div>
               </>
             ) : null}

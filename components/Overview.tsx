@@ -1,34 +1,28 @@
 import {
-  faBars,
   faCheck,
-  faCircleCheck,
   faExternalLink,
-  faExternalLinkAlt,
-  faExternalLinkSquare,
   faPencil,
-  faPlay,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import { useEffect } from 'react'
 
-import {
-  dummyOpenQuest,
-  setMode,
-  setShowImpressum,
-  setShowPrivacy,
-  showMenu,
-} from '../lib/commands/mode'
+import { setShowImpressum, setShowPrivacy } from '../lib/commands/mode'
 import { restoreQuestFromSessionData, startQuest } from '../lib/commands/quest'
 import { overviewData } from '../lib/data/overview'
 import { questData } from '../lib/data/quests'
+import { submit_event } from '../lib/helper/submit'
 import { useCore } from '../lib/state/core'
 import { QuestSessionData } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
 import { ImpressumModal } from './ImpressumModal'
-import { OptionsModal } from './OptionsModal'
 import { PrivacyModal } from './PrivacyModal'
 
 export function Overview() {
   const core = useCore()
+
+  useEffect(() => {
+    submit_event('show_overview', core)
+  }, [core])
 
   return (
     <div className="bg-yellow-200 h-full flex flex-col relative">
@@ -116,6 +110,7 @@ export function Overview() {
         key={index}
         onClick={() => {
           startQuest(core, index)
+          submit_event(`start_quest_${index}`, core)
           if (sessionData) restoreQuestFromSessionData(core, sessionData)
         }}
       >

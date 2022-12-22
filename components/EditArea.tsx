@@ -91,7 +91,7 @@ export function EditArea() {
     return (
       <div className="flex h-full overflow-y-auto relative">
         <div className="w-full overflow-auto h-full flex">
-          {codeState == 'running' ? (
+          {codeState == 'running' || core.ws.ui.karolCrashMessage ? (
             <div
               data-label="gutter"
               className="w-8 h-full relative flex-shrink-0"

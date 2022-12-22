@@ -9,11 +9,9 @@ import { View } from './View'
 
 export function Output() {
   const core = useCore()
-
-  console.log('progress', core.ws.quest.progress)
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-grow-0 flex-shrink-0 h-[80px] bg-gray-100">
+      <div className="flex-grow-0 flex-shrink-0 min-h-[80px] bg-gray-100">
         <ControlBar />
       </div>
       <div

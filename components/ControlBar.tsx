@@ -166,6 +166,14 @@ export function ControlBar() {
         )
       }
       if (core.ws.ui.isEndOfRun) {
+        if (core.ws.ui.isImportedProject) {
+          return (
+            <>
+              <FaIcon icon={faGenderless} className="mr-1" /> Ausführung beendet
+              {core.ws.ui.isManualAbort ? ' (abgebrochen)' : ''}
+            </>
+          )
+        }
         return (
           <>
             <FaIcon

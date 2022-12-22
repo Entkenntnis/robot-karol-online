@@ -42,8 +42,6 @@ export class Core {
   _coreRef: MutableRefObject<CoreRefs>
   _workspaceStorage: { [key: string]: { world: World; code: string } }
 
-  userId: string
-
   blockyResize: any
 
   view?: MutableRefObject<EditorView | undefined> // WOW, this is bad
@@ -55,7 +53,6 @@ export class Core {
     this._setCoreState = setCoreState
     this._coreRef = coreRef
     this._workspaceStorage = {}
-    this.userId = Math.random().toString()
   }
 
   // async-safe way to access core state

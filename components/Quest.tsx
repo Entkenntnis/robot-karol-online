@@ -32,7 +32,7 @@ export function Quest() {
         >
           <EditArea />
           {core.ws.ui.isTesting && (
-            <div className="absolute inset-0 bg-gray-700/20 z-[100000]">
+            <div className="absolute inset-0 bg-gray-700/20 z-[100]">
               <div className="bottom-6 left-6 right-6 h-28 absolute  rounded-lg pl-4 pt-3 flex justify-around flex-col bg-gray-200">
                 <p className="ml-2">
                   {core.ws.ui.isAlreadyCompleted

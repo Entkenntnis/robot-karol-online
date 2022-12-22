@@ -38,10 +38,14 @@ export function BlockEditor() {
   }
 
   useEffect(() => {
-    if (blocklyWorkspaceSvg.current && core.ws.ui.state != 'running') {
+    if (
+      blocklyWorkspaceSvg.current &&
+      core.ws.ui.state != 'running' &&
+      !core.ws.ui.karolCrashMessage
+    ) {
       blocklyWorkspaceSvg.current.highlightBlock('')
     }
-  }, [core.ws.ui.state])
+  }, [core.ws.ui.karolCrashMessage, core.ws.ui.state])
 
   useEffect(() => {
     if (!editorDiv.current) {

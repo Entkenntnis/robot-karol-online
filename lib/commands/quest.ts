@@ -77,6 +77,7 @@ export function resetOutput(core: Core) {
       ws.quest.progress = 0
       ws.ui.isEndOfRun = false
       ws.ui.karolCrashMessage = undefined
+      ws.ui.gutter = 0
     })
   }
 }

@@ -5,6 +5,7 @@ import {
   setShowStructogram,
   showQuestOverview,
 } from '../lib/commands/mode'
+import { submit_event } from '../lib/helper/submit'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
 
@@ -92,6 +93,7 @@ export function OptionsModal() {
             onClick={() => {
               setMode(core, 'code')
               closeMenu(core)
+              submit_event('text-editor', core)
             }}
           >
             zum Text-Editor wechseln

@@ -264,7 +264,9 @@ export function abort(core: Core) {
 export function endExecution(core: Core) {
   clearTimeout(core.ws.vm.handler!)
   core.mutateWs((state) => {
-    state.ui.gutter = 0
+    if (!core.ws.ui.karolCrashMessage) {
+      state.ui.gutter = 0
+    }
     state.ui.state = 'ready'
     state.vm.pc = 0
     state.vm.handler = undefined
