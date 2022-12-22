@@ -14,7 +14,7 @@ import { compile } from '../lib/language/compiler'
 import { useCore } from '../lib/state/core'
 
 initCustomBlocks()
-;(Blockly as any).setLocale(De)
+Blockly.setLocale(De)
 
 export function BlockEditor() {
   const editorDiv = useRef<HTMLDivElement>(null)
@@ -77,18 +77,18 @@ export function BlockEditor() {
     )
 
     const blocklyArea = document.getElementById('blocklyArea')!
-    var blocklyDiv = document.getElementById('blocklyDiv')!
+    const blocklyDiv = document.getElementById('blocklyDiv')!
 
-    var onresize = function () {
+    const onresize = function () {
       //console.log('on resize function')
       // Compute the absolute coordinates and dimensions of blocklyArea.
-      var element = blocklyArea
-      var x = 0
-      var y = 0
+      let element = blocklyArea
+      let x = 0
+      let y = 0
       do {
         x += element.offsetLeft
         y += element.offsetTop
-        element = element.offsetParent as any
+        element = element.offsetParent as HTMLElement
       } while (element)
       // Position blocklyDiv over blocklyArea.
       blocklyDiv.style.left = x + 'px'
@@ -114,6 +114,7 @@ export function BlockEditor() {
       )
       // console.log('xml', newXml)
       const newCode = (Blockly as any).karol.workspaceToCode(
+        // strange monkey patch
         blocklyWorkspace
       ) as string
 
@@ -143,7 +144,7 @@ export function BlockEditor() {
       })
       const topBlocks = blocklyWorkspace
         .getTopBlocks(false)
-        .filter((bl) => !(bl as any).isInsertionMarker_)
+        .filter((bl) => !(bl as any).isInsertionMarker_) // hm, bypassing protection
         .filter((bl) => bl.type !== 'anweisung')
 
       //console.log(code, topBlocks.length)

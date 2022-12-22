@@ -11,7 +11,7 @@
       }
     ],
     "colour": 260,
-    "tooltip": "Gehe Anzahl Schritte geradeaus",
+    "tooltip": "Karol geht einen Schritt nach vorne",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -20,7 +20,7 @@
     "type": "turnleft",
     "message0": "LinksDrehen",
     "colour": 260,
-    "tooltip": "Drehe dich 90 Grad nach links",
+    "tooltip": "Karol dreht sich um 90° nach links",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -29,7 +29,7 @@
     "type": "turnright",
     "message0": "RechtsDrehen",
     "colour": 260,
-    "tooltip": "Drehe dich 90 Grad nach rechts",
+    "tooltip": "Karol dreht sich um 90° nach rechts",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -46,7 +46,7 @@
       }
     ],
     "colour": 260,
-    "tooltip": "Lege Anzahl Ziegel vor dich hin",
+    "tooltip": "Karol legt vor sich {anzahl} Ziegel",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -87,7 +87,7 @@
       }
     ],
     "colour": 260,
-    "tooltip": "Hebe Anzahl Ziegel vor dir auf",
+    "tooltip": "Karol hebt {anzahl} Ziegel vor sich auf",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -99,14 +99,14 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 260,
-    "tooltip": "Setze eine Marke unter dir",
+    "tooltip": "Karol setzt unter sich eine Marke",
     "helpUrl": ""
   },
   {
     "type": "deletemarker",
     "message0": "MarkeLöschen",
     "colour": 260,
-    "tooltip": "Lösche die Marke unter dir",
+    "tooltip": "Karol löscht Marke unter sich",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -141,7 +141,7 @@
     "type": "stop",
     "message0": "Beenden",
     "colour": 260,
-    "tooltip": "Beende das Programm",
+    "tooltip": "Karol beendet an dieser Stelle die Ausführung des Programms",
     "helpUrl": "",
     "previousStatement": null
   },
@@ -164,7 +164,7 @@
       }
     ],
     "colour": 120,
-    "tooltip": "wiederhole n mal Anweisung",
+    "tooltip": "Wiederholung mit fester Anzahl",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -232,7 +232,7 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 120,
-    "tooltip": "wiederhole Anweisung solange Bedingung erfüllt",
+    "tooltip": "Wiederholung mit Bedingung",
     "helpUrl": ""
   },
   {
@@ -251,7 +251,7 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 120,
-    "tooltip": "wiederhole bis Programmabbruch",
+    "tooltip": "Wiederholung bis zum Programmabbruch",
     "helpUrl": ""
   },
   {
@@ -274,7 +274,7 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 120,
-    "tooltip": "Wenn Bedingung wahr dann führe Anweisung aus",
+    "tooltip": "Einseitig bedingte Anweisung",
     "helpUrl": ""
   },
   {
@@ -298,7 +298,7 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 120,
-    "tooltip": "Wenn Bedingung wahr dann führe Anweisung aus sonst führe andere Anweisung aus",
+    "tooltip": "Zweiseitig bedingte Anweisung",
     "helpUrl": ""
   },
   {
@@ -306,7 +306,7 @@
     "message0": "IstWand",
     "output": "Boolean",
     "colour": 210,
-    "tooltip": "Wenn er vor der Wand oder vor einem Quader steht und in diese\nRichtung schaut",
+    "tooltip": "Karol testet, ob vor ihm eine Wand (oder ein Quader) ist",
     "helpUrl": ""
   },
   {
@@ -322,7 +322,7 @@
     "message0": "IstZiegel",
     "output": null,
     "colour": 210,
-    "tooltip": "Wenn er vor mindestens einem Ziegel beliebiger Farbe steht und zu diesem schaut",
+    "tooltip": "Karol testet, ob vor ihm Ziegel liegen",
     "helpUrl": ""
   },
   {
@@ -337,7 +337,7 @@
     ],
     "output": null,
     "colour": 210,
-    "tooltip": "wenn er vor einem Ziegelstapel mit n(=Anzahl) vielen Ziegeln steht und zu diesem schaut",
+    "tooltip": "Karol testet, ob vor ihm genau {anzahl} Ziegel liegen",
     "helpUrl": ""
   },
   {
@@ -381,7 +381,7 @@
     ],
     "output": null,
     "colour": 210,
-    "tooltip": "Wenn IstZiegel(Anzahl) nicht zutrifft",
+    "tooltip": "Wenn IstZiegel(anzahl) nicht zutrifft",
     "helpUrl": ""
   },
   {
@@ -410,7 +410,7 @@
     "message0": "IstMarke",
     "output": null,
     "colour": 210,
-    "tooltip": "Wenn Karol auf einer Marke steht",
+    "tooltip": "Karol testet, ob sie auf einer Marke steht",
     "helpUrl": ""
   },
   {
@@ -476,7 +476,7 @@
     "message0": "IstNorden",
     "output": null,
     "colour": 210,
-    "tooltip": "Wenn Karol nach Norden schaut",
+    "tooltip": "Karol testet, ob sie nach Norden schaut",
     "helpUrl": ""
   },
   {
@@ -569,7 +569,7 @@
       }
     ],
     "colour": 48,
-    "tooltip": "Ein Kommentar der den Code beschreibt",
+    "tooltip": "Nutze Kommentare, um den Code zu gliedern und die Struktur zu erklären",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null

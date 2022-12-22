@@ -120,7 +120,7 @@ export function initCustomBlocks() {
   blocks.forEach((block) => {
     Blockly.Blocks[block.type] = {
       init: function () {
-        ;(this as any).jsonInit(block)
+        this.jsonInit(block)
       },
     }
   })
@@ -137,5 +137,5 @@ export function initCustomBlocks() {
     }
     return code + nextCode
   }
-  ;(Blockly as any)['karol'] = karolGenerator
+  ;(Blockly as any)['karol'] = karolGenerator // strange monkey patch
 }
