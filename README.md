@@ -96,7 +96,7 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 
 Über die letzen Monate sind mir ein paar ähnliche Projekte begegnet:
 
-- https://nightly.robotcoral.de/: Textbasiert, 3D-Ansicht, schickes Design, Oberfläche sehr nah an Originalversion
+- https://github.com/robotcoral: Textbasiert, 3D-Ansicht, schickes Design, Oberfläche sehr nah an Originalversion
 - https://github.com/vanmeegen/react-three-karol: Block- und text-basiert, 3D-Ansicht
 - https://github.com/andipaetzold/robotkarol.dev: ordentliche Umsetzung, nur text-basiert, keine manuelle Steuerung, viele Beipsiele
 - https://github.com/timjb/robot-karel: Mehr als 10 Jahre alt, leider nicht mehr online
