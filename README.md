@@ -92,6 +92,14 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 - Außerdem können weiterhin Kommentare mit `{ Kommentar }` geschrieben werden. Alternative Syntax für mehrzeilige Kommentare ist `/* Kommentar */`, Alternative für einzeiligen Kommentar ist `# Kommentar`.
 - Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`
 
+## Ähnliche Projekte
+
+Über die letzen Monate sind mir ein paar ähnliche Projekte begegnet:
+
+- https://github.com/vanmeegen/react-three-karol: Block- und text-basiert, 3D-Ansicht
+- https://github.com/andipaetzold/robotkarol.dev: ordentliche Umsetzung, nur text-basiert, keine manuelle Steuerung, viele Beipsiele
+- https://github.com/timjb/robot-karel: Schon vor 10 Jahren probiert, leider nicht mehr online
+
 ## Trivia
 
 Karol verwendet die Pronomen sie/ihr.
