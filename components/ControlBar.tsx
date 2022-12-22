@@ -12,7 +12,11 @@ import {
   faThumbsUp,
 } from '@fortawesome/free-solid-svg-icons'
 
-import { setSpeedSliderValue, showErrorModal } from '../lib/commands/mode'
+import {
+  editCodeAndResetProgress,
+  setSpeedSliderValue,
+  showErrorModal,
+} from '../lib/commands/mode'
 import { closeOutput, finishTask, restartProgram } from '../lib/commands/quest'
 import { abort } from '../lib/commands/vm'
 import { sliderToDelay } from '../lib/helper/speedSlider'
@@ -93,6 +97,9 @@ export function ControlBar() {
             <button
               onClick={() => {
                 abort(core)
+                if (core.ws.ui.isTesting && !core.ws.ui.isAlreadyCompleted) {
+                  editCodeAndResetProgress(core)
+                }
               }}
               className="px-2 py-0.5 rounded bg-amber-400 ml-3 mt-2"
             >

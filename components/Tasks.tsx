@@ -184,7 +184,7 @@ export function Tasks() {
             ? (!core.ws.quest.completed.includes(index) ||
                 core.ws.ui.isAlreadyCompleted) &&
                 'hover:bg-yellow-50'
-            : 'hover:bg-blue-100',
+            : 'hover:bg-gray-50',
           (core.ws.ui.isAlreadyCompleted ||
             !core.ws.ui.isTesting ||
             (core.ws.ui.isTesting &&

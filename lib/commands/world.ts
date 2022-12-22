@@ -312,6 +312,8 @@ export function onWorldChange(core: Core) {
 
   if (nonEmptyFields == 0 && correctFields == 0) {
     progress = 100
+  } else if (nonEmptyFields == 0) {
+    progress = 0
   }
 
   core.mutateWs((ws) => {
