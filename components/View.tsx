@@ -21,6 +21,7 @@ interface Resources {
   marke_weg: HTMLImageElement
   quader: HTMLImageElement
   ziegelWire: HTMLImageElement
+  markeKlein: HTMLImageElement
   ctx: CanvasRenderingContext2D
 }
 
@@ -64,6 +65,7 @@ export function View({
             quader,
             marke_weg,
             ziegel_weg,
+            markeKlein,
           ] = await Promise.all([
             loadImage('/Ziegel.png'),
             loadImage('/Ziegel_wire.png'),
@@ -75,6 +77,7 @@ export function View({
             loadImage('/quader.png'),
             loadImage('/marke_weg.png'),
             loadImage('/Ziegel_weg.png'),
+            loadImage('/marke_klein.png'),
           ])
 
           setResources({
@@ -89,6 +92,7 @@ export function View({
             ziegelWire,
             marke_weg,
             ziegel_weg,
+            markeKlein,
           })
         }
       }
@@ -110,6 +114,7 @@ export function View({
         ziegelWire,
         marke_weg,
         ziegel_weg,
+        markeKlein,
       } = resources
 
       ctx.save()
@@ -254,7 +259,11 @@ export function View({
             if (preview && preview.world.bricks[y][x] != world.bricks[y][x]) {
               ctx.globalAlpha = 0.4
             }
-            ctx.drawImage(marke, p.x - 15, p.y - 16)
+            ctx.drawImage(
+              ctx.globalAlpha == 0.4 ? markeKlein : marke,
+              p.x - 15,
+              p.y - 16
+            )
             ctx.restore()
           }
           if (!world.marks[y][x] && preview?.world.marks[y][x]) {
@@ -265,7 +274,7 @@ export function View({
             )
             ctx.save()
             ctx.globalAlpha = 0.4
-            ctx.drawImage(marke, p.x - 15, p.y - 16)
+            ctx.drawImage(markeKlein, p.x - 15, p.y - 16)
             ctx.restore()
           }
           if (world.marks[y][x] && preview && !preview?.world.marks[y][x]) {

@@ -7,10 +7,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
+
 import { showMenu, showQuestOverview } from '../lib/commands/mode'
 import { openTask, storeQuestToSession } from '../lib/commands/quest'
 import { replaceWithJSX } from '../lib/helper/replaceWithJSX'
-
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
@@ -36,23 +36,40 @@ export function Tasks() {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100 relative">
-        <h1 className="mb-3 text-xl font-bold">{core.ws.quest.title}</h1>
-        <div>
-          {replaceWithJSX([core.ws.quest.description], /(<br>)/g, (_, i) => (
-            <div className="h-2" key={i}></div>
-          ))}
-        </div>
-        {!core.ws.ui.isImportedProject && completedPercent !== 100 && (
-          <button
-            className="absolute right-2 top-2 px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
-            onClick={() => {
-              storeQuestToSession(core)
-              showQuestOverview(core)
-            }}
-          >
-            <FaIcon icon={faGrip} className="mr-1" /> Quest auswählen
-          </button>
+        <h1 className="mb-2 text-xl font-bold mt-1">{core.ws.quest.title}</h1>
+        {!core.ws.ui.isImportedProject && (
+          <div className="mb-4">
+            <button
+              className={clsx(
+                'text-blue-700 hover:text-blue-800 hover:underline disabled:text-gray-400 disabled:hover:no-underline'
+              )}
+              disabled={
+                completedPercent == 100 && !core.ws.ui.isAlreadyCompleted
+              }
+              onClick={() => {
+                storeQuestToSession(core)
+                showQuestOverview(core)
+              }}
+            >
+              zurück
+            </button>
+          </div>
         )}
+        <div>
+          {replaceWithJSX(
+            replaceWithJSX(
+              [core.ws.quest.description],
+              /(^\s*(?:$\s*)*$)/gm,
+              (_, i) => <div className="h-3" key={`space-${i}`}></div>
+            ),
+            /`(.+?)`/,
+            (str, i) => (
+              <span key={`code-${i}`} className="font-[hack] font-bold">
+                {str}
+              </span>
+            )
+          )}
+        </div>
       </div>
       <div
         className="flex-grow flex-shrink overflow-y-auto bg-gray-100"
@@ -73,7 +90,7 @@ export function Tasks() {
                 Quest auswählen <FaIcon icon={faExternalLink} />
               </a>
             </p>
-          ) : completedPercent == 100 ? (
+          ) : completedPercent == 100 && !core.ws.ui.isAlreadyCompleted ? (
             <p className="z-10">
               <button
                 className={clsx(
@@ -96,13 +113,13 @@ export function Tasks() {
                   : 'Quest abschließen'}
               </button>
             </p>
-          ) : (
+          ) : completedPercent < 100 ? (
             <p className="z-10">
               {completed} von {core.ws.quest.tasks.length}{' '}
               {core.ws.quest.tasks.length == 1 ? 'Auftrag' : 'Aufträgen'}{' '}
               erledigt
             </p>
-          )}
+          ) : null}
           {!core.ws.ui.isImportedProject && (
             <div className="absolute inset-1 rounded-md bg-white left-3 right-2">
               <div
@@ -137,7 +154,7 @@ export function Tasks() {
   function renderTask(task: QuestTask, index: number) {
     return (
       <div
-        className="m-3 rounded-xl bg-white flex justify-between cursor-pointer hover:bg-green-50"
+        className="m-3 rounded-xl bg-white flex justify-between cursor-pointer hover:bg-blue-100"
         key={index}
         onClick={() => {
           openTask(core, index)

@@ -95,6 +95,10 @@ export function Overview() {
   )
 
   function renderQuest(index: number) {
+    if (index == -1) {
+      return <div className="basis-full h-1"></div>
+    }
+
     const data = questData[index]
     const rawSessionData = sessionStorage.getItem(`karol_quest_beta_${index}`)
     const sessionData: QuestSessionData | null = rawSessionData
@@ -103,7 +107,7 @@ export function Overview() {
 
     return (
       <div
-        className="m-4 mr-6 p-3 bg-white rounded-md cursor-pointer hover:bg-yellow-100 w-[280px]"
+        className="m-4 mr-6 p-3 bg-white rounded-md cursor-pointer hover:bg-blue-100 w-[280px]"
         key={index}
         onClick={() => {
           startQuest(core, index)

@@ -36,8 +36,8 @@ export function Quest() {
               ) && (
                 <div className="bottom-6 left-6 right-6 h-28 absolute  rounded-lg pl-4 pt-3 flex justify-around flex-col bg-gray-200">
                   <p className="ml-2">
-                    Dein Programm hat einen Auftrag gelöst. Wenn du das Programm
-                    bearbeitest, wird dein Fortschritt zurückgesetzt:
+                    Dein Programm hat einen Auftrag erfüllt. Wenn du das
+                    Programm bearbeitest, wird dein Fortschritt zurückgesetzt:
                   </p>
                   <p className="mb-3">
                     <button

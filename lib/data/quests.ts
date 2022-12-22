@@ -2,11 +2,19 @@ import { QuestData } from '../state/types'
 
 export const questData: { [key: number]: QuestData } = {
   1: {
-    title: 'Herzlich Willkommen',
+    title: 'Erste Schritte',
     description: `
-      Karol ist ein kleiner Roboter, der in der Bildschirmwelt lebt.
-      Du kannst ihn steuern, indem du links im Block-Editor ein Programm schreibst.
-      Dieses Programm soll dann den ersten Auftrag erfüllen. Lege in diesem Fall ein drei Ziegel.
+      Herzlich Willkommen bei Robot Karol Quest! Auf dieser Webseite lernst du, wie du die kleine Roboterin Karol
+      in ihrer Bildschirmwelt steuerst und stellst dabei dein Programmiergeschick unter Beweis.
+      Das Tutorial macht dich mit den Grundlagen dafür vertraut.
+
+      Du programmierst, indem du Blöcke aus der Auswahl auf die Arbeitsfläche ziehst und verbindest.
+      Verbundene Blöcke werden von oben nach unten ausgeführt.
+      Die grundlegenden Blöcke sind \`Schritt\` und \`Hinlegen\`. 
+
+      Jetzt bist du startklar. Klicke auf den ersten Auftrag "Ziegelsteine legen"
+      und schreibe ein Programm, das die drei angezeigten Ziegel legt.
+      Starte dann dein Programm.
     `,
     difficulty: 'Tutorial',
     tasks: [
@@ -35,198 +43,138 @@ export const questData: { [key: number]: QuestData } = {
   },
 
   2: {
-    title: 'Erstes Bauprojekt',
-    description:
-      'Hallo, das ist eine Quest von Robot Karol. Es geht darum, ein Programm zu schreiben, ' +
-      'das in der Lage ist, alle Aufträge zu erfüllen. Erstelle dazu im Block-Editor dein Programm und starte es.',
+    title: 'Wiederholung mit fester Anzahl',
+    description: `
+      Konzept Kontrollstruktur
+
+      Aufbau: Einklammerung von Befehlen
+
+      Wiederholung mit fester Anzahl, praktisch für häufig wiederholte Aufgaben
+
+      einzelner Auftrag (Level nachbauen)
+
+      Konzept MarkeSetzen
+    `,
     difficulty: 'Tutorial',
     tasks: [
       {
-        title: 'Auftrag 1: Ziegelquadrat',
+        title: 'Ziegel und Marken im Wechsel',
         start: {
-          dimX: 6,
-          dimY: 6,
+          dimX: 21,
+          dimY: 1,
           height: 6,
-          karol: { x: 0, y: 0, dir: 'south' },
+          karol: { x: 0, y: 0, dir: 'east' },
           bricks: [
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           ],
           marks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+            ],
           ],
           blocks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+            ],
           ],
         },
         target: {
-          dimX: 6,
-          dimY: 6,
+          dimX: 21,
+          dimY: 1,
           height: 6,
-          karol: { x: 0, y: 0, dir: 'south' },
+          karol: { x: 0, y: 0, dir: 'east' },
           bricks: [
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 1, 0, 0],
-            [0, 0, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
           ],
           marks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
+            [
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+            ],
           ],
           blocks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
-        },
-      },
-      {
-        title: 'Auftrag 2: Fülle die Mitte',
-        start: {
-          dimX: 6,
-          dimY: 6,
-          height: 6,
-          karol: { x: 5, y: 5, dir: 'north' },
-          bricks: [
-            [1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1],
-            [1, 1, 0, 0, 1, 1],
-            [1, 1, 0, 0, 1, 1],
-            [1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1],
-          ],
-          marks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
-          blocks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
-        },
-        target: {
-          dimX: 6,
-          dimY: 6,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'south' },
-          bricks: [
-            [1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1],
-          ],
-          marks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
-          blocks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
-        },
-      },
-      {
-        title: 'Auftrag 3: Zwischen den Säulen',
-        start: {
-          dimX: 6,
-          dimY: 6,
-          height: 6,
-          karol: { x: 5, y: 0, dir: 'west' },
-          bricks: [
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-          ],
-          marks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
-          blocks: [
-            [false, false, false, false, false, false],
-            [false, true, false, false, true, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, true, false, false, true, false],
-            [false, false, false, false, false, false],
-          ],
-        },
-        target: {
-          dimX: 6,
-          dimY: 6,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'south' },
-          bricks: [
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 1, 0, 0],
-            [0, 0, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-          ],
-          marks: [
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-          ],
-          blocks: [
-            [false, false, false, false, false, false],
-            [false, true, false, false, true, false],
-            [false, false, false, false, false, false],
-            [false, false, false, false, false, false],
-            [false, true, false, false, true, false],
-            [false, false, false, false, false, false],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+            ],
           ],
         },
       },
@@ -234,85 +182,208 @@ export const questData: { [key: number]: QuestData } = {
   },
 
   3: {
-    title: 'Fließenleger',
-    description: '123',
-    difficulty: 'Dummy',
+    title: 'Bedingte Anweisung',
+    description: `
+      Wenn Karol nur vorgegebene Muster legen soll, dann langweilit sie sich schnell.
+      Interessant werden Programme, wenn sie auf die Welt herum reagieren können.
+      
+      Zusammenhang mit Bedingungen
+
+      Einseitig, zweiseitig
+
+      UI: Quest besteht aus mehreren Aufträgen, diese müssen mit gleichem Programm erfüllt werden.
+
+      Kleine Rundschau von verfügbaren Bedingungen
+    `,
+    difficulty: 'Tutorial',
     tasks: [
       {
-        title: 'leer',
+        title: 'Ziegelsteine legen',
         start: {
-          dimX: 1,
+          dimX: 7,
           dimY: 1,
-          height: 1,
+          height: 6,
           karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0]],
-          marks: [[false]],
-          blocks: [[false]],
+          bricks: [[0, 0, 0, 0, 0, 0, 0]],
+          marks: [[false, false, false, false, false, false, false]],
+          blocks: [[false, false, false, false, false, false, false]],
         },
-        target: null,
+        target: {
+          dimX: 7,
+          dimY: 1,
+          height: 6,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0, 1, 0, 1, 0, 1, 0]],
+          marks: [[false, false, false, false, false, false, false]],
+          blocks: [[false, false, false, false, false, false, false]],
+        },
       },
     ],
   },
 
   4: {
-    title: 'Noch eine Quest',
-    description: '123',
-    difficulty: 'Dummy',
+    title: 'Wiederholung mit Bedingung',
+    description: `
+      Thema: Verbindung von Wiederholung mit Bedingung.  
+
+      Ein solches Element ist die Wiederholung mit Bedingung.
+
+      Der Block dazu heißt \`wiederhole solange\`. Dieser Block enthält zwei Lücken:
+      In die Lücke mit der Form eines Puzzle-Stücks kommt die Bedingung.
+      Diese gibt an, wie lange die Wiederholung dauern soll, wie zum Beispiel \`NichtIstWand\`.
+      In die zweite Lücke plazierst du die Befehle, die wiederholt werden.
+      Diese sind dann vom äußeren Block eingeklammert.
+
+      Diese Quest enthält zwei Aufträge, deine Aufgaben in beiden lautet:
+      Laufe bis zur Wand und setze eine Marke.
+
+      Block: zählt auch als Wand.
+    `,
+    difficulty: 'Tutorial',
     tasks: [
       {
-        title: 'leer',
+        title: 'Durch die Ziegel',
         start: {
-          dimX: 1,
-          dimY: 1,
-          height: 1,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0]],
-          marks: [[false]],
-          blocks: [[false]],
+          dimX: 8,
+          dimY: 3,
+          height: 6,
+          karol: { x: 6, y: 1, dir: 'west' },
+          bricks: [
+            [1, 1, 0, 0, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 1, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, false],
+          ],
         },
-        target: null,
+        target: {
+          dimX: 8,
+          dimY: 3,
+          height: 6,
+          karol: { x: 6, y: 1, dir: 'west' },
+          bricks: [
+            [1, 1, 0, 0, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 1, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false, false, false, false],
+            [true, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, false],
+          ],
+        },
+      },
+      {
+        title: 'Lücke füllen',
+        start: {
+          dimX: 5,
+          dimY: 5,
+          height: 6,
+          karol: { x: 2, y: 4, dir: 'north' },
+          bricks: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [true, true, false, true, true],
+            [true, false, false, false, true],
+            [true, false, false, false, true],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+        },
+        target: {
+          dimX: 5,
+          dimY: 5,
+          height: 6,
+          karol: { x: 2, y: 4, dir: 'north' },
+          bricks: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [true, true, true, true, true],
+            [true, false, false, false, true],
+            [true, false, false, false, true],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+        },
       },
     ],
   },
 
   5: {
-    title: 'Und noch eine Quest',
-    description: '123',
-    difficulty: 'Dummy',
-    tasks: [
-      {
-        title: 'leer',
-        start: {
-          dimX: 1,
-          dimY: 1,
-          height: 1,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0]],
-          marks: [[false]],
-          blocks: [[false]],
-        },
-        target: null,
-      },
-    ],
-  },
+    title: 'Ziegel zählen im hohen Norden',
+    description: `
+      Eigentlich sind damit alle Elemente gezeigt.
 
-  6: {
-    title: 'Schön mal die Breite checken',
-    description: '123',
-    difficulty: 'Dummy',
+      Mehrere Kontrollstrukturen können nacheinander geschaltet werden.
+      Kontrollstrukturen können auch verschachtelt werden.
+
+      Zwei Künste:
+      
+      - Kombination aus Kontrollstrukturen
+      
+      - sich Dinge merken, indem man die Welt modifiziert (z.B. Marke, etc.)
+
+      Kommentare können den Code erklären.
+    `,
+    difficulty: 'Tutorial',
     tasks: [
       {
-        title: 'leer',
+        title: 'Ziegelsteine legen',
         start: {
-          dimX: 1,
+          dimX: 7,
           dimY: 1,
-          height: 1,
+          height: 6,
           karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0]],
-          marks: [[false]],
-          blocks: [[false]],
+          bricks: [[0, 0, 0, 0, 0, 0, 0]],
+          marks: [[false, false, false, false, false, false, false]],
+          blocks: [[false, false, false, false, false, false, false]],
         },
-        target: null,
+        target: {
+          dimX: 7,
+          dimY: 1,
+          height: 6,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0, 1, 0, 1, 0, 1, 0]],
+          marks: [[false, false, false, false, false, false, false]],
+          blocks: [[false, false, false, false, false, false, false]],
+        },
       },
     ],
   },
