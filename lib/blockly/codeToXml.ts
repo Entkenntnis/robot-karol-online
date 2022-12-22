@@ -130,6 +130,11 @@ function parseTree(
       nextIgnoreComment(cursor) // condition
       const condition = code.substring(cursor.from, cursor.to)
       cursor.next()
+
+      if (cursor.node.name == 'Parameter') {
+        cursor.next()
+      }
+
       let hasElse = false
       const subcursor = cursor.node.cursor()
       do {
