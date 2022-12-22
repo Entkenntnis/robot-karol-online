@@ -6,7 +6,7 @@
 
 <blockquote>
 
-Aus: https://mebis.bycs.de/beitrag/robot-karol
+Aus https://mebis.bycs.de/beitrag/robot-karol:
 
 Robot Karol ist eine Programmierumgebung mit einer Programmiersprache, die für Schülerinnen und Schüler zum Erlernen des Programmierens und zur Einführung in die Algorithmik gedacht ist. Robot Karol folgt der Tradition der “Mini-Languages”. Dies sind Programmiersprachen, die bewusst über einen kleinen, übersichtlichen Sprachumfang verfügen, um den Einstieg in die Algorithmik zu erleichtern.
 
