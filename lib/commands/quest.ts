@@ -43,6 +43,9 @@ export function openTask(core: Core, index: number) {
     ws.quest.progress = 0
     ws.ui.karolCrashMessage = undefined
   })
+  if (core.ws.ui.state == 'ready' && core.ws.ui.isTesting) {
+    runTask(core, index)
+  }
 }
 
 export function closeOutput(core: Core) {
@@ -97,10 +100,10 @@ export function startQuest(core: Core, id: number) {
     quest.tasks = data.tasks
     ui.showQuestOverview = false
     ui.isEndOfRun = false
-    ui.freezeCode = false
     ws.code = ''
     quest.id = id
     ui.isAlreadyCompleted = false
+    ws.ui.isTesting = false
   })
 }
 
@@ -126,8 +129,14 @@ export function restoreQuestFromSessionData(
     ws.quest.completed = data.completed
     ws.settings.mode = data.mode
     if (data.completed.length == ws.quest.tasks.length) {
-      ws.ui.freezeCode = true
+      ws.ui.isTesting = true
       ws.ui.isAlreadyCompleted = true
     }
+  })
+}
+
+export function startTesting(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.isTesting = true
   })
 }

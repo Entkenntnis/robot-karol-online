@@ -14,7 +14,8 @@ export const questData: { [key: number]: QuestData } = {
 
       Klicke auf den Auftrag und schreibe dein erstes Programm.
       Beginne mit den Blöcken \`Hinlegen\` und \`Schritt\`.
-      Starte dann dein Programm.
+      Du kannst dein Programm testen.
+      Sobald du bereit bist kannst du die Überprüfung starten und damit die Aufgabe abschließen.
     `,
     difficulty: 'Tutorial',
     tasks: [
@@ -406,54 +407,150 @@ export const questData: { [key: number]: QuestData } = {
       Umso mehr kannst du dich freuen, wenn dir eine solche  Quest schließlich gelingt!
 
       Bereits bei dieser Quest braucht es mehrere Kontrollstrukturen und ein wenig Programmiergeschick.
-      Über Karol befindet sich ein Ziegelstapel. Gehe dahin.
-      Baue den Stapel ab, wenn sich dort nur Ziegel befindet. Setze ansonsten eine Marke.
+      Im Norden von Karol befindet sich ein Ziegelstapel. Gehe dahin.
+      Baue den Stapel ab, wenn sich dort genau zwei Ziegel befindet. Setze ansonsten eine Marke.
 
-      Die Bedingungen \`IstZiegel(anzahl)\` und \`IstNorden\` helfen dir. 
+      Die Bedingungen \`IstZiegel(2)\` und \`NichtIstNorden\` helfen dir. 
     `,
     difficulty: 'Tutorial',
     tasks: [
       {
-        title: '2 Ziegel ➔ nicht aufheben',
+        title: '2 Ziegel ➔ aufheben',
         start: {
-          dimX: 7,
-          dimY: 1,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 0, 0, 0, 0, 0, 0]],
-          marks: [[false, false, false, false, false, false, false]],
-          blocks: [[false, false, false, false, false, false, false]],
+          dimX: 5,
+          dimY: 7,
+          height: 3,
+          karol: { x: 2, y: 4, dir: 'west' },
+          bricks: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
         },
         target: {
-          dimX: 7,
-          dimY: 1,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 1, 0, 1, 0, 1, 0]],
-          marks: [[false, false, false, false, false, false, false]],
-          blocks: [[false, false, false, false, false, false, false]],
+          dimX: 5,
+          dimY: 7,
+          height: 3,
+          karol: { x: 2, y: 3, dir: 'north' },
+          bricks: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
         },
       },
 
       {
-        title: '1 Ziegel ➔ abbauen',
+        title: '1 Ziegel ➔ Marke setzen',
         start: {
-          dimX: 7,
-          dimY: 1,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 0, 0, 0, 0, 0, 0]],
-          marks: [[false, false, false, false, false, false, false]],
-          blocks: [[false, false, false, false, false, false, false]],
+          dimX: 5,
+          dimY: 7,
+          height: 3,
+          karol: { x: 2, y: 6, dir: 'east' },
+          bricks: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
         },
         target: {
-          dimX: 7,
-          dimY: 1,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 1, 0, 1, 0, 1, 0]],
-          marks: [[false, false, false, false, false, false, false]],
-          blocks: [[false, false, false, false, false, false, false]],
+          dimX: 5,
+          dimY: 7,
+          height: 3,
+          karol: { x: 2, y: 3, dir: 'north' },
+          bricks: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+          ],
+          marks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, true, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
+          blocks: [
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+          ],
         },
       },
     ],

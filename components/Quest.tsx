@@ -1,4 +1,8 @@
-import { faLock } from '@fortawesome/free-solid-svg-icons'
+import {
+  faLock,
+  faPencil,
+  faStopCircle,
+} from '@fortawesome/free-solid-svg-icons'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 import { editCodeAndResetProgress } from '../lib/commands/mode'
 
@@ -27,31 +31,33 @@ export function Quest() {
           }}
         >
           <EditArea />
-          {core.ws.ui.freezeCode && (
+          {core.ws.ui.isTesting && (
             <div className="absolute inset-0 bg-gray-700/20 z-[100]">
-              {!(
-                core.ws.ui.isEndOfRun &&
-                core.ws.quest.progress == 100 &&
-                core.ws.ui.showOutput &&
-                core.ws.quest.completed.length == 0
-              ) && (
-                <div className="bottom-6 left-6 right-6 h-28 absolute  rounded-lg pl-4 pt-3 flex justify-around flex-col bg-gray-200">
-                  <p className="ml-2">
-                    Wenn du das Programm bearbeitest müssen bereits erfüllte
-                    Aufträge nochmal ausgeführt und überprüft werden:
-                  </p>
-                  <p className="mb-3">
-                    <button
-                      className="px-2 py-0.5 bg-gray-300 rounded"
-                      onClick={() => {
-                        editCodeAndResetProgress(core)
-                      }}
-                    >
-                      Programm bearbeiten
-                    </button>
-                  </p>
-                </div>
-              )}
+              <div className="bottom-6 left-6 right-6 h-28 absolute  rounded-lg pl-4 pt-3 flex justify-around flex-col bg-gray-200">
+                <p className="ml-2">
+                  {core.ws.ui.isAlreadyCompleted
+                    ? 'Dein Programm wurde erfolgreich überprüft.'
+                    : 'Dein Programm wird gerade überprüft und kann nicht bearbeitet werden.'}
+                </p>
+                <p className="mb-3">
+                  <button
+                    className="px-2 py-0.5 bg-gray-300 rounded"
+                    onClick={() => {
+                      editCodeAndResetProgress(core)
+                    }}
+                  >
+                    <FaIcon
+                      icon={
+                        core.ws.ui.isAlreadyCompleted ? faPencil : faStopCircle
+                      }
+                      className="mr-2"
+                    />
+                    {core.ws.ui.isAlreadyCompleted
+                      ? 'Programm bearbeiten'
+                      : 'Überprüfung abbrechen'}
+                  </button>
+                </p>
+              </div>
             </div>
           )}
         </ReflexElement>

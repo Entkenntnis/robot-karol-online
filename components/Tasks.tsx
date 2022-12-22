@@ -4,12 +4,17 @@ import {
   faExternalLink,
   faGear,
   faGrip,
+  faListCheck,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
 
 import { showMenu, showQuestOverview } from '../lib/commands/mode'
-import { openTask, storeQuestToSession } from '../lib/commands/quest'
+import {
+  openTask,
+  startTesting,
+  storeQuestToSession,
+} from '../lib/commands/quest'
 import { replaceWithJSX } from '../lib/helper/replaceWithJSX'
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
@@ -41,7 +46,7 @@ export function Tasks() {
           <div className="mb-4">
             <button
               className={clsx(
-                'text-blue-700 hover:text-blue-800 hover:underline disabled:text-gray-400 disabled:hover:no-underline'
+                'text-blue-500 hover:text-blue-600 hover:underline disabled:invisible'
               )}
               disabled={
                 completedPercent == 100 && !core.ws.ui.isAlreadyCompleted
@@ -97,7 +102,7 @@ export function Tasks() {
                   'px-2 py-0.5 rounded-lg  ',
                   core.ws.ui.isAlreadyCompleted
                     ? 'bg-yellow-200'
-                    : 'bg-yellow-600 text-white font-bold'
+                    : 'bg-yellow-300 font-bold'
                 )}
                 onClick={() => {
                   storeQuestToSession(core)
@@ -113,22 +118,41 @@ export function Tasks() {
                   : 'Quest abschließen'}
               </button>
             </p>
-          ) : completedPercent < 100 ? (
+          ) : core.ws.ui.isTesting ? (
             <p className="z-10">
               {completed} von {core.ws.quest.tasks.length}{' '}
               {core.ws.quest.tasks.length == 1 ? 'Auftrag' : 'Aufträgen'}{' '}
               erledigt
             </p>
-          ) : null}
+          ) : (
+            <p className="z-10">
+              <button
+                className={clsx('px-2 py-0.5 rounded-lg bg-yellow-300')}
+                onClick={() => {
+                  startTesting(core)
+                }}
+              >
+                <FaIcon icon={faListCheck} className="mx-1" /> Überprüfung
+                starten
+              </button>
+            </p>
+          )}
           {!core.ws.ui.isImportedProject && (
-            <div className="absolute inset-1 rounded-md bg-white left-3 right-2">
+            <div
+              className={clsx(
+                'absolute inset-1 rounded-md left-3 right-2',
+                core.ws.ui.isTesting ? 'bg-white' : 'bg-gray-100'
+              )}
+            >
               <div
                 className={clsx(
                   'h-full',
                   completedPercent > 90
                     ? 'rounded-md'
                     : 'rounded-tl-md rounded-bl-md',
-                  completedPercent == 100 ? 'bg-gray-100' : 'bg-green-200'
+                  completedPercent == 100 && !core.ws.ui.isAlreadyCompleted
+                    ? 'bg-gray-100'
+                    : 'bg-green-200'
                 )}
                 style={{
                   width: `${completedPercent}%`,
@@ -154,9 +178,27 @@ export function Tasks() {
   function renderTask(task: QuestTask, index: number) {
     return (
       <div
-        className="m-3 rounded-xl bg-white flex justify-between cursor-pointer hover:bg-blue-100"
+        className={clsx(
+          'm-3 rounded-xl bg-white flex justify-between',
+          core.ws.ui.isTesting
+            ? (!core.ws.quest.completed.includes(index) ||
+                core.ws.ui.isAlreadyCompleted) &&
+                'hover:bg-yellow-50'
+            : 'hover:bg-blue-100',
+          (core.ws.ui.isAlreadyCompleted ||
+            !core.ws.ui.isTesting ||
+            (core.ws.ui.isTesting &&
+              !core.ws.quest.completed.includes(index))) &&
+            'cursor-pointer'
+        )}
         key={index}
         onClick={() => {
+          if (
+            core.ws.ui.isTesting &&
+            core.ws.quest.completed.includes(index) &&
+            !core.ws.ui.isAlreadyCompleted
+          )
+            return
           openTask(core, index)
           core.mutateWs(({ ui }) => {
             ui.taskScroll = taskContainer.current?.scrollTop ?? -1
@@ -176,7 +218,7 @@ export function Tasks() {
             {core.ws.quest.completed.includes(index) ? (
               <>
                 <div className="text-green-600 mr-5 whitespace-nowrap">
-                  <FaIcon icon={faCheck} /> erfüllt
+                  <FaIcon icon={faCheck} /> erledigt
                 </div>
               </>
             ) : null}

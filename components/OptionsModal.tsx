@@ -39,18 +39,20 @@ export function OptionsModal() {
           {core.ws.settings.mode == 'blocks' ? 'blockbasiert' : 'textbasiert'}
         </p>
         <p className="ml-4 mt-2">{renderSwitch()}</p>
-        <p className="ml-4 mt-12">
-          <button
-            className="px-2 py-0.5 rounded bg-gray-200 hover:bg-gray-300"
-            onClick={() => {
-              setShowStructogram(core, true)
-              closeMenu(core)
-            }}
-          >
-            <FaIcon icon={faDiagramSuccessor} className="mr-1" /> Struktogramm
-            anzeigen
-          </button>
-        </p>
+        {!core.ws.ui.isTesting && (
+          <p className="ml-4 mt-12">
+            <button
+              className="px-2 py-0.5 rounded bg-gray-200 hover:bg-gray-300"
+              onClick={() => {
+                setShowStructogram(core, true)
+                closeMenu(core)
+              }}
+            >
+              <FaIcon icon={faDiagramSuccessor} className="mr-1" /> Struktogramm
+              anzeigen
+            </button>
+          </p>
+        )}
       </div>
     </div>
   )
@@ -73,7 +75,7 @@ export function OptionsModal() {
       return null
     } else {
       // ready
-      if (core.ws.ui.freezeCode) {
+      if (core.ws.ui.isTesting) {
         return (
           <span className="text-gray-600">
             Aktiviere zuerst die Bearbeitung des Programms um den Modus zu

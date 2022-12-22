@@ -9,6 +9,8 @@ import { View } from './View'
 
 export function Output() {
   const core = useCore()
+
+  console.log('progress', core.ws.quest.progress)
   return (
     <div className="flex flex-col h-full">
       <div className="flex-grow-0 flex-shrink-0 h-[80px] bg-gray-100">
@@ -44,7 +46,7 @@ export function Output() {
               core.ws.quest.progress == 100 &&
               core.ws.ui.state != 'running' &&
               !core.ws.ui.karolCrashMessage &&
-              !core.ws.quest.completed.includes(core.ws.quest.lastStartedTask!)
+              core.ws.ui.isTesting
             ) // holy shit, this duplication here ...
           ) && (
             <button

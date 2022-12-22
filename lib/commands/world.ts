@@ -307,9 +307,12 @@ export function onWorldChange(core: Core) {
       }
     }
   }
-  const progress = Math.round(
-    (Math.max(0, correctFields) / nonEmptyFields) * 100
-  )
+
+  let progress = Math.round((Math.max(0, correctFields) / nonEmptyFields) * 100)
+
+  if (nonEmptyFields == 0 && correctFields == 0) {
+    progress = 100
+  }
 
   core.mutateWs((ws) => {
     ws.quest.progress = progress

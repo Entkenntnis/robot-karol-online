@@ -1,5 +1,7 @@
 import {
   faCaretLeft,
+  faCheck,
+  faCircle,
   faCircleCheck,
   faExclamationTriangle,
   faGenderless,
@@ -23,7 +25,8 @@ export function ControlBar() {
     core.ws.quest.progress == 100 &&
     core.ws.ui.state != 'running' &&
     !core.ws.ui.karolCrashMessage &&
-    !core.ws.quest.completed.includes(core.ws.quest.lastStartedTask!)
+    core.ws.ui.isTesting &&
+    !core.ws.ui.isAlreadyCompleted
   ) {
     return (
       <div className="flex items-center justify-center p-2">
@@ -158,8 +161,13 @@ export function ControlBar() {
       if (core.ws.ui.isEndOfRun) {
         return (
           <>
-            <FaIcon icon={faGenderless} className="mr-1" /> Ausführung beendet{' '}
+            <FaIcon
+              icon={core.ws.quest.progress == 100 ? faCheck : faGenderless}
+              className="mr-1"
+            />{' '}
+            Auftrag {core.ws.quest.progress == 100 ? '' : 'nicht'} erfüllt{' '}
             {core.ws.ui.isManualAbort ? ' (abgebrochen)' : ''}
+            {core.ws.ui.isTestingAborted ? ' (Überprüfung abgebrochen)' : ''}
           </>
         )
       }

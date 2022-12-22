@@ -41,7 +41,7 @@ export function Overview() {
             height={71}
             width={40}
           />
-          <h1 className="text-5xl whitespace-nowrap">Robot Karol Quest</h1>
+          <h1 className="text-5xl whitespace-nowrap">Robot Karol Online</h1>
         </div>
       </div>
       <div className="flex-auto flex flex-col overflow-hidden mx-12 lg:mx-16 xl:mx-24">
@@ -69,7 +69,7 @@ export function Overview() {
         </button>{' '}
         |{' '}
         <a
-          href="https://github.com/Entkenntnis/robot-karol-quest"
+          href="https://github.com/Entkenntnis/robot-karol-online"
           className="hover:underline"
           target="_blank"
           rel="noreferrer"
@@ -98,7 +98,7 @@ export function Overview() {
 
   function renderQuest(index: number) {
     if (index == -1) {
-      return <div className="basis-full h-1"></div>
+      return <div className="basis-full h-1" key={index}></div>
     }
 
     const data = questData[index]

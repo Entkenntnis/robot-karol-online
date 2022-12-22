@@ -57,6 +57,8 @@ export interface Ui {
   showPrivacy: boolean
   isAlreadyCompleted: boolean
   showStructogram: boolean
+  isTesting: boolean
+  isTestingAborted: boolean
 }
 
 export interface Vm {

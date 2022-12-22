@@ -1,6 +1,7 @@
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import { Condition, Op } from '../state/types'
+import { editCodeAndResetProgress } from './mode'
 import {
   forward,
   left,
@@ -24,6 +25,7 @@ export function run(core: Core) {
   core.mutateWs(({ ui, vm }) => {
     ui.state = 'running'
     ui.isManualAbort = false
+    ui.isTestingAborted = false
     ui.isEndOfRun = false
     ui.karolCrashMessage = undefined
     vm.pc = 0
@@ -268,21 +270,22 @@ export function endExecution(core: Core) {
     state.vm.handler = undefined
     state.ui.gutterReturns = []
     state.ui.isEndOfRun = true
-    if (!state.ui.isManualAbort) {
-      if (state.quest.progress == 100) {
-        state.ui.freezeCode = true
-      }
-    }
   })
-}
-
-function callWithDelay_DEPRECATED(
-  core: Core,
-  f: () => void,
-  delay: number = 0
-) {
-  const h = setTimeout(f, delay)
-  core.mutateWs(({ vm }) => {
-    vm.handler = h
-  })
+  if (
+    !core.ws.ui.isManualAbort &&
+    core.ws.quest.progress < 100 &&
+    core.ws.ui.isTesting
+  ) {
+    //alert('Programm hat Auftrag nicht erfüllt. Überprüfung abgebrochen.')
+    editCodeAndResetProgress(core)
+    core.mutateWs(({ ui }) => {
+      ui.isTestingAborted = true
+    })
+  }
+  if (core.ws.ui.karolCrashMessage) {
+    editCodeAndResetProgress(core)
+    core.mutateWs(({ ui }) => {
+      ui.isTestingAborted = true
+    })
+  }
 }
