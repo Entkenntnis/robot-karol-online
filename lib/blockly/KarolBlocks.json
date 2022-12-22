@@ -306,7 +306,7 @@
     "message0": "IstWand",
     "output": "Boolean",
     "colour": 210,
-    "tooltip": "Karol testet, ob vor ihm eine Wand (oder ein Quader) ist",
+    "tooltip": "Karol testet, ob vor ihr eine Wand (oder ein Quader) ist",
     "helpUrl": ""
   },
   {
@@ -322,7 +322,7 @@
     "message0": "IstZiegel",
     "output": null,
     "colour": 210,
-    "tooltip": "Karol testet, ob vor ihm Ziegel liegen",
+    "tooltip": "Karol testet, ob vor ihr Ziegel liegen",
     "helpUrl": ""
   },
   {
@@ -337,7 +337,7 @@
     ],
     "output": null,
     "colour": 210,
-    "tooltip": "Karol testet, ob vor ihm genau {anzahl} Ziegel liegen",
+    "tooltip": "Karol testet, ob vor ihr genau {anzahl} Ziegel liegen",
     "helpUrl": ""
   },
   {
