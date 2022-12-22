@@ -92,6 +92,10 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 - Außerdem können weiterhin Kommentare mit `{ Kommentar }` geschrieben werden. Alternative Syntax für mehrzeilige Kommentare ist `/* Kommentar */`, Alternative für einzeiligen Kommentar ist `# Kommentar`.
 - Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`
 
+## Trivia
+
+Karol verwendet die Pronomen sie/ihr.
+
 ## Entwicklung
 
 Installiere node.js und git. Um das Repo dann zum Laufen zu bringen, benötigt es folgende Schritte:
