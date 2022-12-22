@@ -14,9 +14,9 @@ Quelle: https://mebis.bycs.de/beitrag/robot-karol
 
 </blockquote>
 
-**Robot Karol Quest** ([karol.arrrg.de](https://karol.arrrg.de/)) erweitert die bisherigen Implementationen von Robot Karol um einen blockbasierten Editor und einer eingebauten Aufgabensammlung. Damit werden die Einstiegshürden nochmal deutlich gesenkt: Für den Anfang muss man sich um Syntax-Fehler keine Sorgen machen und das beigefügte Tutorial und die Aufgaben bieten sofortiges Feedback für die ersten eigenen Programme.
+**Robot Karol Online** ([karol.arrrg.de](https://karol.arrrg.de/)) erweitert die bisherigen Implementationen von Robot Karol um einen blockbasierten Editor und einer eingebauten Aufgabensammlung. Damit werden die Einstiegshürden nochmal deutlich gesenkt: Für den Anfang muss man sich um Syntax-Fehler keine Sorgen machen und das beigefügte Tutorial und die Aufgaben bieten sofortiges Feedback für die ersten eigenen Programme. Auch die Installation von Software entfällt.
 
-Die Aufgabensammmlung besteht aus einzelnen Quests. Jede Quest besteht wiederum aus einen oder mehreren Aufträgen, die mit *einem* Programm gelöst werden müssen. Bei jedem Auftrag geht es darum, eine vorgegebene Welt mit Karol nachzubauen - beziehungsweise das passende Programm dazu zu schreiben. Dadurch, dass alle Aufträge mit einem Programm gelöst werden, ist der Einsatz von Bedingungen unverzichtbar. Sobald ein Auftrag erledigt ist, wird das in Robot Karol Quest markiert und man kann damit seinen Fortschritt nachverfolgen.
+Die einzelnen Aufgaben in der Aufgabensammmlung bestehen selbst aus einen oder mehreren Aufträgen, die mit *einem* Programm gelöst werden müssen. Bei jedem Auftrag geht es darum, eine vorgegebene Welt mit Karol nachzubauen - beziehungsweise das passende Programm dazu zu schreiben. Dadurch, dass alle Aufträge mit einem Programm gelöst werden, ist der Einsatz von Bedingungen unverzichtbar. Sobald ein Auftrag erledigt ist, wird das in Robot Karol Online markiert und macht den Fortschritt nachvollziehbar.
 
 Die Aufgaben beginnen mit Tutorials, die die Grundlagen der Sprache vermitteln. Danach gibt es eine Reihe an einfachen und mittleren Aufgaben, um die Grundlagen einzuüben. Für ehrgeizige Spieler bieten dann die schweren Aufgaben eine ordentliche Herausforderung. Dabei kann außerdem in den textbasierten Editor gewechselt werden, der zusätzlich Möglichkeiten bietet, wie z.B. die Definition eigener Anweisugen.
 
@@ -97,8 +97,8 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 Installiere node.js und git. Um das Repo dann zum Laufen zu bringen, benötigt es folgende Schritte:
 
 ```
-git clone https://github.com/Entkenntnis/robot-karol-quest.git
-cd robot-karol-quest
+git clone https://github.com/Entkenntnis/robot-karol-online.git
+cd robot-karol-online
 npm install
 npm run dev
 ```
