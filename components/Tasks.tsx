@@ -176,7 +176,7 @@ export function Tasks() {
             {core.ws.quest.completed.includes(index) ? (
               <>
                 <div className="text-green-600 mr-5 whitespace-nowrap">
-                  <FaIcon icon={faCheck} /> abgeschlossen
+                  <FaIcon icon={faCheck} /> erfüllt
                 </div>
               </>
             ) : null}

@@ -12,7 +12,7 @@
     ],
     "colour": 260,
     "tooltip": "Gehe Anzahl Schritte geradeaus",
-    "helpUrl": "",
+    "helpUrl": "https://github.com/Entkenntnis/robot-karol-quest#anweisungen",
     "previousStatement": null,
     "nextStatement": null
   },

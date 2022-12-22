@@ -211,6 +211,9 @@ export function BlockEditor() {
         #blocklyArea svg[display='none'] {
           display: none;
         }
+        .blocklyMenu {
+          box-sizing: content-box;
+        }
       `}</style>
     </>
   )

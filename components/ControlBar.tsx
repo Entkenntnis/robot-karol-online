@@ -28,7 +28,7 @@ export function ControlBar() {
     return (
       <div className="flex items-center justify-center p-2">
         <p className="text-center">
-          Gut gemacht! Du hast den Auftrag erfolgreich erfüllt.
+          Gut gemacht! Dein Programm hat den Auftrag erfüllt.
           <br />
           <button
             onClick={() => {
@@ -37,7 +37,7 @@ export function ControlBar() {
             className="px-2 py-0.5 rounded bg-green-200 ml-3 mt-3 mb-2"
           >
             <FaIcon icon={faCircleCheck} className="mr-1" />
-            Abschließen
+            Ok
           </button>
         </p>
       </div>

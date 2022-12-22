@@ -282,34 +282,27 @@ export const questData: { [key: number]: QuestData } = {
   4: {
     title: 'Wiederholung mit Bedingung',
     description: `
-      Thema: Verbindung von Wiederholung mit Bedingung.  
+      Eine weitere nützliche Kontrollstruktur ist die Wiederholung mit Bedingung.
+      Mit dem Block \`wiederhole solange\` und einer Bedingung können Befehle bis zu einem bestimmten Ziel wiederholt werden.
 
-      Ein solches Element ist die Wiederholung mit Bedingung.
-
-      Der Block dazu heißt \`wiederhole solange\`. Dieser Block enthält zwei Lücken:
-      In die Lücke mit der Form eines Puzzle-Stücks kommt die Bedingung.
-      Diese gibt an, wie lange die Wiederholung dauern soll, wie zum Beispiel \`NichtIstWand\`.
-      In die zweite Lücke plazierst du die Befehle, die wiederholt werden.
-      Diese sind dann vom äußeren Block eingeklammert.
-
-      Diese Quest enthält zwei Aufträge, deine Aufgaben in beiden lautet:
-      Laufe bis zur Wand und setze eine Marke.
-
-      Block: zählt auch als Wand.
+      Ein gängiges Beispiel ist das Laufen bis zu einer Wand.
+      Karol soll dabei den Befehl \`Schritt\` solange wiederholen, wie die Bedingung \`NichtIstWand\` gilt.
+    
+      Lege dann eine Marke, sobald du die Wand erreicht hast.
     `,
     difficulty: 'Tutorial',
     tasks: [
       {
-        title: 'Durch die Ziegel',
+        title: 'Über den Berg',
         start: {
           dimX: 8,
           dimY: 3,
           height: 6,
-          karol: { x: 6, y: 1, dir: 'west' },
+          karol: { x: 7, y: 1, dir: 'west' },
           bricks: [
-            [1, 1, 0, 0, 0, 1, 1, 1],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 1, 1, 0, 0, 0],
+            [0, 0, 1, 2, 3, 2, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
           ],
           marks: [
             [false, false, false, false, false, false, false, false],
@@ -328,9 +321,9 @@ export const questData: { [key: number]: QuestData } = {
           height: 6,
           karol: { x: 6, y: 1, dir: 'west' },
           bricks: [
-            [1, 1, 0, 0, 0, 1, 1, 1],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 1, 1, 0, 0, 0],
+            [0, 0, 1, 2, 3, 2, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
           ],
           marks: [
             [false, false, false, false, false, false, false, false],
@@ -345,7 +338,7 @@ export const questData: { [key: number]: QuestData } = {
         },
       },
       {
-        title: 'Lücke füllen',
+        title: 'Lücke schließen',
         start: {
           dimX: 5,
           dimY: 5,
@@ -407,23 +400,43 @@ export const questData: { [key: number]: QuestData } = {
   5: {
     title: 'Kontrollstrukturen verbinden',
     description: `
-      Eigentlich sind damit alle Elemente gezeigt.
+      Kontrollstrukturen können sowohl nacheinander ausgeführt werden, als auch ineinander verschachtelt werden.
+      Die Kunst besteht darin, die passende Kombination zu finden.
+      Manche Quests löst du schnell - bei anderen wirst du eine Weile brauchen.
+      Umso mehr kannst du dich freuen, wenn dir eine solche  Quest schließlich gelingt!
 
-      Mehrere Kontrollstrukturen können nacheinander geschaltet werden.
-      Kontrollstrukturen können auch verschachtelt werden.
+      Bereits bei dieser Quest braucht es mehrere Kontrollstrukturen und ein wenig Programmiergeschick.
+      Über Karol befindet sich ein Ziegelstapel. Gehe dahin.
+      Baue den Stapel ab, wenn sich dort nur Ziegel befindet. Setze ansonsten eine Marke.
 
-      Zwei Künste:
-      
-      - Kombination aus Kontrollstrukturen
-      
-      - sich Dinge merken, indem man die Welt modifiziert (z.B. Marke, etc.)
-
-      Kommentare können den Code erklären.
+      Die Bedingungen \`IstZiegel(anzahl)\` und \`IstNorden\` helfen dir. 
     `,
     difficulty: 'Tutorial',
     tasks: [
       {
-        title: 'Ziegelsteine legen',
+        title: '2 Ziegel ➔ nicht aufheben',
+        start: {
+          dimX: 7,
+          dimY: 1,
+          height: 6,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0, 0, 0, 0, 0, 0, 0]],
+          marks: [[false, false, false, false, false, false, false]],
+          blocks: [[false, false, false, false, false, false, false]],
+        },
+        target: {
+          dimX: 7,
+          dimY: 1,
+          height: 6,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0, 1, 0, 1, 0, 1, 0]],
+          marks: [[false, false, false, false, false, false, false]],
+          blocks: [[false, false, false, false, false, false, false]],
+        },
+      },
+
+      {
+        title: '1 Ziegel ➔ abbauen',
         start: {
           dimX: 7,
           dimY: 1,
