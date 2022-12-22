@@ -11,7 +11,7 @@ export function submit_event(event: string, core: Core) {
 
     const userId = sessionStorage.getItem('robot_karol_online_tmp_id')
 
-    if (true || /* TESTING */ window.location.host == 'karol.arrrg.de') {
+    if (window.location.host == 'karol.arrrg.de') {
       // only log on production
       void (async () => {
         const rawResponse = await fetch('https://stats-karol.arrrg.de/submit', {
