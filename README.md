@@ -103,7 +103,7 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 
 ## Trivia
 
-Karol verwendet die Pronomen sie/ihr.
+Karol verwendet die sie/ihr-Pronomen.
 
 ## Entwicklung
 
