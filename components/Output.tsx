@@ -39,6 +39,11 @@ export function Output() {
             core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
           )}
         />
+        {!core.ws.ui.isTesting && (
+          <div className="absolute bottom-3 left-4">
+            {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}
+          </div>
+        )}
         {core.ws.ui.isEndOfRun &&
           !core.ws.ui.controlBarShowFinishQuest &&
           !core.ws.ui.isTesting && (

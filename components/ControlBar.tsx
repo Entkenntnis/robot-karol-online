@@ -9,6 +9,7 @@ import {
   faRotateRight,
   faStop,
   faThumbsUp,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 
@@ -71,7 +72,9 @@ export function ControlBar() {
             </button>
           )}
           {core.ws.ui.state == 'ready' &&
-            core.ws.quest.progress < 100 &&
+            (!core.ws.quest.progress ||
+              core.ws.ui.isManualAbort ||
+              core.ws.ui.karolCrashMessage) &&
             !core.ws.ui.isTesting && (
               <>
                 <button
@@ -177,17 +180,17 @@ export function ControlBar() {
         return (
           <>
             <FaIcon
-              icon={core.ws.quest.progress == 100 ? faCheck : faGenderless}
+              icon={core.ws.quest.progress ? faCheck : faTimes}
               className="mr-1"
             />{' '}
-            Auftrag {core.ws.quest.progress == 100 ? '' : 'nicht'} erfüllt{' '}
+            Auftrag {core.ws.quest.progress ? '' : 'nicht'} erfüllt{' '}
             {core.ws.ui.isManualAbort ? ' (abgebrochen)' : ''}
           </>
         )
       }
       return (
         <>
-          <FaIcon icon={faThumbsUp} className="mr-1" /> bereit
+          <FaIcon icon={faThumbsUp} className="mr-2" /> bereit{' '}
         </>
       )
     }

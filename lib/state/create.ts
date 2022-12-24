@@ -40,7 +40,6 @@ export function createWorkspaceState(): WorkspaceState {
       isTestingAborted: false,
       clientInitDone: false,
       controlBarShowFinishQuest: false,
-      hideSaveMessage: false,
     },
     vm: {
       pc: 0,
@@ -55,7 +54,7 @@ export function createWorkspaceState(): WorkspaceState {
       mode: 'blocks',
     },
     quest: {
-      progress: 0,
+      progress: false,
       title: '',
       description: '',
       tasks: [],

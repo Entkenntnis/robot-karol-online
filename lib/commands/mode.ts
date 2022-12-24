@@ -53,7 +53,7 @@ export function hideErrorModal(core: Core) {
 export function editCodeAndResetProgress(core: Core) {
   core.mutateWs(({ quest, ui }) => {
     ui.isTesting = false
-    quest.progress = 0
+    quest.progress = false
     ui.isAlreadyCompleted = false
   })
 }

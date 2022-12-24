@@ -39,7 +39,7 @@ export function OptionsModal() {
           Eingabemethode:{' '}
           {core.ws.settings.mode == 'blocks' ? 'blockbasiert' : 'textbasiert'}
         </p>
-        <p className="ml-4 mt-2">{renderSwitch()}</p>
+        <p className="mx-4 mt-2">{renderSwitch()}</p>
         {!core.ws.ui.isTesting && (
           <p className="ml-4 mt-12">
             <button
@@ -76,7 +76,7 @@ export function OptionsModal() {
       return null
     } else {
       // ready
-      if (core.ws.ui.isTesting) {
+      if (core.ws.ui.isTesting || core.ws.ui.isAlreadyCompleted) {
         return (
           <span className="text-gray-600">
             Aktiviere zuerst die Bearbeitung des Programms um den Modus zu

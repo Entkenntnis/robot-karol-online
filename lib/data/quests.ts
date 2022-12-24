@@ -42,46 +42,16 @@ export const questData: { [key: number]: QuestData } = {
           blocks: [[false, false, false, false, false, false, false]],
         },
       },
-      {
-        title: 'Drei Ziegel 2',
-        start: {
-          dimX: 7,
-          dimY: 1,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 0, 0, 0, 0, 0, 0]],
-          marks: [[false, false, false, false, false, false, false]],
-          blocks: [[false, false, false, false, false, false, false]],
-        },
-        target: {
-          dimX: 7,
-          dimY: 1,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 1, 0, 1, 0, 1, 0]],
-          marks: [[false, false, false, false, false, false, false]],
-          blocks: [[false, false, false, false, false, false, false]],
-        },
-      },
     ],
   },
 
   2: {
     title: 'Wiederholung mit fester Anzahl',
     description: `
-      Die violetten Blöcken stellen Befehle dar, die Karol ausführt.
-      Diese kennst aus dem ersten Tutorial.
-      Die nächsten Tutorials werden sich mit den grünen Blöcken beschäftigen, die Kontrollstrukturen darstellen.
-
-      In diesem Tutorial geht es um den Block \`wiederhole n mal\`.
-      Wie der Name schon andeutet lassen sich damit Befehle mehrfach ausführen.
-      In der Fachsprache spricht man von einer Wiederholung mit fester Anzahl.
-
-      Ziehe den Block auf die Arbeitsfläche.
-      Wenn du auf die Zahl klickst, kannst du die Anzahl der Wiederholungen ändern.
-      Füge nun einen oder mehrere Befehle dazwischen ein, um diese zu wiederholen.
-
-      Beim folgenden Auftrag kommt dir das gelegen, denn du sollst hier ein wiederholendes Muster aus Ziegeln und Marken legen.
+      Häufig soll Karol eine Folge von Befehlen mehrfach wiederholen.
+      Um keine langwierigen Programme schreiben zu müssen, gibt es dafür den Block \`wiederhole {anzahl} mal\`.
+      
+      Erfülle den folgenden Auftrag, indem du das Muster erkennst und passend oft wiederholst.
     `,
     difficulty: 'Tutorial',
     tasks: [
@@ -192,21 +162,15 @@ export const questData: { [key: number]: QuestData } = {
   3: {
     title: 'Bedingte Anweisung',
     description: `
-      Wenn Karol nur vorgegebene Muster legen soll, dann langweilt sie sich schnell.
-      Interessant werden Programme, wenn sie auf die Welt herum reagieren können.
-      Dazu gibt es die blauen Blöcke, die wie Puzzle-Teile aussehen. Diese stellen Bedingungen dar.
-      Damit kann Karol wahrnehmen, was unter und vor ihr passiert.
+      Diese Aufgabe enthält zwei Aufträge, die scheinbar ganz unterschiedliche Dinge tun:
+      Einmal wird ein Ziegel vor Karol abgelegt, einmal dahinter.
+      Trotzdem sollen beide Aufträge mit einem Programm gelöst werden.
 
-      Der Block \`wenn dann sonst\` nimmt eine solche Bedingung.
-      Ziehe diesen Block auf die Arbeitsfläche.
-      Fülle ihn mit der Bedingung \`IstMarke\`.
-      Damit erhältst du die Kontrollstruktur der zweiseitig bedingten Anweisung.
+      Möglich macht das eine bedingte Anweisung, erkennbar an dem Schlüsselwort \`wenn\`.
+      Damit kann Karol auf die Welt um sie herum reagieren.
+      In diesem Fall soll Karol erkennen, ob sie auf einer Marke steht oder nicht.
 
-      Die zweiseitig bedingte Anweisung enthält zwei Lücken. Die obere Lücke wird ausgeführt, wenn die Bedingung erfüllt ist.
-      Die untere Lücke wird ausgeführt, wenn die Bedingung nicht erfüllt ist. Es gibt auch eine Version ohne zweite Lücke.
-      Diese heißt entsprechend einseitig bedingte Anweisung.
-
-      Diese Quest besitzt zwei Aufträge. Schreibe ein Programm, dass beide Aufträge erfüllt. Nutze dafür eine bedingte Anweisung.
+      Nutze für diese Aufgabe den Block \`wenn dann sonst\` und die Bedingung \`IstMarke\`.
     `,
     difficulty: 'Tutorial',
     tasks: [
@@ -306,13 +270,12 @@ export const questData: { [key: number]: QuestData } = {
   4: {
     title: 'Wiederholung mit Bedingung',
     description: `
-      Eine weitere nützliche Kontrollstruktur ist die Wiederholung mit Bedingung.
-      Mit dem Block \`wiederhole solange\` und einer Bedingung können Befehle bis zu einem bestimmten Ziel wiederholt werden.
+      Karol kann nur das Feld direkt vor sich wahrnehmen.
+      Um bis zur Wand laufen zu können, muss sie in kleinen Schritten gehen und stoppen, sobald sie die Wand vor sich hat.
 
-      Ein gängiges Beispiel ist das Laufen bis zu einer Wand.
-      Karol soll dabei den Befehl \`Schritt\` solange wiederholen, wie die Bedingung \`NichtIstWand\` gilt.
-    
-      Lege dann eine Marke, sobald du die Wand erreicht hast.
+      Für diesen Algorithmus gibt es den Block \`wiederhole solange\`.
+      Mit der passenden Bedingung kannst du Karol zur Wand navigieren.
+      Setze dann dort eine Marke.
     `,
     difficulty: 'Tutorial',
     tasks: [

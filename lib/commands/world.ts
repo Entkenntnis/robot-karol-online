@@ -317,7 +317,7 @@ export function onWorldChange(core: Core) {
   }
 
   core.mutateWs((ws) => {
-    ws.quest.progress = progress
+    ws.quest.progress = progress == 100
   })
 
   /*const id = core.ws.id

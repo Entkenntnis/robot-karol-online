@@ -31,7 +31,7 @@ export function openTask(core: Core, index: number) {
     ws.ui.showOutput = true
     ws.quest.lastStartedTask = index
     ws.ui.isEndOfRun = false
-    ws.quest.progress = 0
+    ws.quest.progress = false
     ws.ui.karolCrashMessage = undefined
   })
 }
@@ -65,7 +65,7 @@ export function resetOutput(core: Core) {
     core.mutateWs((ws) => {
       ws.world = ws.quest.tasks[core.ws.quest.lastStartedTask!].start
       ws.ui.messages = []
-      ws.quest.progress = 0
+      ws.quest.progress = false
       ws.ui.isEndOfRun = false
       ws.ui.karolCrashMessage = undefined
       ws.ui.gutter = 0
@@ -84,7 +84,7 @@ export function startQuest(core: Core, id: number) {
   core.mutateWs((ws) => {
     const { ui, quest } = ws
     ui.showOutput = false
-    quest.progress = 0
+    quest.progress = false
     quest.title = data.title
     quest.description = data.description
     quest.tasks = data.tasks
@@ -106,7 +106,8 @@ export function storeQuestToSession(core: Core) {
     code: core.ws.code,
     id: core.ws.quest.id,
     mode: core.ws.settings.mode,
-    completed: core.ws.ui.controlBarShowFinishQuest,
+    completed:
+      core.ws.ui.controlBarShowFinishQuest || core.ws.ui.isAlreadyCompleted,
   }
   sessionStorage.setItem(
     `karol_quest_beta_${core.ws.quest.id}`,
@@ -133,8 +134,11 @@ export function startTesting(core: Core) {
   if (core.ws.ui.state == 'error') return
 
   function callback() {
-    if (core.ws.quest.progress == 100) {
-      // all other checks are already done
+    if (
+      core.ws.quest.progress &&
+      !core.ws.ui.karolCrashMessage &&
+      !core.ws.ui.isManualAbort
+    ) {
       const index = core.ws.quest.lastStartedTask!
       core.mutateWs((ws) => {
         if (index + 1 < core.ws.quest.tasks.length) {

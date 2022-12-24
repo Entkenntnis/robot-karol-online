@@ -61,7 +61,6 @@ export interface Ui {
   isTestingAborted: boolean
   clientInitDone: boolean
   controlBarShowFinishQuest: boolean
-  hideSaveMessage: boolean
 }
 
 export interface Vm {
@@ -84,7 +83,7 @@ export interface Quest {
   tasks: QuestTask[]
   title: string
   description: string
-  progress: number
+  progress: boolean
   lastStartedTask?: number
   id: number
   testerHandler?: NodeJS.Timeout

@@ -1,8 +1,10 @@
 import {
   faCheck,
   faExclamationTriangle,
+  faGenderless,
   faPersonWalking,
   faStop,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { useCore } from '../lib/state/core'
@@ -40,13 +42,25 @@ export function TaskRunnerOverview() {
                     return <FaIcon icon={faStop} />
                   }
                   if (core.ws.ui.isEndOfRun) {
-                    return <FaIcon icon={faCheck} className="text-green-500" />
+                    if (core.ws.quest.progress) {
+                      return (
+                        <FaIcon icon={faCheck} className="text-green-500" />
+                      )
+                    } else {
+                      return <FaIcon icon={faTimes} />
+                    }
                   }
                 }
                 return null
               })()}
             </span>
-            <span className={clsx(index == currentIndex && 'font-bold')}>
+            <span
+              className={clsx(
+                index == currentIndex &&
+                  !core.ws.ui.controlBarShowFinishQuest &&
+                  'font-bold'
+              )}
+            >
               {task.title}
             </span>
           </div>
