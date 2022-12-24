@@ -13,6 +13,7 @@ import {
   startTesting,
   storeQuestToSession,
 } from '../lib/commands/quest'
+import { processMiniMarkdown } from '../lib/helper/processMiniMarkdown'
 import { replaceWithJSX } from '../lib/helper/replaceWithJSX'
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
@@ -50,21 +51,7 @@ export function Tasks() {
             </button>
           </div>
         )}
-        <div>
-          {replaceWithJSX(
-            replaceWithJSX(
-              [core.ws.quest.description],
-              /(^\s*(?:$\s*)*$)/gm,
-              (_, i) => <div className="h-3" key={`space-${i}`}></div>
-            ),
-            /`(.+?)`/,
-            (str, i) => (
-              <span key={`code-${i}`} className="font-[hack] font-bold">
-                {str}
-              </span>
-            )
-          )}
-        </div>
+        <div>{processMiniMarkdown(core.ws.quest.description)}</div>
       </div>
       <div
         className="flex-grow flex-shrink overflow-y-auto bg-gray-100"
@@ -133,7 +120,7 @@ export function Tasks() {
         }}
       >
         <div className="ml-4 mt-6">
-          <h2 className="text-lg">{task.title}</h2>
+          <h2 className="text-lg font-bold">{task.title}</h2>
         </div>
         <div className="h-48 mb-6 mr-8">
           <View

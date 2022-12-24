@@ -2,10 +2,15 @@ import {
   faCheck,
   faExternalLink,
   faPencil,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 
-import { setShowImpressum, setShowPrivacy } from '../lib/commands/mode'
+import {
+  editCodeAndResetProgress,
+  setShowImpressum,
+  setShowPrivacy,
+} from '../lib/commands/mode'
 import { startQuest } from '../lib/commands/quest'
 import { questDeps } from '../lib/data/dependencies'
 import { overviewData } from '../lib/data/overview'
@@ -59,12 +64,27 @@ export function Overview() {
           {overviewData.map(renderQuest)}
         </div>
       </div>
-      {isQuestDone(1) && (
-        <div className="text-sm text-right mr-4 mt-1 mb-3 text-gray-600">
-          Beim Schließen des Fensters wird dein Fortschritt zurückgesetzt. Eine
-          Speicherfunktion ist in Arbeit.
-        </div>
-      )}
+      {isQuestDone(1) &&
+        !sessionStorage.getItem('robot_karol_online_hide_save_message') && (
+          <div className="text-sm text-right mr-4 mt-1 mb-3 text-gray-600">
+            Beim Schließen des Fensters wird dein Fortschritt zurückgesetzt.
+            Eine Speicherfunktion ist in Arbeit.{' '}
+            <button
+              onClick={() => {
+                sessionStorage.setItem(
+                  'robot_karol_online_hide_save_message',
+                  '1'
+                )
+                editCodeAndResetProgress(core) // <- just a dummy to trigger re-render
+              }}
+            >
+              <FaIcon
+                icon={faTimes}
+                className="inline-block px-1 bg-white hover:bg-gray-100"
+              />
+            </button>
+          </div>
+        )}
       <div className="text-center mb-2">
         <button
           className="hover:underline"
@@ -135,7 +155,7 @@ export function Overview() {
       <div
         className={clsx(
           'm-4 mr-6 p-3 bg-white rounded-md',
-          'cursor-pointer hover:bg-blue-50 w-[280px]',
+          'cursor-pointer hover:bg-blue-50 w-[290px]',
           !sessionData && 'border-l-2 border-l-blue-500'
         )}
         tabIndex={0}

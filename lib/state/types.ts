@@ -61,6 +61,7 @@ export interface Ui {
   isTestingAborted: boolean
   clientInitDone: boolean
   controlBarShowFinishQuest: boolean
+  hideSaveMessage: boolean
 }
 
 export interface Vm {
