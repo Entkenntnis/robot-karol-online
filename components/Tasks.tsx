@@ -1,10 +1,7 @@
 import {
   faCheck,
-  faCircle,
-  faCircleCheck,
   faExternalLink,
   faGear,
-  faGrip,
   faListCheck,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
@@ -17,7 +14,6 @@ import {
   storeQuestToSession,
 } from '../lib/commands/quest'
 import { replaceWithJSX } from '../lib/helper/replaceWithJSX'
-import { submit_event } from '../lib/helper/submit'
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
@@ -27,11 +23,6 @@ export function Tasks() {
   const core = useCore()
 
   const taskContainer = createRef<HTMLDivElement>()
-
-  const completed = core.ws.quest.completed.length
-  const completedPercent = Math.round(
-    (completed / core.ws.quest.tasks.length) * 100
-  )
 
   useEffect(() => {
     if (taskContainer.current && core.ws.ui.taskScroll > 0) {
@@ -48,11 +39,8 @@ export function Tasks() {
           <div className="mb-4">
             <button
               className={clsx(
-                'text-blue-500 hover:text-blue-600 hover:underline disabled:invisible'
+                'text-blue-500 hover:text-blue-600 hover:underline'
               )}
-              disabled={
-                completedPercent == 100 && !core.ws.ui.isAlreadyCompleted
-              }
               onClick={() => {
                 storeQuestToSession(core)
                 showQuestOverview(core)
@@ -113,27 +101,6 @@ export function Tasks() {
               </p>
             )
           )}
-          {!core.ws.ui.isImportedProject && (
-            <div
-              className={clsx(
-                'absolute inset-1 rounded-md left-3 right-2',
-                core.ws.ui.isTesting ? 'bg-white' : 'bg-gray-100'
-              )}
-            >
-              <div
-                className={clsx(
-                  'h-full',
-                  completedPercent > 90
-                    ? 'rounded-md'
-                    : 'rounded-tl-md rounded-bl-md',
-                  completedPercent == 100 ? 'bg-gray-100' : 'bg-green-200'
-                )}
-                style={{
-                  width: `${completedPercent}%`,
-                }}
-              ></div>
-            </div>
-          )}
         </div>
         <div className="flex-grow-0 flex-shrink-0">
           <button
@@ -166,23 +133,7 @@ export function Tasks() {
         }}
       >
         <div className="ml-4 mt-6">
-          <h2
-            className={clsx(
-              'text-lg',
-              !core.ws.quest.completed.includes(index) && 'font-bold'
-            )}
-          >
-            {task.title}
-          </h2>
-          <div className="mt-6 flex flex-wrap">
-            {core.ws.quest.completed.includes(index) ? (
-              <>
-                <div className="text-green-600 mr-5 whitespace-nowrap">
-                  <FaIcon icon={faCheck} /> überprüft
-                </div>
-              </>
-            ) : null}
-          </div>
+          <h2 className="text-lg">{task.title}</h2>
         </div>
         <div className="h-48 mb-6 mr-8">
           <View

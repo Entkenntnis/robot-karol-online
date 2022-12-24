@@ -9,7 +9,7 @@ import { codeToXml } from '../lib/blockly/codeToXml'
 import { initCustomBlocks } from '../lib/blockly/customBlocks'
 import { KAROL_TOOLBOX } from '../lib/blockly/toolbox'
 import { parser } from '../lib/codemirror/parser/parser'
-import { abort, endExecution, patch } from '../lib/commands/vm'
+import { abort, patch } from '../lib/commands/vm'
 import { compile } from '../lib/language/compiler'
 import { useCore } from '../lib/state/core'
 
@@ -113,10 +113,6 @@ export function BlockEditor() {
     const myUpdateFunction = () => {
       if (blocklyWorkspace.isDragging()) return
 
-      const newXml = Blockly.Xml.domToText(
-        Blockly.Xml.workspaceToDom(blocklyWorkspace)
-      )
-      // console.log('xml', newXml)
       const newCode = (Blockly as any).karol.workspaceToCode(
         // strange monkey patch
         blocklyWorkspace
@@ -134,9 +130,8 @@ export function BlockEditor() {
 
       if (core.ws.ui.state == 'running') {
         if (code.current !== newCode) {
-          // <- this check is unreliable
+          console.log('abort because code changed')
           abort(core)
-        } else {
           return
         }
       }
@@ -146,20 +141,11 @@ export function BlockEditor() {
       core.mutateWs((ws) => {
         ws.code = newCode.replace(/\/\/blockId:.*$/gm, '')
       })
+
       const topBlocks = blocklyWorkspace
         .getTopBlocks(false)
         .filter((bl) => !(bl as any).isInsertionMarker_) // hm, bypassing protection
         .filter((bl) => bl.type !== 'anweisung')
-
-      //console.log(code, topBlocks.length)
-
-      /*topBlocks.forEach((tp) => {
-          for (const key in tp) {
-            if (typeof tp[key] !== 'function') {
-              console.log(key, tp[key])
-            }
-          }
-        })*/
 
       if (topBlocks.length > 1) {
         if (core.ws.ui.state == 'running') {
@@ -170,6 +156,9 @@ export function BlockEditor() {
           ws.ui.errorMessages = [`Alle Blöcke müssen zusammenhängen.`]
         })
       } else {
+        if (core.ws.ui.state == 'running') {
+          return // don't patch while running of code hasn't changed
+        }
         const doc = Text.of(newCode.split('\n'))
         const tree = parser.parse(newCode)
         const { warnings, output } = compile(tree, doc)
@@ -188,7 +177,6 @@ export function BlockEditor() {
               .filter(function (item, i, arr) {
                 return arr.indexOf(item) == i
               })
-            //ui.preview = undefined
           })
         }
       }

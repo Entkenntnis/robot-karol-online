@@ -83,10 +83,10 @@ export interface Quest {
   tasks: QuestTask[]
   title: string
   description: string
-  completed: number[]
   progress: number
   lastStartedTask?: number
   id: number
+  testerHandler?: NodeJS.Timeout
 }
 
 export interface WorkspaceState {
@@ -169,7 +169,7 @@ export interface QuestData {
 
 export interface QuestSessionData {
   id: number
-  completed: number[]
+  completed: boolean
   code: string
   mode: Settings['mode']
 }

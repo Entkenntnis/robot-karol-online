@@ -37,6 +37,9 @@ export function openTask(core: Core, index: number) {
 }
 
 export function closeOutput(core: Core) {
+  if (core.ws.quest.testerHandler !== undefined) {
+    clearTimeout(core.ws.quest.testerHandler)
+  }
   core.mutateWs((ws) => {
     ws.ui.showOutput = false
     ws.ui.isTesting = false
@@ -48,8 +51,6 @@ export function finishTask(core: Core) {
   core.mutateWs((ws) => {
     ws.ui.showOutput = false
     ws.ui.state = 'ready'
-    if (!ws.quest.completed.includes(ws.quest.lastStartedTask!))
-      ws.quest.completed.push(ws.quest.lastStartedTask!)
   })
 }
 
@@ -84,7 +85,6 @@ export function startQuest(core: Core, id: number) {
     const { ui, quest } = ws
     ui.showOutput = false
     quest.progress = 0
-    quest.completed = []
     quest.title = data.title
     quest.description = data.description
     quest.tasks = data.tasks
@@ -103,10 +103,10 @@ export function startQuest(core: Core, id: number) {
 
 export function storeQuestToSession(core: Core) {
   const data: QuestSessionData = {
-    completed: core.ws.quest.completed,
     code: core.ws.code,
     id: core.ws.quest.id,
     mode: core.ws.settings.mode,
+    completed: core.ws.ui.controlBarShowFinishQuest,
   }
   sessionStorage.setItem(
     `karol_quest_beta_${core.ws.quest.id}`,
@@ -120,11 +120,8 @@ export function restoreQuestFromSessionData(
 ) {
   core.mutateWs((ws) => {
     ws.code = data.code
-    ws.quest.completed = data.completed
     ws.settings.mode = data.mode
-    if (data.completed.length == ws.quest.tasks.length) {
-      ws.ui.isAlreadyCompleted = true
-    }
+    ws.ui.isAlreadyCompleted = data.completed
   })
 }
 
@@ -135,19 +132,25 @@ export function startTesting(core: Core) {
   })
   if (core.ws.ui.state == 'error') return
 
-  core.executionEndCallback = () => {
+  function callback() {
     if (core.ws.quest.progress == 100) {
       // all other checks are already done
+      const index = core.ws.quest.lastStartedTask!
       core.mutateWs((ws) => {
-        if (!ws.quest.completed.includes(ws.quest.lastStartedTask!))
-          ws.quest.completed.push(ws.quest.lastStartedTask!)
-
-        // TODO: only after last task
-        const { ui } = ws
-        ui.controlBarShowFinishQuest = true
+        if (index + 1 < core.ws.quest.tasks.length) {
+          // not last task
+          core.executionEndCallback = callback
+          ws.quest.testerHandler = setTimeout(
+            () => runTask(core, index + 1),
+            500
+          )
+        } else {
+          ws.ui.controlBarShowFinishQuest = true
+        }
       })
     }
   }
+  core.executionEndCallback = callback
 
   runTask(core, 0)
 }

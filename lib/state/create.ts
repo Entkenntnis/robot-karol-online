@@ -57,7 +57,6 @@ export function createWorkspaceState(): WorkspaceState {
       progress: 0,
       title: '',
       description: '',
-      completed: [],
       tasks: [],
       id: -1,
     },

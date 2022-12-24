@@ -286,7 +286,8 @@ export function endExecution(core: Core) {
   }*/
 
   if (core.executionEndCallback) {
-    core.executionEndCallback()
+    const cb = core.executionEndCallback
     core.executionEndCallback = undefined
+    cb()
   }
 }

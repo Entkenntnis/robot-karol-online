@@ -5,6 +5,7 @@ import { resetOutput } from '../lib/commands/quest'
 import { useCore } from '../lib/state/core'
 import { ControlBar } from './ControlBar'
 import { FaIcon } from './FaIcon'
+import { TaskRunnerOverview } from './TaskRunnerOverview'
 import { View } from './View'
 
 export function Output() {
@@ -52,16 +53,7 @@ export function Output() {
             </button>
           )}
       </div>
-      {core.ws.ui.isTesting && (
-        <div className="flex-grow-0 p-3 bg-gray-100">
-          <div>Überprüfung:</div>
-          {core.ws.quest.tasks.map((task, i) => (
-            <div key={i} className="ml-3">
-              - {task.title}
-            </div>
-          ))}
-        </div>
-      )}
+      {core.ws.ui.isTesting && <TaskRunnerOverview />}
     </div>
   )
 }
