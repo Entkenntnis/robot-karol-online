@@ -170,7 +170,8 @@ export const questData: { [key: number]: QuestData } = {
       Damit kann Karol auf die Welt um sie herum reagieren.
       In diesem Fall soll Karol erkennen, ob sie auf einer Marke steht oder nicht.
 
-      Nutze für diese Aufgabe den Block \`wenn dann sonst\` und die Bedingung \`IstMarke\`.
+      Nutze für diese Aufgabe zum Beispiel den Block \`wenn dann sonst\` und die Bedingung \`IstMarke\`.
+      Es gibt auch andere Lösungswege.
     `,
     difficulty: 'Tutorial',
     tasks: [
