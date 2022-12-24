@@ -12,21 +12,26 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import { useMemo } from 'react'
 
 import { setSpeedSliderValue, showErrorModal } from '../lib/commands/mode'
 import { closeOutput, finishQuest, restartProgram } from '../lib/commands/quest'
 import { abort } from '../lib/commands/vm'
+import { positiveText } from '../lib/helper/positiveText'
 import { sliderToDelay } from '../lib/helper/speedSlider'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
 
 export function ControlBar() {
   const core = useCore()
+
+  const text = useMemo(positiveText, [])
+
   if (core.ws.ui.controlBarShowFinishQuest) {
     return (
       <div className="flex items-center justify-center p-2">
         <p className="text-center">
-          Gut gemacht! Dein Programm hat alle Aufträge erfüllt.
+          {text} Dein Programm hat alle Aufträge erfüllt.
           <br />
           <button
             onClick={() => {

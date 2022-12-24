@@ -257,10 +257,10 @@ export function View({
             )
             ctx.save()
             if (preview && preview.world.bricks[y][x] != world.bricks[y][x]) {
-              ctx.globalAlpha = 0.4
+              ctx.globalAlpha = 0.6
             }
             ctx.drawImage(
-              ctx.globalAlpha == 0.4 ? markeKlein : marke,
+              ctx.globalAlpha == 0.6 ? markeKlein : marke,
               p.x - 15,
               p.y - 16
             )
@@ -273,7 +273,7 @@ export function View({
               preview ? preview.world.bricks[y][x] : world.bricks[y][x]
             )
             ctx.save()
-            ctx.globalAlpha = 0.4
+            ctx.globalAlpha = 0.6
             ctx.drawImage(markeKlein, p.x - 15, p.y - 16)
             ctx.restore()
           }
