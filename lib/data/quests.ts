@@ -2,25 +2,48 @@ import { QuestData } from '../state/types'
 
 export const questData: { [key: number]: QuestData } = {
   1: {
-    title: 'Erste Schritte',
+    title: 'Start',
     description: `
-      Herzlich Willkommen bei Robot Karol Quest! Auf dieser Website lernst du, wie du die Roboterin Karol
-      in ihrer Bildschirmwelt steuerst und stellst dabei dein Programmiergeschick unter Beweis.
-      Das Tutorial macht dich mit den Grundlagen dafür vertraut:
+      Herzlich Willkommen bei Robot Karol Online.
+      Das ist dein Einstieg in die spannende Welt der Algorithmen.
+      Es warten viele Herausforderungen auf dich, die dein logisches Denken und deine Kreativität unter Beweis stellen.
+      
+      Mache dich als erstes mit der Programmierumgebung vertraut und löse den Auftrag "Drei Ziegel".
+      Ziehe dazu Blöcke auf die Arbeitsfläche und verbinde sie zu einem Programm.
+      Öffne den Auftrag, um dein Programm zu testen.
 
-      Du programmierst, indem du Blöcke aus der Auswahl auf die Arbeitsfläche ziehst und verbindest.
-      Verbundene Blöcke werden von oben nach unten ausgeführt.
-      Im ersten Auftrag "Drei Ziegel" geht es darum, die gezeigte Welt nachzubauen.
+      Für Robot Karol gibt es im Internet viele Anleitungen und Erklärvideos.
+      Schaue dir diese an, wenn du unsicher bist, was die Befehle machen.
+      Für den Anfang reichen dir \`Hinlegen\` und \`Schritt\`.
 
-      Klicke auf den Auftrag und schreibe dein erstes Programm.
-      Beginne mit den Blöcken \`Hinlegen\` und \`Schritt\`.
-      Du kannst dein Programm testen.
-      Sobald du bereit bist kannst du die Überprüfung starten und damit die Aufgabe abschließen.
+      Sobald du fertig bist, kannst du dein Programm überprüfen.
+      Wenn du alle Aufträge erfüllst und kein Fehler auftritt, schließst du die Aufgabe ab.
     `,
     difficulty: 'Tutorial',
     tasks: [
       {
         title: 'Drei Ziegel',
+        start: {
+          dimX: 7,
+          dimY: 1,
+          height: 6,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0, 0, 0, 0, 0, 0, 0]],
+          marks: [[false, false, false, false, false, false, false]],
+          blocks: [[false, false, false, false, false, false, false]],
+        },
+        target: {
+          dimX: 7,
+          dimY: 1,
+          height: 6,
+          karol: { x: 0, y: 0, dir: 'east' },
+          bricks: [[0, 1, 0, 1, 0, 1, 0]],
+          marks: [[false, false, false, false, false, false, false]],
+          blocks: [[false, false, false, false, false, false, false]],
+        },
+      },
+      {
+        title: 'Drei Ziegel 2',
         start: {
           dimX: 7,
           dimY: 1,

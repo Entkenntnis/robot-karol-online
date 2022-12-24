@@ -59,6 +59,8 @@ export interface Ui {
   showStructogram: boolean
   isTesting: boolean
   isTestingAborted: boolean
+  clientInitDone: boolean
+  controlBarShowFinishQuest: boolean
 }
 
 export interface Vm {

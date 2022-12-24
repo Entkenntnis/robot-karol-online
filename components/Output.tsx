@@ -11,7 +11,7 @@ export function Output() {
   const core = useCore()
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-grow-0 flex-shrink-0 min-h-[80px] bg-gray-100">
+      <div className="flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100">
         <ControlBar />
       </div>
       <div
@@ -39,25 +39,29 @@ export function Output() {
           )}
         />
         {core.ws.ui.isEndOfRun &&
-          !(
-            (
-              core.ws.quest.progress == 100 &&
-              core.ws.ui.state != 'running' &&
-              !core.ws.ui.karolCrashMessage &&
-              core.ws.ui.isTesting
-            ) // holy shit, this duplication here ...
-          ) && (
+          !core.ws.ui.controlBarShowFinishQuest &&
+          !core.ws.ui.isTesting && (
             <button
               onClick={() => {
                 resetOutput(core)
               }}
-              className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2"
+              className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2 hover:bg-gray-300"
             >
               <FaIcon icon={faTrashCan} className="mr-1" />
               Ausgabe leeren
             </button>
           )}
       </div>
+      {core.ws.ui.isTesting && (
+        <div className="flex-grow-0 p-3 bg-gray-100">
+          <div>Überprüfung:</div>
+          {core.ws.quest.tasks.map((task, i) => (
+            <div key={i} className="ml-3">
+              - {task.title}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

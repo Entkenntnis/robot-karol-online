@@ -12,7 +12,7 @@ export function PrivacyModal() {
       }}
     >
       <div
-        className="h-[300px] w-[500px] bg-white z-[200] rounded-xl relative flex justify-between flex-col"
+        className="h-[300px] w-[520px] bg-white z-[200] rounded-xl relative flex justify-between flex-col"
         onClick={(e) => {
           e.stopPropagation()
         }}
@@ -22,13 +22,13 @@ export function PrivacyModal() {
           <p className="ml-4 font-bold text-lg mt-2 mb-4">
             Datenschutzerklärung
           </p>
-          <p className="m-3 mb-6">
+          <p className="m-3 ml-4 mb-6">
             Diese Website wird auf einem uberspace (https://uberspace.de)
-            gehostet. Bei einem Besuch kommen <strong>keine</strong> Cookies zum
-            Einsatz. Es werden grundlegende Statistiken zu Aufrufen und gelösten
-            Aufgaben auf dem uberspace gespeichert. Es werden keine Daten an
-            Drittanbieter weitergeben. Außerdem findet die Datenverarbeitung
-            vollständig in Deutschland statt.
+            gehostet. Bei einem Besuch kommen keine Cookies zum Einsatz. Es
+            werden Statistiken zu Aufrufen und gelösten Aufgaben auf dem
+            uberspace gespeichert. Es werden keine Daten an Drittanbieter
+            weitergeben. Außerdem findet die Datenverarbeitung vollständig in
+            Deutschland statt.
           </p>
         </div>
         <p className="text-center mb-5 mt-3">

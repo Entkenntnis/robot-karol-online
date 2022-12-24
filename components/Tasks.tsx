@@ -43,14 +43,7 @@ export function Tasks() {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100 relative">
-        <h1 className="mb-2 text-xl font-bold mt-1">
-          {core.ws.quest.title}
-          {core.ws.ui.isAlreadyCompleted && (
-            <span className="text-base text-green-600 ml-3 font-normal">
-              <FaIcon icon={faCheck} /> abgeschlossen
-            </span>
-          )}
-        </h1>
+        <h1 className="mb-2 text-xl font-bold mt-1">{core.ws.quest.title}</h1>
         {!core.ws.ui.isImportedProject && (
           <div className="mb-4">
             <button
@@ -96,7 +89,7 @@ export function Tasks() {
           {core.ws.ui.isImportedProject ? (
             <p className="z-10">
               <a
-                className="px-2 py-0.5 rounded-lg bg-yellow-600 text-white font-bold"
+                className="px-2 py-0.5 rounded-lg bg-yellow-600 hover:bg-yellow-500 text-white font-bold"
                 href={window.location.protocol + '//' + window.location.host}
                 target="_blank"
                 rel="noreferrer"
@@ -104,40 +97,21 @@ export function Tasks() {
                 Robot Karol Online öffnen <FaIcon icon={faExternalLink} />
               </a>
             </p>
-          ) : completedPercent == 100 && !core.ws.ui.isAlreadyCompleted ? (
-            <p className="z-10">
-              <button
-                className={clsx(
-                  'px-2 py-0.5 rounded-lg bg-yellow-300 font-bold'
-                )}
-                onClick={() => {
-                  storeQuestToSession(core)
-                  showQuestOverview(core)
-                  submit_event(`quest_complete_${core.ws.quest.id}`, core)
-                }}
-              >
-                <FaIcon icon={faCircleCheck} className="mr-2" /> Quest
-                abschließen
-              </button>
-            </p>
-          ) : core.ws.ui.isTesting ? (
-            <p className="z-10">
-              {completed} von {core.ws.quest.tasks.length}{' '}
-              {core.ws.quest.tasks.length == 1 ? 'Auftrag' : 'Aufträgen'}{' '}
-              überprüft
-            </p>
           ) : (
-            <p className="z-10">
-              <button
-                className={clsx('px-2 py-0.5 rounded-lg bg-yellow-300')}
-                onClick={() => {
-                  startTesting(core)
-                }}
-              >
-                <FaIcon icon={faListCheck} className="mx-1" /> Überprüfung
-                starten
-              </button>
-            </p>
+            !core.ws.ui.isTesting &&
+            !core.ws.ui.isAlreadyCompleted && (
+              <p className="z-10">
+                <button
+                  className={clsx('px-2 py-0.5 rounded-lg bg-yellow-300')}
+                  onClick={() => {
+                    startTesting(core)
+                  }}
+                >
+                  <FaIcon icon={faListCheck} className="mx-1" /> Überprüfung
+                  starten
+                </button>
+              </p>
+            )
           )}
           {!core.ws.ui.isImportedProject && (
             <div
@@ -152,9 +126,7 @@ export function Tasks() {
                   completedPercent > 90
                     ? 'rounded-md'
                     : 'rounded-tl-md rounded-bl-md',
-                  completedPercent == 100 && !core.ws.ui.isAlreadyCompleted
-                    ? 'bg-gray-100'
-                    : 'bg-green-200'
+                  completedPercent == 100 ? 'bg-gray-100' : 'bg-green-200'
                 )}
                 style={{
                   width: `${completedPercent}%`,
@@ -170,7 +142,7 @@ export function Tasks() {
               showMenu(core)
             }}
           >
-            <FaIcon icon={faGear} className="mr-2" /> Optionen
+            <FaIcon icon={faGear} className="mr-1" /> Optionen
           </button>
         </div>
       </div>
@@ -182,25 +154,11 @@ export function Tasks() {
       <div
         className={clsx(
           'm-3 rounded-xl bg-white flex justify-between',
-          core.ws.ui.isTesting
-            ? (!core.ws.quest.completed.includes(index) ||
-                core.ws.ui.isAlreadyCompleted) &&
-                'hover:bg-yellow-50'
-            : 'hover:bg-gray-50',
-          (core.ws.ui.isAlreadyCompleted ||
-            !core.ws.ui.isTesting ||
-            (core.ws.ui.isTesting &&
-              !core.ws.quest.completed.includes(index))) &&
-            'cursor-pointer'
+          'cursor-pointer hover:bg-gray-50'
         )}
         key={index}
+        tabIndex={0}
         onClick={() => {
-          if (
-            core.ws.ui.isTesting &&
-            core.ws.quest.completed.includes(index) &&
-            !core.ws.ui.isAlreadyCompleted
-          )
-            return
           openTask(core, index)
           core.mutateWs(({ ui }) => {
             ui.taskScroll = taskContainer.current?.scrollTop ?? -1

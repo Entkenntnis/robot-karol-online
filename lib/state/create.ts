@@ -38,6 +38,8 @@ export function createWorkspaceState(): WorkspaceState {
       showStructogram: false,
       isTesting: false,
       isTestingAborted: false,
+      clientInitDone: false,
+      controlBarShowFinishQuest: false,
     },
     vm: {
       pc: 0,

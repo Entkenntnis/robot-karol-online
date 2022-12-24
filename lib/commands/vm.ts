@@ -273,21 +273,20 @@ export function endExecution(core: Core) {
     state.ui.gutterReturns = []
     state.ui.isEndOfRun = true
   })
-  if (
+  /*if (
     !core.ws.ui.isManualAbort &&
     core.ws.quest.progress < 100 &&
     core.ws.ui.isTesting
   ) {
     //alert('Programm hat Auftrag nicht erfüllt. Überprüfung abgebrochen.')
     editCodeAndResetProgress(core)
-    core.mutateWs(({ ui }) => {
-      ui.isTestingAborted = true
-    })
   }
   if (core.ws.ui.karolCrashMessage) {
     editCodeAndResetProgress(core)
-    core.mutateWs(({ ui }) => {
-      ui.isTestingAborted = true
-    })
+  }*/
+
+  if (core.executionEndCallback) {
+    core.executionEndCallback()
+    core.executionEndCallback = undefined
   }
 }

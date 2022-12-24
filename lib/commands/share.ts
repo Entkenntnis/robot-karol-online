@@ -1,4 +1,4 @@
-import { Core } from '../state/core'
+/*import { Core } from '../state/core'
 import { serialize } from './json'
 
 export async function share(core: Core) {
@@ -21,3 +21,8 @@ async function shareRequest(content: string) {
   }
   return id
 }
+*/
+
+// need to reimplement this someday
+
+export {}

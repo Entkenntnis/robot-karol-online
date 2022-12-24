@@ -12,7 +12,7 @@ export function ImpressumModal() {
       }}
     >
       <div
-        className="h-[300px] w-[500px] bg-white z-[200] rounded-xl relative flex justify-between flex-col"
+        className="h-[310px] w-[500px] bg-white z-[200] rounded-xl relative flex justify-between flex-col"
         onClick={(e) => {
           e.stopPropagation()
         }}
@@ -20,8 +20,8 @@ export function ImpressumModal() {
         <div>
           {' '}
           <p className="ml-4 font-bold text-lg mt-2 mb-4">Impressum</p>
-          <p className="ml-3">Betreiber:</p>
-          <p className="m-3 mb-6">
+          <p className="ml-4">Betreiber:</p>
+          <p className="m-3 ml-4 mb-6">
             {impressum.name}
             <br />
             {impressum.address1}
@@ -30,7 +30,7 @@ export function ImpressumModal() {
             <br />
             {impressum.contact}
           </p>
-          <p className="m-3">Software-Version: Dezember 2022</p>
+          <p className="m-3 ml-4">Version: Dezember 2022</p>
         </div>
         <p className="text-center mb-5 mt-3">
           <button

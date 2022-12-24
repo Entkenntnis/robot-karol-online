@@ -1,28 +1,26 @@
+import { backend } from '../../backend'
 import { Core } from '../state/core'
 
+const userIdKey = 'robot_karol_online_tmp_id'
+
 export function submit_event(event: string, core: Core) {
-  if (core.state.enableStats) {
-    if (!sessionStorage.getItem('robot_karol_online_tmp_id')) {
-      sessionStorage.setItem(
-        'robot_karol_online_tmp_id',
-        Math.random().toString()
-      )
+  if (core.state.enableStats && backend.statsEndpoint) {
+    if (!sessionStorage.getItem(userIdKey)) {
+      sessionStorage.setItem(userIdKey, Math.random().toString())
     }
 
-    const userId = sessionStorage.getItem('robot_karol_online_tmp_id')
+    const userId = sessionStorage.getItem(userIdKey)
 
     if (window.location.host == 'karol.arrrg.de') {
       // only log on production
       void (async () => {
-        const rawResponse = await fetch('https://stats-karol.arrrg.de/submit', {
+        await fetch(backend.statsEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ event, userId }),
         })
-        //const content = await rawResponse.text()
-        //console.log(content)
       })()
     }
   }

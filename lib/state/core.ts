@@ -42,9 +42,11 @@ export class Core {
   _coreRef: MutableRefObject<CoreRefs>
   _workspaceStorage: { [key: string]: { world: World; code: string } }
 
-  blockyResize: any
+  blockyResize: undefined | (() => void)
 
   view?: MutableRefObject<EditorView | undefined> // WOW, this is bad
+
+  executionEndCallback: undefined | (() => void)
 
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,

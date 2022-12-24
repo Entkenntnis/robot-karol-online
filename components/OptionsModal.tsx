@@ -24,9 +24,9 @@ export function OptionsModal() {
           e.stopPropagation()
         }}
       >
-        <div className="absolute right-1 top-1">
+        <div className="absolute right-2 top-2">
           <button
-            className="px-2 py-1 bg-gray-100 rounded"
+            className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
             onClick={() => {
               closeMenu(core)
             }}
@@ -89,7 +89,7 @@ export function OptionsModal() {
         // nothing preventing me now?
         return (
           <button
-            className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+            className="text-blue-500 hover:text-blue-600 underline"
             onClick={() => {
               setMode(core, 'code')
               closeMenu(core)
@@ -110,7 +110,7 @@ export function OptionsModal() {
         }
         return (
           <button
-            className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+            className="text-blue-500 hover:text-blue-600 underline"
             onClick={() => {
               setMode(core, 'blocks')
               closeMenu(core)

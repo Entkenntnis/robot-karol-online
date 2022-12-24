@@ -1,7 +1,6 @@
 import {
   faCaretLeft,
   faCheck,
-  faCircle,
   faCircleCheck,
   faExclamationTriangle,
   faGenderless,
@@ -11,13 +10,14 @@ import {
   faStop,
   faThumbsUp,
 } from '@fortawesome/free-solid-svg-icons'
+import clsx from 'clsx'
 
 import {
   editCodeAndResetProgress,
   setSpeedSliderValue,
   showErrorModal,
 } from '../lib/commands/mode'
-import { closeOutput, finishTask, restartProgram } from '../lib/commands/quest'
+import { closeOutput, finishQuest, restartProgram } from '../lib/commands/quest'
 import { abort } from '../lib/commands/vm'
 import { sliderToDelay } from '../lib/helper/speedSlider'
 import { useCore } from '../lib/state/core'
@@ -25,26 +25,23 @@ import { FaIcon } from './FaIcon'
 
 export function ControlBar() {
   const core = useCore()
-  if (
-    core.ws.quest.progress == 100 &&
-    core.ws.ui.state != 'running' &&
-    !core.ws.ui.karolCrashMessage &&
-    core.ws.ui.isTesting &&
-    !core.ws.ui.isAlreadyCompleted
-  ) {
+  if (core.ws.ui.controlBarShowFinishQuest) {
     return (
       <div className="flex items-center justify-center p-2">
         <p className="text-center">
-          Gut gemacht! Dein Programm hat den Auftrag erfüllt.
+          Gut gemacht! Dein Programm hat alle Aufträge erfüllt.
           <br />
           <button
             onClick={() => {
-              finishTask(core)
+              finishQuest(core)
             }}
-            className="px-2 py-0.5 rounded bg-green-200 ml-3 mt-3 mb-2"
+            className={clsx(
+              'px-2 py-0.5 rounded hover:bg-green-300',
+              'bg-green-200 ml-3 mt-3 font-bold'
+            )}
           >
             <FaIcon icon={faCircleCheck} className="mr-1" />
-            Ok
+            Aufgabe abschließen
           </button>
         </p>
       </div>
@@ -61,7 +58,7 @@ export function ControlBar() {
               onClick={() => {
                 closeOutput(core)
               }}
-              className="px-2 py-0.5 rounded bg-gray-200 ml-3 mt-2"
+              className="px-2 py-0.5 rounded bg-gray-200 ml-3 mt-2 hover:bg-gray-300"
             >
               <FaIcon icon={faCaretLeft} className="mr-1" />
               zurück
@@ -72,27 +69,29 @@ export function ControlBar() {
               onClick={() => {
                 showErrorModal(core)
               }}
-              className="px-2 py-0.5 rounded bg-red-200 ml-3"
+              className="px-2 py-0.5 rounded bg-red-200 ml-3 hover:bg-red-300"
             >
               Probleme anzeigen
             </button>
           )}
-          {core.ws.ui.state == 'ready' && (
-            <>
-              <button
-                onClick={() => {
-                  restartProgram(core)
-                }}
-                className="px-2 py-0.5 rounded bg-green-300 ml-3 mt-2"
-              >
-                <FaIcon
-                  icon={core.ws.ui.isEndOfRun ? faRotateRight : faPlay}
-                  className="mr-1"
-                />
-                Programm starten
-              </button>
-            </>
-          )}
+          {core.ws.ui.state == 'ready' &&
+            core.ws.quest.progress < 100 &&
+            !core.ws.ui.isTesting && (
+              <>
+                <button
+                  onClick={() => {
+                    restartProgram(core)
+                  }}
+                  className="px-2 py-0.5 rounded bg-green-300 ml-3 mt-2 hover:bg-green-400"
+                >
+                  <FaIcon
+                    icon={core.ws.ui.isEndOfRun ? faRotateRight : faPlay}
+                    className="mr-1"
+                  />
+                  Ausführen
+                </button>
+              </>
+            )}
           {core.ws.ui.state == 'running' && (
             <button
               onClick={() => {
@@ -174,6 +173,14 @@ export function ControlBar() {
             </>
           )
         }
+        if (core.ws.ui.isManualAbort) {
+          return (
+            <>
+              <FaIcon icon={faGenderless} className="mr-1" />
+              abgebrochen
+            </>
+          )
+        }
         return (
           <>
             <FaIcon
@@ -182,7 +189,6 @@ export function ControlBar() {
             />{' '}
             Auftrag {core.ws.quest.progress == 100 ? '' : 'nicht'} erfüllt{' '}
             {core.ws.ui.isManualAbort ? ' (abgebrochen)' : ''}
-            {core.ws.ui.isTestingAborted ? ' (Überprüfung abgebrochen)' : ''}
           </>
         )
       }

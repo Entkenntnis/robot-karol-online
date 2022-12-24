@@ -186,7 +186,7 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 120,
-    "tooltip": "wiederhole die Anweisungen solange die Bedingung wahr ist",
+    "tooltip": "Wiederholung mit Bedingung",
     "helpUrl": ""
   },
   {
