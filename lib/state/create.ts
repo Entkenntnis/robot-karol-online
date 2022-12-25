@@ -40,6 +40,7 @@ export function createWorkspaceState(): WorkspaceState {
       isTestingAborted: false,
       clientInitDone: false,
       controlBarShowFinishQuest: false,
+      isEditor: false,
     },
     vm: {
       pc: 0,

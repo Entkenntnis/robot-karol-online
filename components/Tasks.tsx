@@ -18,6 +18,7 @@ import { replaceWithJSX } from '../lib/helper/replaceWithJSX'
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
+import { QuestEditor } from './QuestEditor'
 import { View } from './View'
 
 export function Tasks() {
@@ -35,23 +36,31 @@ export function Tasks() {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100 relative">
-        <h1 className="mb-2 text-xl font-bold mt-1">{core.ws.quest.title}</h1>
-        {!core.ws.ui.isImportedProject && (
-          <div className="mb-4">
-            <button
-              className={clsx(
-                'text-blue-500 hover:text-blue-600 hover:underline'
-              )}
-              onClick={() => {
-                storeQuestToSession(core)
-                showQuestOverview(core)
-              }}
-            >
-              zurück
-            </button>
-          </div>
+        {core.ws.ui.isEditor ? (
+          <QuestEditor />
+        ) : (
+          <>
+            <h1 className="mb-2 text-xl font-bold mt-1">
+              {core.ws.quest.title}
+            </h1>
+            {!core.ws.ui.isImportedProject && (
+              <div className="mb-4">
+                <button
+                  className={clsx(
+                    'text-blue-500 hover:text-blue-600 hover:underline'
+                  )}
+                  onClick={() => {
+                    storeQuestToSession(core)
+                    showQuestOverview(core)
+                  }}
+                >
+                  zurück
+                </button>
+              </div>
+            )}
+            <div>{processMiniMarkdown(core.ws.quest.description)}</div>
+          </>
         )}
-        <div>{processMiniMarkdown(core.ws.quest.description)}</div>
       </div>
       <div
         className="flex-grow flex-shrink overflow-y-auto bg-gray-100"
@@ -74,7 +83,8 @@ export function Tasks() {
             </p>
           ) : (
             !core.ws.ui.isTesting &&
-            !core.ws.ui.isAlreadyCompleted && (
+            !core.ws.ui.isAlreadyCompleted &&
+            !core.ws.ui.isEditor && (
               <p className="z-10">
                 <button
                   className={clsx('px-2 py-0.5 rounded-lg bg-yellow-300')}

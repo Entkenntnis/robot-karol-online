@@ -20,6 +20,17 @@ export async function initClient(core: Core) {
     submit_event('show_overview', core)
   }
 
+  const editor = parameterList.get('editor')
+
+  if (editor) {
+    core.mutateWs(({ ui, quest }) => {
+      ui.isEditor = true
+      ui.showQuestOverview = false
+      quest.title = 'Titel der Aufgabe'
+      quest.description = 'Hier kommt die Beschreibung ...'
+    })
+  }
+
   core.mutateWs(({ ui }) => {
     ui.clientInitDone = true
   })
