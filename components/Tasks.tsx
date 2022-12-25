@@ -1,11 +1,13 @@
 import {
-  faCheck,
   faExternalLink,
   faGear,
   faListCheck,
+  faPlus,
+  faShareNodes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
+import { addNewTask } from '../lib/commands/editor'
 
 import { showMenu, showQuestOverview } from '../lib/commands/mode'
 import {
@@ -14,7 +16,6 @@ import {
   storeQuestToSession,
 } from '../lib/commands/quest'
 import { processMiniMarkdown } from '../lib/helper/processMiniMarkdown'
-import { replaceWithJSX } from '../lib/helper/replaceWithJSX'
 import { useCore } from '../lib/state/core'
 import { QuestTask } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
@@ -81,13 +82,28 @@ export function Tasks() {
                 Robot Karol Online öffnen <FaIcon icon={faExternalLink} />
               </a>
             </p>
+          ) : core.ws.ui.isEditor ? (
+            <p className="w-full ml-4">
+              <button
+                className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-4"
+                onClick={() => {
+                  addNewTask(core)
+                }}
+              >
+                <FaIcon icon={faPlus} className="mr-2" />
+                Auftrag hinzufügen
+              </button>
+              <button className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 rounded">
+                <FaIcon icon={faShareNodes} className="mr-2" />
+                Aufgabe freigeben
+              </button>
+            </p>
           ) : (
             !core.ws.ui.isTesting &&
-            !core.ws.ui.isAlreadyCompleted &&
-            !core.ws.ui.isEditor && (
+            !core.ws.ui.isAlreadyCompleted && (
               <p className="z-10">
                 <button
-                  className={clsx('px-2 py-0.5 rounded-lg bg-yellow-300')}
+                  className="px-2 py-0.5 rounded-lg bg-yellow-300"
                   onClick={() => {
                     startTesting(core)
                   }}

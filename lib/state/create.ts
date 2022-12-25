@@ -61,6 +61,9 @@ export function createWorkspaceState(): WorkspaceState {
       tasks: [],
       id: -1,
     },
+    editor: {
+      questPreview: false,
+    },
   }
   return ws
 }

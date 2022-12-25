@@ -80,6 +80,10 @@ export interface Settings {
   mode: 'code' | 'blocks'
 }
 
+export interface Editor {
+  questPreview: boolean
+}
+
 export interface Quest {
   tasks: QuestTask[]
   title: string
@@ -97,6 +101,7 @@ export interface WorkspaceState {
   vm: Vm
   settings: Settings
   quest: Quest
+  editor: Editor
 }
 
 export interface QuestTask {
