@@ -62,7 +62,9 @@ export function createWorkspaceState(): WorkspaceState {
       id: -1,
     },
     editor: {
-      questPreview: false,
+      showQuestPreview: false,
+      editWorld: null,
+      showResizeWorld: false,
     },
   }
   return ws

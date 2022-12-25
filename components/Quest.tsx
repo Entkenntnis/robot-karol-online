@@ -9,8 +9,10 @@ import { ErrorModal } from './ErrorModal'
 import { FaIcon } from './FaIcon'
 import { OptionsModal } from './OptionsModal'
 import { Output } from './Output'
+import { ResizeWorldModal } from './ResizeWorldModal'
 import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
+import { WorldEditor } from './WorldEditor'
 
 export function Quest() {
   const core = useCore()
@@ -72,6 +74,8 @@ export function Quest() {
             <Output />
           ) : core.ws.ui.showStructogram ? (
             <Structogram />
+          ) : core.ws.editor.editWorld !== null ? (
+            <WorldEditor />
           ) : (
             <Tasks />
           )}
@@ -79,6 +83,7 @@ export function Quest() {
       </ReflexContainer>
       {core.ws.ui.showMenu && <OptionsModal />}
       {core.ws.ui.showErrorModal && <ErrorModal />}
+      {core.ws.editor.showResizeWorld && <ResizeWorldModal />}
     </>
   )
 }

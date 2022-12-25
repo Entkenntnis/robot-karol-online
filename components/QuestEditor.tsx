@@ -15,7 +15,7 @@ export function QuestEditor() {
         <button
           className={clsx(
             'px-2 py-1 hover:bg-yellow-200 rounded-tl rounded-tr',
-            !core.ws.editor.questPreview && 'border-b-yellow-500 border-b-2'
+            !core.ws.editor.showQuestPreview && 'border-b-yellow-500 border-b-2'
           )}
           onClick={() => {
             setQuestPreview(core, false)
@@ -26,7 +26,7 @@ export function QuestEditor() {
         <button
           className={clsx(
             'px-2 py-1 hover:bg-yellow-200 rounded-tl rounded-tr',
-            core.ws.editor.questPreview && 'border-b-yellow-500 border-b-2',
+            core.ws.editor.showQuestPreview && 'border-b-yellow-500 border-b-2',
             'ml-3'
           )}
           onClick={() => {
@@ -36,7 +36,7 @@ export function QuestEditor() {
           Vorschau
         </button>
       </div>
-      {core.ws.editor.questPreview ? (
+      {core.ws.editor.showQuestPreview ? (
         <>
           <h1 className="mb-3 text-xl font-bold">{core.ws.quest.title}</h1>
           <div>{processMiniMarkdown(core.ws.quest.description)}</div>

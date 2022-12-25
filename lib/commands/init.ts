@@ -1,8 +1,11 @@
 import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
+import { addNewTask } from './editor'
 import { loadProject } from './load'
 
 export async function initClient(core: Core) {
+  if (core.ws.ui.clientInitDone) return
+
   const parameterList = new URLSearchParams(window.location.search)
 
   const id = parameterList.get('id')
@@ -27,8 +30,9 @@ export async function initClient(core: Core) {
       ui.isEditor = true
       ui.showQuestOverview = false
       quest.title = 'Titel der Aufgabe'
-      quest.description = 'Hier kommt die Beschreibung ...'
+      quest.description = 'Beschreibe, um was es bei der Aufgabe geht ...'
     })
+    addNewTask(core)
   }
 
   core.mutateWs(({ ui }) => {

@@ -164,3 +164,9 @@ export function finishQuest(core: Core) {
   showQuestOverview(core)
   submit_event(`quest_complete_${core.ws.quest.id}`, core)
 }
+
+export function setTaskScroll(core: Core, scrollTop: number) {
+  core.mutateWs(({ ui }) => {
+    ui.taskScroll = scrollTop
+  })
+}

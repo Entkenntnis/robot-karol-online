@@ -1,17 +1,29 @@
 import {
+  faArrowDown,
+  faArrowUp,
   faExternalLink,
   faGear,
   faListCheck,
+  faPencil,
   faPlus,
   faShareNodes,
+  faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
-import { addNewTask } from '../lib/commands/editor'
+import {
+  addNewTask,
+  deleteTask,
+  editWorld,
+  moveTaskDown,
+  moveTaskUp,
+  setTaskTitle,
+} from '../lib/commands/editor'
 
 import { showMenu, showQuestOverview } from '../lib/commands/mode'
 import {
   openTask,
+  setTaskScroll,
   startTesting,
   storeQuestToSession,
 } from '../lib/commands/quest'
@@ -134,19 +146,73 @@ export function Tasks() {
       <div
         className={clsx(
           'm-3 rounded-xl bg-white flex justify-between',
-          'cursor-pointer hover:bg-gray-50'
+          !core.ws.ui.isEditor && 'cursor-pointer hover:bg-gray-50'
         )}
         key={index}
         tabIndex={0}
         onClick={() => {
+          setTaskScroll(core, taskContainer.current?.scrollTop ?? -1)
+          if (core.ws.ui.isEditor) return
           openTask(core, index)
-          core.mutateWs(({ ui }) => {
-            ui.taskScroll = taskContainer.current?.scrollTop ?? -1
-          })
         }}
       >
         <div className="ml-4 mt-6">
-          <h2 className="text-lg font-bold">{task.title}</h2>
+          <h2 className="text-lg font-bold">
+            {core.ws.ui.isEditor ? (
+              <input
+                value={task.title}
+                className="bg-gray-100"
+                onChange={(e) => {
+                  setTaskTitle(core, index, e.target.value)
+                }}
+              />
+            ) : (
+              task.title
+            )}
+          </h2>
+          {core.ws.ui.isEditor && (
+            <>
+              <p className="mt-4">
+                <button
+                  className="rounded px-2 py-0.5 bg-blue-100 hover:bg-blue-200"
+                  onClick={() => {
+                    editWorld(core, index)
+                  }}
+                >
+                  <FaIcon icon={faPencil} className="mr-2" />
+                  Welt bearbeiten
+                </button>
+              </p>
+              <p className="mt-20 text-sm text-gray-700">
+                <button
+                  className="hover:text-black disabled:text-gray-200"
+                  disabled={index == 0}
+                  onClick={() => {
+                    moveTaskUp(core, index)
+                  }}
+                >
+                  <FaIcon icon={faArrowUp} /> hoch
+                </button>
+                <button
+                  className="hover:text-black disabled:text-gray-200 ml-5"
+                  disabled={index + 1 == core.ws.quest.tasks.length}
+                  onClick={() => {
+                    moveTaskDown(core, index)
+                  }}
+                >
+                  <FaIcon icon={faArrowDown} /> runter
+                </button>
+                <button
+                  className="hover:text-red-600 ml-5"
+                  onClick={() => {
+                    deleteTask(core, index)
+                  }}
+                >
+                  <FaIcon icon={faTrashCan} /> Auftrag löschen
+                </button>
+              </p>
+            </>
+          )}
         </div>
         <div className="h-48 mb-6 mr-8">
           <View

@@ -81,7 +81,9 @@ export interface Settings {
 }
 
 export interface Editor {
-  questPreview: boolean
+  showQuestPreview: boolean
+  editWorld: number | null
+  showResizeWorld: boolean
 }
 
 export interface Quest {
