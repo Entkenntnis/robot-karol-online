@@ -11,34 +11,41 @@ import { View } from './View'
 export function Output() {
   const core = useCore()
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full relative">
       <div className="flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100">
         <ControlBar />
       </div>
       <div
         className={clsx(
-          'flex-grow flex-shrink h-full flex items-center',
-          'justify-center overflow-auto relative'
+          'flex-grow flex-shrink h-full',
+          'overflow-auto bg-white'
         )}
       >
-        <View
-          world={core.ws.world}
-          preview={
-            core.ws.ui.showPreviewOfTarget &&
-            core.ws.quest.lastStartedTask !== undefined &&
-            core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target
-              ? {
-                  world:
-                    core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!,
-                  track: [],
+        <div className="flex flex-col h-full">
+          <div className="m-auto">
+            <div className="w-fit h-fit mb-32 mt-4 mx-4">
+              <View
+                world={core.ws.world}
+                preview={
+                  core.ws.ui.showPreviewOfTarget &&
+                  core.ws.quest.lastStartedTask !== undefined &&
+                  core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target
+                    ? {
+                        world:
+                          core.ws.quest.tasks[core.ws.quest.lastStartedTask!]
+                            .target!,
+                        track: [],
+                      }
+                    : undefined
                 }
-              : undefined
-          }
-          className={clsx(
-            'mb-32 mt-12 p-6',
-            core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
-          )}
-        />
+                className={clsx(
+                  'p-6',
+                  core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
+                )}
+              />
+            </div>
+          </div>
+        </div>
         {!core.ws.ui.isTesting && (
           <div className="absolute bottom-3 left-4">
             {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}

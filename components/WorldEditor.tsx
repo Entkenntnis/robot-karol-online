@@ -131,7 +131,7 @@ export function WorldEditor() {
           Größe der Welt ändern
         </button>
       </div>
-      <div className="flex-grow flex-shrink flex items-center justify-center overflow-scroll relative">
+      <div className="flex-grow flex-shrink flex justify-center overflow-scroll relative">
         {core.ws.editor.currentlyEditing == 'target' &&
           !core.ws.editor.showWorldPreview && (
             <button
@@ -153,34 +153,41 @@ export function WorldEditor() {
             </div>
           ))}
         </div>
-        <div
-          tabIndex={0}
-          className={clsx(
-            'border-2 border-white p-8 m-3',
-            core.ws.editor.showWorldPreview
-              ? ''
-              : 'focus:border-green-200 cursor-pointer'
-          )}
-          onKeyDown={(e) => {
-            if (actions[e.code]) {
-              runAction(e.code)
-              e.preventDefault()
-              return
-            }
-          }}
-          ref={handlerDiv}
-        >
-          {core.ws.editor.showWorldPreview ? (
-            <View
-              world={core.ws.quest.tasks[core.ws.editor.editWorld!].start}
-              preview={{
-                track: [],
-                world: core.ws.quest.tasks[core.ws.editor.editWorld!].target!,
-              }}
-            />
-          ) : (
-            <View world={core.ws.world} />
-          )}
+        <div className="w-full h-full overflow-scroll">
+          <div className="flex flex-col h-full">
+            <div className="m-auto">
+              <div
+                tabIndex={0}
+                className={clsx(
+                  'border-2 border-white p-8 m-6 w-fit h-fit',
+                  core.ws.editor.showWorldPreview
+                    ? ''
+                    : 'focus:border-green-200 cursor-pointer'
+                )}
+                onKeyDown={(e) => {
+                  if (actions[e.code]) {
+                    runAction(e.code)
+                    e.preventDefault()
+                    return
+                  }
+                }}
+                ref={handlerDiv}
+              >
+                {core.ws.editor.showWorldPreview ? (
+                  <View
+                    world={core.ws.quest.tasks[core.ws.editor.editWorld!].start}
+                    preview={{
+                      track: [],
+                      world:
+                        core.ws.quest.tasks[core.ws.editor.editWorld!].target!,
+                    }}
+                  />
+                ) : (
+                  <View world={core.ws.world} />
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="flex-none bg-gray-100 flex justify-around items-baseline py-1">

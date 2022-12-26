@@ -31,10 +31,20 @@ export function ShareModal() {
           e.stopPropagation()
         }}
       >
-        <h1 className="m-3 mb-6 text-xl font-bold">Teilen</h1>
-        <p className="m-3 mb-6">
+        <h1 className="m-3 mt-8 text-xl font-bold">Teilen</h1>
+        <p className="m-3 -mt-6">
           Gib deine Aufgabe frei und mache sie online verfügbar. Dazu werden die
-          Daten auf dem Server gespeichert. Der Link ist dauerhaft verfügbar:
+          Daten auf dem Server gespeichert. Durch die Freigabe stimmst du zu,
+          dass die Aufgabe unter{' '}
+          <a
+            href="https://creativecommons.org/publicdomain/zero/1.0/"
+            target="_blank"
+            rel="noreferrer"
+            className="underline text-blue-600 hover:text-blue-700"
+          >
+            Public Domain (CC0)
+          </a>{' '}
+          gestellt wird und weiterverwendet werden darf.
         </p>
         {id ? (
           <div className="px-3 mb-5">
