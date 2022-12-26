@@ -179,7 +179,9 @@ export function Tasks() {
                 <div
                   className="h-48 mb-6 mr-8 cursor-pointer"
                   onClick={() => {
-                    editWorld(core, index)
+                    if (core.ws.ui.isEditor) {
+                      editWorld(core, index)
+                    }
                   }}
                 >
                   <View
