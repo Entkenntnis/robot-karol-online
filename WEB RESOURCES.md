@@ -24,4 +24,4 @@
 
 [Karol Anleitung](https://docplayer.org/51678183-Robot-karol-eine-programmiersprache-fuer-schuelerinnen-und-schueler.html): wow, das hat unglaubliche Nostalgie-Vibes aus der Schulzeit
 
-[Hans Mirko](https://www.mirko-hans.de/info/kl_9_10/kl_9_10.htm): TODO
+[Hans Mirko](https://www.mirko-hans.de/info/kl_9_10/kl_9_10.htm): ein paar nette theoretische Exkurse, geht ziemlich in die Tiefe
