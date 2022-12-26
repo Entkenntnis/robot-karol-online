@@ -278,7 +278,7 @@ export function View({
             ctx.restore()
           }
           if (world.marks[y][x] && preview && !preview?.world.marks[y][x]) {
-            const p = to2d(x, y, preview.world.bricks[y][x])
+            const p = to2d(x, y, world.bricks[y][x])
             ctx.save()
             ctx.globalAlpha = 1
             ctx.drawImage(marke_weg, p.x - 15, p.y - 16)

@@ -1,0 +1,212 @@
+{
+  "version": "v1",
+  "title": "Ausgang",
+  "description": "Folge der Wand und verlasse den Raum. Lege eine Marke, sobald du die Wand berührst.",
+  "tasks": [
+    {
+      "title": "Mini-Raum",
+      "start": {
+        "dimX": 6,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "west" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [2, 2, 2, 2],
+            [2, 0, 0, 2],
+            [2, 2, 0, 2]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 3, "y": 4, "dir": "west" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [2, 2, 2, 2],
+            [2, 0, 0, 2],
+            [2, 2, 0, 2]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 3,
+          "offsetY": 4,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Rechteckiger Raum",
+      "start": {
+        "dimX": 8,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "south" },
+        "bricks": {
+          "dimX": 6,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [2, 2, 2, 2, 2, 2],
+            [2, 0, 0, 0, 0, 2],
+            [2, 0, 0, 0, 0, 2],
+            [2, 0, 0, 0, 0, 2],
+            [2, 2, 2, 0, 2, 2]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 8,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "south" },
+        "bricks": {
+          "dimX": 6,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [2, 2, 2, 2, 2, 2],
+            [2, 0, 0, 0, 0, 2],
+            [2, 0, 0, 0, 0, 2],
+            [2, 0, 0, 0, 0, 2],
+            [2, 2, 2, 0, 2, 2]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 6,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Raum mit Einbuchtung",
+      "start": {
+        "dimX": 13,
+        "dimY": 8,
+        "height": 6,
+        "karol": { "x": 3, "y": 5, "dir": "south" },
+        "bricks": {
+          "dimX": 11,
+          "dimY": 6,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2],
+            [2, 0, 0, 0, 0, 2, 0, 2, 0, 0, 2],
+            [2, 0, 0, 0, 0, 2, 2, 2, 0, 0, 2],
+            [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+            [2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0],
+            [2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 13,
+        "dimY": 8,
+        "height": 6,
+        "karol": { "x": 12, "y": 5, "dir": "west" },
+        "bricks": {
+          "dimX": 11,
+          "dimY": 6,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2],
+            [2, 0, 0, 0, 0, 2, 0, 2, 0, 0, 2],
+            [2, 0, 0, 0, 0, 2, 2, 2, 0, 0, 2],
+            [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+            [2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0],
+            [2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 12,
+          "offsetY": 5,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "version": "v1",
+  "title": "Wellenmuster",
+  "description": "Baue mit Karol an jeder Wand eine Treppe bis zur Höhe 3 hoch und wieder runter.",
+  "tasks": [
+    {
+      "title": "Welt",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 1, 2, 3, 2, 1, 0],
+            [1, 0, 0, 0, 0, 0, 1],
+            [2, 0, 0, 0, 0, 0, 2],
+            [3, 0, 0, 0, 0, 0, 3],
+            [2, 0, 0, 0, 0, 0, 2],
+            [1, 0, 0, 0, 0, 0, 1],
+            [0, 1, 2, 3, 2, 1, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

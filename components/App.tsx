@@ -16,13 +16,13 @@ export function App() {
   return (
     <>
       <Head>
-        <title>Robot Karol Online</title>
+        <title>{core.ws.ui.isEditor ? 'Editor ' : 'Robot Karol Online'}</title>
         <meta
           name="description"
           content="Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung."
         />
       </Head>
-      <div className="w-full h-full min-w-[900px] overflow-hidden">
+      <div className="w-full h-full min-w-[900px] overflow-auto">
         {core.ws.ui.clientInitDone &&
           (core.ws.ui.showQuestOverview ? <Overview /> : <Quest />)}
       </div>

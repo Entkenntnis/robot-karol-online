@@ -171,6 +171,11 @@ export function WorldEditor() {
                     return
                   }
                 }}
+                onClick={() => {
+                  if (core.ws.editor.showWorldPreview) {
+                    switchCurrentlyEditedWorld(core, 'start')
+                  }
+                }}
                 ref={handlerDiv}
               >
                 {core.ws.editor.showWorldPreview ? (

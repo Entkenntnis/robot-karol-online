@@ -283,10 +283,10 @@ export const questData: { [key: number]: QuestData } = {
   },
 
   5: {
-    title: 'Kontrollstrukturen verbinden',
+    title: 'Kontrollstrukturen',
     description: `
       Karol kann mehrere Dinge gleichzeitig tun - zum Beispiel bis zur Wand laufen und nach Ziegeln Ausschau halten.
-      Wiederholungen und bedingte Anweisungen können nacheinander ausgeführt werden oder auch ineinander verschachtelt sein.
+      Kontrollstrukturen wie Wiederholungen und bedingte Anweisungen können nacheinander ausgeführt werden oder auch ineinander verschachtelt sein.
       Die richtige Kombination macht's.
 
       Laufe bis zur Wand setze auf jedem Ziegel eine Marke. Verschachtle dafür zwei Kontrollstrukturen.
@@ -480,50 +480,42 @@ export const questData: { [key: number]: QuestData } = {
   },
 
   8: {
-    ...deserlizeQuestToData(require('./quests/6.json')),
-    title: 'Quest 8',
-    difficulty: 'mittel',
+    ...deserlizeQuestToData(require('./quests/8.json')),
+    difficulty: 'einfach',
   },
 
   9: {
-    ...deserlizeQuestToData(require('./quests/6.json')),
-    title: 'Quest 9',
+    ...deserlizeQuestToData(require('./quests/9.json')),
     difficulty: 'mittel',
   },
 
   10: {
-    ...deserlizeQuestToData(require('./quests/6.json')),
-    title: 'Quest 10',
+    ...deserlizeQuestToData(require('./quests/10.json')),
     difficulty: 'einfach',
   },
 
   11: {
-    ...deserlizeQuestToData(require('./quests/6.json')),
-    title: 'Quest 11',
+    ...deserlizeQuestToData(require('./quests/11.json')),
     difficulty: 'einfach',
   },
 
   12: {
-    ...deserlizeQuestToData(require('./quests/6.json')),
-    title: 'Quest 12',
+    ...deserlizeQuestToData(require('./quests/12.json')),
     difficulty: 'mittel',
   },
 
   13: {
-    ...deserlizeQuestToData(require('./quests/6.json')),
-    title: 'Quest 13',
+    ...deserlizeQuestToData(require('./quests/13.json')),
     difficulty: 'schwer',
   },
 
   14: {
-    ...deserlizeQuestToData(require('./quests/6.json')),
-    title: 'Quest 14',
+    ...deserlizeQuestToData(require('./quests/14.json')),
     difficulty: 'einfach',
   },
 
   15: {
-    ...deserlizeQuestToData(require('./quests/6.json')),
-    title: 'Quest 15',
+    ...deserlizeQuestToData(require('./quests/15.json')),
     difficulty: 'schwer',
   },
 }

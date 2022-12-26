@@ -31,7 +31,7 @@ export function Overview() {
   const core = useCore()
 
   return (
-    <div className="bg-yellow-200 h-full flex flex-col relative">
+    <div className="bg-yellow-200 flex flex-col relative min-h-screen">
       <div className="flex justify-center">
         <div
           className={clsx(
@@ -86,7 +86,7 @@ export function Overview() {
             </button>
           </div>
         )}
-      <div className="text-center mb-2">
+      <div className="text-center mb-2 mt-10">
         <button
           className="hover:underline"
           onClick={() => {
@@ -138,7 +138,7 @@ export function Overview() {
 
   function renderQuest(index: number, i: number) {
     if (index == -1) {
-      return <div className="basis-full h-1" key={`spacer_${i}`}></div>
+      return <div className="basis-full h-8" key={`spacer_${i}`}></div>
     }
 
     // check for deps, empty deps -> always visible
