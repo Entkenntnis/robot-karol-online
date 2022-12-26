@@ -1,7 +1,7 @@
 import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { addNewTask } from './editor'
-import { loadProject } from './load'
+import { loadLegacyProject, loadQuest } from './load'
 
 export async function initClient(core: Core) {
   if (core.ws.ui.clientInitDone) return
@@ -16,11 +16,11 @@ export async function initClient(core: Core) {
       ui.showQuestOverview = false
       ui.isImportedProject = true
     })
-    loadProject(core, id)
-  }
-
-  if (core.ws.ui.showQuestOverview) {
-    submit_event('show_overview', core)
+    await loadLegacyProject(core, id)
+    core.mutateWs(({ ui }) => {
+      ui.clientInitDone = true
+    })
+    return
   }
 
   const editor = parameterList.get('editor')
@@ -33,6 +33,28 @@ export async function initClient(core: Core) {
       quest.description = 'Beschreibe, um was es bei der Aufgabe geht ...'
     })
     addNewTask(core)
+    core.mutateWs(({ ui }) => {
+      ui.clientInitDone = true
+    })
+    return
+  }
+
+  const hash = window.location.hash
+
+  if (hash.length == 5) {
+    core.mutateWs(({ ui }) => {
+      ui.editorLoading = true
+      ui.showQuestOverview = false
+    })
+    await loadQuest(core, hash.substring(1))
+    core.mutateWs(({ ui }) => {
+      ui.clientInitDone = true
+    })
+    return
+  }
+
+  if (core.ws.ui.showQuestOverview) {
+    submit_event('show_overview', core)
   }
 
   core.mutateWs(({ ui }) => {

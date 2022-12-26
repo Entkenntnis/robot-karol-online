@@ -85,6 +85,8 @@ export interface Editor {
   editWorld: number | null
   showResizeWorld: boolean
   showShareModal: boolean
+  currentlyEditing: 'start' | 'target'
+  showWorldPreview: boolean
 }
 
 export interface Quest {
@@ -181,4 +183,43 @@ export interface QuestSessionData {
   completed: boolean
   code: string
   mode: Settings['mode']
+}
+
+export interface QuestSerialFormat {
+  version: 'v1'
+  title: string
+  description: string
+  tasks: { title: string; start: SerialWorld; target: SerialWorld }[]
+}
+
+export interface SerialWorld {
+  dimX: number
+  dimY: number
+  height: number
+  karol: {
+    x: number
+    y: number
+    dir: Heading
+  }
+  bricks: {
+    offsetX: number
+    offsetY: number
+    dimX: number
+    dimY: number
+    data: number[][]
+  }
+  marks: {
+    offsetX: number
+    offsetY: number
+    dimX: number
+    dimY: number
+    data: boolean[][]
+  }
+  blocks: {
+    offsetX: number
+    offsetY: number
+    dimX: number
+    dimY: number
+    data: boolean[][]
+  }
 }

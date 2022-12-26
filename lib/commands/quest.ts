@@ -5,7 +5,7 @@ import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { QuestSessionData } from '../state/types'
 import { showQuestOverview } from './mode'
-import { run } from './vm'
+import { endExecution, run } from './vm'
 
 export function runTask(core: Core, index: number) {
   const task = core.ws.quest.tasks[index]
@@ -44,13 +44,13 @@ export function closeOutput(core: Core) {
     ws.ui.showOutput = false
     ws.ui.isTesting = false
     ws.ui.karolCrashMessage = undefined
+    ws.quest.progress = false
   })
 }
 
 export function finishTask(core: Core) {
   core.mutateWs((ws) => {
     ws.ui.showOutput = false
-    ws.ui.state = 'ready'
   })
 }
 
@@ -160,6 +160,19 @@ export function startTesting(core: Core) {
 }
 
 export function finishQuest(core: Core) {
+  if (core.ws.quest.id < 0) {
+    submit_event(
+      `custom_quest_complete_${window.location.hash.substring(1)}`,
+      core
+    )
+    core.mutateWs((ws) => {
+      ws.ui.isAlreadyCompleted = true
+      ws.ui.controlBarShowFinishQuest = false
+    })
+    closeOutput(core)
+    return
+  }
+
   storeQuestToSession(core)
   showQuestOverview(core)
   submit_event(`quest_complete_${core.ws.quest.id}`, core)
