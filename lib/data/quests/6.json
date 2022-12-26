@@ -1,21 +1,21 @@
 {
   "version": "v1",
   "title": "Treppe",
-  "description": "Karol kann maximal eine Ziegelhöhe überwinden. Um auf den Stapel zu kommen, braucht sie eine Treppe.\n\nBaue eine Treppe und setze auf dem Stapel eine Marke.",
+  "description": "Karol kann maximal eine Ziegelhöhe überwinden. Um höher zu kommen, brauchst sie eine Treppe.",
   "tasks": [
     {
-      "title": "Marke auf Stapel",
+      "title": "Treppe bauen",
       "start": {
-        "dimX": 6,
+        "dimX": 5,
         "dimY": 1,
         "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "east" },
         "bricks": {
-          "dimX": 1,
-          "dimY": 1,
-          "offsetX": 5,
-          "offsetY": 0,
-          "data": [[5]]
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
         },
         "marks": {
           "offsetX": -1,
@@ -33,23 +33,23 @@
         }
       },
       "target": {
-        "dimX": 6,
+        "dimX": 5,
         "dimY": 1,
         "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "east" },
         "bricks": {
-          "dimX": 5,
+          "dimX": 3,
           "dimY": 1,
           "offsetX": 1,
           "offsetY": 0,
-          "data": [[1, 2, 3, 4, 5]]
+          "data": [[1, 2, 3]]
         },
         "marks": {
-          "dimX": 1,
-          "dimY": 1,
-          "offsetX": 5,
-          "offsetY": 0,
-          "data": [[true]]
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
         },
         "blocks": {
           "offsetX": -1,

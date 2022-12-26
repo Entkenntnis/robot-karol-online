@@ -54,7 +54,7 @@ export function Tasks() {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100 relative max-h-[50%] overflow-auto">
+      <div className="p-4 px-7 flex-shrink-0 flex-grow-0 bg-yellow-100 relative max-h-[40%] overflow-auto">
         {core.ws.ui.isEditor ? (
           <QuestEditor />
         ) : (
@@ -237,6 +237,16 @@ export function Tasks() {
                 <FaIcon icon={faShareNodes} className="mr-2" />
                 Aufgabe freigeben
               </button>
+              {window.location.hostname == 'localhost' && (
+                <button
+                  className="ml-2"
+                  onClick={() => {
+                    alert(JSON.stringify(serializeQuest(core)))
+                  }}
+                >
+                  json
+                </button>
+              )}
             </p>
           ) : (
             !core.ws.ui.isTesting &&

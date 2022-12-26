@@ -1,6 +1,10 @@
+import { backend } from '../../backend'
+import { questData } from '../data/quests'
 import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
+import { QuestSerialFormat } from '../state/types'
 import { addNewTask } from './editor'
+import { deserializeQuest } from './json'
 import { loadLegacyProject, loadQuest } from './load'
 
 export async function initClient(core: Core) {
@@ -32,7 +36,20 @@ export async function initClient(core: Core) {
       quest.title = 'Titel der Aufgabe'
       quest.description = 'Beschreibe, um was es bei der Aufgabe geht ...'
     })
-    addNewTask(core)
+
+    const id = parseInt(parameterList.get('quest') ?? '')
+
+    if (id > 0) {
+      const obj = questData[id]
+      core.mutateWs((ws) => {
+        ws.quest.title = obj.title
+        ws.quest.description = obj.description
+        ws.quest.tasks = obj.tasks
+      })
+    } else {
+      addNewTask(core)
+    }
+
     core.mutateWs(({ ui }) => {
       ui.clientInitDone = true
     })

@@ -1,0 +1,121 @@
+{
+  "version": "v1",
+  "title": "Bedingte Anweisung",
+  "description": "\n      Diese Aufgabe enthält zwei Aufträge, die scheinbar ganz unterschiedliche Dinge tun:\n      Einmal wird ein Ziegel vor Karol abgelegt, einmal dahinter.\n      Trotzdem sollen beide Aufträge mit einem Programm gelöst werden.\n\n      Möglich macht das eine bedingte Anweisung, erkennbar an dem Schlüsselwort `wenn`.\n      Damit kann Karol auf die Welt um sie herum reagieren.\n      In diesem Fall soll Karol erkennen, ob sie auf einer Marke steht oder nicht.\n\n      Nutze für diese Aufgabe zum Beispiel den Block `wenn dann sonst` und die Bedingung `IstMarke`.\n      Es gibt auch andere Lösungswege.\n    ",
+  "tasks": [
+    {
+      "title": "Steht auf Marke ➔ lege Ziegel vor sich",
+      "start": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 2, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 2, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 3,
+          "offsetY": 1,
+          "data": [[1]]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Steht nicht auf Marke ➔ lege Ziegel hinter sich",
+      "start": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 2, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 2, "y": 1, "dir": "west" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

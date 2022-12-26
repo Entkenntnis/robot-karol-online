@@ -1,12 +1,12 @@
 {
   "version": "v1",
   "title": "Buchstabe",
-  "description": "Karol kann nicht sprechen, aber sie kann Buchstaben zeichnen und damit kommunizeren.\n\nSetze mit Marken den Buchstaben A.",
+  "description": "Karol kann nicht sprechen, aber sie kann Buchstaben zeichnen und damit kommunizeren.\n\nEin einfaches Beispiel: Die Zahl 7",
   "tasks": [
     {
-      "title": "A",
+      "title": "Sieben",
       "start": {
-        "dimX": 6,
+        "dimX": 5,
         "dimY": 7,
         "height": 4,
         "karol": { "x": 0, "y": 0, "dir": "south" },
@@ -33,21 +33,21 @@
         }
       },
       "target": {
-        "dimX": 6,
+        "dimX": 5,
         "dimY": 7,
         "height": 4,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
-          "dimX": 4,
+          "dimX": 3,
           "dimY": 5,
           "offsetX": 1,
           "offsetY": 1,
           "data": [
-            [0, 1, 1, 0],
-            [1, 0, 0, 1],
-            [1, 1, 1, 1],
-            [1, 0, 0, 1],
-            [1, 0, 0, 1]
+            [1, 1, 1],
+            [0, 0, 1],
+            [0, 0, 1],
+            [0, 0, 1],
+            [0, 0, 1]
           ]
         },
         "marks": {

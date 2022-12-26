@@ -31,7 +31,7 @@ export function ControlBar() {
     return (
       <div className="flex items-center justify-center p-2">
         <p className="text-center">
-          {text} Dein Programm hat alle Aufträge erfüllt.
+          {text}
           <br />
           <button
             onClick={() => {
