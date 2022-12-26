@@ -62,6 +62,7 @@ export interface Ui {
   clientInitDone: boolean
   controlBarShowFinishQuest: boolean
   isEditor: boolean
+  isDemo: boolean
 }
 
 export interface Vm {

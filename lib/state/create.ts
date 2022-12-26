@@ -41,6 +41,7 @@ export function createWorkspaceState(): WorkspaceState {
       clientInitDone: false,
       controlBarShowFinishQuest: false,
       isEditor: false,
+      isDemo: false,
     },
     vm: {
       pc: 0,

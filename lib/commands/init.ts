@@ -53,6 +53,12 @@ export async function initClient(core: Core) {
     return
   }
 
+  if (parameterList.get('demo')) {
+    core.mutateWs(({ ui }) => {
+      ui.isDemo = true
+    })
+  }
+
   if (core.ws.ui.showQuestOverview) {
     submit_event('show_overview', core)
   }

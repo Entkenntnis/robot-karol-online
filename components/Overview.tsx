@@ -142,7 +142,11 @@ export function Overview() {
     }
 
     // check for deps, empty deps -> always visible
-    if (questDeps[index].length > 0 && !questDeps[index].some(isQuestDone)) {
+    if (
+      !core.ws.ui.isDemo &&
+      questDeps[index].length > 0 &&
+      !questDeps[index].some(isQuestDone)
+    ) {
       return null
     }
 
