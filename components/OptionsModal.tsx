@@ -40,7 +40,7 @@ export function OptionsModal() {
           {core.ws.settings.mode == 'blocks' ? 'blockbasiert' : 'textbasiert'}
         </p>
         <p className="mx-4 mt-2">{renderSwitch()}</p>
-        {!core.ws.ui.isTesting && (
+        {/*!core.ws.ui.isTesting && (
           <p className="ml-4 mt-12">
             <button
               className="px-2 py-0.5 rounded bg-gray-200 hover:bg-gray-300"
@@ -53,7 +53,7 @@ export function OptionsModal() {
               anzeigen
             </button>
           </p>
-        )}
+            )*/}
       </div>
     </div>
   )

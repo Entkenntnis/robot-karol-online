@@ -268,12 +268,14 @@ function isReadOnly(core: Core, x: number, y: number) {
   return false
 }
 function karolCrashed(core: Core, error: string) {
-  core.mutateWs(({ ui }) => {
-    ui.karolCrashMessage = error
-  })
-  //addMessage(core, error)
-  //addMessage(core, 'Ausführung abgebrochen.')
-  endExecution(core)
+  if (core.ws.ui.isEditor) {
+    addMessage(core, error)
+  } else {
+    core.mutateWs(({ ui }) => {
+      ui.karolCrashMessage = error
+    })
+    endExecution(core)
+  }
 }
 
 export function onWorldChange(core: Core) {

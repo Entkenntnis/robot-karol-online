@@ -40,6 +40,7 @@ export function createWorkspaceState(): WorkspaceState {
       isTestingAborted: false,
       clientInitDone: false,
       controlBarShowFinishQuest: false,
+      isEditor: false,
     },
     vm: {
       pc: 0,
@@ -59,6 +60,11 @@ export function createWorkspaceState(): WorkspaceState {
       description: '',
       tasks: [],
       id: -1,
+    },
+    editor: {
+      showQuestPreview: false,
+      editWorld: null,
+      showResizeWorld: false,
     },
   }
   return ws

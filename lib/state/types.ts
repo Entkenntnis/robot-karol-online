@@ -61,6 +61,7 @@ export interface Ui {
   isTestingAborted: boolean
   clientInitDone: boolean
   controlBarShowFinishQuest: boolean
+  isEditor: boolean
 }
 
 export interface Vm {
@@ -77,6 +78,12 @@ export interface Vm {
 
 export interface Settings {
   mode: 'code' | 'blocks'
+}
+
+export interface Editor {
+  showQuestPreview: boolean
+  editWorld: number | null
+  showResizeWorld: boolean
 }
 
 export interface Quest {
@@ -96,6 +103,7 @@ export interface WorkspaceState {
   vm: Vm
   settings: Settings
   quest: Quest
+  editor: Editor
 }
 
 export interface QuestTask {
