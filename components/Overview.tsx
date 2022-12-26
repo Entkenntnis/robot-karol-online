@@ -136,9 +136,9 @@ export function Overview() {
     )
   }
 
-  function renderQuest(index: number) {
+  function renderQuest(index: number, i: number) {
     if (index == -1) {
-      return <div className="basis-full h-1" key={index}></div>
+      return <div className="basis-full h-1" key={`spacer_${i}`}></div>
     }
 
     // check for deps, empty deps -> always visible
