@@ -20,6 +20,8 @@ Die einzelnen Aufgaben in der Aufgabensammmlung bestehen selbst aus einen oder m
 
 Die Aufgaben beginnen mit Tutorials, die die Grundlagen der Sprache vermitteln. Danach gibt es eine Reihe an einfachen und mittleren Aufgaben, um die Grundlagen einzuüben. Für ehrgeizige Spieler bieten dann die schweren Aufgaben eine ordentliche Herausforderung. Dabei kann außerdem in den textbasierten Editor gewechselt werden, der zusätzlich Möglichkeiten bietet, wie z.B. die Definition eigener Anweisugen.
 
+Erhalte eine Übersicht über alle enthaltenen Aufgaben: https://karol.arrrg.de/?demo=1
+
 ## Sprache
 
 ### Anweisungen
