@@ -201,25 +201,15 @@ export interface SerialWorld {
     y: number
     dir: Heading
   }
-  bricks: {
-    offsetX: number
-    offsetY: number
-    dimX: number
-    dimY: number
-    data: number[][]
-  }
-  marks: {
-    offsetX: number
-    offsetY: number
-    dimX: number
-    dimY: number
-    data: boolean[][]
-  }
-  blocks: {
-    offsetX: number
-    offsetY: number
-    dimX: number
-    dimY: number
-    data: boolean[][]
-  }
+  bricks: Compressed2D<number>
+  marks: Compressed2D<boolean>
+  blocks: Compressed2D<boolean>
+}
+
+export interface Compressed2D<T> {
+  offsetX: number
+  offsetY: number
+  dimX: number
+  dimY: number
+  data: T[][]
 }

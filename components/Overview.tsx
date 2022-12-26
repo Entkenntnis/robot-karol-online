@@ -5,6 +5,7 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import Link from 'next/link'
 
 import {
   editCodeAndResetProgress,
@@ -109,10 +110,9 @@ export function Overview() {
           'https://github.com/Entkenntnis/robot-karol-online'
         )}{' '}
         |{' '}
-        {renderExternalLink(
-          'Aufgaben-Editor',
-          window.location.protocol + '//' + window.location.host + '/?editor=1'
-        )}{' '}
+        <a href="/?editor=1">
+          <span className="hover:underline">Aufgaben-Editor</span>
+        </a>{' '}
         |{' '}
         {renderExternalLink(
           'Spielwiese',

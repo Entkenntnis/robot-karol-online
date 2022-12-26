@@ -1,5 +1,12 @@
 import { Core } from '../state/core'
-import { Quest, QuestSerialFormat, SerialWorld, World } from '../state/types'
+import {
+  Compressed2D,
+  Quest,
+  QuestData,
+  QuestSerialFormat,
+  SerialWorld,
+  World,
+} from '../state/types'
 import { endExecution } from './vm'
 
 export function serializeQuest(core: Core): QuestSerialFormat {
@@ -25,42 +32,9 @@ export function serializeWorld(world: World): SerialWorld {
     dimY,
     height,
     karol,
-    bricks: compressBricks(bricks),
-    marks: compressMarks(marks),
-    blocks: compressBlocks(blocks),
-  }
-}
-
-function compressBricks(bricks: number[][]): SerialWorld['bricks'] {
-  // TODO
-  return {
-    dimX: bricks[0].length,
-    dimY: bricks.length,
-    offsetX: 0,
-    offsetY: 0,
-    data: bricks,
-  }
-}
-
-function compressBlocks(marks: boolean[][]): SerialWorld['marks'] {
-  // TODO
-  return {
-    dimX: marks[0].length,
-    dimY: marks.length,
-    offsetX: 0,
-    offsetY: 0,
-    data: marks,
-  }
-}
-
-function compressMarks(blocks: boolean[][]): SerialWorld['blocks'] {
-  // TODO
-  return {
-    dimX: blocks[0].length,
-    dimY: blocks.length,
-    offsetX: 0,
-    offsetY: 0,
-    data: blocks,
+    bricks: compress2dArray(bricks, 0),
+    marks: compress2dArray(marks, false),
+    blocks: compress2dArray(blocks, false),
   }
 }
 
@@ -149,6 +123,21 @@ export function deserializeQuest(core: Core, quest: QuestSerialFormat) {
   })
 }
 
+export function deserlizeQuestToData(quest: QuestSerialFormat): QuestData {
+  return {
+    title: quest.title,
+    description: quest.description,
+    difficulty: '',
+    tasks: quest.tasks.map((task) => {
+      return {
+        title: task.title,
+        start: deserializeWorld(task.start),
+        target: deserializeWorld(task.target),
+      }
+    }),
+  }
+}
+
 function deserializeWorld(world: SerialWorld): World {
   const { dimX, dimY, height, blocks, bricks, karol, marks } = world
 
@@ -157,23 +146,86 @@ function deserializeWorld(world: SerialWorld): World {
     dimY,
     height,
     karol,
-    bricks: decompressBricks(bricks),
-    marks: decompressMarks(marks),
-    blocks: decompressBlocks(blocks),
+    bricks: decompress2dArray(bricks, dimX, dimY, 0),
+    marks: decompress2dArray(marks, dimX, dimY, false),
+    blocks: decompress2dArray(blocks, dimX, dimY, false),
   }
 }
 
-function decompressBricks(bricks: SerialWorld['bricks']): number[][] {
-  // TODO
-  return bricks.data
+function compress2dArray<T>(input: T[][], defaultVal: T): Compressed2D<T> {
+  const dimX = input[0].length
+  const dimY = input.length
+
+  const colStatus = Array.from(Array(dimX), (_, i) => i).map((x) =>
+    Array.from(Array(dimY), (_, i) => i).some((y) => input[y][x] !== defaultVal)
+  )
+
+  const rowStatus = Array.from(Array(dimY), (_, i) => i).map((y) =>
+    Array.from(Array(dimX), (_, i) => i).some((x) => input[y][x] !== defaultVal)
+  )
+
+  let offsetX = -1
+  let offsetY = -1
+  let dataX = 0
+  let dataY = 0
+
+  if (colStatus.every((x) => !x)) {
+    // empty
+    return { offsetX, offsetY, dimX: 0, dimY: 0, data: [] }
+  }
+
+  for (let i = 0; i < dimX; i++) {
+    if (colStatus[i]) {
+      if (offsetX == -1) {
+        offsetX = i // start of closure
+      }
+      dataX = i - offsetX + 1
+    }
+  }
+
+  for (let i = 0; i < dimY; i++) {
+    if (rowStatus[i]) {
+      if (offsetY == -1) {
+        offsetY = i // start of closure
+      }
+      dataY = i - offsetY + 1
+    }
+  }
+
+  const data = Array(dataY)
+    .fill(defaultVal)
+    .map(() => Array(dataX).fill(defaultVal))
+
+  for (let x = 0; x < dataX; x++) {
+    for (let y = 0; y < dataY; y++) {
+      data[y][x] = input[y + offsetY][x + offsetX]
+    }
+  }
+
+  return {
+    dimX: dataX,
+    dimY: dataY,
+    offsetX,
+    offsetY,
+    data,
+  }
 }
 
-function decompressBlocks(marks: SerialWorld['marks']): boolean[][] {
-  // TODO
-  return marks.data
-}
+function decompress2dArray<T>(
+  input: Compressed2D<T>,
+  dimX: number,
+  dimY: number,
+  defaultVal: T
+): T[][] {
+  const data = Array(dimY)
+    .fill(defaultVal)
+    .map(() => Array(dimX).fill(defaultVal))
 
-function decompressMarks(blocks: SerialWorld['blocks']): boolean[][] {
-  // TODO
-  return blocks.data
+  for (let x = 0; x < input.dimX; x++) {
+    for (let y = 0; y < input.dimY; y++) {
+      data[y + input.offsetY][x + input.offsetX] = input.data[y][x]
+    }
+  }
+
+  return data
 }

@@ -1,3 +1,4 @@
+import { deserializeQuest, deserlizeQuestToData } from '../commands/json'
 import { QuestData } from '../state/types'
 
 export const questData: { [key: number]: QuestData } = {
@@ -570,5 +571,10 @@ export const questData: { [key: number]: QuestData } = {
         },
       },
     ],
+  },
+
+  6: {
+    ...deserlizeQuestToData(require('./quests/test.json')),
+    difficulty: 'einfach',
   },
 }

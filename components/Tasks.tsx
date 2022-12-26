@@ -23,6 +23,7 @@ import {
   setShareModal,
   setTaskTitle,
 } from '../lib/commands/editor'
+import { serializeQuest } from '../lib/commands/json'
 
 import { showMenu, showQuestOverview } from '../lib/commands/mode'
 import { execPreviewForAll } from '../lib/commands/preview'
@@ -60,9 +61,11 @@ export function Tasks() {
           <>
             <h1 className="mb-2 text-xl font-bold mt-1">
               {core.ws.quest.title}
-              <span className="text-base font-normal text-green-600 ml-4">
-                <FaIcon icon={faCheck} /> abgeschlossen
-              </span>
+              {core.ws.ui.isAlreadyCompleted && core.ws.quest.id < 0 && (
+                <span className="text-base font-normal text-green-600 ml-4">
+                  <FaIcon icon={faCheck} /> abgeschlossen
+                </span>
+              )}
             </h1>
             {!core.ws.ui.isImportedProject &&
               !core.ws.ui.editorLoading &&
@@ -224,6 +227,11 @@ export function Tasks() {
                 className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 rounded"
                 onClick={() => {
                   setShareModal(core, true)
+
+                  // for debugging
+                  const obj = serializeQuest(core)
+                  const json = JSON.stringify(obj)
+                  console.log('output size', json.length, json)
                 }}
               >
                 <FaIcon icon={faShareNodes} className="mr-2" />

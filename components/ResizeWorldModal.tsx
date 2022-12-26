@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { Dispatch, SetStateAction, useState } from 'react'
 import {
   setShowResizeWorld,
+  showPreview,
   switchCurrentlyEditedWorld,
 } from '../lib/commands/editor'
 import { createWorldCmd } from '../lib/commands/world'
@@ -116,12 +117,21 @@ export function ResizeWorldModal() {
   }
 
   function exec() {
-    createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+    const isShowPreview = core.ws.editor.showWorldPreview
+
     const now = core.ws.editor.currentlyEditing
     const other = now == 'start' ? 'target' : 'start'
+
+    switchCurrentlyEditedWorld(core, now)
+    createWorldCmd(core, localDimX, localDimY, localHeight, keep)
     switchCurrentlyEditedWorld(core, other)
     createWorldCmd(core, localDimX, localDimY, localHeight, keep)
     switchCurrentlyEditedWorld(core, now)
+
+    if (isShowPreview) {
+      showPreview(core)
+    }
+
     setShowResizeWorld(core, false)
   }
 }

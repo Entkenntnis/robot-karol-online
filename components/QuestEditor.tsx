@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import Link from 'next/link'
 import {
   setDescription,
   setQuestPreview,
@@ -11,6 +12,20 @@ export function QuestEditor() {
   const core = useCore()
   return (
     <>
+      <div className="absolute right-3 top-4 text-gray-600 hover:text-black">
+        <button
+          onClick={() => {
+            const res = confirm(
+              'Beachte dass die Daten nicht gespeichert werden. Verlassen?'
+            )
+            if (res) {
+              window.location.href = '/'
+            }
+          }}
+        >
+          Editor verlassen
+        </button>
+      </div>
       <div className="mb-4 -mt-2">
         <button
           className={clsx(
