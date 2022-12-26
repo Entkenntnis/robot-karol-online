@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { createRef, useEffect } from 'react'
 import { closeWorldEditor, setShowResizeWorld } from '../lib/commands/editor'
+import { execPreviewForTask } from '../lib/commands/preview'
 import {
   left,
   right,
@@ -52,6 +53,13 @@ export function WorldEditor() {
 
   function runAction(action: string) {
     actions[action]()
+    // test
+    core.mutateWs((ws) => {
+      ws.quest.tasks[ws.editor.editWorld!].start = ws.world
+    })
+    setTimeout(() => {
+      execPreviewForTask(core, core.ws.editor.editWorld!)
+    }, 50)
   }
 
   useEffect(() => {
@@ -102,13 +110,24 @@ export function WorldEditor() {
           }}
           ref={handlerDiv}
         >
-          <View world={core.ws.world} />
+          <View
+            world={core.ws.world}
+            preview={
+              core.ws.quest.tasks[core.ws.editor.editWorld!].target
+                ? {
+                    track: [],
+                    world:
+                      core.ws.quest.tasks[core.ws.editor.editWorld!].target!,
+                  }
+                : undefined
+            }
+          />
         </div>
       </div>
-      <div className="flex-none bg-gray-100 flex justify-around items-baseline">
+      <div className="flex-none bg-gray-100 flex justify-around items-baseline py-1">
         <div>
           <button
-            className="mx-3 py-2"
+            className="mx-3 py-2 hover:text-gray-700"
             onClick={() => {
               runAction('ArrowLeft')
             }}
@@ -117,7 +136,7 @@ export function WorldEditor() {
             <FaIcon icon={faLeftLong} />
           </button>
           <button
-            className=" px-2"
+            className="px-2 hover:text-gray-700"
             onClick={() => {
               runAction('ArrowUp')
             }}
@@ -126,7 +145,7 @@ export function WorldEditor() {
             <FaIcon icon={faUpLong} />
           </button>
           <button
-            className="mx-3 py-2"
+            className="mx-3 py-2 hover:text-gray-700"
             onClick={() => {
               runAction('ArrowRight')
             }}
@@ -135,40 +154,40 @@ export function WorldEditor() {
             <FaIcon icon={faRightLong} />
           </button>
           <button
-            className="mx-2"
+            className="mx-2 hover:text-gray-700"
             onClick={() => {
               runAction('KeyH')
             }}
             title="Hinlegen"
           >
-            (H)inlegen
+            <u>H</u>inlegen
           </button>
           <button
-            className="mx-3"
+            className="mx-2 hover:text-gray-700"
             onClick={() => {
               runAction('KeyA')
             }}
             title="Aufheben"
           >
-            (A)ufheben
+            <u>A</u>ufheben
           </button>
           <button
-            className="mx-3"
+            className="mx-2 hover:text-gray-700"
             onClick={() => {
               runAction('KeyM')
             }}
             title="MarkeSetzen / MarkeLöschen"
           >
-            (M)arke setzen/löschen
+            <u>M</u>arke setzen/löschen
           </button>
           <button
-            className="mx-3"
+            className="mx-2 hover:text-gray-700"
             onClick={() => {
               runAction('KeyQ')
             }}
             title="Quader setzen oder löschen"
           >
-            (Q)uader setzen/löschen
+            <u>Q</u>uader setzen/löschen
           </button>
         </div>
       </div>

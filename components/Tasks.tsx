@@ -3,6 +3,7 @@ import {
   faArrowUp,
   faExternalLink,
   faGear,
+  faGears,
   faListCheck,
   faPencil,
   faPlus,
@@ -21,6 +22,7 @@ import {
 } from '../lib/commands/editor'
 
 import { showMenu, showQuestOverview } from '../lib/commands/mode'
+import { execPreviewForAll } from '../lib/commands/preview'
 import {
   openTask,
   setTaskScroll,
@@ -105,6 +107,7 @@ export function Tasks() {
                 <FaIcon icon={faPlus} className="mr-2" />
                 Auftrag hinzufügen
               </button>
+
               <button className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 rounded">
                 <FaIcon icon={faShareNodes} className="mr-2" />
                 Aufgabe freigeben
