@@ -1,7 +1,6 @@
 import {
   faCheck,
   faExclamationTriangle,
-  faGenderless,
   faPersonWalking,
   faStop,
   faTimes,

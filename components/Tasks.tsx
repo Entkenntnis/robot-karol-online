@@ -6,6 +6,7 @@ import {
   faGears,
   faListCheck,
   faPencil,
+  faPlay,
   faPlus,
   faShareNodes,
   faTrashCan,
@@ -18,6 +19,7 @@ import {
   editWorld,
   moveTaskDown,
   moveTaskUp,
+  setShareModal,
   setTaskTitle,
 } from '../lib/commands/editor'
 
@@ -108,9 +110,12 @@ export function Tasks() {
                 Auftrag hinzufügen
               </button>
 
-              <button className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 rounded">
-                <FaIcon icon={faShareNodes} className="mr-2" />
-                Aufgabe freigeben
+              <button
+                className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 rounded"
+                onClick={() => {}}
+              >
+                <FaIcon icon={faListCheck} className="mr-2" />
+                Überprüfung starten
               </button>
             </p>
           ) : (
@@ -118,7 +123,7 @@ export function Tasks() {
             !core.ws.ui.isAlreadyCompleted && (
               <p className="z-10">
                 <button
-                  className="px-2 py-0.5 rounded-lg bg-yellow-300"
+                  className="px-2 py-0.5 rounded-lg bg-yellow-300 hover:bg-yellow-400"
                   onClick={() => {
                     startTesting(core)
                   }}
@@ -184,6 +189,15 @@ export function Tasks() {
                 >
                   <FaIcon icon={faPencil} className="mr-2" />
                   Welt bearbeiten
+                </button>
+                <button
+                  className="ml-3 rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
+                  onClick={() => {
+                    openTask(core, index)
+                  }}
+                >
+                  <FaIcon icon={faPlay} className="mr-2" />
+                  Testen
                 </button>
               </p>
               <p className="mt-20 text-sm text-gray-700">

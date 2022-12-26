@@ -84,6 +84,7 @@ export interface Editor {
   showQuestPreview: boolean
   editWorld: number | null
   showResizeWorld: boolean
+  showShareModal: boolean
 }
 
 export interface Quest {

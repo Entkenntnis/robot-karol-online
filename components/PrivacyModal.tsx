@@ -1,4 +1,3 @@
-import { impressum } from '../impressum'
 import { setShowPrivacy } from '../lib/commands/mode'
 import { useCore } from '../lib/state/core'
 

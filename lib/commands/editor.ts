@@ -90,3 +90,9 @@ export function setShowResizeWorld(core: Core, val: boolean) {
     editor.showResizeWorld = val
   })
 }
+
+export function setShareModal(core: Core, val: boolean) {
+  core.mutateWs(({ editor }) => {
+    editor.showShareModal = val
+  })
+}

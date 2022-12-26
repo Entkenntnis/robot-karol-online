@@ -69,7 +69,7 @@ export function WorldEditor() {
   const core = useCore()
   return (
     <div className="h-full flex flex-col">
-      <div className="flex-none bg-gray-100 flex justify-between">
+      <div className="flex-none bg-gray-100 flex justify-between items-baseline">
         <button
           className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 ml-3 my-2 rounded"
           onClick={() => {
@@ -79,6 +79,12 @@ export function WorldEditor() {
           <FaIcon icon={faCaretLeft} className="mr-1" />
           zurück
         </button>
+        <div className="rounded-full border-2 border-gray-400">
+          <button className="mr-5 px-2 bg-yellow-200 rounded-full py-0.5 m-0.5">
+            Startwelt
+          </button>
+          <button className="px-2">Zielwelt</button>
+        </div>
         <button
           className="px-2 py-0.5 bg-blue-200 hover:bg-blue-300 mr-3 my-2 rounded"
           onClick={() => {
@@ -89,7 +95,7 @@ export function WorldEditor() {
           Größe der Welt ändern
         </button>
       </div>
-      <div className="flex-grow flex-shrink flex items-center justify-center overflow-scroll">
+      <div className="flex-grow flex-shrink flex items-center justify-center overflow-scroll relative">
         <div className="absolute bottom-2 left-2 bg-gray-50">
           {core.ws.ui.messages.map((m) => (
             <div key={`${m.ts}`}>

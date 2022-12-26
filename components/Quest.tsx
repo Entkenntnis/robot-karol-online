@@ -11,6 +11,7 @@ import { FaIcon } from './FaIcon'
 import { OptionsModal } from './OptionsModal'
 import { Output } from './Output'
 import { ResizeWorldModal } from './ResizeWorldModal'
+import { ShareModal } from './ShareModal'
 import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
 import { WorldEditor } from './WorldEditor'
@@ -31,17 +32,6 @@ export function Quest() {
           }}
         >
           <EditArea />
-          {core.ws.ui.isEditor && (
-            <button
-              className="absolute top-2 right-2 px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
-              onClick={() => {
-                execPreviewForAll(core)
-              }}
-            >
-              <FaIcon icon={faGears} className="mr-2" />
-              Zielzustand generieren
-            </button>
-          )}
           {(core.ws.ui.isTesting || core.ws.ui.isAlreadyCompleted) && (
             <div className="absolute inset-0 bg-gray-700/20 z-[100]">
               <div
@@ -96,6 +86,7 @@ export function Quest() {
       {core.ws.ui.showMenu && <OptionsModal />}
       {core.ws.ui.showErrorModal && <ErrorModal />}
       {core.ws.editor.showResizeWorld && <ResizeWorldModal />}
+      {core.ws.editor.showShareModal && <ShareModal />}
     </>
   )
 }

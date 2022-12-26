@@ -65,6 +65,7 @@ export function createWorkspaceState(): WorkspaceState {
       showQuestPreview: false,
       editWorld: null,
       showResizeWorld: false,
+      showShareModal: false,
     },
   }
   return ws
