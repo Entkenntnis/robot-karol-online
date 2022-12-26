@@ -63,6 +63,7 @@ export async function initClient(core: Core) {
       ui.editorLoading = true
       ui.showQuestOverview = false
     })
+    submit_event(`start_custom_quest_${hash.substring(1)}`, core)
     await loadQuest(core, hash.substring(1))
     core.mutateWs(({ ui }) => {
       ui.clientInitDone = true

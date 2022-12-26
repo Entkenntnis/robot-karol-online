@@ -22,7 +22,7 @@ export async function loadQuest(core: Core, id: string) {
       throw 'bad format'
     }
     deserializeQuest(core, obj)
-    submit_event(`load_quest_${id}`, core)
+    submit_event(`load_custom_quest_${id}`, core)
   } catch (e) {
     alert(e)
   }

@@ -478,4 +478,52 @@ export const questData: { [key: number]: QuestData } = {
     ...deserlizeQuestToData(require('./quests/7.json')),
     difficulty: 'einfach',
   },
+
+  8: {
+    ...deserlizeQuestToData(require('./quests/6.json')),
+    title: 'Quest 8',
+    difficulty: 'mittel',
+  },
+
+  9: {
+    ...deserlizeQuestToData(require('./quests/6.json')),
+    title: 'Quest 9',
+    difficulty: 'mittel',
+  },
+
+  10: {
+    ...deserlizeQuestToData(require('./quests/6.json')),
+    title: 'Quest 10',
+    difficulty: 'einfach',
+  },
+
+  11: {
+    ...deserlizeQuestToData(require('./quests/6.json')),
+    title: 'Quest 11',
+    difficulty: 'einfach',
+  },
+
+  12: {
+    ...deserlizeQuestToData(require('./quests/6.json')),
+    title: 'Quest 12',
+    difficulty: 'mittel',
+  },
+
+  13: {
+    ...deserlizeQuestToData(require('./quests/6.json')),
+    title: 'Quest 13',
+    difficulty: 'schwer',
+  },
+
+  14: {
+    ...deserlizeQuestToData(require('./quests/6.json')),
+    title: 'Quest 14',
+    difficulty: 'einfach',
+  },
+
+  15: {
+    ...deserlizeQuestToData(require('./quests/6.json')),
+    title: 'Quest 15',
+    difficulty: 'schwer',
+  },
 }
