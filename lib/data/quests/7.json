@@ -1,14 +1,14 @@
 {
   "version": "v1",
-  "title": "Titel der Aufgabe",
-  "description": "Beschreibe, um was es bei der Aufgabe geht ...",
+  "title": "Buchstabe",
+  "description": "Karol kann nicht sprechen, aber sie kann Buchstaben zeichnen und damit kommunizeren.\n\nSetze mit Marken den Buchstaben A.",
   "tasks": [
     {
-      "title": "Neuer Auftrag",
+      "title": "A",
       "start": {
         "dimX": 6,
-        "dimY": 4,
-        "height": 6,
+        "dimY": 7,
+        "height": 4,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
           "offsetX": -1,
@@ -34,15 +34,21 @@
       },
       "target": {
         "dimX": 6,
-        "dimY": 4,
-        "height": 6,
+        "dimY": 7,
+        "height": 4,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 4,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 1, 1, 0],
+            [1, 0, 0, 1],
+            [1, 1, 1, 1],
+            [1, 0, 0, 1],
+            [1, 0, 0, 1]
+          ]
         },
         "marks": {
           "offsetX": -1,

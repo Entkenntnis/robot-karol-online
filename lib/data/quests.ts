@@ -5,7 +5,7 @@ export const questData: { [key: number]: QuestData } = {
   1: {
     title: 'Start',
     description: `
-      Herzlich Willkommen bei Robot Karol Online.
+      Herzlich Willkommen bei Robot Karol Online!
       Das ist dein Einstieg in die spannende Welt der Algorithmen.
       Es warten viele Herausforderungen auf dich, die dein logisches Denken und deine Kreativität unter Beweis stellen.
       
@@ -574,7 +574,12 @@ export const questData: { [key: number]: QuestData } = {
   },
 
   6: {
-    ...deserlizeQuestToData(require('./quests/test.json')),
+    ...deserlizeQuestToData(require('./quests/6.json')),
+    difficulty: 'einfach',
+  },
+
+  7: {
+    ...deserlizeQuestToData(require('./quests/7.json')),
     difficulty: 'einfach',
   },
 }

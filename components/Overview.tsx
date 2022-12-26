@@ -68,8 +68,8 @@ export function Overview() {
       {isQuestDone(1) &&
         !sessionStorage.getItem('robot_karol_online_hide_save_message') && (
           <div className="text-sm text-right mr-4 mt-1 mb-3 text-gray-600">
-            Beim Schließen des Fensters wird dein Fortschritt zurückgesetzt.
-            Eine Speicherfunktion ist in Arbeit.{' '}
+            Beim Schließen des Tabs wird dein Fortschritt zurückgesetzt. Eine
+            Speicherfunktion ist in Arbeit.{' '}
             <button
               onClick={() => {
                 sessionStorage.setItem(
