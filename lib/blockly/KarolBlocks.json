@@ -7,7 +7,8 @@
         "type": "field_number",
         "name": "COUNT",
         "value": 1,
-        "min": 0
+        "min": 1,
+        "precision": 1
       }
     ],
     "colour": 260,
@@ -42,7 +43,9 @@
         "type": "field_number",
         "name": "COUNT",
         "value": 1,
-        "min": 0
+        "min": 1,
+        "max": 10,
+        "precision": 1
       }
     ],
     "colour": 260,
@@ -83,7 +86,9 @@
         "type": "field_number",
         "name": "COUNT",
         "value": 1,
-        "min": 0
+        "min": 1,
+        "max": 10,
+        "precision": 1
       }
     ],
     "colour": 260,
@@ -153,7 +158,8 @@
         "type": "field_number",
         "name": "COUNT",
         "value": 10,
-        "min": 0
+        "min": 0,
+        "precision": 1
       },
       {
         "type": "input_dummy"
@@ -304,7 +310,7 @@
   {
     "type": "is_wall",
     "message0": "IstWand",
-    "output": "Boolean",
+    "output": null,
     "colour": 210,
     "tooltip": "Karol testet, ob vor ihr eine Wand (oder ein Quader) ist",
     "helpUrl": ""
@@ -330,9 +336,12 @@
     "message0": "IstZiegel %1",
     "args0": [
       {
-        "type": "field_input",
+        "type": "field_number",
         "name": "COUNT",
-        "text": "2"
+        "value": 2,
+        "min": 1,
+        "max": 10,
+        "precision": 1
       }
     ],
     "output": null,
@@ -374,9 +383,12 @@
     "message0": "NichtIstZiegel %1",
     "args0": [
       {
-        "type": "field_input",
+        "type": "field_number",
         "name": "COUNT",
-        "text": "2"
+        "value": 2,
+        "min": 1,
+        "max": 10,
+        "precision": 1
       }
     ],
     "output": null,

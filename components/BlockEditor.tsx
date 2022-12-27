@@ -71,6 +71,7 @@ export function BlockEditor() {
         drag: true,
         wheel: true,
       },
+      media: '/blockly_media/',
     })
 
     blocklyWorkspaceSvg.current = blocklyWorkspace

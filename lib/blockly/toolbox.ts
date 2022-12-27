@@ -1,25 +1,10 @@
 export const KAROL_TOOLBOX = {
   kind: 'flyoutToolbox',
   contents: [
+    { kind: 'block', type: 'line_comment' },
     {
       kind: 'block',
-      type: 'step',
-    },
-    {
-      kind: 'block',
-      type: 'turnleft',
-    },
-    {
-      kind: 'block',
-      type: 'turnright',
-    },
-    {
-      kind: 'block',
-      type: 'laydown',
-    },
-    {
-      kind: 'block',
-      type: 'pickup',
+      type: 'stop',
     },
     {
       kind: 'block',
@@ -31,9 +16,24 @@ export const KAROL_TOOLBOX = {
     },
     {
       kind: 'block',
-      type: 'stop',
+      type: 'turnleft',
     },
-    { kind: 'block', type: 'line_comment' },
+    {
+      kind: 'block',
+      type: 'turnright',
+    },
+    {
+      kind: 'block',
+      type: 'step',
+    },
+    {
+      kind: 'block',
+      type: 'laydown',
+    },
+    {
+      kind: 'block',
+      type: 'pickup',
+    },
     {
       kind: 'block',
       type: 'repeat_times',
