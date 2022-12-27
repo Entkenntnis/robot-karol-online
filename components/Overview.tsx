@@ -31,7 +31,7 @@ export function Overview() {
   const core = useCore()
 
   return (
-    <div className="bg-yellow-200 flex flex-col relative min-h-screen">
+    <div className="bg-yellow-200 flex flex-col relative min-h-full">
       <div className="flex justify-center">
         <div
           className={clsx(

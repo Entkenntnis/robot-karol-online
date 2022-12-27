@@ -96,6 +96,7 @@ export function startQuest(core: Core, id: number) {
     ui.isAlreadyCompleted = false
     ws.ui.isTesting = false
     ws.ui.controlBarShowFinishQuest = false
+    ws.ui.taskScroll = 0
   })
   submit_event(`start_quest_${id}`, core)
   const sessionData = getQuestSessionData(id)

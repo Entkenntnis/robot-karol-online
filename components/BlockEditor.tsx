@@ -1,10 +1,9 @@
 import Blockly, { WorkspaceSvg } from 'blockly'
 import { useRef, useState, useEffect } from 'react'
 import { Text } from '@codemirror/state'
-
-// @ts-ignore
 import De from 'blockly/msg/de'
 
+import '../lib/blockly/FieldNumberSlider'
 import { codeToXml } from '../lib/blockly/codeToXml'
 import { initCustomBlocks } from '../lib/blockly/customBlocks'
 import { KAROL_TOOLBOX } from '../lib/blockly/toolbox'
