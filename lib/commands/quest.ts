@@ -81,7 +81,7 @@ export function endTaskWaiting(core: Core) {
 
 export function startQuest(core: Core, id: number) {
   const data = questData[id]
-  console.log(data)
+
   core.mutateWs((ws) => {
     const { ui, quest } = ws
     ui.showOutput = false

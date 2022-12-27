@@ -46,6 +46,7 @@ export class FieldSlider extends Blockly.FieldNumber {
   private sliderInput: HTMLInputElement | null = null
 
   private offset = 0
+  private useOffset = false
 
   private displaySpan: HTMLSpanElement | null = null
 
@@ -151,7 +152,7 @@ export class FieldSlider extends Blockly.FieldNumber {
 
     const sliderInput = document.createElement('input')
     sliderInput.setAttribute('type', 'range')
-    sliderInput.setAttribute('min', `${this.min_}`)
+    sliderInput.setAttribute('min', `${this.max_ == Infinity ? 1 : this.min_}`)
     sliderInput.setAttribute('max', `${this.max_ == Infinity ? 10 : this.max_}`)
     sliderInput.setAttribute('step', `${this.precision_}`)
     sliderInput.setAttribute('value', this.getValue())
@@ -170,6 +171,7 @@ export class FieldSlider extends Blockly.FieldNumber {
     )
 
     if (this.max_ == Infinity) {
+      this.useOffset = true
       const outerWrapper = document.createElement('div')
       outerWrapper.appendChild(wrapper)
 
@@ -242,6 +244,13 @@ export class FieldSlider extends Blockly.FieldNumber {
   private updateSlider_() {
     if (!this.sliderInput || !this.displaySpan) {
       return
+    }
+    if (this.useOffset) {
+      const expectedOffset = Math.floor((this.getValue() - 1) / 10) * 10
+
+      if (expectedOffset != this.offset) {
+        this.offset = Math.max(0, expectedOffset)
+      }
     }
     this.sliderInput.setAttribute('value', `${this.getValue() - this.offset}`)
     this.displaySpan.innerHTML = `${this.offset + 1} - ${this.offset + 10}`

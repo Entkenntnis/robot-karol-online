@@ -237,7 +237,7 @@ export function Tasks() {
                   // for debugging
                   const obj = serializeQuest(core)
                   const json = JSON.stringify(obj)
-                  console.log('output size', json.length, json)
+                  // console.log('output size', json.length, json)
                 }}
               >
                 <FaIcon icon={faShareNodes} className="mr-2" />
