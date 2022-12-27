@@ -65,7 +65,10 @@ export function Output() {
             </button>
           )}
       </div>
-      {core.ws.ui.isTesting && <TaskRunnerOverview />}
+      <div className="max-h-[30%] flex-grow flex-shrink-0 overflow-auto">
+        {' '}
+        {core.ws.ui.isTesting && <TaskRunnerOverview />}
+      </div>
     </div>
   )
 }
