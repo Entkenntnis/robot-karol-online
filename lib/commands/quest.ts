@@ -14,6 +14,7 @@ export function runTask(core: Core, index: number) {
     ws.world = task.start
     ws.ui.showOutput = true
     ws.quest.lastStartedTask = index
+    ws.quest.progress = false
   })
   if (core.ws.ui.state == 'ready') {
     if (core.view?.current) {
