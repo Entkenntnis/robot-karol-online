@@ -10,9 +10,20 @@ expression {
   Return
 }
 
-Return {
-  @specialize<idx, "return"> |
-  @specialize<idx, "Return">
+@external specialize {idx} keywords from "./keywords" {
+  Return,
+  RepeatStart[closedBy="RepeatEnd"],
+  RepeatEnd,
+  RepeatWhileKey,
+  RepeatTimesKey,
+  RepeatAlwaysKey,
+  IfKey[closedBy="IfEndKey"],
+  ThenKey,
+  IfEndKey,
+  ElseKey,
+  CmdStart[closedBy="CmdEnd"],
+  CmdEnd,
+  KarolPrefix
 }
 
 Command {
@@ -51,34 +62,6 @@ commandPure {
 
 Repeat {
   RepeatStart ((RepeatWhileKey Condition) | (Times RepeatTimesKey) | RepeatAlwaysKey) expression* RepeatEnd
-}
-
-RepeatStart[closedBy="RepeatEnd"] {
-  @specialize<idx, "wiederhole"> | 
-  @specialize<idx, "Wiederhole">
-}
-
-RepeatEnd {
-  @specialize<idx, "endewiederhole"> |
-  @specialize<idx, "endeWiederhole"> |
-  @specialize<idx, "EndeWiederhole"> |
-  @specialize<idx, "EndeWiederhole"> |
-  legacyRepeatEnd
-}
-
-RepeatWhileKey {
-  @specialize<idx, "solange"> |
-  @specialize<idx, "Solange">
-}
-
-RepeatTimesKey {
-  @specialize<idx, "mal"> |
-  @specialize<idx, "Mal">
-}
-
-RepeatAlwaysKey {
-  @specialize<idx, "immer"> |
-  @specialize<idx, "Immer">
 }
 
 Parameter {
@@ -131,29 +114,6 @@ IfThen {
   IfKey Condition ThenKey expression* (ElseKey expression*)? IfEndKey
 }
 
-IfKey[closedBy="IfEndKey"] {
-  @specialize<idx, "wenn"> |
-  @specialize<idx, "Wenn">
-}
-
-ThenKey { 
-  @specialize<idx, "dann"> |
-  @specialize<idx, "Dann">
-}
-
-IfEndKey {
-  @specialize<idx, "endewenn"> |
-  @specialize<idx, "endeWenn"> |
-  @specialize<idx, "Endewenn"> |
-  @specialize<idx, "EndeWenn"> |
-  legacyIfEndKey
-}
-
-ElseKey {
-  @specialize<idx, "sonst"> |
-  @specialize<idx, "Sonst">
-}
-
 Cmd {
   CmdStart CmdName expression* CmdEnd
 }
@@ -162,37 +122,14 @@ CmdName {
   idx
 }
 
-CmdStart[closedBy="CmdEnd"] { 
-  @specialize<idx, "Anweisung"> | 
-  @specialize<idx, "anweisung"> 
-}
-
-CmdEnd { 
-  @specialize<idx, "endeAnweisung"> | 
-  @specialize<idx, "endeanweisung"> | 
-  @specialize<idx, "EndeAnweisung"> | 
-  @specialize<idx, "Endeanweisung"> | 
-  legacyCmdEnd 
-}
-
 CustomRef { idx }
 
 @tokens {
-  legacyRepeatEnd { "*wiederhole" | "*Wiederhole" }
-
-  legacyIfEndKey { "*wenn" | "*Wenn" }
-
-  legacyCmdEnd { "*anweisung" | "*Anweisung" }
-
-  KarolPrefix { "karol" | "Karol" }
-
   "."
 
   openPar { "(" }
 
   closePar { ")" }
-
-  @precedence { KarolPrefix, idx}
 
   whitespace { $[ \n\r\t]+ }
 

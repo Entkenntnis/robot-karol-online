@@ -76,11 +76,11 @@ const parserWithMetadata = parser.configure({
       Return: t.keyword,
     }),
     indentNodeProp.add({
-      Repeat: continuedIndent({ except: /^\s*(ende|\*)(w|W)iederhole(\s|$)/ }),
+      Repeat: continuedIndent({ except: /^\s*(ende|\*)wiederhole(\s|$)/i }),
       IfThen: continuedIndent({
-        except: /^\s*(((ende|\*)(w|W)enn)|sonst)(\s|$)/,
+        except: /^\s*(((ende|\*)wenn)|sonst)(\s|$)/i,
       }),
-      Cmd: continuedIndent({ except: /^\s*(ende|\*)(a|A)nweisung(\s|$)/ }),
+      Cmd: continuedIndent({ except: /^\s*(ende|\*)anweisung(\s|$)/i }),
     }),
   ],
 })
@@ -88,8 +88,7 @@ const parserWithMetadata = parser.configure({
 const exampleLanguage = LRLanguage.define({
   parser: parserWithMetadata,
   languageData: {
-    indentOnInput:
-      /^\s*((ende|\*)((w|W)iederhole|(w|W)enn|(a|A)nweisung))|sonst/,
+    indentOnInput: /^\s*((ende|\*)(wiederhole|wenn|anweisung))|sonst/i,
     autocomplete: buildMyAutocomplete(),
   },
 })
