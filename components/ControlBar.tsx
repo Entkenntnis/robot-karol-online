@@ -183,14 +183,18 @@ export function ControlBar() {
           )
         }
         return (
-          <>
+          <span
+            className={clsx(
+              core.ws.quest.progress ? 'text-green-600' : 'text-red-600'
+            )}
+          >
             <FaIcon
               icon={core.ws.quest.progress ? faCheck : faTimes}
               className="mr-1"
             />{' '}
             Auftrag {core.ws.quest.progress ? '' : 'nicht'} erfüllt{' '}
             {core.ws.ui.isManualAbort ? ' (abgebrochen)' : ''}
-          </>
+          </span>
         )
       }
       return (

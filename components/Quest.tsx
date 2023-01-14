@@ -96,7 +96,7 @@ export function Quest() {
                 {core.ws.ui.isAlreadyCompleted && (
                   <p className="mb-3">
                     <button
-                      className="px-2 py-0.5 bg-gray-300 rounded"
+                      className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded"
                       onClick={() => {
                         editCodeAndResetProgress(core)
                       }}

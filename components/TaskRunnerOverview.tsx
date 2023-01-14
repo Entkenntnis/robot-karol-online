@@ -6,6 +6,7 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import { createRef, useEffect } from 'react'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
 
@@ -14,12 +15,23 @@ export function TaskRunnerOverview() {
 
   const currentIndex = core.ws.quest.lastStartedTask!
 
+  const currentTask = createRef<HTMLDivElement>()
+
+  useEffect(() => {
+    if (currentTask.current) currentTask.current.scrollIntoView()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex])
+
   return (
     <div className="px-5 pb-3 pt-2 bg-gray-100">
       <div className="ml-9 mb-3">Aufträge:</div>
       {core.ws.quest.tasks.map((task, index) => {
         return (
-          <div key={index} className="my-1.5">
+          <div
+            key={index}
+            className="my-1.5"
+            ref={index == currentIndex ? currentTask : undefined}
+          >
             <span className="w-9 inline-block pl-2">
               {(() => {
                 if (index < currentIndex) {
