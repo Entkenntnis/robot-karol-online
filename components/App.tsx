@@ -22,7 +22,7 @@ export function App() {
           content="Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung."
         />
       </Head>
-      <div className="w-full h-full min-w-[900px] overflow-auto">
+      <div className="w-full h-full overflow-auto">
         {core.ws.ui.clientInitDone &&
           (core.ws.ui.showQuestOverview ? <Overview /> : <Quest />)}
       </div>

@@ -1,0 +1,1419 @@
+{
+  "version": "v1",
+  "title": "Taschenrechner",
+  "description": "Robot Karol soll rechnen.",
+  "tasks": [
+    {
+      "title": "2 + 4 = 6",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 6,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, true, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 6,
+          "offsetX": 1,
+          "offsetY": 4,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, true, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "7 - 4 = 3",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 1,
+          "offsetY": 3,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 13, "y": 8, "dir": "west" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 7,
+          "offsetX": 1,
+          "offsetY": 3,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "3 * 2 = 6",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 7,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, true, true, true],
+            [true, false, false, false, false, false, false, false],
+            [false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 6,
+          "offsetX": 1,
+          "offsetY": 4,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, true, true, true],
+            [true, false, false, false, false, false, false, false],
+            [false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "9 : 3 = 3",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 9,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [true, false, false, false, false, true, true, true],
+            [false, false, false, false, false, false, false, false],
+            [true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 13, "y": 8, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 9,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [true, false, false, false, false, true, true, true],
+            [false, false, false, false, false, false, false, false],
+            [true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Addition 1",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 6,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, true, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 13, "y": 3, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 8,
+          "offsetX": 1,
+          "offsetY": 2,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, true, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Addition 2",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 8,
+          "offsetX": 1,
+          "offsetY": 2,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, true, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 13, "y": 2, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 9,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, true, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Addition 3",
+      "start": {
+        "dimX": 15,
+        "dimY": 30,
+        "height": 6,
+        "karol": { "x": 0, "y": 29, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 15,
+          "offsetX": 1,
+          "offsetY": 15,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 27,
+          "data": [
+            [false, true, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 30,
+        "height": 6,
+        "karol": { "x": 13, "y": 5, "dir": "south" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 29,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 27,
+          "data": [
+            [false, true, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Subtraktion 1",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 6,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 12, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 6,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Subtraktion 2",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 9,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 13, "y": 5, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 9,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Subtraktion 3",
+      "start": {
+        "dimX": 15,
+        "dimY": 30,
+        "height": 6,
+        "karol": { "x": 0, "y": 29, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 29,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 27,
+          "data": [
+            [false, false, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 30,
+        "height": 6,
+        "karol": { "x": 13, "y": 11, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 29,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 3,
+          "offsetX": 3,
+          "offsetY": 27,
+          "data": [
+            [false, false, false, false, false, false, true, true, true],
+            [true, true, true, false, false, false, false, false, false],
+            [false, false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Multiplikation 1",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 6,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, true, true, true],
+            [true, false, false, false, false, false, false, false],
+            [false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 13, "y": 3, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 8,
+          "offsetX": 1,
+          "offsetY": 2,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, true, true, true],
+            [true, false, false, false, false, false, false, false],
+            [false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Multiplikation 2",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 1,
+          "offsetY": 3,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, true, true, true],
+            [true, false, false, false, false, false, false, false],
+            [false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 13, "y": 4, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 7,
+          "offsetX": 1,
+          "offsetY": 3,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [false, false, false, false, false, true, true, true],
+            [true, false, false, false, false, false, false, false],
+            [false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Multiplikation 3",
+      "start": {
+        "dimX": 15,
+        "dimY": 26,
+        "height": 6,
+        "karol": { "x": 0, "y": 25, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 21,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 23,
+          "data": [
+            [false, false, false, false, false, true, true, true],
+            [true, false, false, false, false, false, false, false],
+            [false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 26,
+        "height": 6,
+        "karol": { "x": 13, "y": 2, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 25,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 23,
+          "data": [
+            [false, false, false, false, false, true, true, true],
+            [true, false, false, false, false, false, false, false],
+            [false, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Division 1",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 8,
+          "offsetX": 1,
+          "offsetY": 2,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [true, false, false, false, false, true, true, true],
+            [false, false, false, false, false, false, false, false],
+            [true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 13, "y": 9, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 8,
+          "offsetX": 1,
+          "offsetY": 2,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [true, false, false, false, false, true, true, true],
+            [false, false, false, false, false, false, false, false],
+            [true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Division 2",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 9, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 6,
+          "offsetX": 1,
+          "offsetY": 4,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [true, false, false, false, false, true, true, true],
+            [false, false, false, false, false, false, false, false],
+            [true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 13, "y": 9, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 6,
+          "offsetX": 1,
+          "offsetY": 4,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 7,
+          "data": [
+            [true, false, false, false, false, true, true, true],
+            [false, false, false, false, false, false, false, false],
+            [true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test Division 3",
+      "start": {
+        "dimX": 15,
+        "dimY": 25,
+        "height": 6,
+        "karol": { "x": 0, "y": 24, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 24,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 22,
+          "data": [
+            [true, false, false, false, false, true, true, true],
+            [false, false, false, false, false, false, false, false],
+            [true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 25,
+        "height": 6,
+        "karol": { "x": 13, "y": 22, "dir": "north" },
+        "bricks": {
+          "dimX": 13,
+          "dimY": 24,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 8,
+          "dimY": 3,
+          "offsetX": 4,
+          "offsetY": 22,
+          "data": [
+            [true, false, false, false, false, true, true, true],
+            [false, false, false, false, false, false, false, false],
+            [true, false, false, false, false, true, true, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

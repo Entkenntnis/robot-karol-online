@@ -247,6 +247,7 @@ export function Tasks() {
                 <button
                   className="ml-2"
                   onClick={() => {
+                    console.log(JSON.stringify(serializeQuest(core)))
                     alert(JSON.stringify(serializeQuest(core)))
                   }}
                 >
@@ -272,7 +273,7 @@ export function Tasks() {
             )
           )}
         </div>
-        <div className="flex-grow-0 flex-shrink-0">
+        <div className="flex-grow-0 flex-shrink-0 hidden">
           <button
             className="mx-2 mt-1 bg-gray-200 hover:bg-gray-300 px-2 rounded"
             onClick={() => {

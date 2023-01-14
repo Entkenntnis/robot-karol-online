@@ -65,7 +65,7 @@ export function BlockEditor() {
         colour: '#ccc',
       },
       scrollbars: true,
-      trashcan: true,
+      trashcan: false,
       move: {
         drag: true,
         wheel: true,

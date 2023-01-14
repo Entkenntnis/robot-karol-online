@@ -4,7 +4,6 @@ import {
   faArrowRight,
   faArrowTurnUp,
   faCircleExclamation,
-  faExclamationTriangle,
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
@@ -16,7 +15,6 @@ import { FaIcon } from './FaIcon'
 import { Editor } from './Editor'
 import { textRefreshDone } from '../lib/commands/json'
 import { BlockEditor } from './BlockEditor'
-import { showErrorModal } from '../lib/commands/mode'
 
 export function EditArea() {
   const core = useCore()
@@ -57,7 +55,7 @@ export function EditArea() {
 
   if (core.ws.settings.mode == 'code') {
     return (
-      <div className="h-full flex flex-col">
+      <div className="h-full flex flex-col overflow-y-auto">
         {renderEditor()}
         {core.ws.ui.state == 'error' && (
           <div className="w-full overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
@@ -89,7 +87,7 @@ export function EditArea() {
   // TODO for later stage: readd text editor
   function renderEditor() {
     return (
-      <div className="flex h-full overflow-y-auto relative">
+      <div className="flex h-full overflow-y-auto relative flex-shrink">
         <div className="w-full overflow-auto h-full flex">
           {codeState == 'running' || core.ws.ui.karolCrashMessage ? (
             <div

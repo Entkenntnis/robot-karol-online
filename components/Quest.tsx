@@ -1,9 +1,8 @@
-import { faGears, faPencil } from '@fortawesome/free-solid-svg-icons'
+import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
-import { editCodeAndResetProgress } from '../lib/commands/mode'
-import { execPreviewForAll } from '../lib/commands/preview'
 
+import { editCodeAndResetProgress, setMode } from '../lib/commands/mode'
 import { useCore } from '../lib/state/core'
 import { EditArea } from './EditArea'
 import { ErrorModal } from './ErrorModal'
@@ -24,14 +23,53 @@ export function Quest() {
       <ReflexContainer orientation="vertical" windowResizeAware>
         <ReflexElement
           className="h-full !overflow-hidden relative"
-          minSize={500}
+          minSize={0}
           onResize={() => {
             if (core.blockyResize) {
               core.blockyResize()
             }
           }}
         >
-          <EditArea />
+          <div className="h-full flex flex-col">
+            <div className="flex-none h-8 bg-gray-50 flex justify-start items-start">
+              <button
+                className={clsx(
+                  'ml-4 mr-6 border-t-4',
+                  core.ws.settings.mode == 'blocks'
+                    ? 'border-t-blue-500'
+                    : 'border-t-transparent'
+                )}
+                onClick={() => {
+                  setMode(core, 'blocks')
+                }}
+              >
+                Block-Editor
+              </button>
+              <button
+                className={clsx(
+                  'border-t-4',
+                  core.ws.settings.mode == 'code'
+                    ? 'border-t-blue-500'
+                    : 'border-t-transparent'
+                )}
+                onClick={() => {
+                  setMode(core, 'code')
+                }}
+              >
+                Text-Editor
+              </button>
+              {window.location.hostname == 'localhost' &&
+                !core.ws.ui.isEditor && (
+                  <a
+                    href={`/?editor=1&quest=${core.ws.quest.id}`}
+                    className="underline text-gray-300 hover:text-gray-400 ml-8 mt-1"
+                  >
+                    in Aufgaben-Editor öffnen
+                  </a>
+                )}
+            </div>
+            <EditArea />
+          </div>
           {(core.ws.ui.isTesting || core.ws.ui.isAlreadyCompleted) && (
             <div className="absolute inset-0 bg-gray-700/20 z-[100]">
               <div
@@ -67,11 +105,11 @@ export function Quest() {
         </ReflexElement>
 
         <ReflexSplitter
-          style={{ width: 4 }}
+          style={{ width: 6 }}
           className="!bg-gray-300 !border-0 hover:!bg-blue-400 active:!bg-blue-400"
         />
 
-        <ReflexElement minSize={400}>
+        <ReflexElement minSize={0}>
           {core.ws.ui.showOutput ? (
             <Output />
           ) : core.ws.ui.showStructogram ? (
