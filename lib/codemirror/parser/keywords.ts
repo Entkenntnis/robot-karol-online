@@ -1,6 +1,9 @@
 import {
   CmdEnd,
   CmdStart,
+  CommandWithParameter,
+  ConditionMaybeWithParam,
+  ConditionWithoutParam,
   ElseKey,
   IfEndKey,
   IfKey,
@@ -27,7 +30,20 @@ export function keywords(input: string) {
   if (/^(sonst)$/i.test(input)) return ElseKey
   if (/^(Anweisung)$/i.test(input)) return CmdStart
   if (/^((ende|\*)(Anweisung))$/i.test(input)) return CmdEnd
-  if (/^(karol)/i.test(input)) return KarolPrefix
+  if (/^(karol)$/i.test(input)) return KarolPrefix
+  if (
+    /^(istwand|nichtistwand|istmarke|nichtistmarke|istnorden|nichtistnorden)$/i.test(
+      input
+    )
+  )
+    return ConditionWithoutParam
+  if (/^(istziegel|nichtistziegel)$/i.test(input))
+    return ConditionMaybeWithParam
+  if (/^(schritt|hinlegen|aufheben)$/i.test(input)) return CommandWithParameter
+  if (
+    /^(markesetzen|markelöschen|linksdrehen|rechtsdrehen|beenden)$/i.test(input)
+  )
+    return CommandWithParameter
 
   return -1
 }

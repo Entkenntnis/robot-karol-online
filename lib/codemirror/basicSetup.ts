@@ -74,6 +74,10 @@ const parserWithMetadata = parser.configure({
       KarolPrefix: t.labelName,
       Parameter: t.strong,
       Return: t.keyword,
+      ConditionWithoutParam: t.className,
+      ConditionMaybeWithParam: t.className,
+      CommandWithParameter: t.atom,
+      CommandPure: t.atom,
     }),
     indentNodeProp.add({
       Repeat: continuedIndent({ except: /^\s*(ende|\*)wiederhole(\s|$)/i }),

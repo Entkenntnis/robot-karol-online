@@ -1,4 +1,8 @@
-import { faPencil } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCode,
+  faPencil,
+  faPuzzlePiece,
+} from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
@@ -31,40 +35,43 @@ export function Quest() {
           }}
         >
           <div className="h-full flex flex-col">
-            <div className="flex-none h-8 bg-gray-50 flex justify-start items-start">
+            <div className="flex-none h-8 bg-gray-50 flex justify-center items-start">
               <button
                 className={clsx(
-                  'ml-4 mr-6 border-t-4',
+                  'ml-4 mr-4 border-t-4 px-3 hover:bg-gray-200 pb-1',
                   core.ws.settings.mode == 'blocks'
                     ? 'border-t-blue-500'
-                    : 'border-t-transparent'
+                    : 'border-t-transparent hover:border-t-gray-300'
                 )}
                 onClick={() => {
                   setMode(core, 'blocks')
                 }}
               >
-                Block-Editor
+                <FaIcon icon={faPuzzlePiece} className="mr-3" />
+                Blöcke
               </button>
               <button
                 className={clsx(
-                  'border-t-4',
+                  'border-t-4 px-3 hover:bg-gray-200 pb-1',
                   core.ws.settings.mode == 'code'
                     ? 'border-t-blue-500'
-                    : 'border-t-transparent'
+                    : 'border-t-transparent hover:border-t-gray-300'
                 )}
                 onClick={() => {
                   setMode(core, 'code')
                 }}
               >
-                Text-Editor
+                <FaIcon icon={faCode} className="mr-3" />
+                Code
               </button>
-              {window.location.hostname == 'localhost' &&
+              {false &&
+                window.location.hostname == 'localhost' &&
                 !core.ws.ui.isEditor && (
                   <a
                     href={`/?editor=1&quest=${core.ws.quest.id}`}
                     className="underline text-gray-300 hover:text-gray-400 ml-8 mt-1"
                   >
-                    in Aufgaben-Editor öffnen
+                    Aufgabe überarbeiten
                   </a>
                 )}
             </div>

@@ -36,7 +36,9 @@ function parseTree(
       let count = ''
       let blockType = ''
       if (c.includes('(') && !c.includes('()')) {
-        cursor.next()
+        while (cursor.type.name !== 'Parameter') {
+          cursor.next()
+        }
         count = code.substring(cursor.from, cursor.to)
         //console.log(cursor.type.name, 'should be Parameter', count)
       }
@@ -131,7 +133,11 @@ function parseTree(
       const condition = code.substring(cursor.from, cursor.to)
       cursor.next()
 
-      if (cursor.node.name == 'Parameter') {
+      if (
+        cursor.node.name == 'Parameter' ||
+        cursor.node.name == 'ConditionWithoutParam' ||
+        cursor.node.name == 'ConditionMaybeWithParam'
+      ) {
         cursor.next()
       }
 

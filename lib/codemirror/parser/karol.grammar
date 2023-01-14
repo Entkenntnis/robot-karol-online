@@ -23,41 +23,15 @@ expression {
   ElseKey,
   CmdStart[closedBy="CmdEnd"],
   CmdEnd,
-  KarolPrefix
+  KarolPrefix,
+  ConditionWithoutParam,
+  ConditionMaybeWithParam,
+  CommandWithParameter
+  CommandPure
 }
 
 Command {
-  (KarolPrefix ".")? ((commandPure (openPar closePar)?) | (commandWithParameter (openPar Parameter? closePar)?))
-}
-
-commandWithParameter {
-  @specialize<idx, "Schritt"> |
-  @specialize<idx, "schritt"> |
-  @specialize<idx, "Hinlegen"> |
-  @specialize<idx, "hinlegen"> |
-  @specialize<idx, "Aufheben"> |
-  @specialize<idx, "aufheben">
-}
-
-commandPure {
-  @specialize<idx, "LinksDrehen"> |
-  @specialize<idx, "linksdrehen"> |
-  @specialize<idx, "linksDrehen"> |
-  @specialize<idx, "Linksdrehen"> |
-  @specialize<idx, "RechtsDrehen"> |
-  @specialize<idx, "rechtsdrehen"> |
-  @specialize<idx, "rechtsDrehen"> |
-  @specialize<idx, "Rechtsdrehen"> |
-  @specialize<idx, "MarkeSetzen"> |
-  @specialize<idx, "markesetzen"> |
-  @specialize<idx, "markeSetzen"> |
-  @specialize<idx, "Markesetzen"> |
-  @specialize<idx, "MarkeLöschen"> |
-  @specialize<idx, "markelöschen"> |
-  @specialize<idx, "markeLöschen"> |
-  @specialize<idx, "Markelöschen"> |
-  @specialize<idx, "Beenden"> |
-  @specialize<idx, "beenden">
+  (KarolPrefix ".")? ((CommandPure (openPar closePar)?) | (CommandWithParameter (openPar Parameter? closePar)?))
 }
 
 Repeat {
@@ -73,41 +47,9 @@ Times {
 }
 
 Condition {
-  @specialize<idx, "IstWand"> |
-  @specialize<idx, "istwand"> |
-  @specialize<idx, "Istwand"> |
-  @specialize<idx, "istWand"> |
-  @specialize<idx, "NichtIstWand"> |
-  @specialize<idx, "nichtistwand"> |
-  @specialize<idx, "Nichtistwand"> |
-  @specialize<idx, "IstZiegel"> |
-  @specialize<idx, "istziegel"> |
-  @specialize<idx, "istZiegel"> |
-  @specialize<idx, "Istziegel"> |
-  @specialize<idx, "NichtIstZiegel"> |
-  @specialize<idx, "nichtistziegel"> |
-  @specialize<idx, "Nichtistziegel"> |
-  @specialize<idx, "IstMarke"> |
-  @specialize<idx, "istmarke"> |
-  @specialize<idx, "istMarke"> |
-  @specialize<idx, "Istmarke"> |
-  @specialize<idx, "NichtIstMarke"> |
-  @specialize<idx, "nichtistmarke"> |
-  @specialize<idx, "Nichtistmarke"> |
-  @specialize<idx, "IstNorden"> |
-  @specialize<idx, "istnorden"> |
-  @specialize<idx, "istNorden"> |
-  @specialize<idx, "Istnorden"> |
-  @specialize<idx, "NichtIstNorden"> |
-  @specialize<idx, "nichtistnorden"> |
-  @specialize<idx, "Nichtistnorden"> |
-  (@specialize<idx, "IstZiegel"> openPar Parameter closePar) |
-  (@specialize<idx, "istziegel"> openPar Parameter closePar) |
-  (@specialize<idx, "istZiegel"> openPar Parameter closePar) |
-  (@specialize<idx, "Istziegel"> openPar Parameter closePar) |
-  (@specialize<idx, "NichtIstZiegel"> openPar Parameter closePar) |
-  (@specialize<idx, "nichtistziegel"> openPar Parameter closePar) |
-  (@specialize<idx, "Nichtistziegel"> openPar Parameter closePar)
+  ConditionWithoutParam |
+  ConditionMaybeWithParam |
+  (ConditionMaybeWithParam openPar Parameter closePar)
 }
 
 IfThen {

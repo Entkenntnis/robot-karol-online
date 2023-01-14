@@ -40,16 +40,7 @@ export function OptionsModal() {
           {core.ws.settings.mode == 'blocks' ? 'blockbasiert' : 'textbasiert'}
         </p>
         <p className="mx-4 mt-2">{renderSwitch()}</p>
-        {window.location.hostname == 'localhost' && (
-          <p className="mt-12 ml-4">
-            <a
-              href={`/?editor=1&quest=${core.ws.quest.id}`}
-              className="underline text-gray-700 hover:text-black"
-            >
-              in Editor öffnen
-            </a>
-          </p>
-        )}
+
         {/*!core.ws.ui.isTesting && (
           <p className="ml-4 mt-12">
             <button
