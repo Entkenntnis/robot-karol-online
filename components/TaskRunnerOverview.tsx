@@ -18,7 +18,8 @@ export function TaskRunnerOverview() {
   const currentTask = createRef<HTMLDivElement>()
 
   useEffect(() => {
-    if (currentTask.current) currentTask.current.scrollIntoView()
+    if (currentTask.current)
+      currentTask.current.scrollIntoView({ block: 'center' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex])
 
