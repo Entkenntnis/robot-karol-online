@@ -114,6 +114,9 @@ const Theme = EditorView.theme({
   '.cm-completionLabel': {
     fontFamily: 'Hack, monospace',
   },
+  '.cm-tooltip-autocomplete ul li[aria-selected]': {
+    background: '#17c !important',
+  },
 })
 
 export const editable = new Compartment()
@@ -352,12 +355,16 @@ function buildMyAutocomplete(): CompletionSource {
     } else if (lastEndedNode.name == 'Times') {
       options = [{ label: 'mal' }]
     } else if (
+      lastEndedNode.name == 'Condition' &&
+      lastEndedNode.parent?.name == 'IfThen'
+    ) {
+      options = [{ label: 'dann' }]
+    } else if (
       lastEndedNode.parent?.name == 'Condition' &&
       lastEndedNode.parent?.parent?.name == 'IfThen'
     ) {
       options = [{ label: 'dann' }]
     }
-
     if (options.some((x) => x.label == token?.text)) return null
 
     return token || context.explicit
