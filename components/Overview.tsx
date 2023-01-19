@@ -53,7 +53,7 @@ export function Overview() {
           <h1 className="text-5xl whitespace-nowrap">Robot Karol Online</h1>
         </div>
       </div>
-      <div className="flex justify-center mt-8">
+      <div className="flex justify-center mt-8 z-10">
         <a
           className="px-2 py-0.5 bg-green-400 hover:bg-green-500 rounded"
           href={

@@ -21,7 +21,7 @@ export function runTask(core: Core, index: number) {
       autoFormat(core.view.current)
       setEditable(core.view.current, false)
     }
-    if (!core.ws.ui.isTesting) {
+    if (!core.ws.ui.isTesting && !core.ws.ui.isEditor) {
       core.executionEndCallback = () => {
         if (
           core.ws.quest.tasks.length == 1 &&

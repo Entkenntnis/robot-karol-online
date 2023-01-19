@@ -224,7 +224,7 @@ export const basicSetup = (props: BasicSetupProps) => [
   EditorState.phrases.of(germanPhrases),
   editable.of(EditorView.editable.of(true)),
   exampleLanguage,
-  linter(props.l),
+  linter(props.l, { delay: 0 }),
   Theme,
   myHighlightPlugin,
   EditorView.lineWrapping,

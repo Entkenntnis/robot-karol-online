@@ -1,7 +1,7 @@
 {
   "version": "v1",
-  "title": "Mauer",
-  "description": "Lasse Karol eine Mauer mit 2 Ziegel Höhe bauen.",
+  "title": "Zaun",
+  "description": "Lasse Karol einen Zaun mit 2 Ziegel Höhe bauen.",
   "tasks": [
     {
       "title": "4 breit, 2 hoch",

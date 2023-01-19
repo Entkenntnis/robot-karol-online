@@ -1,15 +1,15 @@
 {
   "version": "v1",
-  "title": "Gerade Zahl",
-  "description": "Vor Karol liegen 0 - 3 Ziegel. Setze eine Marke, wenn eine gerade Anzahl liegt. Baue ansonsten den Stapel ab.",
+  "title": "Baue eine Mauer",
+  "description": "Aufgabenstellung: Karol soll eine Mauer mit der Länge und Breite von 4 Steinen bauen. Die Mauer soll 3 Steine hoch sein. Benutzte Wiederholungsschleifen.\n\nQuelle: #CZT4",
   "tasks": [
     {
-      "title": "Test mit 0",
+      "title": "Mauer",
       "start": {
-        "dimX": 4,
-        "dimY": 3,
+        "dimX": 6,
+        "dimY": 8,
         "height": 6,
-        "karol": { "x": 1, "y": 1, "dir": "east" },
+        "karol": { "x": 1, "y": 1, "dir": "south" },
         "bricks": {
           "offsetX": -1,
           "offsetY": -1,
@@ -33,187 +33,21 @@
         }
       },
       "target": {
-        "dimX": 4,
-        "dimY": 3,
+        "dimX": 6,
+        "dimY": 8,
         "height": 6,
-        "karol": { "x": 1, "y": 1, "dir": "east" },
+        "karol": { "x": 1, "y": 1, "dir": "south" },
         "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        },
-        "marks": {
-          "dimX": 1,
-          "dimY": 1,
+          "dimX": 4,
+          "dimY": 4,
           "offsetX": 1,
           "offsetY": 1,
-          "data": [[true]]
-        },
-        "blocks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        }
-      }
-    },
-    {
-      "title": "Test mit 1",
-      "start": {
-        "dimX": 4,
-        "dimY": 3,
-        "height": 6,
-        "karol": { "x": 1, "y": 1, "dir": "east" },
-        "bricks": {
-          "dimX": 1,
-          "dimY": 1,
-          "offsetX": 2,
-          "offsetY": 1,
-          "data": [[1]]
-        },
-        "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        },
-        "blocks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        }
-      },
-      "target": {
-        "dimX": 4,
-        "dimY": 3,
-        "height": 6,
-        "karol": { "x": 1, "y": 1, "dir": "east" },
-        "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        },
-        "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        },
-        "blocks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        }
-      }
-    },
-    {
-      "title": "Test mit 2",
-      "start": {
-        "dimX": 4,
-        "dimY": 3,
-        "height": 6,
-        "karol": { "x": 1, "y": 1, "dir": "east" },
-        "bricks": {
-          "dimX": 1,
-          "dimY": 1,
-          "offsetX": 2,
-          "offsetY": 1,
-          "data": [[2]]
-        },
-        "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        },
-        "blocks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        }
-      },
-      "target": {
-        "dimX": 4,
-        "dimY": 3,
-        "height": 6,
-        "karol": { "x": 1, "y": 1, "dir": "east" },
-        "bricks": {
-          "dimX": 1,
-          "dimY": 1,
-          "offsetX": 2,
-          "offsetY": 1,
-          "data": [[2]]
-        },
-        "marks": {
-          "dimX": 1,
-          "dimY": 1,
-          "offsetX": 1,
-          "offsetY": 1,
-          "data": [[true]]
-        },
-        "blocks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        }
-      }
-    },
-    {
-      "title": "Test mit 3",
-      "start": {
-        "dimX": 4,
-        "dimY": 3,
-        "height": 6,
-        "karol": { "x": 1, "y": 1, "dir": "east" },
-        "bricks": {
-          "dimX": 1,
-          "dimY": 1,
-          "offsetX": 2,
-          "offsetY": 1,
-          "data": [[3]]
-        },
-        "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        },
-        "blocks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
-        }
-      },
-      "target": {
-        "dimX": 4,
-        "dimY": 3,
-        "height": 6,
-        "karol": { "x": 1, "y": 1, "dir": "east" },
-        "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "data": [
+            [3, 3, 3, 3],
+            [3, 0, 0, 3],
+            [3, 0, 0, 3],
+            [3, 3, 3, 3]
+          ]
         },
         "marks": {
           "offsetX": -1,
