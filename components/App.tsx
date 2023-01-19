@@ -5,12 +5,16 @@ import { useCore } from '../lib/state/core'
 import { Quest } from './Quest'
 import { Overview } from './Overview'
 import { initClient } from '../lib/commands/init'
+import { questData } from '../lib/data/quests'
 
 export function App() {
   const core = useCore()
 
   useEffect(() => {
     initClient(core)
+    window.addEventListener('hashchange', () => {
+      window.location.reload()
+    })
   }, [core])
 
   return (

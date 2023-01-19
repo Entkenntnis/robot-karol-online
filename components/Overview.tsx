@@ -2,6 +2,8 @@ import {
   faCheck,
   faExternalLink,
   faPencil,
+  faPenToSquare,
+  faSeedling,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
@@ -9,12 +11,13 @@ import Link from 'next/link'
 
 import {
   editCodeAndResetProgress,
+  forceRerender,
   setShowImpressum,
   setShowPrivacy,
 } from '../lib/commands/mode'
 import { startQuest } from '../lib/commands/quest'
 import { questDeps } from '../lib/data/dependencies'
-import { overviewData } from '../lib/data/overview'
+import { categories } from '../lib/data/overview'
 import { questData } from '../lib/data/quests'
 import {
   getQuestSessionData,
@@ -50,20 +53,44 @@ export function Overview() {
           <h1 className="text-5xl whitespace-nowrap">Robot Karol Online</h1>
         </div>
       </div>
-      <div
-        className={clsx(
-          'flex-auto flex flex-col overflow-hidden',
-          'mx-12 lg:mx-16 xl:mx-24'
-        )}
-      >
-        <div
-          className={clsx(
-            'mt-6 mb-4 rounded-lg overflow-auto',
-            'flex flex-wrap'
-          )}
+      <div className="flex justify-center mt-8">
+        <a
+          className="px-2 py-0.5 bg-green-400 hover:bg-green-500 rounded"
+          href={
+            window.location.protocol +
+            '//' +
+            window.location.host +
+            '/?id=Z9xO1rVGj'
+          }
         >
-          {overviewData.map(renderQuest)}
-        </div>
+          <FaIcon icon={faSeedling} className="mr-1" />
+          Spielwiese
+        </a>{' '}
+        <a
+          href="/#editor"
+          className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded ml-8"
+        >
+          <FaIcon icon={faPenToSquare} className="mr-1" />
+          Aufgaben-Editor
+        </a>
+      </div>
+      <div className="mx-12 lg:mx-16 xl:mx-24 flex-auto overflow-hidden">
+        {categories.map(
+          (cat, i) =>
+            cat.quests.some(isQuestVisible) && (
+              <div key={i} className="my-8 mt-24">
+                <h2 className="ml-7 -mb-4 text-xl text-gray-700">{cat.name}</h2>
+                <div
+                  className={clsx(
+                    'mt-6 mb-4 rounded-lg overflow-auto',
+                    'flex flex-wrap'
+                  )}
+                >
+                  {cat.quests.map(renderQuest)}
+                </div>
+              </div>
+            )
+        )}
       </div>
       {isQuestDone(1) &&
         !sessionStorage.getItem('robot_karol_online_hide_save_message') && (
@@ -76,7 +103,7 @@ export function Overview() {
                   'robot_karol_online_hide_save_message',
                   '1'
                 )
-                editCodeAndResetProgress(core) // <- just a dummy to trigger re-render
+                forceRerender(core)
               }}
             >
               <FaIcon
@@ -87,6 +114,7 @@ export function Overview() {
           </div>
         )}
       <div className="text-center mb-2 mt-10">
+        Version: Januar 2023 |{' '}
         <button
           className="hover:underline"
           onClick={() => {
@@ -106,20 +134,8 @@ export function Overview() {
         </button>{' '}
         |{' '}
         {renderExternalLink(
-          'Quellcode',
-          'https://github.com/Entkenntnis/robot-karol-online'
-        )}{' '}
-        |{' '}
-        <a href="/?editor=1">
-          <span className="hover:underline">Aufgaben-Editor</span>
-        </a>{' '}
-        |{' '}
-        {renderExternalLink(
-          'Spielwiese',
-          window.location.protocol +
-            '//' +
-            window.location.host +
-            '/?id=Z9xO1rVGj'
+          'Infos',
+          'https://github.com/Entkenntnis/robot-karol-online#readme'
         )}
       </div>
       {core.ws.ui.showImpressum && <ImpressumModal />}
@@ -136,17 +152,21 @@ export function Overview() {
     )
   }
 
+  function isQuestVisible(id: number) {
+    return (
+      core.ws.ui.isDemo ||
+      questDeps[id].length == 0 ||
+      questDeps[id].some(isQuestDone)
+    )
+  }
+
   function renderQuest(index: number, i: number) {
     if (index == -1) {
       return <div className="basis-full h-8" key={`spacer_${i}`}></div>
     }
 
     // check for deps, empty deps -> always visible
-    if (
-      !core.ws.ui.isDemo &&
-      questDeps[index].length > 0 &&
-      !questDeps[index].some(isQuestDone)
-    ) {
+    if (!isQuestVisible(index)) {
       return null
     }
 
@@ -176,15 +196,15 @@ export function Overview() {
           </span>
         </div>
         <div className="text-gray-700 text-sml mt-2">
-          {data.difficulty}
+          &nbsp;
           {questDone && (
-            <span className="text-green-600 ml-2">
+            <span className="text-green-600">
               {' '}
               <FaIcon icon={faCheck} /> abgeschlossen
             </span>
           )}
           {isQuestStarted(index) && (
-            <span className="text-yellow-600 ml-2">
+            <span className="text-yellow-600">
               {' '}
               <FaIcon icon={faPencil} /> in Bearbeitung
             </span>

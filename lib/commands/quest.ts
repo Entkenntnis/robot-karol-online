@@ -21,6 +21,21 @@ export function runTask(core: Core, index: number) {
       autoFormat(core.view.current)
       setEditable(core.view.current, false)
     }
+    if (!core.ws.ui.isTesting) {
+      core.executionEndCallback = () => {
+        if (
+          core.ws.quest.tasks.length == 1 &&
+          core.ws.quest.progress &&
+          !core.ws.ui.karolCrashMessage &&
+          !core.ws.ui.isManualAbort
+        ) {
+          core.mutateWs((ws) => {
+            ws.ui.controlBarShowFinishQuest = true
+          })
+        }
+      }
+    }
+
     run(core)
   }
 }
@@ -99,7 +114,6 @@ export function startQuest(core: Core, id: number) {
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.taskScroll = 0
   })
-  submit_event(`start_quest_${id}`, core)
   const sessionData = getQuestSessionData(id)
   if (sessionData) restoreQuestFromSessionData(core, sessionData)
 }

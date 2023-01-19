@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Taschenrechner",
-  "description": "Robot Karol soll rechnen.",
+  "description": "Besuche https://de.serlo.org/264563 für eine ausführliche Anleitung.",
   "tasks": [
     {
       "title": "2 + 4 = 6",

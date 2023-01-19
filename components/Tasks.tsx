@@ -211,10 +211,8 @@ export function Tasks() {
               <a
                 className="px-2 py-0.5 rounded-lg bg-yellow-600 hover:bg-yellow-500 text-white font-bold"
                 href={window.location.protocol + '//' + window.location.host}
-                target="_blank"
-                rel="noreferrer"
               >
-                Robot Karol Online öffnen <FaIcon icon={faExternalLink} />
+                Robot Karol Online besuchen
               </a>
             </p>
           ) : core.ws.ui.isEditor ? (

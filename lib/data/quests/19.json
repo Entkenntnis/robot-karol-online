@@ -1,0 +1,497 @@
+{
+  "version": "v1",
+  "title": "Zusatzaufgabe",
+  "description": "Quelle: #UJRX",
+  "tasks": [
+    {
+      "title": "Welt 1",
+      "start": {
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 6,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, false, true],
+            [true, false, false, false, false, false],
+            [false, false, false, false, false, false],
+            [true, false, false, false, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "west" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Welt 2",
+      "start": {
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 6,
+          "dimY": 2,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [true, false, false, false, false, true],
+            [false, false, false, true, false, true]
+          ]
+        },
+        "blocks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [[true]]
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [[true]]
+        }
+      }
+    },
+    {
+      "title": "Welt 3",
+      "start": {
+        "dimX": 10,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 5,
+          "offsetX": 5,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 1],
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0],
+            [1, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [
+            [false, false, false, false, false, false, false, true, true],
+            [false, false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, true, false],
+            [true, false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, true, false],
+            [false, false, false, false, true, false, false, true, false]
+          ]
+        },
+        "blocks": {
+          "dimX": 10,
+          "dimY": 8,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 10,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 5, "dir": "west" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 5,
+          "offsetX": 5,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 1],
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0],
+            [1, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 10,
+          "dimY": 8,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "title": "Welt 4",
+      "start": {
+        "dimX": 10,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 9,
+          "dimY": 8,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [2, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 9,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [
+            [false, false, true, false, true, false, false, false, true],
+            [false, false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, false, false],
+            [true, false, false, false, true, false, false, false, false],
+            [false, false, false, false, false, false, false, false, false],
+            [false, false, false, false, false, false, false, false, false],
+            [false, false, false, false, true, false, false, false, false]
+          ]
+        },
+        "blocks": {
+          "dimX": 5,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, true],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [true, false, false, false, false]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 10,
+        "dimY": 10,
+        "height": 6,
+        "karol": { "x": 4, "y": 7, "dir": "south" },
+        "bricks": {
+          "dimX": 9,
+          "dimY": 8,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [2, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 5,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, true],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [true, false, false, false, false]
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 <a href="https://karol.arrrg.de/"><img src="https://user-images.githubusercontent.com/13507950/209194132-0ba11ff1-1ded-49e7-b556-912096d8eef0.png" alt="Robot Karol Quest"/></a>
 
-*Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung.*
+_Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung._
 
 ## Übersicht
 
@@ -16,11 +16,11 @@ Dem Programm Robot Karol liegt die Idee von [„Karel the Robot“](https://www.
 
 **Robot Karol Online** ([karol.arrrg.de](https://karol.arrrg.de/)) erweitert die bisherigen Implementationen von Robot Karol um einen blockbasierten Editor und einer eingebauten Aufgabensammlung. Damit werden die Einstiegshürden nochmal deutlich gesenkt: Für den Anfang muss man sich um Syntax-Fehler keine Sorgen machen und das beigefügte Tutorial und die Aufgaben bieten sofortiges Feedback für die ersten eigenen Programme. Auch die Installation von Software entfällt.
 
-Die einzelnen Aufgaben in der Aufgabensammmlung bestehen selbst aus einen oder mehreren Aufträgen, die mit *einem* Programm gelöst werden müssen. Bei jedem Auftrag geht es darum, eine vorgegebene Welt mit Karol nachzubauen - beziehungsweise das passende Programm dazu zu schreiben. Dadurch, dass alle Aufträge mit einem Programm gelöst werden, ist der Einsatz von Bedingungen unverzichtbar. Sobald ein Auftrag erledigt ist, wird das in Robot Karol Online markiert und macht den Fortschritt nachvollziehbar.
+Die einzelnen Aufgaben in der Aufgabensammmlung bestehen selbst aus einen oder mehreren Aufträgen, die mit _einem_ Programm gelöst werden müssen. Bei jedem Auftrag geht es darum, eine vorgegebene Welt mit Karol nachzubauen - beziehungsweise das passende Programm dazu zu schreiben. Dadurch, dass alle Aufträge mit einem Programm gelöst werden, ist der Einsatz von Bedingungen unverzichtbar. Sobald ein Auftrag erledigt ist, wird das in Robot Karol Online markiert und macht den Fortschritt nachvollziehbar.
 
 Die Aufgaben beginnen mit Tutorials, die die Grundlagen der Sprache vermitteln. Danach gibt es eine Reihe an einfachen und mittleren Aufgaben, um die Grundlagen einzuüben. Für ehrgeizige Spieler bieten dann die schweren Aufgaben eine ordentliche Herausforderung. Dabei kann außerdem in den textbasierten Editor gewechselt werden, der zusätzlich Möglichkeiten bietet, wie z.B. die Definition eigener Anweisugen.
 
-Erhalte eine Übersicht über alle enthaltenen Aufgaben: https://karol.arrrg.de/?demo=1
+Erhalte eine Übersicht über alle enthaltenen Aufgaben: https://karol.arrrg.de/#demo
 
 ## Sprache
 

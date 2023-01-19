@@ -64,6 +64,7 @@ export interface Ui {
   isEditor: boolean
   isDemo: boolean
   showCodeInfo: boolean
+  renderCounter: number
 }
 
 export interface Vm {

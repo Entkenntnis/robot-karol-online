@@ -1,3 +1,4 @@
+import { uiPosition } from 'blockly'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 
@@ -116,5 +117,11 @@ export function setShowStructogram(core: Core, val: boolean) {
 export function setShowCodeInfo(core: Core, val: boolean) {
   core.mutateWs(({ ui }) => {
     ui.showCodeInfo = val
+  })
+}
+
+export function forceRerender(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.renderCounter++
   })
 }

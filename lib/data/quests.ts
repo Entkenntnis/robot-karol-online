@@ -1,4 +1,4 @@
-import { deserializeQuest, deserlizeQuestToData } from '../commands/json'
+import { deserlizeQuestToData } from '../commands/json'
 import { QuestData } from '../state/types'
 
 export const questData: { [key: number]: QuestData } = {
@@ -471,56 +471,57 @@ export const questData: { [key: number]: QuestData } = {
 
   6: {
     ...deserlizeQuestToData(require('./quests/6.json')),
-    difficulty: 'einfach',
   },
 
   7: {
     ...deserlizeQuestToData(require('./quests/7.json')),
-    difficulty: 'einfach',
   },
 
   8: {
     ...deserlizeQuestToData(require('./quests/8.json')),
-    difficulty: 'einfach',
   },
 
   9: {
     ...deserlizeQuestToData(require('./quests/9.json')),
-    difficulty: 'mittel',
   },
 
   10: {
     ...deserlizeQuestToData(require('./quests/10.json')),
-    difficulty: 'einfach',
   },
 
   11: {
     ...deserlizeQuestToData(require('./quests/11.json')),
-    difficulty: 'einfach',
   },
 
   12: {
     ...deserlizeQuestToData(require('./quests/12.json')),
-    difficulty: 'mittel',
   },
 
   13: {
     ...deserlizeQuestToData(require('./quests/13.json')),
-    difficulty: 'schwer',
   },
 
   14: {
     ...deserlizeQuestToData(require('./quests/14.json')),
-    difficulty: 'einfach',
   },
 
   15: {
     ...deserlizeQuestToData(require('./quests/15.json')),
-    difficulty: 'schwer',
   },
 
   16: {
     ...deserlizeQuestToData(require('./quests/16.json')),
-    difficulty: 'Real World Programming',
+  },
+
+  17: {
+    ...deserlizeQuestToData(require('./quests/17.json')),
+  },
+
+  18: {
+    ...deserlizeQuestToData(require('./quests/18.json')),
+  },
+
+  19: {
+    ...deserlizeQuestToData(require('./quests/19.json')),
   },
 }

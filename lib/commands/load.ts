@@ -24,6 +24,8 @@ export async function loadQuest(core: Core, id: string) {
     deserializeQuest(core, obj)
     submit_event(`load_custom_quest_${id}`, core)
   } catch (e) {
-    alert(e)
+    alert('Unbekannte Aufgabe')
+    submit_event(`unknown_quest_${id}`, core)
+    window.location.href = '/'
   }
 }

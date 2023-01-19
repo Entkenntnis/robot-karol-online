@@ -42,7 +42,8 @@ export function createWorkspaceState(): WorkspaceState {
       controlBarShowFinishQuest: false,
       isEditor: false,
       isDemo: false,
-      showCodeInfo: true,
+      showCodeInfo: false,
+      renderCounter: 0,
     },
     vm: {
       pc: 0,

@@ -1,4 +1,5 @@
 import { backend } from '../../backend'
+import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { serializeQuest } from './json'
 
@@ -6,7 +7,9 @@ export async function share(core: Core) {
   // TODO: rewrite this method
   const obj = serializeQuest(core)
   const json = JSON.stringify(obj)
-  return await shareRequest(json)
+  const id = await shareRequest(json)
+  submit_event(`publish_custom_quest_${id}`, core)
+  return id
 }
 
 async function shareRequest(content: string) {

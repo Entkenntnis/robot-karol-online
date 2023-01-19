@@ -94,7 +94,6 @@ export function OptionsModal() {
             onClick={() => {
               setMode(core, 'code')
               closeMenu(core)
-              submit_event('text_editor', core)
             }}
           >
             zum Text-Editor wechseln

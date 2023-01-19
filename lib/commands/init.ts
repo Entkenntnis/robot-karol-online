@@ -27,15 +27,17 @@ export async function initClient(core: Core) {
     return
   }
 
-  const editor = parameterList.get('editor')
+  const hash = window.location.hash.toUpperCase()
 
-  if (editor) {
+  if (hash == '#EDITOR') {
     core.mutateWs(({ ui, quest }) => {
       ui.isEditor = true
       ui.showQuestOverview = false
       quest.title = 'Titel der Aufgabe'
       quest.description = 'Beschreibe, um was es bei der Aufgabe geht ...'
     })
+
+    submit_event('show_editor', core)
 
     const id = parseInt(parameterList.get('quest') ?? '')
 
@@ -56,29 +58,21 @@ export async function initClient(core: Core) {
     return
   }
 
-  const hash = window.location.hash
-
-  if (hash.length == 5) {
+  if (hash == '#DEMO') {
+    core.mutateWs(({ ui }) => {
+      ui.isDemo = true
+    })
+    submit_event('show_demo', core)
+  } else if (hash.length == 5) {
     core.mutateWs(({ ui }) => {
       ui.editorLoading = true
       ui.showQuestOverview = false
     })
-    submit_event(`start_custom_quest_${hash.substring(1)}`, core)
     await loadQuest(core, hash.substring(1))
     core.mutateWs(({ ui }) => {
       ui.clientInitDone = true
     })
     return
-  }
-
-  if (parameterList.get('demo')) {
-    core.mutateWs(({ ui }) => {
-      ui.isDemo = true
-    })
-  }
-
-  if (core.ws.ui.showQuestOverview) {
-    submit_event('show_overview', core)
   }
 
   core.mutateWs(({ ui }) => {
