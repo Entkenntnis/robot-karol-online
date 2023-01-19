@@ -258,7 +258,7 @@ function buildMyAutocomplete(): CompletionSource {
     const lastEndedNode = tree.resolve(pos, -1)
 
     // debug
-    /*const cursor = tree.cursor()
+    const cursor = tree.cursor()
     console.log('-- tree start --')
     do {
       console.log(`Node ${cursor.name} from ${cursor.from} to ${cursor.to}`)
@@ -272,7 +272,7 @@ function buildMyAutocomplete(): CompletionSource {
     console.log('ending of previous', pos)
     console.log('last ended node', lastEndedNode.name)
 
-    console.log('-- debug end --')*/
+    console.log('-- debug end --')
     // debug
 
     if (around.name.includes('Comment') || endingHere.name.includes('Comment'))
@@ -352,8 +352,8 @@ function buildMyAutocomplete(): CompletionSource {
     } else if (lastEndedNode.name == 'Times') {
       options = [{ label: 'mal' }]
     } else if (
-      lastEndedNode.name == 'Condition' &&
-      lastEndedNode.parent?.name == 'IfThen'
+      lastEndedNode.parent?.name == 'Condition' &&
+      lastEndedNode.parent?.parent?.name == 'IfThen'
     ) {
       options = [{ label: 'dann' }]
     }
