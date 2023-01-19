@@ -41,6 +41,7 @@ import { linter, lintKeymap } from '@codemirror/lint'
 import { styleTags, tags as t } from '@lezer/highlight'
 
 import { parser } from './parser/parser.js'
+import { highlightSelectionMatches, searchKeymap } from '@codemirror/search'
 
 const parserWithMetadata = parser.configure({
   props: [
@@ -176,6 +177,26 @@ export const defaultHighlightStyle = HighlightStyle.define([
   { tag: t.labelName, color: '#b33300' },
 ])
 
+const germanPhrases = {
+  // @codemirror/search
+  'Go to line': 'Springe zu Zeile',
+  go: 'OK',
+  Find: 'Suchen',
+  Replace: 'Ersetzen',
+  next: 'nächste',
+  previous: 'vorherige',
+  all: 'alle',
+  'match case': 'groß/klein beachten',
+  'by word': 'ganze Wörter',
+  replace: 'ersetzen',
+  'replace all': 'alle ersetzen',
+  close: 'schließen',
+  'current match': 'aktueller Treffer',
+  'replaced $ matches': '$ Treffer ersetzt',
+  'replaced match on line $': 'Treffer on Zeile $ ersetzt',
+  'on line': 'auf Zeile',
+}
+
 export const basicSetup = (props: BasicSetupProps) => [
   lineNumbers(),
   highlightActiveLineGutter(),
@@ -189,6 +210,7 @@ export const basicSetup = (props: BasicSetupProps) => [
     ...historyKeymap,
     ...lintKeymap,
     ...completionKeymap,
+    ...searchKeymap,
     { key: 'Tab', run: myTabExtension },
     indentWithTab,
     {
@@ -197,7 +219,9 @@ export const basicSetup = (props: BasicSetupProps) => [
     },
   ]),
   autocompletion(),
+  highlightSelectionMatches(),
   EditorState.tabSize.of(2),
+  EditorState.phrases.of(germanPhrases),
   editable.of(EditorView.editable.of(true)),
   exampleLanguage,
   linter(props.l),

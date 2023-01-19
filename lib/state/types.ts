@@ -63,6 +63,7 @@ export interface Ui {
   controlBarShowFinishQuest: boolean
   isEditor: boolean
   isDemo: boolean
+  showCodeInfo: boolean
 }
 
 export interface Vm {

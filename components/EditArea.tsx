@@ -4,7 +4,10 @@ import {
   faArrowRight,
   faArrowTurnUp,
   faCircleExclamation,
+  faInfo,
+  faInfoCircle,
   faSpinner,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 import { cursorDocEnd } from '@codemirror/commands'
@@ -15,6 +18,7 @@ import { FaIcon } from './FaIcon'
 import { Editor } from './Editor'
 import { textRefreshDone } from '../lib/commands/json'
 import { BlockEditor } from './BlockEditor'
+import { setShowCodeInfo } from '../lib/commands/mode'
 
 export function EditArea() {
   const core = useCore()
@@ -119,7 +123,41 @@ export function EditArea() {
           ) : (
             <div className="w-8 h-full relative flex-shrink-0"></div>
           )}
-          <div className="w-full h-full flex flex-col">
+          <div className="w-full h-full flex flex-col relative">
+            {core.ws.ui.showCodeInfo ? (
+              <div className="bg-amber-300 px-3 py-4 m-2 rounded relative">
+                <button
+                  className="w-6 h-6 rounded-full right-4 top-4 absolute hover:bg-gray-100 flex items-end justify-center"
+                  onClick={() => {
+                    setShowCodeInfo(core, false)
+                  }}
+                >
+                  <FaIcon icon={faTimes} className="text-xl" />
+                </button>
+                <h2 className="font-bold">Eigene Anweisungen definieren</h2>
+                <p className="mt-4">
+                  Im Text-Modus kannst du alle Funktionen aus dem Block-Modus
+                  verwenden. Zusätzlich kannst du Code-Abschnitte in einer
+                  eigenen Anweisung zusammenfassen. Damit lässt sich dein Code
+                  übersichtlicher gestalten. Hier ein Beispiel:
+                </p>
+                <img
+                  src="/eigeneanweisung.png"
+                  alt="Beispielprogramm"
+                  className="mt-4"
+                ></img>
+              </div>
+            ) : (
+              <button
+                className="inline-block px-1 py-0.5 rounded right-2 top-2 absolute bg-amber-200 hover:bg-amber-300 flex items-end justify-center z-10"
+                onClick={() => {
+                  setShowCodeInfo(core, true)
+                }}
+              >
+                <FaIcon icon={faInfoCircle} className="ml-1 mb-[3px]" />
+                &nbsp;
+              </button>
+            )}
             <Editor innerRef={view} />
           </div>
         </div>

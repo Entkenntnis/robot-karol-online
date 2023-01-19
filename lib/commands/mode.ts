@@ -112,3 +112,9 @@ export function setShowStructogram(core: Core, val: boolean) {
     ui.showStructogram = val
   })
 }
+
+export function setShowCodeInfo(core: Core, val: boolean) {
+  core.mutateWs(({ ui }) => {
+    ui.showCodeInfo = val
+  })
+}
