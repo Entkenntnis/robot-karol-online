@@ -38,10 +38,19 @@ export function Quest() {
             <div className="flex-none h-8 bg-gray-50 flex justify-center items-start">
               <button
                 className={clsx(
-                  'ml-4 mr-4 border-t-4 px-3 hover:bg-gray-200 pb-1',
+                  'ml-4 mr-4 border-t-4 px-3  pb-1',
                   core.ws.settings.mode == 'blocks'
                     ? 'border-t-blue-500'
-                    : 'border-t-transparent hover:border-t-gray-300'
+                    : 'border-t-transparent',
+                  core.ws.settings.mode == 'code' &&
+                    (core.ws.ui.state === 'error' ||
+                      core.ws.ui.toBlockWarning) &&
+                    'text-gray-400',
+                  core.ws.settings.mode == 'code' &&
+                    core.ws.ui.state == 'ready' &&
+                    !core.ws.ui.toBlockWarning
+                    ? 'hover:border-t-gray-300 hover:bg-gray-200'
+                    : 'cursor-default'
                 )}
                 onClick={() => {
                   setMode(core, 'blocks')
@@ -52,10 +61,17 @@ export function Quest() {
               </button>
               <button
                 className={clsx(
-                  'border-t-4 px-3 hover:bg-gray-200 pb-1',
+                  'border-t-4 px-3 pb-1',
                   core.ws.settings.mode == 'code'
                     ? 'border-t-blue-500'
-                    : 'border-t-transparent hover:border-t-gray-300'
+                    : 'border-t-transparent',
+                  core.ws.settings.mode == 'blocks' &&
+                    core.ws.ui.state !== 'ready' &&
+                    'text-gray-400 cursor-default',
+                  core.ws.settings.mode == 'blocks' &&
+                    core.ws.ui.state == 'ready'
+                    ? 'hover:bg-gray-200 hover:border-t-gray-300'
+                    : 'cursor-default'
                 )}
                 onClick={() => {
                   setMode(core, 'code')

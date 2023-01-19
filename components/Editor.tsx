@@ -61,5 +61,5 @@ export const Editor = ({ innerRef }: EditorProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editorDiv])
 
-  return <div ref={editorDiv} />
+  return <div ref={editorDiv} className="h-full" />
 }

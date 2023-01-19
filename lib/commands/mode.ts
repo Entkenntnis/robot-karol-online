@@ -2,6 +2,31 @@ import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
+  if (core.ws.settings.mode == 'blocks') {
+    if (core.ws.ui.state == 'running' || core.ws.ui.state == 'loading') {
+      return // ignore
+    }
+    if (core.ws.ui.state == 'error') {
+      alert(
+        'Bitte verbinde alle Blöcke und vervollständige das Programm, bevor du den Modus wechselst.'
+      )
+      return
+    }
+  } else {
+    if (core.ws.ui.state == 'running' || core.ws.ui.state == 'loading') {
+      return // ignore
+    }
+    if (core.ws.ui.state == 'error') {
+      //alert('Löse bitte vor dem Wechsel des Modus alle Probleme im Programm.')
+      return
+    }
+    if (core.ws.ui.toBlockWarning) {
+      alert(
+        'Anweisungen und mehrzeilige Kommentare sind nur im Code-Editor verfügbar.'
+      )
+      return
+    }
+  }
   core.mutateWs(({ settings, ui }) => {
     settings.mode = mode
     ui.toBlockWarning = false
