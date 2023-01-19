@@ -212,7 +212,7 @@ export function Tasks() {
                 className="px-2 py-0.5 rounded-lg bg-yellow-600 hover:bg-yellow-500 text-white font-bold"
                 href={window.location.protocol + '//' + window.location.host}
               >
-                Robot Karol Online besuchen
+                Robot Karol Online
               </a>
             </p>
           ) : core.ws.ui.isEditor ? (

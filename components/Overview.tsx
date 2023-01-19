@@ -74,7 +74,7 @@ export function Overview() {
           Aufgaben-Editor
         </a>
       </div>
-      <div className="mx-12 lg:mx-16 xl:mx-24 flex-auto overflow-hidden">
+      <div className="mx-12 lg:mx-16 xl:mx-24 flex-auto overflow-hidden -mt-8">
         {categories.map(
           (cat, i) =>
             cat.quests.some(isQuestVisible) && (
