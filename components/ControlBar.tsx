@@ -60,9 +60,8 @@ export function ControlBar() {
               onClick={() => {
                 closeOutput(core)
               }}
-              className="px-2 py-0.5 rounded bg-gray-200 ml-3 mt-2 hover:bg-gray-300"
+              className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
             >
-              <FaIcon icon={faCaretLeft} className="mr-1" />
               zurück
             </button>
           )}
