@@ -5,7 +5,6 @@ import { useCore } from '../lib/state/core'
 import { Quest } from './Quest'
 import { Overview } from './Overview'
 import { initClient } from '../lib/commands/init'
-import { questData } from '../lib/data/quests'
 
 export function App() {
   const core = useCore()
