@@ -1,6 +1,7 @@
 import {
   faArrowDown,
   faArrowUp,
+  faBarsStaggered,
   faCheck,
   faExternalLink,
   faGear,
@@ -25,7 +26,11 @@ import {
 } from '../lib/commands/editor'
 import { serializeQuest } from '../lib/commands/json'
 
-import { showMenu, showQuestOverview } from '../lib/commands/mode'
+import {
+  setShowStructogram,
+  showMenu,
+  showQuestOverview,
+} from '../lib/commands/mode'
 import { execPreviewForAll } from '../lib/commands/preview'
 import {
   openTask,
@@ -271,14 +276,14 @@ export function Tasks() {
             )
           )}
         </div>
-        <div className="flex-grow-0 flex-shrink-0 hidden">
+        <div className="flex-grow-0 flex-shrink-0">
           <button
-            className="mx-2 mt-1 bg-gray-200 hover:bg-gray-300 px-2 rounded"
+            className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
             onClick={() => {
-              showMenu(core)
+              setShowStructogram(core, true)
             }}
           >
-            <FaIcon icon={faGear} className="mr-1" /> Optionen
+            Struktogramm
           </button>
         </div>
       </div>
