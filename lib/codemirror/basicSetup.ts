@@ -288,7 +288,7 @@ function buildMyAutocomplete(): CompletionSource {
 
     const lastEndedNode = tree.resolve(pos, -1)
 
-    // debug
+    /*// debug
     const cursor = tree.cursor()
     console.log('-- tree start --')
     do {
@@ -304,7 +304,7 @@ function buildMyAutocomplete(): CompletionSource {
     console.log('last ended node', lastEndedNode.name)
 
     console.log('-- debug end --')
-    // debug
+    // debug*/
 
     if (around.name.includes('Comment') || endingHere.name.includes('Comment'))
       return null // no completion within comments
