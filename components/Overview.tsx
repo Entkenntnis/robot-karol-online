@@ -245,7 +245,7 @@ export function Overview() {
     const data = questData[index]
     const sessionData: QuestSessionData | null = getQuestSessionData(index)
 
-    const questDone = isQuestDone(index)
+    const questDone = core.ws.ui.isAnalyze ? false : isQuestDone(index)
 
     const reachableCount = core.ws.analyze.reachable[index]
 
@@ -257,8 +257,6 @@ export function Overview() {
           'm-4 mr-6 p-3 bg-white rounded-md',
           'w-[290px]',
           !questDone &&
-            !core.ws.ui.isEditor &&
-            !core.ws.ui.isAnalyze &&
             'border-2 border-blue-500 hover:bg-blue-50 cursor-pointer'
         )}
         tabIndex={0}
