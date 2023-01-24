@@ -29,6 +29,7 @@ import { QuestSessionData } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
 import { ImpressumModal } from './ImpressumModal'
 import { PrivacyModal } from './PrivacyModal'
+import { View } from './View'
 
 export function Overview() {
   const core = useCore()
@@ -73,6 +74,9 @@ export function Overview() {
           <FaIcon icon={faPenToSquare} className="mr-1" />
           Aufgaben-Editor
         </a>
+        <span className="ml-8 cursor-pointer hover:underline font-bold">
+          Anmelden
+        </span>
       </div>
       {core.ws.ui.isAnalyze && (
         <div className="bg-white px-16 pb-8 mt-4">
@@ -233,6 +237,8 @@ export function Overview() {
 
     const reachableCount = core.ws.analyze.reachable[index]
 
+    const task = questData[index].tasks[0]
+
     return (
       <div
         className={clsx(
@@ -249,13 +255,15 @@ export function Overview() {
           startQuest(core, index)
         }}
       >
-        <div className="flex justify-between items-baseline">
-          <span
-            className={clsx('py-1 inline-block', !questDone && 'font-bold')}
-          >
-            {data.title}
-            {core.ws.ui.isAnalyze && <small>&nbsp;({index})</small>}
-          </span>
+        <div className="">
+          <div>
+            <span
+              className={clsx('py-1 inline-block', !questDone && 'font-bold')}
+            >
+              {data.title}
+              {core.ws.ui.isAnalyze && <small>&nbsp;({index})</small>}
+            </span>
+          </div>
         </div>
         {core.ws.ui.isAnalyze && (
           <div>Deps: [{questDeps[index].join(', ')}]</div>
@@ -293,6 +301,19 @@ export function Overview() {
                 return null
               }
             })()}
+          <div className="overflow-hidden -mt-8">
+            <View
+              world={questDone ? task.target! : task.start}
+              preview={
+                task.target === null
+                  ? undefined
+                  : { track: [], world: task.target }
+              }
+              hideKarol={false}
+              wireframe={false}
+              className="block mx-auto  max-h-[240px]"
+            />
+          </div>
         </div>
       </div>
     )
