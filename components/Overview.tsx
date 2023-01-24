@@ -74,6 +74,61 @@ export function Overview() {
           Aufgaben-Editor
         </a>
       </div>
+      {core.ws.ui.isAnalyze && (
+        <div className="bg-white px-16 pb-8 mt-4">
+          <p className="my-6">
+            Daten ab {core.ws.analyze.cutoff}, insgesamt {core.ws.analyze.count}{' '}
+            Einträge
+          </p>
+          <h2 className="mt-6 mb-4 text-lg">Freigegebene Aufgaben</h2>
+          {core.ws.analyze.published.map((entry, i) => (
+            <p key={i} className="my-2">
+              <a
+                href={`/#${entry.id}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                {entry.id}
+              </a>{' '}
+              - {entry.date}
+            </p>
+          ))}
+          <p className="mt-6 mb-4">
+            {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
+            {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
+            {core.ws.analyze.showDemo} mal Demo
+          </p>
+          <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
+          {core.ws.analyze.customQuests.map((entry, i) => (
+            <p key={i} className="my-2">
+              <a
+                href={`/#${entry.id}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                {entry.id}
+              </a>{' '}
+              - {entry.start} mal gestartet, {entry.complete} mal abgeschlossen
+            </p>
+          ))}
+          <h2 className="mt-6 mb-4 text-lg">Legacy</h2>{' '}
+          {Object.entries(core.ws.analyze.legacy).map((entry, i) => (
+            <p key={i} className="my-2">
+              <a
+                href={`/?id=${entry[0]}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                {entry[0]}
+              </a>{' '}
+              - {entry[1].count} mal gestartet
+            </p>
+          ))}
+        </div>
+      )}
       <div className="mx-12 lg:mx-16 xl:mx-24 flex-auto overflow-hidden -mt-8">
         {categories.map(
           (cat, i) =>
@@ -155,6 +210,7 @@ export function Overview() {
   function isQuestVisible(id: number) {
     return (
       core.ws.ui.isDemo ||
+      core.ws.ui.isAnalyze ||
       questDeps[id].length == 0 ||
       questDeps[id].some(isQuestDone)
     )
@@ -175,12 +231,17 @@ export function Overview() {
 
     const questDone = isQuestDone(index)
 
+    const reachableCount = core.ws.analyze.reachable[index]
+
     return (
       <div
         className={clsx(
           'm-4 mr-6 p-3 bg-white rounded-md',
           'cursor-pointer hover:bg-blue-50 w-[290px]',
-          !sessionData && 'border-l-2 border-l-blue-500'
+          !sessionData &&
+            !core.ws.ui.isEditor &&
+            !core.ws.ui.isAnalyze &&
+            'border-l-2 border-l-blue-500'
         )}
         tabIndex={0}
         key={index}
@@ -193,8 +254,12 @@ export function Overview() {
             className={clsx('py-1 inline-block', !questDone && 'font-bold')}
           >
             {data.title}
+            {core.ws.ui.isAnalyze && <small>&nbsp;({index})</small>}
           </span>
         </div>
+        {core.ws.ui.isAnalyze && (
+          <div>Deps: [{questDeps[index].join(', ')}]</div>
+        )}
         <div className="text-gray-700 text-sml mt-2">
           &nbsp;
           {questDone && (
@@ -209,6 +274,25 @@ export function Overview() {
               <FaIcon icon={faPencil} /> in Bearbeitung
             </span>
           )}
+          {core.ws.ui.isAnalyze &&
+            (() => {
+              const entry = core.ws.analyze.quests[index]
+              if (index == 1) {
+                return <span>{entry.complete} Spieler*innen</span>
+              }
+              if (entry) {
+                return (
+                  <span>
+                    {reachableCount} / {entry.start} / {entry.complete} /{' '}
+                    <strong>
+                      {Math.round((entry.complete / reachableCount) * 100)}%
+                    </strong>
+                  </span>
+                )
+              } else {
+                return null
+              }
+            })()}
         </div>
       </div>
     )

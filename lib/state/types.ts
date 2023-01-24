@@ -65,6 +65,7 @@ export interface Ui {
   isDemo: boolean
   showCodeInfo: boolean
   renderCounter: number
+  isAnalyze: boolean
 }
 
 export interface Vm {
@@ -110,12 +111,27 @@ export interface WorkspaceState {
   settings: Settings
   quest: Quest
   editor: Editor
+  analyze: Analyze
 }
 
 export interface QuestTask {
   title: string
   start: World
   target: World | null
+}
+
+export interface Analyze {
+  published: { id: string; date: string }[]
+  cutoff: string
+  count: number
+  showEditor: number
+  showPlayground: number
+  showDemo: number
+  customQuests: { start: number; complete: number; id: string }[]
+  quests: { [key: string]: { start: number; complete: number } }
+  legacy: { [key: string]: { count: number } }
+  users: { [key: string]: { solved: string[] } }
+  reachable: { [key: string]: number }
 }
 
 export interface CoreState {

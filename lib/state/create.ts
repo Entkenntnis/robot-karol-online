@@ -44,6 +44,7 @@ export function createWorkspaceState(): WorkspaceState {
       isDemo: false,
       showCodeInfo: false,
       renderCounter: 0,
+      isAnalyze: false,
     },
     vm: {
       pc: 0,
@@ -71,6 +72,19 @@ export function createWorkspaceState(): WorkspaceState {
       showShareModal: false,
       currentlyEditing: 'start',
       showWorldPreview: false,
+    },
+    analyze: {
+      published: [],
+      cutoff: '',
+      count: 0,
+      showEditor: 0,
+      showPlayground: 0,
+      showDemo: 0,
+      customQuests: [],
+      quests: {},
+      legacy: {},
+      users: {},
+      reachable: {},
     },
   }
   return ws
