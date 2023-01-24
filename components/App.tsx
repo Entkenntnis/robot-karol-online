@@ -25,7 +25,7 @@ export function App() {
           content="Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung."
         />
       </Head>
-      <div className="w-full h-full overflow-auto">
+      <div className="w-full h-full">
         {core.ws.ui.clientInitDone &&
           (core.ws.ui.showQuestOverview ? <Overview /> : <Quest />)}
       </div>

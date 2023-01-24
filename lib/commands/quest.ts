@@ -201,3 +201,9 @@ export function setTaskScroll(core: Core, scrollTop: number) {
     ui.taskScroll = scrollTop
   })
 }
+
+export function setOverviewScroll(core: Core, scrollTop: number) {
+  core.mutateWs(({ ui }) => {
+    ui.overviewScroll = scrollTop
+  })
+}

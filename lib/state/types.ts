@@ -66,6 +66,7 @@ export interface Ui {
   showCodeInfo: boolean
   renderCounter: number
   isAnalyze: boolean
+  overviewScroll: number
 }
 
 export interface Vm {

@@ -7,7 +7,7 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import Link from 'next/link'
+import { createRef, useEffect } from 'react'
 
 import {
   editCodeAndResetProgress,
@@ -15,7 +15,7 @@ import {
   setShowImpressum,
   setShowPrivacy,
 } from '../lib/commands/mode'
-import { startQuest } from '../lib/commands/quest'
+import { setOverviewScroll, startQuest } from '../lib/commands/quest'
 import { questDeps } from '../lib/data/dependencies'
 import { categories } from '../lib/data/overview'
 import { questData } from '../lib/data/quests'
@@ -34,171 +34,183 @@ import { View } from './View'
 export function Overview() {
   const core = useCore()
 
+  const overviewContainer = createRef<HTMLDivElement>()
+
+  useEffect(() => {
+    if (overviewContainer.current && core.ws.ui.overviewScroll > 0) {
+      overviewContainer.current.scrollTop = core.ws.ui.overviewScroll
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
-    <div className="bg-yellow-200 flex flex-col relative min-h-full">
-      <div className="flex justify-center">
-        <div
-          className={clsx(
-            'flex mt-6 items-center rounded-xl',
-            'p-4 px-12 bg-yellow-100',
-            'border-l-4 border-r-red-500 border-r-4 border-l-blue-600'
-          )}
-        >
-          <img
-            src="/robotE.png"
-            alt="Bild von Robot Karol"
-            className="mr-8"
-            height={71}
-            width={40}
-          />
-          <h1 className="text-5xl whitespace-nowrap">Robot Karol Online</h1>
+    <div className=" h-full overflow-auto" ref={overviewContainer}>
+      <div className="bg-yellow-200 flex flex-col relative min-h-full">
+        <div className="flex justify-center">
+          <div
+            className={clsx(
+              'flex mt-6 items-center rounded-xl',
+              'p-4 px-12 bg-yellow-100',
+              'border-l-4 border-r-red-500 border-r-4 border-l-blue-600'
+            )}
+          >
+            <img
+              src="/robotE.png"
+              alt="Bild von Robot Karol"
+              className="mr-8"
+              height={71}
+              width={40}
+            />
+            <h1 className="text-5xl whitespace-nowrap">Robot Karol Online</h1>
+          </div>
         </div>
-      </div>
-      <div className="flex justify-center mt-8 z-10">
-        <a
-          className="px-2 py-0.5 bg-green-400 hover:bg-green-500 rounded"
-          href={
-            window.location.protocol +
-            '//' +
-            window.location.host +
-            '/?id=Z9xO1rVGj'
-          }
-        >
-          <FaIcon icon={faSeedling} className="mr-1" />
-          Spielwiese
-        </a>{' '}
-        <a
-          href="/#editor"
-          className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded ml-8"
-        >
-          <FaIcon icon={faPenToSquare} className="mr-1" />
-          Aufgaben-Editor
-        </a>
-        <span className="ml-8 cursor-pointer hover:underline font-bold">
-          Anmelden
-        </span>
-      </div>
-      {core.ws.ui.isAnalyze && (
-        <div className="bg-white px-16 pb-8 mt-4">
-          <p className="my-6">
-            Daten ab {core.ws.analyze.cutoff}, insgesamt {core.ws.analyze.count}{' '}
-            Einträge
-          </p>
-          <h2 className="mt-6 mb-4 text-lg">Freigegebene Aufgaben</h2>
-          {core.ws.analyze.published.map((entry, i) => (
-            <p key={i} className="my-2">
-              <a
-                href={`/#${entry.id}`}
-                target="_blank"
-                rel="noreferrer"
-                className="text-blue-500 hover:underline"
-              >
-                {entry.id}
-              </a>{' '}
-              - {entry.date}
-            </p>
-          ))}
-          <p className="mt-6 mb-4">
-            {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
-            {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
-            {core.ws.analyze.showDemo} mal Demo
-          </p>
-          <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
-          {core.ws.analyze.customQuests.map((entry, i) => (
-            <p key={i} className="my-2">
-              <a
-                href={`/#${entry.id}`}
-                target="_blank"
-                rel="noreferrer"
-                className="text-blue-500 hover:underline"
-              >
-                {entry.id}
-              </a>{' '}
-              - {entry.start} mal gestartet, {entry.complete} mal abgeschlossen
-            </p>
-          ))}
-          <h2 className="mt-6 mb-4 text-lg">Legacy</h2>{' '}
-          {Object.entries(core.ws.analyze.legacy).map((entry, i) => (
-            <p key={i} className="my-2">
-              <a
-                href={`/?id=${entry[0]}`}
-                target="_blank"
-                rel="noreferrer"
-                className="text-blue-500 hover:underline"
-              >
-                {entry[0]}
-              </a>{' '}
-              - {entry[1].count} mal gestartet
-            </p>
-          ))}
+        <div className="flex justify-center mt-8 z-10">
+          <a
+            className="px-2 py-0.5 bg-green-400 hover:bg-green-500 rounded"
+            href={
+              window.location.protocol +
+              '//' +
+              window.location.host +
+              '/?id=Z9xO1rVGj'
+            }
+          >
+            <FaIcon icon={faSeedling} className="mr-1" />
+            Spielwiese
+          </a>{' '}
+          <a
+            href="/#editor"
+            className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded ml-8"
+          >
+            <FaIcon icon={faPenToSquare} className="mr-1" />
+            Aufgaben-Editor
+          </a>
+          <span className="ml-8 cursor-pointer hover:underline font-bold">
+            Anmelden
+          </span>
         </div>
-      )}
-      <div className="mx-12 lg:mx-16 xl:mx-24 flex-auto overflow-hidden -mt-8">
-        {categories.map(
-          (cat, i) =>
-            cat.quests.some(isQuestVisible) && (
-              <div key={i} className="my-8 mt-24">
-                <h2 className="ml-7 -mb-4 text-xl text-gray-700">{cat.name}</h2>
-                <div
-                  className={clsx(
-                    'mt-6 mb-4 rounded-lg overflow-auto',
-                    'flex flex-wrap'
-                  )}
+        {core.ws.ui.isAnalyze && (
+          <div className="bg-white px-16 pb-8 mt-4">
+            <p className="my-6">
+              Daten ab {core.ws.analyze.cutoff}, insgesamt{' '}
+              {core.ws.analyze.count} Einträge
+            </p>
+            <h2 className="mt-6 mb-4 text-lg">Freigegebene Aufgaben</h2>
+            {core.ws.analyze.published.map((entry, i) => (
+              <p key={i} className="my-2">
+                <a
+                  href={`/#${entry.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-500 hover:underline"
                 >
-                  {cat.quests.map(renderQuest)}
-                </div>
-              </div>
-            )
-        )}
-      </div>
-      {isQuestDone(1) &&
-        !sessionStorage.getItem('robot_karol_online_hide_save_message') && (
-          <div className="text-sm text-right mr-4 mt-1 mb-3 text-gray-600">
-            Beim Schließen des Tabs wird dein Fortschritt zurückgesetzt. Eine
-            Speicherfunktion ist in Arbeit.{' '}
-            <button
-              onClick={() => {
-                sessionStorage.setItem(
-                  'robot_karol_online_hide_save_message',
-                  '1'
-                )
-                forceRerender(core)
-              }}
-            >
-              <FaIcon
-                icon={faTimes}
-                className="inline-block px-1 bg-white hover:bg-gray-100"
-              />
-            </button>
+                  {entry.id}
+                </a>{' '}
+                - {entry.date}
+              </p>
+            ))}
+            <p className="mt-6 mb-4">
+              {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
+              {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
+              {core.ws.analyze.showDemo} mal Demo
+            </p>
+            <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
+            {core.ws.analyze.customQuests.map((entry, i) => (
+              <p key={i} className="my-2">
+                <a
+                  href={`/#${entry.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-500 hover:underline"
+                >
+                  {entry.id}
+                </a>{' '}
+                - {entry.start} mal gestartet, {entry.complete} mal
+                abgeschlossen
+              </p>
+            ))}
+            <h2 className="mt-6 mb-4 text-lg">Legacy</h2>{' '}
+            {Object.entries(core.ws.analyze.legacy).map((entry, i) => (
+              <p key={i} className="my-2">
+                <a
+                  href={`/?id=${entry[0]}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-500 hover:underline"
+                >
+                  {entry[0]}
+                </a>{' '}
+                - {entry[1].count} mal gestartet
+              </p>
+            ))}
           </div>
         )}
-      <div className="text-center mb-2 mt-10">
-        Version: Januar 2023 |{' '}
-        <button
-          className="hover:underline"
-          onClick={() => {
-            setShowImpressum(core, true)
-          }}
-        >
-          Impressum
-        </button>{' '}
-        |{' '}
-        <button
-          className="hover:underline"
-          onClick={() => {
-            setShowPrivacy(core, true)
-          }}
-        >
-          Datenschutz
-        </button>{' '}
-        |{' '}
-        {renderExternalLink(
-          'Infos',
-          'https://github.com/Entkenntnis/robot-karol-online#readme'
-        )}
+        <div className="mx-12 lg:mx-16 xl:mx-24 flex-auto overflow-hidden -mt-8">
+          {categories.map(
+            (cat, i) =>
+              cat.quests.some(isQuestVisible) && (
+                <div key={i} className="my-8 mt-24">
+                  <h2 className="ml-7 -mb-4 text-xl">{cat.name}</h2>
+                  <div
+                    className={clsx(
+                      'mt-6 mb-4 rounded-lg overflow-auto',
+                      'flex flex-wrap'
+                    )}
+                  >
+                    {cat.quests.map(renderQuest)}
+                  </div>
+                </div>
+              )
+          )}
+        </div>
+        {isQuestDone(1) &&
+          !sessionStorage.getItem('robot_karol_online_hide_save_message') && (
+            <div className="text-sm text-right mr-4 mt-1 mb-3 text-gray-600">
+              Beim Schließen des Tabs wird dein Fortschritt zurückgesetzt. Eine
+              Speicherfunktion ist in Arbeit.{' '}
+              <button
+                onClick={() => {
+                  sessionStorage.setItem(
+                    'robot_karol_online_hide_save_message',
+                    '1'
+                  )
+                  forceRerender(core)
+                }}
+              >
+                <FaIcon
+                  icon={faTimes}
+                  className="inline-block px-1 bg-white hover:bg-gray-100"
+                />
+              </button>
+            </div>
+          )}
+        <div className="text-center mb-2 mt-10">
+          Version: Januar 2023 |{' '}
+          <button
+            className="hover:underline"
+            onClick={() => {
+              setShowImpressum(core, true)
+            }}
+          >
+            Impressum
+          </button>{' '}
+          |{' '}
+          <button
+            className="hover:underline"
+            onClick={() => {
+              setShowPrivacy(core, true)
+            }}
+          >
+            Datenschutz
+          </button>{' '}
+          |{' '}
+          {renderExternalLink(
+            'Infos',
+            'https://github.com/Entkenntnis/robot-karol-online#readme'
+          )}
+        </div>
+        {core.ws.ui.showImpressum && <ImpressumModal />}
+        {core.ws.ui.showPrivacy && <PrivacyModal />}
       </div>
-      {core.ws.ui.showImpressum && <ImpressumModal />}
-      {core.ws.ui.showPrivacy && <PrivacyModal />}
     </div>
   )
 
@@ -243,15 +255,16 @@ export function Overview() {
       <div
         className={clsx(
           'm-4 mr-6 p-3 bg-white rounded-md',
-          'cursor-pointer hover:bg-blue-50 w-[290px]',
-          !sessionData &&
+          'w-[290px]',
+          !questDone &&
             !core.ws.ui.isEditor &&
             !core.ws.ui.isAnalyze &&
-            'border-l-2 border-l-blue-500'
+            'border-2 border-blue-500 hover:bg-blue-50 cursor-pointer'
         )}
         tabIndex={0}
         key={index}
         onClick={() => {
+          setOverviewScroll(core, overviewContainer.current?.scrollTop ?? -1)
           startQuest(core, index)
         }}
       >
@@ -309,9 +322,12 @@ export function Overview() {
                   ? undefined
                   : { track: [], world: task.target }
               }
-              hideKarol={false}
+              hideKarol={questDone}
               wireframe={false}
-              className="block mx-auto  max-h-[240px]"
+              className={clsx(
+                'block mx-auto  max-h-[240px]',
+                questDone && 'opacity-30'
+              )}
             />
           </div>
         </div>

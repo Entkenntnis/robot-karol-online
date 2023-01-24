@@ -45,6 +45,7 @@ export function createWorkspaceState(): WorkspaceState {
       showCodeInfo: false,
       renderCounter: 0,
       isAnalyze: false,
+      overviewScroll: 0,
     },
     vm: {
       pc: 0,
