@@ -33,7 +33,8 @@ export async function initClient(core: Core) {
 
   if (hash == '#ANALYZE' && window.location.hostname == 'localhost') {
     try {
-      const password = prompt('Zugangspasswort:') ?? ''
+      const storedPW = sessionStorage.getItem('karol_stored_pw')
+      const password = storedPW ?? prompt('Zugangspasswort:') ?? ''
       const response = await fetch(backend.analyzeEndpoint, {
         method: 'POST',
         body: new URLSearchParams({ password }),
@@ -44,15 +45,26 @@ export async function initClient(core: Core) {
         event: string
         createdAt: string
       }[]
-      const cutoff = new Date(2023, 0, 21)
+      if (data.length > 0) {
+        sessionStorage.setItem('karol_stored_pw', password)
+      }
+      const cutoff = new Date(2023, 0, 26)
       let count = 0
       let showEditor = 0
       let showPlayground = 0
       let showDemo = 0
       let showStructogram = 0
+      let usePersist = 0
       let legacy: { [key: string]: { count: number } } = {}
-      let users: { [key: string]: { solved: string[] } } = {}
+      let users: {
+        [key: string]: { solved: string[]; firstDate: number; lastDate: number }
+      } = {}
       const dedup: { [key: string]: boolean } = {}
+
+      const questEvents: {
+        [key: string]: { questId: string; isStart: boolean; ts: number }[]
+      } = {}
+
       core.mutateWs((ws) => {
         ws.ui.isAnalyze = true
         ws.analyze.cutoff = cutoff.toLocaleString()
@@ -64,6 +76,48 @@ export async function initClient(core: Core) {
         } = {}
         for (const entry of data) {
           if (isAfter(new Date(entry.createdAt), cutoff)) {
+            const ts = new Date(entry.createdAt).getTime()
+            if (!users[entry.userId]) {
+              users[entry.userId] = {
+                solved: [],
+                firstDate: ts,
+                lastDate: ts,
+              }
+            }
+            if (ts < users[entry.userId].firstDate) {
+              users[entry.userId].firstDate = ts
+            }
+            if (ts > users[entry.userId].lastDate) {
+              users[entry.userId].lastDate = ts
+            }
+            const startQuest = /start_quest_(.+)/.exec(entry.event)
+
+            if (startQuest) {
+              const id = startQuest[1]
+              if (!questEvents[entry.userId]) {
+                questEvents[entry.userId] = []
+              }
+              questEvents[entry.userId].push({
+                questId: id,
+                isStart: true,
+                ts,
+              })
+            }
+
+            const completeQuest = /^quest_complete_(.+)/.exec(entry.event)
+
+            if (completeQuest) {
+              const id = completeQuest[1]
+              if (!questEvents[entry.userId]) {
+                questEvents[entry.userId] = []
+              }
+              questEvents[entry.userId].push({
+                questId: id,
+                isStart: false,
+                ts,
+              })
+            }
+
             const key = entry.userId + entry.event
             if (dedup[key]) {
               continue
@@ -85,6 +139,10 @@ export async function initClient(core: Core) {
             }
             if (entry.event == 'show_structogram') {
               showStructogram++
+              continue
+            }
+            if (entry.event == 'persist_progress') {
+              usePersist++
               continue
             }
             const publish = /publish_custom_quest_(.+)/.exec(entry.event)
@@ -115,25 +173,22 @@ export async function initClient(core: Core) {
               customStuff[id].complete++
               continue
             }
-            const startQuest = /start_quest_(.+)/.exec(entry.event)
             if (startQuest) {
               const id = startQuest[1]
               if (!quests[id]) {
                 quests[id] = { start: 0, complete: 0 }
               }
               quests[id].start++
+              const key = entry.userId + id
+
               continue
             }
-            const completeQuest = /quest_complete_(.+)/.exec(entry.event)
             if (completeQuest) {
               const id = completeQuest[1]
               if (!quests[id]) {
                 quests[id] = { start: 0, complete: 0 }
               }
               quests[id].complete++
-              if (!users[entry.userId]) {
-                users[entry.userId] = { solved: [] }
-              }
               users[entry.userId].solved.push(id)
               continue
             }
@@ -162,8 +217,25 @@ export async function initClient(core: Core) {
         ws.analyze.showPlayground = showPlayground
         ws.analyze.showDemo = showDemo
         ws.analyze.showStructogram = showStructogram
+        ws.analyze.usePersist = usePersist
         ws.analyze.legacy = legacy
         ws.analyze.users = users
+
+        const times = []
+        const solvedCount = []
+
+        for (const id in users) {
+          if (users[id].solved.length > 0) {
+            const span = users[id].lastDate - users[id].firstDate
+            times.push(Math.round(span / 1000 / 60))
+            solvedCount.push(users[id].solved.length)
+          }
+        }
+        times.sort((a, b) => b - a)
+        solvedCount.sort((a, b) => b - a)
+
+        ws.analyze.times = times
+        ws.analyze.solvedCount = solvedCount
 
         for (const index in questData) {
           let reachableCount = 0
@@ -180,7 +252,34 @@ export async function initClient(core: Core) {
           ws.analyze.reachable[index] = reachableCount
         }
 
-        console.log(users)
+        // console.log(questEvents)
+        const questTimes: { [key: string]: number[] } = {}
+
+        for (const userId in questEvents) {
+          const solved: string[] = []
+          const lastStartedTime: { [key: string]: number } = {}
+          for (const event of questEvents[userId]) {
+            if (event.isStart) {
+              lastStartedTime[event.questId] = event.ts
+            } else {
+              if (solved.includes(event.questId)) continue
+              if (!questTimes[event.questId]) {
+                questTimes[event.questId] = []
+              }
+              questTimes[event.questId].push(
+                Math.round(
+                  (event.ts - lastStartedTime[event.questId]) / 1000 / 60
+                )
+              )
+              solved.push(event.questId)
+            }
+          }
+        }
+        for (const questId in questTimes) {
+          questTimes[questId].sort((a, b) => b - a)
+        }
+        ws.analyze.questTimes = questTimes
+        // console.log(questTimes)
       })
     } catch (e) {}
   }

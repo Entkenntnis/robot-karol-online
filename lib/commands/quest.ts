@@ -127,6 +127,12 @@ export function storeQuestToSession(core: Core) {
     completed:
       core.ws.ui.controlBarShowFinishQuest || core.ws.ui.isAlreadyCompleted,
   }
+  if (!!localStorage.getItem('karol_quest_beta_persist')) {
+    localStorage.setItem(
+      `karol_quest_beta_${core.ws.quest.id}`,
+      JSON.stringify(data)
+    )
+  }
   sessionStorage.setItem(
     `karol_quest_beta_${core.ws.quest.id}`,
     JSON.stringify(data)

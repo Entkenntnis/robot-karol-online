@@ -12,6 +12,7 @@ import { createRef, useEffect } from 'react'
 import {
   editCodeAndResetProgress,
   forceRerender,
+  setPersist,
   setShowImpressum,
   setShowPrivacy,
 } from '../lib/commands/mode'
@@ -84,9 +85,6 @@ export function Overview() {
             <FaIcon icon={faPenToSquare} className="mr-1" />
             Aufgaben-Editor
           </a>
-          <span className="ml-8 cursor-pointer hover:underline font-bold">
-            Anmelden
-          </span>
         </div>
         {core.ws.ui.isAnalyze && (
           <div className="bg-white px-16 pb-8 mt-4">
@@ -112,7 +110,8 @@ export function Overview() {
               {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
               {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
               {core.ws.analyze.showDemo} mal Demo,{' '}
-              {core.ws.analyze.showStructogram} mal Struktogramm
+              {core.ws.analyze.showStructogram} mal Struktogramm,{' '}
+              {core.ws.analyze.usePersist} mal Fortschrit gespeichert
             </p>
             <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
             {core.ws.analyze.customQuests.map((entry, i) => (
@@ -143,6 +142,16 @@ export function Overview() {
                 - {entry[1].count} mal gestartet
               </p>
             ))}
+            <h2 className="mt-6 mb-4 text-lg">Zeiten (in Minuten)</h2>
+            <p className="mb-2">
+              Median: {median(core.ws.analyze.times)} Minuten
+            </p>
+            <p>{core.ws.analyze.times.join(', ')}</p>
+            <h2 className="mt-6 mb-4 text-lg">Anzahl gelöste Aufgaben</h2>
+            <p className="mb-2">
+              Median: {median(core.ws.analyze.solvedCount)}
+            </p>
+            <p>{core.ws.analyze.solvedCount.join(', ')}</p>
           </div>
         )}
         <div className="mx-12 lg:mx-16 xl:mx-24 flex-auto overflow-hidden -mt-8">
@@ -163,29 +172,38 @@ export function Overview() {
               )
           )}
         </div>
-        {isQuestDone(1) &&
-          !sessionStorage.getItem('robot_karol_online_hide_save_message') && (
-            <div className="text-sm text-right mr-4 mt-1 mb-3 text-gray-600">
-              Beim Schließen des Tabs wird dein Fortschritt zurückgesetzt. Eine
-              Speicherfunktion ist in Arbeit.{' '}
-              <button
-                onClick={() => {
-                  sessionStorage.setItem(
-                    'robot_karol_online_hide_save_message',
-                    '1'
-                  )
+        {!core.ws.ui.isAnalyze && (
+          <div className="text-sm text-right mr-4 mt-48 text-gray-600">
+            <label>
+              <input
+                type="checkbox"
+                checked={!!localStorage.getItem('karol_quest_beta_persist')}
+                onChange={(e) => {
+                  setPersist(core, e.target.checked)
                   forceRerender(core)
                 }}
-              >
-                <FaIcon
-                  icon={faTimes}
-                  className="inline-block px-1 bg-white hover:bg-gray-100"
-                />
-              </button>
-            </div>
-          )}
-        <div className="text-center mb-2 mt-10">
-          Version: Januar 2023 |{' '}
+              />{' '}
+              Fortschritt dauerhaft speichern
+            </label>{' '}
+            |{' '}
+            <button
+              className="hover:underline"
+              onClick={() => {
+                const res = confirm('Fortschritt jetzt zurücksetzen?')
+                if (res) {
+                  setPersist(core, false)
+                  sessionStorage.clear()
+                  forceRerender(core)
+                }
+              }}
+            >
+              zurücksetzen
+            </button>
+          </div>
+        )}
+
+        <div className="text-center mb-2">
+          Version: Februar 2023 |{' '}
           <button
             className="hover:underline"
             onClick={() => {
@@ -252,6 +270,8 @@ export function Overview() {
 
     const task = questData[index].tasks[0]
 
+    const times = quartiles(core.ws.analyze.questTimes[index] ?? [0])
+
     return (
       <div
         className={clsx(
@@ -297,7 +317,7 @@ export function Overview() {
           {core.ws.ui.isAnalyze &&
             (() => {
               const entry = core.ws.analyze.quests[index]
-              if (index == 1) {
+              if (index == 1 && entry) {
                 return <span>{entry.complete} Spieler*innen</span>
               }
               if (entry) {
@@ -313,6 +333,12 @@ export function Overview() {
                 return null
               }
             })()}
+          {core.ws.analyze.questTimes[index] && (
+            <div className="mt-2">
+              Zeiten: {times.max} / {times.q3} / <strong>{times.q2}</strong> /{' '}
+              {times.q1} / {times.min}
+            </div>
+          )}
           <div className="overflow-hidden -mt-8">
             <View
               world={questDone ? task.target! : task.start}
@@ -333,4 +359,22 @@ export function Overview() {
       </div>
     )
   }
+}
+
+function median(arr: number[]) {
+  const middle = Math.floor(arr.length / 2)
+  if (arr.length % 2 === 0) {
+    return (arr[middle - 1] + arr[middle]) / 2
+  } else {
+    return arr[middle]
+  }
+}
+
+function quartiles(arr: number[]) {
+  var max = arr[0]
+  var min = arr[arr.length - 1]
+  var q3 = arr[Math.floor((arr.length - 1) / 4)]
+  var q2 = arr[Math.floor((arr.length - 1) / 2)]
+  var q1 = arr[Math.floor(((arr.length - 1) * 3) / 4)]
+  return { min: min, q1: q1, q2: q2, q3: q3, max: max }
 }

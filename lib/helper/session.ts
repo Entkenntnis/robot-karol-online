@@ -12,9 +12,13 @@ export function isQuestDone(id: number) {
 }
 
 export function getQuestSessionData(id: number) {
-  const raw = sessionStorage.getItem(`karol_quest_beta_${id}`)
-  if (raw) {
-    return JSON.parse(raw) as QuestSessionData
+  const rawSes = sessionStorage.getItem(`karol_quest_beta_${id}`)
+  const rawLoc = localStorage.getItem(`karol_quest_beta_${id}`)
+  if (rawLoc) {
+    return JSON.parse(rawLoc) as QuestSessionData
+  }
+  if (rawSes) {
+    return JSON.parse(rawSes) as QuestSessionData
   }
   return null
 }
