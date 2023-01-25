@@ -13,7 +13,7 @@ export function Structogram() {
     <div className="relative flex flex-col h-full">
       <div className="absolute right-4 top-4">
         <button
-          className="px-2 py-0.5 bg-gray-200 rounded"
+          className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
           onClick={() => {
             setShowStructogram(core, false)
           }}
@@ -125,9 +125,8 @@ export function Structogram() {
       return (
         <div
           className={clsx(
-            'border border-black min-w-[190px] border-l-0',
+            'border border-black min-w-[190px] border-l-0 border-b-0',
             index > 0 && 'border-t-0',
-            nested && index == arrLength - 1 && 'border-b-0',
             nested && 'border-r-0'
           )}
           key={keyCounter.val++}
@@ -197,12 +196,22 @@ export function Structogram() {
             </div>
           </div>
           <div className="flex">
-            <div className="basis-1/2">
-              {childrenLeft.map((arr, i) =>
-                transformSubtree(arr, i, childrenLeft.length, true)
+            <div className="basis-1/2 flex flex-col">
+              {childrenLeft.length == 0 ? (
+                <div className="h-full border-black border-t border-l min-w-[190px] bg-gray-100"></div>
+              ) : (
+                childrenLeft.map((arr, i) =>
+                  transformSubtree(arr, i, childrenLeft.length, true)
+                )
               )}
+              <div
+                className={clsx(
+                  'flex-grow border-t border-black border-l',
+                  nested && index == arrLength - 1 ? 'border-b-0' : 'border-b'
+                )}
+              ></div>
             </div>
-            <div className="basis-1/2">
+            <div className="basis-1/2 flex flex-col">
               {childrenRight.length == 0 ? (
                 <div className="h-full border-black border-t border-l min-w-[190px] bg-gray-100"></div>
               ) : (
@@ -210,6 +219,12 @@ export function Structogram() {
                   transformSubtree(arr, i, childrenRight.length, true)
                 )
               )}
+              <div
+                className={clsx(
+                  'flex-grow border-t border-black border-l',
+                  nested && index == arrLength - 1 ? 'border-b-0' : 'border-b'
+                )}
+              ></div>
             </div>
           </div>
         </div>
@@ -223,17 +238,19 @@ export function Structogram() {
       if (cursor.firstChild()) {
         do {
           if (cursor.name == 'RepeatStart') {
-            heading.push(<strong>wiederhole&nbsp;</strong>)
+            heading.push(
+              <strong key={keyCounter.val++}>wiederhole&nbsp;</strong>
+            )
           } else if (cursor.name == 'Times') {
             heading.push(code.substring(cursor.from, cursor.to))
           } else if (cursor.name == 'RepeatTimesKey') {
-            heading.push(<strong> mal</strong>)
+            heading.push(<strong key={keyCounter.val++}> mal</strong>)
           } else if (cursor.name == 'RepeatWhileKey') {
-            heading.push(<strong>solange&nbsp;</strong>)
+            heading.push(<strong key={keyCounter.val++}>solange&nbsp;</strong>)
           } else if (cursor.name == 'Condition') {
             heading.push(code.substring(cursor.from, cursor.to))
           } else if (cursor.name == 'RepeatAlwaysKey') {
-            heading.push(<strong>immer</strong>)
+            heading.push(<strong key={keyCounter.val++}>immer</strong>)
           } else if (cursor.name.includes('Comment')) {
             continue
           } else if (cursor.name !== 'RepeatEnd') {
