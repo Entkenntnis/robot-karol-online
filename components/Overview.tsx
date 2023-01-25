@@ -173,7 +173,7 @@ export function Overview() {
           )}
         </div>
         {!core.ws.ui.isAnalyze && (
-          <div className="text-sm text-right mr-4 mt-48 text-gray-600">
+          <div className="text-sm text-right mr-4 mt-36 mb-4 text-gray-600">
             <label>
               <input
                 type="checkbox"

@@ -2,7 +2,7 @@ import { uiPosition } from 'blockly'
 import { questData } from '../data/quests'
 import { getQuestSessionData } from '../helper/session'
 import { sliderToDelay } from '../helper/speedSlider'
-import { submit_event } from '../helper/submit'
+import { submit_event, userIdKey } from '../helper/submit'
 import { Core } from '../state/core'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
@@ -132,10 +132,11 @@ export function forceRerender(core: Core) {
 export function setPersist(core: Core, val: boolean) {
   if (val) {
     submit_event('persist_progress', core)
-  }
-  if (val) {
+    localStorage.setItem(userIdKey, sessionStorage.getItem(userIdKey) ?? '')
     localStorage.setItem('karol_quest_beta_persist', '1')
   } else {
+    sessionStorage.setItem(userIdKey, localStorage.getItem(userIdKey) ?? '')
+    localStorage.removeItem(userIdKey)
     localStorage.removeItem('karol_quest_beta_persist')
   }
   for (const id in questData) {
