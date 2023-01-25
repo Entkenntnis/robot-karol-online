@@ -49,6 +49,7 @@ export async function initClient(core: Core) {
       let showEditor = 0
       let showPlayground = 0
       let showDemo = 0
+      let showStructogram = 0
       let legacy: { [key: string]: { count: number } } = {}
       let users: { [key: string]: { solved: string[] } } = {}
       const dedup: { [key: string]: boolean } = {}
@@ -80,6 +81,10 @@ export async function initClient(core: Core) {
             }
             if (entry.event == 'show_demo') {
               showDemo++
+              continue
+            }
+            if (entry.event == 'show_structogram') {
+              showStructogram++
               continue
             }
             const publish = /publish_custom_quest_(.+)/.exec(entry.event)
@@ -156,6 +161,7 @@ export async function initClient(core: Core) {
         ws.analyze.showEditor = showEditor
         ws.analyze.showPlayground = showPlayground
         ws.analyze.showDemo = showDemo
+        ws.analyze.showStructogram = showStructogram
         ws.analyze.legacy = legacy
         ws.analyze.users = users
 

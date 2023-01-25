@@ -1,11 +1,7 @@
 import {
   faArrowDown,
   faArrowUp,
-  faBarsStaggered,
   faCheck,
-  faExternalLink,
-  faGear,
-  faGears,
   faListCheck,
   faPencil,
   faPlay,
@@ -15,6 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
+
 import {
   addNewTask,
   deleteTask,
@@ -25,13 +22,7 @@ import {
   setTaskTitle,
 } from '../lib/commands/editor'
 import { serializeQuest } from '../lib/commands/json'
-
-import {
-  setShowStructogram,
-  showMenu,
-  showQuestOverview,
-} from '../lib/commands/mode'
-import { execPreviewForAll } from '../lib/commands/preview'
+import { setShowStructogram, showQuestOverview } from '../lib/commands/mode'
 import {
   openTask,
   setTaskScroll,
@@ -39,8 +30,8 @@ import {
   storeQuestToSession,
 } from '../lib/commands/quest'
 import { processMiniMarkdown } from '../lib/helper/processMiniMarkdown'
+import { submit_event } from '../lib/helper/submit'
 import { useCore } from '../lib/state/core'
-import { QuestTask } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
 import { QuestEditor } from './QuestEditor'
 import { View } from './View'
@@ -276,11 +267,17 @@ export function Tasks() {
             )
           )}
         </div>
-        <div className="flex-grow-0 flex-shrink-0">
+        <div
+          className={clsx(
+            'flex-grow-0 flex-shrink-0',
+            core.ws.ui.isEditor && 'hidden'
+          )}
+        >
           <button
             className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
             onClick={() => {
               setShowStructogram(core, true)
+              submit_event('show_structogram', core)
             }}
           >
             Struktogramm

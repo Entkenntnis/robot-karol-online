@@ -111,7 +111,8 @@ export function Overview() {
             <p className="mt-6 mb-4">
               {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
               {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
-              {core.ws.analyze.showDemo} mal Demo
+              {core.ws.analyze.showDemo} mal Demo,{' '}
+              {core.ws.analyze.showStructogram} mal Struktogramm
             </p>
             <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
             {core.ws.analyze.customQuests.map((entry, i) => (

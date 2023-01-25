@@ -81,6 +81,7 @@ export function createWorkspaceState(): WorkspaceState {
       showEditor: 0,
       showPlayground: 0,
       showDemo: 0,
+      showStructogram: 0,
       customQuests: [],
       quests: {},
       legacy: {},

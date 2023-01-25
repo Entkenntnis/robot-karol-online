@@ -128,6 +128,7 @@ export interface Analyze {
   showEditor: number
   showPlayground: number
   showDemo: number
+  showStructogram: number
   customQuests: { start: number; complete: number; id: string }[]
   quests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
