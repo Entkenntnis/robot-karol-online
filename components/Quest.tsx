@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
 import { editCodeAndResetProgress, setMode } from '../lib/commands/mode'
+import { closeOutput } from '../lib/commands/quest'
 import { useCore } from '../lib/state/core'
 import { EditArea } from './EditArea'
 import { ErrorModal } from './ErrorModal'
@@ -95,7 +96,18 @@ export function Quest() {
             <EditArea />
           </div>
           {(core.ws.ui.isTesting || core.ws.ui.isAlreadyCompleted) && (
-            <div className="absolute inset-0 bg-gray-700/20 z-[100]">
+            <div
+              className="absolute inset-0 bg-gray-700/20 z-[100]"
+              onClick={() => {
+                if (
+                  core.ws.ui.showOutput &&
+                  core.ws.ui.isEndOfRun &&
+                  !core.ws.ui.controlBarShowFinishQuest
+                ) {
+                  closeOutput(core)
+                }
+              }}
+            >
               <div
                 className={clsx(
                   'bottom-6 left-6 right-6 absolute',

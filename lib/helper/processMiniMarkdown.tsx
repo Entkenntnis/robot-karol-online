@@ -14,7 +14,7 @@ export function processMiniMarkdown(input: string) {
         </span>
       )
     ),
-    /(https:\/\/de\.serlo\.org\/[\d]+)/gm,
+    /(https:\/\/de\.serlo\.org\/[\d]+|https:\/\/app\.lumi\.education\/run\/[\w]+)/gm,
     (str) => (
       <a
         href={str}

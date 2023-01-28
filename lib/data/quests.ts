@@ -3,47 +3,7 @@ import { QuestData } from '../state/types'
 
 export const questData: { [key: number]: QuestData } = {
   1: {
-    title: 'Start',
-    description: `
-      Herzlich Willkommen bei Robot Karol Online!
-      Das ist dein Einstieg in die spannende Welt der Algorithmen.
-      Es warten viele Herausforderungen auf dich, die dein logisches Denken und deine Kreativität unter Beweis stellen.
-      
-      Mache dich als erstes mit der Programmierumgebung vertraut und löse den Auftrag "Drei Ziegel".
-      Ziehe dazu Blöcke auf die Arbeitsfläche und verbinde sie zu einem Programm.
-      Öffne den Auftrag, um dein Programm zu testen.
-
-      Für Robot Karol gibt es im Internet viele Anleitungen und Erklärvideos.
-      Schaue dir diese an, wenn du unsicher bist, was die Befehle machen.
-      Für den Anfang reichen dir \`Hinlegen\` und \`Schritt\`.
-
-      Sobald du fertig bist, kannst du dein Programm überprüfen.
-      Wenn du alle Aufträge erfüllst und kein Fehler auftritt, schließst du die Aufgabe ab.
-    `,
-    difficulty: 'Tutorial',
-    tasks: [
-      {
-        title: 'Drei Ziegel',
-        start: {
-          dimX: 7,
-          dimY: 1,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 0, 0, 0, 0, 0, 0]],
-          marks: [[false, false, false, false, false, false, false]],
-          blocks: [[false, false, false, false, false, false, false]],
-        },
-        target: {
-          dimX: 7,
-          dimY: 1,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 1, 0, 1, 0, 1, 0]],
-          marks: [[false, false, false, false, false, false, false]],
-          blocks: [[false, false, false, false, false, false, false]],
-        },
-      },
-    ],
+    ...deserlizeQuestToData(require('./quests/1.json')),
   },
 
   2: {
