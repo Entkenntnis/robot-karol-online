@@ -12,6 +12,7 @@ import { createRef, useEffect } from 'react'
 import {
   editCodeAndResetProgress,
   forceRerender,
+  openPlayground,
   setPersist,
   setShowImpressum,
   setShowPrivacy,
@@ -25,6 +26,7 @@ import {
   isQuestDone,
   isQuestStarted,
 } from '../lib/helper/session'
+import { submit_event } from '../lib/helper/submit'
 import { useCore } from '../lib/state/core'
 import { QuestSessionData } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
@@ -66,18 +68,16 @@ export function Overview() {
           </div>
         </div>
         <div className="flex justify-center mt-8 z-10">
-          <a
+          <button
             className="px-2 py-0.5 bg-green-400 hover:bg-green-500 rounded"
-            href={
-              window.location.protocol +
-              '//' +
-              window.location.host +
-              '/?id=Z9xO1rVGj'
-            }
+            onClick={() => {
+              openPlayground(core)
+              submit_event('show_playground', core)
+            }}
           >
             <FaIcon icon={faSeedling} className="mr-1" />
             Spielwiese
-          </a>{' '}
+          </button>{' '}
           <a
             href="/#editor"
             className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded ml-8"

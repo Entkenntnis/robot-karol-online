@@ -46,11 +46,12 @@ export function Output() {
             </div>
           </div>
         </div>
-        {!core.ws.ui.isTesting && (
-          <div className="absolute bottom-3 left-4">
-            {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}
-          </div>
-        )}
+        {!core.ws.ui.isTesting &&
+          core.ws.quest.lastStartedTask !== undefined && (
+            <div className="absolute bottom-3 left-4">
+              {core.ws.quest.tasks[core.ws.quest.lastStartedTask].title}
+            </div>
+          )}
         {core.ws.ui.isEndOfRun &&
           !core.ws.ui.controlBarShowFinishQuest &&
           !core.ws.ui.isTesting && (
@@ -66,7 +67,6 @@ export function Output() {
           )}
       </div>
       <div className="max-h-[30%] flex-grow flex-shrink-0 overflow-auto">
-        {' '}
         {core.ws.ui.isTesting && <TaskRunnerOverview />}
       </div>
     </div>

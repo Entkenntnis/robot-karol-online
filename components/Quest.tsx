@@ -13,6 +13,7 @@ import { ErrorModal } from './ErrorModal'
 import { FaIcon } from './FaIcon'
 import { OptionsModal } from './OptionsModal'
 import { Output } from './Output'
+import { Playground } from './Playground'
 import { ResizeWorldModal } from './ResizeWorldModal'
 import { ShareModal } from './ShareModal'
 import { Structogram } from './Structogram'
@@ -139,6 +140,8 @@ export function Quest() {
             <Structogram />
           ) : core.ws.editor.editWorld !== null ? (
             <WorldEditor />
+          ) : core.ws.ui.isPlayground ? (
+            <Playground />
           ) : (
             <Tasks />
           )}

@@ -14,7 +14,11 @@ import {
 import clsx from 'clsx'
 import { useMemo } from 'react'
 
-import { setSpeedSliderValue, showErrorModal } from '../lib/commands/mode'
+import {
+  closePlayground,
+  setSpeedSliderValue,
+  showErrorModal,
+} from '../lib/commands/mode'
 import { closeOutput, finishQuest, restartProgram } from '../lib/commands/quest'
 import { abort } from '../lib/commands/vm'
 import { positiveText } from '../lib/helper/positiveText'
@@ -58,7 +62,11 @@ export function ControlBar() {
           {core.ws.ui.state != 'running' && (
             <button
               onClick={() => {
-                closeOutput(core)
+                if (core.ws.ui.isPlayground) {
+                  closePlayground(core)
+                } else {
+                  closeOutput(core)
+                }
               }}
               className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
             >

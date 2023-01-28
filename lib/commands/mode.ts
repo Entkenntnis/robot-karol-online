@@ -151,3 +151,17 @@ export function setPersist(core: Core, val: boolean) {
     }
   }
 }
+
+export function openPlayground(core: Core) {
+  core.mutateWs((ws) => {
+    ws.ui.isPlayground = true
+    ws.ui.showQuestOverview = false
+  })
+}
+
+export function closePlayground(core: Core) {
+  core.mutateWs((ws) => {
+    ws.ui.isPlayground = false
+    ws.ui.showQuestOverview = true
+  })
+}

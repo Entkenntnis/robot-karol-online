@@ -67,6 +67,7 @@ export interface Ui {
   renderCounter: number
   isAnalyze: boolean
   overviewScroll: number
+  isPlayground: boolean
 }
 
 export interface Vm {

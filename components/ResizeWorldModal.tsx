@@ -117,19 +117,23 @@ export function ResizeWorldModal() {
   }
 
   function exec() {
-    const isShowPreview = core.ws.editor.showWorldPreview
+    if (core.ws.ui.isPlayground) {
+      createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+    } else {
+      const isShowPreview = core.ws.editor.showWorldPreview
 
-    const now = core.ws.editor.currentlyEditing
-    const other = now == 'start' ? 'target' : 'start'
+      const now = core.ws.editor.currentlyEditing
+      const other = now == 'start' ? 'target' : 'start'
 
-    switchCurrentlyEditedWorld(core, now)
-    createWorldCmd(core, localDimX, localDimY, localHeight, keep)
-    switchCurrentlyEditedWorld(core, other)
-    createWorldCmd(core, localDimX, localDimY, localHeight, keep)
-    switchCurrentlyEditedWorld(core, now)
+      switchCurrentlyEditedWorld(core, now)
+      createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+      switchCurrentlyEditedWorld(core, other)
+      createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+      switchCurrentlyEditedWorld(core, now)
 
-    if (isShowPreview) {
-      showPreview(core)
+      if (isShowPreview) {
+        showPreview(core)
+      }
     }
 
     setShowResizeWorld(core, false)
