@@ -68,16 +68,18 @@ export function Overview() {
           </div>
         </div>
         <div className="flex justify-center mt-8 z-10">
-          <button
+          <a
             className="px-2 py-0.5 bg-green-400 hover:bg-green-500 rounded"
-            onClick={() => {
-              openPlayground(core)
-              submit_event('show_playground', core)
-            }}
+            href={
+              window.location.protocol +
+              '//' +
+              window.location.host +
+              '/?id=Z9xO1rVGj'
+            }
           >
             <FaIcon icon={faSeedling} className="mr-1" />
             Spielwiese
-          </button>{' '}
+          </a>{' '}
           <a
             href="/#editor"
             className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded ml-8"

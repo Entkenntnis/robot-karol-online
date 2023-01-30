@@ -12,119 +12,10 @@ export const questData: { [key: number]: QuestData } = {
 
   3: {
     ...deserlizeQuestToData(require('./quests/3.json')),
-    difficulty: 'Tutorial',
   },
 
   4: {
-    title: 'Bedingte Wiederholung (+Anleitung)',
-    description: `
-      Du findest unter ... eine Schritt-für-Schritt Anleitung für diese Aufgabe.
-    `,
-    difficulty: 'Tutorial',
-    tasks: [
-      {
-        title: 'Über den Berg',
-        start: {
-          dimX: 8,
-          dimY: 3,
-          height: 6,
-          karol: { x: 7, y: 1, dir: 'west' },
-          bricks: [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 2, 3, 2, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-          ],
-          marks: [
-            [false, false, false, false, false, false, false, false],
-            [false, false, false, false, false, false, false, false],
-            [false, false, false, false, false, false, false, false],
-          ],
-          blocks: [
-            [false, false, false, false, false, false, false, false],
-            [false, false, false, false, false, false, false, false],
-            [false, false, false, false, false, false, false, false],
-          ],
-        },
-        target: {
-          dimX: 8,
-          dimY: 3,
-          height: 6,
-          karol: { x: 6, y: 1, dir: 'west' },
-          bricks: [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 2, 3, 2, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-          ],
-          marks: [
-            [false, false, false, false, false, false, false, false],
-            [true, false, false, false, false, false, false, false],
-            [false, false, false, false, false, false, false, false],
-          ],
-          blocks: [
-            [false, false, false, false, false, false, false, false],
-            [false, false, false, false, false, false, false, false],
-            [false, false, false, false, false, false, false, false],
-          ],
-        },
-      },
-      {
-        title: 'Lücke schließen',
-        start: {
-          dimX: 5,
-          dimY: 5,
-          height: 6,
-          karol: { x: 2, y: 4, dir: 'north' },
-          bricks: [
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-          ],
-          marks: [
-            [true, true, false, true, true],
-            [true, false, false, false, true],
-            [true, false, false, false, true],
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-          ],
-          blocks: [
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-          ],
-        },
-        target: {
-          dimX: 5,
-          dimY: 5,
-          height: 6,
-          karol: { x: 2, y: 4, dir: 'north' },
-          bricks: [
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-          ],
-          marks: [
-            [true, true, true, true, true],
-            [true, false, false, false, true],
-            [true, false, false, false, true],
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-          ],
-          blocks: [
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-          ],
-        },
-      },
-    ],
+    ...deserlizeQuestToData(require('./quests/4.json')),
   },
 
   5: {
@@ -213,5 +104,13 @@ export const questData: { [key: number]: QuestData } = {
 
   26: {
     ...deserlizeQuestToData(require('./quests/26.json')),
+  },
+
+  27: {
+    ...require('./quests/27.json'),
+  },
+
+  28: {
+    ...deserlizeQuestToData(require('./quests/28.json')),
   },
 }
