@@ -6,3 +6,5 @@ export const categories = [
   { name: 'Knobelaufgabe', quests: [18, 17] },
   { name: 'Real World Programming', quests: [16] },
 ]
+
+export const questList = [1, 2, 3, 4, 5]
