@@ -1,15 +1,15 @@
 {
   "version": "v1",
-  "title": "Baue eine Mauer",
-  "description": "Aufgabenstellung: Karol soll eine Mauer mit der Länge und Breite von 4 Steinen bauen. Die Mauer soll 3 Steine hoch sein. Benutzte Wiederholungsschleifen.\n\nQuelle: #CZT4",
+  "title": "Gartenmauer",
+  "description": "Karol soll eine 3 Ziegel hohe Mauer um ihren Garten ziehen.",
   "tasks": [
     {
-      "title": "Mauer",
+      "title": "Gartenmauer",
       "start": {
-        "dimX": 6,
-        "dimY": 8,
+        "dimX": 4,
+        "dimY": 4,
         "height": 6,
-        "karol": { "x": 1, "y": 1, "dir": "south" },
+        "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
           "offsetX": -1,
           "offsetY": -1,
@@ -33,15 +33,15 @@
         }
       },
       "target": {
-        "dimX": 6,
-        "dimY": 8,
+        "dimX": 4,
+        "dimY": 4,
         "height": 6,
-        "karol": { "x": 1, "y": 1, "dir": "south" },
+        "karol": { "x": 2, "y": 0, "dir": "west" },
         "bricks": {
           "dimX": 4,
           "dimY": 4,
-          "offsetX": 1,
-          "offsetY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
           "data": [
             [3, 3, 3, 3],
             [3, 0, 0, 3],

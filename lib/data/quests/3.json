@@ -1,7 +1,7 @@
 {
   "version": "v1",
-  "title": "Bedingte Anweisung",
-  "description": "Diese Aufgabe enthält zwei Aufträge, die scheinbar ganz unterschiedliche Dinge tun: Einmal wird ein Ziegel vor Karol abgelegt und einmal eine Marke gesetzt. Trotzdem sollen beide Aufträge mit einem Programm gelöst werden.\n\nMöglich macht das eine bedingte Anweisung, erkennbar an dem Schlüsselwort `wenn`. Damit kann Karol auf die Welt um sie herum reagieren. In diesem Fall soll Karol erkennen, ob sie auf einer Marke steht oder nicht.\n\nNutze für diese Aufgabe zum Beispiel den Block `wenn dann sonst` und die Bedingung `IstMarke`. Es gibt auch andere Lösungswege.\n    ",
+  "title": "Bedingte Anweisung (+Anleitung)",
+  "description": "Du findest unter ... eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
   "tasks": [
     {
       "title": "Steht auf Marke ➔ lege Ziegel vor sich",

@@ -22,4 +22,7 @@ export const questDeps: { [key: number]: number[] } = {
   21: [],
   22: [],
   23: [],
+  24: [],
+  25: [],
+  26: [],
 }

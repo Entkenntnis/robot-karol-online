@@ -16,14 +16,9 @@ export const questData: { [key: number]: QuestData } = {
   },
 
   4: {
-    title: 'Wiederholung mit Bedingung',
+    title: 'Bedingte Wiederholung (+Anleitung)',
     description: `
-      Karol kann nur das Feld direkt vor sich wahrnehmen.
-      Um bis zur Wand laufen zu können, muss sie in kleinen Schritten gehen und stoppen, sobald sie die Wand vor sich hat.
-
-      Für diesen Algorithmus gibt es den Block \`wiederhole solange\`.
-      Mit der passenden Bedingung kannst du Karol zur Wand navigieren.
-      Setze dann dort eine Marke.
+      Du findest unter ... eine Schritt-für-Schritt Anleitung für diese Aufgabe.
     `,
     difficulty: 'Tutorial',
     tasks: [
@@ -206,5 +201,17 @@ export const questData: { [key: number]: QuestData } = {
 
   23: {
     ...deserlizeQuestToData(require('./quests/23.json')),
+  },
+
+  24: {
+    ...deserlizeQuestToData(require('./quests/24.json')),
+  },
+
+  25: {
+    ...deserlizeQuestToData(require('./quests/25.json')),
+  },
+
+  26: {
+    ...deserlizeQuestToData(require('./quests/26.json')),
   },
 }
