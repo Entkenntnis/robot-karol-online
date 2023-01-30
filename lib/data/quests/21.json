@@ -1,0 +1,73 @@
+{
+  "version": "v1",
+  "title": "Smiley",
+  "description": "Ergänze die Augen des Smileys. Setze dafür zwei Marken.",
+  "tasks": [
+    {
+      "title": "Smiley (klicke zum Vergrößern)",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 2,
+          "offsetX": 1,
+          "offsetY": 4,
+          "data": [
+            [true, false, false, false, true],
+            [false, true, true, true, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [false, true, false, true, false],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [true, false, false, false, true],
+            [false, true, true, true, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

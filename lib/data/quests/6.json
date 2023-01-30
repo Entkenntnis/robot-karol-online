@@ -4,7 +4,7 @@
   "description": "Karol kann maximal eine Ziegelhöhe überwinden. Um höher zu kommen, braucht sie eine Treppe.",
   "tasks": [
     {
-      "title": "Treppe bauen",
+      "title": "Treppe",
       "start": {
         "dimX": 5,
         "dimY": 1,

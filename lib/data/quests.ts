@@ -7,117 +7,7 @@ export const questData: { [key: number]: QuestData } = {
   },
 
   2: {
-    title: 'Wiederholung mit fester Anzahl',
-    description: `
-      Häufig soll Karol eine Folge von Befehlen mehrfach wiederholen.
-      Um keine langwierigen Programme schreiben zu müssen, gibt es dafür den Block \`wiederhole {anzahl} mal\`.
-      
-      Erfülle den folgenden Auftrag, indem du das Muster erkennst und passend oft wiederholst.
-    `,
-    difficulty: 'Tutorial',
-    tasks: [
-      {
-        title: 'Ziegel und Marken im Wechsel',
-        start: {
-          dimX: 17,
-          dimY: 1,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-          marks: [
-            [
-              true,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-            ],
-          ],
-          blocks: [
-            [
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-            ],
-          ],
-        },
-        target: {
-          dimX: 21,
-          dimY: 1,
-          height: 6,
-          karol: { x: 0, y: 0, dir: 'east' },
-          bricks: [[0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]],
-          marks: [
-            [
-              true,
-              false,
-              true,
-              false,
-              true,
-              false,
-              true,
-              false,
-              true,
-              false,
-              true,
-              false,
-              true,
-              false,
-              true,
-              false,
-              true,
-            ],
-          ],
-          blocks: [
-            [
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-            ],
-          ],
-        },
-      },
-    ],
+    ...deserlizeQuestToData(require('./quests/2.json')),
   },
 
   3: {
@@ -300,5 +190,21 @@ export const questData: { [key: number]: QuestData } = {
 
   19: {
     ...deserlizeQuestToData(require('./quests/19.json')),
+  },
+
+  20: {
+    ...deserlizeQuestToData(require('./quests/20.json')),
+  },
+
+  21: {
+    ...deserlizeQuestToData(require('./quests/21.json')),
+  },
+
+  22: {
+    ...deserlizeQuestToData(require('./quests/22.json')),
+  },
+
+  23: {
+    ...deserlizeQuestToData(require('./quests/23.json')),
   },
 }

@@ -328,7 +328,7 @@ export function Overview() {
               {times.q1} / {times.min}
             </div>
           )}
-          <div className="overflow-hidden -mt-8">
+          <div className="overflow-hidden -mt-8 h-[240px]">
             <View
               world={questDone ? task.target! : task.start}
               preview={
@@ -339,7 +339,7 @@ export function Overview() {
               hideKarol={questDone}
               wireframe={false}
               className={clsx(
-                'block mx-auto  max-h-[240px]',
+                'block mx-auto max-h-full',
                 questDone && 'opacity-30'
               )}
             />
