@@ -19,7 +19,7 @@ import {
 } from '../lib/commands/mode'
 import { setOverviewScroll, startQuest } from '../lib/commands/quest'
 import { questDeps } from '../lib/data/dependencies'
-import { categories, questList } from '../lib/data/overview'
+import { questList } from '../lib/data/overview'
 import { questData } from '../lib/data/quests'
 import {
   getQuestSessionData,
@@ -231,11 +231,14 @@ export function Overview() {
   }
 
   function isQuestVisible(id: number) {
+    const previous = questList.indexOf(id)
+
     return (
       core.ws.ui.isDemo ||
       core.ws.ui.isAnalyze ||
-      questDeps[id].length == 0 ||
-      questDeps[id].some(isQuestDone)
+      questDeps[id].some(isQuestDone) ||
+      previous <= 0 ||
+      isQuestDone(questList[previous - 1])
     )
   }
 

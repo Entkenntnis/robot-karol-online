@@ -29,6 +29,7 @@ import {
   startTesting,
   storeQuestToSession,
 } from '../lib/commands/quest'
+import { questData } from '../lib/data/quests'
 import { processMiniMarkdown } from '../lib/helper/processMiniMarkdown'
 import { submit_event } from '../lib/helper/submit'
 import { useCore } from '../lib/state/core'
@@ -246,6 +247,24 @@ export function Tasks() {
                   }}
                 >
                   json
+                </button>
+              )}
+              {window.location.hostname == 'localhost' && (
+                <button
+                  className="ml-2"
+                  onClick={() => {
+                    const id = parseInt(prompt('Nummer der Quest:') ?? '')
+                    const obj = questData[id]
+                    if (obj) {
+                      core.mutateWs((ws) => {
+                        ws.quest.title = obj.title
+                        ws.quest.description = obj.description
+                        ws.quest.tasks = obj.tasks
+                      })
+                    }
+                  }}
+                >
+                  load quest
                 </button>
               )}
             </p>

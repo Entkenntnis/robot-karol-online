@@ -65,7 +65,8 @@ export function WorldEditor() {
 
   useEffect(() => {
     handlerDiv.current?.focus()
-  }, [handlerDiv])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const core = useCore()
   return (
@@ -131,7 +132,7 @@ export function WorldEditor() {
           Größe der Welt ändern
         </button>
       </div>
-      <div className="flex-grow flex-shrink flex justify-center overflow-scroll relative">
+      <div className="flex-grow flex-shrink flex justify-center overflow-auto relative">
         {core.ws.editor.currentlyEditing == 'target' &&
           !core.ws.editor.showWorldPreview && (
             <button
@@ -153,7 +154,7 @@ export function WorldEditor() {
             </div>
           ))}
         </div>
-        <div className="w-full h-full overflow-scroll">
+        <div className="w-full h-full overflow-auto">
           <div className="flex flex-col h-full">
             <div className="m-auto">
               <div
