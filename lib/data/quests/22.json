@@ -1,21 +1,26 @@
 {
   "version": "v1",
-  "title": "Gartenmauer",
-  "description": "Karol soll eine 3 Ziegel hohe Mauer um ihren Garten ziehen.",
+  "title": "Hoch hinaus",
+  "description": "Klettere oben auf die Treppe und setze am Ende eine Marke.",
   "tasks": [
     {
-      "title": "Gartenmauer",
+      "title": "Lange Treppe (klicke zum Vergrößern)",
       "start": {
         "dimX": 4,
         "dimY": 4,
-        "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "height": 10,
+        "karol": { "x": 0, "y": 3, "dir": "east" },
         "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 4,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [9, 8, 7, 6],
+            [0, 0, 0, 5],
+            [0, 0, 0, 4],
+            [0, 1, 2, 3]
+          ]
         },
         "marks": {
           "offsetX": -1,
@@ -35,26 +40,26 @@
       "target": {
         "dimX": 4,
         "dimY": 4,
-        "height": 6,
-        "karol": { "x": 2, "y": 0, "dir": "west" },
+        "height": 10,
+        "karol": { "x": 0, "y": 3, "dir": "east" },
         "bricks": {
           "dimX": 4,
           "dimY": 4,
           "offsetX": 0,
           "offsetY": 0,
           "data": [
-            [3, 3, 3, 3],
-            [3, 0, 0, 3],
-            [3, 0, 0, 3],
-            [3, 3, 3, 3]
+            [9, 8, 7, 6],
+            [0, 0, 0, 5],
+            [0, 0, 0, 4],
+            [0, 1, 2, 3]
           ]
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [[true]]
         },
         "blocks": {
           "offsetX": -1,

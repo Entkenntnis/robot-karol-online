@@ -1,7 +1,7 @@
 {
   "version": "v1",
-  "title": "Kontrollstrukturen",
-  "description": "\n      Karol kann mehrere Dinge gleichzeitig tun - zum Beispiel bis zur Wand laufen und nach Ziegeln Ausschau halten.\n      Kontrollstrukturen wie Wiederholungen und bedingte Anweisungen können nacheinander ausgeführt werden oder auch ineinander verschachtelt sein.\n      Die richtige Kombination macht's.\n\n      Laufe bis zur Wand lösche alle Marken. Verschachtle dafür zwei Kontrollstrukturen.\n    ",
+  "title": "Putzen",
+  "description": "Entferne alle Marken.",
   "tasks": [
     {
       "title": "Beispiel 1",

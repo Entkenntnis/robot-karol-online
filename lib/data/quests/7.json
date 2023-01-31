@@ -1,7 +1,7 @@
 {
   "version": "v1",
-  "title": "Buchstabe",
-  "description": "Karol kann nicht sprechen, aber sie kann Buchstaben zeichnen und damit kommunizeren.\n\nEin einfaches Beispiel: Die Zahl 7",
+  "title": "Ziffer",
+  "description": "Karol kann nicht sprechen, aber sie kann Ziffern zeichnen und damit kommunizeren.\n\nEin Beispiel: Die Zahl 7.",
   "tasks": [
     {
       "title": "Sieben",

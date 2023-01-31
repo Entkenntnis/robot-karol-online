@@ -19,7 +19,7 @@ import {
 } from '../lib/commands/mode'
 import { setOverviewScroll, startQuest } from '../lib/commands/quest'
 import { questDeps } from '../lib/data/dependencies'
-import { categories } from '../lib/data/overview'
+import { questList } from '../lib/data/overview'
 import { questData } from '../lib/data/quests'
 import {
   getQuestSessionData,
@@ -68,16 +68,18 @@ export function Overview() {
           </div>
         </div>
         <div className="flex justify-center mt-8 z-10">
-          <button
+          <a
             className="px-2 py-0.5 bg-green-400 hover:bg-green-500 rounded"
-            onClick={() => {
-              openPlayground(core)
-              submit_event('show_playground', core)
-            }}
+            href={
+              window.location.protocol +
+              '//' +
+              window.location.host +
+              '/?id=Z9xO1rVGj'
+            }
           >
             <FaIcon icon={faSeedling} className="mr-1" />
             Spielwiese
-          </button>{' '}
+          </a>{' '}
           <a
             href="/#editor"
             className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded ml-8"
@@ -154,24 +156,10 @@ export function Overview() {
             <p>{core.ws.analyze.solvedCount.join(', ')}</p>
           </div>
         )}
-        <div className="mx-12 lg:mx-16 xl:mx-24 flex-auto overflow-hidden -mt-8">
-          {categories.map(
-            (cat, i) =>
-              cat.quests.some(isQuestVisible) && (
-                <div key={i} className="my-8 mt-24">
-                  <h2 className="ml-7 -mb-4 text-xl">{cat.name}</h2>
-                  <div
-                    className={clsx(
-                      'mt-6 mb-4 rounded-lg overflow-auto',
-                      'flex flex-wrap'
-                    )}
-                  >
-                    {cat.quests.map(renderQuest)}
-                  </div>
-                </div>
-              )
-          )}
+        <div className="mx-12 lg:mx-16 xl:mx-24 flex flex-wrap mt-16">
+          {questList.map(renderQuest)}
         </div>
+        <div className="flex-auto"></div>
         {!core.ws.ui.isAnalyze && (
           <div className="text-sm text-right mr-4 mt-36 mb-4 text-gray-600">
             <label>
@@ -243,11 +231,14 @@ export function Overview() {
   }
 
   function isQuestVisible(id: number) {
+    const previous = questList.indexOf(id)
+
     return (
       core.ws.ui.isDemo ||
       core.ws.ui.isAnalyze ||
-      questDeps[id].length == 0 ||
-      questDeps[id].some(isQuestDone)
+      questDeps[id].some(isQuestDone) ||
+      previous <= 0 ||
+      isQuestDone(questList[previous - 1])
     )
   }
 
@@ -342,7 +333,7 @@ export function Overview() {
               {times.q1} / {times.min}
             </div>
           )}
-          <div className="overflow-hidden -mt-8">
+          <div className="overflow-hidden -mt-8 h-[240px]">
             <View
               world={questDone ? task.target! : task.start}
               preview={
@@ -353,7 +344,7 @@ export function Overview() {
               hideKarol={questDone}
               wireframe={false}
               className={clsx(
-                'block mx-auto  max-h-[240px]',
+                'block mx-auto max-h-full',
                 questDone && 'opacity-30'
               )}
             />
