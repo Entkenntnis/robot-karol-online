@@ -1,10 +1,10 @@
 {
   "version": "v1",
   "title": "Zählwiederholung (+Anleitung)",
-  "description": "Du findest unter https://app.lumi.education/run/_XiFE2 eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
+  "description": "Du findest unter https://app.lumi.education/run/_XiFE2 eine Schritt-für-Schritt Anleitung für diese Aufgabe.\n\nNutze für diese Aufgabe die Kontrollstruktur `wiederhole {n} mal`.",
   "tasks": [
     {
-      "title": "Setze eine Mittellinie",
+      "title": "Setze eine Mittellinie aus Marken",
       "start": {
         "dimX": 8,
         "dimY": 5,

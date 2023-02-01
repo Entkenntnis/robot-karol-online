@@ -1,10 +1,10 @@
 {
   "version": "v1",
   "title": "Bedingte Wiederholung (+Anl.)",
-  "description": "Du findest unter https://app.lumi.education/run/wfqu3v eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
+  "description": "Du findest unter https://app.lumi.education/run/wfqu3v eine Schritt-für-Schritt Anleitung für diese Aufgabe.\n\nSchreibe für die Aufträge (1) bis (3) ein einziges Programm. Nutze die Kontrollstruktur `wiederhole solange`. Das Programm soll mit einer beliebigen Anzahl von Ziegeln umgehen können.",
   "tasks": [
     {
-      "title": "Hebe alle Ziegel auf 1",
+      "title": "Hebe alle Ziegel auf (1)",
       "start": {
         "dimX": 5,
         "dimY": 3,
@@ -69,7 +69,7 @@
       }
     },
     {
-      "title": "Hebe alle Ziegel auf 2",
+      "title": "Hebe alle Ziegel auf (2)",
       "start": {
         "dimX": 5,
         "dimY": 3,
@@ -83,11 +83,15 @@
           "data": [[1]]
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [true, true, true],
+            [true, false, true],
+            [true, true, true]
+          ]
         },
         "blocks": {
           "offsetX": -1,
@@ -101,7 +105,7 @@
         "dimX": 5,
         "dimY": 3,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "karol": { "x": 1, "y": 1, "dir": "east" },
         "bricks": {
           "offsetX": -1,
           "offsetY": -1,
@@ -110,11 +114,15 @@
           "data": []
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [true, true, true],
+            [true, false, true],
+            [true, true, true]
+          ]
         },
         "blocks": {
           "offsetX": -1,
@@ -126,7 +134,7 @@
       }
     },
     {
-      "title": "Hebe alle Ziegel auf 3",
+      "title": "Hebe alle Ziegel auf (3)",
       "start": {
         "dimX": 5,
         "dimY": 3,
@@ -140,11 +148,15 @@
           "data": [[3]]
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [true, true, true],
+            [true, false, true],
+            [true, true, true]
+          ]
         },
         "blocks": {
           "offsetX": -1,
@@ -158,7 +170,7 @@
         "dimX": 5,
         "dimY": 3,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "karol": { "x": 1, "y": 1, "dir": "east" },
         "bricks": {
           "offsetX": -1,
           "offsetY": -1,
@@ -167,11 +179,15 @@
           "data": []
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [true, true, true],
+            [true, false, true],
+            [true, true, true]
+          ]
         },
         "blocks": {
           "offsetX": -1,
