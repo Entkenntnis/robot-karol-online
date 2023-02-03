@@ -48,7 +48,7 @@ export async function initClient(core: Core) {
       if (data.length > 0) {
         sessionStorage.setItem('karol_stored_pw', password)
       }
-      const cutoff = new Date(2023, 0, 26)
+      const cutoff = new Date(2023, 1, 1)
       let count = 0
       let showEditor = 0
       let showPlayground = 0
@@ -237,7 +237,7 @@ export async function initClient(core: Core) {
         ws.analyze.times = times
         ws.analyze.solvedCount = solvedCount
 
-        for (const index in questData) {
+        /*for (const index in questData) {
           let reachableCount = 0
 
           for (const userId in users) {
@@ -250,7 +250,7 @@ export async function initClient(core: Core) {
             }
           }
           ws.analyze.reachable[index] = reachableCount
-        }
+        }*/
 
         // console.log(questEvents)
         const questTimes: { [key: string]: number[] } = {}

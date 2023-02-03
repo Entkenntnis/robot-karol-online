@@ -106,6 +106,9 @@ export function Quest() {
                 ) {
                   closeOutput(core)
                 }
+                if (core.ws.ui.showOutput && core.ws.ui.state == 'error') {
+                  closeOutput(core)
+                }
               }}
             >
               <div

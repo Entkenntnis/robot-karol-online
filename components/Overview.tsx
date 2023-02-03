@@ -1,18 +1,14 @@
 import {
-  faCheck,
   faExternalLink,
   faPencil,
   faPenToSquare,
   faSeedling,
-  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { createRef, useEffect } from 'react'
+import { createRef, Fragment, useEffect } from 'react'
 
 import {
-  editCodeAndResetProgress,
   forceRerender,
-  openPlayground,
   setPersist,
   setShowImpressum,
   setShowPrivacy,
@@ -21,14 +17,8 @@ import { setOverviewScroll, startQuest } from '../lib/commands/quest'
 import { questDeps } from '../lib/data/dependencies'
 import { questList } from '../lib/data/overview'
 import { questData } from '../lib/data/quests'
-import {
-  getQuestSessionData,
-  isQuestDone,
-  isQuestStarted,
-} from '../lib/helper/session'
-import { submit_event } from '../lib/helper/submit'
+import { isQuestDone, isQuestStarted } from '../lib/helper/session'
 import { useCore } from '../lib/state/core'
-import { QuestSessionData } from '../lib/state/types'
 import { FaIcon } from './FaIcon'
 import { ImpressumModal } from './ImpressumModal'
 import { PrivacyModal } from './PrivacyModal'
@@ -47,178 +37,190 @@ export function Overview() {
   }, [])
 
   return (
-    <div className=" h-full overflow-auto" ref={overviewContainer}>
-      <div className="bg-yellow-200 flex flex-col relative min-h-full">
-        <div className="flex justify-center">
-          <div
-            className={clsx(
-              'flex mt-6 items-center rounded-xl',
-              'p-4 px-12 bg-yellow-100',
-              'border-l-4 border-r-red-500 border-r-4 border-l-blue-600'
-            )}
-          >
-            <img
-              src="/robotE.png"
-              alt="Bild von Robot Karol"
-              className="mr-8"
-              height={71}
-              width={40}
-            />
-            <h1 className="text-5xl whitespace-nowrap">Robot Karol Online</h1>
+    <>
+      <div className=" h-full main-bg overflow-auto" ref={overviewContainer}>
+        <div className="flex flex-col relative min-h-full">
+          <div className="flex justify-center">
+            <div
+              className={clsx(
+                'flex mt-6 items-center rounded-xl',
+                'p-4 px-12 bg-white/10'
+              )}
+            >
+              <img
+                src="/robotE.png"
+                alt="Bild von Robot Karol"
+                className="mr-8"
+                height={71}
+                width={40}
+              />
+              <h1 className="text-5xl whitespace-nowrap">Robot Karol Online</h1>
+            </div>
           </div>
-        </div>
-        <div className="flex justify-center mt-8 z-10">
-          <a
-            className="px-2 py-0.5 bg-green-400 hover:bg-green-500 rounded"
-            href={
-              window.location.protocol +
-              '//' +
-              window.location.host +
-              '/?id=Z9xO1rVGj'
-            }
-          >
-            <FaIcon icon={faSeedling} className="mr-1" />
-            Spielwiese
-          </a>{' '}
-          <a
-            href="/#editor"
-            className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded ml-8"
-          >
-            <FaIcon icon={faPenToSquare} className="mr-1" />
-            Aufgaben-Editor
-          </a>
-        </div>
-        {core.ws.ui.isAnalyze && (
-          <div className="bg-white px-16 pb-8 mt-4">
-            <p className="my-6">
-              Daten ab {core.ws.analyze.cutoff}, insgesamt{' '}
-              {core.ws.analyze.count} Einträge
-            </p>
-            <h2 className="mt-6 mb-4 text-lg">Freigegebene Aufgaben</h2>
-            {core.ws.analyze.published.map((entry, i) => (
-              <p key={i} className="my-2">
-                <a
-                  href={`/#${entry.id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-blue-500 hover:underline"
-                >
-                  {entry.id}
-                </a>{' '}
-                - {entry.date}
-              </p>
-            ))}
-            <p className="mt-6 mb-4">
-              {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
-              {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
-              {core.ws.analyze.showDemo} mal Demo,{' '}
-              {core.ws.analyze.showStructogram} mal Struktogramm,{' '}
-              {core.ws.analyze.usePersist} mal Fortschritt gespeichert
-            </p>
-            <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
-            {core.ws.analyze.customQuests.map((entry, i) => (
-              <p key={i} className="my-2">
-                <a
-                  href={`/#${entry.id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-blue-500 hover:underline"
-                >
-                  {entry.id}
-                </a>{' '}
-                - {entry.start} mal gestartet, {entry.complete} mal
-                abgeschlossen
-              </p>
-            ))}
-            <h2 className="mt-6 mb-4 text-lg">Legacy</h2>{' '}
-            {Object.entries(core.ws.analyze.legacy).map((entry, i) => (
-              <p key={i} className="my-2">
-                <a
-                  href={`/?id=${entry[0]}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-blue-500 hover:underline"
-                >
-                  {entry[0]}
-                </a>{' '}
-                - {entry[1].count} mal gestartet
-              </p>
-            ))}
-            <h2 className="mt-6 mb-4 text-lg">Zeiten (in Minuten)</h2>
-            <p className="mb-2">
-              Median: {median(core.ws.analyze.times)} Minuten
-            </p>
-            <p>{core.ws.analyze.times.join(', ')}</p>
-            <h2 className="mt-6 mb-4 text-lg">Anzahl gelöste Aufgaben</h2>
-            <p className="mb-2">
-              Median: {median(core.ws.analyze.solvedCount)}
-            </p>
-            <p>{core.ws.analyze.solvedCount.join(', ')}</p>
+          <div className="absolute right-3 top-3">
+            <a
+              href="/#editor"
+              className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded ml-8"
+            >
+              <FaIcon icon={faPenToSquare} className="mr-1" />
+              Aufgaben-Editor
+            </a>
           </div>
-        )}
-        <div className="mx-12 lg:mx-16 xl:mx-24 flex flex-wrap mt-16">
-          {questList.map(renderQuest)}
-        </div>
-        <div className="flex-auto"></div>
-        {!core.ws.ui.isAnalyze && (
-          <div className="text-sm text-right mr-4 mt-36 mb-4 text-gray-600">
-            <label>
-              <input
-                type="checkbox"
-                checked={!!localStorage.getItem('karol_quest_beta_persist')}
-                onChange={(e) => {
-                  setPersist(core, e.target.checked)
-                  forceRerender(core)
+          {core.ws.ui.isAnalyze && (
+            <div className="bg-white px-16 pb-8 mt-4">
+              <p className="my-6">
+                Daten ab {core.ws.analyze.cutoff}, insgesamt{' '}
+                {core.ws.analyze.count} Einträge
+              </p>
+              <h2 className="mt-6 mb-4 text-lg">Freigegebene Aufgaben</h2>
+              {core.ws.analyze.published.map((entry, i) => (
+                <p key={i} className="my-2">
+                  <a
+                    href={`/#${entry.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-500 hover:underline"
+                  >
+                    {entry.id}
+                  </a>{' '}
+                  - {entry.date}
+                </p>
+              ))}
+              <p className="mt-6 mb-4">
+                {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
+                {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
+                {core.ws.analyze.showDemo} mal Demo,{' '}
+                {core.ws.analyze.showStructogram} mal Struktogramm,{' '}
+                {core.ws.analyze.usePersist} mal Fortschritt gespeichert
+              </p>
+              <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
+              {core.ws.analyze.customQuests.map((entry, i) => (
+                <p key={i} className="my-2">
+                  <a
+                    href={`/#${entry.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-500 hover:underline"
+                  >
+                    {entry.id}
+                  </a>{' '}
+                  - {entry.start} mal gestartet, {entry.complete} mal
+                  abgeschlossen
+                </p>
+              ))}
+              <h2 className="mt-6 mb-4 text-lg">Legacy</h2>{' '}
+              {Object.entries(core.ws.analyze.legacy).map((entry, i) => (
+                <p key={i} className="my-2">
+                  <a
+                    href={`/?id=${entry[0]}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-500 hover:underline"
+                  >
+                    {entry[0]}
+                  </a>{' '}
+                  - {entry[1].count} mal gestartet
+                </p>
+              ))}
+              <h2 className="mt-6 mb-4 text-lg">Zeiten (in Minuten)</h2>
+              <p className="mb-2">
+                Median: {median(core.ws.analyze.times)} Minuten
+              </p>
+              <p>{core.ws.analyze.times.join(', ')}</p>
+              <h2 className="mt-6 mb-4 text-lg">Anzahl gelöste Aufgaben</h2>
+              <p className="mb-2">
+                Median: {median(core.ws.analyze.solvedCount)}
+              </p>
+              <p>{core.ws.analyze.solvedCount.join(', ')}</p>
+            </div>
+          )}
+          <div className="w-[1240px] h-[1900px] mx-auto mt-8 relative">
+            {questList.map(renderQuest)}
+          </div>
+          <div className="flex-auto"></div>
+          {!core.ws.ui.isAnalyze && (
+            <div className="text-sm text-right mr-4 mt-36 mb-4">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={!!localStorage.getItem('karol_quest_beta_persist')}
+                  onChange={(e) => {
+                    setPersist(core, e.target.checked)
+                    forceRerender(core)
+                  }}
+                />{' '}
+                Fortschritt dauerhaft speichern
+              </label>{' '}
+              |{' '}
+              <button
+                className="hover:underline"
+                onClick={() => {
+                  const res = confirm('Fortschritt jetzt zurücksetzen?')
+                  if (res) {
+                    setPersist(core, false)
+                    sessionStorage.clear()
+                    forceRerender(core)
+                  }
                 }}
-              />{' '}
-              Fortschritt dauerhaft speichern
-            </label>{' '}
+              >
+                zurücksetzen
+              </button>
+            </div>
+          )}
+
+          <div className="text-center mb-2">
+            Version: Februar 2023 |{' '}
+            <a
+              className="hover:underline cursor-pointer"
+              href={
+                window.location.protocol +
+                '//' +
+                window.location.host +
+                '/?id=Z9xO1rVGj'
+              }
+            >
+              Spielwiese
+            </a>{' '}
             |{' '}
             <button
               className="hover:underline"
               onClick={() => {
-                const res = confirm('Fortschritt jetzt zurücksetzen?')
-                if (res) {
-                  setPersist(core, false)
-                  sessionStorage.clear()
-                  forceRerender(core)
-                }
+                setShowImpressum(core, true)
               }}
             >
-              zurücksetzen
-            </button>
+              Impressum
+            </button>{' '}
+            |{' '}
+            <button
+              className="hover:underline"
+              onClick={() => {
+                setShowPrivacy(core, true)
+              }}
+            >
+              Datenschutz
+            </button>{' '}
+            |{' '}
+            {renderExternalLink(
+              'Infos',
+              'https://github.com/Entkenntnis/robot-karol-online#readme'
+            )}
           </div>
-        )}
-
-        <div className="text-center mb-2">
-          Version: Februar 2023 |{' '}
-          <button
-            className="hover:underline"
-            onClick={() => {
-              setShowImpressum(core, true)
-            }}
-          >
-            Impressum
-          </button>{' '}
-          |{' '}
-          <button
-            className="hover:underline"
-            onClick={() => {
-              setShowPrivacy(core, true)
-            }}
-          >
-            Datenschutz
-          </button>{' '}
-          |{' '}
-          {renderExternalLink(
-            'Infos',
-            'https://github.com/Entkenntnis/robot-karol-online#readme'
-          )}
+          {core.ws.ui.showImpressum && <ImpressumModal />}
+          {core.ws.ui.showPrivacy && <PrivacyModal />}
         </div>
-        {core.ws.ui.showImpressum && <ImpressumModal />}
-        {core.ws.ui.showPrivacy && <PrivacyModal />}
       </div>
-    </div>
+      <style jsx>{`
+        .main-bg {
+          background-color: #4158d0;
+          background-image: linear-gradient(
+            43deg,
+            #4158d0 0%,
+            #c850c0 46%,
+            #ffcc70 100%
+          );
+        }
+      `}</style>
+    </>
   )
 
   function renderExternalLink(title: string, href: string) {
@@ -243,17 +245,31 @@ export function Overview() {
   }
 
   function renderQuest(index: number, i: number) {
-    if (index == -1) {
-      return <div className="basis-full h-8" key={`spacer_${i}`}></div>
-    }
+    const row = Math.floor(i / 4) // zig zag
+    const col = (i % 4) + [0.5, 0, 0.5, 1][row % 4]
+    const top = `${row * 210 + (row + 1) * 50}px`
+    const left = `${(col + 1) * 35 + col * 200}px`
 
     // check for deps, empty deps -> always visible
     if (!isQuestVisible(index)) {
-      return null
+      let hasSolvedForward = false
+      for (let j = i + 1; j < questList.length; j++) {
+        if (isQuestVisible(questList[j])) {
+          hasSolvedForward = true
+          break
+        }
+      }
+      if (!hasSolvedForward) return null
+      return (
+        <div
+          key={index}
+          className="absolute w-[200px] h-[210px] border-2 rounded-md border-dashed"
+          style={{ top, left }}
+        ></div>
+      )
     }
 
     const data = questData[index]
-    const sessionData: QuestSessionData | null = getQuestSessionData(index)
 
     const questDone = core.ws.ui.isAnalyze ? false : isQuestDone(index)
 
@@ -264,93 +280,162 @@ export function Overview() {
     const times = quartiles(core.ws.analyze.questTimes[index] ?? [0])
 
     return (
-      <div
-        className={clsx(
-          'm-4 mr-6 p-3 bg-white rounded-md',
-          'w-[290px]',
-          !questDone &&
-            'border-2 border-blue-500 hover:bg-blue-50 cursor-pointer'
-        )}
-        tabIndex={0}
-        key={index}
-        onClick={() => {
-          setOverviewScroll(core, overviewContainer.current?.scrollTop ?? -1)
-          startQuest(core, index)
-        }}
-      >
-        <div className="">
-          <div>
-            <span
-              className={clsx('py-1 inline-block', !questDone && 'font-bold')}
-            >
-              {data.title}
-              {core.ws.ui.isAnalyze && <small>&nbsp;({index})</small>}
-            </span>
-          </div>
-        </div>
-        {core.ws.ui.isAnalyze && (
-          <div>Deps: [{questDeps[index].join(', ')}]</div>
-        )}
-        <div className="text-gray-700 text-sml mt-2">
-          &nbsp;
-          {questDone && (
-            <span className="text-green-600">
-              {' '}
-              <FaIcon icon={faCheck} /> abgeschlossen
-            </span>
-          )}
-          {isQuestStarted(index) && (
-            <span className="text-yellow-600">
-              {' '}
-              <FaIcon icon={faPencil} /> in Bearbeitung
-            </span>
-          )}
-          {core.ws.ui.isAnalyze &&
-            (() => {
-              const entry = core.ws.analyze.quests[index]
-              if (index == 1 && entry) {
-                return <span>{entry.complete} Spieler*innen</span>
-              }
-              if (entry) {
-                return (
-                  <span>
-                    {reachableCount} / {entry.start} / {entry.complete} /{' '}
-                    <strong>
-                      {Math.round((entry.complete / reachableCount) * 100)}%
-                    </strong>
-                  </span>
-                )
-              } else if (reachableCount) {
-                return <>{reachableCount} / -</>
-              }
-              {
-                return null
-              }
-            })()}
-          {core.ws.analyze.questTimes[index] && (
-            <div className="mt-2">
-              Zeiten: {times.max} / {times.q3} / <strong>{times.q2}</strong> /{' '}
-              {times.q1} / {times.min}
+      <Fragment key={index}>
+        <div className="absolute" style={{ top, left }}>
+          <div
+            className={clsx(
+              'p-3 bg-white rounded-md relative z-10',
+              'w-[200px] h-[210px] cursor-pointer rainbow',
+              questDone && 'quest-done'
+            )}
+            tabIndex={0}
+            onClick={() => {
+              setOverviewScroll(
+                core,
+                overviewContainer.current?.scrollTop ?? -1
+              )
+              startQuest(core, index)
+            }}
+          >
+            <div className="h-16">
+              <div>
+                <span
+                  className={clsx(
+                    'py-1 inline-block',
+                    questDone ? 'text-gray-600' : 'font-bold'
+                  )}
+                >
+                  {data.title}
+                  {core.ws.ui.isAnalyze && <small>&nbsp;({index})</small>}
+                </span>
+              </div>
             </div>
-          )}
-          <div className="overflow-hidden -mt-8 h-[240px]">
-            <View
-              world={questDone ? task.target! : task.start}
-              preview={
-                task.target === null
-                  ? undefined
-                  : { track: [], world: task.target }
-              }
-              hideKarol={questDone}
-              wireframe={false}
-              className={clsx(
-                'block mx-auto max-h-full',
-                questDone && 'opacity-30'
+            {core.ws.ui.isAnalyze && (
+              <div>Deps: [{questDeps[index].join(', ')}]</div>
+            )}
+            <div className="">
+              <div className="absolute right-3 top-3">
+                {isQuestStarted(index) && (
+                  <span className="text-yellow-600">
+                    <FaIcon icon={faPencil} />
+                  </span>
+                )}
+              </div>
+              {core.ws.ui.isAnalyze &&
+                (() => {
+                  const entry = core.ws.analyze.quests[index]
+                  if (index == 1 && entry) {
+                    return <span>{entry.complete} Spieler*innen</span>
+                  }
+                  if (entry) {
+                    return (
+                      <span>
+                        {reachableCount} / {entry.start} / {entry.complete} /{' '}
+                        <strong>
+                          {Math.round((entry.complete / reachableCount) * 100)}%
+                        </strong>
+                      </span>
+                    )
+                  } else if (reachableCount) {
+                    return <>{reachableCount} / -</>
+                  }
+                  {
+                    return null
+                  }
+                })()}
+              {core.ws.analyze.questTimes[index] && (
+                <div className="mt-2">
+                  Zeiten: {times.max} / {times.q3} / <strong>{times.q2}</strong>{' '}
+                  / {times.q1} / {times.min}
+                </div>
               )}
-            />
+              <div className="overflow-hidden -mt-6 h-[144px]">
+                <View
+                  world={questDone ? task.target! : task.start}
+                  preview={
+                    task.target === null
+                      ? undefined
+                      : { track: [], world: task.target }
+                  }
+                  hideKarol={questDone}
+                  wireframe={false}
+                  className={clsx(
+                    'block mx-auto max-h-full',
+                    questDone && 'opacity-30'
+                  )}
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+        <style jsx>{`
+          .quest-done:before {
+            filter: grayscale(60%) blur(5px) !important;
+          }
+
+          .rainbow:before {
+            content: '';
+            background: linear-gradient(
+              46deg,
+              #ff0000,
+              #ff7300,
+              #fffb00,
+              #48ff00,
+              #00ffd5,
+              #002bff,
+              #7a00ff,
+              #ff00c8,
+              #ff0000,
+              #ff7300,
+              #fffb00
+            );
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 8px;
+          }
+
+          .rainbow:active {
+            color: #000;
+          }
+
+          .rainbow:hover:before {
+            opacity: 1;
+          }
+
+          .rainbow:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 8px;
+            left: 0;
+            top: 0;
+          }
+
+          @keyframes glowing {
+            0% {
+              background-position: 0 0;
+            }
+            50% {
+              background-position: 400% 0;
+            }
+            100% {
+              background-position: 0 0;
+            }
+          }
+        `}</style>
+      </Fragment>
     )
   }
 }
