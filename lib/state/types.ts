@@ -68,6 +68,7 @@ export interface Ui {
   isAnalyze: boolean
   overviewScroll: number
   isPlayground: boolean
+  showHighscore: boolean
 }
 
 export interface Vm {

@@ -10,6 +10,7 @@ import { createRef, Fragment, useEffect } from 'react'
 import {
   forceRerender,
   setPersist,
+  setShowHighscore,
   setShowImpressum,
   setShowPrivacy,
 } from '../lib/commands/mode'
@@ -20,6 +21,7 @@ import { questData } from '../lib/data/quests'
 import { isQuestDone, isQuestStarted } from '../lib/helper/session'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
+import { Highscore } from './Highscore'
 import { ImpressumModal } from './ImpressumModal'
 import { PrivacyModal } from './PrivacyModal'
 import { View } from './View'
@@ -38,7 +40,24 @@ export function Overview() {
 
   return (
     <>
-      <div className=" h-full main-bg overflow-auto" ref={overviewContainer}>
+      <div className="h-full main-bg overflow-auto" ref={overviewContainer}>
+        {core.ws.ui.showHighscore && (
+          <div className="absolute inset-0 bg-white z-50">
+            <div className="absolute right-2 top-2">
+              <button
+                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+                onClick={() => {
+                  setShowHighscore(core, false)
+                }}
+              >
+                Schließen
+              </button>
+            </div>
+            <div className="mt-12 mb-12">
+              <Highscore />
+            </div>
+          </div>
+        )}
         <div className="flex flex-col relative min-h-full">
           <div className="flex justify-center">
             <div
@@ -58,9 +77,17 @@ export function Overview() {
             </div>
           </div>
           <div className="absolute right-3 top-3">
+            <button
+              className="mr-4 font-bold"
+              onClick={() => {
+                setShowHighscore(core, true)
+              }}
+            >
+              Highscore
+            </button>
             <a
               href="/#editor"
-              className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded ml-8"
+              className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded"
             >
               <FaIcon icon={faPenToSquare} className="mr-1" />
               Aufgaben-Editor

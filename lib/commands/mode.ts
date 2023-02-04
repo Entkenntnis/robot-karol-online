@@ -165,3 +165,9 @@ export function closePlayground(core: Core) {
     ws.ui.showQuestOverview = true
   })
 }
+
+export function setShowHighscore(core: Core, val: boolean) {
+  core.mutateWs(({ ui }) => {
+    ui.showHighscore = val
+  })
+}

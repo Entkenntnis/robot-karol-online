@@ -47,6 +47,7 @@ export function createWorkspaceState(): WorkspaceState {
       isAnalyze: false,
       overviewScroll: 0,
       isPlayground: false,
+      showHighscore: false,
     },
     vm: {
       pc: 0,

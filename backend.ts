@@ -4,4 +4,5 @@ export const backend = {
   legacyEndpoint: 'https://stats-karol.arrrg.de/load',
   questEndpoint: 'https://stats-karol.arrrg.de/quest/load',
   analyzeEndpoint: 'https://stats-karol.arrrg.de/export',
+  highscoreEndpoint: 'https://stats-karol.arrrg.de/highscore',
 }
