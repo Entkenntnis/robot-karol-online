@@ -23,6 +23,8 @@ export function Highscore() {
 
   const [mode, setMode] = useState<'count' | 'active'>('count')
 
+  const [showAll, setShowAll] = useState(false)
+
   useEffect(() => {
     if (backend.highscoreEndpoint) {
       fetch(backend.highscoreEndpoint)
@@ -94,19 +96,37 @@ export function Highscore() {
               </tr>
             </thead>
             <tbody>
-              {data.map((entry, i, arr) => (
-                <tr key={entry.userId} className="border-t-2">
-                  {mode == 'count' && (
-                    <td className="text-center p-2">{getPlacement(i, arr)}</td>
-                  )}
-                  <td className="text-center font-bold p-2">
-                    {entry.solved.length}
-                  </td>
-                  <td className="p-2">
-                    <ReactTimeAgo date={entry.lastActive} />
-                  </td>
-                </tr>
-              ))}
+              {(showAll || mode == 'active' ? data : data.slice(0, 10)).map(
+                (entry, i, arr) => (
+                  <tr key={entry.userId} className="border-t-2">
+                    {mode == 'count' && (
+                      <td className="text-center p-2">
+                        {getPlacement(i, arr)}
+                      </td>
+                    )}
+                    <td className="text-center font-bold p-2">
+                      {entry.solved.length}
+                    </td>
+                    <td className="p-2">
+                      <ReactTimeAgo date={entry.lastActive} />
+                    </td>
+                  </tr>
+                )
+              )}
+              {!showAll && mode == 'count' && (
+                <p>
+                  [
+                  <button
+                    onClick={() => {
+                      setShowAll(true)
+                    }}
+                    className="mt-8 text-blue-500 hover:underline"
+                  >
+                    alle anzeigen
+                  </button>
+                  ]
+                </p>
+              )}
             </tbody>
           </table>
         </>
