@@ -7,6 +7,8 @@ import de from 'javascript-time-ago/locale/de.json'
 import { backend } from '../backend'
 import { useCore } from '../lib/state/core'
 import { forceRerender } from '../lib/commands/mode'
+import { userIdKey } from '../lib/helper/submit'
+import clsx from 'clsx'
 
 TimeAgo.addDefaultLocale(de)
 
@@ -24,6 +26,9 @@ export function Highscore() {
   const [mode, setMode] = useState<'count' | 'active'>('count')
 
   const [showAll, setShowAll] = useState(false)
+
+  const userId =
+    localStorage.getItem(userIdKey) ?? sessionStorage.getItem(userIdKey)
 
   useEffect(() => {
     if (backend.highscoreEndpoint) {
@@ -98,7 +103,13 @@ export function Highscore() {
             <tbody>
               {(showAll || mode == 'active' ? data : data.slice(0, 10)).map(
                 (entry, i, arr) => (
-                  <tr key={entry.userId} className="border-t-2">
+                  <tr
+                    key={entry.userId}
+                    className={clsx(
+                      'border-t-2',
+                      entry.userId == userId && 'bg-blue-200'
+                    )}
+                  >
                     {mode == 'count' && (
                       <td className="text-center p-2">
                         {getPlacement(i, arr)}
