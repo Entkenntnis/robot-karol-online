@@ -49,7 +49,7 @@ export async function initClient(core: Core) {
       if (data.length > 0) {
         sessionStorage.setItem('karol_stored_pw', password)
       }
-      const cutoff = new Date(2023, 1, 4)
+      const cutoff = new Date(2023, 1, 5)
 
       core.mutateWs((ws) => {
         ws.ui.isAnalyze = true
@@ -163,8 +163,6 @@ export async function initClient(core: Core) {
         deps[questList[i]].push(questList[i - 1])
       }
 
-      console.log(deps)
-
       // pass 2: collect relevant information for quests
       core.mutateWs((ws) => {
         for (const userId in userRawData) {
@@ -177,7 +175,9 @@ export async function initClient(core: Core) {
           }
           // these are relevant users
           for (const index in questData) {
-            if (!questList.includes(parseInt(index))) continue
+            if (!questList.includes(parseInt(index))) {
+              continue
+            }
             if (data.quests[index]) ws.analyze.quests[index].complete++
             if (deps[index].some((i) => data.quests[i] !== undefined)) {
               ws.analyze.quests[index].reachable++
