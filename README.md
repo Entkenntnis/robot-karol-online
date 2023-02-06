@@ -28,7 +28,7 @@ Robot Karol Online enthält eine Sammmlung interaktiver Aufgaben, die für die �
 
 Erhalte eine Übersicht über alle enthaltenen Aufgaben: https://karol.arrrg.de/#demo
 
-Für einen mßageschneiderten Unterrichten können im Aufgaben-Editor eigene interaktive Aufgaben erstellt werden und über einen Link an die Klasse verteilt werden.
+Für einen mßageschneiderten Unterricht können im Aufgaben-Editor eigene interaktive Aufgaben erstellt werden und über einen Link an die Klasse verteilt werden.
 
 ## Sprache
 
