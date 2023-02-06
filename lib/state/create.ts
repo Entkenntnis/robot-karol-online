@@ -85,14 +85,9 @@ export function createWorkspaceState(): WorkspaceState {
       showDemo: 0,
       showStructogram: 0,
       usePersist: 0,
-      customQuests: [],
+      customQuests: {},
       quests: {},
       legacy: {},
-      users: {},
-      reachable: {},
-      times: [],
-      solvedCount: [],
-      questTimes: {},
     },
   }
   return ws

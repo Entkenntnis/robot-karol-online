@@ -132,14 +132,9 @@ export interface Analyze {
   showDemo: number
   showStructogram: number
   usePersist: number
-  customQuests: { start: number; complete: number; id: string }[]
-  quests: { [key: string]: { start: number; complete: number } }
+  customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
-  users: { [key: string]: { solved: string[] } }
-  reachable: { [key: string]: number }
-  times: number[]
-  solvedCount: number[]
-  questTimes: { [key: string]: number[] }
+  quests: { [key: string]: { reachable: number; complete: number } }
 }
 
 export interface CoreState {

@@ -1,6 +1,7 @@
 import { isAfter, isBefore } from 'date-fns'
 import { backend } from '../../backend'
 import { questDeps } from '../data/dependencies'
+import { questList } from '../data/overview'
 import { questData } from '../data/quests'
 import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
@@ -48,101 +49,49 @@ export async function initClient(core: Core) {
       if (data.length > 0) {
         sessionStorage.setItem('karol_stored_pw', password)
       }
-      const cutoff = new Date(2023, 1, 1)
-      let count = 0
-      let showEditor = 0
-      let showPlayground = 0
-      let showDemo = 0
-      let showStructogram = 0
-      let usePersist = 0
-      let legacy: { [key: string]: { count: number } } = {}
-      let users: {
-        [key: string]: { solved: string[]; firstDate: number; lastDate: number }
-      } = {}
-      const dedup: { [key: string]: boolean } = {}
-
-      const questEvents: {
-        [key: string]: { questId: string; isStart: boolean; ts: number }[]
-      } = {}
+      const cutoff = new Date(2023, 1, 4)
 
       core.mutateWs((ws) => {
         ws.ui.isAnalyze = true
         ws.analyze.cutoff = cutoff.toLocaleString()
-        const customStuff: {
-          [key: string]: { start: number; complete: number }
-        } = {}
-        const quests: {
-          [key: string]: { start: number; complete: number }
-        } = {}
+      })
+
+      // pass 1: collect some basic information and build user data
+      const userRawData: {
+        [userId: string]: { quests: { [id: string]: { solvedAt: number } } }
+      } = {}
+      const dedup: { [key: string]: boolean } = {}
+      core.mutateWs((ws) => {
         for (const entry of data) {
           if (isAfter(new Date(entry.createdAt), cutoff)) {
             const ts = new Date(entry.createdAt).getTime()
-            if (!users[entry.userId]) {
-              users[entry.userId] = {
-                solved: [],
-                firstDate: ts,
-                lastDate: ts,
-              }
-            }
-            if (ts < users[entry.userId].firstDate) {
-              users[entry.userId].firstDate = ts
-            }
-            if (ts > users[entry.userId].lastDate) {
-              users[entry.userId].lastDate = ts
-            }
-            const startQuest = /start_quest_(.+)/.exec(entry.event)
-
-            if (startQuest) {
-              const id = startQuest[1]
-              if (!questEvents[entry.userId]) {
-                questEvents[entry.userId] = []
-              }
-              questEvents[entry.userId].push({
-                questId: id,
-                isStart: true,
-                ts,
-              })
-            }
-
-            const completeQuest = /^quest_complete_(.+)/.exec(entry.event)
-
-            if (completeQuest) {
-              const id = completeQuest[1]
-              if (!questEvents[entry.userId]) {
-                questEvents[entry.userId] = []
-              }
-              questEvents[entry.userId].push({
-                questId: id,
-                isStart: false,
-                ts,
-              })
-            }
-
             const key = entry.userId + entry.event
             if (dedup[key]) {
               continue
             } else {
               dedup[key] = true
             }
-            count++
+
+            ws.analyze.count++
+
             if (entry.event == 'show_editor') {
-              showEditor++
+              ws.analyze.showEditor++
               continue
             }
             if (entry.event == 'load_id_Z9xO1rVGj') {
-              showPlayground++
+              ws.analyze.showPlayground++
               continue
             }
             if (entry.event == 'show_demo') {
-              showDemo++
+              ws.analyze.showDemo++
               continue
             }
             if (entry.event == 'show_structogram') {
-              showStructogram++
+              ws.analyze.showStructogram++
               continue
             }
             if (entry.event == 'persist_progress') {
-              usePersist++
+              ws.analyze.usePersist++
               continue
             }
             const publish = /publish_custom_quest_(.+)/.exec(entry.event)
@@ -156,10 +105,10 @@ export async function initClient(core: Core) {
             const startCustom = /load_custom_quest_(.+)/.exec(entry.event)
             if (startCustom) {
               const id = startCustom[1]
-              if (!customStuff[id]) {
-                customStuff[id] = { start: 0, complete: 0 }
+              if (!ws.analyze.customQuests[id]) {
+                ws.analyze.customQuests[id] = { start: 0, complete: 0 }
               }
-              customStuff[id].start++
+              ws.analyze.customQuests[id].start++
               continue
             }
             const completeCustom = /custom_quest_complete_(.+)/.exec(
@@ -167,121 +116,78 @@ export async function initClient(core: Core) {
             )
             if (completeCustom) {
               const id = completeCustom[1]
-              if (!customStuff[id]) {
-                customStuff[id] = { start: 0, complete: 0 }
+              if (!ws.analyze.customQuests[id]) {
+                ws.analyze.customQuests[id] = { start: 0, complete: 0 }
               }
-              customStuff[id].complete++
-              continue
-            }
-            if (startQuest) {
-              const id = startQuest[1]
-              if (!quests[id]) {
-                quests[id] = { start: 0, complete: 0 }
-              }
-              quests[id].start++
-              const key = entry.userId + id
-
-              continue
-            }
-            if (completeQuest) {
-              const id = completeQuest[1]
-              if (!quests[id]) {
-                quests[id] = { start: 0, complete: 0 }
-              }
-              quests[id].complete++
-              users[entry.userId].solved.push(id)
+              ws.analyze.customQuests[id].complete++
               continue
             }
             const loadLegacy = /load_id_(.+)/.exec(entry.event)
             if (loadLegacy) {
               const id = loadLegacy[1]
-              if (!legacy[id]) {
-                legacy[id] = { count: 0 }
+              if (!ws.analyze.legacy[id]) {
+                ws.analyze.legacy[id] = { count: 0 }
               }
-              legacy[id].count++
+              ws.analyze.legacy[id].count++
               continue
             }
-            console.log(entry)
-          }
-        }
-        for (const id in customStuff) {
-          ws.analyze.customQuests.push({
-            id,
-            start: customStuff[id].start,
-            complete: customStuff[id].complete,
-          })
-        }
-        ws.analyze.quests = quests
-        ws.analyze.count = count
-        ws.analyze.showEditor = showEditor
-        ws.analyze.showPlayground = showPlayground
-        ws.analyze.showDemo = showDemo
-        ws.analyze.showStructogram = showStructogram
-        ws.analyze.usePersist = usePersist
-        ws.analyze.legacy = legacy
-        ws.analyze.users = users
 
-        const times = []
-        const solvedCount = []
+            const completeQuest = /^quest_complete_(.+)/.exec(entry.event)
 
-        for (const id in users) {
-          if (users[id].solved.length > 0) {
-            const span = users[id].lastDate - users[id].firstDate
-            times.push(Math.round(span / 1000 / 60))
-            solvedCount.push(users[id].solved.length)
-          }
-        }
-        times.sort((a, b) => b - a)
-        solvedCount.sort((a, b) => b - a)
-
-        ws.analyze.times = times
-        ws.analyze.solvedCount = solvedCount
-
-        /*for (const index in questData) {
-          let reachableCount = 0
-
-          for (const userId in users) {
-            if (
-              questDeps[index].some((i) =>
-                users[userId].solved.includes(i.toString())
-              )
-            ) {
-              reachableCount++
-            }
-          }
-          ws.analyze.reachable[index] = reachableCount
-        }*/
-
-        // console.log(questEvents)
-        const questTimes: { [key: string]: number[] } = {}
-
-        for (const userId in questEvents) {
-          const solved: string[] = []
-          const lastStartedTime: { [key: string]: number } = {}
-          for (const event of questEvents[userId]) {
-            if (event.isStart) {
-              lastStartedTime[event.questId] = event.ts
-            } else {
-              if (solved.includes(event.questId)) continue
-              if (!questTimes[event.questId]) {
-                questTimes[event.questId] = []
+            if (completeQuest) {
+              const id = completeQuest[1]
+              if (!userRawData[entry.userId]) {
+                userRawData[entry.userId] = { quests: {} }
               }
-              questTimes[event.questId].push(
-                Math.round(
-                  (event.ts - lastStartedTime[event.questId]) / 1000 / 60
-                )
-              )
-              solved.push(event.questId)
+
+              if (!userRawData[entry.userId].quests[id]) {
+                userRawData[entry.userId].quests[id] = { solvedAt: ts }
+              }
+              if (ts < userRawData[entry.userId].quests[id].solvedAt) {
+                userRawData[entry.userId].quests[id].solvedAt = ts
+              }
             }
           }
         }
-        for (const questId in questTimes) {
-          questTimes[questId].sort((a, b) => b - a)
-        }
-        ws.analyze.questTimes = questTimes
-        // console.log(questTimes)
       })
-    } catch (e) {}
+
+      // prepare: populate quest data and generate deps
+      core.mutateWs((ws) => {
+        for (const index in questData) {
+          ws.analyze.quests[index] = { reachable: 0, complete: 0 }
+        }
+      })
+
+      const deps: typeof questDeps = JSON.parse(JSON.stringify(questDeps))
+      for (let i = 1; i < questList.length - 1; i++) {
+        deps[questList[i]].push(questList[i - 1])
+      }
+
+      console.log(deps)
+
+      // pass 2: collect relevant information for quests
+      core.mutateWs((ws) => {
+        for (const userId in userRawData) {
+          const data = userRawData[userId]
+          if (!data.quests[1]) {
+            continue
+          }
+          if (data.quests[1].solvedAt < cutoff.getTime()) {
+            continue
+          }
+          // these are relevant users
+          for (const index in questData) {
+            if (!questList.includes(parseInt(index))) continue
+            if (data.quests[index]) ws.analyze.quests[index].complete++
+            if (deps[index].some((i) => data.quests[i] !== undefined)) {
+              ws.analyze.quests[index].reachable++
+            }
+          }
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   if (hash == '#EDITOR') {

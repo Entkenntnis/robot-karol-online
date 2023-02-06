@@ -2,7 +2,6 @@ import {
   faExternalLink,
   faPencil,
   faPenToSquare,
-  faSeedling,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, Fragment, useEffect } from 'react'
@@ -40,7 +39,7 @@ export function Overview() {
 
   return (
     <>
-      <div className="h-full main-bg overflow-auto" ref={overviewContainer}>
+      <div className="h-full overflow-auto" ref={overviewContainer}>
         {core.ws.ui.showHighscore && (
           <div className="absolute inset-0 bg-white z-50">
             <div className="absolute right-2 top-2">
@@ -58,7 +57,7 @@ export function Overview() {
             </div>
           </div>
         )}
-        <div className="flex flex-col relative min-h-full">
+        <div className="flex flex-col relative main-bg min-h-full">
           <div className="flex justify-center">
             <div
               className={clsx(
@@ -121,17 +120,17 @@ export function Overview() {
                 {core.ws.analyze.usePersist} mal Fortschritt gespeichert
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
-              {core.ws.analyze.customQuests.map((entry, i) => (
+              {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
                 <p key={i} className="my-2">
                   <a
-                    href={`/#${entry.id}`}
+                    href={`/#${entry[0]}`}
                     target="_blank"
                     rel="noreferrer"
                     className="text-blue-500 hover:underline"
                   >
-                    {entry.id}
+                    {entry[0]}
                   </a>{' '}
-                  - {entry.start} mal gestartet, {entry.complete} mal
+                  - {entry[1].start} mal gestartet, {entry[1].complete} mal
                   abgeschlossen
                 </p>
               ))}
@@ -149,7 +148,7 @@ export function Overview() {
                   - {entry[1].count} mal gestartet
                 </p>
               ))}
-              <h2 className="mt-6 mb-4 text-lg">Zeiten (in Minuten)</h2>
+              {/*<h2 className="mt-6 mb-4 text-lg">Zeiten (in Minuten)</h2>
               <p className="mb-2">
                 Median: {median(core.ws.analyze.times)} Minuten
               </p>
@@ -158,7 +157,7 @@ export function Overview() {
               <p className="mb-2">
                 Median: {median(core.ws.analyze.solvedCount)}
               </p>
-              <p>{core.ws.analyze.solvedCount.join(', ')}</p>
+              <p>{core.ws.analyze.solvedCount.join(', ')}</p>*/}
             </div>
           )}
           <div className="w-[1240px] h-[1900px] mx-auto mt-8 relative">
@@ -300,11 +299,11 @@ export function Overview() {
 
     const questDone = core.ws.ui.isAnalyze ? false : isQuestDone(index)
 
-    const reachableCount = core.ws.analyze.reachable[index]
+    //const reachableCount = core.ws.analyze.reachable[index]
 
     const task = questData[index].tasks[0]
 
-    const times = quartiles(core.ws.analyze.questTimes[index] ?? [0])
+    //const times = quartiles(core.ws.analyze.questTimes[index] ?? [0])
 
     return (
       <Fragment key={index}>
@@ -324,7 +323,7 @@ export function Overview() {
               startQuest(core, index)
             }}
           >
-            <div className="h-16">
+            <div className={clsx(!core.ws.analyze && 'h-16')}>
               <div>
                 <span
                   className={clsx(
@@ -337,9 +336,6 @@ export function Overview() {
                 </span>
               </div>
             </div>
-            {core.ws.ui.isAnalyze && (
-              <div>Deps: [{questDeps[index].join(', ')}]</div>
-            )}
             <div className="">
               <div className="absolute right-3 top-3">
                 {isQuestStarted(index) && (
@@ -357,23 +353,19 @@ export function Overview() {
                   if (entry) {
                     return (
                       <span>
-                        {reachableCount} / {entry.start} / {entry.complete} /{' '}
+                        {entry.reachable} / {entry.complete} /{' '}
                         <strong>
-                          {Math.round((entry.complete / reachableCount) * 100)}%
+                          {Math.round((entry.complete / entry.reachable) * 100)}
+                          %
                         </strong>
                       </span>
                     )
-                  } else if (reachableCount) {
-                    return <>{reachableCount} / -</>
                   }
-                  {
-                    return null
-                  }
-                })()}
-              {core.ws.analyze.questTimes[index] && (
-                <div className="mt-2">
-                  Zeiten: {times.max} / {times.q3} / <strong>{times.q2}</strong>{' '}
-                  / {times.q1} / {times.min}
+                  return null
+                })()}{' '}
+              {core.ws.ui.isAnalyze && (
+                <div className="text-sm text-gray-400">
+                  Deps: [{questDeps[index].join(', ')}]
                 </div>
               )}
               <div className="overflow-hidden -mt-6 h-[144px]">
