@@ -4,23 +4,27 @@ _Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung._
 
 ## Übersicht
 
-<blockquote>
+**Robot Karol Online** ([karol.arrrg.de](https://karol.arrrg.de/)) ist eine Erweiterung der [gleichnamigen Programmierumgebung](https://mebis.bycs.de/beitrag/robot-karol) von Ulli Freiberger. Ziel ist die spielerische Einführung in die Algorithmik, insbesondere von Sequenz, Wiederholung mit fester Anzahl, bedingte Wiederholung und bedingte Anweisungen. Diese Themen finden sich in vielen Lehrplänen der Unterstufe.
 
-Aus https://mebis.bycs.de/beitrag/robot-karol:
+![grafik](https://user-images.githubusercontent.com/13507950/217001346-f3c7463e-695f-4b16-bfdf-4ac178015d25.png)
 
-Robot Karol ist eine Programmierumgebung mit einer Programmiersprache, die für Schülerinnen und Schüler zum Erlernen des Programmierens und zur Einführung in die Algorithmik gedacht ist. Robot Karol folgt der Tradition der “Mini-Languages”. Dies sind Programmiersprachen, die bewusst über einen kleinen, übersichtlichen Sprachumfang verfügen, um den Einstieg in die Algorithmik zu erleichtern.
+Robot Karol stellt einen visuellen (blockbasierten) Editor zur Verfügung. Zur Unterstützung der Modellierung kann das Programm zusätzlich als Struktogramm angezeigt werden. Eine Bearbeitung im Text-Modus ist ebenfalls möglich. Es kann durchgehend zwischen Text und Blöcken gewechselt werden.
 
-Dem Programm Robot Karol liegt die Idee von [„Karel the Robot“](https://www.cs.mtsu.edu/~untch/karel/index.html) zugrunde, wie sie zum ersten Mal von Richard E. Pattis in “Karel the Robot: A Gentle Introduction to the Art of Programming” veröffentlicht wurde. Die Idee ist, einen Roboter zu programmieren, der in einer “Bildschirmwelt” lebt. Wenn Karol-Programme ablaufen, sehen die Schülerinnen und Schüler an der Reaktion des Roboters sofort, was sie programmiert haben und ob ihr Programm die Aufgabenstellung erfüllt.
+![grafik](https://user-images.githubusercontent.com/13507950/217000864-0184a92d-21e5-480f-8edd-ed1e8ba29a2f.png)
 
-</blockquote>
+![grafik](https://user-images.githubusercontent.com/13507950/217000953-20a0261a-71e7-479c-a5fe-c387062c9390.png)
 
-**Robot Karol Online** ([karol.arrrg.de](https://karol.arrrg.de/)) erweitert die bisherigen Implementationen von Robot Karol um einen blockbasierten Editor und einer eingebauten Aufgabensammlung. Damit werden die Einstiegshürden nochmal deutlich gesenkt: Für den Anfang muss man sich um Syntax-Fehler keine Sorgen machen und das beigefügte Tutorial und die Aufgaben bieten sofortiges Feedback für die ersten eigenen Programme. Auch die Installation von Software entfällt.
+![grafik](https://user-images.githubusercontent.com/13507950/217001071-d341a03a-f6ca-4b1b-bcfd-1574ea95cab9.png)
 
-Die einzelnen Aufgaben in der Aufgabensammmlung bestehen selbst aus einen oder mehreren Aufträgen, die mit _einem_ Programm gelöst werden müssen. Bei jedem Auftrag geht es darum, eine vorgegebene Welt mit Karol nachzubauen - beziehungsweise das passende Programm dazu zu schreiben. Dadurch, dass alle Aufträge mit einem Programm gelöst werden, ist der Einsatz von Bedingungen unverzichtbar. Sobald ein Auftrag erledigt ist, wird das in Robot Karol Online markiert und macht den Fortschritt nachvollziehbar.
+Als Web-Anwendung entfällt die Installation. Einfach auf den Link https://karol.arrrg.de/ klicken und schon kann losgearbeitet werden.
 
-Die Aufgaben beginnen mit Tutorials, die die Grundlagen der Sprache vermitteln. Danach gibt es eine Reihe an einfachen und mittleren Aufgaben, um die Grundlagen einzuüben. Für ehrgeizige Spieler bieten dann die schweren Aufgaben eine ordentliche Herausforderung. Dabei kann außerdem in den textbasierten Editor gewechselt werden, der zusätzlich Möglichkeiten bietet, wie z.B. die Definition eigener Anweisugen.
+## Aufgabensammlung
+
+Robot Karol Online enthält eine Sammmlung interaktiver Aufgaben, die für die Übung und zum Selbstlernen geeignet sind. Die Aufgaben fangen mit einfachen Tutorials an und steigern sich bis zu komplexen Algorithmen mit verschachtelten Kontrollstrukturen.
 
 Erhalte eine Übersicht über alle enthaltenen Aufgaben: https://karol.arrrg.de/#demo
+
+Für einen mßageschneiderten Unterrichten können im Aufgaben-Editor eigene interaktive Aufgaben erstellt werden und über einen Link an die Klasse verteilt werden.
 
 ## Sprache
 
