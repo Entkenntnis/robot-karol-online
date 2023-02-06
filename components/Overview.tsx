@@ -323,7 +323,7 @@ export function Overview() {
               startQuest(core, index)
             }}
           >
-            <div className={clsx(!core.ws.analyze && 'h-16')}>
+            <div>
               <div>
                 <span
                   className={clsx(
