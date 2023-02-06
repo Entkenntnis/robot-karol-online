@@ -8,11 +8,15 @@ _Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung._
 
 ![grafik](https://user-images.githubusercontent.com/13507950/217001346-f3c7463e-695f-4b16-bfdf-4ac178015d25.png)
 
-Robot Karol stellt einen visuellen (blockbasierten) Editor zur Verfügung. Zur Unterstützung der Modellierung kann das Programm zusätzlich als Struktogramm angezeigt werden. Eine Bearbeitung im Text-Modus ist ebenfalls möglich. Es kann durchgehend zwischen Text und Blöcken gewechselt werden.
+Robot Karol stellt einen visuellen (blockbasierten) Editor zur Verfügung.
 
 ![grafik](https://user-images.githubusercontent.com/13507950/217000864-0184a92d-21e5-480f-8edd-ed1e8ba29a2f.png)
 
+Zur Unterstützung der Modellierung kann das Programm zusätzlich als Struktogramm angezeigt werden.
+
 ![grafik](https://user-images.githubusercontent.com/13507950/217000953-20a0261a-71e7-479c-a5fe-c387062c9390.png)
+
+ Eine Bearbeitung im Text-Modus ist ebenfalls möglich. Es kann durchgehend zwischen Text und Blöcken gewechselt werden.
 
 ![grafik](https://user-images.githubusercontent.com/13507950/217001071-d341a03a-f6ca-4b1b-bcfd-1574ea95cab9.png)
 
