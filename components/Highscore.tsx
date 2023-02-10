@@ -118,28 +118,28 @@ export function Highscore() {
                     <td className="text-center font-bold p-2">
                       {entry.solved.length}
                     </td>
-                    <td className="p-2">
-                      <ReactTimeAgo date={entry.lastActive} />
+                    <td className="p-2 text-center">
+                      <ReactTimeAgo date={entry.lastActive} live={false} />
                     </td>
                   </tr>
                 )
               )}
-              {!showAll && mode == 'count' && (
-                <p>
-                  [
-                  <button
-                    onClick={() => {
-                      setShowAll(true)
-                    }}
-                    className="mt-8 text-blue-500 hover:underline"
-                  >
-                    alle anzeigen
-                  </button>
-                  ]
-                </p>
-              )}
             </tbody>
           </table>
+          {!showAll && mode == 'count' && (
+            <p>
+              [
+              <button
+                onClick={() => {
+                  setShowAll(true)
+                }}
+                className="mt-8 text-blue-500 hover:underline"
+              >
+                alle anzeigen
+              </button>
+              ]
+            </p>
+          )}
         </>
       )}
     </div>

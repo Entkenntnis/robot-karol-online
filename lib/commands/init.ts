@@ -173,6 +173,10 @@ export async function initClient(core: Core) {
           if (data.quests[1].solvedAt < cutoff.getTime()) {
             continue
           }
+          const times = Object.values(data.quests).map((q) => q.solvedAt)
+          const max = Math.max(...times)
+          const min = Math.min(...times)
+          ws.analyze.userTimes.push(max - min)
           // these are relevant users
           for (const index in questData) {
             if (!questList.includes(parseInt(index))) {
@@ -184,6 +188,7 @@ export async function initClient(core: Core) {
             }
           }
         }
+        ws.analyze.userTimes.sort((a, b) => b - a)
       })
     } catch (e) {
       console.log(e)

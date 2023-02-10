@@ -113,6 +113,15 @@ export function startQuest(core: Core, id: number) {
     ws.ui.isTesting = false
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.taskScroll = 0
+    if (
+      id == 1 &&
+      !(
+        localStorage.getItem('robot_karol_online_name') ||
+        sessionStorage.getItem('robot_karol_online_name')
+      )
+    ) {
+      ws.ui.showNameModal = true
+    }
   })
   submit_event(`start_quest_${id}`, core)
   const sessionData = getQuestSessionData(id)

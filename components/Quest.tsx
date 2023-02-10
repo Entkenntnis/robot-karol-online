@@ -12,6 +12,7 @@ import { useCore } from '../lib/state/core'
 import { EditArea } from './EditArea'
 import { ErrorModal } from './ErrorModal'
 import { FaIcon } from './FaIcon'
+import { NameModal } from './NameModal'
 import { OptionsModal } from './OptionsModal'
 import { Output } from './Output'
 import { Playground } from './Playground'
@@ -166,6 +167,7 @@ export function Quest() {
       {core.ws.ui.showErrorModal && <ErrorModal />}
       {core.ws.editor.showResizeWorld && <ResizeWorldModal />}
       {core.ws.editor.showShareModal && <ShareModal />}
+      {core.ws.ui.showNameModal && <NameModal />}
     </>
   )
 }

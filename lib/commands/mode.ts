@@ -171,3 +171,13 @@ export function setShowHighscore(core: Core, val: boolean) {
     ui.showHighscore = val
   })
 }
+
+export function setUserName(core: Core, name: string) {
+  core.mutateWs(({ ui }) => {
+    ui.showNameModal = false
+  })
+  if (!!localStorage.getItem('karol_quest_beta_persist')) {
+    localStorage.setItem('robot_karol_online_name', name)
+  }
+  sessionStorage.setItem('robot_karol_online_name', name)
+}

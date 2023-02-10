@@ -30,6 +30,12 @@ export function Overview() {
 
   const overviewContainer = createRef<HTMLDivElement>()
 
+  const name = (
+    localStorage.getItem('robot_karol_online_name') ??
+    sessionStorage.getItem('robot_karol_online_name') ??
+    ''
+  ).trim()
+
   useEffect(() => {
     if (overviewContainer.current && core.ws.ui.overviewScroll > 0) {
       overviewContainer.current.scrollTop = core.ws.ui.overviewScroll
@@ -76,6 +82,11 @@ export function Overview() {
             </div>
           </div>
           <div className="absolute right-3 top-3">
+            {name && (
+              <span className="text-center mr-4">
+                {name}&nbsp;&nbsp;&nbsp;|
+              </span>
+            )}
             <button
               className="mr-4 font-bold"
               onClick={() => {
@@ -148,12 +159,12 @@ export function Overview() {
                   - {entry[1].count} mal gestartet
                 </p>
               ))}
-              {/*<h2 className="mt-6 mb-4 text-lg">Zeiten (in Minuten)</h2>
+              <h2 className="mt-6 mb-4 text-lg">Zeiten</h2>
               <p className="mb-2">
-                Median: {median(core.ws.analyze.times)} Minuten
+                Median: {format(median(core.ws.analyze.userTimes))}
               </p>
-              <p>{core.ws.analyze.times.join(', ')}</p>
-              <h2 className="mt-6 mb-4 text-lg">Anzahl gelöste Aufgaben</h2>
+              <p>{core.ws.analyze.userTimes.map(format).join(', ')}</p>
+              {/*<h2 className="mt-6 mb-4 text-lg">Anzahl gelöste Aufgaben</h2>
               <p className="mb-2">
                 Median: {median(core.ws.analyze.solvedCount)}
               </p>
@@ -475,4 +486,21 @@ function quartiles(arr: number[]) {
   var q2 = arr[Math.floor((arr.length - 1) / 2)]
   var q1 = arr[Math.floor(((arr.length - 1) * 3) / 4)]
   return { min: min, q1: q1, q2: q2, q3: q3, max: max }
+}
+
+function format(t: number) {
+  const s = Math.round(t / 1000)
+  if (s < 60) {
+    return `${s}s`
+  }
+  const m = Math.round(s / 60)
+  if (m < 120) {
+    return `${m}min`
+  }
+  const h = Math.round(m / 60)
+  if (h < 48) {
+    return `${h}h`
+  }
+  const d = Math.round(h / 24)
+  return `${d}days`
 }

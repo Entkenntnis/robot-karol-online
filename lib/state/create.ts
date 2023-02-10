@@ -48,6 +48,7 @@ export function createWorkspaceState(): WorkspaceState {
       overviewScroll: 0,
       isPlayground: false,
       showHighscore: false,
+      showNameModal: false,
     },
     vm: {
       pc: 0,
@@ -88,6 +89,7 @@ export function createWorkspaceState(): WorkspaceState {
       customQuests: {},
       quests: {},
       legacy: {},
+      userTimes: [],
     },
   }
   return ws

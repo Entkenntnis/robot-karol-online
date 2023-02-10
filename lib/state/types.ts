@@ -69,6 +69,7 @@ export interface Ui {
   overviewScroll: number
   isPlayground: boolean
   showHighscore: boolean
+  showNameModal: boolean
 }
 
 export interface Vm {
@@ -135,6 +136,7 @@ export interface Analyze {
   customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
   quests: { [key: string]: { reachable: number; complete: number } }
+  userTimes: number[]
 }
 
 export interface CoreState {
