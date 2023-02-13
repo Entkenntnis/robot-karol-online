@@ -1,8 +1,11 @@
+const host = 'http://localhost:3006'
+// const host = 'https://stats-karol.arrrg.de'
+
 export const backend = {
-  statsEndpoint: 'https://stats-karol.arrrg.de/submit',
-  questShareEndpoint: 'https://stats-karol.arrrg.de/quest_share',
-  legacyEndpoint: 'https://stats-karol.arrrg.de/load',
-  questEndpoint: 'https://stats-karol.arrrg.de/quest/load',
-  analyzeEndpoint: 'https://stats-karol.arrrg.de/export',
-  highscoreEndpoint: 'https://stats-karol.arrrg.de/highscore',
+  statsEndpoint: host + '/submit',
+  questShareEndpoint: host + '/quest_share',
+  legacyEndpoint: host + '/load',
+  questEndpoint: host + '/quest/load',
+  analyzeEndpoint: host + '/export',
+  highscoreEndpoint: host + '/highscore',
 }

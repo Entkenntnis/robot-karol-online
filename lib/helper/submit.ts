@@ -15,17 +15,17 @@ export function submit_event(event: string, core: Core) {
     const userId =
       localStorage.getItem(userIdKey) ?? sessionStorage.getItem(userIdKey)
 
-    if (window.location.host == 'karol.arrrg.de') {
-      // only log on production
-      void (async () => {
-        await fetch(backend.statsEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ event, userId }),
-        })
-      })()
-    }
+    // only log on production
+    // if (window.location.host !== 'karol.arrrg.de') return
+
+    void (async () => {
+      await fetch(backend.statsEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ event, userId }),
+      })
+    })()
   }
 }

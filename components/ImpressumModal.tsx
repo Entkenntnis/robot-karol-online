@@ -6,7 +6,7 @@ export function ImpressumModal() {
   const core = useCore()
   return (
     <div
-      className="bg-black/20 absolute inset-0 flex justify-center items-center z-[150]"
+      className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
         setShowImpressum(core, false)
       }}

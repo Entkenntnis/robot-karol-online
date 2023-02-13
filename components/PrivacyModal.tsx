@@ -5,7 +5,7 @@ export function PrivacyModal() {
   const core = useCore()
   return (
     <div
-      className="bg-black/20 absolute inset-0 flex justify-center items-center z-[150]"
+      className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
         setShowPrivacy(core, false)
       }}
@@ -25,9 +25,10 @@ export function PrivacyModal() {
             Diese Website wird auf einem uberspace (https://uberspace.de)
             gehostet. Bei einem Besuch kommen keine Cookies zum Einsatz. Es
             werden Statistiken zu Aufrufen und gelösten Aufgaben auf dem
-            uberspace gespeichert. Es werden keine Daten an Drittanbieter
-            weitergeben. Außerdem findet die Datenverarbeitung vollständig in
-            Deutschland statt.
+            uberspace gespeichert. Dein Name wird in der Highscore angezeigt.
+            Die Highscore kann jederzeit ohne Ankündigung geändert werden. Es
+            werden keine Daten an Drittanbieter weitergeben. Außerdem findet die
+            Datenverarbeitung vollständig in Deutschland statt.
           </p>
         </div>
         <p className="text-center mb-5 mt-3">

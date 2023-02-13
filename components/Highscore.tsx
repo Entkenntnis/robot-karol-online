@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import TimeAgo from 'javascript-time-ago'
-import ReactTimeAgo from 'react-time-ago'
-
-import de from 'javascript-time-ago/locale/de.json'
+import TimeAgo from 'timeago-react'
+import de from 'timeago.js/lib/lang/de'
+import * as timeago from 'timeago.js'
 
 import { backend } from '../backend'
 import { useCore } from '../lib/state/core'
@@ -10,7 +9,14 @@ import { forceRerender } from '../lib/commands/mode'
 import { userIdKey } from '../lib/helper/submit'
 import clsx from 'clsx'
 
-TimeAgo.addDefaultLocale(de)
+timeago.register('de', function (number, index, total_sec) {
+  // Convert weeks to days.
+  if ([8, 9].includes(index) && total_sec) {
+    const days = Math.round(total_sec / (60 * 60 * 24))
+    return ['vor ' + days + ' Tagen', '...']
+  }
+  return de(number, index)
+})
 
 export function Highscore() {
   const core = useCore()
@@ -119,7 +125,11 @@ export function Highscore() {
                       {entry.solved.length}
                     </td>
                     <td className="p-2 text-center">
-                      <ReactTimeAgo date={entry.lastActive} live={false} />
+                      <TimeAgo
+                        datetime={entry.lastActive}
+                        live={false}
+                        locale="de"
+                      />
                     </td>
                   </tr>
                 )
