@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Start",
-  "description": "Du findest unter https://app.lumi.education/run/TXu8F0 eine Schritt-für-Schritt Anleitung für diese Aufgabe.\n\nIn der Mitte sieht du einen transparenten Ziegel. An dieser Stelle soll Karol einen Ziegel hinlegen, um die Aufgabe zu lösen. Nutze die Befehle `Schritt` und `Hinlegen`. Karol legt Ziegel immer auf das Feld vor sich.\n\nKlicke auf \"Überprüfung starten\", um dein Programm auszuprobieren.",
+  "description": "In der Mitte sieht du einen transparenten Ziegel. An dieser Stelle soll Karol einen Ziegel hinlegen, um die Aufgabe zu lösen. Nutze die Befehle `Schritt` und `Hinlegen`. Karol legt Ziegel immer auf das Feld vor sich.\n\nKlicke auf \"Überprüfung starten\", um dein Programm auszuprobieren.\n\nDu findest unter https://app.lumi.education/run/TXu8F0 eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
   "tasks": [
     {
       "title": "Lege einen Ziegel in die Mitte",
