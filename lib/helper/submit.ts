@@ -16,7 +16,7 @@ export function submit_event(event: string, core: Core) {
       localStorage.getItem(userIdKey) ?? sessionStorage.getItem(userIdKey)
 
     // only log on production
-    // if (window.location.host !== 'karol.arrrg.de') return
+    if (window.location.host !== 'karol.arrrg.de') return
 
     void (async () => {
       await fetch(backend.statsEndpoint, {
