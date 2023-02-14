@@ -134,10 +134,15 @@ export function setPersist(core: Core, val: boolean) {
     submit_event('persist_progress', core)
     localStorage.setItem(userIdKey, sessionStorage.getItem(userIdKey) ?? '')
     localStorage.setItem('karol_quest_beta_persist', '1')
+    localStorage.setItem(
+      'robot_karol_online_name',
+      sessionStorage.getItem('robot_karol_online_name') ?? ''
+    )
   } else {
     sessionStorage.setItem(userIdKey, localStorage.getItem(userIdKey) ?? '')
     localStorage.removeItem(userIdKey)
     localStorage.removeItem('karol_quest_beta_persist')
+    localStorage.removeItem('robot_karol_online_name')
   }
   for (const id in questData) {
     const qd = getQuestSessionData(parseInt(id))
@@ -180,4 +185,5 @@ export function setUserName(core: Core, name: string) {
     localStorage.setItem('robot_karol_online_name', name)
   }
   sessionStorage.setItem('robot_karol_online_name', name)
+  submit_event('set_name_' + name, core)
 }

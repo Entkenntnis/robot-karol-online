@@ -25,6 +25,11 @@ export function NameModal() {
               onChange={(e) => {
                 setName(e.target.value)
               }}
+              onKeyDown={(e) => {
+                if (e.code == 'Enter') {
+                  setUserName(core, name.trim())
+                }
+              }}
               className="mt-4 text-3xl border-blue-500 border-2 rounded text-center"
               maxLength={30}
             />
@@ -50,9 +55,9 @@ export function NameModal() {
           <button
             className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded disabled:bg-gray-200 disabled:text-gray-700"
             onClick={() => {
-              setUserName(core, name)
+              setUserName(core, name.trim())
             }}
-            disabled={!!!name.trim()}
+            disabled={!name.trim()}
           >
             Loslegen!
           </button>

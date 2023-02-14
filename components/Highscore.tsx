@@ -26,6 +26,7 @@ export function Highscore() {
       firstActive: number
       lastActive: number
       solved: number[]
+      name: string
     }[]
   >([])
 
@@ -102,13 +103,15 @@ export function Highscore() {
             <thead>
               <tr>
                 {mode == 'count' && <th>Platz</th>}
+                <th>Name</th>
                 <th>gelöste Aufgaben</th>
                 <th>zuletzt aktiv</th>
               </tr>
             </thead>
             <tbody>
-              {(showAll || mode == 'active' ? data : data.slice(0, 10)).map(
-                (entry, i, arr) => (
+              {(showAll || mode == 'active' ? data : data.slice(0, 10))
+                .filter((entry) => entry.solved.length > 0)
+                .map((entry, i, arr) => (
                   <tr
                     key={entry.userId}
                     className={clsx(
@@ -121,6 +124,9 @@ export function Highscore() {
                         {getPlacement(i, arr)}
                       </td>
                     )}
+                    <td className="text-center p-2">
+                      {entry.name ? entry.name : '---'}
+                    </td>
                     <td className="text-center font-bold p-2">
                       {entry.solved.length}
                     </td>
@@ -132,8 +138,7 @@ export function Highscore() {
                       />
                     </td>
                   </tr>
-                )
-              )}
+                ))}
             </tbody>
           </table>
           {!showAll && mode == 'count' && (
