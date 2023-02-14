@@ -26,7 +26,7 @@ export function NameModal() {
                 setName(e.target.value)
               }}
               onKeyDown={(e) => {
-                if (e.code == 'Enter') {
+                if (e.code == 'Enter' && name.trim()) {
                   setUserName(core, name.trim())
                 }
               }}

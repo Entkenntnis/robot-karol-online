@@ -1,5 +1,5 @@
-const host = 'http://localhost:3006'
-// const host = 'https://stats-karol.arrrg.de'
+// const host = 'http://localhost:3006'
+const host = 'https://stats-karol.arrrg.de'
 
 export const backend = {
   statsEndpoint: host + '/submit',
