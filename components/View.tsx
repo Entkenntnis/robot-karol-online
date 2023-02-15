@@ -239,7 +239,7 @@ export function View({
               ) {
                 const p = to2d(x, y, i) // crossed out
                 ctx.save()
-                ctx.globalAlpha = 0.7
+                ctx.globalAlpha = 1
                 ctx.drawImage(
                   wireframe ? ziegelWire : ziegel_weg,
                   p.x - 15,
