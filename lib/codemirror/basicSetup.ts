@@ -219,7 +219,7 @@ export const basicSetup = (props: BasicSetupProps) => [
     },
   ]),
   autocompletion(),
-  highlightSelectionMatches(),
+  //highlightSelectionMatches(),
   EditorState.tabSize.of(2),
   EditorState.phrases.of(germanPhrases),
   editable.of(EditorView.editable.of(true)),
