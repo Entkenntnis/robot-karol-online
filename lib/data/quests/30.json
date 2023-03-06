@@ -1,21 +1,26 @@
 {
   "version": "v1",
-  "title": "Wellen",
-  "description": "Baue mit Karol an jeder Wand eine Treppe bis zur Höhe 3 hoch und wieder runter.",
+  "title": "Schau genau",
+  "description": "Es fehlt genau ein Ziegel, um die Welt fertig zu bauen.",
   "tasks": [
     {
-      "title": "Welt",
+      "title": "Lege einen Ziegel",
       "start": {
-        "dimX": 7,
-        "dimY": 7,
+        "dimX": 6,
+        "dimY": 4,
         "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 6,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 1, 1, 0, 1, 1],
+            [1, 1, 0, 0, 0, 1],
+            [0, 1, 1, 0, 1, 0],
+            [1, 0, 1, 1, 1, 1]
+          ]
         },
         "marks": {
           "offsetX": -1,
@@ -33,23 +38,20 @@
         }
       },
       "target": {
-        "dimX": 7,
-        "dimY": 7,
+        "dimX": 6,
+        "dimY": 4,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "karol": { "x": 3, "y": 0, "dir": "west" },
         "bricks": {
-          "dimX": 7,
-          "dimY": 7,
+          "dimX": 6,
+          "dimY": 4,
           "offsetX": 0,
           "offsetY": 0,
           "data": [
-            [0, 1, 2, 3, 2, 1, 0],
-            [1, 0, 0, 0, 0, 0, 1],
-            [2, 0, 0, 0, 0, 0, 2],
-            [3, 0, 0, 0, 0, 0, 3],
-            [2, 0, 0, 0, 0, 0, 2],
-            [1, 0, 0, 0, 0, 0, 1],
-            [0, 1, 2, 3, 2, 1, 0]
+            [0, 1, 1, 0, 1, 1],
+            [1, 1, 0, 0, 0, 1],
+            [0, 1, 1, 1, 1, 0],
+            [1, 0, 1, 1, 1, 1]
           ]
         },
         "marks": {

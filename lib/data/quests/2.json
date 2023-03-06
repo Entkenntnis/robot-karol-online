@@ -1,12 +1,12 @@
 {
   "version": "v1",
   "title": "Zählwiederholung (+Anleitung)",
-  "description": "Du findest unter https://app.lumi.education/run/_XiFE2 eine Schritt-für-Schritt Anleitung für diese Aufgabe.\n\nNutze für diese Aufgabe die Kontrollstruktur `wiederhole {n} mal`.",
+  "description": "Eine Marke hat Karol bereits gesetzt. Nutze die Kontrollstruktur `wiederhole 6 mal`, um die restlichen 6 Marken zu setzen.\n\nDu findest unter https://app.lumi.education/run/_XiFE2 eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
   "tasks": [
     {
-      "title": "Setze eine Mittellinie aus Marken",
+      "title": "Setze 6 Marken",
       "start": {
-        "dimX": 8,
+        "dimX": 7,
         "dimY": 5,
         "height": 6,
         "karol": { "x": 0, "y": 2, "dir": "east" },
@@ -18,11 +18,11 @@
           "data": []
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [[true]]
         },
         "blocks": {
           "offsetX": -1,
@@ -33,7 +33,7 @@
         }
       },
       "target": {
-        "dimX": 8,
+        "dimX": 7,
         "dimY": 5,
         "height": 6,
         "karol": { "x": 0, "y": 2, "dir": "east" },
@@ -45,11 +45,11 @@
           "data": []
         },
         "marks": {
-          "dimX": 6,
+          "dimX": 7,
           "dimY": 1,
-          "offsetX": 1,
+          "offsetX": 0,
           "offsetY": 2,
-          "data": [[true, true, true, true, true, true]]
+          "data": [[true, true, true, true, true, true, true]]
         },
         "blocks": {
           "offsetX": -1,

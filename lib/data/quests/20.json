@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Blume",
-  "description": "Es gibt eine Blume, die innen rot und außen gelb ist. Der Name lautet Färber-Mädchenauge.",
+  "description": "Hebe alle Ziegel in der Mitte auf.\n\nEs gibt eine Blume, die innen rot und außen gelb ist. Der Name lautet Färber-Mädchenauge.",
   "tasks": [
     {
       "title": "Blume (klicke zum Vergrößern)",
@@ -11,11 +11,15 @@
         "height": 6,
         "karol": { "x": 0, "y": 3, "dir": "east" },
         "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [
+            [0, 1, 0],
+            [1, 1, 1],
+            [0, 1, 0]
+          ]
         },
         "marks": {
           "dimX": 5,
@@ -42,17 +46,13 @@
         "dimX": 7,
         "dimY": 7,
         "height": 6,
-        "karol": { "x": 5, "y": 4, "dir": "west" },
+        "karol": { "x": 1, "y": 3, "dir": "west" },
         "bricks": {
-          "dimX": 3,
-          "dimY": 3,
-          "offsetX": 2,
-          "offsetY": 2,
-          "data": [
-            [0, 1, 0],
-            [1, 1, 1],
-            [0, 1, 0]
-          ]
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
         },
         "marks": {
           "dimX": 5,
