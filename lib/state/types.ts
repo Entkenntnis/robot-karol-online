@@ -70,6 +70,7 @@ export interface Ui {
   isPlayground: boolean
   showHighscore: boolean
   showNameModal: boolean
+  showSaveHint: boolean
 }
 
 export interface Vm {

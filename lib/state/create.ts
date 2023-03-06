@@ -49,6 +49,7 @@ export function createWorkspaceState(): WorkspaceState {
       isPlayground: false,
       showHighscore: false,
       showNameModal: false,
+      showSaveHint: true,
     },
     vm: {
       pc: 0,

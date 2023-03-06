@@ -8,6 +8,7 @@ import { createRef, Fragment, useEffect } from 'react'
 
 import {
   forceRerender,
+  hideSaveHint,
   setPersist,
   setShowHighscore,
   setShowImpressum,
@@ -183,6 +184,7 @@ export function Overview() {
                   checked={!!localStorage.getItem('karol_quest_beta_persist')}
                   onChange={(e) => {
                     setPersist(core, e.target.checked)
+                    hideSaveHint(core)
                     forceRerender(core)
                   }}
                 />{' '}
@@ -205,7 +207,7 @@ export function Overview() {
             </div>
           )}
 
-          <div className="text-center mb-2">
+          <div className="text-center mb-12">
             Version: Februar 2023 |{' '}
             <a
               className="hover:underline cursor-pointer"
@@ -244,6 +246,31 @@ export function Overview() {
           </div>
           {core.ws.ui.showImpressum && <ImpressumModal />}
           {core.ws.ui.showPrivacy && <PrivacyModal />}
+          {!localStorage.getItem('karol_quest_beta_persist') &&
+            isQuestDone(1) &&
+            core.ws.ui.showSaveHint && (
+              <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5">
+                Fortschritt auf diesem Gerät speichern?{' '}
+                <button
+                  className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 ml-6 rounded"
+                  onClick={() => {
+                    setPersist(core, true)
+                    hideSaveHint(core)
+                    forceRerender(core)
+                  }}
+                >
+                  Speichern
+                </button>{' '}
+                <button
+                  className="text-gray-500 underline ml-6"
+                  onClick={() => {
+                    hideSaveHint(core)
+                  }}
+                >
+                  später
+                </button>
+              </div>
+            )}
         </div>
       </div>
       <style jsx>{`

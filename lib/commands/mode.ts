@@ -187,3 +187,9 @@ export function setUserName(core: Core, name: string) {
   sessionStorage.setItem('robot_karol_online_name', name)
   submit_event('set_name_' + name, core)
 }
+
+export function hideSaveHint(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.showSaveHint = false
+  })
+}
