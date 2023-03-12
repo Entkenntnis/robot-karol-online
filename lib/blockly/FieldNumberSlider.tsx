@@ -14,6 +14,7 @@ import {
   FieldNumberConfig,
   FieldNumberValidator,
 } from 'blockly/core/field_number'
+import { isTouchDevice } from '../helper/isTouchDevice'
 
 /**
  * A config object for defining a field slider.
@@ -106,7 +107,10 @@ export class FieldSlider extends Blockly.FieldNumber {
     // Always quiet the input for the super constructor, as we don't want to
     // focus on the text field, and we don't want to display the modal
     // editor on mobile devices.
-    super.showEditor_(e, true)
+
+    // FIX: quiet input if device has touch support
+    // on desktop, focus on inline editor
+    super.showEditor_(e, quietInput || isTouchDevice())
 
     // Build the DOM.
     const editor = this.dropdownCreate_()
@@ -125,11 +129,12 @@ export class FieldSlider extends Blockly.FieldNumber {
     )
 
     // Focus on the slider field, unless quietInput is passed.
-    if (!quietInput) {
+    // NOTE: not working atm, and not needed
+    /*if (!quietInput) {
       ;(editor.firstChild as HTMLInputElement).focus({
         preventScroll: true,
       })
-    }
+    }*/
   }
 
   /**
