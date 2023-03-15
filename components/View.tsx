@@ -253,14 +253,14 @@ export function View({
             const p = to2d(
               x,
               y,
-              preview ? preview.world.bricks[y][x] : world.bricks[y][x]
+              /*preview ? preview.world.bricks[y][x] :*/ world.bricks[y][x]
             )
             ctx.save()
             if (preview && preview.world.bricks[y][x] != world.bricks[y][x]) {
               ctx.globalAlpha = 0.6
             }
             ctx.drawImage(
-              ctx.globalAlpha == 0.6 ? markeKlein : marke,
+              /*ctx.globalAlpha == 0.6 ? markeKlein : */ marke,
               p.x - 15,
               p.y - 16
             )
