@@ -71,6 +71,7 @@ export interface Ui {
   showHighscore: boolean
   showNameModal: boolean
   showSaveHint: boolean
+  imageLightbox: string | null
 }
 
 export interface Vm {

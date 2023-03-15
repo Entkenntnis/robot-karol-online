@@ -193,3 +193,15 @@ export function hideSaveHint(core: Core) {
     ui.showSaveHint = false
   })
 }
+
+export function openImage(core: Core, img: string) {
+  core.mutateWs(({ ui }) => {
+    ui.imageLightbox = img
+  })
+}
+
+export function closeLightboxModal(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.imageLightbox = null
+  })
+}

@@ -1,14 +1,14 @@
 {
   "version": "v1",
-  "title": "Ziegelrand",
-  "description": "Laufe einmal an der Wand entlang  und lege einen Rand aus Ziegeln.",
+  "title": "Platzhalter",
+  "description": "Beschreibe, um was es bei der Aufgabe geht ...",
   "tasks": [
     {
-      "title": "5 x 5",
+      "title": "Neuer Auftrag",
       "start": {
-        "dimX": 5,
-        "dimY": 5,
-        "height": 3,
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
           "offsetX": -1,
@@ -33,22 +33,16 @@
         }
       },
       "target": {
-        "dimX": 5,
-        "dimY": 5,
-        "height": 3,
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
-          "dimX": 5,
-          "dimY": 5,
-          "offsetX": 0,
-          "offsetY": 0,
-          "data": [
-            [1, 1, 1, 1, 1],
-            [1, 0, 0, 0, 1],
-            [1, 0, 0, 0, 1],
-            [1, 0, 0, 0, 1],
-            [1, 1, 1, 1, 1]
-          ]
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
         },
         "marks": {
           "offsetX": -1,

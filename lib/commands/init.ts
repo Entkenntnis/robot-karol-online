@@ -158,10 +158,7 @@ export async function initClient(core: Core) {
         }
       })
 
-      const deps: typeof questDeps = JSON.parse(JSON.stringify(questDeps))
-      for (let i = 1; i < questList.length - 1; i++) {
-        deps[questList[i]].push(questList[i - 1])
-      }
+      const deps = questDeps
 
       // pass 2: collect relevant information for quests
       core.mutateWs((ws) => {

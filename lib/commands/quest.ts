@@ -164,7 +164,10 @@ export function startTesting(core: Core) {
     ui.isTesting = true
     ui.showOutput = true
   })
-  if (core.ws.ui.state == 'error') return
+  if (core.ws.ui.state == 'error') {
+    runTask(core, 0)
+    return
+  }
 
   function callback() {
     if (

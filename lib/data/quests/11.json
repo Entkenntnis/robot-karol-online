@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Pool",
-  "description": "Karol soll einen 3 Ziegel hohen Pool bauen.",
+  "description": "Baue mit Karol einen Pool mit 3 Ziegel Höhe.",
   "tasks": [
     {
       "title": "Pool",

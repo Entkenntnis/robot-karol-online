@@ -1,35 +1,57 @@
-export const questDeps: { [key: number]: number[] } = {
-  1: [],
-  6: [],
-  21: [],
-  22: [6],
-  30: [21],
-  20: [22],
-  2: [1],
-  10: [30, 20],
-  32: [2],
-  23: [10],
-  7: [32],
-  31: [23],
-  11: [7],
-  18: [31],
-  9: [11],
-  17: [18],
-  29: [2, 10],
-  25: [18],
-  4: [29],
-  27: [25],
-  24: [4],
-  26: [27],
-  28: [24],
-  3: [29, 25],
-  5: [],
-  14: [3],
-  12: [5],
-  13: [14],
-  33: [12],
-  19: [13],
-  15: [33],
-  16: [3, 19],
-  //8: [2, 6],
+import { questList } from './overview'
+
+export const questDeps: { [key: number]: number[] } = {}
+
+questList.forEach((id, position) => {
+  questDeps[id] = generateAdjacentPositions(position).map((x) => questList[x])
+})
+
+function generateAdjacentPositions(position: number): number[] {
+  const row = Math.floor(position / 4)
+  const col = position % 4
+  const offsetOfCurrentRow = [0.5, 0, 0.5, 1][row % 4]
+
+  const offsetOfPreviousRow = [0.5, 0, 0.5, 1][(row + 3) % 4]
+  const offsetOfNextRow = [0.5, 0, 0.5, 1][(row + 1) % 4]
+
+  const output: number[] = []
+
+  // case 1: in same row
+  if (col > 0) {
+    output.push(position - 1)
+  }
+  if (col < 3) {
+    output.push(position + 1)
+  }
+
+  // case 2: previous row
+  if (row > 0) {
+    output.push(position - 4)
+    // r offset
+    if (offsetOfPreviousRow > offsetOfCurrentRow) {
+      if (col > 0) {
+        output.push(position - 5)
+      }
+    } else {
+      // l offset
+      if (col < 3) {
+        output.push(position - 3)
+      }
+    }
+  }
+
+  // case 3: next row
+  output.push(position + 4)
+  if (offsetOfNextRow > offsetOfCurrentRow) {
+    // r offset to next
+    if (col > 0) {
+      output.push(position + 3)
+    }
+  } else {
+    if (col < 3) {
+      output.push(position + 5)
+    }
+  }
+
+  return output.filter((p) => p < questList.length)
 }
