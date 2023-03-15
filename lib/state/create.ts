@@ -50,6 +50,7 @@ export function createWorkspaceState(): WorkspaceState {
       showHighscore: false,
       showNameModal: false,
       showSaveHint: true,
+      imageLightbox: null,
     },
     vm: {
       pc: 0,

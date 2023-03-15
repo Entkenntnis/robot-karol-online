@@ -165,7 +165,7 @@ export function Overview() {
               <p>{core.ws.analyze.solvedCount.join(', ')}</p>*/}
             </div>
           )}
-          <div className="w-[1240px] h-[2100px] mx-auto mt-8 relative">
+          <div className="w-[1240px] h-[2400px] mx-auto mt-8 relative">
             {questList.map(renderQuest)}
           </div>
           <div className="flex-auto"></div>

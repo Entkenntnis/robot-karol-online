@@ -1,0 +1,178 @@
+{
+  "version": "v1",
+  "title": "Spuren",
+  "description": "Gehe solange vorwärts, bis die Sensoren von Karol eine Wand erkennen. Setze nach jedem Schritt eine Marke.\n\nDie Anzahl der Schritte ist unterschiedlich. Wähle einen passenden Sensor-Typ, %img[Hinweis|/quests/spuren.png]%.\n\nEin Quader wird auch als Wand erkannt.",
+  "tasks": [
+    {
+      "title": "Leere Welt",
+      "start": {
+        "dimX": 3,
+        "dimY": 6,
+        "height": 6,
+        "karol": { "x": 1, "y": 5, "dir": "north" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 5,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 3,
+        "dimY": 6,
+        "height": 6,
+        "karol": { "x": 1, "y": 0, "dir": "north" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 6,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [[true], [true], [true], [true], [true], [true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Über den Berg",
+      "start": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[1, 2, 1]]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[1, 2, 1]]
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [[true, true, true, true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Hindernis",
+      "start": {
+        "dimX": 7,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 1, "y": 2, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 2,
+          "data": [[true]]
+        },
+        "blocks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 5,
+          "offsetY": 2,
+          "data": [[true]]
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 2, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 4,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 2,
+          "data": [[true, true, true, true]]
+        },
+        "blocks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 5,
+          "offsetY": 2,
+          "data": [[true]]
+        }
+      }
+    }
+  ]
+}
