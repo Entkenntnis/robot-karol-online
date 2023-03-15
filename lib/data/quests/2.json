@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Markierung",
-  "description": "Eine Marke hat Karol bereits gesetzt. Setze die restlichen 6 Marken.\n\nDu findest unter https://app.lumi.education/run/_XiFE2 eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
+  "description": "Eine Marke hat Karol bereits gesetzt. Setze die restlichen 6 Marken, %img[Hinweis|/quests/markierung.png]%.",
   "tasks": [
     {
       "title": "Setze 6 Marken",
