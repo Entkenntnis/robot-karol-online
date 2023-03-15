@@ -54,6 +54,12 @@ export function deleteTask(core: Core, index: number) {
   }
 }
 
+export function cloneTask(core: Core, index: number) {
+  core.mutateWs(({ quest }) => {
+    quest.tasks.push({ ...quest.tasks[index] })
+  })
+}
+
 export function moveTaskUp(core: Core, index: number) {
   if (index > 0) {
     core.mutateWs(({ quest }) => {

@@ -2,6 +2,7 @@ import {
   faArrowDown,
   faArrowUp,
   faCheck,
+  faClone,
   faListCheck,
   faPencil,
   faPlay,
@@ -14,6 +15,7 @@ import { createRef, useEffect } from 'react'
 
 import {
   addNewTask,
+  cloneTask,
   deleteTask,
   editWorld,
   moveTaskDown,
@@ -158,6 +160,15 @@ export function Tasks() {
                             }}
                           >
                             <FaIcon icon={faArrowDown} /> runter
+                          </button>
+                          <button
+                            className="hover:text-black ml-5"
+                            onClick={() => {
+                              cloneTask(core, index)
+                            }}
+                          >
+                            <FaIcon icon={faClone} className="mr-0.5" /> Auftrag
+                            duplizieren
                           </button>
                           <button
                             className="hover:text-red-600 ml-5"
