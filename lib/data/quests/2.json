@@ -1,7 +1,7 @@
 {
   "version": "v1",
-  "title": "Zählwiederholung (+Anleitung)",
-  "description": "Eine Marke hat Karol bereits gesetzt. Nutze die Kontrollstruktur `wiederhole 6 mal`, um die restlichen 6 Marken zu setzen.\n\nDu findest unter https://app.lumi.education/run/_XiFE2 eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
+  "title": "Markierung",
+  "description": "Eine Marke hat Karol bereits gesetzt. Setze die restlichen 6 Marken.\n\nDu findest unter https://app.lumi.education/run/_XiFE2 eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
   "tasks": [
     {
       "title": "Setze 6 Marken",

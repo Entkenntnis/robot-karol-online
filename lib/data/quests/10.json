@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Theke",
-  "description": "Lasse Karol einen Zaun mit 2 Ziegel Höhe bauen.",
+  "description": "Baue eine Theke, die 4 Ziegel breit und 2 Ziegel hoch ist.",
   "tasks": [
     {
       "title": "4 breit, 2 hoch",
