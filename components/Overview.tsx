@@ -64,22 +64,15 @@ export function Overview() {
             </div>
           </div>
         )}
-        <div className="flex flex-col relative main-bg min-h-full">
+        <div className="flex flex-col relative main-bg min-h-full min-w-fit">
           <div className="flex justify-center">
             <div
               className={clsx(
                 'flex mt-6 items-center rounded-xl',
-                'p-4 px-12 bg-white/10'
+                'p-2 px-6 bg-white/10'
               )}
             >
-              <img
-                src="/robotE.png"
-                alt="Bild von Robot Karol"
-                className="mr-8"
-                height={71}
-                width={40}
-              />
-              <h1 className="text-5xl whitespace-nowrap">Robot Karol Online</h1>
+              <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
           </div>
           <div className="absolute right-3 top-3">
@@ -297,14 +290,13 @@ export function Overview() {
   }
 
   function isQuestVisible(id: number) {
-    const previous = questList.indexOf(id)
+    const position = questList.indexOf(id)
 
     return (
       core.ws.ui.isDemo ||
       core.ws.ui.isAnalyze ||
-      questDeps[id].some(isQuestDone) ||
-      previous <= 0 ||
-      isQuestDone(questList[previous - 1])
+      position == 0 ||
+      questDeps[id]?.some(isQuestDone)
     )
   }
 
@@ -314,23 +306,18 @@ export function Overview() {
     const top = `${row * 210 + (row + 1) * 50}px`
     const left = `${(col + 1) * 35 + col * 200}px`
 
-    // check for deps, empty deps -> always visible
     if (!isQuestVisible(index)) {
-      let hasSolvedForward = false
-      for (let j = i + 1; j < questList.length; j++) {
-        if (isQuestVisible(questList[j])) {
-          hasSolvedForward = true
-          break
-        }
+      if (questDeps[index].some(isQuestVisible)) {
+        return (
+          <div
+            key={index}
+            className="absolute w-[200px] h-[210px] border-2 rounded-md border-dashed"
+            style={{ top, left }}
+          ></div>
+        )
+      } else {
+        return null
       }
-      if (!hasSolvedForward) return null
-      return (
-        <div
-          key={index}
-          className="absolute w-[200px] h-[210px] border-2 rounded-md border-dashed"
-          style={{ top, left }}
-        ></div>
-      )
     }
 
     const data = questData[index]
@@ -400,12 +387,7 @@ export function Overview() {
                     )
                   }
                   return null
-                })()}{' '}
-              {core.ws.ui.isAnalyze && (
-                <div className="text-sm text-gray-400">
-                  Deps: [{questDeps[index].join(', ')}]
-                </div>
-              )}
+                })()}
               <div className="overflow-hidden -mt-6 h-[144px]">
                 <View
                   world={questDone ? task.target! : task.start}
@@ -504,15 +486,6 @@ function median(arr: number[]) {
   } else {
     return arr[middle]
   }
-}
-
-function quartiles(arr: number[]) {
-  var max = arr[0]
-  var min = arr[arr.length - 1]
-  var q3 = arr[Math.floor((arr.length - 1) / 4)]
-  var q2 = arr[Math.floor((arr.length - 1) / 2)]
-  var q1 = arr[Math.floor(((arr.length - 1) * 3) / 4)]
-  return { min: min, q1: q1, q2: q2, q3: q3, max: max }
 }
 
 function format(t: number) {
