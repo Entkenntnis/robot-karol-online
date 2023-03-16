@@ -1,4 +1,5 @@
 import {
+  faCheckCircle,
   faExternalLink,
   faPencil,
   faPenToSquare,
@@ -242,7 +243,7 @@ export function Overview() {
           {!localStorage.getItem('karol_quest_beta_persist') &&
             isQuestDone(1) &&
             core.ws.ui.showSaveHint && (
-              <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5">
+              <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5 z-20">
                 Fortschritt auf diesem Gerät speichern?{' '}
                 <button
                   className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 ml-6 rounded"
@@ -336,8 +337,8 @@ export function Overview() {
           <div
             className={clsx(
               'p-3 bg-white rounded-md relative z-10',
-              'w-[200px] h-[210px] cursor-pointer rainbow',
-              questDone && 'quest-done'
+              'w-[200px] h-[210px] cursor-pointer',
+              !questDone && 'rainbow'
             )}
             tabIndex={0}
             onClick={() => {
@@ -402,16 +403,20 @@ export function Overview() {
                     'block mx-auto max-h-full',
                     questDone && 'opacity-30'
                   )}
-                />
+                />{' '}
+                {questDone && (
+                  <div className="absolute inset-0 flex justify-center items-center">
+                    <FaIcon
+                      icon={faCheckCircle}
+                      className="text-green-300/40 text-[72px]"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
         <style jsx>{`
-          .quest-done:before {
-            filter: grayscale(60%) blur(5px) !important;
-          }
-
           .rainbow:before {
             content: '';
             background: linear-gradient(
@@ -438,7 +443,7 @@ export function Overview() {
             height: calc(100% + 4px);
             animation: glowing 20s linear infinite;
             opacity: 0;
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.1s ease-in-out;
             border-radius: 8px;
           }
 
