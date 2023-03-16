@@ -17,6 +17,7 @@ import { NameModal } from './NameModal'
 import { OptionsModal } from './OptionsModal'
 import { Output } from './Output'
 import { Playground } from './Playground'
+import { RemixModal } from './RemixModal'
 import { ResizeWorldModal } from './ResizeWorldModal'
 import { ShareModal } from './ShareModal'
 import { Structogram } from './Structogram'
@@ -170,6 +171,7 @@ export function Quest() {
       {core.ws.editor.showShareModal && <ShareModal />}
       {core.ws.ui.showNameModal && <NameModal />}
       {core.ws.ui.imageLightbox && <LightboxModal />}
+      {core.ws.ui.showRemixModal && <RemixModal />}
     </>
   )
 }

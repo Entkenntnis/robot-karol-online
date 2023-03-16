@@ -24,14 +24,17 @@ import {
   setTaskTitle,
 } from '../lib/commands/editor'
 import { serializeQuest } from '../lib/commands/json'
-import { setShowStructogram, showQuestOverview } from '../lib/commands/mode'
+import {
+  setShowRemix,
+  setShowStructogram,
+  showQuestOverview,
+} from '../lib/commands/mode'
 import {
   openTask,
   setTaskScroll,
   startTesting,
   storeQuestToSession,
 } from '../lib/commands/quest'
-import { questData } from '../lib/data/quests'
 import { processMiniMarkdown } from '../lib/helper/processMiniMarkdown'
 import { submit_event } from '../lib/helper/submit'
 import { useCore } from '../lib/state/core'
@@ -249,35 +252,6 @@ export function Tasks() {
                 <FaIcon icon={faShareNodes} className="mr-2" />
                 Aufgabe freigeben
               </button>
-              {window.location.hostname == 'localhost' && (
-                <button
-                  className="ml-2"
-                  onClick={() => {
-                    console.log(JSON.stringify(serializeQuest(core)))
-                    alert(JSON.stringify(serializeQuest(core)))
-                  }}
-                >
-                  json
-                </button>
-              )}
-              {window.location.hostname == 'localhost' && (
-                <button
-                  className="ml-2"
-                  onClick={() => {
-                    const id = parseInt(prompt('Nummer der Quest:') ?? '')
-                    const obj = questData[id]
-                    if (obj) {
-                      core.mutateWs((ws) => {
-                        ws.quest.title = obj.title
-                        ws.quest.description = obj.description
-                        ws.quest.tasks = obj.tasks
-                      })
-                    }
-                  }}
-                >
-                  load quest
-                </button>
-              )}
             </p>
           ) : (
             !core.ws.ui.isTesting &&
@@ -297,20 +271,19 @@ export function Tasks() {
             )
           )}
         </div>
-        <div
-          className={clsx(
-            'flex-grow-0 flex-shrink-0',
-            core.ws.ui.isEditor && 'hidden'
-          )}
-        >
+        <div className={clsx('flex-grow-0 flex-shrink-0')}>
           <button
             className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
             onClick={() => {
-              setShowStructogram(core, true)
-              submit_event('show_structogram', core)
+              if (core.ws.ui.isEditor) {
+                setShowRemix(core, true)
+              } else {
+                setShowStructogram(core, true)
+                submit_event('show_structogram', core)
+              }
             }}
           >
-            Struktogramm
+            {core.ws.ui.isEditor ? 'Aus Vorlage laden' : 'Struktogramm'}
           </button>
         </div>
       </div>

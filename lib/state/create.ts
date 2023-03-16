@@ -51,6 +51,7 @@ export function createWorkspaceState(): WorkspaceState {
       showNameModal: false,
       showSaveHint: true,
       imageLightbox: null,
+      showRemixModal: false,
     },
     vm: {
       pc: 0,

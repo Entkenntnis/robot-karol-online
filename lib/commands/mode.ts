@@ -205,3 +205,9 @@ export function closeLightboxModal(core: Core) {
     ui.imageLightbox = null
   })
 }
+
+export function setShowRemix(core: Core, val: boolean) {
+  core.mutateWs(({ ui }) => {
+    ui.showRemixModal = val
+  })
+}

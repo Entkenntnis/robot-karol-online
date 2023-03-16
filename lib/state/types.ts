@@ -72,6 +72,7 @@ export interface Ui {
   showNameModal: boolean
   showSaveHint: boolean
   imageLightbox: string | null
+  showRemixModal: boolean
 }
 
 export interface Vm {

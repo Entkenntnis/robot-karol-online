@@ -6,6 +6,7 @@ import link from 'next/link'
 import { useState } from 'react'
 
 import { setShareModal } from '../lib/commands/editor'
+import { serializeQuest } from '../lib/commands/json'
 import { share } from '../lib/commands/share'
 import { useCore } from '../lib/state/core'
 import { FaIcon } from './FaIcon'
@@ -49,7 +50,7 @@ export function ShareModal() {
         {id ? (
           <div className="px-3 mb-5">
             <input
-              className="border w-full border-yellow-300 outline-none border-2"
+              className="w-full border-yellow-300 outline-none border-2"
               value={link}
               readOnly
             />
@@ -86,6 +87,17 @@ export function ShareModal() {
                 `Link erstellen`
               )}
             </button>
+            {window.location.hostname == 'localhost' && (
+              <button
+                className="ml-2"
+                onClick={() => {
+                  console.log(JSON.stringify(serializeQuest(core)))
+                  alert(JSON.stringify(serializeQuest(core)))
+                }}
+              >
+                json
+              </button>
+            )}
           </p>
         )}
         <p className="text-center mb-3 mt-3">
