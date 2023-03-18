@@ -172,6 +172,15 @@ export function Quest() {
       {core.ws.ui.showNameModal && <NameModal />}
       {core.ws.ui.imageLightbox && <LightboxModal />}
       {core.ws.ui.showRemixModal && <RemixModal />}
+      <style jsx global>
+        {`
+          body,
+          html,
+          #__next {
+            height: 100%;
+          }
+        `}
+      </style>
     </>
   )
 }

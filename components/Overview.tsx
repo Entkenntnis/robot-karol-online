@@ -30,8 +30,6 @@ import { View } from './View'
 export function Overview() {
   const core = useCore()
 
-  const overviewContainer = createRef<HTMLDivElement>()
-
   const name = (
     localStorage.getItem('robot_karol_online_name') ??
     sessionStorage.getItem('robot_karol_online_name') ??
@@ -39,15 +37,15 @@ export function Overview() {
   ).trim()
 
   useEffect(() => {
-    if (overviewContainer.current && core.ws.ui.overviewScroll > 0) {
-      overviewContainer.current.scrollTop = core.ws.ui.overviewScroll
+    if (core.ws.ui.overviewScroll > 0) {
+      document.documentElement.scrollTop = core.ws.ui.overviewScroll
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <>
-      <div className="h-full overflow-auto" ref={overviewContainer}>
+      <div className="h-full overflow-auto">
         {core.ws.ui.showHighscore && (
           <div className="absolute inset-0 bg-white z-50">
             <div className="absolute right-2 top-2">
@@ -368,10 +366,7 @@ export function Overview() {
             )}
             tabIndex={0}
             onClick={() => {
-              setOverviewScroll(
-                core,
-                overviewContainer.current?.scrollTop ?? -1
-              )
+              setOverviewScroll(core, document.documentElement.scrollTop ?? -1)
               startQuest(core, index)
             }}
           >
