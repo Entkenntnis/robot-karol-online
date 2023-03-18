@@ -2,6 +2,7 @@ import { autoFormat, setEditable } from '../codemirror/basicSetup'
 import { questData } from '../data/quests'
 import { getQuestSessionData } from '../helper/session'
 import { submit_event } from '../helper/submit'
+import { submitSolution } from '../helper/submitSolution'
 import { Core } from '../state/core'
 import { QuestSessionData } from '../state/types'
 import { showQuestOverview } from './mode'
@@ -209,6 +210,7 @@ export function finishQuest(core: Core) {
     return
   }
 
+  submitSolution(core, core.ws.quest.id, core.ws.code)
   storeQuestToSession(core)
   showQuestOverview(core)
   submit_event(`quest_complete_${core.ws.quest.id}`, core)

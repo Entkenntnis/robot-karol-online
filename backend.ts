@@ -8,4 +8,5 @@ export const backend = {
   questEndpoint: host + '/quest/load',
   analyzeEndpoint: host + '/export',
   highscoreEndpoint: host + '/highscore',
+  solutionEndpoint: host + '/submitSolution',
 }
