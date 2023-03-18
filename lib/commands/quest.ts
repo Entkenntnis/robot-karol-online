@@ -107,6 +107,7 @@ export function startQuest(core: Core, id: number) {
     quest.title = data.title
     quest.description = data.description
     quest.tasks = data.tasks
+    quest.completedOnce = false
     ui.showQuestOverview = false
     ui.isEndOfRun = false
     ws.code = ''
