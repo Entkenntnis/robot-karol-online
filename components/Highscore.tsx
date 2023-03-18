@@ -4,8 +4,6 @@ import de from 'timeago.js/lib/lang/de'
 import * as timeago from 'timeago.js'
 
 import { backend } from '../backend'
-import { useCore } from '../lib/state/core'
-import { forceRerender } from '../lib/commands/mode'
 import { userIdKey } from '../lib/helper/submit'
 import clsx from 'clsx'
 
@@ -19,7 +17,6 @@ timeago.register('de', function (number, index, total_sec) {
 })
 
 export function Highscore() {
-  const core = useCore()
   const [data, setData] = useState<
     {
       userId: string
@@ -33,9 +30,26 @@ export function Highscore() {
   const [mode, setMode] = useState<'count' | 'active'>('count')
 
   const [showAll, setShowAll] = useState(false)
+  const [showAllRecent, setShowAllRecent] = useState(false)
 
   const userId =
     localStorage.getItem(userIdKey) ?? sessionStorage.getItem(userIdKey)
+
+  function sortData(m: typeof mode) {
+    setData((d) => {
+      const data = JSON.parse(JSON.stringify(d)) as typeof d
+      if (m == 'count') {
+        data.sort((a, b) =>
+          a.solved.length == b.solved.length
+            ? b.lastActive - a.lastActive
+            : b.solved.length - a.solved.length
+        )
+      } else {
+        data.sort((a, b) => b.lastActive - a.lastActive)
+      }
+      return data
+    })
+  }
 
   useEffect(() => {
     if (backend.highscoreEndpoint) {
@@ -48,12 +62,15 @@ export function Highscore() {
               : b.solved.length - a.solved.length
           )
           setMode('count')
+          sortData('count')
           setData(val)
         })
     }
+    // only on first render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (mode == 'count') {
       data.sort((a, b) =>
         a.solved.length == b.solved.length
@@ -65,7 +82,7 @@ export function Highscore() {
     }
     setData(data)
     forceRerender(core)
-  }, [mode, data, core])
+  }, [mode, data, core])*/
 
   return (
     <div className="w-[700px] mx-auto">
@@ -83,6 +100,7 @@ export function Highscore() {
                 className="text-blue-500 hover:underline"
                 onClick={() => {
                   setMode('active')
+                  sortData('active')
                 }}
               >
                 sortieren nach letzter Aktivität
@@ -93,6 +111,7 @@ export function Highscore() {
                 className="text-blue-500 hover:underline"
                 onClick={() => {
                   setMode('count')
+                  sortData('count')
                 }}
               >
                 sortieren nach gelösten Aufgaben
@@ -109,7 +128,13 @@ export function Highscore() {
               </tr>
             </thead>
             <tbody>
-              {(showAll || mode == 'active' ? data : data.slice(0, 10))
+              {((showAll && mode == 'count') ||
+              (showAllRecent && mode == 'active')
+                ? data
+                : mode == 'active'
+                ? data.slice(0, 200)
+                : data.slice(0, 10)
+              )
                 .filter((entry) => entry.solved.length > 0)
                 .map((entry, i, arr) => (
                   <tr
@@ -147,6 +172,20 @@ export function Highscore() {
               <button
                 onClick={() => {
                   setShowAll(true)
+                }}
+                className="mt-8 text-blue-500 hover:underline"
+              >
+                alle anzeigen
+              </button>
+              ]
+            </p>
+          )}
+          {!showAllRecent && mode == 'active' && (
+            <p>
+              [
+              <button
+                onClick={() => {
+                  setShowAllRecent(true)
                 }}
                 className="mt-8 text-blue-500 hover:underline"
               >

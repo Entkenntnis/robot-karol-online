@@ -69,14 +69,14 @@ export function Overview() {
           <div className="flex justify-center">
             <div
               className={clsx(
-                'flex mt-6 items-center rounded-xl',
+                'flex mt-12 items-center rounded-xl',
                 'p-2 px-6 bg-white/10'
               )}
             >
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
           </div>
-          <div className="absolute right-3 top-3">
+          <div className="fixed xl:absolute right-6 xl:right-3 top-3">
             {name && (
               <span className="text-center mr-4">
                 {name}&nbsp;&nbsp;&nbsp;|
@@ -166,7 +166,7 @@ export function Overview() {
               <p>{core.ws.analyze.solvedCount.join(', ')}</p>*/}
             </div>
           )}
-          <div className="w-[1240px] h-[2400px] mx-auto mt-8 relative">
+          <div className="w-[1240px] h-[2400px] mx-auto relative">
             {questList.map(renderQuest)}
           </div>
           <div className="flex-auto"></div>
