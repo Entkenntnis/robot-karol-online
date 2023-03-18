@@ -43,26 +43,29 @@ export function Overview() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  if (core.ws.ui.showHighscore) {
+    return (
+      <>
+        <div className="absolute right-2 top-2">
+          <button
+            className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+            onClick={() => {
+              setShowHighscore(core, false)
+            }}
+          >
+            Schließen
+          </button>
+        </div>
+        <div className="mt-12 mb-12">
+          <Highscore />
+        </div>
+      </>
+    )
+  }
+
   return (
     <>
       <div className="h-full overflow-auto">
-        {core.ws.ui.showHighscore && (
-          <div className="absolute inset-0 bg-white z-50">
-            <div className="absolute right-2 top-2">
-              <button
-                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
-                onClick={() => {
-                  setShowHighscore(core, false)
-                }}
-              >
-                Schließen
-              </button>
-            </div>
-            <div className="mt-12 mb-12">
-              <Highscore />
-            </div>
-          </div>
-        )}
         <div className="flex flex-col relative main-bg min-h-full min-w-fit">
           <div className="flex justify-center">
             <div
