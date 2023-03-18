@@ -9,4 +9,5 @@ export const backend = {
   analyzeEndpoint: host + '/export',
   highscoreEndpoint: host + '/highscore',
   solutionEndpoint: host + '/submitSolution',
+  solutionAnalyzeEndpoint: host + '/exportSolutions',
 }

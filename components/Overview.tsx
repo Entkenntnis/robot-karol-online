@@ -201,6 +201,31 @@ export function Overview() {
             </div>
           )}
 
+          {core.ws.ui.isAnalyze && (
+            <div className="bg-white p-4">
+              {questList.map((id) =>
+                core.ws.analyze.solutions[id] ? (
+                  <div key={id}>
+                    <p className="my-4 ml-6 font-bold">{questData[id].title}</p>
+                    <div className="flex flex-wrap items-start">
+                      {core.ws.analyze.solutions[id].map((entry, i) => (
+                        <div
+                          key={i}
+                          className="m-3 border rounded p-2 min-w-[200px]"
+                        >
+                          <p className="text-right text-sm text-gray-600 mb-2">
+                            {entry.count}x
+                          </p>
+                          <pre>{entry.solution}</pre>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : null
+              )}
+            </div>
+          )}
+
           <div className="text-center mb-12">
             Version: März 2023 |{' '}
             <a

@@ -46,6 +46,17 @@ export async function initClient(core: Core) {
         event: string
         createdAt: string
       }[]
+      const responseSol = await fetch(backend.solutionAnalyzeEndpoint, {
+        method: 'POST',
+        body: new URLSearchParams({ password }),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      })
+      const dataSol = (await responseSol.json()) as {
+        questId: number
+        solution: string
+        createdAt: string
+      }[]
+
       if (data.length > 0) {
         sessionStorage.setItem('karol_stored_pw', password)
       }
@@ -186,6 +197,36 @@ export async function initClient(core: Core) {
           }
         }
         ws.analyze.userTimes.sort((a, b) => b - a)
+      })
+
+      // pass 3: process solution data
+      core.mutateWs((ws) => {
+        for (const entry of dataSol) {
+          if (isAfter(new Date(entry.createdAt), cutoff)) {
+            if (!ws.analyze.solutions[entry.questId]) {
+              ws.analyze.solutions[entry.questId] = []
+            }
+            const currentSolution = entry.solution.trim()
+            const hasEntry = ws.analyze.solutions[entry.questId].find(
+              (x) => x.solution == currentSolution
+            )
+            if (hasEntry) {
+              hasEntry.count++
+            } else {
+              ws.analyze.solutions[entry.questId].push({
+                solution: currentSolution,
+                count: 1,
+              })
+            }
+          }
+        }
+        for (const questId in ws.analyze.solutions) {
+          ws.analyze.solutions[questId].sort((a, b) =>
+            a.count == b.count
+              ? a.solution.length - b.solution.length
+              : b.count - a.count
+          )
+        }
       })
     } catch (e) {
       console.log(e)

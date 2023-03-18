@@ -94,6 +94,7 @@ export function createWorkspaceState(): WorkspaceState {
       quests: {},
       legacy: {},
       userTimes: [],
+      solutions: {},
     },
   }
   return ws
