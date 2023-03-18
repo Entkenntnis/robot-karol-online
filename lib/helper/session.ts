@@ -4,7 +4,7 @@ import { QuestSessionData } from '../state/types'
 export function isQuestDone(id: number) {
   const data = getQuestSessionData(id)
   if (data) {
-    if (data.completed) {
+    if (data.completed || data.completedOnce) {
       return true
     }
   }

@@ -137,6 +137,10 @@ export function storeQuestToSession(core: Core) {
     mode: core.ws.settings.mode,
     completed:
       core.ws.ui.controlBarShowFinishQuest || core.ws.ui.isAlreadyCompleted,
+    completedOnce:
+      core.ws.ui.controlBarShowFinishQuest ||
+      core.ws.ui.isAlreadyCompleted ||
+      core.ws.quest.completedOnce,
   }
   if (!!localStorage.getItem('karol_quest_beta_persist')) {
     localStorage.setItem(
@@ -158,6 +162,7 @@ export function restoreQuestFromSessionData(
     ws.code = data.code
     ws.settings.mode = data.mode
     ws.ui.isAlreadyCompleted = data.completed
+    ws.quest.completedOnce = data.completedOnce
   })
 }
 

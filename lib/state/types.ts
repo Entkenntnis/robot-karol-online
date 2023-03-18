@@ -108,6 +108,7 @@ export interface Quest {
   lastStartedTask?: number
   id: number
   testerHandler?: NodeJS.Timeout
+  completedOnce: boolean
 }
 
 export interface WorkspaceState {
@@ -210,6 +211,7 @@ export interface QuestSessionData {
   completed: boolean
   code: string
   mode: Settings['mode']
+  completedOnce: boolean
 }
 
 export interface QuestSerialFormat {

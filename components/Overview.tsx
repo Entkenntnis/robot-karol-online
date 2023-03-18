@@ -363,13 +363,15 @@ export function Overview() {
               </div>
             </div>
             <div className="">
-              <div className="absolute right-3 top-3">
-                {isQuestStarted(index) && (
-                  <span className="text-yellow-600">
-                    <FaIcon icon={faPencil} />
-                  </span>
-                )}
-              </div>
+              {!questDone && (
+                <div className="absolute right-3 top-3">
+                  {isQuestStarted(index) && (
+                    <span className="text-yellow-600">
+                      <FaIcon icon={faPencil} />
+                    </span>
+                  )}
+                </div>
+              )}
               {core.ws.ui.isAnalyze &&
                 (() => {
                   const entry = core.ws.analyze.quests[index]

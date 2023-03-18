@@ -71,6 +71,7 @@ export function createWorkspaceState(): WorkspaceState {
       description: '',
       tasks: [],
       id: -1,
+      completedOnce: false,
     },
     editor: {
       showQuestPreview: false,
