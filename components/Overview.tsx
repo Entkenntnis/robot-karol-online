@@ -242,7 +242,8 @@ export function Overview() {
           {core.ws.ui.showPrivacy && <PrivacyModal />}
           {!localStorage.getItem('karol_quest_beta_persist') &&
             isQuestDone(1) &&
-            core.ws.ui.showSaveHint && (
+            core.ws.ui.showSaveHint &&
+            !core.ws.ui.showHighscore && (
               <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5 z-20">
                 Fortschritt auf diesem Gerät speichern?{' '}
                 <button
