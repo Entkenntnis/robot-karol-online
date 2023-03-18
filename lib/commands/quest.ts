@@ -119,7 +119,7 @@ export function startQuest(core: Core, id: number) {
     ws.page = 'quest'
   })
   if (
-    id == 1 &&
+    (id == 1 || core.ws.ui.isDemo) &&
     !(
       localStorage.getItem('robot_karol_online_name') ||
       sessionStorage.getItem('robot_karol_online_name')

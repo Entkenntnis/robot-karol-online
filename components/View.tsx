@@ -20,7 +20,6 @@ interface Resources {
   marke: HTMLImageElement
   marke_weg: HTMLImageElement
   quader: HTMLImageElement
-  ziegelWire: HTMLImageElement
   markeKlein: HTMLImageElement
   ctx: CanvasRenderingContext2D
 }
@@ -56,7 +55,6 @@ export function View({
         if (ctx) {
           const [
             ziegel,
-            ziegelWire,
             robotN,
             robotE,
             robotS,
@@ -68,7 +66,6 @@ export function View({
             markeKlein,
           ] = await Promise.all([
             loadImage('/Ziegel.png'),
-            loadImage('/Ziegel_wire.png'),
             loadImage('/robotN.png'),
             loadImage('/robotE.png'),
             loadImage('/robotS.png'),
@@ -89,7 +86,6 @@ export function View({
             robotW,
             marke,
             quader,
-            ziegelWire,
             marke_weg,
             ziegel_weg,
             markeKlein,
@@ -111,7 +107,6 @@ export function View({
         robotW,
         marke,
         quader,
-        ziegelWire,
         marke_weg,
         ziegel_weg,
         markeKlein,
@@ -196,17 +191,13 @@ export function View({
           if (!preview) {
             for (let i = 0; i < world.bricks[y][x]; i++) {
               const p = to2d(x, y, i)
-              ctx.drawImage(wireframe ? ziegelWire : ziegel, p.x - 15, p.y - 16)
+              ctx.drawImage(ziegel, p.x - 15, p.y - 16)
             }
           } else {
             if (preview && preview.world.bricks[y][x] >= world.bricks[y][x]) {
               for (let i = 0; i < world.bricks[y][x]; i++) {
                 const p = to2d(x, y, i)
-                ctx.drawImage(
-                  wireframe ? ziegelWire : ziegel,
-                  p.x - 15,
-                  p.y - 16
-                )
+                ctx.drawImage(ziegel, p.x - 15, p.y - 16)
               }
               for (
                 let i = world.bricks[y][x];
@@ -216,21 +207,13 @@ export function View({
                 const p = to2d(x, y, i)
                 ctx.save()
                 ctx.globalAlpha = 0.4
-                ctx.drawImage(
-                  wireframe ? ziegelWire : ziegel,
-                  p.x - 15,
-                  p.y - 16
-                )
+                ctx.drawImage(ziegel, p.x - 15, p.y - 16)
                 ctx.restore()
               }
             } else {
               for (let i = 0; i < preview.world.bricks[y][x]; i++) {
                 const p = to2d(x, y, i)
-                ctx.drawImage(
-                  wireframe ? ziegelWire : ziegel,
-                  p.x - 15,
-                  p.y - 16
-                )
+                ctx.drawImage(ziegel, p.x - 15, p.y - 16)
               }
               for (
                 let i = preview.world.bricks[y][x];
@@ -240,11 +223,7 @@ export function View({
                 const p = to2d(x, y, i) // crossed out
                 ctx.save()
                 ctx.globalAlpha = 1
-                ctx.drawImage(
-                  wireframe ? ziegelWire : ziegel_weg,
-                  p.x - 15,
-                  p.y - 16
-                )
+                ctx.drawImage(ziegel_weg, p.x - 15, p.y - 16)
                 ctx.restore()
               }
             }
