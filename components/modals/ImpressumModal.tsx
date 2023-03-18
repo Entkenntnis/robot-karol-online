@@ -1,6 +1,6 @@
-import { impressum } from '../impressum'
-import { setShowImpressum } from '../lib/commands/mode'
-import { useCore } from '../lib/state/core'
+import { impressum } from '../../impressum'
+import { closeModal } from '../../lib/commands/modal'
+import { useCore } from '../../lib/state/core'
 
 export function ImpressumModal() {
   const core = useCore()
@@ -8,7 +8,7 @@ export function ImpressumModal() {
     <div
       className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
-        setShowImpressum(core, false)
+        closeModal(core)
       }}
     >
       <div
@@ -35,7 +35,7 @@ export function ImpressumModal() {
           <button
             className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
-              setShowImpressum(core, false)
+              closeModal(core)
             }}
           >
             Schließen

@@ -1,5 +1,5 @@
-import { setShowPrivacy } from '../lib/commands/mode'
-import { useCore } from '../lib/state/core'
+import { closeModal } from '../../lib/commands/modal'
+import { useCore } from '../../lib/state/core'
 
 export function PrivacyModal() {
   const core = useCore()
@@ -7,7 +7,7 @@ export function PrivacyModal() {
     <div
       className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
-        setShowPrivacy(core, false)
+        closeModal(core)
       }}
     >
       <div
@@ -73,7 +73,7 @@ export function PrivacyModal() {
           <button
             className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
-              setShowPrivacy(core, false)
+              closeModal(core)
             }}
           >
             Schließen

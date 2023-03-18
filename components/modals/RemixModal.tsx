@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { backend } from '../backend'
-import { deserializeQuest } from '../lib/commands/json'
-import { setShowRemix } from '../lib/commands/mode'
-import { questList } from '../lib/data/overview'
-import { questData } from '../lib/data/quests'
-import { useCore } from '../lib/state/core'
-import { QuestSerialFormat } from '../lib/state/types'
+import { backend } from '../../backend'
+import { deserializeQuest } from '../../lib/commands/json'
+import { closeModal } from '../../lib/commands/modal'
+import { questList } from '../../lib/data/overview'
+import { questData } from '../../lib/data/quests'
+import { useCore } from '../../lib/state/core'
+import { QuestSerialFormat } from '../../lib/state/types'
 
 export function RemixModal() {
   const [selected, setSelected] = useState(-1)
@@ -16,7 +16,7 @@ export function RemixModal() {
     <div
       className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
-        setShowRemix(core, false)
+        closeModal(core)
       }}
     >
       <div
@@ -56,7 +56,7 @@ export function RemixModal() {
                   } catch (e) {
                     alert(e)
                   }
-                  setShowRemix(core, false)
+                  closeModal(core)
                 }
 
                 void handler()
@@ -94,7 +94,7 @@ export function RemixModal() {
                   ws.quest.tasks = obj.tasks
                 })
               }
-              setShowRemix(core, false)
+              closeModal(core)
             }}
           >
             Laden
@@ -105,7 +105,7 @@ export function RemixModal() {
           <button
             className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
-              setShowRemix(core, false)
+              closeModal(core)
             }}
           >
             Schließen

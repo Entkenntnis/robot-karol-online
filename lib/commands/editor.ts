@@ -94,18 +94,6 @@ export function closeWorldEditor(core: Core) {
   })
 }
 
-export function setShowResizeWorld(core: Core, val: boolean) {
-  core.mutateWs(({ editor }) => {
-    editor.showResizeWorld = val
-  })
-}
-
-export function setShareModal(core: Core, val: boolean) {
-  core.mutateWs(({ editor }) => {
-    editor.showShareModal = val
-  })
-}
-
 export function switchCurrentlyEditedWorld(
   core: Core,
   val: Core['ws']['editor']['currentlyEditing']

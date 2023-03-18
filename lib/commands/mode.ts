@@ -4,6 +4,7 @@ import { getQuestSessionData } from '../helper/session'
 import { sliderToDelay } from '../helper/speedSlider'
 import { submit_event, userIdKey } from '../helper/submit'
 import { Core } from '../state/core'
+import { closeModal, showModal } from './modal'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
   if (core.ws.settings.mode == 'blocks') {
@@ -37,18 +38,6 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
   })
 }
 
-export function showMenu(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.showMenu = true
-  })
-}
-
-export function closeMenu(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.showMenu = false
-  })
-}
-
 export function setShowTarget(core: Core, val: boolean) {
   core.mutateWs(({ ui }) => {
     ui.showPreviewOfTarget = val
@@ -67,47 +56,11 @@ export function setSpeedSliderValue(core: Core, val: number) {
   })
 }
 
-export function showErrorModal(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.showErrorModal = true
-  })
-}
-
-export function hideErrorModal(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.showErrorModal = false
-  })
-}
-
 export function editCodeAndResetProgress(core: Core) {
   core.mutateWs(({ quest, ui }) => {
     ui.isTesting = false
     quest.progress = false
     ui.isAlreadyCompleted = false
-  })
-}
-
-export function showQuestOverview(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.showQuestOverview = true
-  })
-}
-
-export function dummyOpenQuest(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.showQuestOverview = false
-  })
-}
-
-export function setShowImpressum(core: Core, val: boolean) {
-  core.mutateWs(({ ui }) => {
-    ui.showImpressum = val
-  })
-}
-
-export function setShowPrivacy(core: Core, val: boolean) {
-  core.mutateWs(({ ui }) => {
-    ui.showPrivacy = val
   })
 }
 
@@ -157,30 +110,8 @@ export function setPersist(core: Core, val: boolean) {
   }
 }
 
-export function openPlayground(core: Core) {
-  core.mutateWs((ws) => {
-    ws.ui.isPlayground = true
-    ws.ui.showQuestOverview = false
-  })
-}
-
-export function closePlayground(core: Core) {
-  core.mutateWs((ws) => {
-    ws.ui.isPlayground = false
-    ws.ui.showQuestOverview = true
-  })
-}
-
-export function setShowHighscore(core: Core, val: boolean) {
-  core.mutateWs(({ ui }) => {
-    ui.showHighscore = val
-  })
-}
-
 export function setUserName(core: Core, name: string) {
-  core.mutateWs(({ ui }) => {
-    ui.showNameModal = false
-  })
+  closeModal(core)
   if (!!localStorage.getItem('karol_quest_beta_persist')) {
     localStorage.setItem('robot_karol_online_name', name)
   }
@@ -198,16 +129,5 @@ export function openImage(core: Core, img: string) {
   core.mutateWs(({ ui }) => {
     ui.imageLightbox = img
   })
-}
-
-export function closeLightboxModal(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.imageLightbox = null
-  })
-}
-
-export function setShowRemix(core: Core, val: boolean) {
-  core.mutateWs(({ ui }) => {
-    ui.showRemixModal = val
-  })
+  showModal(core, 'lightbox')
 }

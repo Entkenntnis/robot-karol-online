@@ -11,10 +11,10 @@ import { createRef, useEffect } from 'react'
 import {
   cloneStartIntoTarget,
   closeWorldEditor,
-  setShowResizeWorld,
   showPreview,
   switchCurrentlyEditedWorld,
 } from '../lib/commands/editor'
+import { showModal } from '../lib/commands/modal'
 import {
   left,
   right,
@@ -125,7 +125,7 @@ export function WorldEditor() {
         <button
           className="px-2 py-0.5 bg-blue-200 hover:bg-blue-300 mr-3 my-2 rounded"
           onClick={() => {
-            setShowResizeWorld(core, true)
+            showModal(core, 'resize')
           }}
         >
           <FaIcon icon={faUpRightAndDownLeftFromCenter} className="mr-2" />

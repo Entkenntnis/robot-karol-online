@@ -5,11 +5,11 @@ import {
 import link from 'next/link'
 import { useState } from 'react'
 
-import { setShareModal } from '../lib/commands/editor'
-import { serializeQuest } from '../lib/commands/json'
-import { share } from '../lib/commands/share'
-import { useCore } from '../lib/state/core'
-import { FaIcon } from './FaIcon'
+import { serializeQuest } from '../../lib/commands/json'
+import { closeModal } from '../../lib/commands/modal'
+import { share } from '../../lib/commands/share'
+import { useCore } from '../../lib/state/core'
+import { FaIcon } from '../FaIcon'
 
 export function ShareModal() {
   const core = useCore()
@@ -23,7 +23,7 @@ export function ShareModal() {
     <div
       className="bg-black/20 absolute inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
-        setShareModal(core, false)
+        closeModal(core)
       }}
     >
       <div
@@ -104,7 +104,7 @@ export function ShareModal() {
           <button
             className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
-              setShareModal(core, false)
+              closeModal(core)
             }}
           >
             Schließen

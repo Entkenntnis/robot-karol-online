@@ -10,16 +10,15 @@ import { editCodeAndResetProgress, setMode } from '../lib/commands/mode'
 import { closeOutput } from '../lib/commands/quest'
 import { useCore } from '../lib/state/core'
 import { EditArea } from './EditArea'
-import { ErrorModal } from './ErrorModal'
+import { ErrorModal } from './modals/ErrorModal'
 import { FaIcon } from './FaIcon'
-import { LightboxModal } from './LightboxModal'
-import { NameModal } from './NameModal'
-import { OptionsModal } from './OptionsModal'
+import { HFullStyle } from './HFullStyle'
+import { LightboxModal } from './modals/LightboxModal'
+import { NameModal } from './modals/NameModal'
 import { Output } from './Output'
-import { Playground } from './Playground'
-import { RemixModal } from './RemixModal'
-import { ResizeWorldModal } from './ResizeWorldModal'
-import { ShareModal } from './ShareModal'
+import { RemixModal } from './modals/RemixModal'
+import { ResizeWorldModal } from './modals/ResizeWorldModal'
+import { ShareModal } from './modals/ShareModal'
 import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
 import { WorldEditor } from './WorldEditor'
@@ -87,7 +86,7 @@ export function Quest() {
               </button>
               {false &&
                 window.location.hostname == 'localhost' &&
-                !core.ws.ui.isEditor && (
+                core.ws.page != 'editor' && (
                   <a
                     href={`/?editor=1&quest=${core.ws.quest.id}`}
                     className="underline text-gray-300 hover:text-gray-400 ml-8 mt-1"
@@ -158,29 +157,12 @@ export function Quest() {
             <Structogram />
           ) : core.ws.editor.editWorld !== null ? (
             <WorldEditor />
-          ) : core.ws.ui.isPlayground ? (
-            <Playground />
           ) : (
             <Tasks />
           )}
         </ReflexElement>
       </ReflexContainer>
-      {core.ws.ui.showMenu && <OptionsModal />}
-      {core.ws.ui.showErrorModal && <ErrorModal />}
-      {core.ws.editor.showResizeWorld && <ResizeWorldModal />}
-      {core.ws.editor.showShareModal && <ShareModal />}
-      {core.ws.ui.showNameModal && <NameModal />}
-      {core.ws.ui.imageLightbox && <LightboxModal />}
-      {core.ws.ui.showRemixModal && <RemixModal />}
-      <style jsx global>
-        {`
-          body,
-          html,
-          #__next {
-            height: 100%;
-          }
-        `}
-      </style>
+      <HFullStyle />
     </>
   )
 }

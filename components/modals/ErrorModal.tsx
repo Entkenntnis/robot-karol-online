@@ -1,5 +1,5 @@
-import { closeMenu, hideErrorModal, setMode } from '../lib/commands/mode'
-import { useCore } from '../lib/state/core'
+import { closeModal } from '../../lib/commands/modal'
+import { useCore } from '../../lib/state/core'
 
 export function ErrorModal() {
   const core = useCore()
@@ -7,7 +7,7 @@ export function ErrorModal() {
     <div
       className="bg-black/20 absolute inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
-        hideErrorModal(core)
+        closeModal(core)
       }}
     >
       <div
@@ -33,7 +33,7 @@ export function ErrorModal() {
           <button
             className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
-              hideErrorModal(core)
+              closeModal(core)
             }}
           >
             Schließen

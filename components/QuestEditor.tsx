@@ -5,6 +5,7 @@ import {
   setQuestPreview,
   setTitle,
 } from '../lib/commands/editor'
+import { switchToPage } from '../lib/commands/page'
 import { processMiniMarkdown } from '../lib/helper/processMiniMarkdown'
 import { useCore } from '../lib/state/core'
 
@@ -19,7 +20,7 @@ export function QuestEditor() {
               'Beachte dass die Daten nicht gespeichert werden. Verlassen?'
             )
             if (res) {
-              window.location.href = '/'
+              switchToPage(core, 'overview')
             }
           }}
         >

@@ -1,5 +1,4 @@
 import {
-  faCaretLeft,
   faCheck,
   faCircleCheck,
   faExclamationTriangle,
@@ -13,12 +12,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { useMemo } from 'react'
+import { showModal } from '../lib/commands/modal'
 
-import {
-  closePlayground,
-  setSpeedSliderValue,
-  showErrorModal,
-} from '../lib/commands/mode'
+import { setSpeedSliderValue } from '../lib/commands/mode'
 import { closeOutput, finishQuest, restartProgram } from '../lib/commands/quest'
 import { abort } from '../lib/commands/vm'
 import { positiveText } from '../lib/helper/positiveText'
@@ -62,11 +58,7 @@ export function ControlBar() {
           {core.ws.ui.state != 'running' && (
             <button
               onClick={() => {
-                if (core.ws.ui.isPlayground) {
-                  closePlayground(core)
-                } else {
-                  closeOutput(core)
-                }
+                closeOutput(core)
               }}
               className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
             >
@@ -76,7 +68,7 @@ export function ControlBar() {
           {core.ws.ui.state == 'error' && (
             <button
               onClick={() => {
-                showErrorModal(core)
+                showModal(core, 'error')
               }}
               className="px-2 py-0.5 rounded bg-red-200 ml-3 hover:bg-red-300"
             >
@@ -173,7 +165,7 @@ export function ControlBar() {
         )
       }
       if (core.ws.ui.isEndOfRun) {
-        if (core.ws.ui.isImportedProject) {
+        if (core.ws.page == 'imported') {
           return (
             <>
               <FaIcon icon={faGenderless} className="mr-1" /> Ausführung beendet

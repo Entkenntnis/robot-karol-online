@@ -49,14 +49,6 @@ export function EditArea() {
     }
   }, [codeState])
 
-  if (core.ws.ui.editorLoading) {
-    return (
-      <div className="h-full w-full flex justify-center items-center">
-        <FaIcon icon={faSpinner} className="animate-spin text-3xl" />
-      </div>
-    )
-  }
-
   if (core.ws.settings.mode == 'code') {
     return (
       <div className="h-full flex flex-col overflow-y-auto">

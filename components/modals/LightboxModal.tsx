@@ -1,5 +1,5 @@
-import { closeLightboxModal } from '../lib/commands/mode'
-import { useCore } from '../lib/state/core'
+import { closeModal } from '../../lib/commands/modal'
+import { useCore } from '../../lib/state/core'
 
 export function LightboxModal() {
   const core = useCore()
@@ -7,7 +7,7 @@ export function LightboxModal() {
     <div
       className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
-        closeLightboxModal(core)
+        closeModal(core)
       }}
     >
       <div
@@ -26,7 +26,7 @@ export function LightboxModal() {
           <button
             className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
-              closeLightboxModal(core)
+              closeModal(core)
             }}
           >
             Schließen

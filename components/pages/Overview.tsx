@@ -5,27 +5,26 @@ import {
   faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { createRef, Fragment, useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 
 import {
   forceRerender,
   hideSaveHint,
   setPersist,
-  setShowHighscore,
-  setShowImpressum,
-  setShowPrivacy,
-} from '../lib/commands/mode'
-import { setOverviewScroll, startQuest } from '../lib/commands/quest'
-import { questDeps } from '../lib/data/dependencies'
-import { questList } from '../lib/data/overview'
-import { questData } from '../lib/data/quests'
-import { isQuestDone, isQuestStarted } from '../lib/helper/session'
-import { useCore } from '../lib/state/core'
-import { FaIcon } from './FaIcon'
+} from '../../lib/commands/mode'
+import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
+import { questDeps } from '../../lib/data/dependencies'
+import { questList } from '../../lib/data/overview'
+import { questData } from '../../lib/data/quests'
+import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
+import { useCore } from '../../lib/state/core'
+import { FaIcon } from '../FaIcon'
 import { Highscore } from './Highscore'
-import { ImpressumModal } from './ImpressumModal'
-import { PrivacyModal } from './PrivacyModal'
-import { View } from './View'
+import { ImpressumModal } from '../modals/ImpressumModal'
+import { PrivacyModal } from '../modals/PrivacyModal'
+import { View } from '../View'
+import { switchToPage } from '../../lib/commands/page'
+import { showModal } from '../../lib/commands/modal'
 
 export function Overview() {
   const core = useCore()
@@ -42,27 +41,6 @@ export function Overview() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  if (core.ws.ui.showHighscore) {
-    return (
-      <>
-        <div className="absolute right-2 top-2">
-          <button
-            className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
-            onClick={() => {
-              setShowHighscore(core, false)
-            }}
-          >
-            Schließen
-          </button>
-        </div>
-        <div className="mt-12 mb-12">
-          <Highscore />
-        </div>
-      </>
-    )
-  }
-
   return (
     <>
       <div className="h-full overflow-auto">
@@ -86,18 +64,22 @@ export function Overview() {
             <button
               className="mr-4 font-bold"
               onClick={() => {
-                setShowHighscore(core, true)
+                core.mutateWs((ws) => {
+                  ws.page = 'highscore'
+                })
               }}
             >
               Highscore
             </button>
-            <a
-              href="/#editor"
+            <button
+              onClick={() => {
+                switchToPage(core, 'editor')
+              }}
               className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded"
             >
               <FaIcon icon={faPenToSquare} className="mr-1" />
               Aufgaben-Editor
-            </a>
+            </button>
           </div>
           {core.ws.ui.isAnalyze && (
             <div className="bg-white px-16 pb-8 mt-4">
@@ -244,7 +226,7 @@ export function Overview() {
             <button
               className="hover:underline"
               onClick={() => {
-                setShowImpressum(core, true)
+                showModal(core, 'impressum')
               }}
             >
               Impressum
@@ -253,7 +235,7 @@ export function Overview() {
             <button
               className="hover:underline"
               onClick={() => {
-                setShowPrivacy(core, true)
+                showModal(core, 'privacy')
               }}
             >
               Datenschutz
@@ -264,12 +246,9 @@ export function Overview() {
               'https://github.com/Entkenntnis/robot-karol-online#readme'
             )}
           </div>
-          {core.ws.ui.showImpressum && <ImpressumModal />}
-          {core.ws.ui.showPrivacy && <PrivacyModal />}
           {!localStorage.getItem('karol_quest_beta_persist') &&
             isQuestDone(1) &&
-            core.ws.ui.showSaveHint &&
-            !core.ws.ui.showHighscore && (
+            core.ws.ui.showSaveHint && (
               <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5 z-20">
                 Fortschritt auf diesem Gerät speichern?{' '}
                 <button

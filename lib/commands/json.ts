@@ -84,7 +84,6 @@ export function deserialize(core: Core, file?: string) {
         state.settings.mode = mode
       }
       state.ui.needsTextRefresh = true
-      state.ui.editorLoading = false
     })
     core.mutateCore((state) => {
       state.workspace.quest.tasks = [
@@ -119,7 +118,6 @@ export function deserializeQuest(core: Core, quest: QuestSerialFormat) {
     })
 
     ws.ui.needsTextRefresh = true
-    ws.ui.editorLoading = false
   })
 }
 

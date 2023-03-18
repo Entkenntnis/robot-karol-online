@@ -39,40 +39,27 @@ export interface Ui {
   needsTextRefresh: boolean
   errorMessages: string[]
   toBlockWarning: boolean
-  editorLoading: boolean
   showOutput: boolean
   speedSliderValue: number
-  showMenu: boolean
   showPreviewOfTarget: boolean
   karolCrashMessage?: string
   isManualAbort: boolean
   isEndOfRun: boolean
   taskWaitingToLoad?: number
-  showErrorModal: boolean
   freezeCode: boolean
   taskScroll: number
-  showQuestOverview: boolean
-  isImportedProject: boolean
-  showImpressum: boolean
-  showPrivacy: boolean
   isAlreadyCompleted: boolean
   showStructogram: boolean
   isTesting: boolean
   isTestingAborted: boolean
-  clientInitDone: boolean
   controlBarShowFinishQuest: boolean
-  isEditor: boolean
   isDemo: boolean
   showCodeInfo: boolean
   renderCounter: number
   isAnalyze: boolean
   overviewScroll: number
-  isPlayground: boolean
-  showHighscore: boolean
-  showNameModal: boolean
   showSaveHint: boolean
   imageLightbox: string | null
-  showRemixModal: boolean
 }
 
 export interface Vm {
@@ -94,8 +81,6 @@ export interface Settings {
 export interface Editor {
   showQuestPreview: boolean
   editWorld: number | null
-  showResizeWorld: boolean
-  showShareModal: boolean
   currentlyEditing: 'start' | 'target'
   showWorldPreview: boolean
 }
@@ -120,6 +105,27 @@ export interface WorkspaceState {
   quest: Quest
   editor: Editor
   analyze: Analyze
+
+  page:
+    | 'init'
+    | 'overview'
+    | 'quest'
+    | 'highscore'
+    | 'editor'
+    | 'quest'
+    | 'shared'
+    | 'imported'
+
+  modal:
+    | 'name'
+    | 'impressum'
+    | 'privacy'
+    | 'lightbox'
+    | 'error'
+    | 'share'
+    | 'remix'
+    | 'resize'
+    | null
 }
 
 export interface QuestTask {

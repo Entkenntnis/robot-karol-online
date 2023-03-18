@@ -1,12 +1,12 @@
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useState } from 'react'
 import {
-  setShowResizeWorld,
   showPreview,
   switchCurrentlyEditedWorld,
-} from '../lib/commands/editor'
-import { createWorldCmd } from '../lib/commands/world'
-import { useCore } from '../lib/state/core'
+} from '../../lib/commands/editor'
+import { closeModal } from '../../lib/commands/modal'
+import { createWorldCmd } from '../../lib/commands/world'
+import { useCore } from '../../lib/state/core'
 
 export function ResizeWorldModal() {
   const core = useCore()
@@ -24,7 +24,7 @@ export function ResizeWorldModal() {
     <div
       className="bg-black/20 absolute inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
-        setShowResizeWorld(core, false)
+        closeModal(core)
       }}
     >
       <div
@@ -76,7 +76,7 @@ export function ResizeWorldModal() {
           <button
             className="ml-4 px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
-              setShowResizeWorld(core, false)
+              closeModal(core)
             }}
           >
             Schließen
@@ -117,25 +117,21 @@ export function ResizeWorldModal() {
   }
 
   function exec() {
-    if (core.ws.ui.isPlayground) {
-      createWorldCmd(core, localDimX, localDimY, localHeight, keep)
-    } else {
-      const isShowPreview = core.ws.editor.showWorldPreview
+    const isShowPreview = core.ws.editor.showWorldPreview
 
-      const now = core.ws.editor.currentlyEditing
-      const other = now == 'start' ? 'target' : 'start'
+    const now = core.ws.editor.currentlyEditing
+    const other = now == 'start' ? 'target' : 'start'
 
-      switchCurrentlyEditedWorld(core, now)
-      createWorldCmd(core, localDimX, localDimY, localHeight, keep)
-      switchCurrentlyEditedWorld(core, other)
-      createWorldCmd(core, localDimX, localDimY, localHeight, keep)
-      switchCurrentlyEditedWorld(core, now)
+    switchCurrentlyEditedWorld(core, now)
+    createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+    switchCurrentlyEditedWorld(core, other)
+    createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+    switchCurrentlyEditedWorld(core, now)
 
-      if (isShowPreview) {
-        showPreview(core)
-      }
+    if (isShowPreview) {
+      showPreview(core)
     }
-
-    setShowResizeWorld(core, false)
   }
+
+  closeModal(core)
 }

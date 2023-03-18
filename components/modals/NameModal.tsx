@@ -1,8 +1,10 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
-import { setUserName, showQuestOverview } from '../lib/commands/mode'
-import { useCore } from '../lib/state/core'
-import { FaIcon } from './FaIcon'
+import { closeModal } from '../../lib/commands/modal'
+import { setUserName } from '../../lib/commands/mode'
+import { switchToPage } from '../../lib/commands/page'
+import { useCore } from '../../lib/state/core'
+import { FaIcon } from '../FaIcon'
 
 export function NameModal() {
   const core = useCore()
@@ -18,7 +20,8 @@ export function NameModal() {
         <button
           className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300"
           onClick={() => {
-            showQuestOverview(core)
+            closeModal(core)
+            switchToPage(core, 'overview')
           }}
         >
           <FaIcon icon={faTimes} />

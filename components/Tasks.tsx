@@ -20,15 +20,12 @@ import {
   editWorld,
   moveTaskDown,
   moveTaskUp,
-  setShareModal,
   setTaskTitle,
 } from '../lib/commands/editor'
 import { serializeQuest } from '../lib/commands/json'
-import {
-  setShowRemix,
-  setShowStructogram,
-  showQuestOverview,
-} from '../lib/commands/mode'
+import { showModal } from '../lib/commands/modal'
+import { setShowStructogram } from '../lib/commands/mode'
+import { switchToPage } from '../lib/commands/page'
 import {
   openTask,
   setTaskScroll,
@@ -61,7 +58,7 @@ export function Tasks() {
           <div className="h-20 from-gray-100 bg-gradient-to-t left-0 right-0 bottom-0 absolute pointer-events-none"></div>
           <div>
             <div className="p-4 px-7 bg-yellow-100">
-              {core.ws.ui.isEditor ? (
+              {core.ws.page == 'editor' ? (
                 <QuestEditor />
               ) : (
                 <>
@@ -73,23 +70,21 @@ export function Tasks() {
                       </span>
                     )}
                   </h1>
-                  {!core.ws.ui.isImportedProject &&
-                    !core.ws.ui.editorLoading &&
-                    core.ws.quest.id >= 0 && (
-                      <div className="mb-4">
-                        <button
-                          className={clsx(
-                            'text-blue-500 hover:text-blue-600 hover:underline'
-                          )}
-                          onClick={() => {
-                            storeQuestToSession(core)
-                            showQuestOverview(core)
-                          }}
-                        >
-                          zurück
-                        </button>
-                      </div>
-                    )}
+                  {core.ws.page != 'imported' && core.ws.quest.id >= 0 && (
+                    <div className="mb-4">
+                      <button
+                        className={clsx(
+                          'text-blue-500 hover:text-blue-600 hover:underline'
+                        )}
+                        onClick={() => {
+                          storeQuestToSession(core)
+                          switchToPage(core, 'overview')
+                        }}
+                      >
+                        zurück
+                      </button>
+                    </div>
+                  )}
                   <div>{processMiniMarkdown(core.ws.quest.description)}</div>
                 </>
               )}
@@ -99,19 +94,20 @@ export function Tasks() {
                 <div
                   className={clsx(
                     'm-3 rounded-xl bg-white flex justify-between',
-                    !core.ws.ui.isEditor && 'cursor-pointer hover:bg-gray-50'
+                    core.ws.page != 'editor' &&
+                      'cursor-pointer hover:bg-gray-50'
                   )}
                   key={index}
                   tabIndex={0}
                   onClick={() => {
                     setTaskScroll(core, taskContainer.current?.scrollTop ?? -1)
-                    if (core.ws.ui.isEditor) return
+                    if (core.ws.page == 'editor') return
                     openTask(core, index)
                   }}
                 >
                   <div className="ml-4 mt-6">
                     <h2 className="text-lg font-bold">
-                      {core.ws.ui.isEditor ? (
+                      {core.ws.page == 'editor' ? (
                         <input
                           value={task.title}
                           className="bg-gray-100"
@@ -123,7 +119,7 @@ export function Tasks() {
                         task.title
                       )}
                     </h2>
-                    {core.ws.ui.isEditor && (
+                    {core.ws.page == 'editor' && (
                       <>
                         <p className="mt-4">
                           <button
@@ -192,7 +188,7 @@ export function Tasks() {
                   <div
                     className="h-48 mb-6 mr-8 cursor-pointer"
                     onClick={() => {
-                      if (core.ws.ui.isEditor) {
+                      if (core.ws.page == 'editor') {
                         editWorld(core, index)
                       }
                     }}
@@ -217,7 +213,7 @@ export function Tasks() {
       </div>
       <div className="h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1">
         <div className="flex justify-center relative items-center flex-grow">
-          {core.ws.ui.isImportedProject ? (
+          {core.ws.page == 'imported' ? (
             <p className="z-10">
               <a
                 className="px-2 py-0.5 rounded-lg bg-yellow-600 hover:bg-yellow-500 text-white font-bold"
@@ -226,7 +222,7 @@ export function Tasks() {
                 Robot Karol Online
               </a>
             </p>
-          ) : core.ws.ui.isEditor ? (
+          ) : core.ws.page == 'editor' ? (
             <p className="w-full ml-4">
               <button
                 className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-4"
@@ -241,11 +237,11 @@ export function Tasks() {
               <button
                 className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 rounded"
                 onClick={() => {
-                  setShareModal(core, true)
+                  showModal(core, 'share')
 
                   // for debugging
-                  const obj = serializeQuest(core)
-                  const json = JSON.stringify(obj)
+                  //const obj = serializeQuest(core)
+                  //const json = JSON.stringify(obj)
                   // console.log('output size', json.length, json)
                 }}
               >
@@ -255,8 +251,7 @@ export function Tasks() {
             </p>
           ) : (
             !core.ws.ui.isTesting &&
-            !core.ws.ui.isAlreadyCompleted &&
-            !core.ws.ui.editorLoading && (
+            !core.ws.ui.isAlreadyCompleted && (
               <p className="z-10">
                 <button
                   className="px-2 py-0.5 rounded-lg bg-yellow-300 hover:bg-yellow-400"
@@ -275,15 +270,15 @@ export function Tasks() {
           <button
             className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
             onClick={() => {
-              if (core.ws.ui.isEditor) {
-                setShowRemix(core, true)
+              if (core.ws.page == 'editor') {
+                showModal(core, 'remix')
               } else {
                 setShowStructogram(core, true)
                 submit_event('show_structogram', core)
               }
             }}
           >
-            {core.ws.ui.isEditor ? 'Aus Vorlage laden' : 'Struktogramm'}
+            {core.ws.page == 'editor' ? 'Aus Vorlage laden' : 'Struktogramm'}
           </button>
         </div>
       </div>

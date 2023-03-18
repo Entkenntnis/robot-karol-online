@@ -268,10 +268,7 @@ function isReadOnly(core: Core, x: number, y: number) {
   return false
 }
 function karolCrashed(core: Core, error: string) {
-  if (
-    (core.ws.ui.isEditor || core.ws.ui.isPlayground) &&
-    core.ws.ui.state !== 'running'
-  ) {
+  if (core.ws.page == 'editor' && core.ws.ui.state !== 'running') {
     addMessage(core, error)
   } else {
     core.mutateWs(({ ui }) => {

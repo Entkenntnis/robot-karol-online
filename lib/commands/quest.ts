@@ -5,8 +5,9 @@ import { submit_event } from '../helper/submit'
 import { submitSolution } from '../helper/submitSolution'
 import { Core } from '../state/core'
 import { QuestSessionData } from '../state/types'
-import { showQuestOverview } from './mode'
-import { endExecution, run } from './vm'
+import { showModal } from './modal'
+import { switchToPage } from './page'
+import { run } from './vm'
 
 export function runTask(core: Core, index: number) {
   const task = core.ws.quest.tasks[index]
@@ -22,7 +23,7 @@ export function runTask(core: Core, index: number) {
       autoFormat(core.view.current)
       setEditable(core.view.current, false)
     }
-    if (!core.ws.ui.isTesting && !core.ws.ui.isEditor) {
+    if (!core.ws.ui.isTesting && core.ws.page != 'editor') {
       core.executionEndCallback = () => {
         if (
           core.ws.quest.tasks.length == 1 &&
@@ -108,7 +109,6 @@ export function startQuest(core: Core, id: number) {
     quest.description = data.description
     quest.tasks = data.tasks
     quest.completedOnce = false
-    ui.showQuestOverview = false
     ui.isEndOfRun = false
     ws.code = ''
     quest.id = id
@@ -116,16 +116,17 @@ export function startQuest(core: Core, id: number) {
     ws.ui.isTesting = false
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.taskScroll = 0
-    if (
-      id == 1 &&
-      !(
-        localStorage.getItem('robot_karol_online_name') ||
-        sessionStorage.getItem('robot_karol_online_name')
-      )
-    ) {
-      ws.ui.showNameModal = true
-    }
+    ws.page = 'quest'
   })
+  if (
+    id == 1 &&
+    !(
+      localStorage.getItem('robot_karol_online_name') ||
+      sessionStorage.getItem('robot_karol_online_name')
+    )
+  ) {
+    showModal(core, 'name')
+  }
   submit_event(`start_quest_${id}`, core)
   const sessionData = getQuestSessionData(id)
   if (sessionData) restoreQuestFromSessionData(core, sessionData)
@@ -219,7 +220,7 @@ export function finishQuest(core: Core) {
 
   submitSolution(core, core.ws.quest.id, core.ws.code)
   storeQuestToSession(core)
-  showQuestOverview(core)
+  switchToPage(core, 'overview')
   submit_event(`quest_complete_${core.ws.quest.id}`, core)
 }
 
