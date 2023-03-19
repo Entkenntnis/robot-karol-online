@@ -13,6 +13,7 @@ import { positiveText } from '../../lib/helper/positiveText'
 var count = 200
 var defaults = {
   origin: { y: 0.7 },
+  zIndex: 170,
 }
 
 function fire(particleRatio: number, opts: any) {
@@ -60,27 +61,30 @@ export function SuccessModal() {
   }, [])
 
   return (
-    <div className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]">
-      <div
-        className="h-[280px] w-[500px] bg-white z-[200] rounded-xl relative flex items-center justify-between flex-col"
-        onClick={(e) => {
-          e.stopPropagation()
-        }}
-      >
-        <h1 className="mt-12 text-4xl">{positive}</h1>
-        <button
-          onClick={() => {
-            finishQuest(core)
-            closeModal(core)
+    <>
+      <div className="bg-black/20 fixed inset-0 z-[150]"></div>
+      <div className="fixed inset-0 flex justify-center items-center z-[200]">
+        <div
+          className="h-[280px] w-[500px] bg-white z-[200] rounded-xl relative flex items-center justify-between flex-col"
+          onClick={(e) => {
+            e.stopPropagation()
           }}
-          className={clsx(
-            'px-2 py-0.5 rounded hover:bg-green-300',
-            'bg-green-200 mx-auto mb-16'
-          )}
         >
-          weiter
-        </button>
+          <h1 className="mt-12 text-4xl">{positive}</h1>
+          <button
+            onClick={() => {
+              finishQuest(core)
+              closeModal(core)
+            }}
+            className={clsx(
+              'px-2 py-0.5 rounded hover:bg-green-300',
+              'bg-green-200 mx-auto mb-16'
+            )}
+          >
+            weiter
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
