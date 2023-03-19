@@ -77,8 +77,8 @@ export function SuccessModal() {
               closeModal(core)
             }}
             className={clsx(
-              'px-2 py-0.5 rounded hover:bg-green-300',
-              'bg-green-200 mx-auto mb-16'
+              'px-4 py-2 rounded hover:bg-green-300',
+              'bg-green-200 mx-auto mb-16 text-lg'
             )}
           >
             weiter
