@@ -202,7 +202,11 @@ export function finishQuest(core: Core) {
     return
   }
 
-  submitSolution(core, core.ws.quest.id, core.ws.code)
+  submitSolution(
+    core,
+    core.ws.quest.id,
+    (core.ws.settings.mode == 'code' ? '//code-tab\n' : '') + core.ws.code
+  )
   storeQuestToSession(core)
   switchToPage(core, 'overview')
   submit_event(`quest_complete_${core.ws.quest.id}`, core)
