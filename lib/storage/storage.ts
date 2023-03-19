@@ -18,8 +18,8 @@ export function getUserId() {
 
 export function getUserName() {
   return (
-    localStorage.getItem(userNameKey) ||
-    sessionStorage.getItem(userNameKey) ||
+    localStorage.getItem(userNameKey) ??
+    sessionStorage.getItem(userNameKey) ??
     ''
   ).trim()
 }

@@ -78,8 +78,7 @@ export function SuccessModal() {
             'bg-green-200 mx-auto mb-16'
           )}
         >
-          <FaIcon icon={faCircleCheck} className="mr-1" />
-          Aufgabe abschließen
+          weiter
         </button>
       </div>
     </div>
