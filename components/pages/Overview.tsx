@@ -27,6 +27,7 @@ import {
   isPersisted,
   resetStorage,
 } from '../../lib/storage/storage'
+import { HFullStyles } from '../helper/HFullStyles'
 
 export function Overview() {
   const core = useCore()
@@ -282,6 +283,9 @@ export function Overview() {
           );
         }
       `}</style>
+      {(core.ws.page == 'overview' || core.ws.page == 'demo') && (
+        <HFullStyles />
+      )}
     </>
   )
 

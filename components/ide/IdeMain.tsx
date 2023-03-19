@@ -21,6 +21,7 @@ import { ShareModal } from '../modals/ShareModal'
 import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
 import { WorldEditor } from './WorldEditor'
+import { HFullStyles } from '../helper/HFullStyles'
 
 export function IdeMain() {
   const core = useCore()
@@ -161,15 +162,7 @@ export function IdeMain() {
           )}
         </ReflexElement>
       </ReflexContainer>
-      <style jsx global>
-        {`
-          body,
-          html,
-          #__next {
-            height: 100%;
-          }
-        `}
-      </style>
+      <HFullStyles />
     </>
   )
 }
