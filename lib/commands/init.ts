@@ -195,9 +195,16 @@ export async function initClient(core: Core) {
             if (!ws.analyze.solutions[entry.questId]) {
               ws.analyze.solutions[entry.questId] = []
             }
-            const currentSolution = entry.solution.trim()
+            let currentSolution = entry.solution.trim()
+            let isCode = false
+            if (currentSolution.startsWith('//code-tab\n')) {
+              currentSolution = currentSolution
+                .replace('//code-tab\n', '')
+                .trim()
+              isCode = true
+            }
             const hasEntry = ws.analyze.solutions[entry.questId].find(
-              (x) => x.solution == currentSolution
+              (x) => x.solution == currentSolution && x.isCode == isCode
             )
             if (hasEntry) {
               hasEntry.count++
@@ -205,6 +212,7 @@ export async function initClient(core: Core) {
               ws.analyze.solutions[entry.questId].push({
                 solution: currentSolution,
                 count: 1,
+                isCode,
               })
             }
           }
@@ -212,7 +220,7 @@ export async function initClient(core: Core) {
         for (const questId in ws.analyze.solutions) {
           ws.analyze.solutions[questId].sort((a, b) =>
             a.count == b.count
-              ? a.solution.length - b.solution.length
+              ? a.solution.split('\n').length - b.solution.split('\n').length
               : b.count - a.count
           )
         }

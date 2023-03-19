@@ -195,6 +195,7 @@ export function Overview() {
                           className="m-3 border rounded p-2 min-w-[200px]"
                         >
                           <p className="text-right text-sm text-gray-600 mb-2">
+                            {entry.isCode && <span className="mr-2">CODE</span>}
                             {entry.count}x
                           </p>
                           <pre>{entry.solution}</pre>

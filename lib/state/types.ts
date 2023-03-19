@@ -158,7 +158,9 @@ export interface Analyze {
   legacy: { [key: string]: { count: number } }
   quests: { [key: string]: { reachable: number; complete: number } }
   userTimes: number[]
-  solutions: { [questId: string]: { solution: string; count: number }[] }
+  solutions: {
+    [questId: string]: { solution: string; count: number; isCode: boolean }[]
+  }
 }
 
 export interface CoreState {
