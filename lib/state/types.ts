@@ -31,11 +31,11 @@ export interface Preview {
 }
 
 export interface Ui {
+  // this state is only for ide
   messages: Message[]
   gutter: number
   gutterReturns: number[]
   state: 'ready' | 'loading' | 'running' | 'error'
-  wireframe: boolean
   needsTextRefresh: boolean
   errorMessages: string[]
   toBlockWarning: boolean
@@ -45,7 +45,6 @@ export interface Ui {
   karolCrashMessage?: string
   isManualAbort: boolean
   isEndOfRun: boolean
-  taskWaitingToLoad?: number
   freezeCode: boolean
   taskScroll: number
   isAlreadyCompleted: boolean
@@ -53,12 +52,7 @@ export interface Ui {
   isTesting: boolean
   isTestingAborted: boolean
   controlBarShowFinishQuest: boolean
-  isDemo: boolean
   showCodeInfo: boolean
-  renderCounter: number
-  isAnalyze: boolean
-  overviewScroll: number
-  showSaveHint: boolean
   imageLightbox: string | null
 }
 
@@ -96,16 +90,28 @@ export interface Quest {
   completedOnce: boolean
 }
 
+export interface Overview {
+  overviewScroll: number
+  showSaveHint: boolean
+}
+
 export interface WorkspaceState {
+  // IDE
   world: World
   ui: Ui
   code: string
   vm: Vm
   settings: Settings
+
+  // IDE Modes
   quest: Quest
   editor: Editor
-  analyze: Analyze
 
+  // Overview
+  analyze: Analyze
+  overview: Overview
+
+  // System
   page:
     | 'init'
     | 'overview'
@@ -115,6 +121,8 @@ export interface WorkspaceState {
     | 'quest'
     | 'shared'
     | 'imported'
+    | 'analyze'
+    | 'demo'
 
   modal:
     | 'name'
@@ -126,6 +134,8 @@ export interface WorkspaceState {
     | 'remix'
     | 'resize'
     | null
+
+  renderCounter: number // e.g. if storage is updated
 }
 
 export interface QuestTask {

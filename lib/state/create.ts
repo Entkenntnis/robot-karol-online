@@ -11,6 +11,7 @@ export function createWorkspaceState(): WorkspaceState {
   const ws: WorkspaceState = {
     page: 'init',
     modal: null,
+    renderCounter: 0,
     world: createWorld(5, 10, 6),
     code: '',
     ui: {
@@ -18,7 +19,6 @@ export function createWorkspaceState(): WorkspaceState {
       gutter: 0,
       gutterReturns: [],
       state: 'loading',
-      wireframe: false,
       needsTextRefresh: false,
       errorMessages: [],
       toBlockWarning: false,
@@ -34,12 +34,7 @@ export function createWorkspaceState(): WorkspaceState {
       isTesting: false,
       isTestingAborted: false,
       controlBarShowFinishQuest: false,
-      isDemo: false,
       showCodeInfo: false,
-      renderCounter: 0,
-      isAnalyze: false,
-      overviewScroll: 0,
-      showSaveHint: true,
       imageLightbox: null,
     },
     vm: {
@@ -82,6 +77,10 @@ export function createWorkspaceState(): WorkspaceState {
       legacy: {},
       userTimes: [],
       solutions: {},
+    },
+    overview: {
+      overviewScroll: 0,
+      showSaveHint: true,
     },
   }
   return ws

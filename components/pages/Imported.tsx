@@ -1,5 +1,5 @@
-import { Quest } from '../Quest'
+import { IdeMain } from '../ide/IdeMain'
 
 export function Imported() {
-  return <Quest />
+  return <IdeMain />
 }

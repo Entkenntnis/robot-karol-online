@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Preview, World } from '../lib/state/types'
+import { Preview, World } from '../../lib/state/types'
 
 interface ViewProps {
   world: World

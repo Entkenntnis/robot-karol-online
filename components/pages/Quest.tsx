@@ -1,5 +1,5 @@
-import { Quest as QuestGeneric } from '../Quest'
+import { IdeMain } from '../ide/IdeMain'
 
 export function Quest() {
-  return <QuestGeneric />
+  return <IdeMain />
 }

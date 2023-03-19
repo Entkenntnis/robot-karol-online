@@ -1,19 +1,10 @@
 import { backend } from '../../backend'
 import { Core } from '../state/core'
-
-export const userIdKey = 'robot_karol_online_tmp_id'
+import { getUserId } from '../storage/storage'
 
 export function submit_event(event: string, core: Core) {
   if (core.state.enableStats && backend.statsEndpoint) {
-    if (
-      !sessionStorage.getItem(userIdKey) &&
-      !localStorage.getItem(userIdKey)
-    ) {
-      sessionStorage.setItem(userIdKey, Math.random().toString())
-    }
-
-    const userId =
-      localStorage.getItem(userIdKey) ?? sessionStorage.getItem(userIdKey)
+    const userId = getUserId()
 
     // only log on production
     if (window.location.host !== 'karol.arrrg.de') return

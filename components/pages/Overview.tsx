@@ -18,26 +18,20 @@ import { questList } from '../../lib/data/overview'
 import { questData } from '../../lib/data/quests'
 import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
 import { useCore } from '../../lib/state/core'
-import { FaIcon } from '../FaIcon'
-import { Highscore } from './Highscore'
-import { ImpressumModal } from '../modals/ImpressumModal'
-import { PrivacyModal } from '../modals/PrivacyModal'
-import { View } from '../View'
+import { FaIcon } from '../helper/FaIcon'
+import { View } from '../helper/View'
 import { switchToPage } from '../../lib/commands/page'
 import { showModal } from '../../lib/commands/modal'
+import { getUserName, resetStorage } from '../../lib/storage/storage'
 
 export function Overview() {
   const core = useCore()
 
-  const name = (
-    localStorage.getItem('robot_karol_online_name') ??
-    sessionStorage.getItem('robot_karol_online_name') ??
-    ''
-  ).trim()
+  const name = getUserName()
 
   useEffect(() => {
-    if (core.ws.ui.overviewScroll > 0) {
-      document.documentElement.scrollTop = core.ws.ui.overviewScroll
+    if (core.ws.overview.overviewScroll > 0) {
+      document.documentElement.scrollTop = core.ws.overview.overviewScroll
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -81,7 +75,7 @@ export function Overview() {
               Aufgaben-Editor
             </button>
           </div>
-          {core.ws.ui.isAnalyze && (
+          {core.ws.page == 'analyze' && (
             <div className="bg-white px-16 pb-8 mt-4">
               <p className="my-6">
                 Daten ab {core.ws.analyze.cutoff}, insgesamt{' '}
@@ -153,7 +147,7 @@ export function Overview() {
             {questList.map(renderQuest)}
           </div>
           <div className="flex-auto"></div>
-          {!core.ws.ui.isAnalyze && (
+          {core.ws.page != 'analyze' && (
             <div className="text-sm text-right mr-4 mt-36 mb-4">
               <label>
                 <input
@@ -173,8 +167,7 @@ export function Overview() {
                 onClick={() => {
                   const res = confirm('Fortschritt jetzt zurücksetzen?')
                   if (res) {
-                    setPersist(core, false)
-                    sessionStorage.clear()
+                    resetStorage()
                     forceRerender(core)
                   }
                 }}
@@ -184,7 +177,7 @@ export function Overview() {
             </div>
           )}
 
-          {core.ws.ui.isAnalyze && (
+          {core.ws.page == 'analyze' && (
             <div className="bg-white p-4">
               {questList.map((id) =>
                 core.ws.analyze.solutions[id] ? (
@@ -248,7 +241,7 @@ export function Overview() {
           </div>
           {!localStorage.getItem('karol_quest_beta_persist') &&
             isQuestDone(1) &&
-            core.ws.ui.showSaveHint && (
+            core.ws.overview.showSaveHint && (
               <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5 z-20">
                 Fortschritt auf diesem Gerät speichern?{' '}
                 <button
@@ -300,8 +293,8 @@ export function Overview() {
     const position = questList.indexOf(id)
 
     return (
-      core.ws.ui.isDemo ||
-      core.ws.ui.isAnalyze ||
+      core.ws.page == 'demo' ||
+      core.ws.page == 'analyze' ||
       position == 0 ||
       questDeps[id]?.some(isQuestDone)
     )
@@ -329,7 +322,7 @@ export function Overview() {
 
     const data = questData[index]
 
-    const questDone = core.ws.ui.isAnalyze ? false : isQuestDone(index)
+    const questDone = core.ws.page == 'analyze' ? false : isQuestDone(index)
 
     //const reachableCount = core.ws.analyze.reachable[index]
 
@@ -361,7 +354,7 @@ export function Overview() {
                   )}
                 >
                   {data.title}
-                  {core.ws.ui.isAnalyze && <small>&nbsp;({index})</small>}
+                  {core.ws.page == 'analyze' && <small>&nbsp;({index})</small>}
                 </span>
               </div>
             </div>
@@ -375,7 +368,7 @@ export function Overview() {
                   )}
                 </div>
               )}
-              {core.ws.ui.isAnalyze &&
+              {core.ws.page == 'analyze' &&
                 (() => {
                   const entry = core.ws.analyze.quests[index]
                   if (index == 1 && entry) {

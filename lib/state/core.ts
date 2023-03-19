@@ -79,16 +79,4 @@ export class Core {
       updater(state.workspace)
     })
   }
-
-  retrieveWsFromStorage(id: number) {
-    return this._workspaceStorage[id.toString()]
-  }
-
-  setWsToStorage(id: number, world: World, code: string) {
-    this._workspaceStorage[id.toString()] = { world, code }
-  }
-
-  deleteWsFromStorage(id: number) {
-    delete this._workspaceStorage[id.toString()]
-  }
 }

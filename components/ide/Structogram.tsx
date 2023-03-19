@@ -1,8 +1,8 @@
 import { TreeCursor } from '@lezer/common'
 import clsx from 'clsx'
-import { parser } from '../lib/codemirror/parser/parser'
-import { setShowStructogram } from '../lib/commands/mode'
-import { useCore } from '../lib/state/core'
+import { parser } from '../../lib/codemirror/parser/parser'
+import { setShowStructogram } from '../../lib/commands/mode'
+import { useCore } from '../../lib/state/core'
 
 export function Structogram() {
   const core = useCore()

@@ -4,7 +4,7 @@ import { closeModal } from '../../lib/commands/modal'
 import { setUserName } from '../../lib/commands/mode'
 import { switchToPage } from '../../lib/commands/page'
 import { useCore } from '../../lib/state/core'
-import { FaIcon } from '../FaIcon'
+import { FaIcon } from '../helper/FaIcon'
 
 export function NameModal() {
   const core = useCore()

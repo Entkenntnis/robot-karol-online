@@ -4,10 +4,10 @@ import {
   setDescription,
   setQuestPreview,
   setTitle,
-} from '../lib/commands/editor'
-import { switchToPage } from '../lib/commands/page'
-import { processMiniMarkdown } from '../lib/helper/processMiniMarkdown'
-import { useCore } from '../lib/state/core'
+} from '../../lib/commands/editor'
+import { switchToPage } from '../../lib/commands/page'
+import { processMiniMarkdown } from '../../lib/helper/processMiniMarkdown'
+import { useCore } from '../../lib/state/core'
 
 export function QuestEditor() {
   const core = useCore()

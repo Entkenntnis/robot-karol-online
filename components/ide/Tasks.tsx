@@ -21,23 +21,23 @@ import {
   moveTaskDown,
   moveTaskUp,
   setTaskTitle,
-} from '../lib/commands/editor'
-import { serializeQuest } from '../lib/commands/json'
-import { showModal } from '../lib/commands/modal'
-import { setShowStructogram } from '../lib/commands/mode'
-import { switchToPage } from '../lib/commands/page'
+} from '../../lib/commands/editor'
+import { serializeQuest } from '../../lib/commands/json'
+import { showModal } from '../../lib/commands/modal'
+import { setShowStructogram } from '../../lib/commands/mode'
+import { switchToPage } from '../../lib/commands/page'
 import {
   openTask,
   setTaskScroll,
   startTesting,
   storeQuestToSession,
-} from '../lib/commands/quest'
-import { processMiniMarkdown } from '../lib/helper/processMiniMarkdown'
-import { submit_event } from '../lib/helper/submit'
-import { useCore } from '../lib/state/core'
-import { FaIcon } from './FaIcon'
+} from '../../lib/commands/quest'
+import { processMiniMarkdown } from '../../lib/helper/processMiniMarkdown'
+import { submit_event } from '../../lib/helper/submit'
+import { useCore } from '../../lib/state/core'
+import { FaIcon } from '../helper/FaIcon'
 import { QuestEditor } from './QuestEditor'
-import { View } from './View'
+import { View } from '../helper/View'
 
 export function Tasks() {
   const core = useCore()

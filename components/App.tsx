@@ -16,6 +16,8 @@ import { PrivacyModal } from './modals/PrivacyModal'
 import { RemixModal } from './modals/RemixModal'
 import { ResizeWorldModal } from './modals/ResizeWorldModal'
 import { ShareModal } from './modals/ShareModal'
+import { Analyze } from './pages/Analyze'
+import { Demo } from './pages/Demo'
 
 export function App() {
   const core = useCore()
@@ -51,6 +53,10 @@ export function App() {
       return <Quest />
     } else if (core.ws.page == 'shared') {
       return <Shared />
+    } else if (core.ws.page == 'analyze') {
+      return <Analyze />
+    } else if (core.ws.page == 'demo') {
+      return <Demo />
     } else {
       return null
     }

@@ -3,14 +3,14 @@ import { useRef, useState, useEffect } from 'react'
 import { Text } from '@codemirror/state'
 import De from 'blockly/msg/de'
 
-import '../lib/blockly/FieldNumberSlider'
-import { codeToXml } from '../lib/blockly/codeToXml'
-import { initCustomBlocks } from '../lib/blockly/customBlocks'
-import { KAROL_TOOLBOX } from '../lib/blockly/toolbox'
-import { parser } from '../lib/codemirror/parser/parser'
-import { abort, patch } from '../lib/commands/vm'
-import { compile } from '../lib/language/compiler'
-import { useCore } from '../lib/state/core'
+import '../../lib/blockly/FieldNumberSlider'
+import { codeToXml } from '../../lib/blockly/codeToXml'
+import { initCustomBlocks } from '../../lib/blockly/customBlocks'
+import { KAROL_TOOLBOX } from '../../lib/blockly/toolbox'
+import { parser } from '../../lib/codemirror/parser/parser'
+import { abort, patch } from '../../lib/commands/vm'
+import { compile } from '../../lib/language/compiler'
+import { useCore } from '../../lib/state/core'
 
 initCustomBlocks()
 Blockly.setLocale(De)

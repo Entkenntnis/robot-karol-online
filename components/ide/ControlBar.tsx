@@ -12,15 +12,19 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { useMemo } from 'react'
-import { showModal } from '../lib/commands/modal'
+import { showModal } from '../../lib/commands/modal'
 
-import { setSpeedSliderValue } from '../lib/commands/mode'
-import { closeOutput, finishQuest, restartProgram } from '../lib/commands/quest'
-import { abort } from '../lib/commands/vm'
-import { positiveText } from '../lib/helper/positiveText'
-import { sliderToDelay } from '../lib/helper/speedSlider'
-import { useCore } from '../lib/state/core'
-import { FaIcon } from './FaIcon'
+import { setSpeedSliderValue } from '../../lib/commands/mode'
+import {
+  closeOutput,
+  finishQuest,
+  restartProgram,
+} from '../../lib/commands/quest'
+import { abort } from '../../lib/commands/vm'
+import { positiveText } from '../../lib/helper/positiveText'
+import { sliderToDelay } from '../../lib/helper/speedSlider'
+import { useCore } from '../../lib/state/core'
+import { FaIcon } from '../helper/FaIcon'
 
 export function ControlBar() {
   const core = useCore()

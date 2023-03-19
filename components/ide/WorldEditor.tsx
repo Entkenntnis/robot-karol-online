@@ -13,8 +13,8 @@ import {
   closeWorldEditor,
   showPreview,
   switchCurrentlyEditedWorld,
-} from '../lib/commands/editor'
-import { showModal } from '../lib/commands/modal'
+} from '../../lib/commands/editor'
+import { showModal } from '../../lib/commands/modal'
 import {
   left,
   right,
@@ -23,10 +23,10 @@ import {
   brick,
   toggleBlock,
   unbrick,
-} from '../lib/commands/world'
-import { useCore } from '../lib/state/core'
-import { FaIcon } from './FaIcon'
-import { View } from './View'
+} from '../../lib/commands/world'
+import { useCore } from '../../lib/state/core'
+import { FaIcon } from '../helper/FaIcon'
+import { View } from '../helper/View'
 
 export function WorldEditor() {
   const actions: { [key: string]: () => void } = {

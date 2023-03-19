@@ -9,7 +9,7 @@ import { serializeQuest } from '../../lib/commands/json'
 import { closeModal } from '../../lib/commands/modal'
 import { share } from '../../lib/commands/share'
 import { useCore } from '../../lib/state/core'
-import { FaIcon } from '../FaIcon'
+import { FaIcon } from '../helper/FaIcon'
 
 export function ShareModal() {
   const core = useCore()

@@ -1,12 +1,12 @@
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { resetOutput } from '../lib/commands/quest'
+import { resetOutput } from '../../lib/commands/quest'
 
-import { useCore } from '../lib/state/core'
+import { useCore } from '../../lib/state/core'
 import { ControlBar } from './ControlBar'
-import { FaIcon } from './FaIcon'
+import { FaIcon } from '../helper/FaIcon'
 import { TaskRunnerOverview } from './TaskRunnerOverview'
-import { View } from './View'
+import { View } from '../helper/View'
 
 export function Output() {
   const core = useCore()

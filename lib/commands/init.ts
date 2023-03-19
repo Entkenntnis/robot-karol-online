@@ -10,16 +10,13 @@ import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
 
 export async function initClient(core: Core) {
-  console.log('init client')
   const parameterList = new URLSearchParams(window.location.search)
 
   const id = parameterList.get('id')
 
   if (id) {
     await loadLegacyProject(core, id)
-    core.mutateWs((ws) => {
-      ws.page = 'imported'
-    })
+    switchToPage(core, 'imported')
     return
   }
 
@@ -56,8 +53,6 @@ export async function initClient(core: Core) {
       const cutoff = new Date(2023, 2, 16)
 
       core.mutateWs((ws) => {
-        ws.ui.isAnalyze = true
-        ws.page = 'overview'
         ws.analyze.cutoff = cutoff.toLocaleString()
       })
 
@@ -222,6 +217,8 @@ export async function initClient(core: Core) {
           )
         }
       })
+      switchToPage(core, 'analyze')
+      return
     } catch (e) {
       console.log(e)
     }
@@ -233,19 +230,14 @@ export async function initClient(core: Core) {
   }
 
   if (hash == '#DEMO') {
-    core.mutateWs(({ ui }) => {
-      ui.isDemo = true
-    })
     submit_event('show_demo', core)
+    switchToPage(core, 'demo')
+    return
   } else if (hash.length == 5) {
     await loadQuest(core, hash.substring(1))
-    core.mutateWs((ws) => {
-      ws.page = 'shared'
-    })
+    switchToPage(core, 'shared')
     return
   }
 
-  core.mutateWs((ws) => {
-    ws.page = 'overview'
-  })
+  switchToPage(core, 'overview')
 }

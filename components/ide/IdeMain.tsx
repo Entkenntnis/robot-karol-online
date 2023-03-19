@@ -6,24 +6,23 @@ import {
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
-import { editCodeAndResetProgress, setMode } from '../lib/commands/mode'
-import { closeOutput } from '../lib/commands/quest'
-import { useCore } from '../lib/state/core'
+import { editCodeAndResetProgress, setMode } from '../../lib/commands/mode'
+import { closeOutput } from '../../lib/commands/quest'
+import { useCore } from '../../lib/state/core'
 import { EditArea } from './EditArea'
-import { ErrorModal } from './modals/ErrorModal'
-import { FaIcon } from './FaIcon'
-import { HFullStyle } from './HFullStyle'
-import { LightboxModal } from './modals/LightboxModal'
-import { NameModal } from './modals/NameModal'
+import { ErrorModal } from '../modals/ErrorModal'
+import { FaIcon } from '../helper/FaIcon'
+import { LightboxModal } from '../modals/LightboxModal'
+import { NameModal } from '../modals/NameModal'
 import { Output } from './Output'
-import { RemixModal } from './modals/RemixModal'
-import { ResizeWorldModal } from './modals/ResizeWorldModal'
-import { ShareModal } from './modals/ShareModal'
+import { RemixModal } from '../modals/RemixModal'
+import { ResizeWorldModal } from '../modals/ResizeWorldModal'
+import { ShareModal } from '../modals/ShareModal'
 import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
 import { WorldEditor } from './WorldEditor'
 
-export function Quest() {
+export function IdeMain() {
   const core = useCore()
 
   return (
@@ -162,7 +161,15 @@ export function Quest() {
           )}
         </ReflexElement>
       </ReflexContainer>
-      <HFullStyle />
+      <style jsx global>
+        {`
+          body,
+          html,
+          #__next {
+            height: 100%;
+          }
+        `}
+      </style>
     </>
   )
 }

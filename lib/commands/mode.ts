@@ -1,9 +1,11 @@
-import { uiPosition } from 'blockly'
-import { questData } from '../data/quests'
-import { getQuestSessionData } from '../helper/session'
 import { sliderToDelay } from '../helper/speedSlider'
-import { submit_event, userIdKey } from '../helper/submit'
+import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
+import {
+  copyLocalToSession,
+  copySessionToLocal,
+  setUserName as setUserNameStorage,
+} from '../storage/storage'
 import { closeModal, showModal } from './modal'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
@@ -77,51 +79,31 @@ export function setShowCodeInfo(core: Core, val: boolean) {
 }
 
 export function forceRerender(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.renderCounter++
+  core.mutateWs((ws) => {
+    ws.renderCounter++
   })
 }
 
 export function setPersist(core: Core, val: boolean) {
   if (val) {
     submit_event('persist_progress', core)
-    localStorage.setItem(userIdKey, sessionStorage.getItem(userIdKey) ?? '')
-    localStorage.setItem('karol_quest_beta_persist', '1')
-    localStorage.setItem(
-      'robot_karol_online_name',
-      sessionStorage.getItem('robot_karol_online_name') ?? ''
-    )
-  } else {
-    sessionStorage.setItem(userIdKey, localStorage.getItem(userIdKey) ?? '')
-    localStorage.removeItem(userIdKey)
-    localStorage.removeItem('karol_quest_beta_persist')
-    localStorage.removeItem('robot_karol_online_name')
   }
-  for (const id in questData) {
-    const qd = getQuestSessionData(parseInt(id))
-    if (qd) {
-      if (val) {
-        localStorage.setItem(`karol_quest_beta_${id}`, JSON.stringify(qd))
-      } else {
-        localStorage.removeItem(`karol_quest_beta_${id}`)
-        sessionStorage.setItem(`karol_quest_beta_${id}`, JSON.stringify(qd))
-      }
-    }
+  if (val) {
+    copySessionToLocal()
+  } else {
+    copyLocalToSession()
   }
 }
 
 export function setUserName(core: Core, name: string) {
   closeModal(core)
-  if (!!localStorage.getItem('karol_quest_beta_persist')) {
-    localStorage.setItem('robot_karol_online_name', name)
-  }
-  sessionStorage.setItem('robot_karol_online_name', name)
   submit_event('set_name_' + name, core)
+  setUserNameStorage(name)
 }
 
 export function hideSaveHint(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.showSaveHint = false
+  core.mutateWs(({ overview }) => {
+    overview.showSaveHint = false
   })
 }
 

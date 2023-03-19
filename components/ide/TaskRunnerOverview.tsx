@@ -7,8 +7,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
-import { useCore } from '../lib/state/core'
-import { FaIcon } from './FaIcon'
+import { useCore } from '../../lib/state/core'
+import { FaIcon } from '../helper/FaIcon'
 
 export function TaskRunnerOverview() {
   const core = useCore()

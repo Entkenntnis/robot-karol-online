@@ -1,10 +1,10 @@
 import { autoFormat, setEditable } from '../codemirror/basicSetup'
 import { questData } from '../data/quests'
-import { getQuestSessionData } from '../helper/session'
 import { submit_event } from '../helper/submit'
 import { submitSolution } from '../helper/submitSolution'
 import { Core } from '../state/core'
 import { QuestSessionData } from '../state/types'
+import { getQuestData, getUserName, setQuestData } from '../storage/storage'
 import { showModal } from './modal'
 import { switchToPage } from './page'
 import { run } from './vm'
@@ -92,12 +92,6 @@ export function resetOutput(core: Core) {
   }
 }
 
-export function endTaskWaiting(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.taskWaitingToLoad = undefined
-  })
-}
-
 export function startQuest(core: Core, id: number) {
   const data = questData[id]
 
@@ -118,17 +112,11 @@ export function startQuest(core: Core, id: number) {
     ws.ui.taskScroll = 0
     ws.page = 'quest'
   })
-  if (
-    (id == 1 || core.ws.ui.isDemo) &&
-    !(
-      localStorage.getItem('robot_karol_online_name') ||
-      sessionStorage.getItem('robot_karol_online_name')
-    )
-  ) {
+  if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {
     showModal(core, 'name')
   }
   submit_event(`start_quest_${id}`, core)
-  const sessionData = getQuestSessionData(id)
+  const sessionData = getQuestData(id)
   if (sessionData) restoreQuestFromSessionData(core, sessionData)
 }
 
@@ -144,16 +132,7 @@ export function storeQuestToSession(core: Core) {
       core.ws.ui.isAlreadyCompleted ||
       core.ws.quest.completedOnce,
   }
-  if (!!localStorage.getItem('karol_quest_beta_persist')) {
-    localStorage.setItem(
-      `karol_quest_beta_${core.ws.quest.id}`,
-      JSON.stringify(data)
-    )
-  }
-  sessionStorage.setItem(
-    `karol_quest_beta_${core.ws.quest.id}`,
-    JSON.stringify(data)
-  )
+  setQuestData(data)
 }
 
 export function restoreQuestFromSessionData(
@@ -231,7 +210,7 @@ export function setTaskScroll(core: Core, scrollTop: number) {
 }
 
 export function setOverviewScroll(core: Core, scrollTop: number) {
-  core.mutateWs(({ ui }) => {
-    ui.overviewScroll = scrollTop
+  core.mutateWs(({ overview }) => {
+    overview.overviewScroll = scrollTop
   })
 }

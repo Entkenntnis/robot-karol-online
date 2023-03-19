@@ -3,8 +3,6 @@ import { initClient } from '../../lib/commands/init'
 import { useCore } from '../../lib/state/core'
 
 export function Init() {
-  console.log('render init')
-
   const core = useCore()
   useEffect(() => {
     initClient(core)

@@ -2,9 +2,9 @@ import { MutableRefObject, useEffect, useRef } from 'react'
 import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 
-import { basicSetup } from '../lib/codemirror/basicSetup'
-import { useCore } from '../lib/state/core'
-import { lint, setLoading } from '../lib/commands/editing'
+import { basicSetup } from '../../lib/codemirror/basicSetup'
+import { useCore } from '../../lib/state/core'
+import { lint, setLoading } from '../../lib/commands/editing'
 
 // make tailwind happy
 // text-[#9a4603]

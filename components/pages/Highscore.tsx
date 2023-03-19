@@ -4,9 +4,9 @@ import de from 'timeago.js/lib/lang/de'
 import * as timeago from 'timeago.js'
 
 import { backend } from '../../backend'
-import { userIdKey } from '../../lib/helper/submit'
 import clsx from 'clsx'
-import { Core, useCore } from '../../lib/state/core'
+import { useCore } from '../../lib/state/core'
+import { getUserId } from '../../lib/storage/storage'
 
 timeago.register('de', function (number, index, total_sec) {
   // Convert weeks to days.
@@ -35,8 +35,7 @@ export function Highscore() {
   const [showAll, setShowAll] = useState(false)
   const [showAllRecent, setShowAllRecent] = useState(false)
 
-  const userId =
-    localStorage.getItem(userIdKey) ?? sessionStorage.getItem(userIdKey)
+  const userId = getUserId()
 
   function sortData(m: typeof mode) {
     setData((d) => {

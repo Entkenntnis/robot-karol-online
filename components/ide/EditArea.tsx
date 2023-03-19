@@ -12,13 +12,13 @@ import {
 import { forceLinting } from '@codemirror/lint'
 import { cursorDocEnd } from '@codemirror/commands'
 
-import { setEditable } from '../lib/codemirror/basicSetup'
-import { useCore } from '../lib/state/core'
-import { FaIcon } from './FaIcon'
+import { setEditable } from '../../lib/codemirror/basicSetup'
+import { useCore } from '../../lib/state/core'
+import { FaIcon } from '../helper/FaIcon'
 import { Editor } from './Editor'
-import { textRefreshDone } from '../lib/commands/json'
+import { textRefreshDone } from '../../lib/commands/json'
 import { BlockEditor } from './BlockEditor'
-import { setShowCodeInfo } from '../lib/commands/mode'
+import { setShowCodeInfo } from '../../lib/commands/mode'
 
 export function EditArea() {
   const core = useCore()
