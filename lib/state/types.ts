@@ -133,6 +133,7 @@ export interface WorkspaceState {
     | 'share'
     | 'remix'
     | 'resize'
+    | 'success'
     | null
 
   renderCounter: number // e.g. if storage is updated

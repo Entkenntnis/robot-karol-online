@@ -33,7 +33,7 @@ export function ControlBar() {
 
   if (core.ws.ui.controlBarShowFinishQuest) {
     return (
-      <div className="flex items-center justify-center p-2">
+      <div className="flex items-center justify-center p-2 invisible">
         <p className="text-center">
           {text}
           <br />

@@ -35,6 +35,7 @@ export function runTask(core: Core, index: number) {
           core.mutateWs((ws) => {
             ws.ui.controlBarShowFinishQuest = true
           })
+          showModal(core, 'success')
         }
       }
     }
@@ -164,18 +165,22 @@ export function startTesting(core: Core) {
       !core.ws.ui.isManualAbort
     ) {
       const index = core.ws.quest.lastStartedTask!
-      core.mutateWs((ws) => {
-        if (index + 1 < core.ws.quest.tasks.length) {
-          // not last task
-          core.executionEndCallback = callback
+      if (index + 1 < core.ws.quest.tasks.length) {
+        // not last task
+        core.executionEndCallback = callback
+
+        core.mutateWs((ws) => {
           ws.quest.testerHandler = setTimeout(
             () => runTask(core, index + 1),
             500
           )
-        } else {
+        })
+      } else {
+        core.mutateWs((ws) => {
           ws.ui.controlBarShowFinishQuest = true
-        }
-      })
+        })
+        showModal(core, 'success')
+      }
     }
   }
   core.executionEndCallback = callback

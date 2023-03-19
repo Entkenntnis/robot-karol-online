@@ -22,7 +22,11 @@ import { FaIcon } from '../helper/FaIcon'
 import { View } from '../helper/View'
 import { switchToPage } from '../../lib/commands/page'
 import { showModal } from '../../lib/commands/modal'
-import { getUserName, resetStorage } from '../../lib/storage/storage'
+import {
+  getUserName,
+  isPersisted,
+  resetStorage,
+} from '../../lib/storage/storage'
 
 export function Overview() {
   const core = useCore()
@@ -152,7 +156,7 @@ export function Overview() {
               <label>
                 <input
                   type="checkbox"
-                  checked={!!localStorage.getItem('karol_quest_beta_persist')}
+                  checked={isPersisted()}
                   onChange={(e) => {
                     setPersist(core, e.target.checked)
                     hideSaveHint(core)
@@ -239,9 +243,10 @@ export function Overview() {
               'https://github.com/Entkenntnis/robot-karol-online#readme'
             )}
           </div>
-          {!localStorage.getItem('karol_quest_beta_persist') &&
+          {!isPersisted() &&
             isQuestDone(1) &&
-            core.ws.overview.showSaveHint && (
+            core.ws.overview.showSaveHint &&
+            core.ws.page != 'analyze' && (
               <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5 z-20">
                 Fortschritt auf diesem Gerät speichern?{' '}
                 <button
@@ -296,6 +301,7 @@ export function Overview() {
       core.ws.page == 'demo' ||
       core.ws.page == 'analyze' ||
       position == 0 ||
+      isQuestDone(id) ||
       questDeps[id]?.some(isQuestDone)
     )
   }

@@ -23,6 +23,7 @@
     "@lezer/common": "^1.0.0",
     "@lezer/highlight": "^1.0.0",
     "blockly": "^9.1.1",
+    "canvas-confetti": "^1.6.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.29.3",
     "immer": "^9.0.5",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@lezer/generator": "^1.0.0",
     "@next/bundle-analyzer": "^13.0.0",
+    "@types/canvas-confetti": "^1.6.0",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.5",
     "autoprefixer": "^10.4.4",

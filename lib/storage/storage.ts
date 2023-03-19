@@ -24,8 +24,12 @@ export function getUserName() {
   ).trim()
 }
 
+export function isPersisted() {
+  return !!localStorage.getItem(persistKey)
+}
+
 export function setUserName(name: string) {
-  if (localStorage.getItem(persistKey)) {
+  if (isPersisted()) {
     localStorage.setItem(userNameKey, name)
   }
   sessionStorage.setItem(userNameKey, name)
@@ -44,7 +48,7 @@ export function getQuestData(id: number) {
 }
 
 export function setQuestData(data: QuestSessionData) {
-  if (localStorage.getItem(persistKey)) {
+  if (isPersisted()) {
     localStorage.setItem(questKey(data.id), JSON.stringify(data))
   }
   sessionStorage.setItem(questKey(data.id), JSON.stringify(data))

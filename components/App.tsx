@@ -18,6 +18,7 @@ import { ResizeWorldModal } from './modals/ResizeWorldModal'
 import { ShareModal } from './modals/ShareModal'
 import { Analyze } from './pages/Analyze'
 import { Demo } from './pages/Demo'
+import { SuccessModal } from './modals/SuccessModal'
 
 export function App() {
   const core = useCore()
@@ -79,6 +80,8 @@ export function App() {
       return <ResizeWorldModal />
     } else if (core.ws.modal == 'share') {
       return <ShareModal />
+    } else if (core.ws.modal == 'success') {
+      return <SuccessModal />
     } else {
       return null
     }
