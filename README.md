@@ -60,13 +60,13 @@ Für einen maßgeschneiderten Unterricht können im Aufgaben-Editor eigene inter
 
 ### Kommentare
 
-![grafik](https://user-images.githubusercontent.com/13507950/227767346-a23defde-fe5d-4154-af44-f2b4c3d78a46.png)
+![grafik](https://user-images.githubusercontent.com/13507950/174563384-07a9338d-1493-45de-a04c-2ab77f0b6069.png)
 
 `// Kommentar` - Nutze Kommentare, um den Code zu gliedern und die Struktur zu erklären.
 
 ### Steuerung
 
-![grafik](https://user-images.githubusercontent.com/13507950/227767014-9370fad8-3e0f-4c4b-b140-2a72cfa054da.png)
+![grafik](https://user-images.githubusercontent.com/13507950/227767444-3d679849-a62e-483c-8492-3e397db7e2be.png)
 
 `wiederhole {n} mal {Anweisungen} endewiederhole` - Wiederholung mit fester Anzahl
 
