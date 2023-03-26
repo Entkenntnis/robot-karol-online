@@ -169,6 +169,7 @@
         "name": "STATEMENTS"
       }
     ],
+    "inputsInline": true,
     "colour": 120,
     "tooltip": "Wiederholung mit fester Anzahl",
     "helpUrl": "",
@@ -262,7 +263,7 @@
   },
   {
     "type": "if_then",
-    "message0": "wenn %1 dann %2 %3",
+    "message0": "wenn %1 dann %2",
     "args0": [
       {
         "type": "input_value",
@@ -271,9 +272,6 @@
       {
         "type": "input_statement",
         "name": "STATEMENTS"
-      },
-      {
-        "type": "input_dummy"
       }
     ],
     "inputsInline": true,
