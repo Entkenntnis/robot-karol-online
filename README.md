@@ -66,7 +66,7 @@ Für einen maßgeschneiderten Unterricht können im Aufgaben-Editor eigene inter
 
 ### Steuerung
 
-![grafik](https://user-images.githubusercontent.com/13507950/208776391-bd902daf-72e1-4bef-959a-9ae1e4d28fb2.png)
+![grafik](https://user-images.githubusercontent.com/13507950/227767014-9370fad8-3e0f-4c4b-b140-2a72cfa054da.png)
 
 `wiederhole {n} mal {Anweisungen} endewiederhole` - Wiederholung mit fester Anzahl
 
