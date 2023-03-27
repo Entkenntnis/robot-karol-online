@@ -58,7 +58,10 @@ export async function initClient(core: Core) {
 
       // pass 1: collect some basic information and build user data
       const userRawData: {
-        [userId: string]: { quests: { [id: string]: { solvedAt: number } } }
+        [userId: string]: {
+          quests: { [id: string]: { solvedAt: number } }
+          nameSetAt: number
+        }
       } = {}
       const dedup: { [key: string]: boolean } = {}
       core.mutateWs((ws) => {
@@ -137,7 +140,7 @@ export async function initClient(core: Core) {
             if (completeQuest) {
               const id = completeQuest[1]
               if (!userRawData[entry.userId]) {
-                userRawData[entry.userId] = { quests: {} }
+                userRawData[entry.userId] = { quests: {}, nameSetAt: -1 }
               }
 
               if (!userRawData[entry.userId].quests[id]) {
@@ -146,6 +149,13 @@ export async function initClient(core: Core) {
               if (ts < userRawData[entry.userId].quests[id].solvedAt) {
                 userRawData[entry.userId].quests[id].solvedAt = ts
               }
+            }
+
+            if (entry.event.startsWith('set_name_')) {
+              if (!userRawData[entry.userId]) {
+                userRawData[entry.userId] = { quests: {}, nameSetAt: -1 }
+              }
+              userRawData[entry.userId].nameSetAt = ts
             }
           }
         }
@@ -171,6 +181,9 @@ export async function initClient(core: Core) {
             continue
           }
           const times = Object.values(data.quests).map((q) => q.solvedAt)
+          if (data.nameSetAt > 0) {
+            times.push(data.nameSetAt)
+          }
           const max = Math.max(...times)
           const min = Math.min(...times)
           ws.analyze.userTimes.push(max - min)
