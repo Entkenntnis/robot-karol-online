@@ -450,7 +450,7 @@ export function Overview() {
             filter: blur(5px);
             width: calc(100% + 4px);
             height: calc(100% + 4px);
-            animation: glowing 20s linear infinite;
+            animation: glowing 60s linear infinite;
             opacity: 0;
             transition: opacity 0.1s ease-in-out;
             border-radius: 8px;
@@ -478,10 +478,7 @@ export function Overview() {
 
           @keyframes glowing {
             0% {
-              background-position: 0 0;
-            }
-            50% {
-              background-position: 400% 0;
+              background-position: 2400% 0;
             }
             100% {
               background-position: 0 0;
