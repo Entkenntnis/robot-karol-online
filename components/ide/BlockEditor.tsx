@@ -105,7 +105,7 @@ export function BlockEditor() {
     window.addEventListener('resize', onresize, false)
     onresize()
 
-    blocklyWorkspace.scroll(30, 30)
+    blocklyWorkspace.scroll(30, 36)
 
     core.blockyResize = onresize
     //console.log('mount', core.blockyResize)

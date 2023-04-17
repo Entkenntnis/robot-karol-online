@@ -1,27 +1,30 @@
 import {
   faCode,
+  faExclamationTriangle,
   faPencil,
+  faPlay,
   faPuzzlePiece,
+  faStop,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
 import { editCodeAndResetProgress, setMode } from '../../lib/commands/mode'
-import { closeOutput } from '../../lib/commands/quest'
+import {
+  closeOutput,
+  restartProgram,
+  startTesting,
+} from '../../lib/commands/quest'
 import { useCore } from '../../lib/state/core'
 import { EditArea } from './EditArea'
-import { ErrorModal } from '../modals/ErrorModal'
 import { FaIcon } from '../helper/FaIcon'
-import { LightboxModal } from '../modals/LightboxModal'
-import { NameModal } from '../modals/NameModal'
 import { Output } from './Output'
-import { RemixModal } from '../modals/RemixModal'
-import { ResizeWorldModal } from '../modals/ResizeWorldModal'
-import { ShareModal } from '../modals/ShareModal'
 import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
 import { WorldEditor } from './WorldEditor'
 import { HFullStyles } from '../helper/HFullStyles'
+import { abort } from '../../lib/commands/vm'
+import { showModal } from '../../lib/commands/modal'
 
 export function IdeMain() {
   const core = useCore()
@@ -84,17 +87,65 @@ export function IdeMain() {
                 <FaIcon icon={faCode} className="mr-3" />
                 Code
               </button>
-              {false &&
-                window.location.hostname == 'localhost' &&
-                core.ws.page != 'editor' && (
-                  <a
-                    href={`/?editor=1&quest=${core.ws.quest.id}`}
-                    className="underline text-gray-300 hover:text-gray-400 ml-8 mt-1"
-                  >
-                    Aufgabe überarbeiten
-                  </a>
-                )}
             </div>
+            {!(core.ws.ui.isTesting && core.ws.ui.isEndOfRun) &&
+              !(
+                core.ws.ui.isEndOfRun && core.ws.ui.controlBarShowFinishQuest
+              ) &&
+              !core.ws.ui.isAlreadyCompleted && (
+                <div className="absolute top-10 right-4 z-[101]">
+                  {core.ws.ui.state == 'error' &&
+                    core.ws.settings.mode == 'blocks' && (
+                      <button
+                        className="mr-3 bg-red-300 px-1.5 py-0.5 rounded"
+                        onClick={() => {
+                          showModal(core, 'error')
+                        }}
+                      >
+                        <FaIcon icon={faExclamationTriangle} />
+                      </button>
+                    )}
+                  <button
+                    className={clsx(
+                      'rounded px-2 py-0.5 transition-colors',
+                      core.ws.ui.state == 'ready' &&
+                        'bg-green-300 hover:bg-green-400',
+                      core.ws.ui.state == 'running' &&
+                        'bg-yellow-500 hover:bg-yellow-600',
+                      (core.ws.ui.state == 'error' ||
+                        core.ws.ui.state == 'loading') &&
+                        'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    )}
+                    onClick={() => {
+                      if (
+                        !core.ws.ui.showOutput &&
+                        core.ws.ui.state == 'ready'
+                      ) {
+                        startTesting(core)
+                        return
+                      }
+
+                      if (core.ws.ui.state == 'running') {
+                        abort(core)
+                        return
+                      }
+
+                      if (
+                        core.ws.ui.showOutput &&
+                        core.ws.ui.state == 'ready'
+                      ) {
+                        restartProgram(core)
+                      }
+                    }}
+                  >
+                    <FaIcon
+                      icon={core.ws.ui.state == 'running' ? faStop : faPlay}
+                      className="mr-1"
+                    />
+                    {core.ws.ui.state == 'running' ? 'Stopp' : 'Start'}
+                  </button>
+                </div>
+              )}
             <EditArea />
           </div>
           {(core.ws.ui.isTesting || core.ws.ui.isAlreadyCompleted) && (

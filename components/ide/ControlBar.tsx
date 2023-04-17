@@ -19,6 +19,7 @@ import {
   closeOutput,
   finishQuest,
   restartProgram,
+  startTesting,
 } from '../../lib/commands/quest'
 import { abort } from '../../lib/commands/vm'
 import { positiveText } from '../../lib/helper/positiveText'
@@ -59,25 +60,30 @@ export function ControlBar() {
       <div>
         <p className="ml-7 font-bold">{renderStatus()}</p>
         <p className="ml-2 mb-1">
-          {core.ws.ui.state != 'running' && (
+          {core.ws.ui.isEndOfRun &&
+          !core.ws.ui.isManualAbort &&
+          !core.ws.ui.karolCrashMessage &&
+          core.ws.quest.progress ? (
             <button
               onClick={() => {
                 closeOutput(core)
+                startTesting(core)
               }}
               className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
             >
-              zurück
+              weiter (alle Aufträge testen)
             </button>
-          )}
-          {core.ws.ui.state == 'error' && (
-            <button
-              onClick={() => {
-                showModal(core, 'error')
-              }}
-              className="px-2 py-0.5 rounded bg-red-200 ml-3 hover:bg-red-300"
-            >
-              Probleme anzeigen
-            </button>
+          ) : (
+            core.ws.ui.state != 'running' && (
+              <button
+                onClick={() => {
+                  closeOutput(core)
+                }}
+                className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
+              >
+                zurück
+              </button>
+            )
           )}
           {core.ws.ui.state == 'ready' &&
             (!core.ws.quest.progress ||
@@ -89,7 +95,7 @@ export function ControlBar() {
                   onClick={() => {
                     restartProgram(core)
                   }}
-                  className="px-2 py-0.5 rounded bg-green-300 ml-3 mt-2 hover:bg-green-400"
+                  className="px-2 py-0.5 rounded bg-green-300 ml-3 mt-2 hover:bg-green-400 invisible"
                 >
                   <FaIcon
                     icon={core.ws.ui.isEndOfRun ? faRotateRight : faPlay}
@@ -104,7 +110,7 @@ export function ControlBar() {
               onClick={() => {
                 abort(core)
               }}
-              className="px-2 py-0.5 rounded bg-amber-400 ml-3 mt-2"
+              className="px-2 py-0.5 rounded bg-amber-400 ml-3 mt-2 invisible"
             >
               <FaIcon icon={faStop} className="mr-1" />
               Abbrechen

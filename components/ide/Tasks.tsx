@@ -1,5 +1,6 @@
 import {
   faArrowDown,
+  faArrowLeft,
   faArrowUp,
   faCheck,
   faClone,
@@ -62,7 +63,7 @@ export function Tasks() {
                 <QuestEditor />
               ) : (
                 <>
-                  <h1 className="mb-2 text-xl font-bold mt-1">
+                  <h1 className="mb-4 text-xl font-bold mt-1">
                     {core.ws.quest.title}
                     {core.ws.ui.isAlreadyCompleted && core.ws.quest.id < 0 && (
                       <span className="text-base font-normal text-green-600 ml-4">
@@ -70,21 +71,6 @@ export function Tasks() {
                       </span>
                     )}
                   </h1>
-                  {core.ws.page != 'imported' && core.ws.quest.id >= 0 && (
-                    <div className="mb-4">
-                      <button
-                        className={clsx(
-                          'text-blue-500 hover:text-blue-600 hover:underline'
-                        )}
-                        onClick={() => {
-                          storeQuestToSession(core)
-                          switchToPage(core, 'overview')
-                        }}
-                      >
-                        zurück
-                      </button>
-                    </div>
-                  )}
                   <div>{processMiniMarkdown(core.ws.quest.description)}</div>
                 </>
               )}
@@ -212,11 +198,11 @@ export function Tasks() {
         </div>
       </div>
       <div className="h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1">
-        <div className="flex justify-center relative items-center flex-grow">
+        <div className="flex justify-start relative items-center flex-grow">
           {core.ws.page == 'imported' ? (
-            <p className="z-10">
+            <p className="z-10 text-center w-full">
               <a
-                className="px-2 py-0.5 rounded-lg bg-yellow-600 hover:bg-yellow-500 text-white font-bold"
+                className="px-2 py-0.5 rounded-lg bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold"
                 href={window.location.protocol + '//' + window.location.host}
               >
                 Robot Karol Online
@@ -250,17 +236,17 @@ export function Tasks() {
               </button>
             </p>
           ) : (
-            !core.ws.ui.isTesting &&
-            !core.ws.ui.isAlreadyCompleted && (
-              <p className="z-10">
+            core.ws.page == 'quest' && (
+              <p className="z-10 ml-2">
                 <button
-                  className="px-2 py-0.5 rounded-lg bg-yellow-300 hover:bg-yellow-400"
+                  className="px-2 py-0.5 rounded-lg bg-fuchsia-100 hover:bg-fuchsia-200"
                   onClick={() => {
-                    startTesting(core)
+                    storeQuestToSession(core)
+                    switchToPage(core, 'overview')
                   }}
                 >
-                  <FaIcon icon={faListCheck} className="mx-1" /> Überprüfung
-                  starten
+                  <FaIcon icon={faArrowLeft} className="mx-1" /> zurück zur
+                  Übersicht
                 </button>
               </p>
             )

@@ -22,6 +22,13 @@ export function switchToPage(core: Core, target: Pages) {
     submit_event('show_editor', core)
     addNewTask(core)
   }
+
+  if (target == 'overview') {
+    const hash = window.location.hash.toUpperCase()
+    if (hash == '#DEMO') {
+      switchToPage(core, 'demo')
+    }
+  }
 }
 
 function resetQuestView(core: Core) {
