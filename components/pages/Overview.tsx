@@ -209,7 +209,7 @@ export function Overview() {
           )}
 
           <div className="text-center mb-12">
-            Version: März 2023 |{' '}
+            Version: April 2023 |{' '}
             <a
               className="hover:underline cursor-pointer"
               href={

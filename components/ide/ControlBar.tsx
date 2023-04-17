@@ -63,23 +63,40 @@ export function ControlBar() {
           {core.ws.ui.isEndOfRun &&
           !core.ws.ui.isManualAbort &&
           !core.ws.ui.karolCrashMessage &&
+          !core.ws.ui.isTesting &&
           core.ws.quest.progress ? (
-            <button
-              onClick={() => {
-                closeOutput(core)
-                startTesting(core)
-              }}
-              className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
-            >
-              weiter (alle Aufträge testen)
-            </button>
+            <>
+              <button
+                onClick={() => {
+                  closeOutput(core)
+                }}
+                className={clsx(
+                  'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2',
+                  core.ws.ui.isTesting && 'invisible'
+                )}
+              >
+                zurück
+              </button>
+              <button
+                onClick={() => {
+                  closeOutput(core)
+                  startTesting(core)
+                }}
+                className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
+              >
+                weiter (alle Aufträge testen)
+              </button>
+            </>
           ) : (
             core.ws.ui.state != 'running' && (
               <button
                 onClick={() => {
                   closeOutput(core)
                 }}
-                className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
+                className={clsx(
+                  'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 ',
+                  core.ws.ui.isTesting && 'invisible'
+                )}
               >
                 zurück
               </button>
