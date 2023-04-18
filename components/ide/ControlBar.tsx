@@ -71,8 +71,8 @@ export function ControlBar() {
                   closeOutput(core)
                 }}
                 className={clsx(
-                  'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2',
-                  core.ws.ui.isTesting && 'invisible'
+                  'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2'
+                  /*core.ws.ui.isTesting && 'invisible'*/
                 )}
               >
                 zurück
@@ -94,8 +94,8 @@ export function ControlBar() {
                   closeOutput(core)
                 }}
                 className={clsx(
-                  'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 ',
-                  core.ws.ui.isTesting && 'invisible'
+                  'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 '
+                  /*core.ws.ui.isTesting && 'invisible'*/
                 )}
               >
                 zurück
