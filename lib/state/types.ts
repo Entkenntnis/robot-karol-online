@@ -54,6 +54,7 @@ export interface Ui {
   controlBarShowFinishQuest: boolean
   showCodeInfo: boolean
   imageLightbox: string | null
+  isHighlightDescription: boolean
 }
 
 export interface Vm {

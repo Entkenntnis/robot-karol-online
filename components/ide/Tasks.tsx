@@ -4,7 +4,6 @@ import {
   faArrowUp,
   faCheck,
   faClone,
-  faListCheck,
   faPencil,
   faPlay,
   faPlus,
@@ -23,14 +22,15 @@ import {
   moveTaskUp,
   setTaskTitle,
 } from '../../lib/commands/editor'
-import { serializeQuest } from '../../lib/commands/json'
 import { showModal } from '../../lib/commands/modal'
-import { setShowStructogram } from '../../lib/commands/mode'
+import {
+  closeHighlightDescription,
+  setShowStructogram,
+} from '../../lib/commands/mode'
 import { switchToPage } from '../../lib/commands/page'
 import {
   openTask,
   setTaskScroll,
-  startTesting,
   storeQuestToSession,
 } from '../../lib/commands/quest'
 import { processMiniMarkdown } from '../../lib/helper/processMiniMarkdown'
@@ -54,11 +54,16 @@ export function Tasks() {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="flex-auto relative overflow-auto">
-        <div className="overflow-auto bg-gray-100 h-full" ref={taskContainer}>
+      <div className="flex-auto relative overflow-y-auto">
+        <div className="overflow-y-auto bg-gray-100 h-full" ref={taskContainer}>
           <div className="h-20 from-gray-100 bg-gradient-to-t left-0 right-0 bottom-0 absolute pointer-events-none"></div>
           <div>
-            <div className="p-4 px-7 bg-yellow-100">
+            <div
+              className={clsx(
+                'p-4 px-7 bg-yellow-100',
+                core.ws.ui.isHighlightDescription && 'z-[300] relative'
+              )}
+            >
               {core.ws.page == 'editor' ? (
                 <QuestEditor />
               ) : (

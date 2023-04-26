@@ -1,4 +1,5 @@
 import {
+  faCaretRight,
   faCode,
   faExclamationTriangle,
   faPencil,
@@ -9,7 +10,11 @@ import {
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
-import { editCodeAndResetProgress, setMode } from '../../lib/commands/mode'
+import {
+  closeHighlightDescription,
+  editCodeAndResetProgress,
+  setMode,
+} from '../../lib/commands/mode'
 import {
   closeOutput,
   restartProgram,
@@ -25,9 +30,31 @@ import { WorldEditor } from './WorldEditor'
 import { HFullStyles } from '../helper/HFullStyles'
 import { abort } from '../../lib/commands/vm'
 import { showModal } from '../../lib/commands/modal'
+import { useEffect, useState } from 'react'
 
 export function IdeMain() {
   const core = useCore()
+
+  const [showOk, setShowOk] = useState(false)
+
+  useEffect(() => {
+    function test() {
+      const el = document.getElementById('progress-bar')
+      console.log('search for element', el)
+      if (el) {
+        el.style.width = '0%'
+        setTimeout(() => {
+          setShowOk(true)
+        }, 15000)
+      } else {
+        setTimeout(test, 10)
+      }
+    }
+
+    if (core.ws.ui.isHighlightDescription && !showOk) {
+      test()
+    }
+  }, [core.ws.ui.isHighlightDescription, showOk])
 
   return (
     <>
@@ -41,6 +68,9 @@ export function IdeMain() {
             }
           }}
         >
+          {core.ws.ui.isHighlightDescription && (
+            <div className="fixed inset-0 bg-black/30 z-[200]"></div>
+          )}
           <div className="h-full flex flex-col">
             <div className="flex-none h-8 bg-gray-50 flex justify-center items-start">
               <button
@@ -92,7 +122,9 @@ export function IdeMain() {
               !(
                 core.ws.ui.isEndOfRun && core.ws.ui.controlBarShowFinishQuest
               ) &&
-              !core.ws.ui.isAlreadyCompleted && (
+              !core.ws.ui.isAlreadyCompleted &&
+              !core.ws.ui.isHighlightDescription &&
+              core.ws.modal !== 'name' && (
                 <div className="absolute top-10 right-4 z-[101]">
                   {core.ws.ui.state == 'error' &&
                     core.ws.settings.mode == 'blocks' && (
@@ -148,6 +180,43 @@ export function IdeMain() {
               )}
             <EditArea />
           </div>
+          {core.ws.ui.isHighlightDescription && (
+            <>
+              <div
+                className={clsx(
+                  'absolute right-4 top-10 p-2 bg-white z-[300] rounded'
+                )}
+              >
+                <p>Lies die Anleitung.</p>
+                <p className="text-center mt-2">
+                  <button
+                    onClick={() => {
+                      closeHighlightDescription(core)
+                    }}
+                    className={clsx(
+                      'px-2 py-0.5 rounded bg-green-200 hover:bg-green-300 transition-colors disabled:bg-gray-200'
+                    )}
+                    disabled={!showOk}
+                  >
+                    OK
+                  </button>
+                </p>
+                <div className="absolute left-0 right-0 bottom-0 h-1 w-full flex justify-end">
+                  <div
+                    className="transition-width w-full h-1 rounded-b bg-yellow-200 duration-[15000ms] ease-linear"
+                    id="progress-bar"
+                  ></div>
+                </div>
+              </div>
+              <div
+                className={clsx(
+                  'absolute right-0.5 top-10 text-white text-3xl z-[300]'
+                )}
+              >
+                <FaIcon icon={faCaretRight} />
+              </div>
+            </>
+          )}
           {(core.ws.ui.isTesting || core.ws.ui.isAlreadyCompleted) && (
             <div
               className="absolute inset-0 bg-gray-700/20 z-[100]"

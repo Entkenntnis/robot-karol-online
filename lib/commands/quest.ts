@@ -112,9 +112,13 @@ export function startQuest(core: Core, id: number) {
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.taskScroll = 0
     ws.page = 'quest'
+    ws.ui.isHighlightDescription = true
   })
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {
     showModal(core, 'name')
+    core.mutateWs(({ ui }) => {
+      ui.isHighlightDescription = false
+    })
   }
   submit_event(`start_quest_${id}`, core)
   const sessionData = getQuestData(id)
@@ -145,6 +149,7 @@ export function restoreQuestFromSessionData(
     ws.settings.mode = data.mode
     ws.ui.isAlreadyCompleted = data.completed
     ws.quest.completedOnce = data.completedOnce
+    ws.ui.isHighlightDescription = false
   })
 }
 

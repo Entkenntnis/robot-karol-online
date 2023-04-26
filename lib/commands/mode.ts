@@ -97,6 +97,9 @@ export function setPersist(core: Core, val: boolean) {
 
 export function setUserName(core: Core, name: string) {
   closeModal(core)
+  core.mutateWs(({ ui }) => {
+    ui.isHighlightDescription = true
+  })
   submit_event('set_name_' + name, core)
   setUserNameStorage(name)
 }
@@ -112,4 +115,10 @@ export function openImage(core: Core, img: string) {
     ui.imageLightbox = img
   })
   showModal(core, 'lightbox')
+}
+
+export function closeHighlightDescription(core: Core) {
+  core.mutateWs(({ ui }) => {
+    ui.isHighlightDescription = false
+  })
 }

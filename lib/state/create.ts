@@ -36,6 +36,7 @@ export function createWorkspaceState(): WorkspaceState {
       controlBarShowFinishQuest: false,
       showCodeInfo: false,
       imageLightbox: null,
+      isHighlightDescription: false,
     },
     vm: {
       pc: 0,
