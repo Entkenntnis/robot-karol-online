@@ -84,7 +84,7 @@ export function Tasks() {
               {core.ws.quest.tasks.map((task, index) => (
                 <div
                   className={clsx(
-                    'm-3 rounded-xl bg-white flex justify-between',
+                    'm-3 rounded-xl bg-white flex justify-start',
                     core.ws.page != 'editor' &&
                       (core.ws.ui.isHighlightDescription
                         ? 'relative z-[300]'
@@ -99,6 +99,29 @@ export function Tasks() {
                     openTask(core, index)
                   }}
                 >
+                  <div
+                    className={clsx(
+                      'h-48 mb-6 mx-8',
+                      !core.ws.ui.isHighlightDescription && 'cursor-pointer'
+                    )}
+                    onClick={() => {
+                      if (core.ws.page == 'editor') {
+                        editWorld(core, index)
+                      }
+                    }}
+                  >
+                    <View
+                      world={task.start}
+                      preview={
+                        task.target === null
+                          ? undefined
+                          : { track: [], world: task.target }
+                      }
+                      hideKarol={false}
+                      wireframe={false}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
                   <div className="ml-4 mt-6">
                     <h2 className="text-lg font-bold">
                       {core.ws.page == 'editor' ? (
@@ -178,29 +201,6 @@ export function Tasks() {
                         </p>
                       </>
                     )}
-                  </div>
-                  <div
-                    className={clsx(
-                      'h-48 mb-6 mr-8',
-                      !core.ws.ui.isHighlightDescription && 'cursor-pointer'
-                    )}
-                    onClick={() => {
-                      if (core.ws.page == 'editor') {
-                        editWorld(core, index)
-                      }
-                    }}
-                  >
-                    <View
-                      world={task.start}
-                      preview={
-                        task.target === null
-                          ? undefined
-                          : { track: [], world: task.target }
-                      }
-                      hideKarol={false}
-                      wireframe={false}
-                      className="h-full w-full object-contain"
-                    />
                   </div>
                 </div>
               ))}
