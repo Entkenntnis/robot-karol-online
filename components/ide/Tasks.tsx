@@ -86,13 +86,16 @@ export function Tasks() {
                   className={clsx(
                     'm-3 rounded-xl bg-white flex justify-between',
                     core.ws.page != 'editor' &&
-                      'cursor-pointer hover:bg-gray-50'
+                      (core.ws.ui.isHighlightDescription
+                        ? 'relative z-[300]'
+                        : 'cursor-pointer hover:bg-gray-50')
                   )}
                   key={index}
                   tabIndex={0}
                   onClick={() => {
                     setTaskScroll(core, taskContainer.current?.scrollTop ?? -1)
                     if (core.ws.page == 'editor') return
+                    if (core.ws.ui.isHighlightDescription) return
                     openTask(core, index)
                   }}
                 >
@@ -177,7 +180,10 @@ export function Tasks() {
                     )}
                   </div>
                   <div
-                    className="h-48 mb-6 mr-8 cursor-pointer"
+                    className={clsx(
+                      'h-48 mb-6 mr-8',
+                      !core.ws.ui.isHighlightDescription && 'cursor-pointer'
+                    )}
                     onClick={() => {
                       if (core.ws.page == 'editor') {
                         editWorld(core, index)
@@ -242,11 +248,14 @@ export function Tasks() {
             </p>
           ) : (
             core.ws.page == 'quest' && (
-              <p className="z-10 ml-2">
+              <p className="z-[300] relative ml-2">
                 <button
                   className="px-2 py-0.5 rounded-lg bg-fuchsia-100 hover:bg-fuchsia-200"
                   onClick={() => {
-                    storeQuestToSession(core)
+                    if (!core.ws.ui.isHighlightDescription) {
+                      // reshow highlight
+                      storeQuestToSession(core)
+                    }
                     switchToPage(core, 'overview')
                   }}
                 >

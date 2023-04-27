@@ -5,13 +5,13 @@ export function LightboxModal() {
   const core = useCore()
   return (
     <div
-      className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
+      className="bg-black/20 fixed inset-0 flex justify-center items-center z-[350]"
       onClick={() => {
         closeModal(core)
       }}
     >
       <div
-        className="min-h-[310px] w-[500px] bg-white z-[200] rounded-xl relative flex justify-between flex-col"
+        className="min-h-[310px] w-[500px] bg-white z-[400] rounded-xl relative flex justify-between flex-col"
         onClick={(e) => {
           e.stopPropagation()
         }}
