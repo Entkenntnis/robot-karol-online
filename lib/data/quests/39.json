@@ -1,21 +1,21 @@
 {
   "version": "v1",
-  "title": "Treppe",
-  "description": "Karol hat einen unsichtbaren unendlichen Rucksack, aber sie kann nicht fliegen. Um höher zu kommen, braucht sie eine Treppe.\n\nLege die Ziegel wie abgebildet. Du kannst mehrere Ziegel auf einmal legen, indem du die %img[Anzahl eingibst|/quests/treppe.png]%.",
+  "title": "Verschieben",
+  "description": "\"Es gibt keine Fehler, nur glückliche Unfälle.\" - was für die Kunst gilt, kann auch für die Informatik angewendet werden.\n\nDer Ziegel liegt an der falschen Stelle. Die Gelegenheit, deine Programmierfähigkeiten zu zeigen. Verschiebe den Ziegel an die gezeigte Stelle.",
   "tasks": [
     {
-      "title": "Treppe",
+      "title": "Verschiebe den Ziegel",
       "start": {
         "dimX": 5,
-        "dimY": 1,
+        "dimY": 3,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "karol": { "x": 0, "y": 1, "dir": "east" },
         "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [[1]]
         },
         "marks": {
           "offsetX": -1,
@@ -34,15 +34,15 @@
       },
       "target": {
         "dimX": 5,
-        "dimY": 1,
+        "dimY": 3,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "karol": { "x": 3, "y": 1, "dir": "north" },
         "bricks": {
-          "dimX": 3,
+          "dimX": 1,
           "dimY": 1,
-          "offsetX": 1,
+          "offsetX": 3,
           "offsetY": 0,
-          "data": [[1, 2, 3]]
+          "data": [[1]]
         },
         "marks": {
           "offsetX": -1,

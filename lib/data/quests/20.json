@@ -1,10 +1,10 @@
 {
   "version": "v1",
   "title": "Blume",
-  "description": "Hebe alle Ziegel in der Mitte auf.\n\nEs gibt eine Blume, die innen rot und außen gelb ist. Der Name lautet Färber-Mädchenauge.",
+  "description": "Was duftet hier so schön? Ah, es muss dein neues Shampoo sein, weil diese Blume riecht nicht gut.\n\nKarol kann die Blume verschwinden lassen. Gehe mit ihr in die Mitte und hebe alle Ziegel auf.",
   "tasks": [
     {
-      "title": "Blume (klicke zum Vergrößern)",
+      "title": "Blume",
       "start": {
         "dimX": 7,
         "dimY": 7,

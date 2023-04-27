@@ -1,10 +1,10 @@
 {
   "version": "v1",
   "title": "Schau genau",
-  "description": "Es fehlt genau ein Ziegel, um die Welt fertig zu bauen. Schaue genau, um die Stelle herauszufinden.",
+  "description": "Deine scharfen Augen sind gefragt. Diesmal ist der Platzhalter für den Ziegel etwas versteckter. Finde die Stelle und lege dort einen Ziegel.\n\nDu kannst die Richtung von Karol mit `LinksDrehen` und `RechtsDrehen` ändern.\n\nDu kannst mehrere Schritte gehen, indem du beim Befehl die %img[Anzahl änderst|/quests/schau_genau.png]%.",
   "tasks": [
     {
-      "title": "Lege einen Ziegel",
+      "title": "Schau genau",
       "start": {
         "dimX": 6,
         "dimY": 4,
@@ -16,9 +16,9 @@
           "offsetX": 0,
           "offsetY": 0,
           "data": [
-            [0, 1, 1, 0, 1, 1],
+            [1, 1, 0, 0, 1, 1],
             [1, 1, 0, 0, 0, 1],
-            [0, 1, 1, 0, 1, 0],
+            [1, 1, 1, 0, 1, 0],
             [1, 0, 1, 1, 1, 1]
           ]
         },
@@ -41,16 +41,16 @@
         "dimX": 6,
         "dimY": 4,
         "height": 6,
-        "karol": { "x": 3, "y": 0, "dir": "west" },
+        "karol": { "x": 2, "y": 2, "dir": "east" },
         "bricks": {
           "dimX": 6,
           "dimY": 4,
           "offsetX": 0,
           "offsetY": 0,
           "data": [
-            [0, 1, 1, 0, 1, 1],
+            [1, 1, 0, 0, 1, 1],
             [1, 1, 0, 0, 0, 1],
-            [0, 1, 1, 1, 1, 0],
+            [1, 1, 1, 1, 1, 0],
             [1, 0, 1, 1, 1, 1]
           ]
         },

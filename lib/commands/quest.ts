@@ -149,7 +149,12 @@ export function restoreQuestFromSessionData(
     ws.settings.mode = data.mode
     ws.ui.isAlreadyCompleted = data.completed
     ws.quest.completedOnce = data.completedOnce
-    ws.ui.isHighlightDescription = false
+    if (data.completedOnce) {
+      ws.ui.isHighlightDescription = false
+    }
+    if (ws.code) {
+      ws.ui.isHighlightDescription = false
+    }
   })
 }
 

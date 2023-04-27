@@ -51,7 +51,7 @@ function ImageButton({ text, src }: ImageButtonProps) {
       onClick={() => {
         openImage(core, src)
       }}
-      className="text-blue-500 hover:text-blue-600"
+      className="text-blue-600 hover:text-blue-900 underline transition-colors"
     >
       {text}
     </button>

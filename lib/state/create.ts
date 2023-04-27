@@ -23,7 +23,7 @@ export function createWorkspaceState(): WorkspaceState {
       errorMessages: [],
       toBlockWarning: false,
       showOutput: false,
-      speedSliderValue: 11,
+      speedSliderValue: 7,
       showPreviewOfTarget: true,
       isManualAbort: false,
       isEndOfRun: false,
