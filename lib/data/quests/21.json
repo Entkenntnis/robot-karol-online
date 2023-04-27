@@ -4,7 +4,7 @@
   "description": "In der oberen Zeile sind zwei kleine, transparente Marken. An diesen Stellen soll Karol Marken setzen für die Augen des Smileys.\n\nNutze dafür den Befehl `MarkeSetzen`. Karol setzt Marken immer auf das Feld unter sich.\n\nDer Mund ist bereits fertig und musst nicht markiert werden.",
   "tasks": [
     {
-      "title": "Smiley (klicke zum Vergrößern)",
+      "title": "Smiley",
       "start": {
         "dimX": 7,
         "dimY": 7,

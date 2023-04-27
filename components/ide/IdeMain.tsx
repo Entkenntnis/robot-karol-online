@@ -35,17 +35,21 @@ import { useEffect, useState } from 'react'
 export function IdeMain() {
   const core = useCore()
 
-  const [showOk, setShowOk] = useState(false)
+  const skipWait = core.ws.quest.description.length < 100
+
+  const [showOk, setShowOk] = useState(skipWait)
 
   useEffect(() => {
     function test() {
       const el = document.getElementById('progress-bar')
-      console.log('search for element', el)
       if (el) {
         el.style.width = '0%'
-        setTimeout(() => {
-          setShowOk(true)
-        }, 15000)
+        setTimeout(
+          () => {
+            setShowOk(true)
+          },
+          skipWait ? 0 : 15000
+        )
       } else {
         setTimeout(test, 10)
       }
@@ -54,7 +58,7 @@ export function IdeMain() {
     if (core.ws.ui.isHighlightDescription && !showOk) {
       test()
     }
-  }, [core.ws.ui.isHighlightDescription, showOk])
+  }, [core.ws.ui.isHighlightDescription, showOk, skipWait])
 
   return (
     <>
@@ -201,12 +205,14 @@ export function IdeMain() {
                     OK
                   </button>
                 </p>
-                <div className="absolute left-0 right-0 bottom-0 h-1 w-full flex justify-end">
-                  <div
-                    className="transition-width w-full h-1 rounded-b bg-yellow-200 duration-[15000ms] ease-linear"
-                    id="progress-bar"
-                  ></div>
-                </div>
+                {!skipWait && (
+                  <div className="absolute left-0 right-0 bottom-0 h-1 w-full flex justify-end">
+                    <div
+                      className="transition-width w-full h-1 rounded-b bg-yellow-200 duration-[15000ms] ease-linear"
+                      id="progress-bar"
+                    ></div>
+                  </div>
+                )}
               </div>
               <div
                 className={clsx(

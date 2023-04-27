@@ -30,9 +30,9 @@ export const questData: { [key: number]: QuestData } = {
     ...deserlizeQuestToData(require('./quests/7.json')),
   },
 
-  8: {
+  /*8: {
     ...deserlizeQuestToData(require('./quests/8.json')),
-  },
+  },*/
 
   9: {
     ...deserlizeQuestToData(require('./quests/9.json')),
@@ -42,9 +42,9 @@ export const questData: { [key: number]: QuestData } = {
     ...deserlizeQuestToData(require('./quests/10.json')),
   },
 
-  11: {
+  /*11: {
     ...deserlizeQuestToData(require('./quests/11.json')),
-  },
+  },*/
 
   12: {
     ...deserlizeQuestToData(require('./quests/12.json')),
@@ -164,5 +164,9 @@ export const questData: { [key: number]: QuestData } = {
 
   41: {
     ...deserlizeQuestToData(require('./quests/41.json')),
+  },
+
+  42: {
+    ...deserlizeQuestToData(require('./quests/42.json')),
   },
 }

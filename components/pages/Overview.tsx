@@ -36,13 +36,14 @@ export function Overview() {
 
   useEffect(() => {
     if (core.ws.overview.overviewScroll > 0) {
-      document.documentElement.scrollTop = core.ws.overview.overviewScroll
+      document.getElementById('scroll-container')!.scrollTop =
+        core.ws.overview.overviewScroll
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <>
-      <div className="h-full overflow-auto">
+      <div className="h-full overflow-auto" id="scroll-container">
         <div className="flex flex-col relative main-bg min-h-full min-w-fit">
           <div className="flex justify-center">
             <div
@@ -209,7 +210,7 @@ export function Overview() {
           )}
 
           <div className="text-center mb-12">
-            Version: April 2023 |{' '}
+            Version: Mai 2023 |{' '}
             <a
               className="hover:underline cursor-pointer"
               href={
@@ -352,7 +353,10 @@ export function Overview() {
             )}
             tabIndex={0}
             onClick={() => {
-              setOverviewScroll(core, document.documentElement.scrollTop ?? -1)
+              setOverviewScroll(
+                core,
+                document.getElementById('scroll-container')?.scrollTop ?? -1
+              )
               startQuest(core, index)
             }}
           >
