@@ -33,7 +33,7 @@ export function processMiniMarkdown(input: string) {
     /%img\[(.+?)\]%/,
     (str) => {
       const [title, url] = str.split('|')
-      return <ImageButton text={title} src={url} />
+      return <ImageButton text={title} src={url} key={url} />
     }
   )
 }

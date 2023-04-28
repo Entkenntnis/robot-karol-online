@@ -1,15 +1,15 @@
 {
   "version": "v1",
-  "title": "Theke",
-  "description": "Baue eine Theke, die 4 Ziegel breit und 2 Ziegel hoch ist.",
+  "title": "Burg",
+  "description": "Wecke das Kind in dir und starte dein großes Burg-Bau-Projekt.\n\nLege mit Karol die gezeigte Burg - hier eine %img[Vorschau|/quests/burg_2.png]%.\n\nUm deiner Phantasie freien Lauf zu lassen kannst du den %img[Aufgaben-Editor|/quests/burg.png]% nutzen. Dort kannst du ganz einfach große Burgen bauen und für andere freigeben.",
   "tasks": [
     {
-      "title": "4 breit, 2 hoch",
+      "title": "Burg mit Zinnen",
       "start": {
-        "dimX": 6,
-        "dimY": 4,
+        "dimX": 5,
+        "dimY": 5,
         "height": 6,
-        "karol": { "x": 1, "y": 0, "dir": "south" },
+        "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
           "offsetX": -1,
           "offsetY": -1,
@@ -33,16 +33,22 @@
         }
       },
       "target": {
-        "dimX": 6,
-        "dimY": 4,
+        "dimX": 5,
+        "dimY": 5,
         "height": 6,
-        "karol": { "x": 1, "y": 0, "dir": "south" },
+        "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
-          "dimX": 4,
-          "dimY": 1,
-          "offsetX": 1,
-          "offsetY": 1,
-          "data": [[2, 2, 2, 2]]
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [2, 1, 2, 1, 2],
+            [1, 0, 0, 0, 1],
+            [2, 0, 0, 0, 2],
+            [1, 0, 0, 0, 1],
+            [2, 1, 2, 1, 2]
+          ]
         },
         "marks": {
           "offsetX": -1,

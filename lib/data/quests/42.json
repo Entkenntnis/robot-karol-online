@@ -1,28 +1,33 @@
 {
   "version": "v1",
-  "title": "Alles auf einmal",
-  "description": "Beschreibe, um was es bei der Aufgabe geht ...",
+  "title": "Alles zusammen",
+  "description": "Zeige, was du in den bisherigen Aufgaben gelernt hast.\n\nBaue die Welt so um, wie angezeigt.",
   "tasks": [
     {
-      "title": "Neuer Auftrag",
+      "title": "Umbau",
       "start": {
         "dimX": 6,
         "dimY": 4,
         "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 2,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 1],
+            [0, 0],
+            [0, 0],
+            [1, 0]
+          ]
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [[true]]
         },
         "blocks": {
           "offsetX": -1,
@@ -36,20 +41,25 @@
         "dimX": 6,
         "dimY": 4,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "karol": { "x": 2, "y": 3, "dir": "east" },
         "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 5,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0]
+          ]
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 1,
+          "data": [[true]]
         },
         "blocks": {
           "offsetX": -1,

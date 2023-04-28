@@ -1,13 +1,13 @@
 {
   "version": "v1",
-  "title": "Marke löschen",
-  "description": "Beschreibe, um was es bei der Aufgabe geht ...",
+  "title": "Leerer Raum",
+  "description": "Im Rucksack von Karol finden sich nicht nur Ziegel, sondern auch Marken.\n\nDie %img[gezeigte Marke|/quests/raum.png]% ist durchgestrichen. Karol soll sie mit `MarkeLöschen` entfernen.\n\nUm eine Marke zu löschen, muss Karol direkt auf ihr drauf stehen.",
   "tasks": [
     {
-      "title": "Neuer Auftrag",
+      "title": "Lösche die Marke",
       "start": {
-        "dimX": 6,
-        "dimY": 4,
+        "dimX": 4,
+        "dimY": 3,
         "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
@@ -18,11 +18,11 @@
           "data": []
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 3,
+          "offsetY": 2,
+          "data": [[true]]
         },
         "blocks": {
           "offsetX": -1,
@@ -33,8 +33,8 @@
         }
       },
       "target": {
-        "dimX": 6,
-        "dimY": 4,
+        "dimX": 4,
+        "dimY": 3,
         "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
