@@ -9,7 +9,7 @@
         "dimX": 6,
         "dimY": 4,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "karol": { "x": 0, "y": 0, "dir": "east" },
         "bricks": {
           "dimX": 2,
           "dimY": 4,
@@ -23,11 +23,11 @@
           ]
         },
         "marks": {
-          "dimX": 1,
+          "dimX": 2,
           "dimY": 1,
-          "offsetX": 2,
+          "offsetX": 1,
           "offsetY": 2,
-          "data": [[true]]
+          "data": [[true, true]]
         },
         "blocks": {
           "offsetX": -1,
@@ -41,25 +41,28 @@
         "dimX": 6,
         "dimY": 4,
         "height": 6,
-        "karol": { "x": 2, "y": 3, "dir": "east" },
+        "karol": { "x": 1, "y": 2, "dir": "south" },
         "bricks": {
-          "dimX": 5,
+          "dimX": 4,
           "dimY": 4,
           "offsetX": 0,
           "offsetY": 0,
           "data": [
-            [0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0]
+            [0, 0, 0, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [1, 0, 0, 0]
           ]
         },
         "marks": {
-          "dimX": 1,
-          "dimY": 1,
-          "offsetX": 2,
+          "dimX": 2,
+          "dimY": 2,
+          "offsetX": 1,
           "offsetY": 1,
-          "data": [[true]]
+          "data": [
+            [false, true],
+            [true, false]
+          ]
         },
         "blocks": {
           "offsetX": -1,

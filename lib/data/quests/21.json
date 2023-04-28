@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Smiley",
-  "description": "Du hast ein schönes Lächeln. Karol hat versucht, es nachzubauen.\n\nSie hat dazu %img[gelbe Marken|/quests/smiley_1.png]% verwendet. Diese kann Karol mit `MarkeSetzen` hervorzaubern. Sie ist noch nicht ganz fertig. Bei den Augen sich noch %img[zwei Platzhalter|/quests/smiley_2.png]%.\n\nSetze die fehlenden zwei Marken. Karol setzt Marken auf das Feld unter sich.",
+  "description": "Du hast ein schönes Lächeln. Karol hat versucht, es nachzubauen.\n\nSie hat dazu %img[gelbe Marken|/quests/smiley_1.png]% verwendet. Diese kann Karol mit `MarkeSetzen` hervorzaubern. Sie ist noch nicht ganz fertig. Bei den Augen sind noch %img[zwei Platzhalter|/quests/smiley_2.png]%.\n\nSetze die fehlenden zwei Marken. Karol setzt Marken auf das Feld unter sich.",
   "tasks": [
     {
       "title": "Smiley",
