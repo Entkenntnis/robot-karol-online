@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Markierung",
-  "description": "Eine Marke hat Karol bereits gesetzt. Setze die restlichen 6 Marken, %img[Hinweis|/quests/markierung.png]%.",
+  "description": "Eine Marke hat Karol bereits gesetzt. Setze die restlichen 6 Marken.\n\nNutze eine %img[Wiederholung|quests/markierung.png]%, um nicht jeden Befehl einzeln schreiben zu müssen.",
   "tasks": [
     {
       "title": "Setze 6 Marken",

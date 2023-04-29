@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "title": "Umbau [einfacher]",
+  "title": "Umbau",
   "description": "Bewege die Ziegelstapel an die neue Position. Hebe die hinteren Ziegel auf und lege sie an die vordere Wand.\n\nDie durchgestrichenen Ziegel müssen am Ende aufgehoben sein.",
   "tasks": [
     {
