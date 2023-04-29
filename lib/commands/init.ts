@@ -50,7 +50,7 @@ export async function initClient(core: Core) {
       if (data.length > 0) {
         sessionStorage.setItem('karol_stored_pw', password)
       }
-      const cutoff = new Date(2023, 2, 16)
+      const cutoff = new Date(2023, 3, 30)
 
       core.mutateWs((ws) => {
         ws.analyze.cutoff = cutoff.toLocaleString()
