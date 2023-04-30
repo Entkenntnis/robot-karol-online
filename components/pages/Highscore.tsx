@@ -41,6 +41,7 @@ export function Highscore() {
   function sortData(m: typeof mode) {
     setData((d) => {
       const data = JSON.parse(JSON.stringify(d)) as typeof d
+      console.log(data)
       if (m == 'count') {
         data.sort((a, b) =>
           a.solved.length == b.solved.length
@@ -106,7 +107,12 @@ export function Highscore() {
             <p>Daten werden geladen ...</p>
           ) : (
             <>
-              <p className="text-right my-4">
+              <p
+                className={clsx(
+                  'text-right my-4',
+                  mode == 'count' && 'invisible'
+                )}
+              >
                 {data.length} Spieler*innen in den letzten 28 Tagen
               </p>
               <p className="text-right my-4">
@@ -165,7 +171,14 @@ export function Highscore() {
                           </td>
                         )}
                         <td className="text-center p-2">
-                          {entry.name ? entry.name : '---'}
+                          <span
+                            title={`beigetreten ${timeago.format(
+                              new Date(entry.firstActive),
+                              'de'
+                            )}`}
+                          >
+                            {entry.name ? entry.name : '---'}
+                          </span>
                         </td>
                         <td className="text-center font-bold p-2">
                           {entry.solved.length}
