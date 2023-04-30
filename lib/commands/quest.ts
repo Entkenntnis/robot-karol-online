@@ -107,12 +107,14 @@ export function startQuest(core: Core, id: number) {
     ui.isEndOfRun = false
     ws.code = ''
     quest.id = id
+    quest.audioSrc = data.audioSrc
     ui.isAlreadyCompleted = false
     ws.ui.isTesting = false
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.taskScroll = 0
     ws.page = 'quest'
     ws.ui.isHighlightDescription = true
+    ws.ui.audioStarted = false
   })
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {
     showModal(core, 'name')

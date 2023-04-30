@@ -97,6 +97,10 @@ export async function initClient(core: Core) {
               ws.analyze.usePersist++
               continue
             }
+            if (entry.event == 'use_audio') {
+              ws.analyze.useAudio++
+              continue
+            }
             const publish = /publish_custom_quest_(.+)/.exec(entry.event)
             if (publish) {
               ws.analyze.published.push({

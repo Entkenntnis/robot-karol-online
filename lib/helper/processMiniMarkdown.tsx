@@ -47,13 +47,13 @@ function ImageButton({ text, src }: ImageButtonProps) {
   const core = useCore()
 
   return (
-    <button
+    <span
       onClick={() => {
         openImage(core, src)
       }}
-      className="text-blue-600 hover:text-blue-900 underline transition-colors"
+      className="text-blue-600 hover:text-blue-900 underline transition-colors cursor-pointer"
     >
       {text}
-    </button>
+    </span>
   )
 }

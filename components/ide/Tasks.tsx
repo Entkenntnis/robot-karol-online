@@ -2,6 +2,7 @@ import {
   faArrowDown,
   faArrowLeft,
   faArrowUp,
+  faAudioDescription,
   faCheck,
   faClone,
   faPencil,
@@ -9,6 +10,7 @@ import {
   faPlus,
   faShareNodes,
   faTrashCan,
+  faVolumeHigh,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
@@ -25,6 +27,7 @@ import {
 import { showModal } from '../../lib/commands/modal'
 import {
   closeHighlightDescription,
+  forceRerender,
   setShowStructogram,
 } from '../../lib/commands/mode'
 import { switchToPage } from '../../lib/commands/page'
@@ -43,11 +46,19 @@ import { View } from '../helper/View'
 export function Tasks() {
   const core = useCore()
 
+  const audioRef = createRef<HTMLAudioElement>()
+
   const taskContainer = createRef<HTMLDivElement>()
 
   useEffect(() => {
     if (taskContainer.current && core.ws.ui.taskScroll > 0) {
       taskContainer.current.scrollTop = core.ws.ui.taskScroll
+    }
+
+    return () => {
+      core.mutateWs(({ ui }) => {
+        ui.audioStarted = false
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -58,6 +69,9 @@ export function Tasks() {
         <div className="overflow-y-auto bg-gray-100 h-full" ref={taskContainer}>
           <div className="h-20 from-gray-100 bg-gradient-to-t left-0 right-0 bottom-0 absolute pointer-events-none"></div>
           <div>
+            {core.ws.quest.audioSrc && (
+              <audio ref={audioRef} src={core.ws.quest.audioSrc} />
+            )}
             <div
               className={clsx(
                 'p-4 px-7 bg-yellow-100',
@@ -70,6 +84,52 @@ export function Tasks() {
                 <>
                   <h1 className="mb-4 text-xl font-bold mt-1">
                     {core.ws.quest.title}
+                    {core.ws.quest.audioSrc && (
+                      <button
+                        className="rounded-full ml-6 px-2 py-0.5 text-base font-normal bg-gray-200 hover:bg-gray-300"
+                        onClick={() => {
+                          if (audioRef.current) {
+                            if (core.ws.ui.audioStarted) {
+                              audioRef.current.pause()
+                              core.mutateWs(({ ui }) => {
+                                ui.audioStarted = false
+                              })
+                            } else {
+                              audioRef.current.currentTime = 0
+                              audioRef.current.play()
+                              submit_event('use_audio', core)
+                              core.mutateWs(({ ui }) => {
+                                ui.audioStarted = true
+                              })
+
+                              audioRef.current.onended = () => {
+                                core.mutateWs(({ ui }) => {
+                                  ui.audioStarted = false
+                                })
+                              }
+                            }
+                          }
+                        }}
+                      >
+                        {core.ws.ui.audioStarted ? (
+                          <>
+                            <FaIcon
+                              icon={faVolumeHigh}
+                              className="mr-2 text-sm ml-1 animate-pulse"
+                            />
+                            Stopp
+                          </>
+                        ) : (
+                          <>
+                            <FaIcon
+                              icon={faVolumeHigh}
+                              className="mr-2 text-sm ml-1"
+                            />
+                            Vorlesen
+                          </>
+                        )}
+                      </button>
+                    )}
                     {core.ws.ui.isAlreadyCompleted && core.ws.quest.id < 0 && (
                       <span className="text-base font-normal text-green-600 ml-4">
                         <FaIcon icon={faCheck} /> abgeschlossen

@@ -106,7 +106,8 @@ export function Overview() {
                 {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
                 {core.ws.analyze.showDemo} mal Demo,{' '}
                 {core.ws.analyze.showStructogram} mal Struktogramm,{' '}
-                {core.ws.analyze.usePersist} mal Fortschritt gespeichert
+                {core.ws.analyze.usePersist} mal Fortschritt gespeichert,{' '}
+                {core.ws.analyze.useAudio} mal Audio verwendet
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (

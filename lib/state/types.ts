@@ -55,6 +55,7 @@ export interface Ui {
   showCodeInfo: boolean
   imageLightbox: string | null
   isHighlightDescription: boolean
+  audioStarted: boolean
 }
 
 export interface Vm {
@@ -89,6 +90,7 @@ export interface Quest {
   id: number
   testerHandler?: NodeJS.Timeout
   completedOnce: boolean
+  audioSrc?: string
 }
 
 export interface Overview {
@@ -155,6 +157,7 @@ export interface Analyze {
   showDemo: number
   showStructogram: number
   usePersist: number
+  useAudio: number
   customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
   quests: { [key: string]: { reachable: number; complete: number } }
@@ -225,6 +228,7 @@ export interface QuestData {
   description: string
   tasks: QuestTask[]
   difficulty: string
+  audioSrc?: string
 }
 
 export interface QuestSessionData {

@@ -37,6 +37,7 @@ export function createWorkspaceState(): WorkspaceState {
       showCodeInfo: false,
       imageLightbox: null,
       isHighlightDescription: false,
+      audioStarted: false,
     },
     vm: {
       pc: 0,
@@ -73,6 +74,7 @@ export function createWorkspaceState(): WorkspaceState {
       showDemo: 0,
       showStructogram: 0,
       usePersist: 0,
+      useAudio: 0,
       customQuests: {},
       quests: {},
       legacy: {},
