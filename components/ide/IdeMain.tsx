@@ -48,7 +48,7 @@ export function IdeMain() {
           () => {
             setShowOk(true)
           },
-          skipWait ? 0 : 15000
+          skipWait ? 0 : 5000
         )
       } else {
         setTimeout(test, 10)
@@ -208,7 +208,7 @@ export function IdeMain() {
                 {!skipWait && (
                   <div className="absolute left-0 right-0 bottom-0 h-1 w-full flex justify-end">
                     <div
-                      className="transition-width w-full h-1 rounded-b bg-yellow-200 duration-[15000ms] ease-linear"
+                      className="transition-width w-full h-1 rounded-b bg-yellow-200 duration-[5000ms] ease-linear"
                       id="progress-bar"
                     ></div>
                   </div>
