@@ -205,14 +205,6 @@ export function IdeMain() {
                     OK
                   </button>
                 </p>
-                {!skipWait && (
-                  <div className="absolute left-0 right-0 bottom-0 h-1 w-full flex justify-end">
-                    <div
-                      className="transition-width w-full h-1 rounded-b bg-yellow-200 duration-[5000ms] ease-linear"
-                      id="progress-bar"
-                    ></div>
-                  </div>
-                )}
               </div>
               <div
                 className={clsx(

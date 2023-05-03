@@ -49,6 +49,7 @@ export function Tasks() {
   const audioRef = createRef<HTMLAudioElement>()
 
   const taskContainer = createRef<HTMLDivElement>()
+  const skipWait = core.ws.quest.description.length < 100
 
   useEffect(() => {
     if (taskContainer.current && core.ws.ui.taskScroll > 0) {
@@ -137,6 +138,14 @@ export function Tasks() {
                     )}
                   </h1>
                   <div>{processMiniMarkdown(core.ws.quest.description)}</div>
+                  {!skipWait && core.ws.ui.isHighlightDescription && (
+                    <div className="absolute left-0 right-0 top-0 h-1 w-full flex justify-end">
+                      <div
+                        className="transition-width w-full h-1 bg-yellow-500 duration-[5000ms] ease-linear"
+                        id="progress-bar"
+                      ></div>
+                    </div>
+                  )}
                 </>
               )}
             </div>
