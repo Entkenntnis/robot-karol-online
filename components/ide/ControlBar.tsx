@@ -77,15 +77,17 @@ export function ControlBar() {
               >
                 zurück
               </button>
-              <button
-                onClick={() => {
-                  closeOutput(core)
-                  startTesting(core)
-                }}
-                className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
-              >
-                weiter (alle Aufträge testen)
-              </button>
+              {core.ws.page !== 'editor' && (
+                <button
+                  onClick={() => {
+                    closeOutput(core)
+                    startTesting(core)
+                  }}
+                  className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
+                >
+                  weiter (alle Aufträge testen)
+                </button>
+              )}
             </>
           ) : (
             core.ws.ui.state != 'running' && (
