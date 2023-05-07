@@ -236,7 +236,7 @@ export function View({
             )
             ctx.save()
             if (preview && preview.world.bricks[y][x] != world.bricks[y][x]) {
-              ctx.globalAlpha = 0.6
+              //ctx.globalAlpha = 0.6
             }
             ctx.drawImage(
               /*ctx.globalAlpha == 0.6 ? markeKlein : */ marke,
