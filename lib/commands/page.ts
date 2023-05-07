@@ -13,10 +13,11 @@ export function switchToPage(core: Core, target: Pages) {
   // some handlers
   if (target == 'editor') {
     resetQuestView(core)
-    core.mutateWs(({ quest }) => {
+    core.mutateWs(({ quest, ui }) => {
       quest.title = 'Titel der Aufgabe'
       quest.description = 'Beschreibe, um was es bei der Aufgabe geht ...'
       quest.tasks = []
+      ui.isHighlightDescription = false
     })
 
     submit_event('show_editor', core)
