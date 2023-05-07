@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import { useCore } from '../../lib/state/core'
 import { getUserId } from '../../lib/storage/storage'
 import { switchToPage } from '../../lib/commands/page'
+import { questList } from '../../lib/data/overview'
 
 timeago.register('de', function (number, index, total_sec) {
   // Convert weeks to days.
@@ -41,7 +42,7 @@ export function Highscore() {
   function sortData(m: typeof mode) {
     setData((d) => {
       const data = JSON.parse(JSON.stringify(d)) as typeof d
-      console.log(data)
+      //console.log(data)
       if (m == 'count') {
         data.sort((a, b) =>
           a.solved.length == b.solved.length
@@ -60,6 +61,17 @@ export function Highscore() {
       fetch(backend.highscoreEndpoint)
         .then((res) => res.json())
         .then((val: typeof data) => {
+          //console.log(val)
+          val.forEach((entry) => {
+            entry.solved = entry.solved.filter((id) => questList.includes(id))
+            if (entry.solved.length > 35) {
+              /*console.log(
+                entry.solved.length,
+                (entry.lastActive - entry.firstActive) / 1000 / 60,
+                'min'
+              )*/
+            }
+          })
           val.sort((a, b) =>
             a.solved.length == b.solved.length
               ? b.lastActive - a.lastActive
