@@ -194,7 +194,10 @@ export function Overview() {
                       {core.ws.analyze.solutions[id].map((entry, i) => (
                         <div
                           key={i}
-                          className="m-3 border rounded p-2 min-w-[200px]"
+                          className={clsx(
+                            'm-3 border rounded p-2 min-w-[200px]',
+                            entry.isAttempt && 'border-red-500'
+                          )}
                         >
                           <p className="text-right text-sm text-gray-600 mb-2">
                             {entry.isCode && <span className="mr-2">CODE</span>}

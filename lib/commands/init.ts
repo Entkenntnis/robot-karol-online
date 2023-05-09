@@ -220,6 +220,13 @@ export async function initClient(core: Core) {
                 .trim()
               isCode = true
             }
+            let isAttempt = false
+            if (currentSolution.endsWith('// attempt //')) {
+              currentSolution = currentSolution
+                .replace('// attempt //', '')
+                .trim()
+              isAttempt = true
+            }
             const hasEntry = ws.analyze.solutions[entry.questId].find(
               (x) => x.solution == currentSolution && x.isCode == isCode
             )
@@ -230,6 +237,7 @@ export async function initClient(core: Core) {
                 solution: currentSolution,
                 count: 1,
                 isCode,
+                isAttempt,
               })
             }
           }

@@ -163,7 +163,12 @@ export interface Analyze {
   quests: { [key: string]: { reachable: number; complete: number } }
   userTimes: number[]
   solutions: {
-    [questId: string]: { solution: string; count: number; isCode: boolean }[]
+    [questId: string]: {
+      solution: string
+      count: number
+      isCode: boolean
+      isAttempt: boolean
+    }[]
   }
 }
 
