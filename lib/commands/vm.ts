@@ -1,4 +1,5 @@
 import { sliderToDelay } from '../helper/speedSlider'
+import { submitSolution } from '../helper/submitSolution'
 import { Core } from '../state/core'
 import { Condition, Op } from '../state/types'
 import { editCodeAndResetProgress } from './mode'
@@ -273,6 +274,20 @@ export function endExecution(core: Core) {
     state.ui.gutterReturns = []
     state.ui.isEndOfRun = true
   })
+
+  if (
+    core.ws.quest.id > 0 &&
+    !core.ws.ui.isManualAbort &&
+    !core.ws.quest.progress
+  ) {
+    submitSolution(
+      core,
+      core.ws.quest.id,
+      (core.ws.settings.mode == 'code' ? '//code-tab\n' : '') +
+        core.ws.code +
+        '\n// attempt //'
+    )
+  }
   /*if (
     !core.ws.ui.isManualAbort &&
     core.ws.quest.progress < 100 &&

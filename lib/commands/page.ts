@@ -18,6 +18,7 @@ export function switchToPage(core: Core, target: Pages) {
       quest.description = 'Beschreibe, um was es bei der Aufgabe geht ...'
       quest.tasks = []
       ui.isHighlightDescription = false
+      quest.id = -1
     })
 
     submit_event('show_editor', core)
