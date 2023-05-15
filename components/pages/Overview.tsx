@@ -195,7 +195,7 @@ export function Overview() {
                         <div
                           key={i}
                           className={clsx(
-                            'm-3 border rounded p-2 min-w-[200px]',
+                            'm-3 border rounded p-2 min-w-[200px] max-w-[600px] overflow-x-auto',
                             entry.isAttempt && 'border-red-500'
                           )}
                         >
