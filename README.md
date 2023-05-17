@@ -4,7 +4,7 @@ _Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung._
 
 ## Übersicht
 
-**Robot Karol Online** ([karol.arrrg.de](https://karol.arrrg.de/)) ist eine Erweiterung der [gleichnamigen Programmierumgebung](https://mebis.bycs.de/beitrag/robot-karol) von Ulli Freiberger. Ziel ist die spielerische Einführung in die Algorithmik, insbesondere von Sequenz, Wiederholung mit fester Anzahl, bedingte Wiederholung und bedingte Anweisungen. Diese Themen finden sich in vielen Lehrplänen der Unterstufe.
+**Robot Karol Online** ([karol.arrrg.de](https://karol.arrrg.de/)) ist eine Fortführung der [gleichnamigen Programmierumgebung](https://mebis.bycs.de/beitrag/robot-karol) von Ulli Freiberger. Ziel ist die spielerische Einführung in die Algorithmik, insbesondere von Sequenz, Wiederholung mit fester Anzahl, bedingte Wiederholung und bedingte Anweisungen. Diese Themen finden sich in vielen Lehrplänen der Unterstufe.
 
 ![grafik](https://user-images.githubusercontent.com/13507950/217001346-f3c7463e-695f-4b16-bfdf-4ac178015d25.png)
 
@@ -16,7 +16,7 @@ Zur Unterstützung der Modellierung kann das Programm zusätzlich als Struktogra
 
 ![grafik](https://user-images.githubusercontent.com/13507950/217000953-20a0261a-71e7-479c-a5fe-c387062c9390.png)
 
- Eine Bearbeitung im Text-Modus ist ebenfalls möglich. Es kann durchgehend zwischen Text und Blöcken gewechselt werden.
+Eine Bearbeitung im Text-Modus ist ebenfalls möglich. Es kann durchgehend zwischen Text und Blöcken gewechselt werden.
 
 ![grafik](https://user-images.githubusercontent.com/13507950/217001071-d341a03a-f6ca-4b1b-bcfd-1574ea95cab9.png)
 
@@ -109,7 +109,7 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 - https://github.com/robotcoral: Textbasiert, 3D-Ansicht, schickes Design, Oberfläche sehr nah an Originalversion
 - https://github.com/vanmeegen/react-three-karol: Block- und text-basiert, 3D-Ansicht
 - https://github.com/andipaetzold/robotkarol.dev: ordentliche Umsetzung, nur text-basiert, keine manuelle Steuerung, viele Beispiele
-- https://github.com/timjb/robot-karel: Mehr als 10 Jahre alt, [Vorschau](http://web.archive.org/web/20110924025946/http://www.robot-karel.org/) 
+- https://github.com/timjb/robot-karel: Mehr als 10 Jahre alt, [Vorschau](http://web.archive.org/web/20110924025946/http://www.robot-karel.org/)
 
 ## Trivia
 
