@@ -10,7 +10,11 @@ import { closeModal, showModal } from './modal'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
   if (core.ws.settings.mode == 'blocks') {
-    if (core.ws.ui.state == 'running' || core.ws.ui.state == 'loading') {
+    if (
+      core.ws.ui.state == 'running' ||
+      core.ws.ui.state == 'loading' ||
+      core.ws.quest.testerHandler
+    ) {
       return // ignore
     }
     if (core.ws.ui.state == 'error') {
@@ -20,7 +24,11 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
       return
     }
   } else {
-    if (core.ws.ui.state == 'running' || core.ws.ui.state == 'loading') {
+    if (
+      core.ws.ui.state == 'running' ||
+      core.ws.ui.state == 'loading' ||
+      core.ws.quest.testerHandler
+    ) {
       return // ignore
     }
     if (core.ws.ui.state == 'error') {

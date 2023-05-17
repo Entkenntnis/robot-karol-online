@@ -85,11 +85,14 @@ export function IdeMain() {
                     : 'border-t-transparent',
                   core.ws.settings.mode == 'code' &&
                     (core.ws.ui.state === 'error' ||
-                      core.ws.ui.toBlockWarning) &&
+                      core.ws.ui.state === 'running' ||
+                      core.ws.ui.toBlockWarning ||
+                      core.ws.quest.testerHandler) &&
                     'text-gray-400',
                   core.ws.settings.mode == 'code' &&
                     core.ws.ui.state == 'ready' &&
-                    !core.ws.ui.toBlockWarning
+                    !core.ws.ui.toBlockWarning &&
+                    !core.ws.quest.testerHandler
                     ? 'hover:border-t-gray-300 hover:bg-gray-200'
                     : 'cursor-default'
                 )}
@@ -107,10 +110,12 @@ export function IdeMain() {
                     ? 'border-t-blue-500'
                     : 'border-t-transparent',
                   core.ws.settings.mode == 'blocks' &&
-                    core.ws.ui.state !== 'ready' &&
+                    (core.ws.ui.state !== 'ready' ||
+                      core.ws.quest.testerHandler) &&
                     'text-gray-400 cursor-default',
                   core.ws.settings.mode == 'blocks' &&
-                    core.ws.ui.state == 'ready'
+                    core.ws.ui.state == 'ready' &&
+                    !core.ws.quest.testerHandler
                     ? 'hover:bg-gray-200 hover:border-t-gray-300'
                     : 'cursor-default'
                 )}
@@ -122,11 +127,14 @@ export function IdeMain() {
                 Code
               </button>
             </div>
-            {!(core.ws.ui.isTesting && core.ws.ui.isEndOfRun) &&
+            {!(
+              core.ws.ui.isTesting &&
+              core.ws.ui.state == 'ready' &&
+              core.ws.quest.testerHandler
+            ) &&
               !(
                 core.ws.ui.isEndOfRun && core.ws.ui.controlBarShowFinishQuest
               ) &&
-              !core.ws.ui.isAlreadyCompleted &&
               !core.ws.ui.isHighlightDescription &&
               core.ws.modal !== 'name' && (
                 <div className="absolute top-10 right-4 z-[101]">
@@ -153,6 +161,10 @@ export function IdeMain() {
                         'bg-gray-100 text-gray-400 cursor-not-allowed'
                     )}
                     onClick={() => {
+                      if (core.ws.ui.isTesting && core.ws.ui.state == 'ready') {
+                        startTesting(core)
+                        return
+                      }
                       if (
                         !core.ws.ui.showOutput &&
                         core.ws.ui.state == 'ready'
@@ -214,52 +226,6 @@ export function IdeMain() {
                 <FaIcon icon={faCaretRight} />
               </div>
             </>
-          )}
-          {(core.ws.ui.isTesting || core.ws.ui.isAlreadyCompleted) && (
-            <div
-              className="absolute inset-0 bg-gray-700/20 z-[100]"
-              onClick={() => {
-                if (
-                  core.ws.ui.showOutput &&
-                  core.ws.ui.isEndOfRun &&
-                  !core.ws.ui.controlBarShowFinishQuest
-                ) {
-                  closeOutput(core)
-                }
-                if (core.ws.ui.showOutput && core.ws.ui.state == 'error') {
-                  closeOutput(core)
-                }
-              }}
-            >
-              <div
-                className={clsx(
-                  'bottom-6 left-6 right-6 absolute',
-                  'rounded-lg pl-4 bg-gray-200',
-                  core.ws.ui.isAlreadyCompleted
-                    ? 'h-28 pt-3 flex justify-around flex-col'
-                    : 'h-10 pt-2'
-                )}
-              >
-                <p className="ml-2">
-                  {core.ws.ui.isAlreadyCompleted
-                    ? 'Dein Programm wurde erfolgreich überprüft.'
-                    : 'Dein Programm wird gerade überprüft und kann nicht bearbeitet werden.'}
-                </p>
-                {core.ws.ui.isAlreadyCompleted && (
-                  <p className="mb-3">
-                    <button
-                      className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded"
-                      onClick={() => {
-                        editCodeAndResetProgress(core)
-                      }}
-                    >
-                      <FaIcon icon={faPencil} className="mr-2" /> Programm
-                      bearbeiten
-                    </button>
-                  </p>
-                )}
-              </div>
-            </div>
           )}
         </ReflexElement>
 

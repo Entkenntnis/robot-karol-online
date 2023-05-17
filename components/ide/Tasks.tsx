@@ -131,7 +131,7 @@ export function Tasks() {
                         )}
                       </button>
                     )}
-                    {core.ws.ui.isAlreadyCompleted && core.ws.quest.id < 0 && (
+                    {core.ws.ui.isAlreadyCompleted && (
                       <span className="text-base font-normal text-green-600 ml-4">
                         <FaIcon icon={faCheck} /> abgeschlossen
                       </span>

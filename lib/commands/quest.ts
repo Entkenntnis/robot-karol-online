@@ -161,9 +161,12 @@ export function restoreQuestFromSessionData(
 }
 
 export function startTesting(core: Core) {
-  core.mutateWs(({ ui }) => {
+  core.mutateWs(({ ui, quest }) => {
     ui.isTesting = true
     ui.showOutput = true
+    quest.progress = false
+    ui.isAlreadyCompleted = false
+    quest.lastStartedTask = 0
   })
   if (core.ws.ui.state == 'error') {
     runTask(core, 0)
@@ -182,10 +185,12 @@ export function startTesting(core: Core) {
         core.executionEndCallback = callback
 
         core.mutateWs((ws) => {
-          ws.quest.testerHandler = setTimeout(
-            () => runTask(core, index + 1),
-            500
-          )
+          ws.quest.testerHandler = setTimeout(() => {
+            core.mutateWs((ws) => {
+              ws.quest.testerHandler = undefined
+            })
+            runTask(core, index + 1)
+          }, 500)
         })
       } else {
         core.mutateWs((ws) => {

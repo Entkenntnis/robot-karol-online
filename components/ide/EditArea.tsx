@@ -44,9 +44,10 @@ export function EditArea() {
   })
 
   useEffect(() => {
-    if (codeState == 'ready') {
+    if (codeState == 'ready' && !core.ws.quest.testerHandler) {
       setEditable(view.current, true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [codeState])
 
   if (core.ws.settings.mode == 'code') {
