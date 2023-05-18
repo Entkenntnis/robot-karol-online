@@ -24,11 +24,16 @@ export async function initClient(core: Core) {
 
   if (hash == '#ANALYZE' /* && window.location.hostname == 'localhost'*/) {
     try {
+      const cutoff = new Date(2023, 3, 30)
+
       const storedPW = sessionStorage.getItem('karol_stored_pw')
       const password = storedPW ?? prompt('Zugangspasswort:') ?? ''
       const response = await fetch(backend.analyzeEndpoint, {
         method: 'POST',
-        body: new URLSearchParams({ password }),
+        body: new URLSearchParams({
+          password,
+          ts: cutoff.getTime().toString(),
+        }),
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       })
       const data = (await response.json()) as {
@@ -38,7 +43,10 @@ export async function initClient(core: Core) {
       }[]
       const responseSol = await fetch(backend.solutionAnalyzeEndpoint, {
         method: 'POST',
-        body: new URLSearchParams({ password }),
+        body: new URLSearchParams({
+          password,
+          ts: cutoff.getTime().toString(),
+        }),
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       })
       const dataSol = (await responseSol.json()) as {
@@ -50,7 +58,6 @@ export async function initClient(core: Core) {
       if (data.length > 0) {
         sessionStorage.setItem('karol_stored_pw', password)
       }
-      const cutoff = new Date(2023, 3, 30)
 
       core.mutateWs((ws) => {
         ws.analyze.cutoff = cutoff.toLocaleString()

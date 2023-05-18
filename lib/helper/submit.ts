@@ -6,8 +6,12 @@ export function submit_event(event: string, core: Core) {
   if (core.state.enableStats && backend.statsEndpoint) {
     const userId = getUserId()
 
-    // only log on production
-    if (window.location.host !== 'karol.arrrg.de') return
+    // only log on production or to local server
+    if (
+      window.location.host !== 'karol.arrrg.de' &&
+      !backend.statsEndpoint.includes('localhost')
+    )
+      return
 
     void (async () => {
       await fetch(backend.statsEndpoint, {

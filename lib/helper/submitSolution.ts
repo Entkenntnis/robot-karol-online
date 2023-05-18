@@ -4,7 +4,11 @@ import { Core } from '../state/core'
 export function submitSolution(core: Core, questId: number, solution: string) {
   if (core.state.enableStats && backend.solutionEndpoint) {
     // only log on production
-    if (window.location.host !== 'karol.arrrg.de') return
+    if (
+      window.location.host !== 'karol.arrrg.de' &&
+      !backend.statsEndpoint.includes('localhost')
+    )
+      return
 
     void (async () => {
       await fetch(backend.solutionEndpoint, {
