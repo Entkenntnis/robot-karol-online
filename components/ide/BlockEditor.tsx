@@ -76,7 +76,7 @@ export function BlockEditor() {
     blocklyWorkspaceSvg.current = blocklyWorkspace
 
     Blockly.Xml.domToWorkspace(
-      Blockly.Xml.textToDom(initialXml),
+      Blockly.utils.xml.textToDom(initialXml),
       blocklyWorkspace
     )
 

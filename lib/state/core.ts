@@ -8,7 +8,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import produce, { Draft } from 'immer'
+import { produce, Draft } from 'immer'
 import { EditorView } from '@codemirror/view'
 
 import { CoreRefs, CoreState, WorkspaceState, World } from './types'
