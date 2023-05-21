@@ -160,7 +160,7 @@ export class FieldSlider extends Blockly.FieldNumber {
     sliderInput.setAttribute('min', `${this.max_ == Infinity ? 1 : this.min_}`)
     sliderInput.setAttribute('max', `${this.max_ == Infinity ? 10 : this.max_}`)
     sliderInput.setAttribute('step', `${this.precision_}`)
-    sliderInput.setAttribute('value', this.getValue())
+    sliderInput.setAttribute('value', this.getValue()?.toString() ?? '0')
     sliderInput.setAttribute('tabindex', '0')
     sliderInput.className = 'fieldSlider'
     wrapper.appendChild(sliderInput)
@@ -251,13 +251,17 @@ export class FieldSlider extends Blockly.FieldNumber {
       return
     }
     if (this.useOffset) {
-      const expectedOffset = Math.floor((this.getValue() - 1) / 10) * 10
+      const expectedOffset =
+        Math.floor((parseInt(this.getValue()?.toString() ?? '0') - 1) / 10) * 10
 
       if (expectedOffset != this.offset) {
         this.offset = Math.max(0, expectedOffset)
       }
     }
-    this.sliderInput.setAttribute('value', `${this.getValue() - this.offset}`)
+    this.sliderInput.setAttribute(
+      'value',
+      `${parseInt(this.getValue()?.toString() ?? '0') - this.offset}`
+    )
     this.displaySpan.innerHTML = `${this.offset + 1} - ${this.offset + 10}`
   }
 }

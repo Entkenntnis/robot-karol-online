@@ -30,9 +30,11 @@ export function compile(tree: Tree, doc: Text) {
       if (cursor.name == 'Command') {
         const repeat =
           cursor.node.lastChild?.name == 'Parameter'
-            ? doc.sliceString(
-                cursor.node.lastChild.from,
-                cursor.node.lastChild.to
+            ? parseInt(
+                doc.sliceString(
+                  cursor.node.lastChild.from,
+                  cursor.node.lastChild.to
+                )
               )
             : 1
         const line = doc.lineAt(cursor.from).number

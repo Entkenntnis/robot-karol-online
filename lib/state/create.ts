@@ -11,6 +11,12 @@ export function createWorkspaceState(): WorkspaceState {
   const ws: WorkspaceState = {
     page: 'init',
     modal: null,
+    appearance: {
+      cap: 0,
+      skin: 1,
+      shirt: 2,
+      legs: 3,
+    },
     renderCounter: 0,
     world: createWorld(5, 10, 6),
     code: '',

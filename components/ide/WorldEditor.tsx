@@ -183,13 +183,13 @@ export function WorldEditor() {
                   <View
                     world={core.ws.quest.tasks[core.ws.editor.editWorld!].start}
                     preview={{
-                      track: [],
                       world:
                         core.ws.quest.tasks[core.ws.editor.editWorld!].target!,
                     }}
+                    appearance={core.ws.appearance}
                   />
                 ) : (
-                  <View world={core.ws.world} />
+                  <View world={core.ws.world} appearance={core.ws.appearance} />
                 )}
               </div>
             </div>

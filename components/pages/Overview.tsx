@@ -3,6 +3,7 @@ import {
   faExternalLink,
   faPencil,
   faPenToSquare,
+  faShirt,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -72,10 +73,19 @@ export function Overview() {
               Highscore
             </button>
             <button
+              className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-2"
+              onClick={() => {
+                showModal(core, 'appearance')
+              }}
+            >
+              <FaIcon icon={faShirt} className="mr-1" />
+              Anpassen
+            </button>
+            <button
               onClick={() => {
                 switchToPage(core, 'editor')
               }}
-              className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded"
+              className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded transition-colors"
             >
               <FaIcon icon={faPenToSquare} className="mr-1" />
               Aufgaben-Editor
@@ -214,7 +224,7 @@ export function Overview() {
           )}
 
           <div className="text-center mb-12">
-            Version: Mai 2023 |{' '}
+            Version: Juni 2023 |{' '}
             <a
               className="hover:underline cursor-pointer"
               href={
@@ -410,9 +420,7 @@ export function Overview() {
                 <View
                   world={questDone ? task.target! : task.start}
                   preview={
-                    task.target === null
-                      ? undefined
-                      : { track: [], world: task.target }
+                    task.target === null ? undefined : { world: task.target }
                   }
                   hideKarol={questDone}
                   wireframe={false}
@@ -420,6 +428,7 @@ export function Overview() {
                     'block mx-auto max-h-full',
                     questDone && 'opacity-30'
                   )}
+                  appearance={core.ws.appearance}
                 />{' '}
                 {questDone && (
                   <div className="absolute inset-0 flex justify-center items-center">

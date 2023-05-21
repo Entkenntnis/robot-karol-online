@@ -34,7 +34,6 @@ export function Output() {
                         world:
                           core.ws.quest.tasks[core.ws.quest.lastStartedTask!]
                             .target!,
-                        track: [],
                       }
                     : undefined
                 }
@@ -42,6 +41,7 @@ export function Output() {
                   'p-6',
                   core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
                 )}
+                appearance={core.ws.appearance}
               />
             </div>
           </div>

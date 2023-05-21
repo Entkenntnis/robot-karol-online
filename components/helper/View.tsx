@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Preview, World } from '../../lib/state/types'
+import { Appearance, Preview, World } from '../../lib/state/types'
 
 interface ViewProps {
   world: World
@@ -8,15 +8,17 @@ interface ViewProps {
   preview?: Preview
   hideKarol?: boolean
   className?: string
+  appearance: Appearance
 }
 
 interface Resources {
   ziegel: HTMLImageElement
   ziegel_weg: HTMLImageElement
-  robotN: HTMLImageElement
-  robotE: HTMLImageElement
-  robotS: HTMLImageElement
-  robotW: HTMLImageElement
+  robot_outline: HTMLImageElement
+  robot_cap: HTMLImageElement
+  robot_skin: HTMLImageElement
+  robot_shirt: HTMLImageElement
+  robot_legs: HTMLImageElement
   marke: HTMLImageElement
   marke_weg: HTMLImageElement
   quader: HTMLImageElement
@@ -30,6 +32,7 @@ export function View({
   hideKarol,
   preview,
   className,
+  appearance,
 }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
@@ -55,10 +58,11 @@ export function View({
         if (ctx) {
           const [
             ziegel,
-            robotN,
-            robotE,
-            robotS,
-            robotW,
+            robot_outline,
+            robot_cap,
+            robot_skin,
+            robot_shirt,
+            robot_legs,
             marke,
             quader,
             marke_weg,
@@ -66,10 +70,11 @@ export function View({
             markeKlein,
           ] = await Promise.all([
             loadImage('/Ziegel.png'),
-            loadImage('/robotN.png'),
-            loadImage('/robotE.png'),
-            loadImage('/robotS.png'),
-            loadImage('/robotW.png'),
+            loadImage('/robot_outline.png'),
+            loadImage(`/appearance/${appearance.cap}.png`),
+            loadImage(`/appearance/${appearance.skin}.png`),
+            loadImage(`/appearance/${appearance.shirt}.png`),
+            loadImage(`/appearance/${appearance.legs}.png`),
             loadImage('/marke.png'),
             loadImage('/quader.png'),
             loadImage('/marke_weg.png'),
@@ -80,10 +85,11 @@ export function View({
           setResources({
             ziegel,
             ctx,
-            robotN,
-            robotE,
-            robotS,
-            robotW,
+            robot_outline,
+            robot_cap,
+            robot_skin,
+            robot_shirt,
+            robot_legs,
             marke,
             quader,
             marke_weg,
@@ -94,17 +100,18 @@ export function View({
       }
     }
     render()
-  }, [])
+  }, [appearance.cap, appearance.legs, appearance.shirt, appearance.skin])
 
   useEffect(() => {
     if (resources && canvas.current) {
       const {
         ctx,
         ziegel,
-        robotN,
-        robotE,
-        robotS,
-        robotW,
+        robot_outline,
+        robot_cap,
+        robot_skin,
+        robot_shirt,
+        robot_legs,
         marke,
         quader,
         marke_weg,
@@ -157,34 +164,6 @@ export function View({
         to2d(world.dimX, 0, world.height),
         to2d(0, 0, world.height)
       )
-
-      if (preview) {
-        // drawing track
-        let pos = null
-        ctx.save()
-        ctx.lineWidth = 5
-        ctx.lineCap = 'round'
-        ctx.lineJoin = 'round'
-        ctx.globalAlpha = 0.2
-        ctx.strokeStyle = '#341aff'
-        ctx.beginPath()
-        for (const t of preview.track) {
-          if (pos == null) {
-            pos = t
-            const start = to2d(t.x, t.y, 0)
-            ctx.moveTo(start.x + 9, start.y + 8)
-            continue
-          }
-          if (pos.x == t.x && pos.y == t.y) {
-            continue
-          }
-          pos = t
-          const dest = to2d(pos.x, pos.y, 0)
-          ctx.lineTo(dest.x + 9, dest.y + 8)
-        }
-        ctx.stroke()
-        ctx.restore()
-      }
 
       for (let x = 0; x < world.dimX; x++) {
         for (let y = 0; y < world.dimY; y++) {
@@ -268,67 +247,33 @@ export function View({
             ctx.drawImage(quader, p.x - 15, p.y - 30)
           }
           if (world.karol.x == x && world.karol.y == y && !hideKarol) {
-            const karol = {
-              north: robotN,
-              east: robotE,
-              south: robotS,
-              west: robotW,
+            const sx = {
+              north: 40,
+              east: 0,
+              south: 120,
+              west: 80,
             }[world.karol.dir]
 
             const point = to2d(x, y, world.bricks[y][x])
 
-            ctx.drawImage(
-              karol,
+            const dx =
               point.x -
-                13 -
-                (world.karol.dir == 'south'
-                  ? 3
-                  : world.karol.dir == 'north'
-                  ? -2
-                  : 0),
-              point.y - 60
-            )
+              13 -
+              (world.karol.dir == 'south'
+                ? 3
+                : world.karol.dir == 'north'
+                ? -2
+                : 0)
+
+            const dy = point.y - 60
+
+            ctx.drawImage(robot_cap, sx, 0, 40, 71, dx, dy, 40, 71)
+            ctx.drawImage(robot_skin, sx, 0, 40, 71, dx, dy, 40, 71)
+            ctx.drawImage(robot_shirt, sx, 0, 40, 71, dx, dy, 40, 71)
+            ctx.drawImage(robot_legs, sx, 0, 40, 71, dx, dy, 40, 71)
+            ctx.drawImage(robot_outline, sx, 0, 40, 71, dx, dy, 40, 71)
           }
         }
-      }
-
-      if (
-        preview &&
-        preview.karol &&
-        !(
-          preview.karol.x == world.karol.x &&
-          preview.karol.y == world.karol.y &&
-          preview.karol.dir == world.karol.dir &&
-          world.bricks[world.karol.y][world.karol.x] ==
-            preview.world.bricks[world.karol.y][world.karol.x]
-        )
-      ) {
-        const karol = {
-          north: robotN,
-          east: robotE,
-          south: robotS,
-          west: robotW,
-        }[preview.karol.dir]
-
-        const point = to2d(
-          preview.karol.x,
-          preview.karol.y,
-          preview.world.bricks[preview.karol.y][preview.karol.x]
-        )
-        ctx.save()
-        ctx.globalAlpha = 0.3
-        ctx.drawImage(
-          karol,
-          point.x -
-            13 -
-            (preview.karol.dir == 'south'
-              ? 3
-              : preview.karol.dir == 'north'
-              ? -2
-              : 0),
-          point.y - 60
-        )
-        ctx.restore()
       }
 
       //ctx.drawImage(ziegel, originX - 0.5, originY - 1.5)</div>

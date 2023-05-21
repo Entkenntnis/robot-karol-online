@@ -184,11 +184,12 @@ export function Tasks() {
                       preview={
                         task.target === null
                           ? undefined
-                          : { track: [], world: task.target }
+                          : { world: task.target }
                       }
                       hideKarol={false}
                       wireframe={false}
                       className="h-full w-full object-contain"
+                      appearance={core.ws.appearance}
                     />
                   </div>
                   <div className="ml-4 mt-6">

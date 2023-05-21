@@ -21,12 +21,6 @@ export interface Message {
 }
 
 export interface Preview {
-  track: { x: number; y: number }[]
-  karol?: {
-    x: number
-    y: number
-    dir: Heading
-  }
   world: World
 }
 
@@ -137,9 +131,19 @@ export interface WorkspaceState {
     | 'remix'
     | 'resize'
     | 'success'
+    | 'appearance'
     | null
 
   renderCounter: number // e.g. if storage is updated
+
+  appearance: Appearance
+}
+
+export interface Appearance {
+  cap: number
+  skin: number
+  shirt: number
+  legs: number
 }
 
 export interface QuestTask {
