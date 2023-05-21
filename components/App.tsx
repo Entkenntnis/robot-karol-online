@@ -19,6 +19,7 @@ import { ShareModal } from './modals/ShareModal'
 import { Analyze } from './pages/Analyze'
 import { Demo } from './pages/Demo'
 import { SuccessModal } from './modals/SuccessModal'
+import { AppearanceModal } from './modals/AppearanceModal'
 
 export function App() {
   const core = useCore()
@@ -82,6 +83,8 @@ export function App() {
       return <ShareModal />
     } else if (core.ws.modal == 'success') {
       return <SuccessModal />
+    } else if (core.ws.modal == 'appearance') {
+      return <AppearanceModal />
     } else {
       return null
     }
