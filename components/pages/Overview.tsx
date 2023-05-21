@@ -142,9 +142,9 @@ export function Overview() {
                   appearance.sort((a, b) => b[1].count - a[1].count)
 
                   return appearance.map((entry) => (
-                    <span key={entry[0]}>
+                    <span key={entry[0]} className="mr-3">
                       {entry[0]}:{appearanceRegistry[parseInt(entry[0])].type}-
-                      {appearanceRegistry[parseInt(entry[0])].type} (x
+                      {appearanceRegistry[parseInt(entry[0])].title} (x
                       {entry[1].count})
                     </span>
                   ))

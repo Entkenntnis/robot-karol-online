@@ -31,6 +31,10 @@ export function AppearanceModal() {
       className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
         closeModal(core)
+        submit_event(`select_appearance_${core.ws.appearance.cap}`, core)
+        submit_event(`select_appearance_${core.ws.appearance.skin}`, core)
+        submit_event(`select_appearance_${core.ws.appearance.shirt}`, core)
+        submit_event(`select_appearance_${core.ws.appearance.legs}`, core)
       }}
     >
       <div
