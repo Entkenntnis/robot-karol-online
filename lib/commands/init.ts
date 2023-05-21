@@ -168,6 +168,17 @@ export async function initClient(core: Core) {
               }
               userRawData[entry.userId].nameSetAt = ts
             }
+
+            const appearance = /^select_appearance_(.+)/.exec(entry.event)
+
+            if (appearance) {
+              const id = appearance[1]
+              if (!ws.analyze.appearance[id]) {
+                ws.analyze.appearance[id] = { count: 0 }
+              }
+              ws.analyze.appearance[id].count++
+              continue
+            }
           }
         }
       })

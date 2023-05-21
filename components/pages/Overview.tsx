@@ -29,6 +29,7 @@ import {
   resetStorage,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
+import { appearanceRegistry } from '../../lib/data/appearance'
 
 export function Overview() {
   const core = useCore()
@@ -134,6 +135,21 @@ export function Overview() {
                   abgeschlossen
                 </p>
               ))}
+              <h2 className="mt-6 mb-4 text-lg">Aussehen</h2>
+              <p>
+                {(() => {
+                  const appearance = Object.entries(core.ws.analyze.appearance)
+                  appearance.sort((a, b) => b[1].count - a[1].count)
+
+                  return appearance.map((entry) => (
+                    <span key={entry[0]}>
+                      {entry[0]}:{appearanceRegistry[parseInt(entry[0])].type}-
+                      {appearanceRegistry[parseInt(entry[0])].type} (x
+                      {entry[1].count})
+                    </span>
+                  ))
+                })()}
+              </p>
               <h2 className="mt-6 mb-4 text-lg">Legacy</h2>{' '}
               {Object.entries(core.ws.analyze.legacy).map((entry, i) => (
                 <p key={i} className="my-2">

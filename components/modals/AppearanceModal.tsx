@@ -3,6 +3,8 @@ import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
 import { View } from '../helper/View'
 import { Heading } from '../../lib/state/types'
+import { appearanceRegistry } from '../../lib/data/appearance'
+import { submit_event } from '../../lib/helper/submit'
 
 export function AppearanceModal() {
   // const [selected, setSelected] = useState(-1)
@@ -19,6 +21,9 @@ export function AppearanceModal() {
       clearInterval(interval)
     }
   }, [])
+
+  const registry = Object.entries(appearanceRegistry)
+  registry.sort((a, b) => a[1].position - b[1].position)
 
   const core = useCore()
   return (
@@ -60,26 +65,78 @@ export function AppearanceModal() {
           <div className="[&>p]:mb-8 [&_select]:w-[200px] [&_select]:p-1">
             <p>
               Kappe:{' '}
-              <select>
-                <option>schwarz</option>
+              <select
+                value={core.ws.appearance.cap}
+                onChange={(e) => {
+                  core.mutateWs((ws) => {
+                    ws.appearance.cap = parseInt(e.target.value)
+                  })
+                }}
+              >
+                {registry
+                  .filter((entry) => entry[1].type == 'cap')
+                  .map((entry) => (
+                    <option key={entry[0]} value={entry[0]}>
+                      {entry[1].title}
+                    </option>
+                  ))}
               </select>
             </p>
             <p>
               Shirt:{' '}
-              <select>
-                <option>rot</option>
+              <select
+                value={core.ws.appearance.shirt}
+                onChange={(e) => {
+                  core.mutateWs((ws) => {
+                    ws.appearance.shirt = parseInt(e.target.value)
+                  })
+                }}
+              >
+                {registry
+                  .filter((entry) => entry[1].type == 'shirt')
+                  .map((entry) => (
+                    <option key={entry[0]} value={entry[0]}>
+                      {entry[1].title}
+                    </option>
+                  ))}
               </select>
             </p>
             <p>
               Hose:{' '}
-              <select>
-                <option>blau</option>
+              <select
+                value={core.ws.appearance.legs}
+                onChange={(e) => {
+                  core.mutateWs((ws) => {
+                    ws.appearance.legs = parseInt(e.target.value)
+                  })
+                }}
+              >
+                {registry
+                  .filter((entry) => entry[1].type == 'legs')
+                  .map((entry) => (
+                    <option key={entry[0]} value={entry[0]}>
+                      {entry[1].title}
+                    </option>
+                  ))}
               </select>
             </p>
             <p>
               Hautton:{' '}
-              <select>
-                <option>gelb</option>
+              <select
+                value={core.ws.appearance.skin}
+                onChange={(e) => {
+                  core.mutateWs((ws) => {
+                    ws.appearance.skin = parseInt(e.target.value)
+                  })
+                }}
+              >
+                {registry
+                  .filter((entry) => entry[1].type == 'skin')
+                  .map((entry) => (
+                    <option key={entry[0]} value={entry[0]}>
+                      {entry[1].title}
+                    </option>
+                  ))}
               </select>
             </p>
           </div>
@@ -89,6 +146,13 @@ export function AppearanceModal() {
             className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
             onClick={() => {
               closeModal(core)
+              submit_event(`select_appearance_${core.ws.appearance.cap}`, core)
+              submit_event(`select_appearance_${core.ws.appearance.skin}`, core)
+              submit_event(
+                `select_appearance_${core.ws.appearance.shirt}`,
+                core
+              )
+              submit_event(`select_appearance_${core.ws.appearance.legs}`, core)
             }}
           >
             Schließen

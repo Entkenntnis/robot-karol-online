@@ -164,6 +164,7 @@ export interface Analyze {
   useAudio: number
   customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
+  appearance: { [key: string]: { count: number } }
   quests: { [key: string]: { reachable: number; complete: number } }
   userTimes: number[]
   solutions: {
@@ -275,4 +276,10 @@ export interface Compressed2D<T> {
   dimX: number
   dimY: number
   data: T[][]
+}
+
+export interface AppearanceData {
+  type: 'cap' | 'skin' | 'shirt' | 'legs'
+  title: string
+  position: number
 }
