@@ -4,12 +4,12 @@
   "description": "Du denkst, du hast zwei linke Hände wenn es ums Programmieren geht? Keine Sorge: Wir haben alle klein angefangen. Hier lernst du Schritt für Schritt die Welt von Karol kennen.\n\nDer erste nützliche Befehl heißt `Hinlegen`. Damit kann Karol aus ihrem endlosen Rucksack Ziegel hervorzaubern und vor sich hinlegen. Die Befehle findest du im %img[Block-Menü|/quests/start_1.png]%. Verbinde sie, um ein %img[Programm|/quests/start_2.png]% zu schreiben.\n\nVor Karol siehst du einen %img[Platzhalter|quests/start_3.png]% für einen Ziegel. Bewege Karol dorthin und lege einen Ziegel, um die Aufgabe zu lösen.",
   "tasks": [
     {
-      "title": "Lege einen Ziegel in die Mitte",
+      "title": "Lege einen Ziegel",
       "start": {
-        "dimX": 7,
-        "dimY": 5,
+        "dimX": 4,
+        "dimY": 1,
         "height": 6,
-        "karol": { "x": 0, "y": 2, "dir": "east" },
+        "karol": { "x": 0, "y": 0, "dir": "east" },
         "bricks": {
           "offsetX": -1,
           "offsetY": -1,
@@ -18,15 +18,11 @@
           "data": []
         },
         "marks": {
-          "dimX": 3,
-          "dimY": 3,
-          "offsetX": 2,
-          "offsetY": 1,
-          "data": [
-            [true, true, true],
-            [true, false, true],
-            [true, true, true]
-          ]
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
         },
         "blocks": {
           "offsetX": -1,
@@ -37,27 +33,23 @@
         }
       },
       "target": {
-        "dimX": 7,
-        "dimY": 5,
+        "dimX": 4,
+        "dimY": 1,
         "height": 6,
-        "karol": { "x": 2, "y": 2, "dir": "east" },
+        "karol": { "x": 2, "y": 0, "dir": "east" },
         "bricks": {
           "dimX": 1,
           "dimY": 1,
           "offsetX": 3,
-          "offsetY": 2,
+          "offsetY": 0,
           "data": [[1]]
         },
         "marks": {
-          "dimX": 3,
-          "dimY": 3,
-          "offsetX": 2,
-          "offsetY": 1,
-          "data": [
-            [true, true, true],
-            [true, false, true],
-            [true, true, true]
-          ]
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
         },
         "blocks": {
           "offsetX": -1,
