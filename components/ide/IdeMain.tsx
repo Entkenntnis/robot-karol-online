@@ -73,7 +73,14 @@ export function IdeMain() {
           }}
         >
           {core.ws.ui.isHighlightDescription && (
-            <div className="fixed inset-0 bg-black/30 z-[200]"></div>
+            <div
+              className="fixed inset-0 bg-black/30 z-[200]"
+              onClick={() => {
+                if (showOk) {
+                  closeHighlightDescription(core)
+                }
+              }}
+            ></div>
           )}
           <div className="h-full flex flex-col">
             <div className="flex-none h-8 bg-gray-50 flex justify-center items-start">

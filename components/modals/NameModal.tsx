@@ -46,10 +46,10 @@ export function NameModal() {
               maxLength={30}
             />
           </p>
-          <p className="text-center mt-4 text-sm text-gray-500">
-            Verwende am besten einen ausgedachten Namen.
+          <p className="text-center mt-3 text-sm text-gray-500 italic">
+            Dein Name wird öffentlich angzeigt.
             <button
-              className="ml-4 underline"
+              className="ml-10 underline"
               onClick={() => {
                 const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
                 let n = ''

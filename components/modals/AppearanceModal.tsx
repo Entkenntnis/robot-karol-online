@@ -5,6 +5,7 @@ import { View } from '../helper/View'
 import { Heading } from '../../lib/state/types'
 import { appearanceRegistry } from '../../lib/data/appearance'
 import { submit_event } from '../../lib/helper/submit'
+import { setAppearance } from '../../lib/storage/storage'
 
 export function AppearanceModal() {
   // const [selected, setSelected] = useState(-1)
@@ -30,6 +31,7 @@ export function AppearanceModal() {
     <div
       className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
       onClick={() => {
+        setAppearance(core.ws.appearance)
         closeModal(core)
         submit_event(`select_appearance_${core.ws.appearance.cap}`, core)
         submit_event(`select_appearance_${core.ws.appearance.skin}`, core)
@@ -149,6 +151,7 @@ export function AppearanceModal() {
           <button
             className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
             onClick={() => {
+              setAppearance(core.ws.appearance)
               closeModal(core)
               submit_event(`select_appearance_${core.ws.appearance.cap}`, core)
               submit_event(`select_appearance_${core.ws.appearance.skin}`, core)

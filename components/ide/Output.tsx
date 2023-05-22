@@ -1,6 +1,10 @@
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowLeft,
+  faCaretLeft,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { resetOutput } from '../../lib/commands/quest'
+import { closeOutput, resetOutput } from '../../lib/commands/quest'
 
 import { useCore } from '../../lib/state/core'
 import { ControlBar } from './ControlBar'
@@ -48,8 +52,15 @@ export function Output() {
         </div>
         {!core.ws.ui.isTesting &&
           core.ws.quest.lastStartedTask !== undefined && (
-            <div className="absolute bottom-3 left-4">
-              {core.ws.quest.tasks[core.ws.quest.lastStartedTask].title}
+            <div className="absolute bottom-1.5 left-2">
+              <button
+                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+                onClick={() => {
+                  closeOutput(core)
+                }}
+              >
+                <FaIcon icon={faArrowLeft} className="mx-1" /> zurück
+              </button>
             </div>
           )}
         {core.ws.ui.isEndOfRun &&

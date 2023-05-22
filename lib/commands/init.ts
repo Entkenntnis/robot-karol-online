@@ -5,9 +5,9 @@ import { questList } from '../data/overview'
 import { questData } from '../data/quests'
 import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
-import { addNewTask } from './editor'
 import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
+import { getAppearance } from '../storage/storage'
 
 export async function initClient(core: Core) {
   const parameterList = new URLSearchParams(window.location.search)
@@ -18,6 +18,13 @@ export async function initClient(core: Core) {
     await loadLegacyProject(core, id)
     switchToPage(core, 'imported')
     return
+  }
+
+  const appearance = getAppearance()
+  if (appearance) {
+    core.mutateWs((ws) => {
+      ws.appearance = appearance
+    })
   }
 
   const hash = window.location.hash.toUpperCase()

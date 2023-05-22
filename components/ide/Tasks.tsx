@@ -24,7 +24,7 @@ import {
   moveTaskUp,
   setTaskTitle,
 } from '../../lib/commands/editor'
-import { showModal } from '../../lib/commands/modal'
+import { closeModal, showModal } from '../../lib/commands/modal'
 import {
   closeHighlightDescription,
   forceRerender,
@@ -326,6 +326,7 @@ export function Tasks() {
                       // reshow highlight
                       storeQuestToSession(core)
                     }
+                    closeModal(core)
                     switchToPage(core, 'overview')
                   }}
                 >

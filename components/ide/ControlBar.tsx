@@ -66,17 +66,17 @@ export function ControlBar() {
           !core.ws.ui.isTesting &&
           core.ws.quest.progress ? (
             <>
-              <button
+              {/*<button
                 onClick={() => {
                   closeOutput(core)
                 }}
                 className={clsx(
                   'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2'
-                  /*core.ws.ui.isTesting && 'invisible'*/
+                  /*core.ws.ui.isTesting && 'invisible'
                 )}
               >
                 zurück
-              </button>
+                </button>*/}
               {core.ws.page !== 'editor' && (
                 <button
                   onClick={() => {
@@ -91,17 +91,22 @@ export function ControlBar() {
             </>
           ) : (
             core.ws.ui.state != 'running' && (
-              <button
-                onClick={() => {
-                  closeOutput(core)
-                }}
-                className={clsx(
-                  'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 '
-                  /*core.ws.ui.isTesting && 'invisible'*/
-                )}
-              >
-                zurück
-              </button>
+              <>
+                <span className="ml-3 mt-2">
+                  {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}
+                </span>
+                <button
+                  onClick={() => {
+                    closeOutput(core)
+                  }}
+                  className={clsx(
+                    'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 invisible'
+                    /*core.ws.ui.isTesting && 'invisible'*/
+                  )}
+                >
+                  zurück
+                </button>
+              </>
             )
           )}
           {core.ws.ui.state == 'ready' &&
