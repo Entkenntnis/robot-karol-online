@@ -35,18 +35,22 @@ import { useEffect, useState } from 'react'
 export function IdeMain() {
   const core = useCore()
 
-  const skipWait = core.ws.quest.description.length < 100
-
-  const [showOk, setShowOk] = useState(skipWait)
-
   useEffect(() => {
+    const skipWait = core.ws.quest.description.length < 100
+
+    core.mutateWs((ws) => {
+      ws.ui.showOk = skipWait
+    })
+
     function test() {
       const el = document.getElementById('progress-bar')
       if (el) {
         el.style.width = '0%'
         setTimeout(
           () => {
-            setShowOk(true)
+            core.mutateWs((ws) => {
+              ws.ui.showOk = true
+            })
           },
           skipWait ? 0 : 5000
         )
@@ -55,10 +59,10 @@ export function IdeMain() {
       }
     }
 
-    if (core.ws.ui.isHighlightDescription && !showOk) {
+    if (core.ws.ui.isHighlightDescription && !core.ws.ui.showOk) {
       test()
     }
-  }, [core.ws.ui.isHighlightDescription, showOk, skipWait])
+  }, [core, core.ws.ui.isHighlightDescription])
 
   return (
     <>
@@ -76,7 +80,7 @@ export function IdeMain() {
             <div
               className="fixed inset-0 bg-black/30 z-[200]"
               onClick={() => {
-                if (showOk) {
+                if (core.ws.ui.showOk) {
                   closeHighlightDescription(core)
                 }
               }}
@@ -219,7 +223,7 @@ export function IdeMain() {
                     className={clsx(
                       'px-2 py-0.5 rounded bg-green-200 hover:bg-green-300 transition-colors disabled:bg-gray-200'
                     )}
-                    disabled={!showOk}
+                    disabled={!core.ws.ui.showOk}
                   >
                     OK
                   </button>

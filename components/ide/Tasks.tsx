@@ -157,14 +157,24 @@ export function Tasks() {
                     core.ws.page != 'editor' &&
                       (core.ws.ui.isHighlightDescription
                         ? 'relative z-[300]'
-                        : 'cursor-pointer hover:bg-gray-50')
+                        : 'cursor-pointer hover:bg-gray-50'),
+                    core.ws.page != 'editor' &&
+                      core.ws.ui.isHighlightDescription &&
+                      core.ws.ui.showOk &&
+                      'cursor-pointer hover:bg-gray-50'
                   )}
                   key={index}
                   tabIndex={0}
                   onClick={() => {
                     setTaskScroll(core, taskContainer.current?.scrollTop ?? -1)
                     if (core.ws.page == 'editor') return
-                    if (core.ws.ui.isHighlightDescription) return
+                    if (core.ws.ui.isHighlightDescription && !core.ws.ui.showOk)
+                      return
+                    if (core.ws.ui.isHighlightDescription) {
+                      core.mutateWs((ws) => {
+                        ws.ui.isHighlightDescription = false
+                      })
+                    }
                     openTask(core, index)
                   }}
                 >

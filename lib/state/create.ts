@@ -43,6 +43,7 @@ export function createWorkspaceState(): WorkspaceState {
       showCodeInfo: false,
       imageLightbox: null,
       isHighlightDescription: false,
+      showOk: false,
       audioStarted: false,
     },
     vm: {

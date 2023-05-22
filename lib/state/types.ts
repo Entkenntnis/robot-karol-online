@@ -49,6 +49,7 @@ export interface Ui {
   showCodeInfo: boolean
   imageLightbox: string | null
   isHighlightDescription: boolean
+  showOk: boolean
   audioStarted: boolean
 }
 
