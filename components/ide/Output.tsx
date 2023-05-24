@@ -11,6 +11,7 @@ import { ControlBar } from './ControlBar'
 import { FaIcon } from '../helper/FaIcon'
 import { TaskRunnerOverview } from './TaskRunnerOverview'
 import { View } from '../helper/View'
+import { abort } from '../../lib/commands/vm'
 
 export function Output() {
   const core = useCore()
@@ -50,19 +51,21 @@ export function Output() {
             </div>
           </div>
         </div>
-        {!core.ws.ui.isTesting &&
-          core.ws.quest.lastStartedTask !== undefined && (
-            <div className="absolute bottom-1.5 left-2">
-              <button
-                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
-                onClick={() => {
-                  closeOutput(core)
-                }}
-              >
-                <FaIcon icon={faArrowLeft} className="mx-1" /> zurück
-              </button>
-            </div>
-          )}
+        {core.ws.quest.lastStartedTask !== undefined && (
+          <div className="absolute bottom-1.5 left-2">
+            <button
+              className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+              onClick={() => {
+                if (core.ws.ui.state == 'running') {
+                  abort(core)
+                }
+                closeOutput(core)
+              }}
+            >
+              <FaIcon icon={faArrowLeft} className="mx-1" /> zurück
+            </button>
+          </div>
+        )}
         {core.ws.ui.isEndOfRun &&
           !core.ws.ui.controlBarShowFinishQuest &&
           !core.ws.ui.isTesting && (
@@ -77,7 +80,7 @@ export function Output() {
             </button>
           )}
       </div>
-      <div className="max-h-[30%] flex-grow flex-shrink-0 overflow-auto">
+      <div className="max-h-[30%] flex-grow flex-shrink-0 overflow-auto bg-gray-100 pl-32">
         {core.ws.ui.isTesting && <TaskRunnerOverview />}
       </div>
     </div>
