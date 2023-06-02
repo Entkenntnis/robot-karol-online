@@ -29,8 +29,7 @@ export function runTask(core: Core, index: number) {
           core.ws.quest.tasks.length == 1 &&
           core.ws.quest.progress &&
           !core.ws.ui.karolCrashMessage &&
-          !core.ws.ui.isManualAbort &&
-          !core.ws.ui.isAlreadyCompleted
+          !core.ws.ui.isManualAbort
         ) {
           core.mutateWs((ws) => {
             ws.ui.controlBarShowFinishQuest = true
