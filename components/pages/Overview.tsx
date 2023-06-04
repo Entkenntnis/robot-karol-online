@@ -251,6 +251,44 @@ export function Overview() {
 
                   events.reverse()
 
+                  function prettiPrintEvent(event: string) {
+                    if (isSetName(event)) {
+                      return 'Setze Name'
+                    }
+
+                    const startQuest = /^start_quest_(.+)/.exec(event)
+                    if (startQuest) {
+                      return `Öffne '${
+                        questData[parseInt(startQuest[1])].title
+                      }'`
+                    }
+
+                    const questComplete = /^quest_complete_(.+)/.exec(event)
+                    if (questComplete) {
+                      return (
+                        <span className="font-bold">{`Löse '${
+                          questData[parseInt(questComplete[1])].title
+                        }'`}</span>
+                      )
+                    }
+
+                    return <i className="text-gray-600">{event}</i>
+                  }
+
+                  let appearanceStack: string[] = []
+
+                  const completedQuests = new Set()
+
+                  events.forEach((entry) => {
+                    const questComplete = /^quest_complete_(.+)/.exec(
+                      entry.event
+                    )
+                    if (questComplete) {
+                      const id = parseInt(questComplete[1])
+                      if (questList.includes(id)) completedQuests.add(id)
+                    }
+                  })
+
                   return (
                     <div
                       key={userId}
@@ -267,20 +305,66 @@ export function Overview() {
                           />
                         </span>
                         <span className="text-gray-600 ml-4 text-sm">
-                          beigetreten am {startTime.toLocaleString()}
+                          beigetreten am {startTime.toLocaleString()},{' '}
+                          {completedQuests.size} Aufgaben gelöst
                         </span>
                       </p>
-                      {events.map((event, i) => (
-                        <div key={i}>
-                          <span className="w-24 text-gray-600 inline-block text-right pr-4">
-                            {format(
-                              new Date(event.createdAt).getTime() -
-                                startTime.getTime()
-                            )}
-                          </span>
-                          {event.event}
-                        </div>
-                      ))}
+                      {events.map((event, i) => {
+                        if (event.event.startsWith('select_appearance_')) {
+                          appearanceStack.push(event.event)
+                          if (appearanceStack.length == 4) {
+                            const look = appearanceStack
+                            appearanceStack = []
+                            return (
+                              <div key={i}>
+                                <span className="w-24 text-gray-600 inline-block text-right pr-4 align-top">
+                                  {format(
+                                    new Date(event.createdAt).getTime() -
+                                      startTime.getTime()
+                                  )}
+                                </span>
+                                <span className="inline-block -mt-2">
+                                  <View
+                                    appearance={{
+                                      cap: parseInt(look[0].substring(18)),
+                                      shirt: parseInt(look[1].substring(18)),
+                                      legs: parseInt(look[2].substring(18)),
+                                      skin: parseInt(look[3].substring(18)),
+                                    }}
+                                    world={{
+                                      dimX: 1,
+                                      dimY: 1,
+                                      karol: {
+                                        x: 0,
+                                        y: 0,
+                                        dir: 'east',
+                                      },
+                                      blocks: [[false]],
+                                      marks: [[false]],
+                                      bricks: [[0]],
+                                      height: 1,
+                                    }}
+                                  />
+                                </span>
+                              </div>
+                            )
+                          } else {
+                            return null
+                          }
+                        }
+
+                        return (
+                          <div key={i}>
+                            <span className="w-24 text-gray-600 inline-block text-right pr-4">
+                              {format(
+                                new Date(event.createdAt).getTime() -
+                                  startTime.getTime()
+                              )}
+                            </span>
+                            {prettiPrintEvent(event.event)}
+                          </div>
+                        )
+                      })}
                     </div>
                   )
                 })
