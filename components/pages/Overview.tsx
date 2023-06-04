@@ -31,6 +31,7 @@ import {
 import { HFullStyles } from '../helper/HFullStyles'
 import { appearanceRegistry } from '../../lib/data/appearance'
 import { getName, isSetName } from '../../lib/helper/events'
+import TimeAgo from 'timeago-react'
 
 export function Overview() {
   const core = useCore()
@@ -169,7 +170,7 @@ export function Overview() {
               <p className="mb-2">
                 Median: {format(median(core.ws.analyze.userTimes))}
               </p>
-              <p>{core.ws.analyze.userTimes.map(format).join(', ')}</p>
+              {/*<p>{core.ws.analyze.userTimes.map(format).join(', ')}</p>*/}
               {/*<h2 className="mt-6 mb-4 text-lg">Anzahl gelöste Aufgaben</h2>
               <p className="mb-2">
                 Median: {median(core.ws.analyze.solvedCount)}
@@ -215,19 +216,40 @@ export function Overview() {
             <div className="bg-gray-50 p-4">
               {(() => {
                 const entries = Object.entries(core.ws.analyze.userEvents)
-                entries.reverse()
-                return entries.map(([userId, obj]) => {
-                  const events = obj.events.slice()
 
-                  const nameEvent = events.find((el) => isSetName(el.event))
+                const entriesSorted = entries
+                  .filter((entry) =>
+                    entry[1].events.some((e) => isSetName(e.event))
+                  )
+                  .map((entry) => {
+                    const events = entry[1].events.slice(0)
+                    events.sort((a, b) =>
+                      a.createdAt.localeCompare(b.createdAt)
+                    )
+                    return [entry[0], { events }] as const
+                  })
 
-                  if (!nameEvent) return null // ignore incomplete users
+                entriesSorted.sort(
+                  (a, b) =>
+                    b[1].events
+                      .at(-1)
+                      ?.createdAt.localeCompare(
+                        a[1].events.at(-1)?.createdAt ?? ''
+                      ) ?? 0
+                )
+
+                return entriesSorted.map(([userId, obj]) => {
+                  const { events } = obj
+
+                  const nameEvent = events.find((el) => isSetName(el.event))!
 
                   const name = getName(nameEvent.event)
 
-                  events.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
-
                   const startTime = new Date(events[0].createdAt)
+
+                  const lastActive = new Date(events.at(-1)!.createdAt)
+
+                  events.reverse()
 
                   return (
                     <div
@@ -236,13 +258,27 @@ export function Overview() {
                     >
                       <p className="mb-2">
                         <span className="font-bold mb-2 text-xl">{name}</span>
+                        <span className="ml-5 text-sm">
+                          zuletzt aktiv{' '}
+                          <TimeAgo
+                            datetime={lastActive}
+                            live={false}
+                            locale="de"
+                          />
+                        </span>
                         <span className="text-gray-600 ml-4 text-sm">
-                          {startTime.toLocaleString()}
+                          beigetreten am {startTime.toLocaleString()}
                         </span>
                       </p>
                       {events.map((event, i) => (
                         <div key={i}>
-                          {event.event} {event.createdAt}
+                          <span className="w-24 text-gray-600 inline-block text-right pr-4">
+                            {format(
+                              new Date(event.createdAt).getTime() -
+                                startTime.getTime()
+                            )}
+                          </span>
+                          {event.event}
                         </div>
                       ))}
                     </div>
@@ -548,16 +584,16 @@ function median(arr: number[]) {
 function format(t: number) {
   const s = Math.round(t / 1000)
   if (s < 60) {
-    return `${s}s`
+    return `${s} s`
   }
   const m = Math.round(s / 60)
   if (m < 120) {
-    return `${m}min`
+    return `${m} min`
   }
   const h = Math.round(m / 60)
   if (h < 48) {
-    return `${h}h`
+    return `${h} h`
   }
   const d = Math.round(h / 24)
-  return `${d}days`
+  return `${d} Tage`
 }
