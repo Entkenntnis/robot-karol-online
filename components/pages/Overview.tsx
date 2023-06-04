@@ -30,6 +30,7 @@ import {
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
 import { appearanceRegistry } from '../../lib/data/appearance'
+import { getName, isSetName } from '../../lib/helper/events'
 
 export function Overview() {
   const core = useCore()
@@ -211,31 +212,43 @@ export function Overview() {
           )}
 
           {core.ws.page == 'analyze' && (
-            <div className="bg-white p-4">
-              {questList.map((id) =>
-                core.ws.analyze.solutions[id] ? (
-                  <div key={id}>
-                    <p className="my-4 ml-6 font-bold">{questData[id].title}</p>
-                    <div className="flex flex-wrap items-start">
-                      {core.ws.analyze.solutions[id].map((entry, i) => (
-                        <div
-                          key={i}
-                          className={clsx(
-                            'm-3 border rounded p-2 min-w-[200px] max-w-[600px] overflow-x-auto',
-                            entry.isAttempt && 'border-red-500'
-                          )}
-                        >
-                          <p className="text-right text-sm text-gray-600 mb-2">
-                            {entry.isCode && <span className="mr-2">CODE</span>}
-                            {entry.count}x
-                          </p>
-                          <pre>{entry.solution}</pre>
+            <div className="bg-gray-50 p-4">
+              {(() => {
+                const entries = Object.entries(core.ws.analyze.userEvents)
+                entries.reverse()
+                return entries.map(([userId, obj]) => {
+                  const events = obj.events.slice()
+
+                  const nameEvent = events.find((el) => isSetName(el.event))
+
+                  if (!nameEvent) return null // ignore incomplete users
+
+                  const name = getName(nameEvent.event)
+
+                  events.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+
+                  const startTime = new Date(events[0].createdAt)
+
+                  return (
+                    <div
+                      key={userId}
+                      className="my-4 bg-white rounded p-3 pl-5"
+                    >
+                      <p className="mb-2">
+                        <span className="font-bold mb-2 text-xl">{name}</span>
+                        <span className="text-gray-600 ml-4 text-sm">
+                          {startTime.toLocaleString()}
+                        </span>
+                      </p>
+                      {events.map((event, i) => (
+                        <div key={i}>
+                          {event.event} {event.createdAt}
                         </div>
                       ))}
                     </div>
-                  </div>
-                ) : null
-              )}
+                  )
+                })
+              })()}
             </div>
           )}
 

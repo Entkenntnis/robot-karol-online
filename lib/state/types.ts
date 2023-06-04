@@ -176,6 +176,15 @@ export interface Analyze {
       isAttempt: boolean
     }[]
   }
+  userEvents: {
+    [key: string]: {
+      events: {
+        userId: string
+        event: string
+        createdAt: string
+      }[]
+    }
+  }
 }
 
 export interface CoreState {

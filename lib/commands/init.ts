@@ -8,6 +8,7 @@ import { Core } from '../state/core'
 import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
 import { getAppearance } from '../storage/storage'
+import { isSetName } from '../helper/events'
 
 export async function initClient(core: Core) {
   const parameterList = new URLSearchParams(window.location.search)
@@ -48,7 +49,7 @@ export async function initClient(core: Core) {
         event: string
         createdAt: string
       }[]
-      const responseSol = await fetch(backend.solutionAnalyzeEndpoint, {
+      /*const responseSol = await fetch(backend.solutionAnalyzeEndpoint, {
         method: 'POST',
         body: new URLSearchParams({
           password,
@@ -60,7 +61,7 @@ export async function initClient(core: Core) {
         questId: number
         solution: string
         createdAt: string
-      }[]
+      }[]*/
 
       if (data.length > 0) {
         sessionStorage.setItem('karol_stored_pw', password)
@@ -169,7 +170,7 @@ export async function initClient(core: Core) {
               }
             }
 
-            if (entry.event.startsWith('set_name_')) {
+            if (isSetName(entry.event)) {
               if (!userRawData[entry.userId]) {
                 userRawData[entry.userId] = { quests: {}, nameSetAt: -1 }
               }
@@ -231,7 +232,7 @@ export async function initClient(core: Core) {
       })
 
       // pass 3: process solution data
-      core.mutateWs((ws) => {
+      /*core.mutateWs((ws) => {
         for (const entry of dataSol) {
           if (isAfter(new Date(entry.createdAt), cutoff)) {
             if (!ws.analyze.solutions[entry.questId]) {
@@ -274,6 +275,18 @@ export async function initClient(core: Core) {
               : b.count - a.count
           )
         }
+      })*/
+
+      // completely raw user-data
+      const userEvents = data.reduce((res, obj) => {
+        const key = obj.userId
+        const entry = (res[key] = res[key] || { events: [] })
+        entry.events.push(obj)
+        return res
+      }, {} as { [key: string]: { events: (typeof data)[number][] } })
+      console.log(userEvents)
+      core.mutateWs((ws) => {
+        ws.analyze.userEvents = userEvents
       })
       switchToPage(core, 'analyze')
       return

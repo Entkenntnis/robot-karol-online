@@ -88,6 +88,7 @@ export function createWorkspaceState(): WorkspaceState {
       appearance: {},
       userTimes: [],
       solutions: {},
+      userEvents: {},
     },
     overview: {
       overviewScroll: 0,
