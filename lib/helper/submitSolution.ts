@@ -1,5 +1,6 @@
 import { backend } from '../../backend'
 import { Core } from '../state/core'
+import { getUserId } from '../storage/storage'
 
 export function submitSolution(core: Core, questId: number, solution: string) {
   if (core.state.enableStats && backend.solutionEndpoint) {
@@ -10,13 +11,15 @@ export function submitSolution(core: Core, questId: number, solution: string) {
     )
       return
 
+    const userId = getUserId()
+
     void (async () => {
       await fetch(backend.solutionEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ questId, solution }),
+        body: JSON.stringify({ questId, solution, userId }),
       })
     })()
   }
