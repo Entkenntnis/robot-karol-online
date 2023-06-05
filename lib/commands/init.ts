@@ -49,7 +49,7 @@ export async function initClient(core: Core) {
         event: string
         createdAt: string
       }[]
-      /*const responseSol = await fetch(backend.solutionAnalyzeEndpoint, {
+      const responseSol = await fetch(backend.solutionAnalyzeEndpoint, {
         method: 'POST',
         body: new URLSearchParams({
           password,
@@ -61,7 +61,8 @@ export async function initClient(core: Core) {
         questId: number
         solution: string
         createdAt: string
-      }[]*/
+        userId: string
+      }[]
 
       if (data.length > 0) {
         sessionStorage.setItem('karol_stored_pw', password)
@@ -232,11 +233,11 @@ export async function initClient(core: Core) {
       })
 
       // pass 3: process solution data
-      /*core.mutateWs((ws) => {
+      core.mutateWs((ws) => {
         for (const entry of dataSol) {
           if (isAfter(new Date(entry.createdAt), cutoff)) {
-            if (!ws.analyze.solutions[entry.questId]) {
-              ws.analyze.solutions[entry.questId] = []
+            if (!ws.analyze.solutions[entry.userId]) {
+              ws.analyze.solutions[entry.userId] = []
             }
             let currentSolution = entry.solution.trim()
             let isCode = false
@@ -253,29 +254,29 @@ export async function initClient(core: Core) {
                 .trim()
               isAttempt = true
             }
-            const hasEntry = ws.analyze.solutions[entry.questId].find(
+            /*const hasEntry = ws.analyze.solutions[entry.questId].find(
               (x) => x.solution == currentSolution && x.isCode == isCode
             )
             if (hasEntry) {
               hasEntry.count++
-            } else {
-              ws.analyze.solutions[entry.questId].push({
-                solution: currentSolution,
-                count: 1,
-                isCode,
-                isAttempt,
-              })
-            }
+            } else {*/
+            ws.analyze.solutions[entry.userId].push({
+              solution: currentSolution,
+              isCode,
+              isAttempt,
+              createdAt: entry.createdAt,
+            })
+            //}
           }
         }
-        for (const questId in ws.analyze.solutions) {
+        /*for (const questId in ws.analyze.solutions) {
           ws.analyze.solutions[questId].sort((a, b) =>
             a.count == b.count
               ? a.solution.split('\n').length - b.solution.split('\n').length
               : b.count - a.count
           )
-        }
-      })*/
+        }*/
+      })
 
       // completely raw user-data
       const userEvents = data.reduce((res, obj) => {

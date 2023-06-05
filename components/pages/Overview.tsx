@@ -223,6 +223,16 @@ export function Overview() {
                   )
                   .map((entry) => {
                     const events = entry[1].events.slice(0)
+                    const solutions = core.ws.analyze.solutions[entry[0]]
+                    if (solutions) {
+                      solutions.forEach((sol, i) => {
+                        events.push({
+                          userId: entry[0],
+                          createdAt: sol.createdAt,
+                          event: 'solution_' + i.toString(),
+                        })
+                      })
+                    }
                     events.sort((a, b) =>
                       a.createdAt.localeCompare(b.createdAt)
                     )
@@ -269,6 +279,26 @@ export function Overview() {
                         <span className="font-bold">{`Löse '${
                           questData[parseInt(questComplete[1])].title
                         }'`}</span>
+                      )
+                    }
+
+                    if (event.startsWith('solution_')) {
+                      const index = parseInt(event.substring(9))
+                      const entry = core.ws.analyze.solutions[userId][index]
+                      return (
+                        <div
+                          className={clsx(
+                            'border rounded p-2 min-w-[200px] max-w-[600px] overflow-x-auto inline-block',
+                            entry.isAttempt
+                              ? 'border-red-500'
+                              : 'border-green-500'
+                          )}
+                        >
+                          <p className="text-right text-sm text-gray-600 mb-2">
+                            {entry.isCode && <span className="mr-2">CODE</span>}
+                          </p>
+                          <pre>{entry.solution}</pre>
+                        </div>
                       )
                     }
 
@@ -355,7 +385,7 @@ export function Overview() {
 
                         return (
                           <div key={i}>
-                            <span className="w-24 text-gray-600 inline-block text-right pr-4">
+                            <span className="w-24 text-gray-600 inline-block text-right pr-4 align-top">
                               {format(
                                 new Date(event.createdAt).getTime() -
                                   startTime.getTime()

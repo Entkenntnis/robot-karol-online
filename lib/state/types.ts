@@ -171,9 +171,9 @@ export interface Analyze {
   solutions: {
     [questId: string]: {
       solution: string
-      count: number
       isCode: boolean
       isAttempt: boolean
+      createdAt: string
     }[]
   }
   userEvents: {
