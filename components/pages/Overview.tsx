@@ -6,7 +6,7 @@ import {
   faShirt,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 import {
   forceRerender,
@@ -37,6 +37,8 @@ export function Overview() {
   const core = useCore()
 
   const name = getUserName()
+
+  const [openUsers, setOpenUsers] = useState<string[]>([])
 
   useEffect(() => {
     if (core.ws.overview.overviewScroll > 0) {
@@ -338,63 +340,79 @@ export function Overview() {
                           beigetreten am {startTime.toLocaleString()},{' '}
                           {completedQuests.size} Aufgaben gelöst
                         </span>
+                        <span className="ml-4">
+                          <button
+                            onClick={() => {
+                              if (openUsers.includes(userId)) {
+                                setOpenUsers(
+                                  openUsers.filter((x) => x != userId)
+                                )
+                              } else {
+                                setOpenUsers([...openUsers, userId])
+                              }
+                            }}
+                          >
+                            zeige Details
+                          </button>
+                        </span>
                       </p>
-                      {events.map((event, i) => {
-                        if (event.event.startsWith('select_appearance_')) {
-                          appearanceStack.push(event.event)
-                          if (appearanceStack.length == 4) {
-                            const look = appearanceStack
-                            appearanceStack = []
-                            return (
-                              <div key={i}>
-                                <span className="w-24 text-gray-600 inline-block text-right pr-4 align-top">
-                                  {format(
-                                    new Date(event.createdAt).getTime() -
-                                      startTime.getTime()
-                                  )}
-                                </span>
-                                <span className="inline-block -mt-2">
-                                  <View
-                                    appearance={{
-                                      cap: parseInt(look[0].substring(18)),
-                                      shirt: parseInt(look[1].substring(18)),
-                                      legs: parseInt(look[2].substring(18)),
-                                      skin: parseInt(look[3].substring(18)),
-                                    }}
-                                    world={{
-                                      dimX: 1,
-                                      dimY: 1,
-                                      karol: {
-                                        x: 0,
-                                        y: 0,
-                                        dir: 'east',
-                                      },
-                                      blocks: [[false]],
-                                      marks: [[false]],
-                                      bricks: [[0]],
-                                      height: 1,
-                                    }}
-                                  />
-                                </span>
-                              </div>
-                            )
-                          } else {
-                            return null
+                      {openUsers.includes(userId) &&
+                        events.map((event, i) => {
+                          if (event.event.startsWith('select_appearance_')) {
+                            appearanceStack.push(event.event)
+                            if (appearanceStack.length == 4) {
+                              const look = appearanceStack
+                              appearanceStack = []
+                              return (
+                                <div key={i}>
+                                  <span className="w-24 text-gray-600 inline-block text-right pr-4 align-top">
+                                    {format(
+                                      new Date(event.createdAt).getTime() -
+                                        startTime.getTime()
+                                    )}
+                                  </span>
+                                  <span className="inline-block -mt-2">
+                                    <View
+                                      appearance={{
+                                        cap: parseInt(look[0].substring(18)),
+                                        shirt: parseInt(look[1].substring(18)),
+                                        legs: parseInt(look[2].substring(18)),
+                                        skin: parseInt(look[3].substring(18)),
+                                      }}
+                                      world={{
+                                        dimX: 1,
+                                        dimY: 1,
+                                        karol: {
+                                          x: 0,
+                                          y: 0,
+                                          dir: 'east',
+                                        },
+                                        blocks: [[false]],
+                                        marks: [[false]],
+                                        bricks: [[0]],
+                                        height: 1,
+                                      }}
+                                    />
+                                  </span>
+                                </div>
+                              )
+                            } else {
+                              return null
+                            }
                           }
-                        }
 
-                        return (
-                          <div key={i}>
-                            <span className="w-24 text-gray-600 inline-block text-right pr-4 align-top">
-                              {format(
-                                new Date(event.createdAt).getTime() -
-                                  startTime.getTime()
-                              )}
-                            </span>
-                            {prettiPrintEvent(event.event)}
-                          </div>
-                        )
-                      })}
+                          return (
+                            <div key={i}>
+                              <span className="w-24 text-gray-600 inline-block text-right pr-4 align-top">
+                                {format(
+                                  new Date(event.createdAt).getTime() -
+                                    startTime.getTime()
+                                )}
+                              </span>
+                              {prettiPrintEvent(event.event)}
+                            </div>
+                          )
+                        })}
                     </div>
                   )
                 })

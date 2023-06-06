@@ -264,7 +264,11 @@ export async function initClient(core: Core) {
               solution: currentSolution,
               isCode,
               isAttempt,
-              createdAt: entry.createdAt,
+              createdAt: isAttempt
+                ? entry.createdAt
+                : new Date(
+                    new Date(entry.createdAt).getTime() - 1000
+                  ).toISOString(),
             })
             //}
           }
