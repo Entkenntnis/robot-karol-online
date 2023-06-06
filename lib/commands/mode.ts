@@ -122,6 +122,7 @@ export function openImage(core: Core, img: string) {
   core.mutateWs(({ ui }) => {
     ui.imageLightbox = img
   })
+  submit_event('open_image_' + img, core)
   showModal(core, 'lightbox')
 }
 
