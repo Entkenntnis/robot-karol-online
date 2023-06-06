@@ -338,7 +338,11 @@ export function Overview() {
                         </span>
                         <span className="text-gray-600 ml-4 text-sm">
                           beigetreten am {startTime.toLocaleString()},{' '}
-                          {completedQuests.size} Aufgaben gelöst
+                          {completedQuests.size} Aufgaben gelöst in{' '}
+                          {format(
+                            new Date(events[0].createdAt).getTime() -
+                              startTime.getTime()
+                          )}
                         </span>
                         <span className="ml-4">
                           <button
