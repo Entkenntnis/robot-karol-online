@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Start",
-  "description": "Du denkst, du hast zwei linke Hände wenn es ums Programmieren geht? Keine Sorge: Wir haben alle klein angefangen. Hier lernst du Schritt für Schritt die Welt von Karol kennen.\n\nDer erste nützliche Befehl heißt `Hinlegen`. Damit kann Karol aus ihrem endlosen Rucksack Ziegel hervorzaubern und vor sich hinlegen. Die Befehle findest du im %img[Block-Menü|/quests/start_1.png]%. Verbinde sie, um ein %img[Programm|/quests/start_2.png]% zu schreiben.\n\nVor Karol siehst du einen %img[Platzhalter|quests/start_3.png]% für einen Ziegel. Bewege Karol dorthin und lege einen Ziegel, um die Aufgabe zu lösen.",
+  "description": "Du denkst, du hast zwei linke Hände wenn es ums Programmieren geht? Keine Sorge: Wir haben alle klein angefangen. Hier lernst du Schritt für Schritt die Welt von Karol kennen.\n\nDer ersten nützlichen Befehle heißen `Schritt` und `Hinlegen`. Damit kann Karol nach vorne gehen und aus ihrem endlosen Rucksack Ziegel hervorzaubern und vor sich hinlegen. Die Befehle findest du im %img[Block-Menü|/quests/start_1.png]%. Verbinde sie, um ein %img[Programm|/quests/start_2.png]% zu schreiben.\n\nVor Karol siehst du einen %img[Platzhalter|quests/start_3.png]% für einen Ziegel. Bewege Karol dorthin und lege einen Ziegel, um die Aufgabe zu lösen.",
   "tasks": [
     {
       "title": "Lege einen Ziegel",

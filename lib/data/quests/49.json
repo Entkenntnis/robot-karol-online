@@ -1,12 +1,12 @@
 {
   "version": "v1",
-  "title": "Zimmer aufräumen",
-  "description": "Karol darf nicht Computer spielen, solange sie ihr Zimmer nicht aufgeräumt hat. Hilf ihr.\n\nWenn Karol direkt auf einer Marke steht, kann sie die Marke mit `MarkeLöschen` entfernen.",
+  "title": "Spiegelei",
+  "description": "Was riecht hier so gut? Du hast ja was richtig leckeres gekocht.\n\nKarol hat auf jeden Fall Hunger und möchte sich ein Spiegelei machen. Dafür kann sie mit `MarkeSetzen` eine gelbe Marke unter sich setzen.\n\nGehe in die Mitte und setze eine Marke.",
   "tasks": [
     {
-      "title": "Lösche die Marke",
+      "title": "Spiegelei",
       "start": {
-        "dimX": 4,
+        "dimX": 3,
         "dimY": 3,
         "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "east" },
@@ -18,15 +18,11 @@
           "data": []
         },
         "marks": {
-          "dimX": 4,
-          "dimY": 3,
-          "offsetX": 0,
-          "offsetY": 0,
-          "data": [
-            [true, false, true, false],
-            [false, false, false, false],
-            [false, false, false, true]
-          ]
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
         },
         "blocks": {
           "offsetX": -1,
@@ -37,7 +33,7 @@
         }
       },
       "target": {
-        "dimX": 4,
+        "dimX": 3,
         "dimY": 3,
         "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "south" },
@@ -49,11 +45,11 @@
           "data": []
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[true]]
         },
         "blocks": {
           "offsetX": -1,

@@ -4,7 +4,6 @@ import { QuestData } from '../state/types'
 export const questData: { [key: number]: QuestData } = {
   1: {
     ...deserlizeQuestToData(require('./quests/1.json')),
-    audioSrc: '/audio/start.mp3',
   },
 
   2: {
@@ -185,5 +184,17 @@ export const questData: { [key: number]: QuestData } = {
 
   46: {
     ...deserlizeQuestToData(require('./quests/46.json')),
+  },
+
+  47: {
+    ...deserlizeQuestToData(require('./quests/47.json')),
+  },
+
+  48: {
+    ...deserlizeQuestToData(require('./quests/48.json')),
+  },
+
+  49: {
+    ...deserlizeQuestToData(require('./quests/49.json')),
   },
 }

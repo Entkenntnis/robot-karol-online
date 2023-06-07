@@ -1,15 +1,15 @@
 {
   "version": "v1",
-  "title": "Zimmer aufräumen",
-  "description": "Karol darf nicht Computer spielen, solange sie ihr Zimmer nicht aufgeräumt hat. Hilf ihr.\n\nWenn Karol direkt auf einer Marke steht, kann sie die Marke mit `MarkeLöschen` entfernen.",
+  "title": "Um die Ecke",
+  "description": "Wennn dir Schwierigkeiten in den Weg gelegt werden, findest du immer einen Weg darum herum - denn das Leben läuft nicht immer straight ...\n\nDamit Karol um die Ecken kommt, besitzt sie die Befehle `LinksDrehen` und `RechtsDrehen`. Laufe um die Ecke und lege einen Ziegel.",
   "tasks": [
     {
-      "title": "Lösche die Marke",
+      "title": "Lege einen Ziegel",
       "start": {
-        "dimX": 4,
+        "dimX": 3,
         "dimY": 3,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
           "offsetX": -1,
           "offsetY": -1,
@@ -18,15 +18,11 @@
           "data": []
         },
         "marks": {
-          "dimX": 4,
-          "dimY": 3,
-          "offsetX": 0,
-          "offsetY": 0,
-          "data": [
-            [true, false, true, false],
-            [false, false, false, false],
-            [false, false, false, true]
-          ]
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
         },
         "blocks": {
           "offsetX": -1,
@@ -37,16 +33,16 @@
         }
       },
       "target": {
-        "dimX": 4,
+        "dimX": 3,
         "dimY": 3,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "karol": { "x": 1, "y": 2, "dir": "east" },
         "bricks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [[1]]
         },
         "marks": {
           "offsetX": -1,
