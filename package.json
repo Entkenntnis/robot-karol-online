@@ -31,6 +31,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-reflex": "^4.0.9",
+    "react-simple-star-rating": "^5.1.7",
     "timeago-react": "^3.0.5"
   },
   "devDependencies": {
