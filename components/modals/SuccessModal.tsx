@@ -75,22 +75,28 @@ export function SuccessModal() {
           }}
         >
           <h1 className="mt-10 text-4xl mb-8">{positive}</h1>
-          <div className="mb-2">Wie gut hat dir die Aufgabe gefallen?</div>
-          <Rating
-            className="[&_svg]:inline"
-            readonly={hasFeedback}
-            onClick={(rate) => {
-              submit_event(`rate_quest_${core.ws.quest.id}_${rate}`, core)
-              setHasFeedback(true)
-            }}
-          />
-          <div className="h-16 mt-2">
-            {hasFeedback ? (
-              <small>Danke für dein Feedback &#10084;</small>
-            ) : (
-              <small>&nbsp;</small>
-            )}
-          </div>
+          {core.ws.quest.id > 0 ? (
+            <>
+              <div className="mb-2">Wie gut hat dir die Aufgabe gefallen?</div>
+              <Rating
+                className="[&_svg]:inline"
+                readonly={hasFeedback}
+                onClick={(rate) => {
+                  submit_event(`rate_quest_${core.ws.quest.id}_${rate}`, core)
+                  setHasFeedback(true)
+                }}
+              />
+              <div className="h-16 mt-2">
+                {hasFeedback ? (
+                  <small>Danke für dein Feedback &#10084;</small>
+                ) : (
+                  <small>&nbsp;</small>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="h-12"></div>
+          )}
           <button
             onClick={() => {
               finishQuest(core)
