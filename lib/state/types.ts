@@ -185,6 +185,9 @@ export interface Analyze {
       }[]
     }
   }
+  ratings: {
+    [key: string]: { count: number; average: number; values: number[] }
+  }
 }
 
 export interface CoreState {

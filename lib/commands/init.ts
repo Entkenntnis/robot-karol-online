@@ -32,7 +32,7 @@ export async function initClient(core: Core) {
 
   if (hash == '#ANALYZE' /* && window.location.hostname == 'localhost'*/) {
     try {
-      const cutoff = new Date(2023, 5, 8)
+      const cutoff = new Date(2023, 5, 11)
 
       const storedPW = sessionStorage.getItem('karol_stored_pw')
       const password = storedPW ?? prompt('Zugangspasswort:') ?? ''
@@ -188,6 +188,22 @@ export async function initClient(core: Core) {
               ws.analyze.appearance[id].count++
               continue
             }
+
+            const rating = /^rate_quest_([\d]+)_(.+)/.exec(entry.event)
+
+            if (rating) {
+              const id = parseInt(rating[1])
+              const value = parseInt(rating[2])
+
+              const entry = (ws.analyze.ratings[id] = ws.analyze.ratings[
+                id
+              ] ?? { average: 0, count: 0, values: [] })
+              const previousSum = entry.average * entry.count
+              entry.average =
+                (entry.average * entry.count + value) / (entry.count + 1)
+              entry.count++
+              entry.values.push(value)
+            }
           }
         }
       })
@@ -289,7 +305,6 @@ export async function initClient(core: Core) {
         entry.events.push(obj)
         return res
       }, {} as { [key: string]: { events: (typeof data)[number][] } })
-      console.log(userEvents)
       core.mutateWs((ws) => {
         ws.analyze.userEvents = userEvents
       })

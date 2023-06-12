@@ -32,6 +32,7 @@ import { HFullStyles } from '../helper/HFullStyles'
 import { appearanceRegistry } from '../../lib/data/appearance'
 import { getName, isSetName } from '../../lib/helper/events'
 import TimeAgo from 'timeago-react'
+import { Rating } from 'react-simple-star-rating'
 
 export function Overview() {
   const core = useCore()
@@ -563,8 +564,9 @@ export function Overview() {
           <div
             className={clsx(
               'p-3 bg-white rounded-md relative z-10',
-              'w-[200px] h-[210px] cursor-pointer',
-              !questDone && 'rainbow'
+              'w-[200px] cursor-pointer',
+              !questDone && 'rainbow',
+              core.ws.page == 'analyze' ? 'h-[230px]' : 'h-[210px]'
             )}
             tabIndex={0}
             onClick={() => {
@@ -596,6 +598,38 @@ export function Overview() {
                       <FaIcon icon={faPencil} />
                     </span>
                   )}
+                </div>
+              )}
+              {core.ws.page == 'analyze' && (
+                <div
+                  className="-mt-2 [&>span]:align-[2px]"
+                  title={`${
+                    core.ws.analyze.ratings[index]?.values.filter((x) => x == 1)
+                      .length ?? 0
+                  } / ${
+                    core.ws.analyze.ratings[index]?.values.filter((x) => x == 2)
+                      .length ?? 0
+                  } / ${
+                    core.ws.analyze.ratings[index]?.values.filter((x) => x == 3)
+                      .length ?? 0
+                  } / ${
+                    core.ws.analyze.ratings[index]?.values.filter((x) => x == 4)
+                      .length ?? 0
+                  } / ${
+                    core.ws.analyze.ratings[index]?.values.filter((x) => x == 5)
+                      .length ?? 0
+                  }`}
+                >
+                  <Rating
+                    SVGclassName="inline"
+                    readonly
+                    allowFraction
+                    initialValue={core.ws.analyze.ratings[index]?.average ?? 0}
+                    size={16}
+                  />{' '}
+                  <small className="text-gray-400 inline-block">
+                    {core.ws.analyze.ratings[index]?.count ?? 0} Bew.
+                  </small>
                 </div>
               )}
               {core.ws.page == 'analyze' &&
