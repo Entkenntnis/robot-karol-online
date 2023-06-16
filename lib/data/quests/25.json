@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Sprint",
-  "description": "Laufe zur Marke und lösche sie. Nutze den Sensor `NichtIstZiegel` mit der Kontrollstruktur `wiederhole solange`.",
+  "description": "Laufe zur Marke und lösche sie. Nutze den Sensor `NichtIstMarke` mit der Kontrollstruktur `wiederhole solange`.",
   "tasks": [
     {
       "title": "Kurz",
