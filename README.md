@@ -10,7 +10,7 @@ _Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung._
 
 Robot Karol stellt einen visuellen (blockbasierten) Editor zur Verfügung.
 
-![grafik](https://user-images.githubusercontent.com/13507950/217000864-0184a92d-21e5-480f-8edd-ed1e8ba29a2f.png)
+![grafik](https://github.com/Entkenntnis/robot-karol-online/assets/13507950/6b77eeac-a504-4314-b3a9-17327aeefc3f)
 
 Zur Unterstützung der Modellierung kann das Programm zusätzlich als Struktogramm angezeigt werden.
 
@@ -66,7 +66,8 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 ### Steuerung
 
-![grafik](https://user-images.githubusercontent.com/13507950/227767444-3d679849-a62e-483c-8492-3e397db7e2be.png)
+![grafik](https://github.com/Entkenntnis/robot-karol-online/assets/13507950/89b1dc60-b2d7-4999-b0f0-2db92b7b38a1)
+
 
 `wiederhole {n} mal {Anweisungen} endewiederhole` - Wiederholung mit fester Anzahl
 
