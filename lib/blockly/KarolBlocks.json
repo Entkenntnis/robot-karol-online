@@ -263,7 +263,7 @@
   },
   {
     "type": "if_then",
-    "message0": "wenn %1 dann %2",
+    "message0": "wenn %1 dann %3 %2",
     "args0": [
       {
         "type": "input_value",
@@ -272,6 +272,9 @@
       {
         "type": "input_statement",
         "name": "STATEMENTS"
+      },
+      {
+        "type": "input_dummy"
       }
     ],
     "inputsInline": true,
@@ -283,7 +286,7 @@
   },
   {
     "type": "if_then_else",
-    "message0": "wenn %1 dann %2 sonst %3",
+    "message0": "wenn %1 dann %4 %2 sonst %5 %3",
     "args0": [
       {
         "type": "input_value",
@@ -296,6 +299,12 @@
       {
         "type": "input_statement",
         "name": "STATEMENTS_2"
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_dummy"
       }
     ],
     "inputsInline": true,
