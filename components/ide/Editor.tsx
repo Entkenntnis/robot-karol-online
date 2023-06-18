@@ -32,11 +32,11 @@ export const Editor = ({ innerRef }: EditorProps) => {
             }),
             EditorView.updateListener.of((e) => {
               if (e.docChanged) {
-                if (!e.state.doc.sliceString(0).endsWith('\n')) {
+                /*if (!e.state.doc.sliceString(0).endsWith('\n')) {
                   view.dispatch({
                     changes: { from: e.state.doc.length, insert: '\n' },
                   })
-                }
+                }*/
               }
               //onUpdate(e.state.doc.sliceString(0))
               if (e.transactions.length > 0) {

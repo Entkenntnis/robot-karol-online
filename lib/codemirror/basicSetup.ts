@@ -41,7 +41,7 @@ import { linter, lintKeymap } from '@codemirror/lint'
 import { styleTags, tags as t } from '@lezer/highlight'
 
 import { parser } from './parser/parser.js'
-import { highlightSelectionMatches, searchKeymap } from '@codemirror/search'
+import { searchKeymap } from '@codemirror/search'
 
 const parserWithMetadata = parser.configure({
   props: [
