@@ -46,6 +46,7 @@ export function IdeMain() {
       const el = document.getElementById('progress-bar')
       if (el) {
         el.style.width = '0%'
+        el.style.backgroundColor = '#a21caf'
         setTimeout(
           () => {
             core.mutateWs((ws) => {
