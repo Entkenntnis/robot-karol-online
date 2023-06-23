@@ -104,16 +104,12 @@ const Theme = EditorView.theme({
     height: '100%',
   },
   '.cm-gutters': {
-    minHeight: '300px',
     minWidth: '30px',
     display: 'flex',
     justifyContent: 'end',
   },
-  '.cm-content': {
-    height: '100%',
-  },
   '.cm-scroller': {
-    overflowX: 'initial !important',
+    overflow: 'auto',
     fontFamily: 'Hack, monospace',
   },
   '.cm-completionLabel': {
