@@ -10,6 +10,7 @@ import {
   ViewUpdate,
   lineNumbers,
   highlightActiveLineGutter,
+  gutter,
 } from '@codemirror/view'
 import { EditorState, Compartment, Range } from '@codemirror/state'
 import {
@@ -194,6 +195,7 @@ const germanPhrases = {
 }
 
 export const basicSetup = (props: BasicSetupProps) => [
+  gutter({ class: 'w-8 my-gutter relative' }),
   lineNumbers(),
   highlightActiveLineGutter(),
   history(),
