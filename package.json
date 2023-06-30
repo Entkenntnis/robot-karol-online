@@ -9,7 +9,7 @@
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
     "grammar": "lezer-generator ./lib/codemirror/parser/karol.grammar -o ./lib/codemirror/parser/parser.js",
-    "export": "next build && next export"
+    "export": "next build"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.0.0",
