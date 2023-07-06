@@ -1,15 +1,15 @@
 {
   "version": "v1",
-  "title": "Platzhalter",
-  "description": "Beschreibe, um was es bei der Aufgabe geht ...",
+  "title": "Streifen",
+  "description": "Du gibst dich nicht mit halb-fertigen Dingen zufrieden. Wenn du etwas anfängst, dann ziehst du es auch durch!\n\nKarol hat zweimal angefangen, den Boden mit Marken auszulegen, aber jedes Mal einen Streifen ausgelassen.\n\nFülle die Streifen aus.",
   "tasks": [
     {
-      "title": "Neuer Auftrag",
+      "title": "Streifen 1",
       "start": {
-        "dimX": 6,
-        "dimY": 4,
+        "dimX": 5,
+        "dimY": 3,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "karol": { "x": 1, "y": 0, "dir": "south" },
         "bricks": {
           "offsetX": -1,
           "offsetY": -1,
@@ -18,11 +18,15 @@
           "data": []
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 5,
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [true, false, true, true, true],
+            [true, false, true, true, true],
+            [true, false, true, true, true]
+          ]
         },
         "blocks": {
           "offsetX": -1,
@@ -33,10 +37,10 @@
         }
       },
       "target": {
-        "dimX": 6,
-        "dimY": 4,
+        "dimX": 5,
+        "dimY": 3,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "karol": { "x": 1, "y": 2, "dir": "south" },
         "bricks": {
           "offsetX": -1,
           "offsetY": -1,
@@ -45,11 +49,80 @@
           "data": []
         },
         "marks": {
+          "dimX": 5,
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [true, true, true, true, true],
+            [true, true, true, true, true],
+            [true, true, true, true, true]
+          ]
+        },
+        "blocks": {
           "offsetX": -1,
           "offsetY": -1,
           "dimX": 0,
           "dimY": 0,
           "data": []
+        }
+      }
+    },
+    {
+      "title": "Streifen 2",
+      "start": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 3, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [true, true, true, false, true],
+            [true, true, true, false, true],
+            [true, true, true, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 1, "y": 2, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [true, true, true, true, true],
+            [true, true, true, true, true],
+            [true, true, true, true, true]
+          ]
         },
         "blocks": {
           "offsetX": -1,
