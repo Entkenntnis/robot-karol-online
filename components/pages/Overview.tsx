@@ -426,7 +426,7 @@ export function Overview() {
           )}
 
           <div className="text-center mb-12">
-            Version: Juni 2023 |{' '}
+            Version: Juli 2023 |{' '}
             <a
               className="hover:underline cursor-pointer"
               href={
@@ -628,7 +628,9 @@ export function Overview() {
                     size={16}
                   />{' '}
                   <small className="text-gray-400 inline-block">
-                    {core.ws.analyze.ratings[index]?.count ?? 0} Bew.
+                    {Math.round(core.ws.analyze.ratings[index]?.average * 10) /
+                      10}{' '}
+                    / {core.ws.analyze.ratings[index]?.count ?? 0} Bew.
                   </small>
                 </div>
               )}
