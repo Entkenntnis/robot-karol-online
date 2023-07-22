@@ -425,6 +425,24 @@ export function Overview() {
             </div>
           )}
 
+          <div className="my-5 mx-auto">
+            <a
+              href="https://einhorn.arrrg.de/"
+              target="_blank"
+              className="rounded-xl border-2 border-pink-400 bg-pink-200 p-4 cursor-pointer block"
+            >
+              <p>Probiere mein neues Projekt aus:</p>
+              <p className="flex flex-row items-center justify-between">
+                <img
+                  src="https://einhorn.arrrg.de/einhorn.png"
+                  alt="Einhorn"
+                  className="h-24 mt-4"
+                />
+                <strong>&lt;- Klick mich!</strong>
+              </p>
+            </a>
+          </div>
+
           <div className="text-center mb-12">
             Version: Juli 2023 |{' '}
             <a
