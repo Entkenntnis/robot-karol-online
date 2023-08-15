@@ -9,6 +9,7 @@ interface ViewProps {
   hideKarol?: boolean
   className?: string
   appearance: Appearance
+  hideWorld?: boolean
 }
 
 interface Resources {
@@ -33,6 +34,7 @@ export function View({
   preview,
   className,
   appearance,
+  hideWorld,
 }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
@@ -124,46 +126,48 @@ export function View({
 
       ctx.strokeStyle = 'blue'
 
-      for (let i = 0; i <= world.dimX; i++) {
-        const start = to2d(i, 0, 0)
-        const end = to2d(i, world.dimY, 0)
-        ctx.beginPath()
-        ctx.moveTo(start.x + 0.5, start.y + 0.5)
-        ctx.lineTo(end.x + 0.5, end.y + 0.5)
-        ctx.stroke()
-      }
+      if (!hideWorld) {
+        for (let i = 0; i <= world.dimX; i++) {
+          const start = to2d(i, 0, 0)
+          const end = to2d(i, world.dimY, 0)
+          ctx.beginPath()
+          ctx.moveTo(start.x + 0.5, start.y + 0.5)
+          ctx.lineTo(end.x + 0.5, end.y + 0.5)
+          ctx.stroke()
+        }
 
-      for (let i = 0; i <= world.dimY; i++) {
-        const start = to2d(0, i, 0)
-        const end = to2d(world.dimX, i, 0)
-        ctx.beginPath()
-        ctx.moveTo(start.x + 0.5, start.y + 0.5)
-        ctx.lineTo(end.x + 0.5, end.y + 0.5)
-        ctx.stroke()
-      }
+        for (let i = 0; i <= world.dimY; i++) {
+          const start = to2d(0, i, 0)
+          const end = to2d(world.dimX, i, 0)
+          ctx.beginPath()
+          ctx.moveTo(start.x + 0.5, start.y + 0.5)
+          ctx.lineTo(end.x + 0.5, end.y + 0.5)
+          ctx.stroke()
+        }
 
-      for (let i = 0; i <= world.dimX; i++) {
-        const start = to2d(i, 0, 0)
-        const end = to2d(i, 0, world.height)
-        renderDashed(ctx, start, end)
-      }
+        for (let i = 0; i <= world.dimX; i++) {
+          const start = to2d(i, 0, 0)
+          const end = to2d(i, 0, world.height)
+          renderDashed(ctx, start, end)
+        }
 
-      for (let i = 1; i <= world.dimY; i++) {
-        const start = to2d(0, i, 0)
-        const end = to2d(0, i, world.height)
-        renderDashed(ctx, start, end)
-      }
+        for (let i = 1; i <= world.dimY; i++) {
+          const start = to2d(0, i, 0)
+          const end = to2d(0, i, world.height)
+          renderDashed(ctx, start, end)
+        }
 
-      renderDashed(
-        ctx,
-        to2d(0, world.dimY, world.height),
-        to2d(0, 0, world.height)
-      )
-      renderDashed(
-        ctx,
-        to2d(world.dimX, 0, world.height),
-        to2d(0, 0, world.height)
-      )
+        renderDashed(
+          ctx,
+          to2d(0, world.dimY, world.height),
+          to2d(0, 0, world.height)
+        )
+        renderDashed(
+          ctx,
+          to2d(world.dimX, 0, world.height),
+          to2d(0, 0, world.height)
+        )
+      }
 
       for (let x = 0; x < world.dimX; x++) {
         for (let y = 0; y < world.dimY; y++) {
@@ -282,6 +286,8 @@ export function View({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resources, world, wireframe, preview, hideKarol])
+
+  console.log('render canvas', className)
 
   return (
     <canvas

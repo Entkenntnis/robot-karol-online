@@ -3,7 +3,6 @@ import {
   faExternalLink,
   faPencil,
   faPenToSquare,
-  faShirt,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect, useState } from 'react'
@@ -33,6 +32,8 @@ import { appearanceRegistry } from '../../lib/data/appearance'
 import { getName, isSetName } from '../../lib/helper/events'
 import TimeAgo from 'timeago-react'
 import { Rating } from 'react-simple-star-rating'
+import { QuestIcon } from '../helper/QuestIcon'
+import { mapData } from '../../lib/data/map'
 
 export function Overview() {
   const core = useCore()
@@ -55,21 +56,24 @@ export function Overview() {
           <div className="flex justify-center">
             <div
               className={clsx(
-                'flex mt-12 items-center rounded-xl',
-                'p-2 px-6 bg-white/10'
+                'flex mt-8 items-center rounded-xl',
+                'p-2 px-6 bg-white/30'
               )}
             >
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
           </div>
-          <div className="fixed xl:absolute right-6 xl:right-3 top-3">
-            {name && (
-              <span className="text-center mr-4">
-                {name}&nbsp;&nbsp;&nbsp;|
-              </span>
-            )}
+          <div className="mx-auto mt-6">
             <button
-              className="mr-4 font-bold"
+              className="mr-7 hover:underline"
+              onClick={() => {
+                alert('to do')
+              }}
+            >
+              Profil
+            </button>
+            <button
+              className="mr-7 hover:underline"
               onClick={() => {
                 core.mutateWs((ws) => {
                   ws.page = 'highscore'
@@ -79,21 +83,12 @@ export function Overview() {
               Highscore
             </button>
             <button
-              className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-2"
-              onClick={() => {
-                showModal(core, 'appearance')
-              }}
-            >
-              <FaIcon icon={faShirt} className="mr-1" />
-              Anpassen
-            </button>
-            <button
+              className="hover:underline"
               onClick={() => {
                 switchToPage(core, 'editor')
               }}
-              className="px-2 py-0.5 bg-blue-300 hover:bg-blue-400 rounded transition-colors"
             >
-              <FaIcon icon={faPenToSquare} className="mr-1" />
+              <FaIcon icon={faPenToSquare} className="mr-1 text-sm" />
               Aufgaben-Editor
             </button>
           </div>
@@ -181,12 +176,45 @@ export function Overview() {
               <p>{core.ws.analyze.solvedCount.join(', ')}</p>*/}
             </div>
           )}
-          <div className="w-[1240px] h-[2840px] mx-auto relative">
+          {/*<div className="w-[1240px] h-[2840px] mx-auto relative ">
             {questList.map(renderQuest)}
+            </div>*/}
+          <div className="w-[1240px] h-[1500px] mx-auto relative mt-6">
+            <img
+              src="klecks1.png"
+              className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
+              alt="Farbklecks 1"
+            />
+            <img
+              src="klecks2.png"
+              className="w-[170px] top-[500px] left-[900px] absolute user-select-none"
+              alt="Farbklecks 2"
+            />
+            <img
+              src="klecks3.png"
+              className="w-[150px] top-[1200px] left-[100px] absolute user-select-none"
+              alt="Farbklecks 3"
+            />
+            {Object.entries(mapData).map((entry) => (
+              <QuestIcon
+                x={entry[1].x}
+                y={entry[1].y}
+                title={questData[parseInt(entry[0])].title}
+                solved={false}
+                onClick={() => {
+                  setOverviewScroll(
+                    core,
+                    document.getElementById('scroll-container')?.scrollTop ?? -1
+                  )
+                  startQuest(core, parseInt(entry[0]))
+                }}
+                key={entry[0]}
+              />
+            ))}
           </div>
           <div className="flex-auto"></div>
           {core.ws.page != 'analyze' && (
-            <div className="text-sm text-right mr-4 mt-36 mb-4">
+            <div className="text-sm text-right mr-4 mt-36 mb-4 hidden">
               <label>
                 <input
                   type="checkbox"
@@ -462,7 +490,7 @@ export function Overview() {
           </div>
 
           <div className="text-center mb-12">
-            Version: Juli 2023 |{' '}
+            Version: September 2023 |{' '}
             <a
               className="hover:underline cursor-pointer"
               href={
@@ -491,6 +519,15 @@ export function Overview() {
               }}
             >
               Datenschutz
+            </button>{' '}
+            |{' '}
+            <button
+              className="hover:underline"
+              onClick={() => {
+                alert('to do')
+              }}
+            >
+              Liste aller Aufgaben
             </button>{' '}
             |{' '}
             {renderExternalLink(
@@ -528,13 +565,7 @@ export function Overview() {
       </div>
       <style jsx>{`
         .main-bg {
-          background-color: #4158d0;
-          background-image: linear-gradient(
-            43deg,
-            #4158d0 0%,
-            #c850c0 46%,
-            #ffcc70 100%
-          );
+          background-image: url('/canvas_background.jpg');
         }
       `}</style>
       {(core.ws.page == 'overview' || core.ws.page == 'demo') && (

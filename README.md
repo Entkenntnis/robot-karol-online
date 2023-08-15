@@ -68,7 +68,6 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 ![grafik](https://github.com/Entkenntnis/robot-karol-online/assets/13507950/89b1dc60-b2d7-4999-b0f0-2db92b7b38a1)
 
-
 `wiederhole {n} mal {Anweisungen} endewiederhole` - Wiederholung mit fester Anzahl
 
 `wiederhole solange {Bedingung} {Anweisungen} endewiederhole` - Wiederholung mit Bedingung
@@ -115,6 +114,12 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 ## Trivia
 
 Karol verwendet sie/ihr-Pronomen.
+
+## Bildquellen
+
+Hintergrundbild: [Bild von rawpixel.com](https://de.freepik.com/fotos-kostenlos/einfacher-strukturierter-hintergrund-des-glatten-gewebes_17593140.htm#query=leinen%20textur&position=0&from_view=keyword&track=ais) auf Freepik
+
+Farbkleckse: [Bild von starline](https://de.freepik.com/vektoren-kostenlos/isolierter-aquarell-spritzerfleck-bunter-satz-von-acht_9728054.htm#query=klecks&position=4&from_view=keyword&track=sph) auf Freepik
 
 ## Entwicklung
 
