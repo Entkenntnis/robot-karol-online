@@ -2,7 +2,7 @@ import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { CoreState } from '../state/types'
 import { addNewTask } from './editor'
-import { hideOverviewList } from './mode'
+import { hideOverviewList, hideProfile } from './mode'
 
 type Pages = CoreState['workspace']['page']
 
@@ -27,6 +27,7 @@ export function switchToPage(core: Core, target: Pages) {
   }
 
   if (target == 'overview') {
+    hideProfile(core)
     const hash = window.location.hash.toUpperCase()
     if (hash == '#DEMO') {
       switchToPage(core, 'demo')

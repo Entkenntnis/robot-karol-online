@@ -3,6 +3,7 @@ import {
   faExternalLink,
   faPencil,
   faPenToSquare,
+  faShirt,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect, useState } from 'react'
@@ -10,9 +11,11 @@ import { Fragment, useEffect, useState } from 'react'
 import {
   forceRerender,
   hideOverviewList,
+  hideProfile,
   hideSaveHint,
   setPersist,
   showOverviewList,
+  showProfile,
 } from '../../lib/commands/mode'
 import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
 import { questDeps } from '../../lib/data/dependencies'
@@ -69,7 +72,12 @@ export function Overview() {
             <button
               className="mr-7 hover:underline"
               onClick={() => {
-                alert('to do')
+                hideOverviewList(core)
+                if (core.ws.overview.showProfile) {
+                  hideProfile(core)
+                } else {
+                  showProfile(core)
+                }
               }}
             >
               Profil
@@ -77,6 +85,7 @@ export function Overview() {
             <button
               className="mr-7 hover:underline"
               onClick={() => {
+                setOverviewScroll(core, 0)
                 switchToPage(core, 'highscore')
               }}
             >
@@ -85,6 +94,7 @@ export function Overview() {
             <button
               className="hover:underline"
               onClick={() => {
+                setOverviewScroll(core, 0)
                 switchToPage(core, 'editor')
               }}
             >
@@ -176,6 +186,81 @@ export function Overview() {
               <p>{core.ws.analyze.solvedCount.join(', ')}</p>*/}
             </div>
           )}
+          {core.ws.overview.showProfile && (
+            <div className="mx-auto w-[600px] mt-12 p-3 bg-white/50 rounded relative">
+              <h2 className="text-lg font-bold">Profil</h2>
+              <div className="absolute right-2 top-3">
+                <button
+                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+                  onClick={() => {
+                    hideProfile(core)
+                  }}
+                >
+                  Schließen
+                </button>
+              </div>
+              <div className="my-4">
+                Benutzername:{' '}
+                {name ? (
+                  <strong>{name}</strong>
+                ) : (
+                  <span className="italic text-gray-600">
+                    noch kein Name gesetzt
+                  </span>
+                )}
+              </div>
+              <div className="my-4">
+                Gelöste Aufgaben:{' '}
+                <strong>
+                  {
+                    Object.keys(mapData).filter((id) =>
+                      isQuestDone(parseInt(id))
+                    ).length
+                  }
+                </strong>{' '}
+                von {Object.keys(mapData).length}
+              </div>
+              <div className="my-4">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={isPersisted()}
+                    onChange={(e) => {
+                      setPersist(core, e.target.checked)
+                      hideSaveHint(core)
+                      forceRerender(core)
+                    }}
+                  />{' '}
+                  Fortschritt dauerhaft auf diesem Gerät speichern
+                </label>
+              </div>
+              <div className="my-8">
+                <button
+                  className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-2"
+                  onClick={() => {
+                    showModal(core, 'appearance')
+                  }}
+                >
+                  <FaIcon icon={faShirt} className="mr-1" />
+                  Aussehen von Karol anpassen
+                </button>
+              </div>
+              <div className="mt-8 text-right">
+                <button
+                  className="hover:underline text-red-500"
+                  onClick={() => {
+                    const res = confirm('Fortschritt jetzt zurücksetzen?')
+                    if (res) {
+                      resetStorage()
+                      forceRerender(core)
+                    }
+                  }}
+                >
+                  Fortschritt zurücksetzen
+                </button>
+              </div>
+            </div>
+          )}
           {core.ws.overview.showOverviewList && (
             <>
               <div className="mx-auto mt-6 mb-3">
@@ -193,108 +278,80 @@ export function Overview() {
               </div>
             </>
           )}
-          {!core.ws.overview.showOverviewList && (
-            <div className="w-[1240px] h-[1500px] mx-auto relative mt-6">
-              <img
-                src="klecks1.png"
-                className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
-                alt="Farbklecks 1"
-              />
-              <img
-                src="klecks2.png"
-                className="w-[170px] top-[500px] left-[900px] absolute user-select-none"
-                alt="Farbklecks 2"
-              />
-              <img
-                src="klecks3.png"
-                className="w-[150px] top-[1200px] left-[100px] absolute user-select-none"
-                alt="Farbklecks 3"
-              />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1240 1500"
-                className="relative"
-              >
-                {Object.entries(mapData).map(([id, data]) => {
-                  if (isQuestVisible(parseInt(id))) {
-                    return (
-                      <Fragment key={id}>
-                        {data.deps.map((dep) => {
-                          if (isQuestVisible(dep)) {
-                            return (
-                              <line
-                                key={`connect-${id}-${dep}`}
-                                x1={data.x + 26}
-                                y1={data.y + 76}
-                                x2={mapData[dep].x + 26}
-                                y2={mapData[dep].y + 76}
-                                strokeWidth="10"
-                                stroke="rgba(148, 163, 184, 0.8)"
-                              />
-                            )
-                          } else {
-                            return null
-                          }
-                        })}
-                      </Fragment>
-                    )
-                  }
-                  return null
-                })}
-              </svg>
-              {Object.entries(mapData).map((entry) => {
-                if (!isQuestVisible(parseInt(entry[0]))) return null
-                return (
-                  <QuestIcon
-                    x={entry[1].x}
-                    y={entry[1].y}
-                    title={questData[parseInt(entry[0])].title}
-                    solved={isQuestDone(parseInt(entry[0]))}
-                    onClick={() => {
-                      setOverviewScroll(
-                        core,
-                        document.getElementById('scroll-container')
-                          ?.scrollTop ?? -1
+          {!core.ws.overview.showOverviewList &&
+            !core.ws.overview.showProfile && (
+              <div className="w-[1240px] h-[1450px] mx-auto relative mt-6">
+                <img
+                  src="klecks1.png"
+                  className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
+                  alt="Farbklecks 1"
+                />
+                <img
+                  src="klecks2.png"
+                  className="w-[170px] top-[500px] left-[900px] absolute user-select-none"
+                  alt="Farbklecks 2"
+                />
+                <img
+                  src="klecks3.png"
+                  className="w-[150px] top-[1100px] left-[300px] absolute user-select-none"
+                  alt="Farbklecks 3"
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 1240 1450"
+                  className="relative"
+                >
+                  {Object.entries(mapData).map(([id, data]) => {
+                    if (isQuestVisible(parseInt(id))) {
+                      return (
+                        <Fragment key={id}>
+                          {data.deps.map((dep) => {
+                            if (isQuestVisible(dep)) {
+                              return (
+                                <line
+                                  key={`connect-${id}-${dep}`}
+                                  x1={data.x + 26}
+                                  y1={data.y + 76}
+                                  x2={mapData[dep].x + 26}
+                                  y2={mapData[dep].y + 76}
+                                  strokeWidth="10"
+                                  stroke="rgba(148, 163, 184, 0.8)"
+                                />
+                              )
+                            } else {
+                              return null
+                            }
+                          })}
+                        </Fragment>
                       )
-                      startQuest(core, parseInt(entry[0]))
-                    }}
-                    key={entry[0]}
-                    dir={entry[1].dir}
-                  />
-                )
-              })}
-            </div>
-          )}
+                    }
+                    return null
+                  })}
+                </svg>
+                {Object.entries(mapData).map((entry) => {
+                  if (!isQuestVisible(parseInt(entry[0]))) return null
+                  return (
+                    <QuestIcon
+                      x={entry[1].x}
+                      y={entry[1].y}
+                      title={questData[parseInt(entry[0])].title}
+                      solved={isQuestDone(parseInt(entry[0]))}
+                      onClick={() => {
+                        setOverviewScroll(
+                          core,
+                          document.getElementById('scroll-container')
+                            ?.scrollTop ?? -1
+                        )
+                        startQuest(core, parseInt(entry[0]))
+                      }}
+                      key={entry[0]}
+                      dir={entry[1].dir}
+                    />
+                  )
+                })}
+              </div>
+            )}
           <div className="flex-auto"></div>
-          {core.ws.page != 'analyze' && (
-            <div className="text-sm text-right mr-4 mt-36 mb-4 hidden">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={isPersisted()}
-                  onChange={(e) => {
-                    setPersist(core, e.target.checked)
-                    hideSaveHint(core)
-                    forceRerender(core)
-                  }}
-                />{' '}
-                Fortschritt dauerhaft speichern
-              </label>{' '}
-              |{' '}
-              <button
-                className="hover:underline"
-                onClick={() => {
-                  const res = confirm('Fortschritt jetzt zurücksetzen?')
-                  if (res) {
-                    resetStorage()
-                    forceRerender(core)
-                  }
-                }}
-              >
-                zurücksetzen
-              </button>
-            </div>
-          )}
 
           {core.ws.page == 'analyze' && (
             <div className="bg-gray-50 p-4">
@@ -578,6 +635,7 @@ export function Overview() {
               className="hover:underline"
               onClick={() => {
                 showOverviewList(core)
+                hideProfile(core)
                 document.getElementById('scroll-container')!.scrollTop = 0
               }}
             >

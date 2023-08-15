@@ -10,11 +10,7 @@ import {
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
-import {
-  closeHighlightDescription,
-  editCodeAndResetProgress,
-  setMode,
-} from '../../lib/commands/mode'
+import { closeHighlightDescription, setMode } from '../../lib/commands/mode'
 import {
   closeOutput,
   restartProgram,
@@ -35,6 +31,8 @@ import { useEffect, useState } from 'react'
 export function IdeMain() {
   const core = useCore()
 
+  const [toH, setToH] = useState<NodeJS.Timeout | null>(null)
+
   useEffect(() => {
     const skipWait = core.ws.quest.description.length < 100
 
@@ -47,13 +45,15 @@ export function IdeMain() {
       if (el) {
         el.style.width = '0%'
         el.style.backgroundColor = '#a21caf'
-        setTimeout(
-          () => {
-            core.mutateWs((ws) => {
-              ws.ui.showOk = true
-            })
-          },
-          skipWait ? 0 : 5000
+        setToH(
+          setTimeout(
+            () => {
+              core.mutateWs((ws) => {
+                ws.ui.showOk = true
+              })
+            },
+            skipWait ? 0 : 5000
+          )
         )
       } else {
         setTimeout(test, 10)
@@ -81,9 +81,10 @@ export function IdeMain() {
             <div
               className="fixed inset-0 bg-black/30 z-[200]"
               onClick={() => {
-                if (core.ws.ui.showOk) {
-                  closeHighlightDescription(core)
+                if (!core.ws.ui.showOk && toH !== null) {
+                  clearTimeout(toH)
                 }
+                closeHighlightDescription(core)
               }}
             ></div>
           )}

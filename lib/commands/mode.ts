@@ -143,3 +143,15 @@ export function hideOverviewList(core: Core) {
     overview.showOverviewList = false
   })
 }
+
+export function showProfile(core: Core) {
+  core.mutateWs(({ overview }) => {
+    overview.showProfile = true
+  })
+}
+
+export function hideProfile(core: Core) {
+  core.mutateWs(({ overview }) => {
+    overview.showProfile = false
+  })
+}

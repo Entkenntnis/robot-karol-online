@@ -92,6 +92,7 @@ export interface Overview {
   overviewScroll: number
   showSaveHint: boolean
   showOverviewList: boolean
+  showProfile: boolean
 }
 
 export interface WorkspaceState {
