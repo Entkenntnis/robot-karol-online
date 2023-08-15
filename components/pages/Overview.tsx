@@ -821,15 +821,7 @@ export function Overview() {
                     return <span>{entry.complete} Spieler*innen</span>
                   }
                   if (entry) {
-                    return (
-                      <span>
-                        {entry.reachable} / {entry.complete} /{' '}
-                        <strong>
-                          {Math.round((entry.complete / entry.reachable) * 100)}
-                          %
-                        </strong>
-                      </span>
-                    )
+                    return <span>{entry.complete}</span>
                   }
                   return null
                 })()}
