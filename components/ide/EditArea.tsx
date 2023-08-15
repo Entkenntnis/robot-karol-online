@@ -16,7 +16,14 @@ import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { Editor } from './Editor'
 import { textRefreshDone } from '../../lib/commands/json'
-import { BlockEditor } from './BlockEditor'
+import dynamic from 'next/dynamic'
+
+const BlockEditor = dynamic(
+  () => import('./BlockEditor').then((mod) => mod.BlockEditor),
+  {
+    ssr: false,
+  }
+)
 
 export function EditArea() {
   const core = useCore()
