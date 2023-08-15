@@ -312,6 +312,9 @@ export function Overview() {
 
                   const completedQuests = new Set()
 
+                  const ratedQuests = new Set()
+                  const ratings: number[] = []
+
                   events.forEach((entry) => {
                     const questComplete = /^quest_complete_(.+)/.exec(
                       entry.event
@@ -320,7 +323,21 @@ export function Overview() {
                       const id = parseInt(questComplete[1])
                       if (questList.includes(id)) completedQuests.add(id)
                     }
+
+                    const rating = /^rate_quest_([\d]+)_(.+)/.exec(entry.event)
+
+                    if (rating) {
+                      const id = parseInt(rating[1])
+                      const value = parseInt(rating[2])
+
+                      if (!ratedQuests.has(id)) {
+                        ratedQuests.add(id)
+                        ratings.push(value)
+                      }
+                    }
                   })
+
+                  ratings.reverse()
 
                   return (
                     <div
@@ -345,6 +362,7 @@ export function Overview() {
                               startTime.getTime()
                           )}
                         </span>
+                        <span>{JSON.stringify(ratings)}</span>
                         <span className="ml-4">
                           <button
                             onClick={() => {
