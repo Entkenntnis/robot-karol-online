@@ -1,5 +1,3 @@
-import Head from 'next/head'
-
 import { useCore } from '../lib/state/core'
 import { Quest } from './pages/Quest'
 import { Overview } from './pages/Overview'
@@ -26,15 +24,6 @@ export function App() {
 
   return (
     <>
-      <Head>
-        <title>
-          {core.ws.page == 'editor' ? 'Editor ' : 'Robot Karol Online'}
-        </title>
-        <meta
-          name="description"
-          content="Der zeitlose Klassiker für den spielerischen Einstieg in die Programmierung."
-        />
-      </Head>
       {renderPage()}
       {renderModal()}
     </>

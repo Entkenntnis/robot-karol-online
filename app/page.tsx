@@ -1,3 +1,5 @@
+'use client'
+
 import { App } from '../components/App'
 import { CoreProvider, useCreateCore } from '../lib/state/core'
 

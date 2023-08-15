@@ -287,8 +287,6 @@ export function View({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resources, world, wireframe, preview, hideKarol])
 
-  console.log('render canvas', className)
-
   return (
     <canvas
       ref={canvas}
