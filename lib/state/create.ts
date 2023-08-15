@@ -94,6 +94,7 @@ export function createWorkspaceState(): WorkspaceState {
     overview: {
       overviewScroll: 0,
       showSaveHint: true,
+      showOverviewList: false,
     },
   }
   return ws

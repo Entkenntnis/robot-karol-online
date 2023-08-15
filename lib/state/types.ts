@@ -91,6 +91,7 @@ export interface Quest {
 export interface Overview {
   overviewScroll: number
   showSaveHint: boolean
+  showOverviewList: boolean
 }
 
 export interface WorkspaceState {

@@ -131,3 +131,15 @@ export function closeHighlightDescription(core: Core) {
     ui.isHighlightDescription = false
   })
 }
+
+export function showOverviewList(core: Core) {
+  core.mutateWs(({ overview }) => {
+    overview.showOverviewList = true
+  })
+}
+
+export function hideOverviewList(core: Core) {
+  core.mutateWs(({ overview }) => {
+    overview.showOverviewList = false
+  })
+}

@@ -2,6 +2,7 @@ import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { CoreState } from '../state/types'
 import { addNewTask } from './editor'
+import { hideOverviewList } from './mode'
 
 type Pages = CoreState['workspace']['page']
 

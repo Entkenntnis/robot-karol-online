@@ -9,8 +9,10 @@ import { Fragment, useEffect, useState } from 'react'
 
 import {
   forceRerender,
+  hideOverviewList,
   hideSaveHint,
   setPersist,
+  showOverviewList,
 } from '../../lib/commands/mode'
 import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
 import { questDeps } from '../../lib/data/dependencies'
@@ -75,9 +77,7 @@ export function Overview() {
             <button
               className="mr-7 hover:underline"
               onClick={() => {
-                core.mutateWs((ws) => {
-                  ws.page = 'highscore'
-                })
+                switchToPage(core, 'highscore')
               }}
             >
               Highscore
@@ -176,42 +176,95 @@ export function Overview() {
               <p>{core.ws.analyze.solvedCount.join(', ')}</p>*/}
             </div>
           )}
-          {/*<div className="w-[1240px] h-[2840px] mx-auto relative ">
-            {questList.map(renderQuest)}
-            </div>*/}
-          <div className="w-[1240px] h-[1500px] mx-auto relative mt-6">
-            <img
-              src="klecks1.png"
-              className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
-              alt="Farbklecks 1"
-            />
-            <img
-              src="klecks2.png"
-              className="w-[170px] top-[500px] left-[900px] absolute user-select-none"
-              alt="Farbklecks 2"
-            />
-            <img
-              src="klecks3.png"
-              className="w-[150px] top-[1200px] left-[100px] absolute user-select-none"
-              alt="Farbklecks 3"
-            />
-            {Object.entries(mapData).map((entry) => (
-              <QuestIcon
-                x={entry[1].x}
-                y={entry[1].y}
-                title={questData[parseInt(entry[0])].title}
-                solved={false}
-                onClick={() => {
-                  setOverviewScroll(
-                    core,
-                    document.getElementById('scroll-container')?.scrollTop ?? -1
-                  )
-                  startQuest(core, parseInt(entry[0]))
-                }}
-                key={entry[0]}
+          {core.ws.overview.showOverviewList && (
+            <>
+              <div className="mx-auto mt-6 mb-3">
+                <button
+                  className="px-1 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
+                  onClick={() => {
+                    hideOverviewList(core)
+                  }}
+                >
+                  Liste aller Aufgaben schließen
+                </button>
+              </div>
+              <div className="w-[1240px] h-[2700px] mx-auto relative bg-white/50">
+                {questList.map(renderQuest)}
+              </div>
+            </>
+          )}
+          {!core.ws.overview.showOverviewList && (
+            <div className="w-[1240px] h-[1500px] mx-auto relative mt-6">
+              <img
+                src="klecks1.png"
+                className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
+                alt="Farbklecks 1"
               />
-            ))}
-          </div>
+              <img
+                src="klecks2.png"
+                className="w-[170px] top-[500px] left-[900px] absolute user-select-none"
+                alt="Farbklecks 2"
+              />
+              <img
+                src="klecks3.png"
+                className="w-[150px] top-[1200px] left-[100px] absolute user-select-none"
+                alt="Farbklecks 3"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1240 1500"
+                className="relative"
+              >
+                {Object.entries(mapData).map(([id, data]) => {
+                  if (isQuestVisible(parseInt(id))) {
+                    return (
+                      <Fragment key={id}>
+                        {data.deps.map((dep) => {
+                          if (isQuestVisible(dep)) {
+                            return (
+                              <line
+                                key={`connect-${id}-${dep}`}
+                                x1={data.x + 26}
+                                y1={data.y + 76}
+                                x2={mapData[dep].x + 26}
+                                y2={mapData[dep].y + 76}
+                                strokeWidth="10"
+                                stroke="rgba(148, 163, 184, 0.8)"
+                              />
+                            )
+                          } else {
+                            return null
+                          }
+                        })}
+                      </Fragment>
+                    )
+                  }
+                  return null
+                })}
+              </svg>
+              {Object.entries(mapData).map((entry) => {
+                if (!isQuestVisible(parseInt(entry[0]))) return null
+                return (
+                  <QuestIcon
+                    x={entry[1].x}
+                    y={entry[1].y}
+                    title={questData[parseInt(entry[0])].title}
+                    solved={isQuestDone(parseInt(entry[0]))}
+                    onClick={() => {
+                      setOverviewScroll(
+                        core,
+                        document.getElementById('scroll-container')
+                          ?.scrollTop ?? -1
+                      )
+                      startQuest(core, parseInt(entry[0]))
+                    }}
+                    key={entry[0]}
+                    dir={entry[1].dir}
+                  />
+                )
+              })}
+            </div>
+          )}
           <div className="flex-auto"></div>
           {core.ws.page != 'analyze' && (
             <div className="text-sm text-right mr-4 mt-36 mb-4 hidden">
@@ -524,7 +577,8 @@ export function Overview() {
             <button
               className="hover:underline"
               onClick={() => {
-                alert('to do')
+                showOverviewList(core)
+                document.getElementById('scroll-container')!.scrollTop = 0
               }}
             >
               Liste aller Aufgaben
@@ -589,16 +643,17 @@ export function Overview() {
     return (
       core.ws.page == 'demo' ||
       core.ws.page == 'analyze' ||
+      core.ws.overview.showOverviewList ||
       position == 0 ||
       isQuestDone(id) ||
-      questDeps[id]?.some(isQuestDone)
+      mapData[id]?.deps.some(isQuestDone)
     )
   }
 
   function renderQuest(index: number, i: number) {
     const row = Math.floor(i / 4) // zig zag
     const col = (i % 4) + [0.5, 0, 0.5, 1][row % 4]
-    const top = `${row * 210 + (row + 1) * 50}px`
+    const top = `${row * 190 + (row + 1) * 50}px`
     const left = `${(col + 1) * 35 + col * 200}px`
 
     if (!isQuestVisible(index)) {
