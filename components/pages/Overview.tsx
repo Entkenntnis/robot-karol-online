@@ -378,30 +378,42 @@ export function Overview() {
                     events.sort((a, b) =>
                       a.createdAt.localeCompare(b.createdAt)
                     )
-                    return [entry[0], { events }] as const
+                    return [
+                      entry[0],
+                      {
+                        events,
+                        goodEvents: events.filter(
+                          (ev) => ev.event != 'delete_user'
+                        ),
+                      },
+                    ] as const
                   })
 
                 entriesSorted.sort(
                   (a, b) =>
-                    b[1].events
+                    b[1].goodEvents
                       .at(-1)
                       ?.createdAt.localeCompare(
-                        a[1].events.at(-1)?.createdAt ?? ''
+                        a[1].goodEvents.at(-1)?.createdAt ?? ''
                       ) ?? 0
                 )
 
                 return entriesSorted.map(([userId, obj]) => {
-                  const { events } = obj
+                  const { events, goodEvents } = obj
 
                   const nameEvent = events.find((el) => isSetName(el.event))!
 
                   const name = getName(nameEvent.event)
 
-                  const startTime = new Date(events[0].createdAt)
+                  const isDeleted = events.find(
+                    (el) => el.event == 'delete_user'
+                  )
 
-                  const lastActive = new Date(events.at(-1)!.createdAt)
+                  const startTime = new Date(goodEvents[0].createdAt)
 
-                  events.reverse()
+                  const lastActive = new Date(goodEvents.at(-1)!.createdAt)
+
+                  goodEvents.reverse()
 
                   function prettiPrintEvent(event: string) {
                     if (isSetName(event)) {
@@ -484,7 +496,11 @@ export function Overview() {
                       className="my-4 bg-white rounded p-3 pl-5"
                     >
                       <p className="mb-2">
-                        <span className="font-bold mb-2 text-xl">{name}</span>
+                        {isDeleted ? (
+                          <span className="mb-2 italic">gelöscht</span>
+                        ) : (
+                          <span className="font-bold mb-2 text-xl">{name}</span>
+                        )}
                         <span className="ml-5 text-sm">
                           zuletzt aktiv{' '}
                           <TimeAgo
@@ -497,7 +513,7 @@ export function Overview() {
                           beigetreten am {startTime.toLocaleString()},{' '}
                           {completedQuests.size} Aufgaben gelöst in{' '}
                           {format(
-                            new Date(events[0].createdAt).getTime() -
+                            new Date(goodEvents[0].createdAt).getTime() -
                               startTime.getTime()
                           )}
                         </span>
