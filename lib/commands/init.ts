@@ -1,6 +1,5 @@
 import { isAfter } from 'date-fns'
 import { backend } from '../../backend'
-import { questDeps } from '../data/dependencies'
 import { questList } from '../data/overview'
 import { questData } from '../data/quests'
 import { submit_event } from '../helper/submit'
@@ -9,6 +8,7 @@ import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
 import { getAppearance } from '../storage/storage'
 import { isSetName } from '../helper/events'
+import { mapData } from '../data/map'
 
 export async function initClient(core: Core) {
   const parameterList = new URLSearchParams(window.location.search)
@@ -215,7 +215,7 @@ export async function initClient(core: Core) {
         }
       })
 
-      const deps = questDeps
+      const deps = mapData
 
       // pass 2: collect relevant information for quests
       core.mutateWs((ws) => {
@@ -240,7 +240,7 @@ export async function initClient(core: Core) {
               continue
             }
             if (data.quests[index]) ws.analyze.quests[index].complete++
-            if (deps[index].some((i) => data.quests[i] !== undefined)) {
+            if (deps[index].deps.some((i) => data.quests[i] !== undefined)) {
               ws.analyze.quests[index].reachable++
             }
           }

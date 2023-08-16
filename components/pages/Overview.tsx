@@ -346,6 +346,7 @@ export function Overview() {
                       }}
                       key={entry[0]}
                       dir={entry[1].dir}
+                      id={parseInt(entry[0])}
                     />
                   )
                 })}
