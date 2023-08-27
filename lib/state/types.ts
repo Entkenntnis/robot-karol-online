@@ -93,6 +93,7 @@ export interface Overview {
   showSaveHint: boolean
   showOverviewList: boolean
   showProfile: boolean
+  showTutorial: boolean
 }
 
 export interface WorkspaceState {
@@ -164,7 +165,7 @@ export interface Analyze {
   showDemo: number
   showStructogram: number
   usePersist: number
-  useAudio: number
+  showTutorial: number
   customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
   appearance: { [key: string]: { count: number } }

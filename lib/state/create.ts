@@ -81,7 +81,7 @@ export function createWorkspaceState(): WorkspaceState {
       showDemo: 0,
       showStructogram: 0,
       usePersist: 0,
-      useAudio: 0,
+      showTutorial: 0,
       customQuests: {},
       quests: {},
       legacy: {},
@@ -96,6 +96,7 @@ export function createWorkspaceState(): WorkspaceState {
       showSaveHint: true,
       showOverviewList: false,
       showProfile: false,
+      showTutorial: false,
     },
   }
   return ws

@@ -134,6 +134,8 @@ export function closeHighlightDescription(core: Core) {
 
 export function showOverviewList(core: Core) {
   core.mutateWs(({ overview }) => {
+    overview.showProfile = false
+    overview.showTutorial = false
     overview.showOverviewList = true
   })
 }
@@ -146,6 +148,8 @@ export function hideOverviewList(core: Core) {
 
 export function showProfile(core: Core) {
   core.mutateWs(({ overview }) => {
+    overview.showOverviewList = false
+    overview.showTutorial = false
     overview.showProfile = true
   })
 }
@@ -153,5 +157,19 @@ export function showProfile(core: Core) {
 export function hideProfile(core: Core) {
   core.mutateWs(({ overview }) => {
     overview.showProfile = false
+  })
+}
+
+export function showTutorial(core: Core) {
+  core.mutateWs(({ overview }) => {
+    overview.showOverviewList = false
+    overview.showProfile = false
+    overview.showTutorial = true
+  })
+}
+
+export function hideTutorial(core: Core) {
+  core.mutateWs(({ overview }) => {
+    overview.showTutorial = false
   })
 }

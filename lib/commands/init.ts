@@ -113,8 +113,8 @@ export async function initClient(core: Core) {
               ws.analyze.usePersist++
               continue
             }
-            if (entry.event == 'use_audio') {
-              ws.analyze.useAudio++
+            if (entry.event == 'show_tutorial') {
+              ws.analyze.showTutorial++
               continue
             }
             const publish = /publish_custom_quest_(.+)/.exec(entry.event)

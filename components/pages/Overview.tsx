@@ -13,9 +13,11 @@ import {
   hideOverviewList,
   hideProfile,
   hideSaveHint,
+  hideTutorial,
   setPersist,
   showOverviewList,
   showProfile,
+  showTutorial,
 } from '../../lib/commands/mode'
 import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
 import { questDeps } from '../../lib/data/dependencies'
@@ -39,6 +41,7 @@ import TimeAgo from 'timeago-react'
 import { Rating } from 'react-simple-star-rating'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
+import { submit_event } from '../../lib/helper/submit'
 
 export function Overview() {
   const core = useCore()
@@ -65,12 +68,23 @@ export function Overview() {
                 'p-2 px-6 bg-white/30'
               )}
             >
-              <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
+              <h1
+                className="text-2xl whitespace-nowrap cursor-pointer"
+                onClick={() => {
+                  hideProfile(core)
+                  hideTutorial(core)
+                }}
+              >
+                Robot Karol Online
+              </h1>
             </div>
           </div>
           <div className="mx-auto mt-6">
             <button
-              className="mr-7 hover:underline"
+              className={clsx(
+                'mr-7 hover:underline',
+                core.ws.overview.showProfile && 'font-bold'
+              )}
               onClick={() => {
                 hideOverviewList(core)
                 if (core.ws.overview.showProfile) {
@@ -90,6 +104,22 @@ export function Overview() {
               }}
             >
               Highscore
+            </button>
+            <button
+              className={clsx(
+                'mr-7 hover:underline',
+                core.ws.overview.showTutorial && 'font-bold'
+              )}
+              onClick={() => {
+                if (core.ws.overview.showTutorial) {
+                  hideTutorial(core)
+                } else {
+                  showTutorial(core)
+                  submit_event('show_tutorial', core)
+                }
+              }}
+            >
+              Anleitung
             </button>
             <button
               className="hover:underline"
@@ -128,7 +158,7 @@ export function Overview() {
                 {core.ws.analyze.showDemo} mal Demo,{' '}
                 {core.ws.analyze.showStructogram} mal Struktogramm,{' '}
                 {core.ws.analyze.usePersist} mal Fortschritt gespeichert,{' '}
-                {core.ws.analyze.useAudio} mal Audio verwendet
+                {core.ws.analyze.showTutorial} mal Tutorial angezeigt
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
@@ -261,6 +291,61 @@ export function Overview() {
               </div>
             </div>
           )}
+          {core.ws.overview.showTutorial && (
+            <div className="mx-auto w-full max-w-[800px] mt-12 p-3 bg-white/50 rounded relative">
+              <h2 className="text-lg font-bold">Anleitung</h2>
+              <div className="absolute right-2 top-3">
+                <button
+                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+                  onClick={() => {
+                    hideTutorial(core)
+                  }}
+                >
+                  Schließen
+                </button>
+              </div>
+              <div className="mt-10">
+                Ziehe Befehle aus dem Block-Menü auf die Arbeitsfläche. Verbinde
+                sie, um ein Programm zu schreiben.
+              </div>
+              <img
+                src="/tutorial/first_steps.gif"
+                alt="Blöcke zusammenziehen"
+                className="mx-auto my-12"
+              />
+              <div className="mt-24">
+                Wenn du eine Aufgabe öffnest, erscheint eine Vorschau. Diese
+                zeigt dir, ob du Ziegel und Marken legen bzw. entfernen sollst.
+              </div>
+              <img
+                src="/tutorial/vorschau_ziel.png"
+                alt="So verändert sich die Welt"
+                className="mx-auto my-12"
+              />
+              <div className="">
+                Nutze die Befehle <strong>Schritt</strong>,{' '}
+                <strong>LinksDrehen</strong> und <strong>RechtsDrehen</strong>,
+                um dich zu bewegen.
+                <br />
+                <br />
+                Lege Ziegel <em>vor</em> Karol und hebe sie auf mit{' '}
+                <strong>Hinlegen</strong> und <strong>Aufheben</strong>.
+                <br />
+                <br />
+                Setze und lösche Marken <em>unter</em> Karol mit{' '}
+                <strong>MarkeSetzen</strong> und <strong>MarkeLöschen</strong>.
+              </div>
+              <div className="mt-24">
+                Mit Parametern und Wiederholungen kannst du dein Programm
+                kompakter schreiben.
+              </div>
+              <img
+                src="/tutorial/kompakter.png"
+                alt="Schritt(3) und wiederhole"
+                className="mx-auto my-12"
+              />
+            </div>
+          )}
           {core.ws.overview.showOverviewList && (
             <>
               <div className="mx-auto mt-6 mb-3">
@@ -279,6 +364,7 @@ export function Overview() {
             </>
           )}
           {!core.ws.overview.showOverviewList &&
+            !core.ws.overview.showTutorial &&
             !core.ws.overview.showProfile && (
               <div className="w-[1240px] h-[1450px] mx-auto relative mt-6">
                 <img
