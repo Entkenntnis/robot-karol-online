@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Start",
-  "description": "Herzlich Willkommen! Mein Name ist Quinn. Ich kümmere mich darum, dass du hier einen guten Start findest in die Welt des Programmierens.\n\nDie kleine Figur mit der Cap heißt Karol. Sie lebt in ihrer Welt und du bestimmst ganz genau, welche Bewegungen sie ausführt. Die Arme, eingesperrt und ohne Freiheit, immer nur Befehle ausführen ... sorry, ich schweife ab. Natürlich haben Roboter keine Gefühle.\n\nDie Befehle findest du im %img[Block-Menü|/quests/start_1.png]%. Für den Start sind `Schritt` und `Hinlegen` nützlich. Verbinde sie, um ein %img[Programm|/quests/start_2.png]% zu schreiben. Karol hat einen unendlichen Rucksack, aus dem sie Ziegel legen kann. \n\nVor Karol siehst du einen %img[Platzhalter|quests/start_3.png]% für einen Ziegel. Bewege Karol dorthin und lege einen Ziegel, um die Aufgabe zu lösen. Viel Spaß und Erfolg!",
+  "description": "[[tutorial]]",
   "tasks": [
     {
       "title": "Lege einen Ziegel",

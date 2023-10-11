@@ -18,6 +18,7 @@ import { Analyze } from './pages/Analyze'
 import { Demo } from './pages/Demo'
 import { SuccessModal } from './modals/SuccessModal'
 import { AppearanceModal } from './modals/AppearanceModal'
+import { TutorialModal } from './modals/TutorialModal'
 
 export function App() {
   const core = useCore()
@@ -74,6 +75,8 @@ export function App() {
       return <SuccessModal />
     } else if (core.ws.modal == 'appearance') {
       return <AppearanceModal />
+    } else if (core.ws.modal == 'tutorial') {
+      return <TutorialModal />
     } else {
       return null
     }

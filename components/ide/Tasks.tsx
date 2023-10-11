@@ -2,7 +2,6 @@ import {
   faArrowDown,
   faArrowLeft,
   faArrowUp,
-  faAudioDescription,
   faCheck,
   faClone,
   faPencil,
@@ -25,11 +24,7 @@ import {
   setTaskTitle,
 } from '../../lib/commands/editor'
 import { closeModal, showModal } from '../../lib/commands/modal'
-import {
-  closeHighlightDescription,
-  forceRerender,
-  setShowStructogram,
-} from '../../lib/commands/mode'
+import { setShowStructogram } from '../../lib/commands/mode'
 import { switchToPage } from '../../lib/commands/page'
 import {
   openTask,
@@ -137,7 +132,22 @@ export function Tasks() {
                       </span>
                     )}
                   </h1>
-                  <div>{processMiniMarkdown(core.ws.quest.description)}</div>
+                  <div>
+                    {core.ws.quest.description == '[[tutorial]]' ? (
+                      <div className="mt-10 mb-6">
+                        <button
+                          className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"
+                          onClick={() => {
+                            showModal(core, 'tutorial')
+                          }}
+                        >
+                          Tutorial anzeigen
+                        </button>
+                      </div>
+                    ) : (
+                      processMiniMarkdown(core.ws.quest.description)
+                    )}
+                  </div>
                   {!skipWait && core.ws.ui.isHighlightDescription && (
                     <div className="absolute left-0 right-0 top-0 h-1 w-full flex justify-end">
                       <div

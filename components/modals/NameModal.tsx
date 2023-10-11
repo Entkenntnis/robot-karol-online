@@ -1,6 +1,6 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
-import { closeModal } from '../../lib/commands/modal'
+import { closeModal, showModal } from '../../lib/commands/modal'
 import { setUserName } from '../../lib/commands/mode'
 import { switchToPage } from '../../lib/commands/page'
 import { useCore } from '../../lib/state/core'
@@ -39,7 +39,7 @@ export function NameModal() {
               }}
               onKeyDown={(e) => {
                 if (e.code == 'Enter' && name.trim()) {
-                  setUserName(core, name.trim())
+                  submit()
                 }
               }}
               className="mt-4 text-3xl border-blue-500 border-2 rounded text-center"
@@ -66,9 +66,7 @@ export function NameModal() {
         <p className="text-center mb-5 px-4 mt-8">
           <button
             className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded disabled:bg-gray-200 disabled:text-gray-700"
-            onClick={() => {
-              setUserName(core, name.trim())
-            }}
+            onClick={submit}
             disabled={!name.trim()}
           >
             Loslegen!
@@ -77,4 +75,9 @@ export function NameModal() {
       </div>
     </div>
   )
+
+  function submit() {
+    setUserName(core, name.trim())
+    closeModal(core)
+  }
 }
