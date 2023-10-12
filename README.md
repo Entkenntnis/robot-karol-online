@@ -80,7 +80,7 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 ### Bedingungen
 
-![grafik](https://user-images.githubusercontent.com/13507950/208776560-15d88203-900c-45e7-b788-abcf8da8b27c.png)
+![grafik](https://github.com/Entkenntnis/robot-karol-online/assets/13507950/8b4d565d-cae6-44a4-b112-bd6dedcfaa42)
 
 `IstWand` / `NichtIstWand` - Karol testet, ob vor ihr eine Wand (oder ein Quader) ist oder nicht.
 
@@ -90,7 +90,7 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 `IstZiegel(anzahl)` / `NichtIstZiegel(anzahl)` - Karol testet, ob vor ihr genau `anzahl` Ziegel liegen oder nicht.
 
-`IstNorden` / `NichtIstNorden` - Karol testet, ob sie nach Norden schaut oder nicht. (Norden = oben)
+`IstNorden` / `NichtIstNorden` / `IstOsten` / `NichtIstOsten` / `IstSüden` / `NichtIstSüden` / `IstWeste` / `NichtIstWesten` - Karol testet, ob sie in diese Richtung schaut oder nicht. (Norden = oben)
 
 ## Textmodus
 
