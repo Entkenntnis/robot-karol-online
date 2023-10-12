@@ -111,8 +111,14 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   ],
   ['is_marker', (block: Block) => ['IstMarke', 0]],
   ["isn't_marker", (block: Block) => ['NichtIstMarke', 0]],
-  ['is_north', (block: Block) => ['IstNorden', 0]],
-  ["isn't_north", (block: Block) => ['NichtIstNorden', 0]],
+  [
+    'is_direction',
+    (block: Block) => [`Ist${block.getFieldValue('DIRECTION')}`, 0],
+  ],
+  [
+    "isn't_direction",
+    (block: Block) => [`NichtIst${block.getFieldValue('DIRECTION')}`, 0],
+  ],
   ['line_comment', (block: Block) => '// ' + block.getFieldValue('TEXT')],
 ]
 

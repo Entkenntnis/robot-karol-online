@@ -88,11 +88,11 @@ export const KAROL_TOOLBOX = {
     },
     {
       kind: 'block',
-      type: 'is_north',
+      type: 'is_direction',
     },
     {
       kind: 'block',
-      type: "isn't_north",
+      type: "isn't_direction",
     },
     /*{
       kind: 'category',

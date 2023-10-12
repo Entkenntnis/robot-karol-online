@@ -491,20 +491,44 @@
     "helpUrl": ""
   },
   {
-    "type": "is_north",
-    "message0": "IstNorden",
+    "type": "is_direction",
+    "message0": "Ist %1",
     "output": null,
     "colour": 210,
-    "tooltip": "Karol testet, ob sie nach Norden schaut",
-    "helpUrl": ""
+    "tooltip": "Karol testet, ob sie in diese Richtung schaut",
+    "helpUrl": "",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          ["Norden", "Norden"],
+          ["Osten", "Osten"],
+          ["Süden", "Süden"],
+          ["Westen", "Westen"]
+        ]
+      }
+    ]
   },
   {
-    "type": "isn't_north",
-    "message0": "NichtIstNorden",
+    "type": "isn't_direction",
+    "message0": "NichtIst %1",
     "output": null,
     "colour": 210,
-    "tooltip": "Wenn IstNoden nicht zutrifft",
-    "helpUrl": ""
+    "tooltip": "Wenn Karol nicht in diese Richtung schaut",
+    "helpUrl": "",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          ["Norden", "Norden"],
+          ["Osten", "Osten"],
+          ["Süden", "Süden"],
+          ["Westen", "Westen"]
+        ]
+      }
+    ]
   },
   {
     "type": "is_west",

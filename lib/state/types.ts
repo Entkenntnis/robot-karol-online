@@ -216,7 +216,15 @@ export interface ActionOp {
 }
 
 export interface Condition {
-  type: 'brick' | 'mark' | 'wall' | 'north' | 'brick_count'
+  type:
+    | 'brick'
+    | 'mark'
+    | 'wall'
+    | 'north'
+    | 'east'
+    | 'south'
+    | 'west'
+    | 'brick_count'
   count?: number
   negated: boolean
 }

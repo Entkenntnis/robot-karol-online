@@ -32,7 +32,7 @@ export function keywords(input: string) {
   if (/^((ende|\*)(Anweisung))$/i.test(input)) return CmdEnd
   if (/^(karol)$/i.test(input)) return KarolPrefix
   if (
-    /^(istwand|nichtistwand|istmarke|nichtistmarke|istnorden|nichtistnorden)$/i.test(
+    /^(istwand|nichtistwand|istmarke|nichtistmarke|istnorden|nichtistnorden|istsüden|nichtistsüden|istosten|nichtistosten|istwesten|nichtistwesten)$/i.test(
       input
     )
   )

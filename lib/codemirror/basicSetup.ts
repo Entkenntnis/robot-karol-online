@@ -256,8 +256,14 @@ const conditions = [
   { label: 'NichtIstZiegel' },
   { label: 'IstMarke' },
   { label: 'NichtIstMarke' },
-  { label: 'IstNorden' },
-  { label: 'NichtIstNorden' },
+  { label: 'IstNorden', boost: -2 },
+  { label: 'NichtIstNorden', boost: -2 },
+  { label: 'IstOsten', boost: -2 },
+  { label: 'NichtIstOsten', boost: -2 },
+  { label: 'IstSüden', boost: -2 },
+  { label: 'NichtIstSüden', boost: -2 },
+  { label: 'IstWesten', boost: -2 },
+  { label: 'NichtIstWesten', boost: -2 },
 ]
 
 const span = /[a-zA-Z_0-9äöüÄÜÖß]*$/
