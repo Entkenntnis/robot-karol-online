@@ -170,6 +170,18 @@ export function compile(tree: Tree, doc: Text) {
           cond = { type: 'north', negated: true }
         } else if (code.toLowerCase() == 'istnorden') {
           cond = { type: 'north', negated: false }
+        } else if (code.toLowerCase() == 'nichtistosten') {
+          cond = { type: 'east', negated: true }
+        } else if (code.toLowerCase() == 'istosten') {
+          cond = { type: 'east', negated: false }
+        } else if (code.toLowerCase() == 'nichtistsüden') {
+          cond = { type: 'south', negated: true }
+        } else if (code.toLowerCase() == 'istsüden') {
+          cond = { type: 'south', negated: false }
+        } else if (code.toLowerCase() == 'nichtistwesten') {
+          cond = { type: 'west', negated: true }
+        } else if (code.toLowerCase() == 'istwesten') {
+          cond = { type: 'west', negated: false }
         } else if (preparedCode == 'istziegel' && repeat !== null) {
           cond = {
             type: 'brick_count',

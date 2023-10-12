@@ -272,8 +272,22 @@ function buildCondition(typeRaw: string) {
   if (type == 'nichtistziegel') return `<block type="isn't_brick"></block>`
   if (type == 'istmarke') return `<block type="is_marker"></block>`
   if (type == 'nichtistmarke') return `<block type="isn't_marker"></block>`
-  if (type == 'istnorden') return `<block type="is_north"></block>`
-  if (type == 'nichtistnorden') return `<block type="isn't_north"></block>`
+  if (type == 'istnorden')
+    return `<block type="is_direction"><field name="DIRECTION">Norden</field></block>`
+  if (type == 'nichtistnorden')
+    return `<block type="isn't_direction"><field name="DIRECTION">Norden</field></block>`
+  if (type == 'istosten')
+    return `<block type="is_direction"><field name="DIRECTION">Osten</field></block>`
+  if (type == 'nichtistosten')
+    return `<block type="isn't_direction"><field name="DIRECTION">Osten</field></block>`
+  if (type == 'istsüden')
+    return `<block type="is_direction"><field name="DIRECTION">Süden</field></block>`
+  if (type == 'nichtistsüden')
+    return `<block type="isn't_direction"><field name="DIRECTION">Süden</field></block>`
+  if (type == 'istwesten')
+    return `<block type="is_direction"><field name="DIRECTION">Westen</field></block>`
+  if (type == 'nichtistwesten')
+    return `<block type="isn't_direction"><field name="DIRECTION">Westen</field></block>`
   if (type.startsWith('istziegel(')) {
     const count = type.replace('istziegel(', '').replace(')', '')
     return `<block type="is_brick_count"><field name="COUNT">${count}</field></block>`
