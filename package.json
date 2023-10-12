@@ -1,7 +1,6 @@
 {
   "name": "robot-karol-online",
   "version": "0.0.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -25,7 +24,7 @@
     "blockly": "^9.0.0",
     "canvas": "^2.11.2",
     "canvas-confetti": "^1.6.0",
-    "clsx": "^1.1.1",
+    "clsx": "^2.0.0",
     "date-fns": "^2.29.3",
     "immer": "^10.0.0",
     "next": "^13.4.16",
