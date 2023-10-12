@@ -90,7 +90,7 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 `IstZiegel(anzahl)` / `NichtIstZiegel(anzahl)` - Karol testet, ob vor ihr genau `anzahl` Ziegel liegen oder nicht.
 
-`IstNorden` / `NichtIstNorden` / `IstOsten` / `NichtIstOsten` / `IstSüden` / `NichtIstSüden` / `IstWeste` / `NichtIstWesten` - Karol testet, ob sie in diese Richtung schaut oder nicht. (Norden = oben)
+`IstNorden` / `NichtIstNorden` / `IstOsten` / `NichtIstOsten` / `IstSüden` / `NichtIstSüden` / `IstWesten` / `NichtIstWesten` - Karol testet, ob sie in diese Richtung schaut oder nicht. (Norden = oben)
 
 ## Textmodus
 
