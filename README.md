@@ -92,11 +92,19 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 `IstNorden` / `NichtIstNorden` / `IstOsten` / `NichtIstOsten` / `IstSüden` / `NichtIstSüden` / `IstWesten` / `NichtIstWesten` - Karol testet, ob sie in diese Richtung schaut oder nicht. (Norden = oben)
 
+### Eigene Anweisungen
+
+![grafik](https://github.com/Entkenntnis/robot-karol-online/assets/13507950/8147ef95-7eda-40a1-b769-db9f94dfeda4)
+
+`<name>` - Führe eigene Anweisung aus
+
+`Anweisung <name> {...} endeAnweisung` - Definiere eine eigene Anweisung
+
 ## Textmodus
 
 Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen unterstützt, außerdem gibt es noch folgende Möglichkeiten:
 
-- Eigene Anweisungen können mit `Anweisung {Name} endeAnweisung` definiert werden und überall mit `Name` aufgerufen werden. Außerdem kann aus einer Anweisung mit `return` zurückgesprungen werden.
+- Aus einer Anweisung kann mit `return` zurückgesprungen werden.
 - Die meisten Befehle erlauben eine objektorientiere Schreibweise der Form `karol.Schritt(4)` oder ohne Parameter in der Form `karol.LinksDrehen()`.
 - Die alte Syntax mit `*wiederhole`, `*wenn` und `*Anweisung` wird weiterhin unterstützt.
 - Außerdem können weiterhin Kommentare mit `{ Kommentar }` geschrieben werden. Alternative Syntax für mehrzeilige Kommentare ist `/* Kommentar */`, Alternative für einzeiligen Kommentar ist `# Kommentar`.
