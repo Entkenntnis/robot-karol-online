@@ -75,7 +75,7 @@ export function QuestIcon({
             if (entry) {
               return (
                 <span>
-                  {entry.reachable} / {entry.complete} /{' '}
+                  {entry.complete} /{' '}
                   <strong>
                     {Math.round((entry.complete / entry.reachable) * 100)}%
                   </strong>

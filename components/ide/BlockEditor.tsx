@@ -113,6 +113,8 @@ export function BlockEditor() {
     const myUpdateFunction = () => {
       if (blocklyWorkspace.isDragging()) return
 
+      //console.log(Blockly.Xml.workspaceToDom(blocklyWorkspace))
+
       const newCode = (Blockly as any).karol.workspaceToCode(
         // strange monkey patch
         blocklyWorkspace
@@ -139,13 +141,17 @@ export function BlockEditor() {
       code.current = newCode
 
       core.mutateWs((ws) => {
-        ws.code = newCode.replace(/\/\/blockId:.*$/gm, '')
+        ws.code = newCode
+          .replace(/\/\/blockId:.*$/gm, '')
+          .replace(/\n\n\n/g, '\n\n')
+          .replace(/^\n/, '')
+          .replace(/\n$/, '')
       })
 
       const topBlocks = blocklyWorkspace
         .getTopBlocks(false)
         .filter((bl) => !(bl as any).isInsertionMarker_) // hm, bypassing protection
-        .filter((bl) => bl.type !== 'anweisung')
+        .filter((bl) => bl.type !== 'define_command')
 
       if (topBlocks.length > 1) {
         if (core.ws.ui.state == 'running') {
@@ -153,7 +159,9 @@ export function BlockEditor() {
         }
         core.mutateWs((ws) => {
           ws.ui.state = 'error'
-          ws.ui.errorMessages = [`Alle Blöcke müssen zusammenhängen.`]
+          ws.ui.errorMessages = [
+            `Alle Blöcke des Hauptprogramms müssen zusammenhängen.`,
+          ]
         })
       } else {
         if (core.ws.ui.state == 'running') {

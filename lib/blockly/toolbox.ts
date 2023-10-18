@@ -94,6 +94,14 @@ export const KAROL_TOOLBOX = {
       kind: 'block',
       type: "isn't_direction",
     },
+    {
+      kind: 'block',
+      type: 'custom_command',
+    },
+    {
+      kind: 'block',
+      type: 'define_command',
+    },
     /*{
       kind: 'category',
       name: 'Anweisungen',
