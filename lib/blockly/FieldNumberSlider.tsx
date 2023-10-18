@@ -108,9 +108,15 @@ export class FieldSlider extends Blockly.FieldNumber {
     // focus on the text field, and we don't want to display the modal
     // editor on mobile devices.
 
-    // FIX: quiet input if device has touch support
-    // on desktop, focus on inline editor
-    super.showEditor_(e, quietInput || isTouchDevice())
+    // FIX: quiet input only if triggered by touch
+    // If it's a pointerup by a mouse, focus
+    const isMouse = e && (e as any).pointerType === 'mouse'
+
+    if (isMouse) {
+      super.showEditor_(e, false)
+    } else {
+      super.showEditor_(e, true)
+    }
 
     // Build the DOM.
     const editor = this.dropdownCreate_()
