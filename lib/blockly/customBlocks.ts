@@ -120,6 +120,21 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
     (block: Block) => [`NichtIst${block.getFieldValue('DIRECTION')}`, 0],
   ],
   ['line_comment', (block: Block) => '// ' + block.getFieldValue('TEXT')],
+  [
+    'custom_command',
+    (block: Block) => block.getFieldValue('COMMAND') + '//blockId:' + block.id,
+  ],
+  [
+    'define_command',
+    (block: Block) =>
+      'Anweisung ' +
+      block.getFieldValue('COMMAND') +
+      '//blockId:' +
+      block.id +
+      '\n' +
+      karolGenerator.statementToCode(block, 'STATEMENTS') +
+      '\nendeAnweisung',
+  ],
 ]
 
 export function initCustomBlocks() {

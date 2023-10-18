@@ -145,7 +145,9 @@ export function BlockEditor() {
       const topBlocks = blocklyWorkspace
         .getTopBlocks(false)
         .filter((bl) => !(bl as any).isInsertionMarker_) // hm, bypassing protection
-        .filter((bl) => bl.type !== 'anweisung')
+        .filter((bl) => bl.type !== 'define_command')
+
+      console.log(topBlocks)
 
       if (topBlocks.length > 1) {
         if (core.ws.ui.state == 'running') {
@@ -153,7 +155,9 @@ export function BlockEditor() {
         }
         core.mutateWs((ws) => {
           ws.ui.state = 'error'
-          ws.ui.errorMessages = [`Alle Blöcke müssen zusammenhängen.`]
+          ws.ui.errorMessages = [
+            `Alle Blöcke des Hauptprogramms müssen zusammenhängen.`,
+          ]
         })
       } else {
         if (core.ws.ui.state == 'running') {

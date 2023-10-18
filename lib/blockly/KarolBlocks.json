@@ -616,5 +616,43 @@
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
+  },
+  {
+    "type": "custom_command",
+    "message0": "%1",
+    "colour": 354,
+    "tooltip": "Führe eine eigene Anweisung aus",
+    "helpUrl": "",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "COMMAND",
+        "text": "TueEtwas"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "define_command",
+    "message0": "Anweisung %1 %2 %3",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "COMMAND",
+        "text": "TueEtwas"
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "inputsInline": true,
+    "colour": 354,
+    "tooltip": "Definiere eine eigene Anweisung",
+    "helpUrl": ""
   }
 ]
