@@ -27,9 +27,9 @@ export function lint(core: Core, view: EditorView) {
       if (
         cursor.type.name == 'Comment' ||
         cursor.type.name == 'BlockComment' ||
-        cursor.type.name == 'Cmd' ||
-        cursor.type.name == 'Return' ||
-        cursor.type.name == 'CustomRef'
+        /*cursor.type.name == 'Cmd' ||*/
+        cursor.type.name == 'Return' /*||
+        cursor.type.name == 'CustomRef'*/
       ) {
         toWarn = true
       }

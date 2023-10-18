@@ -127,13 +127,13 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   [
     'define_command',
     (block: Block) =>
-      'Anweisung ' +
+      '\nAnweisung ' +
       block.getFieldValue('COMMAND') +
       '//blockId:' +
       block.id +
       '\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nendeAnweisung',
+      '\nendeAnweisung\n',
   ],
 ]
 

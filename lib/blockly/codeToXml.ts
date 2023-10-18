@@ -13,6 +13,8 @@ function parseTree(
 ): string {
   let callbackStack: ((val: string) => string)[] = []
 
+  let cmds: string[] = []
+
   do {
     //console.log(cursor.type.name)
 
@@ -30,8 +32,24 @@ function parseTree(
     if (t == 'Program') {
       callbackStack.push(
         (inner) => `<xml xmlns="https://developers.google.com/blockly/xml">
-      ${inner}</xml>`
+      ${inner}${cmds.join('')}</xml>`
       )
+    } else if (t == 'Cmd') {
+      nextIgnoreComment(cursor) // CmdStart
+      nextIgnoreComment(cursor) // CmdName
+      const name = code.substring(cursor.from, cursor.to)
+      cursor.next()
+      const statements = parseTree(cursor, code, (t) => t == 'CmdEnd')
+      cmds.push(
+        `<block type="define_command" x="${
+          cmds.length * 200 + 200
+        }" y="7"><field name="COMMAND">${name}</field>${
+          statements
+            ? `<statement name="STATEMENTS">${statements}</statement>`
+            : ''
+        }</block>`
+      )
+      console.log(name, statements)
     } else if (t == 'Command') {
       let count = ''
       let blockType = ''
@@ -83,6 +101,10 @@ function parseTree(
           count
           //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
         )
+      )
+    } else if (t == 'CustomRef') {
+      callbackStack.push(
+        buildCustomCommand(code.substring(cursor.from, cursor.to))
       )
     } else if (t == 'Repeat') {
       nextIgnoreComment(cursor) // RepeatStart
@@ -203,6 +225,13 @@ function buildClosure(blockType: string, count: string, attrs?: string) {
     `<block type="${blockType}" ${attrs ?? ''}>${
       count ? `<field name="COUNT">${count}</field>` : ''
     }<next>${inner}</next></block>`
+}
+
+function buildCustomCommand(name: string, attrs?: string) {
+  return (inner: string) =>
+    `<block type="custom_command" ${
+      attrs ?? ''
+    }><field name="COMMAND">${name}</field><next>${inner}</next></block>`
 }
 
 function buildClosureWithoutInner(

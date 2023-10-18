@@ -37,7 +37,7 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
     }
     if (core.ws.ui.toBlockWarning) {
       alert(
-        'Anweisungen und mehrzeilige Kommentare sind nur im Code-Editor verfügbar.'
+        'Mehrzeilige Kommentare und return sind nur im Code-Editor verfügbar.'
       )
       return
     }
