@@ -57,6 +57,8 @@ export function SuccessModal() {
 
   const [hasFeedback, setHasFeedback] = useState(false)
 
+  const [rate, setRate] = useState(0)
+
   // closeModal(core)
   // switchToPage(core, 'overview')
 
@@ -82,15 +84,32 @@ export function SuccessModal() {
                 className="[&_svg]:inline"
                 readonly={hasFeedback}
                 onClick={(rate) => {
-                  submit_event(`rate_quest_${core.ws.quest.id}_${rate}`, core)
-                  setHasFeedback(true)
+                  setRate(rate)
                 }}
+                initialValue={rate}
               />
               <div className="h-16 mt-2">
                 {hasFeedback ? (
                   <small>Danke für dein Feedback &#10084;</small>
                 ) : (
-                  <small>&nbsp;</small>
+                  <small>
+                    {rate > 0 ? (
+                      <button
+                        className="underline text-blue-600 hover:text-blue-700"
+                        onClick={() => {
+                          submit_event(
+                            `rate_quest_${core.ws.quest.id}_${rate}`,
+                            core
+                          )
+                          setHasFeedback(true)
+                        }}
+                      >
+                        Abschicken
+                      </button>
+                    ) : (
+                      <>&nbsp;</>
+                    )}
+                  </small>
                 )}
               </div>
             </>
