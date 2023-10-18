@@ -49,7 +49,6 @@ function parseTree(
             : ''
         }</block>`
       )
-      console.log(name, statements)
     } else if (t == 'Command') {
       let count = ''
       let blockType = ''
