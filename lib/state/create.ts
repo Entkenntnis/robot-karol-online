@@ -45,6 +45,7 @@ export function createWorkspaceState(): WorkspaceState {
       isHighlightDescription: false,
       showOk: false,
       audioStarted: false,
+      cmdBlockPositions: {},
     },
     vm: {
       pc: 0,

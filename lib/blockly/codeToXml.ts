@@ -1,217 +1,228 @@
 import { parser } from '../codemirror/parser/parser'
 import { Tree, TreeCursor } from '@lezer/common'
+import { CmdBlockPositions } from '../state/types'
 
-export function codeToXml(code: string): string {
+export function codeToXml(
+  code: string,
+  cmdBlockPositions: CmdBlockPositions
+): string {
   const tree: Tree = parser.parse(code)
   return parseTree(tree.cursor(), code)
-}
 
-function parseTree(
-  cursor: TreeCursor,
-  code: string,
-  breaker?: (type: string) => boolean
-): string {
-  let callbackStack: ((val: string) => string)[] = []
+  function parseTree(
+    cursor: TreeCursor,
+    code: string,
+    breaker?: (type: string) => boolean
+  ): string {
+    let callbackStack: ((val: string) => string)[] = []
 
-  let cmds: string[] = []
+    let cmds: string[] = []
+    let xOffset = 200
 
-  do {
-    //console.log(cursor.type.name)
+    do {
+      //console.log(cursor.type.name)
 
-    const t = cursor.type.name
-    const c = code.substring(cursor.from, cursor.to).toLowerCase()
+      const t = cursor.type.name
+      const c = code.substring(cursor.from, cursor.to).toLowerCase()
 
-    if (breaker) {
-      //console.log('breaker test', t)
-      if (breaker(t)) {
-        //console.log('break', t)
-        break
-      }
-    }
-
-    if (t == 'Program') {
-      callbackStack.push(
-        (inner) => `<xml xmlns="https://developers.google.com/blockly/xml">
-      ${inner}${cmds.join('')}</xml>`
-      )
-    } else if (t == 'Cmd') {
-      nextIgnoreComment(cursor) // CmdStart
-      nextIgnoreComment(cursor) // CmdName
-      const name = code.substring(cursor.from, cursor.to)
-      cursor.next()
-      const statements = parseTree(cursor, code, (t) => t == 'CmdEnd')
-      cmds.push(
-        `<block type="define_command" x="${
-          cmds.length * 200 + 200
-        }" y="7"><field name="COMMAND">${name}</field>${
-          statements
-            ? `<statement name="STATEMENTS">${statements}</statement>`
-            : ''
-        }</block>`
-      )
-    } else if (t == 'Command') {
-      let count = ''
-      let blockType = ''
-      if (c.includes('(') && !c.includes('()')) {
-        while (cursor.type.name !== 'Parameter') {
-          cursor.next()
+      if (breaker) {
+        //console.log('breaker test', t)
+        if (breaker(t)) {
+          //console.log('break', t)
+          break
         }
-        count = code.substring(cursor.from, cursor.to)
-        //console.log(cursor.type.name, 'should be Parameter', count)
       }
-      if (c.includes('schritt')) {
-        blockType = 'step'
-      }
-      if (c.includes('hinlegen')) {
-        blockType = 'laydown'
-      }
-      if (c.includes('aufheben')) {
-        blockType = 'pickup'
-      }
-      if (c.includes('linksdrehen')) {
-        blockType = 'turnleft'
-        count = ''
-      }
-      if (c.includes('rechtsdrehen')) {
-        blockType = 'turnright'
-        count = ''
-      }
-      if (c.includes('markesetzen')) {
-        blockType = 'setmarker'
-        count = ''
-      }
-      if (c.includes('markelöschen')) {
-        blockType = 'deletemarker'
-        count = ''
-      }
-      if (c.includes('beenden')) {
+
+      if (t == 'Program') {
         callbackStack.push(
-          buildClosureWithoutInner(
-            'stop',
-            ''
+          (inner) => `<xml xmlns="https://developers.google.com/blockly/xml">
+      ${inner}${cmds.join('')}</xml>`
+        )
+      } else if (t == 'Cmd') {
+        nextIgnoreComment(cursor) // CmdStart
+        nextIgnoreComment(cursor) // CmdName
+        const name = code.substring(cursor.from, cursor.to)
+        cursor.next()
+        const statements = parseTree(cursor, code, (t) => t == 'CmdEnd')
+        let x = xOffset
+        let y = 7
+        if (cmdBlockPositions[name]) {
+          x = cmdBlockPositions[name].x
+          y = cmdBlockPositions[name].y
+        } else {
+          xOffset += 200
+        }
+        cmds.push(
+          `<block type="define_command" x="${x}" y="${y}"><field name="COMMAND">${name}</field>${
+            statements
+              ? `<statement name="STATEMENTS">${statements}</statement>`
+              : ''
+          }</block>`
+        )
+      } else if (t == 'Command') {
+        let count = ''
+        let blockType = ''
+        if (c.includes('(') && !c.includes('()')) {
+          while (cursor.type.name !== 'Parameter') {
+            cursor.next()
+          }
+          count = code.substring(cursor.from, cursor.to)
+          //console.log(cursor.type.name, 'should be Parameter', count)
+        }
+        if (c.includes('schritt')) {
+          blockType = 'step'
+        }
+        if (c.includes('hinlegen')) {
+          blockType = 'laydown'
+        }
+        if (c.includes('aufheben')) {
+          blockType = 'pickup'
+        }
+        if (c.includes('linksdrehen')) {
+          blockType = 'turnleft'
+          count = ''
+        }
+        if (c.includes('rechtsdrehen')) {
+          blockType = 'turnright'
+          count = ''
+        }
+        if (c.includes('markesetzen')) {
+          blockType = 'setmarker'
+          count = ''
+        }
+        if (c.includes('markelöschen')) {
+          blockType = 'deletemarker'
+          count = ''
+        }
+        if (c.includes('beenden')) {
+          callbackStack.push(
+            buildClosureWithoutInner(
+              'stop',
+              ''
+              //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            )
+          )
+          continue
+        }
+        callbackStack.push(
+          buildClosure(
+            blockType,
+            count
             //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
           )
         )
-        continue
-      }
-      callbackStack.push(
-        buildClosure(
-          blockType,
-          count
-          //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-        )
-      )
-    } else if (t == 'CustomRef') {
-      callbackStack.push(
-        buildCustomCommand(code.substring(cursor.from, cursor.to))
-      )
-    } else if (t == 'Repeat') {
-      nextIgnoreComment(cursor) // RepeatStart
-      nextIgnoreComment(cursor) //
-      if (cursor.type.name == 'RepeatAlwaysKey') {
-        const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
-        //while ((cursor.type.name as string) !== 'RepeatEnd') cursor.next()
-        //console.log('inner', inner)
+      } else if (t == 'CustomRef') {
         callbackStack.push(
-          buildRepeatAlways(
-            inner
-            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-          )
+          buildCustomCommand(code.substring(cursor.from, cursor.to))
         )
-        continue
-      } else if (cursor.type.name == 'Times') {
-        const times = code.substring(cursor.from, cursor.to)
-        //nextIgnoreComment(cursor) // RepeatTimesKey
-        const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
-        //while ((cursor.type.name as string) !== 'RepeatEnd') cursor.next()
-        //console.log('inner', inner)
-        callbackStack.push(
-          buildRepeatTimes(
-            times,
-            inner
-            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+      } else if (t == 'Repeat') {
+        nextIgnoreComment(cursor) // RepeatStart
+        nextIgnoreComment(cursor) //
+        if (cursor.type.name == 'RepeatAlwaysKey') {
+          const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
+          //while ((cursor.type.name as string) !== 'RepeatEnd') cursor.next()
+          //console.log('inner', inner)
+          callbackStack.push(
+            buildRepeatAlways(
+              inner
+              //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            )
           )
-        )
-        continue
-      } else {
-        nextIgnoreComment(cursor) // Condition
+          continue
+        } else if (cursor.type.name == 'Times') {
+          const times = code.substring(cursor.from, cursor.to)
+          //nextIgnoreComment(cursor) // RepeatTimesKey
+          const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
+          //while ((cursor.type.name as string) !== 'RepeatEnd') cursor.next()
+          //console.log('inner', inner)
+          callbackStack.push(
+            buildRepeatTimes(
+              times,
+              inner
+              //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            )
+          )
+          continue
+        } else {
+          nextIgnoreComment(cursor) // Condition
+          const condition = code.substring(cursor.from, cursor.to)
+          cursor.next()
+          const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
+          //while (cursor.type.name !== 'RepeatEnd') cursor.next()
+          callbackStack.push(
+            buildRepeatWhile(
+              buildCondition(condition),
+              inner
+              //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            )
+          )
+          continue
+        }
+      } else if (t == 'IfThen') {
+        nextIgnoreComment(cursor) // IfKey
+        nextIgnoreComment(cursor) // condition
         const condition = code.substring(cursor.from, cursor.to)
         cursor.next()
-        const inner = parseTree(cursor, code, (t) => t == 'RepeatEnd')
-        //while (cursor.type.name !== 'RepeatEnd') cursor.next()
-        callbackStack.push(
-          buildRepeatWhile(
-            buildCondition(condition),
-            inner
-            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-          )
-        )
-        continue
-      }
-    } else if (t == 'IfThen') {
-      nextIgnoreComment(cursor) // IfKey
-      nextIgnoreComment(cursor) // condition
-      const condition = code.substring(cursor.from, cursor.to)
-      cursor.next()
 
-      if (
-        cursor.node.name == 'Parameter' ||
-        cursor.node.name == 'ConditionWithoutParam' ||
-        cursor.node.name == 'ConditionMaybeWithParam'
-      ) {
-        cursor.next()
-      }
-
-      let hasElse = false
-      const subcursor = cursor.node.cursor()
-      do {
-        if (subcursor.type.name == 'ElseKey') {
-          hasElse = true
+        if (
+          cursor.node.name == 'Parameter' ||
+          cursor.node.name == 'ConditionWithoutParam' ||
+          cursor.node.name == 'ConditionMaybeWithParam'
+        ) {
+          cursor.next()
         }
-      } while (subcursor.nextSibling())
-      if (!hasElse) {
-        const inner = parseTree(cursor, code, (t) => t == 'IfEndKey')
-        //while (cursor.type.name !== 'IfEndKey') cursor.next()
-        callbackStack.push(
-          buildIf(
-            buildCondition(condition),
-            inner
-            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-          )
-        )
-        continue
-      } else {
-        const inner = parseTree(cursor, code, (t) => t == 'ElseKey')
-        //while (cursor.type.name !== 'ElseKey') cursor.next()
-        const inner2 = parseTree(cursor, code, (t) => t == 'IfEndKey')
-        //while ((cursor.type.name as string) !== 'IfEndKey') cursor.next()
-        callbackStack.push(
-          buildIfElse(
-            buildCondition(condition),
-            inner,
-            inner2
-            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-          )
-        )
-        continue
-      }
-    } else if (t == 'LineComment') {
-      const text = code.substring(cursor.from + 2, cursor.to).trim()
-      callbackStack.push(
-        buildCommentClosure(
-          text
-          //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-        )
-      )
-    }
-  } while (cursor.next())
 
-  let output = ''
-  for (let i = callbackStack.length - 1; i >= 0; i--) {
-    output = callbackStack[i](output)
-    //console.log(output)
+        let hasElse = false
+        const subcursor = cursor.node.cursor()
+        do {
+          if (subcursor.type.name == 'ElseKey') {
+            hasElse = true
+          }
+        } while (subcursor.nextSibling())
+        if (!hasElse) {
+          const inner = parseTree(cursor, code, (t) => t == 'IfEndKey')
+          //while (cursor.type.name !== 'IfEndKey') cursor.next()
+          callbackStack.push(
+            buildIf(
+              buildCondition(condition),
+              inner
+              //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            )
+          )
+          continue
+        } else {
+          const inner = parseTree(cursor, code, (t) => t == 'ElseKey')
+          //while (cursor.type.name !== 'ElseKey') cursor.next()
+          const inner2 = parseTree(cursor, code, (t) => t == 'IfEndKey')
+          //while ((cursor.type.name as string) !== 'IfEndKey') cursor.next()
+          callbackStack.push(
+            buildIfElse(
+              buildCondition(condition),
+              inner,
+              inner2
+              //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            )
+          )
+          continue
+        }
+      } else if (t == 'LineComment') {
+        const text = code.substring(cursor.from + 2, cursor.to).trim()
+        callbackStack.push(
+          buildCommentClosure(
+            text
+            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+          )
+        )
+      }
+    } while (cursor.next())
+
+    let output = ''
+    for (let i = callbackStack.length - 1; i >= 0; i--) {
+      output = callbackStack[i](output)
+      //console.log(output)
+    }
+    return output
   }
-  return output
 }
 
 function nextIgnoreComment(cursor: TreeCursor) {

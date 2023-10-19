@@ -53,7 +53,7 @@ export function BlockEditor() {
     }
     //console.log('inject blockly')
 
-    const initialXml = codeToXml(core.ws.code)
+    const initialXml = codeToXml(core.ws.code, core.ws.ui.cmdBlockPositions)
 
     //console.log('initial', initialXml)
 
@@ -152,6 +152,17 @@ export function BlockEditor() {
         .getTopBlocks(false)
         .filter((bl) => !(bl as any).isInsertionMarker_) // hm, bypassing protection
         .filter((bl) => bl.type !== 'define_command')
+
+      core.mutateWs(({ ui }) => {
+        blocklyWorkspace
+          .getTopBlocks(false)
+          .filter((bl) => bl.type === 'define_command')
+          .forEach((block) => {
+            const name = block.getFieldValue('COMMAND')
+            const { top, left } = block.getBoundingRectangle()
+            ui.cmdBlockPositions[name] = { x: left, y: top }
+          })
+      })
 
       if (topBlocks.length > 1) {
         if (core.ws.ui.state == 'running') {

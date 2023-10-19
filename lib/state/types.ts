@@ -24,6 +24,8 @@ export interface Preview {
   world: World
 }
 
+export type CmdBlockPositions = { [key: string]: { x: number; y: number } }
+
 export interface Ui {
   // this state is only for ide
   messages: Message[]
@@ -51,6 +53,7 @@ export interface Ui {
   isHighlightDescription: boolean
   showOk: boolean
   audioStarted: boolean
+  cmdBlockPositions: CmdBlockPositions
 }
 
 export interface Vm {
