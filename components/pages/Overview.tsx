@@ -72,6 +72,14 @@ export function Overview() {
             <button
               className="mr-7 hover:underline"
               onClick={() => {
+                showModal(core, 'appearance')
+              }}
+            >
+              Outfit
+            </button>
+            <button
+              className="mr-7 hover:underline"
+              onClick={() => {
                 hideOverviewList(core)
                 if (core.ws.overview.showProfile) {
                   hideProfile(core)
@@ -797,7 +805,7 @@ export function Overview() {
                   )}
                 </div>
               )}
-              {core.ws.page == 'analyze' && (
+              {/*core.ws.page == 'analyze' && (
                 <div
                   className="-mt-2 [&>span]:align-[2px]"
                   title={`${
@@ -830,7 +838,7 @@ export function Overview() {
                     / {core.ws.analyze.ratings[index]?.count ?? 0} Bew.
                   </small>
                 </div>
-              )}
+                )*/}
               {core.ws.page == 'analyze' &&
                 (() => {
                   const entry = core.ws.analyze.quests[index]

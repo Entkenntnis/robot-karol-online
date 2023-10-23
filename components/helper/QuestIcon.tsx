@@ -84,7 +84,7 @@ export function QuestIcon({
             }
             return null
           })()}
-          <div
+          {/*<div
             className="[&>span]:align-[2px] pointer-events-auto"
             title={`${
               core.ws.analyze.ratings[id]?.values.filter((x) => x == 1)
@@ -114,7 +114,7 @@ export function QuestIcon({
               {Math.round(core.ws.analyze.ratings[id]?.average * 10) / 10} /{' '}
               {core.ws.analyze.ratings[id]?.count ?? 0} Bew.
             </small>
-          </div>
+          </div>*/}
         </div>
       )}
     </div>
