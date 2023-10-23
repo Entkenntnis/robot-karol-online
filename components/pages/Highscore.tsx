@@ -206,7 +206,7 @@ export function Highscore() {
                     ))}
                 </tbody>
               </table>
-              {!showAll && mode == 'count' && (
+              {/*!showAll && mode == 'count' && (
                 <p>
                   [
                   <button
@@ -219,8 +219,8 @@ export function Highscore() {
                   </button>
                   ]
                 </p>
-              )}
-              {!showAllRecent && mode == 'active' && (
+                )*/}
+              {/*!showAllRecent && mode == 'active' && (
                 <p>
                   [
                   <button
@@ -233,7 +233,7 @@ export function Highscore() {
                   </button>
                   ]
                 </p>
-              )}
+                )*/}
             </>
           )}
         </div>

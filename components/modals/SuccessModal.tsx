@@ -77,7 +77,8 @@ export function SuccessModal() {
           }}
         >
           <h1 className="mt-10 text-4xl mb-8">{positive}</h1>
-          {core.ws.quest.id > 0 ? (
+          {
+            /* (
             <>
               <div className="mb-2">Wie gut hat dir die Aufgabe gefallen?</div>
               <Rating
@@ -113,9 +114,8 @@ export function SuccessModal() {
                 )}
               </div>
             </>
-          ) : (
-            <div className="h-12"></div>
-          )}
+          ) :*/ <div className="h-12"></div>
+          }
           <button
             onClick={() => {
               finishQuest(core)
