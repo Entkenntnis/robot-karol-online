@@ -1,6 +1,7 @@
 import {
   faCaretRight,
   faCode,
+  faDownload,
   faExclamationTriangle,
   faPencil,
   faPlay,
@@ -89,7 +90,36 @@ export function IdeMain() {
             ></div>
           )}
           <div className="h-full flex flex-col">
-            <div className="flex-none h-8 bg-gray-50 flex justify-center items-start">
+            <div className="flex-none h-8 bg-gray-50 flex justify-center items-start relative">
+              <div className="absolute left-2 top-1">
+                <button
+                  className="hover:bg-gray-300 w-8 rounded"
+                  onClick={() => {
+                    // 3. Create a Blob from the string
+                    const blob = new Blob([core.ws.code], {
+                      type: 'text/plain',
+                    })
+
+                    // 4. Create a URL for the Blob
+                    const url = window.URL.createObjectURL(blob)
+
+                    // 5. Create an anchor element for the download link
+                    const a = document.createElement('a')
+                    a.href = url
+                    a.download = `${new Date()
+                      .toISOString()
+                      .substring(0, 10)}-robot-karol.txt` // specify the filename
+
+                    // 6. Simulate a click on the anchor element to trigger the download
+                    a.click()
+
+                    // 7. Clean up by revoking the Blob URL
+                    window.URL.revokeObjectURL(url)
+                  }}
+                >
+                  <FaIcon icon={faDownload} />
+                </button>
+              </div>
               <button
                 className={clsx(
                   'ml-4 mr-4 border-t-4 px-3  pb-1',
