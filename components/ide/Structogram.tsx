@@ -11,6 +11,7 @@ type Node = Command | Comment | RepeatN | RepeatForever | RepeatWhile | Branch
 
 interface Command {
   type: 'command'
+  custom?: boolean
   text: string
 }
 
@@ -61,8 +62,9 @@ export function Structogram() {
         </button>
       </div>
       <h1 className="ml-8 text-2xl pt-8">Struktogramm</h1>
+      <h2 className="mt-5 font-bold ml-8">Hauptprogramm</h2>
       <div className="overflow-auto flex-auto">
-        <div className="ml-4 mt-4 p-4">
+        <div className="ml-4 p-4">
           <div className="inline-block">{renderStructogram()}</div>
         </div>
       </div>
@@ -87,9 +89,7 @@ export function Structogram() {
       nodes = cursorToNodes(tree.cursor())
     } catch (e) {
       console.log(e)
-      return (
-        <em>Struktogramm für Programme mit Anweisungen nicht implementiert.</em>
-      )
+      return <em>Fehler bei der Generierung des Struktogramms.</em>
     }
 
     if (nodes.length == 0) {
@@ -114,6 +114,12 @@ export function Structogram() {
       } else if (cursor.name == 'Command') {
         output.push({
           type: 'command',
+          text: code.substring(cursor.from, cursor.to),
+        })
+      } else if (cursor.name == 'CustomRef') {
+        output.push({
+          type: 'command',
+          custom: true,
           text: code.substring(cursor.from, cursor.to),
         })
       } else if (cursor.name == 'LineComment') {
@@ -169,7 +175,8 @@ export function Structogram() {
         // stop parsing here (because it's handled in the next step)
         break
       } else if (cursor.name == 'Cmd') {
-        throw 'bad'
+        continue
+        //throw 'bad'
       } else {
         console.log(
           `TODO: Node ${cursor.name} from ${cursor.from} to ${cursor.to}`
@@ -217,7 +224,8 @@ export function Structogram() {
               i > 0 && 'border-t-0',
               nested && i == nodes.length - 1 && 'border-b-0',
               nested && 'border-r-0',
-              node.type == 'comment' && 'italic'
+              node.type == 'comment' && 'text-gray-500',
+              node.type == 'command' && node.custom && 'italic'
             )}
             key={keyCounter.val++}
           >
