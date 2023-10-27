@@ -280,7 +280,7 @@ export function endExecution(core: Core) {
     state.ui.isEndOfRun = true
   })
 
-  if (
+  /*if (
     core.ws.quest.id > 0 &&
     !core.ws.ui.isManualAbort &&
     !core.ws.quest.progress
@@ -292,7 +292,7 @@ export function endExecution(core: Core) {
         core.ws.code +
         '\n// attempt //'
     )
-  }
+  }*/
   /*if (
     !core.ws.ui.isManualAbort &&
     core.ws.quest.progress < 100 &&
