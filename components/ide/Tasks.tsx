@@ -134,16 +134,23 @@ export function Tasks() {
                   </h1>
                   <div>
                     {core.ws.quest.description == '[[tutorial]]' ? (
-                      <div className="mt-10 mb-6">
-                        <button
-                          className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"
-                          onClick={() => {
-                            showModal(core, 'tutorial')
-                          }}
-                        >
-                          Tutorial anzeigen
-                        </button>
-                      </div>
+                      <>
+                        <p>
+                          Herzlich Willkommen! Hier lernst du Schritt für
+                          Schritt die Welt von Karol kennen. Das Tutorial zeigt
+                          dir die ersten Grundlagen für die Programmierung.
+                        </p>
+                        <div className="mt-6">
+                          <button
+                            className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"
+                            onClick={() => {
+                              showModal(core, 'tutorial')
+                            }}
+                          >
+                            Tutorial anzeigen
+                          </button>
+                        </div>
+                      </>
                     ) : (
                       processMiniMarkdown(core.ws.quest.description)
                     )}

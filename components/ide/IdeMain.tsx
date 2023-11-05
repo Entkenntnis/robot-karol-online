@@ -12,11 +12,7 @@ import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
 import { closeHighlightDescription, setMode } from '../../lib/commands/mode'
-import {
-  closeOutput,
-  restartProgram,
-  startTesting,
-} from '../../lib/commands/quest'
+import { restartProgram, startTesting } from '../../lib/commands/quest'
 import { useCore } from '../../lib/state/core'
 import { EditArea } from './EditArea'
 import { FaIcon } from '../helper/FaIcon'
@@ -91,9 +87,9 @@ export function IdeMain() {
           )}
           <div className="h-full flex flex-col">
             <div className="flex-none h-8 bg-gray-50 flex justify-center items-start relative">
-              <div className="absolute left-2 top-1">
+              <div className="absolute left-1 top-0.5">
                 <button
-                  className="hover:bg-gray-300 w-8 rounded"
+                  className="hover:bg-gray-200 px-2 py-0.5 rounded text-gray-700 hover:text-black"
                   onClick={() => {
                     // 3. Create a Blob from the string
                     const blob = new Blob([core.ws.code], {
@@ -117,7 +113,7 @@ export function IdeMain() {
                     window.URL.revokeObjectURL(url)
                   }}
                 >
-                  <FaIcon icon={faDownload} />
+                  <FaIcon icon={faDownload} /> Speichern
                 </button>
               </div>
               <button
