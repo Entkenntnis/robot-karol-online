@@ -100,7 +100,7 @@ export function EditArea() {
             </div>
           </div>
         )}
-        <div className="absolute right-1 bottom-1">
+        <div className="absolute right-4 bottom-1">
           {core.ws.settings.language == 'java' && (
             <div
               className="mb-2 cursor-pointer underline text-right mr-2"

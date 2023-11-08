@@ -30,7 +30,6 @@ export interface Ui {
   // this state is only for ide
   messages: Message[]
   gutter: number
-  gutterReturns: number[]
   state: 'ready' | 'loading' | 'running' | 'error'
   needsTextRefresh: boolean
   errorMessages: string[]
@@ -60,10 +59,11 @@ export interface Vm {
   bytecode?: Op[]
   pc: number
   handler?: NodeJS.Timeout
-  frames: { [index: number]: number }[]
+  frames: {
+    variables: { [index: string]: number }
+    opstack: number[]
+  }[]
   callstack: number[]
-  needsConfirmation: boolean
-  confirmation: boolean
   startTime: number
   steps: number
 }
@@ -206,19 +206,7 @@ export interface CoreRefs {
   state: CoreState
 }
 
-export interface ActionOp {
-  type: 'action'
-  command:
-    | 'forward'
-    | 'left'
-    | 'right'
-    | 'brick'
-    | 'unbrick'
-    | 'setMark'
-    | 'resetMark'
-  line: number
-}
-
+// ON THE WAY OUT
 export interface Condition {
   type:
     | 'brick'
@@ -233,33 +221,79 @@ export interface Condition {
   negated: boolean
 }
 
-export interface JumpNOp {
-  type: 'jumpn'
-  target: number
-  count: number
+interface BaseOp {
   line?: number
 }
 
-export interface JumpCondOp {
-  type: 'jumpcond'
+export interface ActionOp extends BaseOp {
+  type: 'action'
+  command:
+    | 'forward'
+    | 'left'
+    | 'right'
+    | 'brick'
+    | 'unbrick'
+    | 'setMark'
+    | 'resetMark'
+}
+
+export interface SenseOp extends BaseOp {
+  type: 'sense'
+  condition: Condition
+  hasArg?: boolean
+}
+
+export interface JumpOp extends BaseOp {
+  type: 'jump'
+  target: number
+}
+
+export interface BranchOp extends BaseOp {
+  type: 'branch'
   targetT: number
   targetF: number
-  condition: Condition
-  line: number
 }
 
-export interface CallOp {
+export interface CallOp extends BaseOp {
   type: 'call'
   target: number
-  line: number
 }
 
-export interface ReturnOp {
+export interface ReturnOp extends BaseOp {
   type: 'return'
-  line: undefined
 }
 
-export type Op = ActionOp | JumpNOp | JumpCondOp | CallOp | ReturnOp
+export interface OperationOp extends BaseOp {
+  type: 'operation'
+  kind: 'add' | 'mult' | 'sub' | 'div'
+}
+
+export interface ConstantOp extends BaseOp {
+  type: 'constant'
+  value: number
+}
+
+export interface LoadOp extends BaseOp {
+  type: 'load'
+  variable: string
+}
+
+export interface StoreOp extends BaseOp {
+  type: 'store'
+  variable: string
+}
+
+export type Op =
+  | ActionOp
+  | SenseOp
+  | JumpOp
+  | BranchOp
+  | CallOp
+  | ReturnOp
+  | OperationOp
+  | ConstantOp
+  | LoadOp
+  | StoreOp
 
 export interface QuestData {
   title: string

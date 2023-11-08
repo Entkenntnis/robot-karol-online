@@ -1,8 +1,6 @@
 import { sliderToDelay } from '../helper/speedSlider'
-import { submitSolution } from '../helper/submitSolution'
 import { Core } from '../state/core'
-import { Condition, Op } from '../state/types'
-import { editCodeAndResetProgress } from './mode'
+import { ActionOp, Condition, Op } from '../state/types'
 import {
   forward,
   left,
@@ -30,11 +28,8 @@ export function run(core: Core) {
     ui.isEndOfRun = false
     ui.karolCrashMessage = undefined
     vm.pc = 0
-    vm.frames = [{}]
-    ui.gutterReturns = []
+    vm.frames = [{ variables: {}, opstack: [] }]
     vm.callstack = []
-    vm.needsConfirmation = false
-    vm.confirmation = false
     vm.startTime = Date.now()
     vm.steps = 1
   })
@@ -78,7 +73,7 @@ function pulse(core: Core) {
 }
 
 function markCurrentPC(core: Core) {
-  if (core.ws.vm.bytecode) {
+  if (core.ws.vm.bytecode && core.ws.ui.state == 'running') {
     const op = core.ws.vm.bytecode[core.ws.vm.pc]
     if (op?.line) {
       const line = op.line
@@ -89,9 +84,7 @@ function markCurrentPC(core: Core) {
   }
 }
 
-// old
 function internal_step(core: Core) {
-  const pc = core.ws.vm.pc
   const byteCode = core.ws.vm.bytecode
   const state = core.ws.ui.state
 
@@ -102,36 +95,123 @@ function internal_step(core: Core) {
   if (!byteCode)
     throw new Error("Invalid bytecode, shouldn't be in running state")
 
-  if (pc >= byteCode.length) {
-    // regression: minimal run time for empty program
+  let stepCounter = 0
 
-    endExecution(core)
+  for (;;) {
+    const pc = core.ws.vm.pc
+    if (stepCounter++ >= 100) {
+      console.log('possible dead loop')
+      break
+    }
 
-    // end reached
-    /*callWithDelay_DEPRECATED(
+    if (pc >= byteCode.length) {
+      // regression: minimal run time for empty program
+
+      endExecution(core)
+
+      // end reached
+      /*callWithDelay_DEPRECATED(
       core,
       () => endExecution(core),
       byteCode.length == 0 ? 400 : 0
     )*/
-    return
-  }
+      return
+    }
 
-  const op = byteCode[pc]
+    const op = byteCode[pc]
 
-  /*console.log(
-    'step',
-    pc,
-    op,
-    this.current.vm.counter,
-    this.current.vm.callstack
-  )*/
+    let sideEffectOp: ActionOp | null = null
 
-  // console.log(delay)
+    // console.log(delay)
+    core.mutateWs(({ vm }) => {
+      const frame = vm.frames[vm.frames.length - 1]
 
-  //console.log(this.state.ui.gutterReturns)
+      // console.log('step', pc, op.type, [...frame.opstack])
 
-  if (op.type == 'action') {
-    if (op.type == 'action') {
+      switch (op.type) {
+        case 'action': {
+          sideEffectOp = op
+          vm.pc++
+          break
+        }
+        case 'sense': {
+          const condition: Condition = {
+            type: op.condition.type,
+            negated: op.condition.negated,
+          }
+          if (op.hasArg) {
+            condition.count = frame.opstack.pop()
+          }
+          frame.opstack.push(testCondition(core, condition) ? 1 : 0)
+          vm.pc++
+          break
+        }
+        case 'jump': {
+          vm.pc = op.target
+          break
+        }
+        case 'branch': {
+          const arg = frame.opstack.pop()
+          const target = arg == 0 ? op.targetF : op.targetT
+          vm.pc = target
+          break
+        }
+        case 'call': {
+          vm.callstack.push(vm.pc + 1)
+          vm.frames.push({ opstack: [], variables: {} })
+          vm.pc = op.target
+          break
+        }
+        case 'return': {
+          const target = vm.callstack.pop()
+          vm.frames.pop()
+          vm.pc = target ?? Infinity
+          break
+        }
+        case 'operation': {
+          const b = frame.opstack.pop() ?? NaN
+          const a = frame.opstack.pop() ?? NaN
+          switch (op.kind) {
+            case 'add': {
+              frame.opstack.push(a + b)
+              break
+            }
+            case 'sub': {
+              frame.opstack.push(a - b)
+              break
+            }
+            case 'mult': {
+              frame.opstack.push(a * b)
+              break
+            }
+            case 'div': {
+              frame.opstack.push(Math.trunc(a / b))
+              break
+            }
+          }
+          vm.pc++
+          break
+        }
+        case 'constant': {
+          frame.opstack.push(op.value)
+          vm.pc++
+          break
+        }
+        case 'load': {
+          frame.opstack.push(frame.variables[op.variable])
+          vm.pc++
+          break
+        }
+        case 'store': {
+          frame.variables[op.variable] = frame.opstack.pop() ?? NaN
+          vm.pc++
+          break
+        }
+      }
+    })
+
+    if (sideEffectOp) {
+      const op = sideEffectOp as ActionOp
       let result = undefined
       if (op.command == 'forward') {
         result = forward(core)
@@ -155,57 +235,12 @@ function internal_step(core: Core) {
         result = resetMark(core)
       }
       if (result === false) {
-        return
-      }
-      core.mutateWs((state) => {
-        state.vm.pc++
-      })
-    }
-  } else {
-    if (op.type == 'jumpn') {
-      core.mutateWs(({ vm }) => {
-        const frame = vm.frames[vm.frames.length - 1]
-        if (frame[pc] === undefined) {
-          frame[pc] = op.count
-        }
-      })
-      const frame = core.ws.vm.frames[core.ws.vm.frames.length - 1]
-      if (frame[pc] == 0) {
-        core.mutateWs((state) => {
-          const frame = state.vm.frames[state.vm.frames.length - 1]
-          state.vm.pc++
-          delete frame[pc]
-        })
-      } else {
-        core.mutateWs((state) => {
-          const frame = state.vm.frames[state.vm.frames.length - 1]
-          state.vm.pc = op.target
-          frame[pc]--
-        })
+        return // something went wrong
       }
     }
-    if (op.type == 'jumpcond') {
-      const flag = testCondition(core, op.condition)
-      core.mutateWs((state) => {
-        state.vm.pc = flag ? op.targetT : op.targetF
-      })
-    }
-    if (op.type == 'call') {
-      core.mutateWs((state) => {
-        const { vm, ui } = state
-        vm.callstack.push(vm.pc + 1)
-        vm.frames.push({})
-        vm.pc = op.target
-        ui.gutterReturns.push(op.line)
-      })
-    }
-    if (op.type == 'return') {
-      core.mutateWs(({ vm, ui }) => {
-        ui.gutterReturns.pop()
-        const target = vm.callstack.pop()
-        vm.frames.pop()
-        vm.pc = target ?? Infinity
-      })
+
+    if (op.line) {
+      break // update ui
     }
   }
 
@@ -276,7 +311,6 @@ export function endExecution(core: Core) {
     state.ui.state = 'ready'
     state.vm.pc = 0
     state.vm.handler = undefined
-    state.ui.gutterReturns = []
     state.ui.isEndOfRun = true
   })
 
@@ -292,17 +326,6 @@ export function endExecution(core: Core) {
         core.ws.code +
         '\n// attempt //'
     )
-  }*/
-  /*if (
-    !core.ws.ui.isManualAbort &&
-    core.ws.quest.progress < 100 &&
-    core.ws.ui.isTesting
-  ) {
-    //alert('Programm hat Auftrag nicht erfüllt. Überprüfung abgebrochen.')
-    editCodeAndResetProgress(core)
-  }
-  if (core.ws.ui.karolCrashMessage) {
-    editCodeAndResetProgress(core)
   }*/
 
   if (core.executionEndCallback) {

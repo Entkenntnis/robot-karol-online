@@ -23,7 +23,6 @@ export function createWorkspaceState(): WorkspaceState {
     ui: {
       messages: [],
       gutter: 0,
-      gutterReturns: [],
       state: 'loading',
       needsTextRefresh: false,
       errorMessages: [],
@@ -49,10 +48,8 @@ export function createWorkspaceState(): WorkspaceState {
     },
     vm: {
       pc: 0,
-      frames: [{}],
+      frames: [],
       callstack: [],
-      needsConfirmation: false,
-      confirmation: false,
       steps: 0,
       startTime: 0,
     },

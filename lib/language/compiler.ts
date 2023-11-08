@@ -1,12 +1,11 @@
-import { ensureSyntaxTree } from '@codemirror/language'
 import { Diagnostic } from '@codemirror/lint'
 import { Text } from '@codemirror/state'
-import { EditorView } from '@codemirror/view'
 import { Tree } from '@lezer/common'
 
 import { Op, Condition, CallOp } from '../state/types'
 
 export function compile(tree: Tree, doc: Text) {
+  let loopVarCounter = 0
   const output: Op[] = []
   const warnings: Diagnostic[] = []
   const parseStack: {
@@ -20,6 +19,7 @@ export function compile(tree: Tree, doc: Text) {
     target?: number
     name?: string
     skipper?: { target?: number }
+    loopVar?: string
   }[] = []
   const functions: { op: CallOp; code: string; from: number; to: number }[] = []
   const declarations: { [key: string]: { target: number } } = {}
@@ -100,14 +100,13 @@ export function compile(tree: Tree, doc: Text) {
         } else if (preparedCode == 'beenden') {
           // jump into the black hole
           output.push({
-            type: 'jumpn',
+            type: 'jump',
             target: Infinity,
-            count: Infinity,
           })
         }
       }
       if (cursor.name === 'Return') {
-        output.push({ type: 'return', line: undefined })
+        output.push({ type: 'return' })
       }
       if (cursor.name == 'CustomRef') {
         const line = doc.lineAt(cursor.from).number
@@ -122,14 +121,14 @@ export function compile(tree: Tree, doc: Text) {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'repeat' && st.stage == 0) {
           st.stage = 1
-          const op: Op = { type: 'jumpn', target: -1, count: Infinity }
-          output.push(op)
-          st.op = op
         }
       }
       if (cursor.name == 'RepeatAlwaysKey') {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'repeat' && st.stage == 1) {
+          const op: Op = { type: 'jump', target: -1 }
+          output.push(op)
+          st.op = op
           st.start = output.length
           st.stage = 20
         }
@@ -138,6 +137,9 @@ export function compile(tree: Tree, doc: Text) {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'repeat' && st.stage == 1) {
           st.stage = 10
+          const op: Op = { type: 'jump', target: -1 }
+          output.push(op)
+          st.op = op
         }
       }
       if (cursor.name == 'Condition') {
@@ -214,9 +216,17 @@ export function compile(tree: Tree, doc: Text) {
         const line = doc.lineAt(st.from).number
         if (st.type == 'if' && st.stage == 2) {
           st.stage = 3
-          const op: Op = {
-            type: 'jumpcond',
+          const hasArg = st.condition!.count !== undefined
+          if (hasArg) {
+            output.push({ type: 'constant', value: st.condition!.count! })
+          }
+          output.push({
+            type: 'sense',
             condition: st.condition!,
+            hasArg,
+          })
+          const op: Op = {
+            type: 'branch',
             targetT: output.length + 1,
             targetF: -1,
             line,
@@ -229,7 +239,7 @@ export function compile(tree: Tree, doc: Text) {
         const st = parseStack[parseStack.length - 1]
         if (st && st.type == 'if' && st.stage == 3) {
           st.op!.targetF = output.length + 1
-          const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
+          const op: Op = { type: 'jump', target: -1 }
           output.push(op)
           st.stage = 4
           st.op = op
@@ -261,6 +271,13 @@ export function compile(tree: Tree, doc: Text) {
                 'Anzahl der Wiederholung ist negativ, erwarte ein Zahl größer gleich 0',
             })
           }
+          output.push({ type: 'constant', value: st.times! + 1 }) // we decrement before compare
+          const loopVar = `//internal_loop$${loopVarCounter++}`
+          output.push({ type: 'store', variable: loopVar })
+          const op: Op = { type: 'jump', target: -1 }
+          output.push(op)
+          st.op = op
+          st.loopVar = loopVar
         }
       }
       if (cursor.name == 'RepeatTimesKey') {
@@ -275,21 +292,34 @@ export function compile(tree: Tree, doc: Text) {
         const line = doc.lineAt(st.from).number
         if (st.type == 'repeat' && st.stage == 3) {
           st.op!.target = output.length
+          output.push({ type: 'load', variable: st.loopVar! })
+          output.push({ type: 'constant', value: 1 })
+          output.push({ type: 'operation', kind: 'sub' })
+          output.push({ type: 'store', variable: st.loopVar! })
+          output.push({ type: 'load', variable: st.loopVar! })
           output.push({
-            type: 'jumpn',
-            count: st.times!,
-            target: st.start!,
+            type: 'branch',
+            targetT: st.start!,
+            targetF: output.length + 1,
             line,
           })
           parseStack.pop()
         } else if (st.type == 'repeat' && st.stage == 11) {
           st.op!.target = output.length
           const line = doc.lineAt(st.from).number
+          const hasArg = st.condition!.count !== undefined
+          if (hasArg) {
+            output.push({ type: 'constant', value: st.condition!.count! })
+          }
           output.push({
-            type: 'jumpcond',
+            type: 'sense',
+            condition: st.condition!,
+            hasArg,
+          })
+          output.push({
+            type: 'branch',
             targetT: st.start!,
             targetF: output.length + 1,
-            condition: st.condition!,
             line,
           })
           parseStack.pop()
@@ -297,8 +327,7 @@ export function compile(tree: Tree, doc: Text) {
           st.op!.target = output.length
           const line = doc.lineAt(st.from).number
           output.push({
-            type: 'jumpn',
-            count: Infinity,
+            type: 'jump',
             target: st.start!,
             line,
           })
@@ -333,7 +362,7 @@ export function compile(tree: Tree, doc: Text) {
           } else {
             st.stage = 2
             st.name = code
-            const op: Op = { type: 'jumpn', count: Infinity, target: -1 }
+            const op: Op = { type: 'jump', target: -1 }
             output.push(op)
             st.skipper = op
           }
@@ -343,7 +372,7 @@ export function compile(tree: Tree, doc: Text) {
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'function' && st.stage == 2) {
           declarations[st.name!] = { target: st.target! }
-          output.push({ type: 'return', line: undefined })
+          output.push({ type: 'return' })
           st.skipper!.target = output.length
         }
       }
