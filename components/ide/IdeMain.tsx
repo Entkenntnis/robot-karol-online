@@ -24,6 +24,7 @@ import { HFullStyles } from '../helper/HFullStyles'
 import { abort } from '../../lib/commands/vm'
 import { showModal } from '../../lib/commands/modal'
 import { useEffect, useState } from 'react'
+import { JavaInfo } from './JavaInfo'
 
 export function IdeMain() {
   const core = useCore()
@@ -274,7 +275,9 @@ export function IdeMain() {
         />
 
         <ReflexElement minSize={0}>
-          {core.ws.ui.showOutput ? (
+          {core.ws.ui.showJavaInfo ? (
+            <JavaInfo />
+          ) : core.ws.ui.showOutput ? (
             <Output />
           ) : core.ws.ui.showStructogram ? (
             <Structogram />

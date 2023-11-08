@@ -48,12 +48,12 @@ export interface Ui {
   isTesting: boolean
   isTestingAborted: boolean
   controlBarShowFinishQuest: boolean
-  showCodeInfo: boolean
   imageLightbox: string | null
   isHighlightDescription: boolean
   showOk: boolean
   audioStarted: boolean
   cmdBlockPositions: CmdBlockPositions
+  showJavaInfo: boolean
 }
 
 export interface Vm {
@@ -70,6 +70,7 @@ export interface Vm {
 
 export interface Settings {
   mode: 'code' | 'blocks'
+  language: 'robot karol' | 'java'
 }
 
 export interface Editor {

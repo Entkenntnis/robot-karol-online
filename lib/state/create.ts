@@ -40,12 +40,12 @@ export function createWorkspaceState(): WorkspaceState {
       isTesting: false,
       isTestingAborted: false,
       controlBarShowFinishQuest: false,
-      showCodeInfo: false,
       imageLightbox: null,
       isHighlightDescription: false,
       showOk: false,
       audioStarted: false,
       cmdBlockPositions: {},
+      showJavaInfo: false,
     },
     vm: {
       pc: 0,
@@ -58,6 +58,7 @@ export function createWorkspaceState(): WorkspaceState {
     },
     settings: {
       mode: 'blocks',
+      language: 'robot karol',
     },
     quest: {
       progress: false,

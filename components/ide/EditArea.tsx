@@ -1,14 +1,6 @@
 import { EditorView } from '@codemirror/view'
 import { useEffect, useRef } from 'react'
-import {
-  faArrowRight,
-  faArrowTurnUp,
-  faCircleExclamation,
-  faInfo,
-  faInfoCircle,
-  faSpinner,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 
 import { setEditable } from '../../lib/codemirror/basicSetup'
@@ -17,6 +9,9 @@ import { FaIcon } from '../helper/FaIcon'
 import { Editor } from './Editor'
 import { textRefreshDone } from '../../lib/commands/json'
 import dynamic from 'next/dynamic'
+import { setLanguage, showJavaInfo } from '../../lib/commands/language'
+import { Settings } from '../../lib/state/types'
+import { JavaEditor } from './JavaEditor'
 
 const BlockEditor = dynamic(
   () => import('./BlockEditor').then((mod) => mod.BlockEditor),
@@ -105,12 +100,30 @@ export function EditArea() {
             </div>
           </div>
         )}
-        <div className="absolute right-1 bottom-1 p-1 bg-gray-200 rounded pl-2">
-          Sprache:{' '}
-          <select className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100">
-            <option>Robot Karol</option>
-            <option>JAVA</option>
-          </select>
+        <div className="absolute right-1 bottom-1">
+          {core.ws.settings.language == 'java' && (
+            <div
+              className="mb-2 cursor-pointer underline text-right mr-2"
+              onClick={() => {
+                showJavaInfo(core)
+              }}
+            >
+              Info zu Java
+            </div>
+          )}
+          <div className=" p-1 bg-gray-200 rounded pl-2">
+            Sprache:{' '}
+            <select
+              className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100"
+              value={core.ws.settings.language}
+              onChange={(e) => {
+                setLanguage(core, e.target.value as Settings['language'])
+              }}
+            >
+              <option value="robot karol">Robot Karol</option>
+              <option value="java">Java</option>
+            </select>
+          </div>
         </div>
       </div>
     )
@@ -124,7 +137,11 @@ export function EditArea() {
       <div className="flex h-full overflow-y-auto relative flex-shrink">
         <div className="w-full overflow-auto h-full flex">
           <div className="w-full h-full flex flex-col relative">
-            <Editor innerRef={view} />
+            {core.ws.settings.language == 'robot karol' ? (
+              <Editor innerRef={view} />
+            ) : (
+              <JavaEditor />
+            )}
           </div>
         </div>
       </div>
