@@ -59,17 +59,33 @@ export function SuccessModal() {
 
   const [rate, setRate] = useState(0)
 
+  const [firstPaint, setFirstPaint] = useState(true)
   // closeModal(core)
   // switchToPage(core, 'overview')
 
   useEffect(() => {
-    realisticLook()
+    setTimeout(() => {
+      realisticLook()
+    }, 1000)
+    setTimeout(() => {
+      setFirstPaint(false)
+    }, 50)
   }, [])
 
   return (
     <>
-      <div className="bg-black/20 fixed inset-0 z-[150]"></div>
-      <div className="fixed inset-0 flex justify-center items-center z-[200]">
+      <div
+        className={clsx(
+          'bg-black/20 fixed inset-0 z-[150] transition-opacity duration-1000',
+          firstPaint ? 'opacity-0' : 'opacity-100'
+        )}
+      ></div>
+      <div
+        className={clsx(
+          'fixed inset-0 flex justify-center items-center z-[200] transition-opacity duration-1000',
+          firstPaint ? 'opacity-0' : 'opacity-100'
+        )}
+      >
         <div
           className="w-[500px] bg-white z-[200] rounded-xl relative flex items-center justify-between flex-col"
           onClick={(e) => {
