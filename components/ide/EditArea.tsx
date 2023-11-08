@@ -83,7 +83,7 @@ export function EditArea() {
 
   if (core.ws.settings.mode == 'code') {
     return (
-      <div className="h-full flex flex-col overflow-y-auto">
+      <div className="h-full flex flex-col overflow-y-auto relative">
         {renderEditor()}
         {core.ws.ui.state == 'error' && (
           <div className="w-full overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
@@ -94,8 +94,7 @@ export function EditArea() {
                     icon={faCircleExclamation}
                     className="text-red-600 mr-2"
                   />
-                  Beim Einlesen des Programms sind folgende Probleme
-                  aufgetreten:
+                  Es sind folgende Probleme aufgetreten:
                 </p>
                 {core.ws.ui.errorMessages.map((err, i) => (
                   <p className="mb-2" key={err + i.toString()}>
@@ -106,6 +105,13 @@ export function EditArea() {
             </div>
           </div>
         )}
+        <div className="absolute right-1 bottom-1 p-1 bg-gray-200 rounded pl-2">
+          Sprache:{' '}
+          <select className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100">
+            <option>Robot Karol</option>
+            <option>JAVA</option>
+          </select>
+        </div>
       </div>
     )
   }
