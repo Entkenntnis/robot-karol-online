@@ -32,6 +32,7 @@ import {
   indentWithTab,
   insertNewlineAndIndent,
   selectAll,
+  selectLine,
 } from '@codemirror/commands'
 import {
   autocompletion,
@@ -130,13 +131,18 @@ interface BasicSetupProps {
 export const autoFormat: Command = (view) => {
   // auto format
   const selection = view.state.selection
+  const line = view.state.doc.lineAt(selection.main.anchor)
+  const lineOffset =
+    selection.main.anchor - view.state.doc.line(line.number).from
   selectAll(view)
   indentSelection(view)
-  if (selection.main.to < view.state.doc.length) {
-    view.dispatch({ selection })
-  } else {
-    cursorDocEnd(view)
-  }
+  const newLine = view.state.doc.line(line.number)
+  view.dispatch({
+    selection: {
+      anchor: Math.min(newLine.from + lineOffset, newLine.to),
+      head: Math.min(newLine.from + lineOffset, newLine.to),
+    },
+  })
   return true
 }
 
