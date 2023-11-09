@@ -131,7 +131,6 @@ export function EditArea() {
 
   return <BlockEditor />
 
-  // TODO for later stage: readd text editor
   function renderEditor() {
     return (
       <div className="flex h-full overflow-y-auto relative flex-shrink">
@@ -140,7 +139,7 @@ export function EditArea() {
             {core.ws.settings.language == 'robot karol' ? (
               <Editor innerRef={view} />
             ) : (
-              <JavaEditor />
+              <JavaEditor innerRef={view} />
             )}
           </div>
         </div>

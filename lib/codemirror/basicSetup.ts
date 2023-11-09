@@ -99,7 +99,7 @@ const exampleLanguage = LRLanguage.define({
   },
 })
 
-const Theme = EditorView.theme({
+export const Theme = EditorView.theme({
   '&': {
     outline: 'none !important',
     height: '100%',
@@ -174,7 +174,7 @@ export const defaultHighlightStyle = HighlightStyle.define([
   { tag: t.labelName, color: '#b33300' },
 ])
 
-const germanPhrases = {
+export const germanPhrases = {
   // @codemirror/search
   'Go to line': 'Springe zu Zeile',
   go: 'OK',
