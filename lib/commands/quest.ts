@@ -143,6 +143,7 @@ export function storeQuestToSession(core: Core) {
       core.ws.ui.controlBarShowFinishQuest ||
       core.ws.ui.isAlreadyCompleted ||
       core.ws.quest.completedOnce,
+    language: core.ws.settings.language,
   }
   setQuestData(data)
 }
@@ -161,6 +162,9 @@ export function restoreQuestFromSessionData(
     }
     if (ws.code) {
       ws.ui.isHighlightDescription = false
+    }
+    if (data.language) {
+      ws.settings.language = data.language
     }
   })
 }

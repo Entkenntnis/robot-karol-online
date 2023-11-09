@@ -309,6 +309,7 @@ export interface QuestSessionData {
   code: string
   mode: Settings['mode']
   completedOnce: boolean
+  language?: Settings['language']
 }
 
 export interface QuestSerialFormat {
