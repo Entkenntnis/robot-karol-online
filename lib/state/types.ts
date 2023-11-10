@@ -104,6 +104,7 @@ export interface WorkspaceState {
   world: World
   ui: Ui
   code: string
+  javaCode: string
   vm: Vm
   settings: Settings
 
@@ -307,6 +308,7 @@ export interface QuestSessionData {
   id: number
   completed: boolean
   code: string
+  javaCode?: string
   mode: Settings['mode']
   completedOnce: boolean
   language?: Settings['language']

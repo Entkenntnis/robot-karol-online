@@ -20,6 +20,7 @@ export function createWorkspaceState(): WorkspaceState {
     renderCounter: 0,
     world: createWorld(5, 10, 6),
     code: '',
+    javaCode: '',
     ui: {
       messages: [],
       gutter: 0,

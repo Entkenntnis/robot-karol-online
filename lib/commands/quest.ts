@@ -135,6 +135,7 @@ export function startQuest(core: Core, id: number) {
 export function storeQuestToSession(core: Core) {
   const data: QuestSessionData = {
     code: core.ws.code,
+    javaCode: core.ws.javaCode,
     id: core.ws.quest.id,
     mode: core.ws.settings.mode,
     completed:
@@ -154,6 +155,9 @@ export function restoreQuestFromSessionData(
 ) {
   core.mutateWs((ws) => {
     ws.code = data.code
+    if (data.javaCode) {
+      ws.javaCode = data.javaCode
+    }
     ws.settings.mode = data.mode
     ws.ui.isAlreadyCompleted = data.completed
     ws.quest.completedOnce = data.completedOnce

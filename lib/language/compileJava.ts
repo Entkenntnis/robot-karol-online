@@ -15,7 +15,7 @@ interface AstNode {
 export function compileJava(
   tree: Tree,
   doc: Text
-): { output: Op[]; warnings: Diagnostic[] } {
+): { output: Op[]; warnings: Diagnostic[]; rkCode?: string } {
   const warnings: Diagnostic[] = []
 
   // convert tree to ast node
@@ -176,7 +176,7 @@ export function compileJava(
 
   // -> generic method checker, because I would need this quite often
 
-  return { output: [], warnings }
+  return { output: [], warnings, rkCode: '' }
 
   // --------------------------- HELPER ------------------------
 

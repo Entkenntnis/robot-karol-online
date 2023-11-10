@@ -57,7 +57,7 @@ export const JavaEditor = ({ innerRef }: EditorProps) => {
       console.log('new editor')
       const view: EditorView = new EditorView({
         state: EditorState.create({
-          doc: core.ws.code,
+          doc: core.ws.javaCode,
           extensions: [
             gutter({ class: 'w-8 my-gutter relative' }),
             lineNumbers(),
@@ -122,13 +122,15 @@ export function lint(core: Core, view: EditorView) {
     return [] // auto formatting, ignore
   }
   // good place to sync code with state
-  // const code = view.state.doc.sliceString(0)
-  // core.mutateWs((state) => {
-  //   state.code = code
-  // })
+  const code = view.state.doc.sliceString(0)
+  console.log(code)
+  core.mutateWs((state) => {
+    state.javaCode = code
+    console.log(state.javaCode)
+  })
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
-  const { warnings, output } = compileJava(tree, view.state.doc)
+  const { warnings, output, rkCode } = compileJava(tree, view.state.doc)
   warnings.sort((a, b) => a.from - b.from)
 
   if (warnings.length == 0) {
@@ -150,6 +152,11 @@ export function lint(core: Core, view: EditorView) {
       ws.ui.toBlockWarning = toWarn
     })*/
     patch(core, output)
+    if (rkCode !== undefined) {
+      core.mutateWs((ws) => {
+        ws.code = rkCode
+      })
+    }
   } else {
     core.mutateWs(({ vm, ui }) => {
       vm.bytecode = undefined

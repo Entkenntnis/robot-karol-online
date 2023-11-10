@@ -105,7 +105,11 @@ export function IdeMain() {
                     a.href = url
                     a.download = `${new Date()
                       .toISOString()
-                      .substring(0, 10)}-robot-karol.txt` // specify the filename
+                      .substring(0, 10)}-robot-karol.${
+                      core.ws.settings.language == 'robot karol'
+                        ? 'txt'
+                        : 'java.txt'
+                    }` // specify the filename
 
                     // 6. Simulate a click on the anchor element to trigger the download
                     a.click()
@@ -187,11 +191,14 @@ export function IdeMain() {
                         }}
                       >
                         <FaIcon icon={faExclamationTriangle} />
+                        <span className="inline-block rounded-full bg-red-500 text-white w-6 ml-2 my-1">
+                          {core.ws.ui.errorMessages.length}
+                        </span>
                       </button>
                     )}
                   <button
                     className={clsx(
-                      'rounded px-2 py-0.5 transition-colors',
+                      'rounded px-6 pt-1 pb-2 transition-colors',
                       core.ws.ui.state == 'ready' &&
                         'bg-green-300 hover:bg-green-400',
                       core.ws.ui.state == 'running' &&
@@ -230,7 +237,9 @@ export function IdeMain() {
                       icon={core.ws.ui.state == 'running' ? faStop : faPlay}
                       className="mr-1"
                     />
-                    {core.ws.ui.state == 'running' ? 'Stopp' : 'Start'}
+                    <span className="text-xl">
+                      {core.ws.ui.state == 'running' ? 'Stopp' : 'Start'}
+                    </span>
                   </button>
                 </div>
               )}

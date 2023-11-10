@@ -46,6 +46,11 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
     settings.mode = mode
     ui.toBlockWarning = false
   })
+  if (mode == 'code') {
+    setTimeout(() => {
+      core.view?.current?.focus()
+    })
+  }
 }
 
 export function setShowTarget(core: Core, val: boolean) {

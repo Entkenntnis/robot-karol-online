@@ -12,6 +12,7 @@ import dynamic from 'next/dynamic'
 import { setLanguage, showJavaInfo } from '../../lib/commands/language'
 import { Settings } from '../../lib/state/types'
 import { JavaEditor } from './JavaEditor'
+import clsx from 'clsx'
 
 const BlockEditor = dynamic(
   () => import('./BlockEditor').then((mod) => mod.BlockEditor),
@@ -35,7 +36,10 @@ export function EditArea() {
         changes: {
           from: 0,
           to: view.current.state.doc.length,
-          insert: core.ws.code,
+          insert:
+            core.ws.settings.language == 'robot karol'
+              ? core.ws.code
+              : core.ws.javaCode,
         },
       })
       forceLinting(view.current)
@@ -111,7 +115,13 @@ export function EditArea() {
               Info zu Java
             </div>
           )}
-          <div className=" p-1 bg-gray-200 rounded pl-2">
+          <div
+            className={clsx(
+              'p-1 bg-gray-200 rounded pl-2',
+              core.ws.ui.state !== 'ready' && 'pointer-events-none',
+              core.ws.ui.state == 'error' && 'opacity-50'
+            )}
+          >
             Sprache:{' '}
             <select
               className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100"
