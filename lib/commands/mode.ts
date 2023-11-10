@@ -37,7 +37,9 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
     }
     if (core.ws.ui.toBlockWarning) {
       alert(
-        'Mehrzeilige Kommentare und return sind nur im Code-Editor verfügbar.'
+        core.ws.settings.language == 'robot karol'
+          ? 'Mehrzeilige Kommentare und return sind nur im Code-Editor verfügbar.'
+          : 'Du verwendest Funktionen von Java, die nicht in Blöcken oder Robot Karol Code darstellbar sind. Eine Konvertierung ist im Moment nicht möglich.'
       )
       return
     }

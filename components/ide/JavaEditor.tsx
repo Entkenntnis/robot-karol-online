@@ -39,9 +39,6 @@ import { compileJava } from '../../lib/language/compileJava'
 import { patch } from '../../lib/commands/vm'
 import { setLoading } from '../../lib/commands/editing'
 
-// make tailwind happy
-// text-[#9a4603]
-
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>
 }
@@ -155,6 +152,11 @@ export function lint(core: Core, view: EditorView) {
     if (rkCode !== undefined) {
       core.mutateWs((ws) => {
         ws.code = rkCode
+        ws.ui.toBlockWarning = false
+      })
+    } else {
+      core.mutateWs((ws) => {
+        ws.ui.toBlockWarning = true
       })
     }
   } else {

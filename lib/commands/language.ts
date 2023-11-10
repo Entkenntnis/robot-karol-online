@@ -3,6 +3,12 @@ import { Core } from '../state/core'
 import { Settings } from '../state/types'
 
 export function setLanguage(core: Core, language: Settings['language']) {
+  if (language == 'robot karol' && core.ws.ui.toBlockWarning) {
+    alert(
+      'Du verwendest Funktionen von Java, die nicht in Blöcken oder Robot Karol Code darstellbar sind. Eine Konvertierung ist im Moment nicht möglich.'
+    )
+    return
+  }
   core.mutateWs((state) => {
     const { settings, ui } = state
     if (settings.language == 'robot karol' && language == 'java') {

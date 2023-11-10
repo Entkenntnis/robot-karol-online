@@ -174,6 +174,11 @@ export function compileJava(
     return { output: [], warnings }
   }
 
+  if (ast.text.includes('//warn')) {
+    // test for toBlockWarning
+    return { output: [], warnings: [] }
+  }
+
   // -> generic method checker, because I would need this quite often
 
   return { output: [], warnings, rkCode: '' }
