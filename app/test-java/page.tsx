@@ -287,6 +287,32 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n\n  }\n}',
     output: [],
   },
+  {
+    title: 'Fehler bei eigenem Attribut',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n  int z = 4;\n\n  void main() {\n\n  }\n}',
+    warnings: [
+      {
+        from: 48,
+        to: 58,
+        severity: 'error',
+        message: 'Keine eigenen Attribute unterstützt',
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei eigener Methode',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n\n  }\n\n  void test() {}\n}',
+    warnings: [
+      {
+        from: 71,
+        to: 85,
+        severity: 'error',
+        message: 'Keine eigenen Methoden unterstützt',
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

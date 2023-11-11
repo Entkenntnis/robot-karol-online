@@ -173,13 +173,30 @@ export function compileJava(
 
   // additional checks for robot field and main method
   const mainMethod = mainMethods[0]
+  checkMainMethod(mainMethod)
 
-  if (ast.text.includes('//warn')) {
-    // test for toBlockWarning
-    return { output: [], warnings: [] }
+  // custom fields / methods not implemented yet
+  for (const field of fields) {
+    if (field != robotField) {
+      warnings.push({
+        from: field.from,
+        to: field.to,
+        severity: 'error',
+        message: 'Keine eigenen Attribute unterstützt',
+      })
+    }
   }
 
-  // -> generic method checker, because I would need this quite often
+  for (const method of methods) {
+    if (method != mainMethod) {
+      warnings.push({
+        from: method.from,
+        to: method.to,
+        severity: 'error',
+        message: 'Keine eigenen Methoden unterstützt',
+      })
+    }
+  }
 
   return { output: [], warnings, rkCode: '' }
 
@@ -333,6 +350,10 @@ export function compileJava(
 
     // done
     return name
+  }
+
+  function checkMainMethod(main: AstNode) {
+    // TODO
   }
 
   function checkSemikolon(nodeToCheck: AstNode) {
