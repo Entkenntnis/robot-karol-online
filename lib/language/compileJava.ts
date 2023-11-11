@@ -1,16 +1,8 @@
 import { Text } from '@codemirror/state'
-import { Tree, TreeCursor } from '@lezer/common'
+import { Tree } from '@lezer/common'
 import { Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
-
-interface AstNode {
-  name: string
-  from: number
-  to: number
-  text: string
-  isError: boolean
-  children: AstNode[]
-}
+import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
 
 export function compileJava(
   tree: Tree,
@@ -19,7 +11,10 @@ export function compileJava(
   const warnings: Diagnostic[] = []
 
   // convert tree to ast node
-  const ast = cursorToAstNode(tree.cursor(), doc)
+  const ast = cursorToAstNode(tree.cursor(), doc, [
+    'LineComment',
+    'BlockComment',
+  ])
 
   // debug
   console.log(prettyPrintAstNode(ast))
@@ -347,37 +342,4 @@ export function compileJava(
       })
     }
   }
-}
-
-function cursorToAstNode(cursor: TreeCursor, doc: Text): AstNode {
-  const node: AstNode = {
-    name: cursor.name,
-    from: cursor.from,
-    to: cursor.to,
-    isError: cursor.type.isError,
-    text: doc.sliceString(cursor.from, cursor.to),
-    children: [],
-  }
-  if (cursor.firstChild()) {
-    do {
-      if (cursor.name !== 'LineComment' && cursor.name !== 'BlockComment') {
-        node.children.push(cursorToAstNode(cursor.node.cursor(), doc))
-      }
-    } while (cursor.nextSibling())
-  }
-  return node
-}
-
-function prettyPrintAstNode(node: AstNode, offset = 0) {
-  let output = ''
-  for (let i = 0; i < offset; i++) {
-    output += '｜ '
-  }
-  output += `${node.name} (${node.from} - ${node.to})${
-    node.children.length == 0 ? ` "${node.text}"` : ''
-  }\n`
-  for (const child of node.children) {
-    output += prettyPrintAstNode(child, offset + 1)
-  }
-  return output
 }

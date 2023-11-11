@@ -13,12 +13,10 @@ import {
   RepeatStart,
   RepeatTimesKey,
   RepeatWhileKey,
-  Return,
   ThenKey,
 } from './parser.terms'
 
 export function keywords(input: string) {
-  if (/^(return)$/i.test(input)) return Return
   if (/^(wiederhole)$/i.test(input)) return RepeatStart
   if (/^((ende|\*)wiederhole)$/i.test(input)) return RepeatEnd
   if (/^(solange)$/i.test(input)) return RepeatWhileKey

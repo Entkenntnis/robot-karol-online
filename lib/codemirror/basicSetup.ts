@@ -76,7 +76,6 @@ const parserWithMetadata = parser.configure({
       CustomRef: t.variableName,
       KarolPrefix: t.labelName,
       Parameter: t.strong,
-      Return: t.keyword,
       ConditionWithoutParam: t.className,
       ConditionMaybeWithParam: t.className,
       CommandWithParameter: t.atom,
@@ -250,7 +249,6 @@ const generalOptions = [
   { label: 'sonst' },
   { label: 'Anweisung' },
   { label: 'endeAnweisung' },
-  { label: 'return' },
   { label: 'Beenden' },
   { label: 'karol' },
 ]

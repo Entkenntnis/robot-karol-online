@@ -20,23 +20,23 @@ export function lint(core: Core, view: EditorView) {
   warnings.sort((a, b) => a.from - b.from)
 
   if (warnings.length == 0) {
-    let toWarn = false
+    /*let toWarn = false
 
     const cursor = tree.cursor()
     do {
       if (
-        cursor.type.name == 'Comment' ||
-        cursor.type.name == 'BlockComment' ||
-        /*cursor.type.name == 'Cmd' ||*/
-        cursor.type.name == 'Return' /*||
-        cursor.type.name == 'CustomRef'*/
+        //cursor.type.name == 'Comment' ||
+        //cursor.type.name == 'BlockComment' ||
+        // cursor.type.name == 'Cmd' ||
+        // cursor.type.name == 'Return' ||
+        // cursor.type.name == 'CustomRef'
       ) {
         toWarn = true
       }
     } while (cursor.next())
     core.mutateWs((ws) => {
       ws.ui.toBlockWarning = toWarn
-    })
+    })*/
     patch(core, output)
   } else {
     core.mutateWs(({ vm, ui }) => {
