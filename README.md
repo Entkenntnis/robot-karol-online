@@ -40,9 +40,9 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 `Schritt(anzahl)` - Karol geht `anzahl` Schritte nach vorne.
 
-`LinksDrehen` - Karol dreht sich um 90° nach links.
+`LinksDrehen` - Karol dreht sich um 90° nach links (optional mit Anzahl).
 
-`RechtsDrehen` - Karol dreht sich um 90° nach rechts.
+`RechtsDrehen` - Karol dreht sich um 90° nach rechts (optional mit Anzahl).
 
 `Hinlegen` - Karol legt vor sich einen Ziegel.
 
@@ -107,7 +107,7 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 - Die meisten Befehle erlauben eine objektorientiere Schreibweise der Form `karol.Schritt(4)` oder ohne Parameter in der Form `karol.LinksDrehen()`.
 - Die alte Syntax mit `*wiederhole`, `*wenn` und `*Anweisung` wird weiterhin unterstützt.
 - Außerdem können weiterhin Kommentare mit `{ Kommentar }` geschrieben werden. Alternative Syntax für mehrzeilige Kommentare ist `/* Kommentar */`.
-- Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`
+- Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`. Das Semikolon wird beim Parsen ignoriert.
 
 ## Ähnliche Projekte
 
