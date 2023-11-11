@@ -17,6 +17,18 @@ export interface CompilerTestCase {
 const compilerTestCases: CompilerTestCase[] = [
   { title: 'Leeres Programm', source: '', output: [] },
   {
+    title: 'Fehler bei Klasse ohne Name',
+    source: 'class',
+    warnings: [
+      {
+        from: 0,
+        to: 5,
+        severity: 'error',
+        message: 'Erwarte Name der Klasse',
+      },
+    ],
+  },
+  {
     title: 'Fehler bei keiner Klasse',
     source: 'void main() {\n\n}',
     warnings: [
@@ -45,7 +57,7 @@ const compilerTestCases: CompilerTestCase[] = [
     source: 'class P1',
     warnings: [
       {
-        from: 0,
+        from: 6,
         to: 8,
         severity: 'error',
         message: 'Erwarte Rumpf der Klasse',
@@ -135,10 +147,10 @@ const compilerTestCases: CompilerTestCase[] = [
     source: 'class C {}',
     warnings: [
       {
-        from: 8,
-        to: 10,
+        from: 6,
+        to: 7,
         severity: 'error',
-        message: "Erwarte ein Attribut vom Typ 'Robot'",
+        message: "Erwarte ein Attribut vom Typ 'Robot' in Klasse 'C'",
       },
     ],
   },
@@ -148,10 +160,10 @@ const compilerTestCases: CompilerTestCase[] = [
       'class C {\n  Robot karol = new Robot();\n  Robot karol2 = new Robot();\n}',
     warnings: [
       {
-        from: 8,
-        to: 70,
+        from: 6,
+        to: 7,
         severity: 'error',
-        message: "Erwarte genau ein Attribut vom Typ 'Robot'",
+        message: "Erwarte genau ein Attribut vom Typ 'Robot' in Klasse 'C'",
       },
     ],
   },
@@ -160,10 +172,10 @@ const compilerTestCases: CompilerTestCase[] = [
     source: 'class C {\n  Robot karol = new Robot();\n}',
     warnings: [
       {
-        from: 8,
-        to: 40,
+        from: 6,
+        to: 7,
         severity: 'error',
-        message: "Erwarte eine Methode 'main'",
+        message: "Erwarte eine Methode 'main' in Klasse 'C'",
       },
     ],
   },
@@ -173,10 +185,10 @@ const compilerTestCases: CompilerTestCase[] = [
       'class C {\n  Robot karol = new Robot();\n  void main () {\n\n  }\n  void main () {\n\n  }\n}',
     warnings: [
       {
-        from: 8,
-        to: 84,
+        from: 6,
+        to: 7,
         severity: 'error',
-        message: "Erwarte genau eine Methode 'main'",
+        message: "Erwarte genau eine Methode 'main' in Klasse 'C'",
       },
     ],
   },
@@ -196,13 +208,13 @@ const compilerTestCases: CompilerTestCase[] = [
   },
   {
     title: 'Fehler bei fehlender Initialiserung',
-    source: 'class Hauptprogramm {\n  Robot x;\n\n  void main() {\n\n  }\n}',
+    source: 'class Hauptprogramm {\n  Robot x;\n}',
     warnings: [
       {
-        from: 24,
-        to: 32,
+        from: 30,
+        to: 31,
         severity: 'error',
-        message: 'Erwarte Initialisierung des Attributes',
+        message: "Erwarte Initialisierung des Attributes 'x'",
       },
     ],
   },
@@ -211,8 +223,8 @@ const compilerTestCases: CompilerTestCase[] = [
     source: 'class Hauptprogramm {\n  Robot x =;\n\n  void main() {\n\n  }\n}',
     warnings: [
       {
-        from: 24,
-        to: 34,
+        from: 30,
+        to: 31,
         severity: 'error',
         message: "Erwarte Initialisierung mit 'new Robot()'",
       },
@@ -224,8 +236,8 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Hauptprogramm {\n  Robot x = Robot();\n\n  void main() {\n\n  }\n}',
     warnings: [
       {
-        from: 24,
-        to: 42,
+        from: 30,
+        to: 31,
         severity: 'error',
         message: "Erwarte Initialisierung mit 'new Robot()'",
       },
@@ -233,12 +245,11 @@ const compilerTestCases: CompilerTestCase[] = [
   },
   {
     title: 'Fehler bei Initialiserung mit Argumenten',
-    source:
-      'class Hauptprogramm {\n  Robot x = Robot(42);\n\n  void main() {\n\n  }\n}',
+    source: 'class Hauptprogramm {\n  Robot x = Robot(42);\n}',
     warnings: [
       {
-        from: 24,
-        to: 44,
+        from: 30,
+        to: 31,
         severity: 'error',
         message: "Erwarte Initialisierung mit 'new Robot()'",
       },

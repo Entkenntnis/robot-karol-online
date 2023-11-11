@@ -55,14 +55,29 @@ export function compileJava(
   // -------------------- next level -----------------------------------
   const classDeclaration = classDeclOnToplevel[0]
 
+  const classDefinition = classDeclaration.children.find(
+    (child) => child.name == 'Definition'
+  )
+
+  if (!classDefinition) {
+    warnings.push({
+      from: classDeclaration.from,
+      to: classDeclaration.to,
+      severity: 'error',
+      message: 'Erwarte Name der Klasse',
+    })
+    // can't continue
+    return { output: [], warnings }
+  }
+
   const classBodys = classDeclaration.children.filter(
     (child) => child.name == 'ClassBody'
   )
 
   if (classBodys.length !== 1) {
     warnings.push({
-      from: ast.from,
-      to: ast.to,
+      from: classDefinition.from,
+      to: classDefinition.to,
       severity: 'error',
       message:
         classBodys.length == 0
@@ -133,11 +148,18 @@ export function compileJava(
     ensureExactlyOneChild(
       robotFields,
       (x) => true,
-      classBody,
-      `Erwarte ein Attribut vom Typ 'Robot'`,
-      `Erwarte genau ein Attribut vom Typ 'Robot'`
+      classDefinition,
+      `Erwarte ein Attribut vom Typ 'Robot' in Klasse '${classDefinition.text}'`,
+      `Erwarte genau ein Attribut vom Typ 'Robot' in Klasse '${classDefinition.text}'`
     ) === false
   ) {
+    return { output: [], warnings }
+  }
+
+  const robotField = robotFields[0]
+  const robotInstanceName = checkRobotField(robotField)
+
+  if (!robotInstanceName || warnings.length > 0) {
     return { output: [], warnings }
   }
 
@@ -145,9 +167,9 @@ export function compileJava(
     ensureExactlyOneChild(
       mainMethods,
       (x) => true,
-      classBody,
-      `Erwarte eine Methode 'main'`,
-      `Erwarte genau eine Methode 'main'`
+      classDefinition,
+      `Erwarte eine Methode 'main' in Klasse '${classDefinition.text}'`,
+      `Erwarte genau eine Methode 'main' in Klasse '${classDefinition.text}'`
     ) === false
   ) {
     return { output: [], warnings }
@@ -160,14 +182,7 @@ export function compileJava(
   }
 
   // additional checks for robot field and main method
-  const robotField = robotFields[0]
   const mainMethod = mainMethods[0]
-
-  const robotInstanceName = checkRobotField(robotField)
-
-  if (!robotInstanceName) {
-    return { output: [], warnings }
-  }
 
   if (ast.text.includes('//warn')) {
     // test for toBlockWarning
@@ -273,10 +288,10 @@ export function compileJava(
     )
     if (!assignOp) {
       warnings.push({
-        from: robotField.from,
-        to: robotField.to,
+        from: definition.from,
+        to: definition.to,
         severity: 'error',
-        message: 'Erwarte Initialisierung des Attributes',
+        message: `Erwarte Initialisierung des Attributes '${definition.text}'`,
       })
       return name
     }
@@ -295,8 +310,8 @@ export function compileJava(
       objectCreationExpression.children[2].children[1].name !== ')'
     ) {
       warnings.push({
-        from: robotField.from,
-        to: robotField.to,
+        from: definition.from,
+        to: definition.to,
         severity: 'error',
         message: "Erwarte Initialisierung mit 'new Robot()'",
       })
