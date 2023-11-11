@@ -19,11 +19,6 @@ export function compileJava(
   // debug
   console.log(prettyPrintAstNode(ast))
 
-  // I think lezer will always respect this
-  if (ast.name !== 'Program') {
-    throw 'internal parse error'
-  }
-
   if (ast.children.length == 0) {
     // empty program
     return { output: [], warnings: [] }
@@ -70,19 +65,16 @@ export function compileJava(
     return { output: [], warnings }
   }
 
-  const classBodys = classDeclaration.children.filter(
+  const classBody = classDeclaration.children.find(
     (child) => child.name == 'ClassBody'
   )
 
-  if (classBodys.length !== 1) {
+  if (!classBody) {
     warnings.push({
       from: classDefinition.from,
       to: classDefinition.to,
       severity: 'error',
-      message:
-        classBodys.length == 0
-          ? 'Erwarte Rumpf der Klasse'
-          : 'Klasse enthält mehrere Rümpfe',
+      message: 'Erwarte Rumpf der Klasse',
     })
     // can't continue
     return { output: [], warnings }
@@ -103,8 +95,6 @@ export function compileJava(
     return { output: [], warnings }
   }
   // --------------------------- next level -------------------------------
-  const classBody = classBodys[0]
-
   const classBodyChildren = classBody.children
   if (ensureBlock(classBodyChildren) === false) {
     return { output: [], warnings }
@@ -210,9 +200,10 @@ export function compileJava(
 
   function ensureBlock(nodes: AstNode[]) {
     if (nodes.length == 0 || nodes[0].name !== '{') {
+      const start = nodes[0].from
       warnings.push({
-        from: classBody.from,
-        to: classBody.to,
+        from: start,
+        to: start + 1,
         severity: 'error',
         message: "Erwarte öffnende geschweifte Klammer '{'",
       })
@@ -223,9 +214,10 @@ export function compileJava(
     }
 
     if (nodes.length == 0 || nodes[nodes.length - 1].name !== '}') {
+      const end = nodes[nodes.length - 1].to
       warnings.push({
-        from: classBody.from,
-        to: classBody.to,
+        from: end - 1,
+        to: end,
         severity: 'error',
         message: "Erwarte schließende geschweifte Klammer '}'",
       })

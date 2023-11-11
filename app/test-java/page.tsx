@@ -195,11 +195,11 @@ const compilerTestCases: CompilerTestCase[] = [
   {
     title: 'Fehler bei verschachtelter Klasse',
     source:
-      'class Hauptprogramm {\n  Robot karol = new Robot();\n\n  void main() {\n\n  }\n\n  class Inner { }\n}',
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n\n  }\n\n  class Inner { }\n}',
     warnings: [
       {
-        from: 76,
-        to: 91,
+        from: 71,
+        to: 86,
         severity: 'error',
         message:
           "Bitte entferne 'class Inner { }', wird hier nicht unterstützt",
@@ -208,11 +208,11 @@ const compilerTestCases: CompilerTestCase[] = [
   },
   {
     title: 'Fehler bei fehlender Initialiserung',
-    source: 'class Hauptprogramm {\n  Robot x;\n}',
+    source: 'class Programm {\n  Robot x;\n}',
     warnings: [
       {
-        from: 30,
-        to: 31,
+        from: 25,
+        to: 26,
         severity: 'error',
         message: "Erwarte Initialisierung des Attributes 'x'",
       },
@@ -220,11 +220,11 @@ const compilerTestCases: CompilerTestCase[] = [
   },
   {
     title: 'Fehler bei Initialiserung ohne Objekt',
-    source: 'class Hauptprogramm {\n  Robot x =;\n\n  void main() {\n\n  }\n}',
+    source: 'class Programm {\n  Robot x =;\n\n  void main() {\n\n  }\n}',
     warnings: [
       {
-        from: 30,
-        to: 31,
+        from: 25,
+        to: 26,
         severity: 'error',
         message: "Erwarte Initialisierung mit 'new Robot()'",
       },
@@ -233,11 +233,11 @@ const compilerTestCases: CompilerTestCase[] = [
   {
     title: 'Fehler bei Initialiserung mit fehlerhaftem Objekt',
     source:
-      'class Hauptprogramm {\n  Robot x = Robot();\n\n  void main() {\n\n  }\n}',
+      'class Programm {\n  Robot x = Robot();\n\n  void main() {\n\n  }\n}',
     warnings: [
       {
-        from: 30,
-        to: 31,
+        from: 25,
+        to: 26,
         severity: 'error',
         message: "Erwarte Initialisierung mit 'new Robot()'",
       },
@@ -245,11 +245,11 @@ const compilerTestCases: CompilerTestCase[] = [
   },
   {
     title: 'Fehler bei Initialiserung mit Argumenten',
-    source: 'class Hauptprogramm {\n  Robot x = Robot(42);\n}',
+    source: 'class Programm {\n  Robot x = Robot(42);\n}',
     warnings: [
       {
-        from: 30,
-        to: 31,
+        from: 25,
+        to: 26,
         severity: 'error',
         message: "Erwarte Initialisierung mit 'new Robot()'",
       },
@@ -258,11 +258,11 @@ const compilerTestCases: CompilerTestCase[] = [
   {
     title: 'Fehler bei Initialiserung mit Syntaxfehler',
     source:
-      'class Hauptprogramm {\n  Robot x += new Robot();\n\n  void main() {\n\n  }\n}',
+      'class Programm {\n  Robot x += new Robot();\n\n  void main() {\n\n  }\n}',
     warnings: [
       {
-        from: 32,
-        to: 33,
+        from: 27,
+        to: 28,
         severity: 'error',
         message: 'Bitte Syntaxfehler korrigieren',
       },
@@ -271,11 +271,11 @@ const compilerTestCases: CompilerTestCase[] = [
   {
     title: 'Fehler bei fehlendem Semikolon',
     source:
-      'class Hauptprogramm {\n  Robot x = new Robot()\n\n  void main() {\n\n  }\n}',
+      'class Programm {\n  Robot x = new Robot()\n\n  void main() {\n\n  }\n}',
     warnings: [
       {
-        from: 24,
-        to: 49,
+        from: 19,
+        to: 44,
         severity: 'error',
         message: "Erwarte Abschluss mit Semikolon ';'",
       },
@@ -284,12 +284,12 @@ const compilerTestCases: CompilerTestCase[] = [
   {
     title: 'Leeres Grundgerüst',
     source:
-      'class Hauptprogramm {\n  Robot karol = new Robot();\n\n  void main() {\n\n  }\n}',
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n\n  }\n}',
     output: [],
   },
   /*{
     title: 'Playground',
-    source: 'class Hauptprogramm {\n  Robot x;\n\n  void main() {\n\n  }\n}',
+    source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',
     warnings: [],
   },*/
 ]

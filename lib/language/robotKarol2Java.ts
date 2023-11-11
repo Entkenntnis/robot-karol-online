@@ -114,7 +114,7 @@ export function robotKarol2Java(code: string) {
     }
   }
 
-  return `class Hauptprogramm {
+  return `class Programm {
   Robot karol = new Robot();
 
   void main() {
