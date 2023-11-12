@@ -158,7 +158,7 @@ export function compileJava(
       mainMethods,
       (x) => true,
       classDefinition,
-      `Erwarte eine Methode 'main' in Klasse '${classDefinition.text}'`,
+      `Erwarte eine Methode 'void main()' in Klasse '${classDefinition.text}'`,
       `Erwarte genau eine Methode 'main' in Klasse '${classDefinition.text}'`
     ) === false
   ) {
@@ -202,11 +202,11 @@ export function compileJava(
 
   // --------------------------- HELPER ------------------------
 
-  function warnForUnexpectedNodes(nodes: AstNode[]) {
+  function warnForUnexpectedNodes(nodes: AstNode[], warnNode?: AstNode) {
     for (const node of nodes) {
       warnings.push({
-        from: node.from,
-        to: node.to,
+        from: (warnNode ?? node).from,
+        to: (warnNode ?? node).to,
         severity: 'error',
         message: node.isError
           ? 'Bitte Syntaxfehler korrigieren'
@@ -353,7 +353,68 @@ export function compileJava(
   }
 
   function checkMainMethod(main: AstNode) {
-    // TODO
+    const definition = main.children.find(
+      (child) => child.name == 'Definition'
+    )! // parser will always emit subtree with definition
+
+    if (!main.children.find((child) => child.name == 'void')) {
+      warnings.push({
+        from: definition.from,
+        to: definition.to,
+        severity: 'error',
+        message: "Erwarte Rückgabetyp 'void'",
+      })
+    }
+
+    const formalParameters = main.children.find(
+      (child) => child.name == 'FormalParameters'
+    )! // parser will allways emit formal parameters
+
+    warnForUnexpectedNodes(
+      formalParameters.children.filter((child) => child.isError),
+      formalParameters
+    )
+
+    if (
+      formalParameters.children.some((child) => child.name == 'FormalParameter')
+    ) {
+      warnings.push({
+        from: definition.from,
+        to: definition.to,
+        severity: 'error',
+        message: "Methode 'main' erwartet keine Parameter",
+      })
+    }
+
+    const block = main.children.find((child) => child.name == 'Block')
+
+    if (!block) {
+      warnings.push({
+        from: definition.from,
+        to: definition.to,
+        severity: 'error',
+        message: "Erwarte Rumpf der Methode 'main'",
+      })
+      if (main.children[main.children.length - 1].isError) {
+        main.children.pop()
+      }
+    } else {
+      ensureBlock(block!.children)
+    }
+
+    const unwanted = main.children.filter(
+      (child) =>
+        ![
+          'void',
+          'TypeName',
+          'PrimitiveType',
+          'Definition',
+          'FormalParameters',
+          'Block',
+        ].includes(child.name)
+    )
+
+    warnForUnexpectedNodes(unwanted, main)
   }
 
   function checkSemikolon(nodeToCheck: AstNode) {

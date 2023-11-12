@@ -175,7 +175,7 @@ const compilerTestCases: CompilerTestCase[] = [
         from: 6,
         to: 7,
         severity: 'error',
-        message: "Erwarte eine Methode 'main' in Klasse 'C'",
+        message: "Erwarte eine Methode 'void main()' in Klasse 'C'",
       },
     ],
   },
@@ -310,6 +310,70 @@ const compilerTestCases: CompilerTestCase[] = [
         to: 85,
         severity: 'error',
         message: 'Keine eigenen Methoden unterstützt',
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei falschem Rückgabetyp der Hauptmethode',
+    source:
+      'class Programm {\n  Robot x = new Robot();\n\n  int main () {\n\n  }\n}',
+    warnings: [
+      {
+        from: 49,
+        to: 53,
+        severity: 'error',
+        message: "Erwarte Rückgabetyp 'void'",
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei fehlender Klammer',
+    source:
+      'class Programm {\n  Robot x = new Robot();\n\n  void main ( {\n\n  }\n}',
+    warnings: [
+      {
+        from: 55,
+        to: 57,
+        severity: 'error',
+        message: 'Bitte Syntaxfehler korrigieren',
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei fehlender Klammer',
+    source:
+      'class Programm {\n  Robot x = new Robot();\n\n  void main (int count) {\n\n  }\n}',
+    warnings: [
+      {
+        from: 50,
+        to: 54,
+        severity: 'error',
+        message: "Methode 'main' erwartet keine Parameter",
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei fehlendem Rumpf',
+    source: 'class Programm {\n  Robot x = new Robot();\n\n  void main ()\n}',
+    warnings: [
+      {
+        from: 50,
+        to: 54,
+        severity: 'error',
+        message: "Erwarte Rumpf der Methode 'main'",
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei Syntaxfehler',
+    source:
+      'class Programm {\n  Robot x = new Robot();\n\n  void % main() {}\n}',
+    warnings: [
+      {
+        from: 45,
+        to: 61,
+        severity: 'error',
+        message: 'Bitte Syntaxfehler korrigieren',
       },
     ],
   },
