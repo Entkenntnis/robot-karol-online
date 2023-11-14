@@ -115,7 +115,7 @@ export function compileJava(
   const robotFields = fields.filter((field) => {
     const typeName = field.children.filter((child) => child.name == 'TypeName')
     if (typeName.length == 1) {
-      if (typeName[0].text == 'Robot') {
+      if (typeName[0].text() == 'Robot') {
         return true
       }
     }
@@ -127,7 +127,7 @@ export function compileJava(
       (child) => child.name == 'Definition'
     )
     if (definition.length == 1) {
-      if (definition[0].text == 'main') {
+      if (definition[0].text() == 'main') {
         return true
       }
     }
@@ -139,8 +139,8 @@ export function compileJava(
       robotFields,
       (x) => true,
       classDefinition,
-      `Erwarte ein Attribut vom Typ 'Robot' in Klasse '${classDefinition.text}'`,
-      `Erwarte genau ein Attribut vom Typ 'Robot' in Klasse '${classDefinition.text}'`
+      `Erwarte ein Attribut vom Typ 'Robot' in Klasse '${classDefinition.text()}'`,
+      `Erwarte genau ein Attribut vom Typ 'Robot' in Klasse '${classDefinition.text()}'`
     ) === false
   ) {
     return { output: [], warnings }
@@ -158,8 +158,8 @@ export function compileJava(
       mainMethods,
       (x) => true,
       classDefinition,
-      `Erwarte eine Methode 'void main()' in Klasse '${classDefinition.text}'`,
-      `Erwarte genau eine Methode 'main' in Klasse '${classDefinition.text}'`
+      `Erwarte eine Methode 'void main()' in Klasse '${classDefinition.text()}'`,
+      `Erwarte genau eine Methode 'main' in Klasse '${classDefinition.text()}'`
     ) === false
   ) {
     return { output: [], warnings }
@@ -210,7 +210,7 @@ export function compileJava(
         severity: 'error',
         message: node.isError
           ? 'Bitte Syntaxfehler korrigieren'
-          : `Bitte entferne '${node.text}', wird hier nicht unterstützt`,
+          : `Bitte entferne '${node.text()}', wird hier nicht unterstützt`,
       })
     }
   }
@@ -282,7 +282,7 @@ export function compileJava(
     const definition = variableDeclaration.children.find(
       (child) => child.name == 'Definition'
     )
-    const name = definition?.text
+    const name = definition?.text()
     if (!definition || !name) {
       warnings.push({
         from: robotField.from,
@@ -293,14 +293,14 @@ export function compileJava(
       return null
     }
     const assignOp = variableDeclaration.children.find(
-      (child) => child.name == 'AssignOp' && child.text == '='
+      (child) => child.name == 'AssignOp' && child.text() == '='
     )
     if (!assignOp) {
       warnings.push({
         from: definition.from,
         to: definition.to,
         severity: 'error',
-        message: `Erwarte Initialisierung des Attributes '${definition.text}'`,
+        message: `Erwarte Initialisierung des Attributes '${definition.text()}'`,
       })
       return name
     }
@@ -313,7 +313,7 @@ export function compileJava(
       objectCreationExpression.children[1].name !== 'TypeName' ||
       objectCreationExpression.children[2].name !== 'ArgumentList' ||
       objectCreationExpression.children.length > 3 ||
-      objectCreationExpression.children[1].text !== 'Robot' ||
+      objectCreationExpression.children[1].text() !== 'Robot' ||
       objectCreationExpression.children[2].children.length !== 2 ||
       objectCreationExpression.children[2].children[0].name !== '(' ||
       objectCreationExpression.children[2].children[1].name !== ')'

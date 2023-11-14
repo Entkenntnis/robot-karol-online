@@ -5,7 +5,7 @@ export interface AstNode {
   name: string
   from: number
   to: number
-  text: string
+  text: () => string
   isError: boolean
   children: AstNode[]
 }
@@ -15,12 +15,14 @@ export function cursorToAstNode(
   doc: Text,
   ignore: string[] = []
 ): AstNode {
+  const from = cursor.from
+  const to = cursor.to
   const node: AstNode = {
     name: cursor.name,
-    from: cursor.from,
-    to: cursor.to,
+    from,
+    to,
     isError: cursor.type.isError,
-    text: doc.sliceString(cursor.from, cursor.to),
+    text: () => doc.sliceString(from, to),
     children: [],
   }
   if (cursor.firstChild()) {
