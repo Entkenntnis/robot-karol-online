@@ -274,10 +274,10 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot x = new Robot()\n\n  void main() {\n\n  }\n}',
     warnings: [
       {
-        from: 19,
-        to: 44,
+        from: 39,
+        to: 40,
         severity: 'error',
-        message: "Erwarte Abschluss mit Semikolon ';'",
+        message: "Erwarte Semikolon ';'",
       },
     ],
   },
@@ -387,6 +387,84 @@ const compilerTestCases: CompilerTestCase[] = [
         to: 78,
         severity: 'error',
         message: "Erwarte öffnende geschweifte Klammer '{'",
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei fehlendem Semikolon in Methodenrumpf',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt()\n  }\n}',
+    warnings: [
+      {
+        from: 82,
+        to: 83,
+        severity: 'error',
+        message: "Erwarte Semikolon ';'",
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei leerstehendem Semikolon',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    ;\n  }\n}',
+    warnings: [
+      {
+        from: 68,
+        to: 69,
+        severity: 'error',
+        message: 'Erwarte Methodenaufruf',
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei fehlendem Objekt',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    schritt();\n  }\n}',
+    warnings: [
+      {
+        from: 68,
+        to: 77,
+        severity: 'error',
+        message: "Erwarte Punktnotation 'karol.'",
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei falschem Objekt',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    k.schritt();\n  }\n}',
+    warnings: [
+      {
+        from: 68,
+        to: 69,
+        severity: 'error',
+        message: "Erwarte Objekt 'karol'",
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei unbekannter Methode',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.st();\n  }\n}',
+    warnings: [
+      {
+        from: 74,
+        to: 76,
+        severity: 'error',
+        message: "Unbekannte Methode 'st'",
+      },
+    ],
+  },
+  {
+    title: 'Fehler bei überschüssigen Argument',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.beenden(4);\n  }\n}',
+    warnings: [
+      {
+        from: 81,
+        to: 84,
+        severity: 'error',
+        message: 'Erwarte leere Argumentliste',
       },
     ],
   },

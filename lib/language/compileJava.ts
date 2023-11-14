@@ -232,13 +232,124 @@ export function compileJava(
           ) {
             node.children.pop()
           }
-          // PATTERN MATCHING HELPER NEEDED
         }
+        warnSyntaxError(node.children)
+        if (
+          node.children.length !== 1 ||
+          node.children[0].name !== 'MethodInvocation'
+        ) {
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: 'Erwarte Methodenaufruf',
+          })
+        } else {
+          semanticCheck(node.children[0], context)
+        }
+        return
+      }
+      case ';': {
+        warnings.push({
+          from: node.from,
+          to: node.to,
+          severity: 'error',
+          message: 'Erwarte Methodenaufruf',
+        })
+        return
+      }
+      case 'MethodInvocation': {
+        if (matchChildren(['MethodName', 'ArgumentList'], node.children)) {
+          // future: adapt if own methods become available
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: `Erwarte Punktnotation '${context.robotName}.'`,
+          })
+          return
+        }
+
+        if (
+          matchChildren(
+            ['Identifier', '.', 'MethodName', 'ArgumentList'],
+            node.children
+          ) &&
+          matchChildren(['Identifier'], node.children[2].children)
+        ) {
+          const obj = node.children[0].text()
+          if (obj !== context.robotName) {
+            warnings.push({
+              from: node.children[0].from,
+              to: node.children[0].to,
+              severity: 'error',
+              message: `Erwarte Objekt '${context.robotName}'`,
+            })
+          }
+          const methodName = node.children[2].children[0].text()
+          if (
+            ![
+              'schritt',
+              'linksDrehen',
+              'rechtsDrehen',
+              'hinlegen',
+              'aufheben',
+              'markeSetzen',
+              'markeLöschen',
+              'beenden',
+            ].includes(methodName)
+          ) {
+            warnings.push({
+              from: node.children[2].from,
+              to: node.children[2].to,
+              severity: 'error',
+              message: `Unbekannte Methode '${methodName}'`,
+            })
+          }
+
+          const argumentList = node.children[3]
+
+          // todo: argument parsen
+          if (argumentList.children.some((child) => child.isError)) {
+            warnings.push({
+              from: argumentList.from,
+              to: argumentList.to,
+              severity: 'error',
+              message: `Bitte Syntaxfehler korrigieren`,
+            })
+          } else if (!matchChildren(['(', ')'], argumentList.children)) {
+            warnings.push({
+              from: argumentList.from,
+              to: argumentList.to,
+              severity: 'error',
+              message: `Erwarte leere Argumentliste`,
+            })
+          }
+
+          return
+        }
+
+        warnings.push({
+          from: node.from,
+          to: node.to,
+          severity: 'error',
+          message: 'Erwarte Methodenaufruf',
+        })
         return
       }
     }
 
-    console.log('SEMANTIK CHECK', node.name)
+    if (node.isError) {
+      warnings.push({
+        from: node.from,
+        to: node.to,
+        severity: 'error',
+        message: 'SYNTAXFEHLER',
+      })
+      return
+    }
+
+    console.log('NOT IMPLEMENTED', node.name)
     node.children.forEach((child) => semanticCheck(child, context))
   }
 
@@ -253,6 +364,27 @@ export function compileJava(
           : `Bitte entferne '${node.text()}', wird hier nicht unterstützt`,
       })
     }
+  }
+
+  function warnSyntaxError(nodes: AstNode[]) {
+    return nodes.filter((node) => {
+      if (node.isError) {
+        warnings.push({
+          from: node.from,
+          to: node.to,
+          severity: 'error',
+          message: 'Bitte Syntaxfehler korrigieren',
+        })
+      }
+      return !node.isError
+    })
+  }
+
+  function matchChildren(names: string[], nodes: AstNode[]) {
+    return (
+      names.length == nodes.length &&
+      names.every((name, i) => nodes[i].name == name)
+    )
   }
 
   function ensureBlock(nodes: AstNode[]) {
@@ -467,11 +599,12 @@ export function compileJava(
       if (children.length > 0 && children[children.length - 1].isError) {
         children.pop()
       }
+      const line = doc.lineAt(nodeToCheck.from)
       warnings.push({
-        from: nodeToCheck.from,
-        to: nodeToCheck.to,
+        from: Math.max(nodeToCheck.from, line.to - 1),
+        to: line.to,
         severity: 'error',
-        message: "Erwarte Abschluss mit Semikolon ';'",
+        message: "Erwarte Semikolon ';'",
       })
       return false
     }
