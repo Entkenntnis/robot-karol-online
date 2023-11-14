@@ -123,7 +123,7 @@ export function lint(core: Core, view: EditorView) {
   console.log(code)
   core.mutateWs((state) => {
     state.javaCode = code
-    console.log(state.javaCode)
+    // console.log(state.javaCode)
   })
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!

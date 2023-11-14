@@ -377,6 +377,19 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Fehler bei fehlender Klammer',
+    source:
+      'class Programm {\n  Robot x = new Robot();\n\n  void  main() {\n    while (true) }\n  }\n}',
+    warnings: [
+      {
+        from: 77,
+        to: 78,
+        severity: 'error',
+        message: "Erwarte öffnende geschweifte Klammer '{'",
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

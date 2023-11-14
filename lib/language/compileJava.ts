@@ -4,6 +4,10 @@ import { Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
 import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
 
+interface SemantikCheckContext {
+  robotName: string
+}
+
 export function compileJava(
   tree: Tree,
   doc: Text
@@ -198,9 +202,45 @@ export function compileJava(
     }
   }
 
+  semanticCheck(mainMethod, { robotName: robotInstanceName })
+
   return { output: [], warnings, rkCode: '' }
 
   // --------------------------- HELPER ------------------------
+
+  function semanticCheck(node: AstNode, context: SemantikCheckContext) {
+    switch (node.name) {
+      case 'MethodDeclaration': {
+        // already checked by toplevel
+        node.children
+          .filter((child) => child.name == 'Block')
+          .map((child) => semanticCheck(child, context))
+        return
+      }
+      case 'Block': {
+        ensureBlock(node.children)
+        // todo: frame context for variables?
+        node.children.map((child) => semanticCheck(child, context))
+        return
+      }
+      case 'ExpressionStatement': {
+        const result = checkSemikolon(node)
+        if (result !== false) {
+          if (
+            node.children.length > 0 &&
+            node.children[node.children.length - 1].name == ';'
+          ) {
+            node.children.pop()
+          }
+          // PATTERN MATCHING HELPER NEEDED
+        }
+        return
+      }
+    }
+
+    console.log('SEMANTIK CHECK', node.name)
+    node.children.forEach((child) => semanticCheck(child, context))
+  }
 
   function warnForUnexpectedNodes(nodes: AstNode[], warnNode?: AstNode) {
     for (const node of nodes) {
@@ -224,6 +264,9 @@ export function compileJava(
         severity: 'error',
         message: "Erwarte öffnende geschweifte Klammer '{'",
       })
+      if (nodes[0].isError) {
+        nodes.shift()
+      }
       // can't continue
       return false
     } else {
@@ -238,6 +281,9 @@ export function compileJava(
         severity: 'error',
         message: "Erwarte schließende geschweifte Klammer '}'",
       })
+      if (nodes[nodes.length - 1].isError) {
+        nodes.pop()
+      }
       // can't continue
       return false
     } else {
@@ -398,8 +444,6 @@ export function compileJava(
       if (main.children[main.children.length - 1].isError) {
         main.children.pop()
       }
-    } else {
-      ensureBlock(block!.children)
     }
 
     const unwanted = main.children.filter(
@@ -429,6 +473,7 @@ export function compileJava(
         severity: 'error',
         message: "Erwarte Abschluss mit Semikolon ';'",
       })
+      return false
     }
   }
 }

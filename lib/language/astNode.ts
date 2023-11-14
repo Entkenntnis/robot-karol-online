@@ -41,7 +41,7 @@ export function prettyPrintAstNode(node: AstNode, offset = 0) {
     output += '｜ '
   }
   output += `${node.name} (${node.from} - ${node.to})${
-    node.children.length == 0 ? ` "${node.text}"` : ''
+    node.children.length == 0 ? ` "${node.text()}"` : ''
   }\n`
   for (const child of node.children) {
     output += prettyPrintAstNode(child, offset + 1)

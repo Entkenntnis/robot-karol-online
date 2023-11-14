@@ -17,7 +17,7 @@ export function robotKarol2Java(code: string) {
     for (const node of nodes) {
       if (node.name == 'Command') {
         pad()
-        output += `${toKarol(node.text)};\n`
+        output += `${toKarol(node.text())};\n`
       } else if (node.name == 'Repeat') {
         if (node.children.some((child) => child.name == 'RepeatAlwaysKey')) {
           moveCommentsOutOfHead(node, 2)
@@ -29,7 +29,7 @@ export function robotKarol2Java(code: string) {
           output += '}\n'
         } else if (node.children.some((child) => child.name == 'Times')) {
           moveCommentsOutOfHead(node, 3)
-          const times = parseInt(node.children[1].text)
+          const times = parseInt(node.children[1].text())
           pad()
           const lv = `${
             'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'[offset - 2]
@@ -40,7 +40,7 @@ export function robotKarol2Java(code: string) {
           output += '}\n'
         } else if (node.children.some((child) => child.name == 'Condition')) {
           moveCommentsOutOfHead(node, 3)
-          const condition = node.children[2].text
+          const condition = node.children[2].text()
           pad()
           output += `while (${toKarol(condition)}) {\n`
           output += nodes2Code(node.children.slice(3, -1), offset + 1) + '\n'
@@ -50,7 +50,7 @@ export function robotKarol2Java(code: string) {
       } else if (node.name == 'IfThen') {
         if (!node.children.some((child) => child.name == 'ElseKey')) {
           moveCommentsOutOfHead(node, 3)
-          const condition = node.children[1].text
+          const condition = node.children[1].text()
           pad()
           output += `if (${toKarol(condition)}) {\n`
           output += nodes2Code(node.children.slice(3, -1), offset + 1) + '\n'
@@ -58,7 +58,7 @@ export function robotKarol2Java(code: string) {
           output += '}\n'
         } else {
           moveCommentsOutOfHead(node, 3)
-          const condition = node.children[1].text
+          const condition = node.children[1].text()
           const elseIndex = node.children.findIndex(
             (child) => child.name == 'ElseKey'
           )
@@ -76,12 +76,15 @@ export function robotKarol2Java(code: string) {
         }
       } else if (node.name == 'CustomRef') {
         pad()
-        output += `${node.text}();\n`
+        output += `${node.text()}();\n`
       } else if (node.name == 'LineComment') {
         pad()
-        output += `${node.text}\n`
+        output += `${node.text()}\n`
       } else if (node.name == 'Comment') {
-        const lines = node.text.substring(1, node.text.length - 1).split('\n')
+        const lines = node
+          .text()
+          .substring(1, node.text().length - 1)
+          .split('\n')
         for (const line of lines) {
           pad()
           output += `// ${line}\n`
@@ -120,7 +123,7 @@ export function robotKarol2Java(code: string) {
   void main() {
 ${nodes2Code(mainNodes, 2)}
   }${methods.map((method) => {
-    const name = method.children[1].text
+    const name = method.children[1].text()
     const inner = method.children.slice(2, -1)
     return `\n\n  void ${name}() {\n${nodes2Code(inner, 2)}\n  }`
   })}
