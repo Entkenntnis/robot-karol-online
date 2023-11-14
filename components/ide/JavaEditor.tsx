@@ -51,7 +51,6 @@ export const JavaEditor = ({ innerRef }: EditorProps) => {
     const currentEditor = editorDiv.current
 
     if (currentEditor) {
-      console.log('new editor')
       const view: EditorView = new EditorView({
         state: EditorState.create({
           doc: core.ws.javaCode,

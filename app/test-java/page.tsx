@@ -481,6 +481,25 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Fehler zeigt auf schließende Klammer',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(\n  }\n}',
+    warnings: [
+      {
+        from: 81,
+        to: 82,
+        severity: 'error',
+        message: 'Bitte runde Klammer schließen',
+      },
+      {
+        from: 81,
+        to: 82,
+        severity: 'error',
+        message: "Erwarte Semikolon ';'",
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',
