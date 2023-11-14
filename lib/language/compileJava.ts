@@ -224,29 +224,27 @@ export function compileJava(
         return
       }
       case 'ExpressionStatement': {
-        const result = checkSemikolon(node)
-        if (result !== false) {
-          if (
-            node.children.length > 0 &&
-            node.children[node.children.length - 1].name == ';'
-          ) {
-            node.children.pop()
-          }
-        }
-        warnSyntaxError(node.children)
-        if (
-          node.children.length !== 1 ||
-          node.children[0].name !== 'MethodInvocation'
-        ) {
-          warnings.push({
-            from: node.from,
-            to: node.to,
-            severity: 'error',
-            message: 'Erwarte Methodenaufruf',
-          })
-        } else {
+        if (matchChildren(['MethodInvocation', ';'], node.children)) {
           semanticCheck(node.children[0], context)
+          return
         }
+        const lastChild = node.children[node.children.length - 1]
+        if (lastChild.isError) {
+          node.children.pop()
+        }
+        if (matchChildren(['MethodInvocation'], node.children)) {
+          semanticCheck(node.children[0], context)
+          checkSemikolon(node)
+          return
+        }
+        const prefix = `${context.robotName}.`
+        warnings.push({
+          from:
+            node.from + (node.text().startsWith(prefix) ? prefix.length : 0),
+          to: Math.min(node.to, doc.lineAt(node.from).to),
+          severity: 'error',
+          message: 'Erwarte Methodenaufruf',
+        })
         return
       }
       case ';': {
@@ -313,9 +311,9 @@ export function compileJava(
           if (argumentList.children.some((child) => child.isError)) {
             warnings.push({
               from: argumentList.from,
-              to: argumentList.to,
+              to: Math.min(argumentList.to, doc.lineAt(argumentList.from).to),
               severity: 'error',
-              message: `Bitte Syntaxfehler korrigieren`,
+              message: `Bitte runde Klammer schließen`,
             })
           } else if (!matchChildren(['(', ')'], argumentList.children)) {
             warnings.push({

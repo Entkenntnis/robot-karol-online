@@ -468,6 +468,19 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Fehler beginnt erst hinter Feldname',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.\n  }\n}',
+    warnings: [
+      {
+        from: 74,
+        to: 74,
+        severity: 'error',
+        message: 'Erwarte Methodenaufruf',
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',
