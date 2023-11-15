@@ -8,12 +8,12 @@
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
     "grammar": "lezer-generator ./lib/codemirror/parser/karol.grammar -o ./lib/codemirror/parser/parser.js",
+    "grammar-java": "lezer-generator ./lib/codemirror/javaParser/java.grammar -o ./lib/codemirror/javaParser/parser.js",
     "export": "next build"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.0.0",
     "@codemirror/commands": "^6.0.0",
-    "@codemirror/lang-java": "^6.0.1",
     "@codemirror/language": "^6.0.0",
     "@codemirror/lint": "^6.0.0",
     "@codemirror/search": "^6.2.3",
