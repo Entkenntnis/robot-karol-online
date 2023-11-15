@@ -23,6 +23,7 @@ export function patch(core: Core, bytecode: Op[]) {
 export function run(core: Core) {
   core.mutateWs(({ ui, vm }) => {
     ui.state = 'running'
+    ui.showJavaInfo = false
     ui.isManualAbort = false
     ui.isTestingAborted = false
     ui.isEndOfRun = false
