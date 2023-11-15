@@ -38,6 +38,11 @@ import { compileJava } from '../../lib/language/compileJava'
 import { patch } from '../../lib/commands/vm'
 import { setLoading } from '../../lib/commands/editing'
 import { javaLanguage } from '../../lib/codemirror/javaParser/javaLanguage'
+import {
+  CompletionSource,
+  autocompletion,
+  completionKeymap,
+} from '@codemirror/autocomplete'
 
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>
@@ -67,7 +72,7 @@ export const JavaEditor = ({ innerRef }: EditorProps) => {
               ...defaultKeymap,
               ...historyKeymap,
               ...lintKeymap,
-              //...completionKeymap,
+              ...completionKeymap,
               ...searchKeymap,
               { key: 'Tab', run: myTabExtension },
               indentWithTab,
@@ -76,7 +81,7 @@ export const JavaEditor = ({ innerRef }: EditorProps) => {
                 run: autoFormat,
               },
             ]),
-            //autocompletion(),
+            autocompletion({ override: [myAutocomplete] }),
             EditorState.tabSize.of(2),
             EditorState.phrases.of(germanPhrases),
             editable.of(EditorView.editable.of(true)),
@@ -119,7 +124,7 @@ export function lint(core: Core, view: EditorView) {
   }
   // good place to sync code with state
   const code = view.state.doc.sliceString(0)
-  console.log(code)
+  // console.log(code)
   core.mutateWs((state) => {
     state.javaCode = code
     // console.log(state.javaCode)
@@ -196,4 +201,21 @@ const myTabExtension: Command = (target: EditorView) => {
     }
   }
   return false
+}
+
+const myAutocomplete: CompletionSource = (context) => {
+  const token = context.matchBefore(/\.[a-zA-Z_0-9äöüÄÜÖß]*$/)
+  if (!token) return null
+  return {
+    from: token.from + 1,
+    options: [
+      { label: 'schritt', boost: 10 },
+      { label: 'linksDrehen', boost: 8 },
+      { label: 'rechtsDrehen', boost: 8 },
+      { label: 'aufheben', boost: 6 },
+      { label: 'hinlegen', boost: 6 },
+      { label: 'markeSetzen' },
+      { label: 'markeLöschen' },
+    ],
+  }
 }
