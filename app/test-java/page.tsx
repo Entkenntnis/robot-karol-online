@@ -12,6 +12,7 @@ export interface CompilerTestCase {
   source: string
   output?: Op[]
   warnings?: Diagnostic[]
+  rkCode?: string
 }
 
 const compilerTestCases: CompilerTestCase[] = [
@@ -286,6 +287,7 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n\n  }\n}',
     output: [],
+    rkCode: '',
   },
   {
     title: 'Fehler bei eigenem Attribut',
@@ -458,11 +460,11 @@ const compilerTestCases: CompilerTestCase[] = [
   {
     title: 'Fehler bei überschüssigen Argument',
     source:
-      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.beenden(4);\n  }\n}',
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.markeSetzen(4);\n  }\n}',
     warnings: [
       {
-        from: 81,
-        to: 84,
+        from: 85,
+        to: 88,
         severity: 'error',
         message: 'Erwarte leere Argumentliste',
       },
@@ -499,6 +501,19 @@ const compilerTestCases: CompilerTestCase[] = [
         message: "Erwarte Semikolon ';'",
       },
     ],
+  },
+  {
+    title: 'Erstes Programm mit Ausgabe',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt();\n  }\n}',
+    output: [
+      {
+        type: 'action',
+        command: 'forward',
+        line: 5,
+      },
+    ],
+    rkCode: 'Schritt',
   },
   /*{
     title: 'Playground',

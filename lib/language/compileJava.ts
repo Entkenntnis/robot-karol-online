@@ -13,6 +13,17 @@ export function compileJava(
   doc: Text
 ): { output: Op[]; warnings: Diagnostic[]; rkCode?: string } {
   const warnings: Diagnostic[] = []
+  const output: Op[] = []
+  let rkCode = ''
+  let rkCodeIndent = 0
+
+  function appendRkCode(code: string) {
+    let line = ''
+    for (let i = 0; i < rkCodeIndent; i++) {
+      line += '  '
+    }
+    rkCode += '\n' + line + code
+  }
 
   // convert tree to ast node
   const ast = cursorToAstNode(tree.cursor(), doc, [
@@ -204,7 +215,8 @@ export function compileJava(
 
   semanticCheck(mainMethod, { robotName: robotInstanceName })
 
-  return { output: [], warnings, rkCode: '' }
+  rkCode = rkCode.trim()
+  return { output, warnings, rkCode }
 
   // --------------------------- HELPER ------------------------
 
@@ -284,26 +296,6 @@ export function compileJava(
               message: `Erwarte Objekt '${context.robotName}'`,
             })
           }
-          const methodName = node.children[2].children[0].text()
-          if (
-            ![
-              'schritt',
-              'linksDrehen',
-              'rechtsDrehen',
-              'hinlegen',
-              'aufheben',
-              'markeSetzen',
-              'markeLöschen',
-              'beenden',
-            ].includes(methodName)
-          ) {
-            warnings.push({
-              from: node.children[2].from,
-              to: node.children[2].to,
-              severity: 'error',
-              message: `Unbekannte Methode '${methodName}'`,
-            })
-          }
 
           const argumentList = node.children[3]
 
@@ -323,6 +315,25 @@ export function compileJava(
               message: `Erwarte leere Argumentliste`,
             })
           }
+
+          const methodName = node.children[2].children[0].text()
+          const action = methodName2action(methodName)
+          if (!action) {
+            warnings.push({
+              from: node.children[2].from,
+              to: node.children[2].to,
+              severity: 'error',
+              message: `Unbekannte Methode '${methodName}'`,
+            })
+            return
+          }
+
+          output.push({
+            type: 'action',
+            command: action,
+            line: doc.lineAt(node.from).number,
+          })
+          appendRkCode(methodName.charAt(0).toUpperCase() + methodName.slice(1))
 
           return
         }
@@ -349,6 +360,25 @@ export function compileJava(
 
     console.log('NOT IMPLEMENTED', node.name)
     node.children.forEach((child) => semanticCheck(child, context))
+  }
+
+  function methodName2action(name: string) {
+    switch (name) {
+      case 'schritt':
+        return 'forward'
+      case 'linksDrehen':
+        return 'left'
+      case 'rechtsDrehen':
+        return 'right'
+      case 'hinlegen':
+        return 'brick'
+      case 'aufheben':
+        return 'unbrick'
+      case 'markeSetzen':
+        return 'setMark'
+      case 'markeLöschen':
+        return 'resetMark'
+    }
   }
 
   function warnForUnexpectedNodes(nodes: AstNode[], warnNode?: AstNode) {

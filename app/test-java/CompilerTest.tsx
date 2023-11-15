@@ -14,6 +14,7 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
   const [run, setRun] = useState(false)
   const [output, setOutput] = useState<Op[] | undefined>(undefined)
   const [warnings, setWarnings] = useState<Diagnostic[] | undefined>(undefined)
+  const [rkCode, setRkCode] = useState<string | undefined>(undefined)
   useEffect(() => {
     if (!run) {
       const tree = javaLanguage.parser.parse(test.source)
@@ -24,6 +25,7 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
         setWarnings(result.warnings)
       } else {
         setOutput(result.output)
+        setRkCode(result.rkCode)
       }
       setRun(true)
     }
@@ -52,6 +54,11 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
             <pre className="mt-3 border max-h-64 overflow-auto text-sm">
               {expected}
             </pre>
+            {test.rkCode !== undefined && (
+              <pre className="mt-3 border max-h-64 overflow-auto text-sm">
+                {test.rkCode ? test.rkCode : ' '}
+              </pre>
+            )}
           </div>
           <div className="m-3 w-1/3">
             <h3>
@@ -66,7 +73,9 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
               </button>
             </h3>
             {(
-              test.output ? expected == outputJSON : expected == warningsJSON
+              test.output
+                ? expected == outputJSON && test.rkCode === rkCode
+                : expected == warningsJSON
             ) ? (
               <div>
                 <FaIcon
@@ -78,7 +87,7 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
               <div>
                 <p className="text-red-600">Fehler!</p>
                 <pre className="mt-3 border bg-red-300 max-h-64 overflow-auto text-sm">
-                  {outputJSON + '\n' + warningsJSON}
+                  {outputJSON + '\n' + warningsJSON + '\n' + rkCode}
                 </pre>
               </div>
             )}
