@@ -66,7 +66,7 @@ export function SuccessModal() {
   useEffect(() => {
     setTimeout(() => {
       realisticLook()
-    }, 650)
+    }, 444)
     setTimeout(() => {
       setFirstPaint(false)
     }, 50)
@@ -76,13 +76,13 @@ export function SuccessModal() {
     <>
       <div
         className={clsx(
-          'bg-black/20 fixed inset-0 z-[150] transition-opacity duration-700 ease-in',
+          'bg-black/20 fixed inset-0 z-[150] transition-opacity duration-700 ease-out',
           firstPaint ? 'opacity-0' : 'opacity-100'
         )}
       ></div>
       <div
         className={clsx(
-          'fixed inset-0 flex justify-center items-center z-[200] transition-opacity duration-700 ease-in',
+          'fixed inset-0 flex justify-center items-center z-[200] transition-opacity duration-700 ease-out',
           firstPaint ? 'opacity-0' : 'opacity-100'
         )}
       >
