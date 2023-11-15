@@ -214,8 +214,9 @@ const myAutocomplete: CompletionSource = (context) => {
       { label: 'rechtsDrehen', boost: 8 },
       { label: 'aufheben', boost: 6 },
       { label: 'hinlegen', boost: 6 },
-      { label: 'markeSetzen' },
-      { label: 'markeLöschen' },
+      { label: 'markeSetzen', boost: 4 },
+      { label: 'markeLöschen', boost: 4 },
+      { label: 'beenden', boost: 2 },
     ],
   }
 }

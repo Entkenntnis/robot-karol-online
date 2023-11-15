@@ -559,6 +559,18 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Befehl Beenden',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.beenden();\n  }\n}',
+    output: [
+      {
+        type: 'jump',
+        target: Infinity,
+      },
+    ],
+    rkCode: 'Beenden',
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

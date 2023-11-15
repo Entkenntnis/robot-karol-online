@@ -316,7 +316,8 @@ export function compileJava(
               argumentList.children
             ) &&
             methodName != 'markeSetzen' &&
-            methodName != 'markeLöschen'
+            methodName != 'markeLöschen' &&
+            methodName != 'beenden'
           ) {
             integerArgument = parseInt(argumentList.children[1].text())
             if (!isNaN(integerArgument)) {
@@ -335,7 +336,9 @@ export function compileJava(
               from: argumentList.from,
               to: argumentList.to,
               severity: 'error',
-              message: ['markeSetzen', 'markeLöschen'].includes(methodName)
+              message: ['markeSetzen', 'markeLöschen', 'beenden'].includes(
+                methodName
+              )
                 ? `Erwarte leere Parameterliste`
                 : `Erwarte Zahl als Parameter`,
             })
@@ -349,6 +352,12 @@ export function compileJava(
               severity: 'error',
               message: `Unbekannte Methode '${methodName}'`,
             })
+            return
+          }
+
+          if (action == '--exit--') {
+            output.push({ type: 'jump', target: Infinity })
+            appendRkCode('Beenden')
             return
           }
 
@@ -425,6 +434,8 @@ export function compileJava(
         return 'setMark'
       case 'markeLöschen':
         return 'resetMark'
+      case 'beenden':
+        return '--exit--'
     }
   }
 
