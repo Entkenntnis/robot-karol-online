@@ -13,7 +13,8 @@ export interface AstNode {
 export function cursorToAstNode(
   cursor: TreeCursor,
   doc: Text,
-  ignore: string[] = []
+  ignore: string[] = [],
+  ignoredNodes: AstNode[] = []
 ): AstNode {
   const from = cursor.from
   const to = cursor.to
@@ -28,7 +29,19 @@ export function cursorToAstNode(
   if (cursor.firstChild()) {
     do {
       if (!ignore.includes(cursor.name)) {
-        node.children.push(cursorToAstNode(cursor.node.cursor(), doc))
+        node.children.push(
+          cursorToAstNode(cursor.node.cursor(), doc, ignore, ignoredNodes)
+        )
+      } else {
+        const text = doc.sliceString(cursor.from, cursor.to)
+        ignoredNodes.push({
+          name: cursor.name,
+          from: cursor.from,
+          to: cursor.to,
+          children: [],
+          text: () => text,
+          isError: cursor.type.isError,
+        })
       }
     } while (cursor.nextSibling())
   }

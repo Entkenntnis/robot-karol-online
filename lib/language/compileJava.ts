@@ -17,19 +17,34 @@ export function compileJava(
   let rkCode = ''
   let rkCodeIndent = 0
 
-  function appendRkCode(code: string) {
+  let comments: AstNode[] = []
+
+  function appendRkCode(code: string, pos: number) {
+    const commentsToAdd = comments.filter((node) => node.from < pos)
+    for (const c of commentsToAdd) {
+      rkCode += '\n' + pad() + c.text()
+    }
+    if (commentsToAdd.length > 0) {
+      comments = comments.filter((node) => node.from >= pos)
+    }
+    rkCode += '\n' + pad() + code
+  }
+
+  function pad() {
     let line = ''
     for (let i = 0; i < rkCodeIndent; i++) {
       line += '  '
     }
-    rkCode += '\n' + line + code
+    return line
   }
 
   // convert tree to ast node
-  const ast = cursorToAstNode(tree.cursor(), doc, [
-    'LineComment',
-    'BlockComment',
-  ])
+  const ast = cursorToAstNode(
+    tree.cursor(),
+    doc,
+    ['LineComment', 'BlockComment'],
+    comments
+  )
 
   // debug
   console.log(prettyPrintAstNode(ast))
@@ -215,6 +230,7 @@ export function compileJava(
 
   semanticCheck(mainMethod, { robotName: robotInstanceName })
 
+  appendRkCode('', Infinity)
   rkCode = rkCode.trim()
   return { output, warnings, rkCode }
 
@@ -357,7 +373,7 @@ export function compileJava(
 
           if (action == '--exit--') {
             output.push({ type: 'jump', target: Infinity })
-            appendRkCode('Beenden')
+            appendRkCode('Beenden', node.from)
             return
           }
 
@@ -378,7 +394,8 @@ export function compileJava(
                 methodName.slice(1) +
                 '(' +
                 integerArgument.toString() +
-                ')'
+                ')',
+              node.from
             )
           } else {
             output.push({
@@ -387,7 +404,8 @@ export function compileJava(
               line: doc.lineAt(node.from).number,
             })
             appendRkCode(
-              methodName.charAt(0).toUpperCase() + methodName.slice(1)
+              methodName.charAt(0).toUpperCase() + methodName.slice(1),
+              node.from
             )
           }
 

@@ -571,6 +571,32 @@ const compilerTestCases: CompilerTestCase[] = [
     ],
     rkCode: 'Beenden',
   },
+  {
+    title: 'Kommentare bleiben erhalten',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    // Test\n    karol.schritt();\n    // Test 2\n  }\n}',
+    output: [
+      {
+        type: 'action',
+        command: 'forward',
+        line: 6,
+      },
+    ],
+    rkCode: '// Test\nSchritt\n// Test 2',
+  },
+  {
+    title: 'Inline-Kommentare werden rausgeholt',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(/*123*/);\n  }\n}',
+    output: [
+      {
+        type: 'action',
+        command: 'forward',
+        line: 5,
+      },
+    ],
+    rkCode: 'Schritt\n/*123*/',
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

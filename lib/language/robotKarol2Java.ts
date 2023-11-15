@@ -89,6 +89,15 @@ export function robotKarol2Java(code: string) {
           pad()
           output += `// ${line}\n`
         }
+      } else if (node.name == 'BlockComment') {
+        const lines = node
+          .text()
+          .substring(2, node.text().length - 2)
+          .split('\n')
+        for (const line of lines) {
+          pad()
+          output += `// ${line}\n`
+        }
       }
     }
 
