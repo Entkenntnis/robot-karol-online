@@ -15,11 +15,30 @@ export function JavaInfo() {
           Schließen
         </button>
       </div>
-      <h1 className="ml-8 text-2xl pt-8">Info zu Java</h1>
-      <div className="mx-8 [&>p]:mt-6">
+      <h1 className="ml-8 text-2xl pt-8">Programmiere Robot Karol mit Java</h1>
+      <div className="mx-8 [&>p]:mt-4">
         <p>
-          Hi, du kannst Robot Karol auch mit (einer Teilmenge von) Java
-          programmieren.
+          Mache dich bereit für deine ersten Schritte in der &quot;großen&quot;
+          Programmiersprache Java! Das Wissen, das du hier lernst, kannst du
+          später direkt auf andere Java-Projekte übertragen.
+        </p>
+        <p>
+          Um den Einstieg überschaubar zu halten, wird nur eine ausgewählte
+          Menge von Java-Befehlen unterstützt. Ein Grundgerüst hat immer eine
+          feste Struktur.
+        </p>
+        <img src="" />
+        <p>
+          Wie in Java üblich besteht jede Datei aus einer Klasse. Innerhalb
+          dieser Klasse existiert ein Attribut vom Typ Robot, dass auch gleich
+          initialisiert wird. Dieses Attribut ist wie eine Fernbedienung für den
+          Karol.
+        </p>
+        <p>
+          Das Programm an sich schreibst du in der Methode main. (seit Java 21
+          ist das eine erlaubte Vereinfachung). Solange du nicht über den
+          Grundumfang hinausgehst kannst du weiterhin jederzeit zwischen Code
+          und Blöcken wechseln.
         </p>
       </div>
     </div>

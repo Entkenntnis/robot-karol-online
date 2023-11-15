@@ -2,6 +2,7 @@ import { autoFormat, setEditable } from '../codemirror/basicSetup'
 import { questData } from '../data/quests'
 import { submit_event } from '../helper/submit'
 import { submitSolution } from '../helper/submitSolution'
+import { robotKarol2Java } from '../language/robotKarol2Java'
 import { Core } from '../state/core'
 import { QuestSessionData } from '../state/types'
 import { getQuestData, getUserName, setQuestData } from '../storage/storage'
@@ -105,6 +106,7 @@ export function startQuest(core: Core, id: number) {
     quest.completedOnce = false
     ui.isEndOfRun = false
     ws.code = ''
+    ws.javaCode = robotKarol2Java('')
     quest.id = id
     quest.audioSrc = data.audioSrc
     ui.isAlreadyCompleted = false

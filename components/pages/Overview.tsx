@@ -136,7 +136,7 @@ export function Overview() {
                 {core.ws.analyze.showDemo} mal Demo,{' '}
                 {core.ws.analyze.showStructogram} mal Struktogramm,{' '}
                 {core.ws.analyze.usePersist} mal Fortschritt gespeichert,{' '}
-                {core.ws.analyze.useAudio} mal Audio verwendet
+                {core.ws.analyze.useJava} mal Java verwendet
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
@@ -314,7 +314,7 @@ export function Overview() {
                       return (
                         <Fragment key={id}>
                           {data.deps.map((dep) => {
-                            if (isQuestVisible(dep)) {
+                            if (isQuestDone(dep)) {
                               return (
                                 <line
                                   key={`connect-${id}-${dep}`}
@@ -625,7 +625,7 @@ export function Overview() {
           </div>
 
           <div className="text-center mb-12">
-            Version: November 2023 |{' '}
+            Version: Dezember 2023 |{' '}
             <a
               className="hover:underline cursor-pointer"
               href={
