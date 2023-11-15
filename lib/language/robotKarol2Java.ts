@@ -6,7 +6,7 @@ import { Text } from '@codemirror/state'
 export function robotKarol2Java(code: string) {
   const tree: Tree = parser.parse(code)
   const ast = cursorToAstNode(tree.cursor(), Text.of(code.split('\n')))
-  console.log(prettyPrintAstNode(ast))
+  // console.log(prettyPrintAstNode(ast))
 
   const mainNodes = ast.children.filter((child) => child.name !== 'Cmd')
   const methods = ast.children.filter((child) => child.name == 'Cmd')

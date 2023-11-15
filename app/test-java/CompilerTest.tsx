@@ -5,10 +5,10 @@ import { Op } from '../../lib/state/types'
 import { useEffect, useState } from 'react'
 import { FaIcon } from '../../components/helper/FaIcon'
 import { faCheckCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { javaLanguage } from '@codemirror/lang-java'
 import { Text } from '@codemirror/state'
 import { compileJava } from '../../lib/language/compileJava'
 import { CompilerTestCase } from './page'
+import { parser } from '../../lib/codemirror/javaParser/parser'
 
 export function CompilerTest({ test }: { test: CompilerTestCase }) {
   const [run, setRun] = useState(false)
@@ -17,7 +17,7 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
   const [rkCode, setRkCode] = useState<string | undefined>(undefined)
   useEffect(() => {
     if (!run) {
-      const tree = javaLanguage.parser.parse(test.source)
+      const tree = parser.parse(test.source)
       const doc = Text.of(test.source.split('\n'))
       const result = compileJava(tree, doc)
       console.log(result)

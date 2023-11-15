@@ -32,7 +32,7 @@ export function compileJava(
   ])
 
   // debug
-  // console.log(prettyPrintAstNode(ast))
+  console.log(prettyPrintAstNode(ast))
 
   if (ast.children.length == 0) {
     // empty program
@@ -298,6 +298,9 @@ export function compileJava(
           }
 
           const argumentList = node.children[3]
+          let integerArgument: number = NaN
+
+          const methodName = node.children[2].children[0].text()
 
           // todo: argument parsen
           if (argumentList.children.some((child) => child.isError)) {
@@ -307,16 +310,37 @@ export function compileJava(
               severity: 'error',
               message: `Bitte runde Klammer schließen`,
             })
+          } else if (
+            matchChildren(
+              ['(', 'IntegerLiteral', ')'],
+              argumentList.children
+            ) &&
+            methodName != 'markeSetzen' &&
+            methodName != 'markeLöschen'
+          ) {
+            integerArgument = parseInt(argumentList.children[1].text())
+            if (!isNaN(integerArgument)) {
+              if (integerArgument <= 0) {
+                warnings.push({
+                  from: argumentList.from,
+                  to: argumentList.to,
+                  severity: 'error',
+                  message: `Erwarte eine Anzahl größer null`,
+                })
+                integerArgument = NaN
+              }
+            }
           } else if (!matchChildren(['(', ')'], argumentList.children)) {
             warnings.push({
               from: argumentList.from,
               to: argumentList.to,
               severity: 'error',
-              message: `Erwarte leere Argumentliste`,
+              message: ['markeSetzen', 'markeLöschen'].includes(methodName)
+                ? `Erwarte leere Parameterliste`
+                : `Erwarte Zahl als Parameter`,
             })
           }
 
-          const methodName = node.children[2].children[0].text()
           const action = methodName2action(methodName)
           if (!action) {
             warnings.push({
@@ -328,12 +352,35 @@ export function compileJava(
             return
           }
 
-          output.push({
-            type: 'action',
-            command: action,
-            line: doc.lineAt(node.from).number,
-          })
-          appendRkCode(methodName.charAt(0).toUpperCase() + methodName.slice(1))
+          if (!isNaN(integerArgument)) {
+            for (
+              let i = 0;
+              i < Math.min(1000, integerArgument) /* protect */;
+              i++
+            ) {
+              output.push({
+                type: 'action',
+                command: action,
+                line: doc.lineAt(node.from).number,
+              })
+            }
+            appendRkCode(
+              methodName.charAt(0).toUpperCase() +
+                methodName.slice(1) +
+                '(' +
+                integerArgument.toString() +
+                ')'
+            )
+          } else {
+            output.push({
+              type: 'action',
+              command: action,
+              line: doc.lineAt(node.from).number,
+            })
+            appendRkCode(
+              methodName.charAt(0).toUpperCase() + methodName.slice(1)
+            )
+          }
 
           return
         }
@@ -392,20 +439,6 @@ export function compileJava(
           : `Bitte entferne '${node.text()}', wird hier nicht unterstützt`,
       })
     }
-  }
-
-  function warnSyntaxError(nodes: AstNode[]) {
-    return nodes.filter((node) => {
-      if (node.isError) {
-        warnings.push({
-          from: node.from,
-          to: node.to,
-          severity: 'error',
-          message: 'Bitte Syntaxfehler korrigieren',
-        })
-      }
-      return !node.isError
-    })
   }
 
   function matchChildren(names: string[], nodes: AstNode[]) {

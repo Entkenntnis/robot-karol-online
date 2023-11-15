@@ -466,7 +466,7 @@ const compilerTestCases: CompilerTestCase[] = [
         from: 85,
         to: 88,
         severity: 'error',
-        message: 'Erwarte leere Argumentliste',
+        message: 'Erwarte leere Parameterliste',
       },
     ],
   },
@@ -514,6 +514,50 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
     rkCode: 'Schritt',
+  },
+  {
+    title: 'Parameter für Schritt',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(2);\n  }\n}',
+    output: [
+      {
+        type: 'action',
+        command: 'forward',
+        line: 5,
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 5,
+      },
+    ],
+    rkCode: 'Schritt(2)',
+  },
+  {
+    title: 'Fehler falls Parameter negativ',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(-2);\n  }\n}',
+    warnings: [
+      {
+        from: 81,
+        to: 85,
+        severity: 'error',
+        message: 'Erwarte Zahl als Parameter',
+      },
+    ],
+  },
+  {
+    title: 'Fehler falls kein Parameter erwartet',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.markeSetzen(2);\n  }\n}',
+    warnings: [
+      {
+        from: 85,
+        to: 88,
+        severity: 'error',
+        message: 'Erwarte leere Parameterliste',
+      },
+    ],
   },
   /*{
     title: 'Playground',
