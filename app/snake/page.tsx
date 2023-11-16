@@ -14,9 +14,9 @@ const stepDelays = [
   { len: 5, ms: 200 },
   { len: 10, ms: 150 },
   { len: 18, ms: 120 },
-  { len: 28, ms: 100 },
-  { len: 40, ms: 80 },
-  { len: Infinity, ms: 50 },
+  { len: 30, ms: 100 },
+  { len: 45, ms: 80 },
+  { len: Infinity, ms: 80 },
 ]
 
 function getDelay(n: number) {
@@ -199,8 +199,6 @@ export default function Snake() {
               next.current = null
               core.mutateWs((state) => {
                 state.ui.state = 'running'
-              })
-              core.mutateWs((state) => {
                 state.world.karol.dir = 'north'
                 state.world.karol.y = 11
               })
