@@ -201,6 +201,7 @@ export default function Snake() {
                 state.ui.state = 'running'
                 state.world.karol.dir = 'north'
                 state.world.karol.y = 11
+                state.code = ''
               })
             }}
           >
