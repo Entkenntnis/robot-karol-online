@@ -82,6 +82,7 @@ export function createWorkspaceState(): WorkspaceState {
       showStructogram: 0,
       usePersist: 0,
       useJava: 0,
+      playSnake: 0,
       customQuests: {},
       quests: {},
       legacy: {},

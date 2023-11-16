@@ -36,9 +36,9 @@ import { HFullStyles } from '../helper/HFullStyles'
 import { appearanceRegistry } from '../../lib/data/appearance'
 import { getName, isSetName } from '../../lib/helper/events'
 import TimeAgo from 'timeago-react'
-import { Rating } from 'react-simple-star-rating'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
+import { submit_event } from '../../lib/helper/submit'
 
 export function Overview() {
   const core = useCore()
@@ -46,6 +46,10 @@ export function Overview() {
   const name = getUserName()
 
   const [openUsers, setOpenUsers] = useState<string[]>([])
+
+  const numberOfSolvedQuests = Object.keys(mapData).filter((id) =>
+    isQuestDone(parseInt(id))
+  ).length
 
   useEffect(() => {
     if (core.ws.overview.overviewScroll > 0) {
@@ -136,7 +140,8 @@ export function Overview() {
                 {core.ws.analyze.showDemo} mal Demo,{' '}
                 {core.ws.analyze.showStructogram} mal Struktogramm,{' '}
                 {core.ws.analyze.usePersist} mal Fortschritt gespeichert,{' '}
-                {core.ws.analyze.useJava} mal Java verwendet
+                {core.ws.analyze.useJava} mal Java verwendet,{' '}
+                {core.ws.analyze.playSnake} mal Snake gespielt
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
@@ -304,6 +309,23 @@ export function Overview() {
                   className="w-[150px] top-[1100px] left-[300px] absolute user-select-none"
                   alt="Farbklecks 3"
                 />
+
+                {(numberOfSolvedQuests >= 5 || core.ws.page == 'analyze') && (
+                  <button
+                    className="absolute top-[210px] left-[1050px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                    onClick={() => {
+                      submit_event('play_snake', core)
+                      window.open('/snake', '_blank')
+                    }}
+                  >
+                    <p className="text-center text-xl mb-2">Mini-Spiel</p>
+                    <img
+                      src="/snake.png"
+                      alt="Snake-Icon"
+                      className="w-[60px] mx-auto"
+                    />
+                  </button>
+                )}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 1240 1450"
@@ -314,7 +336,7 @@ export function Overview() {
                       return (
                         <Fragment key={id}>
                           {data.deps.map((dep) => {
-                            if (isQuestDone(dep)) {
+                            if (isQuestDone(dep) || core.ws.page == 'analyze') {
                               return (
                                 <line
                                   key={`connect-${id}-${dep}`}
