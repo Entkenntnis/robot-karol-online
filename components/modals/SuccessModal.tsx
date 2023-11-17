@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { setUserName } from '../../lib/commands/mode'
 import { switchToPage } from '../../lib/commands/page'
-import { finishQuest } from '../../lib/commands/quest'
+import { closeOutput, finishQuest } from '../../lib/commands/quest'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import confetti from 'canvas-confetti'
@@ -132,18 +132,29 @@ export function SuccessModal() {
             </>
           ) :*/ <div className="h-12"></div>
           }
-          <button
-            onClick={() => {
-              finishQuest(core)
-              closeModal(core)
-            }}
-            className={clsx(
-              'px-4 py-2 rounded hover:bg-green-300',
-              'bg-green-200 mx-auto mb-12 text-lg'
-            )}
-          >
-            weiter
-          </button>
+          <div className="px-12 flex justify-between w-full mb-12">
+            <button
+              className="underline text-gray-700 hover:text-black"
+              onClick={() => {
+                finishQuest(core, true)
+                closeModal(core)
+              }}
+            >
+              bleiben
+            </button>
+            <button
+              onClick={() => {
+                finishQuest(core)
+                closeModal(core)
+              }}
+              className={clsx(
+                'px-4 py-2 rounded hover:bg-green-300 inline-block',
+                'bg-green-200  text-lg'
+              )}
+            >
+              weiter
+            </button>
+          </div>
         </div>
       </div>
     </>

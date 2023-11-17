@@ -597,6 +597,38 @@ const compilerTestCases: CompilerTestCase[] = [
     ],
     rkCode: 'Schritt\n/*123*/',
   },
+  {
+    title: 'Generiere Bytecode für Schleife',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    for (int i = 0; i < 2; i++) {\n      karol.schritt();\n    }\n  }\n}',
+    output: JSON.parse(
+      '[{"type":"constant","value":3},{"type":"store","variable":"i"},{"type":"jump","target":4},{"type":"action","command":"forward","line":6},{"type":"load","variable":"i"},{"type":"constant","value":1},{"type":"operation","kind":"sub"},{"type":"store","variable":"i"},{"type":"load","variable":"i"},{"type":"branch","targetT":3,"targetF":10,"line":5}]'
+    ),
+    rkCode: 'wiederhole 2 mal\n  Schritt\nendewiederhole',
+  },
+  {
+    title: 'Verschachtelte Schleie',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    for (int i = 0; i < 2; i++) {\n      for (int j = 0; j < 2; j++) {\n        karol.schritt();\n      }\n    }\n  }\n}',
+    output: JSON.parse(
+      '[{"type":"constant","value":3},{"type":"store","variable":"i"},{"type":"jump","target":13},{"type":"constant","value":3},{"type":"store","variable":"j"},{"type":"jump","target":7},{"type":"action","command":"forward","line":7},{"type":"load","variable":"j"},{"type":"constant","value":1},{"type":"operation","kind":"sub"},{"type":"store","variable":"j"},{"type":"load","variable":"j"},{"type":"branch","targetT":6,"targetF":13,"line":6},{"type":"load","variable":"i"},{"type":"constant","value":1},{"type":"operation","kind":"sub"},{"type":"store","variable":"i"},{"type":"load","variable":"i"},{"type":"branch","targetT":3,"targetF":19,"line":5}]'
+    ),
+    rkCode:
+      'wiederhole 2 mal\n  wiederhole 2 mal\n    Schritt\n  endewiederhole\nendewiederhole',
+  },
+  {
+    title: 'Fehler bei wiederverwendeter Schleifenvariable',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    for (int i = 0; i < 2; i++) {\n      for (int i = 0; i < 2; i++) {\n        karol.schritt();\n      }\n    }\n  }\n}',
+    warnings: [
+      {
+        from: 113,
+        to: 114,
+        severity: 'error',
+        message: "Variable 'i' existiert bereits, erwarte anderen Namen",
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

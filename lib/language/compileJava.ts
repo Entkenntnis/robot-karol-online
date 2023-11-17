@@ -1,6 +1,6 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { Op } from '../state/types'
+import { BranchOp, JumpOp, Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
 import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
 
@@ -10,12 +10,17 @@ interface SemantikCheckContext {
   __temp_remove_from_scope_after_for?: string
 }
 
+interface AnchorOp {
+  type: 'anchor'
+  callback: (target: number) => void
+}
+
 export function compileJava(
   tree: Tree,
   doc: Text
 ): { output: Op[]; warnings: Diagnostic[]; rkCode?: string } {
   const warnings: Diagnostic[] = []
-  const output: Op[] = []
+  const output: (Op | AnchorOp)[] = []
   let rkCode = ''
   let rkCodeIndent = 0
 
@@ -237,7 +242,18 @@ export function compileJava(
 
   appendRkCode('', Infinity)
   rkCode = rkCode.trim()
-  return { output, warnings, rkCode }
+
+  const finalOutput: Op[] = []
+
+  for (const op of output) {
+    if (op.type == 'anchor') {
+      op.callback(finalOutput.length)
+    } else {
+      finalOutput.push(op)
+    }
+  }
+
+  return { output: finalOutput, warnings, rkCode }
 
   // --------------------------- HELPER ------------------------
 
@@ -430,9 +446,45 @@ export function compileJava(
           semanticCheck(node.children[1], context)
           const toRemove = context.__temp_remove_from_scope_after_for
           context.__temp_remove_from_scope_after_for = undefined
+          const position = output.length
           semanticCheck(node.children[2], context)
-          if (toRemove) {
+          if (toRemove && position >= 2) {
+            rkCodeIndent--
+            appendRkCode('endewiederhole', node.to)
             context.variablesInScope.delete(toRemove)
+            const jump = output[position - 2]
+            const anchor = output[position - 1] as AnchorOp
+
+            console.log(anchor, jump)
+
+            output.push({
+              type: 'anchor',
+              callback: (target) => {
+                ;(jump as JumpOp).target = target
+              },
+            })
+            output.push({ type: 'load', variable: toRemove })
+            output.push({ type: 'constant', value: 1 })
+            output.push({ type: 'operation', kind: 'sub' })
+            output.push({ type: 'store', variable: toRemove })
+            output.push({ type: 'load', variable: toRemove })
+            const branch: BranchOp = {
+              type: 'branch',
+              targetT: -1,
+              targetF: output.length + 1,
+              line: doc.lineAt(node.from).number,
+            }
+            output.push(branch)
+            output.push({
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetF = target
+              },
+            })
+            anchor.callback = (target) => {
+              console.log('callback for targetF', target)
+              branch.targetT = target
+            }
           }
         } else {
           if (matchChildren(['for', 'ForSpec', '⚠'], node.children)) {
@@ -502,8 +554,10 @@ export function compileJava(
                   from: declarator.children[0].from,
                   to: declarator.children[0].to,
                   severity: 'error',
-                  message: `Variable '${loopVarName}' existiert bereit, erwarte anderen Namen`,
+                  message: `Variable '${loopVarName}' existiert bereits, erwarte anderen Namen`,
                 })
+              } else {
+                context.__temp_remove_from_scope_after_for = loopVarName
               }
               const initialValue = parseInt(declarator.children[2].text())
               if (initialValue != 0) {
@@ -566,6 +620,14 @@ export function compileJava(
                 message: `Erwarte Anzahl größer null`,
               })
             }
+            // generate bytecode
+            output.push({ type: 'constant', value: count + 1 }) // we decrement before compare
+            output.push({ type: 'store', variable: loopVarName })
+            const jump: Op = { type: 'jump', target: -1 }
+            output.push(jump)
+            output.push({ type: 'anchor', callback: () => {} })
+            appendRkCode(`wiederhole ${count} mal`, node.from)
+            rkCodeIndent++
           } else {
             warnings.push({
               from: loopCond.from,

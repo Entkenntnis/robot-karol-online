@@ -220,7 +220,7 @@ export function startTesting(core: Core) {
   runTask(core, 0)
 }
 
-export function finishQuest(core: Core) {
+export function finishQuest(core: Core, stay: boolean = false) {
   if (core.ws.quest.id < 0) {
     submit_event(
       `custom_quest_complete_${window.location.hash.substring(1)}`,
@@ -242,7 +242,14 @@ export function finishQuest(core: Core) {
     )
   }*/
   storeQuestToSession(core)
-  switchToPage(core, 'overview')
+  if (!stay) {
+    switchToPage(core, 'overview')
+  } else {
+    core.mutateWs((ws) => {
+      ws.ui.isAlreadyCompleted = true
+      ws.ui.controlBarShowFinishQuest = false
+    })
+  }
   submit_event(`quest_complete_${core.ws.quest.id}`, core)
 }
 
