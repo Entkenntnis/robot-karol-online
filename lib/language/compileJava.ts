@@ -1,6 +1,6 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { BranchOp, JumpOp, Op } from '../state/types'
+import { BranchOp, Condition, JumpOp, Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
 import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
 
@@ -8,6 +8,8 @@ interface SemantikCheckContext {
   robotName: string
   variablesInScope: Set<string>
   __temp_remove_from_scope_after_for?: string
+  expectCondition?: boolean
+  condition?: Condition
 }
 
 interface AnchorOp {
@@ -337,9 +339,26 @@ export function compileJava(
           const argumentList = node.children[3]
           let integerArgument: number = NaN
 
+          const methodsWithoutArgs = [
+            'markeSetzen',
+            'markeLöschen',
+            'beenden',
+            'istWand',
+            'nichtIstWand',
+            'istMarke',
+            'nichtIstMarke',
+            'istSüden',
+            'istNorden',
+            'istWesten',
+            'istOsten',
+            'nichtIstSüden',
+            'nichtIstNorden',
+            'nichtIstWesten',
+            'nichtIstOsten',
+          ]
+
           const methodName = node.children[2].children[0].text()
 
-          // todo: argument parsen
           if (argumentList.children.some((child) => child.isError)) {
             warnings.push({
               from: argumentList.from,
@@ -352,9 +371,7 @@ export function compileJava(
               ['(', 'IntegerLiteral', ')'],
               argumentList.children
             ) &&
-            methodName != 'markeSetzen' &&
-            methodName != 'markeLöschen' &&
-            methodName != 'beenden'
+            !methodsWithoutArgs.includes(methodName)
           ) {
             integerArgument = parseInt(argumentList.children[1].text())
             if (!isNaN(integerArgument)) {
@@ -373,61 +390,118 @@ export function compileJava(
               from: argumentList.from,
               to: argumentList.to,
               severity: 'error',
-              message: ['markeSetzen', 'markeLöschen', 'beenden'].includes(
-                methodName
-              )
+              message: methodsWithoutArgs.includes(methodName)
                 ? `Erwarte leere Parameterliste`
                 : `Erwarte Zahl als Parameter`,
             })
           }
 
-          const action = methodName2action(methodName)
-          if (!action) {
-            warnings.push({
-              from: node.children[2].from,
-              to: node.children[2].to,
-              severity: 'error',
-              message: `Unbekannte Methode '${methodName}'`,
-            })
-            return
-          }
+          if (context.expectCondition) {
+            let cond: Condition = {} as Condition
+            if (methodName == 'nichtIstWand') {
+              cond = { type: 'wall', negated: true }
+            } else if (methodName == 'istWand') {
+              cond = { type: 'wall', negated: false }
+            } else if (methodName == 'nichtIstZiegel') {
+              if (isNaN(integerArgument)) {
+                cond = { type: 'brick', negated: true }
+              } else {
+                cond = {
+                  type: 'brick_count',
+                  negated: true,
+                  count: integerArgument,
+                }
+              }
+            } else if (methodName == 'istZiegel') {
+              if (isNaN(integerArgument)) {
+                cond = { type: 'brick', negated: false }
+              } else {
+                cond = {
+                  type: 'brick_count',
+                  negated: false,
+                  count: integerArgument,
+                }
+              }
+            } else if (methodName == 'nichtIstMarke') {
+              cond = { type: 'mark', negated: true }
+            } else if (methodName == 'istMarke') {
+              cond = { type: 'mark', negated: false }
+            } else if (methodName == 'nichtIstNorden') {
+              cond = { type: 'north', negated: true }
+            } else if (methodName == 'istNorden') {
+              cond = { type: 'north', negated: false }
+            } else if (methodName == 'nichtIstOsten') {
+              cond = { type: 'east', negated: true }
+            } else if (methodName == 'istOsten') {
+              cond = { type: 'east', negated: false }
+            } else if (methodName == 'nichtIstSüden') {
+              cond = { type: 'south', negated: true }
+            } else if (methodName == 'istSüden') {
+              cond = { type: 'south', negated: false }
+            } else if (methodName == 'nichtIstWesten') {
+              cond = { type: 'west', negated: true }
+            } else if (methodName == 'istWesten') {
+              cond = { type: 'west', negated: false }
+            }
+            if (!cond.type) {
+              warnings.push({
+                from: node.children[2].from,
+                to: node.children[2].to,
+                severity: 'error',
+                message: `Unbekannte Bedingung '${methodName}'`,
+              })
+              return
+            }
+            context.condition = cond
+          } else {
+            const action = methodName2action(methodName)
+            if (!action) {
+              warnings.push({
+                from: node.children[2].from,
+                to: node.children[2].to,
+                severity: 'error',
+                message: `Unbekannte Methode '${methodName}'`,
+              })
+              return
+            }
 
-          if (action == '--exit--') {
-            output.push({ type: 'jump', target: Infinity })
-            appendRkCode('Beenden', node.from)
-            return
-          }
+            if (action == '--exit--') {
+              output.push({ type: 'jump', target: Infinity })
+              appendRkCode('Beenden', node.from)
+              return
+            }
 
-          if (!isNaN(integerArgument)) {
-            for (
-              let i = 0;
-              i < Math.min(1000, integerArgument) /* protect */;
-              i++
-            ) {
+            if (!isNaN(integerArgument)) {
+              for (
+                let i = 0;
+                i < Math.min(1000, integerArgument) /* protect */;
+                i++
+              ) {
+                output.push({
+                  type: 'action',
+                  command: action,
+                  line: doc.lineAt(node.from).number,
+                })
+              }
+              appendRkCode(
+                methodName.charAt(0).toUpperCase() +
+                  methodName.slice(1) +
+                  '(' +
+                  integerArgument.toString() +
+                  ')',
+                node.from
+              )
+            } else {
               output.push({
                 type: 'action',
                 command: action,
                 line: doc.lineAt(node.from).number,
               })
+              appendRkCode(
+                methodName.charAt(0).toUpperCase() + methodName.slice(1),
+                node.from
+              )
             }
-            appendRkCode(
-              methodName.charAt(0).toUpperCase() +
-                methodName.slice(1) +
-                '(' +
-                integerArgument.toString() +
-                ')',
-              node.from
-            )
-          } else {
-            output.push({
-              type: 'action',
-              command: action,
-              line: doc.lineAt(node.from).number,
-            })
-            appendRkCode(
-              methodName.charAt(0).toUpperCase() + methodName.slice(1),
-              node.from
-            )
           }
 
           return
@@ -684,7 +758,16 @@ export function compileJava(
             rkCodeIndent--
             appendRkCode('endewiederhole', node.to)
           } else {
-            // parse condition
+            context.expectCondition = true
+            semanticCheck(node.children[1], context)
+            context.expectCondition = undefined
+            const condition = context.condition
+            if (condition) {
+              // Konvertiere zu Karol Zeug
+              // TODO output bytecode
+              semanticCheck(node.children[2], context)
+              // TODO output bytecode
+            }
           }
         } else {
           warnings.push({
@@ -692,6 +775,19 @@ export function compileJava(
             to: node.to,
             severity: 'error',
             message: `Erwarte Schleife mit Rumpf`,
+          })
+        }
+        return
+      }
+      case 'ParenthesizedExpression': {
+        if (matchChildren(['(', 'MethodInvocation', ')'], node.children)) {
+          semanticCheck(node.children[1], context)
+        } else {
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: `Erwarte Bedingung`,
           })
         }
         return

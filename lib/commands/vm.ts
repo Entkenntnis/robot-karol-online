@@ -140,7 +140,7 @@ function internal_step(core: Core) {
             type: op.condition.type,
             negated: op.condition.negated,
           }
-          if (op.hasArg) {
+          if (op.condition.type == 'brick_count') {
             condition.count = frame.opstack.pop()
           }
           frame.opstack.push(testCondition(core, condition) ? 1 : 0)

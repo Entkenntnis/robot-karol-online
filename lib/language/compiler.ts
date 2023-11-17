@@ -223,7 +223,6 @@ export function compile(tree: Tree, doc: Text) {
           output.push({
             type: 'sense',
             condition: st.condition!,
-            hasArg,
           })
           const op: Op = {
             type: 'branch',
@@ -314,7 +313,6 @@ export function compile(tree: Tree, doc: Text) {
           output.push({
             type: 'sense',
             condition: st.condition!,
-            hasArg,
           })
           output.push({
             type: 'branch',

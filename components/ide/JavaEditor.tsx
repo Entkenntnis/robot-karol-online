@@ -212,10 +212,24 @@ const commands = [
   { label: 'markeSetzen', boost: 5 },
   { label: 'markeLöschen', boost: 4 },
   { label: 'beenden', boost: 2 },
-  { label: 'istZiegel' },
 ]
 
-const conditions = [{ label: 'istZiegel' }, { label: 'nichtIstZiegel' }]
+const conditions = [
+  { label: 'istWand' },
+  { label: 'nichtIstWand' },
+  { label: 'istZiegel' },
+  { label: 'nichtIstZiegel' },
+  { label: 'istMarke' },
+  { label: 'nichtIstMarke' },
+  { label: 'istNorden', boost: -2 },
+  { label: 'nichtIstNorden', boost: -2 },
+  { label: 'istOsten', boost: -2 },
+  { label: 'nichtIstOsten', boost: -2 },
+  { label: 'istSüden', boost: -2 },
+  { label: 'nichtIstSüden', boost: -2 },
+  { label: 'istWesten', boost: -2 },
+  { label: 'nichtIstWesten', boost: -2 },
+]
 
 const myAutocomplete: CompletionSource = (context) => {
   const token = context.matchBefore(/\.[a-zA-Z_0-9äöüÄÜÖß]*$/)

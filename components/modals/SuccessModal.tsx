@@ -132,16 +132,23 @@ export function SuccessModal() {
             </>
           ) :*/ <div className="h-12"></div>
           }
-          <div className="px-12 flex justify-between w-full mb-12">
-            <button
-              className="underline text-gray-700 hover:text-black"
-              onClick={() => {
-                finishQuest(core, true)
-                closeModal(core)
-              }}
-            >
-              bleiben
-            </button>
+          <div
+            className={clsx(
+              'px-12 flex w-full mb-12',
+              core.ws.quest.id >= 0 ? 'justify-between' : 'justify-around'
+            )}
+          >
+            {core.ws.quest.id >= 0 && (
+              <button
+                className="underline text-gray-700 hover:text-black"
+                onClick={() => {
+                  finishQuest(core, true)
+                  closeModal(core)
+                }}
+              >
+                bleiben
+              </button>
+            )}
             <button
               onClick={() => {
                 finishQuest(core)
@@ -149,7 +156,7 @@ export function SuccessModal() {
               }}
               className={clsx(
                 'px-4 py-2 rounded hover:bg-green-300 inline-block',
-                'bg-green-200  text-lg'
+                'bg-green-200 text-lg'
               )}
             >
               weiter

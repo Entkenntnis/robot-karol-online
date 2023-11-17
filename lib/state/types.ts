@@ -242,7 +242,6 @@ export interface ActionOp extends BaseOp {
 export interface SenseOp extends BaseOp {
   type: 'sense'
   condition: Condition
-  hasArg?: boolean
 }
 
 export interface JumpOp extends BaseOp {
