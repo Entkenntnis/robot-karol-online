@@ -11,6 +11,8 @@ export function robotKarol2Java(code: string) {
   const mainNodes = ast.children.filter((child) => child.name !== 'Cmd')
   const methods = ast.children.filter((child) => child.name == 'Cmd')
 
+  let forLoopOffset = 0
+
   function nodes2Code(nodes: AstNode[], offset: number): string {
     let output = ''
 
@@ -32,10 +34,12 @@ export function robotKarol2Java(code: string) {
           const times = parseInt(node.children[1].text())
           pad()
           const lv = `${
-            'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'[offset - 2]
+            'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'[forLoopOffset]
           }`
           output += `for (int ${lv} = 0; ${lv} < ${times}; ${lv}++) {\n`
+          forLoopOffset++
           output += nodes2Code(node.children.slice(3, -1), offset + 1) + '\n'
+          forLoopOffset--
           pad()
           output += '}\n'
         } else if (node.children.some((child) => child.name == 'Condition')) {
