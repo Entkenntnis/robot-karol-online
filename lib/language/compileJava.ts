@@ -6,6 +6,8 @@ import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
 
 interface SemantikCheckContext {
   robotName: string
+  variablesInScope: Set<string>
+  __temp_remove_from_scope_after_for?: string
 }
 
 export function compileJava(
@@ -228,7 +230,10 @@ export function compileJava(
     }
   }
 
-  semanticCheck(mainMethod, { robotName: robotInstanceName })
+  semanticCheck(mainMethod, {
+    robotName: robotInstanceName,
+    variablesInScope: new Set(),
+  })
 
   appendRkCode('', Infinity)
   rkCode = rkCode.trim()
@@ -420,6 +425,177 @@ export function compileJava(
         })
         return
       }
+      case 'ForStatement': {
+        if (matchChildren(['for', 'ForSpec', 'Block'], node.children)) {
+          semanticCheck(node.children[1], context)
+          const toRemove = context.__temp_remove_from_scope_after_for
+          context.__temp_remove_from_scope_after_for = undefined
+          semanticCheck(node.children[2], context)
+          if (toRemove) {
+            context.variablesInScope.delete(toRemove)
+          }
+        } else {
+          if (matchChildren(['for', 'ForSpec', '⚠'], node.children)) {
+            semanticCheck(node.children[1], context)
+          }
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: 'Erwarte Schleife mit Rumpf',
+          })
+        }
+        return
+      }
+      case 'ForSpec': {
+        let safeLoopVar = 'i'
+        const candidates = 'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZi'
+        for (let i = 0; i < candidates.length; i++) {
+          safeLoopVar = candidates[i]
+          if (!context.variablesInScope.has(safeLoopVar)) {
+            break // found it
+          }
+        }
+        if (
+          matchChildren(
+            [
+              '(',
+              'LocalVariableDeclaration',
+              'BinaryExpression',
+              ';',
+              'UpdateExpression',
+              ')',
+            ],
+            node.children
+          )
+        ) {
+          const loopVar = node.children[1]
+          let loopVarName = safeLoopVar
+
+          if (
+            matchChildren(
+              ['PrimitiveType', 'VariableDeclarator', ';'],
+              loopVar.children
+            )
+          ) {
+            const type = loopVar.children[0]
+            const declarator = loopVar.children[1]
+
+            if (type.text() !== 'int') {
+              warnings.push({
+                from: loopVar.from,
+                to: loopVar.to,
+                severity: 'error',
+                message: `Erwarte Schleifenzähler mit Typ 'int'`,
+              })
+            }
+
+            if (
+              matchChildren(
+                ['Definition', 'AssignOp', 'IntegerLiteral'],
+                declarator.children
+              )
+            ) {
+              loopVarName = declarator.children[0].text()
+              if (context.variablesInScope.has(loopVarName)) {
+                warnings.push({
+                  from: declarator.children[0].from,
+                  to: declarator.children[0].to,
+                  severity: 'error',
+                  message: `Variable '${loopVarName}' existiert bereit, erwarte anderen Namen`,
+                })
+              }
+              const initialValue = parseInt(declarator.children[2].text())
+              if (initialValue != 0) {
+                warnings.push({
+                  from: declarator.children[2].from,
+                  to: declarator.children[2].to,
+                  severity: 'error',
+                  message: `Erwarte Startwert 0`,
+                })
+              }
+              context.variablesInScope.add(loopVarName)
+            } else {
+              warnings.push({
+                from: loopVar.from,
+                to: loopVar.to,
+                severity: 'error',
+                message: `Erwarte Schleifenzähler 'int ${safeLoopVar} = 0;'`,
+              })
+            }
+          } else {
+            warnings.push({
+              from: loopVar.from,
+              to: loopVar.to,
+              severity: 'error',
+              message: `Erwarte Schleifenzähler 'int ${safeLoopVar} = 0;'`,
+            })
+          }
+
+          const loopCond = node.children[2]
+
+          if (
+            matchChildren(
+              ['Identifier', 'CompareOp', 'IntegerLiteral'],
+              loopCond.children
+            )
+          ) {
+            const id = loopCond.children[0].text()
+            if (id != loopVarName) {
+              warnings.push({
+                from: loopCond.children[0].from,
+                to: loopCond.children[0].to,
+                severity: 'error',
+                message: `Erwarte Variable '${loopVarName}'`,
+              })
+            }
+            if (loopCond.children[1].text() != '<') {
+              warnings.push({
+                from: loopCond.children[1].from,
+                to: loopCond.children[1].to,
+                severity: 'error',
+                message: `Erwarte Vergleichsoperator '<'`,
+              })
+            }
+            const count = parseInt(loopCond.children[2].text())
+            if (count <= 0) {
+              warnings.push({
+                from: loopCond.children[2].from,
+                to: loopCond.children[2].to,
+                severity: 'error',
+                message: `Erwarte Anzahl größer null`,
+              })
+            }
+          } else {
+            warnings.push({
+              from: loopCond.from,
+              to: loopCond.to,
+              severity: 'error',
+              message: `Erwarte Schleifenbedingung der Form '${loopVarName} < 10'`,
+            })
+          }
+
+          const loopUpdate = node.children[4]
+          if (loopUpdate.text() !== loopVarName + '++') {
+            warnings.push({
+              from: loopUpdate.from,
+              to: loopUpdate.to,
+              severity: 'error',
+              message: `Erwarte '${loopVarName}++'`,
+            })
+          }
+        } else {
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: `Erwarte Schleifenkopf mit 'int ${safeLoopVar} = 0; ${safeLoopVar} < 10; ${safeLoopVar}++'`,
+          })
+        }
+
+        return
+      }
+      // ADD NEW NODES HERE
     }
 
     if (node.isError) {

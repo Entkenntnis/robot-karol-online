@@ -310,7 +310,9 @@ export function Overview() {
                   alt="Farbklecks 3"
                 />
 
-                {(numberOfSolvedQuests >= 5 || core.ws.page == 'analyze') && (
+                {(numberOfSolvedQuests >= 5 ||
+                  core.ws.page == 'analyze' ||
+                  core.ws.page == 'demo') && (
                   <button
                     className="absolute top-[210px] left-[1050px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
                     onClick={() => {
@@ -318,7 +320,7 @@ export function Overview() {
                       window.open('/snake', '_blank')
                     }}
                   >
-                    <p className="text-center text-xl mb-2">Mini-Spiel</p>
+                    <p className="text-center text-lg mb-1">Mini-Spiel</p>
                     <img
                       src="/snake.png"
                       alt="Snake-Icon"
@@ -336,7 +338,11 @@ export function Overview() {
                       return (
                         <Fragment key={id}>
                           {data.deps.map((dep) => {
-                            if (isQuestDone(dep) || core.ws.page == 'analyze') {
+                            if (
+                              isQuestDone(dep) ||
+                              core.ws.page == 'analyze' ||
+                              core.ws.page == 'demo'
+                            ) {
                               return (
                                 <line
                                   key={`connect-${id}-${dep}`}
