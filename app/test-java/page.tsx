@@ -629,6 +629,23 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Endlosschleife',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (true) {\n      karol.linksDrehen();\n    }\n  }\n}',
+    output: [
+      {
+        type: 'action',
+        command: 'left',
+        line: 6,
+      },
+      {
+        type: 'jump',
+        target: 0,
+      },
+    ],
+    rkCode: 'wiederhole immer\n  LinksDrehen\nendewiederhole',
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

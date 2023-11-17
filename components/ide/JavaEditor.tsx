@@ -203,20 +203,27 @@ const myTabExtension: Command = (target: EditorView) => {
   return false
 }
 
+const commands = [
+  { label: 'schritt', boost: 10 },
+  { label: 'linksDrehen', boost: 8 },
+  { label: 'rechtsDrehen', boost: 8 },
+  { label: 'aufheben', boost: 6 },
+  { label: 'hinlegen', boost: 6 },
+  { label: 'markeSetzen', boost: 5 },
+  { label: 'markeLöschen', boost: 4 },
+  { label: 'beenden', boost: 2 },
+  { label: 'istZiegel' },
+]
+
+const conditions = [{ label: 'istZiegel' }, { label: 'nichtIstZiegel' }]
+
 const myAutocomplete: CompletionSource = (context) => {
   const token = context.matchBefore(/\.[a-zA-Z_0-9äöüÄÜÖß]*$/)
+  const doc = context.state.doc
+  const line = doc.lineAt(context.pos).text
   if (!token) return null
   return {
     from: token.from + 1,
-    options: [
-      { label: 'schritt', boost: 10 },
-      { label: 'linksDrehen', boost: 8 },
-      { label: 'rechtsDrehen', boost: 8 },
-      { label: 'aufheben', boost: 6 },
-      { label: 'hinlegen', boost: 6 },
-      { label: 'markeSetzen', boost: 4 },
-      { label: 'markeLöschen', boost: 4 },
-      { label: 'beenden', boost: 2 },
-    ],
+    options: line.includes('while') ? conditions : commands,
   }
 }

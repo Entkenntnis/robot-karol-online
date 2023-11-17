@@ -657,6 +657,45 @@ export function compileJava(
 
         return
       }
+      case 'WhileStatement': {
+        if (
+          matchChildren(
+            ['while', 'ParenthesizedExpression', 'Block'],
+            node.children
+          )
+        ) {
+          const condition = node.children[1]
+          if (
+            matchChildren(['(', 'BooleanLiteral', ')'], condition.children) &&
+            condition.children[1].text() == 'true'
+          ) {
+            // endless loop
+            const jump: JumpOp = { type: 'jump', target: -1 }
+            output.push({
+              type: 'anchor',
+              callback: (target) => {
+                jump.target = target
+              },
+            })
+            appendRkCode('wiederhole immer', node.from)
+            rkCodeIndent++
+            semanticCheck(node.children[2], context)
+            output.push(jump)
+            rkCodeIndent--
+            appendRkCode('endewiederhole', node.to)
+          } else {
+            // parse condition
+          }
+        } else {
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: `Erwarte Schleife mit Rumpf`,
+          })
+        }
+        return
+      }
       // ADD NEW NODES HERE
     }
 
