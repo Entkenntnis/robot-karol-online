@@ -234,10 +234,22 @@ const conditions = [
 const myAutocomplete: CompletionSource = (context) => {
   const token = context.matchBefore(/\.[a-zA-Z_0-9äöüÄÜÖß]*$/)
   const doc = context.state.doc
-  const line = doc.lineAt(context.pos).text
+  const line = doc.lineAt(context.pos)
+  let preLine = line.text.substring(0, context.pos - line.from)
+
+  const breaker = [';', '{', '}']
+  let offset = 0
+  for (const b of breaker) {
+    const i = preLine.lastIndexOf(b)
+    if (i >= offset) {
+      offset = i
+    }
+  }
+  preLine = preLine.substring(offset)
+
   if (!token) return null
   return {
     from: token.from + 1,
-    options: line.includes('while') ? conditions : commands,
+    options: preLine.includes('while') ? conditions : commands,
   }
 }

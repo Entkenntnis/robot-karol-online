@@ -506,13 +506,7 @@ const compilerTestCases: CompilerTestCase[] = [
     title: 'Erstes Programm mit Ausgabe',
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt();\n  }\n}',
-    output: [
-      {
-        type: 'action',
-        command: 'forward',
-        line: 5,
-      },
-    ],
+    output: [{ type: 'action', command: 'forward', line: 5 }],
     rkCode: 'Schritt',
   },
   {
@@ -520,16 +514,8 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(2);\n  }\n}',
     output: [
-      {
-        type: 'action',
-        command: 'forward',
-        line: 5,
-      },
-      {
-        type: 'action',
-        command: 'forward',
-        line: 5,
-      },
+      { type: 'action', command: 'forward', line: 5 },
+      { type: 'action', command: 'forward', line: 5 },
     ],
     rkCode: 'Schritt(2)',
   },
@@ -634,17 +620,54 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (true) {\n      karol.linksDrehen();\n    }\n  }\n}',
     output: [
-      {
-        type: 'action',
-        command: 'left',
-        line: 6,
-      },
-      {
-        type: 'jump',
-        target: 0,
-      },
+      { type: 'action', command: 'left', line: 6 },
+      { type: 'jump', target: 0 },
     ],
     rkCode: 'wiederhole immer\n  LinksDrehen\nendewiederhole',
+  },
+  {
+    title: 'Bedingte Wiederholung',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (karol.nichtIstWand()) {\n      karol.schritt();\n    }\n  }\n}',
+    output: [
+      { type: 'jump', target: 2 },
+      { type: 'action', command: 'forward', line: 6 },
+      {
+        type: 'sense',
+        condition: { type: 'wall', negated: true },
+      },
+      { type: 'branch', targetF: 4, targetT: 1, line: 68 },
+    ],
+    rkCode: 'wiederhole solange NichtIstWand\n  Schritt\nendewiederhole',
+  },
+  {
+    title: 'Bedingte Wiederholung mit Parameter in Bedingung',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (karol.istZiegel(2)) {\n      karol.aufheben();\n    }\n  }\n}',
+    output: [
+      { type: 'jump', target: 2 },
+      { type: 'action', command: 'unbrick', line: 6 },
+      { type: 'constant', value: 2 },
+      {
+        type: 'sense',
+        condition: { type: 'brick_count', negated: false, count: 2 },
+      },
+      { type: 'branch', targetF: 5, targetT: 1, line: 68 },
+    ],
+    rkCode: 'wiederhole solange IstZiegel(2)\n  Aufheben\nendewiederhole',
+  },
+  {
+    title: 'Fehler falls überflüssiger Parameter',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (karol.istWand(2)) { }\n  }\n}',
+    warnings: [
+      {
+        from: 88,
+        to: 91,
+        severity: 'error',
+        message: 'Erwarte leere Parameterliste',
+      },
+    ],
   },
   /*{
     title: 'Playground',

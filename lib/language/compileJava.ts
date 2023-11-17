@@ -763,10 +763,67 @@ export function compileJava(
             context.expectCondition = undefined
             const condition = context.condition
             if (condition) {
-              // Konvertiere zu Karol Zeug
-              // TODO output bytecode
+              const jumpToCond: JumpOp = { type: 'jump', target: -1 }
+              const branch: BranchOp = {
+                type: 'branch',
+                targetF: -1,
+                targetT: -1,
+                line: node.from,
+              }
+              const anchorTop: AnchorOp = {
+                type: 'anchor',
+                callback: (target) => {
+                  branch.targetT = target
+                },
+              }
+              const anchorCond: AnchorOp = {
+                type: 'anchor',
+                callback: (target) => {
+                  jumpToCond.target = target
+                },
+              }
+              const anchorEnd: AnchorOp = {
+                type: 'anchor',
+                callback: (target) => {
+                  branch.targetF = target
+                },
+              }
+              output.push(jumpToCond)
+              output.push(anchorTop)
+
+              const part1 = condition.negated ? 'NichtIst' : 'Ist'
+              const part2 = ((type) => {
+                if (type == 'brick') return 'Ziegel'
+                if (type == 'wall') return 'Wand'
+                if (type == 'mark') return 'Marke'
+                if (type == 'north') return 'Norden'
+                if (type == 'south') return 'Süden'
+                if (type == 'east') return 'Osten'
+                if (type == 'west') return 'Westen'
+                return 'Ziegel'
+              })(condition.type)
+              const part3 =
+                condition.type == 'brick_count' ? `(${condition.count})` : ''
+
+              appendRkCode(
+                `wiederhole solange ${part1}${part2}${part3}`,
+                node.from
+              )
+              rkCodeIndent++
               semanticCheck(node.children[2], context)
-              // TODO output bytecode
+              rkCodeIndent--
+              appendRkCode('endewiederhole', node.to)
+
+              output.push(anchorCond)
+              if (condition.type == 'brick_count') {
+                output.push({ type: 'constant', value: condition.count! })
+              }
+              output.push({
+                type: 'sense',
+                condition,
+              })
+              output.push(branch)
+              output.push(anchorEnd)
             }
           }
         } else {
