@@ -135,10 +135,12 @@ export function robotKarol2Java(code: string) {
 
   void main() {
 ${nodes2Code(mainNodes, 2)}
-  }${methods.map((method) => {
-    const name = method.children[1].text()
-    const inner = method.children.slice(2, -1)
-    return `\n\n  void ${name}() {\n${nodes2Code(inner, 2)}\n  }`
-  })}
+  }${methods
+    .map((method) => {
+      const name = method.children[1].text()
+      const inner = method.children.slice(2, -1)
+      return `\n\n  void ${name}() {\n${nodes2Code(inner, 2)}\n  }`
+    })
+    .join('')}
 }`
 }

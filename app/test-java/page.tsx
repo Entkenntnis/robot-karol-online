@@ -303,17 +303,11 @@ const compilerTestCases: CompilerTestCase[] = [
     ],
   },
   {
-    title: 'Fehler bei eigener Methode',
+    title: 'Eigene Methode wird unterstützt',
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n\n  }\n\n  void test() {}\n}',
-    warnings: [
-      {
-        from: 71,
-        to: 85,
-        severity: 'error',
-        message: 'Keine eigenen Methoden unterstützt',
-      },
-    ],
+    output: [{ type: 'jump', target: Infinity }, { type: 'return' }],
+    rkCode: 'Anweisung test\nendeAnweisung',
   },
   {
     title: 'Fehler bei falschem Rückgabetyp der Hauptmethode',

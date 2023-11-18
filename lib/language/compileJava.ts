@@ -1,6 +1,6 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { BranchOp, Condition, JumpOp, Op } from '../state/types'
+import { BranchOp, CallOp, Condition, JumpOp, Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
 import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
 
@@ -10,6 +10,8 @@ interface SemantikCheckContext {
   __temp_remove_from_scope_after_for?: string
   expectCondition?: boolean
   condition?: Condition
+  availableMethods: Set<string>
+  callOps: [string, CallOp][]
 }
 
 interface AnchorOp {
@@ -60,7 +62,7 @@ export function compileJava(
 
   if (ast.children.length == 0) {
     // empty program
-    return { output: [], warnings: [] }
+    return { output: [], warnings: [], rkCode: '' }
   }
 
   const notClassOnTopLevel = ast.children.filter(
@@ -210,11 +212,7 @@ export function compileJava(
     return { output: [], warnings }
   }
 
-  // additional checks for robot field and main method
-  const mainMethod = mainMethods[0]
-  checkMainMethod(mainMethod)
-
-  // custom fields / methods not implemented yet
+  // custom fields  not implemented yet
   for (const field of fields) {
     if (field != robotField) {
       warnings.push({
@@ -226,21 +224,80 @@ export function compileJava(
     }
   }
 
+  const mainMethod = mainMethods[0]
+
+  const availableMethods = new Set<string>()
   for (const method of methods) {
     if (method != mainMethod) {
-      warnings.push({
-        from: method.from,
-        to: method.to,
-        severity: 'error',
-        message: 'Keine eigenen Methoden unterstützt',
-      })
+      if (
+        matchChildren(
+          ['void', 'Definition', 'FormalParameters', 'Block'],
+          method.children
+        )
+      ) {
+        const formalParameters = method.children[2]
+        if (!matchChildren(['(', ')'], formalParameters.children)) {
+          warnings.push({
+            from: formalParameters.from,
+            to: formalParameters.to,
+            severity: 'error',
+            message: 'Erwarte leere Parameterliste',
+          })
+        }
+        const name = method.children[1].text()
+        availableMethods.add(name)
+      } else {
+        warnings.push({
+          from: method.from,
+          to: method.to,
+          severity: 'error',
+          message: 'Erwarte eigene Methode ohne Rückgabewert mit Rumpf',
+        })
+      }
     }
   }
+
+  checkMainMethod(mainMethod)
+
+  const callOps: [string, CallOp][] = []
 
   semanticCheck(mainMethod, {
     robotName: robotInstanceName,
     variablesInScope: new Set(),
+    availableMethods,
+    callOps,
   })
+
+  if (availableMethods.size > 0) {
+    output.push({ type: 'jump', target: Infinity })
+  }
+
+  for (const method of methods) {
+    if (method != mainMethod) {
+      const name = method.children[1].text()
+      output.push({
+        type: 'anchor',
+        callback: (target) => {
+          callOps.forEach(([n, op]) => {
+            if (n == name) {
+              op.target = target
+            }
+          })
+        },
+      })
+      appendRkCode('\nAnweisung ' + name, method.from)
+      rkCodeIndent++
+      semanticCheck(method, {
+        robotName: robotInstanceName,
+        variablesInScope: new Set(),
+        availableMethods,
+        callOps,
+      })
+      output.push({ type: 'return' })
+      rkCodeIndent--
+      appendRkCode('endeAnweisung', method.to)
+    }
+  }
 
   appendRkCode('', Infinity)
   rkCode = rkCode.trim()
@@ -270,8 +327,9 @@ export function compileJava(
       }
       case 'Block': {
         ensureBlock(node.children)
-        // todo: frame context for variables?
-        node.children.map((child) => semanticCheck(child, context))
+        node.children
+          .filter((child) => child.name !== '{' && child.name !== '}')
+          .map((child) => semanticCheck(child, context))
         return
       }
       case 'ExpressionStatement': {
@@ -309,13 +367,34 @@ export function compileJava(
       }
       case 'MethodInvocation': {
         if (matchChildren(['MethodName', 'ArgumentList'], node.children)) {
-          // future: adapt if own methods become available
-          warnings.push({
-            from: node.from,
-            to: node.to,
-            severity: 'error',
-            message: `Erwarte Punktnotation '${context.robotName}.'`,
-          })
+          const name = node.children[0].text()
+          if (context.availableMethods.has(name)) {
+            const argumentList = node.children[1]
+            if (!matchChildren(['(', ')'], argumentList.children)) {
+              warnings.push({
+                from: argumentList.from,
+                to: argumentList.to,
+                severity: 'error',
+                message: 'Erwarte keine Argumente',
+              })
+            } else {
+              const op: CallOp = {
+                type: 'call',
+                target: -1,
+                line: doc.lineAt(node.from).number,
+              }
+              output.push(op)
+              appendRkCode(name, node.from)
+              context.callOps.push([name, op])
+            }
+          } else {
+            warnings.push({
+              from: node.from,
+              to: node.to,
+              severity: 'error',
+              message: `Erwarte Punktnotation '${context.robotName}.'`,
+            })
+          }
           return
         }
 
@@ -971,8 +1050,15 @@ export function compileJava(
       return
     }
 
-    console.log('NOT IMPLEMENTED', node.name)
-    node.children.forEach((child) => semanticCheck(child, context))
+    warnings.push({
+      from: node.from,
+      to: node.to,
+      severity: 'error',
+      message: `Dieser Syntax ist nicht implementiert: '${node.name}'`,
+    })
+
+    // console.log('NOT IMPLEMENTED', node.name)
+    // node.children.forEach((child) => semanticCheck(child, context))
   }
 
   function conditionToRK(condition: Condition) {
