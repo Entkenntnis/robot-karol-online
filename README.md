@@ -20,6 +20,10 @@ Eine Bearbeitung im Text-Modus ist ebenfalls möglich. Es kann durchgehend zwisc
 
 ![grafik](https://user-images.githubusercontent.com/13507950/217001071-d341a03a-f6ca-4b1b-bcfd-1574ea95cab9.png)
 
+Programme können auch in Java geschrieben werden.
+
+![grafik](https://github.com/Entkenntnis/robot-karol-online/assets/13507950/934478d4-bb24-437a-b3d9-5f024b9b1240)
+
 Als Web-Anwendung entfällt die Installation. Einfach auf den Link https://karol.arrrg.de/ klicken und schon kann losgearbeitet werden.
 
 ## Aufgabensammlung
