@@ -64,19 +64,19 @@ export const KAROL_TOOLBOX = {
     },
     {
       kind: 'block',
-      type: 'is_brick',
-    },
-    {
-      kind: 'block',
-      type: "isn't_brick",
-    },
-    {
-      kind: 'block',
       type: 'is_marker',
     },
     {
       kind: 'block',
       type: "isn't_marker",
+    },
+    {
+      kind: 'block',
+      type: 'is_brick',
+    },
+    {
+      kind: 'block',
+      type: "isn't_brick",
     },
     {
       kind: 'block',

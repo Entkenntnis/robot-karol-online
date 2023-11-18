@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { setUserName } from '../../lib/commands/mode'
 import { switchToPage } from '../../lib/commands/page'
-import { finishQuest } from '../../lib/commands/quest'
+import { closeOutput, finishQuest } from '../../lib/commands/quest'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import confetti from 'canvas-confetti'
@@ -59,17 +59,33 @@ export function SuccessModal() {
 
   const [rate, setRate] = useState(0)
 
+  const [firstPaint, setFirstPaint] = useState(true)
   // closeModal(core)
   // switchToPage(core, 'overview')
 
   useEffect(() => {
-    realisticLook()
+    setTimeout(() => {
+      realisticLook()
+    }, 444)
+    setTimeout(() => {
+      setFirstPaint(false)
+    }, 50)
   }, [])
 
   return (
     <>
-      <div className="bg-black/20 fixed inset-0 z-[150]"></div>
-      <div className="fixed inset-0 flex justify-center items-center z-[200]">
+      <div
+        className={clsx(
+          'bg-black/20 fixed inset-0 z-[150] transition-opacity duration-700 ease-out',
+          firstPaint ? 'opacity-0' : 'opacity-100'
+        )}
+      ></div>
+      <div
+        className={clsx(
+          'fixed inset-0 flex justify-center items-center z-[200] transition-opacity duration-700 ease-out',
+          firstPaint ? 'opacity-0' : 'opacity-100'
+        )}
+      >
         <div
           className="w-[500px] bg-white z-[200] rounded-xl relative flex items-center justify-between flex-col"
           onClick={(e) => {
@@ -116,18 +132,36 @@ export function SuccessModal() {
             </>
           ) :*/ <div className="h-12"></div>
           }
-          <button
-            onClick={() => {
-              finishQuest(core)
-              closeModal(core)
-            }}
+          <div
             className={clsx(
-              'px-4 py-2 rounded hover:bg-green-300',
-              'bg-green-200 mx-auto mb-12 text-lg'
+              'px-12 flex w-full mb-12',
+              core.ws.quest.id >= 0 ? 'justify-between' : 'justify-around'
             )}
           >
-            weiter
-          </button>
+            {core.ws.quest.id >= 0 && (
+              <button
+                className="underline text-gray-700 hover:text-black"
+                onClick={() => {
+                  finishQuest(core, true)
+                  closeModal(core)
+                }}
+              >
+                bleiben
+              </button>
+            )}
+            <button
+              onClick={() => {
+                finishQuest(core)
+                closeModal(core)
+              }}
+              className={clsx(
+                'px-4 py-2 rounded hover:bg-green-300 inline-block',
+                'bg-green-200 text-lg'
+              )}
+            >
+              weiter
+            </button>
+          </div>
         </div>
       </div>
     </>

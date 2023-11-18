@@ -1,12 +1,13 @@
 import { sliderToDelay } from '../helper/speedSlider'
 import { submit_event } from '../helper/submit'
+import { robotKarol2Java } from '../language/robotKarol2Java'
 import { Core } from '../state/core'
 import {
   copyLocalToSession,
   copySessionToLocal,
   setUserName as setUserNameStorage,
 } from '../storage/storage'
-import { closeModal, showModal } from './modal'
+import { showModal } from './modal'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
   if (core.ws.settings.mode == 'blocks') {
@@ -37,7 +38,9 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
     }
     if (core.ws.ui.toBlockWarning) {
       alert(
-        'Mehrzeilige Kommentare und return sind nur im Code-Editor verfügbar.'
+        core.ws.settings.language == 'robot karol'
+          ? 'Mehrzeilige Kommentare und return sind nur im Code-Editor verfügbar.'
+          : 'Du verwendest Funktionen von Java, die nicht in Blöcken oder Robot Karol Code darstellbar sind. Eine Konvertierung ist im Moment nicht möglich.'
       )
       return
     }
@@ -46,6 +49,16 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
     settings.mode = mode
     ui.toBlockWarning = false
   })
+  if (mode == 'code') {
+    setTimeout(() => {
+      core.view?.current?.focus()
+    })
+    if (core.ws.settings.language == 'java') {
+      core.mutateWs((state) => {
+        state.javaCode = robotKarol2Java(state.code)
+      })
+    }
+  }
 }
 
 export function setShowTarget(core: Core, val: boolean) {
@@ -77,12 +90,6 @@ export function editCodeAndResetProgress(core: Core) {
 export function setShowStructogram(core: Core, val: boolean) {
   core.mutateWs(({ ui }) => {
     ui.showStructogram = val
-  })
-}
-
-export function setShowCodeInfo(core: Core, val: boolean) {
-  core.mutateWs(({ ui }) => {
-    ui.showCodeInfo = val
   })
 }
 

@@ -113,8 +113,12 @@ export async function initClient(core: Core) {
               ws.analyze.usePersist++
               continue
             }
-            if (entry.event == 'use_audio') {
-              ws.analyze.useAudio++
+            if (entry.event == 'use_java') {
+              ws.analyze.useJava++
+              continue
+            }
+            if (entry.event == 'play_snake') {
+              ws.analyze.playSnake++
               continue
             }
             const publish = /publish_custom_quest_(.+)/.exec(entry.event)
