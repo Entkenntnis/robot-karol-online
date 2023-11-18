@@ -54,7 +54,7 @@ export function QuestIcon({
             karol: {
               x: 0,
               y: 0,
-              dir: dir ?? 'east',
+              dir: dir == 'west' ? 'east' : dir ?? 'east',
             },
             blocks: [[false]],
             marks: [[false]],
@@ -62,7 +62,11 @@ export function QuestIcon({
             height: 1,
           }}
           hideWorld
-          className="pointer-events-auto -mt-2"
+          className={clsx(
+            'pointer-events-auto -mt-2',
+            dir == 'south' && '-translate-x-3',
+            dir == 'west' && '-scale-x-100 -translate-x-3'
+          )}
         />
       )}
       {core.ws.page == 'analyze' && (
