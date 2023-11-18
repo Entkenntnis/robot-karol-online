@@ -38,12 +38,15 @@ export function JavaInfo() {
             den Karol.
           </p>
           <p>
-            Das Programm an sich schreibst du in der Methode main (seit Java 21
-            ist das eine erlaubte Vereinfachung). Solange du nicht über den
-            Grundumfang hinausgehst kannst du jederzeit zwischen Code und
-            Blöcken wechseln. Hier siehst ein kleines Beispielprogramm.
+            Das Programm an sich schreibst du in der Methode main. Du kannst
+            jederzeit Java. Robot Karol und Blöcken wechseln. Hier siehst ein
+            kleines Beispielprogramm.
           </p>
           <img src="/java/commands.png" alt="Ein paar Befehle" />
+          <p>
+            Der Java-Modus befindet sich aktuell im Beta-Test. Über eine
+            Mitteilung bei Problemen oder Wünschen freue ich mich.
+          </p>
         </div>
       </div>
     </div>

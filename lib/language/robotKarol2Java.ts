@@ -130,11 +130,13 @@ export function robotKarol2Java(code: string) {
     }
   }
 
+  const main = nodes2Code(mainNodes, 2)
+
   return `class Programm {
   Robot karol = new Robot();
 
   void main() {
-${nodes2Code(mainNodes, 2)}
+${main ? main : '    '}
   }${methods
     .map((method) => {
       const name = method.children[1].text()
