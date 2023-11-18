@@ -19,7 +19,17 @@
   },
   {
     "type": "turnleft",
-    "message0": "LinksDrehen",
+    "message0": "LinksDrehen %1",
+    "args0": [
+      {
+        "type": "field_number_slider",
+        "name": "COUNT",
+        "value": 1,
+        "min": 1,
+        "max": 4,
+        "precision": 1
+      }
+    ],
     "colour": 260,
     "tooltip": "Karol dreht sich um 90° nach links",
     "helpUrl": "",
@@ -28,7 +38,17 @@
   },
   {
     "type": "turnright",
-    "message0": "RechtsDrehen",
+    "message0": "RechtsDrehen %1",
+    "args0": [
+      {
+        "type": "field_number_slider",
+        "name": "COUNT",
+        "value": 1,
+        "min": 1,
+        "max": 4,
+        "precision": 1
+      }
+    ],
     "colour": 260,
     "tooltip": "Karol dreht sich um 90° nach rechts",
     "helpUrl": "",

@@ -17,8 +17,22 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
       return 'Schritt(' + val + ')' + '//blockId:' + block.id
     },
   ],
-  ['turnleft', (block: Block) => 'LinksDrehen' + '//blockId:' + block.id],
-  ['turnright', (block: Block) => 'RechtsDrehen' + '//blockId:' + block.id],
+  [
+    'turnleft',
+    (block: Block) => {
+      const val = block.getFieldValue('COUNT')
+      if (val == 1) return 'LinksDrehen' + '//blockId:' + block.id
+      return 'LinksDrehen(' + val + ')' + '//blockId:' + block.id
+    },
+  ],
+  [
+    'turnright',
+    (block: Block) => {
+      const val = block.getFieldValue('COUNT')
+      if (val == 1) return 'RechtsDrehen' + '//blockId:' + block.id
+      return 'RechtsDrehen(' + val + ')' + '//blockId:' + block.id
+    },
+  ],
   [
     'laydown',
     (block: Block) => {

@@ -1,0 +1,54 @@
+import { hideJavaInfo } from '../../lib/commands/language'
+import { useCore } from '../../lib/state/core'
+
+export function JavaInfo() {
+  const core = useCore()
+  return (
+    <div className="relative flex flex-col h-full">
+      <div className="absolute bottom-1.5 left-2">
+        <button
+          className="px-3 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+          onClick={() => {
+            hideJavaInfo(core)
+          }}
+        >
+          Schließen
+        </button>
+      </div>
+      <div className="h-full w-full overflow-auto pb-12">
+        <h1 className="ml-8 text-2xl pt-8">
+          Programmiere Robot Karol mit Java
+        </h1>
+        <div className="mx-8 [&>p]:mt-4 [&>img]:my-4">
+          <p>
+            Mache dich bereit für deine ersten Schritte in der
+            &quot;großen&quot; Programmiersprache Java! Das Wissen, das du hier
+            lernst, kannst du später direkt auf andere Java-Projekte übertragen.
+          </p>
+          <p>
+            Um den Einstieg überschaubar zu halten, wird nur eine ausgewählte
+            Menge von Java-Befehlen unterstützt. Ein Grundgerüst hat immer eine
+            feste Struktur.
+          </p>
+          <img src="/java/basics.png" alt="Grundgerüst" />
+          <p>
+            Wie in Java üblich besteht jede Datei aus einer Klasse. Innerhalb
+            dieser Klasse existiert ein Attribut vom Typ Robot, dass auch gleich
+            initialisiert wird. Dieses Attribut ist wie eine Fernbedienung für
+            den Karol.
+          </p>
+          <p>
+            Das Programm an sich schreibst du in der Methode main. Du kannst
+            jederzeit Java. Robot Karol und Blöcken wechseln. Hier siehst ein
+            kleines Beispielprogramm.
+          </p>
+          <img src="/java/commands.png" alt="Ein paar Befehle" />
+          <p>
+            Der Java-Modus befindet sich aktuell im Beta-Test. Über eine
+            Mitteilung bei Problemen oder Wünschen freue ich mich.
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}

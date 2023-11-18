@@ -8,6 +8,7 @@
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
     "grammar": "lezer-generator ./lib/codemirror/parser/karol.grammar -o ./lib/codemirror/parser/parser.js",
+    "grammar-java": "lezer-generator ./lib/codemirror/javaParser/java.grammar -o ./lib/codemirror/javaParser/parser.js",
     "export": "next build"
   },
   "dependencies": {

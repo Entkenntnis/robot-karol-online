@@ -20,6 +20,10 @@ Eine Bearbeitung im Text-Modus ist ebenfalls möglich. Es kann durchgehend zwisc
 
 ![grafik](https://user-images.githubusercontent.com/13507950/217001071-d341a03a-f6ca-4b1b-bcfd-1574ea95cab9.png)
 
+Programme können auch in Java geschrieben werden.
+
+![grafik](https://github.com/Entkenntnis/robot-karol-online/assets/13507950/934478d4-bb24-437a-b3d9-5f024b9b1240)
+
 Als Web-Anwendung entfällt die Installation. Einfach auf den Link https://karol.arrrg.de/ klicken und schon kann losgearbeitet werden.
 
 ## Aufgabensammlung
@@ -40,9 +44,9 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 `Schritt(anzahl)` - Karol geht `anzahl` Schritte nach vorne.
 
-`LinksDrehen` - Karol dreht sich um 90° nach links.
+`LinksDrehen` - Karol dreht sich um 90° nach links (optional mit Anzahl).
 
-`RechtsDrehen` - Karol dreht sich um 90° nach rechts.
+`RechtsDrehen` - Karol dreht sich um 90° nach rechts (optional mit Anzahl).
 
 `Hinlegen` - Karol legt vor sich einen Ziegel.
 
@@ -104,11 +108,10 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen unterstützt, außerdem gibt es noch folgende Möglichkeiten:
 
-- Aus einer Anweisung kann mit `return` zurückgesprungen werden.
 - Die meisten Befehle erlauben eine objektorientiere Schreibweise der Form `karol.Schritt(4)` oder ohne Parameter in der Form `karol.LinksDrehen()`.
 - Die alte Syntax mit `*wiederhole`, `*wenn` und `*Anweisung` wird weiterhin unterstützt.
-- Außerdem können weiterhin Kommentare mit `{ Kommentar }` geschrieben werden. Alternative Syntax für mehrzeilige Kommentare ist `/* Kommentar */`, Alternative für einzeiligen Kommentar ist `# Kommentar`.
-- Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`
+- Außerdem können weiterhin Kommentare mit `{ Kommentar }` geschrieben werden. Alternative Syntax für mehrzeilige Kommentare ist `/* Kommentar */`.
+- Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`. Das Semikolon wird beim Parsen ignoriert.
 
 ## Ähnliche Projekte
 
@@ -129,6 +132,8 @@ Karol verwendet sie/ihr-Pronomen.
 Hintergrundbild: [Bild von rawpixel.com](https://de.freepik.com/fotos-kostenlos/einfacher-strukturierter-hintergrund-des-glatten-gewebes_17593140.htm#query=leinen%20textur&position=0&from_view=keyword&track=ais) auf Freepik
 
 Farbkleckse: [Bild von starline](https://de.freepik.com/vektoren-kostenlos/isolierter-aquarell-spritzerfleck-bunter-satz-von-acht_9728054.htm#query=klecks&position=4&from_view=keyword&track=sph) auf Freepik
+
+Snake-Icon: [Snake icons created by apien - Flaticon](https://www.flaticon.com/free-icons/snake)
 
 ## Entwicklung
 

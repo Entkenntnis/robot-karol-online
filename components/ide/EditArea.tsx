@@ -1,14 +1,6 @@
 import { EditorView } from '@codemirror/view'
 import { useEffect, useRef } from 'react'
-import {
-  faArrowRight,
-  faArrowTurnUp,
-  faCircleExclamation,
-  faInfo,
-  faInfoCircle,
-  faSpinner,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 
 import { setEditable } from '../../lib/codemirror/basicSetup'
@@ -17,6 +9,10 @@ import { FaIcon } from '../helper/FaIcon'
 import { Editor } from './Editor'
 import { textRefreshDone } from '../../lib/commands/json'
 import dynamic from 'next/dynamic'
+import { setLanguage, showJavaInfo } from '../../lib/commands/language'
+import { Settings } from '../../lib/state/types'
+import { JavaEditor } from './JavaEditor'
+import clsx from 'clsx'
 
 const BlockEditor = dynamic(
   () => import('./BlockEditor').then((mod) => mod.BlockEditor),
@@ -40,7 +36,10 @@ export function EditArea() {
         changes: {
           from: 0,
           to: view.current.state.doc.length,
-          insert: core.ws.code,
+          insert:
+            core.ws.settings.language == 'robot karol'
+              ? core.ws.code
+              : core.ws.javaCode,
         },
       })
       forceLinting(view.current)
@@ -83,7 +82,7 @@ export function EditArea() {
 
   if (core.ws.settings.mode == 'code') {
     return (
-      <div className="h-full flex flex-col overflow-y-auto">
+      <div className="h-full flex flex-col overflow-y-auto relative">
         {renderEditor()}
         {core.ws.ui.state == 'error' && (
           <div className="w-full overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
@@ -94,8 +93,7 @@ export function EditArea() {
                     icon={faCircleExclamation}
                     className="text-red-600 mr-2"
                   />
-                  Beim Einlesen des Programms sind folgende Probleme
-                  aufgetreten:
+                  Es sind folgende Probleme aufgetreten:
                 </p>
                 {core.ws.ui.errorMessages.map((err, i) => (
                   <p className="mb-2" key={err + i.toString()}>
@@ -106,19 +104,56 @@ export function EditArea() {
             </div>
           </div>
         )}
+        <div className="absolute right-4 bottom-1">
+          {core.ws.settings.language == 'java' && (
+            <div
+              className="mb-2 cursor-pointer underline text-right mr-2"
+              onClick={() => {
+                showJavaInfo(core)
+              }}
+            >
+              Info zu Java
+            </div>
+          )}
+          <div
+            className={clsx(
+              'p-1 bg-gray-200 rounded pl-2',
+              core.ws.ui.state !== 'ready' && 'pointer-events-none',
+              core.ws.ui.state == 'error' && 'invisible',
+              core.ws.ui.toBlockWarning &&
+                core.ws.settings.language == 'java' &&
+                'text-gray-400'
+            )}
+          >
+            Sprache:{' '}
+            <select
+              className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100"
+              value={core.ws.settings.language}
+              onChange={(e) => {
+                setLanguage(core, e.target.value as Settings['language'])
+              }}
+            >
+              <option value="robot karol">Robot Karol</option>
+              <option value="java">Java</option>
+            </select>
+          </div>
+        </div>
       </div>
     )
   }
 
   return <BlockEditor />
 
-  // TODO for later stage: readd text editor
   function renderEditor() {
     return (
       <div className="flex h-full overflow-y-auto relative flex-shrink">
         <div className="w-full overflow-auto h-full flex">
           <div className="w-full h-full flex flex-col relative">
-            <Editor innerRef={view} />
+            {core.ws.settings.language == 'robot karol' ? (
+              <Editor innerRef={view} />
+            ) : (
+              <JavaEditor innerRef={view} />
+            )}
           </div>
         </div>
       </div>

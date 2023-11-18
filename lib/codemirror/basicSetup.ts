@@ -32,6 +32,7 @@ import {
   indentWithTab,
   insertNewlineAndIndent,
   selectAll,
+  selectLine,
 } from '@codemirror/commands'
 import {
   autocompletion,
@@ -75,7 +76,6 @@ const parserWithMetadata = parser.configure({
       CustomRef: t.variableName,
       KarolPrefix: t.labelName,
       Parameter: t.strong,
-      Return: t.keyword,
       ConditionWithoutParam: t.className,
       ConditionMaybeWithParam: t.className,
       CommandWithParameter: t.atom,
@@ -99,7 +99,7 @@ const exampleLanguage = LRLanguage.define({
   },
 })
 
-const Theme = EditorView.theme({
+export const Theme = EditorView.theme({
   '&': {
     outline: 'none !important',
     height: '100%',
@@ -130,13 +130,18 @@ interface BasicSetupProps {
 export const autoFormat: Command = (view) => {
   // auto format
   const selection = view.state.selection
+  const line = view.state.doc.lineAt(selection.main.anchor)
+  const lineOffset =
+    selection.main.anchor - view.state.doc.line(line.number).from
   selectAll(view)
   indentSelection(view)
-  if (selection.main.to < view.state.doc.length) {
-    view.dispatch({ selection })
-  } else {
-    cursorDocEnd(view)
-  }
+  const newLine = view.state.doc.line(line.number)
+  view.dispatch({
+    selection: {
+      anchor: Math.min(newLine.from + lineOffset, newLine.to),
+      head: Math.min(newLine.from + lineOffset, newLine.to),
+    },
+  })
   return true
 }
 
@@ -174,7 +179,7 @@ export const defaultHighlightStyle = HighlightStyle.define([
   { tag: t.labelName, color: '#b33300' },
 ])
 
-const germanPhrases = {
+export const germanPhrases = {
   // @codemirror/search
   'Go to line': 'Springe zu Zeile',
   go: 'OK',
@@ -244,7 +249,6 @@ const generalOptions = [
   { label: 'sonst' },
   { label: 'Anweisung' },
   { label: 'endeAnweisung' },
-  { label: 'return' },
   { label: 'Beenden' },
   { label: 'karol' },
 ]

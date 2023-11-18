@@ -80,11 +80,11 @@ export function codeToXml(
         }
         if (c.includes('linksdrehen')) {
           blockType = 'turnleft'
-          count = ''
+          //count = ''
         }
         if (c.includes('rechtsdrehen')) {
           blockType = 'turnright'
-          count = ''
+          //count = ''
         }
         if (c.includes('markesetzen')) {
           blockType = 'setmarker'
@@ -213,6 +213,32 @@ export function codeToXml(
             //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
           )
         )
+      } else if (t == 'Comment') {
+        const lines = code
+          .substring(cursor.from + 1, cursor.to - 1)
+          .trim()
+          .split('\n')
+        for (const line of lines) {
+          callbackStack.push(
+            buildCommentClosure(
+              line
+              //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            )
+          )
+        }
+      } else if (t == 'BlockComment') {
+        const lines = code
+          .substring(cursor.from + 2, cursor.to - 2)
+          .trim()
+          .split('\n')
+        for (const line of lines) {
+          callbackStack.push(
+            buildCommentClosure(
+              line
+              //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            )
+          )
+        }
       }
     } while (cursor.next())
 

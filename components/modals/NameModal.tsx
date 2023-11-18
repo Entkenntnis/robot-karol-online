@@ -33,6 +33,7 @@ export function NameModal() {
           <p className="text-center mt-6">Wie lautet dein Name?</p>
           <p className="text-center">
             <input
+              autoFocus
               value={name}
               onChange={(e) => {
                 setName(e.target.value)

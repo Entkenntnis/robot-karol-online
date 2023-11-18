@@ -6,12 +6,10 @@ expression {
   Command |
   Repeat |
   IfThen |
-  CustomRef |
-  Return
+  CustomRef
 }
 
 @external specialize {idx} keywords from "./keywords" {
-  Return,
   RepeatStart[closedBy="RepeatEnd"],
   RepeatEnd,
   RepeatWhileKey,
@@ -83,8 +81,6 @@ CustomRef { idx }
 
   LineComment { "//" ![\n]* }
 
-  PythonComment { "#" ![\n]* }
-
   BlockComment { "/*" blockCommentRest }
 
   blockCommentRest { ![*] blockCommentRest | "*" blockCommentAfterStar }
@@ -94,4 +90,4 @@ CustomRef { idx }
 
 @external tokens nestedComment from "./nestedComment" { Comment }
 
-@skip { Comment | whitespace | LineComment | PythonComment | BlockComment | ";" }
+@skip { Comment | whitespace | LineComment | BlockComment | ";" }
