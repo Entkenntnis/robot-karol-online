@@ -669,6 +669,22 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Zweiseitig bedingte Anweisung',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    if (karol.nichtIstWand()) {\n        karol.linksDrehen();\n      } else {\n        karol.schritt();\n      }\n  }\n}',
+    output: [
+      {
+        type: 'sense',
+        condition: { type: 'wall', negated: true },
+      },
+      { type: 'branch', targetF: 4, targetT: 2, line: 5 },
+      { type: 'action', command: 'left', line: 6 },
+      { type: 'jump', target: 5 },
+      { type: 'action', command: 'forward', line: 8 },
+    ],
+    rkCode: `wenn NichtIstWand dann\n  LinksDrehen\nsonst\n  Schritt\nendewenn`,
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

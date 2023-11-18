@@ -250,6 +250,9 @@ const myAutocomplete: CompletionSource = (context) => {
   if (!token) return null
   return {
     from: token.from + 1,
-    options: preLine.includes('while') ? conditions : commands,
+    options:
+      preLine.includes('while') || preLine.includes('if')
+        ? conditions
+        : commands,
   }
 }

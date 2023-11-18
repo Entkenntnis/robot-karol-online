@@ -791,22 +791,8 @@ export function compileJava(
               output.push(jumpToCond)
               output.push(anchorTop)
 
-              const part1 = condition.negated ? 'NichtIst' : 'Ist'
-              const part2 = ((type) => {
-                if (type == 'brick') return 'Ziegel'
-                if (type == 'wall') return 'Wand'
-                if (type == 'mark') return 'Marke'
-                if (type == 'north') return 'Norden'
-                if (type == 'south') return 'Süden'
-                if (type == 'east') return 'Osten'
-                if (type == 'west') return 'Westen'
-                return 'Ziegel'
-              })(condition.type)
-              const part3 =
-                condition.type == 'brick_count' ? `(${condition.count})` : ''
-
               appendRkCode(
-                `wiederhole solange ${part1}${part2}${part3}`,
+                `wiederhole solange ${conditionToRK(condition)}`,
                 node.from
               )
               rkCodeIndent++
@@ -849,6 +835,129 @@ export function compileJava(
         }
         return
       }
+      case 'IfStatement': {
+        if (
+          matchChildren(
+            ['if', 'ParenthesizedExpression', 'Block'],
+            node.children
+          )
+        ) {
+          context.expectCondition = true
+          semanticCheck(node.children[1], context)
+          context.expectCondition = undefined
+          const condition = context.condition
+          if (condition) {
+            const branch: BranchOp = {
+              type: 'branch',
+              targetF: -1,
+              targetT: -1,
+              line: doc.lineAt(node.from).number,
+            }
+            const anchorBlock: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetT = target
+              },
+            }
+            const anchorEnd: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetF = target
+              },
+            }
+            if (condition.type == 'brick_count') {
+              output.push({ type: 'constant', value: condition.count! })
+            }
+            output.push({
+              type: 'sense',
+              condition,
+            })
+            output.push(branch)
+            output.push(anchorBlock)
+
+            appendRkCode(`wenn ${conditionToRK(condition)} dann`, node.from)
+            rkCodeIndent++
+            semanticCheck(node.children[2], context)
+            rkCodeIndent--
+            appendRkCode('endewenn', node.to)
+
+            output.push(anchorEnd)
+          }
+        } else if (
+          matchChildren(
+            ['if', 'ParenthesizedExpression', 'Block', 'else', 'Block'],
+            node.children
+          )
+        ) {
+          context.expectCondition = true
+          semanticCheck(node.children[1], context)
+          context.expectCondition = undefined
+          const condition = context.condition
+          if (condition) {
+            const branch: BranchOp = {
+              type: 'branch',
+              targetF: -1,
+              targetT: -1,
+              line: doc.lineAt(node.from).number,
+            }
+            const jump: JumpOp = {
+              type: 'jump',
+              target: -1,
+            }
+            const anchorBlock: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetT = target
+              },
+            }
+            const anchorEnd: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                jump.target = target
+              },
+            }
+            const anchorElse: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetF = target
+              },
+            }
+            if (condition.type == 'brick_count') {
+              output.push({ type: 'constant', value: condition.count! })
+            }
+            output.push({
+              type: 'sense',
+              condition,
+            })
+            output.push(branch)
+            output.push(anchorBlock)
+
+            appendRkCode(`wenn ${conditionToRK(condition)} dann`, node.from)
+            rkCodeIndent++
+            semanticCheck(node.children[2], context)
+            rkCodeIndent--
+
+            output.push(jump)
+            appendRkCode('sonst', node.children[3].from)
+            output.push(anchorElse)
+
+            rkCodeIndent++
+            semanticCheck(node.children[4], context)
+            rkCodeIndent--
+            appendRkCode('endewenn', node.to)
+
+            output.push(anchorEnd)
+          }
+        } else {
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: `Erwarte bedingte Anweisung mit Rumpf`,
+          })
+        }
+        return
+      }
       // ADD NEW NODES HERE
     }
 
@@ -864,6 +973,23 @@ export function compileJava(
 
     console.log('NOT IMPLEMENTED', node.name)
     node.children.forEach((child) => semanticCheck(child, context))
+  }
+
+  function conditionToRK(condition: Condition) {
+    const part1 = condition.negated ? 'NichtIst' : 'Ist'
+    const part2 = ((type) => {
+      if (type == 'brick') return 'Ziegel'
+      if (type == 'wall') return 'Wand'
+      if (type == 'mark') return 'Marke'
+      if (type == 'north') return 'Norden'
+      if (type == 'south') return 'Süden'
+      if (type == 'east') return 'Osten'
+      if (type == 'west') return 'Westen'
+      return 'Ziegel'
+    })(condition.type)
+    const part3 = condition.type == 'brick_count' ? `(${condition.count})` : ''
+
+    return `${part1}${part2}${part3}`
   }
 
   function methodName2action(name: string) {
