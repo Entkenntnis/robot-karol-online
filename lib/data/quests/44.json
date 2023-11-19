@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Parkour",
-  "description": "Dir macht es große Freude, dich frei zu bewegen und Hindernisse zu überwinden.\n\nÜberwinde zusammen mit Karol das Hindernis und ergänze die fehlenden Ziegel.\n\nDein Programm führt in beiden Welten die gleiche Bewegung aus.",
+  "description": "Überwinde zusammen mit Karol das Hindernis und ergänze die fehlenden Ziegel.\n\nDein Programm führt in beiden Welten die gleiche Bewegung aus.",
   "tasks": [
     {
       "title": "Parkour 1",
