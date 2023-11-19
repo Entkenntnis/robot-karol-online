@@ -320,7 +320,11 @@ export function Overview() {
                     className="absolute top-[210px] left-[1050px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
                     onClick={() => {
                       submit_event('play_snake', core)
-                      window.open('/snake', '_blank')
+                      if (window.location.hostname == 'localhost') {
+                        window.open('/snake', '_blank')
+                      } else {
+                        window.open('/snake.html', '_blank')
+                      }
                     }}
                   >
                     <p className="text-center text-lg mb-1">Mini-Spiel</p>
