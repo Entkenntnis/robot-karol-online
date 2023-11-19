@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Verschieben",
-  "description": "Du gehst mit einer positiven Einstellung in den Tag, weil für dich das Motto gilt: \"Es gibt keine Fehler, nur kleine glückliche Zwischenfälle.\"\n\nDer Ziegel liegt an der falschen Stelle. Für dich ist das eine Gelegenheit, Spaß beim Programmieren zu haben. Verschiebe den Ziegel an die gezeigte Stelle.",
+  "description": "\"Es gibt keine Fehler, nur kleine glückliche Zwischenfälle.\"\n\nDer Ziegel liegt an der falschen Stelle. Verschiebe den Ziegel an die gezeigte Stelle. Nutze die Befehle `Hinlegen` und `Aufheben`, sowie `LinksDrehen` und `RechtsDrehen`.",
   "tasks": [
     {
       "title": "Verschiebe den Ziegel",
@@ -13,8 +13,8 @@
         "bricks": {
           "dimX": 1,
           "dimY": 1,
-          "offsetX": 1,
-          "offsetY": 0,
+          "offsetX": 0,
+          "offsetY": 2,
           "data": [[1]]
         },
         "marks": {
@@ -36,12 +36,12 @@
         "dimX": 5,
         "dimY": 3,
         "height": 6,
-        "karol": { "x": 3, "y": 1, "dir": "north" },
+        "karol": { "x": 0, "y": 1, "dir": "east" },
         "bricks": {
           "dimX": 1,
           "dimY": 1,
-          "offsetX": 3,
-          "offsetY": 0,
+          "offsetX": 4,
+          "offsetY": 1,
           "data": [[1]]
         },
         "marks": {

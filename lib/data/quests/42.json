@@ -1,33 +1,28 @@
 {
   "version": "v1",
-  "title": "Alles zusammen",
-  "description": "Zeige, was du in den bisherigen Aufgaben gelernt hast.\n\nBaue die Welt so um, wie angezeigt.",
+  "title": "Stern",
+  "description": "Lege um Karol herum vier Ziegel und baue einen Stern.\n\nDein Programm führt in allen drei Welten die gleiche Bewegung aus.",
   "tasks": [
     {
-      "title": "Umbau",
+      "title": "Übung",
       "start": {
-        "dimX": 6,
-        "dimY": 4,
+        "dimX": 3,
+        "dimY": 3,
         "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "karol": { "x": 1, "y": 1, "dir": "east" },
         "bricks": {
-          "dimX": 2,
-          "dimY": 4,
-          "offsetX": 0,
-          "offsetY": 0,
-          "data": [
-            [0, 1],
-            [0, 0],
-            [0, 0],
-            [1, 0]
-          ]
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
         },
         "marks": {
-          "dimX": 2,
-          "dimY": 1,
-          "offsetX": 1,
-          "offsetY": 2,
-          "data": [[true, true]]
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
         },
         "blocks": {
           "offsetX": -1,
@@ -38,30 +33,172 @@
         }
       },
       "target": {
-        "dimX": 6,
-        "dimY": 4,
+        "dimX": 3,
+        "dimY": 3,
         "height": 6,
-        "karol": { "x": 1, "y": 2, "dir": "south" },
+        "karol": { "x": 1, "y": 1, "dir": "east" },
         "bricks": {
-          "dimX": 4,
-          "dimY": 4,
+          "dimX": 3,
+          "dimY": 3,
           "offsetX": 0,
           "offsetY": 0,
           "data": [
-            [0, 0, 0, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [1, 0, 0, 0]
+            [0, 1, 0],
+            [1, 0, 1],
+            [0, 1, 0]
           ]
         },
         "marks": {
-          "dimX": 2,
-          "dimY": 2,
-          "offsetX": 1,
-          "offsetY": 1,
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Ziegelstrahlen",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "west" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 0,
           "data": [
-            [false, true],
-            [true, false]
+            [0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "west" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0],
+            [1, 1, 0, 1, 1],
+            [0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Markenstrahlen",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 3, "y": 3, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, true, false, false, false],
+            [false, false, false, true, false, false, false],
+            [false, false, false, false, false, false, false],
+            [true, true, false, false, false, true, true],
+            [false, false, false, false, false, false, false],
+            [false, false, false, true, false, false, false],
+            [false, false, false, true, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 3, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [
+            [0, 1, 0],
+            [1, 0, 1],
+            [0, 1, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, true, false, false, false],
+            [false, false, false, true, false, false, false],
+            [false, false, false, false, false, false, false],
+            [true, true, false, false, false, true, true],
+            [false, false, false, false, false, false, false],
+            [false, false, false, true, false, false, false],
+            [false, false, false, true, false, false, false]
           ]
         },
         "blocks": {

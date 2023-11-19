@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Parkour",
-  "description": "Dir macht es große Freude, dich frei zu bewegen und Hindernisse zu überwinden.\n\nZusammen mit Karol baust du einen kleinen Hindernispark. Ergänze die fehlenden Ziegel.",
+  "description": "Dir macht es große Freude, dich frei zu bewegen und Hindernisse zu überwinden.\n\nÜberwinde zusammen mit Karol das Hindernis und ergänze die fehlenden Ziegel.\n\nDein Programm führt in beiden Welten die gleiche Bewegung aus.",
   "tasks": [
     {
       "title": "Parkour 1",
@@ -15,7 +15,7 @@
           "dimY": 3,
           "offsetX": 2,
           "offsetY": 0,
-          "data": [[1], [0], [1]]
+          "data": [[1], [1], [1]]
         },
         "marks": {
           "offsetX": -1,
@@ -78,7 +78,7 @@
           "offsetY": 1,
           "data": [
             [0, 1, 0, 0, 0],
-            [1, 2, 1, 0, 1],
+            [1, 2, 1, 1, 1],
             [0, 1, 0, 0, 0]
           ]
         },

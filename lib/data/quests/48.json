@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Umweltschutz",
-  "description": "Es ist wunderbar, wie wichtig dir die Umwelt ist. Und da darf Karol auch gerne mitmachen.\n\nHebe nach der Arbeit die Ziegel von Karol wieder auf. Nutze dafür den Befehl `Aufheben`, um einen Ziegel vor ihr aufzuheben. Ziegel, die durchgestrichen sind, sollen immer aufgehoben werden.",
+  "description": "Es ist wunderbar, wie wichtig dir die Umwelt ist. Da möchte Karol gerne mitmachen.\n\nHebe nach der Arbeit die Ziegel von Karol wieder auf. Nutze dafür den Befehl `Aufheben`, um einen Ziegel vor ihr aufzuheben. Ziegel, die durchgestrichen sind, sollen immer aufgehoben werden.",
   "tasks": [
     {
       "title": "Ziegel aufheben",

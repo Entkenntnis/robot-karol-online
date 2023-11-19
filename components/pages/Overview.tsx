@@ -61,7 +61,10 @@ export function Overview() {
   return (
     <>
       <div className="h-full overflow-auto" id="scroll-container">
-        <div className="flex flex-col relative main-bg min-h-full min-w-fit">
+        <div
+          className="flex flex-col relative min-h-full min-w-fit"
+          style={{ backgroundImage: "url('/canvas_background.jpg')" }}
+        >
           <div className="flex justify-center">
             <div
               className={clsx(
@@ -728,11 +731,6 @@ export function Overview() {
             )}
         </div>
       </div>
-      <style jsx>{`
-        .main-bg {
-          background-image: url('/canvas_background.jpg');
-        }
-      `}</style>
       {(core.ws.page == 'overview' || core.ws.page == 'demo') && (
         <HFullStyles />
       )}
