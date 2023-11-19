@@ -1,21 +1,21 @@
 {
   "version": "v1",
-  "title": "Ungleichgewicht",
-  "description": "Du kannst Befehle mit ` wenn dann` umschließen. Dadurch werden sie nur ausgeführt, wenn die Sensoren von Karol einen bestimmten Wert liefern. Die Sensoren findest du ganz unten im Block-Menü, wie z.B. `IstZiegel` oder `NichtIstZiegel`.\n\n--> %img[Hinweis|/quests/ungleichgewicht.png]% <--\n\nLege diesmal dort einen Ziegel, wo bereits ein Ziegel liegt.",
+  "title": "Zwei hoch",
+  "description": "Anstatt selbst festzulegen, wo Marken gesetzt werden soll, kannst du diese Aufgabe Karol überlassen. Sie kann ihre Welt mit Sensoren wie `IstWand` oder `IstZiegel(2)` wahrnehmen.\n\nSetze neben den Stapeln der Höhe zwei jeweils eine Marke.",
   "tasks": [
     {
-      "title": "Ungleichgewicht 1",
+      "title": "Zwei hoch 1",
       "start": {
-        "dimX": 6,
-        "dimY": 1,
+        "dimX": 2,
+        "dimY": 5,
         "height": 6,
-        "karol": { "x": 1, "y": 0, "dir": "west" },
+        "karol": { "x": 1, "y": 0, "dir": "south" },
         "bricks": {
           "dimX": 1,
-          "dimY": 1,
+          "dimY": 3,
           "offsetX": 0,
-          "offsetY": 0,
-          "data": [[1]]
+          "offsetY": 1,
+          "data": [[2], [1], [3]]
         },
         "marks": {
           "offsetX": -1,
@@ -33,23 +33,23 @@
         }
       },
       "target": {
-        "dimX": 6,
-        "dimY": 1,
+        "dimX": 2,
+        "dimY": 5,
         "height": 6,
-        "karol": { "x": 1, "y": 0, "dir": "west" },
+        "karol": { "x": 1, "y": 0, "dir": "south" },
         "bricks": {
           "dimX": 1,
-          "dimY": 1,
+          "dimY": 3,
           "offsetX": 0,
-          "offsetY": 0,
-          "data": [[2]]
+          "offsetY": 1,
+          "data": [[2], [1], [3]]
         },
         "marks": {
-          "offsetX": -1,
-          "offsetY": -1,
-          "dimX": 0,
-          "dimY": 0,
-          "data": []
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[true]]
         },
         "blocks": {
           "offsetX": -1,
@@ -61,18 +61,18 @@
       }
     },
     {
-      "title": "Ungleichgewicht 2",
+      "title": "Zwei hoch 2",
       "start": {
-        "dimX": 6,
-        "dimY": 1,
+        "dimX": 2,
+        "dimY": 5,
         "height": 6,
-        "karol": { "x": 1, "y": 0, "dir": "west" },
+        "karol": { "x": 1, "y": 0, "dir": "south" },
         "bricks": {
           "dimX": 1,
-          "dimY": 1,
-          "offsetX": 5,
-          "offsetY": 0,
-          "data": [[1]]
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [[1], [2], [2]]
         },
         "marks": {
           "offsetX": -1,
@@ -90,16 +90,46 @@
         }
       },
       "target": {
-        "dimX": 6,
-        "dimY": 1,
+        "dimX": 2,
+        "dimY": 5,
         "height": 6,
-        "karol": { "x": 4, "y": 0, "dir": "east" },
+        "karol": { "x": 1, "y": 0, "dir": "south" },
         "bricks": {
           "dimX": 1,
-          "dimY": 1,
-          "offsetX": 5,
-          "offsetY": 0,
-          "data": [[2]]
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [[1], [2], [2]]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 2,
+          "offsetX": 1,
+          "offsetY": 2,
+          "data": [[true], [true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Zwei hoch 3",
+      "start": {
+        "dimX": 2,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 1, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 2,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [[5], [2]]
         },
         "marks": {
           "offsetX": -1,
@@ -107,6 +137,33 @@
           "dimX": 0,
           "dimY": 0,
           "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 2,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 1, "y": 2, "dir": "south" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 2,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [[5], [2]]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 3,
+          "data": [[true]]
         },
         "blocks": {
           "offsetX": -1,
