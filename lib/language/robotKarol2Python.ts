@@ -1,6 +1,6 @@
 import { Tree } from '@lezer/common'
 import { parser } from '../codemirror/parser/parser'
-import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
+import { AstNode, cursorToAstNode } from './astNode'
 import { Text } from '@codemirror/state'
 
 export function robotKarol2Python(code: string) {
@@ -44,7 +44,13 @@ export function robotKarol2Python(code: string) {
           }`
           output += `for ${lv} in range(${times}):\n`
           forLoopOffset++
-          output += nodes2Code(node.children.slice(3, -1), offset + 1) + '\n'
+          const innerCode = nodes2Code(node.children.slice(3, -1), offset + 1)
+          if (innerCode) {
+            output += innerCode + '\n'
+          } else {
+            pad()
+            output += '    pass\n'
+          }
           forLoopOffset--
           pad()
           output += '\n'
@@ -53,7 +59,13 @@ export function robotKarol2Python(code: string) {
           const condition = node.children[2].text()
           pad()
           output += `while ${toKarol(condition)}:\n`
-          output += nodes2Code(node.children.slice(3, -1), offset + 1) + '\n'
+          const innerCode = nodes2Code(node.children.slice(3, -1), offset + 1)
+          if (innerCode) {
+            output += innerCode + '\n'
+          } else {
+            pad()
+            output += '    pass\n'
+          }
           pad()
           output += '\n'
         }
@@ -63,7 +75,13 @@ export function robotKarol2Python(code: string) {
           const condition = node.children[1].text()
           pad()
           output += `if ${toKarol(condition)}:\n`
-          output += nodes2Code(node.children.slice(3, -1), offset + 1) + '\n'
+          const innerCode = nodes2Code(node.children.slice(3, -1), offset + 1)
+          if (innerCode) {
+            output += innerCode + '\n'
+          } else {
+            pad()
+            output += '    pass\n'
+          }
           pad()
           output += '\n'
         } else {
@@ -74,13 +92,28 @@ export function robotKarol2Python(code: string) {
           )
           pad()
           output += `if ${toKarol(condition)}:\n`
-          output +=
-            nodes2Code(node.children.slice(3, elseIndex), offset + 1) + '\n'
+          const innerCode1 = nodes2Code(
+            node.children.slice(3, elseIndex),
+            offset + 1
+          )
+          if (innerCode1) {
+            output += innerCode1 + '\n'
+          } else {
+            pad()
+            output += '    pass\n'
+          }
           pad()
           output += 'else:\n'
-          output +=
-            nodes2Code(node.children.slice(elseIndex + 1, -1), offset + 1) +
-            '\n'
+          const innerCode2 = nodes2Code(
+            node.children.slice(elseIndex + 1, -1),
+            offset + 1
+          )
+          if (innerCode2) {
+            output += innerCode2 + '\n'
+          } else {
+            pad()
+            output += '    pass\n'
+          }
           pad()
           output += '\n'
         }

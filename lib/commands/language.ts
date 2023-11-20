@@ -14,6 +14,9 @@ export function setLanguage(core: Core, language: Settings['language']) {
   if (language == 'java') {
     submit_event('use_java', core)
   }
+  if (language == 'python') {
+    submit_event('use_python', core)
+  }
   core.mutateWs((state) => {
     const { settings, ui } = state
     if (settings.language != 'java' && language == 'java') {

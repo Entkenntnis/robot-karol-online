@@ -117,6 +117,10 @@ export async function initClient(core: Core) {
               ws.analyze.useJava++
               continue
             }
+            if (entry.event == 'use_python') {
+              ws.analyze.usePython++
+              continue
+            }
             if (entry.event == 'play_snake') {
               ws.analyze.playSnake++
               continue

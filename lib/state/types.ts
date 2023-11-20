@@ -172,6 +172,7 @@ export interface Analyze {
   showStructogram: number
   usePersist: number
   useJava: number
+  usePython: number
   playSnake: number
   customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }

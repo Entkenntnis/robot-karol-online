@@ -144,6 +144,7 @@ export function Overview() {
                 {core.ws.analyze.showStructogram} mal Struktogramm,{' '}
                 {core.ws.analyze.usePersist} mal Fortschritt gespeichert,{' '}
                 {core.ws.analyze.useJava} mal Java verwendet,{' '}
+                {core.ws.analyze.usePython} mal Java verwendet,{' '}
                 {core.ws.analyze.playSnake} mal Snake gespielt
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
