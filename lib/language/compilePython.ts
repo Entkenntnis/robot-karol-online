@@ -1,6 +1,6 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { Op } from '../state/types'
+import { JumpOp, Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
 import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
 import { AnchorOp, methodName2action, methodsWithoutArgs } from './compileJava'
@@ -47,6 +47,34 @@ export function compilePython(
   console.log(prettyPrintAstNode(ast))
 
   // compilation start
+  let indentionLevel = 0
+  for (let i = 1; i <= doc.lines; i++) {
+    const line = doc.line(i)
+    if (line.text.trim()) {
+      let t = doc.sliceString(line.from, line.to)
+      let spaces = 0
+      while (t.startsWith(' ')) {
+        t = t.substring(1)
+        spaces++
+      }
+      const expectedLevel = indentionLevel * 4
+      if (spaces == expectedLevel - 4) {
+        // unindent
+        indentionLevel--
+      } else if (spaces !== expectedLevel) {
+        warnings.push({
+          from: line.from,
+          to: line.to,
+          severity: 'error',
+          message: `Erwarte andere Einrückung an dieser Stelle`,
+        })
+      }
+      if (t.trim().endsWith(':')) {
+        indentionLevel++
+      }
+    }
+  }
+
   const functions = ast.children.filter(
     (child) => child.name == 'FuntionDefinition'
   )
@@ -245,6 +273,64 @@ export function compilePython(
         }
         return
       }
+      case 'WhileStatement': {
+        if (matchChildren(['while', 'Boolean', 'Body'], node.children)) {
+          const condition = node.children[1].text()
+          if (condition == 'True') {
+            const jump: JumpOp = { type: 'jump', target: -1 }
+            output.push({
+              type: 'anchor',
+              callback: (target) => {
+                jump.target = target
+              },
+            })
+            appendRkCode('wiederhole immer', node.from)
+            rkCodeIndent++
+            semanticCheck(node.children[2], context)
+            output.push(jump)
+            rkCodeIndent--
+            appendRkCode('endewiederhole', node.to)
+          } else {
+            warnings.push({
+              from: node.from,
+              to: node.to,
+              severity: 'error',
+              message: `Wiederholung wird nie ausgeführt`,
+            })
+          }
+        } else if (false) {
+          // TODO while loop with condition
+        } else {
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: `Erwarte bedingte Wiederholung`,
+          })
+        }
+        return
+      }
+      case 'Body': {
+        if (node.children.length > 0 && node.children[0].name == ':') {
+          node.children
+            .slice(1)
+            .forEach((child) => semanticCheck(child, context))
+        } else {
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: `Erwarte ':' am Anfang des Blocks`,
+          })
+        }
+        return
+      }
+      case 'PassStatement': {
+        // needed for empty blocks
+        return
+      }
+
+      // ADD NEW NODES HERE
     }
 
     if (node.isError) {

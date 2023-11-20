@@ -24,9 +24,15 @@ export function robotKarol2Python(code: string) {
         if (node.children.some((child) => child.name == 'RepeatAlwaysKey')) {
           moveCommentsOutOfHead(node, 2)
           const inner = node.children.slice(2, -1)
+          const innerCode = nodes2Code(inner, offset + 1)
           pad()
           output += 'while True:\n'
-          output += nodes2Code(inner, offset + 1) + '\n'
+          if (innerCode) {
+            output += innerCode + '\n'
+          } else {
+            pad()
+            output += '    pass\n'
+          }
           pad()
           output += '\n'
         } else if (node.children.some((child) => child.name == 'Times')) {
