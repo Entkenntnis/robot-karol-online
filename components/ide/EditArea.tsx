@@ -130,11 +130,12 @@ export function EditArea() {
             </button>{' '}
             Sprache:
             <select
-              className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100"
+              className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100 cursor-pointer"
               value={core.ws.settings.language}
               onChange={(e) => {
                 setLanguage(core, e.target.value as Settings['language'])
               }}
+              disabled={core.ws.ui.state !== 'ready'}
             >
               <option value="robot karol">Robot Karol</option>
               <option value="python">Python</option>

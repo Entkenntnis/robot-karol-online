@@ -1,6 +1,6 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { JumpOp, Op } from '../state/types'
+import { BranchOp, JumpOp, Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
 import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
 import { AnchorOp, methodName2action, methodsWithoutArgs } from './compileJava'
@@ -8,6 +8,7 @@ import { matchChildren } from './matchChildren'
 
 interface SemantikCheckContext {
   robotKarolVar: string
+  variablesInScope: Set<string>
 }
 
 export function compilePython(
@@ -112,7 +113,10 @@ export function compilePython(
     })
   }
 
-  const context: SemantikCheckContext = { robotKarolVar }
+  const context: SemantikCheckContext = {
+    robotKarolVar,
+    variablesInScope: new Set(),
+  }
   script.map((node) => semanticCheck(node, context))
 
   // TODO für später: Methoden kompilieren
@@ -327,6 +331,133 @@ export function compilePython(
       }
       case 'PassStatement': {
         // needed for empty blocks
+        return
+      }
+      case 'ForStatement': {
+        let safeLoopVar = 'i'
+        const candidates = 'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZi'
+        for (let i = 0; i < candidates.length; i++) {
+          safeLoopVar = candidates[i]
+          if (!context.variablesInScope.has(safeLoopVar)) {
+            break // found it
+          }
+        }
+        if (
+          matchChildren(
+            ['for', 'VariableName', 'in', 'CallExpression', 'Body'],
+            node.children
+          )
+        ) {
+          const loopVar = node.children[1].text()
+          if (context.variablesInScope.has(loopVar)) {
+            warnings.push({
+              from: node.children[1].from,
+              to: node.children[1].to,
+              severity: 'error',
+              message: `Variable '${loopVar}' existiert bereits, erwarte anderen Namen`,
+            })
+          }
+          if (
+            !matchChildren(
+              ['VariableName', 'ArgList'],
+              node.children[3].children
+            ) ||
+            node.children[3].children[0].text() != 'range'
+          ) {
+            warnings.push({
+              from: node.from,
+              to: node.to,
+              severity: 'error',
+              message: `Erwarte 'range(<Anzahl>)' mit gewünschter Anzahl`,
+            })
+          } else {
+            const argList = node.children[3].children[1]
+            let count = NaN
+            if (!matchChildren(['(', 'Number', ')'], argList.children)) {
+              warnings.push({
+                from: argList.from,
+                to: argList.to,
+                severity: 'error',
+                message: `Erwarte Anzahl`,
+              })
+            } else {
+              const numStr = argList.children[1].text()
+              const num = parseInt(numStr)
+              if (num.toString() !== numStr) {
+                warnings.push({
+                  from: argList.children[1].from,
+                  to: argList.children[1].to,
+                  severity: 'error',
+                  message: `Erwarte ganze Zahl`,
+                })
+              } else if (num <= 0) {
+                warnings.push({
+                  from: argList.children[1].from,
+                  to: argList.children[1].to,
+                  severity: 'error',
+                  message: `Erwarte Anzahl größer Null`,
+                })
+              } else {
+                count = num
+              }
+            }
+            // I'm ready to generate output
+            output.push({ type: 'constant', value: count + 1 }) // we decrement before compare
+            output.push({ type: 'store', variable: loopVar })
+            const jumpToCheck: JumpOp = { type: 'jump', target: -1 }
+            output.push(jumpToCheck)
+
+            const branch: BranchOp = {
+              type: 'branch',
+              targetT: -1,
+              targetF: -1,
+              line: doc.lineAt(node.from).number,
+            }
+
+            output.push({
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetT = target
+              },
+            })
+
+            appendRkCode(`wiederhole ${count} mal`, node.from)
+            context.variablesInScope.add(loopVar)
+
+            rkCodeIndent++
+            semanticCheck(node.children[4], context)
+            rkCodeIndent--
+
+            appendRkCode('endewiederhole', node.to)
+            context.variablesInScope.delete(loopVar)
+
+            output.push({
+              type: 'anchor',
+              callback: (target) => {
+                jumpToCheck.target = target
+              },
+            })
+            output.push({ type: 'load', variable: loopVar })
+            output.push({ type: 'constant', value: 1 })
+            output.push({ type: 'operation', kind: 'sub' })
+            output.push({ type: 'store', variable: loopVar })
+            output.push({ type: 'load', variable: loopVar })
+            output.push(branch)
+            output.push({
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetF = target
+              },
+            })
+          }
+        } else {
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: `Erwarte Schleife der Form 'for ${safeLoopVar} in range(10):'`,
+          })
+        }
         return
       }
 

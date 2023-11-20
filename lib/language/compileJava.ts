@@ -591,8 +591,6 @@ export function compileJava(
             const jump = output[position - 2]
             const anchor = output[position - 1] as AnchorOp
 
-            console.log(anchor, jump)
-
             output.push({
               type: 'anchor',
               callback: (target) => {
@@ -618,7 +616,6 @@ export function compileJava(
               },
             })
             anchor.callback = (target) => {
-              console.log('callback for targetF', target)
               branch.targetT = target
             }
           }
