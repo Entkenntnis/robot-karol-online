@@ -21,6 +21,7 @@ export function createWorkspaceState(): WorkspaceState {
     world: createWorld(5, 10, 6),
     code: '',
     javaCode: '',
+    pythonCode: '',
     ui: {
       messages: [],
       gutter: 0,

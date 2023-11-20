@@ -13,6 +13,7 @@ import { setLanguage, showJavaInfo } from '../../lib/commands/language'
 import { Settings } from '../../lib/state/types'
 import { JavaEditor } from './JavaEditor'
 import clsx from 'clsx'
+import { PythonEditor } from './PythonEditor'
 
 const BlockEditor = dynamic(
   () => import('./BlockEditor').then((mod) => mod.BlockEditor),
@@ -39,6 +40,8 @@ export function EditArea() {
           insert:
             core.ws.settings.language == 'robot karol'
               ? core.ws.code
+              : core.ws.settings.language == 'python'
+              ? core.ws.pythonCode
               : core.ws.javaCode,
         },
       })
@@ -134,6 +137,7 @@ export function EditArea() {
               }}
             >
               <option value="robot karol">Robot Karol</option>
+              <option value="python">Python</option>
               <option value="java">Java</option>
             </select>
           </div>
@@ -151,8 +155,10 @@ export function EditArea() {
           <div className="w-full h-full flex flex-col relative">
             {core.ws.settings.language == 'robot karol' ? (
               <Editor innerRef={view} />
-            ) : (
+            ) : core.ws.settings.language == 'java' ? (
               <JavaEditor innerRef={view} />
+            ) : (
+              <PythonEditor innerRef={view} />
             )}
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/robotKarol2Java'
+import { robotKarol2Python } from '../language/robotKarol2Python'
 import { Core } from '../state/core'
 import { Settings } from '../state/types'
 
@@ -15,8 +16,11 @@ export function setLanguage(core: Core, language: Settings['language']) {
   }
   core.mutateWs((state) => {
     const { settings, ui } = state
-    if (settings.language == 'robot karol' && language == 'java') {
+    if (settings.language != 'java' && language == 'java') {
       state.javaCode = robotKarol2Java(state.code)
+    }
+    if (settings.language != 'python' && language == 'python') {
+      state.pythonCode = robotKarol2Python(state.code)
     }
     settings.language = language
     ui.showJavaInfo = false

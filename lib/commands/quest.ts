@@ -3,6 +3,7 @@ import { questData } from '../data/quests'
 import { submit_event } from '../helper/submit'
 import { submitSolution } from '../helper/submitSolution'
 import { robotKarol2Java } from '../language/robotKarol2Java'
+import { robotKarol2Python } from '../language/robotKarol2Python'
 import { Core } from '../state/core'
 import { QuestSessionData } from '../state/types'
 import { getQuestData, getUserName, setQuestData } from '../storage/storage'
@@ -107,6 +108,7 @@ export function startQuest(core: Core, id: number) {
     ui.isEndOfRun = false
     ws.code = ''
     ws.javaCode = robotKarol2Java('')
+    ws.pythonCode = robotKarol2Python('')
     quest.id = id
     quest.audioSrc = data.audioSrc
     ui.isAlreadyCompleted = false
@@ -138,6 +140,7 @@ export function storeQuestToSession(core: Core) {
   const data: QuestSessionData = {
     code: core.ws.code,
     javaCode: core.ws.javaCode,
+    pythonCode: core.ws.pythonCode,
     id: core.ws.quest.id,
     mode: core.ws.settings.mode,
     completed:
@@ -159,6 +162,9 @@ export function restoreQuestFromSessionData(
     ws.code = data.code
     if (data.javaCode) {
       ws.javaCode = data.javaCode
+    }
+    if (data.pythonCode) {
+      ws.pythonCode = data.pythonCode
     }
     ws.settings.mode = data.mode
     ws.ui.isAlreadyCompleted = data.completed

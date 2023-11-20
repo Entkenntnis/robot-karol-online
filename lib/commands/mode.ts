@@ -1,6 +1,7 @@
 import { sliderToDelay } from '../helper/speedSlider'
 import { submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/robotKarol2Java'
+import { robotKarol2Python } from '../language/robotKarol2Python'
 import { Core } from '../state/core'
 import {
   copyLocalToSession,
@@ -56,6 +57,11 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
     if (core.ws.settings.language == 'java') {
       core.mutateWs((state) => {
         state.javaCode = robotKarol2Java(state.code)
+      })
+    }
+    if (core.ws.settings.language == 'python') {
+      core.mutateWs((state) => {
+        state.pythonCode = robotKarol2Python(state.code)
       })
     }
   }

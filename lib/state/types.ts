@@ -70,7 +70,7 @@ export interface Vm {
 
 export interface Settings {
   mode: 'code' | 'blocks'
-  language: 'robot karol' | 'java'
+  language: 'robot karol' | 'java' | 'python'
 }
 
 export interface Editor {
@@ -105,6 +105,7 @@ export interface WorkspaceState {
   ui: Ui
   code: string
   javaCode: string
+  pythonCode: string
   vm: Vm
   settings: Settings
 
@@ -309,6 +310,7 @@ export interface QuestSessionData {
   completed: boolean
   code: string
   javaCode?: string
+  pythonCode?: string
   mode: Settings['mode']
   completedOnce: boolean
   language?: Settings['language']
