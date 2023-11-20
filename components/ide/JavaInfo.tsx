@@ -17,20 +17,31 @@ export function JavaInfo() {
       </div>
       <div className="h-full w-full overflow-auto pb-12">
         <h1 className="ml-8 text-2xl pt-8">
-          Programmiere Robot Karol mit Java
+          Programmiere Robot Karol mit Python oder Java
         </h1>
         <div className="mx-8 [&>p]:mt-4 [&>img]:my-4">
           <p>
-            Mache dich bereit für deine ersten Schritte in der
-            &quot;großen&quot; Programmiersprache Java! Das Wissen, das du hier
-            lernst, kannst du später direkt auf andere Java-Projekte übertragen.
+            Mache dich bereit für deine ersten Schritte in eine
+            &quot;große&quot; Programmiersprache!
           </p>
           <p>
-            Um den Einstieg überschaubar zu halten, wird nur eine ausgewählte
-            Menge von Java-Befehlen unterstützt. Ein Grundgerüst hat immer eine
-            feste Struktur.
+            Du kannst Karol wahlweise in Python oder Java programmieren. Das
+            Wissen, dass du dir so aneignest, kannst du anschließend gleich in
+            weiteren Projekten anwenden.
           </p>
-          <img src="/java/basics.png" alt="Grundgerüst" />
+          <p>
+            Um den Einstieg überschaubar zu halten, wird nur jeweils eine
+            ausgewählte Menge an Befehlen unterstützt. Ein Beispielprogramm für
+            Python ist hier gezeigt.
+          </p>
+          <img src="/java/python.png" alt="Python Grundgerüst" />
+          <p>
+            Erzeuge als erstes ein Objekt der Klasse Robot und weise das Objekt
+            einer Variable zu. Auf dieser Variable kannst du kann alle Befehle
+            von Karol aufrufen.
+          </p>
+          <p>Das gleiche Programm in Java sieht so aus.</p>
+          <img src="/java/java.png" alt="Grundgerüst" />
           <p>
             Wie in Java üblich besteht jede Datei aus einer Klasse. Innerhalb
             dieser Klasse existiert ein Attribut vom Typ Robot, dass auch gleich
@@ -38,13 +49,11 @@ export function JavaInfo() {
             den Karol.
           </p>
           <p>
-            Das Programm an sich schreibst du in der Methode main. Du kannst
-            jederzeit Java. Robot Karol und Blöcken wechseln. Hier siehst ein
-            kleines Beispielprogramm.
+            Ein Wechsel zwischen den Sprachen ist jederzeit möglich. Entdecke
+            damit auch den Syntax der Sprache.
           </p>
-          <img src="/java/commands.png" alt="Ein paar Befehle" />
           <p>
-            Der Java-Modus befindet sich aktuell im Beta-Test. Über eine
+            Der Python/Java-Modus befindet sich aktuell im Beta-Test. Über eine
             Mitteilung bei Problemen oder Wünschen freue ich mich.
           </p>
         </div>

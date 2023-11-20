@@ -44,6 +44,7 @@ import {
   completionKeymap,
 } from '@codemirror/autocomplete'
 import { pythonLanguage } from '../../lib/codemirror/pythonParser/pythonLanguage'
+import { compilePython } from '../../lib/language/compilePython'
 
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>
@@ -129,13 +130,10 @@ export function lint(core: Core, view: EditorView) {
   core.mutateWs((state) => {
     state.pythonCode = code
     state.ui.state = 'ready' // dev
-    // console.log(state.javaCode)
   })
 
-  return []
-
-  /*const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
-  const { warnings, output, rkCode } = compileJava(tree, view.state.doc)
+  const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
+  const { warnings, output, rkCode } = compilePython(tree, view.state.doc)
   warnings.sort((a, b) => a.from - b.from)
 
   if (warnings.length == 0) {
@@ -144,10 +142,6 @@ export function lint(core: Core, view: EditorView) {
       core.mutateWs((ws) => {
         ws.code = rkCode
         ws.ui.toBlockWarning = false
-      })
-    } else {
-      core.mutateWs((ws) => {
-        ws.ui.toBlockWarning = true
       })
     }
   } else {
@@ -165,7 +159,7 @@ export function lint(core: Core, view: EditorView) {
       //ui.preview = undefined
     })
   }
-  return warnings*/
+  return warnings
 }
 const myTabExtension: Command = (target: EditorView) => {
   if (target.state.selection.ranges.length == 1) {
@@ -178,7 +172,7 @@ const myTabExtension: Command = (target: EditorView) => {
           const preLine = target.state.doc
             .line(line.number - 1)
             .text.toLowerCase()
-          if (preLine.includes('{')) {
+          if (preLine.includes(':')) {
             deleteCharBackward(target)
             insertNewlineAndIndent(target)
             return true
@@ -224,7 +218,7 @@ const myAutocomplete: CompletionSource = (context) => {
   const line = doc.lineAt(context.pos)
   let preLine = line.text.substring(0, context.pos - line.from)
 
-  const breaker = [';', '{', '}']
+  const breaker = [';', ':']
   let offset = 0
   for (const b of breaker) {
     const i = preLine.lastIndexOf(b)

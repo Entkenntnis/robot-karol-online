@@ -3,6 +3,7 @@ import { Tree } from '@lezer/common'
 import { BranchOp, CallOp, Condition, JumpOp, Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
 import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
+import { matchChildren } from './matchChildren'
 
 interface SemantikCheckContext {
   robotName: string
@@ -14,7 +15,7 @@ interface SemantikCheckContext {
   callOps: [string, CallOp][]
 }
 
-interface AnchorOp {
+export interface AnchorOp {
   type: 'anchor'
   callback: (target: number) => void
 }
@@ -1110,13 +1111,6 @@ export function compileJava(
           : `Bitte entferne '${node.text()}', wird hier nicht unterstützt`,
       })
     }
-  }
-
-  function matchChildren(names: string[], nodes: AstNode[]) {
-    return (
-      names.length == nodes.length &&
-      names.every((name, i) => nodes[i].name == name)
-    )
   }
 
   function ensureBlock(nodes: AstNode[]) {

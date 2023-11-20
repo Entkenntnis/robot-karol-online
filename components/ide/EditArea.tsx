@@ -1,6 +1,9 @@
 import { EditorView } from '@codemirror/view'
 import { useEffect, useRef } from 'react'
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCircleExclamation,
+  faQuestionCircle,
+} from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 
 import { setEditable } from '../../lib/codemirror/basicSetup'
@@ -108,16 +111,6 @@ export function EditArea() {
           </div>
         )}
         <div className="absolute right-4 bottom-1">
-          {core.ws.settings.language == 'java' && (
-            <div
-              className="mb-2 cursor-pointer underline text-right mr-2"
-              onClick={() => {
-                showJavaInfo(core)
-              }}
-            >
-              Info zu Java
-            </div>
-          )}
           <div
             className={clsx(
               'p-1 bg-gray-200 rounded pl-2',
@@ -128,7 +121,14 @@ export function EditArea() {
                 'text-gray-400'
             )}
           >
-            Sprache:{' '}
+            <button
+              onClick={() => {
+                showJavaInfo(core)
+              }}
+            >
+              <FaIcon icon={faQuestionCircle} />
+            </button>{' '}
+            Sprache:
             <select
               className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100"
               value={core.ws.settings.language}
@@ -139,7 +139,7 @@ export function EditArea() {
               <option value="robot karol">Robot Karol</option>
               <option value="python">Python</option>
               <option value="java">Java</option>
-            </select>
+            </select>{' '}
           </div>
         </div>
       </div>
