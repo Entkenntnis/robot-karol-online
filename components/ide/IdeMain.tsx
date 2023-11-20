@@ -108,6 +108,8 @@ export function IdeMain() {
                       .substring(0, 10)}-robot-karol.${
                       core.ws.settings.language == 'robot karol'
                         ? 'txt'
+                        : core.ws.settings.language == 'python'
+                        ? 'py.txt'
                         : 'java.txt'
                     }` // specify the filename
 

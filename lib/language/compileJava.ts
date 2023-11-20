@@ -419,24 +419,6 @@ export function compileJava(
           const argumentList = node.children[3]
           let integerArgument: number = NaN
 
-          const methodsWithoutArgs = [
-            'markeSetzen',
-            'markeLöschen',
-            'beenden',
-            'istWand',
-            'nichtIstWand',
-            'istMarke',
-            'nichtIstMarke',
-            'istSüden',
-            'istNorden',
-            'istWesten',
-            'istOsten',
-            'nichtIstSüden',
-            'nichtIstNorden',
-            'nichtIstWesten',
-            'nichtIstOsten',
-          ]
-
           const methodName = node.children[2].children[0].text()
 
           if (argumentList.children.some((child) => child.isError)) {
@@ -1079,27 +1061,6 @@ export function compileJava(
     return `${part1}${part2}${part3}`
   }
 
-  function methodName2action(name: string) {
-    switch (name) {
-      case 'schritt':
-        return 'forward'
-      case 'linksDrehen':
-        return 'left'
-      case 'rechtsDrehen':
-        return 'right'
-      case 'hinlegen':
-        return 'brick'
-      case 'aufheben':
-        return 'unbrick'
-      case 'markeSetzen':
-        return 'setMark'
-      case 'markeLöschen':
-        return 'resetMark'
-      case 'beenden':
-        return '--exit--'
-    }
-  }
-
   function warnForUnexpectedNodes(nodes: AstNode[], warnNode?: AstNode) {
     for (const node of nodes) {
       warnings.push({
@@ -1336,3 +1297,42 @@ export function compileJava(
     }
   }
 }
+
+export function methodName2action(name: string) {
+  switch (name) {
+    case 'schritt':
+      return 'forward'
+    case 'linksDrehen':
+      return 'left'
+    case 'rechtsDrehen':
+      return 'right'
+    case 'hinlegen':
+      return 'brick'
+    case 'aufheben':
+      return 'unbrick'
+    case 'markeSetzen':
+      return 'setMark'
+    case 'markeLöschen':
+      return 'resetMark'
+    case 'beenden':
+      return '--exit--'
+  }
+}
+
+export const methodsWithoutArgs = [
+  'markeSetzen',
+  'markeLöschen',
+  'beenden',
+  'istWand',
+  'nichtIstWand',
+  'istMarke',
+  'nichtIstMarke',
+  'istSüden',
+  'istNorden',
+  'istWesten',
+  'istOsten',
+  'nichtIstSüden',
+  'nichtIstNorden',
+  'nichtIstWesten',
+  'nichtIstOsten',
+]

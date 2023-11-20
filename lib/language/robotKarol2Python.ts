@@ -17,7 +17,6 @@ export function robotKarol2Python(code: string) {
     let output = ''
 
     for (const node of nodes) {
-      console.log('nodes2code', node.text())
       if (node.name == 'Command') {
         pad()
         output += `${toKarol(node.text())}\n`
@@ -132,7 +131,6 @@ export function robotKarol2Python(code: string) {
   }
 
   const main = nodes2Code(mainNodes, 0)
-  console.log('main', main)
 
   return `karol = Robot()
 
