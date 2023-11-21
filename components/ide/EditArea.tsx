@@ -116,6 +116,7 @@ export function EditArea() {
               'p-1 bg-gray-200 rounded pl-2',
               core.ws.ui.state !== 'ready' && 'pointer-events-none',
               core.ws.ui.state == 'error' && 'invisible',
+              core.ws.ui.state == 'running' && 'invisible',
               core.ws.ui.toBlockWarning &&
                 core.ws.settings.language == 'java' &&
                 'text-gray-400'

@@ -1,6 +1,6 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { BranchOp, Condition, JumpOp, Op } from '../state/types'
+import { BranchOp, CallOp, Condition, JumpOp, Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
 import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
 import {
@@ -16,6 +16,8 @@ interface SemantikCheckContext {
   variablesInScope: Set<string>
   expectCondition?: boolean
   condition?: Condition
+  availableMethods: Set<string>
+  callOps: [string, CallOp][]
 }
 
 export function compilePython(
@@ -66,9 +68,9 @@ export function compilePython(
         spaces++
       }
       const expectedLevel = indentionLevel * 4
-      if (spaces == expectedLevel - 4) {
+      if (spaces < expectedLevel && (expectedLevel - spaces) % 4 == 0) {
         // unindent
-        indentionLevel--
+        indentionLevel -= (expectedLevel - spaces) / 4
       } else if (spaces !== expectedLevel) {
         warnings.push({
           from: line.from,
@@ -83,9 +85,38 @@ export function compilePython(
     }
   }
 
+  const availableMethods: Set<string> = new Set()
   const functions = ast.children.filter(
-    (child) => child.name == 'FuntionDefinition'
+    (child) => child.name == 'FunctionDefinition'
   )
+
+  for (const method of functions) {
+    if (
+      matchChildren(
+        ['def', 'VariableName', 'ParamList', 'Body'],
+        method.children
+      )
+    ) {
+      const formalParameters = method.children[2]
+      if (!matchChildren(['(', ')'], formalParameters.children)) {
+        warnings.push({
+          from: formalParameters.from,
+          to: formalParameters.to,
+          severity: 'error',
+          message: 'Erwarte leere Parameterliste',
+        })
+      }
+      const name = method.children[1].text()
+      availableMethods.add(name)
+    } else {
+      warnings.push({
+        from: method.from,
+        to: method.to,
+        severity: 'error',
+        message: 'Erwarte eigene Methode ohne Rückgabewert mit Rumpf',
+      })
+    }
+  }
 
   const script = ast.children.filter(
     (child) => child.name != 'FunctionDefinition'
@@ -120,13 +151,46 @@ export function compilePython(
     })
   }
 
+  const callOps: [string, CallOp][] = []
+
   const context: SemantikCheckContext = {
     robotKarolVar,
     variablesInScope: new Set(),
+    availableMethods,
+    callOps,
   }
   script.map((node) => semanticCheck(node, context))
 
-  // TODO für später: Methoden kompilieren
+  if (availableMethods.size > 0) {
+    output.push({ type: 'jump', target: Infinity })
+  }
+
+  for (const method of functions) {
+    const name = method.children[1].text()
+    output.push({
+      type: 'anchor',
+      callback: (target) => {
+        callOps.forEach(([n, op]) => {
+          if (n == name) {
+            op.target = target
+          }
+        })
+      },
+    })
+    appendRkCode('\nAnweisung ' + name, method.from)
+    rkCodeIndent++
+    if (method.children.length == 4) {
+      semanticCheck(method.children[3], {
+        robotKarolVar,
+        variablesInScope: new Set(),
+        availableMethods,
+        callOps,
+      })
+      output.push({ type: 'return' })
+    }
+    rkCodeIndent--
+    appendRkCode('endeAnweisung', method.to)
+  }
 
   // compilation end
 
@@ -331,8 +395,35 @@ export function compilePython(
               }
             }
           }
-        } else if (false) {
-          // TODO VariableName + ArgList für eigene Methoden
+        } else if (matchChildren(['VariableName', 'ArgList'], node.children)) {
+          const name = node.children[0].text()
+          if (context.availableMethods.has(name)) {
+            const argumentList = node.children[1]
+            if (!matchChildren(['(', ')'], argumentList.children)) {
+              warnings.push({
+                from: argumentList.from,
+                to: argumentList.to,
+                severity: 'error',
+                message: 'Erwarte keine Argumente',
+              })
+            } else {
+              const op: CallOp = {
+                type: 'call',
+                target: -1,
+                line: doc.lineAt(node.from).number,
+              }
+              output.push(op)
+              appendRkCode(name, node.from)
+              context.callOps.push([name, op])
+            }
+          } else {
+            warnings.push({
+              from: node.from,
+              to: node.to,
+              severity: 'error',
+              message: `Erwarte Punktnotation '${context.robotKarolVar}.'`,
+            })
+          }
         } else {
           warnings.push({
             from: node.from,
@@ -698,7 +789,6 @@ export function compilePython(
         }
         return
       }
-
       // ADD NEW NODES HERE
     }
 
