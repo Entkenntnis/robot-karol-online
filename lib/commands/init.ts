@@ -32,7 +32,7 @@ export async function initClient(core: Core) {
 
   if (hash == '#ANALYZE' /* && window.location.hostname == 'localhost'*/) {
     try {
-      const cutoff = new Date('2023-11-20')
+      const cutoff = new Date('2023-11-22')
 
       const storedPW = sessionStorage.getItem('karol_stored_pw')
       const password = storedPW ?? prompt('Zugangspasswort:') ?? ''
