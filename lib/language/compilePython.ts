@@ -54,7 +54,12 @@ export function compilePython(
   const ast = cursorToAstNode(tree.cursor(), doc, ['Comment'], comments)
 
   // debug
-  console.log(prettyPrintAstNode(ast))
+  //console.log(prettyPrintAstNode(ast))
+
+  if (ast.children.length == 0) {
+    // empty program
+    return { output: [], warnings: [], rkCode: '' }
+  }
 
   // compilation start
   let indentionLevel = 0

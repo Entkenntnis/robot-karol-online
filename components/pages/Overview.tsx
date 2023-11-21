@@ -79,14 +79,6 @@ export function Overview() {
             <button
               className="mr-7 hover:underline"
               onClick={() => {
-                showModal(core, 'appearance')
-              }}
-            >
-              Outfit
-            </button>
-            <button
-              className="mr-7 hover:underline"
-              onClick={() => {
                 hideOverviewList(core)
                 if (core.ws.overview.showProfile) {
                   hideProfile(core)
@@ -144,7 +136,7 @@ export function Overview() {
                 {core.ws.analyze.showStructogram} mal Struktogramm,{' '}
                 {core.ws.analyze.usePersist} mal Fortschritt gespeichert,{' '}
                 {core.ws.analyze.useJava} mal Java verwendet,{' '}
-                {core.ws.analyze.usePython} mal Java verwendet,{' '}
+                {core.ws.analyze.usePython} mal Python verwendet,{' '}
                 {core.ws.analyze.playSnake} mal Snake gespielt
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
@@ -297,7 +289,7 @@ export function Overview() {
           )}
           {!core.ws.overview.showOverviewList &&
             !core.ws.overview.showProfile && (
-              <div className="w-[1240px] h-[1450px] mx-auto relative mt-6">
+              <div className="w-[1240px] h-[1650px] mx-auto relative mt-6">
                 <img
                   src="klecks1.png"
                   className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
@@ -313,7 +305,6 @@ export function Overview() {
                   className="w-[150px] top-[1100px] left-[300px] absolute user-select-none"
                   alt="Farbklecks 3"
                 />
-
                 {(numberOfSolvedQuests >= 5 ||
                   core.ws.page == 'analyze' ||
                   core.ws.page == 'demo') && (
@@ -336,9 +327,63 @@ export function Overview() {
                     />
                   </button>
                 )}
+                <button
+                  className="absolute top-[680px] left-[370px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                  onClick={() => {
+                    showModal(core, 'goodluck')
+                  }}
+                >
+                  <p className="text-center text-lg mb-1">Auf gut Glück</p>
+                  <img
+                    src="/kleeblatt.png"
+                    alt="Kleeblatt mit 4 Blättern"
+                    className="w-[60px] mx-auto"
+                  />
+                </button>
+                <button
+                  className="absolute top-[50px] left-[730px] w-[80px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                  onClick={() => {
+                    showModal(core, 'appearance')
+                  }}
+                >
+                  <p className="text-center text-lg mb-1">Outfit</p>
+                  <img
+                    src="/outfit.png"
+                    alt="Kleidung"
+                    className="w-[60px] mx-auto"
+                  />
+                </button>
+                <button
+                  className="absolute top-[1350px] left-[860px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                  onClick={() => {
+                    window.open('https://einhorn.arrrg.de/', '_blank')
+                  }}
+                >
+                  <p className="text-center text-lg mb-1">
+                    Einhorn der Mathematik
+                  </p>
+                  <img
+                    src="https://einhorn.arrrg.de/einhorn.png"
+                    alt="Einhorn"
+                    className="w-[80px] mx-auto"
+                  />
+                </button>
+                <button
+                  className="absolute top-[1550px] left-[160px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                  onClick={() => {
+                    window.open('https://hack.arrrg.de/', '_blank')
+                  }}
+                >
+                  <p className="text-center text-lg mb-1">Hack The Web </p>
+                  <img
+                    src="htw.png"
+                    alt="H"
+                    className="w-[40px] mx-auto mb-2"
+                  />
+                </button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 1240 1450"
+                  viewBox="0 0 1240 1650"
                   className="relative"
                 >
                   {Object.entries(mapData).map(([id, data]) => {
@@ -642,25 +687,7 @@ export function Overview() {
             </div>
           )}
 
-          <div className="my-5 mx-auto">
-            <a
-              href="https://einhorn.arrrg.de/"
-              target="_blank"
-              className="rounded-xl border-2 border-pink-400 bg-pink-200 p-4 cursor-pointer block"
-            >
-              <p>Probiere mein neues Projekt aus:</p>
-              <p className="flex flex-row items-center justify-between">
-                <img
-                  src="https://einhorn.arrrg.de/einhorn.png"
-                  alt="Einhorn"
-                  className="h-24 mt-4"
-                />
-                <strong>&lt;- Klick mich!</strong>
-              </p>
-            </a>
-          </div>
-
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 mt-24">
             Version: Dezember 2023 |{' '}
             <a
               className="hover:underline cursor-pointer"

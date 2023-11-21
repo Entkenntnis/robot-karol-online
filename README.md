@@ -135,6 +135,10 @@ Farbkleckse: [Bild von starline](https://de.freepik.com/vektoren-kostenlos/isoli
 
 Snake-Icon: [Snake icons created by apien - Flaticon](https://www.flaticon.com/free-icons/snake)
 
+Kleeblatt: [Bild von jemastock](https://de.freepik.com/vektoren-kostenlos/gruener-gluecksklee-mit-vier-blaettern_70015845.htm#query=4%20bl%C3%A4tter%20kleeblatt&position=11&from_view=search&track=ais&uuid=e9b2280d-4977-4cff-9d02-e409163dc7f6) auf Freepik
+
+Outfit: [Bild von rawpixel.com](https://de.freepik.com/vektoren-kostenlos/mode-logo-aufkleber-business-branding-schwarz-weiss-design-vektor_20346276.htm#query=outfit%20icon&position=36&from_view=search&track=ais&uuid=b2451275-7cef-4c28-9686-d610dcb630e6) auf Freepik
+
 ## Entwicklung
 
 Installiere node.js und git. Um das Repo dann zum Laufen zu bringen, benötigt es folgende Schritte:

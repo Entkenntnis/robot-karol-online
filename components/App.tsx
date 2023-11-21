@@ -19,6 +19,7 @@ import { Demo } from './pages/Demo'
 import { SuccessModal } from './modals/SuccessModal'
 import { AppearanceModal } from './modals/AppearanceModal'
 import { TutorialModal } from './modals/TutorialModal'
+import { GoodLuckModal } from './modals/GoodLuckModal'
 
 export function App() {
   const core = useCore()
@@ -77,6 +78,8 @@ export function App() {
       return <AppearanceModal />
     } else if (core.ws.modal == 'tutorial') {
       return <TutorialModal />
+    } else if (core.ws.modal == 'goodluck') {
+      return <GoodLuckModal />
     } else {
       return null
     }
