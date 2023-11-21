@@ -178,7 +178,7 @@ ${main ? main : ''}${methods
       const name = method.children[1].text()
       const inner = method.children.slice(2, -1)
       const code = nodes2Code(inner, 1)
-      return `\n\ndef ${name}():\n${code ? code : '  '}`
+      return `\n\ndef ${name}():\n${code ? code : '    pass'}`
     })
     .join('')}`
 }

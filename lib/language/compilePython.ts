@@ -1,14 +1,21 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { BranchOp, JumpOp, Op } from '../state/types'
+import { BranchOp, Condition, JumpOp, Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
 import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
-import { AnchorOp, methodName2action, methodsWithoutArgs } from './compileJava'
+import {
+  AnchorOp,
+  conditionToRK,
+  methodName2action,
+  methodsWithoutArgs,
+} from './compileJava'
 import { matchChildren } from './matchChildren'
 
 interface SemantikCheckContext {
   robotKarolVar: string
   variablesInScope: Set<string>
+  expectCondition?: boolean
+  condition?: Condition
 }
 
 export function compilePython(
@@ -171,18 +178,8 @@ export function compilePython(
               message: `Erwarte Methode von '${context.robotKarolVar}'`,
             })
           } else {
-            // TODO: parse condition
             const methodName = memberExpr.children[2].text()
             const action = methodName2action(methodName)
-            if (!action) {
-              warnings.push({
-                from: memberExpr.children[2].from,
-                to: memberExpr.children[2].to,
-                severity: 'error',
-                message: `Unbekannte Methode '${methodName}'`,
-              })
-              return
-            }
             let integerArgument = NaN
             if (methodsWithoutArgs.includes(methodName)) {
               if (!matchChildren(['(', ')'], argList.children)) {
@@ -227,46 +224,115 @@ export function compilePython(
                 })
               }
             }
+            if (context.expectCondition) {
+              let cond: Condition = {} as Condition
+              if (methodName == 'nichtIstWand') {
+                cond = { type: 'wall', negated: true }
+              } else if (methodName == 'istWand') {
+                cond = { type: 'wall', negated: false }
+              } else if (methodName == 'nichtIstZiegel') {
+                if (isNaN(integerArgument)) {
+                  cond = { type: 'brick', negated: true }
+                } else {
+                  cond = {
+                    type: 'brick_count',
+                    negated: true,
+                    count: integerArgument,
+                  }
+                }
+              } else if (methodName == 'istZiegel') {
+                if (isNaN(integerArgument)) {
+                  cond = { type: 'brick', negated: false }
+                } else {
+                  cond = {
+                    type: 'brick_count',
+                    negated: false,
+                    count: integerArgument,
+                  }
+                }
+              } else if (methodName == 'nichtIstMarke') {
+                cond = { type: 'mark', negated: true }
+              } else if (methodName == 'istMarke') {
+                cond = { type: 'mark', negated: false }
+              } else if (methodName == 'nichtIstNorden') {
+                cond = { type: 'north', negated: true }
+              } else if (methodName == 'istNorden') {
+                cond = { type: 'north', negated: false }
+              } else if (methodName == 'nichtIstOsten') {
+                cond = { type: 'east', negated: true }
+              } else if (methodName == 'istOsten') {
+                cond = { type: 'east', negated: false }
+              } else if (methodName == 'nichtIstSüden') {
+                cond = { type: 'south', negated: true }
+              } else if (methodName == 'istSüden') {
+                cond = { type: 'south', negated: false }
+              } else if (methodName == 'nichtIstWesten') {
+                cond = { type: 'west', negated: true }
+              } else if (methodName == 'istWesten') {
+                cond = { type: 'west', negated: false }
+              }
+              if (!cond.type) {
+                warnings.push({
+                  from: memberExpr.children[2].from,
+                  to: memberExpr.children[2].to,
+                  severity: 'error',
+                  message: `Unbekannte Bedingung '${methodName}'`,
+                })
+                return
+              }
+              context.condition = cond
+            } else {
+              if (!action) {
+                warnings.push({
+                  from: memberExpr.children[2].from,
+                  to: memberExpr.children[2].to,
+                  severity: 'error',
+                  message: `Unbekannte Methode '${methodName}'`,
+                })
+                return
+              }
+              // create output
+              if (action == '--exit--') {
+                output.push({ type: 'jump', target: Infinity })
+                appendRkCode('Beenden', node.from)
+                return
+              }
 
-            // create output
-            if (action == '--exit--') {
-              output.push({ type: 'jump', target: Infinity })
-              appendRkCode('Beenden', node.from)
-              return
-            }
-
-            if (!isNaN(integerArgument)) {
-              for (
-                let i = 0;
-                i < Math.min(1000, integerArgument) /* protect */;
-                i++
-              ) {
+              if (!isNaN(integerArgument)) {
+                for (
+                  let i = 0;
+                  i < Math.min(1000, integerArgument) /* protect */;
+                  i++
+                ) {
+                  output.push({
+                    type: 'action',
+                    command: action,
+                    line: doc.lineAt(node.from).number,
+                  })
+                }
+                appendRkCode(
+                  methodName.charAt(0).toUpperCase() +
+                    methodName.slice(1) +
+                    '(' +
+                    integerArgument.toString() +
+                    ')',
+                  node.from
+                )
+              } else {
                 output.push({
                   type: 'action',
                   command: action,
                   line: doc.lineAt(node.from).number,
                 })
+                appendRkCode(
+                  methodName.charAt(0).toUpperCase() + methodName.slice(1),
+                  node.from
+                )
               }
-              appendRkCode(
-                methodName.charAt(0).toUpperCase() +
-                  methodName.slice(1) +
-                  '(' +
-                  integerArgument.toString() +
-                  ')',
-                node.from
-              )
-            } else {
-              output.push({
-                type: 'action',
-                command: action,
-                line: doc.lineAt(node.from).number,
-              })
-              appendRkCode(
-                methodName.charAt(0).toUpperCase() + methodName.slice(1),
-                node.from
-              )
             }
           }
+        } else if (false) {
+          // TODO VariableName + ArgList für eigene Methoden
         } else {
           warnings.push({
             from: node.from,
@@ -302,8 +368,62 @@ export function compilePython(
               message: `Wiederholung wird nie ausgeführt`,
             })
           }
-        } else if (false) {
-          // TODO while loop with condition
+        } else if (
+          matchChildren(['while', 'CallExpression', 'Body'], node.children)
+        ) {
+          context.expectCondition = true
+          semanticCheck(node.children[1], context)
+          context.expectCondition = undefined
+          const condition = context.condition
+          if (condition) {
+            const jumpToCond: JumpOp = { type: 'jump', target: -1 }
+            const branch: BranchOp = {
+              type: 'branch',
+              targetF: -1,
+              targetT: -1,
+              line: node.from,
+            }
+            const anchorTop: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetT = target
+              },
+            }
+            const anchorCond: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                jumpToCond.target = target
+              },
+            }
+            const anchorEnd: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetF = target
+              },
+            }
+            output.push(jumpToCond)
+            output.push(anchorTop)
+
+            appendRkCode(
+              `wiederhole solange ${conditionToRK(condition)}`,
+              node.from
+            )
+            rkCodeIndent++
+            semanticCheck(node.children[2], context)
+            rkCodeIndent--
+            appendRkCode('endewiederhole', node.to)
+
+            output.push(anchorCond)
+            if (condition.type == 'brick_count') {
+              output.push({ type: 'constant', value: condition.count! })
+            }
+            output.push({
+              type: 'sense',
+              condition,
+            })
+            output.push(branch)
+            output.push(anchorEnd)
+          }
         } else {
           warnings.push({
             from: node.from,
@@ -456,6 +576,124 @@ export function compilePython(
             to: node.to,
             severity: 'error',
             message: `Erwarte Schleife der Form 'for ${safeLoopVar} in range(10):'`,
+          })
+        }
+        return
+      }
+      case 'IfStatement': {
+        if (matchChildren(['if', 'CallExpression', 'Body'], node.children)) {
+          context.expectCondition = true
+          semanticCheck(node.children[1], context)
+          context.expectCondition = undefined
+          const condition = context.condition
+          if (condition) {
+            const branch: BranchOp = {
+              type: 'branch',
+              targetF: -1,
+              targetT: -1,
+              line: doc.lineAt(node.from).number,
+            }
+            const anchorBlock: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetT = target
+              },
+            }
+            const anchorEnd: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetF = target
+              },
+            }
+            if (condition.type == 'brick_count') {
+              output.push({ type: 'constant', value: condition.count! })
+            }
+            output.push({
+              type: 'sense',
+              condition,
+            })
+            output.push(branch)
+            output.push(anchorBlock)
+
+            appendRkCode(`wenn ${conditionToRK(condition)} dann`, node.from)
+            rkCodeIndent++
+            semanticCheck(node.children[2], context)
+            rkCodeIndent--
+            appendRkCode('endewenn', node.to)
+
+            output.push(anchorEnd)
+          }
+        } else if (
+          matchChildren(
+            ['if', 'CallExpression', 'Body', 'else', 'Body'],
+            node.children
+          )
+        ) {
+          context.expectCondition = true
+          semanticCheck(node.children[1], context)
+          context.expectCondition = undefined
+          const condition = context.condition
+          if (condition) {
+            const branch: BranchOp = {
+              type: 'branch',
+              targetF: -1,
+              targetT: -1,
+              line: doc.lineAt(node.from).number,
+            }
+            const jump: JumpOp = {
+              type: 'jump',
+              target: -1,
+            }
+            const anchorBlock: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetT = target
+              },
+            }
+            const anchorEnd: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                jump.target = target
+              },
+            }
+            const anchorElse: AnchorOp = {
+              type: 'anchor',
+              callback: (target) => {
+                branch.targetF = target
+              },
+            }
+            if (condition.type == 'brick_count') {
+              output.push({ type: 'constant', value: condition.count! })
+            }
+            output.push({
+              type: 'sense',
+              condition,
+            })
+            output.push(branch)
+            output.push(anchorBlock)
+
+            appendRkCode(`wenn ${conditionToRK(condition)} dann`, node.from)
+            rkCodeIndent++
+            semanticCheck(node.children[2], context)
+            rkCodeIndent--
+
+            output.push(jump)
+            appendRkCode('sonst', node.children[3].from)
+            output.push(anchorElse)
+
+            rkCodeIndent++
+            semanticCheck(node.children[4], context)
+            rkCodeIndent--
+            appendRkCode('endewenn', node.to)
+
+            output.push(anchorEnd)
+          }
+        } else {
+          warnings.push({
+            from: node.from,
+            to: node.to,
+            severity: 'error',
+            message: `Erwarte bedingte Anweisung mit Rumpf`,
           })
         }
         return
