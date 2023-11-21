@@ -12,16 +12,19 @@ export function GoodLuckModal() {
       }}
     >
       <div
-        className="min-h-[310px] w-[500px] bg-white z-[200] rounded-xl relative flex justify-between flex-col px-3"
+        className="min-h-[310px] w-[600px] bg-white z-[200] rounded-xl relative flex justify-between flex-col px-3"
         onClick={(e) => {
           e.stopPropagation()
         }}
       >
         <h2 className="text-center text-2xl mt-4">Auf gut Glück!</h2>
         <div className="flex flex-row ">
-          <img src="/kleeblatt.png" alt="" className="w-[200px] basis-1/2" />
           <div className="basis-1/2">
-            <p className="mt-6">Öffne eine zufällig freigegebene Aufgabe.</p>
+            <img src="/kleeblatt.png" alt="" className="w-[240px] mx-auto" />
+          </div>
+
+          <div className="basis-1/2 pl-6">
+            <p className="mt-12">Öffne eine zufällig freigegebene Aufgabe.</p>
             <p className="mt-6">
               <button
                 className="px-2 py-1 bg-green-300 hover:bg-green-400 rounded"
