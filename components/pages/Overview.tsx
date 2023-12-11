@@ -30,7 +30,9 @@ import { showModal } from '../../lib/commands/modal'
 import {
   getUserName,
   isPersisted,
+  loadFromJSON,
   resetStorage,
+  saveToJSON,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
 import { appearanceRegistry } from '../../lib/data/appearance'
@@ -99,7 +101,7 @@ export function Overview() {
               Highscore
             </button>
             <button
-              className="hover:underline"
+              className="mr-7 hover:underline"
               onClick={() => {
                 setOverviewScroll(core, 0)
                 switchToPage(core, 'editor')
@@ -107,6 +109,25 @@ export function Overview() {
             >
               <FaIcon icon={faPenToSquare} className="mr-1 text-sm" />
               Aufgaben-Editor
+            </button>
+            <button
+              className="mr-7 hover:underline"
+              title="In eine Datei speichern"
+              onClick={() => {
+                saveToJSON();
+              }}
+            >
+              Speichern
+            </button>
+            <button
+              className="mr-7 hover:underline"
+              title="Aus einer Datei laden"
+              onClick={async () => {
+                await loadFromJSON();
+                forceRerender(core)
+              }}
+            >
+              Laden
             </button>
           </div>
           {core.ws.page == 'analyze' && (
