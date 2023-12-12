@@ -28,6 +28,7 @@ import { View } from '../helper/View'
 import { switchToPage } from '../../lib/commands/page'
 import { showModal } from '../../lib/commands/modal'
 import {
+  getAppearance,
   getUserName,
   isPersisted,
   loadFromJSON,
@@ -114,7 +115,7 @@ export function Overview() {
               className="mr-7 hover:underline"
               title="In eine Datei speichern"
               onClick={() => {
-                saveToJSON();
+                saveToJSON()
               }}
             >
               Speichern
@@ -123,7 +124,13 @@ export function Overview() {
               className="mr-7 hover:underline"
               title="Aus einer Datei laden"
               onClick={async () => {
-                await loadFromJSON();
+                await loadFromJSON()
+                const appearance = getAppearance()
+                if (appearance) {
+                  core.mutateWs((ws) => {
+                    ws.appearance = appearance
+                  })
+                }
                 forceRerender(core)
               }}
             >

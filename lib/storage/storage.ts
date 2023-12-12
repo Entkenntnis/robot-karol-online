@@ -91,7 +91,9 @@ export function saveToJSON() {
   const blob = new Blob([JSON.stringify(data)], { type: 'text/json' })
   const link = document.createElement('a')
 
-  link.download = 'robot-karol.json'
+  link.download = `${new Date()
+    .toISOString()
+    .substring(0, 10)}-robot-karol-spielstand.json`
   link.href = window.URL.createObjectURL(blob)
   link.dataset.downloadurl = ['text/json', link.download, link.href].join(':')
 
@@ -123,9 +125,9 @@ export async function loadFromJSON() {
             setQuestData(questData)
           }
         }
-        res(true);
+        res(true)
       }
-      rej(false);
+      rej(false)
     })
 
     input.addEventListener('change', () => {
@@ -153,7 +155,7 @@ export function copySessionToLocal() {
   localStorage.setItem(userNameKey, sessionStorage.getItem(userNameKey) ?? '')
   localStorage.setItem(
     appearanceKey,
-    sessionStorage.getItem(appearanceKey) ?? '',
+    sessionStorage.getItem(appearanceKey) ?? ''
   )
 
   for (const id of questList) {
@@ -175,7 +177,7 @@ export function copyLocalToSession() {
 
   sessionStorage.setItem(
     appearanceKey,
-    localStorage.getItem(appearanceKey) ?? '',
+    localStorage.getItem(appearanceKey) ?? ''
   )
   localStorage.removeItem(appearanceKey)
 
