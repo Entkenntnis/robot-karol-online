@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Um die Ecke",
-  "description": "Wennn dir Schwierigkeiten in den Weg gelegt werden, findest du immer einen Weg darum herum - denn das Leben läuft nicht immer straight ...\n\nDamit Karol um die Ecken kommt, besitzt sie die Befehle `LinksDrehen` und `RechtsDrehen`. Laufe um die Ecke und lege einen Ziegel.",
+  "description": "Wenn dir Schwierigkeiten in den Weg gelegt werden, findest du immer einen Weg darum herum - denn das Leben läuft nicht immer straight ...\n\nDamit Karol um die Ecken kommt, besitzt sie die Befehle `LinksDrehen` und `RechtsDrehen`. Laufe um die Ecke und lege einen Ziegel.",
   "tasks": [
     {
       "title": "Lege einen Ziegel",
