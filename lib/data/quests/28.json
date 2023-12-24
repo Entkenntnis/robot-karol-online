@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Heimweg",
-  "description": "Finde mit Karol immer in die obere links Ecke zurück.\n\nHinweis: Nutze `NichtIstNorden`.",
+  "description": "Finde mit Karol immer in die obere linke Ecke zurück.\n\nHinweis: Nutze `NichtIstNorden`.",
   "tasks": [
     {
       "title": "Weg 1",
