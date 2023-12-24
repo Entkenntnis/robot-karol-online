@@ -1,6 +1,7 @@
 import {
   faCheckCircle,
   faExternalLink,
+  faGlobe,
   faPencil,
   faPenToSquare,
   faShirt,
@@ -77,6 +78,13 @@ export function Overview() {
             >
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
+          </div>
+          <div className="absolute top-2 left-2">
+            <FaIcon icon={faGlobe} />
+            <select className="p-1 ml-2 bg-white/40 rounded">
+              <option>Deutsch</option>
+              <option>English</option>
+            </select>
           </div>
           <div className="mx-auto mt-6">
             <button
