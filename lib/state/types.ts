@@ -71,6 +71,7 @@ export interface Vm {
 export interface Settings {
   mode: 'code' | 'blocks'
   language: 'robot karol' | 'java' | 'python'
+  lng: 'de' | 'en'
 }
 
 export interface Editor {

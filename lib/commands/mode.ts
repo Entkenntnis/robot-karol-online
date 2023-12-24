@@ -164,3 +164,9 @@ export function hideProfile(core: Core) {
     overview.showProfile = false
   })
 }
+
+export function setLng(core: Core, lng: 'de' | 'en') {
+  core.mutateWs(({ settings }) => {
+    settings.lng = lng
+  })
+}

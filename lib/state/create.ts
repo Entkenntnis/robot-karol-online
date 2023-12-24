@@ -58,6 +58,7 @@ export function createWorkspaceState(): WorkspaceState {
     settings: {
       mode: 'blocks',
       language: 'robot karol',
+      lng: 'de',
     },
     quest: {
       progress: false,

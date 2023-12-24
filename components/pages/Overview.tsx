@@ -14,6 +14,7 @@ import {
   hideOverviewList,
   hideProfile,
   hideSaveHint,
+  setLng,
   setPersist,
   showOverviewList,
   showProfile,
@@ -81,9 +82,18 @@ export function Overview() {
           </div>
           <div className="absolute top-2 left-2">
             <FaIcon icon={faGlobe} />
-            <select className="p-1 ml-2 bg-white/40 rounded">
-              <option>Deutsch</option>
-              <option>English</option>
+            <select
+              className="p-1 ml-2 bg-white/40 rounded"
+              value={core.ws.settings.lng}
+              onChange={(e) => {
+                const lng = e.target.value
+                if (lng == 'de' || lng == 'en') {
+                  setLng(core, lng)
+                }
+              }}
+            >
+              <option value="de">Deutsch</option>
+              <option value="en">English</option>
             </select>
           </div>
           <div className="mx-auto mt-6">

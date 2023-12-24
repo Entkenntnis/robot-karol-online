@@ -1,0 +1,419 @@
+[
+  {
+    "type": "step",
+    "message0": "step %1",
+    "args0": [
+      {
+        "type": "field_number_slider",
+        "name": "COUNT",
+        "value": 1,
+        "min": 1,
+        "precision": 1
+      }
+    ],
+    "colour": 260,
+    "tooltip": "Karol geht einen Schritt nach vorne",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "turnleft",
+    "message0": "turn left %1",
+    "args0": [
+      {
+        "type": "field_number_slider",
+        "name": "COUNT",
+        "value": 1,
+        "min": 1,
+        "max": 4,
+        "precision": 1
+      }
+    ],
+    "colour": 260,
+    "tooltip": "Karol dreht sich um 90° nach links",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "turnright",
+    "message0": "turn right %1",
+    "args0": [
+      {
+        "type": "field_number_slider",
+        "name": "COUNT",
+        "value": 1,
+        "min": 1,
+        "max": 4,
+        "precision": 1
+      }
+    ],
+    "colour": 260,
+    "tooltip": "Karol dreht sich um 90° nach rechts",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "laydown",
+    "message0": "set down %1",
+    "args0": [
+      {
+        "type": "field_number_slider",
+        "name": "COUNT",
+        "value": 1,
+        "min": 1,
+        "max": 10,
+        "precision": 1
+      }
+    ],
+    "colour": 260,
+    "tooltip": "Karol legt vor sich {anzahl} Ziegel",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "pickup",
+    "message0": "pick up %1",
+    "args0": [
+      {
+        "type": "field_number_slider",
+        "name": "COUNT",
+        "value": 1,
+        "min": 1,
+        "max": 10,
+        "precision": 1
+      }
+    ],
+    "colour": 260,
+    "tooltip": "Karol hebt {anzahl} Ziegel vor sich auf",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "setmarker",
+    "message0": "mark field",
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 260,
+    "tooltip": "Karol setzt unter sich eine Marke",
+    "helpUrl": ""
+  },
+  {
+    "type": "deletemarker",
+    "message0": "unmark field",
+    "colour": 260,
+    "tooltip": "Karol löscht Marke unter sich",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "stop",
+    "message0": "end",
+    "colour": 260,
+    "tooltip": "Karol beendet an dieser Stelle die Ausführung des Programms",
+    "helpUrl": "",
+    "previousStatement": null
+  },
+  {
+    "type": "repeat_times",
+    "message0": "repeat %1 times %2 %3",
+    "args0": [
+      {
+        "type": "field_number_slider",
+        "name": "COUNT",
+        "value": 10,
+        "min": 0,
+        "precision": 1
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "inputsInline": true,
+    "colour": 120,
+    "tooltip": "Wiederholung mit fester Anzahl",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "while_do",
+    "message0": "repeat while %1 %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "CONDITION"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "Wiederholung mit Bedingung",
+    "helpUrl": ""
+  },
+  {
+    "type": "repeat_forever",
+    "message0": "repeat always %1 %2",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "Wiederholung bis zum Programmabbruch",
+    "helpUrl": ""
+  },
+  {
+    "type": "if_then",
+    "message0": "if %1 then %3 %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "CONDITION"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      },
+      {
+        "type": "input_dummy"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "Einseitig bedingte Anweisung",
+    "helpUrl": ""
+  },
+  {
+    "type": "if_then_else",
+    "message0": "if %1 then %4 %2 else %5 %3",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "CONDITION"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS_2"
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_dummy"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "Zweiseitig bedingte Anweisung",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_wall",
+    "message0": "is wall",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Karol testet, ob vor ihr eine Wand (oder ein Quader) ist",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_wall",
+    "message0": "not is wall",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstWand nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_brick",
+    "message0": "is brick",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Karol testet, ob vor ihr Ziegel liegen",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_brick_count",
+    "message0": "is brick %1",
+    "args0": [
+      {
+        "type": "field_number_slider",
+        "name": "COUNT",
+        "value": 2,
+        "min": 0,
+        "max": 10,
+        "precision": 1
+      }
+    ],
+    "output": null,
+    "colour": 210,
+    "tooltip": "Karol testet, ob vor ihr genau {anzahl} Ziegel liegen",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_brick",
+    "message0": "not is brick",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstZiegel nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_brick_count",
+    "message0": "not is brick %1",
+    "args0": [
+      {
+        "type": "field_number_slider",
+        "name": "COUNT",
+        "value": 2,
+        "min": 0,
+        "max": 10,
+        "precision": 1
+      }
+    ],
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstZiegel(anzahl) nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_marker",
+    "message0": "is marked",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Karol testet, ob sie auf einer Marke steht",
+    "helpUrl": ""
+  },
+  {
+    "type": "isn't_marker",
+    "message0": "not is marked",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn IstMarke nicht zutrifft",
+    "helpUrl": ""
+  },
+  {
+    "type": "is_direction",
+    "message0": "is %1",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Karol testet, ob sie in diese Richtung schaut",
+    "helpUrl": "",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          ["north", "Norden"],
+          ["east", "Osten"],
+          ["south", "Süden"],
+          ["west", "Westen"]
+        ]
+      }
+    ]
+  },
+  {
+    "type": "isn't_direction",
+    "message0": "not is %1",
+    "output": null,
+    "colour": 210,
+    "tooltip": "Wenn Karol nicht in diese Richtung schaut",
+    "helpUrl": "",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          ["north", "Norden"],
+          ["east", "Osten"],
+          ["south", "Süden"],
+          ["west", "Westen"]
+        ]
+      }
+    ]
+  },
+  {
+    "type": "line_comment",
+    "message0": "// %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "TEXT",
+        "text": "comment"
+      }
+    ],
+    "colour": 48,
+    "tooltip": "Nutze Kommentare, um den Code zu gliedern und die Struktur zu erklären",
+    "helpUrl": "",
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "custom_command",
+    "message0": "%1",
+    "colour": 354,
+    "tooltip": "Führe eine eigene Anweisung aus",
+    "helpUrl": "",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "COMMAND",
+        "text": "DoSomething"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null
+  },
+  {
+    "type": "define_command",
+    "message0": "command %1 %2 %3",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "COMMAND",
+        "text": "DoSomething"
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "inputsInline": true,
+    "colour": 354,
+    "tooltip": "Definiere eine eigene Anweisung",
+    "helpUrl": ""
+  }
+]
