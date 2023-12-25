@@ -128,6 +128,10 @@ export async function initClient(core: Core) {
               ws.analyze.playSnake++
               continue
             }
+            if (entry.event == 'lng_en') {
+              ws.analyze.lngEn++
+              continue
+            }
             const publish = /publish_custom_quest_(.+)/.exec(entry.event)
             if (publish) {
               ws.analyze.published.push({

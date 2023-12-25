@@ -92,6 +92,9 @@ export function Overview() {
                 if (lng == 'de' || lng == 'en') {
                   setLng(core, lng)
                   setLngStorage(lng)
+                  if (lng == 'en') {
+                    submit_event('lng_en', core)
+                  }
                 }
               }}
             >
@@ -187,7 +190,8 @@ export function Overview() {
                 {core.ws.analyze.usePersist} mal Fortschritt gespeichert,{' '}
                 {core.ws.analyze.useJava} mal Java verwendet,{' '}
                 {core.ws.analyze.usePython} mal Python verwendet,{' '}
-                {core.ws.analyze.playSnake} mal Snake gespielt
+                {core.ws.analyze.playSnake} mal Snake gespielt,{' '}
+                {core.ws.analyze.lngEn} mal Englisch ausgewählt
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (

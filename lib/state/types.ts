@@ -176,6 +176,7 @@ export interface Analyze {
   useJava: number
   usePython: number
   playSnake: number
+  lngEn: number
   customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
   appearance: { [key: string]: { count: number } }
