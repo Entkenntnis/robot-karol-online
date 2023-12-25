@@ -6,9 +6,10 @@ import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
-import { getAppearance } from '../storage/storage'
+import { getAppearance, getLng } from '../storage/storage'
 import { isSetName } from '../helper/events'
 import { mapData } from '../data/map'
+import { setLng } from './mode'
 
 export async function initClient(core: Core) {
   const parameterList = new URLSearchParams(window.location.search)
@@ -27,6 +28,8 @@ export async function initClient(core: Core) {
       ws.appearance = appearance
     })
   }
+
+  setLng(core, getLng())
 
   const hash = window.location.hash.toUpperCase()
 

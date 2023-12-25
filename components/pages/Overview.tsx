@@ -31,11 +31,14 @@ import { switchToPage } from '../../lib/commands/page'
 import { showModal } from '../../lib/commands/modal'
 import {
   getAppearance,
+  getLng,
   getUserName,
   isPersisted,
   loadFromJSON,
   resetStorage,
   saveToJSON,
+  setAppearance,
+  setLngStorage,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
 import { appearanceRegistry } from '../../lib/data/appearance'
@@ -89,6 +92,7 @@ export function Overview() {
                 const lng = e.target.value
                 if (lng == 'de' || lng == 'en') {
                   setLng(core, lng)
+                  setLngStorage(lng)
                 }
               }}
             >
@@ -149,6 +153,7 @@ export function Overview() {
                     ws.appearance = appearance
                   })
                 }
+                setLng(core, getLng())
                 forceRerender(core)
               }}
             >
@@ -308,6 +313,16 @@ export function Overview() {
                     if (res) {
                       resetStorage()
                       forceRerender(core)
+                      setLng(core, 'de')
+                      core.mutateWs((ws) => {
+                        ws.appearance = {
+                          cap: 0,
+                          skin: 1,
+                          shirt: 2,
+                          legs: 3,
+                        }
+                      })
+                      hideProfile(core)
                     }
                   }}
                 >

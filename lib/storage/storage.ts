@@ -1,5 +1,6 @@
 // manage session and local storage data
 
+import { setLng } from '../commands/mode'
 import { questList } from '../data/overview'
 import { Appearance, QuestSessionData } from '../state/types'
 
@@ -8,6 +9,7 @@ const userNameKey = 'robot_karol_online_name'
 const questKey = (id: number) => `karol_quest_beta_${id}`
 const persistKey = 'karol_quest_beta_persist'
 const appearanceKey = 'robot_karol_online_appearance'
+const lngKey = 'robot_karol_online_lng'
 
 export function getUserId() {
   if (!sessionStorage.getItem(userIdKey) && !localStorage.getItem(userIdKey)) {
@@ -23,6 +25,21 @@ export function getUserName() {
     sessionStorage.getItem(userNameKey) ??
     ''
   ).trim()
+}
+
+export function getLng() {
+  return (localStorage.getItem(lngKey) ??
+    sessionStorage.getItem(lngKey) ??
+    'de') == 'de'
+    ? 'de'
+    : 'en'
+}
+
+export function setLngStorage(lng: 'de' | 'en') {
+  if (isPersisted()) {
+    localStorage.setItem(lngKey, lng)
+  }
+  sessionStorage.setItem(lngKey, lng)
 }
 
 export function getAppearance() {
@@ -80,6 +97,7 @@ export function saveToJSON() {
     [userNameKey]: getUserName(),
     [appearanceKey]: getAppearance(),
     [persistKey]: isPersisted(),
+    [lngKey]: getLng(),
   }
   for (const id of questList) {
     const questData = getQuestData(id)
@@ -125,6 +143,7 @@ export async function loadFromJSON() {
             setQuestData(questData)
           }
         }
+        setLngStorage(data[lngKey])
         res(true)
       }
       rej(false)
@@ -174,6 +193,9 @@ export function copyLocalToSession() {
 
   sessionStorage.setItem(userNameKey, localStorage.getItem(userNameKey) ?? '')
   localStorage.removeItem(userNameKey)
+
+  sessionStorage.setItem(lngKey, localStorage.getItem(lngKey) ?? '')
+  localStorage.removeItem(lngKey)
 
   sessionStorage.setItem(
     appearanceKey,
