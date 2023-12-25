@@ -16,6 +16,19 @@ export const deStrings = {
     showAll: 'Liste aller Aufgaben',
     game: 'Mini-Spiel',
   },
+  nameModal: {
+    title: 'Herzlich Willkommen!',
+    invite: 'Wie lautet dein Name?',
+    hint: 'Dein Name wird öffentlich angzeigt.',
+    random: 'zufälliger Name',
+    start: 'Loslegen!',
+  },
+  ide: {
+    backToOverview: 'zurück zur Übersicht',
+    save: 'Speichern',
+    blocks: 'Blöcke',
+    structogram: 'Struktogramm',
+  },
   quest: {
     warn: '',
   },

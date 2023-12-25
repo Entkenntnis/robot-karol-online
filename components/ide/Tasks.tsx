@@ -357,8 +357,8 @@ export function Tasks() {
                     switchToPage(core, 'overview')
                   }}
                 >
-                  <FaIcon icon={faArrowLeft} className="mx-1" /> zurück zur
-                  Übersicht
+                  <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
+                  {core.strings.ide.backToOverview}
                 </button>
               </p>
             )
@@ -376,7 +376,9 @@ export function Tasks() {
               }
             }}
           >
-            {core.ws.page == 'editor' ? 'Aus Vorlage laden' : 'Struktogramm'}
+            {core.ws.page == 'editor'
+              ? 'Aus Vorlage laden'
+              : core.strings.ide.structogram}
           </button>
         </div>
       </div>

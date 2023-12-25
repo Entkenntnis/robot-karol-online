@@ -28,9 +28,9 @@ export function NameModal() {
         </button>
         <div>
           <p className="ml-4 font-bold text-lg mt-6 mb-4 text-center">
-            Herzlich Willkommen!
+            {core.strings.nameModal.title}
           </p>
-          <p className="text-center mt-6">Wie lautet dein Name?</p>
+          <p className="text-center mt-6">{core.strings.nameModal.invite}</p>
           <p className="text-center">
             <input
               autoFocus
@@ -48,7 +48,7 @@ export function NameModal() {
             />
           </p>
           <p className="text-center mt-3 text-sm text-gray-500 italic">
-            Dein Name wird öffentlich angzeigt.
+            {core.strings.nameModal.hint}
             <button
               className="ml-10 underline"
               onClick={() => {
@@ -60,7 +60,7 @@ export function NameModal() {
                 setName(n)
               }}
             >
-              zufälliger Name
+              {core.strings.nameModal.random}
             </button>
           </p>
         </div>
@@ -70,7 +70,7 @@ export function NameModal() {
             onClick={submit}
             disabled={!name.trim()}
           >
-            Loslegen!
+            {core.strings.nameModal.start}
           </button>
         </p>
       </div>
