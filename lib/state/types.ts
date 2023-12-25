@@ -324,6 +324,7 @@ export interface QuestSerialFormat {
   title: string
   description: string
   tasks: { title: string; start: SerialWorld; target: SerialWorld }[]
+  lng?: 'de' | 'en'
 }
 
 export interface SerialWorld {

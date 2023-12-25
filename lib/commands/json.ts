@@ -21,6 +21,7 @@ export function serializeQuest(core: Core): QuestSerialFormat {
         target: serializeWorld(task.target!),
       }
     }),
+    lng: core.ws.settings.lng,
   }
 }
 
@@ -118,6 +119,10 @@ export function deserializeQuest(core: Core, quest: QuestSerialFormat) {
     })
 
     ws.ui.needsTextRefresh = true
+
+    if (quest.lng === 'en') {
+      ws.settings.lng = 'en'
+    }
   })
 }
 
