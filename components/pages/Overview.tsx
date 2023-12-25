@@ -137,7 +137,7 @@ export function Overview() {
             </button>
             <button
               className="mr-7 hover:underline"
-              title="In eine Datei speichern"
+              title={core.strings.overview.saveTooltip}
               onClick={() => {
                 saveToJSON()
               }}
@@ -146,7 +146,7 @@ export function Overview() {
             </button>
             <button
               className="mr-7 hover:underline"
-              title="Aus einer Datei laden"
+              title={core.strings.overview.loadTooltip}
               onClick={async () => {
                 await loadFromJSON()
                 const appearance = getAppearance()
@@ -297,17 +297,6 @@ export function Overview() {
                   Fortschritt dauerhaft auf diesem Gerät speichern
                 </label>
               </div>
-              <div className="my-8">
-                <button
-                  className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-2"
-                  onClick={() => {
-                    showModal(core, 'appearance')
-                  }}
-                >
-                  <FaIcon icon={faShirt} className="mr-1" />
-                  Aussehen von Karol anpassen
-                </button>
-              </div>
               <div className="mt-8 text-right">
                 <button
                   className="hover:underline text-red-500"
@@ -383,7 +372,9 @@ export function Overview() {
                       }
                     }}
                   >
-                    <p className="text-center text-lg mb-1">Mini-Spiel</p>
+                    <p className="text-center text-lg mb-1">
+                      {core.strings.overview.game}
+                    </p>
                     <img
                       src="/snake.png"
                       alt="Snake-Icon"
@@ -392,12 +383,17 @@ export function Overview() {
                   </button>
                 )}
                 <button
-                  className="absolute top-[680px] left-[370px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                  className={clsx(
+                    'absolute top-[680px] left-[370px] block z-10 hover:bg-gray-100/60 rounded-xl',
+                    core.ws.settings.lng == 'de' ? 'w-[120px]' : 'w-[140px]'
+                  )}
                   onClick={() => {
                     showModal(core, 'goodluck')
                   }}
                 >
-                  <p className="text-center text-lg mb-1">Auf gut Glück</p>
+                  <p className="text-center text-lg mb-1">
+                    {core.strings.overview.lucky}
+                  </p>
                   <img
                     src="/kleeblatt.png"
                     alt="Kleeblatt mit 4 Blättern"
@@ -752,7 +748,9 @@ export function Overview() {
           )}
 
           <div className="text-center mb-12 mt-24">
-            Version: Dezember 2023 |{' '}
+            <span className="text-gray-700 mr-7">
+              {core.strings.overview.version}
+            </span>
             <a
               className="hover:underline cursor-pointer"
               href={
@@ -762,7 +760,7 @@ export function Overview() {
                 '/?id=Z9xO1rVGj'
               }
             >
-              Spielwiese
+              {core.strings.overview.playground}
             </a>{' '}
             |{' '}
             <button
@@ -771,7 +769,7 @@ export function Overview() {
                 showModal(core, 'impressum')
               }}
             >
-              Impressum
+              {core.strings.overview.imprint}
             </button>{' '}
             |{' '}
             <button
@@ -780,7 +778,7 @@ export function Overview() {
                 showModal(core, 'privacy')
               }}
             >
-              Datenschutz
+              {core.strings.overview.privacy}
             </button>{' '}
             |{' '}
             <button
@@ -791,7 +789,7 @@ export function Overview() {
                 document.getElementById('scroll-container')!.scrollTop = 0
               }}
             >
-              Liste aller Aufgaben
+              {core.strings.overview.showAll}
             </button>{' '}
             |{' '}
             {renderExternalLink(

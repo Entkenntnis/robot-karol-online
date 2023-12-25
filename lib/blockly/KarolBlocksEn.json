@@ -12,7 +12,7 @@
       }
     ],
     "colour": 260,
-    "tooltip": "Karol geht einen Schritt nach vorne",
+    "tooltip": "Karol takes a step forward",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -31,7 +31,7 @@
       }
     ],
     "colour": 260,
-    "tooltip": "Karol dreht sich um 90° nach links",
+    "tooltip": "Karol turns 90° to the left",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -50,7 +50,7 @@
       }
     ],
     "colour": 260,
-    "tooltip": "Karol dreht sich um 90° nach rechts",
+    "tooltip": "Karol turns 90° to the right",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -69,7 +69,7 @@
       }
     ],
     "colour": 260,
-    "tooltip": "Karol legt vor sich {anzahl} Ziegel",
+    "tooltip": "Karol sets down {number} of bricks in front of her",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -88,7 +88,7 @@
       }
     ],
     "colour": 260,
-    "tooltip": "Karol hebt {anzahl} Ziegel vor sich auf",
+    "tooltip": "Karol picks up {number} of bricks in front of her",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -100,14 +100,14 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 260,
-    "tooltip": "Karol setzt unter sich eine Marke",
+    "tooltip": "Karol marks the field she is standing on",
     "helpUrl": ""
   },
   {
     "type": "deletemarker",
     "message0": "unmark field",
     "colour": 260,
-    "tooltip": "Karol löscht Marke unter sich",
+    "tooltip": "Karol unmarks the field she is standing on",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -116,7 +116,7 @@
     "type": "stop",
     "message0": "end",
     "colour": 260,
-    "tooltip": "Karol beendet an dieser Stelle die Ausführung des Programms",
+    "tooltip": "Karol ends the execution of the program",
     "helpUrl": "",
     "previousStatement": null
   },
@@ -141,7 +141,7 @@
     ],
     "inputsInline": true,
     "colour": 120,
-    "tooltip": "Wiederholung mit fester Anzahl",
+    "tooltip": "Repetition with fixed number",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -163,7 +163,7 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 120,
-    "tooltip": "Wiederholung mit Bedingung",
+    "tooltip": "Repetition with condition",
     "helpUrl": ""
   },
   {
@@ -182,7 +182,7 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 120,
-    "tooltip": "Wiederholung bis zum Programmabbruch",
+    "tooltip": "Repeat until program termination",
     "helpUrl": ""
   },
   {
@@ -205,7 +205,7 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 120,
-    "tooltip": "Einseitig bedingte Anweisung",
+    "tooltip": "One-sided conditional instruction",
     "helpUrl": ""
   },
   {
@@ -235,7 +235,7 @@
     "previousStatement": null,
     "nextStatement": null,
     "colour": 120,
-    "tooltip": "Zweiseitig bedingte Anweisung",
+    "tooltip": "Two-sided conditional instruction",
     "helpUrl": ""
   },
   {
@@ -243,7 +243,7 @@
     "message0": "is wall",
     "output": null,
     "colour": 210,
-    "tooltip": "Karol testet, ob vor ihr eine Wand (oder ein Quader) ist",
+    "tooltip": "Karol tests whether there is a wall (or a block) in front of her",
     "helpUrl": ""
   },
   {
@@ -251,7 +251,7 @@
     "message0": "not is wall",
     "output": null,
     "colour": 210,
-    "tooltip": "Wenn IstWand nicht zutrifft",
+    "tooltip": "If is wall does not apply",
     "helpUrl": ""
   },
   {
@@ -259,7 +259,7 @@
     "message0": "is brick",
     "output": null,
     "colour": 210,
-    "tooltip": "Karol testet, ob vor ihr Ziegel liegen",
+    "tooltip": "Karol tests whether there are bricks in front of her",
     "helpUrl": ""
   },
   {
@@ -277,7 +277,7 @@
     ],
     "output": null,
     "colour": 210,
-    "tooltip": "Karol testet, ob vor ihr genau {anzahl} Ziegel liegen",
+    "tooltip": "Karol tests whether there are exactly {number} of bricks in front of her",
     "helpUrl": ""
   },
   {
@@ -285,7 +285,7 @@
     "message0": "not is brick",
     "output": null,
     "colour": 210,
-    "tooltip": "Wenn IstZiegel nicht zutrifft",
+    "tooltip": "If is brick does not apply",
     "helpUrl": ""
   },
   {
@@ -303,7 +303,7 @@
     ],
     "output": null,
     "colour": 210,
-    "tooltip": "Wenn IstZiegel(anzahl) nicht zutrifft",
+    "tooltip": "If is brick(number) does not apply",
     "helpUrl": ""
   },
   {
@@ -311,7 +311,7 @@
     "message0": "is marked",
     "output": null,
     "colour": 210,
-    "tooltip": "Karol testet, ob sie auf einer Marke steht",
+    "tooltip": "Karol tests whether she stands on a mark",
     "helpUrl": ""
   },
   {
@@ -319,7 +319,7 @@
     "message0": "not is marked",
     "output": null,
     "colour": 210,
-    "tooltip": "Wenn IstMarke nicht zutrifft",
+    "tooltip": "If is mark does not apply",
     "helpUrl": ""
   },
   {
@@ -327,7 +327,7 @@
     "message0": "is %1",
     "output": null,
     "colour": 210,
-    "tooltip": "Karol testet, ob sie in diese Richtung schaut",
+    "tooltip": "Karol tests whether she is looking in this direction",
     "helpUrl": "",
     "args0": [
       {
@@ -347,7 +347,7 @@
     "message0": "not is %1",
     "output": null,
     "colour": 210,
-    "tooltip": "Wenn Karol nicht in diese Richtung schaut",
+    "tooltip": "If Karol does not look in this direction",
     "helpUrl": "",
     "args0": [
       {
@@ -373,7 +373,7 @@
       }
     ],
     "colour": 48,
-    "tooltip": "Nutze Kommentare, um den Code zu gliedern und die Struktur zu erklären",
+    "tooltip": "Use comments to organize the code and explain the structure",
     "helpUrl": "",
     "previousStatement": null,
     "nextStatement": null
@@ -382,7 +382,7 @@
     "type": "custom_command",
     "message0": "%1",
     "colour": 354,
-    "tooltip": "Führe eine eigene Anweisung aus",
+    "tooltip": "Call your own commands",
     "helpUrl": "",
     "args0": [
       {
@@ -413,7 +413,7 @@
     ],
     "inputsInline": true,
     "colour": 354,
-    "tooltip": "Definiere eine eigene Anweisung",
+    "tooltip": "Define your own commands",
     "helpUrl": ""
   }
 ]
