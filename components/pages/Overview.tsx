@@ -37,7 +37,6 @@ import {
   loadFromJSON,
   resetStorage,
   saveToJSON,
-  setAppearance,
   setLngStorage,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
@@ -112,7 +111,7 @@ export function Overview() {
                 }
               }}
             >
-              Profil
+              {core.strings.overview.profile}
             </button>
             <button
               className="mr-7 hover:underline"
@@ -131,7 +130,7 @@ export function Overview() {
               }}
             >
               <FaIcon icon={faPenToSquare} className="mr-1 text-sm" />
-              Aufgaben-Editor
+              {core.strings.overview.editor}
             </button>
             <button
               className="mr-7 hover:underline"
@@ -140,7 +139,7 @@ export function Overview() {
                 saveToJSON()
               }}
             >
-              Speichern
+              {core.strings.overview.save}
             </button>
             <button
               className="mr-7 hover:underline"
@@ -157,7 +156,7 @@ export function Overview() {
                 forceRerender(core)
               }}
             >
-              Laden
+              {core.strings.overview.load}
             </button>
           </div>
           {core.ws.page == 'analyze' && (
