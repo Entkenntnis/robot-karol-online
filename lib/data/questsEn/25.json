@@ -1,10 +1,10 @@
 {
   "version": "v1",
   "title": "Sprint",
-  "description": "Laufe zur Marke und lösche sie. Nutze den Sensor `NichtIstMarke` mit der Kontrollstruktur `wiederhole solange`.",
+  "description": "Run to the mark and delete it. Use the sensor `not is mark` with the control structure `repeat while`.",
   "tasks": [
     {
-      "title": "Kurz",
+      "title": "Short",
       "start": {
         "dimX": 6,
         "dimY": 1,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Mittel",
+      "title": "Medium",
       "start": {
         "dimX": 11,
         "dimY": 1,
@@ -118,7 +118,7 @@
       }
     },
     {
-      "title": "Lang",
+      "title": "Long",
       "start": {
         "dimX": 31,
         "dimY": 1,

@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Bedingte Anweisung",
-  "description": "Du findest unter https://app.lumi.education/run/JQ4DWi eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
+  "title": "Conditional Statement",
+  "description": "You can find a step-by-step guide for this task at https://app.lumi.education/run/JQ4DWi.",
   "tasks": [
     {
-      "title": "Steht auf Marke ➔ lege Ziegel vor sich",
+      "title": "Marked ➔ Place Brick in Front",
       "start": {
         "dimX": 5,
         "dimY": 3,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Steht nicht auf Marke ➔ setze Marke",
+      "title": "Unmark ➔ Mark field",
       "start": {
         "dimX": 5,
         "dimY": 3,

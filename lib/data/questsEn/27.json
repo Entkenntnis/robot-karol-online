@@ -1,9 +1,9 @@
 {
-  "title": "Solange NichtIstWand",
+  "title": "while not is wall",
   "description": "",
   "tasks": [
     {
-      "title": "Über den Berg",
+      "title": "Over the Hill",
       "start": {
         "dimX": 8,
         "dimY": 3,
@@ -48,7 +48,7 @@
       }
     },
     {
-      "title": "Lücke schließen",
+      "title": "Close the Gap",
       "start": {
         "dimX": 5,
         "dimY": 5,

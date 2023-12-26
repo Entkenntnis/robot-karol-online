@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Laufsteg",
+  "title": "Catwalk",
   "description": "",
   "tasks": [
     {
-      "title": "Laufsteg",
+      "title": "Catwalk",
       "start": {
         "dimX": 5,
         "dimY": 3,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Kreuzung",
+      "title": "Intersection",
       "start": {
         "dimX": 7,
         "dimY": 7,
@@ -130,7 +130,7 @@
       }
     },
     {
-      "title": "Balancieren",
+      "title": "Balance",
       "start": {
         "dimX": 9,
         "dimY": 9,
