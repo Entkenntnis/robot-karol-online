@@ -1,7 +1,7 @@
 {
   "version": "v1",
-  "title": "Aufräumen",
-  "description": "Laufe von links nach rechts und hebe alle Ziegel auf und lösche alle Marken.",
+  "title": "Remove All",
+  "description": "Move from left to right, pick up all bricks and unmark all fields.",
   "tasks": [
     {
       "title": "Test 1",

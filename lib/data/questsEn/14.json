@@ -1,7 +1,7 @@
 {
   "version": "v1",
-  "title": "Markensuche",
-  "description": "Irgendwo am Rand befindet sich eine Marke. Laufe dorthin und lösche sie.",
+  "title": "Mark Search",
+  "description": "Somewhere at the edge, there is marked field. Move there and unmark it.",
   "tasks": [
     {
       "title": "Test 1",

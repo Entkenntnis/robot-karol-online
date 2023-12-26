@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Balancieren",
-  "description": "Balanciere mit Karol die Ziegelmauer entlang. Lösche die Marke am Ende.",
+  "title": "Balance",
+  "description": "Balance along the brick wall with Karol. Unmark the end.",
   "tasks": [
     {
-      "title": "Gerades Stück",
+      "title": "Straight Segment",
       "start": {
         "dimX": 6,
         "dimY": 4,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Linkskurve",
+      "title": "Left Turn",
       "start": {
         "dimX": 5,
         "dimY": 5,
@@ -126,7 +126,7 @@
       }
     },
     {
-      "title": "Rechtskurve",
+      "title": "Right Turn",
       "start": {
         "dimX": 5,
         "dimY": 5,
@@ -191,7 +191,7 @@
       }
     },
     {
-      "title": "Finale",
+      "title": "Final",
       "start": {
         "dimX": 15,
         "dimY": 9,

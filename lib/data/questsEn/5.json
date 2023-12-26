@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Putzen",
-  "description": "Entferne alle Marken.",
+  "title": "Cleaning",
+  "description": "Remove all marks.",
   "tasks": [
     {
-      "title": "Beispiel 1",
+      "title": "Example 1",
       "start": {
         "dimX": 9,
         "dimY": 3,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Beispiel 2",
+      "title": "Example 2",
       "start": {
         "dimX": 9,
         "dimY": 3,
@@ -118,7 +118,7 @@
       }
     },
     {
-      "title": "Beispiel 3",
+      "title": "Example 3",
       "start": {
         "dimX": 3,
         "dimY": 9,

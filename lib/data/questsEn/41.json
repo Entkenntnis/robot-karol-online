@@ -1,7 +1,7 @@
 {
   "version": "v1",
-  "title": "Cleaning Up",
-  "description": "Karol is not allowed to play computer games until she has cleaned her room. Help her.\n\nWhen Karol is directly on a marked field, she can remove the mark with the command `unmark field`.",
+  "title": "Tidying Up",
+  "description": "Karol is not allowed to play computer games until she has tidied up her room. Help her.\n\nWhen Karol is directly on a marked field, she can remove the mark with the command `unmark field`.",
   "tasks": [
     {
       "title": "Remove the Mark",
