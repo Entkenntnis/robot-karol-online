@@ -4,7 +4,7 @@ import { Heading, World } from '../state/types'
 import { addMessage } from './messages'
 import { endExecution } from './vm'
 
-const readOnlyMessage = 'Deine Aufgabe ist abgeschlossen.'
+const readOnlyMessage = '---'
 
 export function forward(core: Core, opts?: { reverse: boolean }) {
   const { world } = core.ws

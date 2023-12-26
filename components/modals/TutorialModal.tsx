@@ -26,7 +26,7 @@ export function TutorialModal() {
         </button>
         <div>
           <p className="font-bold text-xl mt-6 mb-8 text-center">Tutorial</p>
-          {page == 0 && (
+          {page == 0 && core.ws.settings.lng == 'de' && (
             <div className="h-[350px]">
               <p className="ml-6 text-lg">
                 Baue mit Karol die Welt wie gezeigt.
@@ -43,7 +43,7 @@ export function TutorialModal() {
               </p>
             </div>
           )}
-          {page == 1 && (
+          {page == 1 && core.ws.settings.lng == 'de' && (
             <div className="h-[450px] flex justify-between">
               <p className="text-lg mx-4 mt-4">
                 <strong>Ziehe Befehle</strong> aus dem Block-Menü auf die
@@ -61,20 +61,40 @@ export function TutorialModal() {
               />
             </div>
           )}
-          {page == 2 && (
+          {page == 0 && core.ws.settings.lng == 'en' && (
             <div className="h-[350px]">
-              <p className="text-lg mx-4 mt-4">
-                Löse die erste Aufgabe mit diesen Befehlen.
+              <p className="ml-6 text-lg">
+                Build the world with Karol as shown.
               </p>
-              <p className="text-lg mx-4 mt-4">
-                <strong>Schritt</strong>: Karol geht einen Schritt nach vorne
-              </p>
-              <p className="text-lg mx-4 mt-4">
-                <strong>Hinlegen</strong>: Karol legt auf das Feld vor sich
-                einen Ziegel.
+              <img
+                src="/tutorial/step1.png"
+                alt="Karol takes two steps and places a brick"
+                className="my-10"
+              />
+              <p className="ml-6 text-lg">
+                With <strong>step</strong>, Karol moves one field forward. With{' '}
+                <strong>set down</strong>, Karol places a brick on the field in
+                front.
               </p>
             </div>
           )}
+          {page == 1 && core.ws.settings.lng == 'en' && (
+            <div className="h-[450px] flex justify-between">
+              <p className="text-lg mx-4 mt-4">
+                <strong>Drag commands</strong> from the block menu onto the
+                workspace and <strong>connect</strong> them to form a program.
+                <br />
+                <br />
+                Click Start. The commands will be executed from top to bottom.
+              </p>
+              <img
+                src="/tutorial/first_steps.gif"
+                alt="Drag commands from the menu to the workspace and run the program"
+                className="mr-4 mb-6"
+              />
+            </div>
+          )}
+
           <div className="mx-8 flex justify-between items-baseline">
             <button
               className={clsx(
@@ -85,7 +105,7 @@ export function TutorialModal() {
                 setPage((val) => val - 1)
               }}
             >
-              zurück
+              ---
             </button>
             <button
               className="px-2 py-0.5 rounded bg-blue-200 hover:bg-blue-300"
@@ -97,7 +117,7 @@ export function TutorialModal() {
                 }
               }}
             >
-              {page == 1 ? 'Fertig' : 'Weiter'}
+              {page == 1 ? core.strings.ide.done : core.strings.ide.continue}
             </button>
           </div>
         </div>

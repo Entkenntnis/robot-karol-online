@@ -77,7 +77,7 @@ export function Output() {
               className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2 hover:bg-gray-300"
             >
               <FaIcon icon={faTrashCan} className="mr-1" />
-              Ausgabe leeren
+              {core.strings.ide.clear}
             </button>
           )}
       </div>

@@ -48,7 +48,7 @@ export function ControlBar() {
             )}
           >
             <FaIcon icon={faCircleCheck} className="mr-1" />
-            Aufgabe abschließen
+            ---
           </button>
         </p>
       </div>
@@ -85,7 +85,7 @@ export function ControlBar() {
                   }}
                   className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
                 >
-                  weiter (alle Aufträge testen)
+                  {core.strings.ide.continueAll}
                 </button>
               )}
             </>
@@ -125,7 +125,7 @@ export function ControlBar() {
                     icon={core.ws.ui.isEndOfRun ? faRotateRight : faPlay}
                     className="mr-1"
                   />
-                  Ausführen
+                  ---
                 </button>
               </>
             )}
@@ -137,7 +137,7 @@ export function ControlBar() {
               className="px-2 py-0.5 rounded bg-amber-400 ml-3 mt-2 invisible"
             >
               <FaIcon icon={faStop} className="mr-1" />
-              Abbrechen
+              ---
             </button>
           )}
         </p>
@@ -150,7 +150,7 @@ export function ControlBar() {
         )
           .toFixed(1)
           .replace('.', ',')}{' '}
-        Schritte/s
+        {core.strings.ide.steps}
         <input
           type="range"
           value={core.ws.ui.speedSliderValue}
@@ -171,19 +171,19 @@ export function ControlBar() {
     if (state == 'error') {
       return (
         <>
-          <FaIcon icon={faExclamationTriangle} className="mr-1" /> Programm
-          unvollständig
+          <FaIcon icon={faExclamationTriangle} className="mr-1" />{' '}
+          {core.strings.ide.programError}
         </>
       )
     }
     if (state == 'loading' && !core.ws.ui.isEndOfRun) {
-      return <span className="text-gray-400">Programm wird eingelesen ...</span>
+      return <span className="text-gray-400">{core.strings.ide.loading}</span>
     }
     if (state == 'running') {
       return (
         <>
-          <FaIcon icon={faPersonWalking} className="mr-1" /> Programm wird
-          ausgeführt
+          <FaIcon icon={faPersonWalking} className="mr-1" />{' '}
+          {core.strings.ide.running}
         </>
       )
     } else {
@@ -191,10 +191,8 @@ export function ControlBar() {
         return (
           <span className="text-red-600">
             {' '}
-            <FaIcon
-              icon={faExclamationTriangle}
-              className="mr-1"
-            /> Fehler: {core.ws.ui.karolCrashMessage}
+            <FaIcon icon={faExclamationTriangle} className="mr-1" />{' '}
+            {core.strings.ide.error}: {core.ws.ui.karolCrashMessage}
           </span>
         )
       }
@@ -202,8 +200,9 @@ export function ControlBar() {
         if (core.ws.page == 'imported') {
           return (
             <>
-              <FaIcon icon={faGenderless} className="mr-1" /> Ausführung beendet
-              {core.ws.ui.isManualAbort ? ' (abgebrochen)' : ''}
+              <FaIcon icon={faGenderless} className="mr-1" />{' '}
+              {core.strings.ide.endOfRun}
+              {core.ws.ui.isManualAbort ? ` (${core.strings.ide.aborted})` : ''}
             </>
           )
         }
@@ -211,7 +210,7 @@ export function ControlBar() {
           return (
             <>
               <FaIcon icon={faGenderless} className="mr-1" />
-              abgebrochen
+              {core.strings.ide.aborted}
             </>
           )
         }
@@ -234,7 +233,7 @@ export function ControlBar() {
       }
       return (
         <>
-          <FaIcon icon={faThumbsUp} className="mr-2" /> bereit{' '}
+          <FaIcon icon={faThumbsUp} className="mr-2" /> {core.strings.ide.ready}
         </>
       )
     }

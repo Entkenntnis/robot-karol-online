@@ -113,7 +113,7 @@ export function Tasks() {
                               icon={faVolumeHigh}
                               className="mr-2 text-sm ml-1 animate-pulse"
                             />
-                            Stopp
+                            ---
                           </>
                         ) : (
                           <>
@@ -121,14 +121,15 @@ export function Tasks() {
                               icon={faVolumeHigh}
                               className="mr-2 text-sm ml-1"
                             />
-                            Vorlesen
+                            ---
                           </>
                         )}
                       </button>
                     )}
                     {core.ws.ui.isAlreadyCompleted && (
                       <span className="text-base font-normal text-green-600 ml-4">
-                        <FaIcon icon={faCheck} /> abgeschlossen
+                        <FaIcon icon={faCheck} />{' '}
+                        {core.strings.ide.taskCompleted}
                       </span>
                     )}
                   </h1>
