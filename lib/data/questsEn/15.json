@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Ausgang",
-  "description": "Folge der Wand und verlasse den Raum. Lege eine Marke, sobald du die Wand berührst.",
+  "title": "Exit",
+  "description": "Follow the bricks and exit the room. Mark the field as soon as you touch the wall.",
   "tasks": [
     {
-      "title": "Mini-Raum",
+      "title": "Mini Room",
       "start": {
         "dimX": 6,
         "dimY": 5,
@@ -69,7 +69,7 @@
       }
     },
     {
-      "title": "Rechteckiger Raum",
+      "title": "Rectangular Room",
       "start": {
         "dimX": 8,
         "dimY": 7,
@@ -138,7 +138,7 @@
       }
     },
     {
-      "title": "Raum mit Einbuchtung",
+      "title": "Room with Niche",
       "start": {
         "dimX": 13,
         "dimY": 8,

@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Zusatzaufgabe",
-  "description": "Quelle: #UJRX",
+  "title": "Additional Task",
+  "description": "Source: #UJRX",
   "tasks": [
     {
-      "title": "Welt 1",
+      "title": "World 1",
       "start": {
         "dimX": 6,
         "dimY": 4,
@@ -66,7 +66,7 @@
       }
     },
     {
-      "title": "Welt 2",
+      "title": "World 2",
       "start": {
         "dimX": 6,
         "dimY": 4,
@@ -126,7 +126,7 @@
       }
     },
     {
-      "title": "Welt 3",
+      "title": "World 3",
       "start": {
         "dimX": 10,
         "dimY": 10,
@@ -397,7 +397,7 @@
       }
     },
     {
-      "title": "Welt 4",
+      "title": "World 4",
       "start": {
         "dimX": 10,
         "dimY": 10,

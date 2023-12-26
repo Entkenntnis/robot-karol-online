@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Dynamische Treppe",
-  "description": "Baue eine Treppe bis zur Marke.",
+  "title": "Dynamic Stairs",
+  "description": "Build stairs up to the mark.",
   "tasks": [
     {
-      "title": "Höhe 2",
+      "title": "Height 2",
       "start": {
         "dimX": 6,
         "dimY": 3,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Höhe 3",
+      "title": "Height 3",
       "start": {
         "dimX": 6,
         "dimY": 3,
@@ -118,7 +118,7 @@
       }
     },
     {
-      "title": "Höhe 4",
+      "title": "Height 4",
       "start": {
         "dimX": 6,
         "dimY": 3,

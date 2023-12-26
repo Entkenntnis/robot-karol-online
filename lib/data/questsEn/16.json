@@ -1,7 +1,7 @@
 {
   "version": "v1",
-  "title": "Taschenrechner (+Anleitung)",
-  "description": "Besuche https://de.serlo.org/264563 für eine ausführliche Anleitung.",
+  "title": "Calculator (+instructions)",
+  "description": "Visit https://de.serlo.org/264563 for detailed instructions.",
   "tasks": [
     {
       "title": "2 + 4 = 6",
@@ -597,7 +597,7 @@
       }
     },
     {
-      "title": "Test Subtraktion 1",
+      "title": "Test Subtraction 1",
       "start": {
         "dimX": 15,
         "dimY": 10,
@@ -672,7 +672,7 @@
       }
     },
     {
-      "title": "Test Subtraktion 2",
+      "title": "Test Subtraction 2",
       "start": {
         "dimX": 15,
         "dimY": 10,
@@ -757,7 +757,7 @@
       }
     },
     {
-      "title": "Test Subtraktion 3",
+      "title": "Test Subtraction 3",
       "start": {
         "dimX": 15,
         "dimY": 30,
@@ -882,7 +882,7 @@
       }
     },
     {
-      "title": "Test Multiplikation 1",
+      "title": "Test Multiplication 1",
       "start": {
         "dimX": 15,
         "dimY": 10,
@@ -961,7 +961,7 @@
       }
     },
     {
-      "title": "Test Multiplikation 2",
+      "title": "Test Multiplication 2",
       "start": {
         "dimX": 15,
         "dimY": 10,
@@ -1042,7 +1042,7 @@
       }
     },
     {
-      "title": "Test Multiplikation 3",
+      "title": "Test Multiplication 3",
       "start": {
         "dimX": 15,
         "dimY": 26,
