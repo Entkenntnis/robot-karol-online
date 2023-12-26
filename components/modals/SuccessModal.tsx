@@ -1,16 +1,10 @@
-import { faCircleCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
-import { setUserName } from '../../lib/commands/mode'
-import { switchToPage } from '../../lib/commands/page'
-import { closeOutput, finishQuest } from '../../lib/commands/quest'
+import { finishQuest } from '../../lib/commands/quest'
 import { useCore } from '../../lib/state/core'
-import { FaIcon } from '../helper/FaIcon'
 import confetti from 'canvas-confetti'
 import { positiveText } from '../../lib/helper/positiveText'
-import { Rating } from 'react-simple-star-rating'
-import { submit_event } from '../../lib/helper/submit'
 
 var count = 200
 var defaults = {
@@ -146,7 +140,7 @@ export function SuccessModal() {
                   closeModal(core)
                 }}
               >
-                bleiben
+                {core.strings.ide.stay}
               </button>
             )}
             <button
@@ -159,7 +153,7 @@ export function SuccessModal() {
                 'bg-green-200 text-lg'
               )}
             >
-              weiter
+              {core.strings.ide.exit}
             </button>
           </div>
         </div>

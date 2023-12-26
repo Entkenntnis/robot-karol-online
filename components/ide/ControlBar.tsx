@@ -224,7 +224,7 @@ export function ControlBar() {
               icon={core.ws.quest.progress ? faCheck : faTimes}
               className="mr-1"
             />{' '}
-            {core.strings.ide.assignments}{' '}
+            {core.strings.ide.assignment}{' '}
             {core.ws.quest.progress ? '' : core.strings.ide.not}{' '}
             {core.strings.ide.completed}{' '}
             {core.ws.ui.isManualAbort ? ' (abgebrochen)' : ''}

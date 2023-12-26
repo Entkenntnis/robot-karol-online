@@ -175,9 +175,7 @@ export function BlockEditor() {
         }
         core.mutateWs((ws) => {
           ws.ui.state = 'error'
-          ws.ui.errorMessages = [
-            `Alle Blöcke des Hauptprogramms müssen zusammenhängen.`,
-          ]
+          ws.ui.errorMessages = [core.strings.ide.connectAll]
         })
       } else {
         if (core.ws.ui.state == 'running') {

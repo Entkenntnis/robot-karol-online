@@ -17,6 +17,8 @@ export const enStrings: typeof deStrings = {
     showAll: 'List of all tasks',
     closeShowAll: 'Close list of all tasks',
     game: 'Mini-Game',
+    storeOnDevice: 'Save progress on this device?',
+    later: 'later',
   },
   nameModal: {
     title: 'Welcome!',
@@ -39,7 +41,8 @@ export const enStrings: typeof deStrings = {
     not: 'not',
     completed: 'completed',
     back: 'back',
-    assignments: 'Assignment',
+    assignment: 'Assignment',
+    assignments: 'Assignments',
     continue: 'Continue',
     done: 'Done',
     continueAll: 'continue (test all assignments)',
@@ -54,6 +57,9 @@ export const enStrings: typeof deStrings = {
     taskCompleted: 'completed',
     thereAreErrors: 'The following issues occurred while loading the program:',
     close: 'Close',
+    connectAll: 'Connect all blocks of the main program.',
+    stay: 'stay',
+    exit: 'continue',
   },
   profile: {
     title: 'Profile',
@@ -97,6 +103,18 @@ export const enStrings: typeof deStrings = {
     title: 'Imprint',
     close: 'Close',
   },
+  crash: {
+    invalidMove: 'Karol cannot move in this direction.',
+    invalidHeight: 'Karol cannot overcome this height.',
+    invalidBrick: 'Karol cannot place a brick here.',
+    maxHeight: 'Maximum stack height reached.',
+    invalidPick: 'Karol cannot pick up a brick here.',
+    noBricks: 'No bricks to pick up.',
+    invalidBlock: 'Karol cannot place a block here.',
+    noBlockOnBrick: 'Karol cannot place a block on a brick.',
+    noBlockOnMark: 'Karol cannot place a block on a mark.',
+  },
+
   quest: {
     warn: 'The text mode is not translated yet and only available in German. You can proceed anyways.',
   },

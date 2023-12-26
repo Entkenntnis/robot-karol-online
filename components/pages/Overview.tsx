@@ -807,7 +807,7 @@ export function Overview() {
             core.ws.overview.showSaveHint &&
             core.ws.page != 'analyze' && (
               <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5 z-20">
-                Fortschritt auf diesem Gerät speichern?{' '}
+                {core.strings.overview.storeOnDevice}{' '}
                 <button
                   className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 ml-6 rounded"
                   onClick={() => {
@@ -816,7 +816,7 @@ export function Overview() {
                     forceRerender(core)
                   }}
                 >
-                  Speichern
+                  {core.strings.overview.save}
                 </button>{' '}
                 <button
                   className="text-gray-500 underline ml-6"
@@ -824,7 +824,7 @@ export function Overview() {
                     hideSaveHint(core)
                   }}
                 >
-                  später
+                  {core.strings.overview.later}
                 </button>
               </div>
             )}

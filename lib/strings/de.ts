@@ -17,6 +17,8 @@ export const deStrings = {
     showAll: 'Liste aller Aufgaben',
     closeShowAll: 'Liste aller Aufgaben schließen',
     game: 'Mini-Spiel',
+    storeOnDevice: 'Fortschritt auf diesem Gerät speichern?',
+    later: 'später',
   },
   nameModal: {
     title: 'Herzlich Willkommen!',
@@ -39,6 +41,7 @@ export const deStrings = {
     not: 'nicht',
     completed: 'erfüllt',
     back: 'zurück',
+    assignment: 'Auftrag',
     assignments: 'Aufträge',
     continue: 'Weiter',
     done: 'Fertig',
@@ -55,6 +58,9 @@ export const deStrings = {
     thereAreErrors:
       'Folgende Probleme sind beim Einlesen des Programms aufgetreten',
     close: 'Schließen',
+    connectAll: 'Alle Blöcke des Hauptprogramms müssen zusammenhängen.',
+    stay: 'bleiben',
+    exit: 'weiter',
   },
   profile: {
     title: 'Profil',
@@ -97,6 +103,17 @@ export const deStrings = {
   imprint: {
     title: 'Impressum',
     close: 'Schließen',
+  },
+  crash: {
+    invalidMove: 'Karol kann sich nicht in diese Richtung bewegen.',
+    invalidHeight: 'Karol kann diese Höhe nicht überwinden.',
+    invalidBrick: 'Karol kann hier keinen Ziegel aufstellen.',
+    maxHeight: 'Maximale Stapelhöhe erreicht.',
+    invalidPick: 'Karol kann hier keine Ziegel aufheben.',
+    noBricks: 'Keine Ziegel zum Aufheben',
+    invalidBlock: 'Karol kann hier keinen Quader aufstellen.',
+    noBlockOnBrick: 'Karol kann keinen Quader auf Ziegel stellen.',
+    noBlockOnMark: 'Karol kann keinen Quader auf eine Marke stellen.',
   },
   quest: {
     warn: '',
