@@ -258,7 +258,7 @@ export function IdeMain() {
                   'absolute right-4 top-10 p-2 bg-white z-[300] rounded'
                 )}
               >
-                <p>Lies die Anleitung.</p>
+                <p>{core.strings.ide.read}</p>
                 <p className="text-center mt-2">
                   <button
                     onClick={() => {

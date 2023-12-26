@@ -61,6 +61,7 @@ export const deStrings = {
     connectAll: 'Alle Blöcke des Hauptprogramms müssen zusammenhängen.',
     stay: 'bleiben',
     exit: 'weiter',
+    read: 'Lies die Anleitung',
   },
   profile: {
     title: 'Profil',

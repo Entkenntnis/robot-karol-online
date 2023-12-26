@@ -14,8 +14,8 @@ export const enStrings: typeof deStrings = {
     playground: 'Playground',
     imprint: 'Imprint',
     privacy: 'Privacy Policy',
-    showAll: 'List of all tasks',
-    closeShowAll: 'Close list of all tasks',
+    showAll: 'List of all Tasks',
+    closeShowAll: 'Close List of all Tasks',
     game: 'Mini-Game',
     storeOnDevice: 'Save progress on this device?',
     later: 'later',
@@ -60,6 +60,7 @@ export const enStrings: typeof deStrings = {
     connectAll: 'Connect all blocks of the main program.',
     stay: 'stay',
     exit: 'continue',
+    read: 'Read the instructions',
   },
   profile: {
     title: 'Profile',

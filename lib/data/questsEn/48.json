@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Umweltschutz",
-  "description": "Es ist wunderbar, wie wichtig dir die Umwelt ist. Da möchte Karol gerne mitmachen.\n\nHebe nach der Arbeit die Ziegel von Karol wieder auf. Nutze dafür den Befehl `Aufheben`, um einen Ziegel vor ihr aufzuheben. Ziegel, die durchgestrichen sind, sollen immer aufgehoben werden.",
+  "title": "Environment",
+  "description": "It's wonderful how important the environment is to you. Karol would like to participate in that.\n\nAfter work, pick up Karol's bricks. Use the command `Pick up` to pick up a brick in front of her. Bricks that are crossed out should always be picked up.",
   "tasks": [
     {
-      "title": "Ziegel aufheben",
+      "title": "Pick Up Bricks",
       "start": {
         "dimX": 4,
         "dimY": 1,

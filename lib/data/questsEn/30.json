@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Schau genau",
-  "description": "Deine scharfen Augen sind gefragt. Diesmal ist der Platzhalter für den Ziegel etwas versteckter. Finde die Stelle und lege dort einen Ziegel.\n\nEs müssen keine Ziegel aufgehoben werden. Bewege dich und lege genau einen Ziegel.\n\nDu kannst mehrere Schritte gehen, indem du beim Befehl die %img[Anzahl änderst|/quests/schau_genau.png]%.",
+  "title": "Look Closely",
+  "description": "Your sharp eyes are needed. This time, the placeholder for the brick is a bit more hidden. Find the spot and place a brick there.\n\nNo bricks need to be picked up. Move around and place exactly one brick.\n\nYou can take multiple steps by changing the %img[number of steps|/quests/schau_genau.png]% in the command.",
   "tasks": [
     {
-      "title": "Schau genau",
+      "title": "Look Closely",
       "start": {
         "dimX": 6,
         "dimY": 4,

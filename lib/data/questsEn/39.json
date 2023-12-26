@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Verschieben",
-  "description": "\"Es gibt keine Fehler, nur kleine glückliche Zwischenfälle.\"\n\nDer Ziegel liegt an der falschen Stelle. Verschiebe den Ziegel an die gezeigte Stelle. Nutze die Befehle `Hinlegen` und `Aufheben`, sowie `LinksDrehen` und `RechtsDrehen`.",
+  "title": "Move",
+  "description": "\"There are no mistakes, only small happy accidents.\"\n\nThe brick is in the wrong place. Move the brick to the indicated location. Use the commands `set down`, `pick up`, `turn left`, and `turn right`.",
   "tasks": [
     {
-      "title": "Verschiebe den Ziegel",
+      "title": "Move the Brick",
       "start": {
         "dimX": 5,
         "dimY": 3,

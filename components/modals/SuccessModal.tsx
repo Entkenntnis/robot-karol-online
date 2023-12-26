@@ -4,7 +4,7 @@ import { closeModal } from '../../lib/commands/modal'
 import { finishQuest } from '../../lib/commands/quest'
 import { useCore } from '../../lib/state/core'
 import confetti from 'canvas-confetti'
-import { positiveText } from '../../lib/helper/positiveText'
+import { positiveText, positiveTextEn } from '../../lib/helper/positiveText'
 
 var count = 200
 var defaults = {
@@ -47,7 +47,9 @@ function realisticLook() {
 
 export function SuccessModal() {
   const core = useCore()
-  const [positive] = useState(positiveText())
+  const [positive] = useState(
+    core.ws.settings.lng == 'de' ? positiveText() : positiveTextEn()
+  )
 
   const [hasFeedback, setHasFeedback] = useState(false)
 
