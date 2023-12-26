@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Heimweg",
-  "description": "Finde mit Karol immer in die obere linke Ecke zurück.\n\nHinweis: Nutze `NichtIstNorden`.",
+  "title": "Way Home",
+  "description": "Guide Karol back to the upper left corner. Use `not is north`.",
   "tasks": [
     {
-      "title": "Weg 1",
+      "title": "Path 1",
       "start": {
         "dimX": 5,
         "dimY": 5,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Weg 2",
+      "title": "Path 2",
       "start": {
         "dimX": 7,
         "dimY": 3,
@@ -118,7 +118,7 @@
       }
     },
     {
-      "title": "Welt 3",
+      "title": "Path 3",
       "start": {
         "dimX": 7,
         "dimY": 7,

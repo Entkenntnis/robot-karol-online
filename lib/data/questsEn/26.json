@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Reflektion",
-  "description": "Laufe drei Mal zum Ziegel und drehe dich nach links. Markiere das Ziel.",
+  "title": "Reflection",
+  "description": "Move to the brick three times and turn left. Mark the target.",
   "tasks": [
     {
-      "title": "Welt 1",
+      "title": "World 1",
       "start": {
         "dimX": 6,
         "dimY": 6,
@@ -71,7 +71,7 @@
       }
     },
     {
-      "title": "Welt 2",
+      "title": "World 2",
       "start": {
         "dimX": 9,
         "dimY": 9,
@@ -144,7 +144,7 @@
       }
     },
     {
-      "title": "Welt 3",
+      "title": "World 3",
       "start": {
         "dimX": 4,
         "dimY": 6,
