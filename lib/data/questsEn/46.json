@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Gleichgewicht",
-  "description": "Du kannst Befehle mit ` wenn dann` umschließen. Dadurch werden sie nur ausgeführt, wenn die Sensoren von Karol einen bestimmten Wert liefern. Die Sensoren findest du ganz unten im Block-Menü, wie z.B. `IstZiegel` oder `NichtIstZiegel`.\n\n--> %img[Hinweis|/quests/gleichgewicht.png]% <--",
+  "title": "Balance",
+  "description": "You can enclose commands with `if then`. This way, they will only be executed if Karol's sensors provide a specific value. You can find the sensors at the bottom of the block menu, such as `is brick` or `not is brick`.\n\n--> %img[Note|/quests/gleichgewicht.png]% <--",
   "tasks": [
     {
-      "title": "Gleichgewicht 1",
+      "title": "Balance 1",
       "start": {
         "dimX": 6,
         "dimY": 1,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Gleichgewicht 2",
+      "title": "Balance 2",
       "start": {
         "dimX": 6,
         "dimY": 1,

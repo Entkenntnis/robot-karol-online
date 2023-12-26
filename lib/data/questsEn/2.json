@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Markierung",
-  "description": "Sicherheit geht vor! Auf dieser Straße fehlt die Fahrbahn-Markierung. Lege mit Karol den Mittelstreifen.\n\nHinweis: Der Block `wiederhole 3 mal` hilft dir, dein Programm kürzer zu schreiben.",
+  "title": "Marking",
+  "description": "Safety first! The road is missing lane markings. Use Karol to create the centerline.\n\nNote: The `repeat 3 times` block helps you make your program shorter.",
   "tasks": [
     {
-      "title": "Setze 6 Marken",
+      "title": "Mark 6 fields",
       "start": {
         "dimX": 7,
         "dimY": 5,

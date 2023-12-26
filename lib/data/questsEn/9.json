@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Wellen",
-  "description": "Baue mit Karol an jeder Wand eine Treppe bis zur Höhe 3 hoch und wieder runter.",
+  "title": "Waves",
+  "description": "Build a staircase with Karol on each wall, going up to a height of 3 and then back down.",
   "tasks": [
     {
-      "title": "Welt",
+      "title": "World",
       "start": {
         "dimX": 7,
         "dimY": 7,

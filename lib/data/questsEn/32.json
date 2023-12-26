@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Umbau",
-  "description": "Bewege die Ziegelstapel an die neue Position. Hebe die hinteren Ziegel auf und lege sie an die vordere Wand.\n\nDie durchgestrichenen Ziegel müssen am Ende aufgehoben sein.",
+  "title": "Conversion",
+  "description": "Move the brick stack to the new position. Pick up the rear bricks and place them against the front wall.\n\nThe crossed-out bricks must be picked up at the end.",
   "tasks": [
     {
-      "title": "Umbau",
+      "title": "Conversion",
       "start": {
         "dimX": 5,
         "dimY": 5,
