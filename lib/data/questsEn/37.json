@@ -1,0 +1,212 @@
+{
+  "version": "v1",
+  "title": "Dimensions",
+  "description": "Find a path that leads to the goal in all dimensions. Mark the goal.",
+  "tasks": [
+    {
+      "title": "Dimension 1",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, true],
+            [true, false, false, true, true],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, true, false]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 4, "y": 4, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 4,
+          "data": [[true]]
+        },
+        "blocks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, true],
+            [true, false, false, true, true],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, true, false]
+          ]
+        }
+      }
+    },
+    {
+      "title": "Dimension 2",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 4,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [false, true, false, false],
+            [false, true, false, false],
+            [false, false, false, true],
+            [true, false, false, false]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 4, "y": 4, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 4,
+          "data": [[true]]
+        },
+        "blocks": {
+          "dimX": 4,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [false, true, false, false],
+            [false, true, false, false],
+            [false, false, false, true],
+            [true, false, false, false]
+          ]
+        }
+      }
+    },
+    {
+      "title": "Dimension 3",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 2,
+          "dimY": 5,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [
+            [false, true],
+            [false, false],
+            [true, true],
+            [false, false],
+            [false, true]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 4, "y": 4, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 4,
+          "data": [[true]]
+        },
+        "blocks": {
+          "dimX": 2,
+          "dimY": 5,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [
+            [false, true],
+            [false, false],
+            [true, true],
+            [false, false],
+            [false, true]
+          ]
+        }
+      }
+    }
+  ]
+}

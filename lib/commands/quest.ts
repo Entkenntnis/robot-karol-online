@@ -1,5 +1,6 @@
 import { autoFormat, setEditable } from '../codemirror/basicSetup'
 import { questData } from '../data/quests'
+import { questDataEn } from '../data/questsEn'
 import { submit_event } from '../helper/submit'
 import { submitSolution } from '../helper/submitSolution'
 import { robotKarol2Java } from '../language/robotKarol2Java'
@@ -95,7 +96,7 @@ export function resetOutput(core: Core) {
 }
 
 export function startQuest(core: Core, id: number) {
-  const data = questData[id]
+  const data = core.ws.settings.lng == 'de' ? questData[id] : questDataEn[id]
 
   core.mutateWs((ws) => {
     const { ui, quest } = ws

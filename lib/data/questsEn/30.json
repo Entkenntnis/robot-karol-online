@@ -1,0 +1,74 @@
+{
+  "version": "v1",
+  "title": "Look Closely",
+  "description": "Your sharp eyes are needed. This time, the placeholder for the brick is a bit more hidden. Find the spot and place a brick there.\n\nNo bricks need to be picked up. Move around and place exactly one brick.\n\nYou can take multiple steps by changing the %img[number of steps|/quests/schau_genau.png]% in the command.",
+  "tasks": [
+    {
+      "title": "Look Closely",
+      "start": {
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 6,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [1, 1, 0, 0, 1, 1],
+            [1, 1, 0, 0, 0, 1],
+            [1, 1, 1, 0, 1, 0],
+            [1, 0, 1, 1, 1, 1]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "east" },
+        "bricks": {
+          "dimX": 6,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [1, 1, 0, 0, 1, 1],
+            [1, 1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 0],
+            [1, 0, 1, 1, 1, 1]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

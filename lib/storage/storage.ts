@@ -1,6 +1,8 @@
 // manage session and local storage data
 
+import { setLng } from '../commands/mode'
 import { questList } from '../data/overview'
+import { Core } from '../state/core'
 import { Appearance, QuestSessionData } from '../state/types'
 
 const userIdKey = 'robot_karol_online_tmp_id'
@@ -8,6 +10,7 @@ const userNameKey = 'robot_karol_online_name'
 const questKey = (id: number) => `karol_quest_beta_${id}`
 const persistKey = 'karol_quest_beta_persist'
 const appearanceKey = 'robot_karol_online_appearance'
+const lngKey = 'robot_karol_online_lng'
 
 export function getUserId() {
   if (!sessionStorage.getItem(userIdKey) && !localStorage.getItem(userIdKey)) {
@@ -23,6 +26,21 @@ export function getUserName() {
     sessionStorage.getItem(userNameKey) ??
     ''
   ).trim()
+}
+
+export function getLng() {
+  return (localStorage.getItem(lngKey) ??
+    sessionStorage.getItem(lngKey) ??
+    'de') == 'de'
+    ? 'de'
+    : 'en'
+}
+
+export function setLngStorage(lng: 'de' | 'en') {
+  if (isPersisted()) {
+    localStorage.setItem(lngKey, lng)
+  }
+  sessionStorage.setItem(lngKey, lng)
 }
 
 export function getAppearance() {
@@ -74,12 +92,13 @@ export function setQuestData(data: QuestSessionData) {
   sessionStorage.setItem(questKey(data.id), JSON.stringify(data))
 }
 
-export function saveToJSON() {
+export function saveToJSON(core: Core) {
   let data: Record<string, any> = {
     [userIdKey]: getUserId(),
     [userNameKey]: getUserName(),
     [appearanceKey]: getAppearance(),
     [persistKey]: isPersisted(),
+    [lngKey]: getLng(),
   }
   for (const id of questList) {
     const questData = getQuestData(id)
@@ -91,9 +110,9 @@ export function saveToJSON() {
   const blob = new Blob([JSON.stringify(data)], { type: 'text/json' })
   const link = document.createElement('a')
 
-  link.download = `${new Date()
-    .toISOString()
-    .substring(0, 10)}-robot-karol-spielstand.json`
+  link.download = `${new Date().toISOString().substring(0, 10)}-robot-karol-${
+    core.strings.overview.gameState
+  }.json`
   link.href = window.URL.createObjectURL(blob)
   link.dataset.downloadurl = ['text/json', link.download, link.href].join(':')
 
@@ -125,6 +144,7 @@ export async function loadFromJSON() {
             setQuestData(questData)
           }
         }
+        setLngStorage(data[lngKey])
         res(true)
       }
       rej(false)
@@ -174,6 +194,9 @@ export function copyLocalToSession() {
 
   sessionStorage.setItem(userNameKey, localStorage.getItem(userNameKey) ?? '')
   localStorage.removeItem(userNameKey)
+
+  sessionStorage.setItem(lngKey, localStorage.getItem(lngKey) ?? '')
+  localStorage.removeItem(lngKey)
 
   sessionStorage.setItem(
     appearanceKey,

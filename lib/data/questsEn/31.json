@@ -1,0 +1,84 @@
+{
+  "version": "v1",
+  "title": "Pattern",
+  "description": "You're not lazy; you're just conserving energy for later when you really need it.\n\nYou can shorten your programs by using %img[loops|/quests/muster.png]%. Drag them onto the workspace and insert %img[commands in between|/quests/muster_2.png]%. Adjust the %img[number of repetitions|/quests/muster_3.png]%.\n\nThis way, you can create this pattern without having to write each command individually.",
+  "tasks": [
+    {
+      "title": "Pattern",
+      "start": {
+        "dimX": 17,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 17,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 15,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [[1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]]
+        },
+        "marks": {
+          "dimX": 17,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true
+            ]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

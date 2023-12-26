@@ -20,10 +20,11 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
       return // ignore
     }
     if (core.ws.ui.state == 'error') {
-      alert(
-        'Bitte verbinde alle Blöcke und vervollständige das Programm, bevor du den Modus wechselst.'
-      )
+      showModal(core, 'error')
       return
+    }
+    if (mode == 'code' && core.ws.settings.lng == 'en') {
+      alert(core.strings.quest.warn)
     }
   } else {
     if (
@@ -162,5 +163,11 @@ export function showProfile(core: Core) {
 export function hideProfile(core: Core) {
   core.mutateWs(({ overview }) => {
     overview.showProfile = false
+  })
+}
+
+export function setLng(core: Core, lng: 'de' | 'en') {
+  core.mutateWs(({ settings }) => {
+    settings.lng = lng
   })
 }

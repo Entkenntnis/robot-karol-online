@@ -1,0 +1,68 @@
+{
+  "version": "v1",
+  "title": "Tidying Up",
+  "description": "Karol is not allowed to play computer games until she has tidied up her room. Help her.\n\nWhen Karol is directly on a marked field, she can remove the mark with the command `unmark field`.",
+  "tasks": [
+    {
+      "title": "Remove the Mark",
+      "start": {
+        "dimX": 4,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 4,
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [true, false, true, false],
+            [false, false, false, false],
+            [false, false, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 4,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

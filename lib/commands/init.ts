@@ -6,9 +6,10 @@ import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
-import { getAppearance } from '../storage/storage'
+import { getAppearance, getLng } from '../storage/storage'
 import { isSetName } from '../helper/events'
 import { mapData } from '../data/map'
+import { setLng } from './mode'
 
 export async function initClient(core: Core) {
   const parameterList = new URLSearchParams(window.location.search)
@@ -27,6 +28,8 @@ export async function initClient(core: Core) {
       ws.appearance = appearance
     })
   }
+
+  setLng(core, getLng())
 
   const hash = window.location.hash.toUpperCase()
 
@@ -123,6 +126,10 @@ export async function initClient(core: Core) {
             }
             if (entry.event == 'play_snake') {
               ws.analyze.playSnake++
+              continue
+            }
+            if (entry.event == 'lng_en') {
+              ws.analyze.lngEn++
               continue
             }
             const publish = /publish_custom_quest_(.+)/.exec(entry.event)

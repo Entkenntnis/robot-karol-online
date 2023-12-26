@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import TimeAgo from 'timeago-react'
 import de from 'timeago.js/lib/lang/de'
+import en from 'timeago.js/lib/lang/en_US'
 import * as timeago from 'timeago.js'
 
 import { backend } from '../../backend'
@@ -11,12 +12,23 @@ import { switchToPage } from '../../lib/commands/page'
 import { questList } from '../../lib/data/overview'
 
 timeago.register('de', function (number, index, total_sec) {
+  console.log('timeago de')
   // Convert weeks to days.
   if ([8, 9].includes(index) && total_sec) {
     const days = Math.round(total_sec / (60 * 60 * 24))
     return ['vor ' + days + ' Tagen', '...']
   }
   return de(number, index)
+})
+
+timeago.register('en', function (number, index, total_sec) {
+  console.log('timeago en')
+  // Convert weeks to days.
+  if ([8, 9].includes(index) && total_sec) {
+    const days = Math.round(total_sec / (60 * 60 * 24))
+    return [days + ' days ago', '...']
+  }
+  return en(number, index)
 })
 
 export function Highscore() {
@@ -109,14 +121,14 @@ export function Highscore() {
             switchToPage(core, 'overview')
           }}
         >
-          Schließen
+          {core.strings.highscore.close}
         </button>
       </div>
       <div className="mt-12 mb-12">
         <div className="w-[700px] mx-auto">
           <h1 className="mb-4 text-3xl">Highscore</h1>
           {data.length == 0 ? (
-            <p>Daten werden geladen ...</p>
+            <p>{core.strings.highscore.loading}</p>
           ) : (
             <>
               <p
@@ -125,7 +137,7 @@ export function Highscore() {
                   mode == 'count' && 'invisible'
                 )}
               >
-                {data.length} Spieler*innen in den letzten 28 Tagen
+                {data.length} {core.strings.highscore.currentPlayers}
               </p>
               <p className="text-right my-4">
                 {mode == 'count' && (
@@ -136,7 +148,7 @@ export function Highscore() {
                       sortData('active')
                     }}
                   >
-                    sortieren nach letzter Aktivität
+                    {core.strings.highscore.sortByActivity}
                   </button>
                 )}
                 {mode == 'active' && (
@@ -147,17 +159,17 @@ export function Highscore() {
                       sortData('count')
                     }}
                   >
-                    sortieren nach gelösten Aufgaben
+                    {core.strings.highscore.sortBySolved}
                   </button>
                 )}
               </p>
               <table className="table-auto w-full mt-8">
                 <thead>
                   <tr>
-                    {mode == 'count' && <th>Platz</th>}
-                    <th>Name</th>
-                    <th>gelöste Aufgaben</th>
-                    <th>zuletzt aktiv</th>
+                    {mode == 'count' && <th>{core.strings.highscore.rank}</th>}
+                    <th>{core.strings.highscore.name}</th>
+                    <th>{core.strings.highscore.solved}</th>
+                    <th>{core.strings.highscore.lastActive}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -184,9 +196,11 @@ export function Highscore() {
                         )}
                         <td className="text-center p-2">
                           <span
-                            title={`beigetreten ${timeago.format(
+                            title={`${
+                              core.strings.highscore.joined
+                            } ${timeago.format(
                               new Date(entry.firstActive),
-                              'de'
+                              core.ws.settings.lng
                             )}`}
                           >
                             {entry.name ? entry.name : '---'}
@@ -199,7 +213,7 @@ export function Highscore() {
                           <TimeAgo
                             datetime={entry.lastActive}
                             live={false}
-                            locale="de"
+                            locale="en"
                           />
                         </td>
                       </tr>

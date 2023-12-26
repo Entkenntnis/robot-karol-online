@@ -1,0 +1,70 @@
+{
+  "version": "v1",
+  "title": "Castle",
+  "description": "Awaken the child in you and start your big castle-building project.\n\nBuild the castle shown with Karol - here's a %img[preview|/quests/burg_2.png]%.",
+  "tasks": [
+    {
+      "title": "Castle with Battlements",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [2, 1, 2, 1, 2],
+            [1, 0, 0, 0, 1],
+            [2, 0, 0, 0, 2],
+            [1, 0, 0, 0, 1],
+            [2, 1, 2, 1, 2]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

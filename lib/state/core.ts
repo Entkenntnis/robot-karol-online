@@ -13,6 +13,8 @@ import { EditorView } from '@codemirror/view'
 
 import { CoreRefs, CoreState, WorkspaceState, World } from './types'
 import { createDefaultCoreState } from './create'
+import { deStrings } from '../strings/de'
+import { enStrings } from '../strings/en'
 
 // set up core within app
 export function useCreateCore() {
@@ -64,6 +66,10 @@ export class Core {
 
   get ws() {
     return this.state.workspace
+  }
+
+  get strings() {
+    return this.state.workspace.settings.lng == 'de' ? deStrings : enStrings
   }
 
   // always mutate core state with this function

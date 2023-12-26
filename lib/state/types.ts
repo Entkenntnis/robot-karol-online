@@ -71,6 +71,7 @@ export interface Vm {
 export interface Settings {
   mode: 'code' | 'blocks'
   language: 'robot karol' | 'java' | 'python'
+  lng: 'de' | 'en'
 }
 
 export interface Editor {
@@ -175,6 +176,7 @@ export interface Analyze {
   useJava: number
   usePython: number
   playSnake: number
+  lngEn: number
   customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
   appearance: { [key: string]: { count: number } }
@@ -323,6 +325,7 @@ export interface QuestSerialFormat {
   title: string
   description: string
   tasks: { title: string; start: SerialWorld; target: SerialWorld }[]
+  lng?: 'de' | 'en'
 }
 
 export interface SerialWorld {
@@ -350,5 +353,6 @@ export interface Compressed2D<T> {
 export interface AppearanceData {
   type: 'cap' | 'skin' | 'shirt' | 'legs'
   title: string
+  titleEn: string
   position: number
 }

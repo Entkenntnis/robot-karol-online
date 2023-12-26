@@ -2,6 +2,7 @@ import Blockly, { WorkspaceSvg } from 'blockly'
 import { useRef, useState, useEffect } from 'react'
 import { Text } from '@codemirror/state'
 import De from 'blockly/msg/de'
+import En from 'blockly/msg/en'
 
 import '../../lib/blockly/FieldNumberSlider'
 import { codeToXml } from '../../lib/blockly/codeToXml'
@@ -11,9 +12,7 @@ import { parser } from '../../lib/codemirror/parser/parser'
 import { abort, patch } from '../../lib/commands/vm'
 import { compile } from '../../lib/language/compiler'
 import { useCore } from '../../lib/state/core'
-
-initCustomBlocks()
-Blockly.setLocale(De)
+import { initCustomBlocksEn } from '../../lib/blockly/customBlocksEn'
 
 export function BlockEditor() {
   const editorDiv = useRef<HTMLDivElement>(null)
@@ -21,6 +20,12 @@ export function BlockEditor() {
   const blocklyWorkspaceSvg = useRef<WorkspaceSvg | null>(null)
   const core = useCore()
   const code = useRef('')
+  Blockly.setLocale(core.ws.settings.lng == 'de' ? De : En)
+  if (core.ws.settings.lng == 'de') {
+    initCustomBlocks()
+  } else {
+    initCustomBlocksEn()
+  }
 
   // console.log('render component')
 
@@ -170,9 +175,7 @@ export function BlockEditor() {
         }
         core.mutateWs((ws) => {
           ws.ui.state = 'error'
-          ws.ui.errorMessages = [
-            `Alle Blöcke des Hauptprogramms müssen zusammenhängen.`,
-          ]
+          ws.ui.errorMessages = [core.strings.ide.connectAll]
         })
       } else {
         if (core.ws.ui.state == 'running') {

@@ -7,6 +7,7 @@ import {
   faPlay,
   faPuzzlePiece,
   faStop,
+  faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
@@ -120,7 +121,8 @@ export function IdeMain() {
                     window.URL.revokeObjectURL(url)
                   }}
                 >
-                  <FaIcon icon={faDownload} /> Speichern
+                  <FaIcon icon={faDownload} className="mr-1" />{' '}
+                  {core.strings.ide.save}
                 </button>
               </div>
               <button
@@ -147,7 +149,7 @@ export function IdeMain() {
                 }}
               >
                 <FaIcon icon={faPuzzlePiece} className="mr-3" />
-                Blöcke
+                {core.strings.ide.blocks}
               </button>
               <button
                 className={clsx(
@@ -240,7 +242,9 @@ export function IdeMain() {
                       className="mr-1"
                     />
                     <span className="text-xl">
-                      {core.ws.ui.state == 'running' ? 'Stopp' : 'Start'}
+                      {core.ws.ui.state == 'running'
+                        ? core.strings.ide.stop
+                        : core.strings.ide.start}
                     </span>
                   </button>
                 </div>
@@ -254,7 +258,7 @@ export function IdeMain() {
                   'absolute right-4 top-10 p-2 bg-white z-[300] rounded'
                 )}
               >
-                <p>Lies die Anleitung.</p>
+                <p>{core.strings.ide.read}</p>
                 <p className="text-center mt-2">
                   <button
                     onClick={() => {

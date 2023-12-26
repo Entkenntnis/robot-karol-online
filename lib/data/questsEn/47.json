@@ -1,0 +1,64 @@
+{
+  "version": "v1",
+  "title": "Around",
+  "description": "When difficulties are placed in your way, you always find a way around them - because life doesn't always go straight...\n\nTo navigate around corners, Karol has the commands `turn left` and `turn right`. Walk around the corner and set down a brick.",
+  "tasks": [
+    {
+      "title": "Set down a Brick",
+      "start": {
+        "dimX": 3,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 3,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 1, "y": 2, "dir": "east" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "version": "v1",
+  "title": "Star",
+  "description": "Place four bricks around Karol and build a star.\n\nYour program performs the same movement in all three worlds.",
+  "tasks": [
+    {
+      "title": "Practice",
+      "start": {
+        "dimX": 3,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 1, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 3,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 1, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 1, 0],
+            [1, 0, 1],
+            [0, 1, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Ray of bricks",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "west" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "west" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0],
+            [1, 1, 0, 1, 1],
+            [0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Ray of marks",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 3, "y": 3, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, true, false, false, false],
+            [false, false, false, true, false, false, false],
+            [false, false, false, false, false, false, false],
+            [true, true, false, false, false, true, true],
+            [false, false, false, false, false, false, false],
+            [false, false, false, true, false, false, false],
+            [false, false, false, true, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 3, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [
+            [0, 1, 0],
+            [1, 0, 1],
+            [0, 1, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, true, false, false, false],
+            [false, false, false, true, false, false, false],
+            [false, false, false, false, false, false, false],
+            [true, true, false, false, false, true, true],
+            [false, false, false, false, false, false, false],
+            [false, false, false, true, false, false, false],
+            [false, false, false, true, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

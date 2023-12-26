@@ -1,0 +1,178 @@
+{
+  "version": "v1",
+  "title": "Dynamic Stairs",
+  "description": "Build stairs up to the mark.",
+  "tasks": [
+    {
+      "title": "Height 2",
+      "start": {
+        "dimX": 6,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 1, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 2,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[1, 2]]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Height 3",
+      "start": {
+        "dimX": 6,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 3,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 2, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[1, 2, 3]]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 3,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Height 4",
+      "start": {
+        "dimX": 6,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[1, 2, 3, 4]]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

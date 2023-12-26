@@ -17,14 +17,16 @@ export function GoodLuckModal() {
           e.stopPropagation()
         }}
       >
-        <h2 className="text-center text-2xl mt-4">Auf gut Glück!</h2>
+        <h2 className="text-center text-2xl mt-4">
+          {core.strings.overview.lucky}
+        </h2>
         <div className="flex flex-row ">
           <div className="basis-1/2">
             <img src="/kleeblatt.png" alt="" className="w-[240px] mx-auto" />
           </div>
 
           <div className="basis-1/2 pl-6">
-            <p className="mt-12">Öffne eine zufällig freigegebene Aufgabe.</p>
+            <p className="mt-12">{core.strings.lucky.description}</p>
             <p className="mt-6">
               <button
                 className="px-2 py-1 bg-green-300 hover:bg-green-400 rounded"
@@ -44,13 +46,13 @@ export function GoodLuckModal() {
                   void handler()
                 }}
               >
-                Zufällige Aufgabe öffnen
+                {core.strings.lucky.button}
               </button>
             </p>
           </div>
         </div>
         <small className="text-sm text-gray-600 ml-4 mb-2">
-          Die Inhalte sind von NutzerInnen erstellt und lizenzfrei verwendbar.
+          {core.strings.lucky.hint}
         </small>
         <hr />
         <p className="text-center mb-5 mt-3">
@@ -60,7 +62,7 @@ export function GoodLuckModal() {
               closeModal(core)
             }}
           >
-            Schließen
+            {core.strings.lucky.close}
           </button>
         </p>
       </div>

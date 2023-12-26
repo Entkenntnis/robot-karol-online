@@ -113,7 +113,7 @@ export function Tasks() {
                               icon={faVolumeHigh}
                               className="mr-2 text-sm ml-1 animate-pulse"
                             />
-                            Stopp
+                            ---
                           </>
                         ) : (
                           <>
@@ -121,25 +121,22 @@ export function Tasks() {
                               icon={faVolumeHigh}
                               className="mr-2 text-sm ml-1"
                             />
-                            Vorlesen
+                            ---
                           </>
                         )}
                       </button>
                     )}
                     {core.ws.ui.isAlreadyCompleted && (
                       <span className="text-base font-normal text-green-600 ml-4">
-                        <FaIcon icon={faCheck} /> abgeschlossen
+                        <FaIcon icon={faCheck} />{' '}
+                        {core.strings.ide.taskCompleted}
                       </span>
                     )}
                   </h1>
                   <div>
                     {core.ws.quest.description == '[[tutorial]]' ? (
                       <>
-                        <p>
-                          Herzlich Willkommen! Hier lernst du Schritt für
-                          Schritt die Welt von Karol kennen. Das Tutorial zeigt
-                          dir die ersten Grundlagen für die Programmierung.
-                        </p>
+                        <p>{core.strings.ide.welcome}</p>
                         <div className="mt-6">
                           <button
                             className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"
@@ -147,7 +144,7 @@ export function Tasks() {
                               showModal(core, 'tutorial')
                             }}
                           >
-                            Tutorial anzeigen
+                            {core.strings.ide.tutorialButton}
                           </button>
                         </div>
                       </>
@@ -357,8 +354,8 @@ export function Tasks() {
                     switchToPage(core, 'overview')
                   }}
                 >
-                  <FaIcon icon={faArrowLeft} className="mx-1" /> zurück zur
-                  Übersicht
+                  <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
+                  {core.strings.ide.backToOverview}
                 </button>
               </p>
             )
@@ -376,7 +373,9 @@ export function Tasks() {
               }
             }}
           >
-            {core.ws.page == 'editor' ? 'Aus Vorlage laden' : 'Struktogramm'}
+            {core.ws.page == 'editor'
+              ? 'Aus Vorlage laden'
+              : core.strings.ide.structogram}
           </button>
         </div>
       </div>

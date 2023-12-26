@@ -1,0 +1,178 @@
+{
+  "version": "v1",
+  "title": "Cleaner",
+  "description": "In front of Karol, there are different numbers of bricks. Pick up all the bricks. Write a program that works for all three cases.\n\nUse Karol's sensors for this. Choose a suitable sensor type, %img[hint|/quests/abr.png]%.",
+  "tasks": [
+    {
+      "title": "2 Bricks",
+      "start": {
+        "dimX": 7,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 2,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[1, 1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "3 Bricks",
+      "start": {
+        "dimX": 7,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[1, 1, 1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "5 Bricks",
+      "start": {
+        "dimX": 7,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[1, 1, 1, 1, 1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

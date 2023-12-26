@@ -1,0 +1,74 @@
+{
+  "version": "v1",
+  "title": "Horizon",
+  "description": "Karol wants to broaden her horizons and see more of the world. For that, she has built a tall staircase.\n\nWalk with Karol to the top of the stairs and %img[mark the end|/quests/hoch.png]%.\n\nThe staircase is already built. No bricks need to be set down.",
+  "tasks": [
+    {
+      "title": "Long Staircase",
+      "start": {
+        "dimX": 4,
+        "dimY": 4,
+        "height": 10,
+        "karol": { "x": 0, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [9, 8, 7, 6],
+            [0, 0, 0, 5],
+            [0, 0, 0, 4],
+            [0, 1, 2, 3]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 4,
+        "dimY": 4,
+        "height": 10,
+        "karol": { "x": 0, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [9, 8, 7, 6],
+            [0, 0, 0, 5],
+            [0, 0, 0, 4],
+            [0, 1, 2, 3]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

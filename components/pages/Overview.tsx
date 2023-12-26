@@ -1,6 +1,7 @@
 import {
   faCheckCircle,
   faExternalLink,
+  faGlobe,
   faPencil,
   faPenToSquare,
   faShirt,
@@ -13,6 +14,7 @@ import {
   hideOverviewList,
   hideProfile,
   hideSaveHint,
+  setLng,
   setPersist,
   showOverviewList,
   showProfile,
@@ -20,7 +22,7 @@ import {
 import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
 import { questDeps } from '../../lib/data/dependencies'
 import { questList } from '../../lib/data/overview'
-import { questData } from '../../lib/data/quests'
+import { questData as questDataDe } from '../../lib/data/quests'
 import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
@@ -29,11 +31,13 @@ import { switchToPage } from '../../lib/commands/page'
 import { showModal } from '../../lib/commands/modal'
 import {
   getAppearance,
+  getLng,
   getUserName,
   isPersisted,
   loadFromJSON,
   resetStorage,
   saveToJSON,
+  setLngStorage,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
 import { appearanceRegistry } from '../../lib/data/appearance'
@@ -42,6 +46,7 @@ import TimeAgo from 'timeago-react'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
 import { submit_event } from '../../lib/helper/submit'
+import { questDataEn } from '../../lib/data/questsEn'
 
 export function Overview() {
   const core = useCore()
@@ -49,6 +54,8 @@ export function Overview() {
   const name = getUserName()
 
   const [openUsers, setOpenUsers] = useState<string[]>([])
+
+  const questData = core.ws.settings.lng == 'de' ? questDataDe : questDataEn
 
   const numberOfSolvedQuests = Object.keys(mapData).filter((id) =>
     isQuestDone(parseInt(id))
@@ -78,6 +85,26 @@ export function Overview() {
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
           </div>
+          <div className="absolute top-2 left-2">
+            <FaIcon icon={faGlobe} />
+            <select
+              className="p-1 ml-2 bg-white/40 rounded"
+              value={core.ws.settings.lng}
+              onChange={(e) => {
+                const lng = e.target.value
+                if (lng == 'de' || lng == 'en') {
+                  setLng(core, lng)
+                  setLngStorage(lng)
+                  if (lng == 'en') {
+                    submit_event('lng_en', core)
+                  }
+                }
+              }}
+            >
+              <option value="de">Deutsch</option>
+              <option value="en">English</option>
+            </select>
+          </div>
           <div className="mx-auto mt-6">
             <button
               className="mr-7 hover:underline"
@@ -90,7 +117,7 @@ export function Overview() {
                 }
               }}
             >
-              Profil
+              {core.strings.overview.profile}
             </button>
             <button
               className="mr-7 hover:underline"
@@ -109,20 +136,20 @@ export function Overview() {
               }}
             >
               <FaIcon icon={faPenToSquare} className="mr-1 text-sm" />
-              Aufgaben-Editor
+              {core.strings.overview.editor}
             </button>
             <button
               className="mr-7 hover:underline"
-              title="In eine Datei speichern"
+              title={core.strings.overview.saveTooltip}
               onClick={() => {
-                saveToJSON()
+                saveToJSON(core)
               }}
             >
-              Speichern
+              {core.strings.overview.save}
             </button>
             <button
               className="mr-7 hover:underline"
-              title="Aus einer Datei laden"
+              title={core.strings.overview.loadTooltip}
               onClick={async () => {
                 await loadFromJSON()
                 const appearance = getAppearance()
@@ -131,10 +158,11 @@ export function Overview() {
                     ws.appearance = appearance
                   })
                 }
+                setLng(core, getLng())
                 forceRerender(core)
               }}
             >
-              Laden
+              {core.strings.overview.load}
             </button>
           </div>
           {core.ws.page == 'analyze' && (
@@ -165,7 +193,8 @@ export function Overview() {
                 {core.ws.analyze.usePersist} mal Fortschritt gespeichert,{' '}
                 {core.ws.analyze.useJava} mal Java verwendet,{' '}
                 {core.ws.analyze.usePython} mal Python verwendet,{' '}
-                {core.ws.analyze.playSnake} mal Snake gespielt
+                {core.ws.analyze.playSnake} mal Snake gespielt,{' '}
+                {core.ws.analyze.lngEn} mal Englisch ausgewählt
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
@@ -225,7 +254,9 @@ export function Overview() {
           )}
           {core.ws.overview.showProfile && (
             <div className="mx-auto w-[600px] mt-12 p-3 bg-white/50 rounded relative">
-              <h2 className="text-lg font-bold">Profil</h2>
+              <h2 className="text-lg font-bold">
+                {core.strings.profile.title}
+              </h2>
               <div className="absolute right-2 top-3">
                 <button
                   className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
@@ -233,21 +264,21 @@ export function Overview() {
                     hideProfile(core)
                   }}
                 >
-                  Schließen
+                  {core.strings.profile.close}
                 </button>
               </div>
               <div className="my-4">
-                Benutzername:{' '}
+                {core.strings.profile.username}:{' '}
                 {name ? (
                   <strong>{name}</strong>
                 ) : (
                   <span className="italic text-gray-600">
-                    noch kein Name gesetzt
+                    {core.strings.profile.noname}
                   </span>
                 )}
               </div>
               <div className="my-4">
-                Gelöste Aufgaben:{' '}
+                {core.strings.profile.solved}:{' '}
                 <strong>
                   {
                     Object.keys(mapData).filter((id) =>
@@ -255,7 +286,7 @@ export function Overview() {
                     ).length
                   }
                 </strong>{' '}
-                von {Object.keys(mapData).length}
+                {core.strings.profile.of} {Object.keys(mapData).length}
               </div>
               <div className="my-4">
                 <label>
@@ -268,32 +299,31 @@ export function Overview() {
                       forceRerender(core)
                     }}
                   />{' '}
-                  Fortschritt dauerhaft auf diesem Gerät speichern
+                  {core.strings.profile.persist}
                 </label>
-              </div>
-              <div className="my-8">
-                <button
-                  className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-2"
-                  onClick={() => {
-                    showModal(core, 'appearance')
-                  }}
-                >
-                  <FaIcon icon={faShirt} className="mr-1" />
-                  Aussehen von Karol anpassen
-                </button>
               </div>
               <div className="mt-8 text-right">
                 <button
                   className="hover:underline text-red-500"
                   onClick={() => {
-                    const res = confirm('Fortschritt jetzt zurücksetzen?')
+                    const res = confirm(core.strings.profile.resetConfirm)
                     if (res) {
                       resetStorage()
                       forceRerender(core)
+                      setLng(core, 'de')
+                      core.mutateWs((ws) => {
+                        ws.appearance = {
+                          cap: 0,
+                          skin: 1,
+                          shirt: 2,
+                          legs: 3,
+                        }
+                      })
+                      hideProfile(core)
                     }
                   }}
                 >
-                  Fortschritt zurücksetzen
+                  {core.strings.profile.reset}
                 </button>
               </div>
             </div>
@@ -307,7 +337,7 @@ export function Overview() {
                     hideOverviewList(core)
                   }}
                 >
-                  Liste aller Aufgaben schließen
+                  {core.strings.overview.closeShowAll}
                 </button>
               </div>
               <div className="w-[1240px] h-[2700px] mx-auto relative bg-white/50">
@@ -347,7 +377,9 @@ export function Overview() {
                       }
                     }}
                   >
-                    <p className="text-center text-lg mb-1">Mini-Spiel</p>
+                    <p className="text-center text-lg mb-1">
+                      {core.strings.overview.game}
+                    </p>
                     <img
                       src="/snake.png"
                       alt="Snake-Icon"
@@ -356,12 +388,17 @@ export function Overview() {
                   </button>
                 )}
                 <button
-                  className="absolute top-[680px] left-[370px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                  className={clsx(
+                    'absolute top-[680px] left-[370px] block z-10 hover:bg-gray-100/60 rounded-xl',
+                    core.ws.settings.lng == 'de' ? 'w-[120px]' : 'w-[140px]'
+                  )}
                   onClick={() => {
                     showModal(core, 'goodluck')
                   }}
                 >
-                  <p className="text-center text-lg mb-1">Auf gut Glück</p>
+                  <p className="text-center text-lg mb-1">
+                    {core.strings.overview.lucky}
+                  </p>
                   <img
                     src="/kleeblatt.png"
                     alt="Kleeblatt mit 4 Blättern"
@@ -402,7 +439,7 @@ export function Overview() {
                     window.open('https://hack.arrrg.de/', '_blank')
                   }}
                 >
-                  <p className="text-center text-lg mb-1">Hack The Web </p>
+                  <p className="text-center text-lg mb-1">Hack The Web</p>
                   <img
                     src="htw.png"
                     alt="H"
@@ -716,7 +753,9 @@ export function Overview() {
           )}
 
           <div className="text-center mb-12 mt-24">
-            Version: Dezember 2023 |{' '}
+            <span className="text-gray-700 mr-7">
+              {core.strings.overview.version}
+            </span>
             <a
               className="hover:underline cursor-pointer"
               href={
@@ -726,7 +765,7 @@ export function Overview() {
                 '/?id=Z9xO1rVGj'
               }
             >
-              Spielwiese
+              {core.strings.overview.playground}
             </a>{' '}
             |{' '}
             <button
@@ -735,7 +774,7 @@ export function Overview() {
                 showModal(core, 'impressum')
               }}
             >
-              Impressum
+              {core.strings.overview.imprint}
             </button>{' '}
             |{' '}
             <button
@@ -744,7 +783,7 @@ export function Overview() {
                 showModal(core, 'privacy')
               }}
             >
-              Datenschutz
+              {core.strings.overview.privacy}
             </button>{' '}
             |{' '}
             <button
@@ -755,7 +794,7 @@ export function Overview() {
                 document.getElementById('scroll-container')!.scrollTop = 0
               }}
             >
-              Liste aller Aufgaben
+              {core.strings.overview.showAll}
             </button>{' '}
             |{' '}
             {renderExternalLink(
@@ -768,7 +807,7 @@ export function Overview() {
             core.ws.overview.showSaveHint &&
             core.ws.page != 'analyze' && (
               <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5 z-20">
-                Fortschritt auf diesem Gerät speichern?{' '}
+                {core.strings.overview.storeOnDevice}{' '}
                 <button
                   className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 ml-6 rounded"
                   onClick={() => {
@@ -777,7 +816,7 @@ export function Overview() {
                     forceRerender(core)
                   }}
                 >
-                  Speichern
+                  {core.strings.overview.save}
                 </button>{' '}
                 <button
                   className="text-gray-500 underline ml-6"
@@ -785,7 +824,7 @@ export function Overview() {
                     hideSaveHint(core)
                   }}
                 >
-                  später
+                  {core.strings.overview.later}
                 </button>
               </div>
             )}

@@ -4,7 +4,7 @@ import { Heading, World } from '../state/types'
 import { addMessage } from './messages'
 import { endExecution } from './vm'
 
-const readOnlyMessage = 'Deine Aufgabe ist abgeschlossen.'
+const readOnlyMessage = '---'
 
 export function forward(core: Core, opts?: { reverse: boolean }) {
   const { world } = core.ws
@@ -13,7 +13,7 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
   const target = move(karol.x, karol.y, dir, world)
 
   if (!target) {
-    karolCrashed(core, 'Karol kann sich nicht in diese Richtung bewegen.')
+    karolCrashed(core, core.strings.crash.invalidMove)
     return false
   }
 
@@ -21,7 +21,7 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
   const targetBrickCount = bricks[target.y][target.x]
 
   if (Math.abs(currentBrickCount - targetBrickCount) > 1) {
-    karolCrashed(core, 'Karol kann diese Höhe nicht überwinden.')
+    karolCrashed(core, core.strings.crash.invalidHeight)
     return false
   }
 
@@ -50,12 +50,12 @@ export function brick(core: Core) {
   const pos = move(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
-    karolCrashed(core, 'Karol kann hier keinen Ziegel aufstellen.')
+    karolCrashed(core, core.strings.crash.invalidBrick)
     return false
   }
 
   if (bricks[pos.y][pos.x] >= height) {
-    karolCrashed(core, 'Maximale Stapelhöhe erreicht.')
+    karolCrashed(core, core.strings.crash.maxHeight)
     return false
   }
 
@@ -77,12 +77,12 @@ export function unbrick(core: Core) {
   const pos = move(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
-    karolCrashed(core, 'Karol kann hier keine Ziegel aufheben.')
+    karolCrashed(core, core.strings.crash.invalidPick)
     return false
   }
 
   if (bricks[pos.y][pos.x] <= 0) {
-    karolCrashed(core, 'Keine Ziegel zum Aufheben')
+    karolCrashed(core, core.strings.crash.noBricks)
     return false
   }
 
@@ -152,7 +152,7 @@ export function toggleBlock(core: Core) {
   const pos = moveRaw(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
-    karolCrashed(core, 'Karol kann hier keinen Quader aufstellen.')
+    karolCrashed(core, core.strings.crash.invalidBlock)
     return false
   }
 
@@ -169,11 +169,11 @@ export function toggleBlock(core: Core) {
     return true
   } else {
     if (bricks[pos.y][pos.x] > 0) {
-      karolCrashed(core, 'Karol kann keinen Quader auf Ziegel stellen.')
+      karolCrashed(core, core.strings.crash.noBlockOnBrick)
       return false
     }
     if (marks[pos.y][pos.x]) {
-      karolCrashed(core, 'Karol kann keinen Quader auf eine Marke stellen.')
+      karolCrashed(core, core.strings.crash.noBlockOnMark)
       return false
     }
     core.mutateWs(({ world }) => {

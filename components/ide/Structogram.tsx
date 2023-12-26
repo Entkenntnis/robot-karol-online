@@ -58,10 +58,10 @@ export function Structogram() {
             setShowStructogram(core, false)
           }}
         >
-          Schließen
+          {core.strings.ide.close}
         </button>
       </div>
-      <h1 className="ml-8 text-2xl pt-8">Struktogramm</h1>
+      <h1 className="ml-8 text-2xl pt-8">{core.strings.ide.structogram}</h1>
       <h2 className="mt-5 font-bold ml-8">Hauptprogramm</h2>
       <div className="overflow-auto flex-auto">
         <div className="ml-4 p-4">
