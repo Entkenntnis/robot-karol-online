@@ -1,0 +1,267 @@
+{
+  "version": "v1",
+  "title": "Balancieren",
+  "description": "Balanciere mit Karol die Ziegelmauer entlang. Lösche die Marke am Ende.",
+  "tasks": [
+    {
+      "title": "Gerades Stück",
+      "start": {
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
+        "karol": { "x": 1, "y": 2, "dir": "east" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 2,
+          "data": [[3, 3, 3, 3]]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 2,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
+        "karol": { "x": 1, "y": 2, "dir": "east" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 2,
+          "data": [[3, 3, 3, 3]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Linkskurve",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 1, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 3],
+            [0, 0, 3],
+            [3, 3, 3]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 3,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 3, "y": 1, "dir": "north" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 3],
+            [0, 0, 3],
+            [3, 3, 3]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Rechtskurve",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 1, "y": 3, "dir": "north" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [3, 3, 3],
+            [3, 0, 0],
+            [3, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 3,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 1, "y": 3, "dir": "north" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [3, 3, 3],
+            [3, 0, 0],
+            [3, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Finale",
+      "start": {
+        "dimX": 15,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 3, "y": 1, "dir": "south" },
+        "bricks": {
+          "dimX": 11,
+          "dimY": 7,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 3, 0, 3, 3, 3, 3, 3, 3, 3],
+            [0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 3],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+            [3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3],
+            [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 6,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 1, "y": 6, "dir": "west" },
+        "bricks": {
+          "dimX": 11,
+          "dimY": 7,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 3, 0, 3, 3, 3, 3, 3, 3, 3],
+            [0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 3],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+            [3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3],
+            [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

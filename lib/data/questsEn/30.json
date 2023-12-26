@@ -1,0 +1,74 @@
+{
+  "version": "v1",
+  "title": "Schau genau",
+  "description": "Deine scharfen Augen sind gefragt. Diesmal ist der Platzhalter für den Ziegel etwas versteckter. Finde die Stelle und lege dort einen Ziegel.\n\nEs müssen keine Ziegel aufgehoben werden. Bewege dich und lege genau einen Ziegel.\n\nDu kannst mehrere Schritte gehen, indem du beim Befehl die %img[Anzahl änderst|/quests/schau_genau.png]%.",
+  "tasks": [
+    {
+      "title": "Schau genau",
+      "start": {
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 6,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [1, 1, 0, 0, 1, 1],
+            [1, 1, 0, 0, 0, 1],
+            [1, 1, 1, 0, 1, 0],
+            [1, 0, 1, 1, 1, 1]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 4,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "east" },
+        "bricks": {
+          "dimX": 6,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [1, 1, 0, 0, 1, 1],
+            [1, 1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 0],
+            [1, 0, 1, 1, 1, 1]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

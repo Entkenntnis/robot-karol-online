@@ -1,0 +1,64 @@
+{
+  "version": "v1",
+  "title": "Spiegelei",
+  "description": "Was riecht hier so gut? Du hast ja was richtig leckeres gekocht.\n\nKarol hat auf jeden Fall Hunger und möchte sich ein Spiegelei machen. Dafür kann sie mit `MarkeSetzen` eine gelbe Marke unter sich setzen.\n\nGehe in die Mitte und setze eine Marke.",
+  "tasks": [
+    {
+      "title": "Spiegelei",
+      "start": {
+        "dimX": 3,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 3,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

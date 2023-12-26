@@ -1,0 +1,64 @@
+{
+  "version": "v1",
+  "title": "Markierung",
+  "description": "Sicherheit geht vor! Auf dieser Straße fehlt die Fahrbahn-Markierung. Lege mit Karol den Mittelstreifen.\n\nHinweis: Der Block `wiederhole 3 mal` hilft dir, dein Programm kürzer zu schreiben.",
+  "tasks": [
+    {
+      "title": "Setze 6 Marken",
+      "start": {
+        "dimX": 7,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 2, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 2, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [[true, false, true, false, true, false, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

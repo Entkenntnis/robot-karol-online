@@ -353,5 +353,6 @@ export interface Compressed2D<T> {
 export interface AppearanceData {
   type: 'cap' | 'skin' | 'shirt' | 'legs'
   title: string
+  titleEn: string
   position: number
 }

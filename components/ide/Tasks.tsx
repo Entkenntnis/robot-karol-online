@@ -135,11 +135,7 @@ export function Tasks() {
                   <div>
                     {core.ws.quest.description == '[[tutorial]]' ? (
                       <>
-                        <p>
-                          Herzlich Willkommen! Hier lernst du Schritt für
-                          Schritt die Welt von Karol kennen. Das Tutorial zeigt
-                          dir die ersten Grundlagen für die Programmierung.
-                        </p>
+                        <p>{core.strings.ide.welcome}</p>
                         <div className="mt-6">
                           <button
                             className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"
@@ -147,7 +143,7 @@ export function Tasks() {
                               showModal(core, 'tutorial')
                             }}
                           >
-                            Tutorial anzeigen
+                            {core.strings.ide.tutorialButton}
                           </button>
                         </div>
                       </>

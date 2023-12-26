@@ -1,0 +1,84 @@
+{
+  "version": "v1",
+  "title": "Muster",
+  "description": "Du bist nicht faul, sondern du speicherst nur Energie für später, wenn du sie wirklich brauchst.\n\nDu kannst deine Programme verkürzen, wenn du %img[Wiederholungen|/quests/muster.png]% verwendest. Ziehe sie auf die Arbeitsfläche und füge %img[Befehle dazwischen|/quests/muster_2.png]% ein. Passe die %img[Anzahl der Wiederholungen|/quests/muster_3.png]% an.\n\nDamit kannst du dieses Muster legen, ohne jeden Befehl einzeln schreiben zu müssen.",
+  "tasks": [
+    {
+      "title": "Muster",
+      "start": {
+        "dimX": 17,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 17,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 15,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [[1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]]
+        },
+        "marks": {
+          "dimX": 17,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true
+            ]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

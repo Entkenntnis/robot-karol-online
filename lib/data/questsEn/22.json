@@ -1,0 +1,74 @@
+{
+  "version": "v1",
+  "title": "Hoch hinaus",
+  "description": "Karol möchte ihren Horizont erweitern und mehr von der Welt sehen. Dafür hat sie sich eine hohe Treppe gebaut.\n\nLaufe mit Karol an die Spitze der Treppe und setze %img[am Ende|/quests/hoch.png]% eine Marke. \n\nDie Treppe ist bereits fertig gebaut. Es müssen keine Ziegel gelegt werden.",
+  "tasks": [
+    {
+      "title": "Lange Treppe",
+      "start": {
+        "dimX": 4,
+        "dimY": 4,
+        "height": 10,
+        "karol": { "x": 0, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [9, 8, 7, 6],
+            [0, 0, 0, 5],
+            [0, 0, 0, 4],
+            [0, 1, 2, 3]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 4,
+        "dimY": 4,
+        "height": 10,
+        "karol": { "x": 0, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [9, 8, 7, 6],
+            [0, 0, 0, 5],
+            [0, 0, 0, 4],
+            [0, 1, 2, 3]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

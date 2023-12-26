@@ -1,0 +1,80 @@
+{
+  "version": "v1",
+  "title": "Blume",
+  "description": "Was duftet hier so schön? Ah, es muss dein neues Shampoo sein, weil diese Blume riecht nicht gut.\n\nKarol kann die Blume verschwinden lassen. Gehe mit ihr in die Mitte und hebe alle Ziegel auf.",
+  "tasks": [
+    {
+      "title": "Blume",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [
+            [0, 1, 0],
+            [1, 1, 1],
+            [0, 1, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [false, true, true, true, false],
+            [true, true, false, true, true],
+            [true, false, false, false, true],
+            [true, true, false, true, true],
+            [false, true, true, true, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 1, "y": 3, "dir": "west" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [false, true, true, true, false],
+            [true, true, false, true, true],
+            [true, false, false, false, true],
+            [true, true, false, true, true],
+            [false, true, true, true, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

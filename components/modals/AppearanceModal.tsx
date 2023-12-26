@@ -40,13 +40,13 @@ export function AppearanceModal() {
       }}
     >
       <div
-        className="min-h-[400px] w-[600px] bg-white z-[200] rounded-xl relative flex justify-between flex-col px-3"
+        className="min-h-[430px] w-[600px] bg-white z-[200] rounded-xl relative flex justify-between flex-col px-3"
         onClick={(e) => {
           e.stopPropagation()
         }}
       >
-        <h2 className="text-center font-bold text-xl mt-3">
-          Passe das Aussehen von Karol an
+        <h2 className="text-center font-bold text-xl mt-5">
+          {core.strings.outfit.title}
         </h2>
         <div />
         <div className="flex justify-start">
@@ -70,7 +70,7 @@ export function AppearanceModal() {
           </div>
           <div className="[&>p]:mb-8 [&_select]:w-[200px] [&_select]:p-1">
             <p>
-              Kappe:{' '}
+              {core.strings.outfit.cap}:{' '}
               <select
                 value={core.ws.appearance.cap}
                 onChange={(e) => {
@@ -83,13 +83,15 @@ export function AppearanceModal() {
                   .filter((entry) => entry[1].type == 'cap')
                   .map((entry) => (
                     <option key={entry[0]} value={entry[0]}>
-                      {entry[1].title}
+                      {core.ws.settings.lng == 'de'
+                        ? entry[1].title
+                        : entry[1].titleEn}
                     </option>
                   ))}
               </select>
             </p>
             <p>
-              Shirt:{' '}
+              {core.strings.outfit.shirt}:{' '}
               <select
                 value={core.ws.appearance.shirt}
                 onChange={(e) => {
@@ -102,13 +104,15 @@ export function AppearanceModal() {
                   .filter((entry) => entry[1].type == 'shirt')
                   .map((entry) => (
                     <option key={entry[0]} value={entry[0]}>
-                      {entry[1].title}
+                      {core.ws.settings.lng == 'de'
+                        ? entry[1].title
+                        : entry[1].titleEn}
                     </option>
                   ))}
               </select>
             </p>
             <p>
-              Hose:{' '}
+              {core.strings.outfit.legs}:{' '}
               <select
                 value={core.ws.appearance.legs}
                 onChange={(e) => {
@@ -121,13 +125,15 @@ export function AppearanceModal() {
                   .filter((entry) => entry[1].type == 'legs')
                   .map((entry) => (
                     <option key={entry[0]} value={entry[0]}>
-                      {entry[1].title}
+                      {core.ws.settings.lng == 'de'
+                        ? entry[1].title
+                        : entry[1].titleEn}
                     </option>
                   ))}
               </select>
             </p>
             <p>
-              Hautton:{' '}
+              {core.strings.outfit.skin}:{' '}
               <select
                 value={core.ws.appearance.skin}
                 onChange={(e) => {
@@ -140,13 +146,24 @@ export function AppearanceModal() {
                   .filter((entry) => entry[1].type == 'skin')
                   .map((entry) => (
                     <option key={entry[0]} value={entry[0]}>
-                      {entry[1].title}
+                      {core.ws.settings.lng == 'de'
+                        ? entry[1].title
+                        : entry[1].titleEn}
                     </option>
                   ))}
               </select>
             </p>
           </div>
         </div>
+        <p className="ml-4 -mt-6">
+          <a
+            href="https://forms.gle/mGvB9Xn85PpCFb6H7"
+            target="_blank"
+            className="text-blue-500 underline"
+          >
+            {core.strings.outfit.suggest}
+          </a>
+        </p>
         <p className="text-center mb-5">
           <button
             className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
@@ -162,7 +179,7 @@ export function AppearanceModal() {
               submit_event(`select_appearance_${core.ws.appearance.legs}`, core)
             }}
           >
-            Schließen
+            {core.strings.outfit.close}
           </button>
         </p>
       </div>

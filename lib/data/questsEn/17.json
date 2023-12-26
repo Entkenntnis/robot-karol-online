@@ -1,0 +1,64 @@
+{
+  "version": "v1",
+  "title": "Lücke",
+  "description": "Beim Bauen der Treppe ist wohl ein kleiner Fehler passiert ...",
+  "tasks": [
+    {
+      "title": "Treppe mit Lücke",
+      "start": {
+        "dimX": 5,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [[1, 2, 4, 5]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 4,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [[1, 2, 4, 5]]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

@@ -388,7 +388,7 @@
       {
         "type": "field_input",
         "name": "COMMAND",
-        "text": "DoSomething"
+        "text": "DoWork"
       }
     ],
     "previousStatement": null,
@@ -401,7 +401,7 @@
       {
         "type": "field_input",
         "name": "COMMAND",
-        "text": "DoSomething"
+        "text": "DoWork"
       },
       {
         "type": "input_dummy"

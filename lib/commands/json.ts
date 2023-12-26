@@ -122,6 +122,8 @@ export function deserializeQuest(core: Core, quest: QuestSerialFormat) {
 
     if (quest.lng === 'en') {
       ws.settings.lng = 'en'
+    } else {
+      ws.settings.lng = 'de'
     }
   })
 }

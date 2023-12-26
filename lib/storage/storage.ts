@@ -2,6 +2,7 @@
 
 import { setLng } from '../commands/mode'
 import { questList } from '../data/overview'
+import { Core } from '../state/core'
 import { Appearance, QuestSessionData } from '../state/types'
 
 const userIdKey = 'robot_karol_online_tmp_id'
@@ -91,7 +92,7 @@ export function setQuestData(data: QuestSessionData) {
   sessionStorage.setItem(questKey(data.id), JSON.stringify(data))
 }
 
-export function saveToJSON() {
+export function saveToJSON(core: Core) {
   let data: Record<string, any> = {
     [userIdKey]: getUserId(),
     [userNameKey]: getUserName(),
@@ -109,9 +110,9 @@ export function saveToJSON() {
   const blob = new Blob([JSON.stringify(data)], { type: 'text/json' })
   const link = document.createElement('a')
 
-  link.download = `${new Date()
-    .toISOString()
-    .substring(0, 10)}-robot-karol-spielstand.json`
+  link.download = `${new Date().toISOString().substring(0, 10)}-robot-karol-${
+    core.strings.overview.gameState
+  }.json`
   link.href = window.URL.createObjectURL(blob)
   link.dataset.downloadurl = ['text/json', link.download, link.href].join(':')
 

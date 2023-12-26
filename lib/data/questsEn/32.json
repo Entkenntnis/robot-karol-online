@@ -1,0 +1,64 @@
+{
+  "version": "v1",
+  "title": "Umbau",
+  "description": "Bewege die Ziegelstapel an die neue Position. Hebe die hinteren Ziegel auf und lege sie an die vordere Wand.\n\nDie durchgestrichenen Ziegel müssen am Ende aufgehoben sein.",
+  "tasks": [
+    {
+      "title": "Umbau",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 1, "y": 1, "dir": "north" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [[3, 3, 3]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 3, "y": 2, "dir": "north" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 4,
+          "data": [[3, 3, 3]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

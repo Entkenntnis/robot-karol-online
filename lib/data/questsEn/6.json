@@ -1,0 +1,64 @@
+{
+  "version": "v1",
+  "title": "Treppe",
+  "description": "Karol hat einen unsichtbaren unendlichen Rucksack, aber sie kann nicht fliegen. Um höher zu kommen, braucht sie eine Treppe. Sie kann damit %img[Stufe für Stufe|/quests/treppe.gif]% hochsteigen.\n\nLege die Ziegel wie abgebildet. Du kannst mehrere Ziegel auf einmal legen, indem du die %img[Anzahl eingibst|/quests/treppe.png]%. ",
+  "tasks": [
+    {
+      "title": "Treppe",
+      "start": {
+        "dimX": 5,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [[1, 2, 3]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

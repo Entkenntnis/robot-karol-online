@@ -1,0 +1,178 @@
+{
+  "version": "v1",
+  "title": "Stapel",
+  "description": "Karol kann mit ihren Sensoren auf die Welt reagieren. Diese Aufgabe besteht aus mehreren Teilen:\n\nA) Schreibe ein Programm, das auf jeden Ziegel einen weiteren Ziegel legt. Nutze noch keine Sensoren.\n\nB) Lege nur einen weiteren Ziegel, wenn bereits ein Ziegel liegt. Umschließe dafür `Hinlegen` mit der Konstrollstruktur  `wenn dann`. Wähle einen passenden Sensor-Typ aus, %img[Hinweis|/quests/stapel.png]%.\n\nC) Mithilfe der Sensoren kann Karol auch diesen Fall bearbeiten.",
+  "tasks": [
+    {
+      "title": "Teil A",
+      "start": {
+        "dimX": 5,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 3, "y": 2, "dir": "west" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 5,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [[1], [0], [1], [0], [1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 3, "y": 6, "dir": "west" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 5,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [[2], [0], [2], [0], [2]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Teil B",
+      "start": {
+        "dimX": 5,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 3, "y": 2, "dir": "west" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 5,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [[1], [0], [0], [0], [1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 3, "y": 6, "dir": "west" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 5,
+          "offsetX": 2,
+          "offsetY": 2,
+          "data": [[2], [0], [0], [0], [2]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Teil C",
+      "start": {
+        "dimX": 5,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 3, "y": 2, "dir": "west" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 3,
+          "offsetX": 2,
+          "offsetY": 4,
+          "data": [[1], [0], [1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 3, "y": 4, "dir": "west" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 3,
+          "offsetX": 2,
+          "offsetY": 4,
+          "data": [[2], [0], [2]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

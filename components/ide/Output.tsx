@@ -62,7 +62,8 @@ export function Output() {
                 closeOutput(core)
               }}
             >
-              <FaIcon icon={faArrowLeft} className="mx-1" /> zurück
+              <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
+              {core.strings.ide.back}
             </button>
           </div>
         )}

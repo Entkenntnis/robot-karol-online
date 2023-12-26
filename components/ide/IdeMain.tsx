@@ -242,7 +242,9 @@ export function IdeMain() {
                       className="mr-1"
                     />
                     <span className="text-xl">
-                      {core.ws.ui.state == 'running' ? 'Stopp' : 'Start'}
+                      {core.ws.ui.state == 'running'
+                        ? core.strings.ide.stop
+                        : core.strings.ide.start}
                     </span>
                   </button>
                 </div>

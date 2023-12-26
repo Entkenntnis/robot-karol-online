@@ -22,7 +22,7 @@ import {
 import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
 import { questDeps } from '../../lib/data/dependencies'
 import { questList } from '../../lib/data/overview'
-import { questData } from '../../lib/data/quests'
+import { questData as questDataDe } from '../../lib/data/quests'
 import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
@@ -46,6 +46,7 @@ import TimeAgo from 'timeago-react'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
 import { submit_event } from '../../lib/helper/submit'
+import { questDataEn } from '../../lib/data/questsEn'
 
 export function Overview() {
   const core = useCore()
@@ -53,6 +54,8 @@ export function Overview() {
   const name = getUserName()
 
   const [openUsers, setOpenUsers] = useState<string[]>([])
+
+  const questData = core.ws.settings.lng == 'de' ? questDataDe : questDataEn
 
   const numberOfSolvedQuests = Object.keys(mapData).filter((id) =>
     isQuestDone(parseInt(id))
@@ -139,7 +142,7 @@ export function Overview() {
               className="mr-7 hover:underline"
               title={core.strings.overview.saveTooltip}
               onClick={() => {
-                saveToJSON()
+                saveToJSON(core)
               }}
             >
               {core.strings.overview.save}
@@ -251,7 +254,9 @@ export function Overview() {
           )}
           {core.ws.overview.showProfile && (
             <div className="mx-auto w-[600px] mt-12 p-3 bg-white/50 rounded relative">
-              <h2 className="text-lg font-bold">Profil</h2>
+              <h2 className="text-lg font-bold">
+                {core.strings.profile.title}
+              </h2>
               <div className="absolute right-2 top-3">
                 <button
                   className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
@@ -259,21 +264,21 @@ export function Overview() {
                     hideProfile(core)
                   }}
                 >
-                  Schließen
+                  {core.strings.profile.close}
                 </button>
               </div>
               <div className="my-4">
-                Benutzername:{' '}
+                {core.strings.profile.username}:{' '}
                 {name ? (
                   <strong>{name}</strong>
                 ) : (
                   <span className="italic text-gray-600">
-                    noch kein Name gesetzt
+                    {core.strings.profile.noname}
                   </span>
                 )}
               </div>
               <div className="my-4">
-                Gelöste Aufgaben:{' '}
+                {core.strings.profile.solved}:{' '}
                 <strong>
                   {
                     Object.keys(mapData).filter((id) =>
@@ -281,7 +286,7 @@ export function Overview() {
                     ).length
                   }
                 </strong>{' '}
-                von {Object.keys(mapData).length}
+                {core.strings.profile.of} {Object.keys(mapData).length}
               </div>
               <div className="my-4">
                 <label>
@@ -294,14 +299,14 @@ export function Overview() {
                       forceRerender(core)
                     }}
                   />{' '}
-                  Fortschritt dauerhaft auf diesem Gerät speichern
+                  {core.strings.profile.persist}
                 </label>
               </div>
               <div className="mt-8 text-right">
                 <button
                   className="hover:underline text-red-500"
                   onClick={() => {
-                    const res = confirm('Fortschritt jetzt zurücksetzen?')
+                    const res = confirm(core.strings.profile.resetConfirm)
                     if (res) {
                       resetStorage()
                       forceRerender(core)
@@ -318,7 +323,7 @@ export function Overview() {
                     }
                   }}
                 >
-                  Fortschritt zurücksetzen
+                  {core.strings.profile.reset}
                 </button>
               </div>
             </div>
@@ -332,7 +337,7 @@ export function Overview() {
                     hideOverviewList(core)
                   }}
                 >
-                  Liste aller Aufgaben schließen
+                  {core.strings.overview.closeShowAll}
                 </button>
               </div>
               <div className="w-[1240px] h-[2700px] mx-auto relative bg-white/50">
@@ -434,7 +439,7 @@ export function Overview() {
                     window.open('https://hack.arrrg.de/', '_blank')
                   }}
                 >
-                  <p className="text-center text-lg mb-1">Hack The Web </p>
+                  <p className="text-center text-lg mb-1">Hack The Web</p>
                   <img
                     src="htw.png"
                     alt="H"

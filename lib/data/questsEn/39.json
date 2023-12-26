@@ -1,0 +1,64 @@
+{
+  "version": "v1",
+  "title": "Verschieben",
+  "description": "\"Es gibt keine Fehler, nur kleine glückliche Zwischenfälle.\"\n\nDer Ziegel liegt an der falschen Stelle. Verschiebe den Ziegel an die gezeigte Stelle. Nutze die Befehle `Hinlegen` und `Aufheben`, sowie `LinksDrehen` und `RechtsDrehen`.",
+  "tasks": [
+    {
+      "title": "Verschiebe den Ziegel",
+      "start": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 1,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ]
+}

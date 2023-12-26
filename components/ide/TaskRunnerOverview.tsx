@@ -25,7 +25,7 @@ export function TaskRunnerOverview() {
 
   return (
     <div className="px-5 mb-2 pt-2 bg-gray-100">
-      <div className="ml-9 mb-3">Aufträge:</div>
+      <div className="ml-9 mb-3">{core.strings.ide.assignments}:</div>
       {core.ws.quest.tasks.map((task, index) => {
         return (
           <div
