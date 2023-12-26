@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Parkour",
-  "description": "Überwinde zusammen mit Karol das Hindernis und ergänze die fehlenden Ziegel.\n\nDein Programm führt in beiden Welten die gleiche Bewegung aus.",
+  "description": "Overcome the obstacle with Karol and set down the missing bricks.\n\nYour program performs the same movement in both worlds.",
   "tasks": [
     {
       "title": "Parkour 1",

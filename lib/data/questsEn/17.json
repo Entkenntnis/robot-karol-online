@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Lücke",
-  "description": "Beim Bauen der Treppe ist wohl ein kleiner Fehler passiert ...",
+  "title": "Gap",
+  "description": "It seems there's a small mistake while building the stairs...",
   "tasks": [
     {
-      "title": "Treppe mit Lücke",
+      "title": "Stairs with Gap",
       "start": {
         "dimX": 5,
         "dimY": 1,

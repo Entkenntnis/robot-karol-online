@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Stern",
-  "description": "Lege um Karol herum vier Ziegel und baue einen Stern.\n\nDein Programm führt in allen drei Welten die gleiche Bewegung aus.",
+  "title": "Star",
+  "description": "Place four bricks around Karol and build a star.\n\nYour program performs the same movement in all three worlds.",
   "tasks": [
     {
-      "title": "Übung",
+      "title": "Practice",
       "start": {
         "dimX": 3,
         "dimY": 3,
@@ -65,7 +65,7 @@
       }
     },
     {
-      "title": "Ziegelstrahlen",
+      "title": "Ray of bricks",
       "start": {
         "dimX": 5,
         "dimY": 5,
@@ -134,7 +134,7 @@
       }
     },
     {
-      "title": "Markenstrahlen",
+      "title": "Ray of marks",
       "start": {
         "dimX": 7,
         "dimY": 7,
