@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Zwei hoch",
-  "description": "Anstatt selbst festzulegen, wo Marken gesetzt werden soll, kannst du diese Aufgabe Karol überlassen. Sie kann ihre Welt mit Sensoren wie `IstWand` oder `IstZiegel(2)` wahrnehmen.\n\nSetze neben den Stapeln der Höhe zwei jeweils eine Marke.",
+  "title": "Two High",
+  "description": "Instead of determining where to set marks yourself, you can leave this task to Karol. She can perceive her world with sensors like `is wall` or `is brick(2)`.\n\nMark the field next to each stack with a height of two.",
   "tasks": [
     {
-      "title": "Zwei hoch 1",
+      "title": "Two High 1",
       "start": {
         "dimX": 2,
         "dimY": 5,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Zwei hoch 2",
+      "title": "Two High 2",
       "start": {
         "dimX": 2,
         "dimY": 5,
@@ -118,7 +118,7 @@
       }
     },
     {
-      "title": "Zwei hoch 3",
+      "title": "Two High 3",
       "start": {
         "dimX": 2,
         "dimY": 5,

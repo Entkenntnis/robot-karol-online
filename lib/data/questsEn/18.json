@@ -1,7 +1,7 @@
 {
   "version": "v1",
-  "title": "Geheimnis",
-  "description": "Was sich hinter den Ziegeln verbirgt? Baue die Ziegel ab, um hinter die Ziegel zu blicken und das Geheimnis zu lüften.",
+  "title": "Secret",
+  "description": "What lies behind the bricks? Remove the bricks to peek behind and uncover the secret.",
   "tasks": [
     {
       "title": "???",

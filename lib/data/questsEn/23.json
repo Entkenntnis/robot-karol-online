@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Gelbes Quadrat",
-  "description": "Es macht nichts, den Befehl `MarkeSetzen` mehrfach auszuführen. Ein markiertes Feld bleibt markiert.",
+  "title": "Yellow Square",
+  "description": "It's okay to execute the command `mark field` multiple times. A marked field remains marked.",
   "tasks": [
     {
-      "title": "Größe: 5 x 5",
+      "title": "Size: 5 x 5",
       "start": {
         "dimX": 5,
         "dimY": 5,

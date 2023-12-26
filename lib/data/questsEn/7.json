@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Ziffer",
-  "description": "Karol kann nicht sprechen, aber sie kann Ziffern zeichnen und damit kommunizeren.\n\nEin Beispiel: Die Zahl 7.",
+  "title": "Digit",
+  "description": "Karol can't speak, but she can draw digits to communicate.\n\nAn example: The number 7.",
   "tasks": [
     {
-      "title": "Sieben",
+      "title": "Seven",
       "start": {
         "dimX": 5,
         "dimY": 7,
