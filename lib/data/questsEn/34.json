@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Stapel",
-  "description": "Karol kann mit ihren Sensoren auf die Welt reagieren. Diese Aufgabe besteht aus mehreren Teilen:\n\nA) Schreibe ein Programm, das auf jeden Ziegel einen weiteren Ziegel legt. Nutze noch keine Sensoren.\n\nB) Lege nur einen weiteren Ziegel, wenn bereits ein Ziegel liegt. Umschließe dafür `Hinlegen` mit der Konstrollstruktur  `wenn dann`. Wähle einen passenden Sensor-Typ aus, %img[Hinweis|/quests/stapel.png]%.\n\nC) Mithilfe der Sensoren kann Karol auch diesen Fall bearbeiten.",
+  "title": "Stack",
+  "description": "Karol can react to the world using her sensors. This task consists of several parts:\n\nA) Write a program that puts another brick on each brick. Do not use sensors yet.\n\nB) Put only another brick if there is already a brick. Surround `set down` with the control structure `if then`. Choose a suitable sensor type, %img[hint|/quests/stapel.png]%.\n\nC) With the help of sensors, Karol can handle this case as well.",
   "tasks": [
     {
-      "title": "Teil A",
+      "title": "Part A",
       "start": {
         "dimX": 5,
         "dimY": 9,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Teil B",
+      "title": "Part B",
       "start": {
         "dimX": 5,
         "dimY": 9,
@@ -118,7 +118,7 @@
       }
     },
     {
-      "title": "Teil C",
+      "title": "Part C",
       "start": {
         "dimX": 5,
         "dimY": 9,

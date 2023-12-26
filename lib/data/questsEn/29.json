@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Bedingte Wiederholung",
-  "description": "Karol steht einmal vor einem Ziegelstapel der Höhe 1, 3 und 5. In allen drei Fällen soll Karol mit dem gleichen Programm den gesamten Stapel abbauen.\n\nKarol besitzt einen Sensor. Dieser spürt, ob vor ihm ein Ziegel liegt. Mit der Kontrollstruktur `wiederhole solange` und dem Sensor `IstZiegel` kannst du ein solches Programm schreiben.\n\nDu findest unter https://app.lumi.education/run/wfqu3v eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
+  "title": "Conditional Loop",
+  "description": "Karol is facing a stack of bricks with heights 1, 3, and 5. In all three cases, Karol should use the same program to clear the entire stack.\n\nKarol has a sensor that detects whether there is a brick in front of her. With the control structure `repeat while` and the sensor `is brick`, you can write such a program.\n\nYou can find a step-by-step guide for this task at https://app.lumi.education/run/wfqu3v.",
   "tasks": [
     {
-      "title": "Hebe alle Ziegel auf - 1",
+      "title": "Pick up all bricks - 1",
       "start": {
         "dimX": 5,
         "dimY": 3,
@@ -69,7 +69,7 @@
       }
     },
     {
-      "title": "Hebe alle Ziegel auf - 2",
+      "title": "Pick up all bricks - 2",
       "start": {
         "dimX": 5,
         "dimY": 3,
@@ -134,7 +134,7 @@
       }
     },
     {
-      "title": "Hebe alle Ziegel auf - 3",
+      "title": "Pick up all bricks - 3",
       "start": {
         "dimX": 5,
         "dimY": 3,

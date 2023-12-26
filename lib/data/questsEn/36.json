@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Spuren",
-  "description": "Gehe solange vorwärts, bis die Sensoren von Karol eine Wand erkennen. Setze nach jedem Schritt eine Marke.\n\nDie Anzahl der Schritte ist unterschiedlich. Wähle einen passenden Sensor-Typ, %img[Hinweis|/quests/spuren.png]%.\n\nEin Quader wird auch als Wand erkannt.",
+  "title": "Traces",
+  "description": "Go forward until Karol's sensors detect a wall. Mark the field after each step.\n\nThe number of steps varies. Choose a suitable sensor type, %img[hint|/quests/spuren.png]%.\n\nA block is also recognized as a wall.",
   "tasks": [
     {
-      "title": "Leere Welt",
+      "title": "Empty World",
       "start": {
         "dimX": 3,
         "dimY": 6,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Über den Berg",
+      "title": "Over the Hill",
       "start": {
         "dimX": 5,
         "dimY": 3,
@@ -118,7 +118,7 @@
       }
     },
     {
-      "title": "Hindernis",
+      "title": "Obstacle",
       "start": {
         "dimX": 7,
         "dimY": 5,

@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Bedingte Wiederholung",
-  "description": "Karol steht einmal vor einem Ziegelstapel der Höhe 1, 3 und 5. In allen drei Fällen soll Karol mit dem gleichen Programm den gesamten Stapel abbauen.\n\nKarol besitzt einen Sensor. Dieser spürt, ob vor ihm ein Ziegel liegt. Mit der Kontrollstruktur `wiederhole solange` und dem Sensor `IstZiegel` kannst du ein solches Programm schreiben.\n\nDu findest unter https://app.lumi.education/run/wfqu3v eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
+  "description": "Karol steht einmal vor einem Ziegelstapel der Höhe 1, 3 und 5. In allen drei Fällen soll Karol mit dem gleichen Programm den gesamten Stapel abbauen.\n\nKarol besitzt einen Sensor. Dieser spürt, ob vor ihr ein Ziegel liegt. Mit der Kontrollstruktur `wiederhole solange` und dem Sensor `IstZiegel` kannst du ein solches Programm schreiben.\n\nDu findest unter https://app.lumi.education/run/wfqu3v eine Schritt-für-Schritt Anleitung für diese Aufgabe.",
   "tasks": [
     {
       "title": "Hebe alle Ziegel auf - 1",

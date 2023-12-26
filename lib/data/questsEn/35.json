@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Abräumer",
-  "description": "Vor Karol liegen unterschiedlich viele Ziegel. Hebe alle Ziegel auf. Schreibe ein Programm, das für alle drei Fälle funktioniert.\n\nNutze dafür die Sensoren von Karol. Wähle einen passenden Sensor-Typ, %img[Hinweis|/quests/abr.png]%.",
+  "title": "Cleaner",
+  "description": "In front of Karol, there are different numbers of bricks. Pick up all the bricks. Write a program that works for all three cases.\n\nUse Karol's sensors for this. Choose a suitable sensor type, %img[hint|/quests/abr.png]%.",
   "tasks": [
     {
-      "title": "2 Ziegel",
+      "title": "2 Bricks",
       "start": {
         "dimX": 7,
         "dimY": 3,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "3 Ziegel",
+      "title": "3 Bricks",
       "start": {
         "dimX": 7,
         "dimY": 3,
@@ -118,7 +118,7 @@
       }
     },
     {
-      "title": "5 Ziegel",
+      "title": "5 Bricks",
       "start": {
         "dimX": 7,
         "dimY": 3,
