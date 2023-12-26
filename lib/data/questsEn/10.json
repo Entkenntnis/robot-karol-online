@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Burg",
-  "description": "Wecke das Kind in dir und starte dein großes Burg-Bau-Projekt.\n\nLege mit Karol die gezeigte Burg - hier eine %img[Vorschau|/quests/burg_2.png]%.\n\nUm deiner Phantasie freien Lauf zu lassen kannst du den %img[Aufgaben-Editor|/quests/burg.png]% nutzen. Dort kannst du ganz einfach große Burgen bauen und für andere freigeben.",
+  "title": "Castle",
+  "description": "Awaken the child in you and start your big castle-building project.\n\nBuild the castle shown with Karol - here's a %img[preview|/quests/burg_2.png]%.",
   "tasks": [
     {
-      "title": "Burg mit Zinnen",
+      "title": "Castle with Battlements",
       "start": {
         "dimX": 5,
         "dimY": 5,

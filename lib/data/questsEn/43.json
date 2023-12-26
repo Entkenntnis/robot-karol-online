@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Streifen",
-  "description": "Du gibst dich nicht mit halb-fertigen Dingen zufrieden. Wenn du etwas anfängst, dann ziehst du es auch durch!\n\nKarol hat zweimal angefangen, den Boden mit Marken auszulegen, aber jedes Mal einen Streifen ausgelassen.\n\nFülle die Streifen aus. Dein Programm führt in beiden Welten die gleiche Bewegung aus.",
+  "title": "Stripes",
+  "description": "You don't settle for half-finished things. When you start something, you see it through!\n\nKarol has started marking the floor twice but has missed a stripe each time.\n\nFill in the stripes. Your program performs the same movement in both worlds.",
   "tasks": [
     {
-      "title": "Streifen 1",
+      "title": "Stripe 1",
       "start": {
         "dimX": 5,
         "dimY": 5,
@@ -69,7 +69,7 @@
       }
     },
     {
-      "title": "Streifen 2",
+      "title": "Stripe 2",
       "start": {
         "dimX": 5,
         "dimY": 5,

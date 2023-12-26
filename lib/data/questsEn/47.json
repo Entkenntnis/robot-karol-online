@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Um die Ecke",
-  "description": "Wenn dir Schwierigkeiten in den Weg gelegt werden, findest du immer einen Weg darum herum - denn das Leben läuft nicht immer straight ...\n\nDamit Karol um die Ecken kommt, besitzt sie die Befehle `LinksDrehen` und `RechtsDrehen`. Laufe um die Ecke und lege einen Ziegel.",
+  "title": "Around",
+  "description": "When difficulties are placed in your way, you always find a way around them - because life doesn't always go straight...\n\nTo navigate around corners, Karol has the commands `turn left` and `turn right`. Walk around the corner and set down a brick.",
   "tasks": [
     {
-      "title": "Lege einen Ziegel",
+      "title": "Set down a Brick",
       "start": {
         "dimX": 3,
         "dimY": 3,

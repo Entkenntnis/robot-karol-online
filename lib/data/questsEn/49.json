@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Spiegelei",
-  "description": "Was riecht hier so gut? Du hast ja was richtig leckeres gekocht.\n\nKarol hat auf jeden Fall Hunger und möchte sich ein Spiegelei machen. Dafür kann sie mit `MarkeSetzen` eine gelbe Marke unter sich setzen.\n\nGehe in die Mitte und setze eine Marke.",
+  "title": "Fried Egg",
+  "description": "What smells so good here? You've cooked something really delicious.\n\nKarol is definitely hungry and wants to make herself a fried egg. She can use the command `mark field` to place a yellow mark underneath her.\n\nGo to the center and mark the field.",
   "tasks": [
     {
-      "title": "Spiegelei",
+      "title": "Fried Egg",
       "start": {
         "dimX": 3,
         "dimY": 3,

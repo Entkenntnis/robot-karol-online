@@ -1,10 +1,10 @@
 {
   "version": "v1",
-  "title": "Zimmer aufräumen",
-  "description": "Karol darf nicht Computer spielen, solange sie ihr Zimmer nicht aufgeräumt hat. Hilf ihr.\n\nWenn Karol direkt auf einer Marke steht, kann sie die Marke mit `MarkeLöschen` entfernen.",
+  "title": "Cleaning Up",
+  "description": "Karol is not allowed to play computer games until she has cleaned her room. Help her.\n\nWhen Karol is directly on a marked field, she can remove the mark with the command `unmark field`.",
   "tasks": [
     {
-      "title": "Lösche die Marke",
+      "title": "Remove the Mark",
       "start": {
         "dimX": 4,
         "dimY": 3,
