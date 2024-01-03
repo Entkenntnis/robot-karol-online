@@ -12,7 +12,6 @@ import { switchToPage } from '../../lib/commands/page'
 import { questList } from '../../lib/data/overview'
 
 timeago.register('de', function (number, index, total_sec) {
-  console.log('timeago de')
   // Convert weeks to days.
   if ([8, 9].includes(index) && total_sec) {
     const days = Math.round(total_sec / (60 * 60 * 24))
@@ -22,7 +21,6 @@ timeago.register('de', function (number, index, total_sec) {
 })
 
 timeago.register('en', function (number, index, total_sec) {
-  console.log('timeago en')
   // Convert weeks to days.
   if ([8, 9].includes(index) && total_sec) {
     const days = Math.round(total_sec / (60 * 60 * 24))
@@ -213,7 +211,7 @@ export function Highscore() {
                           <TimeAgo
                             datetime={entry.lastActive}
                             live={false}
-                            locale="en"
+                            locale={core.ws.settings.lng}
                           />
                         </td>
                       </tr>
