@@ -18,4 +18,16 @@ export const appearanceRegistry: { [key: number]: AppearanceData } = {
     position: 0.2,
   },
   11: { type: 'legs', title: 'orange', titleEn: 'orange', position: 0.3 },
+  12: { type: 'cap', title: 'Punk', titleEn: 'Punk', position: 2 },
+  13: { type: 'cap', title: 'violett', titleEn: 'purple', position: 1.5 },
+  14: { type: 'shirt', title: 'pink', titleEn: 'pink', position: 1.5 },
+  15: { type: 'shirt', title: 'schwarz', titleEn: 'black', position: 1.7 },
+  16: { type: 'legs', title: 'schwarz', titleEn: 'black', position: 1.5 },
+  17: { type: 'shirt', title: 'weiß', titleEn: 'weiß', position: 1.6 },
+  18: {
+    type: 'legs',
+    title: 'schwarzer Rock',
+    titleEn: 'schwarzer Rock',
+    position: 1.8,
+  },
 }
