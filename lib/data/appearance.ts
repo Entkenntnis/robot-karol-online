@@ -18,4 +18,5 @@ export const appearanceRegistry: { [key: number]: AppearanceData } = {
     position: 0.2,
   },
   11: { type: 'legs', title: 'orange', titleEn: 'orange', position: 0.3 },
+  12: { type: 'cap', title: 'Punk', titleEn: 'Punk', position: 2 },
 }

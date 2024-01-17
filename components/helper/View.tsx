@@ -15,7 +15,6 @@ interface ViewProps {
 interface Resources {
   ziegel: HTMLImageElement
   ziegel_weg: HTMLImageElement
-  robot_outline: HTMLImageElement
   robot_cap: HTMLImageElement
   robot_skin: HTMLImageElement
   robot_shirt: HTMLImageElement
@@ -60,7 +59,6 @@ export function View({
         if (ctx) {
           const [
             ziegel,
-            robot_outline,
             robot_cap,
             robot_skin,
             robot_shirt,
@@ -72,7 +70,6 @@ export function View({
             markeKlein,
           ] = await Promise.all([
             loadImage('/Ziegel.png'),
-            loadImage('/robot_outline.png'),
             loadImage(`/appearance/${appearance.cap}.png`),
             loadImage(`/appearance/${appearance.skin}.png`),
             loadImage(`/appearance/${appearance.shirt}.png`),
@@ -87,7 +84,6 @@ export function View({
           setResources({
             ziegel,
             ctx,
-            robot_outline,
             robot_cap,
             robot_skin,
             robot_shirt,
@@ -109,7 +105,6 @@ export function View({
       const {
         ctx,
         ziegel,
-        robot_outline,
         robot_cap,
         robot_skin,
         robot_shirt,
@@ -271,11 +266,10 @@ export function View({
 
             const dy = point.y - 60
 
-            ctx.drawImage(robot_cap, sx, 0, 40, 71, dx, dy, 40, 71)
             ctx.drawImage(robot_skin, sx, 0, 40, 71, dx, dy, 40, 71)
-            ctx.drawImage(robot_shirt, sx, 0, 40, 71, dx, dy, 40, 71)
             ctx.drawImage(robot_legs, sx, 0, 40, 71, dx, dy, 40, 71)
-            ctx.drawImage(robot_outline, sx, 0, 40, 71, dx, dy, 40, 71)
+            ctx.drawImage(robot_shirt, sx, 0, 40, 71, dx, dy, 40, 71)
+            ctx.drawImage(robot_cap, sx, 0, 40, 71, dx, dy, 40, 71)
           }
         }
       }
