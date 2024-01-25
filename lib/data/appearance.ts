@@ -23,11 +23,17 @@ export const appearanceRegistry: { [key: number]: AppearanceData } = {
   14: { type: 'shirt', title: 'pink', titleEn: 'pink', position: 1.5 },
   15: { type: 'shirt', title: 'schwarz', titleEn: 'black', position: 1.7 },
   16: { type: 'legs', title: 'schwarz', titleEn: 'black', position: 1.5 },
-  17: { type: 'shirt', title: 'weiß', titleEn: 'weiß', position: 1.6 },
+  17: { type: 'shirt', title: 'weiß', titleEn: 'white', position: 1.6 },
   18: {
     type: 'legs',
     title: 'schwarzer Rock',
-    titleEn: 'schwarzer Rock',
+    titleEn: 'black skirt',
     position: 1.8,
+  },
+  19: {
+    type: 'cap',
+    title: 'langes schwarzes Haar',
+    titleEn: 'long black hair',
+    position: 1.6,
   },
 }
