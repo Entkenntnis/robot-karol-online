@@ -421,7 +421,10 @@ export function Overview() {
                 <button
                   className="absolute top-[1350px] left-[860px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
                   onClick={() => {
-                    window.open('https://einhorn.arrrg.de/', '_blank')
+                    window.open(
+                      'https://de.serlo.org/mathe/298181/einhorn-der-mathematik-%C3%BCbersicht-aller-episoden',
+                      '_blank'
+                    )
                   }}
                 >
                   <p className="text-center text-lg mb-1">
