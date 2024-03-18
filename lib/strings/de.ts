@@ -1,5 +1,3 @@
-import { enStrings } from './en'
-
 export const deStrings = {
   overview: {
     profile: 'Profil',
@@ -10,7 +8,7 @@ export const deStrings = {
     loadTooltip: 'Aus einer Datei laden',
     gameState: 'spielstand',
     lucky: 'Auf gut Glück!',
-    version: 'Version: Januar 2024',
+    version: 'Version: April 2024',
     playground: 'Spielwiese',
     imprint: 'Impressum',
     privacy: 'Datenschutz',

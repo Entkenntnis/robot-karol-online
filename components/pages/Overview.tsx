@@ -4,7 +4,6 @@ import {
   faGlobe,
   faPencil,
   faPenToSquare,
-  faShirt,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect, useState } from 'react'
@@ -340,7 +339,7 @@ export function Overview() {
                   {core.strings.overview.closeShowAll}
                 </button>
               </div>
-              <div className="w-[1240px] h-[2700px] mx-auto relative bg-white/50">
+              <div className="w-[1240px] h-[2950px] mx-auto relative bg-white/50">
                 {questList.map(renderQuest)}
               </div>
             </>

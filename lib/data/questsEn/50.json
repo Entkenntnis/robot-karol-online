@@ -1,0 +1,1012 @@
+{
+  "version": "v1",
+  "title": "Labyrinth (+instructions)",
+  "description": "A labyrinth? That's easily solved... thought Karol. But then it took a while for her to find the ultimate algorithm.\n\nIn every labyrinth, the goal is to find the brick and pick it up. In the simple examples, you can reach the goal using the right-hand or left-hand rule. In more complicated labyrinths, there can be islands where Karol ends up going in circles.\n\nThere, you'll need markers to mark the visited fields. But in the end, all auxiliary markings must be removed!\n\nFeel free to try this challenge yourself. You can find a complete guide to this task (sorry, currently only german) at https://de.serlo.org/304393.",
+  "tasks": [
+    {
+      "title": "Small 1",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 4, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 4,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 4,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, true],
+            [true, true, false, true],
+            [false, false, false, true],
+            [true, true, false, true]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 1, "y": 4, "dir": "west" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 4,
+          "dimY": 4,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, true],
+            [true, true, false, true],
+            [false, false, false, true],
+            [true, true, false, true]
+          ]
+        }
+      }
+    },
+    {
+      "title": "Small 2",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 4, "dir": "north" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 0,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 3,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [false, false, true],
+            [true, false, true],
+            [true, false, true],
+            [true, false, true],
+            [true, false, false]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 4, "y": 1, "dir": "north" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 3,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [false, false, true],
+            [true, false, true],
+            [true, false, true],
+            [true, false, true],
+            [true, false, false]
+          ]
+        }
+      }
+    },
+    {
+      "title": "Small 3 - hard!",
+      "start": {
+        "dimX": 7,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "south" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 6,
+          "offsetY": 4,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 5,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, true, false, true],
+            [true, false, true, false, true],
+            [true, false, true, false, true],
+            [false, false, false, false, true]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 6, "y": 3, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [true, false, true, false, false],
+            [true, false, true, false, true],
+            [true, false, true, false, true],
+            [true, false, true, false, true],
+            [false, false, false, false, true]
+          ]
+        }
+      }
+    },
+    {
+      "title": "Medium 1",
+      "start": {
+        "dimX": 9,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 2, "y": 0, "dir": "west" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 8,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 8,
+          "dimY": 9,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [false, false, true, false, false, false, false, false],
+            [true, true, true, false, true, true, true, true],
+            [false, false, true, false, false, false, false, false],
+            [true, false, true, true, true, false, true, true],
+            [true, false, true, false, false, false, false, false],
+            [true, true, true, false, true, false, true, true],
+            [false, false, false, false, true, false, true, false],
+            [true, true, true, true, true, false, true, false],
+            [true, false, false, false, false, false, false, false]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 9,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 3, "y": 8, "dir": "west" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 8,
+          "dimY": 9,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [false, false, true, false, false, false, false, false],
+            [true, true, true, false, true, true, true, true],
+            [false, false, true, false, false, false, false, false],
+            [true, false, true, true, true, false, true, true],
+            [true, false, true, false, false, false, false, false],
+            [true, true, true, false, true, false, true, true],
+            [false, false, false, false, true, false, true, false],
+            [true, true, true, true, true, false, true, false],
+            [true, false, false, false, false, false, false, false]
+          ]
+        }
+      }
+    },
+    {
+      "title": "Medium 2",
+      "start": {
+        "dimX": 9,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 6,
+          "offsetY": 8,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 9,
+          "dimY": 9,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, true, false, false, false, true, false],
+            [true, true, false, true, false, true, true, true, false],
+            [false, false, false, false, false, true, false, false, false],
+            [false, true, true, true, false, true, false, true, true],
+            [false, false, false, false, false, true, false, false, false],
+            [true, true, false, true, false, true, true, true, false],
+            [false, true, false, false, false, false, false, false, false],
+            [false, true, false, true, true, true, true, true, false],
+            [false, false, false, false, false, true, false, false, false]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 9,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 3, "y": 8, "dir": "west" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 8,
+          "dimY": 9,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [false, false, true, false, false, false, false, false],
+            [true, true, true, false, true, true, true, true],
+            [false, false, true, false, false, false, false, false],
+            [true, false, true, true, true, false, true, true],
+            [true, false, true, false, false, false, false, false],
+            [true, true, true, false, true, false, true, true],
+            [false, false, false, false, true, false, true, false],
+            [true, true, true, true, true, false, true, false],
+            [true, false, false, false, false, false, false, false]
+          ]
+        }
+      }
+    },
+    {
+      "title": "Medium 3 - hard!",
+      "start": {
+        "dimX": 9,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 4, "y": 3, "dir": "south" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 8,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 9,
+          "dimY": 9,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, true, false, true, false, false, false],
+            [true, true, false, true, false, true, false, true, true],
+            [false, false, false, false, false, false, false, true, false],
+            [false, true, true, true, false, true, false, true, false],
+            [false, false, false, false, false, true, false, false, false],
+            [false, true, false, true, true, true, false, true, false],
+            [false, true, false, false, false, false, false, true, false],
+            [false, true, true, true, true, true, true, true, false],
+            [false, false, false, false, false, true, false, false, false]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 9,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 3, "y": 8, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 9,
+          "dimY": 9,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, true, false, true, false, false, false],
+            [true, true, false, true, false, true, false, true, true],
+            [false, false, false, false, false, false, false, true, false],
+            [false, true, true, true, false, true, false, true, false],
+            [false, false, false, false, false, true, false, false, false],
+            [false, true, false, true, true, true, false, true, false],
+            [false, true, false, false, false, false, false, true, false],
+            [false, true, true, true, true, true, true, true, false],
+            [false, false, false, false, false, true, false, false, false]
+          ]
+        }
+      }
+    },
+    {
+      "title": "Large - hard!",
+      "start": {
+        "dimX": 15,
+        "dimY": 15,
+        "height": 6,
+        "karol": { "x": 6, "y": 8, "dir": "west" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 10,
+          "offsetY": 14,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 15,
+          "dimY": 15,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false
+            ],
+            [
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true
+            ],
+            [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          ]
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 15,
+        "height": 6,
+        "karol": { "x": 11, "y": 14, "dir": "west" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "dimX": 15,
+          "dimY": 15,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false
+            ],
+            [
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true
+            ],
+            [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            [
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "lng": "de"
+}
