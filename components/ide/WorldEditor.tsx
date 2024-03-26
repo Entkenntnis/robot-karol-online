@@ -79,7 +79,7 @@ export function WorldEditor() {
           }}
         >
           <FaIcon icon={faCaretLeft} className="mr-1" />
-          zurück
+          {core.strings.editor.back}
         </button>
         <div className="rounded-full border-2 border-gray-400 bg-white">
           <button
@@ -94,7 +94,7 @@ export function WorldEditor() {
               handlerDiv.current?.focus()
             }}
           >
-            Startwelt
+            {core.strings.editor.startWorld}
           </button>
           <button
             className={clsx(
@@ -105,7 +105,7 @@ export function WorldEditor() {
               showPreview(core)
             }}
           >
-            Vorschau
+            {core.strings.editor.preview}
           </button>
           <button
             className={clsx(
@@ -119,7 +119,7 @@ export function WorldEditor() {
               handlerDiv.current?.focus()
             }}
           >
-            Zielwelt
+            {core.strings.editor.endWorld}
           </button>
         </div>
         <button
@@ -129,7 +129,7 @@ export function WorldEditor() {
           }}
         >
           <FaIcon icon={faUpRightAndDownLeftFromCenter} className="mr-2" />
-          Größe der Welt ändern
+          {core.strings.editor.changeSize}
         </button>
       </div>
       <div className="flex-grow flex-shrink flex justify-center overflow-auto relative">
@@ -143,7 +143,7 @@ export function WorldEditor() {
               }}
             >
               <FaIcon icon={faClone} className="mr-2" />
-              Start in Ziel kopieren
+              {core.strings.editor.copyStartToEnd}
             </button>
           )}
         <div className="absolute bottom-2 left-2 bg-gray-50">

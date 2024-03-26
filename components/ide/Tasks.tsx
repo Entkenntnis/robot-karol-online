@@ -240,7 +240,7 @@ export function Tasks() {
                             }}
                           >
                             <FaIcon icon={faPlay} className="mr-2" />
-                            Testen
+                            {core.strings.editor.test}
                           </button>
                           <button
                             className="ml-3 rounded px-2 py-0.5 bg-blue-100 hover:bg-blue-200"
@@ -249,7 +249,7 @@ export function Tasks() {
                             }}
                           >
                             <FaIcon icon={faPencil} className="mr-2" />
-                            Welt bearbeiten
+                            {core.strings.editor.editWorld}
                           </button>
                         </p>
                         <p className="mt-20 text-sm text-gray-700">
@@ -260,7 +260,7 @@ export function Tasks() {
                               moveTaskUp(core, index)
                             }}
                           >
-                            <FaIcon icon={faArrowUp} /> hoch
+                            <FaIcon icon={faArrowUp} /> {core.strings.editor.up}
                           </button>
                           <button
                             className="hover:text-black disabled:text-gray-200 ml-5"
@@ -269,7 +269,8 @@ export function Tasks() {
                               moveTaskDown(core, index)
                             }}
                           >
-                            <FaIcon icon={faArrowDown} /> runter
+                            <FaIcon icon={faArrowDown} />{' '}
+                            {core.strings.editor.down}
                           </button>
                           <button
                             className="hover:text-black ml-5"
@@ -277,8 +278,8 @@ export function Tasks() {
                               cloneTask(core, index)
                             }}
                           >
-                            <FaIcon icon={faClone} className="mr-0.5" /> Auftrag
-                            duplizieren
+                            <FaIcon icon={faClone} className="mr-0.5" />{' '}
+                            {core.strings.editor.duplicate}
                           </button>
                           <button
                             className="hover:text-red-600 ml-5"
@@ -290,7 +291,7 @@ export function Tasks() {
                               icon={faTrashCan}
                               className="text-gray-500 mr-0.5"
                             />{' '}
-                            Auftrag löschen
+                            {core.strings.editor.delete}
                           </button>
                         </p>
                       </>
@@ -322,7 +323,7 @@ export function Tasks() {
                 }}
               >
                 <FaIcon icon={faPlus} className="mr-2" />
-                Auftrag hinzufügen
+                {core.strings.editor.addTask}
               </button>
 
               <button
@@ -337,7 +338,7 @@ export function Tasks() {
                 }}
               >
                 <FaIcon icon={faShareNodes} className="mr-2" />
-                Aufgabe freigeben
+                {core.strings.editor.publish}
               </button>
             </p>
           ) : (
@@ -374,7 +375,7 @@ export function Tasks() {
             }}
           >
             {core.ws.page == 'editor'
-              ? 'Aus Vorlage laden'
+              ? core.strings.editor.loadFrom
               : core.strings.ide.structogram}
           </button>
         </div>

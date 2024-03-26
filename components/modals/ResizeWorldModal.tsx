@@ -33,20 +33,24 @@ export function ResizeWorldModal() {
           e.stopPropagation()
         }}
       >
-        <div className="m-3 mb-6 text-xl font-bold">Neue Welt erstellen</div>
+        <div className="m-3 mb-6 text-xl font-bold">
+          {core.strings.editor.createNewWorld}
+        </div>
         <div className="flex justify-between m-3">
-          <span>⟷ Breite:</span>
+          <span>⟷ {core.strings.editor.width}:</span>
           {buildInput(localDimX, setLocalDimX, 100)}
         </div>
         <div className="flex justify-between m-3">
           <span>
-            <span className="inline-block -rotate-45">⟷</span> Länge:
+            <span className="inline-block -rotate-45">⟷</span>{' '}
+            {core.strings.editor.length}:
           </span>
           {buildInput(localDimY, setLocalDimY, 100)}
         </div>
         <div className="flex justify-between m-3">
           <span>
-            <span className="inline-block rotate-90">⟷</span> Höhe:
+            <span className="inline-block rotate-90">⟷</span>{' '}
+            {core.strings.editor.height}:
           </span>
           {buildInput(localHeight, setLocalHeight, 10)}
         </div>
@@ -57,7 +61,7 @@ export function ResizeWorldModal() {
               checked={keep}
               onChange={(e) => setKeep(e.target.checked)}
             />{' '}
-            Inhalt der Welt behalten
+            {core.strings.editor.keepWorld}
           </label>
         </div>
         <div className="my-4">
@@ -71,7 +75,7 @@ export function ResizeWorldModal() {
               exec()
             }}
           >
-            Welt erstellen
+            {core.strings.editor.create}
           </button>
           <button
             className="ml-4 px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
@@ -79,7 +83,7 @@ export function ResizeWorldModal() {
               closeModal(core)
             }}
           >
-            Schließen
+            {core.strings.editor.close}
           </button>
         </div>
       </div>

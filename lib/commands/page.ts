@@ -15,8 +15,8 @@ export function switchToPage(core: Core, target: Pages) {
   if (target == 'editor') {
     resetQuestView(core)
     core.mutateWs(({ quest, ui }) => {
-      quest.title = 'Titel der Aufgabe'
-      quest.description = 'Beschreibe, um was es bei der Aufgabe geht ...'
+      quest.title = core.strings.editor.title
+      quest.description = core.strings.editor.description
       quest.tasks = []
       ui.isHighlightDescription = false
       quest.id = -1

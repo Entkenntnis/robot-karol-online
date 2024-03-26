@@ -10,6 +10,7 @@ import { closeModal } from '../../lib/commands/modal'
 import { share } from '../../lib/commands/share'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
+import { replaceWithJSX } from '../../lib/helper/replaceWithJSX'
 
 export function ShareModal() {
   const core = useCore()
@@ -32,20 +33,24 @@ export function ShareModal() {
           e.stopPropagation()
         }}
       >
-        <h1 className="m-3 mt-8 text-xl font-bold">Teilen</h1>
+        <h1 className="m-3 mt-8 text-xl font-bold">
+          {core.strings.editor.share}
+        </h1>
         <p className="m-3 -mt-6">
-          Gib deine Aufgabe frei und mache sie online verfügbar. Dazu werden die
-          Daten auf dem Server gespeichert. Durch die Freigabe stimmst du zu,
-          dass die Aufgabe unter{' '}
-          <a
-            href="https://creativecommons.org/publicdomain/zero/1.0/"
-            target="_blank"
-            rel="noreferrer"
-            className="underline text-blue-600 hover:text-blue-700"
-          >
-            Public Domain (CC0)
-          </a>{' '}
-          gestellt wird und weiterverwendet werden darf.
+          {replaceWithJSX(
+            [core.strings.editor.shareDescription],
+            /(\{\{CC0\}\})/,
+            () => (
+              <a
+                href="https://creativecommons.org/publicdomain/zero/1.0/"
+                target="_blank"
+                rel="noreferrer"
+                className="underline text-blue-600 hover:text-blue-700"
+              >
+                Public Domain (CC0)
+              </a>
+            )
+          )}
         </p>
         {id ? (
           <div className="px-3 mb-5">
@@ -60,7 +65,8 @@ export function ShareModal() {
                 window.open(link, '_blank')
               }}
             >
-              Link in neuem Tab öffnen <FaIcon icon={faExternalLinkSquare} />
+              {core.strings.editor.openInNewTab}{' '}
+              <FaIcon icon={faExternalLinkSquare} />
             </button>
           </div>
         ) : (
@@ -80,11 +86,11 @@ export function ShareModal() {
             >
               {pending ? (
                 <>
-                  <FaIcon icon={faSpinner} className="animate-spin" /> wird
-                  geladen ...
+                  <FaIcon icon={faSpinner} className="animate-spin" />{' '}
+                  {core.strings.editor.loading}
                 </>
               ) : (
-                `Link erstellen`
+                core.strings.editor.createLink
               )}
             </button>
             {window.location.hostname == 'localhost' && (
@@ -107,7 +113,7 @@ export function ShareModal() {
               closeModal(core)
             }}
           >
-            Schließen
+            {core.strings.editor.close}
           </button>
         </p>
       </div>

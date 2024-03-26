@@ -3,15 +3,17 @@ import { backend } from '../../backend'
 import { deserializeQuest } from '../../lib/commands/json'
 import { closeModal } from '../../lib/commands/modal'
 import { questList } from '../../lib/data/overview'
-import { questData } from '../../lib/data/quests'
+import { questData as QuestDataDe } from '../../lib/data/quests'
 import { useCore } from '../../lib/state/core'
 import { QuestSerialFormat } from '../../lib/state/types'
+import { questDataEn } from '../../lib/data/questsEn'
 
 export function RemixModal() {
   const [selected, setSelected] = useState(-1)
   const [code, setCode] = useState('')
 
   const core = useCore()
+  const questData = core.ws.settings.lng == 'de' ? QuestDataDe : questDataEn
   return (
     <div
       className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
@@ -27,7 +29,7 @@ export function RemixModal() {
       >
         <div />
         <div>
-          <p>Aus freigegebener Aufgabe, gib den vierstelligen Code ein:</p>
+          <p>{core.strings.editor.fromCode}:</p>
           <p className="mt-2">
             https://karol.arrrg.de/#
             <input
@@ -62,20 +64,20 @@ export function RemixModal() {
                 void handler()
               }}
             >
-              Laden
+              {core.strings.editor.load}
             </button>
           </p>
         </div>
         <hr />
         <div>
-          <p className="mt-2">Aus einer vorhandenen Aufgabe:</p>
+          <p className="mt-2">{core.strings.editor.fromQuest}:</p>
           <select
             value={selected}
             onChange={(e) => {
               setSelected(parseInt(e.target.value))
             }}
           >
-            <option value={-1}>--- bitte auswählen ---</option>
+            <option value={-1}>{core.strings.editor.pleaseChoose}</option>
             {questList.map((id) => (
               <option key={id} value={id}>
                 {questData[id].title} (id {id})
@@ -97,7 +99,7 @@ export function RemixModal() {
               closeModal(core)
             }}
           >
-            Laden
+            {core.strings.editor.load}
           </button>
         </div>
         <hr />
@@ -108,7 +110,7 @@ export function RemixModal() {
               closeModal(core)
             }}
           >
-            Schließen
+            {core.strings.editor.close}
           </button>
         </p>
       </div>
