@@ -477,6 +477,5 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
       })
     }
   }
-  console.log('compiling in lng', lng, doc.toString(), output, warnings)
   return { warnings, output }
 }

@@ -14,6 +14,7 @@ import { abort, patch } from '../../lib/commands/vm'
 import { compile } from '../../lib/language/compiler'
 import { useCore } from '../../lib/state/core'
 import { initCustomBlocksEn } from '../../lib/blockly/customBlocksEn'
+import { setMode } from '../../lib/commands/mode'
 
 export function BlockEditor() {
   const editorDiv = useRef<HTMLDivElement>(null)
@@ -85,10 +86,18 @@ export function BlockEditor() {
 
     blocklyWorkspaceSvg.current = blocklyWorkspace
 
-    Blockly.Xml.domToWorkspace(
-      Blockly.utils.xml.textToDom(initialXml),
-      blocklyWorkspace
-    )
+    try {
+      Blockly.Xml.domToWorkspace(
+        Blockly.utils.xml.textToDom(initialXml),
+        blocklyWorkspace
+      )
+    } catch (e) {
+      // switch to code mode instead -- can be implemented more cleverly later on
+      core.mutateWs(({ settings }) => {
+        settings.mode = 'code'
+      })
+      return
+    }
 
     const blocklyArea = document.getElementById('blocklyArea')!
     const blocklyDiv = document.getElementById('blocklyDiv')!
