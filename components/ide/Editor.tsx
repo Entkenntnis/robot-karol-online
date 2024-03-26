@@ -21,14 +21,17 @@ export const Editor = ({ innerRef }: EditorProps) => {
     const currentEditor = editorDiv.current
 
     if (currentEditor) {
+      const doc = core.ws.code
+      const lng = core.ws.settings.lng /* todo: detect language from code */
       const view: EditorView = new EditorView({
         state: EditorState.create({
-          doc: core.ws.code,
+          doc,
           extensions: [
             basicSetup({
               l: () => {
                 return lint(core, view)
               },
+              lng,
             }),
             EditorView.updateListener.of((e) => {
               if (e.docChanged) {

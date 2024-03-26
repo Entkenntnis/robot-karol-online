@@ -42,62 +42,83 @@ import {
 import { linter, lintKeymap } from '@codemirror/lint'
 import { styleTags, tags as t } from '@lezer/highlight'
 
-import { parser } from './parser/parser.js'
+import { parser as parserDe } from './parser/parser.js'
+import { parser as parserEn } from './parser/parser-en.js'
 import { searchKeymap } from '@codemirror/search'
 
-const parserWithMetadata = parser.configure({
-  props: [
-    styleTags({
-      Command: t.atom,
-      RepeatStart: t.keyword,
-      RepeatEnd: t.keyword,
-      RepeatAlwaysKey: t.keyword,
-      RepeatWhileKey: t.keyword,
-      RepeatTimesKey: t.keyword,
-      IfKey: t.keyword,
-      ThenKey: t.keyword,
-      IfEndKey: t.keyword,
-      ElseKey: t.keyword,
-      CmdStart: t.keyword,
-      CmdEnd: t.keyword,
-      CmdName: t.comment,
-      Times: t.strong,
-      Comment: t.meta,
-      LineComment: t.meta,
-      PythonComment: t.meta,
-      BlockComment: t.meta,
-      Condition: t.className,
-      Not: t.strong,
-      SpecialCommand: t.strong,
-      CondStart: t.keyword,
-      CondEnd: t.keyword,
-      CondName: t.emphasis,
-      TF: t.typeName,
-      CustomRef: t.variableName,
-      KarolPrefix: t.labelName,
-      Parameter: t.strong,
-      ConditionWithoutParam: t.className,
-      ConditionMaybeWithParam: t.className,
-      CommandWithParameter: t.atom,
-      CommandPure: t.atom,
-    }),
-    indentNodeProp.add({
-      Repeat: continuedIndent({ except: /^\s*(ende|\*)wiederhole(\s|$)/i }),
-      IfThen: continuedIndent({
-        except: /^\s*(((ende|\*)wenn)|sonst)(\s|$)/i,
+function parserWithMetadata(lng: 'de' | 'en') {
+  return (lng === 'de' ? parserDe : parserEn).configure({
+    props: [
+      styleTags({
+        Command: t.atom,
+        RepeatStart: t.keyword,
+        RepeatEnd: t.keyword,
+        RepeatAlwaysKey: t.keyword,
+        RepeatWhileKey: t.keyword,
+        RepeatTimesKey: t.keyword,
+        IfKey: t.keyword,
+        ThenKey: t.keyword,
+        IfEndKey: t.keyword,
+        ElseKey: t.keyword,
+        CmdStart: t.keyword,
+        CmdEnd: t.keyword,
+        CmdName: t.comment,
+        Times: t.strong,
+        Comment: t.meta,
+        LineComment: t.meta,
+        PythonComment: t.meta,
+        BlockComment: t.meta,
+        Condition: t.className,
+        Not: t.strong,
+        SpecialCommand: t.strong,
+        CondStart: t.keyword,
+        CondEnd: t.keyword,
+        CondName: t.emphasis,
+        TF: t.typeName,
+        CustomRef: t.variableName,
+        KarolPrefix: t.labelName,
+        Parameter: t.strong,
+        ConditionWithoutParam: t.className,
+        ConditionMaybeWithParam: t.className,
+        CommandWithParameter: t.atom,
+        CommandPure: t.atom,
       }),
-      Cmd: continuedIndent({ except: /^\s*(ende|\*)anweisung(\s|$)/i }),
-    }),
-  ],
-})
+      indentNodeProp.add({
+        Repeat: continuedIndent({
+          except:
+            lng == 'de'
+              ? /^\s*(ende|\*)wiederhole(\s|$)/i
+              : /^\s*(end_|\*)repeat(\s|$)/i,
+        }),
+        IfThen: continuedIndent({
+          except:
+            lng == 'de'
+              ? /^\s*(((ende|\*)wenn)|sonst)(\s|$)/i
+              : /^\s*(((end_|\*)if)|else)(\s|$)/i,
+        }),
+        Cmd: continuedIndent({
+          except:
+            lng == 'de'
+              ? /^\s*(ende|\*)anweisung(\s|$)/i
+              : /^\s*(end_|\*)command(\s|$)/i,
+        }),
+      }),
+    ],
+  })
+}
 
-const exampleLanguage = LRLanguage.define({
-  parser: parserWithMetadata,
-  languageData: {
-    indentOnInput: /^\s*((ende|\*)(wiederhole|wenn|anweisung))|sonst/i,
-    autocomplete: buildMyAutocomplete(),
-  },
-})
+function exampleLanguage(lng: 'de' | 'en') {
+  return LRLanguage.define({
+    parser: parserWithMetadata(lng),
+    languageData: {
+      indentOnInput:
+        lng == 'de'
+          ? /^\s*((ende|\*)(wiederhole|wenn|anweisung))|sonst/i
+          : /^\s*((end_|\*)(repeat|if|command))|else/i,
+      autocomplete: buildMyAutocomplete(),
+    },
+  })
+}
 
 export const Theme = EditorView.theme({
   '&': {
@@ -125,6 +146,7 @@ export const editable = new Compartment()
 
 interface BasicSetupProps {
   l: Parameters<typeof linter>[0]
+  lng: 'de' | 'en'
 }
 
 export const autoFormat: Command = (view) => {
@@ -226,7 +248,7 @@ export const basicSetup = (props: BasicSetupProps) => [
   EditorState.tabSize.of(2),
   EditorState.phrases.of(germanPhrases),
   editable.of(EditorView.editable.of(true)),
-  exampleLanguage,
+  exampleLanguage(props.lng),
   linter(props.l, { delay: 0 }),
   Theme,
   myHighlightPlugin,
