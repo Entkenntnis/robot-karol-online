@@ -115,7 +115,7 @@ function exampleLanguage(lng: 'de' | 'en') {
         lng == 'de'
           ? /^\s*((ende|\*)(wiederhole|wenn|anweisung))|sonst/i
           : /^\s*((end_|\*)(repeat|if|command))|else/i,
-      autocomplete: buildMyAutocomplete(),
+      autocomplete: buildMyAutocomplete(lng),
     },
   })
 }
@@ -255,7 +255,7 @@ export const basicSetup = (props: BasicSetupProps) => [
   EditorView.lineWrapping,
 ]
 
-const generalOptions = [
+const generalOptionsDe = [
   { label: 'Schritt' },
   { label: 'LinksDrehen' },
   { label: 'RechtsDrehen' },
@@ -275,7 +275,27 @@ const generalOptions = [
   { label: 'karol' },
 ]
 
-const conditions = [
+const generalOptionsEn = [
+  { label: 'step', boost: 2 },
+  { label: 'turn_left' },
+  { label: 'turn_right' },
+  { label: 'set_down' },
+  { label: 'Aufheben' },
+  { label: 'mark_field' },
+  { label: 'unmark_field' },
+  // { label: 'wiederhole' },
+  // { label: 'endewiederhole' },
+  // { label: 'immer' },
+  // { label: 'wenn' },
+  // { label: 'endewenn' },
+  // { label: 'sonst' },
+  // { label: 'Anweisung' },
+  // { label: 'endeAnweisung' },
+  { label: 'end' },
+  // { label: 'karol' },
+]
+
+const conditionsDe = [
   { label: 'IstWand' },
   { label: 'NichtIstWand' },
   { label: 'IstZiegel' },
@@ -294,7 +314,7 @@ const conditions = [
 
 const span = /[a-zA-Z_0-9äöüÄÜÖß]*$/
 
-function buildMyAutocomplete(): CompletionSource {
+function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
   return (context) => {
     const token = context.matchBefore(/[a-zA-Z_0-9äöüÄÜÖß]+$/)
     const tree = syntaxTree(context.state)
@@ -341,7 +361,9 @@ function buildMyAutocomplete(): CompletionSource {
 
     if (around.name == 'CmdName' || endingHere.name == 'CmdName') return null // no completion in function name
 
-    let options = generalOptions.map((o) => ({ ...o }))
+    let options = (lng == 'de' ? generalOptionsDe : generalOptionsEn).map(
+      (o) => ({ ...o })
+    )
 
     const pendings: ('repeat' | 'if' | 'cmd')[] = []
 
@@ -409,7 +431,7 @@ function buildMyAutocomplete(): CompletionSource {
       lastEndedNode.name == 'IfKey' ||
       lastEndedNode.name == 'RepeatWhileKey'
     ) {
-      options = conditions
+      options = conditionsDe
     } else if (lastEndedNode.name == 'Times') {
       options = [{ label: 'mal' }]
     } else if (

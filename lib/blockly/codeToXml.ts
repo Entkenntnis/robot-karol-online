@@ -1,12 +1,16 @@
-import { parser } from '../codemirror/parser/parser'
+import { parser as parserDe } from '../../lib/codemirror/parser/parser'
+import { parser as parserEn } from '../../lib/codemirror/parser/parser-en'
 import { Tree, TreeCursor } from '@lezer/common'
 import { CmdBlockPositions } from '../state/types'
+import { deKeywords, enKeywords } from '../language/compiler'
 
 export function codeToXml(
   code: string,
-  cmdBlockPositions: CmdBlockPositions
+  cmdBlockPositions: CmdBlockPositions,
+  lng: 'de' | 'en'
 ): string {
-  const tree: Tree = parser.parse(code)
+  const keywords = lng == 'de' ? deKeywords : enKeywords
+  const tree: Tree = (lng == 'de' ? parserDe : parserEn).parse(code)
   return parseTree(tree.cursor(), code)
 
   function parseTree(
@@ -69,32 +73,32 @@ export function codeToXml(
           count = code.substring(cursor.from, cursor.to)
           //console.log(cursor.type.name, 'should be Parameter', count)
         }
-        if (c.includes('schritt')) {
+        if (c.includes(keywords.schritt)) {
           blockType = 'step'
         }
-        if (c.includes('hinlegen')) {
+        if (c.includes(keywords.hinlegen)) {
           blockType = 'laydown'
         }
-        if (c.includes('aufheben')) {
+        if (c.includes(keywords.aufheben)) {
           blockType = 'pickup'
         }
-        if (c.includes('linksdrehen')) {
+        if (c.includes(keywords.linksdrehen)) {
           blockType = 'turnleft'
           //count = ''
         }
-        if (c.includes('rechtsdrehen')) {
+        if (c.includes(keywords.rechtsdrehen)) {
           blockType = 'turnright'
           //count = ''
         }
-        if (c.includes('markesetzen')) {
+        if (c.includes(keywords.markesetzen)) {
           blockType = 'setmarker'
           count = ''
         }
-        if (c.includes('markelöschen')) {
+        if (c.includes(keywords.markelöschen)) {
           blockType = 'deletemarker'
           count = ''
         }
-        if (c.includes('beenden')) {
+        if (c.includes(keywords.beenden)) {
           callbackStack.push(
             buildClosureWithoutInner(
               'stop',

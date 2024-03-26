@@ -4,7 +4,30 @@ import { Tree } from '@lezer/common'
 
 import { Op, Condition, CallOp } from '../state/types'
 
-export function compile(tree: Tree, doc: Text) {
+export const deKeywords = {
+  schritt: 'schritt',
+  hinlegen: 'hinlegen',
+  aufheben: 'aufheben',
+  linksdrehen: 'linksdrehen',
+  rechtsdrehen: 'rechtsdrehen',
+  markesetzen: 'marksesetzen',
+  markelöschen: 'markelöschen',
+  beenden: 'beenden',
+}
+
+export const enKeywords = {
+  schritt: 'step',
+  hinlegen: 'set_down',
+  aufheben: 'pick_up',
+  linksdrehen: 'turn_left',
+  rechtsdrehen: 'turn_right',
+  markesetzen: 'mark_field',
+  markelöschen: 'unmark_field',
+  beenden: 'end',
+}
+
+export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
+  const keywords = lng == 'de' ? deKeywords : enKeywords
   let loopVarCounter = 0
   const output: Op[] = []
   const warnings: Diagnostic[] = []
@@ -45,7 +68,7 @@ export function compile(tree: Tree, doc: Text) {
         if (preparedCode.endsWith(')')) {
           preparedCode = preparedCode.replace(/\([0-9]*\)/, '')
         }
-        if (preparedCode == 'schritt') {
+        if (preparedCode == keywords.schritt) {
           for (let i = 0; i < repeat; i++) {
             output.push({
               type: 'action',
@@ -53,7 +76,7 @@ export function compile(tree: Tree, doc: Text) {
               line,
             })
           }
-        } else if (preparedCode == 'linksdrehen') {
+        } else if (preparedCode == keywords.linksdrehen) {
           for (let i = 0; i < repeat; i++) {
             output.push({
               type: 'action',
@@ -61,7 +84,7 @@ export function compile(tree: Tree, doc: Text) {
               line,
             })
           }
-        } else if (preparedCode == 'rechtsdrehen') {
+        } else if (preparedCode == keywords.rechtsdrehen) {
           for (let i = 0; i < repeat; i++) {
             output.push({
               type: 'action',
@@ -69,7 +92,7 @@ export function compile(tree: Tree, doc: Text) {
               line,
             })
           }
-        } else if (preparedCode == 'hinlegen') {
+        } else if (preparedCode == keywords.hinlegen) {
           for (let i = 0; i < repeat; i++) {
             output.push({
               type: 'action',
@@ -77,7 +100,7 @@ export function compile(tree: Tree, doc: Text) {
               line,
             })
           }
-        } else if (preparedCode == 'aufheben') {
+        } else if (preparedCode == keywords.aufheben) {
           for (let i = 0; i < repeat; i++) {
             output.push({
               type: 'action',
@@ -85,19 +108,19 @@ export function compile(tree: Tree, doc: Text) {
               line,
             })
           }
-        } else if (preparedCode == 'markesetzen') {
+        } else if (preparedCode == keywords.markesetzen) {
           output.push({
             type: 'action',
             command: 'setMark',
             line,
           })
-        } else if (preparedCode == 'markelöschen') {
+        } else if (preparedCode == keywords.markelöschen) {
           output.push({
             type: 'action',
             command: 'resetMark',
             line,
           })
-        } else if (preparedCode == 'beenden') {
+        } else if (preparedCode == keywords.beenden) {
           // jump into the black hole
           output.push({
             type: 'jump',
@@ -454,5 +477,6 @@ export function compile(tree: Tree, doc: Text) {
       })
     }
   }
+  console.log('compiling in lng', lng, doc.toString(), output, warnings)
   return { warnings, output }
 }

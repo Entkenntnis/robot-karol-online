@@ -8,7 +8,8 @@ import '../../lib/blockly/FieldNumberSlider'
 import { codeToXml } from '../../lib/blockly/codeToXml'
 import { initCustomBlocks } from '../../lib/blockly/customBlocks'
 import { KAROL_TOOLBOX } from '../../lib/blockly/toolbox'
-import { parser } from '../../lib/codemirror/parser/parser'
+import { parser as parserDe } from '../../lib/codemirror/parser/parser'
+import { parser as parserEn } from '../../lib/codemirror/parser/parser-en'
 import { abort, patch } from '../../lib/commands/vm'
 import { compile } from '../../lib/language/compiler'
 import { useCore } from '../../lib/state/core'
@@ -58,7 +59,11 @@ export function BlockEditor() {
     }
     //console.log('inject blockly')
 
-    const initialXml = codeToXml(core.ws.code, core.ws.ui.cmdBlockPositions)
+    const initialXml = codeToXml(
+      core.ws.code,
+      core.ws.ui.cmdBlockPositions,
+      core.ws.settings.lng
+    )
 
     //console.log('initial', initialXml)
 
@@ -182,8 +187,10 @@ export function BlockEditor() {
           return // don't patch while running of code hasn't changed
         }
         const doc = Text.of(newCode.split('\n'))
-        const tree = parser.parse(newCode)
-        const { warnings, output } = compile(tree, doc)
+        const tree = (core.ws.settings.lng == 'de' ? parserDe : parserEn).parse(
+          newCode
+        )
+        const { warnings, output } = compile(tree, doc, core.ws.settings.lng)
 
         //console.log(warnings, output)
 

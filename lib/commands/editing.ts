@@ -16,7 +16,11 @@ export function lint(core: Core, view: EditorView) {
   })
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
-  const { warnings, output } = compile(tree, view.state.doc)
+  const { warnings, output } = compile(
+    tree,
+    view.state.doc,
+    core.ws.settings.lng
+  )
   warnings.sort((a, b) => a.from - b.from)
 
   if (warnings.length == 0) {

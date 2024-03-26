@@ -12,46 +12,46 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
       const val = block.getFieldValue('COUNT')
 
       if (val == 1) {
-        return 'Schritt' + '//blockId:' + block.id
+        return 'step' + '//blockId:' + block.id
       }
-      return 'Schritt(' + val + ')' + '//blockId:' + block.id
+      return 'step(' + val + ')' + '//blockId:' + block.id
     },
   ],
   [
     'turnleft',
     (block: Block) => {
       const val = block.getFieldValue('COUNT')
-      if (val == 1) return 'LinksDrehen' + '//blockId:' + block.id
-      return 'LinksDrehen(' + val + ')' + '//blockId:' + block.id
+      if (val == 1) return 'turn_left' + '//blockId:' + block.id
+      return 'turn_left(' + val + ')' + '//blockId:' + block.id
     },
   ],
   [
     'turnright',
     (block: Block) => {
       const val = block.getFieldValue('COUNT')
-      if (val == 1) return 'RechtsDrehen' + '//blockId:' + block.id
-      return 'RechtsDrehen(' + val + ')' + '//blockId:' + block.id
+      if (val == 1) return 'turn_right' + '//blockId:' + block.id
+      return 'turn_right(' + val + ')' + '//blockId:' + block.id
     },
   ],
   [
     'laydown',
     (block: Block) => {
       const val = block.getFieldValue('COUNT')
-      if (val == 1) return 'Hinlegen' + '//blockId:' + block.id
-      return 'Hinlegen(' + val + ')' + '//blockId:' + block.id
+      if (val == 1) return 'set_down' + '//blockId:' + block.id
+      return 'set_down(' + val + ')' + '//blockId:' + block.id
     },
   ],
   [
     'pickup',
     (block: Block) => {
       const val = block.getFieldValue('COUNT')
-      if (val == '1') return 'Aufheben' + '//blockId:' + block.id
-      return 'Aufheben(' + val + ')' + '//blockId:' + block.id
+      if (val == '1') return 'pick_up' + '//blockId:' + block.id
+      return 'pick_up(' + val + ')' + '//blockId:' + block.id
     },
   ],
-  ['setmarker', (block: Block) => 'MarkeSetzen' + '//blockId:' + block.id],
-  ['deletemarker', (block: Block) => 'MarkeLöschen' + '//blockId:' + block.id],
-  ['stop', (block: Block) => 'Beenden' + '//blockId:' + block.id],
+  ['setmarker', (block: Block) => 'mark_field' + '//blockId:' + block.id],
+  ['deletemarker', (block: Block) => 'unmark_field' + '//blockId:' + block.id],
+  ['stop', (block: Block) => 'end' + '//blockId:' + block.id],
   [
     'repeat_times',
     (block: Block) =>
