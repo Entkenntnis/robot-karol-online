@@ -42,12 +42,11 @@ import {
 import { linter, lintKeymap } from '@codemirror/lint'
 import { styleTags, tags as t } from '@lezer/highlight'
 
-import { parser as parserDe } from './parser/parser.js'
-import { parser as parserEn } from './parser/parser-en.js'
 import { searchKeymap } from '@codemirror/search'
+import { getParserWithLng } from './parser/get-parser-with-lng'
 
 function parserWithMetadata(lng: 'de' | 'en') {
-  return (lng === 'de' ? parserDe : parserEn).configure({
+  return getParserWithLng(lng).configure({
     props: [
       styleTags({
         Command: t.atom,

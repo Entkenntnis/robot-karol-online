@@ -8,13 +8,11 @@ import '../../lib/blockly/FieldNumberSlider'
 import { codeToXml } from '../../lib/blockly/codeToXml'
 import { initCustomBlocks } from '../../lib/blockly/customBlocks'
 import { KAROL_TOOLBOX } from '../../lib/blockly/toolbox'
-import { parser as parserDe } from '../../lib/codemirror/parser/parser'
-import { parser as parserEn } from '../../lib/codemirror/parser/parser-en'
 import { abort, patch } from '../../lib/commands/vm'
 import { compile } from '../../lib/language/compiler'
 import { useCore } from '../../lib/state/core'
 import { initCustomBlocksEn } from '../../lib/blockly/customBlocksEn'
-import { setMode } from '../../lib/commands/mode'
+import { getParserWithLng } from '../../lib/codemirror/parser/get-parser-with-lng'
 
 export function BlockEditor() {
   const editorDiv = useRef<HTMLDivElement>(null)
@@ -196,9 +194,7 @@ export function BlockEditor() {
           return // don't patch while running of code hasn't changed
         }
         const doc = Text.of(newCode.split('\n'))
-        const tree = (core.ws.settings.lng == 'de' ? parserDe : parserEn).parse(
-          newCode
-        )
+        const tree = getParserWithLng(core.ws.settings.lng).parse(newCode)
         const { warnings, output } = compile(tree, doc, core.ws.settings.lng)
 
         //console.log(warnings, output)

@@ -1,8 +1,7 @@
-import { parser as parserDe } from '../../lib/codemirror/parser/parser'
-import { parser as parserEn } from '../../lib/codemirror/parser/parser-en'
 import { Tree, TreeCursor } from '@lezer/common'
 import { CmdBlockPositions } from '../state/types'
 import { deKeywords, enKeywords } from '../language/compiler'
+import { getParserWithLng } from '../codemirror/parser/get-parser-with-lng'
 
 export function codeToXml(
   code: string,
@@ -10,7 +9,7 @@ export function codeToXml(
   lng: 'de' | 'en'
 ): string {
   const keywords = lng == 'de' ? deKeywords : enKeywords
-  const tree: Tree = (lng == 'de' ? parserDe : parserEn).parse(code)
+  const tree: Tree = getParserWithLng(lng).parse(code)
   return parseTree(tree.cursor(), code)
 
   function parseTree(
