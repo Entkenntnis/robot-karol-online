@@ -58,11 +58,7 @@ export function BlockEditor() {
     }
     //console.log('inject blockly')
 
-    const initialXml = codeToXml(
-      core.ws.code,
-      core.ws.ui.cmdBlockPositions,
-      core.ws.settings.lng
-    )
+    const initialXml = codeToXml(core.ws.code, core.ws.ui.cmdBlockPositions)
 
     //console.log('initial', initialXml)
 
@@ -84,18 +80,10 @@ export function BlockEditor() {
 
     blocklyWorkspaceSvg.current = blocklyWorkspace
 
-    try {
-      Blockly.Xml.domToWorkspace(
-        Blockly.utils.xml.textToDom(initialXml),
-        blocklyWorkspace
-      )
-    } catch (e) {
-      // switch to code mode instead -- can be implemented more cleverly later on
-      core.mutateWs(({ settings }) => {
-        settings.mode = 'code'
-      })
-      return
-    }
+    Blockly.Xml.domToWorkspace(
+      Blockly.utils.xml.textToDom(initialXml),
+      blocklyWorkspace
+    )
 
     const blocklyArea = document.getElementById('blocklyArea')!
     const blocklyDiv = document.getElementById('blocklyDiv')!

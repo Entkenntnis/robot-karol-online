@@ -22,7 +22,7 @@ export const Editor = ({ innerRef }: EditorProps) => {
 
     if (currentEditor) {
       const doc = core.ws.code
-      const lng = core.ws.settings.lng /* todo: detect language from code */
+      const lng = core.ws.settings.lng
       const view: EditorView = new EditorView({
         state: EditorState.create({
           doc,

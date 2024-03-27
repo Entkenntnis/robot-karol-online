@@ -5,9 +5,9 @@ import { getParserWithLng } from '../codemirror/parser/get-parser-with-lng'
 
 export function codeToXml(
   code: string,
-  cmdBlockPositions: CmdBlockPositions,
-  lng: 'de' | 'en'
+  cmdBlockPositions: CmdBlockPositions
 ): string {
+  const lng = 'de' // TODO: auto detect here!
   const keywords = lng == 'de' ? deKeywords : enKeywords
   const tree: Tree = getParserWithLng(lng).parse(code)
   return parseTree(tree.cursor(), code)
