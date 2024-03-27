@@ -219,7 +219,7 @@ export function BlockEditor() {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [core.ws.settings.lng])
 
   return (
     <>

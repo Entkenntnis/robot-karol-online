@@ -49,7 +49,10 @@ export function lint(core: Core, view: EditorView) {
       ui.state = 'error'
       ui.errorMessages = warnings
         .map(
-          (w) => `Zeile ${view.state.doc.lineAt(w.from).number}: ${w.message}`
+          (w) =>
+            `${core.strings.ide.line} ${
+              view.state.doc.lineAt(w.from).number
+            }: ${w.message}`
         )
         .filter(function (item, i, arr) {
           return arr.indexOf(item) == i

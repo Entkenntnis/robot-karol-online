@@ -234,7 +234,7 @@ export const basicSetup = (props: BasicSetupProps) => [
     ...lintKeymap,
     ...completionKeymap,
     ...searchKeymap,
-    { key: 'Tab', run: myTabExtension },
+    { key: 'Tab', run: buildMyTabExtension(props.lng) },
     indentWithTab,
     {
       key: 'Ctrl-s',
@@ -281,16 +281,16 @@ const generalOptionsEn = [
   { label: 'Aufheben' },
   { label: 'mark_field' },
   { label: 'unmark_field' },
-  // { label: 'wiederhole' }, // TODO
-  // { label: 'endewiederhole' },
-  // { label: 'immer' },
-  // { label: 'wenn' },
-  // { label: 'endewenn' },
-  // { label: 'sonst' },
-  // { label: 'Anweisung' },
-  // { label: 'endeAnweisung' },
+  { label: 'repeat' },
+  { label: 'end_repeat' },
+  { label: 'always' },
+  { label: 'if' },
+  { label: 'end_if' },
+  { label: 'else' },
+  { label: 'command' },
+  { label: 'end_command' },
   { label: 'end' },
-  // { label: 'karol' },
+  { label: 'karol' },
 ]
 
 const conditionsDe = [
@@ -311,20 +311,20 @@ const conditionsDe = [
 ]
 
 const conditionsEn = [
-  // { label: 'IstWand' }, // TODO
-  // { label: 'NichtIstWand' },
-  // { label: 'IstZiegel' },
-  // { label: 'NichtIstZiegel' },
-  // { label: 'IstMarke' },
-  // { label: 'NichtIstMarke' },
-  // { label: 'IstNorden', boost: -2 },
-  // { label: 'NichtIstNorden', boost: -2 },
-  // { label: 'IstOsten', boost: -2 },
-  // { label: 'NichtIstOsten', boost: -2 },
-  // { label: 'IstSüden', boost: -2 },
-  // { label: 'NichtIstSüden', boost: -2 },
-  // { label: 'IstWesten', boost: -2 },
-  // { label: 'NichtIstWesten', boost: -2 },
+  { label: 'is_wall' },
+  { label: 'not_is_wall' },
+  { label: 'is_brick' },
+  { label: 'not_is_brick' },
+  { label: 'is_mark' },
+  { label: 'not_is_mark' },
+  { label: 'is_north', boost: -2 },
+  { label: 'not_is_north', boost: -2 },
+  { label: 'is_east', boost: -2 },
+  { label: 'not_is_east', boost: -2 },
+  { label: 'is_south', boost: -2 },
+  { label: 'not_is_south', boost: -2 },
+  { label: 'is_west', boost: -2 },
+  { label: 'not_is_west', boost: -2 },
 ]
 
 const span = /[a-zA-Z_0-9äöüÄÜÖß]*$/
@@ -419,8 +419,7 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
 
     if (last == 'repeat') {
       options.forEach((o) => {
-        if (o.label == 'endewiederhole') {
-          // TODO
+        if (o.label == keywords.endewiederhole) {
           o.boost = 3
         }
       })
@@ -428,8 +427,7 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
 
     if (last == 'cmd') {
       options.forEach((o) => {
-        if (o.label == 'endeAnweisung') {
-          // TODO
+        if (o.label == keywords.endeanweisung) {
           o.boost = 3
         }
       })
@@ -437,32 +435,34 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
 
     if (last == 'if') {
       options.forEach((o) => {
-        if (o.label == 'endewenn') {
-          // TODO
+        if (o.label == keywords.endewenn) {
           o.boost = 3
         }
       })
     }
 
     if (lastEndedNode.name == 'RepeatStart') {
-      options = [{ label: 'solange', boost: 2 }, { label: 'immer' }] // TODO
+      options =
+        lng == 'de'
+          ? [{ label: 'solange', boost: 2 }, { label: 'immer' }]
+          : [{ label: 'while', boost: 2 }, { label: 'always' }]
     } else if (
       lastEndedNode.name == 'IfKey' ||
       lastEndedNode.name == 'RepeatWhileKey'
     ) {
-      options = conditionsDe
+      options = lng == 'de' ? conditionsDe : conditionsEn
     } else if (lastEndedNode.name == 'Times') {
-      options = [{ label: 'mal' }] // TODO
+      options = lng == 'de' ? [{ label: 'mal' }] : [{ label: 'times' }]
     } else if (
       lastEndedNode.name == 'Condition' &&
       lastEndedNode.parent?.name == 'IfThen'
     ) {
-      options = [{ label: 'dann' }] // TODO
+      options = lng == 'de' ? [{ label: 'dann' }] : [{ label: 'then' }]
     } else if (
       lastEndedNode.parent?.name == 'Condition' &&
       lastEndedNode.parent?.parent?.name == 'IfThen'
     ) {
-      options = [{ label: 'dann' }] // TODO
+      options = lng == 'de' ? [{ label: 'dann' }] : [{ label: 'then' }] // TODO
     }
     if (options.some((x) => x.label == token?.text)) return null
 
@@ -523,30 +523,37 @@ const myHighlightPlugin = ViewPlugin.fromClass(
   }
 )
 
-const myTabExtension: Command = (target: EditorView) => {
-  if (target.state.selection.ranges.length == 1) {
-    if (target.state.selection.main.empty) {
-      const pos = target.state.selection.main.from
-      const line = target.state.doc.lineAt(pos)
-      if (line.length == 0) {
-        // I am at the beginning of an empty line and pressing tab
-        if (line.number > 1) {
-          const preLine = target.state.doc
-            .line(line.number - 1)
-            .text.toLowerCase()
-          if (
-            preLine.includes('anweisung') || // TODO
-            preLine.includes('wiederhole') || // TODO
-            preLine.includes('wenn') || // TODO
-            preLine.includes('sonst') // TODO
-          ) {
-            deleteCharBackward(target)
-            insertNewlineAndIndent(target)
-            return true
+function buildMyTabExtension(lng: 'de' | 'en') {
+  return (target: EditorView) => {
+    if (target.state.selection.ranges.length == 1) {
+      if (target.state.selection.main.empty) {
+        const pos = target.state.selection.main.from
+        const line = target.state.doc.lineAt(pos)
+        if (line.length == 0) {
+          // I am at the beginning of an empty line and pressing tab
+          if (line.number > 1) {
+            const preLine = target.state.doc
+              .line(line.number - 1)
+              .text.toLowerCase()
+            if (
+              lng == 'de'
+                ? preLine.includes('anweisung') ||
+                  preLine.includes('wiederhole') ||
+                  preLine.includes('wenn') ||
+                  preLine.includes('sonst')
+                : preLine.includes('command') ||
+                  preLine.includes('repeat') ||
+                  preLine.includes('if') ||
+                  preLine.includes('else')
+            ) {
+              deleteCharBackward(target)
+              insertNewlineAndIndent(target)
+              return true
+            }
           }
         }
       }
     }
+    return false
   }
-  return false
 }

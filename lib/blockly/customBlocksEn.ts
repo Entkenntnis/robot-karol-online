@@ -78,7 +78,7 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   [
     'repeat_forever',
     (block: Block) =>
-      'repeat forever ' +
+      'repeat always ' +
       '//blockId:' +
       block.id +
       '\n' +

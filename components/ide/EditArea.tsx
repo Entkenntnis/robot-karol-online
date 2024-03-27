@@ -99,7 +99,7 @@ export function EditArea() {
                     icon={faCircleExclamation}
                     className="text-red-600 mr-2"
                   />
-                  Es sind folgende Probleme aufgetreten:
+                  {core.strings.ide.problems}:
                 </p>
                 {core.ws.ui.errorMessages.map((err, i) => (
                   <p className="mb-2" key={err + i.toString()}>

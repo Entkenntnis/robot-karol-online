@@ -62,7 +62,7 @@ export const Editor = ({ innerRef }: EditorProps) => {
       return () => view.destroy()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editorDiv])
+  }, [editorDiv, core.ws.settings.lng])
 
   return <div ref={editorDiv} className="h-full" />
 }

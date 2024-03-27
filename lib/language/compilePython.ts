@@ -2,7 +2,7 @@ import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
 import { BranchOp, CallOp, Condition, JumpOp, Op } from '../state/types'
 import { Diagnostic } from '@codemirror/lint'
-import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
+import { AstNode, cursorToAstNode } from './astNode'
 import {
   AnchorOp,
   conditionToRK,

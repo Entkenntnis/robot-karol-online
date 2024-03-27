@@ -35,7 +35,6 @@ import {
 } from '@codemirror/commands'
 import { lintKeymap, linter } from '@codemirror/lint'
 import { searchKeymap } from '@codemirror/search'
-import { compileJava } from '../../lib/language/compileJava'
 import { patch } from '../../lib/commands/vm'
 import { setLoading } from '../../lib/commands/editing'
 import {

@@ -62,6 +62,8 @@ export const enStrings: typeof deStrings = {
     exit: 'continue',
     read: 'Read the instructions',
     language: 'Language',
+    problems: 'The following problems occurred',
+    line: 'Line',
   },
   profile: {
     title: 'Profile',

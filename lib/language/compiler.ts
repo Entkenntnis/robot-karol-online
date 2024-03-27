@@ -13,6 +13,23 @@ export const deKeywords = {
   markesetzen: 'marksesetzen',
   markelöschen: 'markelöschen',
   beenden: 'beenden',
+  endewiederhole: 'endewiederhole',
+  endeanweisung: 'endeanweisung',
+  endewenn: 'endewenn',
+  istwand: 'istwand',
+  nichtistwand: 'nichtistwand',
+  istziegel: 'istziegel',
+  nichtistziegel: 'nichtistziegel',
+  istmarke: 'istmarke',
+  nichtistmarke: 'nichtistmarke',
+  istnorden: 'istnorden',
+  nichtistnorden: 'nichtistnorden',
+  istosten: 'istosten',
+  nichtistosten: 'nichtistosten',
+  istsüden: 'istsüden',
+  nichtistsüden: 'nichtistsüden',
+  istwesten: 'istwesten',
+  nichtistwesten: 'nichtistwesten',
 }
 
 export const enKeywords = {
@@ -24,6 +41,23 @@ export const enKeywords = {
   markesetzen: 'mark_field',
   markelöschen: 'unmark_field',
   beenden: 'end',
+  endewiederhole: 'end_repeat',
+  endeanweisung: 'end_command',
+  endewenn: 'end_if',
+  istwand: 'is_wall',
+  nichtistwand: 'not_is_wall',
+  istziegel: 'is_brick',
+  nichtistziegel: 'not_is_brick',
+  istmarke: 'is_mark',
+  nichtistmarke: 'not_is_mark',
+  istnorden: 'is_north',
+  nichtistnorden: 'not_is_north',
+  istosten: 'is_east',
+  nichtistosten: 'not_is_east',
+  istsüden: 'is_south',
+  nichtistsüden: 'not_is_south',
+  istwesten: 'is_west',
+  nichtistwesten: 'not_is_west',
 }
 
 export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
@@ -179,41 +213,47 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
 
         const preparedCode = code.toLowerCase().replace(/\([0-9]*\)/, '')
 
-        if (code.toLowerCase() == 'nichtistwand') {
+        if (code.toLowerCase() == keywords.nichtistwand) {
           cond = { type: 'wall', negated: true }
-        } else if (code.toLowerCase() == 'istwand') {
+        } else if (code.toLowerCase() == keywords.istwand) {
           cond = { type: 'wall', negated: false }
-        } else if (code.toLowerCase() == 'nichtistziegel' && repeat === null) {
+        } else if (
+          code.toLowerCase() == keywords.nichtistziegel &&
+          repeat === null
+        ) {
           cond = { type: 'brick', negated: true }
-        } else if (code.toLowerCase() == 'istziegel' && repeat === null) {
+        } else if (
+          code.toLowerCase() == keywords.istziegel &&
+          repeat === null
+        ) {
           cond = { type: 'brick', negated: false }
-        } else if (code.toLowerCase() == 'nichtistmarke') {
+        } else if (code.toLowerCase() == keywords.nichtistmarke) {
           cond = { type: 'mark', negated: true }
-        } else if (code.toLowerCase() == 'istmarke') {
+        } else if (code.toLowerCase() == keywords.istmarke) {
           cond = { type: 'mark', negated: false }
-        } else if (code.toLowerCase() == 'nichtistnorden') {
+        } else if (code.toLowerCase() == keywords.nichtistnorden) {
           cond = { type: 'north', negated: true }
-        } else if (code.toLowerCase() == 'istnorden') {
+        } else if (code.toLowerCase() == keywords.istnorden) {
           cond = { type: 'north', negated: false }
-        } else if (code.toLowerCase() == 'nichtistosten') {
+        } else if (code.toLowerCase() == keywords.nichtistosten) {
           cond = { type: 'east', negated: true }
-        } else if (code.toLowerCase() == 'istosten') {
+        } else if (code.toLowerCase() == keywords.istosten) {
           cond = { type: 'east', negated: false }
-        } else if (code.toLowerCase() == 'nichtistsüden') {
+        } else if (code.toLowerCase() == keywords.nichtistsüden) {
           cond = { type: 'south', negated: true }
-        } else if (code.toLowerCase() == 'istsüden') {
+        } else if (code.toLowerCase() == keywords.istsüden) {
           cond = { type: 'south', negated: false }
-        } else if (code.toLowerCase() == 'nichtistwesten') {
+        } else if (code.toLowerCase() == keywords.nichtistwesten) {
           cond = { type: 'west', negated: true }
-        } else if (code.toLowerCase() == 'istwesten') {
+        } else if (code.toLowerCase() == keywords.istwesten) {
           cond = { type: 'west', negated: false }
-        } else if (preparedCode == 'istziegel' && repeat !== null) {
+        } else if (preparedCode == keywords.istziegel && repeat !== null) {
           cond = {
             type: 'brick_count',
             negated: false,
             count: parseInt(repeat),
           }
-        } else if (preparedCode == 'nichtistziegel' && repeat !== null) {
+        } else if (preparedCode == keywords.nichtistziegel && repeat !== null) {
           cond = { type: 'brick_count', negated: true, count: parseInt(repeat) }
         }
         if (st && st.type == 'repeat' && st.stage == 10) {
@@ -290,7 +330,9 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
               to: Math.min(cursor.to + 3, doc.length - 1),
               severity: 'error',
               message:
-                'Anzahl der Wiederholung ist negativ, erwarte ein Zahl größer gleich 0',
+                lng == 'de'
+                  ? 'Anzahl der Wiederholung ist negativ, erwarte ein Zahl größer gleich 0'
+                  : 'Number of repetitions is negative, expecting number greater than 0',
             })
           }
           output.push({ type: 'constant', value: st.times! + 1 }) // we decrement before compare
@@ -378,7 +420,10 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
               from: cursor.from,
               to: cursor.to,
               severity: 'error',
-              message: 'Anweisung mit diesem Namen bereits vorhanden',
+              message:
+                lng == 'de'
+                  ? 'Anweisung mit diesem Namen bereits vorhanden'
+                  : 'Command with this name already exists',
             })
           } else {
             st.stage = 2
@@ -400,58 +445,85 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
       if (cursor.type.isError) {
         //console.log(cursor.node, parseStack)
         const topOfStack = parseStack[parseStack.length - 1]
-        let message = 'Kontrollstruktur unvollständig'
+        let message =
+          lng == 'de'
+            ? 'Kontrollstruktur unvollständig'
+            : 'Control structure incomplete'
         if (topOfStack) {
           if (topOfStack.type == 'repeat') {
-            message = 'Schleife unvollständig'
+            message = lng == 'de' ? 'Schleife unvollständig' : 'Loop incomplete'
             if (topOfStack.stage == 1) {
-              message += ', Zahl oder "solange" erwartet'
+              message +=
+                lng == 'de'
+                  ? ', Zahl oder "solange" erwartet'
+                  : ', expecting number or "while"'
             }
             if (topOfStack.stage == 2 && topOfStack.times) {
-              message += ', "mal" erwartet'
+              message +=
+                lng == 'de' ? ', "mal" erwartet' : ', expecting "times"'
             }
             if (topOfStack.stage == 3) {
-              message += ', "endewiederhole" erwartet'
+              message +=
+                lng == 'de'
+                  ? ', "endewiederhole" erwartet'
+                  : ', expecting "end_repeat"'
             }
             if (
               topOfStack.stage == 10 ||
               (topOfStack.stage == 11 && !topOfStack.condition?.type)
             ) {
-              message += ', Bedingung erwartet'
+              message +=
+                lng == 'de' ? ', Bedingung erwartet' : ', expecting condition'
             }
             if (topOfStack.stage == 11 && topOfStack.condition?.type) {
-              message += ', "endewiederhole" erwartet'
+              message +=
+                lng == 'de'
+                  ? ', "endewiederhole" erwartet'
+                  : ', expecting "end_repeat"'
             }
           }
           if (topOfStack.type == 'if') {
-            message = 'Bedingte Anweisung unvollständig'
+            message =
+              lng == 'de'
+                ? 'Bedingte Anweisung unvollständig'
+                : 'Conditional statement incomplete'
             if (
               topOfStack.stage == 1 ||
               (topOfStack.stage == 2 && !topOfStack.op)
             ) {
-              message += ', Bedingung erwartet'
+              message +=
+                lng == 'de' ? ', Bedingung erwartet' : ', expecting condition'
             } else if (
               topOfStack.stage == 2 ||
               (topOfStack.stage > 2 && !topOfStack.op)
             ) {
-              message += ', "dann" erwartet'
+              message +=
+                lng == 'de' ? ', "dann" erwartet' : ', expecting "then"'
             }
             if (
               (topOfStack.stage == 3 || topOfStack.stage == 4) &&
               topOfStack.op
             ) {
-              message += ', "endewenn" erwartet'
+              message +=
+                lng == 'de' ? ', "endewenn" erwartet' : ', expecting "end_if"'
             }
           }
           if (topOfStack.type == 'function') {
-            message = 'Anweisung unvollständig'
+            message =
+              lng == 'de' ? 'Anweisung unvollständig' : 'Command incomplete'
             if (
               cursor.node.parent?.name === 'CmdName' ||
               topOfStack.stage == 1
             ) {
-              message += ', Name der Anweisung erwartet'
+              message +=
+                lng == 'de'
+                  ? ', Name der Anweisung erwartet'
+                  : ', expecting name'
             } else {
-              message += ', "endeAnweisung" erwartet'
+              message +=
+                lng == 'de'
+                  ? ', "endeAnweisung" erwartet'
+                  : ', expecting "end_command"'
             }
           }
         }
@@ -473,7 +545,10 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
         from: f.from,
         to: f.to,
         severity: 'error',
-        message: `"${f.code}" ist kein bekannter Befehl`,
+        message:
+          lng == 'de'
+            ? `"${f.code}" ist kein bekannter Befehl`
+            : `"${f.code}" is not a known command`,
       })
     }
   }

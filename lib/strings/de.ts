@@ -61,6 +61,8 @@ export const deStrings = {
     exit: 'weiter',
     read: 'Lies die Anleitung',
     language: 'Sprache',
+    problems: 'Es sind folgende Probleme aufgetreten',
+    line: 'Zeile',
   },
   profile: {
     title: 'Profil',
