@@ -5,9 +5,10 @@ import { getParserWithLng } from '../codemirror/parser/get-parser-with-lng'
 
 export function codeToXml(
   code: string,
-  cmdBlockPositions: CmdBlockPositions
+  cmdBlockPositions: CmdBlockPositions,
+  systemLng: 'de' | 'en'
 ): string {
-  const lng = 'de' // TODO: auto detect here!
+  const lng = detectLng(code.toLowerCase()) ?? systemLng
   const keywords = lng == 'de' ? deKeywords : enKeywords
   const tree: Tree = getParserWithLng(lng).parse(code)
   return parseTree(tree.cursor(), code)
@@ -378,4 +379,31 @@ function buildRepeatAlways(statements: string) {
   ${
     statements ? `<statement name="STATEMENTS">${statements}</statement>` : ''
   }${inner ? `<next>${inner}</next>` : ''}</block>`
+}
+
+function detectLng(code: string) {
+  let enScore = 0,
+    deScore = 0
+
+  Object.values(deKeywords).forEach((str) => {
+    if (code.includes(str.toLowerCase())) {
+      deScore++
+    }
+  })
+
+  Object.values(enKeywords).forEach((str) => {
+    if (code.includes(str.toLowerCase())) {
+      enScore++
+    }
+  })
+
+  if (deScore > enScore) {
+    return 'de'
+  }
+
+  if (deScore < enScore) {
+    return 'en'
+  }
+
+  return null
 }

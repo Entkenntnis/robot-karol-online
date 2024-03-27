@@ -58,7 +58,11 @@ export function BlockEditor() {
     }
     //console.log('inject blockly')
 
-    const initialXml = codeToXml(core.ws.code, core.ws.ui.cmdBlockPositions)
+    const initialXml = codeToXml(
+      core.ws.code,
+      core.ws.ui.cmdBlockPositions,
+      core.ws.settings.lng
+    )
 
     //console.log('initial', initialXml)
 
