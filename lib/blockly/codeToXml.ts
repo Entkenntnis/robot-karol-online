@@ -8,6 +8,8 @@ export function codeToXml(
   cmdBlockPositions: CmdBlockPositions,
   systemLng: 'de' | 'en'
 ): string {
+  // blocks are always showing in the current lng, so we parse the code according to
+  // detected lng and convert it if necessary
   const lng = detectLng(code.toLowerCase()) ?? systemLng
   const keywords = lng == 'de' ? deKeywords : enKeywords
   const tree: Tree = getParserWithLng(lng).parse(code)

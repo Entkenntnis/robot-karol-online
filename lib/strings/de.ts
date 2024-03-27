@@ -60,6 +60,7 @@ export const deStrings = {
     stay: 'bleiben',
     exit: 'weiter',
     read: 'Lies die Anleitung',
+    language: 'Sprache',
   },
   profile: {
     title: 'Profil',

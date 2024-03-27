@@ -19,7 +19,7 @@
   },
   {
     "type": "turnleft",
-    "message0": "turn left %1",
+    "message0": "turn_left %1",
     "args0": [
       {
         "type": "field_number_slider",
@@ -38,7 +38,7 @@
   },
   {
     "type": "turnright",
-    "message0": "turn right %1",
+    "message0": "turn_right %1",
     "args0": [
       {
         "type": "field_number_slider",
@@ -57,7 +57,7 @@
   },
   {
     "type": "laydown",
-    "message0": "set down %1",
+    "message0": "set_down %1",
     "args0": [
       {
         "type": "field_number_slider",
@@ -76,7 +76,7 @@
   },
   {
     "type": "pickup",
-    "message0": "pick up %1",
+    "message0": "pick_up %1",
     "args0": [
       {
         "type": "field_number_slider",
@@ -95,7 +95,7 @@
   },
   {
     "type": "setmarker",
-    "message0": "mark field",
+    "message0": "mark_field",
     "inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
@@ -105,7 +105,7 @@
   },
   {
     "type": "deletemarker",
-    "message0": "unmark field",
+    "message0": "unmark_field",
     "colour": 260,
     "tooltip": "Karol unmarks the field she is standing on",
     "helpUrl": "",
@@ -240,7 +240,7 @@
   },
   {
     "type": "is_wall",
-    "message0": "is wall",
+    "message0": "is_wall",
     "output": null,
     "colour": 210,
     "tooltip": "Karol tests whether there is a wall (or a block) in front of her",
@@ -248,7 +248,7 @@
   },
   {
     "type": "isn't_wall",
-    "message0": "not is wall",
+    "message0": "not_is_wall",
     "output": null,
     "colour": 210,
     "tooltip": "If is wall does not apply",
@@ -256,7 +256,7 @@
   },
   {
     "type": "is_brick",
-    "message0": "is brick",
+    "message0": "is_brick",
     "output": null,
     "colour": 210,
     "tooltip": "Karol tests whether there are bricks in front of her",
@@ -264,7 +264,7 @@
   },
   {
     "type": "is_brick_count",
-    "message0": "is brick %1",
+    "message0": "is_brick %1",
     "args0": [
       {
         "type": "field_number_slider",
@@ -282,7 +282,7 @@
   },
   {
     "type": "isn't_brick",
-    "message0": "not is brick",
+    "message0": "not_is_brick",
     "output": null,
     "colour": 210,
     "tooltip": "If is brick does not apply",
@@ -290,7 +290,7 @@
   },
   {
     "type": "isn't_brick_count",
-    "message0": "not is brick %1",
+    "message0": "not_is_brick %1",
     "args0": [
       {
         "type": "field_number_slider",
@@ -308,7 +308,7 @@
   },
   {
     "type": "is_marker",
-    "message0": "is marked",
+    "message0": "is_marked",
     "output": null,
     "colour": 210,
     "tooltip": "Karol tests whether she stands on a mark",
@@ -316,7 +316,7 @@
   },
   {
     "type": "isn't_marker",
-    "message0": "not is marked",
+    "message0": "not_is_marked",
     "output": null,
     "colour": 210,
     "tooltip": "If is mark does not apply",
@@ -324,7 +324,7 @@
   },
   {
     "type": "is_direction",
-    "message0": "is %1",
+    "message0": "is_ %1",
     "output": null,
     "colour": 210,
     "tooltip": "Karol tests whether she is looking in this direction",
@@ -344,7 +344,7 @@
   },
   {
     "type": "isn't_direction",
-    "message0": "not is %1",
+    "message0": "not_is_ %1",
     "output": null,
     "colour": 210,
     "tooltip": "If Karol does not look in this direction",

@@ -55,83 +55,83 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   [
     'repeat_times',
     (block: Block) =>
-      'wiederhole ' +
+      'repeat ' +
       block.getFieldValue('COUNT') +
-      ' mal' +
+      ' times' +
       '//blockId:' +
       block.id +
       '\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nendewiederhole',
+      '\nend_repeat',
   ],
   [
     'while_do',
     (block: Block) =>
-      'wiederhole solange ' +
+      'repeat while ' +
       karolGenerator.valueToCode(block, 'CONDITION', 0) +
       '//blockId:' +
       block.id +
       '\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nendewiederhole',
+      '\nend_repeat',
   ],
   [
     'repeat_forever',
     (block: Block) =>
-      'wiederhole immer ' +
+      'repeat forever ' +
       '//blockId:' +
       block.id +
       '\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nendewiederhole',
+      '\nend_repeat',
   ],
   [
     'if_then',
     (block: Block) =>
-      'wenn ' +
+      'if ' +
       karolGenerator.valueToCode(block, 'CONDITION', 0) +
-      ' dann' +
+      ' then' +
       '//blockId:' +
       block.id +
       '\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nendewenn',
+      '\nend_if',
   ],
   [
     'if_then_else',
     (block: Block) =>
-      'wenn ' +
+      'if ' +
       karolGenerator.valueToCode(block, 'CONDITION', 0) +
-      ' dann' +
+      ' then' +
       '//blockId:' +
       block.id +
       '\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nsonst\n' +
+      '\nelse\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS_2') +
-      '\nendewenn',
+      '\nend_if',
   ],
-  ['is_wall', (block: Block) => ['IstWand', 0]],
-  ["isn't_wall", (block: Block) => ['NichtIstWand', 0]],
-  ['is_brick', (block: Block) => ['IstZiegel', 0]],
-  ["isn't_brick", (block: Block) => ['NichtIstZiegel', 0]],
+  ['is_wall', (block: Block) => ['is_wall', 0]],
+  ["isn't_wall", (block: Block) => ['not_is_wall', 0]],
+  ['is_brick', (block: Block) => ['is_brick', 0]],
+  ["isn't_brick", (block: Block) => ['not_is_brick', 0]],
   [
     'is_brick_count',
-    (block: Block) => [`IstZiegel(${block.getFieldValue('COUNT')})`, 0],
+    (block: Block) => [`is_brick(${block.getFieldValue('COUNT')})`, 0],
   ],
   [
     "isn't_brick_count",
-    (block: Block) => [`NichtIstZiegel(${block.getFieldValue('COUNT')})`, 0],
+    (block: Block) => [`not_is_brick(${block.getFieldValue('COUNT')})`, 0],
   ],
-  ['is_marker', (block: Block) => ['IstMarke', 0]],
-  ["isn't_marker", (block: Block) => ['NichtIstMarke', 0]],
+  ['is_marker', (block: Block) => ['is_mark', 0]],
+  ["isn't_marker", (block: Block) => ['not_is_mark', 0]],
   [
     'is_direction',
-    (block: Block) => [`Ist${block.getFieldValue('DIRECTION')}`, 0],
+    (block: Block) => [`is_${block.getFieldValue('DIRECTION')}`, 0],
   ],
   [
     "isn't_direction",
-    (block: Block) => [`NichtIst${block.getFieldValue('DIRECTION')}`, 0],
+    (block: Block) => [`not_is_${block.getFieldValue('DIRECTION')}`, 0],
   ],
   ['line_comment', (block: Block) => '// ' + block.getFieldValue('TEXT')],
   [
@@ -141,13 +141,13 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   [
     'define_command',
     (block: Block) =>
-      '\nAnweisung ' +
+      '\ncommand ' +
       block.getFieldValue('COMMAND') +
       '//blockId:' +
       block.id +
       '\n' +
       karolGenerator.statementToCode(block, 'STATEMENTS') +
-      '\nendeAnweisung\n',
+      '\nend_command\n',
   ],
 ]
 

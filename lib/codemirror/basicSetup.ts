@@ -23,7 +23,6 @@ import {
   HighlightStyle,
 } from '@codemirror/language'
 import {
-  cursorDocEnd,
   defaultKeymap,
   deleteCharBackward,
   history,
@@ -32,7 +31,6 @@ import {
   indentWithTab,
   insertNewlineAndIndent,
   selectAll,
-  selectLine,
 } from '@codemirror/commands'
 import {
   autocompletion,
@@ -44,6 +42,7 @@ import { styleTags, tags as t } from '@lezer/highlight'
 
 import { searchKeymap } from '@codemirror/search'
 import { getParserWithLng } from './parser/get-parser-with-lng'
+import { deKeywords, enKeywords } from '../language/compiler'
 
 function parserWithMetadata(lng: 'de' | 'en') {
   return getParserWithLng(lng).configure({
@@ -245,7 +244,7 @@ export const basicSetup = (props: BasicSetupProps) => [
   autocompletion(),
   //highlightSelectionMatches(),
   EditorState.tabSize.of(2),
-  EditorState.phrases.of(germanPhrases),
+  ...[props.lng == 'de' ? [EditorState.phrases.of(germanPhrases)] : []],
   editable.of(EditorView.editable.of(true)),
   exampleLanguage(props.lng),
   linter(props.l, { delay: 0 }),
@@ -282,7 +281,7 @@ const generalOptionsEn = [
   { label: 'Aufheben' },
   { label: 'mark_field' },
   { label: 'unmark_field' },
-  // { label: 'wiederhole' },
+  // { label: 'wiederhole' }, // TODO
   // { label: 'endewiederhole' },
   // { label: 'immer' },
   // { label: 'wenn' },
@@ -311,9 +310,27 @@ const conditionsDe = [
   { label: 'NichtIstWesten', boost: -2 },
 ]
 
+const conditionsEn = [
+  // { label: 'IstWand' }, // TODO
+  // { label: 'NichtIstWand' },
+  // { label: 'IstZiegel' },
+  // { label: 'NichtIstZiegel' },
+  // { label: 'IstMarke' },
+  // { label: 'NichtIstMarke' },
+  // { label: 'IstNorden', boost: -2 },
+  // { label: 'NichtIstNorden', boost: -2 },
+  // { label: 'IstOsten', boost: -2 },
+  // { label: 'NichtIstOsten', boost: -2 },
+  // { label: 'IstSüden', boost: -2 },
+  // { label: 'NichtIstSüden', boost: -2 },
+  // { label: 'IstWesten', boost: -2 },
+  // { label: 'NichtIstWesten', boost: -2 },
+]
+
 const span = /[a-zA-Z_0-9äöüÄÜÖß]*$/
 
 function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
+  const keywords = lng == 'de' ? deKeywords : enKeywords
   return (context) => {
     const token = context.matchBefore(/[a-zA-Z_0-9äöüÄÜÖß]+$/)
     const tree = syntaxTree(context.state)
@@ -403,6 +420,7 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
     if (last == 'repeat') {
       options.forEach((o) => {
         if (o.label == 'endewiederhole') {
+          // TODO
           o.boost = 3
         }
       })
@@ -411,6 +429,7 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
     if (last == 'cmd') {
       options.forEach((o) => {
         if (o.label == 'endeAnweisung') {
+          // TODO
           o.boost = 3
         }
       })
@@ -419,30 +438,31 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
     if (last == 'if') {
       options.forEach((o) => {
         if (o.label == 'endewenn') {
+          // TODO
           o.boost = 3
         }
       })
     }
 
     if (lastEndedNode.name == 'RepeatStart') {
-      options = [{ label: 'solange', boost: 2 }, { label: 'immer' }]
+      options = [{ label: 'solange', boost: 2 }, { label: 'immer' }] // TODO
     } else if (
       lastEndedNode.name == 'IfKey' ||
       lastEndedNode.name == 'RepeatWhileKey'
     ) {
       options = conditionsDe
     } else if (lastEndedNode.name == 'Times') {
-      options = [{ label: 'mal' }]
+      options = [{ label: 'mal' }] // TODO
     } else if (
       lastEndedNode.name == 'Condition' &&
       lastEndedNode.parent?.name == 'IfThen'
     ) {
-      options = [{ label: 'dann' }]
+      options = [{ label: 'dann' }] // TODO
     } else if (
       lastEndedNode.parent?.name == 'Condition' &&
       lastEndedNode.parent?.parent?.name == 'IfThen'
     ) {
-      options = [{ label: 'dann' }]
+      options = [{ label: 'dann' }] // TODO
     }
     if (options.some((x) => x.label == token?.text)) return null
 
@@ -515,10 +535,10 @@ const myTabExtension: Command = (target: EditorView) => {
             .line(line.number - 1)
             .text.toLowerCase()
           if (
-            preLine.includes('anweisung') ||
-            preLine.includes('wiederhole') ||
-            preLine.includes('wenn') ||
-            preLine.includes('sonst')
+            preLine.includes('anweisung') || // TODO
+            preLine.includes('wiederhole') || // TODO
+            preLine.includes('wenn') || // TODO
+            preLine.includes('sonst') // TODO
           ) {
             deleteCharBackward(target)
             insertNewlineAndIndent(target)

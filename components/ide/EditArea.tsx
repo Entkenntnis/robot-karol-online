@@ -129,7 +129,7 @@ export function EditArea() {
             >
               <FaIcon icon={faQuestionCircle} />
             </button>{' '}
-            Sprache:
+            {core.strings.ide.language}:
             <select
               className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100 cursor-pointer"
               value={core.ws.settings.language}
