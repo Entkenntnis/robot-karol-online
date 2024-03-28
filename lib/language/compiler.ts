@@ -10,7 +10,7 @@ export const deKeywords = {
   aufheben: 'aufheben',
   linksdrehen: 'linksdrehen',
   rechtsdrehen: 'rechtsdrehen',
-  markesetzen: 'marksesetzen',
+  markesetzen: 'markesetzen',
   markelöschen: 'markelöschen',
   beenden: 'beenden',
   endewiederhole: 'endewiederhole',
