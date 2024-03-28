@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Move",
-  "description": "\"There are no mistakes, only small happy accidents.\"\n\nThe brick is in the wrong place. Move the brick to the indicated location. Use the commands `set down`, `pick up`, `turn left`, and `turn right`.",
+  "description": "\"There are no mistakes, only small happy accidents.\"\n\nThe brick is in the wrong place. Move the brick to the indicated location. Use the commands `set_down`, `pick_up`, `turn_left`, and `turn_right`.",
   "tasks": [
     {
       "title": "Move the Brick",

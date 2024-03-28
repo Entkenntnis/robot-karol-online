@@ -99,7 +99,7 @@ export function EditArea() {
                     icon={faCircleExclamation}
                     className="text-red-600 mr-2"
                   />
-                  Es sind folgende Probleme aufgetreten:
+                  {core.strings.ide.problems}:
                 </p>
                 {core.ws.ui.errorMessages.map((err, i) => (
                   <p className="mb-2" key={err + i.toString()}>
@@ -110,40 +110,42 @@ export function EditArea() {
             </div>
           </div>
         )}
-        <div className="absolute right-4 bottom-1">
-          <div
-            className={clsx(
-              'p-1 bg-gray-200 rounded pl-2',
-              core.ws.ui.state !== 'ready' && 'pointer-events-none',
-              core.ws.ui.state == 'error' && 'invisible',
-              core.ws.ui.state == 'running' && 'invisible',
-              core.ws.ui.toBlockWarning &&
-                core.ws.settings.language == 'java' &&
-                'text-gray-400'
-            )}
-          >
-            <button
-              onClick={() => {
-                showJavaInfo(core)
-              }}
+        {core.ws.settings.lng == 'de' && (
+          <div className="absolute right-4 bottom-1">
+            <div
+              className={clsx(
+                'p-1 bg-gray-200 rounded pl-2',
+                core.ws.ui.state !== 'ready' && 'pointer-events-none',
+                core.ws.ui.state == 'error' && 'invisible',
+                core.ws.ui.state == 'running' && 'invisible',
+                core.ws.ui.toBlockWarning &&
+                  core.ws.settings.language == 'java' &&
+                  'text-gray-400'
+              )}
             >
-              <FaIcon icon={faQuestionCircle} />
-            </button>{' '}
-            Sprache:
-            <select
-              className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100 cursor-pointer"
-              value={core.ws.settings.language}
-              onChange={(e) => {
-                setLanguage(core, e.target.value as Settings['language'])
-              }}
-              disabled={core.ws.ui.state !== 'ready'}
-            >
-              <option value="robot karol">Robot Karol</option>
-              <option value="python">Python</option>
-              <option value="java">Java</option>
-            </select>{' '}
+              <button
+                onClick={() => {
+                  showJavaInfo(core)
+                }}
+              >
+                <FaIcon icon={faQuestionCircle} />
+              </button>{' '}
+              {core.strings.ide.language}:
+              <select
+                className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100 cursor-pointer"
+                value={core.ws.settings.language}
+                onChange={(e) => {
+                  setLanguage(core, e.target.value as Settings['language'])
+                }}
+                disabled={core.ws.ui.state !== 'ready'}
+              >
+                <option value="robot karol">Robot Karol</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+              </select>{' '}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     )
   }

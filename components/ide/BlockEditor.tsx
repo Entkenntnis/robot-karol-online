@@ -8,11 +8,11 @@ import '../../lib/blockly/FieldNumberSlider'
 import { codeToXml } from '../../lib/blockly/codeToXml'
 import { initCustomBlocks } from '../../lib/blockly/customBlocks'
 import { KAROL_TOOLBOX } from '../../lib/blockly/toolbox'
-import { parser } from '../../lib/codemirror/parser/parser'
 import { abort, patch } from '../../lib/commands/vm'
 import { compile } from '../../lib/language/compiler'
 import { useCore } from '../../lib/state/core'
 import { initCustomBlocksEn } from '../../lib/blockly/customBlocksEn'
+import { getParserWithLng } from '../../lib/codemirror/parser/get-parser-with-lng'
 
 export function BlockEditor() {
   const editorDiv = useRef<HTMLDivElement>(null)
@@ -58,7 +58,11 @@ export function BlockEditor() {
     }
     //console.log('inject blockly')
 
-    const initialXml = codeToXml(core.ws.code, core.ws.ui.cmdBlockPositions)
+    const initialXml = codeToXml(
+      core.ws.code,
+      core.ws.ui.cmdBlockPositions,
+      core.ws.settings.lng
+    )
 
     //console.log('initial', initialXml)
 
@@ -182,8 +186,8 @@ export function BlockEditor() {
           return // don't patch while running of code hasn't changed
         }
         const doc = Text.of(newCode.split('\n'))
-        const tree = parser.parse(newCode)
-        const { warnings, output } = compile(tree, doc)
+        const tree = getParserWithLng(core.ws.settings.lng).parse(newCode)
+        const { warnings, output } = compile(tree, doc, core.ws.settings.lng)
 
         //console.log(warnings, output)
 
@@ -195,7 +199,12 @@ export function BlockEditor() {
             vm.pc = 0
             ui.state = 'error'
             ui.errorMessages = warnings
-              .map((w) => `Zeile ${doc.lineAt(w.from).number}: ${w.message}`)
+              .map(
+                (w) =>
+                  `${core.strings.ide.line} ${doc.lineAt(w.from).number}: ${
+                    w.message
+                  }`
+              )
               .filter(function (item, i, arr) {
                 return arr.indexOf(item) == i
               })
@@ -215,7 +224,7 @@ export function BlockEditor() {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [core.ws.settings.lng])
 
   return (
     <>

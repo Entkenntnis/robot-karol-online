@@ -21,14 +21,17 @@ export const Editor = ({ innerRef }: EditorProps) => {
     const currentEditor = editorDiv.current
 
     if (currentEditor) {
+      const doc = core.ws.code
+      const lng = core.ws.settings.lng
       const view: EditorView = new EditorView({
         state: EditorState.create({
-          doc: core.ws.code,
+          doc,
           extensions: [
             basicSetup({
               l: () => {
                 return lint(core, view)
               },
+              lng,
             }),
             EditorView.updateListener.of((e) => {
               if (e.docChanged) {
@@ -59,7 +62,7 @@ export const Editor = ({ innerRef }: EditorProps) => {
       return () => view.destroy()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editorDiv])
+  }, [editorDiv, core.ws.settings.lng])
 
   return <div ref={editorDiv} className="h-full" />
 }

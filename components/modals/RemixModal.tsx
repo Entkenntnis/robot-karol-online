@@ -54,7 +54,7 @@ export function RemixModal() {
                     if (obj.version !== 'v1') {
                       throw 'bad format'
                     }
-                    deserializeQuest(core, obj)
+                    deserializeQuest(core, obj, false)
                   } catch (e) {
                     alert(e)
                   }

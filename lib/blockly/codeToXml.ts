@@ -1,12 +1,18 @@
-import { parser } from '../codemirror/parser/parser'
 import { Tree, TreeCursor } from '@lezer/common'
 import { CmdBlockPositions } from '../state/types'
+import { deKeywords, enKeywords } from '../language/compiler'
+import { getParserWithLng } from '../codemirror/parser/get-parser-with-lng'
 
 export function codeToXml(
   code: string,
-  cmdBlockPositions: CmdBlockPositions
+  cmdBlockPositions: CmdBlockPositions,
+  systemLng: 'de' | 'en'
 ): string {
-  const tree: Tree = parser.parse(code)
+  // blocks are always showing in the current lng, so we parse the code according to
+  // detected lng and convert it if necessary
+  const lng = detectLng(code.toLowerCase()) ?? systemLng
+  const keywords = lng == 'de' ? deKeywords : enKeywords
+  const tree: Tree = getParserWithLng(lng).parse(code)
   return parseTree(tree.cursor(), code)
 
   function parseTree(
@@ -69,32 +75,32 @@ export function codeToXml(
           count = code.substring(cursor.from, cursor.to)
           //console.log(cursor.type.name, 'should be Parameter', count)
         }
-        if (c.includes('schritt')) {
+        if (c.includes(keywords.schritt)) {
           blockType = 'step'
         }
-        if (c.includes('hinlegen')) {
+        if (c.includes(keywords.hinlegen)) {
           blockType = 'laydown'
         }
-        if (c.includes('aufheben')) {
+        if (c.includes(keywords.aufheben)) {
           blockType = 'pickup'
         }
-        if (c.includes('linksdrehen')) {
+        if (c.includes(keywords.linksdrehen)) {
           blockType = 'turnleft'
           //count = ''
         }
-        if (c.includes('rechtsdrehen')) {
+        if (c.includes(keywords.rechtsdrehen)) {
           blockType = 'turnright'
           //count = ''
         }
-        if (c.includes('markesetzen')) {
+        if (c.includes(keywords.markesetzen)) {
           blockType = 'setmarker'
           count = ''
         }
-        if (c.includes('markelöschen')) {
+        if (c.includes(keywords.markelöschen)) {
           blockType = 'deletemarker'
           count = ''
         }
-        if (c.includes('beenden')) {
+        if (c.includes(keywords.beenden)) {
           callbackStack.push(
             buildClosureWithoutInner(
               'stop',
@@ -249,130 +255,162 @@ export function codeToXml(
     }
     return output
   }
-}
 
-function nextIgnoreComment(cursor: TreeCursor) {
-  cursor.next()
-  while (cursor.type.name.includes('Comment')) cursor.next()
-}
+  function nextIgnoreComment(cursor: TreeCursor) {
+    cursor.next()
+    while (cursor.type.name.includes('Comment')) cursor.next()
+  }
 
-function buildClosure(blockType: string, count: string, attrs?: string) {
-  return (inner: string) =>
-    `<block type="${blockType}" ${attrs ?? ''}>${
-      count ? `<field name="COUNT">${count}</field>` : ''
-    }<next>${inner}</next></block>`
-}
+  function buildClosure(blockType: string, count: string, attrs?: string) {
+    return (inner: string) =>
+      `<block type="${blockType}" ${attrs ?? ''}>${
+        count ? `<field name="COUNT">${count}</field>` : ''
+      }<next>${inner}</next></block>`
+  }
 
-function buildCustomCommand(name: string, attrs?: string) {
-  return (inner: string) =>
-    `<block type="custom_command" ${
-      attrs ?? ''
-    }><field name="COMMAND">${name}</field><next>${inner}</next></block>`
-}
+  function buildCustomCommand(name: string, attrs?: string) {
+    return (inner: string) =>
+      `<block type="custom_command" ${
+        attrs ?? ''
+      }><field name="COMMAND">${name}</field><next>${inner}</next></block>`
+  }
 
-function buildClosureWithoutInner(
-  blockType: string,
-  count: string,
-  attrs?: string
-) {
-  return () =>
-    `<block type="${blockType}" ${attrs ?? ''}>${
-      count ? `<field name="COUNT">${count}</field>` : ''
-    }</block>`
-}
+  function buildClosureWithoutInner(
+    blockType: string,
+    count: string,
+    attrs?: string
+  ) {
+    return () =>
+      `<block type="${blockType}" ${attrs ?? ''}>${
+        count ? `<field name="COUNT">${count}</field>` : ''
+      }</block>`
+  }
 
-function buildRepeatTimes(times: string, statements: string, attr?: string) {
-  return (inner: String) => `<block type="repeat_times" ${
-    attr ?? ''
-  }><field name="COUNT">${times}</field>
+  function buildRepeatTimes(times: string, statements: string, attr?: string) {
+    return (inner: String) => `<block type="repeat_times" ${
+      attr ?? ''
+    }><field name="COUNT">${times}</field>
   ${
     statements ? `<statement name="STATEMENTS">${statements}</statement>` : ''
   }${inner ? `<next>${inner}</next>` : ''}</block>`
-}
+  }
 
-function buildRepeatWhile(
-  condition: string,
-  statements: string,
-  attr?: string
-) {
-  return (inner: String) => `<block type="while_do" ${
-    attr ?? ''
-  }><value name="CONDITION">${condition}</value>
+  function buildRepeatWhile(
+    condition: string,
+    statements: string,
+    attr?: string
+  ) {
+    return (inner: String) => `<block type="while_do" ${
+      attr ?? ''
+    }><value name="CONDITION">${condition}</value>
   ${
     statements ? `<statement name="STATEMENTS">${statements}</statement>` : ''
   }${inner ? `<next>${inner}</next>` : ''}</block>`
-}
+  }
 
-function buildIf(condition: string, statements: string, attr?: string) {
-  return (inner: String) => `<block type="if_then" ${
-    attr ?? ''
-  }><value name="CONDITION">${condition}</value>
+  function buildIf(condition: string, statements: string, attr?: string) {
+    return (inner: String) => `<block type="if_then" ${
+      attr ?? ''
+    }><value name="CONDITION">${condition}</value>
   ${
     statements ? `<statement name="STATEMENTS">${statements}</statement>` : ''
   }${inner ? `<next>${inner}</next>` : ''}</block>`
-}
-function buildIfElse(
-  condition: string,
-  statements: string,
-  statements2: string,
-  attr?: string
-) {
-  return (inner: String) => `<block type="if_then_else" ${
-    attr ?? ''
-  }><value name="CONDITION">${condition}</value>
+  }
+  function buildIfElse(
+    condition: string,
+    statements: string,
+    statements2: string,
+    attr?: string
+  ) {
+    return (inner: String) => `<block type="if_then_else" ${
+      attr ?? ''
+    }><value name="CONDITION">${condition}</value>
   ${
     statements ? `<statement name="STATEMENTS">${statements}</statement>` : ''
   }${
-    statements2
-      ? `<statement name="STATEMENTS_2">${statements2}</statement>`
-      : ''
-  }${inner ? `<next>${inner}</next>` : ''}</block>`
-}
-
-function buildCondition(typeRaw: string) {
-  const type = typeRaw.toLowerCase()
-  if (type == 'istwand') return `<block type="is_wall"></block>`
-  if (type == 'nichtistwand') return `<block type="isn't_wall"></block>`
-  if (type == 'istziegel') return `<block type="is_brick"></block>`
-  if (type == 'nichtistziegel') return `<block type="isn't_brick"></block>`
-  if (type == 'istmarke') return `<block type="is_marker"></block>`
-  if (type == 'nichtistmarke') return `<block type="isn't_marker"></block>`
-  if (type == 'istnorden')
-    return `<block type="is_direction"><field name="DIRECTION">Norden</field></block>`
-  if (type == 'nichtistnorden')
-    return `<block type="isn't_direction"><field name="DIRECTION">Norden</field></block>`
-  if (type == 'istosten')
-    return `<block type="is_direction"><field name="DIRECTION">Osten</field></block>`
-  if (type == 'nichtistosten')
-    return `<block type="isn't_direction"><field name="DIRECTION">Osten</field></block>`
-  if (type == 'istsüden')
-    return `<block type="is_direction"><field name="DIRECTION">Süden</field></block>`
-  if (type == 'nichtistsüden')
-    return `<block type="isn't_direction"><field name="DIRECTION">Süden</field></block>`
-  if (type == 'istwesten')
-    return `<block type="is_direction"><field name="DIRECTION">Westen</field></block>`
-  if (type == 'nichtistwesten')
-    return `<block type="isn't_direction"><field name="DIRECTION">Westen</field></block>`
-  if (type.startsWith('istziegel(')) {
-    const count = type.replace('istziegel(', '').replace(')', '')
-    return `<block type="is_brick_count"><field name="COUNT">${count}</field></block>`
+      statements2
+        ? `<statement name="STATEMENTS_2">${statements2}</statement>`
+        : ''
+    }${inner ? `<next>${inner}</next>` : ''}</block>`
   }
-  if (type.startsWith('nichtistziegel(')) {
-    const count = type.replace('nichtistziegel(', '').replace(')', '')
-    return `<block type="isn't_brick_count"><field name="COUNT">${count}</field></block>`
-  }
-  return ''
-}
 
-function buildCommentClosure(msg: string, attrs?: string) {
-  return (inner: string) =>
-    `<block type="line_comment" ${
-      attrs ?? ''
-    }><field name="TEXT">${msg}</field><next>${inner}</next></block>`
-}
-function buildRepeatAlways(statements: string) {
-  return (inner: String) => `<block type="repeat_forever">
+  function buildCondition(typeRaw: string) {
+    const type = typeRaw.toLowerCase()
+    if (type == keywords.istwand) return `<block type="is_wall"></block>`
+    if (type == keywords.nichtistwand)
+      return `<block type="isn't_wall"></block>`
+    if (type == keywords.istziegel) return `<block type="is_brick"></block>`
+    if (type == keywords.nichtistziegel)
+      return `<block type="isn't_brick"></block>`
+    if (type == keywords.istmarke) return `<block type="is_marker"></block>`
+    if (type == keywords.nichtistmarke)
+      return `<block type="isn't_marker"></block>`
+    if (type == keywords.istnorden)
+      return `<block type="is_direction"><field name="DIRECTION">Norden</field></block>`
+    if (type == keywords.nichtistnorden)
+      return `<block type="isn't_direction"><field name="DIRECTION">Norden</field></block>`
+    if (type == keywords.istosten)
+      return `<block type="is_direction"><field name="DIRECTION">Osten</field></block>`
+    if (type == keywords.nichtistosten)
+      return `<block type="isn't_direction"><field name="DIRECTION">Osten</field></block>`
+    if (type == keywords.istsüden)
+      return `<block type="is_direction"><field name="DIRECTION">Süden</field></block>`
+    if (type == keywords.nichtistsüden)
+      return `<block type="isn't_direction"><field name="DIRECTION">Süden</field></block>`
+    if (type == keywords.istwesten)
+      return `<block type="is_direction"><field name="DIRECTION">Westen</field></block>`
+    if (type == keywords.nichtistwesten)
+      return `<block type="isn't_direction"><field name="DIRECTION">Westen</field></block>`
+    if (type.startsWith(keywords.istziegel + '(')) {
+      const count = type.replace('istziegel(', '').replace(')', '')
+      return `<block type="is_brick_count"><field name="COUNT">${count}</field></block>`
+    }
+    if (type.startsWith(keywords.nichtistziegel + '(')) {
+      const count = type
+        .replace(keywords.nichtistziegel + '(', '')
+        .replace(')', '')
+      return `<block type="isn't_brick_count"><field name="COUNT">${count}</field></block>`
+    }
+    return ''
+  }
+
+  function buildCommentClosure(msg: string, attrs?: string) {
+    return (inner: string) =>
+      `<block type="line_comment" ${
+        attrs ?? ''
+      }><field name="TEXT">${msg}</field><next>${inner}</next></block>`
+  }
+  function buildRepeatAlways(statements: string) {
+    return (inner: String) => `<block type="repeat_forever">
   ${
     statements ? `<statement name="STATEMENTS">${statements}</statement>` : ''
   }${inner ? `<next>${inner}</next>` : ''}</block>`
+  }
+}
+
+function detectLng(code: string) {
+  let enScore = 0,
+    deScore = 0
+
+  Object.values(deKeywords).forEach((str) => {
+    if (code.includes(str.toLowerCase())) {
+      deScore++
+    }
+  })
+
+  Object.values(enKeywords).forEach((str) => {
+    if (code.includes(str.toLowerCase())) {
+      enScore++
+    }
+  })
+
+  if (deScore > enScore) {
+    return 'de'
+  }
+
+  if (deScore < enScore) {
+    return 'en'
+  }
+
+  return null
 }

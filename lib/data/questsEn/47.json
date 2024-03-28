@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Around",
-  "description": "When difficulties are placed in your way, you always find a way around them - because life doesn't always go straight...\n\nTo navigate around corners, Karol has the commands `turn left` and `turn right`. Walk around the corner and set down a brick.",
+  "description": "When difficulties are placed in your way, you always find a way around them - because life doesn't always go straight...\n\nTo navigate around corners, Karol has the commands `turn_left` and `turn_right`. Walk around the corner and set down a brick.",
   "tasks": [
     {
       "title": "Set down a Brick",

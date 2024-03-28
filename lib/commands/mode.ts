@@ -24,7 +24,7 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
       return
     }
     if (mode == 'code' && core.ws.settings.lng == 'en') {
-      alert(core.strings.quest.warn)
+      // alert(core.strings.quest.warn)
     }
   } else {
     if (

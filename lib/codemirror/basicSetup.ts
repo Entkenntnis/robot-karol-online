@@ -23,7 +23,6 @@ import {
   HighlightStyle,
 } from '@codemirror/language'
 import {
-  cursorDocEnd,
   defaultKeymap,
   deleteCharBackward,
   history,
@@ -32,7 +31,6 @@ import {
   indentWithTab,
   insertNewlineAndIndent,
   selectAll,
-  selectLine,
 } from '@codemirror/commands'
 import {
   autocompletion,
@@ -42,62 +40,83 @@ import {
 import { linter, lintKeymap } from '@codemirror/lint'
 import { styleTags, tags as t } from '@lezer/highlight'
 
-import { parser } from './parser/parser.js'
 import { searchKeymap } from '@codemirror/search'
+import { getParserWithLng } from './parser/get-parser-with-lng'
+import { deKeywords, enKeywords } from '../language/compiler'
 
-const parserWithMetadata = parser.configure({
-  props: [
-    styleTags({
-      Command: t.atom,
-      RepeatStart: t.keyword,
-      RepeatEnd: t.keyword,
-      RepeatAlwaysKey: t.keyword,
-      RepeatWhileKey: t.keyword,
-      RepeatTimesKey: t.keyword,
-      IfKey: t.keyword,
-      ThenKey: t.keyword,
-      IfEndKey: t.keyword,
-      ElseKey: t.keyword,
-      CmdStart: t.keyword,
-      CmdEnd: t.keyword,
-      CmdName: t.comment,
-      Times: t.strong,
-      Comment: t.meta,
-      LineComment: t.meta,
-      PythonComment: t.meta,
-      BlockComment: t.meta,
-      Condition: t.className,
-      Not: t.strong,
-      SpecialCommand: t.strong,
-      CondStart: t.keyword,
-      CondEnd: t.keyword,
-      CondName: t.emphasis,
-      TF: t.typeName,
-      CustomRef: t.variableName,
-      KarolPrefix: t.labelName,
-      Parameter: t.strong,
-      ConditionWithoutParam: t.className,
-      ConditionMaybeWithParam: t.className,
-      CommandWithParameter: t.atom,
-      CommandPure: t.atom,
-    }),
-    indentNodeProp.add({
-      Repeat: continuedIndent({ except: /^\s*(ende|\*)wiederhole(\s|$)/i }),
-      IfThen: continuedIndent({
-        except: /^\s*(((ende|\*)wenn)|sonst)(\s|$)/i,
+function parserWithMetadata(lng: 'de' | 'en') {
+  return getParserWithLng(lng).configure({
+    props: [
+      styleTags({
+        Command: t.atom,
+        RepeatStart: t.keyword,
+        RepeatEnd: t.keyword,
+        RepeatAlwaysKey: t.keyword,
+        RepeatWhileKey: t.keyword,
+        RepeatTimesKey: t.keyword,
+        IfKey: t.keyword,
+        ThenKey: t.keyword,
+        IfEndKey: t.keyword,
+        ElseKey: t.keyword,
+        CmdStart: t.keyword,
+        CmdEnd: t.keyword,
+        CmdName: t.comment,
+        Times: t.strong,
+        Comment: t.meta,
+        LineComment: t.meta,
+        PythonComment: t.meta,
+        BlockComment: t.meta,
+        Condition: t.className,
+        Not: t.strong,
+        SpecialCommand: t.strong,
+        CondStart: t.keyword,
+        CondEnd: t.keyword,
+        CondName: t.emphasis,
+        TF: t.typeName,
+        CustomRef: t.variableName,
+        KarolPrefix: t.labelName,
+        Parameter: t.strong,
+        ConditionWithoutParam: t.className,
+        ConditionMaybeWithParam: t.className,
+        CommandWithParameter: t.atom,
+        CommandPure: t.atom,
       }),
-      Cmd: continuedIndent({ except: /^\s*(ende|\*)anweisung(\s|$)/i }),
-    }),
-  ],
-})
+      indentNodeProp.add({
+        Repeat: continuedIndent({
+          except:
+            lng == 'de'
+              ? /^\s*(ende|\*)wiederhole(\s|$)/i
+              : /^\s*(end_|\*)repeat(\s|$)/i,
+        }),
+        IfThen: continuedIndent({
+          except:
+            lng == 'de'
+              ? /^\s*(((ende|\*)wenn)|sonst)(\s|$)/i
+              : /^\s*(((end_|\*)if)|else)(\s|$)/i,
+        }),
+        Cmd: continuedIndent({
+          except:
+            lng == 'de'
+              ? /^\s*(ende|\*)anweisung(\s|$)/i
+              : /^\s*(end_|\*)command(\s|$)/i,
+        }),
+      }),
+    ],
+  })
+}
 
-const exampleLanguage = LRLanguage.define({
-  parser: parserWithMetadata,
-  languageData: {
-    indentOnInput: /^\s*((ende|\*)(wiederhole|wenn|anweisung))|sonst/i,
-    autocomplete: buildMyAutocomplete(),
-  },
-})
+function exampleLanguage(lng: 'de' | 'en') {
+  return LRLanguage.define({
+    parser: parserWithMetadata(lng),
+    languageData: {
+      indentOnInput:
+        lng == 'de'
+          ? /^\s*((ende|\*)(wiederhole|wenn|anweisung))|sonst/i
+          : /^\s*((end_|\*)(repeat|if|command))|else/i,
+      autocomplete: buildMyAutocomplete(lng),
+    },
+  })
+}
 
 export const Theme = EditorView.theme({
   '&': {
@@ -125,6 +144,7 @@ export const editable = new Compartment()
 
 interface BasicSetupProps {
   l: Parameters<typeof linter>[0]
+  lng: 'de' | 'en'
 }
 
 export const autoFormat: Command = (view) => {
@@ -214,7 +234,7 @@ export const basicSetup = (props: BasicSetupProps) => [
     ...lintKeymap,
     ...completionKeymap,
     ...searchKeymap,
-    { key: 'Tab', run: myTabExtension },
+    { key: 'Tab', run: buildMyTabExtension(props.lng) },
     indentWithTab,
     {
       key: 'Ctrl-s',
@@ -224,16 +244,16 @@ export const basicSetup = (props: BasicSetupProps) => [
   autocompletion(),
   //highlightSelectionMatches(),
   EditorState.tabSize.of(2),
-  EditorState.phrases.of(germanPhrases),
+  ...[props.lng == 'de' ? [EditorState.phrases.of(germanPhrases)] : []],
   editable.of(EditorView.editable.of(true)),
-  exampleLanguage,
+  exampleLanguage(props.lng),
   linter(props.l, { delay: 0 }),
   Theme,
   myHighlightPlugin,
   EditorView.lineWrapping,
 ]
 
-const generalOptions = [
+const generalOptionsDe = [
   { label: 'Schritt' },
   { label: 'LinksDrehen' },
   { label: 'RechtsDrehen' },
@@ -253,7 +273,27 @@ const generalOptions = [
   { label: 'karol' },
 ]
 
-const conditions = [
+const generalOptionsEn = [
+  { label: 'step', boost: 2 },
+  { label: 'turn_left' },
+  { label: 'turn_right' },
+  { label: 'set_down' },
+  { label: 'pick_up' },
+  { label: 'mark_field' },
+  { label: 'unmark_field' },
+  { label: 'repeat' },
+  { label: 'end_repeat' },
+  { label: 'always' },
+  { label: 'if' },
+  { label: 'end_if' },
+  { label: 'else' },
+  { label: 'command' },
+  { label: 'end_command' },
+  { label: 'exit' },
+  { label: 'karol' },
+]
+
+const conditionsDe = [
   { label: 'IstWand' },
   { label: 'NichtIstWand' },
   { label: 'IstZiegel' },
@@ -270,9 +310,27 @@ const conditions = [
   { label: 'NichtIstWesten', boost: -2 },
 ]
 
+const conditionsEn = [
+  { label: 'is_wall' },
+  { label: 'not_is_wall' },
+  { label: 'is_brick' },
+  { label: 'not_is_brick' },
+  { label: 'is_mark' },
+  { label: 'not_is_mark' },
+  { label: 'is_north', boost: -2 },
+  { label: 'not_is_north', boost: -2 },
+  { label: 'is_east', boost: -2 },
+  { label: 'not_is_east', boost: -2 },
+  { label: 'is_south', boost: -2 },
+  { label: 'not_is_south', boost: -2 },
+  { label: 'is_west', boost: -2 },
+  { label: 'not_is_west', boost: -2 },
+]
+
 const span = /[a-zA-Z_0-9äöüÄÜÖß]*$/
 
-function buildMyAutocomplete(): CompletionSource {
+function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
+  const keywords = lng == 'de' ? deKeywords : enKeywords
   return (context) => {
     const token = context.matchBefore(/[a-zA-Z_0-9äöüÄÜÖß]+$/)
     const tree = syntaxTree(context.state)
@@ -319,7 +377,9 @@ function buildMyAutocomplete(): CompletionSource {
 
     if (around.name == 'CmdName' || endingHere.name == 'CmdName') return null // no completion in function name
 
-    let options = generalOptions.map((o) => ({ ...o }))
+    let options = (lng == 'de' ? generalOptionsDe : generalOptionsEn).map(
+      (o) => ({ ...o })
+    )
 
     const pendings: ('repeat' | 'if' | 'cmd')[] = []
 
@@ -359,7 +419,7 @@ function buildMyAutocomplete(): CompletionSource {
 
     if (last == 'repeat') {
       options.forEach((o) => {
-        if (o.label == 'endewiederhole') {
+        if (o.label == keywords.endewiederhole) {
           o.boost = 3
         }
       })
@@ -367,7 +427,7 @@ function buildMyAutocomplete(): CompletionSource {
 
     if (last == 'cmd') {
       options.forEach((o) => {
-        if (o.label == 'endeAnweisung') {
+        if (o.label == keywords.endeanweisung) {
           o.boost = 3
         }
       })
@@ -375,31 +435,34 @@ function buildMyAutocomplete(): CompletionSource {
 
     if (last == 'if') {
       options.forEach((o) => {
-        if (o.label == 'endewenn') {
+        if (o.label == keywords.endewenn) {
           o.boost = 3
         }
       })
     }
 
     if (lastEndedNode.name == 'RepeatStart') {
-      options = [{ label: 'solange', boost: 2 }, { label: 'immer' }]
+      options =
+        lng == 'de'
+          ? [{ label: 'solange', boost: 2 }, { label: 'immer' }]
+          : [{ label: 'while', boost: 2 }, { label: 'always' }]
     } else if (
       lastEndedNode.name == 'IfKey' ||
       lastEndedNode.name == 'RepeatWhileKey'
     ) {
-      options = conditions
+      options = lng == 'de' ? conditionsDe : conditionsEn
     } else if (lastEndedNode.name == 'Times') {
-      options = [{ label: 'mal' }]
+      options = lng == 'de' ? [{ label: 'mal' }] : [{ label: 'times' }]
     } else if (
       lastEndedNode.name == 'Condition' &&
       lastEndedNode.parent?.name == 'IfThen'
     ) {
-      options = [{ label: 'dann' }]
+      options = lng == 'de' ? [{ label: 'dann' }] : [{ label: 'then' }]
     } else if (
       lastEndedNode.parent?.name == 'Condition' &&
       lastEndedNode.parent?.parent?.name == 'IfThen'
     ) {
-      options = [{ label: 'dann' }]
+      options = lng == 'de' ? [{ label: 'dann' }] : [{ label: 'then' }] // TODO
     }
     if (options.some((x) => x.label == token?.text)) return null
 
@@ -460,30 +523,37 @@ const myHighlightPlugin = ViewPlugin.fromClass(
   }
 )
 
-const myTabExtension: Command = (target: EditorView) => {
-  if (target.state.selection.ranges.length == 1) {
-    if (target.state.selection.main.empty) {
-      const pos = target.state.selection.main.from
-      const line = target.state.doc.lineAt(pos)
-      if (line.length == 0) {
-        // I am at the beginning of an empty line and pressing tab
-        if (line.number > 1) {
-          const preLine = target.state.doc
-            .line(line.number - 1)
-            .text.toLowerCase()
-          if (
-            preLine.includes('anweisung') ||
-            preLine.includes('wiederhole') ||
-            preLine.includes('wenn') ||
-            preLine.includes('sonst')
-          ) {
-            deleteCharBackward(target)
-            insertNewlineAndIndent(target)
-            return true
+function buildMyTabExtension(lng: 'de' | 'en') {
+  return (target: EditorView) => {
+    if (target.state.selection.ranges.length == 1) {
+      if (target.state.selection.main.empty) {
+        const pos = target.state.selection.main.from
+        const line = target.state.doc.lineAt(pos)
+        if (line.length == 0) {
+          // I am at the beginning of an empty line and pressing tab
+          if (line.number > 1) {
+            const preLine = target.state.doc
+              .line(line.number - 1)
+              .text.toLowerCase()
+            if (
+              lng == 'de'
+                ? preLine.includes('anweisung') ||
+                  preLine.includes('wiederhole') ||
+                  preLine.includes('wenn') ||
+                  preLine.includes('sonst')
+                : preLine.includes('command') ||
+                  preLine.includes('repeat') ||
+                  preLine.includes('if') ||
+                  preLine.includes('else')
+            ) {
+              deleteCharBackward(target)
+              insertNewlineAndIndent(target)
+              return true
+            }
           }
         }
       }
     }
+    return false
   }
-  return false
 }
