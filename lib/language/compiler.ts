@@ -40,7 +40,7 @@ export const enKeywords = {
   rechtsdrehen: 'turn_right',
   markesetzen: 'mark_field',
   markelöschen: 'unmark_field',
-  beenden: 'end',
+  beenden: 'exit',
   endewiederhole: 'end_repeat',
   endeanweisung: 'end_command',
   endewenn: 'end_if',

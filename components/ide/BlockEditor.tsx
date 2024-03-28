@@ -199,7 +199,12 @@ export function BlockEditor() {
             vm.pc = 0
             ui.state = 'error'
             ui.errorMessages = warnings
-              .map((w) => `Zeile ${doc.lineAt(w.from).number}: ${w.message}`)
+              .map(
+                (w) =>
+                  `${core.strings.ide.line} ${doc.lineAt(w.from).number}: ${
+                    w.message
+                  }`
+              )
               .filter(function (item, i, arr) {
                 return arr.indexOf(item) == i
               })

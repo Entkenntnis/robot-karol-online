@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Environment",
-  "description": "It's wonderful how important the environment is to you. Karol would like to participate in that.\n\nAfter work, pick up Karol's bricks. Use the command `Pick up` to pick up a brick in front of her. Bricks that are crossed out should always be picked up.",
+  "description": "It's wonderful how important the environment is to you. Karol would like to participate in that.\n\nAfter work, pick up Karol's bricks. Use the command `pick_up` to pick up a brick in front of her. Bricks that are crossed out should always be picked up.",
   "tasks": [
     {
       "title": "Pick Up Bricks",

@@ -278,7 +278,7 @@ const generalOptionsEn = [
   { label: 'turn_left' },
   { label: 'turn_right' },
   { label: 'set_down' },
-  { label: 'Aufheben' },
+  { label: 'pick_up' },
   { label: 'mark_field' },
   { label: 'unmark_field' },
   { label: 'repeat' },
@@ -289,7 +289,7 @@ const generalOptionsEn = [
   { label: 'else' },
   { label: 'command' },
   { label: 'end_command' },
-  { label: 'end' },
+  { label: 'exit' },
   { label: 'karol' },
 ]
 

@@ -105,7 +105,11 @@ export function textRefreshDone(core: Core) {
   })
 }
 
-export function deserializeQuest(core: Core, quest: QuestSerialFormat) {
+export function deserializeQuest(
+  core: Core,
+  quest: QuestSerialFormat,
+  updateLng: boolean = true
+) {
   core.mutateWs((ws) => {
     ws.quest.title = quest.title
     ws.quest.description = quest.description
@@ -120,10 +124,12 @@ export function deserializeQuest(core: Core, quest: QuestSerialFormat) {
 
     ws.ui.needsTextRefresh = true
 
-    if (quest.lng === 'en') {
-      ws.settings.lng = 'en'
-    } else {
-      ws.settings.lng = 'de'
+    if (updateLng) {
+      if (quest.lng === 'en') {
+        ws.settings.lng = 'en'
+      } else {
+        ws.settings.lng = 'de'
+      }
     }
   })
 }

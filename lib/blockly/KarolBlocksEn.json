@@ -114,9 +114,9 @@
   },
   {
     "type": "stop",
-    "message0": "end",
+    "message0": "exit",
     "colour": 260,
-    "tooltip": "Karol ends the execution of the program",
+    "tooltip": "Karol ends the execution of the program and exits",
     "helpUrl": "",
     "previousStatement": null
   },
@@ -324,7 +324,7 @@
   },
   {
     "type": "is_direction",
-    "message0": "is_ %1",
+    "message0": "is_%1",
     "output": null,
     "colour": 210,
     "tooltip": "Karol tests whether she is looking in this direction",
@@ -344,7 +344,7 @@
   },
   {
     "type": "isn't_direction",
-    "message0": "not_is_ %1",
+    "message0": "not_is_%1",
     "output": null,
     "colour": 210,
     "tooltip": "If Karol does not look in this direction",

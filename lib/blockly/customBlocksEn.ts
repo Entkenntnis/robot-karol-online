@@ -51,7 +51,7 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   ],
   ['setmarker', (block: Block) => 'mark_field' + '//blockId:' + block.id],
   ['deletemarker', (block: Block) => 'unmark_field' + '//blockId:' + block.id],
-  ['stop', (block: Block) => 'end' + '//blockId:' + block.id],
+  ['stop', (block: Block) => 'exit' + '//blockId:' + block.id],
   [
     'repeat_times',
     (block: Block) =>

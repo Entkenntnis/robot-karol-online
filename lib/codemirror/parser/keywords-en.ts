@@ -37,7 +37,7 @@ export function keywords(input: string) {
     return ConditionWithoutParam
   if (/^(is_brick|not_is_brick)$/i.test(input)) return ConditionMaybeWithParam
   if (/^(step|set_down|pick_up)$/i.test(input)) return CommandWithParameter
-  if (/^(mark_field|unmark_field|turn_left|turn_right|end)$/i.test(input))
+  if (/^(mark_field|unmark_field|turn_left|turn_right|exit)$/i.test(input))
     return CommandWithParameter
 
   return -1

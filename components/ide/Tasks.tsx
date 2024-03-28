@@ -380,23 +380,25 @@ export function Tasks() {
               ? core.strings.editor.loadFrom
               : core.strings.ide.structogram}
           </button>
-          <span className="inline-block mx-2">
-            <FaIcon icon={faGlobe} />
-            <select
-              className="p-1 ml-2 bg-white/40 rounded"
-              value={core.ws.settings.lng}
-              onChange={(e) => {
-                const lng = e.target.value
-                if (lng == 'de' || lng == 'en') {
-                  setLng(core, lng)
-                  setLngStorage(lng)
-                }
-              }}
-            >
-              <option value="de">Deutsch</option>
-              <option value="en">English</option>
-            </select>
-          </span>
+          {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
+            <span className="inline-block mx-2">
+              <FaIcon icon={faGlobe} />
+              <select
+                className="p-1 ml-2 bg-white/40 rounded"
+                value={core.ws.settings.lng}
+                onChange={(e) => {
+                  const lng = e.target.value
+                  if (lng == 'de' || lng == 'en') {
+                    setLng(core, lng)
+                    setLngStorage(lng)
+                  }
+                }}
+              >
+                <option value="de">Deutsch</option>
+                <option value="en">English</option>
+              </select>
+            </span>
+          )}
         </div>
       </div>
     </div>
