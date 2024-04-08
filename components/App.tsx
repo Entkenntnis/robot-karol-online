@@ -20,15 +20,16 @@ import { SuccessModal } from './modals/SuccessModal'
 import { AppearanceModal } from './modals/AppearanceModal'
 import { TutorialModal } from './modals/TutorialModal'
 import { GoodLuckModal } from './modals/GoodLuckModal'
+import ErrorBoundary from './ErrorBoundary'
 
 export function App() {
   const core = useCore()
 
   return (
-    <>
+    <ErrorBoundary>
       {renderPage()}
       {renderModal()}
-    </>
+    </ErrorBoundary>
   )
 
   function renderPage() {

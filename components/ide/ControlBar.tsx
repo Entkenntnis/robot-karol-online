@@ -65,7 +65,7 @@ export function ControlBar() {
           !core.ws.ui.karolCrashMessage &&
           !core.ws.ui.isTesting &&
           core.ws.quest.progress ? (
-            <>
+            <span>
               {/*<button
                 onClick={() => {
                   closeOutput(core)
@@ -88,10 +88,10 @@ export function ControlBar() {
                   {core.strings.ide.continueAll}
                 </button>
               )}
-            </>
+            </span>
           ) : (
             core.ws.ui.state != 'running' && (
-              <>
+              <span>
                 <span className="ml-3 mt-2">
                   {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}
                 </span>
@@ -106,7 +106,7 @@ export function ControlBar() {
                 >
                   {core.strings.ide.back}
                 </button>
-              </>
+              </span>
             )
           )}
           {core.ws.ui.state == 'ready' &&
@@ -114,7 +114,7 @@ export function ControlBar() {
               core.ws.ui.isManualAbort ||
               core.ws.ui.karolCrashMessage) &&
             !core.ws.ui.isTesting && (
-              <>
+              <span>
                 <button
                   onClick={() => {
                     restartProgram(core)
@@ -127,7 +127,7 @@ export function ControlBar() {
                   />
                   ---
                 </button>
-              </>
+              </span>
             )}
           {core.ws.ui.state == 'running' && (
             <button
@@ -170,10 +170,10 @@ export function ControlBar() {
     const state = core.ws.ui.state
     if (state == 'error') {
       return (
-        <>
+        <span>
           <FaIcon icon={faExclamationTriangle} className="mr-1" />{' '}
           {core.strings.ide.programError}
-        </>
+        </span>
       )
     }
     if (state == 'loading' && !core.ws.ui.isEndOfRun) {
@@ -181,10 +181,10 @@ export function ControlBar() {
     }
     if (state == 'running') {
       return (
-        <>
+        <span>
           <FaIcon icon={faPersonWalking} className="mr-1" />{' '}
           {core.strings.ide.running}
-        </>
+        </span>
       )
     } else {
       if (core.ws.ui.karolCrashMessage) {
@@ -199,19 +199,19 @@ export function ControlBar() {
       if (core.ws.ui.isEndOfRun) {
         if (core.ws.page == 'imported') {
           return (
-            <>
+            <span>
               <FaIcon icon={faGenderless} className="mr-1" />{' '}
               {core.strings.ide.endOfRun}
               {core.ws.ui.isManualAbort ? ` (${core.strings.ide.aborted})` : ''}
-            </>
+            </span>
           )
         }
         if (core.ws.ui.isManualAbort) {
           return (
-            <>
+            <span>
               <FaIcon icon={faGenderless} className="mr-1" />
               {core.strings.ide.aborted}
-            </>
+            </span>
           )
         }
         return (
@@ -232,9 +232,9 @@ export function ControlBar() {
         )
       }
       return (
-        <>
+        <span>
           <FaIcon icon={faThumbsUp} className="mr-2" /> {core.strings.ide.ready}
-        </>
+        </span>
       )
     }
   }

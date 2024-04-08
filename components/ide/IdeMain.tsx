@@ -252,7 +252,7 @@ export function IdeMain() {
             <EditArea />
           </div>
           {core.ws.ui.isHighlightDescription && (
-            <>
+            <span>
               <div
                 className={clsx(
                   'absolute right-4 top-10 p-2 bg-white z-[300] rounded'
@@ -280,7 +280,7 @@ export function IdeMain() {
               >
                 <FaIcon icon={faCaretRight} />
               </div>
-            </>
+            </span>
           )}
         </ReflexElement>
 

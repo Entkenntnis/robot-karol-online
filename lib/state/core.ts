@@ -25,7 +25,7 @@ export function useCreateCore() {
   return useMemo(() => new Core(setCoreState, coreRef), [])
 }
 
-const CoreContext = createContext<Core | null>(null)
+export const CoreContext = createContext<Core | null>(null)
 
 // access to core
 export function useCore() {
