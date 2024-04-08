@@ -343,26 +343,33 @@ export function Tasks() {
                 {core.strings.editor.publish}
               </button>
             </p>
-          ) : (
-            core.ws.page == 'quest' && (
-              <p className="z-[300] relative ml-2">
-                <button
-                  className="px-2 py-0.5 rounded-lg bg-fuchsia-100 hover:bg-fuchsia-200"
-                  onClick={() => {
-                    if (!core.ws.ui.isHighlightDescription) {
-                      // reshow highlight
-                      storeQuestToSession(core)
-                    }
-                    closeModal(core)
-                    switchToPage(core, 'overview')
-                  }}
-                >
-                  <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
-                  {core.strings.ide.backToOverview}
-                </button>
-              </p>
-            )
-          )}
+          ) : core.ws.page == 'quest' ? (
+            <p className="z-[300] relative ml-2">
+              <button
+                className="px-2 py-0.5 rounded-lg bg-fuchsia-100 hover:bg-fuchsia-200"
+                onClick={() => {
+                  if (!core.ws.ui.isHighlightDescription) {
+                    // reshow highlight
+                    storeQuestToSession(core)
+                  }
+                  closeModal(core)
+                  switchToPage(core, 'overview')
+                }}
+              >
+                <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
+                {core.strings.ide.backToOverview}
+              </button>
+            </p>
+          ) : core.ws.page == 'shared' ? (
+            <p className="z-10 w-full ml-3">
+              <a
+                className="underline"
+                href={window.location.protocol + '//' + window.location.host}
+              >
+                Robot Karol Online
+              </a>
+            </p>
+          ) : null}
         </div>
         <div className={clsx('flex-grow-0 flex-shrink-0')}>
           <button
