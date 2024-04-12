@@ -364,6 +364,7 @@ export function Tasks() {
             <p className="z-10 w-full ml-3">
               <a
                 className="underline"
+                target="_blank"
                 href={window.location.protocol + '//' + window.location.host}
               >
                 Robot Karol Online
