@@ -30,7 +30,8 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
     if (
       core.ws.ui.state == 'running' ||
       core.ws.ui.state == 'loading' ||
-      core.ws.quest.testerHandler
+      core.ws.quest.testerHandler ||
+      core.ws.ui.proMode
     ) {
       return // ignore
     }

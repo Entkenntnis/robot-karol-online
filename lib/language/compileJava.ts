@@ -31,6 +31,8 @@ export function compileJava(
 
   let comments: AstNode[] = []
 
+  let proMode = true
+
   function appendRkCode(code: string, pos: number) {
     const commentsToAdd = comments.filter((node) => node.from < pos)
     for (const c of commentsToAdd) {
@@ -313,7 +315,7 @@ export function compileJava(
     }
   }
 
-  return { output: finalOutput, warnings, rkCode }
+  return { output: finalOutput, warnings, rkCode: proMode ? undefined : rkCode }
 
   // --------------------------- HELPER ------------------------
 

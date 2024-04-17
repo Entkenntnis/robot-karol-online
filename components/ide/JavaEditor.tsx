@@ -156,11 +156,12 @@ export function lint(core: Core, view: EditorView) {
     if (rkCode !== undefined) {
       core.mutateWs((ws) => {
         ws.code = rkCode
-        ws.ui.toBlockWarning = false
+        ws.ui.proMode = false
       })
     } else {
+      console.log('pro mode')
       core.mutateWs((ws) => {
-        ws.ui.toBlockWarning = true
+        ws.ui.proMode = true
       })
     }
   } else {

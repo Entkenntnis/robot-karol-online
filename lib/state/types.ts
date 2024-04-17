@@ -34,6 +34,7 @@ export interface Ui {
   needsTextRefresh: boolean
   errorMessages: string[]
   toBlockWarning: boolean
+  proMode: boolean
   showOutput: boolean
   speedSliderValue: number
   showPreviewOfTarget: boolean
