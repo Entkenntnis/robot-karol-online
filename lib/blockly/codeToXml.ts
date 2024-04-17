@@ -170,7 +170,7 @@ export function codeToXml(
         const condition = code.substring(cursor.from, cursor.to)
         cursor.next()
 
-        if (
+        while (
           cursor.node.name == 'Parameter' ||
           cursor.node.name == 'ConditionWithoutParam' ||
           cursor.node.name == 'ConditionMaybeWithParam'
