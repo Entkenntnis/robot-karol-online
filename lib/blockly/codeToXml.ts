@@ -379,7 +379,7 @@ export function codeToXml(
         .toLowerCase()
         .replace(prefix, '')}</field></block>`
     if (type.startsWith(keywords.istziegel + '(')) {
-      const count = type.replace('istziegel(', '').replace(')', '')
+      const count = type.replace(keywords.istziegel + '(', '').replace(')', '')
       return `<block type="is_brick_count"><field name="COUNT">${count}</field></block>`
     }
     if (type.startsWith(keywords.nichtistziegel + '(')) {
