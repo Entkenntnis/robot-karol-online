@@ -16,7 +16,7 @@ export interface CompilerTestCase {
 }
 
 const compilerTestCases: CompilerTestCase[] = [
-  { title: 'Leeres Programm', source: '', output: [] },
+  { title: 'Leeres Programm', source: '', output: [], rkCode: '' },
   {
     title: 'Fehler bei Klasse ohne Name',
     source: 'class',
@@ -69,6 +69,7 @@ const compilerTestCases: CompilerTestCase[] = [
     title: 'Ignoriere Kommentare',
     source: '// Zeilen-Kommentar\n/* Block-Kommentar */',
     output: [],
+    rkCode: '',
   },
   {
     title: 'Fehler bei Import',
