@@ -2,6 +2,7 @@ import { Tree, TreeCursor } from '@lezer/common'
 import { CmdBlockPositions } from '../state/types'
 import { deKeywords, enKeywords } from '../language/compiler'
 import { getParserWithLng } from '../codemirror/parser/get-parser-with-lng'
+import { capitalize } from '../helper/capitalize'
 
 export function codeToXml(
   code: string,
@@ -336,7 +337,16 @@ export function codeToXml(
 
   function buildCondition(typeRaw: string) {
     const type = typeRaw.toLowerCase()
-    const prefix = lng === 'de' ? 'ist' : 'is_'
+
+    function type2dir(
+      prop: 'istnorden' | 'istsüden' | 'istosten' | 'istwesten'
+    ) {
+      if (systemLng === 'de') {
+        return capitalize(deKeywords[prop].replace('ist', ''))
+      }
+      return enKeywords[prop].replace('is_', '')
+    }
+
     if (type == keywords.istwand) return `<block type="is_wall"></block>`
     if (type == keywords.nichtistwand)
       return `<block type="isn't_wall"></block>`
@@ -347,37 +357,37 @@ export function codeToXml(
     if (type == keywords.nichtistmarke)
       return `<block type="isn't_marker"></block>`
     if (type == keywords.istnorden)
-      return `<block type="is_direction"><field name="DIRECTION">${keywords.istnorden
-        .toLowerCase()
-        .replace(prefix, '')}</field></block>`
+      return `<block type="is_direction"><field name="DIRECTION">${type2dir(
+        'istnorden'
+      )}</field></block>`
     if (type == keywords.nichtistnorden)
-      return `<block type="isn't_direction"><field name="DIRECTION">${keywords.istnorden
-        .toLowerCase()
-        .replace(prefix, '')}</field></block>`
+      return `<block type="isn't_direction"><field name="DIRECTION">${type2dir(
+        'istnorden'
+      )}</field></block>`
     if (type == keywords.istosten)
-      return `<block type="is_direction"><field name="DIRECTION">${keywords.istosten
-        .toLowerCase()
-        .replace(prefix, '')}</field></block>`
+      return `<block type="is_direction"><field name="DIRECTION">${type2dir(
+        'istosten'
+      )}</field></block>`
     if (type == keywords.nichtistosten)
-      return `<block type="isn't_direction"><field name="DIRECTION">${keywords.istosten
-        .toLowerCase()
-        .replace(prefix, '')}</field></block>`
+      return `<block type="isn't_direction"><field name="DIRECTION">${type2dir(
+        'istosten'
+      )}</field></block>`
     if (type == keywords.istsüden)
-      return `<block type="is_direction"><field name="DIRECTION">${keywords.istsüden
-        .toLowerCase()
-        .replace(prefix, '')}</field></block>`
+      return `<block type="is_direction"><field name="DIRECTION">${type2dir(
+        'istsüden'
+      )}</field></block>`
     if (type == keywords.nichtistsüden)
-      return `<block type="isn't_direction"><field name="DIRECTION">${keywords.istsüden
-        .toLowerCase()
-        .replace(prefix, '')}</field></block>`
+      return `<block type="isn't_direction"><field name="DIRECTION">${type2dir(
+        'istsüden'
+      )}</field></block>`
     if (type == keywords.istwesten)
-      return `<block type="is_direction"><field name="DIRECTION">${keywords.istwesten
-        .toLowerCase()
-        .replace(prefix, '')}</field></block>`
+      return `<block type="is_direction"><field name="DIRECTION">${type2dir(
+        'istwesten'
+      )}</field></block>`
     if (type == keywords.nichtistwesten)
-      return `<block type="isn't_direction"><field name="DIRECTION">${keywords.istwesten
-        .toLowerCase()
-        .replace(prefix, '')}</field></block>`
+      return `<block type="isn't_direction"><field name="DIRECTION">${type2dir(
+        'istwesten'
+      )}</field></block>`
     if (type.startsWith(keywords.istziegel + '(')) {
       const count = type.replace(keywords.istziegel + '(', '').replace(')', '')
       return `<block type="is_brick_count"><field name="COUNT">${count}</field></block>`

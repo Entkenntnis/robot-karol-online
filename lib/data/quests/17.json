@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Lücke",
-  "description": "Beim Bauen der Treppe ist wohl ein kleiner Fehler passiert ...",
+  "description": "Beim Bauen der Treppe ist wohl ein kleiner Fehler passiert ... lege Ziegel, um die doppelte Stufe zu überbrücken. Stelle danach die Treppe wieder her.",
   "tasks": [
     {
       "title": "Treppe mit Lücke",

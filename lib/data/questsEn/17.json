@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Gap",
-  "description": "It seems there's a small mistake while building the stairs...",
+  "description": "It seems there's a small mistake while building the stairs ... mission is to overcome the 2 bricks and rebuild the stairs to the initial state.",
   "tasks": [
     {
       "title": "Stairs with Gap",
