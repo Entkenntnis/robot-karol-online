@@ -1,5 +1,5 @@
-import { CompilerOutput } from '../helper/CompilerOutput'
-import { AstNode } from '../helper/astNode'
+import { CompilerOutput } from './CompilerOutput'
+import { AstNode } from './astNode'
 
 export function warnForUnexpectedNodes(
   co: CompilerOutput,

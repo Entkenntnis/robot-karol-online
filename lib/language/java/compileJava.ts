@@ -4,12 +4,12 @@ import { CallOp } from '../../state/types'
 import { AstNode, cursorToAstNode } from '../helper/astNode'
 import { matchChildren } from '../helper/matchChildren'
 import { CompilerOutput, CompilerResult } from '../helper/CompilerOutput'
-import { warnForUnexpectedNodes } from './warnForUnexpectedNodes'
+import { warnForUnexpectedNodes } from '../helper/warnForUnexpectedNodes'
 import { ensureBlock } from './ensureBlock'
-import { ensureExactlyOneChild } from './ensureExactlyOneChild'
+import { ensureExactlyOneChild } from '../helper/ensureExactlyOneChild'
 import { checkMainMethod } from './checkMainMethod'
 import { checkRobotField } from './checkRobotField'
-import { semanticCheck } from './semanticCheck'
+import { semanticCheck } from './nodes/semanticCheck'
 
 export function compileJava(tree: Tree, doc: Text): CompilerResult {
   const comments: AstNode[] = []

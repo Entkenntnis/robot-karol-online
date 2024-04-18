@@ -1,6 +1,6 @@
 import { CompilerOutput } from '../helper/CompilerOutput'
 import { AstNode } from '../helper/astNode'
-import { warnForUnexpectedNodes } from './warnForUnexpectedNodes'
+import { warnForUnexpectedNodes } from '../helper/warnForUnexpectedNodes'
 
 export function checkMainMethod(co: CompilerOutput, main: AstNode) {
   const definition = main.children.find((child) => child.name == 'Definition')! // parser will always emit subtree with definition

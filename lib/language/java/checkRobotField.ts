@@ -1,7 +1,7 @@
 import { CompilerOutput } from '../helper/CompilerOutput'
 import { AstNode } from '../helper/astNode'
 import { checkSemikolon } from './checkSemikolon'
-import { warnForUnexpectedNodes } from './warnForUnexpectedNodes'
+import { warnForUnexpectedNodes } from '../helper/warnForUnexpectedNodes'
 
 export function checkRobotField(
   co: CompilerOutput,
