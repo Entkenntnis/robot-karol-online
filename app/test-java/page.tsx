@@ -774,6 +774,99 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Schritt mit Variable als Parameter',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 4;\n    karol.schritt(i);\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 6,
+        useParameterFromStack: true,
+      },
+    ],
+  },
+  {
+    title: 'Schleife mit Variable als Parameter',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int loops = 3;\n    for (int i = 0; i < loops; i++) {\n      karol.schritt();\n    }\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 3,
+      },
+      {
+        type: 'store',
+        variable: 'loops',
+      },
+      {
+        type: 'load',
+        variable: 'loops',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'jump',
+        target: 8,
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 7,
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'sub',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'branch',
+        targetT: 7,
+        targetF: 14,
+        line: 6,
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

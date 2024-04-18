@@ -229,7 +229,6 @@ function internal_step(core: Core) {
     })
 
     if (sideEffectOp) {
-      console.log('side effect op execution')
       const op = sideEffectOp as ActionOp
       let result = undefined
       if (op.command == 'forward') {

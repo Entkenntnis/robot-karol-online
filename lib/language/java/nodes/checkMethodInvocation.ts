@@ -47,6 +47,7 @@ export function checkMethodInvocation(
 
     const argumentList = node.children[3]
     let integerArgument: number = NaN
+    let variableParameter: string = ''
 
     const methodName = node.children[2].children[0].text()
 
@@ -66,6 +67,15 @@ export function checkMethodInvocation(
           co.warn(argumentList, `Erwarte eine Anzahl größer null`)
           integerArgument = NaN
         }
+      }
+    } else if (
+      matchChildren(['(', 'Identifier', ')'], argumentList.children) &&
+      !methodsWithoutArgs.includes(methodName)
+    ) {
+      co.activateProMode()
+      variableParameter = argumentList.children[1].text()
+      if (!context.variablesInScope.has(variableParameter)) {
+        co.warn(argumentList.children[1], 'Variable nicht bekannt')
       }
     } else if (!matchChildren(['(', ')'], argumentList.children)) {
       co.warn(
@@ -141,7 +151,15 @@ export function checkMethodInvocation(
         return
       }
 
-      if (!isNaN(integerArgument)) {
+      if (variableParameter) {
+        co.appendOutput({ type: 'load', variable: variableParameter })
+        co.appendOutput({
+          type: 'action',
+          command: action,
+          line: co.lineAt(node.from).number,
+          useParameterFromStack: true,
+        })
+      } else if (!isNaN(integerArgument)) {
         co.appendOutput({ type: 'constant', value: integerArgument })
         co.appendOutput({
           type: 'action',
