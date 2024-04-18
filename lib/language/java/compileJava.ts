@@ -1,9 +1,17 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { BranchOp, CallOp, Condition, JumpOp, Op } from '../state/types'
+import { BranchOp, CallOp, Condition, JumpOp, Op } from '../../state/types'
 import { Diagnostic } from '@codemirror/lint'
-import { AstNode, cursorToAstNode, prettyPrintAstNode } from './astNode'
-import { matchChildren } from './matchChildren'
+import { AstNode, cursorToAstNode } from '../helper/astNode'
+import { matchChildren } from '../helper/matchChildren'
+import {
+  AnchorOp,
+  CompilerOutput,
+  CompilerResult,
+} from '../helper/CompilerOutput'
+import { methodName2action } from '../helper/methodName2action'
+import { methodsWithoutArgs } from '../helper/methodsWithoutArgs'
+import { conditionToRK } from '../helper/conditionToRk'
 
 interface SemantikCheckContext {
   robotName: string
@@ -15,43 +23,10 @@ interface SemantikCheckContext {
   callOps: [string, CallOp][]
 }
 
-export interface AnchorOp {
-  type: 'anchor'
-  callback: (target: number) => void
-}
+export function compileJava(tree: Tree, doc: Text): CompilerResult {
+  const co = new CompilerOutput()
 
-export function compileJava(
-  tree: Tree,
-  doc: Text
-): { output: Op[]; warnings: Diagnostic[]; rkCode?: string } {
-  const warnings: Diagnostic[] = []
-  const output: (Op | AnchorOp)[] = []
-  let rkCode = ''
-  let rkCodeIndent = 0
-
-  let comments: AstNode[] = []
-
-  let proMode = false
-
-  function appendRkCode(code: string, pos: number) {
-    const commentsToAdd = comments.filter((node) => node.from < pos)
-    for (const c of commentsToAdd) {
-      rkCode += '\n' + pad() + c.text()
-    }
-    if (commentsToAdd.length > 0) {
-      comments = comments.filter((node) => node.from >= pos)
-    }
-    rkCode += '\n' + pad() + code
-  }
-
-  function pad() {
-    let line = ''
-    for (let i = 0; i < rkCodeIndent; i++) {
-      line += '  '
-    }
-    return line
-  }
-
+  const comments: AstNode[] = []
   // convert tree to ast node
   const ast = cursorToAstNode(
     tree.cursor(),
@@ -59,6 +34,8 @@ export function compileJava(
     ['LineComment', 'BlockComment'],
     comments
   )
+
+  co.registerComments(comments)
 
   // debug
   //console.log(prettyPrintAstNode(ast))
@@ -76,17 +53,16 @@ export function compileJava(
   )
 
   if (classDeclOnToplevel.length !== 1) {
-    warnings.push({
+    co.warn({
       from: ast.from,
       to: ast.to,
-      severity: 'error',
       message:
         classDeclOnToplevel.length > 1
           ? 'Erwarte genau eine Klasse'
           : 'Erwarte eine Klassendefinition',
     })
     // can't continue
-    return { output: [], warnings }
+    return co.fatalResult()
   }
 
   warnForUnexpectedNodes(notClassOnTopLevel)
@@ -99,14 +75,13 @@ export function compileJava(
   )
 
   if (!classDefinition) {
-    warnings.push({
+    co.warn({
       from: classDeclaration.from,
       to: classDeclaration.to,
-      severity: 'error',
       message: 'Erwarte Name der Klasse',
     })
     // can't continue
-    return { output: [], warnings }
+    return co.fatalResult()
   }
 
   const classBody = classDeclaration.children.find(
@@ -114,14 +89,13 @@ export function compileJava(
   )
 
   if (!classBody) {
-    warnings.push({
+    co.warn({
       from: classDefinition.from,
       to: classDefinition.to,
-      severity: 'error',
       message: 'Erwarte Rumpf der Klasse',
     })
     // can't continue
-    return { output: [], warnings }
+    return co.fatalResult()
   }
 
   const unwantedInClass = classDeclaration.children.filter(
@@ -135,13 +109,13 @@ export function compileJava(
 
   warnForUnexpectedNodes(unwantedInClass)
 
-  if (warnings.length > 0) {
-    return { output: [], warnings }
+  if (co.hasWarnings()) {
+    return co.fatalResult()
   }
   // --------------------------- next level -------------------------------
   const classBodyChildren = classBody.children
   if (ensureBlock(classBodyChildren) === false) {
-    return { output: [], warnings }
+    return co.fatalResult()
   }
 
   // collect fields and methods
@@ -187,14 +161,14 @@ export function compileJava(
       `Erwarte genau ein Attribut vom Typ 'Robot' in Klasse '${classDefinition.text()}'`
     ) === false
   ) {
-    return { output: [], warnings }
+    return co.fatalResult()
   }
 
   const robotField = robotFields[0]
   const robotInstanceName = checkRobotField(robotField)
 
-  if (!robotInstanceName || warnings.length > 0) {
-    return { output: [], warnings }
+  if (!robotInstanceName || co.hasWarnings()) {
+    return co.fatalResult()
   }
 
   if (
@@ -206,22 +180,21 @@ export function compileJava(
       `Erwarte genau eine Methode 'main' in Klasse '${classDefinition.text()}'`
     ) === false
   ) {
-    return { output: [], warnings }
+    return co.fatalResult()
   }
 
   warnForUnexpectedNodes(unwantedInClassBody)
 
-  if (warnings.length > 0) {
-    return { output: [], warnings }
+  if (co.hasWarnings()) {
+    return co.fatalResult()
   }
 
   // custom fields  not implemented yet
   for (const field of fields) {
     if (field != robotField) {
-      warnings.push({
+      co.warn({
         from: field.from,
         to: field.to,
-        severity: 'error',
         message: 'Keine eigenen Attribute unterstützt',
       })
     }
@@ -240,20 +213,18 @@ export function compileJava(
       ) {
         const formalParameters = method.children[2]
         if (!matchChildren(['(', ')'], formalParameters.children)) {
-          warnings.push({
+          co.warn({
             from: formalParameters.from,
             to: formalParameters.to,
-            severity: 'error',
             message: 'Erwarte leere Parameterliste',
           })
         }
         const name = method.children[1].text()
         availableMethods.add(name)
       } else {
-        warnings.push({
+        co.warn({
           from: method.from,
           to: method.to,
-          severity: 'error',
           message: 'Erwarte eigene Methode ohne Rückgabewert mit Rumpf',
         })
       }
@@ -272,13 +243,13 @@ export function compileJava(
   })
 
   if (availableMethods.size > 0) {
-    output.push({ type: 'jump', target: Infinity })
+    co.appendOutput({ type: 'jump', target: Infinity })
   }
 
   for (const method of methods) {
     if (method != mainMethod) {
       const name = method.children[1].text()
-      output.push({
+      co.appendOutput({
         type: 'anchor',
         callback: (target) => {
           callOps.forEach(([n, op]) => {
@@ -288,34 +259,21 @@ export function compileJava(
           })
         },
       })
-      appendRkCode('\nAnweisung ' + name, method.from)
-      rkCodeIndent++
+      co.appendRkCode('\nAnweisung ' + name, method.from)
+      co.increaseIndent()
       semanticCheck(method, {
         robotName: robotInstanceName,
         variablesInScope: new Set(),
         availableMethods,
         callOps,
       })
-      output.push({ type: 'return' })
-      rkCodeIndent--
-      appendRkCode('endeAnweisung', method.to)
+      co.appendOutput({ type: 'return' })
+      co.decreaseIndent()
+      co.appendRkCode('endeAnweisung', method.to)
     }
   }
 
-  appendRkCode('', Infinity)
-  rkCode = rkCode.trim()
-
-  const finalOutput: Op[] = []
-
-  for (const op of output) {
-    if (op.type == 'anchor') {
-      op.callback(finalOutput.length)
-    } else {
-      finalOutput.push(op)
-    }
-  }
-
-  return { output: finalOutput, warnings, rkCode: proMode ? undefined : rkCode }
+  return co.getResult()
 
   // --------------------------- HELPER ------------------------
 
@@ -350,20 +308,18 @@ export function compileJava(
           return
         }
         const prefix = `${context.robotName}.`
-        warnings.push({
+        co.warn({
           from:
             node.from + (node.text().startsWith(prefix) ? prefix.length : 0),
           to: Math.min(node.to, doc.lineAt(node.from).to),
-          severity: 'error',
           message: 'Erwarte Methodenaufruf',
         })
         return
       }
       case ';': {
-        warnings.push({
+        co.warn({
           from: node.from,
           to: node.to,
-          severity: 'error',
           message: 'Erwarte Methodenaufruf',
         })
         return
@@ -374,10 +330,9 @@ export function compileJava(
           if (context.availableMethods.has(name)) {
             const argumentList = node.children[1]
             if (!matchChildren(['(', ')'], argumentList.children)) {
-              warnings.push({
+              co.warn({
                 from: argumentList.from,
                 to: argumentList.to,
-                severity: 'error',
                 message: 'Erwarte keine Argumente',
               })
             } else {
@@ -386,15 +341,14 @@ export function compileJava(
                 target: -1,
                 line: doc.lineAt(node.from).number,
               }
-              output.push(op)
-              appendRkCode(name, node.from)
+              co.appendOutput(op)
+              co.appendRkCode(name, node.from)
               context.callOps.push([name, op])
             }
           } else {
-            warnings.push({
+            co.warn({
               from: node.from,
               to: node.to,
-              severity: 'error',
               message: `Erwarte Punktnotation '${context.robotName}.'`,
             })
           }
@@ -410,10 +364,9 @@ export function compileJava(
         ) {
           const obj = node.children[0].text()
           if (obj !== context.robotName) {
-            warnings.push({
+            co.warn({
               from: node.children[0].from,
               to: node.children[0].to,
-              severity: 'error',
               message: `Erwarte Objekt '${context.robotName}'`,
             })
           }
@@ -424,10 +377,9 @@ export function compileJava(
           const methodName = node.children[2].children[0].text()
 
           if (argumentList.children.some((child) => child.isError)) {
-            warnings.push({
+            co.warn({
               from: argumentList.from,
               to: Math.min(argumentList.to, doc.lineAt(argumentList.from).to),
-              severity: 'error',
               message: `Bitte runde Klammer schließen`,
             })
           } else if (
@@ -440,20 +392,18 @@ export function compileJava(
             integerArgument = parseInt(argumentList.children[1].text())
             if (!isNaN(integerArgument)) {
               if (integerArgument <= 0) {
-                warnings.push({
+                co.warn({
                   from: argumentList.from,
                   to: argumentList.to,
-                  severity: 'error',
                   message: `Erwarte eine Anzahl größer null`,
                 })
                 integerArgument = NaN
               }
             }
           } else if (!matchChildren(['(', ')'], argumentList.children)) {
-            warnings.push({
+            co.warn({
               from: argumentList.from,
               to: argumentList.to,
-              severity: 'error',
               message: methodsWithoutArgs.includes(methodName)
                 ? `Erwarte leere Parameterliste`
                 : `Erwarte Zahl als Parameter`,
@@ -508,10 +458,9 @@ export function compileJava(
               cond = { type: 'west', negated: false }
             }
             if (!cond.type) {
-              warnings.push({
+              co.warn({
                 from: node.children[2].from,
                 to: node.children[2].to,
-                severity: 'error',
                 message: `Unbekannte Bedingung '${methodName}'`,
               })
               return
@@ -520,18 +469,17 @@ export function compileJava(
           } else {
             const action = methodName2action(methodName)
             if (!action) {
-              warnings.push({
+              co.warn({
                 from: node.children[2].from,
                 to: node.children[2].to,
-                severity: 'error',
                 message: `Unbekannte Methode '${methodName}'`,
               })
               return
             }
 
             if (action == '--exit--') {
-              output.push({ type: 'jump', target: Infinity })
-              appendRkCode('Beenden', node.from)
+              co.appendOutput({ type: 'jump', target: Infinity })
+              co.appendRkCode('Beenden', node.from)
               return
             }
 
@@ -541,13 +489,13 @@ export function compileJava(
                 i < Math.min(1000, integerArgument) /* protect */;
                 i++
               ) {
-                output.push({
+                co.appendOutput({
                   type: 'action',
                   command: action,
                   line: doc.lineAt(node.from).number,
                 })
               }
-              appendRkCode(
+              co.appendRkCode(
                 methodName.charAt(0).toUpperCase() +
                   methodName.slice(1) +
                   '(' +
@@ -556,12 +504,12 @@ export function compileJava(
                 node.from
               )
             } else {
-              output.push({
+              co.appendOutput({
                 type: 'action',
                 command: action,
                 line: doc.lineAt(node.from).number,
               })
-              appendRkCode(
+              co.appendRkCode(
                 methodName.charAt(0).toUpperCase() + methodName.slice(1),
                 node.from
               )
@@ -571,10 +519,9 @@ export function compileJava(
           return
         }
 
-        warnings.push({
+        co.warn({
           from: node.from,
           to: node.to,
-          severity: 'error',
           message: 'Erwarte Methodenaufruf',
         })
         return
@@ -584,34 +531,34 @@ export function compileJava(
           semanticCheck(node.children[1], context)
           const toRemove = context.__temp_remove_from_scope_after_for
           context.__temp_remove_from_scope_after_for = undefined
-          const position = output.length
+          const position = co.getPosition()
           semanticCheck(node.children[2], context)
           if (toRemove && position >= 2) {
-            rkCodeIndent--
-            appendRkCode('endewiederhole', node.to)
+            co.decreaseIndent()
+            co.appendRkCode('endewiederhole', node.to)
             context.variablesInScope.delete(toRemove)
-            const jump = output[position - 2]
-            const anchor = output[position - 1] as AnchorOp
+            const jump = co.getOpAt(position - 2)
+            const anchor = co.getOpAt(position - 1) as AnchorOp
 
-            output.push({
+            co.appendOutput({
               type: 'anchor',
               callback: (target) => {
                 ;(jump as JumpOp).target = target
               },
             })
-            output.push({ type: 'load', variable: toRemove })
-            output.push({ type: 'constant', value: 1 })
-            output.push({ type: 'operation', kind: 'sub' })
-            output.push({ type: 'store', variable: toRemove })
-            output.push({ type: 'load', variable: toRemove })
+            co.appendOutput({ type: 'load', variable: toRemove })
+            co.appendOutput({ type: 'constant', value: 1 })
+            co.appendOutput({ type: 'operation', kind: 'sub' })
+            co.appendOutput({ type: 'store', variable: toRemove })
+            co.appendOutput({ type: 'load', variable: toRemove })
             const branch: BranchOp = {
               type: 'branch',
               targetT: -1,
-              targetF: output.length + 1,
+              targetF: co.getPosition() + 1,
               line: doc.lineAt(node.from).number,
             }
-            output.push(branch)
-            output.push({
+            co.appendOutput(branch)
+            co.appendOutput({
               type: 'anchor',
               callback: (target) => {
                 branch.targetF = target
@@ -625,10 +572,9 @@ export function compileJava(
           if (matchChildren(['for', 'ForSpec', '⚠'], node.children)) {
             semanticCheck(node.children[1], context)
           }
-          warnings.push({
+          co.warn({
             from: node.from,
             to: node.to,
-            severity: 'error',
             message: 'Erwarte Schleife mit Rumpf',
           })
         }
@@ -669,10 +615,9 @@ export function compileJava(
             const declarator = loopVar.children[1]
 
             if (type.text() !== 'int') {
-              warnings.push({
+              co.warn({
                 from: loopVar.from,
                 to: loopVar.to,
-                severity: 'error',
                 message: `Erwarte Schleifenzähler mit Typ 'int'`,
               })
             }
@@ -685,10 +630,9 @@ export function compileJava(
             ) {
               loopVarName = declarator.children[0].text()
               if (context.variablesInScope.has(loopVarName)) {
-                warnings.push({
+                co.warn({
                   from: declarator.children[0].from,
                   to: declarator.children[0].to,
-                  severity: 'error',
                   message: `Variable '${loopVarName}' existiert bereits, erwarte anderen Namen`,
                 })
               } else {
@@ -696,27 +640,24 @@ export function compileJava(
               }
               const initialValue = parseInt(declarator.children[2].text())
               if (initialValue != 0) {
-                warnings.push({
+                co.warn({
                   from: declarator.children[2].from,
                   to: declarator.children[2].to,
-                  severity: 'error',
                   message: `Erwarte Startwert 0`,
                 })
               }
               context.variablesInScope.add(loopVarName)
             } else {
-              warnings.push({
+              co.warn({
                 from: loopVar.from,
                 to: loopVar.to,
-                severity: 'error',
                 message: `Erwarte Schleifenzähler 'int ${safeLoopVar} = 0;'`,
               })
             }
           } else {
-            warnings.push({
+            co.warn({
               from: loopVar.from,
               to: loopVar.to,
-              severity: 'error',
               message: `Erwarte Schleifenzähler 'int ${safeLoopVar} = 0;'`,
             })
           }
@@ -731,61 +672,55 @@ export function compileJava(
           ) {
             const id = loopCond.children[0].text()
             if (id != loopVarName) {
-              warnings.push({
+              co.warn({
                 from: loopCond.children[0].from,
                 to: loopCond.children[0].to,
-                severity: 'error',
                 message: `Erwarte Variable '${loopVarName}'`,
               })
             }
             if (loopCond.children[1].text() != '<') {
-              warnings.push({
+              co.warn({
                 from: loopCond.children[1].from,
                 to: loopCond.children[1].to,
-                severity: 'error',
                 message: `Erwarte Vergleichsoperator '<'`,
               })
             }
             const count = parseInt(loopCond.children[2].text())
             if (count <= 0) {
-              warnings.push({
+              co.warn({
                 from: loopCond.children[2].from,
                 to: loopCond.children[2].to,
-                severity: 'error',
                 message: `Erwarte Anzahl größer null`,
               })
             }
             // generate bytecode
-            output.push({ type: 'constant', value: count + 1 }) // we decrement before compare
-            output.push({ type: 'store', variable: loopVarName })
+            co.appendOutput({ type: 'constant', value: count + 1 }) // we decrement before compare
+            co.appendOutput({ type: 'store', variable: loopVarName })
             const jump: Op = { type: 'jump', target: -1 }
-            output.push(jump)
-            output.push({ type: 'anchor', callback: () => {} })
-            appendRkCode(`wiederhole ${count} mal`, node.from)
-            rkCodeIndent++
+            co.appendOutput(jump)
+            co.appendOutput({ type: 'anchor', callback: () => {} })
+            co.appendRkCode(`wiederhole ${count} mal`, node.from)
+            co.increaseIndent()
           } else {
-            warnings.push({
+            co.warn({
               from: loopCond.from,
               to: loopCond.to,
-              severity: 'error',
               message: `Erwarte Schleifenbedingung der Form '${loopVarName} < 10'`,
             })
           }
 
           const loopUpdate = node.children[4]
           if (loopUpdate.text() !== loopVarName + '++') {
-            warnings.push({
+            co.warn({
               from: loopUpdate.from,
               to: loopUpdate.to,
-              severity: 'error',
               message: `Erwarte '${loopVarName}++'`,
             })
           }
         } else {
-          warnings.push({
+          co.warn({
             from: node.from,
             to: node.to,
-            severity: 'error',
             message: `Erwarte Schleifenkopf mit 'int ${safeLoopVar} = 0; ${safeLoopVar} < 10; ${safeLoopVar}++'`,
           })
         }
@@ -806,18 +741,18 @@ export function compileJava(
           ) {
             // endless loop
             const jump: JumpOp = { type: 'jump', target: -1 }
-            output.push({
+            co.appendOutput({
               type: 'anchor',
               callback: (target) => {
                 jump.target = target
               },
             })
-            appendRkCode('wiederhole immer', node.from)
-            rkCodeIndent++
+            co.appendRkCode('wiederhole immer', node.from)
+            co.increaseIndent()
             semanticCheck(node.children[2], context)
-            output.push(jump)
-            rkCodeIndent--
-            appendRkCode('endewiederhole', node.to)
+            co.appendOutput(jump)
+            co.decreaseIndent()
+            co.appendRkCode('endewiederhole', node.to)
           } else {
             context.expectCondition = true
             semanticCheck(node.children[1], context)
@@ -849,35 +784,34 @@ export function compileJava(
                   branch.targetF = target
                 },
               }
-              output.push(jumpToCond)
-              output.push(anchorTop)
+              co.appendOutput(jumpToCond)
+              co.appendOutput(anchorTop)
 
-              appendRkCode(
+              co.appendRkCode(
                 `wiederhole solange ${conditionToRK(condition)}`,
                 node.from
               )
-              rkCodeIndent++
+              co.increaseIndent()
               semanticCheck(node.children[2], context)
-              rkCodeIndent--
-              appendRkCode('endewiederhole', node.to)
+              co.decreaseIndent()
+              co.appendRkCode('endewiederhole', node.to)
 
-              output.push(anchorCond)
+              co.appendOutput(anchorCond)
               if (condition.type == 'brick_count') {
-                output.push({ type: 'constant', value: condition.count! })
+                co.appendOutput({ type: 'constant', value: condition.count! })
               }
-              output.push({
+              co.appendOutput({
                 type: 'sense',
                 condition,
               })
-              output.push(branch)
-              output.push(anchorEnd)
+              co.appendOutput(branch)
+              co.appendOutput(anchorEnd)
             }
           }
         } else {
-          warnings.push({
+          co.warn({
             from: node.from,
             to: node.to,
-            severity: 'error',
             message: `Erwarte Schleife mit Rumpf`,
           })
         }
@@ -887,10 +821,9 @@ export function compileJava(
         if (matchChildren(['(', 'MethodInvocation', ')'], node.children)) {
           semanticCheck(node.children[1], context)
         } else {
-          warnings.push({
+          co.warn({
             from: node.from,
             to: node.to,
-            severity: 'error',
             message: `Erwarte Bedingung`,
           })
         }
@@ -927,22 +860,22 @@ export function compileJava(
               },
             }
             if (condition.type == 'brick_count') {
-              output.push({ type: 'constant', value: condition.count! })
+              co.appendOutput({ type: 'constant', value: condition.count! })
             }
-            output.push({
+            co.appendOutput({
               type: 'sense',
               condition,
             })
-            output.push(branch)
-            output.push(anchorBlock)
+            co.appendOutput(branch)
+            co.appendOutput(anchorBlock)
 
-            appendRkCode(`wenn ${conditionToRK(condition)} dann`, node.from)
-            rkCodeIndent++
+            co.appendRkCode(`wenn ${conditionToRK(condition)} dann`, node.from)
+            co.increaseIndent()
             semanticCheck(node.children[2], context)
-            rkCodeIndent--
-            appendRkCode('endewenn', node.to)
+            co.decreaseIndent()
+            co.appendRkCode('endewenn', node.to)
 
-            output.push(anchorEnd)
+            co.appendOutput(anchorEnd)
           }
         } else if (
           matchChildren(
@@ -984,36 +917,35 @@ export function compileJava(
               },
             }
             if (condition.type == 'brick_count') {
-              output.push({ type: 'constant', value: condition.count! })
+              co.appendOutput({ type: 'constant', value: condition.count! })
             }
-            output.push({
+            co.appendOutput({
               type: 'sense',
               condition,
             })
-            output.push(branch)
-            output.push(anchorBlock)
+            co.appendOutput(branch)
+            co.appendOutput(anchorBlock)
 
-            appendRkCode(`wenn ${conditionToRK(condition)} dann`, node.from)
-            rkCodeIndent++
+            co.appendRkCode(`wenn ${conditionToRK(condition)} dann`, node.from)
+            co.increaseIndent()
             semanticCheck(node.children[2], context)
-            rkCodeIndent--
+            co.decreaseIndent()
 
-            output.push(jump)
-            appendRkCode('sonst', node.children[3].from)
-            output.push(anchorElse)
+            co.appendOutput(jump)
+            co.appendRkCode('sonst', node.children[3].from)
+            co.appendOutput(anchorElse)
 
-            rkCodeIndent++
+            co.increaseIndent()
             semanticCheck(node.children[4], context)
-            rkCodeIndent--
-            appendRkCode('endewenn', node.to)
+            co.decreaseIndent()
+            co.appendRkCode('endewenn', node.to)
 
-            output.push(anchorEnd)
+            co.appendOutput(anchorEnd)
           }
         } else {
-          warnings.push({
+          co.warn({
             from: node.from,
             to: node.to,
-            severity: 'error',
             message: `Erwarte bedingte Anweisung mit Rumpf`,
           })
         }
@@ -1023,19 +955,17 @@ export function compileJava(
     }
 
     if (node.isError) {
-      warnings.push({
+      co.warn({
         from: node.from,
         to: node.to,
-        severity: 'error',
         message: 'SYNTAXFEHLER',
       })
       return
     }
 
-    warnings.push({
+    co.warn({
       from: node.from,
       to: node.to,
-      severity: 'error',
       message: `Dieser Syntax ist nicht implementiert: '${node.name}'`,
     })
 
@@ -1045,10 +975,9 @@ export function compileJava(
 
   function warnForUnexpectedNodes(nodes: AstNode[], warnNode?: AstNode) {
     for (const node of nodes) {
-      warnings.push({
+      co.warn({
         from: (warnNode ?? node).from,
         to: (warnNode ?? node).to,
-        severity: 'error',
         message: node.isError
           ? 'Bitte Syntaxfehler korrigieren'
           : `Bitte entferne '${node.text()}', wird hier nicht unterstützt`,
@@ -1059,10 +988,9 @@ export function compileJava(
   function ensureBlock(nodes: AstNode[]) {
     if (nodes.length == 0 || nodes[0].name !== '{') {
       const start = nodes[0].from
-      warnings.push({
+      co.warn({
         from: start,
         to: start + 1,
-        severity: 'error',
         message: "Erwarte öffnende geschweifte Klammer '{'",
       })
       if (nodes[0].isError) {
@@ -1076,10 +1004,9 @@ export function compileJava(
 
     if (nodes.length == 0 || nodes[nodes.length - 1].name !== '}') {
       const end = nodes[nodes.length - 1].to
-      warnings.push({
+      co.warn({
         from: end - 1,
         to: end,
-        severity: 'error',
         message: "Erwarte schließende geschweifte Klammer '}'",
       })
       if (nodes[nodes.length - 1].isError) {
@@ -1101,10 +1028,9 @@ export function compileJava(
   ) {
     const matching = nodes.filter(pred)
     if (matching.length !== 1) {
-      warnings.push({
+      co.warn({
         from: placeMessageOnNode.from,
         to: placeMessageOnNode.to,
-        severity: 'error',
         message: matching.length == 0 ? message0 : messageMany,
       })
       return false
@@ -1117,10 +1043,9 @@ export function compileJava(
       (child) => child.name == 'VariableDeclarator'
     )
     if (!variableDeclaration) {
-      warnings.push({
+      co.warn({
         from: robotField.from,
         to: robotField.to,
-        severity: 'error',
         message: 'Erwarte Name für Attribut',
       })
       return null
@@ -1131,10 +1056,9 @@ export function compileJava(
     )
     const name = definition?.text()
     if (!definition || !name) {
-      warnings.push({
+      co.warn({
         from: robotField.from,
         to: robotField.to,
-        severity: 'error',
         message: 'Erwarte Name für Attribut',
       })
       return null
@@ -1143,10 +1067,9 @@ export function compileJava(
       (child) => child.name == 'AssignOp' && child.text() == '='
     )
     if (!assignOp) {
-      warnings.push({
+      co.warn({
         from: definition.from,
         to: definition.to,
-        severity: 'error',
         message: `Erwarte Initialisierung des Attributes '${definition.text()}'`,
       })
       return name
@@ -1165,10 +1088,9 @@ export function compileJava(
       objectCreationExpression.children[2].children[0].name !== '(' ||
       objectCreationExpression.children[2].children[1].name !== ')'
     ) {
-      warnings.push({
+      co.warn({
         from: definition.from,
         to: definition.to,
-        severity: 'error',
         message: "Erwarte Initialisierung mit 'new Robot()'",
       })
       return name
@@ -1182,7 +1104,7 @@ export function compileJava(
 
     warnForUnexpectedNodes(unwantedInVariableDeclarator)
 
-    if (warnings.length > 0) return name
+    if (co.hasWarnings()) return name
 
     checkSemikolon(robotField)
 
@@ -1205,10 +1127,9 @@ export function compileJava(
     )! // parser will always emit subtree with definition
 
     if (!main.children.find((child) => child.name == 'void')) {
-      warnings.push({
+      co.warn({
         from: definition.from,
         to: definition.to,
-        severity: 'error',
         message: "Erwarte Rückgabetyp 'void'",
       })
     }
@@ -1225,10 +1146,9 @@ export function compileJava(
     if (
       formalParameters.children.some((child) => child.name == 'FormalParameter')
     ) {
-      warnings.push({
+      co.warn({
         from: definition.from,
         to: definition.to,
-        severity: 'error',
         message: "Methode 'main' erwartet keine Parameter",
       })
     }
@@ -1236,10 +1156,9 @@ export function compileJava(
     const block = main.children.find((child) => child.name == 'Block')
 
     if (!block) {
-      warnings.push({
+      co.warn({
         from: definition.from,
         to: definition.to,
-        severity: 'error',
         message: "Erwarte Rumpf der Methode 'main'",
       })
       if (main.children[main.children.length - 1].isError) {
@@ -1269,69 +1188,12 @@ export function compileJava(
         children.pop()
       }
       const line = doc.lineAt(nodeToCheck.from)
-      warnings.push({
+      co.warn({
         from: Math.max(nodeToCheck.from, line.to - 1),
         to: line.to,
-        severity: 'error',
         message: "Erwarte Semikolon ';'",
       })
       return false
     }
   }
-}
-
-export function methodName2action(name: string) {
-  switch (name) {
-    case 'schritt':
-      return 'forward'
-    case 'linksDrehen':
-      return 'left'
-    case 'rechtsDrehen':
-      return 'right'
-    case 'hinlegen':
-      return 'brick'
-    case 'aufheben':
-      return 'unbrick'
-    case 'markeSetzen':
-      return 'setMark'
-    case 'markeLöschen':
-      return 'resetMark'
-    case 'beenden':
-      return '--exit--'
-  }
-}
-
-export const methodsWithoutArgs = [
-  'markeSetzen',
-  'markeLöschen',
-  'beenden',
-  'istWand',
-  'nichtIstWand',
-  'istMarke',
-  'nichtIstMarke',
-  'istSüden',
-  'istNorden',
-  'istWesten',
-  'istOsten',
-  'nichtIstSüden',
-  'nichtIstNorden',
-  'nichtIstWesten',
-  'nichtIstOsten',
-]
-
-export function conditionToRK(condition: Condition) {
-  const part1 = condition.negated ? 'NichtIst' : 'Ist'
-  const part2 = ((type) => {
-    if (type == 'brick') return 'Ziegel'
-    if (type == 'wall') return 'Wand'
-    if (type == 'mark') return 'Marke'
-    if (type == 'north') return 'Norden'
-    if (type == 'south') return 'Süden'
-    if (type == 'east') return 'Osten'
-    if (type == 'west') return 'Westen'
-    return 'Ziegel'
-  })(condition.type)
-  const part3 = condition.type == 'brick_count' ? `(${condition.count})` : ''
-
-  return `${part1}${part2}${part3}`
 }

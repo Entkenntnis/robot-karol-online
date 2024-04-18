@@ -34,7 +34,7 @@ import {
 } from '@codemirror/commands'
 import { lintKeymap, linter } from '@codemirror/lint'
 import { searchKeymap } from '@codemirror/search'
-import { compileJava } from '../../lib/language/compileJava'
+import { compileJava } from '../../lib/language/java/compileJava'
 import { patch } from '../../lib/commands/vm'
 import { setLoading } from '../../lib/commands/editing'
 import { javaLanguage } from '../../lib/codemirror/javaParser/javaLanguage'
@@ -131,21 +131,25 @@ export function lint(core: Core, view: EditorView) {
   })
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
-  const { warnings, output, rkCode } = compileJava(tree, view.state.doc)
+  const { warnings, output, rkCode, proMode } = compileJava(
+    tree,
+    view.state.doc
+  )
   warnings.sort((a, b) => a.from - b.from)
 
   if (warnings.length == 0) {
     patch(core, output)
-    if (rkCode !== undefined) {
+    if (proMode) {
+      core.mutateWs((ws) => {
+        ws.ui.proMode = true
+      })
+    } else if (rkCode) {
       core.mutateWs((ws) => {
         ws.code = rkCode
         ws.ui.proMode = false
       })
     } else {
-      console.log('pro mode')
-      core.mutateWs((ws) => {
-        ws.ui.proMode = true
-      })
+      console.log('something wrong')
     }
   } else {
     core.mutateWs(({ vm, ui }) => {

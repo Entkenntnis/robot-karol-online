@@ -13,6 +13,7 @@ export interface CompilerTestCase {
   output?: Op[]
   warnings?: Diagnostic[]
   rkCode?: string
+  proMode?: boolean
 }
 
 const compilerTestCases: CompilerTestCase[] = [

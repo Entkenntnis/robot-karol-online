@@ -1,9 +1,9 @@
 import { Tree } from '@lezer/common'
-import { parser } from '../codemirror/parser/parser'
-import { AstNode, cursorToAstNode } from './astNode'
+import { parser } from '../../codemirror/parser/parser'
+import { AstNode, cursorToAstNode } from '../helper/astNode'
 import { Text } from '@codemirror/state'
 
-export function robotKarol2Python(code: string) {
+export function robotKarol2Java(code: string) {
   const tree: Tree = parser.parse(code)
   const ast = cursorToAstNode(tree.cursor(), Text.of(code.split('\n')))
   // console.log(prettyPrintAstNode(ast))
@@ -19,22 +19,16 @@ export function robotKarol2Python(code: string) {
     for (const node of nodes) {
       if (node.name == 'Command') {
         pad()
-        output += `${toKarol(node.text())}\n`
+        output += `${toKarol(node.text())};\n`
       } else if (node.name == 'Repeat') {
         if (node.children.some((child) => child.name == 'RepeatAlwaysKey')) {
           moveCommentsOutOfHead(node, 2)
           const inner = node.children.slice(2, -1)
-          const innerCode = nodes2Code(inner, offset + 1)
           pad()
-          output += 'while True:\n'
-          if (innerCode) {
-            output += innerCode + '\n'
-          } else {
-            pad()
-            output += '    pass\n'
-          }
+          output += 'while (true) {\n'
+          output += nodes2Code(inner, offset + 1) + '\n'
           pad()
-          output += '\n'
+          output += '}\n'
         } else if (node.children.some((child) => child.name == 'Times')) {
           moveCommentsOutOfHead(node, 3)
           const times = parseInt(node.children[1].text())
@@ -42,48 +36,30 @@ export function robotKarol2Python(code: string) {
           const lv = `${
             'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'[forLoopOffset]
           }`
-          output += `for ${lv} in range(${times}):\n`
+          output += `for (int ${lv} = 0; ${lv} < ${times}; ${lv}++) {\n`
           forLoopOffset++
-          const innerCode = nodes2Code(node.children.slice(3, -1), offset + 1)
-          if (innerCode) {
-            output += innerCode + '\n'
-          } else {
-            pad()
-            output += '    pass\n'
-          }
+          output += nodes2Code(node.children.slice(3, -1), offset + 1) + '\n'
           forLoopOffset--
           pad()
-          output += '\n'
+          output += '}\n'
         } else if (node.children.some((child) => child.name == 'Condition')) {
           moveCommentsOutOfHead(node, 3)
           const condition = node.children[2].text()
           pad()
-          output += `while ${toKarol(condition)}:\n`
-          const innerCode = nodes2Code(node.children.slice(3, -1), offset + 1)
-          if (innerCode) {
-            output += innerCode + '\n'
-          } else {
-            pad()
-            output += '    pass\n'
-          }
+          output += `while (${toKarol(condition)}) {\n`
+          output += nodes2Code(node.children.slice(3, -1), offset + 1) + '\n'
           pad()
-          output += '\n'
+          output += '}\n'
         }
       } else if (node.name == 'IfThen') {
         if (!node.children.some((child) => child.name == 'ElseKey')) {
           moveCommentsOutOfHead(node, 3)
           const condition = node.children[1].text()
           pad()
-          output += `if ${toKarol(condition)}:\n`
-          const innerCode = nodes2Code(node.children.slice(3, -1), offset + 1)
-          if (innerCode) {
-            output += innerCode + '\n'
-          } else {
-            pad()
-            output += '    pass\n'
-          }
+          output += `if (${toKarol(condition)}) {\n`
+          output += nodes2Code(node.children.slice(3, -1), offset + 1) + '\n'
           pad()
-          output += '\n'
+          output += '}\n'
         } else {
           moveCommentsOutOfHead(node, 3)
           const condition = node.children[1].text()
@@ -91,38 +67,23 @@ export function robotKarol2Python(code: string) {
             (child) => child.name == 'ElseKey'
           )
           pad()
-          output += `if ${toKarol(condition)}:\n`
-          const innerCode1 = nodes2Code(
-            node.children.slice(3, elseIndex),
-            offset + 1
-          )
-          if (innerCode1) {
-            output += innerCode1 + '\n'
-          } else {
-            pad()
-            output += '    pass\n'
-          }
+          output += `if (${toKarol(condition)}) {\n`
+          output +=
+            nodes2Code(node.children.slice(3, elseIndex), offset + 1) + '\n'
           pad()
-          output += 'else:\n'
-          const innerCode2 = nodes2Code(
-            node.children.slice(elseIndex + 1, -1),
-            offset + 1
-          )
-          if (innerCode2) {
-            output += innerCode2 + '\n'
-          } else {
-            pad()
-            output += '    pass\n'
-          }
+          output += '} else {\n'
+          output +=
+            nodes2Code(node.children.slice(elseIndex + 1, -1), offset + 1) +
+            '\n'
           pad()
-          output += '\n'
+          output += '}\n'
         }
       } else if (node.name == 'CustomRef') {
         pad()
-        output += `${node.text()}()\n`
+        output += `${node.text()}();\n`
       } else if (node.name == 'LineComment') {
         pad()
-        output += `#${node.text().substring(2)}\n`
+        output += `${node.text()}\n`
       } else if (node.name == 'Comment') {
         const lines = node
           .text()
@@ -130,7 +91,7 @@ export function robotKarol2Python(code: string) {
           .split('\n')
         for (const line of lines) {
           pad()
-          output += `# ${line}\n`
+          output += `// ${line}\n`
         }
       } else if (node.name == 'BlockComment') {
         const lines = node
@@ -139,7 +100,7 @@ export function robotKarol2Python(code: string) {
           .split('\n')
         for (const line of lines) {
           pad()
-          output += `# ${line}\n`
+          output += `// ${line}\n`
         }
       }
     }
@@ -148,7 +109,7 @@ export function robotKarol2Python(code: string) {
 
     function pad() {
       for (let i = 0; i < offset; i++) {
-        output += '    '
+        output += '  '
       }
     }
 
@@ -169,16 +130,19 @@ export function robotKarol2Python(code: string) {
     }
   }
 
-  const main = nodes2Code(mainNodes, 0)
+  const main = nodes2Code(mainNodes, 2)
 
-  return `karol = Robot()
+  return `class Programm {
+  Robot karol = new Robot();
 
-${main ? main : ''}${methods
+  void main() {
+${main ? main : '    '}
+  }${methods
     .map((method) => {
       const name = method.children[1].text()
       const inner = method.children.slice(2, -1)
-      const code = nodes2Code(inner, 1)
-      return `\n\ndef ${name}():\n${code ? code : '    pass'}`
+      return `\n\n  void ${name}() {\n${nodes2Code(inner, 2)}\n  }`
     })
-    .join('')}`
+    .join('')}
+}`
 }

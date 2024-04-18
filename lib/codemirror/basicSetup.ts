@@ -42,7 +42,7 @@ import { styleTags, tags as t } from '@lezer/highlight'
 
 import { searchKeymap } from '@codemirror/search'
 import { getParserWithLng } from './parser/get-parser-with-lng'
-import { deKeywords, enKeywords } from '../language/compiler'
+import { deKeywords, enKeywords } from '../language/robot karol/compiler'
 
 function parserWithMetadata(lng: 'de' | 'en') {
   return getParserWithLng(lng).configure({

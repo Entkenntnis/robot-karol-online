@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { FaIcon } from '../../components/helper/FaIcon'
 import { faCheckCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Text } from '@codemirror/state'
-import { compileJava } from '../../lib/language/compileJava'
+import { compileJava } from '../../lib/language/java/compileJava'
 import { CompilerTestCase } from './page'
 import { parser } from '../../lib/codemirror/javaParser/parser'
 
@@ -15,6 +15,7 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
   const [output, setOutput] = useState<Op[] | undefined>(undefined)
   const [warnings, setWarnings] = useState<Diagnostic[] | undefined>(undefined)
   const [rkCode, setRkCode] = useState<string | undefined>(undefined)
+  const [proMode, setProMode] = useState(false)
   useEffect(() => {
     if (!run) {
       const tree = parser.parse(test.source)
@@ -26,6 +27,9 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
       } else {
         setOutput(result.output)
         setRkCode(result.rkCode)
+        if (result.proMode) {
+          setProMode(true)
+        }
       }
       setRun(true)
     }
@@ -59,6 +63,7 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
                 {test.rkCode ? test.rkCode : ' '}
               </pre>
             )}
+            {test.proMode && <small>Profi-Modus</small>}
           </div>
           <div className="m-3 w-1/3">
             <h3>
@@ -73,6 +78,7 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
               </button>
             </h3>
             {(
+              ((!test.proMode && !proMode) || (test.proMode && proMode)) &&
               test.output
                 ? expected == outputJSON && test.rkCode === rkCode
                 : expected == warningsJSON
@@ -87,7 +93,13 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
               <div>
                 <p className="text-red-600">Fehler!</p>
                 <pre className="mt-3 border bg-red-300 max-h-64 overflow-auto text-sm">
-                  {outputJSON + '\n' + warningsJSON + '\n' + rkCode}
+                  {outputJSON +
+                    '\n' +
+                    warningsJSON +
+                    '\n' +
+                    rkCode +
+                    '\nProMode:' +
+                    proMode}
                 </pre>
               </div>
             )}

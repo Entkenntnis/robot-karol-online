@@ -43,7 +43,7 @@ import {
   completionKeymap,
 } from '@codemirror/autocomplete'
 import { pythonLanguage } from '../../lib/codemirror/pythonParser/pythonLanguage'
-import { compilePython } from '../../lib/language/compilePython'
+import { compilePython } from '../../lib/language/python/compilePython'
 
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>

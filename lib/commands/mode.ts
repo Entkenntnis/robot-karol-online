@@ -1,7 +1,7 @@
 import { sliderToDelay } from '../helper/speedSlider'
 import { submit_event } from '../helper/submit'
-import { robotKarol2Java } from '../language/robotKarol2Java'
-import { robotKarol2Python } from '../language/robotKarol2Python'
+import { robotKarol2Java } from '../language/java/robotKarol2Java'
+import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
 import {
   copyLocalToSession,
