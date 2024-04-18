@@ -10,6 +10,7 @@ import { checkExpressionStatement } from './checkExpressionStatement'
 import { checkForSpec } from './checkForSpec'
 import { checkForStatement } from './checkForStatement'
 import { checkIfStatement } from './checkIfStatement'
+import { checkLocalVariableDeclaration } from './checkLocalVariableDeclaration'
 import { checkMethodDeclaration } from './checkMethodDeclaration'
 import { checkMethodInvocation } from './checkMethodInvocation'
 import { checkParenthesizedExpression } from './checkParenthesizedExpression'
@@ -71,29 +72,10 @@ export function semanticCheck(
       checkIfStatement(co, node, context)
       return
     }
-    /*
-    
-    WIP
-
     case 'LocalVariableDeclaration': {
-      checkSemikolon(node)
-      console.log(prettyPrintAstNode(node))
-      if (
-        matchChildren(
-          ['PrimitiveType', 'VariableDeclarator', ';'],
-          node.children
-        )
-      ) {
-        if (node.children[0].text() !== 'int') {
-          co.warn(node, `Nur Datentyp int unterstützt`)
-          return
-        }
-      } else {
-        co.warn(node, 'Fehler beim Parser von LocalVariableDeclaration')
-      }
+      checkLocalVariableDeclaration(co, node, context)
       return
-    }*/
-    // ADD NEW NODES HERE
+    }
   }
 
   if (node.isError) {

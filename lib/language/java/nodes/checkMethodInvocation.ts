@@ -142,17 +142,13 @@ export function checkMethodInvocation(
       }
 
       if (!isNaN(integerArgument)) {
-        for (
-          let i = 0;
-          i < Math.min(1000, integerArgument) /* protect */;
-          i++
-        ) {
-          co.appendOutput({
-            type: 'action',
-            command: action,
-            line: co.lineAt(node.from).number,
-          })
-        }
+        co.appendOutput({ type: 'constant', value: integerArgument })
+        co.appendOutput({
+          type: 'action',
+          command: action,
+          line: co.lineAt(node.from).number,
+          useParameterFromStack: true,
+        })
         co.appendRkCode(
           methodName.charAt(0).toUpperCase() +
             methodName.slice(1) +

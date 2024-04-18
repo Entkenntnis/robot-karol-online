@@ -67,6 +67,7 @@ export interface Vm {
   callstack: number[]
   startTime: number
   steps: number
+  repeatAction?: number
 }
 
 export interface Settings {
@@ -243,6 +244,7 @@ export interface ActionOp extends BaseOp {
     | 'unbrick'
     | 'setMark'
     | 'resetMark'
+  useParameterFromStack?: boolean
 }
 
 export interface SenseOp extends BaseOp {

@@ -510,8 +510,16 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(2);\n  }\n}',
     output: [
-      { type: 'action', command: 'forward', line: 5 },
-      { type: 'action', command: 'forward', line: 5 },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 5,
+        useParameterFromStack: true,
+      },
     ],
     rkCode: 'Schritt(2)',
   },
@@ -680,6 +688,91 @@ const compilerTestCases: CompilerTestCase[] = [
       { type: 'action', command: 'forward', line: 8 },
     ],
     rkCode: `wenn NichtIstWand dann\n  LinksDrehen\nsonst\n  Schritt\nendewenn`,
+  },
+  {
+    title: 'Lokale Variable initialisieren',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 4;\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+    ],
+  },
+  {
+    title: 'Lokale Variable benötigt initialen Wert',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i;\n  }\n}',
+    proMode: true,
+    warnings: [
+      {
+        from: 67,
+        to: 73,
+        severity: 'error',
+        message: 'Erwarte Zuweisung',
+      },
+    ],
+  },
+  {
+    title: 'Lokale Variable darf nicht mehrfach belegt werden',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 1;\n    int i = 2;\n  }\n}',
+    proMode: true,
+    warnings: [
+      {
+        from: 86,
+        to: 87,
+        severity: 'error',
+        message: 'Variablename bereits belegt',
+      },
+    ],
+  },
+  {
+    title: 'Scope endet am Ende eines Blocks',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    if (karol.istWand()) {\n      int i = 1;\n    } else {\n      int i = 2;\n    }\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'sense',
+        condition: {
+          type: 'wall',
+          negated: false,
+        },
+      },
+      {
+        type: 'branch',
+        targetF: 5,
+        targetT: 2,
+        line: 5,
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'jump',
+        target: 7,
+      },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+    ],
   },
   /*{
     title: 'Playground',

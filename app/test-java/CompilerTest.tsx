@@ -98,7 +98,7 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
                     warningsJSON +
                     '\n' +
                     rkCode +
-                    '\nProMode:' +
+                    '\nproMode:' +
                     proMode}
                 </pre>
               </div>
