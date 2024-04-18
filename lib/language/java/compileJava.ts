@@ -2,7 +2,7 @@ import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
 import { BranchOp, CallOp, Condition, JumpOp, Op } from '../../state/types'
 import { Diagnostic } from '@codemirror/lint'
-import { AstNode, cursorToAstNode } from '../helper/astNode'
+import { AstNode, cursorToAstNode, prettyPrintAstNode } from '../helper/astNode'
 import { matchChildren } from '../helper/matchChildren'
 import {
   AnchorOp,
@@ -53,14 +53,12 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   )
 
   if (classDeclOnToplevel.length !== 1) {
-    co.warn({
-      from: ast.from,
-      to: ast.to,
-      message:
-        classDeclOnToplevel.length > 1
-          ? 'Erwarte genau eine Klasse'
-          : 'Erwarte eine Klassendefinition',
-    })
+    co.warn(
+      ast,
+      classDeclOnToplevel.length > 1
+        ? 'Erwarte genau eine Klasse'
+        : 'Erwarte eine Klassendefinition'
+    )
     // can't continue
     return co.fatalResult()
   }
@@ -75,11 +73,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   )
 
   if (!classDefinition) {
-    co.warn({
-      from: classDeclaration.from,
-      to: classDeclaration.to,
-      message: 'Erwarte Name der Klasse',
-    })
+    co.warn(classDeclaration, 'Erwarte Name der Klasse')
     // can't continue
     return co.fatalResult()
   }
@@ -89,11 +83,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   )
 
   if (!classBody) {
-    co.warn({
-      from: classDefinition.from,
-      to: classDefinition.to,
-      message: 'Erwarte Rumpf der Klasse',
-    })
+    co.warn(classDefinition, 'Erwarte Rumpf der Klasse')
     // can't continue
     return co.fatalResult()
   }
@@ -192,11 +182,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   // custom fields  not implemented yet
   for (const field of fields) {
     if (field != robotField) {
-      co.warn({
-        from: field.from,
-        to: field.to,
-        message: 'Keine eigenen Attribute unterstützt',
-      })
+      co.warn(field, 'Keine eigenen Attribute unterstützt')
     }
   }
 
@@ -213,20 +199,12 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       ) {
         const formalParameters = method.children[2]
         if (!matchChildren(['(', ')'], formalParameters.children)) {
-          co.warn({
-            from: formalParameters.from,
-            to: formalParameters.to,
-            message: 'Erwarte leere Parameterliste',
-          })
+          co.warn(formalParameters, 'Erwarte leere Parameterliste')
         }
         const name = method.children[1].text()
         availableMethods.add(name)
       } else {
-        co.warn({
-          from: method.from,
-          to: method.to,
-          message: 'Erwarte eigene Methode ohne Rückgabewert mit Rumpf',
-        })
+        co.warn(method, 'Erwarte eigene Methode ohne Rückgabewert mit Rumpf')
       }
     }
   }
@@ -308,7 +286,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
           return
         }
         const prefix = `${context.robotName}.`
-        co.warn({
+        co.warn__internal({
           from:
             node.from + (node.text().startsWith(prefix) ? prefix.length : 0),
           to: Math.min(node.to, doc.lineAt(node.from).to),
@@ -317,11 +295,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         return
       }
       case ';': {
-        co.warn({
-          from: node.from,
-          to: node.to,
-          message: 'Erwarte Methodenaufruf',
-        })
+        co.warn(node, 'Erwarte Methodenaufruf')
         return
       }
       case 'MethodInvocation': {
@@ -330,11 +304,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
           if (context.availableMethods.has(name)) {
             const argumentList = node.children[1]
             if (!matchChildren(['(', ')'], argumentList.children)) {
-              co.warn({
-                from: argumentList.from,
-                to: argumentList.to,
-                message: 'Erwarte keine Argumente',
-              })
+              co.warn(argumentList, 'Erwarte keine Argumente')
             } else {
               const op: CallOp = {
                 type: 'call',
@@ -346,11 +316,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
               context.callOps.push([name, op])
             }
           } else {
-            co.warn({
-              from: node.from,
-              to: node.to,
-              message: `Erwarte Punktnotation '${context.robotName}.'`,
-            })
+            co.warn(node, `Erwarte Punktnotation '${context.robotName}.'`)
           }
           return
         }
@@ -364,11 +330,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         ) {
           const obj = node.children[0].text()
           if (obj !== context.robotName) {
-            co.warn({
-              from: node.children[0].from,
-              to: node.children[0].to,
-              message: `Erwarte Objekt '${context.robotName}'`,
-            })
+            co.warn(node.children[0], `Erwarte Objekt '${context.robotName}'`)
           }
 
           const argumentList = node.children[3]
@@ -377,7 +339,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
           const methodName = node.children[2].children[0].text()
 
           if (argumentList.children.some((child) => child.isError)) {
-            co.warn({
+            co.warn__internal({
               from: argumentList.from,
               to: Math.min(argumentList.to, doc.lineAt(argumentList.from).to),
               message: `Bitte runde Klammer schließen`,
@@ -392,22 +354,17 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
             integerArgument = parseInt(argumentList.children[1].text())
             if (!isNaN(integerArgument)) {
               if (integerArgument <= 0) {
-                co.warn({
-                  from: argumentList.from,
-                  to: argumentList.to,
-                  message: `Erwarte eine Anzahl größer null`,
-                })
+                co.warn(argumentList, `Erwarte eine Anzahl größer null`)
                 integerArgument = NaN
               }
             }
           } else if (!matchChildren(['(', ')'], argumentList.children)) {
-            co.warn({
-              from: argumentList.from,
-              to: argumentList.to,
-              message: methodsWithoutArgs.includes(methodName)
+            co.warn(
+              argumentList,
+              methodsWithoutArgs.includes(methodName)
                 ? `Erwarte leere Parameterliste`
-                : `Erwarte Zahl als Parameter`,
-            })
+                : `Erwarte Zahl als Parameter`
+            )
           }
 
           if (context.expectCondition) {
@@ -458,22 +415,14 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
               cond = { type: 'west', negated: false }
             }
             if (!cond.type) {
-              co.warn({
-                from: node.children[2].from,
-                to: node.children[2].to,
-                message: `Unbekannte Bedingung '${methodName}'`,
-              })
+              co.warn(node.children[2], `Unbekannte Bedingung '${methodName}'`)
               return
             }
             context.condition = cond
           } else {
             const action = methodName2action(methodName)
             if (!action) {
-              co.warn({
-                from: node.children[2].from,
-                to: node.children[2].to,
-                message: `Unbekannte Methode '${methodName}'`,
-              })
+              co.warn(node.children[2], `Unbekannte Methode '${methodName}'`)
               return
             }
 
@@ -519,11 +468,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
           return
         }
 
-        co.warn({
-          from: node.from,
-          to: node.to,
-          message: 'Erwarte Methodenaufruf',
-        })
+        co.warn(node, 'Erwarte Methodenaufruf')
         return
       }
       case 'ForStatement': {
@@ -572,11 +517,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
           if (matchChildren(['for', 'ForSpec', '⚠'], node.children)) {
             semanticCheck(node.children[1], context)
           }
-          co.warn({
-            from: node.from,
-            to: node.to,
-            message: 'Erwarte Schleife mit Rumpf',
-          })
+          co.warn(node, 'Erwarte Schleife mit Rumpf')
         }
         return
       }
@@ -615,11 +556,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
             const declarator = loopVar.children[1]
 
             if (type.text() !== 'int') {
-              co.warn({
-                from: loopVar.from,
-                to: loopVar.to,
-                message: `Erwarte Schleifenzähler mit Typ 'int'`,
-              })
+              co.warn(loopVar, `Erwarte Schleifenzähler mit Typ 'int'`)
             }
 
             if (
@@ -630,36 +567,29 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
             ) {
               loopVarName = declarator.children[0].text()
               if (context.variablesInScope.has(loopVarName)) {
-                co.warn({
-                  from: declarator.children[0].from,
-                  to: declarator.children[0].to,
-                  message: `Variable '${loopVarName}' existiert bereits, erwarte anderen Namen`,
-                })
+                co.warn(
+                  declarator.children[0],
+                  `Variable '${loopVarName}' existiert bereits, erwarte anderen Namen`
+                )
               } else {
                 context.__temp_remove_from_scope_after_for = loopVarName
               }
               const initialValue = parseInt(declarator.children[2].text())
               if (initialValue != 0) {
-                co.warn({
-                  from: declarator.children[2].from,
-                  to: declarator.children[2].to,
-                  message: `Erwarte Startwert 0`,
-                })
+                co.warn(declarator.children[2], `Erwarte Startwert 0`)
               }
               context.variablesInScope.add(loopVarName)
             } else {
-              co.warn({
-                from: loopVar.from,
-                to: loopVar.to,
-                message: `Erwarte Schleifenzähler 'int ${safeLoopVar} = 0;'`,
-              })
+              co.warn(
+                loopVar,
+                `Erwarte Schleifenzähler 'int ${safeLoopVar} = 0;'`
+              )
             }
           } else {
-            co.warn({
-              from: loopVar.from,
-              to: loopVar.to,
-              message: `Erwarte Schleifenzähler 'int ${safeLoopVar} = 0;'`,
-            })
+            co.warn(
+              loopVar,
+              `Erwarte Schleifenzähler 'int ${safeLoopVar} = 0;'`
+            )
           }
 
           const loopCond = node.children[2]
@@ -672,26 +602,14 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
           ) {
             const id = loopCond.children[0].text()
             if (id != loopVarName) {
-              co.warn({
-                from: loopCond.children[0].from,
-                to: loopCond.children[0].to,
-                message: `Erwarte Variable '${loopVarName}'`,
-              })
+              co.warn(loopCond.children[0], `Erwarte Variable '${loopVarName}'`)
             }
             if (loopCond.children[1].text() != '<') {
-              co.warn({
-                from: loopCond.children[1].from,
-                to: loopCond.children[1].to,
-                message: `Erwarte Vergleichsoperator '<'`,
-              })
+              co.warn(loopCond.children[1], `Erwarte Vergleichsoperator '<'`)
             }
             const count = parseInt(loopCond.children[2].text())
             if (count <= 0) {
-              co.warn({
-                from: loopCond.children[2].from,
-                to: loopCond.children[2].to,
-                message: `Erwarte Anzahl größer null`,
-              })
+              co.warn(loopCond.children[2], `Erwarte Anzahl größer null`)
             }
             // generate bytecode
             co.appendOutput({ type: 'constant', value: count + 1 }) // we decrement before compare
@@ -702,27 +620,21 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
             co.appendRkCode(`wiederhole ${count} mal`, node.from)
             co.increaseIndent()
           } else {
-            co.warn({
-              from: loopCond.from,
-              to: loopCond.to,
-              message: `Erwarte Schleifenbedingung der Form '${loopVarName} < 10'`,
-            })
+            co.warn(
+              loopCond,
+              `Erwarte Schleifenbedingung der Form '${loopVarName} < 10'`
+            )
           }
 
           const loopUpdate = node.children[4]
           if (loopUpdate.text() !== loopVarName + '++') {
-            co.warn({
-              from: loopUpdate.from,
-              to: loopUpdate.to,
-              message: `Erwarte '${loopVarName}++'`,
-            })
+            co.warn(loopUpdate, `Erwarte '${loopVarName}++'`)
           }
         } else {
-          co.warn({
-            from: node.from,
-            to: node.to,
-            message: `Erwarte Schleifenkopf mit 'int ${safeLoopVar} = 0; ${safeLoopVar} < 10; ${safeLoopVar}++'`,
-          })
+          co.warn(
+            node,
+            `Erwarte Schleifenkopf mit 'int ${safeLoopVar} = 0; ${safeLoopVar} < 10; ${safeLoopVar}++'`
+          )
         }
 
         return
@@ -809,11 +721,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
             }
           }
         } else {
-          co.warn({
-            from: node.from,
-            to: node.to,
-            message: `Erwarte Schleife mit Rumpf`,
-          })
+          co.warn(node, `Erwarte Schleife mit Rumpf`)
         }
         return
       }
@@ -821,11 +729,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         if (matchChildren(['(', 'MethodInvocation', ')'], node.children)) {
           semanticCheck(node.children[1], context)
         } else {
-          co.warn({
-            from: node.from,
-            to: node.to,
-            message: `Erwarte Bedingung`,
-          })
+          co.warn(node, `Erwarte Bedingung`)
         }
         return
       }
@@ -943,52 +847,61 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
             co.appendOutput(anchorEnd)
           }
         } else {
-          co.warn({
-            from: node.from,
-            to: node.to,
-            message: `Erwarte bedingte Anweisung mit Rumpf`,
-          })
+          co.warn(node, `Erwarte bedingte Anweisung mit Rumpf`)
         }
         return
       }
+      /*
+      
+      WIP
+      
+      case 'LocalVariableDeclaration': {
+        checkSemikolon(node)
+        console.log(prettyPrintAstNode(node))
+        if (
+          matchChildren(
+            ['PrimitiveType', 'VariableDeclarator', ';'],
+            node.children
+          )
+        ) {
+          if (node.children[0].text() !== 'int') {
+            co.warn(node, `Nur Datentyp int unterstützt`)
+            return
+          }
+        } else {
+          co.warn(node, 'Fehler beim Parser von LocalVariableDeclaration')
+        }
+        return
+      }*/
       // ADD NEW NODES HERE
     }
 
     if (node.isError) {
-      co.warn({
-        from: node.from,
-        to: node.to,
-        message: 'SYNTAXFEHLER',
-      })
+      co.warn(node, 'SYNTAXFEHLER')
       return
     }
 
-    co.warn({
-      from: node.from,
-      to: node.to,
-      message: `Dieser Syntax ist nicht implementiert: '${node.name}'`,
-    })
+    co.warn(node, `Dieser Syntax ist nicht implementiert: '${node.name}'`)
 
-    // console.log('NOT IMPLEMENTED', node.name)
-    // node.children.forEach((child) => semanticCheck(child, context))
+    //console.log('NOT IMPLEMENTED', node.name)
+    //node.children.forEach((child) => semanticCheck(child, context))
   }
 
   function warnForUnexpectedNodes(nodes: AstNode[], warnNode?: AstNode) {
     for (const node of nodes) {
-      co.warn({
-        from: (warnNode ?? node).from,
-        to: (warnNode ?? node).to,
-        message: node.isError
+      co.warn(
+        warnNode ?? node,
+        node.isError
           ? 'Bitte Syntaxfehler korrigieren'
-          : `Bitte entferne '${node.text()}', wird hier nicht unterstützt`,
-      })
+          : `Bitte entferne '${node.text()}', wird hier nicht unterstützt`
+      )
     }
   }
 
   function ensureBlock(nodes: AstNode[]) {
     if (nodes.length == 0 || nodes[0].name !== '{') {
       const start = nodes[0].from
-      co.warn({
+      co.warn__internal({
         from: start,
         to: start + 1,
         message: "Erwarte öffnende geschweifte Klammer '{'",
@@ -1004,7 +917,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
 
     if (nodes.length == 0 || nodes[nodes.length - 1].name !== '}') {
       const end = nodes[nodes.length - 1].to
-      co.warn({
+      co.warn__internal({
         from: end - 1,
         to: end,
         message: "Erwarte schließende geschweifte Klammer '}'",
@@ -1028,11 +941,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   ) {
     const matching = nodes.filter(pred)
     if (matching.length !== 1) {
-      co.warn({
-        from: placeMessageOnNode.from,
-        to: placeMessageOnNode.to,
-        message: matching.length == 0 ? message0 : messageMany,
-      })
+      co.warn(placeMessageOnNode, matching.length == 0 ? message0 : messageMany)
       return false
     }
   }
@@ -1043,11 +952,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       (child) => child.name == 'VariableDeclarator'
     )
     if (!variableDeclaration) {
-      co.warn({
-        from: robotField.from,
-        to: robotField.to,
-        message: 'Erwarte Name für Attribut',
-      })
+      co.warn(robotField, 'Erwarte Name für Attribut')
       return null
     }
     // extract name from definition
@@ -1056,22 +961,17 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
     )
     const name = definition?.text()
     if (!definition || !name) {
-      co.warn({
-        from: robotField.from,
-        to: robotField.to,
-        message: 'Erwarte Name für Attribut',
-      })
+      co.warn(robotField, 'Erwarte Name für Attribut')
       return null
     }
     const assignOp = variableDeclaration.children.find(
       (child) => child.name == 'AssignOp' && child.text() == '='
     )
     if (!assignOp) {
-      co.warn({
-        from: definition.from,
-        to: definition.to,
-        message: `Erwarte Initialisierung des Attributes '${definition.text()}'`,
-      })
+      co.warn(
+        definition,
+        `Erwarte Initialisierung des Attributes '${definition.text()}'`
+      )
       return name
     }
     const objectCreationExpression = variableDeclaration.children.find(
@@ -1088,11 +988,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       objectCreationExpression.children[2].children[0].name !== '(' ||
       objectCreationExpression.children[2].children[1].name !== ')'
     ) {
-      co.warn({
-        from: definition.from,
-        to: definition.to,
-        message: "Erwarte Initialisierung mit 'new Robot()'",
-      })
+      co.warn(definition, "Erwarte Initialisierung mit 'new Robot()'")
       return name
     }
     const unwantedInVariableDeclarator = variableDeclaration.children.filter(
@@ -1127,11 +1023,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
     )! // parser will always emit subtree with definition
 
     if (!main.children.find((child) => child.name == 'void')) {
-      co.warn({
-        from: definition.from,
-        to: definition.to,
-        message: "Erwarte Rückgabetyp 'void'",
-      })
+      co.warn(definition, "Erwarte Rückgabetyp 'void'")
     }
 
     const formalParameters = main.children.find(
@@ -1146,21 +1038,13 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
     if (
       formalParameters.children.some((child) => child.name == 'FormalParameter')
     ) {
-      co.warn({
-        from: definition.from,
-        to: definition.to,
-        message: "Methode 'main' erwartet keine Parameter",
-      })
+      co.warn(definition, "Methode 'main' erwartet keine Parameter")
     }
 
     const block = main.children.find((child) => child.name == 'Block')
 
     if (!block) {
-      co.warn({
-        from: definition.from,
-        to: definition.to,
-        message: "Erwarte Rumpf der Methode 'main'",
-      })
+      co.warn(definition, "Erwarte Rumpf der Methode 'main'")
       if (main.children[main.children.length - 1].isError) {
         main.children.pop()
       }
@@ -1188,7 +1072,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         children.pop()
       }
       const line = doc.lineAt(nodeToCheck.from)
-      co.warn({
+      co.warn__internal({
         from: Math.max(nodeToCheck.from, line.to - 1),
         to: line.to,
         message: "Erwarte Semikolon ';'",

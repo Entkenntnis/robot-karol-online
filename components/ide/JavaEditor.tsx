@@ -143,7 +143,7 @@ export function lint(core: Core, view: EditorView) {
       core.mutateWs((ws) => {
         ws.ui.proMode = true
       })
-    } else if (rkCode) {
+    } else if (rkCode !== undefined) {
       core.mutateWs((ws) => {
         ws.code = rkCode
         ws.ui.proMode = false

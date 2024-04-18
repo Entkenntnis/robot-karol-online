@@ -54,13 +54,25 @@ export class CompilerOutput {
     this.output.push(op)
   }
 
-  warn(warning: { from: number; to: number; message: string }) {
+  warn__internal({
+    from,
+    to,
+    message,
+  }: {
+    from: number
+    to: number
+    message: string
+  }) {
     this.warnings.push({
-      from: warning.from,
-      to: warning.to,
+      from,
+      to,
       severity: 'error',
-      message: warning.message,
+      message,
     })
+  }
+
+  warn(node: AstNode, message: string) {
+    this.warn__internal({ from: node.from, to: node.to, message })
   }
 
   increaseIndent() {
