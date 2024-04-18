@@ -1,6 +1,7 @@
 import { Diagnostic } from '@codemirror/lint'
 import { Op } from '../../state/types'
 import { AstNode } from './astNode'
+import { Text } from '@codemirror/state'
 
 export interface AnchorOp {
   type: 'anchor'
@@ -23,8 +24,6 @@ export class CompilerOutput {
 
   private proMode = false
 
-  private comments: AstNode[] = []
-
   private pad() {
     let line = ''
     for (let i = 0; i < this.rkCodeIndent; i++) {
@@ -33,11 +32,7 @@ export class CompilerOutput {
     return line
   }
 
-  constructor() {}
-
-  registerComments(nodes: AstNode[]) {
-    this.comments = nodes
-  }
+  constructor(private doc: Text, private comments: AstNode[]) {}
 
   appendRkCode(code: string, pos: number) {
     const commentsToAdd = this.comments.filter((node) => node.from < pos)
@@ -101,6 +96,10 @@ export class CompilerOutput {
 
   getOpAt(offset: number) {
     return this.output[offset]
+  }
+
+  lineAt(pos: number) {
+    return this.doc.lineAt(pos)
   }
 
   getResult() {
