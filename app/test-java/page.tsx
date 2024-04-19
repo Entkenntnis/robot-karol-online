@@ -971,6 +971,84 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Komplexe Ausdrücke in Schleifenbedingung',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int a = 1;\n    for (int i = 0; i < a * 2 + 3; i++) {}\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'store',
+        variable: 'a',
+      },
+      {
+        type: 'load',
+        variable: 'a',
+      },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'operation',
+        kind: 'mult',
+      },
+      {
+        type: 'constant',
+        value: 3,
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'jump',
+        target: 11,
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'sub',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'branch',
+        targetT: 11,
+        targetF: 17,
+        line: 6,
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

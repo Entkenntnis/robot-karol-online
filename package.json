@@ -21,8 +21,8 @@
     "@codemirror/state": "^6.0.0",
     "@codemirror/view": "^6.0.0",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@lezer/common": "^1.0.0",
-    "@lezer/highlight": "^1.0.0",
+    "@lezer/common": "^1.2.0",
+    "@lezer/highlight": "^1.2.0",
     "blockly": "^9.0.0",
     "canvas": "^2.11.2",
     "canvas-confetti": "^1.6.0",
@@ -37,7 +37,7 @@
     "timeago-react": "^3.0.5"
   },
   "devDependencies": {
-    "@lezer/generator": "^1.0.0",
+    "@lezer/generator": "^1.7.0",
     "@next/bundle-analyzer": "^13.0.0",
     "@types/canvas-confetti": "^1.6.0",
     "@types/node": "^18.0.0",

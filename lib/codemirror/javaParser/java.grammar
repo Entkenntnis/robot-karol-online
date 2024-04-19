@@ -3,11 +3,14 @@
   update @left
   unaryPlus @left
   negate @left
-  shift @left
-  compare @left
   instanceof
   times @left
   plus @left
+  shift @left
+  compare @left
+  bitAnd @left
+  bitOr @left
+  bitXor @left
   and @left
   or @left
   ternary @right
@@ -22,6 +25,10 @@
 
 @top Program {
   statement*
+}
+
+@top ClassContent {
+  classBodyDeclaration*
 }
 
 literal {
@@ -61,8 +68,11 @@ AssignmentExpression {
 
 BinaryExpression {
   expression !compare (op<Compare, "==" | ">=" | "<=" | "!="> | CompareOp { "<" | ">" }) expression |
-  expression !and (op<Logic, "&&"> | BitOp { "&" }) expression |
-  expression !or (op<Bit, "|" | "^"> | op<Logic, "||">) expression |
+  expression !and op<Logic, "&&"> expression |
+  expression !or op<Logic, "||"> expression |
+  expression !bitAnd BitOp { "&" } expression |
+  expression !bitOr op<Bit, "|"> expression |
+  expression !bitXor op<Bit, "^"> expression |
   expression !plus op<Arith, "+" | "-"> expression |
   expression !times times expression |
   expression !shift (op<Arith, "%"> | op<Bit, "<<" | ">>" ">"?>) expression
@@ -682,10 +692,10 @@ commaSepTrailing<expr> { (expr ("," expr?)*)? }
 
   @precedence { FloatingPointLiteral, IntegerLiteral }
 
-  CharacterLiteral {
+  CharacterLiteral[isolate] {
     "'" (![\\'\n] | "\\" ("'" | "\\" | ![\n\\']+)) "'"
   }
-  StringLiteral {
+  StringLiteral[isolate] {
     "\"" (![\\"\n] | "\\" (![\n] | "\n"))* "\""
   }
   textBlockStart {
@@ -711,11 +721,11 @@ commaSepTrailing<expr> { (expr ("," expr?)*)? }
 
   times[@name=ArithOp] { "*" | "/" }
 
-  LineComment {
+  LineComment[isolate] {
     "//" ![\n]*
   }
 
-  BlockComment { "/*" blockCommentRest }
+  BlockComment[isolate] { "/*" blockCommentRest }
 
   blockCommentRest { ![*] blockCommentRest | "*" blockCommentAfterStar }
 
