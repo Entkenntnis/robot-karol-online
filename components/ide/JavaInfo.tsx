@@ -53,8 +53,8 @@ export function JavaInfo() {
             damit auch den Syntax der Sprache.
           </p>
           <p>
-            Es gibt auch den Java Profi-Modus. Dort könenn auch Variablen und
-            weitere Funktionen verwendet werden. Schaue dir für Details{' '}
+            Es gibt auch den Java Profi-Modus. Dort können Variablen und weitere
+            Funktionen verwendet werden. Schaue dir für Details{' '}
             <a
               href={
                 window.location.hostname === 'localhost'
@@ -66,8 +66,9 @@ export function JavaInfo() {
             >
               die Funktionsübersicht
             </a>{' '}
-            an.
+            an. Hier ist ein Beispielprogramm:
           </p>
+          <img src="/java/variablen.png" alt="Beispielprogrmam mit Variablen" />
         </div>
       </div>
     </div>
