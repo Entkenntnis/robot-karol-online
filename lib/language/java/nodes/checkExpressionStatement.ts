@@ -37,5 +37,5 @@ export function checkExpressionStatement(
     to: Math.min(node.to, co.lineAt(node.from).to),
     message: 'Erwarte Methodenaufruf',
   })
-  console.log('ExpressionStatement', prettyPrintAstNode(node))
+  // console.log('ExpressionStatement', prettyPrintAstNode(node))
 }
