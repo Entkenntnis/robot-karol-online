@@ -121,7 +121,14 @@ export function EditArea() {
                   core.ws.ui.state == 'running' && 'invisible'
                 )}
               >
-                Java Profi-Modus
+                <button
+                  onClick={() => {
+                    showJavaInfo(core)
+                  }}
+                >
+                  <FaIcon icon={faQuestionCircle} />
+                </button>{' '}
+                Java Profi-Modus (im Aufbau)
               </div>
             ) : (
               <div

@@ -9,8 +9,10 @@ import { Text } from '@codemirror/state'
 import { compileJava } from '../../lib/language/java/compileJava'
 import { CompilerTestCase } from './page'
 import { parser } from '../../lib/codemirror/javaParser/parser'
+import { useSearchParams } from 'next/navigation'
 
 export function CompilerTest({ test }: { test: CompilerTestCase }) {
+  const searchParams = useSearchParams()
   const [run, setRun] = useState(false)
   const [output, setOutput] = useState<Op[] | undefined>(undefined)
   const [warnings, setWarnings] = useState<Diagnostic[] | undefined>(undefined)
@@ -34,6 +36,12 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
       setRun(true)
     }
   }, [test.source, run])
+
+  if (searchParams.has('profi')) {
+    if (!test.proMode) {
+      return null
+    }
+  }
 
   const expected = JSON.stringify(
     test.output ? test.output : test.warnings,

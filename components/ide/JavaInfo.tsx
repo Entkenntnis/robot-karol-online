@@ -19,7 +19,7 @@ export function JavaInfo() {
         <h1 className="ml-8 text-2xl pt-8">
           Programmiere Robot Karol mit Python oder Java
         </h1>
-        <div className="mx-8 [&>p]:mt-4 [&>img]:my-4">
+        <div className="mx-8 [&>p]:mt-4 [&>img]:my-4 mb-10">
           <p>
             Mache dich bereit für deine ersten Schritte in eine
             &quot;große&quot; Programmiersprache!
@@ -53,8 +53,20 @@ export function JavaInfo() {
             damit auch den Syntax der Sprache.
           </p>
           <p>
-            Der Python/Java-Modus befindet sich aktuell im Beta-Test. Über eine
-            Mitteilung bei Problemen oder Wünschen freue ich mich.
+            Es gibt auch den Java Profi-Modus. Dort könenn auch Variablen und
+            weitere Funktionen verwendet werden. Schaue dir für Details{' '}
+            <a
+              href={
+                window.location.hostname === 'localhost'
+                  ? '/test-java?profi=1'
+                  : '/test-java.html?profi=1'
+              }
+              target="_blank"
+              className="text-blue-500 underline"
+            >
+              die Funktionsübersicht
+            </a>{' '}
+            an.
           </p>
         </div>
       </div>
