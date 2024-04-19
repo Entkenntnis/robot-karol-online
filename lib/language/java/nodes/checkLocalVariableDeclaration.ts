@@ -2,6 +2,7 @@ import { CompilerOutput } from '../../helper/CompilerOutput'
 import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { checkSemikolon } from '../checkSemikolon'
+import { expressionNodes, parseExpression } from '../parseExpression'
 import { SemantikCheckContext } from './semanticCheck'
 
 export function checkLocalVariableDeclaration(
@@ -27,7 +28,7 @@ export function checkLocalVariableDeclaration(
 
   if (
     !matchChildren(
-      ['Definition', 'AssignOp', 'IntegerLiteral'],
+      ['Definition', 'AssignOp', expressionNodes],
       declarator.children
     )
   ) {
@@ -36,7 +37,6 @@ export function checkLocalVariableDeclaration(
   }
 
   const name = declarator.children[0].text()
-  const value = parseInt(declarator.children[2].text())
 
   if (context.variablesInScope.has(name)) {
     co.warn(declarator.children[0], 'Variablename bereits belegt')
@@ -44,10 +44,14 @@ export function checkLocalVariableDeclaration(
   }
 
   co.activateProMode()
-  context.variablesInScope.add(name)
-  co.appendOutput({ type: 'constant', value })
+
+  // console.log(prettyPrintAstNode(node))
+  parseExpression(co, declarator.children[2], context)
+
   co.appendOutput({
     type: 'store',
     variable: name,
   })
+
+  context.variablesInScope.add(name)
 }

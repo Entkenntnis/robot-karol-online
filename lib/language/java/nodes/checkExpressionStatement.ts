@@ -1,7 +1,8 @@
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { checkSemikolon } from '../checkSemikolon'
+import { expressionNodes } from '../parseExpression'
 import { SemantikCheckContext, semanticCheck } from './semanticCheck'
 
 export function checkExpressionStatement(
@@ -10,6 +11,10 @@ export function checkExpressionStatement(
   context: SemantikCheckContext
 ) {
   if (matchChildren(['MethodInvocation', ';'], node.children)) {
+    semanticCheck(co, node.children[0], context)
+    return
+  }
+  if (matchChildren(['AssignmentExpression', ';'], node.children)) {
     semanticCheck(co, node.children[0], context)
     return
   }
@@ -22,10 +27,15 @@ export function checkExpressionStatement(
     checkSemikolon(co, node)
     return
   }
+  if (matchChildren(['UpdateExpression', ';'], node.children)) {
+    co.warn(node, 'UpdateExpression nicht unterstützt')
+    return
+  }
   const prefix = `${context.robotName}.`
   co.warn__internal({
     from: node.from + (node.text().startsWith(prefix) ? prefix.length : 0),
     to: Math.min(node.to, co.lineAt(node.from).to),
     message: 'Erwarte Methodenaufruf',
   })
+  console.log('ExpressionStatement', prettyPrintAstNode(node))
 }

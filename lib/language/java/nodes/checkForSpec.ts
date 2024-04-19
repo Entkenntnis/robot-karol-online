@@ -77,11 +77,7 @@ export function checkForSpec(
 
     if (
       matchChildren(
-        ['Identifier', 'CompareOp', 'IntegerLiteral'],
-        loopCond.children
-      ) ||
-      matchChildren(
-        ['Identifier', 'CompareOp', 'Identifier'],
+        ['Identifier', 'CompareOp', ['IntegerLiteral', 'Identifier']],
         loopCond.children
       )
     ) {

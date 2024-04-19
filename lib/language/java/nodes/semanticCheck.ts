@@ -5,6 +5,7 @@ import { conditionToRK } from '../../helper/conditionToRk'
 import { matchChildren } from '../../helper/matchChildren'
 import { methodName2action } from '../../helper/methodName2action'
 import { methodsWithoutArgs } from '../../helper/methodsWithoutArgs'
+import { checkAssignmentExpression } from './checkAssignmentExpression'
 import { checkBlock } from './checkBlock'
 import { checkExpressionStatement } from './checkExpressionStatement'
 import { checkForSpec } from './checkForSpec'
@@ -74,6 +75,10 @@ export function semanticCheck(
     }
     case 'LocalVariableDeclaration': {
       checkLocalVariableDeclaration(co, node, context)
+      return
+    }
+    case 'AssignmentExpression': {
+      checkAssignmentExpression(co, node, context)
       return
     }
   }

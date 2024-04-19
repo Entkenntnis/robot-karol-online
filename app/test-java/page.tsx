@@ -867,6 +867,110 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Lokale Variablen mit komplexen Ausdrücken',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int a = 1; int b = -2;\n    int i = a + b + (a*a) - b/1;\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'store',
+        variable: 'a',
+      },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'constant',
+        value: -1,
+      },
+      {
+        type: 'operation',
+        kind: 'mult',
+      },
+      {
+        type: 'store',
+        variable: 'b',
+      },
+      {
+        type: 'load',
+        variable: 'a',
+      },
+      {
+        type: 'load',
+        variable: 'b',
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'load',
+        variable: 'a',
+      },
+      {
+        type: 'load',
+        variable: 'a',
+      },
+      {
+        type: 'operation',
+        kind: 'mult',
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'load',
+        variable: 'b',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'div',
+      },
+      {
+        type: 'operation',
+        kind: 'sub',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+    ],
+  },
+  {
+    title: 'Lokale Variablen neu zuweisen',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int a = 1; a = 2;\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'store',
+        variable: 'a',
+      },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'store',
+        variable: 'a',
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',
