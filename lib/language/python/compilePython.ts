@@ -1,15 +1,13 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { BranchOp, CallOp, Condition, JumpOp, Op } from '../state/types'
+import { BranchOp, CallOp, Condition, JumpOp, Op } from '../../state/types'
 import { Diagnostic } from '@codemirror/lint'
-import { AstNode, cursorToAstNode } from './astNode'
-import {
-  AnchorOp,
-  conditionToRK,
-  methodName2action,
-  methodsWithoutArgs,
-} from './compileJava'
-import { matchChildren } from './matchChildren'
+import { AstNode, cursorToAstNode } from '../helper/astNode'
+import { matchChildren } from '../helper/matchChildren'
+import { methodName2action } from '../helper/methodName2action'
+import { methodsWithoutArgs } from '../helper/methodsWithoutArgs'
+import { AnchorOp } from '../helper/CompilerOutput'
+import { conditionToRK } from '../helper/conditionToRk'
 
 interface SemantikCheckContext {
   robotKarolVar: string

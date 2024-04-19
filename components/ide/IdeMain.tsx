@@ -135,12 +135,14 @@ export function IdeMain() {
                     (core.ws.ui.state === 'error' ||
                       core.ws.ui.state === 'running' ||
                       core.ws.ui.toBlockWarning ||
-                      core.ws.quest.testerHandler) &&
+                      core.ws.quest.testerHandler ||
+                      core.ws.ui.proMode) &&
                     'text-gray-400',
                   core.ws.settings.mode == 'code' &&
                     core.ws.ui.state == 'ready' &&
                     !core.ws.ui.toBlockWarning &&
-                    !core.ws.quest.testerHandler
+                    !core.ws.quest.testerHandler &&
+                    !core.ws.ui.proMode
                     ? 'hover:border-t-gray-300 hover:bg-gray-200'
                     : 'cursor-default'
                 )}

@@ -1,6 +1,6 @@
 import { Tree, TreeCursor } from '@lezer/common'
 import { CmdBlockPositions } from '../state/types'
-import { deKeywords, enKeywords } from '../language/compiler'
+import { deKeywords, enKeywords } from '../language/robot karol/compiler'
 import { getParserWithLng } from '../codemirror/parser/get-parser-with-lng'
 import { capitalize } from '../helper/capitalize'
 

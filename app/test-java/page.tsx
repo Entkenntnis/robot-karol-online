@@ -13,6 +13,7 @@ export interface CompilerTestCase {
   output?: Op[]
   warnings?: Diagnostic[]
   rkCode?: string
+  proMode?: boolean
 }
 
 const compilerTestCases: CompilerTestCase[] = [
@@ -509,8 +510,16 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(2);\n  }\n}',
     output: [
-      { type: 'action', command: 'forward', line: 5 },
-      { type: 'action', command: 'forward', line: 5 },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 5,
+        useParameterFromStack: true,
+      },
     ],
     rkCode: 'Schritt(2)',
   },
@@ -679,6 +688,366 @@ const compilerTestCases: CompilerTestCase[] = [
       { type: 'action', command: 'forward', line: 8 },
     ],
     rkCode: `wenn NichtIstWand dann\n  LinksDrehen\nsonst\n  Schritt\nendewenn`,
+  },
+  {
+    title: 'Lokale Variable initialisieren',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 4;\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+    ],
+  },
+  {
+    title: 'Lokale Variable benötigt initialen Wert',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i;\n  }\n}',
+    proMode: true,
+    warnings: [
+      {
+        from: 67,
+        to: 73,
+        severity: 'error',
+        message: 'Erwarte Zuweisung',
+      },
+    ],
+  },
+  {
+    title: 'Lokale Variable darf nicht mehrfach belegt werden',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 1;\n    int i = 2;\n  }\n}',
+    proMode: true,
+    warnings: [
+      {
+        from: 86,
+        to: 87,
+        severity: 'error',
+        message: 'Variablename bereits belegt',
+      },
+    ],
+  },
+  {
+    title: 'Scope endet am Ende eines Blocks',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    if (karol.istWand()) {\n      int i = 1;\n    } else {\n      int i = 2;\n    }\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'sense',
+        condition: {
+          type: 'wall',
+          negated: false,
+        },
+      },
+      {
+        type: 'branch',
+        targetF: 5,
+        targetT: 2,
+        line: 5,
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'jump',
+        target: 7,
+      },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+    ],
+  },
+  {
+    title: 'Schritt mit Variable als Parameter',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 4;\n    karol.schritt(i);\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 6,
+        useParameterFromStack: true,
+      },
+    ],
+  },
+  {
+    title: 'Schleife mit Variable als Parameter',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int loops = 3;\n    for (int i = 0; i < loops; i++) {\n      karol.schritt();\n    }\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 3,
+      },
+      {
+        type: 'store',
+        variable: 'loops',
+      },
+      {
+        type: 'load',
+        variable: 'loops',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'jump',
+        target: 8,
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 7,
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'sub',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'branch',
+        targetT: 7,
+        targetF: 14,
+        line: 6,
+      },
+    ],
+  },
+  {
+    title: 'Lokale Variablen mit komplexen Ausdrücken',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int a = 1; int b = -2;\n    int i = a + b + (a*a) - b/1;\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'store',
+        variable: 'a',
+      },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'constant',
+        value: -1,
+      },
+      {
+        type: 'operation',
+        kind: 'mult',
+      },
+      {
+        type: 'store',
+        variable: 'b',
+      },
+      {
+        type: 'load',
+        variable: 'a',
+      },
+      {
+        type: 'load',
+        variable: 'b',
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'load',
+        variable: 'a',
+      },
+      {
+        type: 'load',
+        variable: 'a',
+      },
+      {
+        type: 'operation',
+        kind: 'mult',
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'load',
+        variable: 'b',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'div',
+      },
+      {
+        type: 'operation',
+        kind: 'sub',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+    ],
+  },
+  {
+    title: 'Lokale Variablen neu zuweisen',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int a = 1; a = 2;\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'store',
+        variable: 'a',
+      },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'store',
+        variable: 'a',
+      },
+    ],
+  },
+  {
+    title: 'Komplexe Ausdrücke in Schleifenbedingung',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int a = 1;\n    for (int i = 0; i < a * 2 + 3; i++) {}\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'store',
+        variable: 'a',
+      },
+      {
+        type: 'load',
+        variable: 'a',
+      },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'operation',
+        kind: 'mult',
+      },
+      {
+        type: 'constant',
+        value: 3,
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'jump',
+        target: 11,
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'sub',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'branch',
+        targetT: 11,
+        targetF: 17,
+        line: 6,
+      },
+    ],
   },
   /*{
     title: 'Playground',

@@ -1,7 +1,7 @@
 import { ensureSyntaxTree } from '@codemirror/language'
 import { EditorView } from '@codemirror/view'
 
-import { compile } from '../language/compiler'
+import { compile } from '../language/robot karol/compiler'
 import { Core } from '../state/core'
 import { patch } from './vm'
 

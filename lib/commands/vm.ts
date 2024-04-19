@@ -33,6 +33,7 @@ export function run(core: Core) {
     vm.callstack = []
     vm.startTime = Date.now()
     vm.steps = 1
+    vm.repeatAction = undefined
   })
 
   markCurrentPC(core)
@@ -132,7 +133,23 @@ function internal_step(core: Core) {
       switch (op.type) {
         case 'action': {
           sideEffectOp = op
-          vm.pc++
+          if (op.useParameterFromStack) {
+            if (vm.repeatAction === undefined) {
+              const count = frame.opstack.pop() ?? 1
+              if (count == 1) {
+                vm.pc++ // edge case, no repeat necessary
+              } else {
+                vm.repeatAction = count - 2
+              }
+            } else if (vm.repeatAction > 0) {
+              vm.repeatAction--
+            } else {
+              vm.repeatAction = undefined
+              vm.pc++
+            }
+          } else {
+            vm.pc++
+          }
           break
         }
         case 'sense': {

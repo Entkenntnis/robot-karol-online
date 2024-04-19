@@ -2,7 +2,7 @@ import { Diagnostic } from '@codemirror/lint'
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
 
-import { Op, Condition, CallOp } from '../state/types'
+import { Op, Condition, CallOp } from '../../state/types'
 
 export const deKeywords = {
   schritt: 'schritt',
