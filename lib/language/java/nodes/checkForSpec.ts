@@ -1,7 +1,8 @@
 import { Op } from '../../../state/types'
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
+import { expressionNodes, parseExpression } from '../parseExpression'
 import { SemantikCheckContext } from './semanticCheck'
 
 export function checkForSpec(
@@ -77,7 +78,7 @@ export function checkForSpec(
 
     if (
       matchChildren(
-        ['Identifier', 'CompareOp', ['IntegerLiteral', 'Identifier']],
+        ['Identifier', 'CompareOp', expressionNodes],
         loopCond.children
       )
     ) {
@@ -90,17 +91,10 @@ export function checkForSpec(
       }
       const isLiteral = loopCond.children[2].name === 'IntegerLiteral'
       let count = -1
-      let varName = ''
       if (isLiteral) {
         count = parseInt(loopCond.children[2].text())
         if (count <= 0) {
           co.warn(loopCond.children[2], `Erwarte Anzahl größer null`)
-        }
-      } else {
-        co.activateProMode()
-        varName = loopCond.children[2].text()
-        if (!context.variablesInScope.has(varName)) {
-          co.warn(loopCond.children[2], 'Variable nicht bekannt')
         }
       }
       // generate bytecode
@@ -108,7 +102,7 @@ export function checkForSpec(
         co.appendOutput({ type: 'constant', value: count + 1 }) // we decrement before compare
         co.appendOutput({ type: 'store', variable: loopVarName })
       } else {
-        co.appendOutput({ type: 'load', variable: varName }) // we decrement before compare
+        parseExpression(co, loopCond.children[2], context)
         co.appendOutput({ type: 'constant', value: 1 })
         co.appendOutput({ type: 'operation', kind: 'add' })
         co.appendOutput({ type: 'store', variable: loopVarName })
@@ -119,6 +113,7 @@ export function checkForSpec(
       co.appendRkCode(`wiederhole ${count} mal`, node.from)
       co.increaseIndent()
     } else {
+      console.log(prettyPrintAstNode(loopCond))
       co.warn(
         loopCond,
         `Erwarte Schleifenbedingung der Form '${loopVarName} < 10'`
