@@ -1,14 +1,9 @@
-import { Condition, CallOp, JumpOp, BranchOp, Op } from '../../../state/types'
-import { AnchorOp, CompilerOutput } from '../../helper/CompilerOutput'
+import { Condition, CallOp } from '../../../state/types'
+import { CompilerOutput } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
-import { conditionToRK } from '../../helper/conditionToRk'
-import { matchChildren } from '../../helper/matchChildren'
-import { methodName2action } from '../../helper/methodName2action'
-import { methodsWithoutArgs } from '../../helper/methodsWithoutArgs'
 import { checkAssignmentExpression } from './checkAssignmentExpression'
 import { checkBlock } from './checkBlock'
 import { checkExpressionStatement } from './checkExpressionStatement'
-import { checkForSpec } from './checkForSpec'
 import { checkForStatement } from './checkForStatement'
 import { checkIfStatement } from './checkIfStatement'
 import { checkLocalVariableDeclaration } from './checkLocalVariableDeclaration'
@@ -20,7 +15,6 @@ import { checkWhileStatement } from './checkWhileStatement'
 export interface SemantikCheckContext {
   robotName: string
   variablesInScope: Set<string>
-  __temp_remove_from_scope_after_for?: string
   expectCondition?: boolean
   condition?: Condition
   availableMethods: Set<string>
@@ -55,10 +49,6 @@ export function semanticCheck(
     }
     case 'ForStatement': {
       checkForStatement(co, node, context)
-      return
-    }
-    case 'ForSpec': {
-      checkForSpec(co, node, context)
       return
     }
     case 'WhileStatement': {

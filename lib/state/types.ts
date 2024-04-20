@@ -215,7 +215,7 @@ export interface CoreRefs {
   state: CoreState
 }
 
-// ON THE WAY OUT
+// ON THE WAY OUT (? hä)
 export interface Condition {
   type:
     | 'brick'
@@ -245,6 +245,17 @@ export interface ActionOp extends BaseOp {
     | 'setMark'
     | 'resetMark'
   useParameterFromStack?: boolean
+}
+
+export interface CompareOp extends BaseOp {
+  type: 'compare'
+  kind:
+    | 'less-than'
+    | 'less-equal'
+    | 'greater-than'
+    | 'greater-equal'
+    | 'equal'
+    | 'unequal'
 }
 
 export interface SenseOp extends BaseOp {
@@ -303,6 +314,7 @@ export type Op =
   | ConstantOp
   | LoadOp
   | StoreOp
+  | CompareOp
 
 export interface QuestData {
   title: string

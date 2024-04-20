@@ -94,10 +94,6 @@ export class CompilerOutput {
     return this.output.length
   }
 
-  getOpAt(offset: number) {
-    return this.output[offset]
-  }
-
   lineAt(pos: number) {
     return this.doc.lineAt(pos)
   }

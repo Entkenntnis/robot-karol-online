@@ -225,6 +225,38 @@ function internal_step(core: Core) {
           vm.pc++
           break
         }
+        case 'compare': {
+          const b = frame.opstack.pop() ?? NaN
+          const a = frame.opstack.pop() ?? NaN
+          switch (op.kind) {
+            case 'equal': {
+              frame.opstack.push(a == b ? 1 : 0)
+              break
+            }
+            case 'unequal': {
+              frame.opstack.push(a != b ? 1 : 0)
+              break
+            }
+            case 'greater-equal': {
+              frame.opstack.push(a >= b ? 1 : 0)
+              break
+            }
+            case 'greater-than': {
+              frame.opstack.push(a == b ? 1 : 0)
+              break
+            }
+            case 'less-than': {
+              frame.opstack.push(a < b ? 1 : 0)
+              break
+            }
+            case 'less-equal': {
+              frame.opstack.push(a <= b ? 1 : 0)
+              break
+            }
+          }
+          vm.pc++
+          break
+        }
       }
     })
 

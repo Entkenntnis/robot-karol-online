@@ -15,6 +15,16 @@ import { abort } from '../../lib/commands/vm'
 
 export function Output() {
   const core = useCore()
+  const variables: { [key: string]: number } = {}
+  core.ws.vm.frames.forEach((frame) => {
+    for (const key in frame.variables) {
+      variables[key] = frame.variables[key]
+    }
+  })
+  const varStr = Object.entries(variables)
+    .map((entry) => `${entry[0]} = ${entry[1]}`)
+    .join(', ')
+
   return (
     <div className="flex flex-col h-full relative">
       <div className="flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100">
@@ -26,7 +36,7 @@ export function Output() {
           'overflow-auto bg-white'
         )}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full relative">
           <div className="m-auto">
             <div className="w-fit h-fit mb-32 mt-4 mx-4">
               <View
@@ -50,6 +60,9 @@ export function Output() {
               />
             </div>
           </div>
+          {core.ws.ui.state === 'running' && core.ws.ui.proMode && varStr && (
+            <div className="absolute left-2 top-2">Variablen: {varStr}</div>
+          )}
         </div>
         {core.ws.quest.lastStartedTask !== undefined && (
           <div className="absolute bottom-1.5 left-2">
