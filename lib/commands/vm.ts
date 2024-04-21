@@ -136,6 +136,11 @@ function internal_step(core: Core) {
           if (op.useParameterFromStack) {
             if (vm.repeatAction === undefined) {
               const count = frame.opstack.pop() ?? 1
+              if (count < 1) {
+                sideEffectOp = null
+                vm.pc++
+                break
+              }
               if (count == 1) {
                 vm.pc++ // edge case, no repeat necessary
               } else {

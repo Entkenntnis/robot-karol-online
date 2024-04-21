@@ -524,15 +524,28 @@ const compilerTestCases: CompilerTestCase[] = [
     rkCode: 'Schritt(2)',
   },
   {
-    title: 'Fehler falls Parameter negativ',
+    title: 'Ignoriere falls Parameter negativ',
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(-2);\n  }\n}',
-    warnings: [
+    proMode: true,
+    output: [
       {
-        from: 81,
-        to: 85,
-        severity: 'error',
-        message: 'Erwarte Zahl als Parameter',
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'constant',
+        value: -1,
+      },
+      {
+        type: 'operation',
+        kind: 'mult',
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 5,
+        useParameterFromStack: true,
       },
     ],
   },
@@ -791,7 +804,7 @@ const compilerTestCases: CompilerTestCase[] = [
         type: 'branch',
         targetF: 4,
         targetT: 2,
-        line: 68,
+        line: 5,
       },
       {
         type: 'action',
@@ -826,7 +839,7 @@ const compilerTestCases: CompilerTestCase[] = [
         type: 'branch',
         targetF: 5,
         targetT: 3,
-        line: 68,
+        line: 5,
       },
       {
         type: 'action',

@@ -4,6 +4,7 @@ import { AstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { methodName2action } from '../../helper/methodName2action'
 import { methodsWithoutArgs } from '../../helper/methodsWithoutArgs'
+import { expressionNodes, parseExpression } from '../parseExpression'
 import { SemantikCheckContext } from './semanticCheck'
 
 export function checkMethodInvocation(
@@ -47,7 +48,7 @@ export function checkMethodInvocation(
 
     const argumentList = node.children[3]
     let integerArgument: number = NaN
-    let variableParameter: string = ''
+    let variableParameter = false
 
     const methodName = node.children[2].children[0].text()
 
@@ -69,14 +70,13 @@ export function checkMethodInvocation(
         }
       }
     } else if (
-      matchChildren(['(', 'Identifier', ')'], argumentList.children) &&
+      matchChildren(['(', expressionNodes, ')'], argumentList.children) &&
       !methodsWithoutArgs.includes(methodName)
     ) {
       co.activateProMode()
-      variableParameter = argumentList.children[1].text()
-      if (!context.variablesInScope.has(variableParameter)) {
-        co.warn(argumentList.children[1], 'Variable nicht bekannt')
-      }
+      parseExpression(co, argumentList.children[1], context)
+
+      variableParameter = true
     } else if (!matchChildren(['(', ')'], argumentList.children)) {
       co.warn(
         argumentList,
@@ -152,7 +152,7 @@ export function checkMethodInvocation(
       }
 
       if (variableParameter) {
-        co.appendOutput({ type: 'load', variable: variableParameter })
+        //co.appendOutput({ type: 'load', variable: variableParameter })
         co.appendOutput({
           type: 'action',
           command: action,
