@@ -3,6 +3,7 @@ import { CompilerOutput, AnchorOp } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
 import { conditionToRK } from '../../helper/conditionToRk'
 import { matchChildren } from '../../helper/matchChildren'
+import { checkCondition } from '../checkCondition'
 import { SemantikCheckContext, semanticCheck } from './semanticCheck'
 
 export function checkWhileStatement(
@@ -33,59 +34,54 @@ export function checkWhileStatement(
       co.decreaseIndent()
       co.appendRkCode('endewiederhole', node.to)
     } else {
-      context.expectCondition = true
-      semanticCheck(co, node.children[1], context)
-      context.expectCondition = undefined
-      const condition = context.condition
-      if (condition) {
-        const jumpToCond: JumpOp = { type: 'jump', target: -1 }
-        const branch: BranchOp = {
-          type: 'branch',
-          targetF: -1,
-          targetT: -1,
-          line: node.from,
-        }
-        const anchorTop: AnchorOp = {
-          type: 'anchor',
-          callback: (target) => {
-            branch.targetT = target
-          },
-        }
-        const anchorCond: AnchorOp = {
-          type: 'anchor',
-          callback: (target) => {
-            jumpToCond.target = target
-          },
-        }
-        const anchorEnd: AnchorOp = {
-          type: 'anchor',
-          callback: (target) => {
-            branch.targetF = target
-          },
-        }
-        co.appendOutput(jumpToCond)
-        co.appendOutput(anchorTop)
-
-        co.appendRkCode(
-          `wiederhole solange ${conditionToRK(condition)}`,
-          node.from
-        )
-        co.increaseIndent()
-        semanticCheck(co, node.children[2], context)
-        co.decreaseIndent()
-        co.appendRkCode('endewiederhole', node.to)
-
-        co.appendOutput(anchorCond)
-        if (condition.type == 'brick_count') {
-          co.appendOutput({ type: 'constant', value: condition.count! })
-        }
-        co.appendOutput({
-          type: 'sense',
-          condition,
-        })
-        co.appendOutput(branch)
-        co.appendOutput(anchorEnd)
+      const jumpToCond: JumpOp = { type: 'jump', target: -1 }
+      const branch: BranchOp = {
+        type: 'branch',
+        targetF: -1,
+        targetT: -1,
+        line: co.lineAt(node.from).number,
       }
+      const anchorTop: AnchorOp = {
+        type: 'anchor',
+        callback: (target) => {
+          branch.targetT = target
+        },
+      }
+      const anchorCond: AnchorOp = {
+        type: 'anchor',
+        callback: (target) => {
+          jumpToCond.target = target
+        },
+      }
+      const anchorEnd: AnchorOp = {
+        type: 'anchor',
+        callback: (target) => {
+          branch.targetF = target
+        },
+      }
+      co.appendOutput(anchorCond)
+
+      if (
+        !checkCondition(
+          co,
+          node.children[1],
+          context,
+          (condition) => `wiederhole solange ${condition}`
+        )
+      ) {
+        co.warn(node.children[1], 'Erwarte Bedingung')
+      }
+
+      co.appendOutput(branch)
+
+      co.appendOutput(anchorTop)
+      co.increaseIndent()
+      semanticCheck(co, node.children[2], context)
+      co.decreaseIndent()
+
+      co.appendRkCode('endewiederhole', node.to)
+      co.appendOutput(jumpToCond)
+      co.appendOutput(anchorEnd)
     }
   } else {
     co.warn(node, `Erwarte Schleife mit Rumpf`)

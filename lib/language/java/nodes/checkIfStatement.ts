@@ -1,8 +1,10 @@
-import { BranchOp, JumpOp } from '../../../state/types'
+import { BranchOp, CompareOp, Condition, JumpOp } from '../../../state/types'
 import { CompilerOutput, AnchorOp } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
 import { conditionToRK } from '../../helper/conditionToRk'
 import { matchChildren } from '../../helper/matchChildren'
+import { checkCondition } from '../checkCondition'
+import { expressionNodes } from '../parseExpression'
 import { SemantikCheckContext, semanticCheck } from './semanticCheck'
 
 export function checkIfStatement(
@@ -13,11 +15,14 @@ export function checkIfStatement(
   if (
     matchChildren(['if', 'ParenthesizedExpression', 'Block'], node.children)
   ) {
-    context.expectCondition = true
-    semanticCheck(co, node.children[1], context)
-    context.expectCondition = undefined
-    const condition = context.condition
-    if (condition) {
+    const hasCondition = checkCondition(
+      co,
+      node.children[1],
+      context,
+      (condition) => `wenn ${condition} dann`
+    )
+
+    if (hasCondition) {
       const branch: BranchOp = {
         type: 'branch',
         targetF: -1,
@@ -36,23 +41,18 @@ export function checkIfStatement(
           branch.targetF = target
         },
       }
-      if (condition.type == 'brick_count') {
-        co.appendOutput({ type: 'constant', value: condition.count! })
-      }
-      co.appendOutput({
-        type: 'sense',
-        condition,
-      })
+
       co.appendOutput(branch)
       co.appendOutput(anchorBlock)
 
-      co.appendRkCode(`wenn ${conditionToRK(condition)} dann`, node.from)
       co.increaseIndent()
       semanticCheck(co, node.children[2], context)
       co.decreaseIndent()
       co.appendRkCode('endewenn', node.to)
 
       co.appendOutput(anchorEnd)
+    } else {
+      co.warn(node.children[1], 'Erwarte Bedingung')
     }
   } else if (
     matchChildren(
@@ -60,11 +60,13 @@ export function checkIfStatement(
       node.children
     )
   ) {
-    context.expectCondition = true
-    semanticCheck(co, node.children[1], context)
-    context.expectCondition = undefined
-    const condition = context.condition
-    if (condition) {
+    const hasCondition = checkCondition(
+      co,
+      node.children[1],
+      context,
+      (condition) => `wenn ${condition} dann`
+    )
+    if (hasCondition) {
       const branch: BranchOp = {
         type: 'branch',
         targetF: -1,
@@ -93,17 +95,9 @@ export function checkIfStatement(
           branch.targetF = target
         },
       }
-      if (condition.type == 'brick_count') {
-        co.appendOutput({ type: 'constant', value: condition.count! })
-      }
-      co.appendOutput({
-        type: 'sense',
-        condition,
-      })
       co.appendOutput(branch)
       co.appendOutput(anchorBlock)
 
-      co.appendRkCode(`wenn ${conditionToRK(condition)} dann`, node.from)
       co.increaseIndent()
       semanticCheck(co, node.children[2], context)
       co.decreaseIndent()
@@ -118,6 +112,8 @@ export function checkIfStatement(
       co.appendRkCode('endewenn', node.to)
 
       co.appendOutput(anchorEnd)
+    } else {
+      co.warn(node.children[1], 'Erwarte Bedingung')
     }
   } else {
     co.warn(node, `Erwarte bedingte Anweisung mit Rumpf`)

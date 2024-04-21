@@ -76,7 +76,7 @@ function pulse(core: Core) {
 
 function markCurrentPC(core: Core) {
   if (core.ws.vm.bytecode && core.ws.ui.state == 'running') {
-    const op = core.ws.vm.bytecode[core.ws.vm.pc]
+    const op = core.ws.vm.bytecode[core.ws.vm.pc - 1]
     if (op?.line) {
       const line = op.line
       core.mutateWs(({ ui }) => {
@@ -128,7 +128,7 @@ function internal_step(core: Core) {
     core.mutateWs(({ vm }) => {
       const frame = vm.frames[vm.frames.length - 1]
 
-      // console.log('step', pc, op.type, [...frame.opstack])
+      // console.log('step', pc, op.type, [...frame.opstack]) // DEBUG
 
       switch (op.type) {
         case 'action': {
@@ -242,7 +242,7 @@ function internal_step(core: Core) {
               break
             }
             case 'greater-than': {
-              frame.opstack.push(a == b ? 1 : 0)
+              frame.opstack.push(a > b ? 1 : 0)
               break
             }
             case 'less-than': {

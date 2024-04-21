@@ -780,13 +780,28 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (karol.nichtIstWand()) {\n      karol.schritt();\n    }\n  }\n}',
     output: [
-      { type: 'jump', target: 2 },
-      { type: 'action', command: 'forward', line: 6 },
       {
         type: 'sense',
-        condition: { type: 'wall', negated: true },
+        condition: {
+          type: 'wall',
+          negated: true,
+        },
       },
-      { type: 'branch', targetF: 4, targetT: 1, line: 68 },
+      {
+        type: 'branch',
+        targetF: 4,
+        targetT: 2,
+        line: 68,
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 6,
+      },
+      {
+        type: 'jump',
+        target: 0,
+      },
     ],
     rkCode: 'wiederhole solange NichtIstWand\n  Schritt\nendewiederhole',
   },
@@ -795,14 +810,33 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (karol.istZiegel(2)) {\n      karol.aufheben();\n    }\n  }\n}',
     output: [
-      { type: 'jump', target: 2 },
-      { type: 'action', command: 'unbrick', line: 6 },
-      { type: 'constant', value: 2 },
+      {
+        type: 'constant',
+        value: 2,
+      },
       {
         type: 'sense',
-        condition: { type: 'brick_count', negated: false, count: 2 },
+        condition: {
+          type: 'brick_count',
+          negated: false,
+          count: 2,
+        },
       },
-      { type: 'branch', targetF: 5, targetT: 1, line: 68 },
+      {
+        type: 'branch',
+        targetF: 5,
+        targetT: 3,
+        line: 68,
+      },
+      {
+        type: 'action',
+        command: 'unbrick',
+        line: 6,
+      },
+      {
+        type: 'jump',
+        target: 0,
+      },
     ],
     rkCode: 'wiederhole solange IstZiegel(2)\n  Aufheben\nendewiederhole',
   },
@@ -1192,6 +1226,104 @@ const compilerTestCases: CompilerTestCase[] = [
       {
         type: 'jump',
         target: 4,
+      },
+    ],
+  },
+  {
+    title: 'Vergleichsoperator in if',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 4;\n    if (4 == i) { karol.schritt(); }\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'compare',
+        kind: 'equal',
+      },
+      {
+        type: 'branch',
+        targetF: 7,
+        targetT: 6,
+        line: 6,
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 6,
+      },
+    ],
+  },
+  {
+    title: 'Schleife mit while',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 0;\n    while (i < 4) {\n      karol.linksDrehen();\n      i = i + 1;\n    }\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 0,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'compare',
+        kind: 'less-than',
+      },
+      {
+        type: 'branch',
+        targetF: 12,
+        targetT: 6,
+        line: 6,
+      },
+      {
+        type: 'action',
+        command: 'left',
+        line: 7,
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'jump',
+        target: 2,
       },
     ],
   },
