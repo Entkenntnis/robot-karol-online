@@ -18,6 +18,7 @@ export function checkMethodInvocation(
       const argumentList = node.children[1]
       if (!matchChildren(['(', ')'], argumentList.children)) {
         co.warn(argumentList, 'Erwarte keine Argumente')
+        // TODO put arguments on the stack
       } else {
         const op: CallOp = {
           type: 'call',

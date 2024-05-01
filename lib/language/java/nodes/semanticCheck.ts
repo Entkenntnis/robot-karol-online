@@ -12,12 +12,24 @@ import { checkMethodInvocation } from './checkMethodInvocation'
 import { checkParenthesizedExpression } from './checkParenthesizedExpression'
 import { checkWhileStatement } from './checkWhileStatement'
 
+interface Parameter {
+  type: 'int'
+  name: string
+}
+
+interface MethodContext {
+  parameters: Parameter[]
+}
+
+export type MethodContexts = Record<string, MethodContext>
+
 export interface SemantikCheckContext {
   robotName: string
   variablesInScope: Set<string>
   expectCondition?: boolean
   condition?: Condition
   availableMethods: Set<string>
+  methodContexts: MethodContexts
   callOps: [string, CallOp][]
 }
 

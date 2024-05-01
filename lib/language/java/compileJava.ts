@@ -9,7 +9,7 @@ import { ensureBlock } from './ensureBlock'
 import { ensureExactlyOneChild } from '../helper/ensureExactlyOneChild'
 import { checkMainMethod } from './checkMainMethod'
 import { checkRobotField } from './checkRobotField'
-import { semanticCheck } from './nodes/semanticCheck'
+import { MethodContexts, semanticCheck } from './nodes/semanticCheck'
 
 export function compileJava(tree: Tree, doc: Text): CompilerResult {
   const comments: AstNode[] = []
@@ -177,6 +177,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   const mainMethod = mainMethods[0]
 
   const availableMethods = new Set<string>()
+  const methodContexts: MethodContexts = {}
   for (const method of methods) {
     if (method != mainMethod) {
       if (
@@ -186,11 +187,13 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         )
       ) {
         const formalParameters = method.children[2]
-        if (!matchChildren(['(', ')'], formalParameters.children)) {
+        if (matchChildren(['(', ')'], formalParameters.children)) {
+          const name = method.children[1].text()
+          availableMethods.add(name)
+        } else {
+          // TODO read in parameter list
           co.warn(formalParameters, 'Erwarte leere Parameterliste')
         }
-        const name = method.children[1].text()
-        availableMethods.add(name)
       } else {
         co.warn(method, 'Erwarte eigene Methode ohne Rückgabewert mit Rumpf')
       }
@@ -205,6 +208,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
     robotName: robotInstanceName,
     variablesInScope: new Set(),
     availableMethods,
+    methodContexts,
     callOps,
   })
 
@@ -226,11 +230,13 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         },
       })
       co.appendRkCode('\nAnweisung ' + name, method.from)
+      // TODO put passing in arguments into frame
       co.increaseIndent()
       semanticCheck(co, method, {
         robotName: robotInstanceName,
         variablesInScope: new Set(),
         availableMethods,
+        methodContexts,
         callOps,
       })
       co.appendOutput({ type: 'return' })

@@ -215,7 +215,6 @@ export interface CoreRefs {
   state: CoreState
 }
 
-// ON THE WAY OUT (? hä)
 export interface Condition {
   type:
     | 'brick'
