@@ -193,7 +193,8 @@ export function Overview() {
                 {core.ws.analyze.useJava} mal Java verwendet,{' '}
                 {core.ws.analyze.usePython} mal Python verwendet,{' '}
                 {core.ws.analyze.playSnake} mal Snake gespielt,{' '}
-                {core.ws.analyze.lngEn} mal Englisch ausgewählt
+                {core.ws.analyze.lngEn} mal Englisch ausgewählt,{' '}
+                {core.ws.analyze.proMode} mal Profi-Modus aktiviert
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
