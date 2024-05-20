@@ -2,6 +2,7 @@ import { Diagnostic } from '@codemirror/lint'
 import { Op } from '../../lib/state/types'
 import { Metadata } from 'next'
 import { CompilerTest } from './CompilerTest'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Test Java',
@@ -1353,7 +1354,9 @@ export default function TestJava() {
       <h1 className="text-2xl mt-8">Testseite für Java-Modus</h1>
       <h2 className="mt-7 text-xl font-bold">Compiler</h2>
       {compilerTestCases.map((test, i) => (
-        <CompilerTest test={test} key={i} />
+        <Suspense key={i}>
+          <CompilerTest test={test} />
+        </Suspense>
       ))}
     </div>
   )
