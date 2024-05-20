@@ -96,9 +96,9 @@ export const deStrings = {
   outfit: {
     title: 'Passe das Aussehen von Karol an',
     close: 'Schließen',
-    cap: 'Kappe',
-    shirt: 'Shirt',
-    legs: 'Hose',
+    cap: 'Kopf',
+    shirt: 'Oberteil',
+    legs: 'Unterteil',
     skin: 'Hautton',
     suggest: 'Outfit vorschlagen',
   },
