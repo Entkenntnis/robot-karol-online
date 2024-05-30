@@ -19,7 +19,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de">
-      <body>{children}</body>
+      <body>
+        <h1 style={{ display: 'none' }}>Robot Karol Online</h1>
+        {children}
+      </body>
     </html>
   )
 }

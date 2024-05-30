@@ -35,7 +35,7 @@ export async function initClient(core: Core) {
 
   if (hash == '#ANALYZE' /* && window.location.hostname == 'localhost'*/) {
     try {
-      const cutoff = new Date('2024-03-19')
+      const cutoff = new Date('2024-05-21')
 
       const storedPW = sessionStorage.getItem('karol_stored_pw')
       const password = storedPW ?? prompt('Zugangspasswort:') ?? ''
@@ -126,6 +126,10 @@ export async function initClient(core: Core) {
             }
             if (entry.event == 'play_snake') {
               ws.analyze.playSnake++
+              continue
+            }
+            if (entry.event == 'pro_mode') {
+              ws.analyze.proMode++
               continue
             }
             if (entry.event == 'lng_en') {

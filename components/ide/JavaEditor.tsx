@@ -43,6 +43,7 @@ import {
   autocompletion,
   completionKeymap,
 } from '@codemirror/autocomplete'
+import { submit_event } from '../../lib/helper/submit'
 
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>
@@ -143,6 +144,7 @@ export function lint(core: Core, view: EditorView) {
       core.mutateWs((ws) => {
         ws.ui.proMode = true
       })
+      submit_event('pro_mode', core)
     } else if (rkCode !== undefined) {
       core.mutateWs((ws) => {
         ws.code = rkCode

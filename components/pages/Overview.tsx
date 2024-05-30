@@ -172,7 +172,7 @@ export function Overview() {
               </p>
               <h2 className="mt-6 mb-4 text-lg">Freigegebene Aufgaben</h2>
               {core.ws.analyze.published.map((entry, i) => (
-                <p key={i} className="my-2">
+                <span key={i} className="inline-block mr-6">
                   <a
                     href={`/#${entry.id}`}
                     target="_blank"
@@ -182,7 +182,7 @@ export function Overview() {
                     {entry.id}
                   </a>{' '}
                   - {entry.date}
-                </p>
+                </span>
               ))}
               <p className="mt-6 mb-4">
                 {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
@@ -193,11 +193,12 @@ export function Overview() {
                 {core.ws.analyze.useJava} mal Java verwendet,{' '}
                 {core.ws.analyze.usePython} mal Python verwendet,{' '}
                 {core.ws.analyze.playSnake} mal Snake gespielt,{' '}
-                {core.ws.analyze.lngEn} mal Englisch ausgewählt
+                {core.ws.analyze.lngEn} mal Englisch ausgewählt,{' '}
+                {core.ws.analyze.proMode} mal Profi-Modus aktiviert
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
-                <p key={i} className="my-2">
+                <span key={i} className="inline-block mr-6">
                   <a
                     href={`/#${entry[0]}`}
                     target="_blank"
@@ -208,7 +209,7 @@ export function Overview() {
                   </a>{' '}
                   - {entry[1].start} mal gestartet, {entry[1].complete} mal
                   abgeschlossen
-                </p>
+                </span>
               ))}
               <h2 className="mt-6 mb-4 text-lg">Aussehen</h2>
               <p>
@@ -217,7 +218,7 @@ export function Overview() {
                   appearance.sort((a, b) => b[1].count - a[1].count)
 
                   return appearance.map((entry) => (
-                    <span key={entry[0]} className="mr-3">
+                    <span key={entry[0]} className="inline-block mr-3">
                       {entry[0]}:{appearanceRegistry[parseInt(entry[0])].type}-
                       {appearanceRegistry[parseInt(entry[0])].title} (x
                       {entry[1].count})
@@ -227,7 +228,7 @@ export function Overview() {
               </p>
               <h2 className="mt-6 mb-4 text-lg">Legacy</h2>{' '}
               {Object.entries(core.ws.analyze.legacy).map((entry, i) => (
-                <p key={i} className="my-2">
+                <span key={i} className="inline-block mr-6">
                   <a
                     href={`/?id=${entry[0]}`}
                     target="_blank"
@@ -237,7 +238,7 @@ export function Overview() {
                     {entry[0]}
                   </a>{' '}
                   - {entry[1].count} mal gestartet
-                </p>
+                </span>
               ))}
               <h2 className="mt-6 mb-4 text-lg">Zeiten</h2>
               <p className="mb-2">
@@ -507,7 +508,7 @@ export function Overview() {
             )}
           <div className="flex-auto"></div>
 
-          {core.ws.page == 'analyze' && (
+          {/*core.ws.page == 'analyze' && (
             <div className="bg-gray-50 p-4">
               {(() => {
                 const entries = Object.entries(core.ws.analyze.userEvents)
@@ -749,7 +750,7 @@ export function Overview() {
                 })
               })()}
             </div>
-          )}
+          )*/}
 
           <div className="text-center mb-12 mt-24">
             <span className="text-gray-700 mr-7">

@@ -177,6 +177,7 @@ export interface Analyze {
   usePersist: number
   useJava: number
   usePython: number
+  proMode: number
   playSnake: number
   lngEn: number
   customQuests: { [key: string]: { start: number; complete: number } }

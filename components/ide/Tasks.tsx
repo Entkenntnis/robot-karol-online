@@ -373,21 +373,23 @@ export function Tasks() {
           ) : null}
         </div>
         <div className={clsx('flex-grow-0 flex-shrink-0')}>
-          <button
-            className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
-            onClick={() => {
-              if (core.ws.page == 'editor') {
-                showModal(core, 'remix')
-              } else {
-                setShowStructogram(core, true)
-                submit_event('show_structogram', core)
-              }
-            }}
-          >
-            {core.ws.page == 'editor'
-              ? core.strings.editor.loadFrom
-              : core.strings.ide.structogram}
-          </button>
+          {!core.ws.ui.proMode && (
+            <button
+              className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
+              onClick={() => {
+                if (core.ws.page == 'editor') {
+                  showModal(core, 'remix')
+                } else {
+                  setShowStructogram(core, true)
+                  submit_event('show_structogram', core)
+                }
+              }}
+            >
+              {core.ws.page == 'editor'
+                ? core.strings.editor.loadFrom
+                : core.strings.ide.structogram}
+            </button>
+          )}
           {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
             <span className="inline-block mx-2">
               <FaIcon icon={faGlobe} />

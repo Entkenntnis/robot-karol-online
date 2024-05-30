@@ -131,14 +131,14 @@ export function Highscore() {
             <>
               <p
                 className={clsx(
-                  'text-right my-4',
-                  mode == 'count' && 'invisible'
+                  'text-right my-4'
+                  // mode == 'count' && 'invisible'
                 )}
               >
                 {data.length} {core.strings.highscore.currentPlayers}
               </p>
               <p className="text-right my-4">
-                {mode == 'count' && (
+                {/*mode == 'count' && (
                   <button
                     className="text-blue-500 hover:underline"
                     onClick={() => {
@@ -148,8 +148,8 @@ export function Highscore() {
                   >
                     {core.strings.highscore.sortByActivity}
                   </button>
-                )}
-                {mode == 'active' && (
+                )*/}
+                {/*mode == 'active' && (
                   <button
                     className="text-blue-500 hover:underline"
                     onClick={() => {
@@ -159,7 +159,7 @@ export function Highscore() {
                   >
                     {core.strings.highscore.sortBySolved}
                   </button>
-                )}
+                )*/}
               </p>
               <table className="table-auto w-full mt-8">
                 <thead>
@@ -173,7 +173,7 @@ export function Highscore() {
                 <tbody>
                   {((showAll && mode == 'count') ||
                   (showAllRecent && mode == 'active')
-                    ? data
+                    ? data.slice(0, 100)
                     : mode == 'active'
                     ? data.slice(0, 200)
                     : data.slice(0, 10)
@@ -218,20 +218,18 @@ export function Highscore() {
                     ))}
                 </tbody>
               </table>
-              {/*!showAll && mode == 'count' && (
+              {!showAll && mode == 'count' && (
                 <p>
-                  [
                   <button
                     onClick={() => {
                       setShowAll(true)
                     }}
                     className="mt-8 text-blue-500 hover:underline"
                   >
-                    alle anzeigen
+                    mehr anzeigen
                   </button>
-                  ]
                 </p>
-                )*/}
+              )}
               {/*!showAllRecent && mode == 'active' && (
                 <p>
                   [

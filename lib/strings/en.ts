@@ -97,9 +97,9 @@ export const enStrings: typeof deStrings = {
   outfit: {
     title: "Customize Karol's Appearance",
     close: 'Close',
-    cap: 'Cap',
-    shirt: 'Shirt',
-    legs: 'Pants',
+    cap: 'Head',
+    shirt: 'Top',
+    legs: 'Bottom',
     skin: 'Skin Tone',
     suggest: 'Suggest outfit',
   },
