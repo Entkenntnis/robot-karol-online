@@ -8,7 +8,7 @@ export const deStrings = {
     loadTooltip: 'Aus einer Datei laden',
     gameState: 'spielstand',
     lucky: 'Auf gut Glück!',
-    version: 'Version: April 2024',
+    version: 'Version: Juni 2024',
     playground: 'Spielwiese',
     imprint: 'Impressum',
     privacy: 'Datenschutz',
