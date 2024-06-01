@@ -28,7 +28,7 @@ export interface SemantikCheckContext {
   variablesInScope: Set<string>
   expectCondition?: boolean
   condition?: Condition
-  availableMethods: Set<string>
+  availableMethods: Map<string, string[]>
   methodContexts: MethodContexts
   callOps: [string, CallOp][]
 }

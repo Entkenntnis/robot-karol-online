@@ -1,7 +1,7 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
 import { CallOp } from '../../state/types'
-import { AstNode, cursorToAstNode } from '../helper/astNode'
+import { AstNode, cursorToAstNode, prettyPrintAstNode } from '../helper/astNode'
 import { matchChildren } from '../helper/matchChildren'
 import { CompilerOutput, CompilerResult } from '../helper/CompilerOutput'
 import { warnForUnexpectedNodes } from '../helper/warnForUnexpectedNodes'
@@ -176,7 +176,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
 
   const mainMethod = mainMethods[0]
 
-  const availableMethods = new Set<string>()
+  const availableMethods = new Map<string, string[]>()
   const methodContexts: MethodContexts = {}
   for (const method of methods) {
     if (method != mainMethod) {
@@ -187,13 +187,26 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         )
       ) {
         const formalParameters = method.children[2]
-        if (matchChildren(['(', ')'], formalParameters.children)) {
-          const name = method.children[1].text()
-          availableMethods.add(name)
-        } else {
-          // TODO read in parameter list
-          co.warn(formalParameters, 'Erwarte leere Parameterliste')
+        const name = method.children[1].text()
+
+        const params: string[] = []
+        for (const param of formalParameters.children) {
+          if (param.name == '(' || param.name == ')' || param.name == ',') {
+            continue
+          }
+          if (matchChildren(['PrimitiveType', 'Definition'], param.children)) {
+            const type = param.children[0].text()
+            if (type !== 'int') {
+              co.warn(param, 'Nur Typ int unterstützt')
+            } else {
+              const def = param.children[1].text()
+              params.push(def)
+            }
+          } else {
+            co.warn(param, 'Ungültiger Parameter, erwarte Typ int')
+          }
         }
+        availableMethods.set(name, params)
       } else {
         co.warn(method, 'Erwarte eigene Methode ohne Rückgabewert mit Rumpf')
       }
@@ -230,11 +243,14 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         },
       })
       co.appendRkCode('\nAnweisung ' + name, method.from)
-      // TODO put passing in arguments into frame
       co.increaseIndent()
+      const variablesInScope = new Set<string>()
+      for (const v of availableMethods.get(name) ?? []) {
+        variablesInScope.add(v)
+      }
       semanticCheck(co, method, {
         robotName: robotInstanceName,
-        variablesInScope: new Set(),
+        variablesInScope,
         availableMethods,
         methodContexts,
         callOps,
