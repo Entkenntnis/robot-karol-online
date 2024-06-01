@@ -216,7 +216,6 @@ export interface CoreRefs {
   state: CoreState
 }
 
-// ON THE WAY OUT (? hä)
 export interface Condition {
   type:
     | 'brick'
@@ -278,6 +277,7 @@ export interface BranchOp extends BaseOp {
 export interface CallOp extends BaseOp {
   type: 'call'
   target: number
+  arguments?: number
 }
 
 export interface ReturnOp extends BaseOp {

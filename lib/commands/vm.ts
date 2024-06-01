@@ -20,6 +20,8 @@ export function patch(core: Core, bytecode: Op[]) {
   })
 }
 
+type MarkerMode = 'lastExecuted' | 'currentlyExecuting' | 'newOnCallStack'
+
 export function run(core: Core) {
   core.mutateWs(({ ui, vm }) => {
     ui.state = 'running'
@@ -36,7 +38,7 @@ export function run(core: Core) {
     vm.repeatAction = undefined
   })
 
-  markCurrentPC(core)
+  // markPC(core, 'lastExecuted')
   pulse(core)
 }
 
@@ -74,9 +76,16 @@ function pulse(core: Core) {
   })
 }
 
-function markCurrentPC(core: Core) {
+function markPC(core: Core, mode: MarkerMode) {
   if (core.ws.vm.bytecode && core.ws.ui.state == 'running') {
-    const op = core.ws.vm.bytecode[core.ws.vm.pc - 1]
+    const op =
+      core.ws.vm.bytecode[
+        mode === 'lastExecuted'
+          ? core.ws.vm.pc - 1
+          : mode === 'currentlyExecuting'
+          ? core.ws.vm.pc
+          : core.ws.vm.callstack[core.ws.vm.callstack.length - 1] - 1
+      ]
     if (op?.line) {
       const line = op.line
       core.mutateWs(({ ui }) => {
@@ -98,6 +107,7 @@ function internal_step(core: Core) {
     throw new Error("Invalid bytecode, shouldn't be in running state")
 
   let stepCounter = 0
+  let markerMode: MarkerMode = 'lastExecuted'
 
   for (;;) {
     const pc = core.ws.vm.pc
@@ -144,9 +154,11 @@ function internal_step(core: Core) {
               if (count == 1) {
                 vm.pc++ // edge case, no repeat necessary
               } else {
+                markerMode = 'currentlyExecuting'
                 vm.repeatAction = count - 2
               }
             } else if (vm.repeatAction > 0) {
+              markerMode = 'currentlyExecuting'
               vm.repeatAction--
             } else {
               vm.repeatAction = undefined
@@ -181,8 +193,16 @@ function internal_step(core: Core) {
         }
         case 'call': {
           vm.callstack.push(vm.pc + 1)
-          vm.frames.push({ opstack: [], variables: {} })
+          const opstack: number[] = []
+          if (op.arguments) {
+            for (let i = 0; i < op.arguments; i++) {
+              opstack.push(frame.opstack.pop() ?? 0)
+            }
+          }
+          opstack.reverse()
+          vm.frames.push({ opstack, variables: {} })
           vm.pc = op.target
+          markerMode = 'newOnCallStack'
           break
         }
         case 'return': {
@@ -299,7 +319,8 @@ function internal_step(core: Core) {
     }
   }
 
-  markCurrentPC(core)
+  markPC(core, markerMode)
+  markerMode = 'lastExecuted'
 
   core.mutateWs(({ vm }) => {
     vm.steps++
