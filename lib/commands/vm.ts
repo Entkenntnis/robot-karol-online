@@ -36,7 +36,7 @@ export function run(core: Core) {
     vm.repeatAction = undefined
   })
 
-  markCurrentPC(core)
+  markPreviousPC(core)
   pulse(core)
 }
 
@@ -74,7 +74,7 @@ function pulse(core: Core) {
   })
 }
 
-function markCurrentPC(core: Core) {
+function markPreviousPC(core: Core) {
   if (core.ws.vm.bytecode && core.ws.ui.state == 'running') {
     const op = core.ws.vm.bytecode[core.ws.vm.pc - 1]
     if (op?.line) {
@@ -306,7 +306,7 @@ function internal_step(core: Core) {
     }
   }
 
-  markCurrentPC(core)
+  markPreviousPC(core)
 
   core.mutateWs(({ vm }) => {
     vm.steps++
