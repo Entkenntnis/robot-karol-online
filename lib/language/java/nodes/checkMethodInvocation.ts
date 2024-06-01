@@ -1,6 +1,6 @@
 import { CallOp, Condition } from '../../../state/types'
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { methodName2action } from '../../helper/methodName2action'
 import { methodsWithoutArgs } from '../../helper/methodsWithoutArgs'
@@ -16,14 +16,28 @@ export function checkMethodInvocation(
     const name = node.children[0].text()
     if (context.availableMethods.has(name)) {
       const argumentList = node.children[1]
-      if (!matchChildren(['(', ')'], argumentList.children)) {
-        co.warn(argumentList, 'Erwarte keine Argumente')
-        // TODO put arguments on the stack
+      let numOfParams = 0
+      for (const paramEl of argumentList.children) {
+        if (paramEl.name == '(' || paramEl.name == ')' || paramEl.name == ',') {
+          continue
+        }
+        if (expressionNodes.includes(paramEl.name)) {
+          parseExpression(co, paramEl, context)
+          numOfParams++
+        }
+      }
+      const expectedParams = context.availableMethods.get(name)?.length ?? 0
+      if (expectedParams !== numOfParams) {
+        co.warn(
+          argumentList,
+          `Falsche Anzahl Argumente, erwarte ${expectedParams}`
+        )
       } else {
         const op: CallOp = {
           type: 'call',
           target: -1,
           line: co.lineAt(node.from).number,
+          arguments: numOfParams > 0 ? numOfParams : undefined,
         }
         co.appendOutput(op)
         co.appendRkCode(name, node.from)

@@ -1341,6 +1341,54 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Methode mit Parameter',
+    source: `class Programm {
+  Robot karol = new Robot();
+
+  void main() {
+    rechteck(10);
+  }
+
+  void rechteck(int a) {
+    karol.linksDrehen(a);
+  }
+}`,
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 10,
+      },
+      {
+        type: 'call',
+        target: 3,
+        line: 5,
+        arguments: 1,
+      },
+      {
+        type: 'jump',
+        target: Infinity,
+      },
+      {
+        type: 'store',
+        variable: 'a',
+      },
+      {
+        type: 'load',
+        variable: 'a',
+      },
+      {
+        type: 'action',
+        command: 'left',
+        line: 9,
+        useParameterFromStack: true,
+      },
+      {
+        type: 'return',
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

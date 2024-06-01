@@ -201,6 +201,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
             } else {
               const def = param.children[1].text()
               params.push(def)
+              co.activateProMode()
             }
           } else {
             co.warn(param, 'Ungültiger Parameter, erwarte Typ int')
@@ -245,8 +246,9 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       co.appendRkCode('\nAnweisung ' + name, method.from)
       co.increaseIndent()
       const variablesInScope = new Set<string>()
-      for (const v of availableMethods.get(name) ?? []) {
+      for (const v of availableMethods.get(name)?.slice().reverse() ?? []) {
         variablesInScope.add(v)
+        co.appendOutput({ type: 'store', variable: v })
       }
       semanticCheck(co, method, {
         robotName: robotInstanceName,

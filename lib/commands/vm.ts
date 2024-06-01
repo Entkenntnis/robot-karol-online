@@ -181,7 +181,14 @@ function internal_step(core: Core) {
         }
         case 'call': {
           vm.callstack.push(vm.pc + 1)
-          vm.frames.push({ opstack: [], variables: {} })
+          const opstack: number[] = []
+          if (op.arguments) {
+            for (let i = 0; i < op.arguments; i++) {
+              opstack.push(frame.opstack.pop() ?? 0)
+            }
+          }
+          opstack.reverse()
+          vm.frames.push({ opstack, variables: {} })
           vm.pc = op.target
           break
         }

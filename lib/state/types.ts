@@ -277,6 +277,7 @@ export interface BranchOp extends BaseOp {
 export interface CallOp extends BaseOp {
   type: 'call'
   target: number
+  arguments?: number
 }
 
 export interface ReturnOp extends BaseOp {
