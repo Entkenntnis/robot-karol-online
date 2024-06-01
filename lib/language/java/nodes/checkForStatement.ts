@@ -173,7 +173,7 @@ export function checkForStatement(
         co.appendRkCode(`wiederhole ${count} mal`, node.from)
         co.increaseIndent()
       } else {
-        console.log(prettyPrintAstNode(loopCond))
+        // console.log(prettyPrintAstNode(loopCond))
         co.warn(
           loopCond,
           `Erwarte Schleifenbedingung der Form '${loopVarName} < 10'`
