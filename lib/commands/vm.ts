@@ -21,6 +21,7 @@ export function patch(core: Core, bytecode: Op[]) {
 }
 
 export function run(core: Core) {
+  console.log(core.ws.vm.bytecode)
   core.mutateWs(({ ui, vm }) => {
     ui.state = 'running'
     ui.showJavaInfo = false
@@ -77,6 +78,18 @@ function pulse(core: Core) {
 function markPreviousPC(core: Core) {
   if (core.ws.vm.bytecode && core.ws.ui.state == 'running') {
     const op = core.ws.vm.bytecode[core.ws.vm.pc - 1]
+    if (op?.line) {
+      const line = op.line
+      core.mutateWs(({ ui }) => {
+        ui.gutter = line
+      })
+    }
+  }
+}
+
+function markCurrentPC(core: Core) {
+  if (core.ws.vm.bytecode && core.ws.ui.state == 'running') {
+    const op = core.ws.vm.bytecode[core.ws.vm.pc]
     if (op?.line) {
       const line = op.line
       core.mutateWs(({ ui }) => {
@@ -306,7 +319,11 @@ function internal_step(core: Core) {
     }
   }
 
-  markPreviousPC(core)
+  if (core.ws.vm.repeatAction !== undefined) {
+    markCurrentPC(core)
+  } else {
+    markPreviousPC(core)
+  }
 
   core.mutateWs(({ vm }) => {
     vm.steps++
