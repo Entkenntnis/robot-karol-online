@@ -237,7 +237,9 @@ export function finishQuest(core: Core, stay: boolean = false) {
       ws.ui.isAlreadyCompleted = true
       ws.ui.controlBarShowFinishQuest = false
     })
-    closeOutput(core)
+    if (!stay) {
+      closeOutput(core)
+    }
     return
   }
 

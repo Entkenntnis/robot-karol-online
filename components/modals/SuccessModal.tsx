@@ -128,23 +128,16 @@ export function SuccessModal() {
             </>
           ) :*/ <div className="h-12"></div>
           }
-          <div
-            className={clsx(
-              'px-12 flex w-full mb-12',
-              core.ws.quest.id >= 0 ? 'justify-between' : 'justify-around'
-            )}
-          >
-            {core.ws.quest.id >= 0 && (
-              <button
-                className="underline text-gray-700 hover:text-black"
-                onClick={() => {
-                  finishQuest(core, true)
-                  closeModal(core)
-                }}
-              >
-                {core.strings.ide.stay}
-              </button>
-            )}
+          <div className={clsx('px-12 flex w-full mb-12', 'justify-between')}>
+            <button
+              className="underline text-gray-700 hover:text-black"
+              onClick={() => {
+                finishQuest(core, true)
+                closeModal(core)
+              }}
+            >
+              {core.strings.ide.stay}
+            </button>
             <button
               onClick={() => {
                 finishQuest(core)
