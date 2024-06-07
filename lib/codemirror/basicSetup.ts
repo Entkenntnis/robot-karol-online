@@ -266,7 +266,6 @@ const generalOptionsDe = [
   { label: 'immer' },
   { label: 'wenn' },
   { label: 'endewenn' },
-  { label: 'sonst' },
   { label: 'Anweisung' },
   { label: 'endeAnweisung' },
   { label: 'Beenden' },
@@ -286,7 +285,6 @@ const generalOptionsEn = [
   { label: 'always' },
   { label: 'if' },
   { label: 'end_if' },
-  { label: 'else' },
   { label: 'command' },
   { label: 'end_command' },
   { label: 'exit' },
@@ -354,6 +352,8 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
 
     const lastEndedNode = tree.resolve(pos, -1)
 
+    let hasIf = false
+
     /*// debug
     const cursor = tree.cursor()
     console.log('-- tree start --')
@@ -399,6 +399,7 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
       }
       if (c.name == 'IfKey' && c.to <= pos) {
         pendings.push('if')
+        hasIf = true
       }
       if (c.name == 'IfEndKey' && c.to <= pos) {
         if (pendings[pendings.length - 1] == 'if') {
@@ -414,6 +415,14 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
         }
       }
     } while (c.next())
+
+    if (hasIf) {
+      options.push(
+        lng == 'de'
+          ? { label: 'sonst', boost: -1 }
+          : { label: 'else', boost: -1 }
+      )
+    }
 
     const last = pendings.pop()
 
