@@ -165,6 +165,29 @@ export function Tasks() {
                 </>
               )}
             </div>
+
+            {core.ws.page === 'editor' && (
+              <div className="ml-3 mt-3">
+                {core.strings.editor.editOptions}:
+                <select
+                  className="p-2 ml-3"
+                  value={core.ws.editor.editOptions}
+                  onChange={(e) => {
+                    core.mutateWs(({ editor }) => {
+                      editor.editOptions = e.target.value as any
+                    })
+                  }}
+                >
+                  <option value="all">{core.strings.editor.all}</option>
+                  <option value="python-only">
+                    {core.strings.editor.pythonOnly}
+                  </option>
+                  <option value="java-only">
+                    {core.strings.editor.javaOnly}
+                  </option>
+                </select>
+              </div>
+            )}
             <div className="flex-grow flex-shrink overflow-y-auto pb-12">
               {core.ws.quest.tasks.map((task, index) => (
                 <div

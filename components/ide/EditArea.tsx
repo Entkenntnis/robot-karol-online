@@ -2,6 +2,7 @@ import { EditorView } from '@codemirror/view'
 import { useEffect, useRef } from 'react'
 import {
   faCircleExclamation,
+  faLock,
   faQuestionCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
@@ -123,13 +124,17 @@ export function EditArea() {
                   core.ws.ui.state == 'running' && 'invisible'
                 )}
               >
-                <button
-                  onClick={() => {
-                    showJavaInfo(core)
-                  }}
-                >
-                  <FaIcon icon={faQuestionCircle} />
-                </button>{' '}
+                {core.ws.ui.lockLanguage ? (
+                  <FaIcon icon={faLock} />
+                ) : (
+                  <button
+                    onClick={() => {
+                      showJavaInfo(core)
+                    }}
+                  >
+                    <FaIcon icon={faQuestionCircle} />
+                  </button>
+                )}{' '}
                 Java Profi-Modus (im Aufbau)
               </div>
             ) : (
@@ -141,13 +146,17 @@ export function EditArea() {
                   core.ws.ui.state == 'running' && 'invisible'
                 )}
               >
-                <button
-                  onClick={() => {
-                    showJavaInfo(core)
-                  }}
-                >
-                  <FaIcon icon={faQuestionCircle} />
-                </button>{' '}
+                {core.ws.ui.lockLanguage ? (
+                  <FaIcon icon={faLock} />
+                ) : (
+                  <button
+                    onClick={() => {
+                      showJavaInfo(core)
+                    }}
+                  >
+                    <FaIcon icon={faQuestionCircle} />
+                  </button>
+                )}{' '}
                 {core.strings.ide.language}:
                 <select
                   className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100 cursor-pointer"
@@ -155,7 +164,9 @@ export function EditArea() {
                   onChange={(e) => {
                     setLanguage(core, e.target.value as Settings['language'])
                   }}
-                  disabled={core.ws.ui.state !== 'ready'}
+                  disabled={
+                    core.ws.ui.state !== 'ready' || !!core.ws.ui.lockLanguage
+                  }
                 >
                   <option value="robot karol">Robot Karol</option>
                   <option value="python">Python</option>

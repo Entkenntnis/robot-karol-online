@@ -2,7 +2,7 @@ import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { CoreState } from '../state/types'
 import { addNewTask } from './editor'
-import { hideOverviewList, hideProfile } from './mode'
+import { hideProfile } from './mode'
 
 type Pages = CoreState['workspace']['page']
 
@@ -14,12 +14,13 @@ export function switchToPage(core: Core, target: Pages) {
   // some handlers
   if (target == 'editor') {
     resetQuestView(core)
-    core.mutateWs(({ quest, ui }) => {
+    core.mutateWs(({ quest, ui, editor }) => {
       quest.title = core.strings.editor.title
       quest.description = core.strings.editor.description
       quest.tasks = []
       ui.isHighlightDescription = false
       quest.id = -1
+      editor.editOptions = 'all'
     })
 
     submit_event('show_editor', core)

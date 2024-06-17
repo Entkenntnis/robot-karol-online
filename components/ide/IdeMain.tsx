@@ -125,34 +125,38 @@ export function IdeMain() {
                   {core.strings.ide.save}
                 </button>
               </div>
-              <button
-                className={clsx(
-                  'ml-4 mr-4 border-t-4 px-3  pb-1',
-                  core.ws.settings.mode == 'blocks'
-                    ? 'border-t-blue-500'
-                    : 'border-t-transparent',
-                  core.ws.settings.mode == 'code' &&
-                    (core.ws.ui.state === 'error' ||
-                      core.ws.ui.state === 'running' ||
-                      core.ws.ui.toBlockWarning ||
-                      core.ws.quest.testerHandler ||
-                      core.ws.ui.proMode) &&
-                    'text-gray-400',
-                  core.ws.settings.mode == 'code' &&
-                    core.ws.ui.state == 'ready' &&
-                    !core.ws.ui.toBlockWarning &&
-                    !core.ws.quest.testerHandler &&
-                    !core.ws.ui.proMode
-                    ? 'hover:border-t-gray-300 hover:bg-gray-200'
-                    : 'cursor-default'
-                )}
-                onClick={() => {
-                  setMode(core, 'blocks')
-                }}
-              >
-                <FaIcon icon={faPuzzlePiece} className="mr-3" />
-                {core.strings.ide.blocks}
-              </button>
+              {core.ws.ui.lockLanguage ? (
+                <span></span>
+              ) : (
+                <button
+                  className={clsx(
+                    'ml-4 mr-4 border-t-4 px-3  pb-1',
+                    core.ws.settings.mode == 'blocks'
+                      ? 'border-t-blue-500'
+                      : 'border-t-transparent',
+                    core.ws.settings.mode == 'code' &&
+                      (core.ws.ui.state === 'error' ||
+                        core.ws.ui.state === 'running' ||
+                        core.ws.ui.toBlockWarning ||
+                        core.ws.quest.testerHandler ||
+                        core.ws.ui.proMode) &&
+                      'text-gray-400',
+                    core.ws.settings.mode == 'code' &&
+                      core.ws.ui.state == 'ready' &&
+                      !core.ws.ui.toBlockWarning &&
+                      !core.ws.quest.testerHandler &&
+                      !core.ws.ui.proMode
+                      ? 'hover:border-t-gray-300 hover:bg-gray-200'
+                      : 'cursor-default'
+                  )}
+                  onClick={() => {
+                    setMode(core, 'blocks')
+                  }}
+                >
+                  <FaIcon icon={faPuzzlePiece} className="mr-3" />
+                  {core.strings.ide.blocks}
+                </button>
+              )}
               <button
                 className={clsx(
                   'border-t-4 px-3 pb-1',

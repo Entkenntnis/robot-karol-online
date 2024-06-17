@@ -7,6 +7,8 @@ import {
   SerialWorld,
   World,
 } from '../state/types'
+import { setLanguage } from './language'
+import { setMode } from './mode'
 import { endExecution } from './vm'
 
 export function serializeQuest(core: Core): QuestSerialFormat {
@@ -22,6 +24,10 @@ export function serializeQuest(core: Core): QuestSerialFormat {
       }
     }),
     lng: core.ws.settings.lng,
+    editOptions:
+      core.ws.editor.editOptions === 'all'
+        ? undefined
+        : core.ws.editor.editOptions,
   }
 }
 
@@ -132,6 +138,23 @@ export function deserializeQuest(
       }
     }
   })
+
+  if (quest.editOptions) {
+    if (quest.editOptions === 'python-only') {
+      setLanguage(core, 'python')
+      core.mutateWs((ws) => {
+        ws.ui.lockLanguage = 'python'
+        ws.settings.mode = 'code'
+      })
+    }
+    if (quest.editOptions === 'java-only') {
+      setLanguage(core, 'java')
+      core.mutateWs((ws) => {
+        ws.ui.lockLanguage = 'java'
+        ws.settings.mode = 'code'
+      })
+    }
+  }
 }
 
 export function deserlizeQuestToData(quest: QuestSerialFormat): QuestData {

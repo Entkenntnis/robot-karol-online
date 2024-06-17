@@ -74,6 +74,7 @@ export function createWorkspaceState(): WorkspaceState {
       editWorld: null,
       currentlyEditing: 'start',
       showWorldPreview: false,
+      editOptions: 'all',
     },
     analyze: {
       published: [],

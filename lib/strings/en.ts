@@ -160,5 +160,9 @@ export const enStrings: typeof deStrings = {
     height: 'Height',
     keepWorld: 'Keep World Contents',
     create: 'Create World',
+    editOptions: 'Programming modes',
+    all: 'blocks and code',
+    pythonOnly: 'python only',
+    javaOnly: 'java only',
   },
 }

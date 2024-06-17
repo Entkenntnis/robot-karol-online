@@ -159,5 +159,9 @@ export const deStrings = {
     height: 'Höhe',
     keepWorld: 'Inhalt der Welt behalten',
     create: 'Welt erstellen',
+    editOptions: 'Eingabeoptionen',
+    all: 'Blöcke und Code',
+    pythonOnly: 'nur Python-Code',
+    javaOnly: 'nur Java-Code',
   },
 }
