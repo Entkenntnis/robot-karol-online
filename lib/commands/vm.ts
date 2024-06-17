@@ -36,6 +36,7 @@ export function run(core: Core) {
     vm.startTime = Date.now()
     vm.steps = 1
     vm.repeatAction = undefined
+    ui.gutter = 0
   })
 
   // markPC(core, 'lastExecuted')
@@ -380,6 +381,19 @@ export function abort(core: Core) {
 
 export function endExecution(core: Core) {
   clearTimeout(core.ws.vm.handler!)
+
+  // update gutter after crash to show line that caused the crash
+  if (
+    core.ws.ui.karolCrashMessage &&
+    core.ws.vm.bytecode &&
+    core.ws.vm.bytecode[core.ws.vm.pc - 1] &&
+    core.ws.vm.bytecode[core.ws.vm.pc - 1].line
+  ) {
+    core.mutateWs(({ ui }) => {
+      ui.gutter = core.ws.vm.bytecode![core.ws.vm.pc - 1].line!
+    })
+  }
+
   core.mutateWs((state) => {
     if (!core.ws.ui.karolCrashMessage) {
       state.ui.gutter = 0

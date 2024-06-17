@@ -51,6 +51,7 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
   core.mutateWs(({ settings, ui }) => {
     settings.mode = mode
     ui.toBlockWarning = false
+    ui.gutter = 0
   })
   if (mode == 'code') {
     setTimeout(() => {

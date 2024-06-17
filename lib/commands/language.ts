@@ -27,6 +27,7 @@ export function setLanguage(core: Core, language: Settings['language']) {
     }
     settings.language = language
     ui.showJavaInfo = false
+    ui.gutter = 0
   })
   setTimeout(() => {
     core.view?.current?.focus()

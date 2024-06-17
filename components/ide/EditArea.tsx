@@ -57,7 +57,7 @@ export function EditArea() {
       const gutter = document.getElementsByClassName('my-gutter')[0]
       if (gutter) {
         const innerDiv = document.createElement('div')
-        innerDiv.className = `absolute h-5 w-5 text-blue-500 left-3`
+        innerDiv.className = clsx(`absolute h-5 w-5 left-3 text-blue-500`)
         innerDiv.id = 'my-execution-marker'
         innerDiv.innerHTML =
           '<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 448 512" aria-hidden="true"' +
@@ -76,6 +76,8 @@ export function EditArea() {
         core.ws.ui.gutter > 0
           ? 'block'
           : 'none'
+
+      marker.style.color = core.ws.ui.karolCrashMessage ? 'rgb(220 38 38)' : ''
     }
   })
 
