@@ -428,7 +428,7 @@ export function Overview() {
                     Einhorn der Mathematik
                   </p>
                   <img
-                    src="https://einhorn.arrrg.de/einhorn.png"
+                    src="/einhorn.png"
                     alt="Einhorn"
                     className="w-[80px] mx-auto"
                   />
