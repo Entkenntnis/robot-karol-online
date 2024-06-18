@@ -9,6 +9,9 @@ export async function share(core: Core) {
   const json = JSON.stringify(obj)
   const id = await shareRequest(json)
   submit_event(`publish_custom_quest_${id}`, core)
+  if (obj.editOptions) {
+    submit_event('limit_edit_options', core)
+  }
   return id
 }
 

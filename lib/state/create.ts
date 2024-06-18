@@ -90,6 +90,7 @@ export function createWorkspaceState(): WorkspaceState {
       playSnake: 0,
       proMode: 0,
       lngEn: 0,
+      limitEditOptions: 0,
       customQuests: {},
       quests: {},
       legacy: {},

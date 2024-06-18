@@ -136,6 +136,10 @@ export async function initClient(core: Core) {
               ws.analyze.lngEn++
               continue
             }
+            if (entry.event == 'limit_edit_options') {
+              ws.analyze.limitEditOptions++
+              continue
+            }
             const publish = /publish_custom_quest_(.+)/.exec(entry.event)
             if (publish) {
               ws.analyze.published.push({
