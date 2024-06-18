@@ -139,7 +139,11 @@ export function deserializeQuest(
     }
   })
 
-  if (quest.editOptions) {
+  if (core.ws.page === 'editor') {
+    core.mutateWs((ws) => {
+      ws.editor.editOptions = quest.editOptions ? quest.editOptions : 'all'
+    })
+  } else if (quest.editOptions) {
     if (quest.editOptions === 'python-only') {
       setLanguage(core, 'python')
       core.mutateWs((ws) => {
