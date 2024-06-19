@@ -194,7 +194,7 @@ export function Overview() {
                 {core.ws.analyze.usePython} mal Python verwendet,{' '}
                 {core.ws.analyze.playSnake} mal Snake gespielt,{' '}
                 {core.ws.analyze.lngEn} mal Englisch ausgewählt,{' '}
-                {core.ws.analyze.proMode} mal Profi-Modus aktiviert{' '}
+                {core.ws.analyze.proMode} mal Profi-Modus aktiviert,{' '}
                 {core.ws.analyze.limitEditOptions} mal Eingabeoptionen
                 eingeschränkt
               </p>

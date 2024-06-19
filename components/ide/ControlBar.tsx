@@ -168,6 +168,15 @@ export function ControlBar() {
 
   function renderStatus() {
     const state = core.ws.ui.state
+    if (core.ws.ui.karolCrashMessage) {
+      return (
+        <span className="text-red-600">
+          {' '}
+          <FaIcon icon={faExclamationTriangle} className="mr-1" />{' '}
+          {core.strings.ide.error}: {core.ws.ui.karolCrashMessage}
+        </span>
+      )
+    }
     if (state == 'error') {
       return (
         <span>
@@ -187,15 +196,6 @@ export function ControlBar() {
         </span>
       )
     } else {
-      if (core.ws.ui.karolCrashMessage) {
-        return (
-          <span className="text-red-600">
-            {' '}
-            <FaIcon icon={faExclamationTriangle} className="mr-1" />{' '}
-            {core.strings.ide.error}: {core.ws.ui.karolCrashMessage}
-          </span>
-        )
-      }
       if (core.ws.ui.isEndOfRun) {
         if (core.ws.page == 'imported') {
           return (

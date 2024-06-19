@@ -13,6 +13,8 @@ export function lint(core: Core, view: EditorView) {
   const code = view.state.doc.sliceString(0)
   core.mutateWs((state) => {
     state.code = code
+    // reset gutter
+    state.ui.gutter = 0
   })
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
