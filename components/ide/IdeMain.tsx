@@ -94,9 +94,18 @@ export function IdeMain() {
                   className="hover:bg-gray-200 px-2 py-0.5 rounded text-gray-700 hover:text-black"
                   onClick={() => {
                     // 3. Create a Blob from the string
-                    const blob = new Blob([core.ws.code], {
-                      type: 'text/plain',
-                    })
+                    const blob = new Blob(
+                      [
+                        core.ws.settings.language == 'robot karol'
+                          ? core.ws.code
+                          : core.ws.settings.language == 'python'
+                          ? core.ws.pythonCode
+                          : core.ws.javaCode,
+                      ],
+                      {
+                        type: 'text/plain',
+                      }
+                    )
 
                     // 4. Create a URL for the Blob
                     const url = window.URL.createObjectURL(blob)
