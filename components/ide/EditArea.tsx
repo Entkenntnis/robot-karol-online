@@ -106,7 +106,6 @@ export function EditArea() {
       cursorLineEnd(view.current)
       insertNewlineAndIndent(view.current)
       const range = view.current.state.selection.main
-      console.log(range)
       view.current.dispatch({
         changes: {
           from: range.to,
