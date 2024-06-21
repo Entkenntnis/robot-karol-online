@@ -1,13 +1,19 @@
 import { EditorView } from '@codemirror/view'
 import { useEffect, useRef } from 'react'
 import {
+  faArrowsSpin,
+  faArrowsSplitUpAndLeft,
+  faArrowsTurnToDots,
+  faArrowsUpDownLeftRight,
   faCircleExclamation,
+  faDiagramSuccessor,
   faLock,
   faQuestionCircle,
+  faRepeat,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 
-import { setEditable } from '../../lib/codemirror/basicSetup'
+import { autoFormat, setEditable } from '../../lib/codemirror/basicSetup'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { Editor } from './Editor'
@@ -18,6 +24,11 @@ import { Settings } from '../../lib/state/types'
 import { JavaEditor } from './JavaEditor'
 import clsx from 'clsx'
 import { PythonEditor } from './PythonEditor'
+import {
+  cursorLineEnd,
+  insertNewlineAndIndent,
+  simplifySelection,
+} from '@codemirror/commands'
 
 const BlockEditor = dynamic(
   () => import('./BlockEditor').then((mod) => mod.BlockEditor),
@@ -89,9 +100,80 @@ export function EditArea() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [codeState])
 
+  function insertCodeSnippet(insert: string, cursorOffset: number) {
+    if (view.current) {
+      simplifySelection(view.current)
+      cursorLineEnd(view.current)
+      insertNewlineAndIndent(view.current)
+      const range = view.current.state.selection.main
+      console.log(range)
+      view.current.dispatch({
+        changes: {
+          from: range.to,
+          to: range.to,
+          insert,
+        },
+        selection: { anchor: range.to + cursorOffset },
+      })
+      autoFormat(view.current)
+      view.current.focus()
+    }
+  }
+
   if (core.ws.settings.mode == 'code') {
     return (
       <div className="h-full flex flex-col overflow-y-auto relative">
+        {core.ws.settings.language === 'python' && (
+          <div className="bg-gray-100 pr-32 py-2 flex items-baseline">
+            <div className="mr-4 ml-3">Einfügen:</div>
+            <div>
+              <button
+                onClick={() => {
+                  insertCodeSnippet('for i in range():\n    pass\n\n', 15)
+                }}
+                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+              >
+                <FaIcon icon={faArrowsSpin} /> for-Anweisung
+              </button>
+              <button
+                onClick={() => {
+                  insertCodeSnippet('while karol:\n    pass\n\n', 11)
+                }}
+                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+              >
+                <FaIcon icon={faArrowsTurnToDots} /> while-Anweisung
+              </button>
+              <button
+                onClick={() => {
+                  insertCodeSnippet('if karol:\n    pass\n\n', 8)
+                }}
+                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+              >
+                <FaIcon icon={faArrowsSplitUpAndLeft} /> if-Anweisung
+              </button>
+              <button
+                onClick={() => {
+                  insertCodeSnippet(
+                    'if karol:\n    pass\nelse:\n    pass\n\n',
+                    8
+                  )
+                }}
+                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+              >
+                <FaIcon icon={faArrowsSplitUpAndLeft} />
+                <FaIcon icon={faArrowsSplitUpAndLeft} /> if-else-Anweisung
+              </button>
+              <button
+                onClick={() => {
+                  insertCodeSnippet('def ():\n    pass\n\n', 4)
+                }}
+                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+              >
+                <FaIcon icon={faDiagramSuccessor} /> eigene Methode
+              </button>
+            </div>
+          </div>
+        )}
         {renderEditor()}
         {core.ws.ui.state == 'error' && (
           <div className="w-full overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
