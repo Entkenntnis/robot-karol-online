@@ -229,7 +229,11 @@ export function Structogram() {
             )}
             key={keyCounter.val++}
           >
-            {node.text}
+            {node.type == 'command' &&
+            (core.ws.settings.language === 'python' ||
+              core.ws.settings.language === 'java')
+              ? node.text.slice(0, 1).toLowerCase() + node.text.slice(1) + '()'
+              : node.text}
           </div>
         )
       } else if (node.type == 'branch') {
@@ -247,7 +251,15 @@ export function Structogram() {
           >
             <div className="flex relative">
               <div className="absolute left-0 right-0 top-0 p-1 text-center">
-                <strong>{node.condition}?</strong>
+                <strong>
+                  {core.ws.settings.language === 'python' ||
+                  core.ws.settings.language === 'java'
+                    ? node.condition.slice(0, 1).toLowerCase() +
+                      node.condition.slice(1) +
+                      (node.condition.includes('(') ? '' : '()')
+                    : node.condition}
+                  ?
+                </strong>
               </div>
               <div className="basis-1/2 flex flex-col">
                 <div className="relative p-1 border-black border-l font-bold">
