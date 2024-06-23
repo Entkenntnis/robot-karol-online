@@ -4,16 +4,14 @@ import {
   faArrowsSpin,
   faArrowsSplitUpAndLeft,
   faArrowsTurnToDots,
-  faArrowsUpDownLeftRight,
   faCircleExclamation,
   faDiagramSuccessor,
   faLock,
   faQuestionCircle,
-  faRepeat,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 
-import { autoFormat, setEditable } from '../../lib/codemirror/basicSetup'
+import { setEditable } from '../../lib/codemirror/basicSetup'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { Editor } from './Editor'
@@ -100,21 +98,33 @@ export function EditArea() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [codeState])
 
-  function insertCodeSnippet(insert: string, cursorOffset: number) {
+  function insertCodeSnippet(insert: string[], cursorOffset: number) {
     if (view.current) {
       simplifySelection(view.current)
       cursorLineEnd(view.current)
-      insertNewlineAndIndent(view.current)
+      const { from, to } = view.current.state.doc.lineAt(
+        view.current.state.selection.main.anchor
+      )
+      let lineText = view.current.state.sliceDoc(from, to)
+
+      if (lineText.trim().length > 0) {
+        // start snippet on new line
+        insertNewlineAndIndent(view.current)
+        const { from, to } = view.current.state.doc.lineAt(
+          view.current.state.selection.main.anchor
+        )
+        lineText = view.current.state.sliceDoc(from, to)
+      }
+
       const range = view.current.state.selection.main
       view.current.dispatch({
         changes: {
           from: range.to,
           to: range.to,
-          insert,
+          insert: insert.join('\n' + lineText),
         },
         selection: { anchor: range.to + cursorOffset },
       })
-      autoFormat(view.current)
       view.current.focus()
     }
   }
@@ -128,7 +138,27 @@ export function EditArea() {
             <div>
               <button
                 onClick={() => {
-                  insertCodeSnippet('for i in range():\n    pass\n\n', 15)
+                  let safeLoopVar = 'i'
+                  const candidates =
+                    'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZi'
+                  for (let i = 0; i < candidates.length; i++) {
+                    safeLoopVar = candidates[i]
+                    if (
+                      !view.current?.state.doc
+                        .toString()
+                        .includes('for ' + safeLoopVar)
+                    ) {
+                      break // found it
+                    }
+                  }
+                  insertCodeSnippet(
+                    [
+                      'for ' + safeLoopVar + ' in range():',
+                      '    # Aktion(en)',
+                      '',
+                    ],
+                    15
+                  )
                 }}
                 className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
               >
@@ -136,7 +166,10 @@ export function EditArea() {
               </button>
               <button
                 onClick={() => {
-                  insertCodeSnippet('while karol:\n    pass\n\n', 11)
+                  insertCodeSnippet(
+                    ['while : # Bedingung', '    # Aktion(en)', ''],
+                    6
+                  )
                 }}
                 className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
               >
@@ -144,7 +177,10 @@ export function EditArea() {
               </button>
               <button
                 onClick={() => {
-                  insertCodeSnippet('if karol:\n    pass\n\n', 8)
+                  insertCodeSnippet(
+                    ['if : # Bedingung', '    # JA-Aktion(en)', ''],
+                    3
+                  )
                 }}
                 className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
               >
@@ -153,8 +189,14 @@ export function EditArea() {
               <button
                 onClick={() => {
                   insertCodeSnippet(
-                    'if karol:\n    pass\nelse:\n    pass\n\n',
-                    8
+                    [
+                      'if : # Bedingung',
+                      '    # JA-Aktion(en)',
+                      'else:',
+                      '    # NEIN-Aktion(en)',
+                      '',
+                    ],
+                    3
                   )
                 }}
                 className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
@@ -164,7 +206,7 @@ export function EditArea() {
               </button>
               <button
                 onClick={() => {
-                  insertCodeSnippet('def ():\n    pass\n\n', 4)
+                  insertCodeSnippet(['def ():', '    # Aktion(en)', ''], 4)
                 }}
                 className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
               >

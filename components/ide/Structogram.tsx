@@ -49,6 +49,10 @@ export function Structogram() {
   const code = core.ws.code
   const keyCounter = { val: 0 }
 
+  const isJavaOrPython =
+    core.ws.settings.language === 'python' ||
+    core.ws.settings.language === 'java'
+
   return (
     <div className="relative flex flex-col h-full">
       <div className="absolute right-4 top-4">
@@ -123,10 +127,12 @@ export function Structogram() {
           text: code.substring(cursor.from, cursor.to),
         })
       } else if (cursor.name == 'LineComment') {
-        output.push({
-          type: 'comment',
-          text: code.substring(cursor.from, cursor.to),
-        })
+        if (!isJavaOrPython) {
+          output.push({
+            type: 'comment',
+            text: code.substring(cursor.from, cursor.to),
+          })
+        }
       } else if (cursor.name == 'Repeat') {
         const subCursor = cursor.node.cursor()
         subCursor.next() // within repeat

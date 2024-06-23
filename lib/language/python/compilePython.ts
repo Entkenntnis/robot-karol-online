@@ -82,7 +82,7 @@ export function compilePython(
           message: `Erwarte andere Einrückung an dieser Stelle`,
         })
       }
-      if (t.trim().endsWith(':')) {
+      if (t.replace(/#.*$/, '').trim().endsWith(':')) {
         indentionLevel++
       }
     }
