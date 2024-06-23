@@ -36,7 +36,7 @@ import { lintKeymap, linter } from '@codemirror/lint'
 import { searchKeymap } from '@codemirror/search'
 import { compileJava } from '../../lib/language/java/compileJava'
 import { patch } from '../../lib/commands/vm'
-import { setLoading } from '../../lib/commands/editing'
+import { resetUIAfterChange, setLoading } from '../../lib/commands/editing'
 import { javaLanguage } from '../../lib/codemirror/javaParser/javaLanguage'
 import {
   CompletionSource,
@@ -130,6 +130,8 @@ export function lint(core: Core, view: EditorView) {
     state.javaCode = code
     // console.log(state.javaCode)
   })
+
+  resetUIAfterChange(core)
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
   const { warnings, output, rkCode, proMode } = compileJava(

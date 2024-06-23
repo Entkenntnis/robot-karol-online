@@ -183,6 +183,27 @@ export function restoreQuestFromSessionData(
 }
 
 export function startTesting(core: Core) {
+  // TODO: If is end of run and I have no error message and no crash message and progress is set,
+  // I can store the task and don't need to run it again
+
+  // I need to store this into the state, so that the runner can successfully skip it
+  if (
+    core.ws.quest.progress &&
+    !core.ws.ui.karolCrashMessage &&
+    !core.ws.ui.isManualAbort
+  ) {
+    console.log('set task as already completed', core.ws.quest.lastStartedTask)
+    core.mutateWs(({ quest }) => {
+      quest.thisTaskIsAlreadyCompleted = core.ws.quest.lastStartedTask
+    })
+  } else {
+    core.mutateWs(({ quest }) => {
+      quest.thisTaskIsAlreadyCompleted = undefined
+    })
+  }
+
+  closeOutput(core)
+
   core.mutateWs(({ ui, quest }) => {
     ui.isTesting = true
     ui.showOutput = true
@@ -190,6 +211,7 @@ export function startTesting(core: Core) {
     ui.isAlreadyCompleted = false
     quest.lastStartedTask = 0
   })
+
   if (core.ws.ui.state == 'error') {
     runTask(core, 0)
     return
@@ -202,7 +224,11 @@ export function startTesting(core: Core) {
       !core.ws.ui.isManualAbort
     ) {
       const index = core.ws.quest.lastStartedTask!
-      if (index + 1 < core.ws.quest.tasks.length) {
+      let nextIndex = index + 1
+      if (nextIndex === core.ws.quest.thisTaskIsAlreadyCompleted) {
+        nextIndex++
+      }
+      if (nextIndex < core.ws.quest.tasks.length) {
         // not last task
         core.executionEndCallback = callback
 
@@ -211,7 +237,7 @@ export function startTesting(core: Core) {
             core.mutateWs((ws) => {
               ws.quest.testerHandler = undefined
             })
-            runTask(core, index + 1)
+            runTask(core, nextIndex)
           }, 500)
         })
       } else {
@@ -224,7 +250,7 @@ export function startTesting(core: Core) {
   }
   core.executionEndCallback = callback
 
-  runTask(core, 0)
+  runTask(core, core.ws.quest.thisTaskIsAlreadyCompleted === 0 ? 1 : 0)
 }
 
 export function finishQuest(core: Core, stay: boolean = false) {

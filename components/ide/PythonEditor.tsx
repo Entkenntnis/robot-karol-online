@@ -36,7 +36,7 @@ import {
 import { lintKeymap, linter } from '@codemirror/lint'
 import { searchKeymap } from '@codemirror/search'
 import { patch } from '../../lib/commands/vm'
-import { setLoading } from '../../lib/commands/editing'
+import { resetUIAfterChange, setLoading } from '../../lib/commands/editing'
 import {
   CompletionSource,
   autocompletion,
@@ -128,8 +128,9 @@ export function lint(core: Core, view: EditorView) {
   // console.log(code)
   core.mutateWs((state) => {
     state.pythonCode = code
-    state.ui.state = 'ready' // dev
   })
+
+  resetUIAfterChange(core)
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
   const { warnings, output, rkCode } = compilePython(tree, view.state.doc)

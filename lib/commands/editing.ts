@@ -5,6 +5,13 @@ import { compile } from '../language/robot karol/compiler'
 import { Core } from '../state/core'
 import { patch } from './vm'
 
+export function resetUIAfterChange(core: Core) {
+  core.mutateWs((state) => {
+    state.ui.gutter = 0
+    state.ui.isEndOfRun = false
+  })
+}
+
 export function lint(core: Core, view: EditorView) {
   if (core.ws.ui.state == 'running' || !view) {
     return [] // auto formatting, ignore
@@ -13,9 +20,8 @@ export function lint(core: Core, view: EditorView) {
   const code = view.state.doc.sliceString(0)
   core.mutateWs((state) => {
     state.code = code
-    // reset gutter
-    state.ui.gutter = 0
   })
+  resetUIAfterChange(core)
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
   const { warnings, output } = compile(

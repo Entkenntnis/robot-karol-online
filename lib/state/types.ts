@@ -95,6 +95,7 @@ export interface Quest {
   testerHandler?: NodeJS.Timeout
   completedOnce: boolean
   audioSrc?: string
+  thisTaskIsAlreadyCompleted?: number
 }
 
 export interface Overview {

@@ -35,7 +35,10 @@ export function TaskRunnerOverview() {
           >
             <span className="w-9 inline-block pl-2">
               {(() => {
-                if (index < currentIndex) {
+                if (
+                  index < currentIndex ||
+                  index === core.ws.quest.thisTaskIsAlreadyCompleted
+                ) {
                   return <FaIcon icon={faCheck} className="text-green-500" />
                 }
                 if (index == currentIndex) {
