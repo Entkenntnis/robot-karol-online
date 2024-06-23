@@ -75,7 +75,7 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
               ...lintKeymap,
               ...completionKeymap,
               ...searchKeymap,
-              { key: 'Tab', run: myTabExtension },
+              { key: 'Tab', run: myTabExtension(core) },
               indentWithTab,
               {
                 key: 'Ctrl-s',
@@ -161,27 +161,33 @@ export function lint(core: Core, view: EditorView) {
   }
   return warnings
 }
-const myTabExtension: Command = (target: EditorView) => {
-  if (target.state.selection.ranges.length == 1) {
-    if (target.state.selection.main.empty) {
-      const pos = target.state.selection.main.from
-      const line = target.state.doc.lineAt(pos)
-      if (line.length == 0) {
-        // I am at the beginning of an empty line and pressing tab
-        if (line.number > 1) {
-          const preLine = target.state.doc
-            .line(line.number - 1)
-            .text.toLowerCase()
-          if (preLine.includes(':')) {
-            deleteCharBackward(target)
-            insertNewlineAndIndent(target)
-            return true
+
+function myTabExtension(core: Core): Command {
+  return (target: EditorView) => {
+    if (core.ws.ui.state === 'error') {
+      return false
+    }
+    if (target.state.selection.ranges.length == 1) {
+      if (target.state.selection.main.empty) {
+        const pos = target.state.selection.main.from
+        const line = target.state.doc.lineAt(pos)
+        if (line.length == 0) {
+          // I am at the beginning of an empty line and pressing tab
+          if (line.number > 1) {
+            const preLine = target.state.doc
+              .line(line.number - 1)
+              .text.toLowerCase()
+            if (preLine.includes(':')) {
+              deleteCharBackward(target)
+              insertNewlineAndIndent(target)
+              return true
+            }
           }
         }
       }
     }
+    return false
   }
-  return false
 }
 
 const commands = [

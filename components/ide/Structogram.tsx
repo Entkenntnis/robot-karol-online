@@ -235,9 +235,7 @@ export function Structogram() {
             )}
             key={keyCounter.val++}
           >
-            {node.type == 'command' &&
-            (core.ws.settings.language === 'python' ||
-              core.ws.settings.language === 'java')
+            {node.type == 'command' && isJavaOrPython
               ? node.text.slice(0, 1).toLowerCase() + node.text.slice(1) + '()'
               : node.text}
           </div>
@@ -258,8 +256,7 @@ export function Structogram() {
             <div className="flex relative">
               <div className="absolute left-0 right-0 top-0 p-1 text-center">
                 <strong>
-                  {core.ws.settings.language === 'python' ||
-                  core.ws.settings.language === 'java'
+                  {isJavaOrPython
                     ? node.condition.slice(0, 1).toLowerCase() +
                       node.condition.slice(1) +
                       (node.condition.includes('(') ? '' : '()')
@@ -369,7 +366,12 @@ export function Structogram() {
         } else if (node.type == 'repeat-while') {
           heading = (
             <>
-              <strong>wiederhole solange</strong> {node.condition}
+              <strong>wiederhole solange</strong>{' '}
+              {isJavaOrPython
+                ? node.condition.slice(0, 1).toLowerCase() +
+                  node.condition.slice(1) +
+                  (node.condition.includes('(') ? '' : '()')
+                : node.condition}
             </>
           )
         } else {

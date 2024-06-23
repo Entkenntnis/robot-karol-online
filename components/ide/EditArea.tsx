@@ -24,6 +24,8 @@ import clsx from 'clsx'
 import { PythonEditor } from './PythonEditor'
 import {
   cursorLineEnd,
+  deleteToLineStart,
+  insertNewline,
   insertNewlineAndIndent,
   simplifySelection,
 } from '@codemirror/commands'
@@ -106,14 +108,14 @@ export function EditArea() {
         view.current.state.selection.main.anchor
       )
       let lineText = view.current.state.sliceDoc(from, to)
+      let spaces = ''
+      while (lineText.startsWith(' ')) {
+        spaces += ' '
+        lineText = lineText.slice(1)
+      }
 
       if (lineText.trim().length > 0) {
-        // start snippet on new line
-        insertNewlineAndIndent(view.current)
-        const { from, to } = view.current.state.doc.lineAt(
-          view.current.state.selection.main.anchor
-        )
-        lineText = view.current.state.sliceDoc(from, to)
+        insertNewline(view.current)
       }
 
       const range = view.current.state.selection.main
@@ -121,9 +123,16 @@ export function EditArea() {
         changes: {
           from: range.to,
           to: range.to,
-          insert: insert.join('\n' + lineText),
+          insert:
+            (lineText.trim().length > 0 ? spaces : '') +
+            insert.join('\n' + spaces),
         },
-        selection: { anchor: range.to + cursorOffset },
+        selection: {
+          anchor:
+            range.to +
+            cursorOffset +
+            (lineText.trim().length > 0 ? spaces.length : 0),
+        },
       })
       view.current.focus()
     }
@@ -162,35 +171,50 @@ export function EditArea() {
                 }}
                 className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
               >
-                <FaIcon icon={faArrowsSpin} /> for-Anweisung
+                <img
+                  src="/icons/for.png"
+                  alt="Struktogramm for"
+                  className="inline-block -mt-0.5"
+                ></img>{' '}
+                for-Anweisung
               </button>
               <button
                 onClick={() => {
                   insertCodeSnippet(
-                    ['while : # Bedingung', '    # Aktion(en)', ''],
+                    ['while # Bedingung :', '    # Aktion(en)', ''],
                     6
                   )
                 }}
                 className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
               >
-                <FaIcon icon={faArrowsTurnToDots} /> while-Anweisung
+                <img
+                  src="/icons/while.png"
+                  alt="Struktogramm while"
+                  className="inline-block -mt-0.5"
+                ></img>{' '}
+                while-Anweisung
               </button>
               <button
                 onClick={() => {
                   insertCodeSnippet(
-                    ['if : # Bedingung', '    # JA-Aktion(en)', ''],
+                    ['if # Bedingung :', '    # JA-Aktion(en)', ''],
                     3
                   )
                 }}
                 className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
               >
-                <FaIcon icon={faArrowsSplitUpAndLeft} /> if-Anweisung
+                <img
+                  src="/icons/if.png"
+                  alt="Struktogramm if"
+                  className="inline-block -mt-0.5"
+                ></img>{' '}
+                if-Anweisung
               </button>
               <button
                 onClick={() => {
                   insertCodeSnippet(
                     [
-                      'if : # Bedingung',
+                      'if # Bedingung :',
                       '    # JA-Aktion(en)',
                       'else:',
                       '    # NEIN-Aktion(en)',
@@ -201,8 +225,12 @@ export function EditArea() {
                 }}
                 className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
               >
-                <FaIcon icon={faArrowsSplitUpAndLeft} />
-                <FaIcon icon={faArrowsSplitUpAndLeft} /> if-else-Anweisung
+                <img
+                  src="/icons/ifElse.png"
+                  alt="Struktogramm if else"
+                  className="inline-block -mt-0.5"
+                ></img>{' '}
+                if-else-Anweisung
               </button>
               <button
                 onClick={() => {
@@ -210,7 +238,12 @@ export function EditArea() {
                 }}
                 className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
               >
-                <FaIcon icon={faDiagramSuccessor} /> eigene Methode
+                <img
+                  src="/icons/eigeneMethode.png"
+                  alt="Struktogramm for"
+                  className="inline-block -mt-0.5"
+                ></img>{' '}
+                eigene Methode
               </button>
             </div>
           </div>
@@ -234,69 +267,6 @@ export function EditArea() {
                 ))}
               </div>
             </div>
-          </div>
-        )}
-        {core.ws.settings.lng == 'de' && (
-          <div className="absolute right-4 bottom-1">
-            {core.ws.ui.proMode ? (
-              <div
-                className={clsx(
-                  'px-2 py-1 bg-yellow-200 rounded pl-2',
-                  core.ws.ui.state !== 'ready' && 'pointer-events-none',
-                  core.ws.ui.state == 'error' && 'invisible',
-                  core.ws.ui.state == 'running' && 'invisible'
-                )}
-              >
-                {core.ws.ui.lockLanguage ? (
-                  <FaIcon icon={faLock} />
-                ) : (
-                  <button
-                    onClick={() => {
-                      showJavaInfo(core)
-                    }}
-                  >
-                    <FaIcon icon={faQuestionCircle} />
-                  </button>
-                )}{' '}
-                Java Profi-Modus (im Aufbau)
-              </div>
-            ) : (
-              <div
-                className={clsx(
-                  'p-1 bg-gray-200 rounded pl-2',
-                  core.ws.ui.state !== 'ready' && 'pointer-events-none',
-                  core.ws.ui.state == 'error' && 'invisible',
-                  core.ws.ui.state == 'running' && 'invisible'
-                )}
-              >
-                {core.ws.ui.lockLanguage ? (
-                  <FaIcon icon={faLock} />
-                ) : (
-                  <button
-                    onClick={() => {
-                      showJavaInfo(core)
-                    }}
-                  >
-                    <FaIcon icon={faQuestionCircle} />
-                  </button>
-                )}{' '}
-                {core.strings.ide.language}:
-                <select
-                  className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100 cursor-pointer"
-                  value={core.ws.settings.language}
-                  onChange={(e) => {
-                    setLanguage(core, e.target.value as Settings['language'])
-                  }}
-                  disabled={
-                    core.ws.ui.state !== 'ready' || !!core.ws.ui.lockLanguage
-                  }
-                >
-                  <option value="robot karol">Robot Karol</option>
-                  <option value="python">Python</option>
-                  <option value="java">Java</option>
-                </select>{' '}
-              </div>
-            )}
           </div>
         )}
       </div>

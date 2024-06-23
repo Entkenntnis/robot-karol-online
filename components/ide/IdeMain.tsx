@@ -3,9 +3,11 @@ import {
   faCode,
   faDownload,
   faExclamationTriangle,
+  faLock,
   faPencil,
   faPlay,
   faPuzzlePiece,
+  faQuestionCircle,
   faStop,
   faWarning,
 } from '@fortawesome/free-solid-svg-icons'
@@ -26,6 +28,8 @@ import { abort } from '../../lib/commands/vm'
 import { showModal } from '../../lib/commands/modal'
 import { useEffect, useState } from 'react'
 import { JavaInfo } from './JavaInfo'
+import { showJavaInfo, setLanguage } from '../../lib/commands/language'
+import { Settings } from '../../lib/state/types'
 
 export function IdeMain() {
   const core = useCore()
@@ -139,7 +143,7 @@ export function IdeMain() {
               ) : (
                 <button
                   className={clsx(
-                    'ml-4 mr-4 border-t-4 px-3  pb-1',
+                    'ml-4 mr-4 border-t-4 px-3  pb-1 z-10',
                     core.ws.settings.mode == 'blocks'
                       ? 'border-t-blue-500'
                       : 'border-t-transparent',
@@ -168,7 +172,7 @@ export function IdeMain() {
               )}
               <button
                 className={clsx(
-                  'border-t-4 px-3 pb-1',
+                  'border-t-4 px-3 pb-1 z-10',
                   core.ws.settings.mode == 'code'
                     ? 'border-t-blue-500'
                     : 'border-t-transparent',
@@ -189,6 +193,74 @@ export function IdeMain() {
                 <FaIcon icon={faCode} className="mr-3" />
                 Code
               </button>
+              {core.ws.settings.lng == 'de' &&
+                core.ws.settings.mode === 'code' && (
+                  <div className="absolute right-0 top-0 z-0">
+                    {core.ws.ui.proMode ? (
+                      <div
+                        className={clsx(
+                          'px-2 py-1 bg-yellow-200 rounded pl-2',
+                          core.ws.ui.state !== 'ready' && 'pointer-events-none'
+                          // core.ws.ui.state == 'error' && 'invisible',
+                          // core.ws.ui.state == 'running' && 'invisible'
+                        )}
+                      >
+                        {core.ws.ui.lockLanguage ? (
+                          <FaIcon icon={faLock} />
+                        ) : (
+                          <button
+                            onClick={() => {
+                              showJavaInfo(core)
+                            }}
+                          >
+                            <FaIcon icon={faQuestionCircle} />
+                          </button>
+                        )}{' '}
+                        Java Profi-Modus (im Aufbau)
+                      </div>
+                    ) : (
+                      <div
+                        className={clsx(
+                          'p-1 bg-gray-200 rounded pl-2',
+                          core.ws.ui.state !== 'ready' && 'pointer-events-none'
+                          // core.ws.ui.state == 'error' && 'invisible',
+                          // core.ws.ui.state == 'running' && 'invisible'
+                        )}
+                      >
+                        {core.ws.ui.lockLanguage ? (
+                          <FaIcon icon={faLock} />
+                        ) : (
+                          <button
+                            onClick={() => {
+                              showJavaInfo(core)
+                            }}
+                          >
+                            <FaIcon icon={faQuestionCircle} />
+                          </button>
+                        )}{' '}
+                        {core.strings.ide.language}:
+                        <select
+                          className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100 cursor-pointer"
+                          value={core.ws.settings.language}
+                          onChange={(e) => {
+                            setLanguage(
+                              core,
+                              e.target.value as Settings['language']
+                            )
+                          }}
+                          disabled={
+                            core.ws.ui.state !== 'ready' ||
+                            !!core.ws.ui.lockLanguage
+                          }
+                        >
+                          <option value="robot karol">Robot Karol</option>
+                          <option value="python">Python</option>
+                          <option value="java">Java</option>
+                        </select>{' '}
+                      </div>
+                    )}
+                  </div>
+                )}
             </div>
             {!(
               core.ws.ui.isTesting &&
