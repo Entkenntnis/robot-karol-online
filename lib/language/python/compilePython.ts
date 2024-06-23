@@ -244,6 +244,13 @@ export function compilePython(
               severity: 'error',
               message: `Erwarte Methode von '${context.robotKarolVar}'`,
             })
+          } else if (memberExpr.children[0].text() !== context.robotKarolVar) {
+            warnings.push({
+              from: memberExpr.children[0].from,
+              to: memberExpr.children[0].to,
+              severity: 'error',
+              message: `Erwarte Objekt '${context.robotKarolVar}'`,
+            })
           } else {
             const methodName = memberExpr.children[2].text()
             const action = methodName2action(methodName)
