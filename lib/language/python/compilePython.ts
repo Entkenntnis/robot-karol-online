@@ -2,7 +2,7 @@ import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
 import { BranchOp, CallOp, Condition, JumpOp, Op } from '../../state/types'
 import { Diagnostic } from '@codemirror/lint'
-import { AstNode, cursorToAstNode } from '../helper/astNode'
+import { AstNode, cursorToAstNode, prettyPrintAstNode } from '../helper/astNode'
 import { matchChildren } from '../helper/matchChildren'
 import { methodName2action } from '../helper/methodName2action'
 import { methodsWithoutArgs } from '../helper/methodsWithoutArgs'
@@ -52,9 +52,9 @@ export function compilePython(
   const ast = cursorToAstNode(tree.cursor(), doc, ['Comment'], comments)
 
   // debug
-  //console.log(prettyPrintAstNode(ast))
+  // console.log(prettyPrintAstNode(ast))
 
-  if (ast.children.length == 0) {
+  if (doc.toString().trim().length === 0) {
     // empty program
     return { output: [], warnings: [], rkCode: '' }
   }
