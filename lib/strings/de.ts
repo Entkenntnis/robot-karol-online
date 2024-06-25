@@ -160,7 +160,7 @@ export const deStrings = {
     keepWorld: 'Inhalt der Welt behalten',
     create: 'Welt erstellen',
     editOptions: 'Eingabeoptionen',
-    all: 'Blöcke und Code',
+    all: 'alle erlauben',
     pythonOnly: 'nur Python-Code',
     javaOnly: 'nur Java-Code',
   },
