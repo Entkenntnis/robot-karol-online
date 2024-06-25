@@ -16,6 +16,7 @@ import {
   cursorLineEnd,
   insertNewline,
   simplifySelection,
+  toggleComment,
 } from '@codemirror/commands'
 
 const BlockEditor = dynamic(
@@ -232,6 +233,17 @@ export function EditArea() {
                   className="inline-block -mt-0.5"
                 ></img>{' '}
                 eigene Methode
+              </button>
+              <button
+                onClick={() => {
+                  if (view.current) {
+                    toggleComment(view.current)
+                    view.current.focus()
+                  }
+                }}
+                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+              >
+                <strong>#</strong> Ein-/Auskommentieren
               </button>
             </div>
           </div>
