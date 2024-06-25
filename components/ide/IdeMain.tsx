@@ -18,6 +18,7 @@ import { closeHighlightDescription, setMode } from '../../lib/commands/mode'
 import {
   closeOutput,
   restartProgram,
+  runTask,
   startTesting,
 } from '../../lib/commands/quest'
 import { useCore } from '../../lib/state/core'
@@ -275,9 +276,10 @@ export function IdeMain() {
                         core.ws.ui.state == 'ready'
                       ) {
                         if (core.ws.editor.showWorldPreview) {
+                          alert('Bitte wähle Start- oder Zielwelt aus.')
                           return
                         }
-                        restartProgram(core)
+                        runTask(core, core.ws.editor.editWorld)
                         closeOutput(core)
                         return
                       }
