@@ -803,16 +803,6 @@ export function compilePython(
     }
 
     if (node.isError) {
-      // if last node is a comment, the parser just fails
-      // detect this case and ignore :()
-      if (node.from === node.to && node.to === doc.length) {
-        const line = doc.lineAt(node.to)
-        if (line.text.includes('#')) {
-          // I can ignore this error
-          return
-        }
-      }
-
       warnings.push({
         from: node.from,
         to: node.to,
