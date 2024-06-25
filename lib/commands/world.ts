@@ -283,6 +283,8 @@ export function onWorldChange(core: Core) {
   const task = core.ws.quest.tasks[core.ws.quest.lastStartedTask]
   if (task.target === null) return
 
+  if (core.ws.editor.editWorld !== null) return
+
   let correctFields = 0
   let nonEmptyFields = 0
   for (let x = 0; x < task.target.dimX; x++) {

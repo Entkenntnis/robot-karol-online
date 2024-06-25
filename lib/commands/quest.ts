@@ -16,7 +16,9 @@ export function runTask(core: Core, index: number) {
   const task = core.ws.quest.tasks[index]
 
   core.mutateWs((ws) => {
-    ws.world = task.start
+    if (ws.editor.editWorld === null) {
+      ws.world = task.start
+    }
     ws.ui.showOutput = true
     ws.quest.lastStartedTask = index
     ws.quest.progress = false

@@ -15,7 +15,11 @@ import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
 import { closeHighlightDescription, setMode } from '../../lib/commands/mode'
-import { restartProgram, startTesting } from '../../lib/commands/quest'
+import {
+  closeOutput,
+  restartProgram,
+  startTesting,
+} from '../../lib/commands/quest'
 import { useCore } from '../../lib/state/core'
 import { EditArea } from './EditArea'
 import { FaIcon } from '../helper/FaIcon'
@@ -266,6 +270,18 @@ export function IdeMain() {
                         'bg-gray-100 text-gray-400 cursor-not-allowed'
                     )}
                     onClick={() => {
+                      if (
+                        core.ws.editor.editWorld !== null &&
+                        core.ws.ui.state == 'ready'
+                      ) {
+                        if (core.ws.editor.showWorldPreview) {
+                          return
+                        }
+                        restartProgram(core)
+                        closeOutput(core)
+                        return
+                      }
+
                       if (core.ws.ui.isTesting && core.ws.ui.state == 'ready') {
                         startTesting(core)
                         return
