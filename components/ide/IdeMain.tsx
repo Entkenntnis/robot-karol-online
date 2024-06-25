@@ -59,6 +59,7 @@ export function IdeMain() {
     return () => {
       window.removeEventListener('beforeunload', onBeforeUnload)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
