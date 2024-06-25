@@ -32,6 +32,7 @@ import {
   historyKeymap,
   indentWithTab,
   insertNewlineAndIndent,
+  toggleComment,
 } from '@codemirror/commands'
 import { lintKeymap, linter } from '@codemirror/lint'
 import { searchKeymap } from '@codemirror/search'
@@ -81,6 +82,7 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
                 key: 'Ctrl-s',
                 run: autoFormat,
               },
+              { key: 'Ctrl-#', run: toggleComment },
             ]),
             autocompletion({ override: [myAutocomplete] }),
             indentUnit.of('    '),
