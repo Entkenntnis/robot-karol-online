@@ -236,7 +236,9 @@ export function Structogram() {
             key={keyCounter.val++}
           >
             {node.type == 'command' && isJavaOrPython
-              ? node.text.slice(0, 1).toLowerCase() + node.text.slice(1) + '()'
+              ? node.text.slice(0, 1).toLowerCase() +
+                node.text.slice(1) +
+                (node.text.includes('(') ? '' : '()')
               : node.text}
           </div>
         )
