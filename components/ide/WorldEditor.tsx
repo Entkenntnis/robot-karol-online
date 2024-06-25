@@ -5,6 +5,7 @@ import {
   faCaretLeft,
   faUpRightAndDownLeftFromCenter,
   faClone,
+  faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
@@ -23,6 +24,7 @@ import {
   brick,
   toggleBlock,
   unbrick,
+  createWorldCmd,
 } from '../../lib/commands/world'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
@@ -146,6 +148,23 @@ export function WorldEditor() {
               {core.strings.editor.copyStartToEnd}
             </button>
           )}
+        {!core.ws.editor.showWorldPreview && (
+          <button
+            className="absolute right-2 top-2 px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+            onClick={() => {
+              createWorldCmd(
+                core,
+                core.ws.world.dimX,
+                core.ws.world.dimY,
+                core.ws.world.height
+              )
+              handlerDiv.current?.focus()
+            }}
+          >
+            <FaIcon icon={faTrashCan} className="mr-2" />
+            Welt löschen
+          </button>
+        )}
         <div className="absolute bottom-2 left-2 bg-gray-50">
           {core.ws.ui.messages.map((m) => (
             <div key={`${m.ts}`}>
