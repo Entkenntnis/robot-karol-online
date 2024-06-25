@@ -30,6 +30,7 @@ import { useEffect, useState } from 'react'
 import { JavaInfo } from './JavaInfo'
 import { showJavaInfo, setLanguage } from '../../lib/commands/language'
 import { Settings } from '../../lib/state/types'
+import { saveCodeToFile } from '../../lib/commands/save'
 
 export function IdeMain() {
   const core = useCore()
@@ -97,41 +98,7 @@ export function IdeMain() {
                 <button
                   className="hover:bg-gray-200 px-2 py-0.5 rounded text-gray-700 hover:text-black"
                   onClick={() => {
-                    // 3. Create a Blob from the string
-                    const blob = new Blob(
-                      [
-                        core.ws.settings.language == 'robot karol'
-                          ? core.ws.code
-                          : core.ws.settings.language == 'python'
-                          ? core.ws.pythonCode
-                          : core.ws.javaCode,
-                      ],
-                      {
-                        type: 'text/plain',
-                      }
-                    )
-
-                    // 4. Create a URL for the Blob
-                    const url = window.URL.createObjectURL(blob)
-
-                    // 5. Create an anchor element for the download link
-                    const a = document.createElement('a')
-                    a.href = url
-                    a.download = `${new Date()
-                      .toISOString()
-                      .substring(0, 10)}-robot-karol.${
-                      core.ws.settings.language == 'robot karol'
-                        ? 'txt'
-                        : core.ws.settings.language == 'python'
-                        ? 'py.txt'
-                        : 'java.txt'
-                    }` // specify the filename
-
-                    // 6. Simulate a click on the anchor element to trigger the download
-                    a.click()
-
-                    // 7. Clean up by revoking the Blob URL
-                    window.URL.revokeObjectURL(url)
+                    saveCodeToFile(core)
                   }}
                 >
                   <FaIcon icon={faDownload} className="mr-1" />{' '}

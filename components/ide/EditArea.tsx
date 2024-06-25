@@ -1,14 +1,6 @@
 import { EditorView } from '@codemirror/view'
 import { useEffect, useRef } from 'react'
-import {
-  faArrowsSpin,
-  faArrowsSplitUpAndLeft,
-  faArrowsTurnToDots,
-  faCircleExclamation,
-  faDiagramSuccessor,
-  faLock,
-  faQuestionCircle,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 
 import { setEditable } from '../../lib/codemirror/basicSetup'
@@ -17,16 +9,12 @@ import { FaIcon } from '../helper/FaIcon'
 import { Editor } from './Editor'
 import { textRefreshDone } from '../../lib/commands/json'
 import dynamic from 'next/dynamic'
-import { setLanguage, showJavaInfo } from '../../lib/commands/language'
-import { Settings } from '../../lib/state/types'
 import { JavaEditor } from './JavaEditor'
 import clsx from 'clsx'
 import { PythonEditor } from './PythonEditor'
 import {
   cursorLineEnd,
-  deleteToLineStart,
   insertNewline,
-  insertNewlineAndIndent,
   simplifySelection,
 } from '@codemirror/commands'
 

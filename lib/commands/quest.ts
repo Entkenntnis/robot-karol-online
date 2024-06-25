@@ -190,9 +190,9 @@ export function startTesting(core: Core) {
   if (
     core.ws.quest.progress &&
     !core.ws.ui.karolCrashMessage &&
-    !core.ws.ui.isManualAbort
+    !core.ws.ui.isManualAbort &&
+    core.ws.quest.tasks.length > 1
   ) {
-    console.log('set task as already completed', core.ws.quest.lastStartedTask)
     core.mutateWs(({ quest }) => {
       quest.thisTaskIsAlreadyCompleted = core.ws.quest.lastStartedTask
     })
@@ -262,6 +262,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
     core.mutateWs((ws) => {
       ws.ui.isAlreadyCompleted = true
       ws.ui.controlBarShowFinishQuest = false
+      ws.quest.thisTaskIsAlreadyCompleted = undefined
     })
     if (!stay) {
       closeOutput(core)
