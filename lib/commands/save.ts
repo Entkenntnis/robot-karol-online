@@ -21,12 +21,10 @@ export function saveCodeToFile(core: Core) {
   // 5. Create an anchor element for the download link
   const a = document.createElement('a')
   a.href = url
-  a.download = `${new Date()
-    .toISOString()
-    .substring(0, 10)}-${core.ws.quest.title.replace(
+  a.download = `${core.ws.quest.title.replace(
     /[^A-Za-z0-9äüöÄÜÖß]/g,
-    '-'
-  )}-robot-karol.${
+    '_'
+  )}-karol.${
     core.ws.settings.language == 'robot karol'
       ? 'txt'
       : core.ws.settings.language == 'python'
