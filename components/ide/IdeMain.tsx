@@ -43,6 +43,25 @@ export function IdeMain() {
   const [toH, setToH] = useState<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
+    const onBeforeUnload = (ev: BeforeUnloadEvent) => {
+      if (
+        core.ws.page == 'shared' &&
+        core.ws.vm.bytecode &&
+        core.ws.vm.bytecode.length > 0
+      ) {
+        ev.preventDefault()
+        return "Anything here as well, doesn't matter!"
+      }
+    }
+
+    window.addEventListener('beforeunload', onBeforeUnload)
+
+    return () => {
+      window.removeEventListener('beforeunload', onBeforeUnload)
+    }
+  }, [])
+
+  useEffect(() => {
     const skipWait = core.ws.quest.description.length < 100
 
     core.mutateWs((ws) => {
