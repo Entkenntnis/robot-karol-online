@@ -100,7 +100,8 @@ export function Structogram() {
       return <em>Leeres Programm</em>
     }
 
-    console.log(nodes)
+    // debug
+    //console.log(nodes)
 
     return <>{render(nodes)}</>
   }
