@@ -46,6 +46,7 @@ export function ShareModal() {
                 target="_blank"
                 rel="noreferrer"
                 className="underline text-blue-600 hover:text-blue-700"
+                key="1"
               >
                 Public Domain (CC0)
               </a>
