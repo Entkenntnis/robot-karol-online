@@ -55,6 +55,7 @@ export interface Ui {
   cmdBlockPositions: CmdBlockPositions
   showJavaInfo: boolean
   lockLanguage?: 'python' | 'java'
+  isPlayground: boolean
 }
 
 export interface Vm {

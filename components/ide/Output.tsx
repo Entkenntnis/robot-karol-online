@@ -2,6 +2,7 @@ import {
   faArrowLeft,
   faCaretLeft,
   faTrashCan,
+  faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { closeOutput, resetOutput } from '../../lib/commands/quest'
@@ -12,6 +13,7 @@ import { FaIcon } from '../helper/FaIcon'
 import { TaskRunnerOverview } from './TaskRunnerOverview'
 import { View } from '../helper/View'
 import { abort } from '../../lib/commands/vm'
+import { showModal } from '../../lib/commands/modal'
 
 export function Output() {
   const core = useCore()
@@ -62,6 +64,17 @@ export function Output() {
           </div>
           {core.ws.ui.state === 'running' && core.ws.ui.proMode && varStr && (
             <div className="absolute left-2 top-2">Variablen: {varStr}</div>
+          )}
+          {core.ws.ui.isPlayground && (
+            <button
+              className="absolute right-2 top-2 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
+              onClick={() => {
+                showModal(core, 'resize')
+              }}
+            >
+              <FaIcon icon={faUpRightAndDownLeftFromCenter} className="mr-2" />
+              {core.strings.editor.changeSize}
+            </button>
           )}
         </div>
         {core.ws.quest.lastStartedTask !== undefined && (

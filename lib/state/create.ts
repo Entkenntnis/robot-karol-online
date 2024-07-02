@@ -48,6 +48,7 @@ export function createWorkspaceState(): WorkspaceState {
       cmdBlockPositions: {},
       showJavaInfo: false,
       proMode: false,
+      isPlayground: false,
     },
     vm: {
       pc: 0,

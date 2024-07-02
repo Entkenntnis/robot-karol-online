@@ -121,6 +121,11 @@ export function ResizeWorldModal() {
   }
 
   function exec() {
+    if (core.ws.ui.isPlayground) {
+      createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+      closeModal(core)
+      return
+    }
     const isShowPreview = core.ws.editor.showWorldPreview
 
     const now = core.ws.editor.currentlyEditing
@@ -136,6 +141,4 @@ export function ResizeWorldModal() {
       showPreview(core)
     }
   }
-
-  closeModal(core)
 }

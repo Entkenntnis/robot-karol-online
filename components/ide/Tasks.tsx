@@ -330,16 +330,7 @@ export function Tasks() {
       </div>
       <div className="h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1">
         <div className="flex justify-start relative items-center flex-grow">
-          {core.ws.page == 'imported' ? (
-            <p className="z-10 text-center w-full">
-              <a
-                className="px-2 py-0.5 rounded-lg bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold"
-                href={window.location.protocol + '//' + window.location.host}
-              >
-                Robot Karol Online
-              </a>
-            </p>
-          ) : core.ws.page == 'editor' ? (
+          {core.ws.page == 'editor' ? (
             <p className="w-full ml-4">
               <button
                 className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-4"
@@ -383,7 +374,7 @@ export function Tasks() {
                 {core.strings.ide.backToOverview}
               </button>
             </p>
-          ) : core.ws.page == 'shared' ? (
+          ) : core.ws.page == 'shared' || core.ws.page == 'imported' ? (
             <p className="z-10 w-full ml-3">
               <a
                 className="underline"
