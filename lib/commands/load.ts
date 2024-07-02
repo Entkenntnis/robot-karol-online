@@ -10,14 +10,6 @@ export async function loadLegacyProject(core: Core, id: string) {
     const text = await res.text()
     deserialize(core, text)
     submit_event(`load_id_${id}`, core)
-    if (id == 'Z9xO1rVGj') {
-      core.mutateWs((ws) => {
-        ws.quest.title = 'Spielwiese'
-        ws.quest.description = 'Programmiere frei und baue dein Herzensprojekt.'
-        ws.ui.isPlayground = true
-        ws.quest.tasks[0].title = 'Spielwiese'
-      })
-    }
   } catch (e) {}
 }
 

@@ -10,6 +10,7 @@ import { getAppearance, getLng } from '../storage/storage'
 import { isSetName } from '../helper/events'
 import { mapData } from '../data/map'
 import { setLng } from './mode'
+import { createWorld } from '../state/create'
 
 export async function initClient(core: Core) {
   const parameterList = new URLSearchParams(window.location.search)
@@ -32,6 +33,20 @@ export async function initClient(core: Core) {
   setLng(core, getLng())
 
   const hash = window.location.hash.toUpperCase()
+
+  if (hash == '#SPIELWIESE') {
+    core.mutateWs((ws) => {
+      ws.quest.title = 'Spielwiese'
+      ws.quest.description = 'Programmiere frei und baue dein Herzensprojekt.'
+      ws.ui.isPlayground = true
+      ws.quest.tasks = [
+        { title: 'Spielwiese', start: createWorld(15, 10, 6), target: null },
+      ]
+      ws.ui.needsTextRefresh = true
+    })
+    switchToPage(core, 'imported')
+    return
+  }
 
   if (hash == '#ANALYZE' /* && window.location.hostname == 'localhost'*/) {
     try {

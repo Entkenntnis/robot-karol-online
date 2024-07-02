@@ -764,7 +764,7 @@ export function Overview() {
                 window.location.protocol +
                 '//' +
                 window.location.host +
-                '/?id=Z9xO1rVGj'
+                '/#SPIELWIESE'
               }
             >
               {core.strings.overview.playground}
