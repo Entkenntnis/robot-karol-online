@@ -331,8 +331,8 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
               severity: 'error',
               message:
                 lng == 'de'
-                  ? 'Anzahl der Wiederholung ist negativ, erwarte ein Zahl größer gleich 0'
-                  : 'Number of repetitions is negative, expecting number greater than 0',
+                  ? 'Erwarte Anzahl Wiederholungen'
+                  : 'Expecting number of repetitions',
             })
           }
           output.push({ type: 'constant', value: st.times! + 1 }) // we decrement before compare
