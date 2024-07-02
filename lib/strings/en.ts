@@ -164,5 +164,6 @@ export const enStrings: typeof deStrings = {
     all: 'allow all',
     pythonOnly: 'python only',
     javaOnly: 'java only',
+    deleteWorld: 'Delete World Content',
   },
 }

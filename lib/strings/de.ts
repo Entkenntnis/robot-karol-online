@@ -163,5 +163,6 @@ export const deStrings = {
     all: 'alle erlauben',
     pythonOnly: 'nur Python-Code',
     javaOnly: 'nur Java-Code',
+    deleteWorld: 'Welt löschen',
   },
 }

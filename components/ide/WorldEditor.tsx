@@ -162,7 +162,7 @@ export function WorldEditor() {
             }}
           >
             <FaIcon icon={faTrashCan} className="mr-2" />
-            Welt löschen
+            {core.strings.editor.deleteWorld}
           </button>
         )}
         <div className="absolute bottom-2 left-2 bg-gray-50">
