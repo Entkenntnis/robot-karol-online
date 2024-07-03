@@ -49,6 +49,21 @@ export async function initClient(core: Core) {
     return
   }
 
+  if (hash == '#RANDOM') {
+    void (async () => {
+      try {
+        const res = await fetch(`${backend.randomEndpoint}`)
+        const text = await res.text()
+        if (text.length == 4) {
+          window.location.replace('/#' + text)
+        }
+      } catch (e) {
+        alert(e)
+      }
+    })()
+    return
+  }
+
   if (hash == '#ANALYZE' /* && window.location.hostname == 'localhost'*/) {
     try {
       const cutoff = new Date('2024-05-21')

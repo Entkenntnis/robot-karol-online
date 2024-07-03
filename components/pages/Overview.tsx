@@ -394,24 +394,25 @@ export function Overview() {
                     />
                   </button>
                 )}
-                <button
-                  className={clsx(
-                    'absolute top-[680px] left-[370px] block z-10 hover:bg-gray-100/60 rounded-xl',
-                    core.ws.settings.lng == 'de' ? 'w-[120px]' : 'w-[140px]'
-                  )}
-                  onClick={() => {
-                    showModal(core, 'goodluck')
-                  }}
-                >
-                  <p className="text-center text-lg mb-1">
-                    {core.strings.overview.lucky}
-                  </p>
-                  <img
-                    src="/kleeblatt.png"
-                    alt="Kleeblatt mit 4 Blättern"
-                    className="w-[60px] mx-auto"
-                  />
-                </button>
+                {core.ws.settings.lng === 'de' && (
+                  <a
+                    className={clsx(
+                      'absolute top-[680px] left-[370px] block z-10 hover:bg-gray-100/60 rounded-xl',
+                      'w-[120px] cursor-pointer'
+                    )}
+                    href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIALIEN-LEHRKRAEFTE.md"
+                    target="_blank"
+                  >
+                    <p className="text-center text-lg mb-1">
+                      Materialien für Lehrkräfte
+                    </p>
+                    <img
+                      src="/kleeblatt.png"
+                      alt="Kleeblatt mit 4 Blättern"
+                      className="w-[60px] mx-auto"
+                    />
+                  </a>
+                )}
                 <button
                   className="absolute top-[50px] left-[730px] w-[80px] block z-10 hover:bg-gray-100/60 rounded-xl"
                   onClick={() => {
@@ -511,6 +512,18 @@ export function Overview() {
                     />
                   )
                 })}
+                {core.ws.settings.lng === 'de' &&
+                  !isQuestDone(1) &&
+                  core.ws.page !== 'demo' && (
+                    <div className="absolute top-72 left-12 bg-gray-100 rounded-lg p-2 w-[520px]">
+                      Diese Online-Programmierumgebung führt dich in die
+                      Grundlagen von Algorithmen ein: Sequenz, Wiederholung,
+                      bedingte Anweisungen und eigene Methoden. Programmiere mit
+                      Blöcken, Robot Karol Code, Python oder Java. Klicke auf
+                      &quot;Start&quot; für den Selbst-Lern-Pfad, der dich
+                      Schritt-für-Schritt durch die Themen führt.
+                    </div>
+                  )}
               </div>
             )}
           <div className="flex-auto"></div>
