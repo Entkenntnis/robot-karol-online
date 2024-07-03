@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Labyrinth (+Anleitung)",
-  "description": "Ein Labyrinth? Das ist doch einfach gelöst ... dachte Karol. Doch dann dauerte es doch eine Weile, bis sie den ultimativen Algorithmus gefunden hat.\n\nBei jedem Labyrinth geht es darum, den Ziegel zu finden und diesen aufzuheben. In den einfachen Beispielen kommst du mit der Rechte-Hand- oder Linke-Hand-Regel zum Ziel. Bei den komplizierteren Labyrinthen kann es Inseln geben, bei den Karol sich dann im Kreis dreht.\n\nDort brauchst du dann Marken, um die besuchten Felder zu kennzeichnen. Aber am Ende müssen alle Hilfsmarkierungen wieder aufgehoben sein!\n\nProbiere dich gerne selbst an dieser Herausforderung. Unter https://de.serlo.org/304393 findest du eine vollständige Anleitung zu dieser Aufgabe.",
+  "description": "Ein Labyrinth? Das ist doch einfach gelöst ... dachte Karol. Doch dann dauerte es doch eine Weile, bis sie den ultimativen Algorithmus gefunden hat.\n\nBei jedem Labyrinth geht es darum, den Ziegel zu finden und diesen aufzuheben. In den einfachen Beispielen kommst du mit der Rechte-Hand- oder Linke-Hand-Regel zum Ziel. Bei den komplizierteren Labyrinthen kann es Inseln geben, bei den Karol sich dann im Kreis dreht.\n\nDort brauchst du dann Marken, um die besuchten Felder zu kennzeichnen. Aber am Ende müssen alle Hilfsmarkierungen wieder aufgehoben sein!\n\nProbiere dich gerne selbst an dieser Herausforderung. Unter https://karol.arrrg.de/anleitungen/labyrinth.pdf findest du eine vollständige Anleitung zu dieser Aufgabe.",
   "tasks": [
     {
       "title": "Klein 1",

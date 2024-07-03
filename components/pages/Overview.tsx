@@ -520,7 +520,8 @@ export function Overview() {
                 })}
                 {core.ws.settings.lng === 'de' &&
                   !isQuestDone(1) &&
-                  core.ws.page !== 'demo' && (
+                  core.ws.page !== 'demo' &&
+                  core.ws.page !== 'analyze' && (
                     <div className="absolute top-72 left-12 bg-gray-100 rounded-lg p-2 w-[520px]">
                       Diese Online-Programmierumgebung führt dich in die
                       Grundlagen von Algorithmen ein: Sequenz, Wiederholung,

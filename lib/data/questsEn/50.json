@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Labyrinth (+instructions)",
-  "description": "A labyrinth? That's easily solved... thought Karol. But then it took a while for her to find the ultimate algorithm.\n\nIn every labyrinth, the goal is to find the brick and pick it up. In the simple examples, you can reach the goal using the right-hand or left-hand rule. In more complicated labyrinths, there can be islands where Karol ends up going in circles.\n\nThere, you'll need markers to mark the visited fields. But in the end, all auxiliary markings must be removed!\n\nFeel free to try this challenge yourself. You can find a complete guide to this task (sorry, currently only german) at https://de.serlo.org/304393.",
+  "description": "A labyrinth? That's easily solved... thought Karol. But then it took a while for her to find the ultimate algorithm.\n\nIn every labyrinth, the goal is to find the brick and pick it up. In the simple examples, you can reach the goal using the right-hand or left-hand rule. In more complicated labyrinths, there can be islands where Karol ends up going in circles.\n\nThere, you'll need markers to mark the visited fields. But in the end, all auxiliary markings must be removed!\n\nFeel free to try this challenge yourself. You can find a complete guide to this task (sorry, currently only german) at https://karol.arrrg.de/anleitungen/labyrinth.pdf.",
   "tasks": [
     {
       "title": "Small 1",
