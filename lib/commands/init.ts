@@ -44,6 +44,7 @@ export async function initClient(core: Core) {
       ]
       ws.ui.needsTextRefresh = true
     })
+    submit_event('show_playground', core)
     switchToPage(core, 'imported')
     return
   }
@@ -115,12 +116,23 @@ export async function initClient(core: Core) {
               ws.analyze.showEditor++
               continue
             }
-            if (entry.event == 'load_id_Z9xO1rVGj') {
+            if (
+              entry.event == 'load_id_Z9xO1rVGj' ||
+              entry.event == 'show_playground'
+            ) {
               ws.analyze.showPlayground++
               continue
             }
             if (entry.event == 'show_demo') {
               ws.analyze.showDemo++
+              continue
+            }
+            if (entry.event == 'show_highscore') {
+              ws.analyze.showHighscore++
+              continue
+            }
+            if (entry.event == 'questlist') {
+              ws.analyze.showQuestList++
               continue
             }
             if (entry.event == 'show_structogram') {

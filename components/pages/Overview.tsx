@@ -4,6 +4,7 @@ import {
   faGlobe,
   faPencil,
   faPenToSquare,
+  faSeedling,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect, useState } from 'react'
@@ -118,15 +119,17 @@ export function Overview() {
             >
               {core.strings.overview.profile}
             </button>
-            <button
-              className="mr-7 hover:underline"
-              onClick={() => {
-                setOverviewScroll(core, 0)
-                switchToPage(core, 'highscore')
-              }}
+            <a
+              className="hover:underline cursor-pointer mr-7"
+              href={
+                window.location.protocol +
+                '//' +
+                window.location.host +
+                '/#SPIELWIESE'
+              }
             >
-              Highscore
-            </button>
+              <FaIcon icon={faSeedling} /> {core.strings.overview.playground}
+            </a>
             <button
               className="mr-7 hover:underline"
               onClick={() => {
@@ -187,6 +190,7 @@ export function Overview() {
               <p className="mt-6 mb-4">
                 {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
                 {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
+                {core.ws.analyze.showHighscore} mal Highscore,{' '}
                 {core.ws.analyze.showDemo} mal Demo,{' '}
                 {core.ws.analyze.showStructogram} mal Struktogramm,{' '}
                 {core.ws.analyze.usePersist} mal Fortschritt gespeichert,{' '}
@@ -196,7 +200,8 @@ export function Overview() {
                 {core.ws.analyze.lngEn} mal Englisch ausgewählt,{' '}
                 {core.ws.analyze.proMode} mal Profi-Modus aktiviert,{' '}
                 {core.ws.analyze.limitEditOptions} mal Eingabeoptionen
-                eingeschränkt
+                eingeschränkt, {core.ws.analyze.showQuestList} mal Liste aller
+                Aufgaben angezeigt
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
@@ -758,17 +763,16 @@ export function Overview() {
             <span className="text-gray-700 mr-7">
               {core.strings.overview.version}
             </span>
-            <a
-              className="hover:underline cursor-pointer"
-              href={
-                window.location.protocol +
-                '//' +
-                window.location.host +
-                '/#SPIELWIESE'
-              }
+            <button
+              className="hover:underline"
+              onClick={() => {
+                setOverviewScroll(core, 0)
+                submit_event('show_highscore', core)
+                switchToPage(core, 'highscore')
+              }}
             >
-              {core.strings.overview.playground}
-            </a>{' '}
+              Highscore
+            </button>{' '}
             |{' '}
             <button
               className="hover:underline"
@@ -792,6 +796,7 @@ export function Overview() {
               className="hover:underline"
               onClick={() => {
                 showOverviewList(core)
+                submit_event('show_questlist', core)
                 hideProfile(core)
                 document.getElementById('scroll-container')!.scrollTop = 0
               }}

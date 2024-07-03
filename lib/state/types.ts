@@ -176,6 +176,7 @@ export interface Analyze {
   count: number
   showEditor: number
   showPlayground: number
+  showHighscore: number
   showDemo: number
   showStructogram: number
   usePersist: number
@@ -185,6 +186,7 @@ export interface Analyze {
   playSnake: number
   lngEn: number
   limitEditOptions: number
+  showQuestList: number
   customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
   appearance: { [key: string]: { count: number } }
