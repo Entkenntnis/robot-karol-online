@@ -14,4 +14,4 @@
 
 ## Du möchtest dein Material teilen?
 
-Schreibe mir unter karol@arrrg.de
+Schreibe mir unter karol@arrrg.de.
