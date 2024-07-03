@@ -187,6 +187,7 @@ export interface Analyze {
   lngEn: number
   limitEditOptions: number
   showQuestList: number
+  showMaterials: number
   customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
   appearance: { [key: string]: { count: number } }
