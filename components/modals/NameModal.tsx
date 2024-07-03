@@ -48,9 +48,9 @@ export function NameModal() {
             />
           </p>
           <p className="text-center mt-3 text-sm text-gray-500 italic">
-            {core.strings.nameModal.hint}
+            {/* {core.strings.nameModal.hint} */}
             <button
-              className="ml-10 underline"
+              className="underline"
               onClick={() => {
                 const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
                 let n = ''

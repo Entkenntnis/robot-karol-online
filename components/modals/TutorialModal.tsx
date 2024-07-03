@@ -8,6 +8,10 @@ import clsx from 'clsx'
 export function TutorialModal() {
   const core = useCore()
   const [page, setPage] = useState(0)
+
+  const isEnd =
+    (core.ws.settings.lng === 'en' && page === 1) ||
+    (core.ws.settings.lng === 'de' && page === 2)
   return (
     <div className="bg-black/20 fixed inset-0 flex justify-center items-center z-[350]">
       <div
@@ -61,6 +65,18 @@ export function TutorialModal() {
               />
             </div>
           )}
+          {page == 2 && core.ws.settings.lng == 'de' && (
+            <div className="h-[450px] flex justify-between">
+              <p className="text-lg mx-4 mt-4">
+                Schalte weitere Aufgaben auf der Karte frei!
+              </p>
+              <img
+                src="/tutorial/path.jpg"
+                alt="Beispiel für weitere Aufgaben"
+                className="mr-4 mb-6"
+              />
+            </div>
+          )}
           {page == 0 && core.ws.settings.lng == 'en' && (
             <div className="h-[350px]">
               <p className="ml-6 text-lg">
@@ -110,14 +126,14 @@ export function TutorialModal() {
             <button
               className="px-2 py-0.5 rounded bg-blue-200 hover:bg-blue-300"
               onClick={() => {
-                if (page == 1) {
+                if (isEnd) {
                   closeModal(core)
                 } else {
                   setPage((val) => val + 1)
                 }
               }}
             >
-              {page == 1 ? core.strings.ide.done : core.strings.ide.continue}
+              {isEnd ? core.strings.ide.done : core.strings.ide.continue}
             </button>
           </div>
         </div>
