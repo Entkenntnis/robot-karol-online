@@ -146,8 +146,12 @@ export async function initClient(core: Core) {
               ws.analyze.showHighscore++
               continue
             }
-            if (entry.event == 'questlist') {
+            if (entry.event == 'show_questlist') {
               ws.analyze.showQuestList++
+              continue
+            }
+            if (entry.event == 'show_materials') {
+              ws.analyze.showMaterials++
               continue
             }
             if (entry.event == 'show_structogram') {

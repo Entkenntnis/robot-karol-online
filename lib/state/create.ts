@@ -94,6 +94,7 @@ export function createWorkspaceState(): WorkspaceState {
       lngEn: 0,
       limitEditOptions: 0,
       showQuestList: 0,
+      showMaterials: 0,
       customQuests: {},
       quests: {},
       legacy: {},

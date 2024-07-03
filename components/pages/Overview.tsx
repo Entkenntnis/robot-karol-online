@@ -201,7 +201,8 @@ export function Overview() {
                 {core.ws.analyze.proMode} mal Profi-Modus aktiviert,{' '}
                 {core.ws.analyze.limitEditOptions} mal Eingabeoptionen
                 eingeschränkt, {core.ws.analyze.showQuestList} mal Liste aller
-                Aufgaben angezeigt
+                Aufgaben angezeigt, {core.ws.analyze.showMaterials} mal Material
+                für Lehrkräfte geöffnet
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
@@ -402,6 +403,9 @@ export function Overview() {
                     )}
                     href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIALIEN-LEHRKRAEFTE.md"
                     target="_blank"
+                    onClick={() => {
+                      submit_event('show_materials', core)
+                    }}
                   >
                     <p className="text-center text-lg mb-1">
                       Materialien für Lehrkräfte
@@ -426,21 +430,23 @@ export function Overview() {
                     className="w-[60px] mx-auto"
                   />
                 </button>
-                <button
-                  className="absolute top-[1350px] left-[860px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
-                  onClick={() => {
-                    window.open('https://einhorn.arrrg.de', '_blank')
-                  }}
-                >
-                  <p className="text-center text-lg mb-1">
-                    Einhorn der Mathematik
-                  </p>
-                  <img
-                    src="/einhorn.png"
-                    alt="Einhorn"
-                    className="w-[80px] mx-auto"
-                  />
-                </button>
+                {core.ws.settings.lng == 'de' && (
+                  <button
+                    className="absolute top-[1350px] left-[860px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                    onClick={() => {
+                      window.open('https://einhorn.arrrg.de', '_blank')
+                    }}
+                  >
+                    <p className="text-center text-lg mb-1">
+                      Einhorn der Mathematik
+                    </p>
+                    <img
+                      src="/einhorn.png"
+                      alt="Einhorn"
+                      className="w-[80px] mx-auto"
+                    />
+                  </button>
+                )}
                 <button
                   className="absolute top-[1550px] left-[160px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
                   onClick={() => {
