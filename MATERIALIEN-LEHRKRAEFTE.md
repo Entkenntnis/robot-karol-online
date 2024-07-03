@@ -11,3 +11,7 @@
 ## Präsentations-Folien zur Vorstellung von Robot Karol Online
 
 <a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/robot_karol_online_vorstellung.pdf">Folien zur Vorstellung von Robot Karol</a>
+
+## Du möchtest dein Material teilen?
+
+Schreibe mir unter karol@arrrg.de
