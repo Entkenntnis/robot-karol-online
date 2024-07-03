@@ -7,7 +7,7 @@ import {
   faSeedling,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect } from 'react'
 
 import {
   forceRerender,
@@ -21,7 +21,7 @@ import {
 } from '../../lib/commands/mode'
 import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
 import { questDeps } from '../../lib/data/dependencies'
-import { questList } from '../../lib/data/overview'
+import { questList, questListByCategory } from '../../lib/data/overview'
 import { questData as questDataDe } from '../../lib/data/quests'
 import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
 import { useCore } from '../../lib/state/core'
@@ -41,8 +41,6 @@ import {
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
 import { appearanceRegistry } from '../../lib/data/appearance'
-import { getName, isSetName } from '../../lib/helper/events'
-import TimeAgo from 'timeago-react'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
 import { submit_event } from '../../lib/helper/submit'
@@ -52,8 +50,6 @@ export function Overview() {
   const core = useCore()
 
   const name = getUserName()
-
-  const [openUsers, setOpenUsers] = useState<string[]>([])
 
   const questData = core.ws.settings.lng == 'de' ? questDataDe : questDataEn
 
@@ -348,8 +344,8 @@ export function Overview() {
                   {core.strings.overview.closeShowAll}
                 </button>
               </div>
-              <div className="w-[1240px] h-[2950px] mx-auto relative bg-white/50">
-                {questList.map(renderQuest)}
+              <div className="mx-6 min-w-[500px] relative bg-white/50">
+                {questListByCategory.map(renderQuestCategory)}
               </div>
             </>
           )}
@@ -885,26 +881,18 @@ export function Overview() {
     )
   }
 
-  function renderQuest(index: number, i: number) {
-    const row = Math.floor(i / 4) // zig zag
-    const col = (i % 4) + [0.5, 0, 0.5, 1][row % 4]
-    const top = `${row * 190 + (row + 1) * 50}px`
-    const left = `${(col + 1) * 35 + col * 200}px`
+  function renderQuestCategory(cat: (typeof questListByCategory)[number]) {
+    return (
+      <div key={cat.title} className="mb-6">
+        <h2 className="text-xl ml-6 my-4">
+          {core.ws.settings.lng == 'de' ? cat.title : cat.titleEn}
+        </h2>
+        <div className="flex flex-wrap mx-3">{cat.quests.map(renderQuest)}</div>
+      </div>
+    )
+  }
 
-    if (!isQuestVisible(index)) {
-      if (questDeps[index].some(isQuestVisible)) {
-        return (
-          <div
-            key={index}
-            className="absolute w-[200px] h-[210px] border-2 rounded-md border-dashed"
-            style={{ top, left }}
-          ></div>
-        )
-      } else {
-        return null
-      }
-    }
-
+  function renderQuest(index: number) {
     const data = questData[index]
 
     const questDone = core.ws.page == 'analyze' ? false : isQuestDone(index)
@@ -917,7 +905,7 @@ export function Overview() {
 
     return (
       <Fragment key={index}>
-        <div className="absolute" style={{ top, left }}>
+        <div className="m-2">
           <div
             className={clsx(
               'p-3 bg-white rounded-md relative z-10',
