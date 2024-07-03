@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Calculator (+instructions)",
-  "description": "Visit https://de.serlo.org/264563 for detailed instructions.",
+  "description": "Visit https://karol.arrrg.de/anleitungen/taschenrechner.pdf for detailed instructions (in German).",
   "tasks": [
     {
       "title": "2 + 4 = 6",
