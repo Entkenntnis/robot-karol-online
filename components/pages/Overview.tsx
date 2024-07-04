@@ -583,7 +583,8 @@ export function Overview() {
                       </p>
                       <p className="mt-2">
                         Lehrkräfte können mit dem Editor eigene Aufgaben anlegen
-                        und mit der Klasse teilen.
+                        und mit der Klasse teilen oder ein vorgefertigtes
+                        Material verwenden.
                       </p>
                     </div>
                   )}
