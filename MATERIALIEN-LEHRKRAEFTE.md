@@ -6,7 +6,7 @@
 
 ## Python-Kurs
 
-<a href="https://github.com/Entkenntnis/robot-karol-online/raw/main/material/Programmierung%20mit%20Robot%20Karol_L.doc">Python-Kurs mit Robot Karol</a>
+<a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/Pythonkurs_mit_Robot_Karol_Online.pdf">Pythonkurs mit Robot Karol Online</a>
 
 ## Präsentations-Folien zur Vorstellung von Robot Karol Online
 
