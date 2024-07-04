@@ -19,6 +19,8 @@ export const enStrings: typeof deStrings = {
     game: 'Mini-Game',
     storeOnDevice: 'Save progress on this device?',
     later: 'later',
+    docs: 'Documentation',
+    path: 'Self-learning path',
   },
   nameModal: {
     title: 'Welcome!',

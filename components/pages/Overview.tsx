@@ -1,10 +1,12 @@
 import {
+  faCaretDown,
   faCheckCircle,
   faExternalLink,
   faGlobe,
   faPencil,
   faPenToSquare,
   faSeedling,
+  faTrowelBricks,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -84,7 +86,7 @@ export function Overview() {
           <div className="absolute top-2 left-2">
             <FaIcon icon={faGlobe} />
             <select
-              className="p-1 ml-2 bg-white/40 rounded"
+              className="p-1 ml-2 bg-white/40 rounded cursor-pointer"
               value={core.ws.settings.lng}
               onChange={(e) => {
                 const lng = e.target.value
@@ -102,19 +104,6 @@ export function Overview() {
             </select>
           </div>
           <div className="mx-auto mt-6">
-            <button
-              className="mr-7 hover:underline"
-              onClick={() => {
-                hideOverviewList(core)
-                if (core.ws.overview.showProfile) {
-                  hideProfile(core)
-                } else {
-                  showProfile(core)
-                }
-              }}
-            >
-              {core.strings.overview.profile}
-            </button>
             <a
               className="hover:underline cursor-pointer mr-7"
               href={
@@ -124,7 +113,7 @@ export function Overview() {
                 '/#SPIELWIESE'
               }
             >
-              <FaIcon icon={faSeedling} /> {core.strings.overview.playground}
+              {core.strings.overview.playground}
             </a>
             <button
               className="mr-7 hover:underline"
@@ -136,32 +125,89 @@ export function Overview() {
               <FaIcon icon={faPenToSquare} className="mr-1 text-sm" />
               {core.strings.overview.editor}
             </button>
-            <button
-              className="mr-7 hover:underline"
-              title={core.strings.overview.saveTooltip}
-              onClick={() => {
-                saveToJSON(core)
-              }}
-            >
-              {core.strings.overview.save}
-            </button>
-            <button
-              className="mr-7 hover:underline"
-              title={core.strings.overview.loadTooltip}
-              onClick={async () => {
-                await loadFromJSON()
-                const appearance = getAppearance()
-                if (appearance) {
-                  core.mutateWs((ws) => {
-                    ws.appearance = appearance
-                  })
-                }
-                setLng(core, getLng())
-                forceRerender(core)
-              }}
-            >
-              {core.strings.overview.load}
-            </button>
+            <div className="dropdown">
+              <div
+                tabIndex={0}
+                role="button"
+                className="hover:underline cursor-pointer"
+              >
+                {core.strings.overview.path} <FaIcon icon={faCaretDown} />
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-base-100 rounded-box z-[11] w-52 p-2 shadow mt-1"
+              >
+                <li>
+                  <button
+                    onClick={() => {
+                      hideOverviewList(core)
+                      showProfile(core)
+                      try {
+                        // @ts-ignore
+                        document.activeElement?.blur()
+                      } catch (e) {}
+                    }}
+                  >
+                    {core.strings.overview.profile}
+                  </button>
+                </li>
+                <li>
+                  <button
+                    title={core.strings.overview.loadTooltip}
+                    onClick={async () => {
+                      await loadFromJSON()
+                      const appearance = getAppearance()
+                      if (appearance) {
+                        core.mutateWs((ws) => {
+                          ws.appearance = appearance
+                        })
+                      }
+                      setLng(core, getLng())
+                      forceRerender(core)
+                    }}
+                  >
+                    {core.strings.overview.load}
+                  </button>
+                </li>
+                <li>
+                  <button
+                    title={core.strings.overview.saveTooltip}
+                    onClick={() => {
+                      saveToJSON(core)
+                    }}
+                  >
+                    {core.strings.overview.save}
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      setOverviewScroll(core, 0)
+                      submit_event('show_highscore', core)
+                      switchToPage(core, 'highscore')
+                    }}
+                  >
+                    Highscore
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      showOverviewList(core)
+                      submit_event('show_questlist', core)
+                      hideProfile(core)
+                      document.getElementById('scroll-container')!.scrollTop = 0
+                      try {
+                        // @ts-ignore
+                        document.activeElement?.blur()
+                      } catch (e) {}
+                    }}
+                  >
+                    {core.strings.overview.showAll}
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
           {core.ws.page == 'analyze' && (
             <div className="bg-white px-16 pb-8 mt-4">
@@ -446,7 +492,11 @@ export function Overview() {
                 <button
                   className="absolute top-[1550px] left-[160px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
                   onClick={() => {
-                    window.open('https://hack.arrrg.de/', '_blank')
+                    window.open(
+                      'https://hack.arrrg.de/' +
+                        (core.ws.settings.lng === 'en' ? 'en' : ''),
+                      '_blank'
+                    )
                   }}
                 >
                   <p className="text-center text-lg mb-1">Hack The Web</p>
@@ -518,13 +568,23 @@ export function Overview() {
                   !isQuestDone(1) &&
                   core.ws.page !== 'demo' &&
                   core.ws.page !== 'analyze' && (
-                    <div className="absolute top-72 left-12 bg-gray-100 rounded-lg p-2 w-[520px]">
-                      Diese Online-Programmierumgebung führt dich in die
-                      Grundlagen von Algorithmen ein: Sequenz, Wiederholung,
-                      bedingte Anweisungen und eigene Methoden. Programmiere mit
-                      Blöcken, Robot Karol Code, Python oder Java. Klicke auf
-                      &quot;Start&quot; für den Selbst-Lern-Pfad, der dich
-                      Schritt-für-Schritt durch die Themen führt.
+                    <div className="absolute top-72 left-12 bg-gray-100 rounded-lg p-2 w-[550px]">
+                      <p>
+                        Diese Online-Programmierumgebung führt dich in die
+                        Grundlagen von Algorithmen ein: Sequenz, Wiederholung
+                        (mit fester Anzahl, kopfgesteuert), bedingte Anweisungen
+                        und eigene Methoden. Programmiere mit Blöcken, Robot
+                        Karol Code, Python oder Java.
+                      </p>
+                      <p className="mt-2">
+                        Klicke auf &quot;Start&quot; für den Selbst-Lern-Pfad,
+                        der dich Schritt-für-Schritt durch die Themen begleitet.
+                        Auf der Spielwiese kannst du frei programmieren.
+                      </p>
+                      <p className="mt-2">
+                        Lehrkräfte können mit dem Editor eigene Aufgaben anlegen
+                        und mit der Klasse teilen.
+                      </p>
                     </div>
                   )}
               </div>
@@ -782,17 +842,6 @@ export function Overview() {
             <button
               className="hover:underline"
               onClick={() => {
-                setOverviewScroll(core, 0)
-                submit_event('show_highscore', core)
-                switchToPage(core, 'highscore')
-              }}
-            >
-              Highscore
-            </button>{' '}
-            |{' '}
-            <button
-              className="hover:underline"
-              onClick={() => {
                 showModal(core, 'impressum')
               }}
             >
@@ -808,20 +857,8 @@ export function Overview() {
               {core.strings.overview.privacy}
             </button>{' '}
             |{' '}
-            <button
-              className="hover:underline"
-              onClick={() => {
-                showOverviewList(core)
-                submit_event('show_questlist', core)
-                hideProfile(core)
-                document.getElementById('scroll-container')!.scrollTop = 0
-              }}
-            >
-              {core.strings.overview.showAll}
-            </button>{' '}
-            |{' '}
             {renderExternalLink(
-              'Infos',
+              core.strings.overview.docs,
               'https://github.com/Entkenntnis/robot-karol-online#readme'
             )}
           </div>

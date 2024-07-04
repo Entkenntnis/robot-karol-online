@@ -2,9 +2,9 @@ export const deStrings = {
   overview: {
     profile: 'Profil',
     editor: 'Aufgaben-Editor',
-    save: 'Speichern',
+    save: 'Fortschritt speichern',
     saveTooltip: 'In eine Datei speichern',
-    load: 'Laden',
+    load: 'Fortschritt laden',
     loadTooltip: 'Aus einer Datei laden',
     gameState: 'spielstand',
     lucky: 'Auf gut Glück!',
@@ -17,6 +17,8 @@ export const deStrings = {
     game: 'Mini-Spiel',
     storeOnDevice: 'Fortschritt auf diesem Gerät speichern?',
     later: 'später',
+    docs: 'Dokumentation',
+    path: 'Selbst-Lern-Pfad',
   },
   nameModal: {
     title: 'Herzlich Willkommen!',
