@@ -165,7 +165,7 @@ export function EditArea() {
                   alt="Struktogramm for"
                   className="inline-block -mt-0.5"
                 ></img>{' '}
-                for-Anweisung
+                for
               </button>
               <button
                 onClick={() => {
@@ -181,23 +181,7 @@ export function EditArea() {
                   alt="Struktogramm while"
                   className="inline-block -mt-0.5"
                 ></img>{' '}
-                while-Anweisung
-              </button>
-              <button
-                onClick={() => {
-                  insertCodeSnippet(
-                    ['if # Bedingung :', '    # JA-Aktion(en)', ''],
-                    3
-                  )
-                }}
-                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-              >
-                <img
-                  src="/icons/if.png"
-                  alt="Struktogramm if"
-                  className="inline-block -mt-0.5"
-                ></img>{' '}
-                if-Anweisung
+                while
               </button>
               <button
                 onClick={() => {
@@ -219,7 +203,23 @@ export function EditArea() {
                   alt="Struktogramm if else"
                   className="inline-block -mt-0.5"
                 ></img>{' '}
-                if-else-Anweisung
+                if-else
+              </button>
+              <button
+                onClick={() => {
+                  insertCodeSnippet(
+                    ['if # Bedingung :', '    # JA-Aktion(en)', ''],
+                    3
+                  )
+                }}
+                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+              >
+                <img
+                  src="/icons/if.png"
+                  alt="Struktogramm if"
+                  className="inline-block -mt-0.5"
+                ></img>{' '}
+                if
               </button>
               <button
                 onClick={() => {
