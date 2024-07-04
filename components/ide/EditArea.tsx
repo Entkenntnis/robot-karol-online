@@ -165,7 +165,7 @@ export function EditArea() {
                   alt="Struktogramm for"
                   className="inline-block -mt-0.5"
                 ></img>{' '}
-                for
+                for<span className="hidden xl:inline">-Anweisung</span>
               </button>
               <button
                 onClick={() => {
@@ -181,7 +181,7 @@ export function EditArea() {
                   alt="Struktogramm while"
                   className="inline-block -mt-0.5"
                 ></img>{' '}
-                while
+                while<span className="hidden xl:inline">-Anweisung</span>
               </button>
               <button
                 onClick={() => {
@@ -203,7 +203,7 @@ export function EditArea() {
                   alt="Struktogramm if else"
                   className="inline-block -mt-0.5"
                 ></img>{' '}
-                if-else
+                if-else<span className="hidden xl:inline">-Anweisung</span>
               </button>
               <button
                 onClick={() => {
@@ -219,7 +219,7 @@ export function EditArea() {
                   alt="Struktogramm if"
                   className="inline-block -mt-0.5"
                 ></img>{' '}
-                if
+                if<span className="hidden xl:inline">-Anweisung</span>
               </button>
               <button
                 onClick={() => {

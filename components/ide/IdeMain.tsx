@@ -94,6 +94,9 @@ export function IdeMain() {
     }
   }, [core, core.ws.ui.isHighlightDescription])
 
+  const dontChangeLanguage =
+    core.ws.ui.state !== 'ready' || !!core.ws.ui.lockLanguage
+
   return (
     <>
       <ReflexContainer orientation="vertical" windowResizeAware>
@@ -232,7 +235,11 @@ export function IdeMain() {
                         )}{' '}
                         {core.strings.ide.language}:
                         <select
-                          className="px-1 py-0.5 inline-block ml-2 bg-white rounded hover:bg-gray-100 cursor-pointer"
+                          className={clsx(
+                            'px-1 py-0.5 inline-block ml-2 bg-white rounded',
+                            !dontChangeLanguage &&
+                              'cursor-pointer hover:bg-gray-100'
+                          )}
                           value={core.ws.settings.language}
                           onChange={(e) => {
                             setLanguage(
@@ -240,10 +247,7 @@ export function IdeMain() {
                               e.target.value as Settings['language']
                             )
                           }}
-                          disabled={
-                            core.ws.ui.state !== 'ready' ||
-                            !!core.ws.ui.lockLanguage
-                          }
+                          disabled={dontChangeLanguage}
                         >
                           <option value="robot karol">Robot Karol</option>
                           <option value="python">Python</option>
