@@ -329,13 +329,7 @@ export function Overview() {
               </div>
               <div className="my-4">
                 {core.strings.profile.solved}:{' '}
-                <strong>
-                  {
-                    Object.keys(mapData).filter((id) =>
-                      isQuestDone(parseInt(id))
-                    ).length
-                  }
-                </strong>{' '}
+                <strong>{numberOfSolvedQuests}</strong>{' '}
                 {core.strings.profile.of} {Object.keys(mapData).length}
               </div>
               <div className="my-4">
@@ -565,7 +559,7 @@ export function Overview() {
                   )
                 })}
                 {core.ws.settings.lng === 'de' &&
-                  !isQuestDone(1) &&
+                  numberOfSolvedQuests == 0 &&
                   core.ws.page !== 'demo' &&
                   core.ws.page !== 'analyze' && (
                     <div className="absolute top-72 left-12 bg-gray-100 rounded-lg p-2 w-[550px]">
