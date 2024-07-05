@@ -17,7 +17,25 @@ export async function initClient(core: Core) {
 
   const id = parameterList.get('id')
 
+  function buildPlayground() {
+    core.mutateWs((ws) => {
+      ws.quest.title = 'Spielwiese'
+      ws.quest.description = 'Programmiere frei und baue dein Herzensprojekt.'
+      ws.ui.isPlayground = true
+      ws.quest.tasks = [
+        { title: 'Spielwiese', start: createWorld(15, 10, 6), target: null },
+      ]
+      ws.ui.needsTextRefresh = true
+    })
+    submit_event('show_playground', core)
+    switchToPage(core, 'imported')
+  }
+
   if (id) {
+    if (id == 'Z9xO1rVGj') {
+      buildPlayground()
+      return
+    }
     await loadLegacyProject(core, id)
     switchToPage(core, 'imported')
     return
@@ -35,17 +53,7 @@ export async function initClient(core: Core) {
   const hash = window.location.hash.toUpperCase()
 
   if (hash == '#SPIELWIESE') {
-    core.mutateWs((ws) => {
-      ws.quest.title = 'Spielwiese'
-      ws.quest.description = 'Programmiere frei und baue dein Herzensprojekt.'
-      ws.ui.isPlayground = true
-      ws.quest.tasks = [
-        { title: 'Spielwiese', start: createWorld(15, 10, 6), target: null },
-      ]
-      ws.ui.needsTextRefresh = true
-    })
-    submit_event('show_playground', core)
-    switchToPage(core, 'imported')
+    buildPlayground()
     return
   }
 
