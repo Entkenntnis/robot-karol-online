@@ -438,14 +438,14 @@ export function Overview() {
                       'absolute top-[680px] left-[370px] block z-10 hover:bg-gray-100/60 rounded-xl',
                       'w-[120px] cursor-pointer'
                     )}
-                    href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIALIEN-LEHRKRAEFTE.md"
+                    href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
                     target="_blank"
                     onClick={() => {
                       submit_event('show_materials', core)
                     }}
                   >
                     <p className="text-center text-lg mb-1">
-                      Materialien für Lehrkräfte
+                      Materiali für Lehrkräfte
                     </p>
                     <img
                       src="/kleeblatt.png"

@@ -1,8 +1,4 @@
-# Materialien für Lehrkräfte
-
-## Auf gut Glück!
-
-<a href="https://karol.arrrg.de/#RANDOM">Öffne eine zufällig freigegebene Aufgabe</a>. Die Inhalte sind von NutzerInnen erstellt und lizenzfrei verwendbar.
+# Material für Lehrkräfte
 
 ## Python-Kurs
 
