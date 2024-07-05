@@ -9,7 +9,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 
-import { shuffleArray } from '../../lib/helper/shuffleArray'
 import { QuestSerialFormat } from '../../lib/state/types'
 import { submit_event } from '../../lib/helper/submit'
 
@@ -29,7 +28,8 @@ export function Inspiration() {
       const res = await fetch('/data/inspirationData.json')
       const obj = await res.json()
       submit_event('show_inspiration', core)
-      setData(shuffleArray(obj))
+      obj.reverse()
+      setData(obj)
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -39,6 +39,10 @@ export function Inspiration() {
       <h1 className="text-center text-5xl ">Lasse dich inspirieren 💫⚡💡</h1>
       <p className="text-center mt-8 max-w-[600px] mx-auto text-lg">
         Schaue dir an, was andere Karol-SpielerInnen erstellt haben.
+        <br />
+        <small className="italic mt-3 inline-block">
+          Inhalte sind noch nicht thematisch sortiert.
+        </small>
       </p>
       <div className="flex flex-wrap flex-row mt-6 bg-gray-50 mb-12">
         {data &&
