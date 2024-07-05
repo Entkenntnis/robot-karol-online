@@ -41,7 +41,7 @@ export function Inspiration() {
         Schaue dir an, was andere Karol-SpielerInnen erstellt haben.
         <br />
         <small className="italic mt-3 inline-block">
-          Inhalte sind noch nicht thematisch sortiert.
+          Inhalte sind bisher nicht thematisch sortiert.
         </small>
       </p>
       <div className="flex flex-wrap flex-row mt-6 bg-gray-50 mb-12">
