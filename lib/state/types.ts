@@ -136,6 +136,8 @@ export interface WorkspaceState {
     | 'imported'
     | 'analyze'
     | 'demo'
+    | 'goodluck_internal'
+    | 'inspiration'
 
   modal:
     | 'name'

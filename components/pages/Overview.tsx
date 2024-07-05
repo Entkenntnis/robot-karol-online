@@ -244,7 +244,8 @@ export function Overview() {
                 {core.ws.analyze.limitEditOptions} mal Eingabeoptionen
                 eingeschränkt, {core.ws.analyze.showQuestList} mal Liste aller
                 Aufgaben angezeigt, {core.ws.analyze.showMaterials} mal Material
-                für Lehrkräfte geöffnet
+                für Lehrkräfte geöffnet, {core.ws.analyze.showInspiration} mal
+                inspiriert
               </p>
               <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
               {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
@@ -577,8 +578,11 @@ export function Overview() {
                       </p>
                       <p className="mt-2">
                         Lehrkräfte können mit dem Editor eigene Aufgaben anlegen
-                        und mit der Klasse teilen oder ein vorgefertigtes
-                        Material verwenden.
+                        und mit der Klasse teilen oder{' '}
+                        <a href="#INSPIRATION" target="_blank" className="link">
+                          sich inspirieren lassen
+                        </a>
+                        .
                       </p>
                     </div>
                   )}

@@ -57,6 +57,16 @@ export async function initClient(core: Core) {
     return
   }
 
+  if (hash == '#GOODLUCK') {
+    switchToPage(core, 'goodluck_internal')
+    return
+  }
+
+  if (hash == '#INSPIRATION') {
+    switchToPage(core, 'inspiration')
+    return
+  }
+
   if (hash == '#RANDOM') {
     void (async () => {
       try {
@@ -160,6 +170,10 @@ export async function initClient(core: Core) {
             }
             if (entry.event == 'show_materials') {
               ws.analyze.showMaterials++
+              continue
+            }
+            if (entry.event == 'show_inspiration') {
+              ws.analyze.showInspiration++
               continue
             }
             if (entry.event == 'show_structogram') {

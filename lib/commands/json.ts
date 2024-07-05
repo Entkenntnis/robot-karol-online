@@ -8,7 +8,6 @@ import {
   World,
 } from '../state/types'
 import { setLanguage } from './language'
-import { setMode } from './mode'
 import { endExecution } from './vm'
 
 export function serializeQuest(core: Core): QuestSerialFormat {
@@ -176,7 +175,7 @@ export function deserlizeQuestToData(quest: QuestSerialFormat): QuestData {
   }
 }
 
-function deserializeWorld(world: SerialWorld): World {
+export function deserializeWorld(world: SerialWorld): World {
   const { dimX, dimY, height, blocks, bricks, karol, marks } = world
 
   return {

@@ -21,6 +21,8 @@ import { AppearanceModal } from './modals/AppearanceModal'
 import { TutorialModal } from './modals/TutorialModal'
 import { GoodLuckModal } from './modals/GoodLuckModal'
 import ErrorBoundary from './ErrorBoundary'
+import { GoodLuck } from './pages/GoodLuck_internal'
+import { Inspiration } from './pages/Inspiration'
 
 export function App() {
   const core = useCore()
@@ -51,6 +53,10 @@ export function App() {
       return <Analyze />
     } else if (core.ws.page == 'demo') {
       return <Demo />
+    } else if (core.ws.page == 'goodluck_internal') {
+      return <GoodLuck />
+    } else if (core.ws.page == 'inspiration') {
+      return <Inspiration />
     } else {
       return null
     }
