@@ -44,7 +44,7 @@ export function Inspiration() {
           Inhalte sind bisher nicht thematisch sortiert.
         </small>
       </p>
-      <div className="flex flex-wrap flex-row mt-6 bg-gray-50 mb-12">
+      <div className="flex flex-wrap flex-row mt-6 bg-gray-50 mb-12 justify-center">
         {data &&
           data.map((d) => {
             return <RandomElement key={d.publicId} data={d} />
