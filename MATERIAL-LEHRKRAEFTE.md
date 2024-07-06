@@ -10,7 +10,7 @@
 
 ## Inspiration
 
-Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION).
+Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION)!
 
 ## Du möchtest dein Material teilen?
 
