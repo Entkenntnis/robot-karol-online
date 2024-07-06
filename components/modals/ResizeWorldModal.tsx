@@ -7,6 +7,7 @@ import {
 import { closeModal } from '../../lib/commands/modal'
 import { createWorldCmd } from '../../lib/commands/world'
 import { useCore } from '../../lib/state/core'
+import { createWorld } from '../../lib/state/create'
 
 export function ResizeWorldModal() {
   const core = useCore()
@@ -122,7 +123,12 @@ export function ResizeWorldModal() {
 
   function exec() {
     if (core.ws.ui.isPlayground) {
-      createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+      if (core.ws.ui.showOutput) {
+        createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+      }
+      core.mutateWs((ws) => {
+        ws.quest.tasks[0].start = createWorld(localDimX, localDimY, localHeight)
+      })
       closeModal(core)
       return
     }

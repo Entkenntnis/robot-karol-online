@@ -316,7 +316,11 @@ export function IdeMain() {
                         !core.ws.ui.showOutput &&
                         core.ws.ui.state == 'ready'
                       ) {
-                        startTesting(core)
+                        if (core.ws.ui.isPlayground) {
+                          runTask(core, 0)
+                        } else {
+                          startTesting(core)
+                        }
                         return
                       }
 

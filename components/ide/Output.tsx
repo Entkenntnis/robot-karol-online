@@ -65,7 +65,7 @@ export function Output() {
           {core.ws.ui.state === 'running' && core.ws.ui.proMode && varStr && (
             <div className="absolute left-2 top-2">Variablen: {varStr}</div>
           )}
-          {core.ws.ui.isPlayground && (
+          {core.ws.ui.isPlayground && core.ws.ui.state !== 'running' && (
             <button
               className="absolute right-2 top-2 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
               onClick={() => {
@@ -95,7 +95,8 @@ export function Output() {
         )}
         {core.ws.ui.isEndOfRun &&
           !core.ws.ui.controlBarShowFinishQuest &&
-          !core.ws.ui.isTesting && (
+          !core.ws.ui.isTesting &&
+          !core.ws.ui.isPlayground && (
             <button
               onClick={() => {
                 resetOutput(core)
