@@ -8,6 +8,10 @@
 
 <a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/robot_karol_online_vorstellung.pdf">Folien zur Vorstellung von Robot Karol</a>
 
+## Inspiration
+
+Schaue dir die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION) an.
+
 ## Du möchtest dein Material teilen?
 
 Schreibe mir unter karol@arrrg.de.
