@@ -41,8 +41,11 @@ export function Inspiration() {
         Schaue dir an, was andere Karol-SpielerInnen erstellt haben.
         <br />
         <small className="italic mt-3 inline-block">
-          Inhalte sind bisher nicht sortiert. Wer helfen möchte, bitte mir unter
-          karol@arrrg.de schreiben.
+          Inhalte sind nicht sortiert. Wer helfen möchte, gerne Mail an{' '}
+          <a href="mailto:karol@arrrg.de" className="link">
+            karol@arrrg.de
+          </a>{' '}
+          schreiben.
         </small>
       </p>
       <div className="flex flex-wrap flex-row mt-6 bg-gray-50 mb-12 justify-center">
