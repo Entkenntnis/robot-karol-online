@@ -445,7 +445,7 @@ export function Overview() {
                     }}
                   >
                     <p className="text-center text-lg mb-1">
-                      Materiali für Lehrkräfte
+                      Material für Lehrkräfte
                     </p>
                     <img
                       src="/kleeblatt.png"
