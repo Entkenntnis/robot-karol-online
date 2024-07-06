@@ -41,7 +41,8 @@ export function Inspiration() {
         Schaue dir an, was andere Karol-SpielerInnen erstellt haben.
         <br />
         <small className="italic mt-3 inline-block">
-          Inhalte sind bisher nicht thematisch sortiert.
+          Inhalte sind bisher nicht sortiert. Wer helfen möchte, bitte mir unter
+          karol@arrrg.de schreiben.
         </small>
       </p>
       <div className="flex flex-wrap flex-row mt-6 bg-gray-50 mb-12 justify-center">
@@ -74,7 +75,7 @@ function RandomElement({ data }: { data: DataEntry }) {
     quest.description == 'Beschreibe, um was es bei der Aufgabe geht ...'
 
   return (
-    <div className={clsx('card bg-white w-96 shadow-xl m-6')}>
+    <div className={clsx('card bg-white w-96 shadow-xl m-6 overflow-hidden')}>
       {quest.tasks.length > 1 && (
         <div className="text-center mt-3">
           <button
@@ -115,16 +116,15 @@ function RandomElement({ data }: { data: DataEntry }) {
             />
           </>
         )}
-        {quest.editOptions === 'python-only' && (
-          <div className="absolute right-4 bottom-0">
+        <div className="absolute right-4 bottom-0">
+          {quest.editOptions === 'python-only' && (
             <span className="badge">Python</span>
-          </div>
-        )}
-        {quest.editOptions === 'java-only' && (
-          <div className="absolute right-4 bottom-0">
+          )}
+          {quest.editOptions === 'java-only' && (
             <span className="badge">Java</span>
-          </div>
-        )}
+          )}
+          {quest.lng === 'en' && <span className="badge">EN</span>}
+        </div>
       </figure>
       <div className="card-body">
         <h2 className={clsx('card-title', noTitle && 'italic text-gray-300')}>
