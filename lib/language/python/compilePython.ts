@@ -807,7 +807,7 @@ export function compilePython(
         from: node.from,
         to: node.to,
         severity: 'error',
-        message: 'Syntaxfehler',
+        message: 'Programm unvollständig, bitte ergänzen',
       })
       return
     }
