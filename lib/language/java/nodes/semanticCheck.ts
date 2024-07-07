@@ -10,6 +10,7 @@ import { checkLocalVariableDeclaration } from './checkLocalVariableDeclaration'
 import { checkMethodDeclaration } from './checkMethodDeclaration'
 import { checkMethodInvocation } from './checkMethodInvocation'
 import { checkParenthesizedExpression } from './checkParenthesizedExpression'
+import { checkUpdateExpression } from './checkUpdateExpression'
 import { checkWhileStatement } from './checkWhileStatement'
 
 interface Parameter {
@@ -81,6 +82,10 @@ export function semanticCheck(
     }
     case 'AssignmentExpression': {
       checkAssignmentExpression(co, node, context)
+      return
+    }
+    case 'UpdateExpression': {
+      checkUpdateExpression(co, node, context)
       return
     }
   }

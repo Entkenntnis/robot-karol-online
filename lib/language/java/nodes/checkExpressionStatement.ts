@@ -3,6 +3,7 @@ import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { checkSemikolon } from '../checkSemikolon'
 import { expressionNodes } from '../parseExpression'
+import { checkUpdateExpression } from './checkUpdateExpression'
 import { SemantikCheckContext, semanticCheck } from './semanticCheck'
 
 export function checkExpressionStatement(
@@ -28,7 +29,7 @@ export function checkExpressionStatement(
     return
   }
   if (matchChildren(['UpdateExpression', ';'], node.children)) {
-    co.warn(node, 'UpdateExpression nicht unterstützt')
+    checkUpdateExpression(co, node.children[0], context)
     return
   }
   const prefix = `${context.robotName}.`

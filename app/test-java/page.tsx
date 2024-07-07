@@ -1389,6 +1389,95 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'Methode mit Parameter',
+    source: `class Programm {
+  Robot karol = new Robot();
+
+  void main() {
+    int x = 42;
+    x++;
+    ++x;
+    x--;
+    --x;
+  }
+}`,
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 42,
+      },
+      {
+        type: 'store',
+        variable: 'x',
+      },
+      {
+        type: 'load',
+        variable: 'x',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'store',
+        variable: 'x',
+      },
+      {
+        type: 'load',
+        variable: 'x',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'add',
+      },
+      {
+        type: 'store',
+        variable: 'x',
+      },
+      {
+        type: 'load',
+        variable: 'x',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'sub',
+      },
+      {
+        type: 'store',
+        variable: 'x',
+      },
+      {
+        type: 'load',
+        variable: 'x',
+      },
+      {
+        type: 'constant',
+        value: 1,
+      },
+      {
+        type: 'operation',
+        kind: 'sub',
+      },
+      {
+        type: 'store',
+        variable: 'x',
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',
