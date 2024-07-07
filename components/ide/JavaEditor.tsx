@@ -196,31 +196,31 @@ const myTabExtension: Command = (target: EditorView) => {
 }
 
 const commands = [
-  { label: 'schritt', boost: 10 },
-  { label: 'linksDrehen', boost: 8 },
-  { label: 'rechtsDrehen', boost: 8 },
-  { label: 'aufheben', boost: 6 },
-  { label: 'hinlegen', boost: 6 },
-  { label: 'markeSetzen', boost: 5 },
-  { label: 'markeLöschen', boost: 4 },
-  { label: 'beenden', boost: 2 },
+  { label: 'schritt()', boost: 10 },
+  { label: 'linksDrehen()', boost: 8 },
+  { label: 'rechtsDrehen()', boost: 8 },
+  { label: 'aufheben()', boost: 6 },
+  { label: 'hinlegen()', boost: 6 },
+  { label: 'markeSetzen()', boost: 5 },
+  { label: 'markeLöschen()', boost: 4 },
+  { label: 'beenden()', boost: 2 },
 ]
 
 const conditions = [
-  { label: 'istWand' },
-  { label: 'nichtIstWand' },
-  { label: 'istZiegel' },
-  { label: 'nichtIstZiegel' },
-  { label: 'istMarke' },
-  { label: 'nichtIstMarke' },
-  { label: 'istNorden', boost: -2 },
-  { label: 'nichtIstNorden', boost: -2 },
-  { label: 'istOsten', boost: -2 },
-  { label: 'nichtIstOsten', boost: -2 },
-  { label: 'istSüden', boost: -2 },
-  { label: 'nichtIstSüden', boost: -2 },
-  { label: 'istWesten', boost: -2 },
-  { label: 'nichtIstWesten', boost: -2 },
+  { label: 'istWand()' },
+  { label: 'nichtIstWand()' },
+  { label: 'istZiegel()' },
+  { label: 'nichtIstZiegel()' },
+  { label: 'istMarke()' },
+  { label: 'nichtIstMarke()' },
+  { label: 'istNorden()', boost: -2 },
+  { label: 'nichtIstNorden()', boost: -2 },
+  { label: 'istOsten()', boost: -2 },
+  { label: 'nichtIstOsten()', boost: -2 },
+  { label: 'istSüden()', boost: -2 },
+  { label: 'nichtIstSüden()', boost: -2 },
+  { label: 'istWesten()', boost: -2 },
+  { label: 'nichtIstWesten()', boost: -2 },
 ]
 
 const myAutocomplete: CompletionSource = (context) => {
