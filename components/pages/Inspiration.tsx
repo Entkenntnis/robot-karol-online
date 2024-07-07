@@ -11,6 +11,7 @@ import clsx from 'clsx'
 
 import { QuestSerialFormat } from '../../lib/state/types'
 import { submit_event } from '../../lib/helper/submit'
+import RenderIfVisible from 'react-render-if-visible'
 
 interface DataEntry {
   content: string
@@ -110,7 +111,7 @@ function RandomElement({ data }: { data: DataEntry }) {
       )}
       <figure className="h-[200px] relative">
         {quest.tasks.length > 0 && (
-          <>
+          <RenderIfVisible stayRendered visibleOffset={2000}>
             <View
               className="max-w-[300px] max-h-[200px]"
               appearance={core.ws.appearance}
@@ -119,7 +120,7 @@ function RandomElement({ data }: { data: DataEntry }) {
                 world: deserializeWorld(quest.tasks[selected].target),
               }}
             />
-          </>
+          </RenderIfVisible>
         )}
         <div className="absolute right-4 bottom-0">
           {quest.editOptions === 'python-only' && (
