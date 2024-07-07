@@ -268,7 +268,7 @@ export function IdeMain() {
               ) &&
               !core.ws.ui.isHighlightDescription &&
               core.ws.modal !== 'name' && (
-                <div className="absolute top-10 right-4 z-[101]">
+                <div className="absolute top-12 right-4 z-[101]">
                   {core.ws.ui.state == 'error' &&
                     core.ws.settings.mode == 'blocks' && (
                       <button
