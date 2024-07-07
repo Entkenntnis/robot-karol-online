@@ -250,7 +250,7 @@ export function EditArea() {
         )}
         {renderEditor()}
         {core.ws.ui.state == 'error' && (
-          <div className="w-full overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
+          <div className="absolute left-20 right-12 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
             <div className="flex justify-between mt-[9px]">
               <div className="px-3 pb-1 pt-0">
                 <p className="mb-2">

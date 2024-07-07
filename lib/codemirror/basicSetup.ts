@@ -138,6 +138,7 @@ export const Theme = EditorView.theme({
   '.cm-tooltip-autocomplete ul li[aria-selected]': {
     background: '#17c !important',
   },
+  '.cm-content': { paddingBottom: '75vh' },
 })
 
 export const editable = new Compartment()

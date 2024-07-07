@@ -1,8 +1,12 @@
 import { MutableRefObject, useEffect, useRef } from 'react'
-import { EditorState } from '@codemirror/state'
+import { EditorState, Range } from '@codemirror/state'
 import {
   Command,
+  Decoration,
+  DecorationSet,
   EditorView,
+  ViewPlugin,
+  ViewUpdate,
   drawSelection,
   gutter,
   highlightActiveLine,
@@ -24,6 +28,7 @@ import {
   indentOnInput,
   indentUnit,
   syntaxHighlighting,
+  syntaxTree,
 } from '@codemirror/language'
 import {
   defaultKeymap,
@@ -45,6 +50,10 @@ import {
 } from '@codemirror/autocomplete'
 import { pythonLanguage } from '../../lib/codemirror/pythonParser/pythonLanguage'
 import { compilePython } from '../../lib/language/python/compilePython'
+import {
+  cursorToAstNode,
+  prettyPrintAstNode,
+} from '../../lib/language/helper/astNode'
 
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>
@@ -96,6 +105,7 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
               { delay: 0 }
             ),
             Theme,
+            myHighlightPlugin,
             EditorView.lineWrapping,
             EditorView.updateListener.of((e) => {
               if (e.transactions.length > 0) {
@@ -224,6 +234,8 @@ const conditions = [
 
 const myAutocomplete: CompletionSource = (context) => {
   const token = context.matchBefore(/\.[a-zA-Z_0-9äöüÄÜÖß]*$/)
+  if (!token) return null
+
   const doc = context.state.doc
   const line = doc.lineAt(context.pos)
   let preLine = line.text.substring(0, context.pos - line.from)
@@ -238,7 +250,6 @@ const myAutocomplete: CompletionSource = (context) => {
   }
   preLine = preLine.substring(offset)
 
-  if (!token) return null
   return {
     from: token.from + 1,
     options:
@@ -247,3 +258,56 @@ const myAutocomplete: CompletionSource = (context) => {
         : commands,
   }
 }
+
+const colorMark = Decoration.mark({ class: 'text-[#9a4603]' })
+
+const myHighlightPlugin = ViewPlugin.fromClass(
+  class {
+    decorations: DecorationSet
+
+    constructor(view: EditorView) {
+      this.decorations = Decoration.none
+      this.work(view)
+    }
+
+    work(view: EditorView) {
+      const ranges: Range<Decoration>[] = []
+      const availableCommands: string[] = []
+      syntaxTree(view.state).iterate({
+        enter: (node) => {
+          if (node.name == 'FunctionDefinition') {
+            const ast = cursorToAstNode(node.node.cursor(), view.state.doc)
+            if (ast.children[1].name == 'VariableName') {
+              availableCommands.push(ast.children[1].text())
+            }
+          }
+        },
+      })
+      syntaxTree(view.state).iterate({
+        enter: (node) => {
+          if (node.name == 'CallExpression') {
+            const ast = cursorToAstNode(node.node.cursor(), view.state.doc)
+            if (ast.children[0].name == 'VariableName') {
+              const varName = ast.children[0].text()
+              if (availableCommands.includes(varName)) {
+                ranges.push(
+                  colorMark.range(ast.children[0].from, ast.children[0].to)
+                )
+              }
+            }
+          }
+        },
+      })
+      this.decorations = Decoration.set(ranges)
+    }
+
+    update(update: ViewUpdate) {
+      if (update.docChanged || update.viewportChanged) {
+        this.work(update.view)
+      }
+    }
+  },
+  {
+    decorations: (v) => v.decorations,
+  }
+)
