@@ -46,6 +46,8 @@ export function Inspiration() {
             karol@arrrg.de
           </a>{' '}
           schreiben.
+          <br />
+          5. Juli 2024
         </small>
       </p>
       <div className="flex flex-wrap flex-row mt-6 bg-gray-50 mb-12 justify-center">
