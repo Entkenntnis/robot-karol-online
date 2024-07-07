@@ -166,9 +166,6 @@ export function lint(core: Core, view: EditorView) {
 
 function myTabExtension(core: Core): Command {
   return (target: EditorView) => {
-    if (core.ws.ui.state === 'error') {
-      return false
-    }
     if (target.state.selection.ranges.length == 1) {
       if (target.state.selection.main.empty) {
         const pos = target.state.selection.main.from
@@ -182,6 +179,11 @@ function myTabExtension(core: Core): Command {
             if (preLine.includes(':')) {
               deleteCharBackward(target)
               insertNewlineAndIndent(target)
+              if (target.state.selection.main.from == pos) {
+                // auto-indent is not properly detecting position
+                // In this case, fallback to default tab behaviour
+                return false
+              }
               return true
             }
           }
