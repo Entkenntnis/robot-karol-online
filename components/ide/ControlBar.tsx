@@ -59,24 +59,13 @@ export function ControlBar() {
     <div className="flex justify-between items-center">
       <div>
         <p className="ml-7 font-bold">{renderStatus()}</p>
-        <p className="ml-2 mb-1">
+        <div className="ml-2 mb-1">
           {core.ws.ui.isEndOfRun &&
           !core.ws.ui.isManualAbort &&
           !core.ws.ui.karolCrashMessage &&
           !core.ws.ui.isTesting &&
           core.ws.quest.progress ? (
             <span>
-              {/*<button
-                onClick={() => {
-                  closeOutput(core)
-                }}
-                className={clsx(
-                  'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2'
-                  /*core.ws.ui.isTesting && 'invisible'
-                )}
-              >
-                zurück
-                </button>*/}
               {core.ws.page !== 'editor' && (
                 <button
                   onClick={() => {
@@ -88,58 +77,14 @@ export function ControlBar() {
                 </button>
               )}
             </span>
+          ) : core.ws.ui.state != 'running' ? (
+            <p className="ml-3 mt-2">
+              {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}
+            </p>
           ) : (
-            core.ws.ui.state != 'running' && (
-              <span>
-                <span className="ml-3 mt-2">
-                  {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}
-                </span>
-                <button
-                  onClick={() => {
-                    closeOutput(core)
-                  }}
-                  className={clsx(
-                    'px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 invisible'
-                    /*core.ws.ui.isTesting && 'invisible'*/
-                  )}
-                >
-                  {core.strings.ide.back}
-                </button>
-              </span>
-            )
+            <button className="invisible px-2 py-0.5 ml-3 mt-2">&nbsp;</button>
           )}
-          {core.ws.ui.state == 'ready' &&
-            (!core.ws.quest.progress ||
-              core.ws.ui.isManualAbort ||
-              core.ws.ui.karolCrashMessage) &&
-            !core.ws.ui.isTesting && (
-              <span>
-                <button
-                  onClick={() => {
-                    restartProgram(core)
-                  }}
-                  className="px-2 py-0.5 rounded bg-green-300 ml-3 mt-2 hover:bg-green-400 invisible"
-                >
-                  <FaIcon
-                    icon={core.ws.ui.isEndOfRun ? faRotateRight : faPlay}
-                    className="mr-1"
-                  />
-                  ---
-                </button>
-              </span>
-            )}
-          {core.ws.ui.state == 'running' && (
-            <button
-              onClick={() => {
-                abort(core)
-              }}
-              className="px-2 py-0.5 rounded bg-amber-400 ml-3 mt-2 invisible"
-            >
-              <FaIcon icon={faStop} className="mr-1" />
-              ---
-            </button>
-          )}
-        </p>
+        </div>
       </div>
 
       <div className="max-w-[230px] mr-3 my-3">
