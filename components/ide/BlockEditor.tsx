@@ -80,7 +80,6 @@ export function BlockEditor() {
         wheel: true,
       },
       media: '/blockly_media/',
-      renderer: 'thrasos',
     })
 
     blocklyWorkspaceSvg.current = blocklyWorkspace
