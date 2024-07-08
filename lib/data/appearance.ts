@@ -140,4 +140,10 @@ export const appearanceRegistry: { [key: number]: AppearanceData } = {
     titleEn: 'white tank top',
     position: -1,
   },
+  29: {
+    type: 'shirt',
+    title: 'grüner Pulli',
+    titleEn: 'green sweater',
+    position: 0.3,
+  },
 }
