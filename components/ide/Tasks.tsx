@@ -9,6 +9,7 @@ import {
   faPlay,
   faPlus,
   faShareNodes,
+  faShirt,
   faTrashCan,
   faUpRightAndDownLeftFromCenter,
   faVolumeHigh,
@@ -423,23 +424,33 @@ export function Tasks() {
             </button>
           )}
           {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
-            <span className="inline-block mx-2">
-              <FaIcon icon={faGlobe} />
-              <select
-                className="p-1 ml-2 bg-white/40 rounded"
-                value={core.ws.settings.lng}
-                onChange={(e) => {
-                  const lng = e.target.value
-                  if (lng == 'de' || lng == 'en') {
-                    setLng(core, lng)
-                    setLngStorage(lng)
-                  }
+            <>
+              <button
+                className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded"
+                onClick={() => {
+                  showModal(core, 'appearance')
                 }}
               >
-                <option value="de">Deutsch</option>
-                <option value="en">English</option>
-              </select>
-            </span>
+                <FaIcon icon={faShirt} />
+              </button>
+              <span className="inline-block mx-2 bg-gray-200 px-1 rounded">
+                <FaIcon icon={faGlobe} />
+                <select
+                  className="p-1 ml-2 rounded"
+                  value={core.ws.settings.lng}
+                  onChange={(e) => {
+                    const lng = e.target.value
+                    if (lng == 'de' || lng == 'en') {
+                      setLng(core, lng)
+                      setLngStorage(lng)
+                    }
+                  }}
+                >
+                  <option value="de">Deutsch</option>
+                  <option value="en">English</option>
+                </select>
+              </span>
+            </>
           )}
         </div>
       </div>
