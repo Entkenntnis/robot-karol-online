@@ -105,7 +105,7 @@ export function Overview() {
           </div>
           <div className="mx-auto mt-6">
             <a
-              className="hover:underline cursor-pointer mr-7"
+              className="hover:underline cursor-pointer mr-8"
               href={
                 window.location.protocol +
                 '//' +
@@ -116,7 +116,7 @@ export function Overview() {
               {core.strings.overview.playground}
             </a>
             <button
-              className="mr-7 hover:underline"
+              className="mr-8 hover:underline"
               onClick={() => {
                 setOverviewScroll(core, 0)
                 switchToPage(core, 'editor')
