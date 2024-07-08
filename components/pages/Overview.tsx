@@ -454,6 +454,28 @@ export function Overview() {
                     />
                   </a>
                 )}
+                {core.ws.settings.lng === 'de' && (
+                  <a
+                    className={clsx(
+                      'absolute top-[1120px] left-[970px] block z-10 hover:bg-gray-100/60 rounded-xl',
+                      'w-[120px] cursor-pointer'
+                    )}
+                    href="https://www.youtube.com/@robot-karol-online"
+                    target="_blank"
+                    onClick={() => {
+                      // submit_event('show_materials', core)
+                    }}
+                  >
+                    <p className="text-center text-lg mb-1">
+                      Karol auf Youtube
+                    </p>
+                    <img
+                      src="/youtube.png"
+                      alt="Kleeblatt mit 4 Blättern"
+                      className="w-[40px] mx-auto"
+                    />
+                  </a>
+                )}
                 <button
                   className="absolute top-[50px] left-[730px] w-[80px] block z-10 hover:bg-gray-100/60 rounded-xl"
                   onClick={() => {
@@ -469,7 +491,7 @@ export function Overview() {
                 </button>
                 {core.ws.settings.lng == 'de' && (
                   <button
-                    className="absolute top-[1350px] left-[860px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                    className="absolute top-[1390px] left-[770px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
                     onClick={() => {
                       window.open('https://einhorn.arrrg.de', '_blank')
                     }}
