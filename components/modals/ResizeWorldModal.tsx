@@ -146,5 +146,6 @@ export function ResizeWorldModal() {
     if (isShowPreview) {
       showPreview(core)
     }
+    closeModal(core)
   }
 }
