@@ -157,6 +157,13 @@ export function deserializeQuest(
         ws.settings.mode = 'code'
       })
     }
+    if (quest.editOptions === 'karol-only') {
+      setLanguage(core, 'robot karol')
+      core.mutateWs((ws) => {
+        ws.ui.lockLanguage = 'karol'
+        ws.settings.mode = 'code'
+      })
+    }
   }
 }
 

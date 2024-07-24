@@ -54,7 +54,7 @@ export interface Ui {
   audioStarted: boolean
   cmdBlockPositions: CmdBlockPositions
   showJavaInfo: boolean
-  lockLanguage?: 'python' | 'java'
+  lockLanguage?: 'python' | 'java' | 'karol'
   isPlayground: boolean
 }
 
@@ -83,7 +83,7 @@ export interface Editor {
   editWorld: number | null
   currentlyEditing: 'start' | 'target'
   showWorldPreview: boolean
-  editOptions: 'all' | 'python-only' | 'java-only'
+  editOptions: 'all' | 'python-only' | 'java-only' | 'karol-only'
 }
 
 export interface Quest {
@@ -353,7 +353,7 @@ export interface QuestSerialFormat {
   description: string
   tasks: { title: string; start: SerialWorld; target: SerialWorld }[]
   lng?: 'de' | 'en'
-  editOptions?: 'python-only' | 'java-only'
+  editOptions?: 'python-only' | 'java-only' | 'karol-only'
 }
 
 export interface SerialWorld {

@@ -163,6 +163,7 @@ export const deStrings = {
     create: 'Welt erstellen',
     editOptions: 'Eingabeoptionen',
     all: 'alle erlauben',
+    karolOnly: 'nur Robot-Karol-Code',
     pythonOnly: 'nur Python-Code',
     javaOnly: 'nur Java-Code',
     deleteWorld: 'Welt löschen',
