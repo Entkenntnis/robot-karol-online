@@ -1,3 +1,5 @@
+const { default: daisyui } = require('daisyui')
+
 module.exports = {
   content: ['./**/*.tsx'],
   theme: {
@@ -7,4 +9,7 @@ module.exports = {
     extend: {},
   },
   plugins: [require('daisyui')],
+  daisyui: {
+    logs: false,
+  },
 }
