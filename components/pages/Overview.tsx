@@ -137,18 +137,48 @@ export function Overview() {
                 tabIndex={0}
                 className="dropdown-content menu bg-base-100 rounded-box z-[11] w-52 p-2 shadow mt-1"
               >
+                {numberOfSolvedQuests == 0 &&
+                core.ws.page !== 'demo' &&
+                core.ws.page !== 'analyze' ? (
+                  <li>
+                    <button
+                      onClick={() => {
+                        startQuest(core, 1)
+                      }}
+                    >
+                      <strong>{core.strings.overview.startNow}</strong>
+                    </button>
+                  </li>
+                ) : (
+                  <li>
+                    <button
+                      onClick={() => {
+                        hideOverviewList(core)
+                        showProfile(core)
+                        try {
+                          // @ts-ignore
+                          document.activeElement?.blur()
+                        } catch (e) {}
+                      }}
+                    >
+                      {core.strings.overview.profile}
+                    </button>
+                  </li>
+                )}
                 <li>
                   <button
                     onClick={() => {
-                      hideOverviewList(core)
-                      showProfile(core)
+                      showOverviewList(core)
+                      submit_event('show_questlist', core)
+                      hideProfile(core)
+                      document.getElementById('scroll-container')!.scrollTop = 0
                       try {
                         // @ts-ignore
                         document.activeElement?.blur()
                       } catch (e) {}
                     }}
                   >
-                    {core.strings.overview.profile}
+                    {core.strings.overview.showAll}
                   </button>
                 </li>
                 <li>
@@ -188,22 +218,6 @@ export function Overview() {
                     }}
                   >
                     Highscore
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      showOverviewList(core)
-                      submit_event('show_questlist', core)
-                      hideProfile(core)
-                      document.getElementById('scroll-container')!.scrollTop = 0
-                      try {
-                        // @ts-ignore
-                        document.activeElement?.blur()
-                      } catch (e) {}
-                    }}
-                  >
-                    {core.strings.overview.showAll}
                   </button>
                 </li>
               </ul>

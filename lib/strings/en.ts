@@ -4,9 +4,9 @@ export const enStrings: typeof deStrings = {
   overview: {
     profile: 'Profile',
     editor: 'Editor',
-    save: 'Save',
+    save: 'Save progress',
     saveTooltip: 'Save to a file',
-    load: 'Load',
+    load: 'Load progress',
     loadTooltip: 'Load from a file',
     gameState: 'gamestate',
     lucky: "I'm Feeling Lucky",
@@ -21,6 +21,7 @@ export const enStrings: typeof deStrings = {
     later: 'later',
     docs: 'Documentation',
     path: 'Self-learning path',
+    startNow: 'Start now',
   },
   nameModal: {
     title: 'Welcome!',

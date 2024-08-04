@@ -43,7 +43,7 @@ export const questListByCategory = [
   {
     title: 'Anspruchsvolle Aufgaben',
     titleEn: 'Challenges',
-    quests: [33, 15, 19, 52, 51, 50, 16],
+    quests: [33, 15, 19, 50, 16, 52, 51],
   },
   {
     title: 'Rätsel',

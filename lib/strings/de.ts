@@ -19,6 +19,7 @@ export const deStrings = {
     later: 'später',
     docs: 'Dokumentation',
     path: 'Selbst-Lern-Pfad',
+    startNow: 'Jetzt starten',
   },
   nameModal: {
     title: 'Herzlich Willkommen!',
