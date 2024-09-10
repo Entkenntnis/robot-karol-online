@@ -17,6 +17,16 @@ export async function initClient(core: Core) {
 
   const id = parameterList.get('id')
 
+  const code = parameterList.get('code')
+
+  if (typeof code === 'string') {
+    // lock ui to code only
+    core.mutateWs((ws) => {
+      ws.ui.lockLanguage = 'karol'
+      ws.settings.mode = 'code'
+    })
+  }
+
   function buildPlayground() {
     core.mutateWs((ws) => {
       ws.quest.title = 'Spielwiese'
