@@ -259,7 +259,7 @@ const myAutocomplete: CompletionSource = (context) => {
   }
 }
 
-const colorMark = Decoration.mark({ class: 'text-[#9a4603]' })
+const colorMark = Decoration.mark({ class: 'text-[#0294e3]' })
 
 const myHighlightPlugin = ViewPlugin.fromClass(
   class {
