@@ -56,6 +56,7 @@ export interface Ui {
   showJavaInfo: boolean
   lockLanguage?: 'python' | 'java' | 'karol'
   isPlayground: boolean
+  showPreview: boolean
 }
 
 export interface Vm {

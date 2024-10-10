@@ -9,6 +9,7 @@ import {
   faPuzzlePiece,
   faQuestionCircle,
   faStop,
+  faUpload,
   faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
@@ -131,6 +132,57 @@ export function IdeMain() {
                 >
                   <FaIcon icon={faDownload} className="mr-1" />{' '}
                   {core.strings.ide.save}
+                </button>
+                <button
+                  className="hover:bg-gray-200 px-2 py-0.5 rounded text-gray-700 hover:text-black"
+                  onClick={() => {
+                    const input = document.createElement('input')
+                    input.type = 'file'
+                    input.accept = '.txt'
+
+                    const reader = new FileReader()
+                    reader.addEventListener('load', (e) => {
+                      if (
+                        e.target != null &&
+                        typeof e.target.result === 'string'
+                      ) {
+                        const code = e.target.result
+                        core.mutateWs((s) => {
+                          s.code = code
+                          s.ui.needsTextRefresh = true
+                        })
+                        if (core.ws.settings.mode == 'blocks') {
+                          setMode(core, 'code')
+                          const check = () => {
+                            if (core.ws.ui.needsTextRefresh) {
+                              setTimeout(check, 10)
+                            } else {
+                              setMode(core, 'blocks')
+                            }
+                          }
+                          check()
+                        }
+                      }
+                    })
+
+                    input.addEventListener('change', () => {
+                      if (input.files != null) {
+                        let file = input.files[0]
+                        reader.readAsText(file)
+                      }
+                    })
+
+                    const evt = new MouseEvent('click', {
+                      view: window,
+                      bubbles: true,
+                      cancelable: true,
+                    })
+
+                    input.dispatchEvent(evt)
+                  }}
+                >
+                  <FaIcon icon={faUpload} className="mr-1" />{' '}
+                  {core.strings.ide.load}
                 </button>
               </div>
               {core.ws.ui.lockLanguage ? (

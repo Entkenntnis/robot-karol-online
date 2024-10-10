@@ -46,7 +46,8 @@ export function Output() {
                 preview={
                   core.ws.ui.showPreviewOfTarget &&
                   core.ws.quest.lastStartedTask !== undefined &&
-                  core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target
+                  core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target &&
+                  core.ws.ui.showPreview
                     ? {
                         world:
                           core.ws.quest.tasks[core.ws.quest.lastStartedTask!]
@@ -64,6 +65,23 @@ export function Output() {
           </div>
           {core.ws.ui.state === 'running' && core.ws.ui.proMode && varStr && (
             <div className="absolute left-2 top-2">Variablen: {varStr}</div>
+          )}
+          {!core.ws.ui.isPlayground && (
+            <div className="absolute top-1.5 right-2">
+              <label className="select-none cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="cursor-pointer"
+                  checked={core.ws.ui.showPreview}
+                  onChange={(e) => {
+                    core.mutateWs((ws) => {
+                      ws.ui.showPreview = e.target.checked
+                    })
+                  }}
+                />{' '}
+                {core.strings.ide.preview}
+              </label>
+            </div>
           )}
           {core.ws.ui.isPlayground && core.ws.ui.state !== 'running' && (
             <button

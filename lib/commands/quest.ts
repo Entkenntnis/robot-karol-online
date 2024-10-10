@@ -2,7 +2,6 @@ import { autoFormat, setEditable } from '../codemirror/basicSetup'
 import { questData } from '../data/quests'
 import { questDataEn } from '../data/questsEn'
 import { submit_event } from '../helper/submit'
-import { submitSolution } from '../helper/submitSolution'
 import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
@@ -122,6 +121,7 @@ export function startQuest(core: Core, id: number) {
     ws.ui.isHighlightDescription = true
     ws.ui.audioStarted = false
     ui.speedSliderValue = 7
+    ui.showPreview = true
   })
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {
     showModal(core, 'name')

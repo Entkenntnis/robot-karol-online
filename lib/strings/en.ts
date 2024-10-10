@@ -10,7 +10,7 @@ export const enStrings: typeof deStrings = {
     loadTooltip: 'Load from a file',
     gameState: 'gamestate',
     lucky: "I'm Feeling Lucky",
-    version: 'Version: July 2024',
+    version: 'Version: October 2024',
     playground: 'Playground',
     imprint: 'Imprint',
     privacy: 'Privacy Policy',
@@ -33,6 +33,7 @@ export const enStrings: typeof deStrings = {
   ide: {
     backToOverview: 'Back to overview',
     save: 'Save',
+    load: 'Load',
     blocks: 'Blocks',
     structogram: 'Structogram',
     welcome:
@@ -67,6 +68,7 @@ export const enStrings: typeof deStrings = {
     language: 'Language',
     problems: 'The following problems occurred',
     line: 'Line',
+    preview: 'Preview of task',
   },
   profile: {
     title: 'Profile',

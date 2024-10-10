@@ -49,6 +49,7 @@ export function createWorkspaceState(): WorkspaceState {
       showJavaInfo: false,
       proMode: false,
       isPlayground: false,
+      showPreview: true,
     },
     vm: {
       pc: 0,

@@ -31,6 +31,7 @@ export const deStrings = {
   ide: {
     backToOverview: 'zurück zur Übersicht',
     save: 'Speichern',
+    load: 'Laden',
     blocks: 'Blöcke',
     structogram: 'Struktogramm',
     welcome:
@@ -66,6 +67,7 @@ export const deStrings = {
     language: 'Sprache',
     problems: 'Es sind folgende Probleme aufgetreten',
     line: 'Zeile',
+    preview: 'Auftragsvorschau',
   },
   profile: {
     title: 'Profil',
