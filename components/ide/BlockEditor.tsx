@@ -61,6 +61,7 @@ export function BlockEditor() {
     const initialXml = codeToXml(
       core.ws.code,
       core.ws.ui.cmdBlockPositions,
+      core.ws.ui.deactivatedBlocks,
       core.ws.settings.lng
     )
 
@@ -160,7 +161,9 @@ export function BlockEditor() {
       const topBlocks = blocklyWorkspace
         .getTopBlocks(false)
         .filter((bl) => !(bl as any).isInsertionMarker_) // hm, bypassing protection
-        .filter((bl) => bl.type !== 'define_command')
+        .filter(
+          (bl) => bl.type !== 'define_command' && bl.type !== 'deactivated'
+        )
 
       core.mutateWs(({ ui }) => {
         blocklyWorkspace
@@ -170,6 +173,14 @@ export function BlockEditor() {
             const name = block.getFieldValue('COMMAND')
             const { top, left } = block.getBoundingRectangle()
             ui.cmdBlockPositions[name] = { x: left, y: top }
+          })
+        blocklyWorkspace
+          .getTopBlocks(false)
+          .filter((bl) => bl.type === 'deactivated')
+          .forEach((block) => {
+            ui.deactivatedBlocks[block.id] = (
+              Blockly.Xml.blockToDomWithXY(block) as HTMLElement
+            ).outerHTML
           })
       })
 

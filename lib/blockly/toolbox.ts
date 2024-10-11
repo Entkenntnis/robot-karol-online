@@ -102,6 +102,10 @@ export const KAROL_TOOLBOX = {
       kind: 'block',
       type: 'define_command',
     },
+    {
+      kind: 'block',
+      type: 'deactivated',
+    },
     /*{
       kind: 'category',
       name: 'Anweisungen',

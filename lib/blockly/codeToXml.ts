@@ -1,5 +1,5 @@
 import { Tree, TreeCursor } from '@lezer/common'
-import { CmdBlockPositions } from '../state/types'
+import { CmdBlockPositions, DeactivatedBlocks } from '../state/types'
 import { deKeywords, enKeywords } from '../language/robot karol/compiler'
 import { getParserWithLng } from '../codemirror/parser/get-parser-with-lng'
 import { capitalize } from '../helper/capitalize'
@@ -7,6 +7,7 @@ import { capitalize } from '../helper/capitalize'
 export function codeToXml(
   code: string,
   cmdBlockPositions: CmdBlockPositions,
+  deactivatedBlocks: DeactivatedBlocks,
   systemLng: 'de' | 'en'
 ): string {
   // blocks are always showing in the current lng, so we parse the code according to
@@ -234,17 +235,23 @@ export function codeToXml(
           )
         }
       } else if (t == 'BlockComment') {
-        const lines = code
-          .substring(cursor.from + 2, cursor.to - 2)
-          .trim()
-          .split('\n')
-        for (const line of lines) {
-          callbackStack.push(
-            buildCommentClosure(
-              line
-              //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+        const text = code.substring(cursor.from + 2, cursor.to - 2).trim()
+        let id = ''
+        if (text.endsWith('~~~')) {
+          id = text.substring(text.length - 23, text.length - 3)
+        }
+        if (id && deactivatedBlocks[id]) {
+          cmds.push(deactivatedBlocks[id])
+        } else {
+          const lines = text.split('\n')
+          for (const line of lines) {
+            callbackStack.push(
+              buildCommentClosure(
+                line
+                //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+              )
             )
-          )
+          }
         }
       }
     } while (cursor.next())

@@ -149,6 +149,15 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
       karolGenerator.statementToCode(block, 'STATEMENTS') +
       '\nend_command\n',
   ],
+  [
+    'deactivated',
+    (block: Block) => {
+      return `\n/* deactivated  blocks\n${karolGenerator.statementToCode(
+        block,
+        'STATEMENTS'
+      )}\n${block.id}~~~*/\n`
+    },
+  ],
 ]
 
 export function initCustomBlocksEn() {

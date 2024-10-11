@@ -26,6 +26,8 @@ export interface Preview {
 
 export type CmdBlockPositions = { [key: string]: { x: number; y: number } }
 
+export type DeactivatedBlocks = { [key: string]: string }
+
 export interface Ui {
   // this state is only for ide
   messages: Message[]
@@ -53,6 +55,7 @@ export interface Ui {
   showOk: boolean
   audioStarted: boolean
   cmdBlockPositions: CmdBlockPositions
+  deactivatedBlocks: DeactivatedBlocks
   showJavaInfo: boolean
   lockLanguage?: 'python' | 'java' | 'karol'
   isPlayground: boolean

@@ -415,5 +415,22 @@
     "colour": 354,
     "tooltip": "Define your own commands",
     "helpUrl": ""
+  },
+  {
+    "type": "deactivated",
+    "message0": "deactivated blocks %1 %2",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "inputsInline": true,
+    "colour": "#666666",
+    "tooltip": "Blocks are not executed",
+    "helpUrl": ""
   }
 ]
