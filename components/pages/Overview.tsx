@@ -3,6 +3,7 @@ import {
   faCheckCircle,
   faExternalLink,
   faGlobe,
+  faLightbulb,
   faPencil,
   faPenToSquare,
   faSeedling,
@@ -471,6 +472,28 @@ export function Overview() {
                 {core.ws.settings.lng === 'de' && (
                   <a
                     className={clsx(
+                      'absolute top-[760px] left-[170px] block z-10 hover:bg-gray-100/60 rounded-xl',
+                      'w-[120px] cursor-pointer'
+                    )}
+                    href="#INSPIRATION"
+                    target="_blank"
+                    onClick={() => {
+                      submit_event('show_materials', core)
+                    }}
+                  >
+                    <p className="text-center text-lg mb-1">
+                      Aufgaben-
+                      <br />
+                      Galerie
+                    </p>
+                    <p className="text-center text-3xl">
+                      <FaIcon icon={faLightbulb} />
+                    </p>
+                  </a>
+                )}
+                {core.ws.settings.lng === 'de' && (
+                  <a
+                    className={clsx(
                       'absolute top-[1120px] left-[970px] block z-10 hover:bg-gray-100/60 rounded-xl',
                       'w-[120px] cursor-pointer'
                     )}
@@ -614,11 +637,8 @@ export function Overview() {
                       </p>
                       <p className="mt-2">
                         Lehrkräfte können mit dem Editor eigene Aufgaben anlegen
-                        und mit der Klasse teilen oder{' '}
-                        <a href="#INSPIRATION" target="_blank" className="link">
-                          sich inspirieren lassen
-                        </a>
-                        .
+                        und mit der Klasse teilen oder sich von der Galerie
+                        inspirieren lassen.
                       </p>
                     </div>
                   )}
