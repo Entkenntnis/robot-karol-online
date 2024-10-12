@@ -108,6 +108,12 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 `Anweisung <name> {...} endeAnweisung` - Definiere eine eigene Anweisung
 
+### Hauptprogramm (optional)
+
+![grafik](https://github.com/user-attachments/assets/aa2f4d6d-6e63-44ec-a6bb-ba73724d29bb)
+
+Wenn es im Block-Modus mehrere Teilprogramme gibt, dann wird nur das Programm innerhalb des Hauptprogramm-Blocks ausgeführt. Alle anderen Blöcke sind inaktiv. Wird der Hauptprogramm-Block nicht verwenden und ist das Programm zusammenhängend, dann wird dieses Programm automatisch ausgeführt.
+
 ## Textmodus
 
 Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen unterstützt, außerdem gibt es noch folgende Möglichkeiten:
