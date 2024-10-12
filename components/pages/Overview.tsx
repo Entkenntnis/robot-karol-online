@@ -450,7 +450,7 @@ export function Overview() {
                 {core.ws.settings.lng === 'de' && (
                   <a
                     className={clsx(
-                      'absolute top-[680px] left-[370px] block z-10 hover:bg-gray-100/60 rounded-xl',
+                      'absolute top-[760px] left-[170px] block z-10 hover:bg-gray-100/60 rounded-xl',
                       'w-[120px] cursor-pointer'
                     )}
                     href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
@@ -472,7 +472,7 @@ export function Overview() {
                 {core.ws.settings.lng === 'de' && (
                   <a
                     className={clsx(
-                      'absolute top-[760px] left-[170px] block z-10 hover:bg-gray-100/60 rounded-xl',
+                      'absolute top-[680px] left-[370px] block z-10 hover:bg-gray-100/60 rounded-xl',
                       'w-[120px] cursor-pointer'
                     )}
                     href="#INSPIRATION"

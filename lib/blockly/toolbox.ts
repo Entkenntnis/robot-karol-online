@@ -1,7 +1,11 @@
 export const KAROL_TOOLBOX = {
   kind: 'flyoutToolbox',
   contents: [
-    { kind: 'block', type: 'line_comment' },
+    {
+      kind: 'block',
+      type: 'main',
+    },
+
     {
       kind: 'block',
       type: 'stop',
@@ -102,6 +106,7 @@ export const KAROL_TOOLBOX = {
       kind: 'block',
       type: 'define_command',
     },
+    { kind: 'block', type: 'line_comment' },
     /*{
       kind: 'category',
       name: 'Anweisungen',

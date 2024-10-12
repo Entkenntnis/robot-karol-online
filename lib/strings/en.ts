@@ -61,7 +61,10 @@ export const enStrings: typeof deStrings = {
     taskCompleted: 'completed',
     thereAreErrors: 'The following issues occurred while loading the program:',
     close: 'Close',
-    connectAll: 'Connect all blocks of the main program.',
+    connectAll:
+      'Blocks are not connected. Please connect blocks to one program or use use main program block.',
+    multipleMains:
+      'More than one main program, expecting at most one main program.',
     stay: 'stay',
     exit: 'continue',
     read: 'Read the instructions',

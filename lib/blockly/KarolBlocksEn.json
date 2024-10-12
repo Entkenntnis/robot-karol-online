@@ -415,5 +415,22 @@
     "colour": 354,
     "tooltip": "Define your own commands",
     "helpUrl": ""
+  },
+  {
+    "type": "main",
+    "message0": "main program %1 %2",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "inputsInline": true,
+    "colour": "#78716c",
+    "tooltip": "This program will be run",
+    "helpUrl": ""
   }
 ]

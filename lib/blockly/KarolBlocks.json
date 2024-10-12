@@ -674,5 +674,22 @@
     "colour": 354,
     "tooltip": "Definiere eine eigene Anweisung",
     "helpUrl": ""
+  },
+  {
+    "type": "main",
+    "message0": "Hauptprogramm %1 %2",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STATEMENTS"
+      }
+    ],
+    "inputsInline": true,
+    "colour": "#78716c",
+    "tooltip": "Dieses Programm wird ausgeführt",
+    "helpUrl": ""
   }
 ]

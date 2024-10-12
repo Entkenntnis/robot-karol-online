@@ -58,9 +58,12 @@ export const deStrings = {
     clear: 'Ausgabe leeren',
     taskCompleted: 'abgeschlossen',
     thereAreErrors:
-      'Folgende Probleme sind beim Einlesen des Programms aufgetreten',
+      'Folgende Probleme sind beim Einlesen des Programms aufgetreten:',
     close: 'Schließen',
-    connectAll: 'Alle Blöcke des Hauptprogramms müssen zusammenhängen.',
+    connectAll:
+      'Blöcke sind nicht zusammenhängend. Verbinde die Blöcke zu einem Programm oder nutze den Hauptprogramm-Block.',
+    multipleMains:
+      'Mehr als ein Hauptprogramm - erwarte höchstens ein Hauptprogramm.',
     stay: 'bleiben',
     exit: 'weiter',
     read: 'Lies die Anleitung',

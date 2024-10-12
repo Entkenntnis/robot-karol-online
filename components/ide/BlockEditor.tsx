@@ -61,6 +61,7 @@ export function BlockEditor() {
     const initialXml = codeToXml(
       core.ws.code,
       core.ws.ui.cmdBlockPositions,
+      core.ws.ui.snippets,
       core.ws.settings.lng
     )
 
@@ -122,12 +123,72 @@ export function BlockEditor() {
     const myUpdateFunction = () => {
       if (blocklyWorkspace.isDragging()) return
 
-      //console.log(Blockly.Xml.workspaceToDom(blocklyWorkspace))
+      const allTopBlocks = blocklyWorkspace
+        .getTopBlocks(true)
+        .filter((bl) => !(bl as any).isInsertionMarker_) // hm, bypassing protection
 
-      const newCode = (Blockly as any).karol.workspaceToCode(
-        // strange monkey patch
-        blocklyWorkspace
-      ) as string
+      //console.log(Blockly.Xml.workspaceToDom(blocklyWorkspace))
+      const topBlocks = allTopBlocks.filter(
+        (bl) => bl.type !== 'define_command'
+      )
+
+      const cmdBlocks = allTopBlocks.filter((bl) => bl.type == 'define_command')
+
+      const mainBlocks = topBlocks.filter((bl) => bl.type == 'main')
+
+      if (topBlocks.length > 1) {
+        let error = ''
+        if (mainBlocks.length > 1) {
+          error = core.strings.ide.multipleMains
+        } else if (mainBlocks.length == 0) {
+          error = core.strings.ide.connectAll
+        }
+
+        if (error) {
+          if (core.ws.ui.state == 'running') {
+            abort(core)
+          }
+          core.mutateWs((ws) => {
+            ws.ui.state = 'error'
+            ws.ui.errorMessages = [error]
+          })
+          return
+        }
+      }
+      let counter = 1
+
+      core.mutateWs((ws) => {
+        ws.ui.snippets = []
+      })
+
+      const newCode =
+        mainBlocks.length == 1
+          ? (Blockly as any).karol.blockToCode(mainBlocks[0]) +
+            '\n' +
+            cmdBlocks
+              .map((bl) => (Blockly as any).karol.blockToCode(bl) as string)
+              .join('\n') +
+            '\n' +
+            topBlocks
+              .filter((bl) => bl.type !== 'main')
+              .map((bl) => {
+                core.mutateWs((ws) => {
+                  ws.ui.snippets.push(
+                    (Blockly.Xml.blockToDomWithXY(bl) as HTMLElement).outerHTML
+                  )
+                })
+                return `// Schnipsel ${counter++}\n${(
+                  (Blockly as any).karol.blockToCode(bl).toString() as string
+                )
+                  .split('\n')
+                  .map((x) => `// ${x}`)
+                  .join('\n')}\n// endeSchnipsel\n`
+              })
+              .join('\n')
+          : ((Blockly as any).karol.workspaceToCode(
+              // strange monkey patch
+              blocklyWorkspace
+            ) as string)
 
       setBlockIds(
         newCode.split('\n').map((line) => {
@@ -157,60 +218,43 @@ export function BlockEditor() {
           .replace(/\n$/, '')
       })
 
-      const topBlocks = blocklyWorkspace
-        .getTopBlocks(false)
-        .filter((bl) => !(bl as any).isInsertionMarker_) // hm, bypassing protection
-        .filter((bl) => bl.type !== 'define_command')
-
       core.mutateWs(({ ui }) => {
-        blocklyWorkspace
-          .getTopBlocks(false)
-          .filter((bl) => bl.type === 'define_command')
-          .forEach((block) => {
-            const name = block.getFieldValue('COMMAND')
-            const { top, left } = block.getBoundingRectangle()
-            ui.cmdBlockPositions[name] = { x: left, y: top }
-          })
+        cmdBlocks.forEach((block) => {
+          const name = block.getFieldValue('COMMAND')
+          const { top, left } = block.getBoundingRectangle()
+          ui.cmdBlockPositions[name] = { x: left, y: top }
+        })
       })
 
-      if (topBlocks.length > 1) {
-        if (core.ws.ui.state == 'running') {
-          abort(core)
-        }
-        core.mutateWs((ws) => {
-          ws.ui.state = 'error'
-          ws.ui.errorMessages = [core.strings.ide.connectAll]
-        })
-      } else {
-        if (core.ws.ui.state == 'running') {
-          return // don't patch while running of code hasn't changed
-        }
-        const doc = Text.of(newCode.split('\n'))
-        const tree = getParserWithLng(core.ws.settings.lng).parse(newCode)
-        const { warnings, output } = compile(tree, doc, core.ws.settings.lng)
-
-        //console.log(warnings, output)
-
-        if (warnings.length == 0) {
-          patch(core, output)
-        } else {
-          core.mutateWs(({ vm, ui }) => {
-            vm.bytecode = undefined
-            vm.pc = 0
-            ui.state = 'error'
-            ui.errorMessages = warnings
-              .map(
-                (w) =>
-                  `${core.strings.ide.line} ${doc.lineAt(w.from).number}: ${
-                    w.message
-                  }`
-              )
-              .filter(function (item, i, arr) {
-                return arr.indexOf(item) == i
-              })
-          })
-        }
+      if (core.ws.ui.state == 'running') {
+        return // don't patch while running of code hasn't changed
       }
+      const doc = Text.of(newCode.split('\n'))
+      const tree = getParserWithLng(core.ws.settings.lng).parse(newCode)
+      const { warnings, output } = compile(tree, doc, core.ws.settings.lng)
+
+      //console.log(warnings, output)
+
+      if (warnings.length == 0) {
+        patch(core, output)
+      } else {
+        core.mutateWs(({ vm, ui }) => {
+          vm.bytecode = undefined
+          vm.pc = 0
+          ui.state = 'error'
+          ui.errorMessages = warnings
+            .map(
+              (w) =>
+                `${core.strings.ide.line} ${doc.lineAt(w.from).number}: ${
+                  w.message
+                }`
+            )
+            .filter(function (item, i, arr) {
+              return arr.indexOf(item) == i
+            })
+        })
+      }
+
       setTimeout(onresize, 0)
     }
     blocklyWorkspace.addChangeListener(myUpdateFunction)

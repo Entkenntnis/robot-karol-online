@@ -30,6 +30,7 @@ export const deKeywords = {
   nichtistsüden: 'nichtistsüden',
   istwesten: 'istwesten',
   nichtistwesten: 'nichtistwesten',
+  hauptprogramm: 'Hauptprogramm',
 }
 
 export const enKeywords = {
@@ -58,6 +59,7 @@ export const enKeywords = {
   nichtistsüden: 'not_is_south',
   istwesten: 'is_west',
   nichtistwesten: 'not_is_west',
+  hauptprogramm: 'main program',
 }
 
 export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {

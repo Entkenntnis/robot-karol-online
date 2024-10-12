@@ -46,6 +46,7 @@ export function createWorkspaceState(): WorkspaceState {
       showOk: false,
       audioStarted: false,
       cmdBlockPositions: {},
+      snippets: [],
       showJavaInfo: false,
       proMode: false,
       isPlayground: false,

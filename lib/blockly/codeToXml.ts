@@ -7,6 +7,7 @@ import { capitalize } from '../helper/capitalize'
 export function codeToXml(
   code: string,
   cmdBlockPositions: CmdBlockPositions,
+  snippets: string[],
   systemLng: 'de' | 'en'
 ): string {
   // blocks are always showing in the current lng, so we parse the code according to
@@ -214,12 +215,33 @@ export function codeToXml(
         }
       } else if (t == 'LineComment') {
         const text = code.substring(cursor.from + 2, cursor.to).trim()
-        callbackStack.push(
-          buildCommentClosure(
-            text
-            //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+        if (text == keywords.hauptprogramm && callbackStack.length == 1) {
+          callbackStack.push(buildMain())
+        } else if (text.startsWith('Schnipsel ')) {
+          const n = parseInt(text.substring(10))
+          if (!isNaN(n) && n <= snippets.length && n > 0) {
+            cmds.push(snippets[n - 1])
+            // skip snippet block
+            for (;;) {
+              cursor.next()
+              if (cursor.name !== 'LineComment') {
+                cursor.prev()
+                break
+              }
+              const t = code.substring(cursor.from + 2, cursor.to).trim()
+              if (t.includes('endeSchnipsel')) {
+                break
+              }
+            }
+          }
+        } else {
+          callbackStack.push(
+            buildCommentClosure(
+              text
+              //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
+            )
           )
-        )
+        }
       } else if (t == 'Comment') {
         const lines = code
           .substring(cursor.from + 1, cursor.to - 1)
@@ -274,6 +296,15 @@ export function codeToXml(
       `<block type="custom_command" ${
         attrs ?? ''
       }><field name="COMMAND">${name}</field><next>${inner}</next></block>`
+  }
+
+  function buildMain() {
+    return (statements: string) =>
+      `<block type="main"> ${
+        statements
+          ? `<statement name="STATEMENTS">${statements}</statement>`
+          : ''
+      }$</block>`
   }
 
   function buildClosureWithoutInner(

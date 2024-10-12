@@ -53,6 +53,7 @@ export interface Ui {
   showOk: boolean
   audioStarted: boolean
   cmdBlockPositions: CmdBlockPositions
+  snippets: string[]
   showJavaInfo: boolean
   lockLanguage?: 'python' | 'java' | 'karol'
   isPlayground: boolean
