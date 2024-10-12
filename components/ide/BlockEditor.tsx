@@ -13,6 +13,8 @@ import { compile } from '../../lib/language/robot karol/compiler'
 import { useCore } from '../../lib/state/core'
 import { initCustomBlocksEn } from '../../lib/blockly/customBlocksEn'
 import { getParserWithLng } from '../../lib/codemirror/parser/get-parser-with-lng'
+import { CmdBlocksStore } from '../../lib/state/cmd-blocks-store'
+import { BlockChange } from 'blockly/core/events/events_block_change'
 
 export function BlockEditor() {
   const editorDiv = useRef<HTMLDivElement>(null)
@@ -120,8 +122,29 @@ export function BlockEditor() {
     core.blockyResize = onresize
     //console.log('mount', core.blockyResize)
 
-    const myUpdateFunction = () => {
+    const myUpdateFunction = (event: BlockChange) => {
       if (blocklyWorkspace.isDragging()) return
+
+      try {
+        if (event.type == 'change' && event.name == 'COMMAND_NAME') {
+          blocklyWorkspace
+            .getAllBlocks(false)
+            .filter((bl) => bl.type == 'custom_command')
+            .forEach((bl) => {
+              if (bl.getFieldValue('COMMAND') == event.oldValue) {
+                // we are accessing internal field to bybass validator
+                // options are re-generated anyways
+                ;(bl.getField('COMMAND') as any).generatedOptions_.push([
+                  event.newValue,
+                  event.newValue,
+                ])
+                bl.setFieldValue(event.newValue, 'COMMAND')
+              }
+            })
+        }
+      } catch (e) {
+        console.log('auto-update failed', e)
+      }
 
       const allTopBlocks = blocklyWorkspace
         .getTopBlocks(true)
@@ -135,6 +158,21 @@ export function BlockEditor() {
       const cmdBlocks = allTopBlocks.filter((bl) => bl.type == 'define_command')
 
       const mainBlocks = topBlocks.filter((bl) => bl.type == 'main')
+
+      let names: string[] = []
+      core.mutateWs(({ ui }) => {
+        cmdBlocks.forEach((block) => {
+          const name = block.getFieldValue('COMMAND_NAME')
+          if (name) {
+            names.push(name)
+          }
+          const { top, left } = block.getBoundingRectangle()
+          ui.cmdBlockPositions[name] = { x: left, y: top }
+        })
+      })
+      CmdBlocksStore.update((s) => {
+        s.names = names
+      })
 
       if (topBlocks.length > 1) {
         let error = ''
@@ -155,6 +193,7 @@ export function BlockEditor() {
           return
         }
       }
+
       let counter = 1
 
       core.mutateWs((ws) => {
@@ -216,14 +255,6 @@ export function BlockEditor() {
           .replace(/\n\n\n/g, '\n\n')
           .replace(/^\n/, '')
           .replace(/\n$/, '')
-      })
-
-      core.mutateWs(({ ui }) => {
-        cmdBlocks.forEach((block) => {
-          const name = block.getFieldValue('COMMAND')
-          const { top, left } = block.getBoundingRectangle()
-          ui.cmdBlockPositions[name] = { x: left, y: top }
-        })
       })
 
       if (core.ws.ui.state == 'running') {

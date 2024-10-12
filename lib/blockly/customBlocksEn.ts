@@ -1,7 +1,8 @@
 // based on https://github.com/vanmeegen/react-three-karol/blob/main/src/blockly/CustomBlocks.ts
 
+import { CmdBlocksStore } from '../state/cmd-blocks-store'
 import blocks from './KarolBlocksEn.json'
-import Blockly, { Block } from 'blockly'
+import Blockly, { Block, MenuOption } from 'blockly'
 
 let karolGenerator: any
 
@@ -142,7 +143,7 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
     'define_command',
     (block: Block) =>
       '\ncommand ' +
-      block.getFieldValue('COMMAND') +
+      block.getFieldValue('COMMAND_NAME') +
       '//blockId:' +
       block.id +
       '\n' +
@@ -184,3 +185,20 @@ export function initCustomBlocksEn() {
   }
   ;(Blockly as any)['karol'] = karolGenerator // strange monkey patch
 }
+
+Blockly.Extensions.register('custom_cmds_extension_en', function () {
+  //@ts-expect-error Difficult for ts to parse
+  this.getInput('COMMAND').appendField(
+    new Blockly.FieldDropdown(function () {
+      var options: MenuOption[] = []
+      for (const name of CmdBlocksStore.getRawState().names) {
+        options.push([name, name])
+      }
+      if (options.length == 0) {
+        options.push(['DoWork', 'DoWork'])
+      }
+      return options
+    }),
+    'COMMAND'
+  )
+})

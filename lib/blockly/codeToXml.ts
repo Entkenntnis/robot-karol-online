@@ -3,6 +3,7 @@ import { CmdBlockPositions } from '../state/types'
 import { deKeywords, enKeywords } from '../language/robot karol/compiler'
 import { getParserWithLng } from '../codemirror/parser/get-parser-with-lng'
 import { capitalize } from '../helper/capitalize'
+import { CmdBlocksStore } from '../state/cmd-blocks-store'
 
 export function codeToXml(
   code: string,
@@ -60,8 +61,11 @@ export function codeToXml(
         } else {
           xOffset += 200
         }
+        CmdBlocksStore.update((s) => {
+          s.names.push(name)
+        })
         cmds.push(
-          `<block type="define_command" x="${x}" y="${y}"><field name="COMMAND">${name}</field>${
+          `<block type="define_command" x="${x}" y="${y}"><field name="COMMAND_NAME">${name}</field>${
             statements
               ? `<statement name="STATEMENTS">${statements}</statement>`
               : ''

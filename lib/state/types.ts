@@ -386,3 +386,7 @@ export interface AppearanceData {
   titleEn: string
   position: number
 }
+
+export interface ICmdBlocksStore {
+  names: string[]
+}

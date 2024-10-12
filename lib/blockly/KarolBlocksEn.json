@@ -386,11 +386,11 @@
     "helpUrl": "",
     "args0": [
       {
-        "type": "field_input",
-        "name": "COMMAND",
-        "text": "DoWork"
+        "type": "input_dummy",
+        "name": "COMMAND"
       }
     ],
+    "extensions": ["custom_cmds_extension_en"],
     "previousStatement": null,
     "nextStatement": null
   },
@@ -400,7 +400,7 @@
     "args0": [
       {
         "type": "field_input",
-        "name": "COMMAND",
+        "name": "COMMAND_NAME",
         "text": "DoWork"
       },
       {

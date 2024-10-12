@@ -14,7 +14,6 @@ import {
   FieldNumberConfig,
   FieldNumberValidator,
 } from 'blockly/core/field_number'
-import { isTouchDevice } from '../helper/isTouchDevice'
 
 /**
  * A config object for defining a field slider.
