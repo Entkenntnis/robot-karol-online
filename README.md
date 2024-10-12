@@ -108,7 +108,7 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 `Anweisung <name> {...} endeAnweisung` - Definiere eine eigene Anweisung
 
-### Hauptprogramm (optional)
+### Hauptprogramm
 
 ![grafik](https://github.com/user-attachments/assets/aa2f4d6d-6e63-44ec-a6bb-ba73724d29bb)
 
