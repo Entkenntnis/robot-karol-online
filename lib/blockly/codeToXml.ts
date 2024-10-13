@@ -305,9 +305,7 @@ export function codeToXml(
   function buildMain() {
     return (statements: string) =>
       `<block type="main"> ${
-        statements
-          ? `<statement name="STATEMENTS">${statements}</statement>`
-          : ''
+        statements ? `<next>${statements}</next>` : ''
       }$</block>`
   }
 

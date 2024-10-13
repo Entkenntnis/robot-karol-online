@@ -150,16 +150,7 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
       karolGenerator.statementToCode(block, 'STATEMENTS') +
       '\nend_command\n',
   ],
-  [
-    'main',
-    (block: Block) =>
-      `// main program\n${(
-        karolGenerator.statementToCode(block, 'STATEMENTS') as string
-      )
-        .split('\n')
-        .map((x) => x.substring(2))
-        .join('\n')}`,
-  ],
+  ['main', () => `// main program`],
 ]
 
 export function initCustomBlocksEn() {
