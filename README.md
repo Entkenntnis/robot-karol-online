@@ -110,9 +110,9 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 ### Hauptprogramm
 
-![grafik](https://github.com/user-attachments/assets/aa2f4d6d-6e63-44ec-a6bb-ba73724d29bb)
+![grafik](https://github.com/user-attachments/assets/98b98aa9-88a1-46df-969e-4502738ef00e)
 
-Wenn es im Block-Modus mehrere Teilprogramme gibt, dann wird nur das Programm innerhalb des Hauptprogramm-Blocks ausgeführt. Alle anderen Blöcke sind inaktiv. Wird der Hauptprogramm-Block nicht verwenden und ist das Programm zusammenhängend, dann wird dieses Programm automatisch ausgeführt.
+Wenn es im Block-Modus mehrere Teilprogramme gibt, dann wird nur das Programm des Hauptprogramm-Blocks ausgeführt. Alle anderen Blöcke sind inaktiv. Wird der Hauptprogramm-Block nicht verwenden und ist das Programm zusammenhängend, dann wird dieses Programm automatisch ausgeführt.
 
 ## Textmodus
 
