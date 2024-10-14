@@ -123,7 +123,7 @@ export function IdeMain() {
           )}
           <div className="h-full flex flex-col">
             <div className="flex-none h-8 bg-gray-50 flex justify-center items-start relative">
-              <div className="absolute left-1 top-0.5">
+              <div className="absolute left-1 top-0.5 z-0">
                 <button
                   className="hover:bg-gray-200 px-2 py-0.5 rounded text-gray-700 hover:text-black"
                   onClick={() => {
@@ -185,61 +185,63 @@ export function IdeMain() {
                   {core.strings.ide.load}
                 </button>
               </div>
-              {core.ws.ui.lockLanguage ? (
-                <span></span>
-              ) : (
+              <div className="absolute inset-0 z-20 flex justify-center items-start">
+                {core.ws.ui.lockLanguage ? (
+                  <span></span>
+                ) : (
+                  <button
+                    className={clsx(
+                      'ml-4 mr-4 border-t-4 px-3  pb-1 z-10 bg-gray-50/90',
+                      core.ws.settings.mode == 'blocks'
+                        ? 'border-t-blue-500'
+                        : 'border-t-transparent',
+                      core.ws.settings.mode == 'code' &&
+                        (core.ws.ui.state === 'error' ||
+                          core.ws.ui.state === 'running' ||
+                          core.ws.ui.toBlockWarning ||
+                          core.ws.quest.testerHandler ||
+                          core.ws.ui.proMode) &&
+                        'text-gray-400',
+                      core.ws.settings.mode == 'code' &&
+                        core.ws.ui.state == 'ready' &&
+                        !core.ws.ui.toBlockWarning &&
+                        !core.ws.quest.testerHandler &&
+                        !core.ws.ui.proMode
+                        ? 'hover:border-t-gray-300 hover:bg-gray-200'
+                        : 'cursor-default'
+                    )}
+                    onClick={() => {
+                      setMode(core, 'blocks')
+                    }}
+                  >
+                    <FaIcon icon={faPuzzlePiece} className="mr-3" />
+                    {core.strings.ide.blocks}
+                  </button>
+                )}
                 <button
                   className={clsx(
-                    'ml-4 mr-4 border-t-4 px-3  pb-1 z-10',
-                    core.ws.settings.mode == 'blocks'
+                    'border-t-4 px-3 pb-1 z-10 bg-gray-50/90',
+                    core.ws.settings.mode == 'code'
                       ? 'border-t-blue-500'
                       : 'border-t-transparent',
-                    core.ws.settings.mode == 'code' &&
-                      (core.ws.ui.state === 'error' ||
-                        core.ws.ui.state === 'running' ||
-                        core.ws.ui.toBlockWarning ||
-                        core.ws.quest.testerHandler ||
-                        core.ws.ui.proMode) &&
-                      'text-gray-400',
-                    core.ws.settings.mode == 'code' &&
+                    core.ws.settings.mode == 'blocks' &&
+                      (core.ws.ui.state !== 'ready' ||
+                        core.ws.quest.testerHandler) &&
+                      'text-gray-400 cursor-default',
+                    core.ws.settings.mode == 'blocks' &&
                       core.ws.ui.state == 'ready' &&
-                      !core.ws.ui.toBlockWarning &&
-                      !core.ws.quest.testerHandler &&
-                      !core.ws.ui.proMode
-                      ? 'hover:border-t-gray-300 hover:bg-gray-200'
+                      !core.ws.quest.testerHandler
+                      ? 'hover:bg-gray-200 hover:border-t-gray-300'
                       : 'cursor-default'
                   )}
                   onClick={() => {
-                    setMode(core, 'blocks')
+                    setMode(core, 'code')
                   }}
                 >
-                  <FaIcon icon={faPuzzlePiece} className="mr-3" />
-                  {core.strings.ide.blocks}
+                  <FaIcon icon={faCode} className="mr-3" />
+                  Code
                 </button>
-              )}
-              <button
-                className={clsx(
-                  'border-t-4 px-3 pb-1 z-10',
-                  core.ws.settings.mode == 'code'
-                    ? 'border-t-blue-500'
-                    : 'border-t-transparent',
-                  core.ws.settings.mode == 'blocks' &&
-                    (core.ws.ui.state !== 'ready' ||
-                      core.ws.quest.testerHandler) &&
-                    'text-gray-400 cursor-default',
-                  core.ws.settings.mode == 'blocks' &&
-                    core.ws.ui.state == 'ready' &&
-                    !core.ws.quest.testerHandler
-                    ? 'hover:bg-gray-200 hover:border-t-gray-300'
-                    : 'cursor-default'
-                )}
-                onClick={() => {
-                  setMode(core, 'code')
-                }}
-              >
-                <FaIcon icon={faCode} className="mr-3" />
-                Code
-              </button>
+              </div>
               {core.ws.settings.lng == 'de' &&
                 core.ws.settings.mode === 'code' && (
                   <div className="absolute right-0 top-0 z-0">

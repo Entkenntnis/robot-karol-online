@@ -397,7 +397,7 @@ export function Tasks() {
               </button>
             </p>
           ) : core.ws.page == 'shared' || core.ws.page == 'imported' ? (
-            <p className="z-10 w-full ml-3">
+            <p className="z-10 w-full ml-3 h-6 overflow-hidden">
               <a
                 className="underline"
                 target="_blank"
