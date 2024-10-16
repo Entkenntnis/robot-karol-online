@@ -185,13 +185,13 @@ export function IdeMain() {
                   {core.strings.ide.load}
                 </button>
               </div>
-              <div className="absolute inset-0 z-20 flex justify-center items-start">
+              <div className="absolute inset-0 z-20 flex justify-center items-start pointer-events-none">
                 {core.ws.ui.lockLanguage ? (
                   <span></span>
                 ) : (
                   <button
                     className={clsx(
-                      'ml-4 mr-4 border-t-4 px-3  pb-1 z-10 bg-gray-50/90',
+                      'ml-4 mr-4 border-t-4 px-3  pb-1 z-10 bg-gray-50/90 pointer-events-auto',
                       core.ws.settings.mode == 'blocks'
                         ? 'border-t-blue-500'
                         : 'border-t-transparent',
@@ -220,7 +220,7 @@ export function IdeMain() {
                 )}
                 <button
                   className={clsx(
-                    'border-t-4 px-3 pb-1 z-10 bg-gray-50/90',
+                    'border-t-4 px-3 pb-1 z-10 bg-gray-50/90  pointer-events-auto',
                     core.ws.settings.mode == 'code'
                       ? 'border-t-blue-500'
                       : 'border-t-transparent',
