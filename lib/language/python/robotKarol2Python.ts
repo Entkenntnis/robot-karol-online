@@ -119,7 +119,7 @@ export function robotKarol2Python(code: string) {
         }
       } else if (node.name == 'CustomRef') {
         pad()
-        output += `${node.text()}()\n`
+        output += `karol.${node.text()}()\n`
       } else if (node.name == 'LineComment') {
         pad()
         output += `#${node.text().substring(2)}\n`

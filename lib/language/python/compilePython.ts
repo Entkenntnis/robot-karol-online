@@ -254,8 +254,9 @@ export function compilePython(
           } else {
             const methodName = memberExpr.children[2].text()
             const action = methodName2action(methodName)
+            const isOwnMethod = availableMethods.has(methodName)
             let integerArgument = NaN
-            if (methodsWithoutArgs.includes(methodName)) {
+            if (methodsWithoutArgs.includes(methodName) || isOwnMethod) {
               if (!matchChildren(['(', ')'], argList.children)) {
                 warnings.push({
                   from: argList.from,
@@ -356,52 +357,63 @@ export function compilePython(
               }
               context.condition = cond
             } else {
-              if (!action) {
-                warnings.push({
-                  from: memberExpr.children[2].from,
-                  to: memberExpr.children[2].to,
-                  severity: 'error',
-                  message: `Unbekannte Methode '${methodName}'`,
-                })
-                return
-              }
-              // create output
-              if (action == '--exit--') {
-                output.push({ type: 'jump', target: Infinity })
-                appendRkCode('Beenden', node.from)
-                return
-              }
+              if (isOwnMethod) {
+                const op: CallOp = {
+                  type: 'call',
+                  target: -1,
+                  line: doc.lineAt(node.from).number,
+                }
+                output.push(op)
+                appendRkCode(methodName, node.from)
+                context.callOps.push([methodName, op])
+              } else {
+                if (!action) {
+                  warnings.push({
+                    from: memberExpr.children[2].from,
+                    to: memberExpr.children[2].to,
+                    severity: 'error',
+                    message: `Unbekannte Methode '${methodName}'`,
+                  })
+                  return
+                }
+                // create output
+                if (action == '--exit--') {
+                  output.push({ type: 'jump', target: Infinity })
+                  appendRkCode('Beenden', node.from)
+                  return
+                }
 
-              if (!isNaN(integerArgument)) {
-                for (
-                  let i = 0;
-                  i < Math.min(1000, integerArgument) /* protect */;
-                  i++
-                ) {
+                if (!isNaN(integerArgument)) {
+                  for (
+                    let i = 0;
+                    i < Math.min(1000, integerArgument) /* protect */;
+                    i++
+                  ) {
+                    output.push({
+                      type: 'action',
+                      command: action,
+                      line: doc.lineAt(node.from).number,
+                    })
+                  }
+                  appendRkCode(
+                    methodName.charAt(0).toUpperCase() +
+                      methodName.slice(1) +
+                      '(' +
+                      integerArgument.toString() +
+                      ')',
+                    node.from
+                  )
+                } else {
                   output.push({
                     type: 'action',
                     command: action,
                     line: doc.lineAt(node.from).number,
                   })
+                  appendRkCode(
+                    methodName.charAt(0).toUpperCase() + methodName.slice(1),
+                    node.from
+                  )
                 }
-                appendRkCode(
-                  methodName.charAt(0).toUpperCase() +
-                    methodName.slice(1) +
-                    '(' +
-                    integerArgument.toString() +
-                    ')',
-                  node.from
-                )
-              } else {
-                output.push({
-                  type: 'action',
-                  command: action,
-                  line: doc.lineAt(node.from).number,
-                })
-                appendRkCode(
-                  methodName.charAt(0).toUpperCase() + methodName.slice(1),
-                  node.from
-                )
               }
             }
           }

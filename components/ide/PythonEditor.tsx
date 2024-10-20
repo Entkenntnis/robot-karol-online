@@ -18,12 +18,12 @@ import {
 import {
   Theme,
   autoFormat,
+  defaultHighlightStyle,
   editable,
   germanPhrases,
 } from '../../lib/codemirror/basicSetup'
 import { Core, useCore } from '../../lib/state/core'
 import {
-  defaultHighlightStyle,
   ensureSyntaxTree,
   indentOnInput,
   indentUnit,
@@ -250,16 +250,33 @@ const myAutocomplete: CompletionSource = (context) => {
   }
   preLine = preLine.substring(offset)
 
+  const conditionMode = preLine.includes('while') || preLine.includes('if')
+
+  const options = (conditionMode ? conditions : commands).slice()
+
+  if (!conditionMode) {
+    const tree = syntaxTree(context.state)
+    const c = tree.cursor()
+    do {
+      if (c.node.name == 'FunctionDefinition') {
+        c.next() // def
+        c.next() // VariableName
+        // @ts-ignore
+        if (c.node.name == 'VariableName') {
+          const label = context.state.doc.sliceString(c.from, c.to) + '()'
+          options.push({ label })
+        }
+      }
+    } while (c.next())
+  }
+
   return {
     from: token.from + 1,
-    options:
-      preLine.includes('while') || preLine.includes('if')
-        ? conditions
-        : commands,
+    options,
   }
 }
 
-const colorMark = Decoration.mark({ class: 'text-[#0294e3]' })
+const colorMark = Decoration.mark({ class: 'text-[#9a4603]' })
 
 const myHighlightPlugin = ViewPlugin.fromClass(
   class {
@@ -293,6 +310,17 @@ const myHighlightPlugin = ViewPlugin.fromClass(
                 ranges.push(
                   colorMark.range(ast.children[0].from, ast.children[0].to)
                 )
+              }
+            }
+            if (ast.children[0].name == 'MemberExpression') {
+              const m = ast.children[0]
+              if (m.children[2].name == 'PropertyName') {
+                const varName = m.children[2].text()
+                if (availableCommands.includes(varName)) {
+                  ranges.push(
+                    colorMark.range(m.children[2].from, m.children[2].to)
+                  )
+                }
               }
             }
           }
