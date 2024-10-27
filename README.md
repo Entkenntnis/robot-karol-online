@@ -66,11 +66,11 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 `Beenden` - Karol beendet an dieser Stelle die Ausführung des Programms.
 
-### Kommentare
+### Hauptprogramm
 
-![grafik](https://user-images.githubusercontent.com/13507950/174563384-07a9338d-1493-45de-a04c-2ab77f0b6069.png)
+![grafik](https://github.com/user-attachments/assets/98b98aa9-88a1-46df-969e-4502738ef00e)
 
-`// Kommentar` - Nutze Kommentare, um den Code zu gliedern und die Struktur zu erklären.
+Wenn es im Block-Modus mehrere Teilprogramme gibt, dann wird nur das Programm des Hauptprogramm-Blocks ausgeführt. Alle anderen Blöcke sind inaktiv. Wird der Hauptprogramm-Block nicht verwenden und ist das Programm zusammenhängend, dann wird dieses Programm automatisch ausgeführt.
 
 ### Steuerung
 
@@ -108,11 +108,11 @@ Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://ka
 
 `Anweisung <name> {...} endeAnweisung` - Definiere eine eigene Anweisung
 
-### Hauptprogramm
+### Kommentare
 
-![grafik](https://github.com/user-attachments/assets/98b98aa9-88a1-46df-969e-4502738ef00e)
+![grafik](https://user-images.githubusercontent.com/13507950/174563384-07a9338d-1493-45de-a04c-2ab77f0b6069.png)
 
-Wenn es im Block-Modus mehrere Teilprogramme gibt, dann wird nur das Programm des Hauptprogramm-Blocks ausgeführt. Alle anderen Blöcke sind inaktiv. Wird der Hauptprogramm-Block nicht verwenden und ist das Programm zusammenhängend, dann wird dieses Programm automatisch ausgeführt.
+`// Kommentar` - Nutze Kommentare, um den Code zu gliedern und die Struktur zu erklären.
 
 ## Textmodus
 
