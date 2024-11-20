@@ -155,7 +155,7 @@ export function AppearanceModal() {
             </p>
           </div>
         </div>
-        <p className="ml-4 -mt-6">
+        <p className="ml-4 -mt-6 hidden">
           <a
             href="https://forms.gle/mGvB9Xn85PpCFb6H7"
             target="_blank"

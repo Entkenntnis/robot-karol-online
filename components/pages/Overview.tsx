@@ -7,6 +7,7 @@ import {
   faPencil,
   faPenToSquare,
   faSeedling,
+  faTable,
   faTrowelBricks,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
@@ -486,8 +487,8 @@ export function Overview() {
                       <br />
                       Galerie
                     </p>
-                    <p className="text-center text-3xl">
-                      <FaIcon icon={faLightbulb} />
+                    <p className="text-center text-3xl text-purple-400">
+                      <FaIcon icon={faTable} />
                     </p>
                   </a>
                 )}
@@ -497,19 +498,17 @@ export function Overview() {
                       'absolute top-[1120px] left-[970px] block z-10 hover:bg-gray-100/60 rounded-xl',
                       'w-[120px] cursor-pointer'
                     )}
-                    href="https://www.youtube.com/@robot-karol-online"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link"
                     target="_blank"
                     onClick={() => {
                       // submit_event('show_materials', core)
                     }}
                   >
-                    <p className="text-center text-lg mb-1">
-                      Karol auf Youtube
-                    </p>
+                    <p className="text-center text-lg mb-1">Feedback</p>
                     <img
-                      src="/youtube.png"
-                      alt="Kleeblatt mit 4 Blättern"
-                      className="w-[40px] mx-auto"
+                      src="/gluehbirne.png"
+                      alt="Glühbrine"
+                      className="w-[50px] mx-auto"
                     />
                   </a>
                 )}
@@ -539,7 +538,7 @@ export function Overview() {
                     <img
                       src="/einhorn.png"
                       alt="Einhorn"
-                      className="w-[80px] mx-auto"
+                      className="w-[50px] mx-auto"
                     />
                   </button>
                 )}
