@@ -1,5 +1,10 @@
 module.exports = {
-  content: ['./components/**/*.tsx', './app/**/*.tsx', './lib/**/*.tsx'],
+  content: [
+    './components/**/*.tsx',
+    './app/**/*.tsx',
+    './lib/**/*.tsx',
+    './lib/codemirror/basicSetup.ts',
+  ],
   theme: {
     extend: {},
   },

@@ -51,6 +51,7 @@ export function createWorkspaceState(): WorkspaceState {
       proMode: false,
       isPlayground: false,
       showPreview: true,
+      breakpoints: [],
     },
     vm: {
       pc: 0,

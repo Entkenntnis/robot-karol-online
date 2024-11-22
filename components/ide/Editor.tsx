@@ -32,6 +32,7 @@ export const Editor = ({ innerRef }: EditorProps) => {
                 return lint(core, view)
               },
               lng,
+              core,
             }),
             EditorView.updateListener.of((e) => {
               if (e.docChanged) {

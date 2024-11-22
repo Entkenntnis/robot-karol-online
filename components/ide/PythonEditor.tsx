@@ -18,6 +18,7 @@ import {
 import {
   Theme,
   autoFormat,
+  buildGutterWithBreakpoints,
   defaultHighlightStyle,
   editable,
   germanPhrases,
@@ -71,7 +72,7 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
         state: EditorState.create({
           doc: core.ws.pythonCode,
           extensions: [
-            gutter({ class: 'w-8 my-gutter relative' }),
+            buildGutterWithBreakpoints(core),
             lineNumbers(),
             highlightActiveLineGutter(),
             history(),

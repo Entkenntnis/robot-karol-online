@@ -58,6 +58,7 @@ export interface Ui {
   lockLanguage?: 'python' | 'java' | 'karol'
   isPlayground: boolean
   showPreview: boolean
+  breakpoints: number[]
 }
 
 export interface Vm {

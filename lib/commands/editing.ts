@@ -9,6 +9,7 @@ export function resetUIAfterChange(core: Core) {
   core.mutateWs((state) => {
     state.ui.gutter = 0
     state.ui.isEndOfRun = false
+    state.ui.breakpoints = []
   })
 }
 

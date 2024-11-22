@@ -14,6 +14,7 @@ import {
 import {
   Theme,
   autoFormat,
+  buildGutterWithBreakpoints,
   editable,
   germanPhrases,
 } from '../../lib/codemirror/basicSetup'
@@ -61,7 +62,7 @@ export const JavaEditor = ({ innerRef }: EditorProps) => {
         state: EditorState.create({
           doc: core.ws.javaCode,
           extensions: [
-            gutter({ class: 'w-8 my-gutter relative' }),
+            buildGutterWithBreakpoints(core),
             lineNumbers(),
             highlightActiveLineGutter(),
             history(),

@@ -11,6 +11,7 @@ import {
   lineNumbers,
   highlightActiveLineGutter,
   gutter,
+  GutterMarker,
 } from '@codemirror/view'
 import { EditorState, Compartment, Range } from '@codemirror/state'
 import {
@@ -43,6 +44,7 @@ import { styleTags, tags as t } from '@lezer/highlight'
 import { searchKeymap } from '@codemirror/search'
 import { getParserWithLng } from './parser/get-parser-with-lng'
 import { deKeywords, enKeywords } from '../language/robot karol/compiler'
+import { Core } from '../state/core'
 
 function parserWithMetadata(lng: 'de' | 'en') {
   return getParserWithLng(lng).configure({
@@ -146,6 +148,7 @@ export const editable = new Compartment()
 interface BasicSetupProps {
   l: Parameters<typeof linter>[0]
   lng: 'de' | 'en'
+  core: Core
 }
 
 export const autoFormat: Command = (view) => {
@@ -220,8 +223,66 @@ export const germanPhrases = {
   'on line': 'auf Zeile',
 }
 
+const breakpointMarkerPlaceholder = new (class extends GutterMarker {
+  toDOM() {
+    return new DOMParser().parseFromString(
+      '<div class="w-[16px] ml-[10px] mt-1 rounded-full h-[16px] select-none cursor-pointer bg-transparent hover:bg-red-200">&nbsp;</div>',
+      'text/html'
+    ).body.children[0]
+  }
+})()
+
+const breakpointMarker = new (class extends GutterMarker {
+  toDOM() {
+    return new DOMParser().parseFromString(
+      '<div class="w-[16px] ml-[10px] mt-1 rounded-full h-[16px] select-none bg-red-500 ">&nbsp;</div>',
+      'text/html'
+    ).body.children[0]
+  }
+})()
+
+export function buildGutterWithBreakpoints(core: Core) {
+  return gutter({
+    class: 'w-8 my-gutter relative',
+    lineMarker(view, line) {
+      return core.ws.ui.breakpoints.includes(line.from)
+        ? breakpointMarker
+        : breakpointMarkerPlaceholder
+    },
+    domEventHandlers: {
+      mousedown(view, line, event) {
+        const target = event.target
+        if (
+          target &&
+          'classList' in target &&
+          (target as HTMLElement).classList.contains('w-[16px]')
+        ) {
+          const lineNumber = line.from
+          if (core.ws.ui.breakpoints.includes(lineNumber)) {
+            core.mutateWs((s) => {
+              s.ui.breakpoints = s.ui.breakpoints.filter(
+                (x) => x !== lineNumber
+              )
+            })
+          } else {
+            core.mutateWs((s) => {
+              s.ui.breakpoints.push(lineNumber)
+            })
+          }
+          view.dispatch()
+          return true
+        }
+        return false
+      },
+    },
+    lineMarkerChange(update) {
+      return true
+    },
+  })
+}
+
 export const basicSetup = (props: BasicSetupProps) => [
-  gutter({ class: 'w-8 my-gutter relative' }),
+  buildGutterWithBreakpoints(props.core),
   lineNumbers(),
   highlightActiveLineGutter(),
   history(),
