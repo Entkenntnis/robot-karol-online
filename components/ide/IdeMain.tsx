@@ -130,7 +130,7 @@ export function IdeMain() {
                     saveCodeToFile(core)
                   }}
                 >
-                  <FaIcon icon={faDownload} className="mr-1" />{' '}
+                  <FaIcon icon={faDownload} className="mr-1 text-gray-500" />{' '}
                   {core.strings.ide.save}
                 </button>
                 <button
@@ -181,7 +181,7 @@ export function IdeMain() {
                     input.dispatchEvent(evt)
                   }}
                 >
-                  <FaIcon icon={faUpload} className="mr-1" />{' '}
+                  <FaIcon icon={faUpload} className="mr-1 text-gray-500" />{' '}
                   {core.strings.ide.load}
                 </button>
               </div>
@@ -284,7 +284,10 @@ export function IdeMain() {
                               showJavaInfo(core)
                             }}
                           >
-                            <FaIcon icon={faQuestionCircle} />
+                            <FaIcon
+                              icon={faQuestionCircle}
+                              className="text-gray-600"
+                            />
                           </button>
                         )}{' '}
                         {core.strings.ide.language}:

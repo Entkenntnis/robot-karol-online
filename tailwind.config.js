@@ -1,7 +1,5 @@
-const { default: daisyui } = require('daisyui')
-
 module.exports = {
-  content: ['./**/*.tsx'],
+  content: ['./components/**/*.tsx', './app/**/*.tsx', './lib/**/*.tsx'],
   theme: {
     extend: {},
   },

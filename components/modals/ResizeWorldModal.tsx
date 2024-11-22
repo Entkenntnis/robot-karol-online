@@ -114,7 +114,7 @@ export function ResizeWorldModal() {
           }
         }}
         type="number"
-        className="border-2"
+        className="border-2 w-24 text-center rounded !appearance-auto"
         min={1}
         max={max}
       />
