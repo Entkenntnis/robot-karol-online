@@ -34,7 +34,7 @@ export function run(core: Core) {
     vm.frames = [{ variables: {}, opstack: [] }]
     vm.callstack = []
     vm.startTime = Date.now()
-    vm.steps = 1
+    vm.steps = 0
     vm.repeatAction = undefined
     ui.gutter = 0
   })
