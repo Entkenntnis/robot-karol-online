@@ -219,7 +219,7 @@ export function Tasks() {
                         })
                       }}
                     />{' '}
-                    Programm mitspeichern
+                    {core.strings.editor.includeProgram}
                   </label>
                 </span>
               </div>
