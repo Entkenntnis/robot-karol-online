@@ -208,6 +208,20 @@ export function Tasks() {
                     {core.strings.editor.javaOnly}
                   </option>
                 </select>
+                <span className="ml-14 inline-block">
+                  <label className="select-none">
+                    <input
+                      type="checkbox"
+                      checked={core.ws.editor.saveProgram}
+                      onChange={(e) => {
+                        core.mutateWs(({ editor }) => {
+                          editor.saveProgram = e.target.checked
+                        })
+                      }}
+                    />{' '}
+                    Programm mitspeichern
+                  </label>
+                </span>
               </div>
             )}
             <div className="flex-grow flex-shrink overflow-y-auto pb-12">

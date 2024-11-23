@@ -85,6 +85,7 @@ export interface Editor {
   currentlyEditing: 'start' | 'target'
   showWorldPreview: boolean
   editOptions: 'all' | 'python-only' | 'java-only' | 'karol-only'
+  saveProgram: boolean
 }
 
 export interface Quest {
@@ -355,6 +356,8 @@ export interface QuestSerialFormat {
   tasks: { title: string; start: SerialWorld; target: SerialWorld }[]
   lng?: 'de' | 'en'
   editOptions?: 'python-only' | 'java-only' | 'karol-only'
+  program?: string
+  language?: 'blocks' | 'karol' | 'python' | 'java'
 }
 
 export interface SerialWorld {

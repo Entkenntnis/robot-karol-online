@@ -11,7 +11,7 @@ import { setLanguage } from './language'
 import { endExecution } from './vm'
 
 export function serializeQuest(core: Core): QuestSerialFormat {
-  return {
+  const output: QuestSerialFormat = {
     version: 'v1',
     title: core.ws.quest.title,
     description: core.ws.quest.description,
@@ -28,6 +28,26 @@ export function serializeQuest(core: Core): QuestSerialFormat {
         ? undefined
         : core.ws.editor.editOptions,
   }
+
+  if (core.ws.editor.saveProgram) {
+    if (core.ws.settings.mode == 'blocks') {
+      output.language = 'blocks'
+      output.program = core.ws.code
+    } else {
+      if (core.ws.settings.language == 'robot karol') {
+        output.language = 'karol'
+        output.program = core.ws.code
+      } else if (core.ws.settings.language == 'python') {
+        output.language = 'python'
+        output.program = core.ws.pythonCode
+      } else if (core.ws.settings.language == 'java') {
+        output.language = 'java'
+        output.program = core.ws.javaCode
+      }
+    }
+  }
+
+  return output
 }
 
 export function serializeWorld(world: World): SerialWorld {
@@ -141,6 +161,7 @@ export function deserializeQuest(
   if (core.ws.page === 'editor') {
     core.mutateWs((ws) => {
       ws.editor.editOptions = quest.editOptions ? quest.editOptions : 'all'
+      ws.editor.saveProgram = !!(quest.program && quest.language)
     })
   } else if (quest.editOptions) {
     if (quest.editOptions === 'python-only') {
@@ -164,6 +185,29 @@ export function deserializeQuest(
         ws.settings.mode = 'code'
       })
     }
+  }
+  if (quest.program && quest.language) {
+    core.mutateWs((ws) => {
+      if (quest.language == 'blocks') {
+        ws.settings.mode = 'blocks'
+        ws.code = quest.program!
+      }
+      if (quest.language == 'karol') {
+        ws.settings.mode = 'code'
+        ws.settings.language = 'robot karol'
+        ws.code = quest.program!
+      }
+      if (quest.language == 'python') {
+        ws.settings.mode = 'code'
+        ws.settings.language = 'python'
+        ws.pythonCode = quest.program!
+      }
+      if (quest.language == 'java') {
+        ws.settings.mode = 'code'
+        ws.settings.language = 'java'
+        ws.javaCode = quest.program!
+      }
+    })
   }
 }
 
