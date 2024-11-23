@@ -33,17 +33,21 @@ export function run(core: Core) {
     vm.pc = 0
     vm.frames = [{ variables: {}, opstack: [] }]
     vm.callstack = []
-    vm.startTime = Date.now()
+    // add a fixed 150ms delay between reset and first action, from then on the delay is defined by slider value
+    vm.startTime = Date.now() - sliderToDelay(core.ws.ui.speedSliderValue) + 150
     vm.steps = 0
-    vm.repeatAction = undefined
     ui.gutter = 0
   })
 
   // markPC(core, 'lastExecuted')
-  pulse(core)
+  const generator = executeProgramAsGenerator(core)
+  pulse(core, generator)
 }
 
-function pulse(core: Core) {
+function pulse(
+  core: Core,
+  generator: ReturnType<typeof executeProgramAsGenerator>
+) {
   if (core.ws.ui.state !== 'running' || !core.ws.vm.startTime) {
     return // program has been terminated or aborted
   }
@@ -59,8 +63,19 @@ function pulse(core: Core) {
   let stepsInThisLoop = 0
 
   while (core.ws.vm.steps < targetStep && core.ws.ui.state == 'running') {
-    internal_step(core)
-    // console.log('step nr. ' + core.ws.vm.steps)
+    for (;;) {
+      const result = generator.next()
+      if (result.done) {
+        return // generator exhausted
+      }
+      if (result.value == 'interrupt' || result.value == 'delay') {
+        core.mutateWs(({ vm }) => {
+          vm.steps++
+        })
+        break
+      }
+      // FUTURE: other values may behave differently
+    }
 
     stepsInThisLoop++
 
@@ -73,7 +88,7 @@ function pulse(core: Core) {
     }
   }
   requestAnimationFrame(() => {
-    pulse(core)
+    pulse(core, generator)
   })
 }
 
@@ -96,7 +111,7 @@ function markPC(core: Core, mode: MarkerMode) {
   }
 }
 
-function internal_step(core: Core) {
+function* executeProgramAsGenerator(core: Core) {
   const byteCode = core.ws.vm.bytecode
   const state = core.ws.ui.state
 
@@ -108,13 +123,13 @@ function internal_step(core: Core) {
     throw new Error("Invalid bytecode, shouldn't be in running state")
 
   let stepCounter = 0
-  let markerMode: MarkerMode = 'lastExecuted'
 
   for (;;) {
     const pc = core.ws.vm.pc
     if (stepCounter++ >= 100) {
       console.log('possible dead loop')
-      break
+      yield 'interrupt'
+      stepCounter = 0
     }
 
     if (pc >= byteCode.length) {
@@ -123,53 +138,18 @@ function internal_step(core: Core) {
       endExecution(core)
 
       // end reached
-      /*callWithDelay_DEPRECATED(
-      core,
-      () => endExecution(core),
-      byteCode.length == 0 ? 400 : 0
-    )*/
-      return
+      return 'end'
     }
 
     const op = byteCode[pc]
 
-    let sideEffectOp: ActionOp | null = null
-
-    // console.log(delay)
+    // execute ops that are have no side-effects and are not interruptable
     core.mutateWs(({ vm }) => {
       const frame = vm.frames[vm.frames.length - 1]
 
       // console.log('step', pc, op.type, [...frame.opstack]) // DEBUG
 
       switch (op.type) {
-        case 'action': {
-          sideEffectOp = op
-          if (op.useParameterFromStack) {
-            if (vm.repeatAction === undefined) {
-              const count = frame.opstack.pop() ?? 1
-              if (count < 1) {
-                sideEffectOp = null
-                vm.pc++
-                break
-              }
-              if (count == 1) {
-                vm.pc++ // edge case, no repeat necessary
-              } else {
-                markerMode = 'currentlyExecuting'
-                vm.repeatAction = count - 2
-              }
-            } else if (vm.repeatAction > 0) {
-              markerMode = 'currentlyExecuting'
-              vm.repeatAction--
-            } else {
-              vm.repeatAction = undefined
-              vm.pc++
-            }
-          } else {
-            vm.pc++
-          }
-          break
-        }
         case 'sense': {
           const condition: Condition = {
             type: op.condition.type,
@@ -203,7 +183,7 @@ function internal_step(core: Core) {
           opstack.reverse()
           vm.frames.push({ opstack, variables: {} })
           vm.pc = op.target
-          markerMode = 'newOnCallStack'
+          //markerMode = 'newOnCallStack'
           break
         }
         case 'return': {
@@ -286,46 +266,49 @@ function internal_step(core: Core) {
       }
     })
 
-    if (sideEffectOp) {
-      const op = sideEffectOp as ActionOp
-      let result = undefined
-      if (op.command == 'forward') {
-        result = forward(core)
+    if (op.type == 'action') {
+      let repetitions = 1
+      if (op.useParameterFromStack) {
+        core.mutateWs(({ vm }) => {
+          const frame = vm.frames[vm.frames.length - 1]
+          repetitions = frame.opstack.pop() ?? 1
+        })
       }
-      if (op.command == 'left') {
-        left(core)
+      markPC(core, 'currentlyExecuting')
+      for (let i = 0; i < repetitions; i++) {
+        let result = undefined
+        if (op.command == 'forward') {
+          result = forward(core)
+        }
+        if (op.command == 'left') {
+          left(core)
+        }
+        if (op.command == 'right') {
+          right(core)
+        }
+        if (op.command == 'brick') {
+          result = brick(core)
+        }
+        if (op.command == 'unbrick') {
+          result = unbrick(core)
+        }
+        if (op.command == 'setMark') {
+          result = setMark(core)
+        }
+        if (op.command == 'resetMark') {
+          result = resetMark(core)
+        }
+        if (result === false) {
+          return 'end' // something went wrong
+        }
+        yield 'delay'
+        stepCounter = 0
       }
-      if (op.command == 'right') {
-        right(core)
-      }
-      if (op.command == 'brick') {
-        result = brick(core)
-      }
-      if (op.command == 'unbrick') {
-        result = unbrick(core)
-      }
-      if (op.command == 'setMark') {
-        result = setMark(core)
-      }
-      if (op.command == 'resetMark') {
-        result = resetMark(core)
-      }
-      if (result === false) {
-        return // something went wrong
-      }
-    }
-
-    if (op.line) {
-      break // update ui
+      core.mutateWs(({ vm }) => {
+        vm.pc++
+      })
     }
   }
-
-  markPC(core, markerMode)
-  markerMode = 'lastExecuted'
-
-  core.mutateWs(({ vm }) => {
-    vm.steps++
-  })
 }
 
 export function testCondition(core: Core, cond: Condition) {
@@ -380,8 +363,6 @@ export function abort(core: Core) {
 }
 
 export function endExecution(core: Core) {
-  clearTimeout(core.ws.vm.handler!)
-
   // update gutter after crash to show line that caused the crash
   if (
     core.ws.ui.karolCrashMessage &&
@@ -400,7 +381,6 @@ export function endExecution(core: Core) {
     }
     state.ui.state = 'ready'
     state.vm.pc = 0
-    state.vm.handler = undefined
     state.ui.isEndOfRun = true
   })
 

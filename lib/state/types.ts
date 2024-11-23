@@ -64,7 +64,6 @@ export interface Ui {
 export interface Vm {
   bytecode?: Op[]
   pc: number
-  handler?: NodeJS.Timeout
   frames: {
     variables: { [index: string]: number }
     opstack: number[]
@@ -72,7 +71,6 @@ export interface Vm {
   callstack: number[]
   startTime: number
   steps: number
-  repeatAction?: number
 }
 
 export interface Settings {
