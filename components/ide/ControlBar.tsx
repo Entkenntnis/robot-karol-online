@@ -105,6 +105,9 @@ export function ControlBar() {
               core.mutateWs((ws) => {
                 ws.vm.isDebugging = false
                 ws.ui.speedSliderValue = 7
+                ws.vm.startTime =
+                  Date.now() -
+                  (ws.vm.steps + 1) * sliderToDelay(core.ws.ui.speedSliderValue)
               })
             }}
           >

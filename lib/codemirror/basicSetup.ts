@@ -245,7 +245,9 @@ export function buildGutterWithBreakpoints(core: Core) {
   return gutter({
     class: 'w-8 my-gutter relative',
     lineMarker(view, line) {
-      return core.ws.ui.breakpoints.includes(line.from)
+      return core.ws.ui.breakpoints.includes(
+        view.state.doc.lineAt(line.from).number
+      )
         ? breakpointMarker
         : breakpointMarkerPlaceholder
     },
@@ -257,7 +259,7 @@ export function buildGutterWithBreakpoints(core: Core) {
           'classList' in target &&
           (target as HTMLElement).classList.contains('w-[16px]')
         ) {
-          const lineNumber = line.from
+          const lineNumber = view.state.doc.lineAt(line.from).number
           if (core.ws.ui.breakpoints.includes(lineNumber)) {
             core.mutateWs((s) => {
               s.ui.breakpoints = s.ui.breakpoints.filter(

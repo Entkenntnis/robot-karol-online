@@ -58,7 +58,9 @@ export function EditArea() {
       const gutter = document.getElementsByClassName('my-gutter')[0]
       if (gutter) {
         const innerDiv = document.createElement('div')
-        innerDiv.className = clsx(`absolute h-5 w-5 left-3 text-blue-500`)
+        innerDiv.className = clsx(
+          `absolute h-5 w-5 left-3 text-blue-500 pointer-events-none`
+        )
         innerDiv.id = 'my-execution-marker'
         innerDiv.innerHTML =
           '<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 448 512" aria-hidden="true"' +
@@ -71,7 +73,7 @@ export function EditArea() {
     }
     const marker = document.getElementById('my-execution-marker')
     if (marker) {
-      marker.style.top = `${4 + (core.ws.ui.gutter - 1) * 22.4}px`
+      marker.style.top = `${5 + (core.ws.ui.gutter - 1) * 22.4}px`
       marker.style.display =
         (codeState == 'running' || core.ws.ui.karolCrashMessage) &&
         core.ws.ui.gutter > 0

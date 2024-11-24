@@ -46,6 +46,9 @@ export function run(core: Core) {
 
   // markPC(core, 'lastExecuted')
   const generator = executeProgramAsGenerator(core)
+  if (core.ws.vm.isDebugging) {
+    generator.next()
+  }
   pulse(core, generator)
 }
 
@@ -57,28 +60,19 @@ function pulse(
     return // program has been terminated or aborted
   }
 
-  function runUntilNextDelayOrInterrupt() {
-    for (;;) {
-      const result = generator.next()
-      if (result.done) {
-        return // generator exhausted
-      }
-      if (result.value == 'interrupt' || result.value == 'delay') {
-        core.mutateWs(({ vm }) => {
-          vm.steps++
-        })
-        break
-      }
-      // FUTURE: other values may behave differently
-    }
-  }
-
   if (core.ws.vm.isDebugging) {
     if (core.ws.vm.debuggerRequestNextStep) {
       core.mutateWs((ws) => {
         ws.vm.debuggerRequestNextStep = false
       })
-      runUntilNextDelayOrInterrupt()
+      const result = generator.next()
+      if (result.done) {
+        return // generator exhausted
+      } else {
+        core.mutateWs(({ vm }) => {
+          vm.steps++
+        })
+      }
     }
   } else {
     // trying to call
@@ -92,7 +86,14 @@ function pulse(
     let stepsInThisLoop = 0
 
     while (core.ws.vm.steps < targetStep && core.ws.ui.state == 'running') {
-      runUntilNextDelayOrInterrupt()
+      const result = generator.next()
+      if (result.done) {
+        return // generator exhausted
+      } else {
+        core.mutateWs(({ vm }) => {
+          vm.steps++
+        })
+      }
 
       stepsInThisLoop++
 
@@ -141,6 +142,7 @@ function* executeProgramAsGenerator(core: Core) {
     throw new Error("Invalid bytecode, shouldn't be in running state")
 
   let stepCounter = 0
+  let lastScannedLine = 0
 
   for (;;) {
     const pc = core.ws.vm.pc
@@ -161,128 +163,20 @@ function* executeProgramAsGenerator(core: Core) {
 
     const op = byteCode[pc]
 
-    // execute ops that are have no side-effects and are not interruptable
-    core.mutateWs(({ vm }) => {
-      const frame = vm.frames[vm.frames.length - 1]
-
-      // console.log('step', pc, op.type, [...frame.opstack]) // DEBUG
-
-      switch (op.type) {
-        case 'sense': {
-          const condition: Condition = {
-            type: op.condition.type,
-            negated: op.condition.negated,
+    if (!core.ws.vm.isDebugging) {
+      console.log('check breaking', core.ws.ui.breakpoints, op.line)
+      if (op.line !== undefined) {
+        const currentLine = op.line
+        for (let i = lastScannedLine + 1; i <= currentLine; i++) {
+          if (core.ws.ui.breakpoints.includes(i)) {
+            core.mutateWs((ws) => {
+              ws.vm.isDebugging = true
+            })
           }
-          if (op.condition.type == 'brick_count') {
-            condition.count = frame.opstack.pop()
-          }
-          frame.opstack.push(testCondition(core, condition) ? 1 : 0)
-          vm.pc++
-          break
         }
-        case 'jump': {
-          vm.pc = op.target
-          break
-        }
-        case 'branch': {
-          const arg = frame.opstack.pop()
-          const target = arg == 0 ? op.targetF : op.targetT
-          vm.pc = target
-          break
-        }
-        case 'call': {
-          vm.callstack.push(vm.pc + 1)
-          const opstack: number[] = []
-          if (op.arguments) {
-            for (let i = 0; i < op.arguments; i++) {
-              opstack.push(frame.opstack.pop() ?? 0)
-            }
-          }
-          opstack.reverse()
-          vm.frames.push({ opstack, variables: {} })
-          vm.pc = op.target
-          //markerMode = 'newOnCallStack'
-          break
-        }
-        case 'return': {
-          const target = vm.callstack.pop()
-          vm.frames.pop()
-          vm.pc = target ?? Infinity
-          break
-        }
-        case 'operation': {
-          const b = frame.opstack.pop() ?? NaN
-          const a = frame.opstack.pop() ?? NaN
-          switch (op.kind) {
-            case 'add': {
-              frame.opstack.push(a + b)
-              break
-            }
-            case 'sub': {
-              frame.opstack.push(a - b)
-              break
-            }
-            case 'mult': {
-              frame.opstack.push(a * b)
-              break
-            }
-            case 'div': {
-              frame.opstack.push(Math.trunc(a / b))
-              break
-            }
-          }
-          vm.pc++
-          break
-        }
-        case 'constant': {
-          frame.opstack.push(op.value)
-          vm.pc++
-          break
-        }
-        case 'load': {
-          frame.opstack.push(frame.variables[op.variable])
-          vm.pc++
-          break
-        }
-        case 'store': {
-          frame.variables[op.variable] = frame.opstack.pop() ?? NaN
-          vm.pc++
-          break
-        }
-        case 'compare': {
-          const b = frame.opstack.pop() ?? NaN
-          const a = frame.opstack.pop() ?? NaN
-          switch (op.kind) {
-            case 'equal': {
-              frame.opstack.push(a == b ? 1 : 0)
-              break
-            }
-            case 'unequal': {
-              frame.opstack.push(a != b ? 1 : 0)
-              break
-            }
-            case 'greater-equal': {
-              frame.opstack.push(a >= b ? 1 : 0)
-              break
-            }
-            case 'greater-than': {
-              frame.opstack.push(a > b ? 1 : 0)
-              break
-            }
-            case 'less-than': {
-              frame.opstack.push(a < b ? 1 : 0)
-              break
-            }
-            case 'less-equal': {
-              frame.opstack.push(a <= b ? 1 : 0)
-              break
-            }
-          }
-          vm.pc++
-          break
-        }
+        lastScannedLine = currentLine
       }
-    })
+    }
 
     if (op.type == 'action') {
       let repetitions = 1
@@ -293,6 +187,9 @@ function* executeProgramAsGenerator(core: Core) {
         })
       }
       markPC(core, 'currentlyExecuting')
+      if (core.ws.vm.isDebugging) {
+        yield 'await'
+      }
       for (let i = 0; i < repetitions; i++) {
         let result = undefined
         if (op.command == 'forward') {
@@ -319,11 +216,136 @@ function* executeProgramAsGenerator(core: Core) {
         if (result === false) {
           return 'end' // something went wrong
         }
-        yield 'delay'
+        if (!core.ws.vm.isDebugging) {
+          yield 'delay'
+        }
         stepCounter = 0
       }
       core.mutateWs(({ vm }) => {
         vm.pc++
+      })
+    } else {
+      // execute ops that are have no side-effects and are not interruptable
+      core.mutateWs(({ vm }) => {
+        const frame = vm.frames[vm.frames.length - 1]
+
+        // console.log('step', pc, op.type, [...frame.opstack]) // DEBUG
+
+        switch (op.type) {
+          case 'sense': {
+            const condition: Condition = {
+              type: op.condition.type,
+              negated: op.condition.negated,
+            }
+            if (op.condition.type == 'brick_count') {
+              condition.count = frame.opstack.pop()
+            }
+            frame.opstack.push(testCondition(core, condition) ? 1 : 0)
+            vm.pc++
+            break
+          }
+          case 'jump': {
+            vm.pc = op.target
+            break
+          }
+          case 'branch': {
+            const arg = frame.opstack.pop()
+            const target = arg == 0 ? op.targetF : op.targetT
+            vm.pc = target
+            break
+          }
+          case 'call': {
+            vm.callstack.push(vm.pc + 1)
+            const opstack: number[] = []
+            if (op.arguments) {
+              for (let i = 0; i < op.arguments; i++) {
+                opstack.push(frame.opstack.pop() ?? 0)
+              }
+            }
+            opstack.reverse()
+            vm.frames.push({ opstack, variables: {} })
+            vm.pc = op.target
+            //markerMode = 'newOnCallStack'
+            break
+          }
+          case 'return': {
+            const target = vm.callstack.pop()
+            vm.frames.pop()
+            vm.pc = target ?? Infinity
+            break
+          }
+          case 'operation': {
+            const b = frame.opstack.pop() ?? NaN
+            const a = frame.opstack.pop() ?? NaN
+            switch (op.kind) {
+              case 'add': {
+                frame.opstack.push(a + b)
+                break
+              }
+              case 'sub': {
+                frame.opstack.push(a - b)
+                break
+              }
+              case 'mult': {
+                frame.opstack.push(a * b)
+                break
+              }
+              case 'div': {
+                frame.opstack.push(Math.trunc(a / b))
+                break
+              }
+            }
+            vm.pc++
+            break
+          }
+          case 'constant': {
+            frame.opstack.push(op.value)
+            vm.pc++
+            break
+          }
+          case 'load': {
+            frame.opstack.push(frame.variables[op.variable])
+            vm.pc++
+            break
+          }
+          case 'store': {
+            frame.variables[op.variable] = frame.opstack.pop() ?? NaN
+            vm.pc++
+            break
+          }
+          case 'compare': {
+            const b = frame.opstack.pop() ?? NaN
+            const a = frame.opstack.pop() ?? NaN
+            switch (op.kind) {
+              case 'equal': {
+                frame.opstack.push(a == b ? 1 : 0)
+                break
+              }
+              case 'unequal': {
+                frame.opstack.push(a != b ? 1 : 0)
+                break
+              }
+              case 'greater-equal': {
+                frame.opstack.push(a >= b ? 1 : 0)
+                break
+              }
+              case 'greater-than': {
+                frame.opstack.push(a > b ? 1 : 0)
+                break
+              }
+              case 'less-than': {
+                frame.opstack.push(a < b ? 1 : 0)
+                break
+              }
+              case 'less-equal': {
+                frame.opstack.push(a <= b ? 1 : 0)
+                break
+              }
+            }
+            vm.pc++
+            break
+          }
+        }
       })
     }
   }
