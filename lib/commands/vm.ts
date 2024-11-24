@@ -134,6 +134,8 @@ function* executeProgramAsGenerator(core: Core) {
   const byteCode = core.ws.vm.bytecode
   const state = core.ws.ui.state
 
+  // console.log(byteCode)
+
   if (state != 'running') {
     throw new Error('internal step assumes running state')
   }
@@ -164,7 +166,6 @@ function* executeProgramAsGenerator(core: Core) {
     const op = byteCode[pc]
 
     if (!core.ws.vm.isDebugging) {
-      console.log('check breaking', core.ws.ui.breakpoints, op.line)
       if (op.line !== undefined) {
         const currentLine = op.line
         for (let i = lastScannedLine + 1; i <= currentLine; i++) {
@@ -187,10 +188,10 @@ function* executeProgramAsGenerator(core: Core) {
         })
       }
       markPC(core, 'currentlyExecuting')
-      if (core.ws.vm.isDebugging) {
-        yield 'await'
-      }
       for (let i = 0; i < repetitions; i++) {
+        if (core.ws.vm.isDebugging) {
+          yield 'await'
+        }
         let result = undefined
         if (op.command == 'forward') {
           result = forward(core)
