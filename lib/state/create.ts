@@ -59,6 +59,8 @@ export function createWorkspaceState(): WorkspaceState {
       callstack: [],
       steps: 0,
       startTime: 0,
+      isDebugging: false,
+      debuggerRequestNextStep: false,
     },
     settings: {
       mode: 'blocks',

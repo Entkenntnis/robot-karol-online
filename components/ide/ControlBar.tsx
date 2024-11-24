@@ -87,26 +87,56 @@ export function ControlBar() {
         </div>
       </div>
 
-      <div className="max-w-[230px] mr-3 my-3">
-        {(
-          Math.round((1000 / sliderToDelay(core.ws.ui.speedSliderValue)) * 10) /
-          10
-        )
-          .toFixed(1)
-          .replace('.', ',')}{' '}
-        {core.strings.ide.steps}
-        <input
-          type="range"
-          value={core.ws.ui.speedSliderValue}
-          onChange={(val) => {
-            setSpeedSliderValue(core, parseFloat(val.target.value))
-          }}
-          min="0"
-          max="20"
-          step="1"
-          className="w-full h-3 cursor-pointer mt-4"
-        />
-      </div>
+      {core.ws.vm.isDebugging && core.ws.ui.state == 'running' ? (
+        <div className="max-w-[230px] h-[58px] mr-3 my-3 bg-purple-200 p-2">
+          <button
+            className="h-full p-2 bg-purple-300 hover:bg-purple-400 transition-colors mr-3 align-top rounded active:bg-purple-500"
+            onClick={() => {
+              core.mutateWs((ws) => {
+                ws.vm.debuggerRequestNextStep = true
+              })
+            }}
+          >
+            {core.strings.ide.step}
+          </button>
+          <button
+            className="h-full p-2 bg-white hover:bg-gray-100 rounded"
+            onClick={() => {
+              core.mutateWs((ws) => {
+                ws.vm.isDebugging = false
+                ws.ui.speedSliderValue = 7
+              })
+            }}
+          >
+            {core.strings.ide.continueProgram}
+          </button>
+        </div>
+      ) : (
+        <div className="max-w-[230px] h-[58px] mr-3 my-3">
+          {core.ws.ui.speedSliderValue > 0
+            ? (
+                Math.round(
+                  (1000 / sliderToDelay(core.ws.ui.speedSliderValue)) * 10
+                ) / 10
+              )
+                .toFixed(1)
+                .replace('.', ',') +
+              ' ' +
+              core.strings.ide.steps
+            : core.strings.ide.step}
+          <input
+            type="range"
+            value={core.ws.ui.speedSliderValue}
+            onChange={(val) => {
+              setSpeedSliderValue(core, parseFloat(val.target.value))
+            }}
+            min="0"
+            max="20"
+            step="1"
+            className="w-full h-3 cursor-pointer mt-4"
+          />
+        </div>
+      )}
     </div>
   )
 

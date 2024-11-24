@@ -71,6 +71,8 @@ export const deStrings = {
     problems: 'Es sind folgende Probleme aufgetreten',
     line: 'Zeile',
     preview: 'Auftragsvorschau',
+    step: 'Einzelschritt',
+    continueProgram: 'weiter',
   },
   profile: {
     title: 'Profil',

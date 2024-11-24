@@ -82,23 +82,6 @@ export function Tasks() {
                 <QuestEditor />
               ) : (
                 <>
-                  {core.ws.ui.isPlayground && (
-                    <button
-                      className="absolute right-2 top-2 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
-                      onClick={() => {
-                        core.mutateWs((ws) => {
-                          ws.world = ws.quest.tasks[0].start
-                        })
-                        showModal(core, 'resize')
-                      }}
-                    >
-                      <FaIcon
-                        icon={faUpRightAndDownLeftFromCenter}
-                        className="mr-2"
-                      />
-                      {core.strings.editor.changeSize}
-                    </button>
-                  )}
                   <h1 className="mb-4 text-xl font-bold mt-1">
                     {core.ws.quest.title}
                     {core.ws.quest.audioSrc && (
@@ -411,7 +394,7 @@ export function Tasks() {
               </button>
             </p>
           ) : core.ws.page == 'shared' || core.ws.page == 'imported' ? (
-            <p className="z-10 w-full ml-3 h-6 overflow-hidden">
+            <p className="z-10 w-full ml-3 overflow">
               <a
                 className="underline"
                 target="_blank"
@@ -419,6 +402,23 @@ export function Tasks() {
               >
                 Robot Karol Online
               </a>
+              {core.ws.ui.isPlayground && (
+                <button
+                  className="ml-3 -mt-1 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
+                  onClick={() => {
+                    core.mutateWs((ws) => {
+                      ws.world = ws.quest.tasks[0].start
+                    })
+                    showModal(core, 'resize')
+                  }}
+                >
+                  <FaIcon
+                    icon={faUpRightAndDownLeftFromCenter}
+                    className="mr-2"
+                  />
+                  {core.strings.editor.changeSize}
+                </button>
+              )}
             </p>
           ) : null}
         </div>

@@ -66,34 +66,6 @@ export function Output() {
           {core.ws.ui.state === 'running' && core.ws.ui.proMode && varStr && (
             <div className="absolute left-2 top-2">Variablen: {varStr}</div>
           )}
-          {!core.ws.ui.isPlayground && (
-            <div className="absolute top-1.5 right-2">
-              <label className="select-none cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="cursor-pointer"
-                  checked={core.ws.ui.showPreview}
-                  onChange={(e) => {
-                    core.mutateWs((ws) => {
-                      ws.ui.showPreview = e.target.checked
-                    })
-                  }}
-                />{' '}
-                {core.strings.ide.preview}
-              </label>
-            </div>
-          )}
-          {core.ws.ui.isPlayground && core.ws.ui.state !== 'running' && (
-            <button
-              className="absolute right-2 top-2 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
-              onClick={() => {
-                showModal(core, 'resize')
-              }}
-            >
-              <FaIcon icon={faUpRightAndDownLeftFromCenter} className="mr-2" />
-              {core.strings.editor.changeSize}
-            </button>
-          )}
         </div>
         {core.ws.quest.lastStartedTask !== undefined && (
           <div className="absolute bottom-1.5 left-2">
@@ -109,6 +81,37 @@ export function Output() {
               <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
               {core.strings.ide.back}
             </button>
+            {core.ws.ui.isPlayground && core.ws.ui.state !== 'running' && (
+              <button
+                className="ml-3 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
+                onClick={() => {
+                  showModal(core, 'resize')
+                }}
+              >
+                <FaIcon
+                  icon={faUpRightAndDownLeftFromCenter}
+                  className="mr-2"
+                />
+                {core.strings.editor.changeSize}
+              </button>
+            )}
+            {!core.ws.ui.isPlayground && (
+              <span className="ml-12">
+                <label className="select-none cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="cursor-pointer"
+                    checked={core.ws.ui.showPreview}
+                    onChange={(e) => {
+                      core.mutateWs((ws) => {
+                        ws.ui.showPreview = e.target.checked
+                      })
+                    }}
+                  />{' '}
+                  {core.strings.ide.preview}
+                </label>
+              </span>
+            )}
           </div>
         )}
         {core.ws.ui.isEndOfRun &&

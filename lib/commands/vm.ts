@@ -37,6 +37,11 @@ export function run(core: Core) {
     vm.startTime = Date.now() - sliderToDelay(core.ws.ui.speedSliderValue) + 150
     vm.steps = 0
     ui.gutter = 0
+    if (core.ws.ui.speedSliderValue == 0) {
+      vm.isDebugging = true
+    } else {
+      vm.isDebugging = false
+    }
   })
 
   // markPC(core, 'lastExecuted')
@@ -52,17 +57,7 @@ function pulse(
     return // program has been terminated or aborted
   }
 
-  // trying to call
-  const delay = sliderToDelay(core.ws.ui.speedSliderValue)
-  //console.log(delay)
-
-  const elapsedTime = Date.now() - core.ws.vm.startTime
-
-  const targetStep = Math.floor(elapsedTime / delay)
-
-  let stepsInThisLoop = 0
-
-  while (core.ws.vm.steps < targetStep && core.ws.ui.state == 'running') {
+  function runUntilNextDelayOrInterrupt() {
     for (;;) {
       const result = generator.next()
       if (result.done) {
@@ -76,15 +71,38 @@ function pulse(
       }
       // FUTURE: other values may behave differently
     }
+  }
 
-    stepsInThisLoop++
-
-    if (stepsInThisLoop > 25) {
-      core.mutateWs(({ vm }) => {
-        vm.startTime = Date.now() - vm.steps * delay // maximal skipping reached
+  if (core.ws.vm.isDebugging) {
+    if (core.ws.vm.debuggerRequestNextStep) {
+      core.mutateWs((ws) => {
+        ws.vm.debuggerRequestNextStep = false
       })
-      console.log('maximum skipping')
-      break
+      runUntilNextDelayOrInterrupt()
+    }
+  } else {
+    // trying to call
+    const delay = sliderToDelay(core.ws.ui.speedSliderValue)
+    //console.log(delay)
+
+    const elapsedTime = Date.now() - core.ws.vm.startTime
+
+    const targetStep = Math.floor(elapsedTime / delay)
+
+    let stepsInThisLoop = 0
+
+    while (core.ws.vm.steps < targetStep && core.ws.ui.state == 'running') {
+      runUntilNextDelayOrInterrupt()
+
+      stepsInThisLoop++
+
+      if (stepsInThisLoop > 25) {
+        core.mutateWs(({ vm }) => {
+          vm.startTime = Date.now() - vm.steps * delay // maximal skipping reached
+        })
+        console.log('maximum skipping')
+        break
+      }
     }
   }
   requestAnimationFrame(() => {

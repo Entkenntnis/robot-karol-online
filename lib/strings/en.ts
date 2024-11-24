@@ -72,6 +72,8 @@ export const enStrings: typeof deStrings = {
     problems: 'The following problems occurred',
     line: 'Line',
     preview: 'Preview of task',
+    step: 'Single step',
+    continueProgram: 'continue',
   },
   profile: {
     title: 'Profile',

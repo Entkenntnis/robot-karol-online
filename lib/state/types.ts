@@ -71,6 +71,8 @@ export interface Vm {
   callstack: number[]
   startTime: number
   steps: number
+  isDebugging: boolean
+  debuggerRequestNextStep: boolean
 }
 
 export interface Settings {
