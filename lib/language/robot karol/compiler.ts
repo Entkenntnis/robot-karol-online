@@ -161,11 +161,9 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
           output.push({
             type: 'jump',
             target: Infinity,
+            line,
           })
         }
-      }
-      if (cursor.name === 'Return') {
-        output.push({ type: 'return' })
       }
       if (cursor.name == 'CustomRef') {
         const line = doc.lineAt(cursor.from).number

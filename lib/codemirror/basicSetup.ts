@@ -13,7 +13,13 @@ import {
   gutter,
   GutterMarker,
 } from '@codemirror/view'
-import { EditorState, Compartment, Range } from '@codemirror/state'
+import {
+  EditorState,
+  Compartment,
+  Range,
+  StateEffect,
+  StateField,
+} from '@codemirror/state'
 import {
   indentOnInput,
   continuedIndent,
@@ -245,9 +251,8 @@ export function buildGutterWithBreakpoints(core: Core) {
   return gutter({
     class: 'w-8 my-gutter relative',
     lineMarker(view, line) {
-      return core.ws.ui.breakpoints.includes(
-        view.state.doc.lineAt(line.from).number
-      )
+      const lineNumber = view.state.doc.lineAt(line.from).number
+      return core.ws.ui.breakpoints.includes(lineNumber)
         ? breakpointMarker
         : breakpointMarkerPlaceholder
     },
@@ -267,9 +272,13 @@ export function buildGutterWithBreakpoints(core: Core) {
               )
             })
           } else {
-            core.mutateWs((s) => {
-              s.ui.breakpoints.push(lineNumber)
-            })
+            if (
+              core.ws.vm.bytecode &&
+              core.ws.vm.bytecode!.some((op) => op.line === lineNumber)
+            )
+              core.mutateWs((s) => {
+                s.ui.breakpoints.push(lineNumber)
+              })
           }
           view.dispatch()
           return true

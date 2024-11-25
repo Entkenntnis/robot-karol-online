@@ -30,21 +30,10 @@ export function RemixModal() {
         <div />
         <div>
           <p>{core.strings.editor.fromCode}:</p>
-          <p className="mt-2">
-            https://karol.arrrg.de/#
-            <input
-              value={code}
-              onChange={(e) => {
-                setCode(e.target.value)
-              }}
-              className="border w-20 ml-2 uppercase text-lg"
-              maxLength={4}
-            />
-            <button
-              className="px-1 py-0.5 rounded bg-green-300 hover:bg-green-400 ml-3 disabled:bg-gray-300"
-              disabled={code.length != 4}
-              onClick={() => {
-                async function handler() {
+          <form
+            onSubmit={(e) => {
+              async function handler() {
+                if (code.length == 4) {
                   try {
                     const res = await fetch(
                       `${backend.questEndpoint}/${code.toUpperCase()}`
@@ -60,13 +49,31 @@ export function RemixModal() {
                   }
                   closeModal(core)
                 }
+              }
 
-                void handler()
-              }}
-            >
-              {core.strings.editor.load}
-            </button>
-          </p>
+              void handler()
+              e.preventDefault()
+            }}
+          >
+            <p className="mt-2">
+              https://karol.arrrg.de/#
+              <input
+                value={code}
+                onChange={(e) => {
+                  setCode(e.target.value)
+                }}
+                className="border w-20 ml-2 uppercase text-lg"
+                maxLength={4}
+              />
+              <button
+                className="px-1 py-0.5 rounded bg-green-300 hover:bg-green-400 ml-3 disabled:bg-gray-300"
+                type="submit"
+                disabled={code.length != 4}
+              >
+                {core.strings.editor.load}
+              </button>
+            </p>
+          </form>
         </div>
         <hr />
         <div>
