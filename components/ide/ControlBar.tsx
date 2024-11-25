@@ -164,9 +164,9 @@ export function ControlBar() {
         </span>
       )
     }
-    if (state == 'loading' && !core.ws.ui.isEndOfRun) {
+    /*if (state == 'loading' && !core.ws.ui.isEndOfRun) {
       return <span className="text-gray-400">{core.strings.ide.loading}</span>
-    }
+    }*/
     if (state == 'running') {
       return (
         <span>
