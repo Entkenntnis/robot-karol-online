@@ -168,7 +168,11 @@ function* executeProgramAsGenerator(core: Core) {
     if (!core.ws.vm.isDebugging) {
       if (op.line !== undefined) {
         const currentLine = op.line
-        for (let i = lastScannedLine + 1; i <= currentLine; i++) {
+        for (
+          let i = lastScannedLine >= 0 ? lastScannedLine + 1 : currentLine;
+          i <= currentLine;
+          i++
+        ) {
           if (core.ws.ui.breakpoints.includes(i)) {
             core.mutateWs((ws) => {
               ws.vm.isDebugging = true
@@ -251,12 +255,14 @@ function* executeProgramAsGenerator(core: Core) {
           }
           case 'jump': {
             vm.pc = op.target
+            lastScannedLine = -1
             break
           }
           case 'branch': {
             const arg = frame.opstack.pop()
             const target = arg == 0 ? op.targetF : op.targetT
             vm.pc = target
+            lastScannedLine = -1
             break
           }
           case 'call': {
@@ -270,6 +276,7 @@ function* executeProgramAsGenerator(core: Core) {
             opstack.reverse()
             vm.frames.push({ opstack, variables: {} })
             vm.pc = op.target
+            lastScannedLine = -1
             //markerMode = 'newOnCallStack'
             break
           }
@@ -277,6 +284,7 @@ function* executeProgramAsGenerator(core: Core) {
             const target = vm.callstack.pop()
             vm.frames.pop()
             vm.pc = target ?? Infinity
+            lastScannedLine = -1
             break
           }
           case 'operation': {
