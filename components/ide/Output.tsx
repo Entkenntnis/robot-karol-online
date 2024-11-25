@@ -95,7 +95,7 @@ export function Output() {
                 {core.strings.editor.changeSize}
               </button>
             )}
-            {!core.ws.ui.isPlayground && (
+            {!core.ws.ui.isPlayground && !core.ws.ui.isTesting && (
               <span className="ml-12">
                 <label className="select-none cursor-pointer">
                   <input
