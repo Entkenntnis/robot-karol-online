@@ -173,6 +173,10 @@ function* executeProgramAsGenerator(core: Core) {
             core.mutateWs((ws) => {
               ws.vm.isDebugging = true
             })
+            if (op.type !== 'action') {
+              markPC(core, 'currentlyExecuting')
+              yield 'debugger'
+            }
           }
         }
         lastScannedLine = currentLine
