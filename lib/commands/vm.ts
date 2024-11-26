@@ -95,6 +95,10 @@ function pulse(
         })
       }
 
+      if (core.ws.vm.isDebugging) {
+        break
+      }
+
       stepsInThisLoop++
 
       if (stepsInThisLoop > 25) {
