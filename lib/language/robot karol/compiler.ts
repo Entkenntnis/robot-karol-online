@@ -102,7 +102,7 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
           preparedCode = preparedCode.substring(6)
         }
         if (preparedCode.endsWith(')')) {
-          preparedCode = preparedCode.replace(/\([0-9]*\)/, '')
+          preparedCode = preparedCode.replace(/\([0-9]*\)/, '').trim()
         }
         if (preparedCode == keywords.schritt) {
           for (let i = 0; i < repeat; i++) {
@@ -211,7 +211,10 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
               )
             : null
 
-        const preparedCode = code.toLowerCase().replace(/\([0-9]*\)/, '')
+        const preparedCode = code
+          .toLowerCase()
+          .replace(/\([0-9]*\)/, '')
+          .trim()
 
         if (code.toLowerCase() == keywords.nichtistwand) {
           cond = { type: 'wall', negated: true }
