@@ -125,7 +125,7 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 
 ## Umfangreiches Beispiel: Dijkstra-Algorithmus
 
-In https://karol.arrrg.de/#U528 durchsucht Karol einen Graph aus Ziegel nach dem Algorithmus von Dijkstra und markiert den kürzesten Pfad. Alle Datenstrukturen werden innerhalb des Felds visualisiert.
+In https://karol.arrrg.de/#U528 durchsucht Karol einen Graph aus Ziegeln nach dem Algorithmus von Dijkstra und markiert den kürzesten Pfad. Alle Datenstrukturen werden innerhalb des Felds visualisiert.
 
 ![grafik](https://github.com/user-attachments/assets/77889fde-b5f5-4575-b20c-61d84878f11a)
 
