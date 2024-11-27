@@ -123,6 +123,13 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 - Außerdem können weiterhin Kommentare mit `{ Kommentar }` geschrieben werden. Alternative Syntax für mehrzeilige Kommentare ist `/* Kommentar */`.
 - Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`. Das Semikolon wird beim Parsen ignoriert.
 
+## Umfangreiches Beispiel: Dijkstra-Algorithmus
+
+In https://karol.arrrg.de/#U528 durchsucht Karol einen Graph aus Ziegel nach dem Algorithmus von Dijkstra und markiert den kürzesten Pfad. Alle Datenstrukturen werden innerhalb des Felds visualisiert.
+
+![grafik](https://github.com/user-attachments/assets/77889fde-b5f5-4575-b20c-61d84878f11a)
+
+
 ## Ähnliche Projekte
 
 Über die letzen Monate sind mir ein paar ähnliche Projekte begegnet:
