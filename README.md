@@ -125,7 +125,7 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 
 ## Umfangreiches Beispiel: Dijkstra-Algorithmus
 
-In https://karol.arrrg.de/#U528 durchsucht Karol einen Graph aus Ziegeln nach dem Algorithmus von Dijkstra und markiert den kürzesten Pfad. Alle Datenstrukturen werden innerhalb des Felds visualisiert. Das Beispiel deckt viele algorithmische Elemente ab: Ziegel zählen, Knoten im Graph markieren, Zahlen addieren/subtrahieren, Zahlen vergleichen, Minimum finden, etc. - der Sprachumfang von Karol reicht dafür aus!
+In https://karol.arrrg.de/#U528 durchsucht Karol einen Graph aus Ziegeln nach dem Algorithmus von Dijkstra und markiert den kürzesten Pfad. Alle Datenstrukturen werden innerhalb des Felds visualisiert. Das Beispiel deckt viele algorithmische Elemente ab: Ziegel zählen, Knoten im Graph markieren, Zahlen addieren/subtrahieren, Zahlen vergleichen, Minimum finden, etc.  - Für mich war es interessant auszuloten, inwiefern das theoretische Limit (Robot Karol ist turing-vollständig, jeder Algorithmus ist in der Theorie umsetzbar) auch praktisch umgesetzt werden kann. Bei Programme dieser Größe sind Kommentare und klare Methoden unverzichtbar, aber auch eine saubere Vorbereitung mit Stift und Papier und einem Kontrollflussdiagramm.
 
 ![grafik](https://github.com/user-attachments/assets/77889fde-b5f5-4575-b20c-61d84878f11a)
 
