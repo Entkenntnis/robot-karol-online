@@ -135,7 +135,8 @@ In https://karol.arrrg.de/#U528 durchsucht Karol einen Graph aus Ziegeln nach de
 
 In https://karol.arrrg.de/#QCQU nutzt Karol einen Algorithmus aus der dynamischen Programmierung, um die Levenshtein-Distanz zu berechnen. Die Matrix, über die die Berechnung ausgeführt wird, lässt sich anschaulich in der Welt von Karol darstellen.
 
-![grafik](https://github.com/user-attachments/assets/8d96d6f1-a33d-408d-83f8-10926c2348be)
+![grafik](https://github.com/user-attachments/assets/ee515981-4401-4615-8360-bca9bde2f33c)
+
 
 ## Ähnliche Projekte
 
