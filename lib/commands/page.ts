@@ -21,7 +21,7 @@ export function switchToPage(core: Core, target: Pages) {
       ui.isHighlightDescription = false
       quest.id = -1
       editor.editOptions = 'all'
-      editor.saveProgram = false
+      editor.saveProgram = true
     })
 
     submit_event('show_editor', core)
