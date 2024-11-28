@@ -428,7 +428,7 @@ export function Overview() {
                   core.ws.page == 'analyze' ||
                   core.ws.page == 'demo') && (
                   <button
-                    className="absolute top-[210px] left-[1050px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                    className="absolute top-[350px] left-[1100px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
                     onClick={() => {
                       submit_event('play_snake', core)
                       if (window.location.hostname == 'localhost') {
@@ -495,7 +495,7 @@ export function Overview() {
                 {core.ws.settings.lng === 'de' && (
                   <a
                     className={clsx(
-                      'absolute top-[1120px] left-[970px] block z-10 hover:bg-gray-100/60 rounded-xl',
+                      'absolute top-[47px] left-[990px] block z-10 hover:bg-gray-100/60 rounded-xl',
                       'w-[120px] cursor-pointer'
                     )}
                     href="https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link"
@@ -508,7 +508,7 @@ export function Overview() {
                     <img
                       src="/gluehbirne.png"
                       alt="Glühbrine"
-                      className="w-[50px] mx-auto"
+                      className="w-[50px] mx-auto mb-2"
                     />
                   </a>
                 )}
@@ -527,7 +527,7 @@ export function Overview() {
                 </button>
                 {core.ws.settings.lng == 'de' && (
                   <button
-                    className="absolute top-[1390px] left-[770px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                    className="absolute top-[1520px] left-[880px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
                     onClick={() => {
                       window.open('https://einhorn.arrrg.de', '_blank')
                     }}
