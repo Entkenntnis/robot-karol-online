@@ -24,8 +24,8 @@ export function runTask(core: Core, index: number) {
   })
   if (core.ws.ui.state == 'ready') {
     if (core.view?.current) {
-      autoFormat(core.view.current)
-      setEditable(core.view.current, false)
+      //autoFormat(core.view.current)
+      //setEditable(core.view.current, false)
     }
     if (!core.ws.ui.isTesting && core.ws.page != 'editor') {
       core.executionEndCallback = () => {

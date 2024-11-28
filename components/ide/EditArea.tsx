@@ -84,12 +84,12 @@ export function EditArea() {
     }
   })
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (codeState == 'ready' && !core.ws.quest.testerHandler) {
       setEditable(view.current, true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [codeState])
+  }, [codeState])*/
 
   function insertCodeSnippet(insert: string[], cursorOffset: number) {
     if (view.current) {

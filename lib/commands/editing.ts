@@ -3,19 +3,19 @@ import { EditorView } from '@codemirror/view'
 
 import { compile } from '../language/robot karol/compiler'
 import { Core } from '../state/core'
-import { patch } from './vm'
+import { abort, patch } from './vm'
 
 export function resetUIAfterChange(core: Core) {
   core.mutateWs((state) => {
     state.ui.gutter = 0
-    state.ui.isEndOfRun = false
+    // state.ui.isEndOfRun = false
     state.ui.breakpoints = []
   })
 }
 
 export function lint(core: Core, view: EditorView) {
   if (core.ws.ui.state == 'running' || !view) {
-    return [] // auto formatting, ignore
+    abort(core) // stop program
   }
   // good place to sync code with state
   const code = view.state.doc.sliceString(0)

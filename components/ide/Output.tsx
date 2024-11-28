@@ -116,8 +116,7 @@ export function Output() {
         )}
         {core.ws.ui.isEndOfRun &&
           !core.ws.ui.controlBarShowFinishQuest &&
-          !core.ws.ui.isTesting &&
-          !core.ws.ui.isPlayground && (
+          !core.ws.ui.isTesting && (
             <button
               onClick={() => {
                 resetOutput(core)
