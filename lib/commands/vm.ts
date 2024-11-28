@@ -1,3 +1,4 @@
+import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import { ActionOp, Condition, Op } from '../state/types'
@@ -43,6 +44,7 @@ export function run(core: Core) {
       vm.isDebugging = false
     }
   })
+  setExecutionMarker(core, 0)
 
   // markPC(core, 'lastExecuted')
   const generator = executeProgramAsGenerator(core)
@@ -127,9 +129,15 @@ function markPC(core: Core, mode: MarkerMode) {
       ]
     if (op?.line) {
       const line = op.line
+      // TODO: rework gutter, this is completely broken right now
       core.mutateWs(({ ui }) => {
         ui.gutter = line
       })
+      setExecutionMarker(
+        core,
+        line,
+        core.ws.vm.isDebugging ? 'debugging' : 'normal'
+      )
     }
   }
 }
@@ -424,12 +432,14 @@ export function endExecution(core: Core) {
   if (
     core.ws.ui.karolCrashMessage &&
     core.ws.vm.bytecode &&
-    core.ws.vm.bytecode[core.ws.vm.pc - 1] &&
-    core.ws.vm.bytecode[core.ws.vm.pc - 1].line
+    core.ws.vm.bytecode[core.ws.vm.pc] &&
+    core.ws.vm.bytecode[core.ws.vm.pc].line
   ) {
+    const line = core.ws.vm.bytecode![core.ws.vm.pc].line!
     core.mutateWs(({ ui }) => {
-      ui.gutter = core.ws.vm.bytecode![core.ws.vm.pc - 1].line!
+      ui.gutter = line
     })
+    setExecutionMarker(core, line, 'error')
   }
 
   core.mutateWs((state) => {
@@ -440,6 +450,9 @@ export function endExecution(core: Core) {
     state.vm.pc = 0
     state.ui.isEndOfRun = true
   })
+  if (!core.ws.ui.karolCrashMessage) {
+    setExecutionMarker(core, 0)
+  }
 
   /*if (
     core.ws.quest.id > 0 &&

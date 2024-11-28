@@ -1,3 +1,4 @@
+import { setExecutionMarker } from '../codemirror/basicSetup'
 import { submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
@@ -29,6 +30,7 @@ export function setLanguage(core: Core, language: Settings['language']) {
     ui.showJavaInfo = false
     ui.gutter = 0
   })
+  setExecutionMarker(core, 0)
   setTimeout(() => {
     core.view?.current?.focus()
   })

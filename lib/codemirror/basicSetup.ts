@@ -19,6 +19,7 @@ import {
   Range,
   StateEffect,
   StateField,
+  RangeSet,
 } from '@codemirror/state'
 import {
   indentOnInput,
@@ -229,6 +230,100 @@ export const germanPhrases = {
   'on line': 'auf Zeile',
 }
 
+export function setExecutionMarker(
+  core: Core,
+  line: number,
+  type: 'normal' | 'debugging' | 'error' = 'normal'
+) {
+  if (core.view && core.view.current) {
+    if (line > 0) {
+      core.view.current.dispatch({
+        effects: [
+          highlightExecutedLineEffect.of({
+            from: core.view.current.state.doc.line(line).from,
+            type,
+          }),
+        ],
+      })
+    } else {
+      core.view.current.dispatch({
+        effects: [
+          highlightExecutedLineEffect.of({
+            from: -1,
+            type,
+          }),
+        ],
+      })
+    }
+  }
+}
+
+const highlightExecutedLineEffect = StateEffect.define<{
+  from: number
+  type: 'normal' | 'debugging' | 'error'
+}>()
+
+const highlightExecutedLineField = StateField.define<DecorationSet>({
+  create() {
+    return Decoration.none
+  },
+  update(highlighted, tr) {
+    for (let e of tr.effects)
+      if (e.is(highlightExecutedLineEffect)) {
+        highlighted = Decoration.none
+        if (e.value.from >= 0) {
+          highlighted = highlighted.update({
+            add: [
+              e.value.type == 'error'
+                ? errorHighlightMark.range(e.value.from)
+                : e.value.type == 'debugging'
+                ? debuggingHighlightMark.range(e.value.from)
+                : highlightMark.range(e.value.from),
+            ],
+          })
+        }
+      }
+    return highlighted
+  },
+  provide: (f) => EditorView.decorations.from(f),
+})
+
+const highlightMark = Decoration.line({ class: '!bg-yellow-100' })
+const debuggingHighlightMark = Decoration.line({ class: '!bg-yellow-300' })
+const errorHighlightMark = Decoration.line({ class: '!bg-red-200' })
+
+const breakpointEffect = StateEffect.define<{ pos: number; on: boolean }>({
+  map: (val, mapping) => ({ pos: mapping.mapPos(val.pos), on: val.on }),
+})
+
+const removeAllBreakpointsEffect = StateEffect.define()
+
+const breakpointState = StateField.define<RangeSet<GutterMarker>>({
+  create() {
+    return RangeSet.empty
+  },
+  update(set, transaction) {
+    set = set.map(transaction.changes)
+    for (let e of transaction.effects) {
+      if (e.is(breakpointEffect)) {
+        if (e.value.on)
+          set = set.update({ add: [breakpointMarker.range(e.value.pos)] })
+        else set = set.update({ filter: (from) => from != e.value.pos })
+      }
+      if (e.is(removeAllBreakpointsEffect)) {
+        return RangeSet.empty
+      }
+    }
+    return set
+  },
+})
+
+export function removeAllBreakpoints(core: Core) {
+  if (core.view && core.view.current) {
+    core.view.current.dispatch({ effects: removeAllBreakpointsEffect.of(null) })
+  }
+}
+
 const breakpointMarkerPlaceholder = new (class extends GutterMarker {
   toDOM() {
     return new DOMParser().parseFromString(
@@ -248,48 +343,76 @@ const breakpointMarker = new (class extends GutterMarker {
 })()
 
 export function buildGutterWithBreakpoints(core: Core) {
-  return gutter({
-    class: 'w-8 my-gutter relative',
-    lineMarker(view, line) {
-      const lineNumber = view.state.doc.lineAt(line.from).number
-      return core.ws.ui.breakpoints.includes(lineNumber)
-        ? breakpointMarker
-        : breakpointMarkerPlaceholder
-    },
-    domEventHandlers: {
-      mousedown(view, line, event) {
-        const target = event.target
-        if (
-          target &&
-          'classList' in target &&
-          (target as HTMLElement).classList.contains('w-[16px]')
-        ) {
-          const lineNumber = view.state.doc.lineAt(line.from).number
-          if (core.ws.ui.breakpoints.includes(lineNumber)) {
-            core.mutateWs((s) => {
-              s.ui.breakpoints = s.ui.breakpoints.filter(
-                (x) => x !== lineNumber
-              )
+  return [
+    highlightExecutedLineField,
+    breakpointState,
+    gutter({
+      class: 'w-8 my-gutter relative',
+      lineMarker(view, line) {
+        let breakpoints = view.state.field(breakpointState)
+        let hasBreakpoint = false
+        breakpoints.between(line.from, line.from, () => {
+          hasBreakpoint = true
+        })
+        return hasBreakpoint ? breakpointMarker : breakpointMarkerPlaceholder
+      },
+      domEventHandlers: {
+        mousedown(view, line, event) {
+          const target = event.target
+          if (
+            target &&
+            'classList' in target &&
+            (target as HTMLElement).classList.contains('w-[16px]')
+          ) {
+            const lineNumber = view.state.doc.lineAt(line.from).number
+            let breakpoints = view.state.field(breakpointState)
+            let hasBreakpoint = false
+            breakpoints.between(line.from, line.from, () => {
+              hasBreakpoint = true
             })
-          } else {
             if (
-              core.ws.vm.bytecode &&
-              core.ws.vm.bytecode!.some((op) => op.line === lineNumber)
-            )
-              core.mutateWs((s) => {
-                s.ui.breakpoints.push(lineNumber)
+              (core.ws.vm.bytecode &&
+                core.ws.vm.bytecode!.some((op) => op.line === lineNumber)) ||
+              hasBreakpoint
+            ) {
+              view.dispatch({
+                effects: breakpointEffect.of({
+                  pos: line.from,
+                  on: !hasBreakpoint,
+                }),
               })
+              if (core.ws.ui.breakpoints.includes(lineNumber)) {
+                core.mutateWs((s) => {
+                  s.ui.breakpoints = s.ui.breakpoints.filter(
+                    (x) => x !== lineNumber
+                  )
+                })
+              } else {
+                core.mutateWs((s) => {
+                  s.ui.breakpoints.push(lineNumber)
+                })
+              }
+            }
+            return true
           }
-          view.dispatch()
-          return true
+          return false
+        },
+      },
+      lineMarkerChange(update) {
+        for (const t of update.transactions) {
+          for (const e of t.effects) {
+            if (e.is(breakpointEffect)) {
+              return true
+            }
+            if (e.is(removeAllBreakpointsEffect)) {
+              return true
+            }
+          }
         }
         return false
       },
-    },
-    lineMarkerChange(update) {
-      return true
-    },
-  })
+    }),
+  ]
 }
 
 export const basicSetup = (props: BasicSetupProps) => [

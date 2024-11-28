@@ -1,4 +1,8 @@
-import { autoFormat, setEditable } from '../codemirror/basicSetup'
+import {
+  autoFormat,
+  setEditable,
+  setExecutionMarker,
+} from '../codemirror/basicSetup'
 import { questData } from '../data/quests'
 import { questDataEn } from '../data/questsEn'
 import { submit_event } from '../helper/submit'
@@ -93,6 +97,7 @@ export function resetOutput(core: Core) {
       ws.ui.karolCrashMessage = undefined
       ws.ui.gutter = 0
     })
+    setExecutionMarker(core, 0)
   }
 }
 

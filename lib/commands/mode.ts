@@ -1,3 +1,4 @@
+import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/java/robotKarol2Java'
@@ -53,6 +54,7 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
     ui.toBlockWarning = false
     ui.gutter = 0
   })
+  setExecutionMarker(core, 0)
   if (mode == 'code') {
     setTimeout(() => {
       core.view?.current?.focus()
