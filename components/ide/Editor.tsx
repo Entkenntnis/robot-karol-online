@@ -55,6 +55,7 @@ export const Editor = ({ innerRef }: EditorProps) => {
             }),
           ],
         }),
+        scrollTo: EditorView.scrollIntoView(0),
         parent: currentEditor,
       })
 

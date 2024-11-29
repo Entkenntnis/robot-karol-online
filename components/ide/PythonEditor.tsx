@@ -121,6 +121,7 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
           ],
         }),
         parent: currentEditor,
+        scrollTo: EditorView.scrollIntoView(0),
       })
 
       innerRef.current = view
@@ -291,7 +292,8 @@ const myHighlightPlugin = ViewPlugin.fromClass(
     work(view: EditorView) {
       const ranges: Range<Decoration>[] = []
       const availableCommands: string[] = []
-      syntaxTree(view.state).iterate({
+      const tree = ensureSyntaxTree(view.state, 50000) ?? syntaxTree(view.state)
+      tree.iterate({
         enter: (node) => {
           if (node.name == 'FunctionDefinition') {
             const ast = cursorToAstNode(node.node.cursor(), view.state.doc)
@@ -301,7 +303,7 @@ const myHighlightPlugin = ViewPlugin.fromClass(
           }
         },
       })
-      syntaxTree(view.state).iterate({
+      tree.iterate({
         enter: (node) => {
           if (node.name == 'CallExpression') {
             const ast = cursorToAstNode(node.node.cursor(), view.state.doc)

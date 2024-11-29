@@ -29,6 +29,8 @@ import {
   syntaxTree,
   syntaxHighlighting,
   HighlightStyle,
+  forceParsing,
+  ensureSyntaxTree,
 } from '@codemirror/language'
 import {
   defaultKeymap,
@@ -695,7 +697,8 @@ const myHighlightPlugin = ViewPlugin.fromClass(
     work(view: EditorView) {
       const ranges: Range<Decoration>[] = []
       const availableCommands: string[] = []
-      syntaxTree(view.state).iterate({
+      const tree = ensureSyntaxTree(view.state, 50000) ?? syntaxTree(view.state)
+      tree.iterate({
         enter: (node) => {
           if (node.name == 'CmdName') {
             const str = Array.from(view.state.doc.slice(node.from, node.to))[0]
@@ -704,7 +707,7 @@ const myHighlightPlugin = ViewPlugin.fromClass(
           }
         },
       })
-      syntaxTree(view.state).iterate({
+      tree.iterate({
         enter: (node) => {
           if (node.name == 'CustomRef') {
             const str = Array.from(view.state.doc.slice(node.from, node.to))[0]

@@ -109,6 +109,7 @@ export const JavaEditor = ({ innerRef }: EditorProps) => {
           ],
         }),
         parent: currentEditor,
+        scrollTo: EditorView.scrollIntoView(0),
       })
 
       innerRef.current = view
