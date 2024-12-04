@@ -15,6 +15,7 @@ import { initCustomBlocksEn } from '../../lib/blockly/customBlocksEn'
 import { getParserWithLng } from '../../lib/codemirror/parser/get-parser-with-lng'
 import { CmdBlocksStore } from '../../lib/state/cmd-blocks-store'
 import { BlockChange } from 'blockly/core/events/events_block_change'
+import { saveCodeToLocalStorage } from '../../lib/commands/save'
 
 export function BlockEditor() {
   const editorDiv = useRef<HTMLDivElement>(null)
@@ -256,6 +257,7 @@ export function BlockEditor() {
           .replace(/^\n/, '')
           .replace(/\n$/, '')
       })
+      saveCodeToLocalStorage(core)
 
       if (core.ws.ui.state == 'running') {
         return // don't patch while running of code hasn't changed

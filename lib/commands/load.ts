@@ -21,6 +21,9 @@ export async function loadQuest(core: Core, id: string) {
     if (obj.version !== 'v1') {
       throw 'bad format'
     }
+    core.mutateWs(({ ui }) => {
+      ui.sharedQuestId = id
+    })
     deserializeQuest(core, obj)
     submit_event(`load_custom_quest_${id}`, core)
   } catch (e) {

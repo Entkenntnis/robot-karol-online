@@ -1,3 +1,4 @@
+import { language } from '@codemirror/language'
 import { Core } from '../state/core'
 
 export function saveCodeToFile(core: Core) {
@@ -37,4 +38,77 @@ export function saveCodeToFile(core: Core) {
 
   // 7. Clean up by revoking the Blob URL
   window.URL.revokeObjectURL(url)
+}
+
+export function saveCodeToLocalStorage(core: Core) {
+  if (core.ws.ui.sharedQuestId) {
+    const state = getProgram(core)
+    localStorage.setItem(
+      `robot_karol_online_shared_quest_${core.ws.ui.sharedQuestId.toLowerCase()}_program`,
+      JSON.stringify(state)
+    )
+  }
+}
+
+export function attemptToLoadProgramFromLocalStorage(core: Core) {
+  if (core.ws.ui.sharedQuestId) {
+    try {
+      const state = JSON.parse(
+        localStorage.getItem(
+          `robot_karol_online_shared_quest_${core.ws.ui.sharedQuestId.toLowerCase()}_program`
+        ) ?? '{}'
+      )
+      if (
+        state.language &&
+        state.program &&
+        typeof state.language == 'string' &&
+        typeof state.program == 'string'
+      ) {
+        loadProgram(core, state.program, state.language)
+      }
+    } catch {}
+  }
+}
+
+export function loadProgram(
+  core: Core,
+  program: string,
+  language: 'blocks' | 'karol' | 'python' | 'java'
+) {
+  core.mutateWs((ws) => {
+    if (language == 'blocks') {
+      ws.settings.mode = 'blocks'
+      ws.code = program
+    }
+    if (language == 'karol') {
+      ws.settings.mode = 'code'
+      ws.settings.language = 'robot karol'
+      ws.code = program
+    }
+    if (language == 'python') {
+      ws.settings.mode = 'code'
+      ws.settings.language = 'python'
+      ws.pythonCode = program
+    }
+    if (language == 'java') {
+      ws.settings.mode = 'code'
+      ws.settings.language = 'java'
+      ws.javaCode = program
+    }
+  })
+}
+
+export function getProgram(core: Core) {
+  if (core.ws.settings.mode == 'blocks') {
+    return { language: 'blocks', program: core.ws.code }
+  } else {
+    if (core.ws.settings.language == 'robot karol') {
+      return { language: 'karol', program: core.ws.code }
+    } else if (core.ws.settings.language == 'python') {
+      return { language: 'python', program: core.ws.pythonCode }
+    } else if (core.ws.settings.language == 'java') {
+      return { language: 'java', program: core.ws.javaCode }
+    }
+  }
+  return { language: 'blocks', program: '' }
 }

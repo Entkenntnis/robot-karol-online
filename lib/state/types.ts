@@ -59,6 +59,7 @@ export interface Ui {
   isPlayground: boolean
   showPreview: boolean
   breakpoints: number[]
+  sharedQuestId?: string
 }
 
 export interface Vm {

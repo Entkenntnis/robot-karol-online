@@ -8,6 +8,11 @@ import {
   World,
 } from '../state/types'
 import { setLanguage } from './language'
+import {
+  attemptToLoadProgramFromLocalStorage,
+  getProgram,
+  loadProgram,
+} from './save'
 import { endExecution } from './vm'
 
 export function serializeQuest(core: Core): QuestSerialFormat {
@@ -30,21 +35,9 @@ export function serializeQuest(core: Core): QuestSerialFormat {
   }
 
   if (core.ws.editor.saveProgram) {
-    if (core.ws.settings.mode == 'blocks') {
-      output.language = 'blocks'
-      output.program = core.ws.code
-    } else {
-      if (core.ws.settings.language == 'robot karol') {
-        output.language = 'karol'
-        output.program = core.ws.code
-      } else if (core.ws.settings.language == 'python') {
-        output.language = 'python'
-        output.program = core.ws.pythonCode
-      } else if (core.ws.settings.language == 'java') {
-        output.language = 'java'
-        output.program = core.ws.javaCode
-      }
-    }
+    const editorState = getProgram(core)
+    output.language = editorState.language as any //
+    output.program = editorState.program
   }
 
   return output
@@ -187,27 +180,9 @@ export function deserializeQuest(
     }
   }
   if (quest.program && quest.language) {
-    core.mutateWs((ws) => {
-      if (quest.language == 'blocks') {
-        ws.settings.mode = 'blocks'
-        ws.code = quest.program!
-      }
-      if (quest.language == 'karol') {
-        ws.settings.mode = 'code'
-        ws.settings.language = 'robot karol'
-        ws.code = quest.program!
-      }
-      if (quest.language == 'python') {
-        ws.settings.mode = 'code'
-        ws.settings.language = 'python'
-        ws.pythonCode = quest.program!
-      }
-      if (quest.language == 'java') {
-        ws.settings.mode = 'code'
-        ws.settings.language = 'java'
-        ws.javaCode = quest.program!
-      }
-    })
+    loadProgram(core, quest.program, quest.language)
+  } else {
+    attemptToLoadProgramFromLocalStorage(core)
   }
 }
 

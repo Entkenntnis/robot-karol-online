@@ -8,6 +8,7 @@ import {
   removeAllBreakpoints,
   setExecutionMarker,
 } from '../codemirror/basicSetup'
+import { saveCodeToLocalStorage } from './save'
 
 export function resetUIAfterChange(core: Core) {
   core.mutateWs((state) => {
@@ -28,6 +29,7 @@ export function lint(core: Core, view: EditorView) {
   core.mutateWs((state) => {
     state.code = code
   })
+  saveCodeToLocalStorage(core)
   resetUIAfterChange(core)
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
