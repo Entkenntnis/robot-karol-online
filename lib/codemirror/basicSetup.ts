@@ -237,7 +237,7 @@ export function setExecutionMarker(
   line: number,
   type: 'normal' | 'debugging' | 'error' = 'normal'
 ) {
-  if (core.view && core.view.current) {
+  if (core.view && core.view.current && core.ws.settings.mode == 'code') {
     if (line > 0) {
       core.view.current.dispatch({
         effects: [

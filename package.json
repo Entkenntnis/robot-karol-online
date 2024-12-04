@@ -24,7 +24,6 @@
     "@lezer/common": "^1.2.0",
     "@lezer/highlight": "^1.2.0",
     "blockly": "^9.0.0",
-    "canvas": "^2.11.2",
     "canvas-confetti": "^1.6.0",
     "clsx": "^2.0.0",
     "daisyui": "^4.12.10",
