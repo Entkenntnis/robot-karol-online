@@ -23,6 +23,7 @@ import { GoodLuckModal } from './modals/GoodLuckModal'
 import ErrorBoundary from './ErrorBoundary'
 import { GoodLuck } from './pages/GoodLuck_internal'
 import { Inspiration } from './pages/Inspiration'
+import { SyncModal } from './modals/SyncModal'
 
 export function App() {
   const core = useCore()
@@ -87,6 +88,8 @@ export function App() {
       return <TutorialModal />
     } else if (core.ws.modal == 'goodluck') {
       return <GoodLuckModal />
+    } else if (core.ws.modal == 'sync') {
+      return <SyncModal />
     } else {
       return null
     }

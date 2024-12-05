@@ -928,9 +928,10 @@ export function Overview() {
                     setPersist(core, true)
                     hideSaveHint(core)
                     forceRerender(core)
+                    showModal(core, 'sync')
                   }}
                 >
-                  {core.strings.overview.save}
+                  {core.strings.overview.syncProgress}
                 </button>{' '}
                 <button
                   className="text-gray-500 underline ml-6"

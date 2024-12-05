@@ -4,9 +4,9 @@ export const enStrings: typeof deStrings = {
   overview: {
     profile: 'Profile',
     editor: 'Editor',
-    save: 'Save progress',
+    save: 'Export progress',
     saveTooltip: 'Save to a file',
-    load: 'Load progress',
+    load: 'Import progress',
     loadTooltip: 'Load from a file',
     gameState: 'gamestate',
     lucky: "I'm Feeling Lucky",
@@ -22,6 +22,10 @@ export const enStrings: typeof deStrings = {
     docs: 'Documentation',
     path: 'Self-learning path',
     startNow: 'Start now',
+    syncProgress: 'Save progress',
+    syncTitle: 'Your progress is in good hands',
+    syncBody:
+      'Solved tasks and your programs are automatically saved in this browser and remain available even after closing the window.',
   },
   nameModal: {
     title: 'Welcome!',
