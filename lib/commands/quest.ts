@@ -190,6 +190,7 @@ export function restoreQuestFromSessionData(
 }
 
 export function startTesting(core: Core) {
+  if (core.ws.quest.tasks.length == 0) return
   // TODO: If is end of run and I have no error message and no crash message and progress is set,
   // I can store the task and don't need to run it again
 
