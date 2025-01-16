@@ -64,7 +64,8 @@ export function ControlBar() {
           !core.ws.ui.isManualAbort &&
           !core.ws.ui.karolCrashMessage &&
           !core.ws.ui.isTesting &&
-          core.ws.quest.progress ? (
+          core.ws.quest.progress &&
+          core.ws.quest.tasks.length > 1 ? (
             <span>
               {core.ws.page !== 'editor' && (
                 <button
