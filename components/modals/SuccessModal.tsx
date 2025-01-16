@@ -132,27 +132,48 @@ export function SuccessModal() {
           ) :*/ <div className="h-12"></div>
           }
           <div className={clsx('px-12 flex w-full mb-12', 'justify-between')}>
-            <button
-              className="underline text-gray-700 hover:text-black"
-              onClick={() => {
-                finishQuest(core, true)
-                closeModal(core)
-              }}
-            >
-              {core.strings.ide.stay}
-            </button>
-            <button
-              onClick={() => {
-                finishQuest(core)
-                closeModal(core)
-              }}
-              className={clsx(
-                'px-4 py-2 rounded hover:bg-green-300 inline-block',
-                'bg-green-200 text-lg'
-              )}
-            >
-              {core.strings.ide.exit}
-            </button>
+            {core.ws.page !== 'shared' ? (
+              <>
+                <button
+                  className="underline text-gray-700 hover:text-black"
+                  onClick={() => {
+                    finishQuest(core, true)
+                    closeModal(core)
+                  }}
+                >
+                  {core.strings.ide.stay}
+                </button>
+                <button
+                  onClick={() => {
+                    finishQuest(core)
+                    closeModal(core)
+                  }}
+                  className={clsx(
+                    'px-4 py-2 rounded hover:bg-green-300 inline-block',
+                    'bg-green-200 text-lg'
+                  )}
+                >
+                  {core.strings.ide.exit}
+                </button>
+              </>
+            ) : (
+              <>
+                <span></span>
+                <button
+                  onClick={() => {
+                    finishQuest(core, true)
+                    closeModal(core)
+                  }}
+                  className={clsx(
+                    'px-4 py-2 rounded hover:bg-green-300 inline-block',
+                    'bg-green-200 text-lg'
+                  )}
+                >
+                  OK
+                </button>
+                <span></span>
+              </>
+            )}
           </div>
           {core.ws.quest.id < 0 && (
             <div className="mb-6">
