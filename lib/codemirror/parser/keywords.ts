@@ -26,8 +26,8 @@ export function keywords(input: string) {
   if (/^(dann)$/i.test(input)) return ThenKey
   if (/^((ende|\*)wenn)$/i.test(input)) return IfEndKey
   if (/^(sonst)$/i.test(input)) return ElseKey
-  if (/^(Anweisung)$/i.test(input)) return CmdStart
-  if (/^((ende|\*)(Anweisung))$/i.test(input)) return CmdEnd
+  if (/^(Anweisung|Methode)$/i.test(input)) return CmdStart
+  if (/^((ende|\*)(Anweisung|Methode))$/i.test(input)) return CmdEnd
   if (/^(karol)$/i.test(input)) return KarolPrefix
   if (
     /^(istwand|nichtistwand|istmarke|nichtistmarke|istnorden|nichtistnorden|istsüden|nichtistsüden|istosten|nichtistosten|istwesten|nichtistwesten)$/i.test(

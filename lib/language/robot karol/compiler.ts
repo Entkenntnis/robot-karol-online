@@ -82,6 +82,7 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
   }[] = []
   const functions: { op: CallOp; code: string; from: number; to: number }[] = []
   const declarations: { [key: string]: { target: number } } = {}
+  let useMethodeInsteadOfAnweisung = false
   if (tree) {
     let cursor = tree.cursor()
     do {
@@ -409,6 +410,10 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
         })
       }
       if (cursor.name == 'CmdStart') {
+        const str = doc.sliceString(cursor.from, cursor.to)
+        if (str.toLowerCase() == 'methode') {
+          useMethodeInsteadOfAnweisung = true
+        }
         const st = parseStack[parseStack.length - 1]
         if (st.type == 'function' && st.stage == 0) {
           st.stage = 1
@@ -513,19 +518,29 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
           }
           if (topOfStack.type == 'function') {
             message =
-              lng == 'de' ? 'Anweisung unvollständig' : 'Command incomplete'
+              lng == 'de'
+                ? `${
+                    useMethodeInsteadOfAnweisung ? 'Methode' : 'Anweisung'
+                  } unvollständig`
+                : 'Command incomplete'
             if (
               cursor.node.parent?.name === 'CmdName' ||
               topOfStack.stage == 1
             ) {
               message +=
                 lng == 'de'
-                  ? ', Name der Anweisung erwartet'
+                  ? `, Name der ${
+                      useMethodeInsteadOfAnweisung ? 'Methode' : 'Anweisung'
+                    } erwartet`
                   : ', expecting name'
             } else {
               message +=
                 lng == 'de'
-                  ? ', "endeAnweisung" erwartet'
+                  ? `, "${
+                      useMethodeInsteadOfAnweisung
+                        ? 'endeMethode'
+                        : 'endeAnweisung'
+                    }" erwartet`
                   : ', expecting "end_command"'
             }
           }

@@ -108,7 +108,7 @@ function parserWithMetadata(lng: 'de' | 'en') {
         Cmd: continuedIndent({
           except:
             lng == 'de'
-              ? /^\s*(ende|\*)anweisung(\s|$)/i
+              ? /^\s*(ende|\*)(anweisung|methode)(\s|$)/i
               : /^\s*(end_|\*)command(\s|$)/i,
         }),
       }),
@@ -122,7 +122,7 @@ function exampleLanguage(lng: 'de' | 'en') {
     languageData: {
       indentOnInput:
         lng == 'de'
-          ? /^\s*((ende|\*)(wiederhole|wenn|anweisung))|sonst/i
+          ? /^\s*((ende|\*)(wiederhole|wenn|anweisung|methode))|sonst/i
           : /^\s*((end_|\*)(repeat|if|command))|else/i,
       autocomplete: buildMyAutocomplete(lng),
     },
@@ -468,6 +468,7 @@ const generalOptionsDe = [
   { label: 'endeAnweisung' },
   { label: 'Beenden' },
   { label: 'karol' },
+  { label: 'Methode', boost: -10 },
 ]
 
 const generalOptionsEn = [
@@ -581,6 +582,8 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
 
     const pendings: ('repeat' | 'if' | 'cmd')[] = []
 
+    let useMethodeInsteadOfAnweisung = false
+
     const c = tree.cursor()
     do {
       if (c.name == 'CmdName') {
@@ -605,6 +608,10 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
         }
       }
       if (c.name == 'CmdStart' && c.to <= pos) {
+        const token = context.state.doc.sliceString(c.from, c.to)
+        if (token.toLowerCase() == 'methode') {
+          useMethodeInsteadOfAnweisung = true
+        }
         pendings.push('cmd')
       }
       if (c.name == 'CmdEnd' && c.to <= pos) {
@@ -633,11 +640,15 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
     }
 
     if (last == 'cmd') {
-      options.forEach((o) => {
-        if (o.label == keywords.endeanweisung) {
-          o.boost = 3
-        }
-      })
+      if (useMethodeInsteadOfAnweisung) {
+        options.push({ label: 'endeMethode', boost: 3 })
+      } else {
+        options.forEach((o) => {
+          if (o.label == keywords.endeanweisung) {
+            o.boost = 3
+          }
+        })
+      }
     }
 
     if (last == 'if') {
@@ -746,6 +757,7 @@ function buildMyTabExtension(lng: 'de' | 'en') {
             if (
               lng == 'de'
                 ? preLine.includes('anweisung') ||
+                  preLine.includes('methode') ||
                   preLine.includes('wiederhole') ||
                   preLine.includes('wenn') ||
                   preLine.includes('sonst')
