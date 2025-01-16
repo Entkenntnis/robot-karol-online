@@ -430,7 +430,9 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
               severity: 'error',
               message:
                 lng == 'de'
-                  ? 'Anweisung mit diesem Namen bereits vorhanden'
+                  ? `${
+                      useMethodeInsteadOfAnweisung ? 'Methode' : 'Anweisung'
+                    } mit diesem Namen bereits vorhanden`
                   : 'Command with this name already exists',
             })
           } else {
