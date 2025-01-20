@@ -13,6 +13,10 @@ import { setLng } from './mode'
 import { createWorld } from '../state/create'
 
 export async function initClient(core: Core) {
+  window.addEventListener('popstate', () => {
+    window.location.reload()
+  })
+
   const parameterList = new URLSearchParams(window.location.search)
 
   const id = parameterList.get('id')
@@ -432,6 +436,8 @@ export async function initClient(core: Core) {
     switchToPage(core, 'shared')
     return
   }
+
+  window.history.pushState({}, document.title, '/')
 
   switchToPage(core, 'overview')
 }
