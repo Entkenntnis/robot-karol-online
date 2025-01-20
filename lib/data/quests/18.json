@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Geheimnis",
-  "description": "Was sich hinter den Ziegeln verbirgt? Baue die Ziegel ab, um hinter die Ziegel zu blicken und das Geheimnis zu lüften. Setze eine Marke am geheimen Ort mit dem Kreuz und lege danach alle Steine wieder hin.",
+  "description": "Was sich hinter den Ziegeln verbirgt? Baue die Ziegel ab, um hinter die Ziegel zu blicken und das Geheimnis zu lüften. Setze eine Marke am geheimen Ort mit dem Kreuz und lege danach alle Ziegel wieder hin.\n\nFür Profis: Die Aufgabe kann mit 4 Zeilen Code gelöst werden.",
   "tasks": [
     {
       "title": "???",
