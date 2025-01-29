@@ -22,7 +22,7 @@ export function RemixModal() {
       }}
     >
       <div
-        className="min-h-[310px] w-[500px] bg-white z-[200] rounded-xl relative flex justify-between flex-col px-3"
+        className="min-h-[330px] w-[500px] bg-white z-[200] rounded-xl relative flex justify-between flex-col px-3"
         onClick={(e) => {
           e.stopPropagation()
         }}
@@ -109,6 +109,29 @@ export function RemixModal() {
             {core.strings.editor.load}
           </button>
         </div>
+        <hr />
+        <p>Aus Datei laden</p>
+        <p>
+          <input
+            type="file"
+            onChange={async (e) => {
+              const file = e.target.files?.[0]
+              if (file) {
+                try {
+                  const text = await file.text()
+                  const obj = JSON.parse(text) as QuestSerialFormat
+                  if (obj.version !== 'v1') {
+                    throw 'bad format'
+                  }
+                  deserializeQuest(core, obj, false)
+                  closeModal(core)
+                } catch (error) {
+                  alert(error)
+                }
+              }
+            }}
+          />
+        </p>
         <hr />
         <p className="text-center mb-5 mt-3">
           <button
