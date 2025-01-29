@@ -11,6 +11,8 @@ import { isSetName } from '../helper/events'
 import { mapData } from '../data/map'
 import { setLng } from './mode'
 import { createWorld } from '../state/create'
+import { QuestSerialFormat } from '../state/types'
+import { deserializeQuest } from './json'
 
 export async function initClient(core: Core) {
   window.addEventListener('popstate', () => {
@@ -65,6 +67,7 @@ export async function initClient(core: Core) {
   setLng(core, getLng())
 
   const hash = window.location.hash.toUpperCase()
+  const normalHash = window.location.hash
 
   if (hash == '#SPIELWIESE') {
     buildPlayground()
@@ -425,6 +428,25 @@ export async function initClient(core: Core) {
   if (hash == '#EDITOR') {
     switchToPage(core, 'editor')
     return
+  }
+
+  if (hash.startsWith('#OPEN:')) {
+    try {
+      // extract url
+      const url = normalHash.substring(6)
+      // fetch data
+      const response = await fetch(url)
+      const text = await response.text()
+      const obj = JSON.parse(text ?? '{}') as QuestSerialFormat
+      if (obj.version !== 'v1') {
+        throw 'bad format'
+      }
+      deserializeQuest(core, obj)
+      switchToPage(core, 'shared')
+      return
+    } catch (e) {
+      alert(e)
+    }
   }
 
   if (hash == '#DEMO') {
