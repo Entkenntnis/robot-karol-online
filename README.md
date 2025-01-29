@@ -36,7 +36,7 @@ Robot Karol Online enthält eine Sammmlung interaktiver Aufgaben, die für die �
 
 Erhalte eine Übersicht über alle enthaltenen Aufgaben: https://karol.arrrg.de/#demo
 
-Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://karol.arrrg.de/#editor) eigene interaktive Aufgaben erstellt werden und über einen Link an die Klasse verteilt werden.
+Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://karol.arrrg.de/#editor) eigene interaktive Aufgaben erstellt werden und über einen Link wie https://karol.arrrg.de/#3XHV an die Klasse verteilt werden. Die Datei werden dabei auf meinem Server gespeichert, du kannst aber auch die Dateien selber hosten: https://karol.arrrg.de/#open:https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/refs/heads/main/material/quests/Quests_selber_hosten.json
 
 ## Sprache
 
