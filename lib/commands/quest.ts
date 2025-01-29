@@ -23,6 +23,7 @@ export function runTask(core: Core, index: number) {
       ws.world = task.start
     }
     ws.ui.showOutput = true
+    ws.ui.showStructogram = false
     ws.quest.lastStartedTask = index
     ws.quest.progress = false
   })
