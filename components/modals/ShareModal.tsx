@@ -71,7 +71,7 @@ export function ShareModal() {
             </button>
           </div>
         ) : (
-          <p>
+          <p className="flex justify-between">
             <button
               className="px-2 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded ml-3 mb-6"
               onClick={async () => {
@@ -94,17 +94,30 @@ export function ShareModal() {
                 core.strings.editor.createLink
               )}
             </button>
-            {window.location.hostname == 'localhost' && (
-              <button
-                className="ml-2"
-                onClick={() => {
-                  console.log(JSON.stringify(serializeQuest(core)))
-                  alert(JSON.stringify(serializeQuest(core)))
-                }}
-              >
-                json
-              </button>
-            )}
+            <span>
+              {window.location.hostname == 'localhost' && (
+                <button
+                  className="mr-3 text-sm text-gray-700 underline"
+                  onClick={() => {
+                    // offer download
+                    const blob = new Blob(
+                      [JSON.stringify(serializeQuest(core))],
+                      { type: 'application/json' }
+                    )
+                    const url = URL.createObjectURL(blob)
+                    const a = document.createElement('a')
+                    a.href = url
+                    const title = core.ws.quest.title || 'quest'
+                    // make sure to remove special characters
+                    a.download = title.replace(/[^a-z0-9]/gi, '_') + '.json'
+                    a.click()
+                    URL.revokeObjectURL(url)
+                  }}
+                >
+                  Als JSON herunterladen
+                </button>
+              )}
+            </span>
           </p>
         )}
         <p className="text-center mb-3 mt-3">
