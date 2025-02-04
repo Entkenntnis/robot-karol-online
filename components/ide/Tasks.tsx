@@ -440,34 +440,36 @@ export function Tasks() {
                 : core.strings.ide.structogram}
             </button>
           )}
+          {(core.ws.page === 'shared' ||
+            core.ws.page === 'imported' ||
+            core.ws.page === 'quest') && (
+            <button
+              className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600"
+              onClick={() => {
+                showModal(core, 'appearance')
+              }}
+            >
+              <FaIcon icon={faShirt} />
+            </button>
+          )}
           {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
-            <>
-              <button
-                className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded"
-                onClick={() => {
-                  showModal(core, 'appearance')
+            <span className="inline-block mx-2 bg-gray-200 px-1 rounded">
+              <FaIcon icon={faGlobe} />
+              <select
+                className="p-1 ml-2 rounded"
+                value={core.ws.settings.lng}
+                onChange={(e) => {
+                  const lng = e.target.value
+                  if (lng == 'de' || lng == 'en') {
+                    setLng(core, lng)
+                    setLngStorage(lng)
+                  }
                 }}
               >
-                <FaIcon icon={faShirt} />
-              </button>
-              <span className="inline-block mx-2 bg-gray-200 px-1 rounded">
-                <FaIcon icon={faGlobe} />
-                <select
-                  className="p-1 ml-2 rounded"
-                  value={core.ws.settings.lng}
-                  onChange={(e) => {
-                    const lng = e.target.value
-                    if (lng == 'de' || lng == 'en') {
-                      setLng(core, lng)
-                      setLngStorage(lng)
-                    }
-                  }}
-                >
-                  <option value="de">Deutsch</option>
-                  <option value="en">English</option>
-                </select>
-              </span>
-            </>
+                <option value="de">Deutsch</option>
+                <option value="en">English</option>
+              </select>
+            </span>
           )}
         </div>
       </div>
