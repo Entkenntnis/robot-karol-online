@@ -3,24 +3,16 @@ import {
   faCircleCheck,
   faExclamationTriangle,
   faGenderless,
+  faPause,
   faPersonWalking,
-  faPlay,
-  faRotateRight,
-  faStop,
   faThumbsUp,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { useMemo } from 'react'
-import { showModal } from '../../lib/commands/modal'
 
 import { setSpeedSliderValue } from '../../lib/commands/mode'
-import {
-  closeOutput,
-  finishQuest,
-  restartProgram,
-  startTesting,
-} from '../../lib/commands/quest'
+import { finishQuest, startTesting } from '../../lib/commands/quest'
 import { abort } from '../../lib/commands/vm'
 import { positiveText } from '../../lib/helper/positiveText'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
@@ -103,33 +95,31 @@ export function ControlBar() {
           <button
             className="h-full p-2 bg-white hover:bg-gray-100 rounded"
             onClick={() => {
-              core.mutateWs((ws) => {
-                ws.vm.isDebugging = false
-                if (ws.ui.speedSliderValue == 0) {
-                  ws.ui.speedSliderValue = 7
-                }
-                ws.vm.startTime =
-                  Date.now() -
-                  (ws.vm.steps + 1) * sliderToDelay(ws.ui.speedSliderValue)
-              })
+              abort(core)
             }}
           >
-            {core.strings.ide.continueProgram}
+            {core.strings.ide.stop}
           </button>
         </div>
       ) : (
-        <div className="max-w-[230px] h-[58px] mr-3 my-3">
-          {core.ws.ui.speedSliderValue > 0
-            ? (
-                Math.round(
-                  (1000 / sliderToDelay(core.ws.ui.speedSliderValue)) * 10
-                ) / 10
-              )
-                .toFixed(1)
-                .replace('.', ',') +
-              ' ' +
-              core.strings.ide.steps
-            : core.strings.ide.step}
+        <div className="max-w-[230px] h-[58px] mr-3 my-3 relative">
+          <button
+            className={clsx(
+              'px-2 py-0.5 bg-purple-100 hover:bg-purple-200 rounded absolute -top-1.5 right-0',
+              core.ws.ui.state !== 'running' && 'invisible'
+            )}
+            onClick={() => {
+              core.mutateWs((ws) => {
+                ws.vm.isDebugging = true
+              })
+            }}
+          >
+            <FaIcon icon={faPause} /> Debugger
+          </button>
+          <span className="text-transparent h-1 inline-block overflow-hidden select-none">
+            das ist ein platzhalter text der nur dazu da ist die Breite
+            auszufüllen
+          </span>
           <input
             type="range"
             value={core.ws.ui.speedSliderValue}
@@ -139,8 +129,19 @@ export function ControlBar() {
             min="0"
             max="20"
             step="1"
-            className="w-full h-3 cursor-pointer mt-4"
+            className="w-full h-3 cursor-pointer"
           />
+          <p className="text-xs text-center">
+            {(
+              Math.round(
+                (1000 / sliderToDelay(core.ws.ui.speedSliderValue)) * 10
+              ) / 10
+            )
+              .toFixed(1)
+              .replace('.', ',') +
+              ' ' +
+              core.strings.ide.steps}
+          </p>
         </div>
       )}
     </div>

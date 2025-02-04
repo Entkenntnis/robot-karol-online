@@ -80,22 +80,15 @@ export function setShowTarget(core: Core, val: boolean) {
 }
 
 export function setSpeedSliderValue(core: Core, val: number) {
-  if (val == 0) {
-    core.mutateWs((ws) => {
-      ws.vm.isDebugging = true
-      ws.ui.speedSliderValue = 0
-    })
-  } else {
-    core.mutateWs((ws) => {
-      ws.vm.isDebugging = false
-      const previousDelay = sliderToDelay(ws.ui.speedSliderValue)
-      ws.ui.speedSliderValue = val
-      const delay = sliderToDelay(ws.ui.speedSliderValue)
-      const now = Date.now()
-      const excessTime = now - ws.vm.startTime - ws.vm.steps * previousDelay
-      ws.vm.startTime = Date.now() - ws.vm.steps * delay - excessTime
-    })
-  }
+  core.mutateWs((ws) => {
+    ws.vm.isDebugging = false
+    const previousDelay = sliderToDelay(ws.ui.speedSliderValue)
+    ws.ui.speedSliderValue = val
+    const delay = sliderToDelay(ws.ui.speedSliderValue)
+    const now = Date.now()
+    const excessTime = now - ws.vm.startTime - ws.vm.steps * previousDelay
+    ws.vm.startTime = Date.now() - ws.vm.steps * delay - excessTime
+  })
 }
 
 export function editCodeAndResetProgress(core: Core) {
