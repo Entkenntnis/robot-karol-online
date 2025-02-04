@@ -52,6 +52,7 @@ export function createWorkspaceState(): WorkspaceState {
       isPlayground: false,
       showPreview: true,
       breakpoints: [],
+      collapseDescription: false,
     },
     vm: {
       pc: 0,

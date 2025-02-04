@@ -128,6 +128,7 @@ export function startQuest(core: Core, id: number) {
     ws.ui.audioStarted = false
     ui.speedSliderValue = 7
     ui.showPreview = true
+    ui.collapseDescription = false
   })
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {
     showModal(core, 'name')

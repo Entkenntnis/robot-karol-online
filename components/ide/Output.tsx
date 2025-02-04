@@ -32,8 +32,6 @@ export function Output() {
     .map((entry) => `${entry[0]} = ${entry[1]}`)
     .join(', ')
 
-  const [showDescription, setShowDescription] = useState(true)
-
   return (
     <div className="flex flex-col h-full relative">
       {core.ws.page !== 'editor' && (
@@ -42,10 +40,12 @@ export function Output() {
             <button
               className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
               onClick={() => {
-                setShowDescription((v) => !v)
+                core.mutateWs((ws) => {
+                  ws.ui.collapseDescription = !ws.ui.collapseDescription
+                })
               }}
             >
-              {showDescription ? (
+              {!core.ws.ui.collapseDescription ? (
                 <FaIcon className="text-xl" icon={faCaretUp} />
               ) : (
                 <FaIcon className="text-xl" icon={faCaretDown} />
@@ -54,7 +54,7 @@ export function Output() {
             <h1
               className={clsx(
                 'text-xl font-bold mt-1',
-                showDescription ? 'mb-4' : 'mb-0'
+                !core.ws.ui.collapseDescription ? 'mb-4' : 'mb-0'
               )}
             >
               {core.ws.quest.title}
@@ -64,7 +64,9 @@ export function Output() {
                 </span>
               )}
             </h1>
-            {showDescription && <div>{renderDescription(core)}</div>}
+            {!core.ws.ui.collapseDescription && (
+              <div>{renderDescription(core)}</div>
+            )}
           </div>
         </div>
       )}
