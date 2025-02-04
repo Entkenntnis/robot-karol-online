@@ -512,19 +512,21 @@ export function Overview() {
                     />
                   </a>
                 )}
-                <button
-                  className="absolute top-[50px] left-[730px] w-[80px] block z-10 hover:bg-gray-100/60 rounded-xl"
-                  onClick={() => {
-                    showModal(core, 'appearance')
-                  }}
-                >
-                  <p className="text-center text-lg mb-1">Outfit</p>
-                  <img
-                    src="/outfit.png"
-                    alt="Kleidung"
-                    className="w-[60px] mx-auto"
-                  />
-                </button>
+                {false && (
+                  <button
+                    className="absolute top-[50px] left-[730px] w-[80px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                    onClick={() => {
+                      showModal(core, 'appearance')
+                    }}
+                  >
+                    <p className="text-center text-lg mb-1">Outfit</p>
+                    <img
+                      src="/outfit.png"
+                      alt="Kleidung"
+                      className="w-[60px] mx-auto"
+                    />
+                  </button>
+                )}
                 {core.ws.settings.lng == 'de' && (
                   <button
                     className="absolute top-[1520px] left-[880px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
