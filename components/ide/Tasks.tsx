@@ -333,7 +333,7 @@ export function Tasks() {
             <p className="z-10 w-full ml-3 overflow">
               <a
                 className="underline"
-                target="_blank"
+                target={core.ws.ui.isPlayground ? '_self' : '_blank'}
                 href={window.location.protocol + '//' + window.location.host}
               >
                 Robot Karol Online
