@@ -60,6 +60,7 @@ export interface Ui {
   showPreview: boolean
   breakpoints: number[]
   sharedQuestId?: string
+  collapseDescription: boolean
 }
 
 export interface Vm {
