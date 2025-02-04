@@ -37,6 +37,7 @@ import { JavaInfo } from './JavaInfo'
 import { showJavaInfo, setLanguage } from '../../lib/commands/language'
 import { Settings } from '../../lib/state/types'
 import { saveCodeToFile } from '../../lib/commands/save'
+import { startButtonClicked } from '../../lib/commands/start'
 
 export function IdeMain() {
   const core = useCore()
@@ -343,64 +344,34 @@ export function IdeMain() {
                   <button
                     className={clsx(
                       'rounded px-6 pt-1 pb-2 transition-colors',
-                      core.ws.ui.state == 'ready' &&
+                      (core.ws.ui.state == 'ready' ||
+                        (core.ws.ui.state == 'running' &&
+                          core.ws.vm.isDebugging)) &&
                         'bg-green-300 hover:bg-green-400',
                       core.ws.ui.state == 'running' &&
+                        !core.ws.vm.isDebugging &&
                         'bg-yellow-500 hover:bg-yellow-600',
                       (core.ws.ui.state == 'error' ||
                         core.ws.ui.state == 'loading') &&
                         'bg-gray-100 text-gray-400 cursor-not-allowed'
                     )}
                     onClick={() => {
-                      if (
-                        core.ws.editor.editWorld !== null &&
-                        core.ws.ui.state == 'ready'
-                      ) {
-                        if (core.ws.editor.showWorldPreview) {
-                          alert('Bitte wähle Start- oder Zielwelt aus.')
-                          return
-                        }
-                        runTask(core, core.ws.editor.editWorld)
-                        closeOutput(core)
-                        return
-                      }
-
-                      if (core.ws.ui.isTesting && core.ws.ui.state == 'ready') {
-                        startTesting(core)
-                        return
-                      }
-                      if (
-                        !core.ws.ui.showOutput &&
-                        core.ws.ui.state == 'ready'
-                      ) {
-                        if (core.ws.ui.isPlayground) {
-                          runTask(core, 0)
-                        } else {
-                          startTesting(core)
-                        }
-                        return
-                      }
-
-                      if (core.ws.ui.state == 'running') {
-                        abort(core)
-                        return
-                      }
-
-                      if (
-                        core.ws.ui.showOutput &&
-                        core.ws.ui.state == 'ready'
-                      ) {
-                        restartProgram(core)
-                      }
+                      startButtonClicked(core)
                     }}
                   >
                     <FaIcon
-                      icon={core.ws.ui.state == 'running' ? faStop : faPlay}
-                      className="mr-1"
+                      icon={
+                        core.ws.ui.state == 'running' && !core.ws.vm.isDebugging
+                          ? faStop
+                          : faPlay
+                      }
+                      className="mr-2"
                     />
                     <span className="text-xl">
                       {core.ws.ui.state == 'running'
-                        ? core.strings.ide.stop
+                        ? core.ws.vm.isDebugging
+                          ? core.strings.ide.continue
+                          : core.strings.ide.stop
                         : core.strings.ide.start}
                     </span>
                   </button>

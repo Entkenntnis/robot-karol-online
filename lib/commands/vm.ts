@@ -38,11 +38,7 @@ export function run(core: Core) {
     vm.startTime = Date.now() - sliderToDelay(core.ws.ui.speedSliderValue) + 150
     vm.steps = 0
     ui.gutter = 0
-    if (core.ws.ui.speedSliderValue == 0) {
-      vm.isDebugging = true
-    } else {
-      vm.isDebugging = false
-    }
+    vm.isDebugging = false
   })
   setExecutionMarker(core, 0)
 

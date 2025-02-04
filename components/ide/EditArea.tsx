@@ -244,7 +244,13 @@ export function EditArea() {
     return (
       <div className="flex h-full overflow-y-auto relative flex-shrink">
         <div className="w-full overflow-auto h-full flex">
-          <div className="w-full h-full flex flex-col relative">
+          <div
+            className={clsx(
+              'w-full h-full flex flex-col relative',
+              core.ws.ui.state == 'running' &&
+                '[&_.cm-activeLine]:bg-transparent [&_.cm-activeLineGutter]:bg-transparent'
+            )}
+          >
             {core.ws.settings.language == 'robot karol' ? (
               <Editor innerRef={view} />
             ) : core.ws.settings.language == 'java' ? (
