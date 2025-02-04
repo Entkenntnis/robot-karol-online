@@ -10,7 +10,7 @@ export const enStrings: typeof deStrings = {
     loadTooltip: 'Load from a file',
     gameState: 'gamestate',
     lucky: "I'm Feeling Lucky",
-    version: 'Version: January 2025',
+    version: 'Version: February 2025',
     playground: 'Playground',
     imprint: 'Imprint',
     privacy: 'Privacy Policy',
