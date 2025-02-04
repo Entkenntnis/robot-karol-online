@@ -34,7 +34,10 @@ import {
   setTaskScroll,
   storeQuestToSession,
 } from '../../lib/commands/quest'
-import { processMiniMarkdown } from '../../lib/helper/processMiniMarkdown'
+import {
+  processMiniMarkdown,
+  renderDescription,
+} from '../../lib/helper/processMiniMarkdown'
 import { submit_event } from '../../lib/helper/submit'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
@@ -69,9 +72,6 @@ export function Tasks() {
         <div className="overflow-y-auto bg-gray-100 h-full" ref={taskContainer}>
           <div className="h-20 from-gray-100 bg-gradient-to-t left-0 right-0 bottom-0 absolute pointer-events-none"></div>
           <div>
-            {core.ws.quest.audioSrc && (
-              <audio ref={audioRef} src={core.ws.quest.audioSrc} />
-            )}
             <div
               className={clsx(
                 'p-4 px-7 bg-yellow-100',
@@ -84,52 +84,6 @@ export function Tasks() {
                 <>
                   <h1 className="mb-4 text-xl font-bold mt-1">
                     {core.ws.quest.title}
-                    {core.ws.quest.audioSrc && (
-                      <button
-                        className="rounded-full ml-6 px-2 py-0.5 text-base font-normal bg-gray-200 hover:bg-gray-300"
-                        onClick={() => {
-                          if (audioRef.current) {
-                            if (core.ws.ui.audioStarted) {
-                              audioRef.current.pause()
-                              core.mutateWs(({ ui }) => {
-                                ui.audioStarted = false
-                              })
-                            } else {
-                              audioRef.current.currentTime = 0
-                              audioRef.current.play()
-                              submit_event('use_audio', core)
-                              core.mutateWs(({ ui }) => {
-                                ui.audioStarted = true
-                              })
-
-                              audioRef.current.onended = () => {
-                                core.mutateWs(({ ui }) => {
-                                  ui.audioStarted = false
-                                })
-                              }
-                            }
-                          }
-                        }}
-                      >
-                        {core.ws.ui.audioStarted ? (
-                          <>
-                            <FaIcon
-                              icon={faVolumeHigh}
-                              className="mr-2 text-sm ml-1 animate-pulse"
-                            />
-                            ---
-                          </>
-                        ) : (
-                          <>
-                            <FaIcon
-                              icon={faVolumeHigh}
-                              className="mr-2 text-sm ml-1"
-                            />
-                            ---
-                          </>
-                        )}
-                      </button>
-                    )}
                     {core.ws.ui.isAlreadyCompleted && (
                       <span className="text-base font-normal text-green-600 ml-4">
                         <FaIcon icon={faCheck} />{' '}
@@ -137,25 +91,7 @@ export function Tasks() {
                       </span>
                     )}
                   </h1>
-                  <div>
-                    {core.ws.quest.description == '[[tutorial]]' ? (
-                      <>
-                        <p>{core.strings.ide.welcome}</p>
-                        <div className="mt-6">
-                          <button
-                            className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"
-                            onClick={() => {
-                              showModal(core, 'tutorial')
-                            }}
-                          >
-                            {core.strings.ide.tutorialButton}
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      processMiniMarkdown(core.ws.quest.description)
-                    )}
-                  </div>
+                  <div>{renderDescription(core)}</div>
                   {!skipWait && core.ws.ui.isHighlightDescription && (
                     <div className="absolute left-0 right-0 top-0 h-1 w-full flex justify-end">
                       <div

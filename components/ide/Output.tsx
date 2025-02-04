@@ -1,6 +1,7 @@
 import {
   faArrowLeft,
   faCaretLeft,
+  faCheck,
   faTrashCan,
   faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
@@ -14,6 +15,8 @@ import { TaskRunnerOverview } from './TaskRunnerOverview'
 import { View } from '../helper/View'
 import { abort } from '../../lib/commands/vm'
 import { showModal } from '../../lib/commands/modal'
+import { renderDescription } from '../../lib/helper/processMiniMarkdown'
+import { useState } from 'react'
 
 export function Output() {
   const core = useCore()
@@ -27,8 +30,36 @@ export function Output() {
     .map((entry) => `${entry[0]} = ${entry[1]}`)
     .join(', ')
 
+  const [showDescription, setShowDescription] = useState(true)
+
   return (
     <div className="flex flex-col h-full relative">
+      <div className="border-b-2 border-gray-200">
+        <div className="p-4 px-7 bg-yellow-100 relative">
+          <button
+            className="absolute top-2 right-2"
+            onClick={() => {
+              setShowDescription((v) => !v)
+            }}
+          >
+            {showDescription ? '▲' : '▼'}
+          </button>
+          <h1
+            className={clsx(
+              'text-xl font-bold mt-1',
+              showDescription ? 'mb-4' : 'mb-0'
+            )}
+          >
+            {core.ws.quest.title}
+            {core.ws.ui.isAlreadyCompleted && (
+              <span className="text-base font-normal text-green-600 ml-4">
+                <FaIcon icon={faCheck} /> {core.strings.ide.taskCompleted}
+              </span>
+            )}
+          </h1>
+          {showDescription && <div>{renderDescription(core)}</div>}
+        </div>
+      </div>
       <div className="flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100">
         <ControlBar />
       </div>
