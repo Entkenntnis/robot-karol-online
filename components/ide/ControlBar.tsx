@@ -111,6 +111,7 @@ export function ControlBar() {
             onClick={() => {
               core.mutateWs((ws) => {
                 ws.vm.isDebugging = true
+                ws.vm.debuggerRequestNextStep = true
               })
             }}
           >
