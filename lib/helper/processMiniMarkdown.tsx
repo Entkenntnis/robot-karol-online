@@ -1,6 +1,31 @@
+import { showModal } from '../commands/modal'
 import { openImage } from '../commands/mode'
-import { useCore } from '../state/core'
+import { Core, useCore } from '../state/core'
 import { replaceWithJSX } from './replaceWithJSX'
+
+export function renderDescription(core: Core) {
+  return (
+    <>
+      {core.ws.quest.description == '[[tutorial]]' ? (
+        <>
+          <p>{core.strings.ide.welcome}</p>
+          <div className="mt-6">
+            <button
+              className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"
+              onClick={() => {
+                showModal(core, 'tutorial')
+              }}
+            >
+              {core.strings.ide.tutorialButton}
+            </button>
+          </div>
+        </>
+      ) : (
+        processMiniMarkdown(core.ws.quest.description)
+      )}
+    </>
+  )
+}
 
 export function processMiniMarkdown(input: string) {
   const key = { val: 1 }
