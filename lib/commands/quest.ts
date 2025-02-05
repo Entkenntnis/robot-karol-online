@@ -128,13 +128,13 @@ export function startQuest(core: Core, id: number) {
     ws.ui.isTesting = false
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.taskScroll = 0
-    ws.page = 'quest'
     ws.ui.isHighlightDescription = true
     ws.ui.audioStarted = false
     ui.speedSliderValue = 7
     ui.showPreview = true
     ui.collapseDescription = false
   })
+  switchToPage(core, 'quest')
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {
     showModal(core, 'name')
     core.mutateWs(({ ui }) => {
