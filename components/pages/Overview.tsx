@@ -49,6 +49,7 @@ import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
 import { submit_event } from '../../lib/helper/submit'
 import { questDataEn } from '../../lib/data/questsEn'
+import { show } from 'blockly/core/contextmenu'
 
 export function Overview() {
   const core = useCore()
@@ -493,15 +494,14 @@ export function Overview() {
                   </a>
                 )}
                 {core.ws.settings.lng === 'de' && (
-                  <a
+                  <button
                     className={clsx(
                       'absolute top-[47px] left-[990px] block z-10 hover:bg-gray-100/60 rounded-xl',
                       'w-[120px] cursor-pointer'
                     )}
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link"
-                    target="_blank"
+                    //href="https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link"
                     onClick={() => {
-                      // submit_event('show_materials', core)
+                      showModal(core, 'survey')
                     }}
                   >
                     <p className="text-center text-lg mb-1">Feedback</p>
@@ -510,7 +510,7 @@ export function Overview() {
                       alt="Glühbrine"
                       className="w-[50px] mx-auto mb-2"
                     />
-                  </a>
+                  </button>
                 )}
                 {false && (
                   <button
