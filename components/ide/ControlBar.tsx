@@ -74,9 +74,7 @@ export function ControlBar() {
             <p className="ml-3 mt-2">
               {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}
             </p>
-          ) : (
-            <button className="invisible px-2 py-0.5 ml-3 mt-2">&nbsp;</button>
-          )}
+          ) : null}
         </div>
       </div>
 
