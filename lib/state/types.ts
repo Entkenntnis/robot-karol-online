@@ -159,6 +159,7 @@ export interface WorkspaceState {
     | 'tutorial'
     | 'goodluck'
     | 'sync'
+    | 'survey'
     | null
 
   renderCounter: number // e.g. if storage is updated

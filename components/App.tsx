@@ -24,6 +24,7 @@ import ErrorBoundary from './ErrorBoundary'
 import { GoodLuck } from './pages/GoodLuck_internal'
 import { Inspiration } from './pages/Inspiration'
 import { SyncModal } from './modals/SyncModal'
+import { SurveyModal } from './modals/SurveyModal'
 
 export function App() {
   const core = useCore()
@@ -90,6 +91,8 @@ export function App() {
       return <GoodLuckModal />
     } else if (core.ws.modal == 'sync') {
       return <SyncModal />
+    } else if (core.ws.modal == 'survey') {
+      return <SurveyModal />
     } else {
       return null
     }
