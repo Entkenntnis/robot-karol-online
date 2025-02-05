@@ -35,15 +35,20 @@ export function runTask(core: Core, index: number) {
     if (!core.ws.ui.isTesting && core.ws.page != 'editor') {
       core.executionEndCallback = () => {
         if (
-          core.ws.quest.tasks.length == 1 &&
           core.ws.quest.progress &&
           !core.ws.ui.karolCrashMessage &&
           !core.ws.ui.isManualAbort
         ) {
-          core.mutateWs((ws) => {
-            ws.ui.controlBarShowFinishQuest = true
-          })
-          showModal(core, 'success')
+          if (core.ws.quest.tasks.length == 1) {
+            core.mutateWs((ws) => {
+              ws.ui.controlBarShowFinishQuest = true
+            })
+            showModal(core, 'success')
+          } else if (core.ws.quest.tasks.length > 1) {
+            setTimeout(() => {
+              startTesting(core)
+            }, 500)
+          }
         }
       }
     }

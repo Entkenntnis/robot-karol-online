@@ -52,29 +52,11 @@ export function ControlBar() {
       <div className="mt-3">
         <p className="ml-7 font-bold">{renderStatus()}</p>
         <div className="ml-2 mb-1">
-          {core.ws.ui.isEndOfRun &&
-          !core.ws.ui.isManualAbort &&
-          !core.ws.ui.karolCrashMessage &&
-          !core.ws.ui.isTesting &&
-          core.ws.quest.progress &&
-          core.ws.quest.tasks.length > 1 ? (
-            <span>
-              {core.ws.page !== 'editor' && (
-                <button
-                  onClick={() => {
-                    startTesting(core)
-                  }}
-                  className="px-2 py-0.5 rounded hover:underline text-blue-500 hover:text-blue-600 ml-3 mt-2 "
-                >
-                  {core.strings.ide.continueAll}
-                </button>
-              )}
-            </span>
-          ) : core.ws.ui.state != 'running' ? (
+          {core.ws.ui.state != 'running' && (
             <p className="ml-3 mt-2">
               {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}
             </p>
-          ) : null}
+          )}
         </div>
       </div>
 
