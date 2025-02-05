@@ -12,6 +12,6 @@
 
 Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION)!
 
-## Du möchtest dein Material teilen?
+## Musterlösung zu den Aufgaben
 
-Schreibe mir unter karol@arrrg.de.
+Bitte schreibe mir unter karol@arrrg.de um auf die Musterlösung zu erhalten (nur für Lehrkräfte).
