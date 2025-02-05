@@ -10,8 +10,8 @@
 
 ## Inspiration
 
-Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION)!
+Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION)
 
 ## Musterlösung zu den Aufgaben
 
-Bitte schreibe mir unter karol@arrrg.de um auf die Musterlösung zu erhalten (nur für Lehrkräfte).
+Bitte schreibe mir unter karol@arrrg.de um die Musterlösung zu erhalten
