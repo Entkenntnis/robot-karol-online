@@ -15,7 +15,10 @@ export function startButtonClicked(core: Core) {
   }
 
   if (core.ws.ui.isTesting && core.ws.ui.state == 'ready') {
-    startTesting(core)
+    core.mutateWs((ws) => {
+      ws.ui.isTesting = false
+    })
+    restartProgram(core)
     return
   }
   if (!core.ws.ui.showOutput && core.ws.ui.state == 'ready') {
