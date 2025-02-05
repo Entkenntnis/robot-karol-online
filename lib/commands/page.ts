@@ -11,6 +11,10 @@ export function switchToPage(core: Core, target: Pages) {
     ws.page = target
   })
 
+  const pushHistory = core.ws.ui.initDone
+
+  console.log('SWITCH TO PAGE', target, { pushHistory })
+
   // some handlers
   if (target == 'editor') {
     resetQuestView(core)
@@ -26,6 +30,8 @@ export function switchToPage(core: Core, target: Pages) {
 
     submit_event('show_editor', core)
     addNewTask(core)
+    if (pushHistory) history.pushState(null, '', '/#EDITOR')
+    return
   }
 
   if (target == 'overview') {
@@ -33,7 +39,14 @@ export function switchToPage(core: Core, target: Pages) {
     const hash = window.location.hash.toUpperCase()
     if (hash == '#DEMO') {
       switchToPage(core, 'demo')
+    } else {
+      if (pushHistory) history.pushState(null, '', '/')
     }
+    return
+  }
+
+  if (target == 'quest') {
+    if (pushHistory) history.pushState(null, '', '#QUEST-' + core.ws.quest.id)
   }
 }
 

@@ -9,6 +9,9 @@ export function Init() {
     if (isInit.current) return
     isInit.current = true
     initClient(core)
+    core.mutateWs((ws) => {
+      ws.ui.initDone = true
+    })
     window.addEventListener('hashchange', () => {
       window.location.reload()
     })

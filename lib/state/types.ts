@@ -61,6 +61,7 @@ export interface Ui {
   breakpoints: number[]
   sharedQuestId?: string
   collapseDescription: boolean
+  initDone: boolean
 }
 
 export interface Vm {

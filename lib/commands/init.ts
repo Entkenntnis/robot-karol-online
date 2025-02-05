@@ -13,6 +13,7 @@ import { setLng } from './mode'
 import { createWorld } from '../state/create'
 import { QuestSerialFormat } from '../state/types'
 import { deserializeQuest } from './json'
+import { startQuest } from './quest'
 
 export async function initClient(core: Core) {
   window.addEventListener('popstate', () => {
@@ -81,6 +82,12 @@ export async function initClient(core: Core) {
 
   if (hash == '#INSPIRATION') {
     switchToPage(core, 'inspiration')
+    return
+  }
+
+  if (hash.startsWith('#QUEST-')) {
+    const questId = parseInt(hash.substring(7))
+    startQuest(core, questId)
     return
   }
 
@@ -458,8 +465,6 @@ export async function initClient(core: Core) {
     switchToPage(core, 'shared')
     return
   }
-
-  window.history.pushState({}, document.title, '/')
 
   switchToPage(core, 'overview')
 }
