@@ -22,7 +22,7 @@ export function JavaInfo() {
         <div className="mx-8 [&>p]:mt-4 [&>img]:my-4 mb-10">
           <p>
             Mache dich bereit für deine ersten Schritte in eine
-            &quot;große&quot; Programmiersprache!
+            „große“ Programmiersprache!
           </p>
           <p>
             Du kannst Karol wahlweise in Python oder Java programmieren. Das
