@@ -48,8 +48,8 @@ export function ControlBar() {
   }
 
   return (
-    <div className="flex justify-between items-center">
-      <div>
+    <div className="flex justify-between items-top">
+      <div className="mt-3">
         <p className="ml-7 font-bold">{renderStatus()}</p>
         <div className="ml-2 mb-1">
           {core.ws.ui.isEndOfRun &&
