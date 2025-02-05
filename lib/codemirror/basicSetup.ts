@@ -464,7 +464,7 @@ const generalOptionsDe = [
   { label: 'immer' },
   { label: 'wenn' },
   { label: 'endewenn' },
-  { label: 'Anweisung' },
+  { label: 'Anweisung', boost: -2 },
   { label: 'endeAnweisung' },
   { label: 'Beenden' },
   { label: 'karol' },
