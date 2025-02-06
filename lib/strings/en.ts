@@ -9,7 +9,6 @@ export const enStrings: typeof deStrings = {
     load: 'Import progress',
     loadTooltip: 'Load from a file',
     gameState: 'gamestate',
-    lucky: "I'm Feeling Lucky",
     version: 'Version: February 2025',
     playground: 'Playground',
     imprint: 'Imprint',
@@ -101,12 +100,6 @@ export const enStrings: typeof deStrings = {
     currentPlayers: 'players in the last 28 days',
     joined: 'joined',
     loading: 'Fetching data ...',
-  },
-  lucky: {
-    description: 'Open a randomly shared task.',
-    button: 'Open Random Task',
-    hint: 'The content is created by users and is freely usable.',
-    close: 'Close',
   },
   outfit: {
     title: "Customize Karol's Appearance",

@@ -75,11 +75,6 @@ export async function initClient(core: Core) {
     return
   }
 
-  if (hash == '#GOODLUCK') {
-    switchToPage(core, 'goodluck_internal')
-    return
-  }
-
   if (hash == '#INSPIRATION') {
     switchToPage(core, 'inspiration')
     return

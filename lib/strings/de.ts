@@ -7,7 +7,6 @@ export const deStrings = {
     load: 'Fortschritt importieren',
     loadTooltip: 'Aus einer Datei laden',
     gameState: 'spielstand',
-    lucky: 'Auf gut Glück!',
     version: 'Version: Februar 2025',
     playground: 'Spielwiese',
     imprint: 'Impressum',
@@ -100,12 +99,6 @@ export const deStrings = {
     currentPlayers: 'Spieler*innen in den letzten 28 Tagen',
     joined: 'beigetreten',
     loading: 'Daten werden geladen ...',
-  },
-  lucky: {
-    description: 'Öffne eine zufällig freigegebene Aufgabe.',
-    button: 'Zufällige Aufgabe öffnen',
-    hint: 'Die Inhalte sind von NutzerInnen erstellt und lizenzfrei verwendbar.',
-    close: 'Schließen',
   },
   outfit: {
     title: 'Passe das Aussehen von Karol an',

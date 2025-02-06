@@ -19,9 +19,7 @@ import { Demo } from './pages/Demo'
 import { SuccessModal } from './modals/SuccessModal'
 import { AppearanceModal } from './modals/AppearanceModal'
 import { TutorialModal } from './modals/TutorialModal'
-import { GoodLuckModal } from './modals/GoodLuckModal'
 import ErrorBoundary from './ErrorBoundary'
-import { GoodLuck } from './pages/GoodLuck_internal'
 import { Inspiration } from './pages/Inspiration'
 import { SyncModal } from './modals/SyncModal'
 import { SurveyModal } from './modals/SurveyModal'
@@ -55,8 +53,6 @@ export function App() {
       return <Analyze />
     } else if (core.ws.page == 'demo') {
       return <Demo />
-    } else if (core.ws.page == 'goodluck_internal') {
-      return <GoodLuck />
     } else if (core.ws.page == 'inspiration') {
       return <Inspiration />
     } else {
@@ -87,8 +83,6 @@ export function App() {
       return <AppearanceModal />
     } else if (core.ws.modal == 'tutorial') {
       return <TutorialModal />
-    } else if (core.ws.modal == 'goodluck') {
-      return <GoodLuckModal />
     } else if (core.ws.modal == 'sync') {
       return <SyncModal />
     } else if (core.ws.modal == 'survey') {

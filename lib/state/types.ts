@@ -143,7 +143,6 @@ export interface WorkspaceState {
     | 'imported'
     | 'analyze'
     | 'demo'
-    | 'goodluck_internal'
     | 'inspiration'
 
   modal:
@@ -158,7 +157,6 @@ export interface WorkspaceState {
     | 'success'
     | 'appearance'
     | 'tutorial'
-    | 'goodluck'
     | 'sync'
     | 'survey'
     | null
