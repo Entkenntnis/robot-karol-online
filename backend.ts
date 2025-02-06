@@ -2,13 +2,20 @@
 const host = 'https://karol.arrrg.de/backend'
 
 export const backend = {
+  // statistics endpoint for logging events
+  // events are used to generate highscore
   statsEndpoint: host + '/submit',
-  questShareEndpoint: host + '/quest_share',
+
+  // loading projects and quests
   legacyEndpoint: host + '/load',
   questEndpoint: host + '/quest/load',
-  analyzeEndpoint: host + '/export',
+
   highscoreEndpoint: host + '/highscore',
-  solutionEndpoint: host + '/submitSolution',
+
+  // sharing quests in editor
+  questShareEndpoint: host + '/quest_share',
+
+  // internal routes
+  analyzeEndpoint: host + '/export',
   solutionAnalyzeEndpoint: host + '/exportSolutions',
-  randomEndpoint: host + '/random',
 }
