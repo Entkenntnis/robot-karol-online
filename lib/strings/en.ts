@@ -174,5 +174,6 @@ export const enStrings: typeof deStrings = {
     javaOnly: 'java only',
     deleteWorld: 'Delete World Content',
     includeProgram: 'Include program',
+    downloadJSON: 'Download as JSON',
   },
 }

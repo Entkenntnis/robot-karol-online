@@ -173,5 +173,6 @@ export const deStrings = {
     javaOnly: 'nur Java-Code',
     deleteWorld: 'Welt löschen',
     includeProgram: 'Programm mitspeichern',
+    downloadJSON: 'Als JSON herunterladen',
   },
 }

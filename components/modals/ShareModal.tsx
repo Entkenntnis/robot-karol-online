@@ -112,7 +112,7 @@ export function ShareModal() {
                   URL.revokeObjectURL(url)
                 }}
               >
-                Als JSON herunterladen
+                {core.strings.editor.downloadJSON}
               </button>
             </span>
           </p>
