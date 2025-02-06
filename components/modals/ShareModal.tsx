@@ -2,7 +2,6 @@ import {
   faExternalLinkSquare,
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
-import link from 'next/link'
 import { useState } from 'react'
 
 import { serializeQuest } from '../../lib/commands/json'
@@ -95,28 +94,26 @@ export function ShareModal() {
               )}
             </button>
             <span>
-              {window.location.hostname == 'localhost' && (
-                <button
-                  className="mr-3 text-sm text-gray-700 underline"
-                  onClick={() => {
-                    // offer download
-                    const blob = new Blob(
-                      [JSON.stringify(serializeQuest(core))],
-                      { type: 'application/json' }
-                    )
-                    const url = URL.createObjectURL(blob)
-                    const a = document.createElement('a')
-                    a.href = url
-                    const title = core.ws.quest.title || 'quest'
-                    // make sure to remove special characters
-                    a.download = title.replace(/[^a-z0-9]/gi, '_') + '.json'
-                    a.click()
-                    URL.revokeObjectURL(url)
-                  }}
-                >
-                  Als JSON herunterladen
-                </button>
-              )}
+              <button
+                className="mr-3 text-sm text-gray-700 underline"
+                onClick={() => {
+                  // offer download
+                  const blob = new Blob(
+                    [JSON.stringify(serializeQuest(core))],
+                    { type: 'application/json' }
+                  )
+                  const url = URL.createObjectURL(blob)
+                  const a = document.createElement('a')
+                  a.href = url
+                  const title = core.ws.quest.title || 'quest'
+                  // make sure to remove special characters
+                  a.download = title.replace(/[^a-z0-9]/gi, '_') + '.json'
+                  a.click()
+                  URL.revokeObjectURL(url)
+                }}
+              >
+                Als JSON herunterladen
+              </button>
             </span>
           </p>
         )}
