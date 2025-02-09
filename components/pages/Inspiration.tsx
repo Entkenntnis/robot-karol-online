@@ -35,6 +35,8 @@ export function Inspiration() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  return <div>Das ist die neue UI</div>
+
   return (
     <div className="pt-10">
       <h1 className="text-center text-5xl ">Lasse dich inspirieren 💫⚡💡</h1>
