@@ -14,4 +14,4 @@ Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION
 
 ## Musterlösung zu den Aufgaben
 
-Bitte schreibe mir unter karol@arrrg.de um die Musterlösung zu erhalten
+Bitte schreibe mir unter karol@arrrg.de um die Musterlösung zu Aufgaben im Selbst-Lern-Pfad zu erhalten
