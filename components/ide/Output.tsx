@@ -19,6 +19,7 @@ import { abort } from '../../lib/commands/vm'
 import { showModal } from '../../lib/commands/modal'
 import { renderDescription } from '../../lib/helper/processMiniMarkdown'
 import { useState } from 'react'
+import { View2D } from '../helper/View2D'
 
 export function Output() {
   const core = useCore()
@@ -31,6 +32,16 @@ export function Output() {
   const varStr = Object.entries(variables)
     .map((entry) => `${entry[0]} = ${entry[1]}`)
     .join(', ')
+
+  const preview =
+    core.ws.ui.showPreviewOfTarget &&
+    core.ws.quest.lastStartedTask !== undefined &&
+    core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target &&
+    core.ws.ui.showPreview
+      ? {
+          world: core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!,
+        }
+      : undefined
 
   return (
     <div className="flex flex-col h-full relative">
@@ -82,26 +93,26 @@ export function Output() {
         <div className="flex flex-col h-full relative">
           <div className="m-auto">
             <div className="w-fit h-fit mb-32 mt-4 mx-4">
-              <View
-                world={core.ws.world}
-                preview={
-                  core.ws.ui.showPreviewOfTarget &&
-                  core.ws.quest.lastStartedTask !== undefined &&
-                  core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target &&
-                  core.ws.ui.showPreview
-                    ? {
-                        world:
-                          core.ws.quest.tasks[core.ws.quest.lastStartedTask!]
-                            .target!,
-                      }
-                    : undefined
-                }
-                className={clsx(
-                  'p-6',
-                  core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
-                )}
-                appearance={core.ws.appearance}
-              />
+              {core.ws.ui.show2D ? (
+                <View2D
+                  world={core.ws.world}
+                  preview={preview}
+                  className={clsx(
+                    'p-6',
+                    core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
+                  )}
+                />
+              ) : (
+                <View
+                  world={core.ws.world}
+                  preview={preview}
+                  className={clsx(
+                    'p-6',
+                    core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
+                  )}
+                  appearance={core.ws.appearance}
+                />
+              )}
             </div>
           </div>
           {core.ws.ui.state === 'running' && core.ws.ui.proMode && varStr && (
@@ -153,6 +164,21 @@ export function Output() {
                 </label>
               </span>
             )}
+            <span className="ml-6">
+              <label className="select-none cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="cursor-pointer"
+                  checked={core.ws.ui.show2D}
+                  onChange={(e) => {
+                    core.mutateWs((ws) => {
+                      ws.ui.show2D = e.target.checked
+                    })
+                  }}
+                />{' '}
+                2D-Ansicht
+              </label>
+            </span>
           </div>
         )}
         {core.ws.ui.isEndOfRun &&
