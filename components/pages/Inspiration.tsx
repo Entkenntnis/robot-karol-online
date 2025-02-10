@@ -47,7 +47,7 @@ export function Inspiration() {
               tasks: [],
             }
           }
-          const tags: string[] = tagsById[item.publicId] ?? []
+          const tags: string[] = tagsById[item.publicId].slice(0) ?? []
           if (quest.lng == 'en') {
             tags.push('englisch')
           } else {
@@ -123,9 +123,12 @@ export function Inspiration() {
 
   // Filter entries by the search term and selected tags.
   const filteredEntries = entries.filter((entry) => {
-    const matchesSearch = entry.title
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase())
+    const matchesSearch =
+      entry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      entry.quest.tasks.some((task) =>
+        task.title.toLowerCase().includes(searchTerm.toLowerCase())
+      ) ||
+      entry.quest.description.toLowerCase().includes(searchTerm.toLowerCase())
     return matchesSearch && matchesTags(entry, selectedTags)
   })
 
@@ -139,9 +142,12 @@ export function Inspiration() {
       : [...selectedTags, tag]
 
     return entries.filter((entry) => {
-      const matchesSearch = entry.title
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
+      const matchesSearch =
+        entry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.quest.tasks.some((task) =>
+          task.title.toLowerCase().includes(searchTerm.toLowerCase())
+        ) ||
+        entry.quest.description.toLowerCase().includes(searchTerm.toLowerCase())
       return matchesSearch && matchesTags(entry, activeTags)
     }).length
   }
@@ -204,7 +210,7 @@ export function Inspiration() {
       </aside>
 
       {/* Main Content: Search and Entries */}
-      <main className="flex-1 p-4 h-full">
+      <main className="flex-1 p-4 h-full overflow-x-hidden">
         <h1 className="text-3xl font-bold mt-4 mb-8">
           Aufgaben-Galerie 💫⚡💡
         </h1>
@@ -228,11 +234,16 @@ export function Inspiration() {
         {loading ? (
           <p className="text-gray-500">Loading entries...</p>
         ) : (
-          <div className="overflow-x-scroll">
+          <div className="flex flex-wrap gap-8 justify-around w-full">
             {filteredEntries.length ? (
-              filteredEntries.map((entry) => (
-                <Entry key={entry.id} entry={entry} />
-              ))
+              <>
+                {filteredEntries.map((entry) => (
+                  <Entry key={entry.id} entry={entry} />
+                ))}
+                <div className="p-4 mb-3 w-80 h-96"></div>
+                <div className="p-4 mb-3 w-80 h-96"></div>
+                <div className="p-4 mb-3 w-80 h-96"></div>
+              </>
             ) : (
               <p className="text-gray-500">Keine Einträge gefunden.</p>
             )}
@@ -247,9 +258,12 @@ function Entry({ entry }: { entry: EntryType }) {
   const core = useCore()
   const quest = entry.quest
 
+  const noDesc =
+    quest.description == 'Beschreibe, um was es bei der Aufgabe geht ...'
+
   const [selected, setSelected] = useState(0)
   return (
-    <div className="p-4 mb-3 border rounded hover:shadow">
+    <div className="p-4 mb-3 border rounded hover:shadow w-80 flex flex-col items-center">
       <h3 className="font-semibold">{entry.title}</h3>
       {quest.tasks.length > 1 && (
         <div className="text-center mt-3">
@@ -278,19 +292,40 @@ function Entry({ entry }: { entry: EntryType }) {
           </button>
         </div>
       )}
-      {quest.tasks.length > 0 && (
-        <RenderIfVisible stayRendered visibleOffset={2000}>
-          <View
-            className="max-w-[300px] max-h-[200px]"
-            appearance={core.ws.appearance}
-            world={deserializeWorld(quest.tasks[selected].start)}
-            preview={{
-              world: deserializeWorld(quest.tasks[selected].target),
-            }}
-          />
-        </RenderIfVisible>
-      )}
-      <p className="text-sm text-gray-600">Tags: {entry.tags.join(', ')}</p>
+      <figure className="h-[200px] relative">
+        {quest.tasks.length > 0 && (
+          <RenderIfVisible stayRendered visibleOffset={2000}>
+            <View
+              className="max-w-[300px] max-h-[200px]"
+              appearance={core.ws.appearance}
+              world={deserializeWorld(quest.tasks[selected].start)}
+              preview={{
+                world: deserializeWorld(quest.tasks[selected].target),
+              }}
+            />
+          </RenderIfVisible>
+        )}
+      </figure>
+      <p className={clsx(noDesc && 'italic text-gray-300', 'mt-2')}>
+        {noDesc
+          ? 'keine Beschreibung'
+          : quest.description.length > 111
+          ? quest.description.slice(0, 110) + ' …'
+          : quest.description}
+      </p>
+      <p className="text-sm text-gray-600 mt-3">
+        Tags: {entry.tags.join(', ')}
+      </p>
+      <div className="card-actions justify-center mt-2">
+        <button
+          className="btn btn-sm my-3"
+          onClick={() => {
+            window.open('/#' + entry.id, '_blank')
+          }}
+        >
+          #{entry.id} öffnen
+        </button>
+      </div>
     </div>
   )
 }
