@@ -148,7 +148,7 @@ export function Output() {
               </button>
             )}
             {!core.ws.ui.isPlayground && !core.ws.ui.isTesting && (
-              <span className="ml-12">
+              <span className="ml-12 bg-white/80 rounded p-1">
                 <label className="select-none cursor-pointer">
                   <input
                     type="checkbox"
@@ -164,21 +164,23 @@ export function Output() {
                 </label>
               </span>
             )}
-            <span className="ml-6">
-              <label className="select-none cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="cursor-pointer"
-                  checked={core.ws.ui.show2D}
-                  onChange={(e) => {
-                    core.mutateWs((ws) => {
-                      ws.ui.show2D = e.target.checked
-                    })
-                  }}
-                />{' '}
-                2D-Ansicht
-              </label>
-            </span>
+            {!core.ws.ui.isTesting && (
+              <span className="ml-6 bg-white/80 rounded p-1">
+                <label className="select-none cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="cursor-pointer"
+                    checked={core.ws.ui.show2D}
+                    onChange={(e) => {
+                      core.mutateWs((ws) => {
+                        ws.ui.show2D = e.target.checked
+                      })
+                    }}
+                  />{' '}
+                  2D-Ansicht
+                </label>
+              </span>
+            )}
           </div>
         )}
         {core.ws.ui.isEndOfRun &&
