@@ -149,7 +149,7 @@ export function Output() {
             )}
             {!core.ws.ui.isPlayground && !core.ws.ui.isTesting && (
               <span className="ml-12 bg-white/80 rounded p-1">
-                <label className="select-none cursor-pointer">
+                <label className="select-none cursor-pointer text-gray-600">
                   <input
                     type="checkbox"
                     className="cursor-pointer"
@@ -166,7 +166,7 @@ export function Output() {
             )}
             {!core.ws.ui.isTesting && (
               <span className="ml-6 bg-white/80 rounded p-1">
-                <label className="select-none cursor-pointer">
+                <label className="select-none cursor-pointer text-gray-600">
                   <input
                     type="checkbox"
                     className="cursor-pointer"

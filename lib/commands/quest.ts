@@ -133,6 +133,7 @@ export function startQuest(core: Core, id: number) {
     ui.speedSliderValue = 7
     ui.showPreview = true
     ui.collapseDescription = false
+    ui.show2D = false
   })
   switchToPage(core, 'quest')
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {
