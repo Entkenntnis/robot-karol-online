@@ -91,7 +91,9 @@ export function SuccessModal() {
             e.stopPropagation()
           }}
         >
-          <h1 className="mt-10 text-4xl mb-8">{positive}</h1>
+          <h1 className="mt-10 text-4xl mb-8">
+            {core.ws.page !== 'shared' ? positive : positive.replace('!', '')}
+          </h1>
           {
             /* (
             <>
@@ -169,7 +171,7 @@ export function SuccessModal() {
                     'bg-green-200 text-lg'
                   )}
                 >
-                  OK
+                  Yay!
                 </button>
                 <span></span>
               </>
