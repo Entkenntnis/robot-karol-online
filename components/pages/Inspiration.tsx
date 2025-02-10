@@ -206,15 +206,14 @@ export function Inspiration() {
               <h3 className="font-bold mb-2">{category}</h3>
               {visibleTags.map(({ internal, display }) => (
                 <div key={internal} className="flex items-center mb-1">
-                  <input
-                    id={internal}
-                    type="checkbox"
-                    checked={selectedTags.includes(internal)}
-                    onChange={() => toggleTag(internal)}
-                    disabled={loading} // disable checkboxes while loading
-                    className="mr-2"
-                  />
-                  <label htmlFor={internal}>
+                  <label className="cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={selectedTags.includes(internal)}
+                      onChange={() => toggleTag(internal)}
+                      disabled={loading} // disable checkboxes while loading
+                      className="mr-2"
+                    />
                     {display}{' '}
                     <span className="text-sm text-gray-600">
                       {getTagCount(internal)}
