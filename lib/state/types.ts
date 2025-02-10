@@ -412,4 +412,6 @@ export interface EntryType {
   title: string
   tags: string[]
   quest: QuestSerialFormat
+  score: number
+  jitter: number
 }

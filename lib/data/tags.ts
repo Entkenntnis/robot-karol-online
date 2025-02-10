@@ -66,6 +66,11 @@ export const TAGS = [
     internal: 'multiple_worlds',
     display: 'mehrere Welten',
   },
+  {
+    category: 'Besonderheiten',
+    internal: 'not:multiple_worlds',
+    display: 'Einzelwelt',
+  },
 
   // Eingabeeinschränkungen
   {

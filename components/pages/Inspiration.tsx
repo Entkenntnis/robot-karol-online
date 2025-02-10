@@ -12,7 +12,6 @@ import {
   InspirationData,
   QuestSerialFormat,
 } from '../../lib/state/types'
-import { tags } from '@lezer/highlight'
 import { useCore } from '../../lib/state/core'
 import RenderIfVisible from 'react-render-if-visible'
 import { View } from '../helper/View'
@@ -80,6 +79,8 @@ export function Inspiration() {
             // Leave tags empty for now (you can add logic later):
             tags,
             quest,
+            score: 0,
+            jitter: Math.random(),
           }
         })
         setEntries(parsedEntries)
@@ -121,16 +122,32 @@ export function Inspiration() {
     })
   }
 
-  // Filter entries by the search term and selected tags.
-  const filteredEntries = entries.filter((entry) => {
-    const matchesSearch =
+  const matchesSearch = (entry: EntryType) => {
+    return (
       entry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       entry.quest.tasks.some((task) =>
         task.title.toLowerCase().includes(searchTerm.toLowerCase())
       ) ||
       entry.quest.description.toLowerCase().includes(searchTerm.toLowerCase())
-    return matchesSearch && matchesTags(entry, selectedTags)
+    )
+  }
+
+  // Filter entries by the search term and selected tags.
+  const filteredEntries = entries.filter((entry) => {
+    entry.score = entry.jitter
+    if (entry.tags.includes('leicht')) {
+      entry.score += 20
+    } else if (entry.tags.includes('mittel')) {
+      entry.score += 15
+    } else if (entry.tags.includes('schwer')) {
+      entry.score += 12
+    }
+    entry.score -= entry.tags.length * -0.4
+    return matchesTags(entry, selectedTags) && matchesSearch(entry)
   })
+
+  // sort by score
+  filteredEntries.sort((a, b) => b.score - a.score)
 
   /**
    * Returns the count of entries that would remain if a given tag were added (if not already selected)
@@ -142,13 +159,7 @@ export function Inspiration() {
       : [...selectedTags, tag]
 
     return entries.filter((entry) => {
-      const matchesSearch =
-        entry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.quest.tasks.some((task) =>
-          task.title.toLowerCase().includes(searchTerm.toLowerCase())
-        ) ||
-        entry.quest.description.toLowerCase().includes(searchTerm.toLowerCase())
-      return matchesSearch && matchesTags(entry, activeTags)
+      return matchesTags(entry, activeTags) && matchesSearch(entry)
     }).length
   }
 
@@ -211,9 +222,10 @@ export function Inspiration() {
 
       {/* Main Content: Search and Entries */}
       <main className="flex-1 p-4 h-full overflow-x-hidden">
-        <h1 className="text-3xl font-bold mt-4 mb-8">
+        <h1 className="text-3xl font-bold mt-4 mb-2">
           Aufgaben-Galerie 💫⚡💡
         </h1>
+        <p className="mb-6">Stand: 5. Juli 2024</p>
         <div className="relative mb-4">
           <input
             type="text"
@@ -234,7 +246,7 @@ export function Inspiration() {
         {loading ? (
           <p className="text-gray-500">Loading entries...</p>
         ) : (
-          <div className="flex flex-wrap gap-8 justify-around w-full">
+          <div className="flex flex-wrap gap-8 justify-around w-full items-start">
             {filteredEntries.length ? (
               <>
                 {filteredEntries.map((entry) => (
@@ -261,10 +273,13 @@ function Entry({ entry }: { entry: EntryType }) {
   const noDesc =
     quest.description == 'Beschreibe, um was es bei der Aufgabe geht ...'
 
+  const tags = entry.tags.filter(
+    (tag) => !['deutsch', 'no_restrictions', 'multiple_worlds'].includes(tag)
+  )
+
   const [selected, setSelected] = useState(0)
   return (
-    <div className="p-4 mb-3 border rounded hover:shadow w-80 flex flex-col items-center">
-      <h3 className="font-semibold">{entry.title}</h3>
+    <div className="p-4 mb-3 border rounded hover:shadow w-80 flex flex-col">
       {quest.tasks.length > 1 && (
         <div className="text-center mt-3">
           <button
@@ -292,7 +307,7 @@ function Entry({ entry }: { entry: EntryType }) {
           </button>
         </div>
       )}
-      <figure className="h-[200px] relative">
+      <figure className="h-[200px] relative mx-auto">
         {quest.tasks.length > 0 && (
           <RenderIfVisible stayRendered visibleOffset={2000}>
             <View
@@ -306,6 +321,7 @@ function Entry({ entry }: { entry: EntryType }) {
           </RenderIfVisible>
         )}
       </figure>
+      <h3 className="font-semibold mt-4">{entry.title}</h3>
       <p className={clsx(noDesc && 'italic text-gray-300', 'mt-2')}>
         {noDesc
           ? 'keine Beschreibung'
@@ -313,9 +329,18 @@ function Entry({ entry }: { entry: EntryType }) {
           ? quest.description.slice(0, 110) + ' …'
           : quest.description}
       </p>
-      <p className="text-sm text-gray-600 mt-3">
-        Tags: {entry.tags.join(', ')}
-      </p>
+      {tags.length > 0 && (
+        <p className="text-sm text-gray-600 mt-4">
+          {tags.map((tag) => (
+            <span
+              className="px-2 py-0.5 rounded-full bg-gray-100 mr-2 mt-2 inline-block"
+              key={tag}
+            >
+              {tag}{' '}
+            </span>
+          ))}
+        </p>
+      )}
       <div className="card-actions justify-center mt-2">
         <button
           className="btn btn-sm my-3"
