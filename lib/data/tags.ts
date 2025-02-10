@@ -2,44 +2,44 @@ export const TAGS = [
   // Benötigtes Wissen
   {
     category: 'Benötigtes Wissen',
-    internal: 'zaehlschleife',
+    internal: 'for',
     display: 'Zählschleife',
   },
   {
     category: 'Benötigtes Wissen',
-    internal: 'bedingte_schleife',
+    internal: 'while',
     display: 'bedingte Wiederholung',
   },
   {
     category: 'Benötigtes Wissen',
-    internal: 'bedingte_anweisung',
+    internal: 'if',
     display: 'bedingte Anweisung',
   },
   {
     category: 'Benötigtes Wissen',
-    internal: 'eigene_anweisung',
+    internal: 'def',
     display: 'eigene Anweisungen',
   },
 
   // Themen ausschließen
   {
     category: 'Themen ausschließen',
-    internal: 'not:zaehlschleife',
+    internal: 'not:for',
     display: 'ohne Zählschleife',
   },
   {
     category: 'Themen ausschließen',
-    internal: 'not:bedingte_schleife',
-    display: 'ohne bedingte Schleife',
+    internal: 'not:while',
+    display: 'ohne bed. Wiederholung',
   },
   {
     category: 'Themen ausschließen',
-    internal: 'not:bedingte_anweisung',
+    internal: 'not:if',
     display: 'ohne bedingte Anweisung',
   },
   {
     category: 'Themen ausschließen',
-    internal: 'not:eigene_anweisung',
+    internal: 'not:def',
     display: 'ohne eigene Anweisungen',
   },
 
