@@ -92,7 +92,11 @@ export function SuccessModal() {
           }}
         >
           <h1 className="mt-10 text-4xl mb-8">
-            {core.ws.page !== 'shared' ? positive : positive.replace('!', '')}
+            {core.ws.page !== 'shared' ? (
+              positive
+            ) : (
+              <>🎉{positive.replace('!', '')}</>
+            )}
           </h1>
           {
             /* (
