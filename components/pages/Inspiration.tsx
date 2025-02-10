@@ -1,367 +1,330 @@
-import { useEffect, useState } from 'react'
-import { useCore } from '../../lib/state/core'
-import { View } from '../helper/View'
-import { deserializeWorld } from '../../lib/commands/json'
+import { useState } from 'react'
 import { FaIcon } from '../helper/FaIcon'
-import {
-  faCaretSquareLeft,
-  faCaretSquareRight,
-} from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 
-import { QuestSerialFormat } from '../../lib/state/types'
-import { submit_event } from '../../lib/helper/submit'
-import RenderIfVisible from 'react-render-if-visible'
-
-interface DataEntry {
-  content: string
-  publicId: string
-  date: string
-}
-
 const TAGS = [
-  // Aufwand
-  {
-    category: 'Aufwand',
-    internal: 'gering',
-    display: 'gering (bis zu 10 Zeilen Code)',
-  },
-  {
-    category: 'Aufwand',
-    internal: 'mittel',
-    display: 'mittel (10 - 30 Zeilen Code)',
-  },
-  { category: 'Aufwand', internal: 'hoch', display: 'hoch (> 30 Zeilen Code)' },
-
   // Benötigtes Wissen
-  { category: 'Benötigtes Wissen', internal: 'sequenz', display: 'Sequenz' },
   {
     category: 'Benötigtes Wissen',
-    internal: 'zahlschleife',
+    internal: 'zaehlschleife',
     display: 'Zählschleife',
   },
   {
     category: 'Benötigtes Wissen',
-    internal: 'bedingte_schleifen',
-    display: 'bedingte Schleifen',
+    internal: 'bedingte_schleife',
+    display: 'bedingte Schleife',
   },
   {
     category: 'Benötigtes Wissen',
-    internal: 'bedingte_anweisungen',
-    display: 'bedingte Anweisungen',
+    internal: 'bedingte_anweisung',
+    display: 'bedingte Anweisung',
   },
   {
     category: 'Benötigtes Wissen',
-    internal: 'strukturierter_code',
-    display: 'strukturierter Code/eigene Anweisungen',
+    internal: 'eigene_anweisung',
+    display: 'eigene Anweisungen',
   },
 
-  // Komplexität
+  // Themen ausschließen
   {
-    category: 'Komplexität',
-    internal: 'einfach',
-    display: 'einfach (nur Sequenz, Zählschleife)',
+    category: 'Themen ausschließen',
+    internal: 'not:zaehlschleife',
+    display: 'ohne Zählschleife',
   },
   {
-    category: 'Komplexität',
+    category: 'Themen ausschließen',
+    internal: 'not:bedingte_schleife',
+    display: 'ohne bedingte Schleife',
+  },
+  {
+    category: 'Themen ausschließen',
+    internal: 'not:bedingte_anweisung',
+    display: 'ohne bedingte Anweisung',
+  },
+  {
+    category: 'Themen ausschließen',
+    internal: 'not:eigene_anweisung',
+    display: 'ohne eigene Anweisungen',
+  },
+
+  // Schwierigkeitsgrad
+  {
+    category: 'Schwierigkeitsgrad',
+    internal: 'leicht',
+    display: 'leicht',
+  },
+  {
+    category: 'Schwierigkeitsgrad',
     internal: 'mittel',
-    display:
-      'mittel (bedingte Schleifen, bedingte Anweisungen, aber nicht verschachtelt)',
+    display: 'mittel',
   },
   {
-    category: 'Komplexität',
-    internal: 'hoch',
-    display: 'hoch (verschachtelte Kontrollstrukturen)',
+    category: 'Schwierigkeitsgrad',
+    internal: 'schwer',
+    display: 'schwer',
   },
 
-  // Sonderkategorie
+  // Besonderheiten
   {
-    category: 'Sonderkategorie',
-    internal: 'kreativ',
-    display: 'kreativ (wenn Programm nicht lösbar, aber schön zum Ansehen)',
+    category: 'Besonderheiten',
+    internal: 'multiple_worlds',
+    display: 'mehrere Welten',
   },
-
-  // Qualität der Aufgabe
-  {
-    category: 'Qualität der Aufgabe',
-    internal: 'losbar_einzelwelt',
-    display: 'lösbar, Einzelwelt',
-  },
-  {
-    category: 'Qualität der Aufgabe',
-    internal: 'losbar_mehrfachwelt',
-    display: 'lösbar, Mehrfachwelt',
-  },
-  {
-    category: 'Qualität der Aufgabe',
-    internal: 'nicht_losbar',
-    display: 'nicht lösbar',
-  },
-
-  // Sprache
-  { category: 'Sprache', internal: 'deutsch', display: 'Deutsch' },
-  { category: 'Sprache', internal: 'englisch', display: 'Englisch' },
 
   // Eingabeeinschränkungen
+  {
+    category: 'Eingabeeinschränkungen',
+    internal: 'no_restrictions',
+    display: 'keine',
+  },
+  {
+    category: 'Eingabeeinschränkungen',
+    internal: 'code',
+    display: 'nur Robot Karol Code',
+  },
   {
     category: 'Eingabeeinschränkungen',
     internal: 'python',
     display: 'nur Python',
   },
-  { category: 'Eingabeeinschränkungen', internal: 'code', display: 'nur Code' },
   { category: 'Eingabeeinschränkungen', internal: 'java', display: 'nur Java' },
 
-  // Sondertag
-  { category: 'Sondertag', internal: 'story', display: 'Story' },
+  // Sprache
+  { category: 'Sprache', internal: 'deutsch', display: 'Deutsch' },
+  { category: 'Sprache', internal: 'englisch', display: 'Englisch' },
 ]
 
 const ENTRIES = [
   {
-    id: 5,
+    id: 1,
     title: 'Einfache Sequenz-Übung',
-    tags: [
-      'gering',
-      'sequenz',
-      'einfach',
-      'losbar_einzelwelt',
-      'deutsch',
-      'python',
-    ],
+    tags: ['zaehlschleife', 'leicht', 'code', 'python', 'deutsch'],
+  },
+  {
+    id: 2,
+    title: 'Bedingte Schleifen-Übung',
+    tags: ['bedingte_schleife', 'mittel', 'code', 'java', 'englisch'],
+  },
+  {
+    id: 3,
+    title: 'Bedingte Anweisung in Python',
+    tags: ['bedingte_anweisung', 'leicht', 'code', 'python', 'deutsch'],
+  },
+  {
+    id: 4,
+    title: 'Eigene Anweisung mit Story-Elementen',
+    tags: ['eigene_anweisung', 'story', 'mittel', 'code', 'englisch'],
+  },
+  {
+    id: 5,
+    title: 'Schwere Sequenz-Übung in Java',
+    tags: ['zaehlschleife', 'schwer', 'code', 'java', 'deutsch'],
   },
   {
     id: 6,
-    title: 'Grundlagen der Zählschleifen',
+    title: 'Multiple Worlds Challenge',
     tags: [
-      'gering',
-      'zahlschleife',
-      'einfach',
-      'losbar_einzelwelt',
-      'deutsch',
-      'java',
+      'multiple_worlds',
+      'bedingte_schleife',
+      'mittel',
+      'code',
+      'python',
+      'englisch',
     ],
   },
   {
     id: 7,
-    title: 'Bedingte Anweisungen verstehen',
-    tags: [
-      'gering',
-      'bedingte_anweisungen',
-      'einfach',
-      'losbar_einzelwelt',
-      'englisch',
-      'code',
-    ],
+    title: 'Humorvolle Bedingte Anweisungen',
+    tags: ['humor', 'bedingte_anweisung', 'leicht', 'code', 'java', 'deutsch'],
   },
   {
     id: 8,
-    title: 'Strukturierter Code für Einsteiger',
+    title: 'No Restrictions Code Challenge',
     tags: [
-      'mittel',
-      'strukturierter_code',
-      'mittel',
-      'losbar_mehrfachwelt',
-      'deutsch',
+      'no_restrictions',
+      'eigene_anweisung',
+      'schwer',
+      'code',
       'python',
+      'englisch',
     ],
   },
   {
     id: 9,
-    title: 'Herausforderung: Bedingte Schleifen',
+    title: 'Sequenz mit Bedingter Schleife',
     tags: [
-      'hoch',
-      'bedingte_schleifen',
-      'hoch',
-      'nicht_losbar',
-      'englisch',
+      'zaehlschleife',
+      'bedingte_schleife',
+      'mittel',
+      'code',
       'java',
+      'deutsch',
     ],
   },
   {
     id: 10,
-    title: 'Kreative Problemlösung',
-    tags: [
-      'gering',
-      'sequenz',
-      'einfach',
-      'kreativ',
-      'losbar_mehrfachwelt',
-      'deutsch',
-      'python',
-    ],
+    title: 'Einfache Bedingte Anweisungsübung',
+    tags: ['bedingte_anweisung', 'leicht', 'code', 'python', 'englisch'],
   },
   {
     id: 11,
-    title: 'Dynamische Zählschleifen',
-    tags: [
-      'mittel',
-      'zahlschleife',
-      'mittel',
-      'losbar_einzelwelt',
-      'englisch',
-      'code',
-    ],
+    title: 'Story-basierte Sequenz-Übung',
+    tags: ['story', 'zaehlschleife', 'mittel', 'code', 'java', 'deutsch'],
   },
   {
     id: 12,
-    title: 'Fortgeschrittene bedingte Schleifen',
-    tags: [
-      'hoch',
-      'bedingte_schleifen',
-      'hoch',
-      'losbar_mehrfachwelt',
-      'deutsch',
-      'java',
-    ],
+    title: 'Humorvolle Eigene Anweisung',
+    tags: ['humor', 'eigene_anweisung', 'leicht', 'code', 'python', 'englisch'],
   },
   {
     id: 13,
-    title: 'Optimierung strukturierten Codes',
-    tags: [
-      'mittel',
-      'strukturierter_code',
-      'mittel',
-      'losbar_mehrfachwelt',
-      'englisch',
-      'python',
-    ],
+    title: 'Schwere Bedingte Schleifen-Herausforderung',
+    tags: ['bedingte_schleife', 'schwer', 'code', 'java', 'deutsch'],
   },
   {
     id: 14,
-    title: 'Interaktive Story: Der verlorene Code',
+    title: 'Multiple Worlds und Bedingte Anweisungen',
     tags: [
-      'gering',
-      'sequenz',
-      'einfach',
-      'kreativ',
-      'losbar_einzelwelt',
-      'deutsch',
+      'multiple_worlds',
+      'bedingte_anweisung',
+      'mittel',
+      'code',
       'python',
-      'story',
+      'englisch',
     ],
   },
   {
     id: 15,
-    title: 'Praxisübung zu bedingten Anweisungen',
+    title: 'No Restrictions Sequenz-Übung',
     tags: [
-      'mittel',
-      'bedingte_anweisungen',
-      'mittel',
-      'losbar_einzelwelt',
-      'deutsch',
+      'no_restrictions',
+      'zaehlschleife',
+      'leicht',
+      'code',
       'java',
+      'deutsch',
     ],
   },
   {
     id: 16,
-    title: 'Abenteuer mit Zählschleifen',
+    title: 'Kombinierte Bedingte Schleife und Anweisung',
     tags: [
-      'gering',
-      'zahlschleife',
-      'einfach',
-      'losbar_einzelwelt',
-      'englisch',
+      'bedingte_schleife',
+      'bedingte_anweisung',
+      'mittel',
+      'code',
       'python',
+      'englisch',
     ],
   },
   {
     id: 17,
-    title: 'Verschachtelte Bedingungen meistern',
-    tags: [
-      'hoch',
-      'bedingte_anweisungen',
-      'hoch',
-      'nicht_losbar',
-      'englisch',
-      'java',
-    ],
+    title: 'Storytelling mit Eigenen Anweisungen',
+    tags: ['story', 'eigene_anweisung', 'mittel', 'code', 'java', 'deutsch'],
   },
   {
     id: 18,
-    title: 'Effiziente Schleifenstrukturen',
-    tags: [
-      'mittel',
-      'bedingte_schleifen',
-      'mittel',
-      'losbar_mehrfachwelt',
-      'deutsch',
-      'code',
-    ],
+    title: 'Humor und Code: Eine Sequenz-Übung',
+    tags: ['humor', 'zaehlschleife', 'leicht', 'code', 'python', 'englisch'],
   },
   {
     id: 19,
-    title: 'Story-Modus: Der Algorithmus',
-    tags: [
-      'gering',
-      'sequenz',
-      'einfach',
-      'kreativ',
-      'losbar_einzelwelt',
-      'englisch',
-      'python',
-      'story',
-    ],
+    title: 'Schwere Eigene Anweisungs-Herausforderung',
+    tags: ['eigene_anweisung', 'schwer', 'code', 'java', 'deutsch'],
   },
   {
     id: 20,
-    title: 'Komplexitätssteigerung im Code',
+    title: 'Multiple Worlds und No Restrictions',
     tags: [
-      'hoch',
-      'strukturierter_code',
-      'hoch',
-      'nicht_losbar',
-      'deutsch',
-      'java',
+      'multiple_worlds',
+      'no_restrictions',
+      'mittel',
+      'code',
+      'python',
+      'englisch',
     ],
   },
   {
     id: 21,
-    title: 'Kreativer Ansatz zur bedingten Logik',
-    tags: [
-      'gering',
-      'bedingte_anweisungen',
-      'einfach',
-      'kreativ',
-      'losbar_einzelwelt',
-      'deutsch',
-      'python',
-    ],
+    title: 'Einführung in die Zählschleife',
+    tags: ['zaehlschleife', 'leicht', 'code', 'java', 'deutsch'],
   },
   {
     id: 22,
-    title: 'Experiment: Schleifen und Bedingungen',
-    tags: [
-      'mittel',
-      'zahlschleife',
-      'mittel',
-      'losbar_mehrfachwelt',
-      'englisch',
-      'code',
-    ],
+    title: 'Bedingte Schleifen in Aktion',
+    tags: ['bedingte_schleife', 'mittel', 'code', 'python', 'englisch'],
   },
   {
     id: 23,
-    title: 'Innovative Storytelling-Programmierung',
-    tags: [
-      'gering',
-      'sequenz',
-      'einfach',
-      'kreativ',
-      'losbar_einzelwelt',
-      'englisch',
-      'python',
-      'story',
-    ],
+    title: 'Bedingte Anweisung: Ein tiefer Einblick',
+    tags: ['bedingte_anweisung', 'schwer', 'code', 'java', 'deutsch'],
   },
   {
     id: 24,
-    title: 'Fortgeschrittene Konzepte: Schleifen und Strukturen',
+    title: 'Eigene Anweisung mit Variablen',
+    tags: ['eigene_anweisung', 'mittel', 'code', 'python', 'englisch'],
+  },
+  {
+    id: 25,
+    title: 'Humorvoller Code: Sequenz und Schleife',
+    tags: ['humor', 'zaehlschleife', 'leicht', 'code', 'java', 'deutsch'],
+  },
+  {
+    id: 26,
+    title: 'Storytelling durch Bedingte Anweisungen',
     tags: [
-      'hoch',
-      'strukturierter_code',
-      'hoch',
-      'nicht_losbar',
+      'story',
+      'bedingte_anweisung',
+      'mittel',
+      'code',
+      'python',
       'englisch',
+    ],
+  },
+  {
+    id: 27,
+    title: 'No Restrictions: Eigene Schleifen kreieren',
+    tags: [
+      'no_restrictions',
+      'eigene_anweisung',
+      'schwer',
+      'code',
       'java',
+      'deutsch',
+    ],
+  },
+  {
+    id: 28,
+    title: 'Multiple Worlds: Sequenzen und Bedingungen',
+    tags: [
+      'multiple_worlds',
+      'zaehlschleife',
+      'bedingte_anweisung',
+      'mittel',
+      'code',
+      'python',
+      'englisch',
+    ],
+  },
+  {
+    id: 29,
+    title: 'Kreative Schleifen-Übung mit Storytelling',
+    tags: ['zaehlschleife', 'story', 'leicht', 'code', 'java', 'deutsch'],
+  },
+  {
+    id: 30,
+    title: 'Finale Herausforderung: Alle Konzepte vereint',
+    tags: [
+      'bedingte_schleife',
+      'bedingte_anweisung',
+      'eigene_anweisung',
+      'multiple_worlds',
+      'no_restrictions',
+      'schwer',
+      'code',
+      'python',
+      'englisch',
     ],
   },
 ]
@@ -382,37 +345,112 @@ export function Inspiration() {
     return acc
   }, {} as { [key: string]: { internal: string; display: string }[] })
 
-  // Filter: Einträge müssen den Suchbegriff enthalten und alle selektierten Tags besitzen.
+  /**
+   * Prüft, ob ein Eintrag anhand der übergebenen Tags passt.
+   * Dabei werden negative Tags, also solche die mit "not:" beginnen, korrekt verarbeitet.
+   *
+   * @param entry Der zu prüfende Eintrag.
+   * @param tags Die Liste der aktiven Tags.
+   * @returns true, falls der Eintrag zu den Tags passt, andernfalls false.
+   */
+  const matchesTags = (
+    entry: { title: string; tags: string[] },
+    tags: string[]
+  ) => {
+    return tags.every((tag) => {
+      if (tag.startsWith('not:')) {
+        const actualTag = tag.slice(4)
+        return !entry.tags.includes(actualTag)
+      }
+      return entry.tags.includes(tag)
+    })
+  }
+
+  // Filter: Einträge müssen den Suchbegriff enthalten und alle selektierten Tags (positiv/negativ) berücksichtigen.
   const filteredEntries = ENTRIES.filter((entry) => {
     const matchesSearch = entry.title
       .toLowerCase()
       .includes(searchTerm.toLowerCase())
-    const matchesTags = selectedTags.every((tag) => entry.tags.includes(tag))
-    return matchesSearch && matchesTags
+    return matchesSearch && matchesTags(entry, selectedTags)
   })
+
+  /**
+   * Berechnet die Anzahl der Einträge, die beim Anwenden des Filters für den Tag
+   * (zusammen mit den aktuell ausgewählten Tags) übrig bleiben.
+   *
+   * Falls der Tag noch nicht ausgewählt ist, wird er als zusätzlicher Filter hinzugefügt.
+   *
+   * @param tag Der interne Tag-Name
+   */
+  const getTagCount = (tag: string) => {
+    // Wenn der Tag bereits ausgewählt ist, nehmen wir die bestehenden Tags als Filter.
+    // Andernfalls simulieren wir, dass der Tag hinzugefügt wird.
+    const activeTags = selectedTags.includes(tag)
+      ? selectedTags
+      : [...selectedTags, tag]
+
+    return ENTRIES.filter((entry) => {
+      const matchesSearch = entry.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+      return matchesSearch && matchesTags(entry, activeTags)
+    }).length
+  }
+
+  // Funktion zum Zurücksetzen aller Filter
+  const resetFilters = () => {
+    setSelectedTags([])
+  }
 
   return (
     <div className="flex min-h-screen">
       {/* Linke Navbar mit Tags */}
-      <aside className="w-64 bg-gray-100 p-4 border-r border-gray-300">
-        <h2 className="mb-3 text-2xl">Filter</h2>
-        {Object.entries(tagsByCategory).map(([category, tags]) => (
-          <div key={category} className="mb-6">
-            <h3 className="font-bold mb-2">{category}</h3>
-            {tags.map(({ internal, display }) => (
-              <div key={internal} className="flex items-center mb-1">
-                <input
-                  id={internal}
-                  type="checkbox"
-                  checked={selectedTags.includes(internal)}
-                  onChange={() => toggleTag(internal)}
-                  className="mr-2"
-                />
-                <label htmlFor={internal}>{display}</label>
-              </div>
-            ))}
-          </div>
-        ))}
+      <aside className="w-[270px] bg-gray-100 p-4 border-r border-gray-300">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl">Filter</h2>
+          <button
+            onClick={resetFilters}
+            className={clsx(
+              'text-sm text-blue-500 hover:underline',
+              selectedTags.length === 0 && 'hidden'
+            )}
+          >
+            Filter zurücksetzen
+          </button>
+        </div>
+        {Object.entries(tagsByCategory).map(([category, tags]) => {
+          // Nur Tags anzeigen, die einen Count > 0 haben oder bereits ausgewählt sind
+          const visibleTags = tags.filter(
+            ({ internal }) =>
+              getTagCount(internal) > 0 || selectedTags.includes(internal)
+          )
+
+          // Kategorie ausblenden, wenn keine sichtbaren Tags vorhanden sind
+          if (visibleTags.length === 0) return null
+
+          return (
+            <div key={category} className="mb-6">
+              <h3 className="font-bold mb-2">{category}</h3>
+              {visibleTags.map(({ internal, display }) => (
+                <div key={internal} className="flex items-center mb-1">
+                  <input
+                    id={internal}
+                    type="checkbox"
+                    checked={selectedTags.includes(internal)}
+                    onChange={() => toggleTag(internal)}
+                    className="mr-2"
+                  />
+                  <label htmlFor={internal}>
+                    {display}{' '}
+                    <span className="text-sm text-gray-600">
+                      {getTagCount(internal)}
+                    </span>
+                  </label>
+                </div>
+              ))}
+            </div>
+          )
+        })}
       </aside>
 
       {/* Hauptbereich: Suchleiste und Eintragsliste */}
@@ -420,14 +458,22 @@ export function Inspiration() {
         <h1 className="text-3xl font-bold mt-4 mb-8">
           Aufgaben-Galerie 💫⚡💡
         </h1>
-        <div className="mb-4">
+        <div className="relative mb-4">
           <input
             type="text"
             placeholder="Freitextsuche..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 pr-8 border border-gray-300 rounded"
           />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm('')}
+              className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-700"
+            >
+              <FaIcon icon={faTimes} />
+            </button>
+          )}
         </div>
         <div className="overflow-x-scroll">
           {filteredEntries.length ? (
@@ -447,103 +493,6 @@ export function Inspiration() {
           )}
         </div>
       </main>
-    </div>
-  )
-}
-
-function RandomElement({ data }: { data: DataEntry }) {
-  const core = useCore()
-  const [selected, setSelected] = useState(0)
-
-  const quest = JSON.parse(data.content) as QuestSerialFormat
-  const text = data.publicId
-
-  if (!quest) {
-    return <div>wird geladen</div>
-  }
-
-  // console.log(data[id], quest)
-
-  // return null
-
-  const noTitle = quest.title == 'Titel der Aufgabe'
-  const noDesc =
-    quest.description == 'Beschreibe, um was es bei der Aufgabe geht ...'
-
-  return (
-    <div className={clsx('card bg-white w-96 shadow-xl m-6 overflow-hidden')}>
-      {quest.tasks.length > 1 && (
-        <div className="text-center mt-3">
-          <button
-            onClick={() => {
-              if (selected == 0) {
-                setSelected(quest.tasks.length - 1)
-              } else {
-                setSelected(selected - 1)
-              }
-            }}
-          >
-            <FaIcon icon={faCaretSquareLeft} className="mr-4" />
-          </button>
-          {selected + 1} / {quest.tasks.length}
-          <button
-            onClick={() => {
-              if (selected + 1 === quest.tasks.length) {
-                setSelected(0)
-              } else {
-                setSelected(selected + 1)
-              }
-            }}
-          >
-            <FaIcon icon={faCaretSquareRight} className="ml-4" />
-          </button>
-        </div>
-      )}
-      <figure className="h-[200px] relative">
-        {quest.tasks.length > 0 && (
-          <RenderIfVisible stayRendered visibleOffset={2000}>
-            <View
-              className="max-w-[300px] max-h-[200px]"
-              appearance={core.ws.appearance}
-              world={deserializeWorld(quest.tasks[selected].start)}
-              preview={{
-                world: deserializeWorld(quest.tasks[selected].target),
-              }}
-            />
-          </RenderIfVisible>
-        )}
-        <div className="absolute right-4 bottom-0">
-          {quest.editOptions === 'python-only' && (
-            <span className="badge">Python</span>
-          )}
-          {quest.editOptions === 'java-only' && (
-            <span className="badge">Java</span>
-          )}
-          {quest.lng === 'en' && <span className="badge">EN</span>}
-        </div>
-      </figure>
-      <div className="card-body">
-        <h2 className={clsx('card-title', noTitle && 'italic text-gray-300')}>
-          {noTitle ? 'ohne Titel' : quest.title}
-        </h2>
-        <p className={clsx(noDesc && 'italic text-gray-300')}>
-          {noDesc
-            ? 'keine Beschreibung'
-            : quest.description.length > 111
-            ? quest.description.slice(0, 110) + ' …'
-            : quest.description}
-        </p>
-        <div className="card-actions justify-center mt-2">
-          <button
-            className="btn text-lg"
-            onClick={() => {
-              window.open('/#' + text, '_blank')
-            }}
-          >
-            #{text} öffnen
-          </button>
-        </div>
-      </div>
     </div>
   )
 }
