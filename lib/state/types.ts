@@ -58,6 +58,7 @@ export interface Ui {
   lockLanguage?: 'python' | 'java' | 'karol'
   isPlayground: boolean
   showPreview: boolean
+  show2D: boolean
   breakpoints: number[]
   sharedQuestId?: string
   collapseDescription: boolean
