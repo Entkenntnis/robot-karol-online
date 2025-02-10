@@ -21,6 +21,23 @@ export const TAGS = [
     display: 'eigene Anweisungen',
   },
 
+  // Schwierigkeitsgrad
+  {
+    category: 'Schwierigkeitsgrad',
+    internal: 'leicht',
+    display: 'leicht',
+  },
+  {
+    category: 'Schwierigkeitsgrad',
+    internal: 'mittel',
+    display: 'mittel',
+  },
+  {
+    category: 'Schwierigkeitsgrad',
+    internal: 'schwer',
+    display: 'schwer',
+  },
+
   // Themen ausschließen
   {
     category: 'Themen ausschließen',
@@ -41,23 +58,6 @@ export const TAGS = [
     category: 'Themen ausschließen',
     internal: 'not:def',
     display: 'ohne eigene Anweisungen',
-  },
-
-  // Schwierigkeitsgrad
-  {
-    category: 'Schwierigkeitsgrad',
-    internal: 'leicht',
-    display: 'leicht',
-  },
-  {
-    category: 'Schwierigkeitsgrad',
-    internal: 'mittel',
-    display: 'mittel',
-  },
-  {
-    category: 'Schwierigkeitsgrad',
-    internal: 'schwer',
-    display: 'schwer',
   },
 
   // Besonderheiten
