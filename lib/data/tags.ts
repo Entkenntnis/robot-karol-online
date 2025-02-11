@@ -38,7 +38,7 @@ export const TAGS = [
     display: 'schwer',
   },
 
-  // Themen ausschließen
+  /*// Themen ausschließen
   {
     category: 'Themen ausschließen',
     internal: 'not:for',
@@ -58,7 +58,7 @@ export const TAGS = [
     category: 'Themen ausschließen',
     internal: 'not:def',
     display: 'ohne eigene Anweisungen',
-  },
+  },*/
 
   // Besonderheiten
   {
