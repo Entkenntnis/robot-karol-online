@@ -478,7 +478,6 @@ export function Overview() {
                       'w-[120px] cursor-pointer'
                     )}
                     href="#INSPIRATION"
-                    target="_blank"
                     onClick={() => {
                       submit_event('show_materials', core)
                     }}
@@ -632,9 +631,9 @@ export function Overview() {
                         Karol Code, Python oder Java.
                       </p>
                       <p className="mt-2">
-                        Klicke auf „Start“ für den Selbst-Lern-Pfad,
-                        der dich Schritt-für-Schritt durch die Themen begleitet.
-                        Auf der Spielwiese kannst du frei programmieren.
+                        Klicke auf „Start“ für den Selbst-Lern-Pfad, der dich
+                        Schritt-für-Schritt durch die Themen begleitet. Auf der
+                        Spielwiese kannst du frei programmieren.
                       </p>
                       <p className="mt-2">
                         Lehrkräfte können mit dem Editor eigene Aufgaben anlegen
