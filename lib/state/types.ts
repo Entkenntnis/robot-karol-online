@@ -1,3 +1,5 @@
+import { StringifyOptions } from 'querystring'
+
 export type Heading = 'north' | 'east' | 'south' | 'west'
 
 export interface World {
@@ -397,4 +399,20 @@ export interface AppearanceData {
 
 export interface ICmdBlocksStore {
   names: string[]
+}
+
+export interface InspirationData {
+  id: string
+  publicId: string
+  content: string
+  createdAt: string
+}
+
+export interface EntryType {
+  id: string
+  title: string
+  tags: string[]
+  quest: QuestSerialFormat
+  score: number
+  jitter: number
 }

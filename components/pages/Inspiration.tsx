@@ -1,89 +1,293 @@
 import { useEffect, useState } from 'react'
-import { useCore } from '../../lib/state/core'
-import { View } from '../helper/View'
-import { deserializeWorld } from '../../lib/commands/json'
 import { FaIcon } from '../helper/FaIcon'
 import {
   faCaretSquareLeft,
   faCaretSquareRight,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-
-import { QuestSerialFormat } from '../../lib/state/types'
-import { submit_event } from '../../lib/helper/submit'
+import { TAGS } from '../../lib/data/tags'
+import {
+  EntryType,
+  InspirationData,
+  QuestSerialFormat,
+} from '../../lib/state/types'
+import { useCore } from '../../lib/state/core'
 import RenderIfVisible from 'react-render-if-visible'
+import { View } from '../helper/View'
+import { deserializeWorld } from '../../lib/commands/json'
+import { tagsById } from '../../lib/data/tagsById'
 
-interface DataEntry {
-  content: string
-  publicId: string
-  date: string
-}
+const tagTitles: { [key: string]: string } = {}
+
+TAGS.forEach((tag) => {
+  tagTitles[tag.internal] = tag.display
+})
 
 export function Inspiration() {
-  const core = useCore()
+  const [entries, setEntries] = useState<EntryType[]>([])
+  const [loading, setLoading] = useState(true)
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [searchTerm, setSearchTerm] = useState('')
 
-  const [data, setData] = useState<DataEntry[] | null>(null)
-
+  // Load data from /data/inspirationData.json on mount:
   useEffect(() => {
-    void (async () => {
-      const res = await fetch('/data/inspirationData.json')
-      const obj = await res.json()
-      submit_event('show_inspiration', core)
-      obj.reverse()
-      setData(obj)
-    })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetch('/data/inspirationData.json')
+      .then((response) => response.json())
+      .then((data: InspirationData[]) => {
+        const parsedEntries: EntryType[] = data.map((item) => {
+          let quest: QuestSerialFormat
+          try {
+            quest = JSON.parse(item.content)
+          } catch (error) {
+            console.error(
+              'Error parsing quest content for publicId',
+              item.publicId,
+              error
+            )
+            // Fallback in case parsing fails:
+            quest = {
+              version: 'v1',
+              title: 'Untitled',
+              description: '',
+              tasks: [],
+            }
+          }
+          const tags: string[] = tagsById[item.publicId].slice(0) ?? []
+          if (quest.lng == 'en') {
+            tags.push('englisch')
+          } else {
+            tags.push('deutsch')
+          }
+
+          if (quest.editOptions == 'java-only') {
+            tags.push('java')
+          } else if (quest.editOptions == 'python-only') {
+            tags.push('python')
+          } else if (quest.editOptions == 'karol-only') {
+            tags.push('code')
+          } else {
+            tags.push('no_restrictions')
+          }
+
+          if (quest.tasks.length > 1) {
+            tags.push('multiple_worlds')
+          }
+
+          if (quest.program) {
+            tags.push('with_code')
+          }
+
+          return {
+            // Use publicId as the entry id:
+            id: item.publicId,
+            // Use the quest title:
+            title: quest.title,
+            // Leave tags empty for now (you can add logic later):
+            tags,
+            quest,
+            score: 0,
+            jitter: Math.random(),
+          }
+        })
+        setEntries(parsedEntries)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.error('Error loading inspiration data:', error)
+        setLoading(false)
+      })
   }, [])
 
+  // Toggles a tag in the selectedTags array
+  const toggleTag = (tag: string) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    )
+  }
+
+  // Group tags by category (assuming TAGS is defined and each tag has `category`, `internal` and `display` properties)
+  const tagsByCategory = TAGS.reduce((acc, tag) => {
+    acc[tag.category] = acc[tag.category] ? [...acc[tag.category], tag] : [tag]
+    return acc
+  }, {} as { [key: string]: { internal: string; display: string }[] })
+
+  /**
+   * Checks whether an entry matches all selected tags.
+   * Supports negative tags (prefixed with "not:").
+   */
+  const matchesTags = (
+    entry: { title: string; tags: string[] },
+    tags: string[]
+  ) => {
+    return tags.every((tag) => {
+      if (tag.startsWith('not:')) {
+        const actualTag = tag.slice(4)
+        return !entry.tags.includes(actualTag)
+      }
+      return entry.tags.includes(tag)
+    })
+  }
+
+  const matchesSearch = (entry: EntryType) => {
+    return (
+      entry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      entry.quest.tasks.some((task) =>
+        task.title.toLowerCase().includes(searchTerm.toLowerCase())
+      ) ||
+      entry.quest.description.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  }
+
+  // Filter entries by the search term and selected tags.
+  const filteredEntries = entries.filter((entry) => {
+    entry.score = entry.jitter
+    if (entry.tags.includes('leicht')) {
+      entry.score += 20
+    } else if (entry.tags.includes('mittel')) {
+      entry.score += 15
+    } else if (entry.tags.includes('schwer')) {
+      entry.score += 12
+    }
+    entry.score += entry.tags.length * -0.8
+    return matchesTags(entry, selectedTags) && matchesSearch(entry)
+  })
+
+  // sort by score
+  filteredEntries.sort((a, b) => b.score - a.score)
+
+  /**
+   * Returns the count of entries that would remain if a given tag were added (if not already selected)
+   * or remains as is (if already selected).
+   */
+  const getTagCount = (tag: string) => {
+    const activeTags = selectedTags.includes(tag)
+      ? selectedTags
+      : [...selectedTags, tag]
+
+    return entries.filter((entry) => {
+      return matchesTags(entry, activeTags) && matchesSearch(entry)
+    }).length
+  }
+
+  // Reset all filters.
+  const resetFilters = () => {
+    setSelectedTags([])
+  }
+
   return (
-    <div className="pt-10">
-      <h1 className="text-center text-5xl ">Lasse dich inspirieren 💫⚡💡</h1>
-      <p className="text-center mt-8 max-w-[600px] mx-auto text-lg">
-        Schaue dir an, was andere Karol-SpielerInnen erstellt haben.
-        <br />
-        <small className="italic mt-3 inline-block">
-          Inhalte sind nicht sortiert. Wer helfen möchte, gerne Mail an{' '}
-          <a href="mailto:karol@arrrg.de" className="link">
-            karol@arrrg.de
-          </a>{' '}
-          schreiben.
-          <br />
-          5. Juli 2024
-        </small>
-      </p>
-      <div className="flex flex-wrap flex-row mt-6 bg-gray-50 mb-12 justify-center">
-        {data &&
-          data.map((d) => {
-            return <RandomElement key={d.publicId} data={d} />
-          })}
-      </div>
+    <div className="flex min-h-screen">
+      {/* Sidebar with Filters */}
+      <aside className="w-[270px] bg-gray-100 p-4 border-r border-gray-300">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl">Filter</h2>
+          <button
+            onClick={resetFilters}
+            className={clsx(
+              'text-sm text-blue-500 hover:underline',
+              selectedTags.length === 0 && 'hidden'
+            )}
+          >
+            Filter zurücksetzen
+          </button>
+        </div>
+        {Object.entries(tagsByCategory).map(([category, tags]) => {
+          // Only show tags that have a count > 0 or are already selected.
+          const visibleTags = tags.filter(
+            ({ internal }) =>
+              getTagCount(internal) > 0 || selectedTags.includes(internal)
+          )
+
+          // Hide the category if there are no visible tags.
+          if (visibleTags.length === 0) return null
+
+          return (
+            <div key={category} className="mb-6">
+              <h3 className="font-bold mb-2">{category}</h3>
+              {visibleTags.map(({ internal, display }) => (
+                <div key={internal} className="flex items-center mb-1">
+                  <label className="cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={selectedTags.includes(internal)}
+                      onChange={() => toggleTag(internal)}
+                      disabled={loading} // disable checkboxes while loading
+                      className="mr-2"
+                    />
+                    {display}{' '}
+                    <span className="text-sm text-gray-600">
+                      {getTagCount(internal)}
+                    </span>
+                  </label>
+                </div>
+              ))}
+            </div>
+          )
+        })}
+      </aside>
+
+      {/* Main Content: Search and Entries */}
+      <main className="flex-1 p-4 h-full overflow-x-hidden">
+        <h1 className="text-3xl font-bold mt-4 mb-2">
+          Aufgaben-Galerie 💫⚡💡
+        </h1>
+        <p className="mb-6">Stand: 5. Juli 2024</p>
+        <div className="relative mb-4">
+          <input
+            type="text"
+            placeholder="Freitextsuche..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full p-2 pr-8 border border-gray-300 rounded"
+          />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm('')}
+              className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-700"
+            >
+              <FaIcon icon={faTimes} />
+            </button>
+          )}
+        </div>
+        {loading ? (
+          <p className="text-gray-500">Loading entries...</p>
+        ) : (
+          <div className="flex flex-wrap gap-8 justify-around w-full items-start">
+            {filteredEntries.length ? (
+              <>
+                {filteredEntries.map((entry) => (
+                  <Entry key={entry.id} entry={entry} />
+                ))}
+                <div className="p-4 mb-3 w-80 h-96"></div>
+                <div className="p-4 mb-3 w-80 h-96"></div>
+                <div className="p-4 mb-3 w-80 h-96"></div>
+              </>
+            ) : (
+              <p className="text-gray-500">Keine Einträge gefunden.</p>
+            )}
+          </div>
+        )}
+      </main>
     </div>
   )
 }
 
-function RandomElement({ data }: { data: DataEntry }) {
+function Entry({ entry }: { entry: EntryType }) {
   const core = useCore()
-  const [selected, setSelected] = useState(0)
+  const quest = entry.quest
 
-  const quest = JSON.parse(data.content) as QuestSerialFormat
-  const text = data.publicId
-
-  if (!quest) {
-    return <div>wird geladen</div>
-  }
-
-  // console.log(data[id], quest)
-
-  // return null
-
-  const noTitle = quest.title == 'Titel der Aufgabe'
   const noDesc =
     quest.description == 'Beschreibe, um was es bei der Aufgabe geht ...'
 
+  const tags = entry.tags.filter(
+    (tag) => !['deutsch', 'no_restrictions', 'multiple_worlds'].includes(tag)
+  )
+
+  const [selected, setSelected] = useState(0)
   return (
-    <div className={clsx('card bg-white w-96 shadow-xl m-6 overflow-hidden')}>
+    <div className="p-4 pt-2 mb-3 border rounded-xl w-80 flex flex-col">
       {quest.tasks.length > 1 && (
-        <div className="text-center mt-3">
+        <div className="text-center">
           <button
             onClick={() => {
               if (selected == 0) {
@@ -109,7 +313,7 @@ function RandomElement({ data }: { data: DataEntry }) {
           </button>
         </div>
       )}
-      <figure className="h-[200px] relative">
+      <figure className="h-[200px] relative mx-auto">
         {quest.tasks.length > 0 && (
           <RenderIfVisible stayRendered visibleOffset={2000}>
             <View
@@ -122,37 +326,36 @@ function RandomElement({ data }: { data: DataEntry }) {
             />
           </RenderIfVisible>
         )}
-        <div className="absolute right-4 bottom-0">
-          {quest.editOptions === 'python-only' && (
-            <span className="badge">Python</span>
-          )}
-          {quest.editOptions === 'java-only' && (
-            <span className="badge">Java</span>
-          )}
-          {quest.lng === 'en' && <span className="badge">EN</span>}
-        </div>
       </figure>
-      <div className="card-body">
-        <h2 className={clsx('card-title', noTitle && 'italic text-gray-300')}>
-          {noTitle ? 'ohne Titel' : quest.title}
-        </h2>
-        <p className={clsx(noDesc && 'italic text-gray-300')}>
-          {noDesc
-            ? 'keine Beschreibung'
-            : quest.description.length > 111
-            ? quest.description.slice(0, 110) + ' …'
-            : quest.description}
+      <h3 className="font-semibold mt-4">{entry.title}</h3>
+      <p className={clsx(noDesc && 'italic text-gray-300', 'mt-2')}>
+        {noDesc
+          ? 'keine Beschreibung'
+          : quest.description.length > 111
+          ? quest.description.slice(0, 110) + ' …'
+          : quest.description}
+      </p>
+      {tags.length > 0 && (
+        <p className="text-sm text-gray-600 mt-4">
+          {tags.map((tag) => (
+            <span
+              className="px-2 py-0.5 rounded-full bg-gray-100 mr-2 mt-2 inline-block"
+              key={tag}
+            >
+              {tagTitles[tag]}{' '}
+            </span>
+          ))}
         </p>
-        <div className="card-actions justify-center mt-2">
-          <button
-            className="btn text-lg"
-            onClick={() => {
-              window.open('/#' + text, '_blank')
-            }}
-          >
-            #{text} öffnen
-          </button>
-        </div>
+      )}
+      <div className="card-actions justify-center mt-2">
+        <button
+          className="btn btn-sm my-3"
+          onClick={() => {
+            window.open('/#' + entry.id, '_blank')
+          }}
+        >
+          #{entry.id} öffnen
+        </button>
       </div>
     </div>
   )
