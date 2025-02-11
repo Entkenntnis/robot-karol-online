@@ -231,7 +231,12 @@ export function Inspiration() {
         <h1 className="text-3xl font-bold mt-4 mb-2">
           Aufgaben-Galerie 💫⚡💡
         </h1>
-        <p className="mb-6">Stand: 5. Juli 2024</p>
+        <p className="mb-2">Stand: 5. Juli 2024</p>
+        <p className="mb-4">
+          <a href="/#" className="text-blue-500 hover:underline">
+            zurück
+          </a>
+        </p>
         <div className="relative mb-4">
           <input
             type="text"
