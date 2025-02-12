@@ -80,6 +80,11 @@ export async function initClient(core: Core) {
     return
   }
 
+  if (hash == '#INSPIRATION-OLD') {
+    switchToPage(core, 'inspiration-old')
+    return
+  }
+
   if (hash.startsWith('#QUEST-')) {
     const questId = parseInt(hash.substring(7))
     startQuest(core, questId)

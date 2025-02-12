@@ -23,6 +23,7 @@ import ErrorBoundary from './ErrorBoundary'
 import { Inspiration } from './pages/Inspiration'
 import { SyncModal } from './modals/SyncModal'
 import { SurveyModal } from './modals/SurveyModal'
+import { InspirationOld } from './pages/InspirationOld'
 
 export function App() {
   const core = useCore()
@@ -55,6 +56,8 @@ export function App() {
       return <Demo />
     } else if (core.ws.page == 'inspiration') {
       return <Inspiration />
+    } else if (core.ws.page == 'inspiration-old') {
+      return <InspirationOld />
     } else {
       return null
     }

@@ -147,6 +147,7 @@ export interface WorkspaceState {
     | 'analyze'
     | 'demo'
     | 'inspiration'
+    | 'inspiration-old'
 
   modal:
     | 'name'
