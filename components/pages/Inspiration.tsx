@@ -290,7 +290,7 @@ function Entry({ entry }: { entry: EntryType }) {
 
   const [selected, setSelected] = useState(0)
   return (
-    <div className="p-4 pt-2 mb-3 border rounded-xl w-80 flex flex-col">
+    <div className="p-4 pt-2 mb-3 border rounded-xl w-80 flex flex-col overflow-hidden">
       {quest.tasks.length > 1 && (
         <div className="text-center">
           <button
