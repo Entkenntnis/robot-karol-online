@@ -38,6 +38,8 @@ import { showJavaInfo, setLanguage } from '../../lib/commands/language'
 import { Settings } from '../../lib/state/types'
 import { saveCodeToFile } from '../../lib/commands/save'
 import { startButtonClicked } from '../../lib/commands/start'
+import { deserializeQuest } from '../../lib/commands/json'
+import { switchToPage } from '../../lib/commands/page'
 
 export function IdeMain() {
   const core = useCore()
@@ -139,7 +141,7 @@ export function IdeMain() {
                   onClick={() => {
                     const input = document.createElement('input')
                     input.type = 'file'
-                    input.accept = '.txt'
+                    input.accept = '.txt,.json'
 
                     const reader = new FileReader()
                     reader.addEventListener('load', (e) => {
@@ -147,21 +149,27 @@ export function IdeMain() {
                         e.target != null &&
                         typeof e.target.result === 'string'
                       ) {
-                        const code = e.target.result
-                        core.mutateWs((s) => {
-                          s.code = code
-                          s.ui.needsTextRefresh = true
-                        })
-                        if (core.ws.settings.mode == 'blocks') {
-                          setMode(core, 'code')
-                          const check = () => {
-                            if (core.ws.ui.needsTextRefresh) {
-                              setTimeout(check, 10)
-                            } else {
-                              setMode(core, 'blocks')
+                        if (e.target.result.startsWith('{"version":"v1",')) {
+                          deserializeQuest(core, JSON.parse(e.target.result))
+                          history.pushState(null, '', '/')
+                          switchToPage(core, 'shared')
+                        } else {
+                          const code = e.target.result
+                          core.mutateWs((s) => {
+                            s.code = code
+                            s.ui.needsTextRefresh = true
+                          })
+                          if (core.ws.settings.mode == 'blocks') {
+                            setMode(core, 'code')
+                            const check = () => {
+                              if (core.ws.ui.needsTextRefresh) {
+                                setTimeout(check, 10)
+                              } else {
+                                setMode(core, 'blocks')
+                              }
                             }
+                            check()
                           }
-                          check()
                         }
                       }
                     })
