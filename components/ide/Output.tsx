@@ -87,7 +87,7 @@ export function Output() {
       <div
         className={clsx(
           'flex-grow flex-shrink h-full',
-          'overflow-auto bg-white'
+          'overflow-auto bg-white mb-10'
         )}
       >
         <div className="flex flex-col h-full relative">
