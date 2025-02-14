@@ -128,6 +128,9 @@ export function deserializeQuest(
   quest: QuestSerialFormat,
   updateLng: boolean = true
 ) {
+  // set title of window to quest title
+  document.title = quest.title + ' | Robot Karol Online'
+
   core.mutateWs((ws) => {
     ws.quest.title = quest.title
     ws.quest.description = quest.description
