@@ -137,10 +137,15 @@ In https://karol.arrrg.de/#78T8 nutzt Karol einen Algorithmus aus der dynamische
 
 ![grafik](https://github.com/user-attachments/assets/ee515981-4401-4615-8360-bca9bde2f33c)
 
+## Links
 
-## Ähnliche Projekte
+### Robot Karol 3.0 (Java Version)
 
-Über die letzen Monate sind mir ein paar ähnliche Projekte begegnet:
+Neue Technologien erlauben es, auch alte Software im Browser zu nutzen. So kannst du unter https://entkenntnis.github.io/rk3.0/ die unmodifizierte Original-Version von Robot Karol ausprobieren (ohne Garantie der Funktion). Für mich Nostalgie pur. 
+
+### Ähnliche Projekte
+
+Es gibt neben diesem Repository noch weitere Projekte, die den Karol in das Web portieren (leider sind die meisten nicht fertig oder haben einen begrenzten Funktionsumfang):
 
 - https://github.com/philer/karol: Textbasiert mit liebevoller 3D-Ansicht
 - https://github.com/robotcoral: Textbasiert, 3D-Ansicht, schickes Design, Oberfläche sehr nah an Originalversion
@@ -148,11 +153,7 @@ In https://karol.arrrg.de/#78T8 nutzt Karol einen Algorithmus aus der dynamische
 - https://github.com/andipaetzold/robotkarol.dev: ordentliche Umsetzung, nur text-basiert, keine manuelle Steuerung, viele Beispiele
 - https://github.com/timjb/robot-karel: Mehr als 10 Jahre alt, [Vorschau](http://web.archive.org/web/20110924025946/http://www.robot-karel.org/)
 
-## Trivia
-
-Karol verwendet sie/ihr-Pronomen.
-
-## Bildquellen
+### Bildquellen
 
 Hintergrundbild: [Bild von rawpixel.com](https://de.freepik.com/fotos-kostenlos/einfacher-strukturierter-hintergrund-des-glatten-gewebes_17593140.htm#query=leinen%20textur&position=0&from_view=keyword&track=ais) auf Freepik
 
@@ -162,7 +163,9 @@ Snake-Icon: [Snake icons created by apien - Flaticon](https://www.flaticon.com/f
 
 Kleeblatt: [Bild von jemastock](https://de.freepik.com/vektoren-kostenlos/gruener-gluecksklee-mit-vier-blaettern_70015845.htm#query=4%20bl%C3%A4tter%20kleeblatt&position=11&from_view=search&track=ais&uuid=e9b2280d-4977-4cff-9d02-e409163dc7f6) auf Freepik
 
-Outfit: [Bild von rawpixel.com](https://de.freepik.com/vektoren-kostenlos/mode-logo-aufkleber-business-branding-schwarz-weiss-design-vektor_20346276.htm#query=outfit%20icon&position=36&from_view=search&track=ais&uuid=b2451275-7cef-4c28-9686-d610dcb630e6) auf Freepik
+## Trivia
+
+Karol verwendet sie/ihr-Pronomen.
 
 ## Entwicklung
 
