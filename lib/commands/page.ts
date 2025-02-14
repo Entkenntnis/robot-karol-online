@@ -17,6 +17,7 @@ export function switchToPage(core: Core, target: Pages) {
 
   // some handlers
   if (target == 'editor') {
+    document.title = 'Editor'
     resetQuestView(core)
     core.mutateWs(({ quest, ui, editor }) => {
       quest.title = core.strings.editor.title
@@ -35,6 +36,7 @@ export function switchToPage(core: Core, target: Pages) {
   }
 
   if (target == 'overview') {
+    document.title = 'Robot Karol Online'
     hideProfile(core)
     const hash = window.location.hash.toUpperCase()
     if (hash == '#DEMO') {
@@ -45,9 +47,28 @@ export function switchToPage(core: Core, target: Pages) {
     return
   }
 
-  if (target == 'quest') {
-    if (pushHistory) history.pushState(null, '', '#QUEST-' + core.ws.quest.id)
+  if (target == 'imported') {
+    document.title = core.ws.quest.title
+    return
   }
+
+  if (target == 'quest') {
+    document.title = 'Robot Karol Online'
+    if (pushHistory) history.pushState(null, '', '#QUEST-' + core.ws.quest.id)
+    return
+  }
+
+  if (target == 'inspiration') {
+    document.title = 'Aufgaben-Galerie'
+    return
+  }
+
+  if (target == 'shared') {
+    // don't set title
+    return
+  }
+
+  document.title = 'Robot Karol Online'
 }
 
 function resetQuestView(core: Core) {
