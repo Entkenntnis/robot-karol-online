@@ -156,7 +156,13 @@ export function IdeMain() {
                         } else {
                           const code = e.target.result
                           core.mutateWs((s) => {
-                            s.code = code
+                            if (core.ws.settings.language == 'java') {
+                              s.javaCode = code
+                            } else if (core.ws.settings.language == 'python') {
+                              s.pythonCode = code
+                            } else {
+                              s.code = code
+                            }
                             s.ui.needsTextRefresh = true
                           })
                           if (core.ws.settings.mode == 'blocks') {
