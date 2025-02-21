@@ -631,9 +631,9 @@ export function Overview() {
                         Karol Code, Python oder Java.
                       </p>
                       <p className="mt-2">
-                        Klicke auf „Start“ für den Selbst-Lern-Pfad, der dich
-                        Schritt-für-Schritt durch die Themen begleitet. Auf der
-                        Spielwiese kannst du frei programmieren.
+                        Klicke auf „Start“ für den Selbst-Lern-Pfad. Entdecke
+                        dort auf eigene Faust die Welt von Robot Karol und löse
+                        Aufgaben.
                       </p>
                       <p className="mt-2">
                         Lehrkräfte können mit dem Editor eigene Aufgaben anlegen
