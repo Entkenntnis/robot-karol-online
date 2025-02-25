@@ -53,7 +53,7 @@ export function switchToPage(core: Core, target: Pages) {
   }
 
   if (target == 'quest') {
-    document.title = 'Robot Karol Online'
+    document.title = core.ws.quest.title + ' | Robot Karol Online'
     if (pushHistory) history.pushState(null, '', '#QUEST-' + core.ws.quest.id)
     return
   }
