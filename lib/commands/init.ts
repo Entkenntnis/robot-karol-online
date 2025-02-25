@@ -9,11 +9,12 @@ import { switchToPage } from './page'
 import { getAppearance, getLng } from '../storage/storage'
 import { isSetName } from '../helper/events'
 import { mapData } from '../data/map'
-import { setLng } from './mode'
+import { setLng, showOverviewList } from './mode'
 import { createWorld } from '../state/create'
 import { QuestSerialFormat } from '../state/types'
 import { deserializeQuest } from './json'
 import { startQuest } from './quest'
+import { show } from 'blockly/core/contextmenu'
 
 export async function initClient(core: Core) {
   window.addEventListener('popstate', () => {
@@ -72,6 +73,11 @@ export async function initClient(core: Core) {
 
   if (hash == '#SPIELWIESE') {
     buildPlayground()
+    return
+  }
+
+  if (hash == '#OVERVIEW') {
+    showOverviewList(core)
     return
   }
 

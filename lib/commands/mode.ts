@@ -10,6 +10,7 @@ import {
   setUserName as setUserNameStorage,
 } from '../storage/storage'
 import { showModal } from './modal'
+import { switchToPage } from './page'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
   if (core.ws.settings.mode == 'blocks') {
@@ -151,12 +152,14 @@ export function showOverviewList(core: Core) {
   core.mutateWs(({ overview }) => {
     overview.showOverviewList = true
   })
+  switchToPage(core, 'overview')
 }
 
 export function hideOverviewList(core: Core) {
   core.mutateWs(({ overview }) => {
     overview.showOverviewList = false
   })
+  switchToPage(core, 'overview')
 }
 
 export function showProfile(core: Core) {
