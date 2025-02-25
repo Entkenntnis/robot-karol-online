@@ -41,6 +41,11 @@ export function switchToPage(core: Core, target: Pages) {
     const hash = window.location.hash.toUpperCase()
     if (hash == '#DEMO') {
       switchToPage(core, 'demo')
+      return
+    } else if (core.ws.overview.showOverviewList) {
+      document.title = 'Liste aller Aufgaben | Robot Karol Online'
+      if (pushHistory) history.pushState(null, '', '/#OVERVIEW')
+      return
     } else {
       if (pushHistory) history.pushState(null, '', '/')
     }
