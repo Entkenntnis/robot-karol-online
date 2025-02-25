@@ -43,7 +43,7 @@ export function switchToPage(core: Core, target: Pages) {
       switchToPage(core, 'demo')
       return
     } else if (core.ws.overview.showOverviewList) {
-      document.title = 'Liste aller Aufgaben | Robot Karol Online'
+      document.title = core.strings.overview.showAll + ' | Robot Karol Online'
       if (pushHistory) history.pushState(null, '', '/#OVERVIEW')
       return
     } else {
