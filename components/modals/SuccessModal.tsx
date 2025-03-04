@@ -72,7 +72,9 @@ async function initShapes() {
   defaults.shapes = [shapeZiegel, shapeMarke, hatShape]
 }
 
-initShapes()
+if (typeof window !== 'undefined') {
+  initShapes()
+}
 
 function fire(particleRatio: number, opts: any) {
   confetti(
