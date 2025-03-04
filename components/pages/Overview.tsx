@@ -911,7 +911,7 @@ export function Overview() {
             >
               {core.strings.overview.privacy}
             </button>{' '}
-            |{' '}
+            | {renderExternalLink('Blog', 'https://blog.arrrg.de/')} |{' '}
             {renderExternalLink(
               core.strings.overview.docs,
               'https://github.com/Entkenntnis/robot-karol-online#readme'
