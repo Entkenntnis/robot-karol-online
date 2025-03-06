@@ -162,8 +162,6 @@ Farbkleckse: [Bild von starline](https://de.freepik.com/vektoren-kostenlos/isoli
 
 Snake-Icon: [Snake icons created by apien - Flaticon](https://www.flaticon.com/free-icons/snake)
 
-Kleeblatt: [Bild von jemastock](https://de.freepik.com/vektoren-kostenlos/gruener-gluecksklee-mit-vier-blaettern_70015845.htm#query=4%20bl%C3%A4tter%20kleeblatt&position=11&from_view=search&track=ais&uuid=e9b2280d-4977-4cff-9d02-e409163dc7f6) auf Freepik
-
 ## Trivia
 
 Karol verwendet sie/ihr-Pronomen.
