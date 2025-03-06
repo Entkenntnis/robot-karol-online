@@ -145,10 +145,11 @@ Neue Technologien erlauben es, auch alte Software im Browser zu nutzen. So kanns
 
 ### Ähnliche Projekte
 
-Es gibt neben diesem Repository noch weitere Projekte, die den Karol in das Web portieren (leider sind die meisten nicht fertig oder haben einen begrenzten Funktionsumfang):
+Es gibt neben diesem Repository noch weitere Projekte, die den Karol in das Web portieren:
 
 - https://github.com/philer/karol: Textbasiert mit liebevoller 3D-Ansicht
 - https://github.com/robotcoral: Textbasiert, 3D-Ansicht, schickes Design, Oberfläche sehr nah an Originalversion
+- https://schmisev.github.io/RK4: textbasiert, an BASIC angelehnt, 3D-Ansicht und viele IDE-Funktionen
 - https://github.com/vanmeegen/react-three-karol: Block- und text-basiert, 3D-Ansicht
 - https://github.com/andipaetzold/robotkarol.dev: ordentliche Umsetzung, nur text-basiert, keine manuelle Steuerung, viele Beispiele
 - https://github.com/timjb/robot-karel: Mehr als 10 Jahre alt, [Vorschau](http://web.archive.org/web/20110924025946/http://www.robot-karel.org/)
