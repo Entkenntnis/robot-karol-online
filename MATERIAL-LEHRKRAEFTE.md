@@ -8,9 +8,13 @@
 
 <a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/robot_karol_online_vorstellung.pdf">Folien zur Vorstellung von Robot Karol</a>
 
+## Dokumentation
+
+Eine Übersicht über den Funktionsumfang und die Befehle findest du in der [Dokumentation](https://github.com/Entkenntnis/robot-karol-online#readme).
+
 ## Inspiration
 
-Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION)
+Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION).
 
 ## Musterlösung zu den Aufgaben
 
