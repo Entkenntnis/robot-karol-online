@@ -261,27 +261,30 @@ export function IdeMain() {
                 core.ws.settings.mode === 'code' && (
                   <div className="absolute right-0 top-0 z-0">
                     {core.ws.ui.proMode ? (
-                      <div
-                        className={clsx(
-                          'px-2 py-1 bg-yellow-200 rounded pl-2',
-                          core.ws.ui.state !== 'ready' && 'pointer-events-none'
-                          // core.ws.ui.state == 'error' && 'invisible',
-                          // core.ws.ui.state == 'running' && 'invisible'
-                        )}
-                      >
-                        {core.ws.ui.lockLanguage ? (
-                          <FaIcon icon={faLock} />
-                        ) : (
-                          <button
-                            onClick={() => {
-                              showJavaInfo(core)
-                            }}
-                          >
-                            <FaIcon icon={faQuestionCircle} />
-                          </button>
-                        )}{' '}
-                        Java Profi-Modus (im Aufbau)
-                      </div>
+                      core.ws.settings.language == 'java' ? (
+                        <div
+                          className={clsx(
+                            'px-2 py-1 bg-yellow-200 rounded pl-2',
+                            core.ws.ui.state !== 'ready' &&
+                              'pointer-events-none'
+                            // core.ws.ui.state == 'error' && 'invisible',
+                            // core.ws.ui.state == 'running' && 'invisible'
+                          )}
+                        >
+                          {core.ws.ui.lockLanguage ? (
+                            <FaIcon icon={faLock} />
+                          ) : (
+                            <button
+                              onClick={() => {
+                                showJavaInfo(core)
+                              }}
+                            >
+                              <FaIcon icon={faQuestionCircle} />
+                            </button>
+                          )}{' '}
+                          Java Profi-Modus (im Aufbau)
+                        </div>
+                      ) : null
                     ) : (
                       <div
                         className={clsx(
