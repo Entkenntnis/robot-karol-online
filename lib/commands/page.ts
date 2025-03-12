@@ -13,7 +13,7 @@ export function switchToPage(core: Core, target: Pages) {
 
   const pushHistory = core.ws.ui.initDone
 
-  console.log('SWITCH TO PAGE', target, { pushHistory })
+  // console.log('SWITCH TO PAGE', target, { pushHistory })
 
   // some handlers
   if (target == 'editor') {

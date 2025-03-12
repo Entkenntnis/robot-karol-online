@@ -72,6 +72,7 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
       })
     }
   }
+  updatePlaygroundHashToMode(core)
 }
 
 export function setShowTarget(core: Core, val: boolean) {
@@ -178,4 +179,31 @@ export function setLng(core: Core, lng: 'de' | 'en') {
   core.mutateWs(({ settings }) => {
     settings.lng = lng
   })
+}
+
+export function updatePlaygroundHashToMode(core: Core) {
+  const hash = window.location.hash
+
+  if (hash.startsWith('#SPIELWIESE')) {
+    const newHash = `#SPIELWIESE${
+      core.ws.settings.mode == 'blocks'
+        ? ''
+        : `-${
+            core.ws.settings.language == 'robot karol'
+              ? 'CODE'
+              : core.ws.settings.language == 'java'
+              ? 'JAVA'
+              : core.ws.ui.proMode
+              ? 'PYTHON-PRO'
+              : 'PYTHON'
+          }`
+    }`
+    if (newHash != hash) {
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname + newHash
+      )
+    }
+  }
 }

@@ -146,6 +146,13 @@ export function lint(core: Core, view: EditorView) {
 
   resetUIAfterChange(core)
 
+  if (core.ws.ui.proMode) {
+    core.mutateWs(({ ui }) => {
+      ui.state = 'ready'
+    })
+    return []
+  }
+
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
   const { warnings, output, rkCode } = compilePython(tree, view.state.doc)
   warnings.sort((a, b) => a.from - b.from)

@@ -828,7 +828,7 @@ export function compilePython(
       from: node.from,
       to: node.to,
       severity: 'error',
-      message: `Dieser Syntax ist nicht implementiert: '${node.name}'`,
+      message: `Nutze für diesen Syntax bitte den Profi-Modus: '${node.name}'`,
     })
   }
 }

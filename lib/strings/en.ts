@@ -77,6 +77,7 @@ export const enStrings: typeof deStrings = {
     preview: 'Preview of task',
     step: 'Single step',
     continueProgram: 'continue',
+    blockExplainer: 'Drag blocks onto the workspace and connect them.',
   },
   profile: {
     title: 'Profile',

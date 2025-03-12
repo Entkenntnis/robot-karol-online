@@ -76,6 +76,7 @@ export const deStrings = {
     preview: 'Auftragsvorschau',
     step: 'Einzelschritt',
     continueProgram: 'weiter',
+    blockExplainer: 'Ziehe Blöcke auf die Arbeitsfläche und verbinde sie.',
   },
   profile: {
     title: 'Profil',

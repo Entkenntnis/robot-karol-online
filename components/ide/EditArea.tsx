@@ -95,123 +95,125 @@ export function EditArea() {
   if (core.ws.settings.mode == 'code') {
     return (
       <div className="h-full flex flex-col overflow-y-auto relative">
-        {core.ws.settings.language === 'python' && (
-          <div className="bg-gray-100 pr-32 py-2 flex items-baseline">
-            <div className="mr-4 ml-3">Einfügen:</div>
-            <div>
-              <button
-                onClick={() => {
-                  let safeLoopVar = 'i'
-                  const candidates =
-                    'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZi'
-                  for (let i = 0; i < candidates.length; i++) {
-                    safeLoopVar = candidates[i]
-                    if (
-                      !view.current?.state.doc
-                        .toString()
-                        .includes('for ' + safeLoopVar)
-                    ) {
-                      break // found it
+        {core.ws.settings.language === 'python' && !core.ws.ui.proMode && (
+          <>
+            <div className="bg-gray-100 pr-32 py-2 flex items-baseline ">
+              <div className="mr-4 ml-3 h-[48px]">Einfügen:</div>
+              <div>
+                <button
+                  onClick={() => {
+                    let safeLoopVar = 'i'
+                    const candidates =
+                      'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZi'
+                    for (let i = 0; i < candidates.length; i++) {
+                      safeLoopVar = candidates[i]
+                      if (
+                        !view.current?.state.doc
+                          .toString()
+                          .includes('for ' + safeLoopVar)
+                      ) {
+                        break // found it
+                      }
                     }
-                  }
-                  insertCodeSnippet(
-                    [
-                      'for ' + safeLoopVar + ' in range():',
-                      '    # Aktion(en)',
-                      '',
-                    ],
-                    15
-                  )
-                }}
-                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-              >
-                <img
-                  src="/icons/for.png"
-                  alt="Struktogramm for"
-                  className="inline-block -mt-0.5"
-                ></img>{' '}
-                for<span className="hidden xl:inline">-Anweisung</span>
-              </button>
-              <button
-                onClick={() => {
-                  insertCodeSnippet(
-                    ['while # Bedingung :', '    # Aktion(en)', ''],
-                    6
-                  )
-                }}
-                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-              >
-                <img
-                  src="/icons/while.png"
-                  alt="Struktogramm while"
-                  className="inline-block -mt-0.5"
-                ></img>{' '}
-                while<span className="hidden xl:inline">-Anweisung</span>
-              </button>
-              <button
-                onClick={() => {
-                  insertCodeSnippet(
-                    [
-                      'if # Bedingung :',
-                      '    # JA-Aktion(en)',
-                      'else:',
-                      '    # NEIN-Aktion(en)',
-                      '',
-                    ],
-                    3
-                  )
-                }}
-                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-              >
-                <img
-                  src="/icons/ifElse.png"
-                  alt="Struktogramm if else"
-                  className="inline-block -mt-0.5"
-                ></img>{' '}
-                if-else<span className="hidden xl:inline">-Anweisung</span>
-              </button>
-              <button
-                onClick={() => {
-                  insertCodeSnippet(
-                    ['if # Bedingung :', '    # JA-Aktion(en)', ''],
-                    3
-                  )
-                }}
-                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-              >
-                <img
-                  src="/icons/if.png"
-                  alt="Struktogramm if"
-                  className="inline-block -mt-0.5"
-                ></img>{' '}
-                if<span className="hidden xl:inline">-Anweisung</span>
-              </button>
-              <button
-                onClick={() => {
-                  insertCodeSnippet(['def ():', '    # Aktion(en)', ''], 4)
-                }}
-                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-              >
-                <img
-                  src="/icons/eigeneMethode.png"
-                  alt="Struktogramm for"
-                  className="inline-block -mt-0.5"
-                ></img>{' '}
-                eigene Methode
-              </button>
-              <button
-                onClick={() => {
-                  if (view.current) {
-                    toggleComment(view.current)
-                    view.current.focus()
-                  }
-                }}
-                className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-              >
-                <strong>#</strong> Ein-/Auskommentieren
-              </button>
+                    insertCodeSnippet(
+                      [
+                        'for ' + safeLoopVar + ' in range():',
+                        '    # Aktion(en)',
+                        '',
+                      ],
+                      15
+                    )
+                  }}
+                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+                >
+                  <img
+                    src="/icons/for.png"
+                    alt="Struktogramm for"
+                    className="inline-block -mt-0.5"
+                  ></img>{' '}
+                  for<span className="hidden xl:inline">-Anweisung</span>
+                </button>
+                <button
+                  onClick={() => {
+                    insertCodeSnippet(
+                      ['while # Bedingung :', '    # Aktion(en)', ''],
+                      6
+                    )
+                  }}
+                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+                >
+                  <img
+                    src="/icons/while.png"
+                    alt="Struktogramm while"
+                    className="inline-block -mt-0.5"
+                  ></img>{' '}
+                  while<span className="hidden xl:inline">-Anweisung</span>
+                </button>
+                <button
+                  onClick={() => {
+                    insertCodeSnippet(
+                      [
+                        'if # Bedingung :',
+                        '    # JA-Aktion(en)',
+                        'else:',
+                        '    # NEIN-Aktion(en)',
+                        '',
+                      ],
+                      3
+                    )
+                  }}
+                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+                >
+                  <img
+                    src="/icons/ifElse.png"
+                    alt="Struktogramm if else"
+                    className="inline-block -mt-0.5"
+                  ></img>{' '}
+                  if-else<span className="hidden xl:inline">-Anweisung</span>
+                </button>
+                <button
+                  onClick={() => {
+                    insertCodeSnippet(
+                      ['if # Bedingung :', '    # JA-Aktion(en)', ''],
+                      3
+                    )
+                  }}
+                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+                >
+                  <img
+                    src="/icons/if.png"
+                    alt="Struktogramm if"
+                    className="inline-block -mt-0.5"
+                  ></img>{' '}
+                  if<span className="hidden xl:inline">-Anweisung</span>
+                </button>
+                <button
+                  onClick={() => {
+                    insertCodeSnippet(['def ():', '    # Aktion(en)', ''], 4)
+                  }}
+                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+                >
+                  <img
+                    src="/icons/eigeneMethode.png"
+                    alt="Struktogramm for"
+                    className="inline-block -mt-0.5"
+                  ></img>{' '}
+                  eigene Methode
+                </button>
+                <button
+                  onClick={() => {
+                    if (view.current) {
+                      toggleComment(view.current)
+                      view.current.focus()
+                    }
+                  }}
+                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
+                >
+                  <strong>#</strong> Ein-/Auskommentieren
+                </button>
+              </div>
             </div>
-          </div>
+          </>
         )}
         {renderEditor()}
         {core.ws.ui.state == 'error' && (
