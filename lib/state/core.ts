@@ -11,7 +11,13 @@ import {
 import { produce, Draft } from 'immer'
 import { EditorView } from '@codemirror/view'
 
-import { CoreRefs, CoreState, WorkspaceState, World } from './types'
+import {
+  CoreRefs,
+  CoreState,
+  PyodideWorker,
+  WorkspaceState,
+  World,
+} from './types'
 import { createDefaultCoreState } from './create'
 import { deStrings } from '../strings/de'
 import { enStrings } from '../strings/en'
@@ -47,6 +53,7 @@ export class Core {
   blockyResize: undefined | (() => void)
 
   view?: MutableRefObject<EditorView | undefined> // WOW, this is bad
+  worker?: PyodideWorker
 
   executionEndCallback: undefined | (() => void)
 
