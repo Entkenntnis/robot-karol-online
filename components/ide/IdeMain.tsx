@@ -275,7 +275,8 @@ export function IdeMain() {
                   </div>
                 )}
                 {core.ws.settings.mode == 'code' &&
-                  core.ws.settings.language == 'python' && (
+                  core.ws.settings.language == 'python' &&
+                  core.ws.ui.proMode && (
                     <div className="ml-3 mt-1 max-h-6 overflow-hidden">
                       <label className="cursor-pointer">
                         <input

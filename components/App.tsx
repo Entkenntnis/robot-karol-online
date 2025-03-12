@@ -33,7 +33,7 @@ export function App() {
     <ErrorBoundary>
       {renderPage()}
       {renderModal()}
-      <Script src="https://cdn.jsdelivr.net/pyodide/v0.27.3/full/pyodide.js" />
+      <Script src="/pyodide/pyodide.js" />
     </ErrorBoundary>
   )
 
