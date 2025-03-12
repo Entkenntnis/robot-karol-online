@@ -71,7 +71,28 @@ export async function initClient(core: Core) {
   const hash = window.location.hash.toUpperCase()
   const normalHash = window.location.hash
 
-  if (hash == '#SPIELWIESE') {
+  if (hash.startsWith('#SPIELWIESE')) {
+    const parts = hash.split('-')
+    if (parts.length > 1) {
+      const mode = parts[1]
+      if (mode == 'CODE') {
+        core.mutateWs((ws) => {
+          ws.settings.mode = 'code'
+          ws.settings.language = 'robot karol'
+        })
+      } else if (mode == 'PYTHON') {
+        core.mutateWs((ws) => {
+          ws.settings.mode = 'code'
+          ws.settings.language = 'python'
+          ws.ui.proMode = parts.length == 3 && parts[2] == 'PRO'
+        })
+      } else if (mode == 'JAVA') {
+        core.mutateWs((ws) => {
+          ws.settings.mode = 'code'
+          ws.settings.language = 'java'
+        })
+      }
+    }
     buildPlayground()
     return
   }

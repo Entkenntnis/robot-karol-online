@@ -16,7 +16,11 @@ import {
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
-import { closeHighlightDescription, setMode } from '../../lib/commands/mode'
+import {
+  closeHighlightDescription,
+  setMode,
+  updatePlaygroundHashToMode,
+} from '../../lib/commands/mode'
 import {
   closeOutput,
   restartProgram,
@@ -282,6 +286,7 @@ export function IdeMain() {
                             core.mutateWs(({ ui }) => {
                               ui.proMode = e.target.checked
                             })
+                            updatePlaygroundHashToMode(core)
                           }}
                         />{' '}
                         Profi-Modus (Python 3.12)

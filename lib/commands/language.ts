@@ -1,9 +1,11 @@
+import { update } from 'pullstate'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
 import { Settings } from '../state/types'
+import { updatePlaygroundHashToMode } from './mode'
 
 export function setLanguage(core: Core, language: Settings['language']) {
   if (language == 'robot karol' && core.ws.ui.toBlockWarning) {
@@ -34,6 +36,7 @@ export function setLanguage(core: Core, language: Settings['language']) {
   setTimeout(() => {
     core.view?.current?.focus()
   })
+  updatePlaygroundHashToMode(core)
 }
 
 export function showJavaInfo(core: Core) {
