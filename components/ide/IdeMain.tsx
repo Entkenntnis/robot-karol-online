@@ -267,7 +267,7 @@ export function IdeMain() {
                 {core.ws.settings.mode === 'blocks' && (
                   <div className="ml-3 mt-1 text-gray-600">
                     <FaIcon icon={faArrowPointer} className="mr-2" />
-                    Ziehe Blöcke auf die Arbeitsfläche und verbinde sie.
+                    {core.strings.ide.blockExplainer}
                   </div>
                 )}
                 {core.ws.settings.mode == 'code' &&
