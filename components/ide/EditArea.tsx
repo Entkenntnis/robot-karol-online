@@ -95,9 +95,9 @@ export function EditArea() {
   if (core.ws.settings.mode == 'code') {
     return (
       <div className="h-full flex flex-col overflow-y-auto relative">
-        {core.ws.settings.language === 'python' && (
+        {core.ws.settings.language === 'python' && !core.ws.ui.proMode && (
           <>
-            <div className="bg-gray-100 pr-32 pt-2 flex items-baseline ">
+            <div className="bg-gray-100 pr-32 py-2 flex items-baseline ">
               <div className="mr-4 ml-3 h-[48px]">Einfügen:</div>
               <div>
                 <button
@@ -212,20 +212,6 @@ export function EditArea() {
                   <strong>#</strong> Ein-/Auskommentieren
                 </button>
               </div>
-            </div>
-            <div className="bg-gray-100 pb-2 px-3 pt-2 text-right">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={core.ws.ui.proMode}
-                  onChange={(e) => {
-                    core.mutateWs(({ ui }) => {
-                      ui.proMode = e.target.checked
-                    })
-                  }}
-                />{' '}
-                voller Python3-Support (im Aufbau)
-              </label>
             </div>
           </>
         )}
