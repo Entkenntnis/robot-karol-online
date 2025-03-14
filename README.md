@@ -186,6 +186,7 @@ Das Projekt kann mit `npm run build` gebaut werden, das Ergebnis ist im Ordner `
 ```
 Header set Cross-Origin-Embedder-Policy "require-corp"
 Header set Cross-Origin-Opener-Policy "same-origin"
+AddType text/javascript .mjs
 ```
 
 Das Backend findet sich in https://github.com/Entkenntnis/stats-karol. Passe die Endpunkte in `backend.ts` an. Das Impressum kann in `impressum.ts` angepasst werden.
