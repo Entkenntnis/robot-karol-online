@@ -120,7 +120,7 @@ export function Output() {
           )}
         </div>
         {core.ws.quest.lastStartedTask !== undefined && (
-          <div className="absolute bottom-1.5 left-2">
+          <div className="absolute bottom-1.5 left-2 whitespace-nowrap">
             <button
               className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
               onClick={() => {
