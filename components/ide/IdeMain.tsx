@@ -288,16 +288,19 @@ export function IdeMain() {
                   (core.ws.ui.proMode ||
                     window.location.hostname == 'localhost') && (
                     <div className="ml-3 mt-1 max-h-6 overflow-hidden">
-                      <label className="cursor-pointer">
+                      <label
+                        className={clsx(
+                          core.ws.ui.state === 'running'
+                            ? 'cursor-default'
+                            : 'cursor-pointer'
+                        )}
+                      >
                         <input
                           type="checkbox"
-                          className="cursor-pointer"
+                          className="cursor-pointer disabled:cursor-default"
                           checked={core.ws.ui.proMode}
+                          disabled={core.ws.ui.state === 'running'}
                           onChange={(e) => {
-                            if (core.ws.ui.state == 'running') {
-                              abort(core)
-                            }
-
                             core.mutateWs(({ ui }) => {
                               ui.proMode = e.target.checked
                             })
