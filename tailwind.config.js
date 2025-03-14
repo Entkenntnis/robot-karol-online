@@ -6,7 +6,11 @@ module.exports = {
     './lib/codemirror/basicSetup.ts',
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'spin-slow': 'spin 2s linear infinite',
+      },
+    },
   },
   variants: {
     extend: {},

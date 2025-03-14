@@ -9,6 +9,7 @@ import {
   faPlay,
   faPuzzlePiece,
   faQuestionCircle,
+  faSpinner,
   faStop,
   faUpload,
   faWarning,
@@ -426,9 +427,19 @@ export function IdeMain() {
                       icon={
                         core.ws.ui.state == 'running' && !core.ws.vm.isDebugging
                           ? faStop
+                          : core.ws.ui.state == 'loading' &&
+                            core.ws.ui.proMode &&
+                            core.ws.settings.language == 'python'
+                          ? faSpinner
                           : faPlay
                       }
-                      className="mr-2"
+                      className={clsx(
+                        'mr-2',
+                        core.ws.ui.state == 'loading' &&
+                          core.ws.ui.proMode &&
+                          core.ws.settings.language == 'python' &&
+                          'animate-spin-slow'
+                      )}
                     />
                     <span className="text-xl">
                       {core.ws.ui.state == 'running'

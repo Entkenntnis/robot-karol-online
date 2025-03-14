@@ -112,7 +112,7 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
               if (e.transactions.length > 0) {
                 const t = e.transactions[0]
                 if (t.docChanged) {
-                  if (core.ws.ui.state == 'ready') {
+                  if (core.ws.ui.state == 'ready' && !core.ws.ui.proMode) {
                     setLoading(core)
                   }
                 }
@@ -147,9 +147,12 @@ export function lint(core: Core, view: EditorView) {
   resetUIAfterChange(core)
 
   if (core.ws.ui.proMode) {
-    core.mutateWs(({ ui }) => {
-      ui.state = 'ready'
-    })
+    if (core.worker?.initDone) {
+      console.log('patch, set ready')
+      core.mutateWs(({ ui }) => {
+        ui.state = 'ready'
+      })
+    }
     return []
   }
 
