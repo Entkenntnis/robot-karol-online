@@ -336,7 +336,9 @@ export function Tasks() {
                 target={core.ws.ui.isPlayground ? '_self' : '_blank'}
                 href={window.location.protocol + '//' + window.location.host}
               >
-                Robot Karol Online
+                {core.ws.ui.isPlayground
+                  ? core.strings.ide.back
+                  : 'Robot Karol Online'}
               </a>
               {core.ws.ui.isPlayground && (
                 <button
