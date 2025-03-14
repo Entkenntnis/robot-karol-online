@@ -127,7 +127,7 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 
 ### Dijkstra-Algorithmus
 
-In https://karol.arrrg.de/#U528 durchsucht Karol einen Graph aus Ziegeln nach dem Algorithmus von Dijkstra und markiert den kürzesten Pfad. Alle Datenstrukturen werden innerhalb des Felds visualisiert. Das Beispiel deckt viele algorithmische Elemente ab: Ziegel zählen, Knoten im Graph markieren, Zahlen addieren/subtrahieren, Zahlen vergleichen, Minimum finden, etc.  - Für mich war es interessant auszuloten, inwiefern das theoretische Limit (Robot Karol ist turing-vollständig, jeder Algorithmus ist in der Theorie umsetzbar) auch praktisch umgesetzt werden kann. Bei Programme dieser Größe sind Kommentare und klare Methoden unverzichtbar, aber auch eine [saubere Vorbereitung](https://github.com/Entkenntnis/robot-karol-online/blob/main/material/Robot-Karol_Dijkstra-Vorbereitung.pdf) mit Stift und Papier und einem Kontrollflussdiagramm. Breakpoints und der Debugger sind überlebenswichtig bei der Fehlerbehebung.
+In https://karol.arrrg.de/#U528 durchsucht Karol einen Graph aus Ziegeln nach dem Algorithmus von Dijkstra und markiert den kürzesten Pfad. Alle Datenstrukturen werden innerhalb des Felds visualisiert. Das Beispiel deckt viele algorithmische Elemente ab: Ziegel zählen, Knoten im Graph markieren, Zahlen addieren/subtrahieren, Zahlen vergleichen, Minimum finden, etc. - Für mich war es interessant auszuloten, inwiefern das theoretische Limit (Robot Karol ist turing-vollständig, jeder Algorithmus ist in der Theorie umsetzbar) auch praktisch umgesetzt werden kann. Bei Programme dieser Größe sind Kommentare und klare Methoden unverzichtbar, aber auch eine [saubere Vorbereitung](https://github.com/Entkenntnis/robot-karol-online/blob/main/material/Robot-Karol_Dijkstra-Vorbereitung.pdf) mit Stift und Papier und einem Kontrollflussdiagramm. Breakpoints und der Debugger sind überlebenswichtig bei der Fehlerbehebung.
 
 ![grafik](https://github.com/user-attachments/assets/77889fde-b5f5-4575-b20c-61d84878f11a)
 
@@ -141,7 +141,7 @@ In https://karol.arrrg.de/#78T8 nutzt Karol einen Algorithmus aus der dynamische
 
 ### Robot Karol 3.0 (Java Version)
 
-Neue Technologien erlauben es, auch alte Software im Browser zu nutzen. So kannst du unter https://entkenntnis.github.io/rk3.0/ die unmodifizierte Original-Version von Robot Karol ausprobieren (ohne Garantie der Funktion). Für mich Nostalgie pur. 
+Neue Technologien erlauben es, auch alte Software im Browser zu nutzen. So kannst du unter https://entkenntnis.github.io/rk3.0/ die unmodifizierte Original-Version von Robot Karol ausprobieren (ohne Garantie der Funktion). Für mich Nostalgie pur.
 
 ### Ähnliche Projekte
 
@@ -178,3 +178,14 @@ npm run dev
 ```
 
 Danach ist die lokale Version auf `localhost:3000` verfügbar.
+
+## Deployment
+
+Das Projekt kann mit `npm run build` gebaut werden, das Ergebnis ist im Ordner `out` zu finden und kann über einen Webserver bereitgestellt werden. Damit der Python-Profi-Modus funktioniert, wird Cross-Origin-Isolation benötigt. Verwende zum Beispiel diese `.htaccess`-Datei:
+
+```
+Header set Cross-Origin-Embedder-Policy "require-corp"
+Header set Cross-Origin-Opener-Policy "same-origin"
+```
+
+Das Backend findet sich in https://github.com/Entkenntnis/stats-karol. Passe die Endpunkte in `backend.ts` an. Das Impressum kann in `impressum.ts` angepasst werden.
