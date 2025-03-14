@@ -24,7 +24,7 @@ import { Inspiration } from './pages/Inspiration'
 import { SyncModal } from './modals/SyncModal'
 import { SurveyModal } from './modals/SurveyModal'
 import { InspirationOld } from './pages/InspirationOld'
-import Script from 'next/script'
+import { PyodideWorker } from './ide/PyodideWorker'
 
 export function App() {
   const core = useCore()
@@ -33,7 +33,7 @@ export function App() {
     <ErrorBoundary>
       {renderPage()}
       {renderModal()}
-      <Script src="/pyodide/pyodide.js" />
+      <PyodideWorker />
     </ErrorBoundary>
   )
 

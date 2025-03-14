@@ -417,3 +417,8 @@ export interface EntryType {
   score: number
   jitter: number
 }
+
+export interface PyodideWorker {
+  init: () => Promise<void>
+  run: (code: string) => Promise<void>
+}

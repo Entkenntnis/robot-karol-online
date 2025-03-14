@@ -9,8 +9,7 @@
     "analyze": "cross-env ANALYZE=true next build",
     "grammar": "lezer-generator ./lib/codemirror/parser/karol.grammar -o ./lib/codemirror/parser/parser.js",
     "grammar-java": "lezer-generator ./lib/codemirror/javaParser/java.grammar -o ./lib/codemirror/javaParser/parser.js",
-    "grammar-python": "lezer-generator ./lib/codemirror/pythonParser/python.grammar -o ./lib/codemirror/pythonParser/parser.js",
-    "export": "next build"
+    "grammar-python": "lezer-generator ./lib/codemirror/pythonParser/python.grammar -o ./lib/codemirror/pythonParser/parser.js"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.0.0",
