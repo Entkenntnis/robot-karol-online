@@ -1,7 +1,16 @@
 import { useEffect, useRef } from 'react'
 import { useCore } from '../../lib/state/core'
 import { endExecution } from '../../lib/commands/vm'
-import { forward, left, right } from '../../lib/commands/world'
+import {
+  brick,
+  forward,
+  left,
+  resetMark,
+  right,
+  setMark,
+  unbrick,
+} from '../../lib/commands/world'
+import { reset } from 'canvas-confetti'
 
 export function PyodideWorker() {
   const core = useCore()
@@ -75,6 +84,19 @@ export function PyodideWorker() {
             }
             if (event.data == 'action:rechtsDrehen') {
               right(core)
+            }
+
+            if (event.data == 'action:hinlegen') {
+              brick(core)
+            }
+            if (event.data == 'action:aufheben') {
+              unbrick(core)
+            }
+            if (event.data == 'action:markeSetzen') {
+              setMark(core)
+            }
+            if (event.data == 'action:markeLöschen') {
+              resetMark(core)
             }
           }
 
