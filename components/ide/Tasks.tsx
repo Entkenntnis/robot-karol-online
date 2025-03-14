@@ -283,7 +283,16 @@ export function Tasks() {
           </div>
         </div>
       </div>
-      <div className="h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1">
+      <div
+        className={clsx(
+          'h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1',
+          core.ws.ui.isPlayground
+            ? 'min-w-[450px]'
+            : core.ws.page == 'editor'
+            ? 'min-w-[550px]'
+            : 'min-w-[380px]'
+        )}
+      >
         <div className="flex justify-start relative items-center flex-grow">
           {core.ws.page == 'editor' ? (
             <p className="w-full ml-4">
