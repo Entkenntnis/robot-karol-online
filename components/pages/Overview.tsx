@@ -500,7 +500,11 @@ export function Overview() {
                     )}
                     //href="https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link"
                     onClick={() => {
-                      showModal(core, 'survey')
+                      // open feedback form in new tab
+                      window.open(
+                        'https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link',
+                        '_blank'
+                      )
                     }}
                   >
                     <p className="text-center text-lg mb-1">Feedback</p>
