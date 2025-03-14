@@ -294,6 +294,10 @@ export function IdeMain() {
                           className="cursor-pointer"
                           checked={core.ws.ui.proMode}
                           onChange={(e) => {
+                            if (core.ws.ui.state == 'running') {
+                              abort(core)
+                            }
+
                             core.mutateWs(({ ui }) => {
                               ui.proMode = e.target.checked
                             })
