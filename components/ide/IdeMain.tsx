@@ -406,7 +406,7 @@ export function IdeMain() {
                     )}
                   <button
                     className={clsx(
-                      'rounded px-6 pt-1 pb-2 transition-colors',
+                      'rounded px-6 pt-1 pb-2 transition-colors whitespace-nowrap',
                       (core.ws.ui.state == 'ready' ||
                         (core.ws.ui.state == 'running' &&
                           core.ws.vm.isDebugging)) &&
