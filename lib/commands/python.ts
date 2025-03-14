@@ -14,6 +14,7 @@ let pyodide: any = null
 
 export async function runPythonCode(core: Core) {
   await core.worker?.init()
+  await core.worker?.run(core.ws.pythonCode)
   /*if (!pyodide) {
     // @ts-ignore we are loading pyodide in the app
     pyodide = await window.loadPyodide()

@@ -26,30 +26,29 @@ export function runTask(core: Core, index: number) {
   })
 
   if (core.ws.ui.state == 'ready') {
-    if (core.ws.settings.language == 'python' && core.ws.ui.proMode) {
-      runPythonCode(core)
-    } else {
-      if (!core.ws.ui.isTesting && core.ws.page != 'editor') {
-        core.executionEndCallback = () => {
-          if (
-            core.ws.quest.progress &&
-            !core.ws.ui.karolCrashMessage &&
-            !core.ws.ui.isManualAbort
-          ) {
-            if (core.ws.quest.tasks.length == 1) {
-              core.mutateWs((ws) => {
-                ws.ui.controlBarShowFinishQuest = true
-              })
-              showModal(core, 'success')
-            } else if (core.ws.quest.tasks.length > 1) {
-              setTimeout(() => {
-                startTesting(core)
-              }, 500)
-            }
+    if (!core.ws.ui.isTesting && core.ws.page != 'editor') {
+      core.executionEndCallback = () => {
+        if (
+          core.ws.quest.progress &&
+          !core.ws.ui.karolCrashMessage &&
+          !core.ws.ui.isManualAbort
+        ) {
+          if (core.ws.quest.tasks.length == 1) {
+            core.mutateWs((ws) => {
+              ws.ui.controlBarShowFinishQuest = true
+            })
+            showModal(core, 'success')
+          } else if (core.ws.quest.tasks.length > 1) {
+            setTimeout(() => {
+              startTesting(core)
+            }, 500)
           }
         }
       }
-
+    }
+    if (core.ws.settings.language == 'python' && core.ws.ui.proMode) {
+      runPythonCode(core)
+    } else {
       run(core)
     }
   }
