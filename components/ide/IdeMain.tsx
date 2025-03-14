@@ -130,14 +130,14 @@ export function IdeMain() {
             ></div>
           )}
           <div className="h-full flex flex-col">
-            <div className="flex-none h-8 bg-gray-50 flex justify-center items-start relative">
+            <div className="flex-none h-8 bg-gray-50 flex justify-center items-start relative ">
               <div className="absolute inset-0 z-20 flex justify-center items-start pointer-events-none">
                 {core.ws.ui.lockLanguage ? (
                   <span></span>
                 ) : (
                   <button
                     className={clsx(
-                      'ml-4 mr-14 border-t-4 px-3  pb-1 z-10 bg-gray-100 pointer-events-auto',
+                      'ml-4 mr-14 border-t-4 px-3  pb-1 z-10 bg-gray-100 pointer-events-auto max-h-7 overflow-hidden',
                       core.ws.settings.mode == 'blocks'
                         ? 'border-t-blue-500'
                         : 'border-t-transparent',
@@ -166,7 +166,7 @@ export function IdeMain() {
                 )}
                 <button
                   className={clsx(
-                    'border-t-4 px-3 pb-1 z-10 bg-gray-100  pointer-events-auto',
+                    'border-t-4 px-3 pb-1 z-10 bg-gray-100 pointer-events-auto max-h-7 overflow-hidden',
                     core.ws.settings.mode == 'code'
                       ? 'border-t-blue-500'
                       : 'border-t-transparent',
@@ -190,7 +190,15 @@ export function IdeMain() {
               </div>
             </div>
 
-            <div className="flex-none h-8 bg-gray-50 flex justify-between items-start relative">
+            <div
+              className={clsx(
+                'flex-none h-8 bg-gray-50 min-w-[650px] flex justify-between items-start relative',
+                core.ws.settings.language == 'python' ||
+                  core.ws.settings.mode == 'blocks'
+                  ? 'min-w-[620px]'
+                  : 'min-w-[450px]'
+              )}
+            >
               <div className="flex">
                 {core.ws.settings.lng == 'de' &&
                   core.ws.settings.mode === 'code' && (
@@ -276,7 +284,8 @@ export function IdeMain() {
                 )}
                 {core.ws.settings.mode == 'code' &&
                   core.ws.settings.language == 'python' &&
-                  core.ws.ui.proMode && (
+                  (core.ws.ui.proMode ||
+                    window.location.hostname == 'localhost') && (
                     <div className="ml-3 mt-1 max-h-6 overflow-hidden">
                       <label className="cursor-pointer">
                         <input
