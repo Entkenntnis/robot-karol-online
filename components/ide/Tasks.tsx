@@ -287,7 +287,7 @@ export function Tasks() {
         className={clsx(
           'h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1',
           core.ws.ui.isPlayground
-            ? 'min-w-[450px]'
+            ? 'min-w-[600px]'
             : core.ws.page == 'editor'
             ? 'min-w-[550px]'
             : 'min-w-[380px]'

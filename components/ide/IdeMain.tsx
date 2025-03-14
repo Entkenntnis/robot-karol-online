@@ -192,7 +192,7 @@ export function IdeMain() {
 
             <div
               className={clsx(
-                'flex-none h-8 bg-gray-50 min-w-[650px] flex justify-between items-start relative',
+                'flex-none h-8 bg-gray-50 flex justify-between items-start relative',
                 core.ws.settings.language == 'python' ||
                   core.ws.settings.mode == 'blocks'
                   ? 'min-w-[620px]'
