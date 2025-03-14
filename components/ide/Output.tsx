@@ -115,9 +115,12 @@ export function Output() {
               )}
             </div>
           </div>
-          {core.ws.ui.state === 'running' && core.ws.ui.proMode && varStr && (
-            <div className="absolute left-2 top-2">Variablen: {varStr}</div>
-          )}
+          {core.ws.ui.state === 'running' &&
+            core.ws.ui.proMode &&
+            core.ws.settings.language == 'java' &&
+            varStr && (
+              <div className="absolute left-2 top-2">Variablen: {varStr}</div>
+            )}
         </div>
         {core.ws.quest.lastStartedTask !== undefined && (
           <div className="absolute bottom-1.5 left-2 whitespace-nowrap">

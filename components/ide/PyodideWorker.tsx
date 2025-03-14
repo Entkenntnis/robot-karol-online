@@ -40,13 +40,14 @@ export function PyodideWorker() {
 
       run: async (code: string) => {
         karolWorker.postMessage({ type: 'run', code })
-        core.mutateWs(({ ui }) => {
+        core.mutateWs(({ ui, vm }) => {
           ui.state = 'running'
           ui.showJavaInfo = false
           ui.isManualAbort = false
           ui.isTestingAborted = false
           ui.isEndOfRun = false
           ui.karolCrashMessage = undefined
+          vm.isDebugging = false
         })
 
         return new Promise<void>((resolve) => {
