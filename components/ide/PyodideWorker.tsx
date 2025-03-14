@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useCore } from '../../lib/state/core'
 import { endExecution } from '../../lib/commands/vm'
+import { forward, left, right } from '../../lib/commands/world'
 
 export function PyodideWorker() {
   const core = useCore()
@@ -45,6 +46,15 @@ export function PyodideWorker() {
                 endExecution(core)
                 resolve()
                 karolWorker.removeEventListener('message', messageHandler)
+              }
+              if (event.data == 'action:schritt') {
+                forward(core)
+              }
+              if (event.data == 'action:linksDrehen') {
+                left(core)
+              }
+              if (event.data == 'action:rechtsDrehen') {
+                right(core)
               }
             }
           )
