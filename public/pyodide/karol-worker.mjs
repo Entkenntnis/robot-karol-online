@@ -10,8 +10,8 @@ self.onmessage = async (event) => {
       pyodide = await loadPyodide()
       console.log('Pyodide loaded')
       console.log(pyodide)
+      self.postMessage('ready')
     }
-    self.postMessage('ready')
   }
 
   if (event.data.type === 'run') {
