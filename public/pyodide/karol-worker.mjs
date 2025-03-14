@@ -34,6 +34,7 @@ self.onmessage = async (event) => {
         }
       },
     })
+    sleep(150)
     const result = await pyodide.runPythonAsync(event.data.code, { globals })
     console.log('Python code result:', result)
     self.postMessage('done')
