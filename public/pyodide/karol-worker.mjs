@@ -21,15 +21,31 @@ self.onmessage = async (event) => {
         return {
           schritt: () => {
             self.postMessage('action:schritt')
-            sleep(1000)
+            sleep(200)
           },
           linksDrehen: () => {
             self.postMessage('action:linksDrehen')
-            sleep(1000)
+            sleep(200)
           },
           rechtsDrehen: () => {
             self.postMessage('action:rechtsDrehen')
-            sleep(1000)
+            sleep(200)
+          },
+          hinlegen: () => {
+            self.postMessage('action:hinlegen')
+            sleep(200)
+          },
+          aufheben: () => {
+            self.postMessage('action:aufheben')
+            sleep(200)
+          },
+          markeSetzen: () => {
+            self.postMessage('action:markeSetzen')
+            sleep(200)
+          },
+          markeLöschen: () => {
+            self.postMessage('action:markeLöschen')
+            sleep(200)
           },
         }
       },
