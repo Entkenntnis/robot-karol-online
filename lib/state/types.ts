@@ -421,5 +421,6 @@ export interface EntryType {
 export interface PyodideWorker {
   init: () => Promise<void>
   run: (code: string) => Promise<void>
+  reset: () => void
   initDone: boolean
 }
