@@ -137,6 +137,10 @@ export function setupWorker(core: Core) {
       core.worker.backupWorker.postMessage('init')
       console.log('Starte Backup-Worker ...')
     }
+
+    core.mutateWs(({ ui }) => {
+      ui.state = 'ready'
+    })
   }
 
   core.worker.run = async (code: string) => {

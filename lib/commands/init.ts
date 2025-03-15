@@ -9,12 +9,13 @@ import { switchToPage } from './page'
 import { getAppearance, getLng } from '../storage/storage'
 import { isSetName } from '../helper/events'
 import { mapData } from '../data/map'
-import { setLng, showOverviewList } from './mode'
+import { setLng, setMode, showOverviewList } from './mode'
 import { createWorld } from '../state/create'
 import { QuestSerialFormat } from '../state/types'
 import { deserializeQuest } from './json'
 import { startQuest } from './quest'
 import { show } from 'blockly/core/contextmenu'
+import { setLanguage } from './language'
 
 export async function initClient(core: Core) {
   window.addEventListener('popstate', () => {
@@ -75,22 +76,21 @@ export async function initClient(core: Core) {
     const parts = hash.split('-')
     if (parts.length > 1) {
       const mode = parts[1]
+      core.mutateWs((ws) => {
+        ws.settings.mode = 'code'
+      })
       if (mode == 'CODE') {
         core.mutateWs((ws) => {
           ws.settings.mode = 'code'
           ws.settings.language = 'robot karol'
         })
       } else if (mode == 'PYTHON') {
-        core.mutateWs((ws) => {
-          ws.settings.mode = 'code'
-          ws.settings.language = 'python'
-          ws.ui.proMode = parts.length == 3 && parts[2] == 'PRO'
-        })
+        setLanguage(
+          core,
+          parts.length == 3 && parts[2] == 'PRO' ? 'python-pro' : 'python'
+        )
       } else if (mode == 'JAVA') {
-        core.mutateWs((ws) => {
-          ws.settings.mode = 'code'
-          ws.settings.language = 'java'
-        })
+        setLanguage(core, 'java')
       }
     }
     buildPlayground()

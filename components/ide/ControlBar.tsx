@@ -87,8 +87,7 @@ export function ControlBar() {
             className={clsx(
               'px-2 py-0.5 bg-purple-100 hover:bg-purple-200 rounded absolute -top-1.5 right-0',
               (core.ws.ui.state !== 'running' ||
-                (core.ws.settings.language == 'python' &&
-                  core.ws.ui.proMode)) &&
+                core.ws.settings.language == 'python-pro') &&
                 'invisible'
             )}
             onClick={() => {
