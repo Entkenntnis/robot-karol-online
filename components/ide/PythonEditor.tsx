@@ -147,8 +147,7 @@ export function lint(core: Core, view: EditorView) {
   resetUIAfterChange(core)
 
   if (core.ws.ui.proMode) {
-    if (core.worker?.initDone) {
-      console.log('patch, set ready')
+    if (core.worker?.mainWorkerReady) {
       core.mutateWs(({ ui }) => {
         ui.state = 'ready'
       })
