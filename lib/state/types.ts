@@ -419,8 +419,12 @@ export interface EntryType {
 }
 
 export interface PyodideWorker {
+  mainWorker: Worker | null
+  backupWorker: Worker | null
+  mainWorkerReady: boolean
+  backupWorkerReady: boolean
   init: () => Promise<void>
   run: (code: string) => Promise<void>
   reset: () => void
-  initDone: boolean
+  sharedArrayDelay: Int32Array
 }
