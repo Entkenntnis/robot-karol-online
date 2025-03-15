@@ -1,6 +1,6 @@
 import { EditorView } from '@codemirror/view'
 import { useEffect, useRef } from 'react'
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 
 import { setEditable } from '../../lib/codemirror/basicSetup'
@@ -218,20 +218,39 @@ export function EditArea() {
         {renderEditor()}
         {core.ws.ui.state == 'error' && (
           <div className="absolute left-20 right-12 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
-            <div className="flex justify-between mt-[9px]">
+            <div className="flex justify-between mt-[9px] relative">
               <div className="px-3 pb-1 pt-0">
-                <p className="mb-2">
-                  <FaIcon
-                    icon={faCircleExclamation}
-                    className="text-red-600 mr-2"
-                  />
-                  {core.strings.ide.problems}:
-                </p>
-                {core.ws.ui.errorMessages.map((err, i) => (
-                  <p className="mb-2" key={err + i.toString()}>
-                    {err}
-                  </p>
-                ))}
+                {core.ws.settings.language == 'python' && core.ws.ui.proMode ? (
+                  <>
+                    <pre>{core.ws.ui.errorMessages[0]}</pre>
+                    <button
+                      className="absolute -top-1 right-2"
+                      onClick={() => {
+                        core.mutateWs(({ ui }) => {
+                          ui.state = 'ready'
+                          ui.errorMessages = []
+                        })
+                      }}
+                    >
+                      <FaIcon icon={faTimes} />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <p className="mb-2">
+                      <FaIcon
+                        icon={faCircleExclamation}
+                        className="text-red-600 mr-2"
+                      />
+                      {core.strings.ide.problems}:
+                    </p>
+                    {core.ws.ui.errorMessages.map((err, i) => (
+                      <p className="mb-2" key={err + i.toString()}>
+                        {err}
+                      </p>
+                    ))}
+                  </>
+                )}
               </div>
             </div>
           </div>
