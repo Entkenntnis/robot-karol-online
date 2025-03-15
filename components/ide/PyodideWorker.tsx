@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useCore } from '../../lib/state/core'
-import { endExecution } from '../../lib/commands/vm'
+import { abort, endExecution, testCondition } from '../../lib/commands/vm'
 import {
   brick,
   forward,
@@ -10,7 +10,6 @@ import {
   setMark,
   unbrick,
 } from '../../lib/commands/world'
-import { reset } from 'canvas-confetti'
 
 export function PyodideWorker() {
   const core = useCore()
@@ -97,6 +96,27 @@ export function PyodideWorker() {
             }
             if (event.data == 'action:markeLöschen') {
               resetMark(core)
+            }
+            if (event.data.type && event.data.type == 'check') {
+              console.log('main thread check:istWand')
+              const { sharedBuffer, condition } = event.data
+              const sharedArray = new Int32Array(sharedBuffer)
+              sharedArray[0] = testCondition(core, JSON.parse(condition))
+                ? 1
+                : 0
+
+              console.log('main thread check:istWand', sharedArray[0])
+
+              Atomics.notify(sharedArray, 0)
+              console.log('main thread notify done')
+            }
+            if (event.data.type && event.data.type == 'error') {
+              console.log(event.data, event.data.message)
+              endExecution(core)
+              core.mutateWs(({ ui }) => {
+                ui.state = 'error'
+                ui.errorMessages = [event.data.error]
+              })
             }
           }
 
