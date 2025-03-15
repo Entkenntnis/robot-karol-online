@@ -75,27 +75,27 @@ export function PyodideWorker() {
                 messageHandler
               )
             }
-            if (event.data == 'action:schritt') {
-              forward(core)
-            }
-            if (event.data == 'action:linksDrehen') {
-              left(core)
-            }
-            if (event.data == 'action:rechtsDrehen') {
-              right(core)
-            }
-
-            if (event.data == 'action:hinlegen') {
-              brick(core)
-            }
-            if (event.data == 'action:aufheben') {
-              unbrick(core)
-            }
-            if (event.data == 'action:markeSetzen') {
-              setMark(core)
-            }
-            if (event.data == 'action:markeLöschen') {
-              resetMark(core)
+            if (
+              event.data &&
+              typeof event.data === 'object' &&
+              event.data.type === 'action'
+            ) {
+              const action = event.data.action
+              if (action === 'schritt') {
+                forward(core)
+              } else if (action === 'linksDrehen') {
+                left(core)
+              } else if (action === 'rechtsDrehen') {
+                right(core)
+              } else if (action === 'hinlegen') {
+                brick(core)
+              } else if (action === 'aufheben') {
+                unbrick(core)
+              } else if (action === 'markeSetzen') {
+                setMark(core)
+              } else if (action === 'markeLöschen') {
+                resetMark(core)
+              }
             }
             if (event.data.type && event.data.type == 'check') {
               console.log('main thread check:istWand')
