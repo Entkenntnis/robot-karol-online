@@ -38,7 +38,7 @@ export function startButtonClicked(core: Core) {
           Date.now() - (ws.vm.steps + 1) * sliderToDelay(ws.ui.speedSliderValue)
       })
     } else {
-      if (core.ws.settings.language == 'python' && core.ws.ui.proMode) {
+      if (core.ws.settings.language == 'python-pro') {
         core.worker?.reset()
       } else {
         abort(core)

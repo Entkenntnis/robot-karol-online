@@ -13,14 +13,14 @@ export function PyodideWorker() {
 
   useEffect(() => {
     if (core.worker) {
-      if (core.ws.settings.language == 'python' && core.ws.ui.proMode) {
+      if (core.ws.settings.language == 'python-pro') {
         core.mutateWs(({ ui }) => {
           ui.state = 'loading'
         })
         core.worker.init()
       }
     }
-  }, [core, core.worker, core.ws.settings.language, core.ws.ui.proMode])
+  }, [core, core.worker, core.ws.settings.language])
 
   return null
 }

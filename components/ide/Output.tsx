@@ -200,7 +200,7 @@ export function Output() {
             </button>
           )}
       </div>
-      {core.ws.settings.language == 'python' && core.ws.ui.proMode && (
+      {core.ws.settings.language == 'python-pro' && (
         <div className="absolute bottom-12 left-2 bg-gray-50">
           {core.ws.ui.messages.map((m) => (
             <div key={`${m.ts}-${m.text}`} className="max-w-full">

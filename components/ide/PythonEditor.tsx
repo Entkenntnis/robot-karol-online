@@ -112,7 +112,10 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
               if (e.transactions.length > 0) {
                 const t = e.transactions[0]
                 if (t.docChanged) {
-                  if (core.ws.ui.state == 'ready' && !core.ws.ui.proMode) {
+                  if (
+                    core.ws.ui.state == 'ready' &&
+                    core.ws.settings.language != 'python-pro'
+                  ) {
                     setLoading(core)
                   }
                 }
@@ -146,7 +149,7 @@ export function lint(core: Core, view: EditorView) {
 
   resetUIAfterChange(core)
 
-  if (core.ws.ui.proMode) {
+  if (core.ws.settings.language == 'python-pro') {
     if (core.worker?.mainWorkerReady) {
       core.mutateWs(({ ui }) => {
         ui.state = 'ready'

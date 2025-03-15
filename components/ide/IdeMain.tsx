@@ -194,8 +194,7 @@ export function IdeMain() {
             <div
               className={clsx(
                 'flex-none h-8 bg-gray-50 flex justify-between items-start relative',
-                core.ws.settings.language == 'python' ||
-                  core.ws.settings.mode == 'blocks'
+                core.ws.settings.mode == 'blocks'
                   ? 'min-w-[620px]'
                   : 'min-w-[450px]'
               )}
@@ -270,8 +269,11 @@ export function IdeMain() {
                             disabled={dontChangeLanguage}
                           >
                             <option value="robot karol">Robot Karol</option>
-                            <option value="python">Python</option>
                             <option value="java">Java</option>
+                            <option value="python">Python</option>
+                            {window.location.hostname == 'localhost' && (
+                              <option value="python-pro">Python Pro</option>
+                            )}
                           </select>{' '}
                         </div>
                       )}
@@ -283,34 +285,6 @@ export function IdeMain() {
                     {core.strings.ide.blockExplainer}
                   </div>
                 )}
-                {core.ws.settings.mode == 'code' &&
-                  core.ws.settings.language == 'python' &&
-                  (core.ws.ui.proMode ||
-                    window.location.hostname == 'localhost') && (
-                    <div className="ml-3 mt-1 max-h-6 overflow-hidden">
-                      <label
-                        className={clsx(
-                          core.ws.ui.state === 'running'
-                            ? 'cursor-default'
-                            : 'cursor-pointer'
-                        )}
-                      >
-                        <input
-                          type="checkbox"
-                          className="cursor-pointer disabled:cursor-default"
-                          checked={core.ws.ui.proMode}
-                          disabled={core.ws.ui.state === 'running'}
-                          onChange={(e) => {
-                            core.mutateWs(({ ui }) => {
-                              ui.proMode = e.target.checked
-                            })
-                            updatePlaygroundHashToMode(core)
-                          }}
-                        />{' '}
-                        Profi-Modus (Python 3.12)
-                      </label>
-                    </div>
-                  )}
               </div>
               <div className="max-h-7 overflow-hidden">
                 <button
@@ -435,16 +409,14 @@ export function IdeMain() {
                         core.ws.ui.state == 'running' && !core.ws.vm.isDebugging
                           ? faStop
                           : core.ws.ui.state == 'loading' &&
-                            core.ws.ui.proMode &&
-                            core.ws.settings.language == 'python'
+                            core.ws.settings.language == 'python-pro'
                           ? faSpinner
                           : faPlay
                       }
                       className={clsx(
                         'mr-2',
                         core.ws.ui.state == 'loading' &&
-                          core.ws.ui.proMode &&
-                          core.ws.settings.language == 'python' &&
+                          core.ws.settings.language == 'python-pro' &&
                           'animate-spin-slow'
                       )}
                     />

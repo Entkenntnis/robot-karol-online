@@ -44,7 +44,8 @@ export function EditArea() {
           insert:
             core.ws.settings.language == 'robot karol'
               ? core.ws.code
-              : core.ws.settings.language == 'python'
+              : core.ws.settings.language == 'python' ||
+                core.ws.settings.language == 'python-pro'
               ? core.ws.pythonCode
               : core.ws.javaCode,
         },
@@ -95,7 +96,7 @@ export function EditArea() {
   if (core.ws.settings.mode == 'code') {
     return (
       <div className="h-full flex flex-col overflow-y-auto relative">
-        {core.ws.settings.language === 'python' && !core.ws.ui.proMode && (
+        {core.ws.settings.language === 'python' && (
           <>
             <div className="bg-gray-100 pr-32 py-2 flex items-baseline ">
               <div className="mr-4 ml-3 h-[48px]">Einfügen:</div>
@@ -215,12 +216,39 @@ export function EditArea() {
             </div>
           </>
         )}
+        {core.ws.settings.language === 'python-pro' && (
+          <>
+            <div className="bg-gray-100 pr-32 py-2 pl-3">
+              <a
+                href="https://pyodide.org/en/stable/"
+                target="_blank"
+                className="italic text-gray-500 text-sm"
+              >
+                Pyodide/CPython 3.12
+              </a>
+              <a
+                href="https://quickref.me/python.html"
+                target="_blank"
+                className="ml-5 link"
+              >
+                Spickzettel
+              </a>
+              <a
+                href="https://quickref.me/python.html"
+                target="_blank"
+                className="ml-5 link"
+              >
+                Beispiele
+              </a>
+            </div>
+          </>
+        )}
         {renderEditor()}
         {core.ws.ui.state == 'error' && (
           <div className="absolute left-20 right-12 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
             <div className="flex justify-between mt-[9px] relative">
               <div className="px-3 pb-1 pt-0">
-                {core.ws.settings.language == 'python' && core.ws.ui.proMode ? (
+                {core.ws.settings.language == 'python-pro' ? (
                   <>
                     <pre>{core.ws.ui.errorMessages[0]}</pre>
                     <button
