@@ -19,39 +19,54 @@ self.onmessage = async (event) => {
     const globals = pyodide.toPy({
       Robot: () => {
         return {
-          schritt: () => {
-            self.postMessage('action:schritt')
+          schritt: (n = 1) => {
+            const count = isNaN(n) ? 1 : n
+            for (let i = 0; i < count; i++) {
+              self.postMessage({ type: 'action', action: 'schritt' })
+              sleep(200)
+            }
+          },
+          linksDrehen: (n = 1) => {
+            const count = isNaN(n) ? 1 : n
+            for (let i = 0; i < count; i++) {
+              self.postMessage({ type: 'action', action: 'linksDrehen' })
+              sleep(200)
+            }
+          },
+          rechtsDrehen: (n = 1) => {
+            const count = isNaN(n) ? 1 : n
+            for (let i = 0; i < count; i++) {
+              self.postMessage({ type: 'action', action: 'rechtsDrehen' })
+              sleep(200)
+            }
+          },
+          hinlegen: (n = 1) => {
+            const count = isNaN(n) ? 1 : n
+            for (let i = 0; i < count; i++) {
+              self.postMessage({ type: 'action', action: 'hinlegen' })
+              sleep(200)
+            }
+          },
+          aufheben: (n = 1) => {
+            const count = isNaN(n) ? 1 : n
+            for (let i = 0; i < count; i++) {
+              self.postMessage({ type: 'action', action: 'aufheben' })
+              sleep(200)
+            }
+          },
+          markeSetzen: (n = 1) => {
+            self.postMessage({ type: 'action', action: 'markeSetzen' })
             sleep(200)
           },
-          linksDrehen: () => {
-            self.postMessage('action:linksDrehen')
+          markeLöschen: (n = 1) => {
+            self.postMessage({ type: 'action', action: 'markeLöschen' })
             sleep(200)
           },
-          rechtsDrehen: () => {
-            self.postMessage('action:rechtsDrehen')
-            sleep(200)
+          istWand: (direction = null) => {
+            return checkCondition({ type: 'wall', negated: false, direction })
           },
-          hinlegen: () => {
-            self.postMessage('action:hinlegen')
-            sleep(200)
-          },
-          aufheben: () => {
-            self.postMessage('action:aufheben')
-            sleep(200)
-          },
-          markeSetzen: () => {
-            self.postMessage('action:markeSetzen')
-            sleep(200)
-          },
-          markeLöschen: () => {
-            self.postMessage('action:markeLöschen')
-            sleep(200)
-          },
-          istWand: () => {
-            return checkCondition({ type: 'wall', negated: false })
-          },
-          nichtIstWand: () => {
-            return checkCondition({ type: 'wall', negated: true })
+          nichtIstWand: (direction = null) => {
+            return checkCondition({ type: 'wall', negated: true, direction })
           },
           istMarke: () => {
             return checkCondition({ type: 'mark', negated: false })
@@ -59,11 +74,11 @@ self.onmessage = async (event) => {
           nichtIstMarke: () => {
             return checkCondition({ type: 'mark', negated: true })
           },
-          istZiegel: () => {
-            return checkCondition({ type: 'brick', negated: false })
+          istZiegel: (count = undefined) => {
+            return checkCondition({ type: 'brick', negated: false, count })
           },
-          nichtIstZiegel: () => {
-            return checkCondition({ type: 'brick', negated: true })
+          nichtIstZiegel: (count = undefined) => {
+            return checkCondition({ type: 'brick', negated: true, count })
           },
           istNorden: () => {
             return checkCondition({ type: 'north', negated: false })
