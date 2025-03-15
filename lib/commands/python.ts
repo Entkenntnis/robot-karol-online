@@ -1,6 +1,7 @@
 import { Shared } from '../../components/pages/Shared'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
+import { addMessage } from './messages'
 import { endExecution, testCondition } from './vm'
 import {
   forward,
@@ -76,6 +77,9 @@ export function setupWorker(core: Core) {
       } else if (action === 'markeLöschen') {
         resetMark(core)
       }
+    }
+    if (event.data.type && event.data.type == 'stdout') {
+      addMessage(core, event.data.text)
     }
     if (event.data.type && event.data.type == 'check') {
       // console.log('main thread check:istWand')
