@@ -200,6 +200,16 @@ export function Output() {
             </button>
           )}
       </div>
+      {core.ws.settings.language == 'python' && core.ws.ui.proMode && (
+        <div className="absolute bottom-12 left-2 bg-gray-50">
+          {core.ws.ui.messages.map((m) => (
+            <div key={`${m.ts}-${m.text}`} className="max-w-full">
+              {m.text}
+              {m.count > 1 && <span> (x{m.count})</span>}
+            </div>
+          ))}
+        </div>
+      )}
       <div className="max-h-[30%] flex-grow flex-shrink-0 overflow-auto bg-gray-100 pl-32">
         {core.ws.ui.isTesting && <TaskRunnerOverview />}
       </div>

@@ -117,6 +117,11 @@ self.onmessage = async (event) => {
     })
     sleep(150)
     try {
+      pyodide.setStdout({
+        batched: (text) => {
+          self.postMessage({ type: 'stdout', text })
+        },
+      })
       const result = await pyodide.runPythonAsync(event.data.code, { globals })
       console.log('Python code result:', result)
     } catch (error) {
