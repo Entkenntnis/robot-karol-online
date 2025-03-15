@@ -91,6 +91,9 @@ export function setSpeedSliderValue(core: Core, val: number) {
     const excessTime = now - ws.vm.startTime - ws.vm.steps * previousDelay
     ws.vm.startTime = Date.now() - ws.vm.steps * delay - excessTime
   })
+  if (core.worker) {
+    core.worker.sharedArrayDelay[0] = sliderToDelay(core.ws.ui.speedSliderValue)
+  }
 }
 
 export function editCodeAndResetProgress(core: Core) {

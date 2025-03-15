@@ -1,21 +1,29 @@
 // webworker.mjs
 import { loadPyodide } from '/pyodide/pyodide.mjs'
 
+let initStarted = false
 let pyodide = null
 
+let delay = new Int32Array(1)
+
 self.onmessage = async (event) => {
-  console.log('Worker received message:', event.data, event.type)
-  if (event.data.type === 'init') {
-    if (!pyodide) {
+  if (event.data == 'init') {
+    if (pyodide) {
+      self.postMessage('ready')
+      return
+    }
+    if (!initStarted) {
+      initStarted = true
       pyodide = await loadPyodide()
-      console.log('Pyodide loaded')
-      console.log(pyodide)
+      pyodide.runPython(`import sys; sys.version`)
+      console.log('Pyodide warmup abgeschlossen')
       self.postMessage('ready')
     }
   }
 
   if (event.data.type === 'run') {
-    console.log('Running Python code:', event.data.code)
+    delay = new Int32Array(event.data.delayBuffer)
+    // console.log('Running Python code:', event.data.code)
     const globals = pyodide.toPy({
       Robot: () => {
         return {
@@ -23,44 +31,44 @@ self.onmessage = async (event) => {
             const count = isNaN(n) ? 1 : n
             for (let i = 0; i < count; i++) {
               self.postMessage({ type: 'action', action: 'schritt' })
-              sleep(200)
+              sleepWithDelay()
             }
           },
           linksDrehen: (n = 1) => {
             const count = isNaN(n) ? 1 : n
             for (let i = 0; i < count; i++) {
               self.postMessage({ type: 'action', action: 'linksDrehen' })
-              sleep(200)
+              sleepWithDelay()
             }
           },
           rechtsDrehen: (n = 1) => {
             const count = isNaN(n) ? 1 : n
             for (let i = 0; i < count; i++) {
               self.postMessage({ type: 'action', action: 'rechtsDrehen' })
-              sleep(200)
+              sleepWithDelay()
             }
           },
           hinlegen: (n = 1) => {
             const count = isNaN(n) ? 1 : n
             for (let i = 0; i < count; i++) {
               self.postMessage({ type: 'action', action: 'hinlegen' })
-              sleep(200)
+              sleepWithDelay()
             }
           },
           aufheben: (n = 1) => {
             const count = isNaN(n) ? 1 : n
             for (let i = 0; i < count; i++) {
               self.postMessage({ type: 'action', action: 'aufheben' })
-              sleep(200)
+              sleepWithDelay()
             }
           },
           markeSetzen: (n = 1) => {
             self.postMessage({ type: 'action', action: 'markeSetzen' })
-            sleep(200)
+            sleepWithDelay()
           },
           markeLöschen: (n = 1) => {
             self.postMessage({ type: 'action', action: 'markeLöschen' })
-            sleep(200)
+            sleepWithDelay()
           },
           istWand: (direction = null) => {
             return checkCondition({ type: 'wall', negated: false, direction })
@@ -117,6 +125,14 @@ self.onmessage = async (event) => {
       return
     }
     self.postMessage('done')
+  }
+}
+
+function sleepWithDelay() {
+  let startTime = performance.now()
+
+  while (performance.now() - startTime < delay[0]) {
+    sleep(Math.min(100, delay[0] - (performance.now() - startTime)))
   }
 }
 

@@ -274,6 +274,9 @@ function karolCrashed(core: Core, error: string) {
     core.mutateWs(({ ui }) => {
       ui.karolCrashMessage = error
     })
+    if (core.worker) {
+      core.worker.reset()
+    }
     endExecution(core)
   }
 }

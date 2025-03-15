@@ -1,147 +1,13 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useCore } from '../../lib/state/core'
-import { abort, endExecution, testCondition } from '../../lib/commands/vm'
-import {
-  brick,
-  forward,
-  left,
-  resetMark,
-  right,
-  setMark,
-  unbrick,
-} from '../../lib/commands/world'
+import { setupWorker } from '../../lib/commands/python'
 
 export function PyodideWorker() {
   const core = useCore()
-  const karolWorkerRef = useRef<Worker | null>(null)
 
   useEffect(() => {
-    console.log('create new worker')
-    karolWorkerRef.current = new Worker('/pyodide/karol-worker.mjs', {
-      type: 'module',
-    })
-
-    core.worker = {
-      initDone: false,
-      init: async () => {
-        if (core.worker?.initDone) {
-          core.mutateWs(({ ui }) => {
-            ui.state = 'ready'
-          })
-          return
-        }
-
-        karolWorkerRef.current?.postMessage({ type: 'init' })
-
-        return new Promise<void>((resolve) => {
-          const handler = (event: MessageEvent) => {
-            if (event.data === 'ready') {
-              karolWorkerRef.current?.removeEventListener('message', handler)
-              core.mutateWs(({ ui }) => {
-                ui.state = 'ready'
-              })
-              core.worker!.initDone = true
-              console.log('pyodide ready')
-              resolve()
-            }
-          }
-
-          karolWorkerRef.current?.addEventListener('message', handler)
-        })
-      },
-
-      run: async (code: string) => {
-        karolWorkerRef.current?.postMessage({ type: 'run', code })
-        core.mutateWs(({ ui, vm }) => {
-          ui.state = 'running'
-          ui.showJavaInfo = false
-          ui.isManualAbort = false
-          ui.isTestingAborted = false
-          ui.isEndOfRun = false
-          ui.karolCrashMessage = undefined
-          vm.isDebugging = false
-        })
-
-        return new Promise<void>((resolve) => {
-          const messageHandler = (event: MessageEvent) => {
-            if (event.data === 'done') {
-              core.mutateWs(({ ui }) => {
-                ui.state = 'ready'
-              })
-              endExecution(core)
-              resolve()
-              karolWorkerRef.current?.removeEventListener(
-                'message',
-                messageHandler
-              )
-            }
-            if (
-              event.data &&
-              typeof event.data === 'object' &&
-              event.data.type === 'action'
-            ) {
-              const action = event.data.action
-              if (action === 'schritt') {
-                forward(core)
-              } else if (action === 'linksDrehen') {
-                left(core)
-              } else if (action === 'rechtsDrehen') {
-                right(core)
-              } else if (action === 'hinlegen') {
-                brick(core)
-              } else if (action === 'aufheben') {
-                unbrick(core)
-              } else if (action === 'markeSetzen') {
-                setMark(core)
-              } else if (action === 'markeLöschen') {
-                resetMark(core)
-              }
-            }
-            if (event.data.type && event.data.type == 'check') {
-              console.log('main thread check:istWand')
-              const { sharedBuffer, condition } = event.data
-              const sharedArray = new Int32Array(sharedBuffer)
-              sharedArray[0] = testCondition(core, JSON.parse(condition))
-                ? 1
-                : 0
-
-              console.log('main thread check:istWand', sharedArray[0])
-
-              Atomics.notify(sharedArray, 0)
-              console.log('main thread notify done')
-            }
-            if (event.data.type && event.data.type == 'error') {
-              console.log(event.data, event.data.message)
-              endExecution(core)
-              core.mutateWs(({ ui }) => {
-                ui.state = 'error'
-                ui.errorMessages = [event.data.error]
-              })
-            }
-          }
-
-          karolWorkerRef.current?.addEventListener('message', messageHandler)
-        })
-      },
-
-      reset: () => {
-        karolWorkerRef.current?.terminate()
-        core.mutateWs(({ ui }) => {
-          ui.state = 'loading'
-          ui.isManualAbort = true
-          ui.isEndOfRun = true
-        })
-        karolWorkerRef.current = new Worker('/pyodide/karol-worker.mjs', {
-          type: 'module',
-        })
-        core.worker!.initDone = false
-        core.worker?.init()
-      },
-    }
-
-    return () => {
-      karolWorkerRef.current?.terminate()
-      karolWorkerRef.current = null
+    if (!core.worker) {
+      setupWorker(core)
     }
   }, [core])
 
@@ -151,7 +17,6 @@ export function PyodideWorker() {
         core.mutateWs(({ ui }) => {
           ui.state = 'loading'
         })
-        console.log('Loading pyodide...')
         core.worker.init()
       }
     }
