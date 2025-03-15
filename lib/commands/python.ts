@@ -97,7 +97,7 @@ export function setupWorker(core: Core) {
       endExecution(core)
       core.mutateWs(({ ui }) => {
         ui.state = 'error'
-        ui.errorMessages = [event.data.error]
+        ui.errorMessages = [filterTraceback(event.data.error)]
       })
     }
   }
@@ -205,4 +205,53 @@ export function setupWorker(core: Core) {
 
 export async function runPythonCode(core: Core) {
   await core.worker?.run(core.ws.pythonCode)
+}
+
+function filterTraceback(traceback: string): string {
+  // Split the traceback into individual lines.
+  const lines = traceback.split('\n')
+
+  // Define patterns that indicate uninteresting (internal) lines.
+  // You can add more regex patterns here as needed.
+  const uninterestingPatterns = [
+    /\/lib\/python[^"]*/, // Lines from system libraries
+    /_pyodide/, // Pyodide internals
+  ]
+
+  const result: string[] = []
+  // A flag to indicate that the previous frame was uninteresting,
+  // so we skip its following indented (code snippet) lines.
+  let skipBlock = false
+
+  for (const line of lines) {
+    // If the line is a traceback frame line (typically starts with "  File")
+    if (/^\s*File /.test(line)) {
+      // Check if the line matches any uninteresting pattern.
+      let isInteresting = true
+      for (const pattern of uninterestingPatterns) {
+        if (pattern.test(line)) {
+          isInteresting = false
+          break
+        }
+      }
+      if (isInteresting) {
+        result.push(line)
+        skipBlock = false // This frame is interesting, so include subsequent indented lines.
+      } else {
+        skipBlock = true // Skip this frame and its following indented code.
+      }
+    } else if (/^\s/.test(line)) {
+      // This line is indented (likely part of a traceback frame)
+      // Only include it if we are not in a skip block.
+      if (!skipBlock) {
+        result.push(line)
+      }
+    } else {
+      // Non-indented lines (like the header or final error message) are always kept.
+      result.push(line)
+      skipBlock = false
+    }
+  }
+
+  return result.join('\n')
 }
