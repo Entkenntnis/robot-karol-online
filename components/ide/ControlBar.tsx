@@ -18,6 +18,7 @@ import { positiveText } from '../../lib/helper/positiveText'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
+import { twoWorldsEqual } from '../../lib/commands/world'
 
 export function ControlBar() {
   const core = useCore()
@@ -161,7 +162,10 @@ export function ControlBar() {
       )
     } else {
       if (core.ws.ui.isEndOfRun) {
-        if (core.ws.page == 'imported') {
+        if (
+          core.ws.page == 'imported' ||
+          core.ws.quest.tasks.some((task) => task.target === null)
+        ) {
           return (
             <span>
               <FaIcon icon={faGenderless} className="mr-1" />{' '}

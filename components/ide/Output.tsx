@@ -33,11 +33,12 @@ export function Output() {
     .map((entry) => `${entry[0]} = ${entry[1]}`)
     .join(', ')
 
-  const preview =
-    core.ws.ui.showPreviewOfTarget &&
+  const hasPreview =
     core.ws.quest.lastStartedTask !== undefined &&
-    core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target &&
-    core.ws.ui.showPreview
+    !!core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target
+
+  const preview =
+    core.ws.ui.showPreviewOfTarget && hasPreview && core.ws.ui.showPreview
       ? {
           world: core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!,
         }
@@ -182,23 +183,25 @@ export function Output() {
                 {core.strings.editor.changeSize}
               </button>
             )}
-            {!core.ws.ui.isPlayground && !core.ws.ui.isTesting && (
-              <span className="ml-12 bg-white/80 rounded p-1">
-                <label className="select-none cursor-pointer text-gray-600">
-                  <input
-                    type="checkbox"
-                    className="cursor-pointer"
-                    checked={core.ws.ui.showPreview}
-                    onChange={(e) => {
-                      core.mutateWs((ws) => {
-                        ws.ui.showPreview = e.target.checked
-                      })
-                    }}
-                  />{' '}
-                  {core.strings.ide.preview}
-                </label>
-              </span>
-            )}
+            {!core.ws.ui.isPlayground &&
+              !core.ws.ui.isTesting &&
+              hasPreview && (
+                <span className="ml-12 bg-white/80 rounded p-1">
+                  <label className="select-none cursor-pointer text-gray-600">
+                    <input
+                      type="checkbox"
+                      className="cursor-pointer"
+                      checked={core.ws.ui.showPreview}
+                      onChange={(e) => {
+                        core.mutateWs((ws) => {
+                          ws.ui.showPreview = e.target.checked
+                        })
+                      }}
+                    />{' '}
+                    {core.strings.ide.preview}
+                  </label>
+                </span>
+              )}
             {!core.ws.ui.isTesting && (
               <span className="ml-6 bg-white/80 rounded p-1">
                 <label className="select-none cursor-pointer text-gray-600">
