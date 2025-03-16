@@ -65,6 +65,7 @@ export interface Ui {
   sharedQuestId?: string
   collapseDescription: boolean
   initDone: boolean
+  inputPrompt?: string
 }
 
 export interface Vm {
@@ -426,5 +427,6 @@ export interface PyodideWorker {
   init: () => Promise<void>
   run: (code: string) => Promise<void>
   reset: () => void
+  input: (input: string) => void
   sharedArrayDelay: Int32Array
 }
