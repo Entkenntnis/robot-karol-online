@@ -1,12 +1,8 @@
 # Material für Lehrkräfte
 
-## Python-Kurs
+## Musterlösung zu den Aufgaben
 
-<a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/Pythonkurs_mit_Robot_Karol_Online.pdf">Pythonkurs mit Robot Karol Online</a>
-
-## Präsentations-Folien zur Vorstellung von Robot Karol Online
-
-<a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/robot_karol_online_vorstellung.pdf">Folien zur Vorstellung von Robot Karol</a>
+Bitte schreibe mir unter karol@arrrg.de um die Musterlösung zu Aufgaben im Selbst-Lern-Pfad zu erhalten.
 
 ## Dokumentation
 
@@ -16,6 +12,14 @@ Eine Übersicht über den Funktionsumfang und die Befehle findest du in der [Dok
 
 Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION).
 
-## Musterlösung zu den Aufgaben
+## Python-Kurs
 
-Bitte schreibe mir unter karol@arrrg.de um die Musterlösung zu Aufgaben im Selbst-Lern-Pfad zu erhalten.
+<a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/Pythonkurs_mit_Robot_Karol_Online.pdf">Pythonkurs mit Robot Karol Online</a>
+
+## Beispiele für den Python Pro Modus
+
+Hier sind ein paar nette Programme an der Schnittstelle zwischen Robot Karol und Python.
+
+### TODO BEISPIEL 1
+
+todo
