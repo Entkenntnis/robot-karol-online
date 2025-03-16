@@ -264,9 +264,7 @@ export function IdeMain() {
                             <option value="robot karol">Robot Karol</option>
                             <option value="java">Java</option>
                             <option value="python">Python</option>
-                            {window.location.hostname == 'localhost' && (
-                              <option value="python-pro">Python Pro</option>
-                            )}
+                            {<option value="python-pro">Python Pro</option>}
                           </select>{' '}
                         </div>
                       )}
