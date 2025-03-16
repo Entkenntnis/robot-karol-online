@@ -233,11 +233,16 @@ export function Output() {
           )}
       </div>
       {core.ws.settings.language == 'python-pro' && (
-        <div className="absolute bottom-12 left-2 bg-gray-50">
+        <div className="absolute bottom-12 left-2">
           {core.ws.ui.messages.map((m) => (
-            <div key={`${m.ts}-${m.text}`} className="max-w-full">
-              {m.text}
-              {m.count > 1 && <span> (x{m.count})</span>}
+            <div
+              key={`${m.ts}-${m.text}`}
+              className="max-w-full py-1 px-2 rounded"
+            >
+              <span className="bg-gray-50 rounded px-2 py-0.5">
+                {m.text}
+                {m.count > 1 && <span> (x{m.count})</span>}
+              </span>
             </div>
           ))}
         </div>

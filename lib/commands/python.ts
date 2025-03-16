@@ -1,7 +1,7 @@
 import { Shared } from '../../components/pages/Shared'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
-import { addMessage } from './messages'
+import { addConsoleMessage, addMessage } from './messages'
 import { endExecution, testCondition } from './vm'
 import {
   forward,
@@ -80,7 +80,7 @@ export function setupWorker(core: Core) {
       }
     }
     if (event.data.type && event.data.type == 'stdout') {
-      addMessage(core, event.data.text)
+      addConsoleMessage(core, event.data.text)
     }
     if (event.data.type && event.data.type == 'check') {
       // console.log('main thread check:istWand')
@@ -108,10 +108,8 @@ export function setupWorker(core: Core) {
       const dataArray = new Uint8Array(buffer, 8)
 
       core.mutateWs(({ ui }) => {
-        ui.inputPrompt =
-          ui.messages.length > 0
-            ? ui.messages[ui.messages.length - 1].text
-            : 'Eingabe:'
+        const lastMessage = ui.messages.pop()
+        ui.inputPrompt = lastMessage?.text ?? 'Eingabe:'
       })
 
       core.worker.input = (input: string) => {
@@ -126,11 +124,8 @@ export function setupWorker(core: Core) {
 
         Atomics.notify(syncArray, 0)
 
+        addConsoleMessage(core, '> ' + core.ws.ui.inputPrompt + ' ' + input)
         core.mutateWs(({ ui }) => {
-          if (ui.messages.length > 0) {
-            const lastMessage = ui.messages[ui.messages.length - 1]
-            lastMessage.text += input
-          }
           ui.inputPrompt = undefined
         })
       }
@@ -204,6 +199,8 @@ export function setupWorker(core: Core) {
       ui.isEndOfRun = false
       ui.karolCrashMessage = undefined
       vm.isDebugging = false
+      ui.messages = []
+      ui.inputPrompt = undefined
     })
   }
 
@@ -238,6 +235,8 @@ export function setupWorker(core: Core) {
     core.mutateWs(({ ui }) => {
       ui.isManualAbort = true
       ui.isEndOfRun = true
+      ui.inputPrompt = undefined
+      ui.messages = []
     })
   }
 }
