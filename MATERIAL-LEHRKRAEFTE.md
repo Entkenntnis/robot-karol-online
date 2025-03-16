@@ -20,4 +20,32 @@ Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION
 
 Hier sind ein paar nette Programme an der Schnittstelle zwischen Robot Karol und Python. Vielleicht habe ich einfach zu viel Zeit. Viel Spaß mit den Beispielen.
 
-### TODO BEISPIEL 1
+### Würfel
+
+Gerade kein Würfel zur Hand? Dann lasse dir doch von Karol helfen.
+
+![grafik](https://github.com/user-attachments/assets/300142e7-d3e2-48a4-96ea-59df5a71fc24)
+
+https://karol.arrrg.de/#N5H7
+
+```py
+import random
+
+karol = Robot()
+
+num = random.randint(1, 6)
+
+def kehreZurück():
+    < ... >
+
+if num == 1:
+    karol.schritt(3)
+    karol.linksDrehen()
+    karol.schritt(3)
+    karol.markeSetzen()
+    kehreZurück()
+elif num == 2:
+   < ... >
+elif num == 3:
+  < ... >
+```
