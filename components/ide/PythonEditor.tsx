@@ -149,17 +149,24 @@ export function lint(core: Core, view: EditorView) {
 
   resetUIAfterChange(core)
 
+  const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
+  const { warnings, output, rkCode } = compilePython(tree, view.state.doc)
+
   if (core.ws.settings.language == 'python-pro') {
     if (core.worker?.mainWorkerReady) {
       core.mutateWs(({ ui }) => {
         ui.state = 'ready'
       })
     }
+    core.mutateWs((ws) => {
+      ws.ui.pythonProCanSwitch = warnings.length == 0
+      if (rkCode !== undefined) {
+        ws.code = rkCode
+      }
+    })
     return []
   }
 
-  const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
-  const { warnings, output, rkCode } = compilePython(tree, view.state.doc)
   warnings.sort((a, b) => a.from - b.from)
 
   if (warnings.length == 0) {
@@ -167,7 +174,6 @@ export function lint(core: Core, view: EditorView) {
     if (rkCode !== undefined) {
       core.mutateWs((ws) => {
         ws.code = rkCode
-        ws.ui.toBlockWarning = false
       })
     }
   } else {

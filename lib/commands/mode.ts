@@ -41,18 +41,9 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
       //alert('Löse bitte vor dem Wechsel des Modus alle Probleme im Programm.')
       return
     }
-    if (core.ws.ui.toBlockWarning) {
-      alert(
-        core.ws.settings.language == 'robot karol'
-          ? 'Mehrzeilige Kommentare und return sind nur im Code-Editor verfügbar.'
-          : 'Du verwendest Funktionen von Java, die nicht in Blöcken oder Robot Karol Code darstellbar sind. Eine Konvertierung ist im Moment nicht möglich.'
-      )
-      return
-    }
   }
   core.mutateWs(({ settings, ui }) => {
     settings.mode = mode
-    ui.toBlockWarning = false
     ui.gutter = 0
     ui.breakpoints = []
   })

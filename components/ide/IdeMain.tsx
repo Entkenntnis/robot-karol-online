@@ -105,7 +105,9 @@ export function IdeMain() {
   }, [core, core.ws.ui.isHighlightDescription])
 
   const dontChangeLanguage =
-    core.ws.ui.state !== 'ready' || !!core.ws.ui.lockLanguage
+    core.ws.ui.state !== 'ready' ||
+    !!core.ws.ui.lockLanguage ||
+    !core.ws.ui.pythonProCanSwitch
 
   return (
     <>
@@ -142,21 +144,18 @@ export function IdeMain() {
                       core.ws.settings.mode == 'blocks'
                         ? 'border-t-blue-500'
                         : 'border-t-transparent',
-                      core.ws.settings.mode == 'code' &&
-                        (core.ws.ui.state === 'error' ||
-                          core.ws.ui.state === 'running' ||
-                          core.ws.ui.toBlockWarning ||
-                          core.ws.quest.testerHandler ||
-                          core.ws.ui.proMode) &&
-                        'text-gray-400',
-                      core.ws.settings.mode == 'code' &&
-                        core.ws.ui.state == 'ready' &&
-                        !core.ws.ui.toBlockWarning &&
-                        !core.ws.quest.testerHandler &&
-                        !core.ws.ui.proMode
-                        ? 'hover:border-t-gray-300 hover:bg-gray-200'
-                        : 'cursor-default'
+                      'disabled:text-gray-400',
+                      'hover:border-t-gray-300 hover:bg-gray-200',
+                      'disabled:cursor-not-allowed'
                     )}
+                    disabled={
+                      core.ws.settings.mode == 'code' &&
+                      (core.ws.ui.state === 'error' ||
+                        core.ws.ui.state === 'running' ||
+                        !!core.ws.quest.testerHandler ||
+                        dontChangeLanguage ||
+                        core.ws.ui.proMode)
+                    }
                     onClick={() => {
                       setMode(core, 'blocks')
                     }}
@@ -231,10 +230,7 @@ export function IdeMain() {
                         <div
                           className={clsx(
                             'p-1 pl-2 whitespace-nowrap',
-                            core.ws.ui.state !== 'ready' &&
-                              'pointer-events-none'
-                            // core.ws.ui.state == 'error' && 'invisible',
-                            // core.ws.ui.state == 'running' && 'invisible'
+                            dontChangeLanguage && 'opacity-80'
                           )}
                         >
                           {core.ws.ui.lockLanguage ? (
@@ -254,10 +250,7 @@ export function IdeMain() {
                           {core.strings.ide.language}:
                           <select
                             className={clsx(
-                              'px-1 py-0.5 inline-block ml-2 bg-white rounded',
-                              !dontChangeLanguage &&
-                                'cursor-pointer hover:bg-gray-100',
-                              core.ws.ui.proMode && 'pointer-events-none'
+                              'px-1 py-0.5 inline-block ml-2 bg-white rounded cursor-pointer hover:bg-gray-100 disabled:cursor-not-allowed'
                             )}
                             value={core.ws.settings.language}
                             onChange={(e) => {

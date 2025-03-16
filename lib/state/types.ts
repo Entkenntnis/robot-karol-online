@@ -35,7 +35,7 @@ export interface Ui {
   state: 'ready' | 'loading' | 'running' | 'error'
   needsTextRefresh: boolean
   errorMessages: string[]
-  toBlockWarning: boolean
+  pythonProCanSwitch: boolean
   proMode: boolean
   showOutput: boolean
   speedSliderValue: number
