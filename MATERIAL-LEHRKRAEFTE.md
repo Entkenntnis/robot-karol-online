@@ -18,6 +18,6 @@ Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION
 
 ## Beispiele für den Python Pro Modus
 
-Hier sind ein paar nette Programme an der Schnittstelle zwischen Robot Karol und Python. Aber vielleicht habe ich einfach zu viel Zeit. Viel Spaß mit den Beispielen.
+Hier sind ein paar nette Programme an der Schnittstelle zwischen Robot Karol und Python. Vielleicht habe ich einfach zu viel Zeit. Viel Spaß mit den Beispielen.
 
 ### TODO BEISPIEL 1
