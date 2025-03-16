@@ -220,16 +220,9 @@ export function EditArea() {
           <>
             <div className="bg-gray-100 pr-32 py-2 pl-3">
               <a
-                href="https://pyodide.org/en/stable/"
-                target="_blank"
-                className="italic text-gray-500 text-sm"
-              >
-                Pyodide/CPython 3.12
-              </a>
-              <a
                 href="https://quickref.me/python.html"
                 target="_blank"
-                className="ml-5 link"
+                className="link"
               >
                 Spickzettel
               </a>

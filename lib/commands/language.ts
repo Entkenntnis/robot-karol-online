@@ -8,12 +8,6 @@ import { Settings } from '../state/types'
 import { updatePlaygroundHashToMode } from './mode'
 
 export function setLanguage(core: Core, language: Settings['language']) {
-  if (language == 'robot karol' && core.ws.ui.toBlockWarning) {
-    alert(
-      'Du verwendest Funktionen von Java, die nicht in Blöcken oder Robot Karol Code darstellbar sind. Eine Konvertierung ist im Moment nicht möglich.'
-    )
-    return
-  }
   if (language == 'java') {
     submit_event('use_java', core)
   }
