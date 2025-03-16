@@ -1,5 +1,6 @@
 import { language } from '@codemirror/language'
 import { Core } from '../state/core'
+import { QuestSerialFormat } from '../state/types'
 
 export function saveCodeToFile(core: Core) {
   // 3. Create a Blob from the string
@@ -7,7 +8,8 @@ export function saveCodeToFile(core: Core) {
     [
       core.ws.settings.language == 'robot karol'
         ? core.ws.code
-        : core.ws.settings.language == 'python'
+        : core.ws.settings.language == 'python' ||
+          core.ws.settings.language == 'python-pro'
         ? core.ws.pythonCode
         : core.ws.javaCode,
     ],
@@ -30,6 +32,8 @@ export function saveCodeToFile(core: Core) {
       ? 'txt'
       : core.ws.settings.language == 'python'
       ? 'py.txt'
+      : core.ws.settings.language == 'python-pro'
+      ? 'py'
       : 'java.txt'
   }` // specify the filename
 
@@ -73,7 +77,7 @@ export function attemptToLoadProgramFromLocalStorage(core: Core) {
 export function loadProgram(
   core: Core,
   program: string,
-  language: 'blocks' | 'karol' | 'python' | 'java'
+  language: QuestSerialFormat['language']
 ) {
   core.mutateWs((ws) => {
     if (language == 'blocks') {
@@ -95,6 +99,11 @@ export function loadProgram(
       ws.settings.language = 'java'
       ws.javaCode = program
     }
+    if (language == 'python-pro') {
+      ws.settings.mode = 'code'
+      ws.settings.language = 'python-pro'
+      ws.pythonCode = program
+    }
   })
 }
 
@@ -108,6 +117,8 @@ export function getProgram(core: Core) {
       return { language: 'python', program: core.ws.pythonCode }
     } else if (core.ws.settings.language == 'java') {
       return { language: 'java', program: core.ws.javaCode }
+    } else if (core.ws.settings.language == 'python-pro') {
+      return { language: 'python-pro', program: core.ws.pythonCode }
     }
   }
   return { language: 'blocks', program: '' }

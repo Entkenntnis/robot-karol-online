@@ -367,7 +367,7 @@ export interface QuestSerialFormat {
   lng?: 'de' | 'en'
   editOptions?: 'python-only' | 'java-only' | 'karol-only'
   program?: string
-  language?: 'blocks' | 'karol' | 'python' | 'java'
+  language?: 'blocks' | 'karol' | 'python' | 'java' | 'python-pro'
 }
 
 export interface SerialWorld {
