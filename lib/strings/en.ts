@@ -9,7 +9,7 @@ export const enStrings: typeof deStrings = {
     load: 'Import progress',
     loadTooltip: 'Load from a file',
     gameState: 'gamestate',
-    version: 'Version: February 2025',
+    version: 'Version: April 2025',
     playground: 'Playground',
     imprint: 'Imprint',
     privacy: 'Privacy Policy',
