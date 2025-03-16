@@ -339,3 +339,25 @@ export function onWorldChange(core: Core) {
     core.deleteWsFromStorage(id)
   }*/
 }
+
+export function twoWorldsEqual(world1: World, world2: World): boolean {
+  if (
+    world1.dimX !== world2.dimX ||
+    world1.dimY !== world2.dimY ||
+    world1.height !== world2.height
+  ) {
+    return false
+  }
+  for (let x = 0; x < world1.dimX; x++) {
+    for (let y = 0; y < world1.dimY; y++) {
+      if (
+        world1.bricks[y][x] !== world2.bricks[y][x] ||
+        world1.marks[y][x] !== world2.marks[y][x] ||
+        world1.blocks[y][x] !== world2.blocks[y][x]
+      ) {
+        return false
+      }
+    }
+  }
+  return true
+}

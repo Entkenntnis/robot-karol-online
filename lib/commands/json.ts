@@ -14,6 +14,7 @@ import {
   loadProgram,
 } from './save'
 import { endExecution } from './vm'
+import { twoWorldsEqual } from './world'
 
 export function serializeQuest(core: Core): QuestSerialFormat {
   const output: QuestSerialFormat = {
@@ -136,10 +137,13 @@ export function deserializeQuest(
     ws.quest.description = quest.description
 
     ws.quest.tasks = quest.tasks.map((task) => {
+      const start = deserializeWorld(task.start)
+      const target = deserializeWorld(task.target)
+      const noTarget = twoWorldsEqual(start, target) && ws.page !== 'editor'
       return {
         title: task.title,
-        start: deserializeWorld(task.start),
-        target: deserializeWorld(task.target),
+        start,
+        target: noTarget ? null : target,
       }
     })
 
