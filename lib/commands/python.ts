@@ -25,6 +25,7 @@ export function setupWorker(core: Core) {
     init: async () => {},
     run: async (code: string) => {},
     reset: () => {},
+    input: (code: string) => {},
     mainWorker: null,
     backupWorker: null,
     mainWorkerReady: false,
@@ -99,6 +100,40 @@ export function setupWorker(core: Core) {
         ui.state = 'error'
         ui.errorMessages = [filterTraceback(event.data.error)]
       })
+    }
+
+    if (event.data.type && event.data.type == 'stdin') {
+      const { buffer } = event.data
+      const syncArray = new Int32Array(buffer, 0, 2)
+      const dataArray = new Uint8Array(buffer, 8)
+
+      core.mutateWs(({ ui }) => {
+        ui.inputPrompt =
+          ui.messages.length > 0
+            ? ui.messages[ui.messages.length - 1].text
+            : 'Eingabe:'
+      })
+
+      core.worker.input = (input: string) => {
+        const encoded = new TextEncoder().encode(input)
+        if (encoded.length > dataArray.length) {
+          alert('Input too long')
+          return
+        }
+        dataArray.set(encoded)
+        syncArray[1] = encoded.length
+        syncArray[0] = 1
+
+        Atomics.notify(syncArray, 0)
+
+        core.mutateWs(({ ui }) => {
+          if (ui.messages.length > 0) {
+            const lastMessage = ui.messages[ui.messages.length - 1]
+            lastMessage.text += input
+          }
+          ui.inputPrompt = undefined
+        })
+      }
     }
   }
 

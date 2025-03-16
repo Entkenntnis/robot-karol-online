@@ -6,6 +6,8 @@ let pyodide = null
 
 let delay = new Int32Array(1)
 
+let decoder = new TextDecoder()
+
 self.onmessage = async (event) => {
   if (event.data == 'init') {
     if (pyodide) {
@@ -118,8 +120,29 @@ self.onmessage = async (event) => {
     sleep(150)
     try {
       pyodide.setStdout({
-        batched: (text) => {
-          self.postMessage({ type: 'stdout', text })
+        write: (buf) => {
+          const written_string = decoder.decode(buf)
+          self.postMessage({ type: 'stdout', text: written_string })
+          return buf.length
+        },
+      })
+      pyodide.setStdin({
+        stdin() {
+          const buffer = new SharedArrayBuffer(1024)
+          const syncArray = new Int32Array(buffer, 0, 2)
+          const dataArray = new Uint8Array(buffer, 8)
+
+          self.postMessage({
+            type: 'stdin',
+            buffer,
+          })
+
+          Atomics.wait(syncArray, 0, 0)
+
+          const length = Atomics.load(syncArray, 1)
+          // Read the input bytes.
+          const inputBytes = dataArray.slice(0, length)
+          return inputBytes
         },
       })
       const result = await pyodide.runPythonAsync(event.data.code, { globals })

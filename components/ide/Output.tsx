@@ -1,9 +1,9 @@
 import {
   faArrowLeft,
   faCaretDown,
-  faCaretLeft,
   faCaretUp,
   faCheck,
+  faComment,
   faTrashCan,
   faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
@@ -91,6 +91,38 @@ export function Output() {
         )}
       >
         <div className="flex flex-col h-full relative">
+          {core.ws.ui.inputPrompt && (
+            <form
+              className="bg-lime-200 px-2 py-3 flex gap-4 items-baseline absolute top-0 left-0 right-0 z-10"
+              onSubmit={(e) => {
+                const el = document.getElementById('input-prompt') as
+                  | HTMLInputElement
+                  | undefined
+                if (el && core.worker) {
+                  core.worker.input(el.value)
+                }
+                e.preventDefault()
+              }}
+            >
+              <span>
+                <FaIcon icon={faComment} className="mr-2 animate-pulse" />
+                {core.ws.ui.inputPrompt}
+              </span>
+              <input
+                id="input-prompt"
+                className="flex-grow px-1"
+                maxLength={200}
+                autoFocus
+                autoComplete="off"
+              ></input>
+              <button
+                className="px-2 py-0.5 bg-lime-400 hover:bg-lime-500 rounded"
+                type="submit"
+              >
+                Enter
+              </button>
+            </form>
+          )}
           <div className="m-auto">
             <div className="w-fit h-fit mb-32 mt-4 mx-4">
               {core.ws.ui.show2D ? (
