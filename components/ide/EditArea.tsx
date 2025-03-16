@@ -227,7 +227,7 @@ export function EditArea() {
                 Spickzettel
               </a>
               <a
-                href="https://quickref.me/python.html"
+                href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md#todo-beispiel-1"
                 target="_blank"
                 className="ml-5 link"
               >
