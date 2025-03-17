@@ -49,3 +49,35 @@ elif num == 2:
 elif num == 3:
   < ... >
 ```
+
+### Burg in Wunschgröße
+
+![grafik](https://github.com/user-attachments/assets/db8cd5eb-2cb6-4146-9db2-bff47b3cc914)
+
+https://karol.arrrg.de/#9U7T
+
+```py
+karol = Robot()
+
+seitenlänge = int(input("Wie groß darf die Burg sein? (3 - 13)"))
+
+if seitenlänge < 3 or seitenlänge > 13:
+    print("Größe nicht unterstützt :(")
+else:
+    print("Baue eine Burg der Größe " + str(seitenlänge))
+    # Schritt 1: Burg zentrieren
+    offset = (15 - seitenlänge) / 2
+    karol.schritt(offset)
+    karol.linksDrehen()
+    karol.schritt(offset - 1)
+    # Karol steht jetzt vor dem ersten Feld
+    for i in range(4):
+        for j in range(seitenlänge):
+            karol.hinlegen(2)
+            karol.rechtsDrehen()
+            karol.schritt()
+            karol.linksDrehen()
+        karol.schritt()
+        if i != 3:
+            karol.linksDrehen()
+```
