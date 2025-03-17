@@ -111,7 +111,7 @@ print("Hallo " + name + " :)")
 
 ### Datenstruktur und Algorithmus
 
-Karol sucht in einer Liste mithilfe einer einfachen Iteration das größte und kleinste Element. Dieses Beispiel geht mehr in Richtung der "großen" Informatik.
+Dieses Beispiel geht mehr in Richtung der "großen" Informatik. Karol sucht in einer Liste mithilfe einer einfachen Iteration das größte und kleinste Element. Die Welt dient als Fortschrittsbalken und zu Veranschaulichung der Iteration.
 
 ![grafik](https://github.com/user-attachments/assets/3c40860e-e4bb-44f4-b975-41345ce9ffcf)
 
