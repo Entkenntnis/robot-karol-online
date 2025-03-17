@@ -87,11 +87,12 @@ export function Output() {
       </div>
       <div
         className={clsx(
-          'flex-grow flex-shrink h-full',
-          'overflow-auto bg-white mb-10'
+          'flex-grow flex-shrink h-full relative',
+          'overflow-auto bg-white',
+          !core.ws.ui.isTesting && 'mb-10'
         )}
       >
-        <div className="flex flex-col h-full relative">
+        <div className="flex flex-col h-full">
           {core.ws.ui.inputPrompt && (
             <form
               className="bg-lime-200 px-2 py-3 flex gap-4 items-baseline absolute top-0 left-0 right-0 z-10"
@@ -155,101 +156,97 @@ export function Output() {
               <div className="absolute left-2 top-2">Variablen: {varStr}</div>
             )}
         </div>
-        {core.ws.quest.lastStartedTask !== undefined && (
-          <div className="absolute bottom-1.5 left-2 whitespace-nowrap">
-            <button
-              className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
-              onClick={() => {
-                if (core.ws.ui.state == 'running') {
-                  abort(core)
-                }
-                closeOutput(core)
-              }}
-            >
-              <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
-              {core.strings.ide.back}
-            </button>
-            {core.ws.ui.isPlayground && core.ws.ui.state !== 'running' && (
-              <button
-                className="ml-3 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
-                onClick={() => {
-                  showModal(core, 'resize')
-                }}
+
+        {core.ws.settings.language == 'python-pro' && (
+          <div className="absolute bottom-2 left-2">
+            {core.ws.ui.messages.map((m) => (
+              <div
+                key={`${m.ts}-${m.text}`}
+                className="max-w-full py-1 px-2 rounded"
               >
-                <FaIcon
-                  icon={faUpRightAndDownLeftFromCenter}
-                  className="mr-2"
-                />
-                {core.strings.editor.changeSize}
-              </button>
-            )}
-            {!core.ws.ui.isPlayground &&
-              !core.ws.ui.isTesting &&
-              hasPreview && (
-                <span className="ml-12 bg-white/80 rounded p-1">
-                  <label className="select-none cursor-pointer text-gray-600">
-                    <input
-                      type="checkbox"
-                      className="cursor-pointer"
-                      checked={core.ws.ui.showPreview}
-                      onChange={(e) => {
-                        core.mutateWs((ws) => {
-                          ws.ui.showPreview = e.target.checked
-                        })
-                      }}
-                    />{' '}
-                    {core.strings.ide.preview}
-                  </label>
+                <span className="bg-lime-100 rounded px-2 py-0.5">
+                  {m.text}
+                  {m.count > 1 && <span> (x{m.count})</span>}
                 </span>
-              )}
-            {!core.ws.ui.isTesting && (
-              <span className="ml-6 bg-white/80 rounded p-1">
-                <label className="select-none cursor-pointer text-gray-600">
-                  <input
-                    type="checkbox"
-                    className="cursor-pointer"
-                    checked={core.ws.ui.show2D}
-                    onChange={(e) => {
-                      core.mutateWs((ws) => {
-                        ws.ui.show2D = e.target.checked
-                      })
-                    }}
-                  />{' '}
-                  2D-Ansicht
-                </label>
-              </span>
-            )}
+              </div>
+            ))}
           </div>
         )}
-        {core.ws.ui.isEndOfRun &&
-          !core.ws.ui.controlBarShowFinishQuest &&
-          !core.ws.ui.isTesting && (
+      </div>
+      {core.ws.quest.lastStartedTask !== undefined && (
+        <div className="absolute bottom-1.5 left-2 whitespace-nowrap">
+          <button
+            className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+            onClick={() => {
+              if (core.ws.ui.state == 'running') {
+                abort(core)
+              }
+              closeOutput(core)
+            }}
+          >
+            <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
+            {core.strings.ide.back}
+          </button>
+          {core.ws.ui.isPlayground && core.ws.ui.state !== 'running' && (
             <button
+              className="ml-3 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
               onClick={() => {
-                resetOutput(core)
+                showModal(core, 'resize')
               }}
-              className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2 hover:bg-gray-300"
             >
-              <FaIcon icon={faTrashCan} className="mr-1" />
-              {core.strings.ide.clear}
+              <FaIcon icon={faUpRightAndDownLeftFromCenter} className="mr-2" />
+              {core.strings.editor.changeSize}
             </button>
           )}
-      </div>
-      {core.ws.settings.language == 'python-pro' && (
-        <div className="absolute bottom-12 left-2">
-          {core.ws.ui.messages.map((m) => (
-            <div
-              key={`${m.ts}-${m.text}`}
-              className="max-w-full py-1 px-2 rounded"
-            >
-              <span className="bg-gray-50 rounded px-2 py-0.5">
-                {m.text}
-                {m.count > 1 && <span> (x{m.count})</span>}
-              </span>
-            </div>
-          ))}
+          {!core.ws.ui.isPlayground && !core.ws.ui.isTesting && hasPreview && (
+            <span className="ml-12 bg-white/80 rounded p-1">
+              <label className="select-none cursor-pointer text-gray-600">
+                <input
+                  type="checkbox"
+                  className="cursor-pointer"
+                  checked={core.ws.ui.showPreview}
+                  onChange={(e) => {
+                    core.mutateWs((ws) => {
+                      ws.ui.showPreview = e.target.checked
+                    })
+                  }}
+                />{' '}
+                {core.strings.ide.preview}
+              </label>
+            </span>
+          )}
+          {!core.ws.ui.isTesting && (
+            <span className="ml-6 bg-white/80 rounded p-1">
+              <label className="select-none cursor-pointer text-gray-600">
+                <input
+                  type="checkbox"
+                  className="cursor-pointer"
+                  checked={core.ws.ui.show2D}
+                  onChange={(e) => {
+                    core.mutateWs((ws) => {
+                      ws.ui.show2D = e.target.checked
+                    })
+                  }}
+                />{' '}
+                2D-Ansicht
+              </label>
+            </span>
+          )}
         </div>
       )}
+      {core.ws.ui.isEndOfRun &&
+        !core.ws.ui.controlBarShowFinishQuest &&
+        !core.ws.ui.isTesting && (
+          <button
+            onClick={() => {
+              resetOutput(core)
+            }}
+            className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2 hover:bg-gray-300"
+          >
+            <FaIcon icon={faTrashCan} className="mr-1" />
+            {core.strings.ide.clear}
+          </button>
+        )}
       <div className="max-h-[30%] flex-grow flex-shrink-0 overflow-auto bg-gray-100 pl-32">
         {core.ws.ui.isTesting && <TaskRunnerOverview />}
       </div>
