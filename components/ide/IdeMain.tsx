@@ -105,7 +105,12 @@ export function IdeMain() {
   }, [core, core.ws.ui.isHighlightDescription])
 
   const dontChangeLanguage =
-    core.ws.ui.state !== 'ready' ||
+    (core.ws.ui.state !== 'ready' &&
+      !(
+        core.ws.settings.language == 'python-pro' &&
+        core.worker &&
+        !core.worker.mainWorkerReady
+      )) ||
     !!core.ws.ui.lockLanguage ||
     !core.ws.ui.pythonProCanSwitch
 
@@ -148,14 +153,7 @@ export function IdeMain() {
                       'hover:border-t-gray-300 hover:bg-gray-200',
                       'disabled:cursor-not-allowed'
                     )}
-                    disabled={
-                      core.ws.settings.mode == 'code' &&
-                      (core.ws.ui.state === 'error' ||
-                        core.ws.ui.state === 'running' ||
-                        !!core.ws.quest.testerHandler ||
-                        dontChangeLanguage ||
-                        core.ws.ui.proMode)
-                    }
+                    disabled={dontChangeLanguage}
                     onClick={() => {
                       setMode(core, 'blocks')
                     }}
