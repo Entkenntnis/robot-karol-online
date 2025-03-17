@@ -8,21 +8,19 @@ Bitte schreibe mir unter karol@arrrg.de um die Musterlösung zu Aufgaben im Selb
 
 Eine Übersicht über den Funktionsumfang und die Befehle findest du in der [Dokumentation](https://github.com/Entkenntnis/robot-karol-online#readme).
 
-## Python-Kurs (Grundlagen)
-
-<a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/Pythonkurs_mit_Robot_Karol_Online.pdf">Pythonkurs mit Robot Karol Online</a>
-
 ## Inspiration
 
 Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION).
 
 <br /><br /><br /><br /><br />
 
-## Beispiele für den Python Pro Modus
+## Karol x Python
 
 ![grafik](https://github.com/user-attachments/assets/13b38eef-d9e4-497c-8b97-94b458f94f61)
 
-Hier sind ein paar nette Programme an der Schnittstelle zwischen Robot Karol und Python. Vielleicht habe ich einfach zu viel Zeit. Viel Spaß mit den Beispielen.
+Es gibt für den Einstieg einen <a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/Pythonkurs_mit_Robot_Karol_Online.pdf">Pythonkurs mit Robot Karol Online</a> mit dem gleichen Funktionsumfang wie die Blöcke.
+
+Darüber hinaus stehen im [Python Pro Modus](https://karol.arrrg.de/#SPIELWIESE-PYTHON-PRO) viele weitere Standard-Python-Funktionen zur Verfügung. Hier findest du eine Sammlung an Beispielen. Viel Spaß beim Ausprobieren!
 
 ### Würfel
 
