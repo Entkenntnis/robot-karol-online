@@ -88,9 +88,9 @@ else:
 
 ### Begrüßung
 
-![grafik](https://github.com/user-attachments/assets/c3eaa667-40b2-4dab-beeb-d20a03c2d066)
-
 Jetzt möchte Karol mit dir reden. Sag ihr deinen Namen und dann begrüßt sie dich.
+
+![grafik](https://github.com/user-attachments/assets/c3eaa667-40b2-4dab-beeb-d20a03c2d066)
 
 https://karol.arrrg.de/#6YYK
 
