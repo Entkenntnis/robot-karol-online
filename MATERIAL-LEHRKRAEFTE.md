@@ -8,15 +8,19 @@ Bitte schreibe mir unter karol@arrrg.de um die Musterlösung zu Aufgaben im Selb
 
 Eine Übersicht über den Funktionsumfang und die Befehle findest du in der [Dokumentation](https://github.com/Entkenntnis/robot-karol-online#readme).
 
+## Python-Kurs (Grundlagen)
+
+<a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/Pythonkurs_mit_Robot_Karol_Online.pdf">Pythonkurs mit Robot Karol Online</a>
+
 ## Inspiration
 
 Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION).
 
-## Python-Kurs
-
-<a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/Pythonkurs_mit_Robot_Karol_Online.pdf">Pythonkurs mit Robot Karol Online</a>
+<br /><br /><br /><br /><br />
 
 ## Beispiele für den Python Pro Modus
+
+![grafik](https://github.com/user-attachments/assets/13b38eef-d9e4-497c-8b97-94b458f94f61)
 
 Hier sind ein paar nette Programme an der Schnittstelle zwischen Robot Karol und Python. Vielleicht habe ich einfach zu viel Zeit. Viel Spaß mit den Beispielen.
 
@@ -51,6 +55,8 @@ elif num == 3:
 ```
 
 ### Burg in Wunschgröße
+
+Wer schon immer einmal mit Karol reden wollte: hier ist die Gelegenheit, mit Karol zusammen eine Burg zu bauen.
 
 ![grafik](https://github.com/user-attachments/assets/db8cd5eb-2cb6-4146-9db2-bff47b3cc914)
 
