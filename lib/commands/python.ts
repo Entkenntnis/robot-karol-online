@@ -126,7 +126,7 @@ export function setupWorker(core: Core) {
 
         Atomics.notify(syncArray, 0)
 
-        addConsoleMessage(core, '> ' + core.ws.ui.inputPrompt + ' ' + input)
+        //addConsoleMessage(core, '> ' + core.ws.ui.inputPrompt + ' ' + input)
         core.mutateWs(({ ui }) => {
           ui.inputPrompt = undefined
         })
