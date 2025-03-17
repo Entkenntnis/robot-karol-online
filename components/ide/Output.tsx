@@ -189,7 +189,13 @@ export function Output() {
           <button
             className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
-              if (core.ws.ui.state == 'running') {
+              if (
+                core.ws.settings.language == 'python-pro' &&
+                core.worker &&
+                core.ws.ui.state == 'running'
+              ) {
+                core.worker.reset()
+              } else if (core.ws.ui.state == 'running') {
                 abort(core)
               }
               closeOutput(core)
