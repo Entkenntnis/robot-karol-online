@@ -108,3 +108,32 @@ karol.markeSetzen()
 
 print("Hallo " + name + " :)")
 ```
+
+### Datenstruktur und Algorithmus
+
+Karol sucht in einer Liste mithilfe einer einfachen Iteration das größte und kleinste Element. Dieses Beispiel geht mehr in Richtung der "großen" Informatik.
+
+![grafik](https://github.com/user-attachments/assets/3c40860e-e4bb-44f4-b975-41345ce9ffcf)
+
+https://karol.arrrg.de/#WFVY
+
+```py
+karol = Robot()
+
+print("Suche Minimum und Maximum:")
+
+liste = [12, -2, 34, 46, 36, 97, 128, 455, 349, 342]
+
+min = liste[0]
+max = liste[0]
+
+for el in liste:
+    if el < min:
+        min = el
+    if el > max:
+        max = el
+    karol.schritt()
+
+print("Das Minimum ist " + str(min))
+print("Das Maximum ist " + str(max))
+```
