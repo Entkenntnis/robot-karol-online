@@ -114,6 +114,9 @@ self.onmessage = async (event) => {
           nichtIstWesten: () => {
             return checkCondition({ type: 'west', negated: true })
           },
+          beenden: () => {
+            self.postMessage({ type: 'action', action: 'beenden' })
+          },
         }
       },
     })
