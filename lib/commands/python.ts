@@ -239,7 +239,6 @@ export function setupWorker(core: Core) {
       ui.isManualAbort = true
       ui.isEndOfRun = true
       ui.inputPrompt = undefined
-      ui.messages = []
     })
   }
 }
