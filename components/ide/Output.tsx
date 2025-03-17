@@ -187,12 +187,13 @@ export function Output() {
             <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
             {core.strings.ide.back}
           </button>
-          {core.ws.ui.isPlayground && core.ws.ui.state !== 'running' && (
+          {core.ws.ui.isPlayground && (
             <button
-              className="ml-3 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
+              className="ml-3 px-2 py-0.5 bg-blue-200 enabled:hover:bg-blue-300 rounded disabled:opacity-50"
               onClick={() => {
                 showModal(core, 'resize')
               }}
+              disabled={core.ws.ui.state == 'running'}
             >
               <FaIcon icon={faUpRightAndDownLeftFromCenter} className="mr-2" />
               {core.strings.editor.changeSize}
