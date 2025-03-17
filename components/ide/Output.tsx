@@ -20,6 +20,7 @@ import { showModal } from '../../lib/commands/modal'
 import { renderDescription } from '../../lib/helper/processMiniMarkdown'
 import { useState } from 'react'
 import { View2D } from '../helper/View2D'
+import { twoWorldsEqual } from '../../lib/commands/world'
 
 export function Output() {
   const core = useCore()
@@ -36,6 +37,16 @@ export function Output() {
   const hasPreview =
     core.ws.quest.lastStartedTask !== undefined &&
     !!core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target
+
+  const previewNoEffect =
+    core.ws.page == 'editor' &&
+    hasPreview &&
+    twoWorldsEqual(
+      core.ws.quest.tasks[core.ws.quest.lastStartedTask!].start,
+      core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!
+    )
+
+  console.log(previewNoEffect)
 
   const preview =
     core.ws.ui.showPreviewOfTarget && hasPreview && core.ws.ui.showPreview
@@ -130,7 +141,7 @@ export function Output() {
               {core.ws.ui.show2D ? (
                 <View2D
                   world={core.ws.world}
-                  preview={preview}
+                  preview={previewNoEffect ? undefined : preview}
                   className={clsx(
                     'p-6',
                     core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
@@ -139,7 +150,7 @@ export function Output() {
               ) : (
                 <View
                   world={core.ws.world}
-                  preview={preview}
+                  preview={previewNoEffect ? undefined : preview}
                   className={clsx(
                     'p-6',
                     core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
