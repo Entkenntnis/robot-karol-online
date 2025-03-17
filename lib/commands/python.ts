@@ -99,7 +99,7 @@ export function setupWorker(core: Core) {
     if (event.data.type && event.data.type == 'error') {
       endExecution(core)
       core.mutateWs(({ ui }) => {
-        ui.state = 'error'
+        ui.state = 'ready'
         ui.errorMessages = [filterTraceback(event.data.error)]
       })
     }
@@ -203,6 +203,7 @@ export function setupWorker(core: Core) {
       vm.isDebugging = false
       ui.messages = []
       ui.inputPrompt = undefined
+      ui.errorMessages = []
     })
   }
 
