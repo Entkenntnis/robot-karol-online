@@ -22,6 +22,8 @@ Es gibt für den Einstieg einen <a href="https://raw.githubusercontent.com/Entke
 
 Darüber hinaus stehen im [Python Pro Modus](https://karol.arrrg.de/#SPIELWIESE-PYTHON-PRO) viele weitere Standard-Python-Funktionen zur Verfügung. Hier findest du eine Sammlung an Beispielen. Viel Spaß beim Ausprobieren!
 
+<br /><br /><br />
+
 ### Würfel
 
 Gerade kein Würfel zur Hand? Dann lasse dir doch von Karol helfen.
@@ -51,6 +53,8 @@ elif num == 2:
 elif num == 3:
   < ... >
 ```
+
+<br /><br /><br />
 
 ### Burg in Wunschgröße
 
@@ -86,6 +90,8 @@ else:
             karol.linksDrehen()
 ```
 
+<br /><br /><br />
+
 ### Begrüßung
 
 Jetzt möchte Karol mit dir reden. Sag ihr deinen Namen und dann begrüßt sie dich.
@@ -108,6 +114,8 @@ karol.markeSetzen()
 
 print("Hallo " + name + " :)")
 ```
+
+<br /><br /><br />
 
 ### Datenstruktur und Algorithmus
 
