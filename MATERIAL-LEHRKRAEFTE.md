@@ -85,3 +85,26 @@ else:
         if i != 3:
             karol.linksDrehen()
 ```
+
+### Begrüßung
+
+![grafik](https://github.com/user-attachments/assets/c3eaa667-40b2-4dab-beeb-d20a03c2d066)
+
+Jetzt möchte Karol mit dir reden. Sag ihr deinen Namen und dann begrüßt sie dich.
+
+https://karol.arrrg.de/#6YYK
+
+```py
+karol = Robot()
+
+karol.linksDrehen(5)
+
+name = input("Wie heißt du?")
+
+karol.schritt(4)
+karol.rechtsDrehen()
+karol.schritt(4)
+karol.markeSetzen()
+
+print("Hallo " + name + " :)")
+```
