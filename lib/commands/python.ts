@@ -77,6 +77,9 @@ export function setupWorker(core: Core) {
         setMark(core)
       } else if (action === 'markeLöschen') {
         resetMark(core)
+      } else if (action == 'beenden') {
+        endExecution(core)
+        core.worker.reset()
       }
     }
     if (event.data.type && event.data.type == 'stdout') {
@@ -94,7 +97,6 @@ export function setupWorker(core: Core) {
       // console.log('main thread notify done')
     }
     if (event.data.type && event.data.type == 'error') {
-      console.log(event.data, event.data.message)
       endExecution(core)
       core.mutateWs(({ ui }) => {
         ui.state = 'error'
