@@ -31,7 +31,12 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
   } else {
     if (
       core.ws.ui.state == 'running' ||
-      core.ws.ui.state == 'loading' ||
+      (core.ws.ui.state == 'loading' &&
+        !(
+          core.ws.settings.language == 'python-pro' &&
+          core.worker &&
+          !core.worker.mainWorkerReady
+        )) ||
       core.ws.quest.testerHandler ||
       core.ws.ui.proMode
     ) {
