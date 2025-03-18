@@ -145,3 +145,37 @@ for el in liste:
 print("Das Minimum ist " + str(min))
 print("Das Maximum ist " + str(max))
 ```
+
+### Uhr
+
+Jede Minute aktualisiert die Marken auf dem Feld, so dass immer die aktuelle Zeit zu sehen ist.
+
+![grafik](https://github.com/user-attachments/assets/17623d80-8a58-494e-bca1-6c18d36a0e9b)
+
+https://karol.arrrg.de/#3RNC
+
+```py
+< ... >
+
+from datetime import datetime
+
+# Store previous digits to update only when necessary
+prev_digits = [None, None, None, None]
+
+while True:
+    now = datetime.now()
+    hour = now.hour
+    minute = now.minute
+
+    # Split current time into individual digits: [H tens, H ones, M tens, M ones]
+    current_digits = [hour // 10, hour % 10, minute // 10, minute % 10]
+
+    # Only update the digit if it has changed since last drawn
+    for pos in range(4):
+        if current_digits[pos] != prev_digits[pos]:
+            drawDigit(pos, current_digits[pos])
+            prev_digits[pos] = current_digits[pos]
+    
+    # Wait before checking the time again
+    karol.markeLöschen()
+```
