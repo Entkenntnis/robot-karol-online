@@ -113,7 +113,8 @@ export async function initClient(core: Core) {
   }
 
   if (hash == '#ANALYZE' /* && window.location.hostname == 'localhost'*/) {
-    analyze(core)
+    await analyze(core)
+    return
   }
 
   if (hash == '#EDITOR') {
