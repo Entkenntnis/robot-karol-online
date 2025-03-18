@@ -109,7 +109,7 @@ export function loadProgram(
           .split('\n')
           .find((line) => line.trim() == '#Ausführung: schnell')
       ) {
-        ws.ui.speedSliderValue = 20
+        ws.ui.speedSliderValue = 18
       }
     }
   })
