@@ -44,12 +44,10 @@ import {
   setLngStorage,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
-import { appearanceRegistry } from '../../lib/data/appearance'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
 import { submit_event } from '../../lib/helper/submit'
 import { questDataEn } from '../../lib/data/questsEn'
-import { show } from 'blockly/core/contextmenu'
 import { AnalyzeResults } from '../helper/AnalyzeResults'
 
 export function Overview() {
