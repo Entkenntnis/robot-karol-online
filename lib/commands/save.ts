@@ -103,6 +103,14 @@ export function loadProgram(
       ws.settings.mode = 'code'
       ws.settings.language = 'python-pro'
       ws.pythonCode = program
+      // Detect a line with "#Ausführung: schnell" (no other speeds supported yet)
+      if (
+        program
+          .split('\n')
+          .find((line) => line.trim() == '#Ausführung: schnell')
+      ) {
+        ws.ui.speedSliderValue = 20
+      }
     }
   })
 }
