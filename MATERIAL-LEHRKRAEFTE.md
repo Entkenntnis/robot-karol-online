@@ -30,7 +30,7 @@ Gerade kein Würfel zur Hand? Dann lasse dir doch von Karol helfen.
 
 ![grafik](https://github.com/user-attachments/assets/300142e7-d3e2-48a4-96ea-59df5a71fc24)
 
-https://karol.arrrg.de/#N5H7
+https://karol.arrrg.de/#QDWY
 
 ```py
 import random
