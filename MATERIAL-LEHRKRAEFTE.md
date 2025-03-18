@@ -152,7 +152,7 @@ Jede Minute aktualisiert die Marken auf dem Feld, so dass immer die aktuelle Zei
 
 ![grafik](https://github.com/user-attachments/assets/17623d80-8a58-494e-bca1-6c18d36a0e9b)
 
-https://karol.arrrg.de/#3RNC
+https://karol.arrrg.de/#SKM3
 
 ```py
 < ... >
