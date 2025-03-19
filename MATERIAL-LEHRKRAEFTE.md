@@ -204,5 +204,46 @@ async def get_weather(location):
 < ... >
 ```
 
+<br /><br /><br />
+
+### Mathe-Quiz
+
+Teste deine Mathe-Skills mit diesem kleinen Quiz.
+
+![grafik](https://github.com/user-attachments/assets/c44cf544-50c7-41d7-b547-7090d721f356)
+
+https://karol.arrrg.de/#TFXV
+
+```py
+import random
+
+karol = Robot()
+
+print("Willkommen beim Mathe-Quiz.")
+
+karol.schritt(2)
+karol.linksDrehen()
+
+correct = 0
+
+for i in range(7):
+    a = random.randint(3, 99)
+    b = random.randint(3, 99)
+    antwort = int(input("Was ergibt " + str(a) + " + " + str(b) + "?"))
+    if a + b == antwort:
+        correct += 1
+        karol.schritt()
+        karol.markeSetzen()
+    else:
+        karol.hinlegen()
+        karol.schritt()
+    karol.schritt()
+
+karol.rechtsDrehen(5)
+
+print("Du hast " + str(correct) + " von 7 Aufgaben richtig beantwortet.")
+```
+
+
 
 <br /><br /><br />
