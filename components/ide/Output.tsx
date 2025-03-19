@@ -46,8 +46,6 @@ export function Output() {
       core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!
     )
 
-  console.log(previewNoEffect)
-
   const preview =
     core.ws.ui.showPreviewOfTarget && hasPreview && core.ws.ui.showPreview
       ? {

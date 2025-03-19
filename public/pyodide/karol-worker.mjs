@@ -178,11 +178,12 @@ function sleep(ms) {
 function checkCondition(cond) {
   const sharedBuffer = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT)
   const sharedArray = new Int32Array(sharedBuffer)
+  Atomics.store(sharedArray, 0, 42) // no data yet
   self.postMessage({
     type: 'check',
     sharedBuffer,
     condition: JSON.stringify(cond),
   })
-  Atomics.wait(sharedArray, 0, 0)
+  Atomics.wait(sharedArray, 0, 42)
   return sharedArray[0] === 1
 }
