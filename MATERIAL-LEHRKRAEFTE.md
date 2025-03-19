@@ -190,7 +190,7 @@ while True:
 
 ![grafik](https://github.com/user-attachments/assets/74e1c215-bd1c-4804-b18b-bcfce4315242)
 
-https://karol.arrrg.de/#YYE9
+https://karol.arrrg.de/#R4TA
 
 ```py
 import asyncio
@@ -203,3 +203,6 @@ async def get_weather(location):
 
 < ... >
 ```
+
+
+<br /><br /><br />
