@@ -179,3 +179,23 @@ while True:
     # Wait before checking the time again
     karol.markeLöschen()
 ```
+
+### Wetterfee
+
+Über das Internet kann Karol auf viele Informationen zugreifen - wie z.B. das Wetter!
+
+![grafik](https://github.com/user-attachments/assets/74e1c215-bd1c-4804-b18b-bcfce4315242)
+
+https://karol.arrrg.de/#YYE9
+
+```py
+import asyncio
+from pyodide.http import pyfetch
+
+async def get_weather(location):
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={location}&appid=< ... >&units=metric"
+    response = await pyfetch(url)
+    return await response.json()
+
+< ... >
+```
