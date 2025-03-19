@@ -146,6 +146,8 @@ print("Das Minimum ist " + str(min))
 print("Das Maximum ist " + str(max))
 ```
 
+<br /><br /><br />
+
 ### Uhr
 
 Jede Minute aktualisiert die Marken auf dem Feld, so dass immer die aktuelle Zeit zu sehen ist.
@@ -179,6 +181,8 @@ while True:
     # Wait before checking the time again
     karol.markeLöschen()
 ```
+
+<br /><br /><br />
 
 ### Wetterfee
 
