@@ -148,7 +148,7 @@ self.onmessage = async (event) => {
           return inputBytes
         },
       })
-      pyodide.registerJsModule('RKO', {
+      pyodide.registerJsModule('RobotKarolOnline', {
         tasteRegistrieren: (key, title) => {
           postMessage({
             type: 'register_key',
