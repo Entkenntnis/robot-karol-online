@@ -103,13 +103,13 @@ export function loadProgram(
       ws.settings.mode = 'code'
       ws.settings.language = 'python-pro'
       ws.pythonCode = program
-      // Detect a line with "#Ausführung: schnell" (no other speeds supported yet)
-      if (
-        program
-          .split('\n')
-          .find((line) => line.trim() == '#Ausführung: schnell')
-      ) {
+      const lines = program.split('\n').map((line) => line.trim())
+      if (lines.find((line) => line == '#Ausführung: sehr schnell')) {
+        ws.ui.speedSliderValue = 20
+      } else if (lines.find((line) => line == '#Ausführung: schnell')) {
         ws.ui.speedSliderValue = 18
+      } else if (lines.find((line) => line == '#Ausführung: mittel')) {
+        ws.ui.speedSliderValue = 15
       }
     }
   })
