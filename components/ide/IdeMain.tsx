@@ -286,7 +286,10 @@ export function IdeMain() {
                   onClick={() => {
                     const input = document.createElement('input')
                     input.type = 'file'
-                    input.accept = '.txt,.json'
+                    input.accept =
+                      core.ws.settings.language == 'python-pro'
+                        ? '.py'
+                        : '.txt,.json'
 
                     const reader = new FileReader()
                     reader.addEventListener('load', (e) => {
