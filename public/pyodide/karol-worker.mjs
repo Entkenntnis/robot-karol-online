@@ -189,8 +189,10 @@ self.onmessage = async (event) => {
 }
 
 function sleepWithDelay() {
-  const nextStepTs = lastStepTs + delay[0]
+  const nextStepTs = lastStepTs + Atomics.load(delay, 0)
   const now = performance.now() * 1000
+
+  console.log('sleepWithDelay', { now, nextStepTs, lastStepTs })
 
   if (now >= nextStepTs) {
     lastStepTs = Math.max(nextStepTs, now - 1000 * 1000)

@@ -205,8 +205,11 @@ export function setupWorker(core: Core) {
     const delayBuffer = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT)
     core.worker.sharedArrayDelay = new Int32Array(delayBuffer)
 
-    core.worker.sharedArrayDelay[0] =
-      sliderToDelay(core.ws.ui.speedSliderValue) * 1000
+    Atomics.store(
+      core.worker.sharedArrayDelay,
+      0,
+      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000)
+    )
 
     core.mutateWs(({ ui, vm }) => {
       ui.state = 'running'

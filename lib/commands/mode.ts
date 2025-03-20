@@ -91,8 +91,10 @@ export function setSpeedSliderValue(core: Core, val: number) {
     ws.vm.startTime = Date.now() - ws.vm.steps * delay - excessTime
   })
   if (core.worker) {
-    core.worker.sharedArrayDelay[0] = Math.round(
-      sliderToDelay(core.ws.ui.speedSliderValue) * 1000
+    Atomics.store(
+      core.worker.sharedArrayDelay,
+      0,
+      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000)
     )
   }
 }
