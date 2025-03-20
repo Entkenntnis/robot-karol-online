@@ -193,7 +193,7 @@ function sleepWithDelay() {
   const now = performance.now() * 1000
 
   if (now >= nextStepTs) {
-    lastStepTs = nextStepTs
+    lastStepTs = Math.max(nextStepTs, now - 1000 * 1000)
     return
   } else {
     const waitTime = nextStepTs - now
