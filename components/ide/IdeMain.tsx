@@ -17,11 +17,7 @@ import {
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
-import {
-  closeHighlightDescription,
-  setMode,
-  updatePlaygroundHashToMode,
-} from '../../lib/commands/mode'
+import { closeHighlightDescription, setMode } from '../../lib/commands/mode'
 import {
   closeOutput,
   restartProgram,

@@ -3,7 +3,7 @@ import { Core } from '../state/core'
 import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
 import { getAppearance, getLng } from '../storage/storage'
-import { setLng, showOverviewList } from './mode'
+import { setLng, showOverviewList, updatePlaygroundHashToMode } from './mode'
 import { createWorld } from '../state/create'
 import { QuestSerialFormat } from '../state/types'
 import { deserializeQuest } from './json'
@@ -88,6 +88,7 @@ export async function initClient(core: Core) {
       }
     }
     buildPlayground()
+    updatePlaygroundHashToMode(core)
     return
   }
 
