@@ -143,26 +143,37 @@ export function Output() {
                     <div
                       key={i}
                       className={clsx(
-                        'px-5 py-3 border-2 cursor-pointer select-none hover:bg-lime-50 transition-colors rounded-lg active:bg-lime-100',
+                        'px-5 py-3 border-2 cursor-pointer select-none hover:bg-lime-50 rounded-lg active:bg-lime-200 active:scale-95 transition-all',
                         el.pressed && 'bg-lime-200'
                       )}
                       title={el.title}
-                      onMouseDown={(e) => {
+                      onPointerDown={(e) => {
                         // set pressed to true
                         core.mutateWs((ws) => {
                           const binding = ws.ui.keybindings.find(
-                            (binding) => binding.key == el.key
+                            (binding) => binding.key === el.key
                           )
                           if (binding) {
                             binding.pressed = true
                           }
                         })
                       }}
-                      onMouseUp={(e) => {
+                      onPointerUp={(e) => {
                         // set pressed to false
                         core.mutateWs((ws) => {
                           const binding = ws.ui.keybindings.find(
-                            (binding) => binding.key == el.key
+                            (binding) => binding.key === el.key
+                          )
+                          if (binding) {
+                            binding.pressed = false
+                          }
+                        })
+                      }}
+                      onPointerCancel={(e) => {
+                        // ensure pressed is false if the pointer is canceled
+                        core.mutateWs((ws) => {
+                          const binding = ws.ui.keybindings.find(
+                            (binding) => binding.key === el.key
                           )
                           if (binding) {
                             binding.pressed = false
