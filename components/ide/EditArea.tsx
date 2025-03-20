@@ -218,7 +218,7 @@ export function EditArea() {
         )}
         {core.ws.settings.language === 'python-pro' && (
           <>
-            <div className="bg-gray-100 pr-32 py-2 pl-3">
+            <div className="bg-gray-100 pr-32 py-2 pl-3 text-gray-600">
               <a
                 href="https://quickref.me/python.html"
                 target="_blank"

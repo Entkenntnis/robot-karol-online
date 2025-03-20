@@ -134,6 +134,49 @@ export function Output() {
               </button>
             </form>
           )}
+          {core.ws.ui.keybindings.length > 0 && (
+            <div className="top-3 left-3 absolute">
+              <div>Tasten:</div>
+              <div className="flex gap-4 mt-2">
+                {core.ws.ui.keybindings.map((el, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className={clsx(
+                        'px-5 py-3 border-2 cursor-pointer select-none hover:bg-lime-50 transition-colors rounded-lg active:bg-lime-100',
+                        el.pressed && 'bg-lime-200'
+                      )}
+                      title={el.title}
+                      onMouseDown={(e) => {
+                        // set pressed to true
+                        core.mutateWs((ws) => {
+                          const binding = ws.ui.keybindings.find(
+                            (binding) => binding.key == el.key
+                          )
+                          if (binding) {
+                            binding.pressed = true
+                          }
+                        })
+                      }}
+                      onMouseUp={(e) => {
+                        // set pressed to false
+                        core.mutateWs((ws) => {
+                          const binding = ws.ui.keybindings.find(
+                            (binding) => binding.key == el.key
+                          )
+                          if (binding) {
+                            binding.pressed = false
+                          }
+                        })
+                      }}
+                    >
+                      {el.key}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
           <div className="m-auto">
             <div className="w-fit h-fit mb-32 mt-4 mx-4">
               {core.ws.ui.show2D ? (

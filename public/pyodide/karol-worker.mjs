@@ -148,7 +148,34 @@ self.onmessage = async (event) => {
           return inputBytes
         },
       })
-      const result = await pyodide.runPythonAsync(event.data.code, { globals })
+      pyodide.registerJsModule('RKO', {
+        tasteRegistrieren: (key, title) => {
+          postMessage({
+            type: 'register_key',
+            key,
+            title,
+          })
+        },
+        tasteGedrückt: (key) => {
+          const sharedBuffer = new SharedArrayBuffer(
+            Int32Array.BYTES_PER_ELEMENT
+          )
+          const sharedArray = new Int32Array(sharedBuffer)
+          Atomics.store(sharedArray, 0, 42) // no data yet
+          self.postMessage({
+            type: 'check-key',
+            sharedBuffer,
+            key,
+          })
+          Atomics.wait(sharedArray, 0, 42)
+          return sharedArray[0] === 1
+        },
+      })
+      pyodide.setDebug(true) // maybe helpful?
+      const result = await pyodide.runPythonAsync(event.data.code, {
+        globals,
+        filename: 'Programm.py',
+      })
       console.log('Python code result:', result)
     } catch (error) {
       console.log('error!!!', error)

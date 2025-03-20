@@ -55,6 +55,7 @@ export function createWorkspaceState(): WorkspaceState {
       breakpoints: [],
       collapseDescription: false,
       initDone: false,
+      keybindings: [],
     },
     vm: {
       pc: 0,

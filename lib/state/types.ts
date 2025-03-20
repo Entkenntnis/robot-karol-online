@@ -66,6 +66,7 @@ export interface Ui {
   collapseDescription: boolean
   initDone: boolean
   inputPrompt?: string
+  keybindings: { key: string; title: string; pressed: boolean }[]
 }
 
 export interface Vm {
