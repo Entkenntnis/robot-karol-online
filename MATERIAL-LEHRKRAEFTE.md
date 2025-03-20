@@ -244,6 +244,40 @@ karol.rechtsDrehen(5)
 print("Du hast " + str(correct) + " von 7 Aufgaben richtig beantwortet.")
 ```
 
+<br /><br /><br />
 
+### Fernsteuerung
+
+Über das integrierte Modul `RobotKarolOnline` können Tasten registriert und abgefragt werden - die Grundlage für interaktive Programme!
+
+`tasteRegistrieren(taste, beschreibung)` muss vor der Verwendung aufgerufen werden und bereitet in der UI alles vor. Die Taste ist ein [key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)-Wert. Die Beschreibung wird beim Rüberfahren der Maus angezeigt. Danach kann mit `tasteGedrückt(taste)` abgefragt werden, ob die vorher registrierte Taste gerade gedrückt ist.
+
+![grafik](https://github.com/user-attachments/assets/24565aef-5d71-4e05-84f9-1546090975c1)
+
+https://karol.arrrg.de/#EEZZ
+
+```py
+from RobotKarolOnline import tasteRegistrieren, tasteGedrückt
+
+karol = Robot()
+
+tasteRegistrieren("w", "Schritt")
+tasteRegistrieren("a", "LinksDrehen")
+tasteRegistrieren("d", "RechtsDrehen")
+tasteRegistrieren("e", "Hinlegen")
+tasteRegistrieren("q", "Aufheben")
+
+while True:
+    if tasteGedrückt("w") and not karol.istWand():
+        karol.schritt()
+    if tasteGedrückt("a"):
+        karol.linksDrehen()
+    if tasteGedrückt("d"):
+        karol.rechtsDrehen()
+    if tasteGedrückt("e") and not karol.istWand():
+        karol.hinlegen()
+    if tasteGedrückt("q") and karol.istZiegel():
+        karol.aufheben()
+```
 
 <br /><br /><br />
