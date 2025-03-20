@@ -5,6 +5,7 @@ let initStarted = false
 let pyodide = null
 
 let delay = new Int32Array(1)
+let lastStepTs = -1
 
 let decoder = new TextDecoder()
 
@@ -25,6 +26,7 @@ self.onmessage = async (event) => {
 
   if (event.data.type === 'run') {
     delay = new Int32Array(event.data.delayBuffer)
+    lastStepTs = performance.now() * 1000
     // console.log('Running Python code:', event.data.code)
     const globals = pyodide.toPy({
       Robot: () => {
@@ -187,10 +189,16 @@ self.onmessage = async (event) => {
 }
 
 function sleepWithDelay() {
-  let startTime = performance.now()
+  const nextStepTs = lastStepTs + delay[0]
+  const now = performance.now() * 1000
 
-  while (performance.now() - startTime < delay[0]) {
-    sleep(Math.min(100, delay[0] - (performance.now() - startTime)))
+  if (now >= nextStepTs) {
+    lastStepTs = nextStepTs
+    return
+  } else {
+    const waitTime = nextStepTs - now
+    sleep(Math.min(waitTime / 1000, 100))
+    sleepWithDelay()
   }
 }
 
