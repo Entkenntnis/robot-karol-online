@@ -147,6 +147,7 @@ self.onmessage = async (event) => {
           const length = Atomics.load(syncArray, 1)
           // Read the input bytes.
           const inputBytes = dataArray.slice(0, length)
+          lastStepTs = performance.now() * 1000
           return inputBytes
         },
       })
@@ -170,6 +171,7 @@ self.onmessage = async (event) => {
             key,
           })
           Atomics.wait(sharedArray, 0, 42)
+          lastStepTs = performance.now() * 1000
           return sharedArray[0] === 1
         },
       })
