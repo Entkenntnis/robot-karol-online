@@ -46,8 +46,6 @@ export function Output() {
       core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!
     )
 
-  console.log(previewNoEffect)
-
   const preview =
     core.ws.ui.showPreviewOfTarget && hasPreview && core.ws.ui.showPreview
       ? {
@@ -135,6 +133,60 @@ export function Output() {
                 Enter
               </button>
             </form>
+          )}
+          {core.ws.ui.keybindings.length > 0 && (
+            <div className="top-3 left-3 absolute">
+              <div>Tasten:</div>
+              <div className="flex gap-4 mt-2">
+                {core.ws.ui.keybindings.map((el, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className={clsx(
+                        'px-5 py-3 border-2 cursor-pointer select-none hover:bg-lime-50 rounded-lg active:bg-lime-200 active:scale-95 transition-all',
+                        el.pressed && 'bg-lime-200'
+                      )}
+                      title={el.title}
+                      onPointerDown={(e) => {
+                        // set pressed to true
+                        core.mutateWs((ws) => {
+                          const binding = ws.ui.keybindings.find(
+                            (binding) => binding.key === el.key
+                          )
+                          if (binding) {
+                            binding.pressed = true
+                          }
+                        })
+                      }}
+                      onPointerUp={(e) => {
+                        // set pressed to false
+                        core.mutateWs((ws) => {
+                          const binding = ws.ui.keybindings.find(
+                            (binding) => binding.key === el.key
+                          )
+                          if (binding) {
+                            binding.pressed = false
+                          }
+                        })
+                      }}
+                      onPointerCancel={(e) => {
+                        // ensure pressed is false if the pointer is canceled
+                        core.mutateWs((ws) => {
+                          const binding = ws.ui.keybindings.find(
+                            (binding) => binding.key === el.key
+                          )
+                          if (binding) {
+                            binding.pressed = false
+                          }
+                        })
+                      }}
+                    >
+                      {el.key}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
           )}
           <div className="m-auto">
             <div className="w-fit h-fit mb-32 mt-4 mx-4">

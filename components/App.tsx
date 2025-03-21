@@ -33,7 +33,8 @@ export function App() {
     <ErrorBoundary>
       {renderPage()}
       {renderModal()}
-      <PyodideWorker />
+      {core.ws.settings.mode == 'code' &&
+        core.ws.settings.language == 'python-pro' && <PyodideWorker />}
     </ErrorBoundary>
   )
 

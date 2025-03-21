@@ -91,7 +91,11 @@ export function setSpeedSliderValue(core: Core, val: number) {
     ws.vm.startTime = Date.now() - ws.vm.steps * delay - excessTime
   })
   if (core.worker) {
-    core.worker.sharedArrayDelay[0] = sliderToDelay(core.ws.ui.speedSliderValue)
+    Atomics.store(
+      core.worker.sharedArrayDelay,
+      0,
+      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000)
+    )
   }
 }
 
@@ -200,6 +204,17 @@ export function updatePlaygroundHashToMode(core: Core) {
               : 'PYTHON'
           }`
     }`
+    window.document.title =
+      'Spielwiese' +
+      (core.ws.settings.mode == 'blocks'
+        ? ''
+        : core.ws.settings.language == 'robot karol'
+        ? ''
+        : core.ws.settings.language == 'java'
+        ? ' Java'
+        : core.ws.settings.language == 'python-pro'
+        ? ' Python Pro'
+        : ' Python')
     if (newHash != hash) {
       window.history.replaceState(
         {},

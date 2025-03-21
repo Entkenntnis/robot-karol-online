@@ -5,6 +5,7 @@ let initStarted = false
 let pyodide = null
 
 let delay = new Int32Array(1)
+let lastStepTs = -1
 
 let decoder = new TextDecoder()
 
@@ -25,6 +26,7 @@ self.onmessage = async (event) => {
 
   if (event.data.type === 'run') {
     delay = new Int32Array(event.data.delayBuffer)
+    lastStepTs = performance.now() * 1000
     // console.log('Running Python code:', event.data.code)
     const globals = pyodide.toPy({
       Robot: () => {
@@ -145,10 +147,39 @@ self.onmessage = async (event) => {
           const length = Atomics.load(syncArray, 1)
           // Read the input bytes.
           const inputBytes = dataArray.slice(0, length)
+          lastStepTs = performance.now() * 1000
           return inputBytes
         },
       })
-      const result = await pyodide.runPythonAsync(event.data.code, { globals })
+      pyodide.registerJsModule('RobotKarolOnline', {
+        tasteRegistrieren: (key, title) => {
+          postMessage({
+            type: 'register_key',
+            key,
+            title,
+          })
+        },
+        tasteGedrückt: (key) => {
+          const sharedBuffer = new SharedArrayBuffer(
+            Int32Array.BYTES_PER_ELEMENT
+          )
+          const sharedArray = new Int32Array(sharedBuffer)
+          Atomics.store(sharedArray, 0, 42) // no data yet
+          self.postMessage({
+            type: 'check-key',
+            sharedBuffer,
+            key,
+          })
+          Atomics.wait(sharedArray, 0, 42)
+          lastStepTs = performance.now() * 1000
+          return sharedArray[0] === 1
+        },
+      })
+      pyodide.setDebug(true) // maybe helpful?
+      const result = await pyodide.runPythonAsync(event.data.code, {
+        globals,
+        filename: 'Programm.py',
+      })
       console.log('Python code result:', result)
     } catch (error) {
       console.log('error!!!', error)
@@ -160,10 +191,16 @@ self.onmessage = async (event) => {
 }
 
 function sleepWithDelay() {
-  let startTime = performance.now()
+  const nextStepTs = lastStepTs + Atomics.load(delay, 0)
+  const now = performance.now() * 1000
 
-  while (performance.now() - startTime < delay[0]) {
-    sleep(Math.min(100, delay[0] - (performance.now() - startTime)))
+  if (now >= nextStepTs) {
+    lastStepTs = Math.max(nextStepTs, now - 1000 * 1000)
+    return
+  } else {
+    const waitTime = nextStepTs - now
+    sleep(Math.min(waitTime / 1000, 100))
+    sleepWithDelay()
   }
 }
 
@@ -178,11 +215,12 @@ function sleep(ms) {
 function checkCondition(cond) {
   const sharedBuffer = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT)
   const sharedArray = new Int32Array(sharedBuffer)
+  Atomics.store(sharedArray, 0, 42) // no data yet
   self.postMessage({
     type: 'check',
     sharedBuffer,
     condition: JSON.stringify(cond),
   })
-  Atomics.wait(sharedArray, 0, 0)
+  Atomics.wait(sharedArray, 0, 42)
   return sharedArray[0] === 1
 }

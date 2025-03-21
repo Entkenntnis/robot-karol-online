@@ -17,11 +17,7 @@ import {
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
-import {
-  closeHighlightDescription,
-  setMode,
-  updatePlaygroundHashToMode,
-} from '../../lib/commands/mode'
+import { closeHighlightDescription, setMode } from '../../lib/commands/mode'
 import {
   closeOutput,
   restartProgram,
@@ -290,7 +286,10 @@ export function IdeMain() {
                   onClick={() => {
                     const input = document.createElement('input')
                     input.type = 'file'
-                    input.accept = '.txt,.json'
+                    input.accept =
+                      core.ws.settings.language == 'python-pro'
+                        ? '.py'
+                        : '.txt,.json'
 
                     const reader = new FileReader()
                     reader.addEventListener('load', (e) => {

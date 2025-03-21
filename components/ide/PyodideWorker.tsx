@@ -22,5 +22,34 @@ export function PyodideWorker() {
     }
   }, [core, core.worker, core.ws.settings.language])
 
+  // add keyup and keydown event listeners to the window object
+  useEffect(() => {
+    const handleKeyUp = (event: KeyboardEvent) => {
+      core.mutateWs(({ ui }) => {
+        const binding = ui.keybindings.find((el) => el.key === event.key)
+        if (binding) {
+          binding.pressed = false
+        }
+      })
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      core.mutateWs(({ ui }) => {
+        const binding = ui.keybindings.find((el) => el.key === event.key)
+        if (binding) {
+          binding.pressed = true
+        }
+      })
+    }
+
+    window.addEventListener('keyup', handleKeyUp)
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keyup', handleKeyUp)
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [core])
+
   return null
 }

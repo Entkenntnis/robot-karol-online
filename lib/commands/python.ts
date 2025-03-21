@@ -53,6 +53,7 @@ export function setupWorker(core: Core) {
     if (event.data === 'done') {
       core.mutateWs(({ ui }) => {
         ui.state = 'ready'
+        ui.keybindings = []
       })
       endExecution(core)
     }
@@ -96,6 +97,18 @@ export function setupWorker(core: Core) {
       Atomics.notify(sharedArray, 0)
       // console.log('main thread notify done')
     }
+    if (event.data.type && event.data.type == 'check-key') {
+      // console.log('main thread check:istWand')
+      const { sharedBuffer, key } = event.data
+      const sharedArray = new Int32Array(sharedBuffer)
+      const binding = core.ws.ui.keybindings.find((el) => el.key === key)
+      sharedArray[0] = binding && binding.pressed ? 1 : 0
+
+      // console.log('main thread check:istWand', sharedArray[0])
+
+      Atomics.notify(sharedArray, 0)
+      // console.log('main thread notify done')
+    }
     if (event.data.type && event.data.type == 'error') {
       endExecution(core)
       core.mutateWs(({ ui }) => {
@@ -131,6 +144,12 @@ export function setupWorker(core: Core) {
           ui.inputPrompt = undefined
         })
       }
+    }
+    if (event.data.type && event.data.type == 'register_key') {
+      const { key, title } = event.data
+      core.mutateWs(({ ui }) => {
+        ui.keybindings.push({ key, title: title ?? '', pressed: false })
+      })
     }
   }
 
@@ -186,13 +205,12 @@ export function setupWorker(core: Core) {
     const delayBuffer = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT)
     core.worker.sharedArrayDelay = new Int32Array(delayBuffer)
 
-    core.worker.sharedArrayDelay[0] = sliderToDelay(core.ws.ui.speedSliderValue)
+    Atomics.store(
+      core.worker.sharedArrayDelay,
+      0,
+      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000)
+    )
 
-    core.worker.mainWorker.postMessage({
-      type: 'run',
-      code,
-      delayBuffer,
-    })
     core.mutateWs(({ ui, vm }) => {
       ui.state = 'running'
       ui.showJavaInfo = false
@@ -204,6 +222,13 @@ export function setupWorker(core: Core) {
       ui.messages = []
       ui.inputPrompt = undefined
       ui.errorMessages = []
+      ui.keybindings = []
+    })
+
+    core.worker.mainWorker.postMessage({
+      type: 'run',
+      code,
+      delayBuffer,
     })
   }
 
@@ -239,6 +264,7 @@ export function setupWorker(core: Core) {
       ui.isManualAbort = true
       ui.isEndOfRun = true
       ui.inputPrompt = undefined
+      ui.keybindings = []
     })
   }
 }
