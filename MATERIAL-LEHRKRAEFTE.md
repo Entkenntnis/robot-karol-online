@@ -281,3 +281,14 @@ while True:
 ```
 
 <br /><br /><br />
+
+### Tetris
+
+Alle Zutaten sind zusammen! Spiele Tetris innerhalb von Robot Karol.
+
+![grafik](https://github.com/user-attachments/assets/c3102ba5-c800-48f4-88d7-d6f4f169be5c)
+
+https://karol.arrrg.de/#CDBV
+
+
+<br /><br /><br />
