@@ -230,7 +230,7 @@ export interface Analyze {
   }
   newEventStats: {
     uniqueUsers: number
-    stats: { [key: string]: { sessions: number } }
+    stats: { [key: string]: { sessions: number; average: number } }
   }
 }
 

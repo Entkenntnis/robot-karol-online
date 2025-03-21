@@ -21,7 +21,9 @@ export function AnalyzeResults() {
           <tr className="bg-gray-100">
             <th className="p-2 text-left border border-gray-300">Funktion</th>
             <th className="p-2 text-left border border-gray-300">Sessions</th>
-            <th className="p-2 text-left border border-gray-300">Nutzungen</th>
+            <th className="p-2 text-left border border-gray-300">
+              Nutzungen pro Session
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -29,7 +31,12 @@ export function AnalyzeResults() {
             <tr key={key} className="hover:bg-gray-50">
               <td className="p-2 border border-gray-300">{key}</td>
               <td className="p-2 border border-gray-300">{data.sessions}</td>
-              <td className="p-2 border border-gray-300">-</td>
+              <td className="p-2 border border-gray-300">
+                {data.average.toLocaleString('de-DE', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </td>
             </tr>
           ))}
         </tbody>

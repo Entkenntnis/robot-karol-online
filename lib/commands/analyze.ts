@@ -68,9 +68,10 @@ export async function analyze(core: Core) {
       users.add(entry.userId)
     }
 
-    // find all events
+    // find all events and count occurrences
     const events = new Set<string>()
     const idsPerEvent = new Map<string, Set<string>>()
+    const eventCount = new Map<string, number>()
     for (const entry of data) {
       if (
         entry.event.startsWith('start_quest_') ||
@@ -85,13 +86,14 @@ export async function analyze(core: Core) {
       )
         continue
 
+      // update session IDs
       if (!idsPerEvent.has(entry.event)) {
         idsPerEvent.set(entry.event, new Set<string>())
       }
-      const ids = idsPerEvent.get(entry.event)!
-      if (ids) {
-        ids.add(entry.userId)
-      }
+      idsPerEvent.get(entry.event)!.add(entry.userId)
+
+      // update total count for the event
+      eventCount.set(entry.event, (eventCount.get(entry.event) ?? 0) + 1)
 
       events.add(entry.event)
     }
@@ -99,14 +101,16 @@ export async function analyze(core: Core) {
     core.mutateWs((ws) => {
       ws.analyze.newEventStats.uniqueUsers = users.size
       ws.analyze.newEventStats.stats = {}
-      for (const [event, ids] of idsPerEvent.entries().toArray()) {
+      for (const [event, ids] of Array.from(idsPerEvent.entries())) {
+        const totalUses = eventCount.get(event) || 0
+        const sessions = ids.size
+        const average = sessions > 0 ? totalUses / sessions : 0
         ws.analyze.newEventStats.stats[event] = {
-          sessions: ids.size,
+          sessions,
+          average,
         }
       }
     })
-
-    console.log(data, events)
 
     core.mutateWs((ws) => {
       for (const entry of data) {
@@ -380,15 +384,7 @@ export async function analyze(core: Core) {
   }
 }
 
-export function submitAnalyzeEvent(
-  core: Core,
-  key: keyof typeof analyzeEvents
-) {
+export function submitAnalyzeEvent(core: Core, key: string) {
+  console.log('#debug submitAnalyzeEvent', key)
   submit_event(key, core)
-}
-
-export const analyzeEvents = {
-  pro_mode: {
-    name: '',
-  },
 }
