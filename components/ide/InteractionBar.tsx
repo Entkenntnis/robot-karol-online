@@ -30,7 +30,8 @@ export function InteractionBar() {
         !core.worker.mainWorkerReady
       )) ||
     !!core.ws.ui.lockLanguage ||
-    !core.ws.ui.pythonProCanSwitch
+    !core.ws.ui.pythonProCanSwitch ||
+    core.ws.ui.proMode
   return (
     <div
       className={clsx(
@@ -38,13 +39,20 @@ export function InteractionBar() {
         core.ws.settings.mode == 'blocks' && 'border-r'
       )}
     >
-      <button className="px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100">
-        <FaIcon icon={faBars} className="mr-2" /> Menü
+      <button
+        className="px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
+        onClick={() => {
+          core.mutateWs(({ ui }) => {
+            ui.showFlyoutMenu = true
+          })
+        }}
+      >
+        <FaIcon icon={faBars} className="mr-2" /> {core.strings.ide.menu}
       </button>
       <div className="pt-1">
         <span
           className={clsx(
-            'font-semibold mr-1',
+            'font-semibold mr-1 select-none',
             core.ws.settings.mode == 'code' && 'text-gray-400'
           )}
         >
@@ -52,7 +60,12 @@ export function InteractionBar() {
         </span>
         <label
           htmlFor="toggleSwitch"
-          className="relative inline-block w-14 mx-2 cursor-pointer align-middle"
+          className={clsx(
+            'relative inline-block w-14 mx-2 align-middle',
+            dontChangeLanguage
+              ? 'opacity-30 cursor-not-allowed'
+              : 'cursor-pointer'
+          )}
         >
           <input
             type="checkbox"
@@ -61,6 +74,7 @@ export function InteractionBar() {
               if (core.ws.settings.mode == 'blocks') {
                 submitAnalyzeEvent(core, 'ev_click_ide_code')
                 setMode(core, 'code')
+                setLanguage(core, core.ws.settings.language)
               } else {
                 submitAnalyzeEvent(core, 'ev_click_ide_blocks')
                 setMode(core, 'blocks')
@@ -68,24 +82,28 @@ export function InteractionBar() {
             }}
             checked={core.ws.settings.mode == 'code'}
             className={clsx(
-              'peer appearance-none w-14 h-8 rounded-full transition-colors duration-300 focus:outline-none cursor-pointer',
+              'peer appearance-none w-14 h-8 rounded-full transition-colors duration-300 focus:outline-none enabled:cursor-pointer disabled:cursor-not-allowed',
               core.ws.settings.mode == 'blocks'
                 ? 'bg-[#5ba55b]'
                 : 'bg-[#770088]'
             )}
+            disabled={dontChangeLanguage}
           />
           <span className="absolute left-1 top-1 w-6 h-6 bg-white shadow-white rounded-full transition duration-300 peer-checked:translate-x-6"></span>
         </label>
         <select
           className={clsx(
-            'rounded-lg px-2 py-0.5 transition focus:outline-none font-semibold ml-1',
+            'rounded-lg px-2 py-0.5 transition focus:outline-none font-semibold ml-1 bg-white disabled:cursor-not-allowed cursor-pointer [&>option]:cursor-pointer',
             core.ws.settings.mode == 'code'
               ? 'border-[#770088] border'
-              : 'bg-white text-gray-400 border'
+              : 'text-gray-400 border'
           )}
           value={core.ws.settings.language}
           onChange={(e) => {
             submitAnalyzeEvent(core, 'ev_click_ide_language-' + e.target.value)
+            if (core.ws.settings.mode == 'blocks') {
+              setMode(core, 'code')
+            }
             setLanguage(core, e.target.value as Settings['language'])
           }}
           disabled={dontChangeLanguage}
@@ -98,7 +116,7 @@ export function InteractionBar() {
       </div>
       <button
         className={clsx(
-          'rounded px-6 pt-1 pb-2 transition whitespace-nowrap enabled:active:scale-[0.98]',
+          'rounded pt-1 pb-2 transition whitespace-nowrap enabled:active:scale-[0.98] w-[111px] text-center',
           core.ws.ui.state == 'error' || core.ws.ui.state == 'loading'
             ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
             : clsx(

@@ -67,6 +67,7 @@ export interface Ui {
   initDone: boolean
   inputPrompt?: string
   keybindings: { key: string; title: string; pressed: boolean }[]
+  showFlyoutMenu: boolean
 }
 
 export interface Vm {
