@@ -42,6 +42,7 @@ export function InteractionBar() {
       <button
         className="px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
         onClick={() => {
+          submitAnalyzeEvent(core, 'ev_click_ide_menu')
           core.mutateWs(({ ui }) => {
             ui.showFlyoutMenu = true
           })
@@ -82,14 +83,14 @@ export function InteractionBar() {
             }}
             checked={core.ws.settings.mode == 'code'}
             className={clsx(
-              'peer appearance-none w-14 h-8 rounded-full transition-colors duration-300 focus:outline-none enabled:cursor-pointer disabled:cursor-not-allowed',
+              'peer appearance-none w-12 h-7 rounded-full transition-colors duration-300 focus:outline-none enabled:cursor-pointer disabled:cursor-not-allowed',
               core.ws.settings.mode == 'blocks'
                 ? 'bg-[#5ba55b]'
                 : 'bg-[#770088]'
             )}
             disabled={dontChangeLanguage}
           />
-          <span className="absolute left-1 top-1 w-6 h-6 bg-white shadow-white rounded-full transition duration-300 peer-checked:translate-x-6"></span>
+          <span className="absolute left-1 top-1 w-5 h-5 bg-white shadow-white rounded-full transition duration-300 peer-checked:translate-x-5"></span>
         </label>
         <select
           className={clsx(
@@ -109,9 +110,13 @@ export function InteractionBar() {
           disabled={dontChangeLanguage}
         >
           <option value="robot karol">Karol Code</option>
-          <option value="java">Java</option>
-          <option value="python">Python</option>
-          <option value="python-pro">Python Pro</option>
+          {core.ws.settings.lng == 'de' && (
+            <>
+              <option value="java">Java</option>
+              <option value="python">Python</option>
+              <option value="python-pro">Python Pro</option>
+            </>
+          )}
         </select>
       </div>
       <button
