@@ -53,6 +53,9 @@ export function switchToPage(core: Core, target: Pages) {
   }
 
   if (target == 'imported') {
+    if (core.ws.ui.isPlayground) {
+      if (pushHistory) history.pushState(null, '', '/#SPIELWIESE')
+    }
     document.title = core.ws.quest.title
     return
   }
@@ -64,6 +67,7 @@ export function switchToPage(core: Core, target: Pages) {
   }
 
   if (target == 'inspiration') {
+    if (pushHistory) history.pushState(null, '', '/#INSPIRATION')
     document.title = 'Aufgaben-Galerie'
     return
   }

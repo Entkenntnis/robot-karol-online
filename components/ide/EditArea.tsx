@@ -18,6 +18,8 @@ import {
   simplifySelection,
   toggleComment,
 } from '@codemirror/commands'
+import { sub } from 'date-fns'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 const BlockEditor = dynamic(
   () => import('./BlockEditor').then((mod) => mod.BlockEditor),
@@ -103,6 +105,7 @@ export function EditArea() {
               <div>
                 <button
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_snippetFor')
                     let safeLoopVar = 'i'
                     const candidates =
                       'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZi'
@@ -136,6 +139,7 @@ export function EditArea() {
                 </button>
                 <button
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_snippetWhile')
                     insertCodeSnippet(
                       ['while # Bedingung :', '    # Aktion(en)', ''],
                       6
@@ -152,6 +156,7 @@ export function EditArea() {
                 </button>
                 <button
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_snippetIfElse')
                     insertCodeSnippet(
                       [
                         'if # Bedingung :',
@@ -174,6 +179,7 @@ export function EditArea() {
                 </button>
                 <button
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_snippetIf')
                     insertCodeSnippet(
                       ['if # Bedingung :', '    # JA-Aktion(en)', ''],
                       3
@@ -190,6 +196,7 @@ export function EditArea() {
                 </button>
                 <button
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_snippetDef')
                     insertCodeSnippet(['def ():', '    # Aktion(en)', ''], 4)
                   }}
                   className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
@@ -203,6 +210,10 @@ export function EditArea() {
                 </button>
                 <button
                   onClick={() => {
+                    submitAnalyzeEvent(
+                      core,
+                      'ev_click_ide_snippetToggleComment'
+                    )
                     if (view.current) {
                       toggleComment(view.current)
                       view.current.focus()
@@ -223,6 +234,9 @@ export function EditArea() {
                 href="https://quickref.me/python.html"
                 target="_blank"
                 className="link"
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_ide_pythonQuickRef')
+                }}
               >
                 Spickzettel
               </a>
@@ -230,6 +244,9 @@ export function EditArea() {
                 href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md#karol-x-python"
                 target="_blank"
                 className="ml-5 link"
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_ide_pythonExamples')
+                }}
               >
                 Beispiele
               </a>

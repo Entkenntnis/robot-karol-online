@@ -49,6 +49,9 @@ import { mapData } from '../../lib/data/map'
 import { submit_event } from '../../lib/helper/submit'
 import { questDataEn } from '../../lib/data/questsEn'
 import { AnalyzeResults } from '../helper/AnalyzeResults'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { sub } from 'date-fns'
+import { buildPlayground } from '../../lib/commands/init'
 
 export function Overview() {
   const core = useCore()
@@ -96,7 +99,9 @@ export function Overview() {
                   setLng(core, lng)
                   setLngStorage(lng)
                   if (lng == 'en') {
-                    submit_event('lng_en', core)
+                    submitAnalyzeEvent(core, 'ev_click_landing_english')
+                  } else if (lng == 'de') {
+                    submitAnalyzeEvent(core, 'ev_click_landing_german')
                   }
                 }
               }}
@@ -108,12 +113,10 @@ export function Overview() {
           <div className="mx-auto mt-6">
             <a
               className="hover:underline cursor-pointer mr-8"
-              href={
-                window.location.protocol +
-                '//' +
-                window.location.host +
-                '/#SPIELWIESE'
-              }
+              onClick={() => {
+                submitAnalyzeEvent(core, 'ev_click_landing_playground')
+                buildPlayground(core)
+              }}
             >
               {core.strings.overview.playground}
             </a>
@@ -121,6 +124,7 @@ export function Overview() {
               className="mr-8 hover:underline"
               onClick={() => {
                 setOverviewScroll(core, 0)
+                submitAnalyzeEvent(core, 'ev_click_landing_editor')
                 switchToPage(core, 'editor')
               }}
             >
@@ -145,6 +149,7 @@ export function Overview() {
                   <li>
                     <button
                       onClick={() => {
+                        submitAnalyzeEvent(core, 'ev_click_landing_startNow')
                         startQuest(core, 1)
                       }}
                     >
@@ -155,6 +160,7 @@ export function Overview() {
                   <li>
                     <button
                       onClick={() => {
+                        submitAnalyzeEvent(core, 'ev_click_landing_profile')
                         hideOverviewList(core)
                         showProfile(core)
                         try {
@@ -171,7 +177,7 @@ export function Overview() {
                   <button
                     onClick={() => {
                       showOverviewList(core)
-                      submit_event('show_questlist', core)
+                      submitAnalyzeEvent(core, 'ev_click_landing_listOfAll')
                       hideProfile(core)
                       document.getElementById('scroll-container')!.scrollTop = 0
                       try {
@@ -187,6 +193,10 @@ export function Overview() {
                   <button
                     title={core.strings.overview.loadTooltip}
                     onClick={async () => {
+                      submitAnalyzeEvent(
+                        core,
+                        'ev_click_landing_importProgress'
+                      )
                       await loadFromJSON()
                       const appearance = getAppearance()
                       if (appearance) {
@@ -205,6 +215,10 @@ export function Overview() {
                   <button
                     title={core.strings.overview.saveTooltip}
                     onClick={() => {
+                      submitAnalyzeEvent(
+                        core,
+                        'ev_click_landing_exportProgress'
+                      )
                       saveToJSON(core)
                     }}
                   >
@@ -215,7 +229,7 @@ export function Overview() {
                   <button
                     onClick={() => {
                       setOverviewScroll(core, 0)
-                      submit_event('show_highscore', core)
+                      submitAnalyzeEvent(core, 'ev_click_landing_highscore')
                       switchToPage(core, 'highscore')
                     }}
                   >
@@ -262,6 +276,7 @@ export function Overview() {
                     type="checkbox"
                     checked={isPersisted()}
                     onChange={(e) => {
+                      submitAnalyzeEvent(core, 'ev_click_profile_togglePersist')
                       setPersist(core, e.target.checked)
                       hideSaveHint(core)
                       forceRerender(core)
@@ -276,6 +291,7 @@ export function Overview() {
                   onClick={() => {
                     const res = confirm(core.strings.profile.resetConfirm)
                     if (res) {
+                      submitAnalyzeEvent(core, 'ev_click_profile_reset')
                       resetStorage()
                       forceRerender(core)
                       setLng(core, 'de')
@@ -337,7 +353,7 @@ export function Overview() {
                   <button
                     className="absolute top-[350px] left-[1100px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
                     onClick={() => {
-                      submit_event('play_snake', core)
+                      submitAnalyzeEvent(core, 'ev_click_landing_snake')
                       if (window.location.hostname == 'localhost') {
                         window.open('/snake', '_blank')
                       } else {
@@ -364,7 +380,7 @@ export function Overview() {
                     href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
                     target="_blank"
                     onClick={() => {
-                      submit_event('show_materials', core)
+                      submitAnalyzeEvent(core, 'ev_click_landing_material')
                     }}
                   >
                     <p className="text-center text-lg mb-1">
@@ -383,9 +399,9 @@ export function Overview() {
                       'absolute top-[680px] left-[370px] block z-10 hover:bg-gray-100/60 rounded-xl',
                       'w-[120px] cursor-pointer'
                     )}
-                    href="#INSPIRATION"
                     onClick={() => {
-                      submit_event('show_materials', core)
+                      submitAnalyzeEvent(core, 'ev_click_landing_gallery')
+                      switchToPage(core, 'inspiration')
                     }}
                   >
                     <p className="text-center text-lg mb-1">
@@ -407,6 +423,7 @@ export function Overview() {
                     //href="https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link"
                     onClick={() => {
                       // open feedback form in new tab
+                      submitAnalyzeEvent(core, 'ev_click_landing_feedback')
                       window.open(
                         'https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link',
                         '_blank'
@@ -421,25 +438,11 @@ export function Overview() {
                     />
                   </button>
                 )}
-                {false && (
-                  <button
-                    className="absolute top-[50px] left-[730px] w-[80px] block z-10 hover:bg-gray-100/60 rounded-xl"
-                    onClick={() => {
-                      showModal(core, 'appearance')
-                    }}
-                  >
-                    <p className="text-center text-lg mb-1">Outfit</p>
-                    <img
-                      src="/outfit.png"
-                      alt="Kleidung"
-                      className="w-[60px] mx-auto"
-                    />
-                  </button>
-                )}
                 {core.ws.settings.lng == 'de' && (
                   <button
                     className="absolute top-[1520px] left-[880px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
                     onClick={() => {
+                      submitAnalyzeEvent(core, 'ev_click_landing_einhorn')
                       window.open('https://einhorn.arrrg.de', '_blank')
                     }}
                   >
@@ -456,6 +459,7 @@ export function Overview() {
                 <button
                   className="absolute top-[1550px] left-[160px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_landing_hacktheweb')
                     window.open(
                       'https://hack.arrrg.de/' +
                         (core.ws.settings.lng === 'en' ? 'en' : ''),
@@ -515,6 +519,12 @@ export function Overview() {
                       title={questData[parseInt(entry[0])].title}
                       solved={isQuestDone(parseInt(entry[0]))}
                       onClick={() => {
+                        if (parseInt(entry[0]) == 1) {
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_click_landing_startKarol'
+                          )
+                        }
                         setOverviewScroll(
                           core,
                           document.getElementById('scroll-container')
@@ -563,6 +573,7 @@ export function Overview() {
             <button
               className="hover:underline"
               onClick={() => {
+                submitAnalyzeEvent(core, 'ev_click_landing_impressum')
                 showModal(core, 'impressum')
               }}
             >
@@ -572,6 +583,7 @@ export function Overview() {
             <button
               className="hover:underline"
               onClick={() => {
+                submitAnalyzeEvent(core, 'ev_click_landing_privacy')
                 showModal(core, 'privacy')
               }}
             >
@@ -620,7 +632,14 @@ export function Overview() {
 
   function renderExternalLink(title: string, href: string) {
     return (
-      <a href={href} target="_blank" rel="noreferrer">
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        onClick={() => {
+          submitAnalyzeEvent(core, 'ev_click_landing_' + title.toLowerCase())
+        }}
+      >
         <span className="hover:underline">{title}</span>{' '}
         <FaIcon icon={faExternalLink} className="text-xs" />
       </a>

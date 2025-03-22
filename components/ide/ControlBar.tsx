@@ -19,6 +19,7 @@ import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { twoWorldsEqual } from '../../lib/commands/world'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function ControlBar() {
   const core = useCore()
@@ -66,6 +67,7 @@ export function ControlBar() {
           <button
             className="h-full p-2 bg-purple-300 hover:bg-purple-400 transition-colors mr-3 align-top rounded active:bg-purple-500"
             onClick={() => {
+              submitAnalyzeEvent(core, 'ev_click_ide_singleStep')
               core.mutateWs((ws) => {
                 ws.vm.debuggerRequestNextStep = true
               })
@@ -76,6 +78,7 @@ export function ControlBar() {
           <button
             className="h-full p-2 bg-white hover:bg-gray-100 rounded"
             onClick={() => {
+              submitAnalyzeEvent(core, 'ev_click_ide_terminateDebugger')
               abort(core)
             }}
           >
@@ -92,6 +95,7 @@ export function ControlBar() {
                 'invisible'
             )}
             onClick={() => {
+              submitAnalyzeEvent(core, 'ev_click_ide_debugger')
               core.mutateWs((ws) => {
                 ws.vm.isDebugging = true
                 ws.vm.debuggerRequestNextStep = true

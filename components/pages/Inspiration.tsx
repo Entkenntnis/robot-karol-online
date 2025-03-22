@@ -17,6 +17,7 @@ import RenderIfVisible from 'react-render-if-visible'
 import { View } from '../helper/View'
 import { deserializeWorld } from '../../lib/commands/json'
 import { tagsById } from '../../lib/data/tagsById'
+import { switchToPage } from '../../lib/commands/page'
 
 const tagTitles: { [key: string]: string } = {}
 
@@ -25,6 +26,7 @@ TAGS.forEach((tag) => {
 })
 
 export function Inspiration() {
+  const core = useCore()
   const [entries, setEntries] = useState<EntryType[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedTags, setSelectedTags] = useState<string[]>([])
@@ -233,7 +235,12 @@ export function Inspiration() {
         </h1>
         <p className="mb-2">Stand: 5. Juli 2024</p>
         <p className="mb-4">
-          <a href="/#" className="text-blue-500 hover:underline">
+          <a
+            className="text-blue-500 hover:underline cursor-pointer"
+            onClick={() => {
+              switchToPage(core, 'overview')
+            }}
+          >
             zurück
           </a>
         </p>

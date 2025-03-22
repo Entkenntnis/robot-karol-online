@@ -9,7 +9,7 @@ import { QuestSerialFormat } from '../state/types'
 import { deserializeQuest } from './json'
 import { startQuest } from './quest'
 import { setLanguage } from './language'
-import { analyze } from './analyze'
+import { analyze, submitAnalyzeEvent } from './analyze'
 
 export async function initClient(core: Core) {
   window.addEventListener('popstate', () => {
@@ -30,23 +30,10 @@ export async function initClient(core: Core) {
     })
   }
 
-  function buildPlayground() {
-    core.mutateWs((ws) => {
-      ws.quest.title = 'Spielwiese'
-      ws.quest.description = 'Programmiere frei und baue dein Herzensprojekt.'
-      ws.ui.isPlayground = true
-      ws.quest.tasks = [
-        { title: 'Spielwiese', start: createWorld(15, 10, 6), target: null },
-      ]
-      ws.ui.needsTextRefresh = true
-    })
-    submit_event('show_playground', core)
-    switchToPage(core, 'imported')
-  }
-
   if (id) {
     if (id == 'Z9xO1rVGj') {
-      buildPlayground()
+      submitAnalyzeEvent(core, 'ev_show_playgroundLegacyLink')
+      buildPlayground(core)
       return
     }
     await loadLegacyProject(core, id)
@@ -67,6 +54,7 @@ export async function initClient(core: Core) {
   const normalHash = window.location.hash
 
   if (hash.startsWith('#SPIELWIESE')) {
+    submitAnalyzeEvent(core, 'ev_show_playgroundHash' + hash.toLowerCase())
     const parts = hash.split('-')
     if (parts.length > 1) {
       const mode = parts[1]
@@ -87,7 +75,7 @@ export async function initClient(core: Core) {
         setLanguage(core, 'java')
       }
     }
-    buildPlayground()
+    buildPlayground(core)
     updatePlaygroundHashToMode(core)
     return
   }
@@ -98,6 +86,7 @@ export async function initClient(core: Core) {
   }
 
   if (hash == '#INSPIRATION') {
+    submitAnalyzeEvent(core, 'ev_show_inspiration')
     switchToPage(core, 'inspiration')
     return
   }
@@ -119,6 +108,7 @@ export async function initClient(core: Core) {
   }
 
   if (hash == '#EDITOR') {
+    submitAnalyzeEvent(core, 'ev_show_editor')
     switchToPage(core, 'editor')
     return
   }
@@ -152,5 +142,19 @@ export async function initClient(core: Core) {
     return
   }
 
+  submitAnalyzeEvent(core, 'ev_show_landing')
   switchToPage(core, 'overview')
+}
+
+export function buildPlayground(core: Core) {
+  core.mutateWs((ws) => {
+    ws.quest.title = 'Spielwiese'
+    ws.quest.description = 'Programmiere frei und baue dein Herzensprojekt.'
+    ws.ui.isPlayground = true
+    ws.quest.tasks = [
+      { title: 'Spielwiese', start: createWorld(15, 10, 6), target: null },
+    ]
+    ws.ui.needsTextRefresh = true
+  })
+  switchToPage(core, 'imported')
 }

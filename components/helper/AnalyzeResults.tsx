@@ -7,7 +7,9 @@ export function AnalyzeResults() {
   customQuests.sort((a, b) => b[1].start - a[1].start)
 
   const stats = Object.entries(core.ws.analyze.newEventStats.stats)
-  stats.sort((a, b) => b[1].sessions - a[1].sessions)
+  stats.sort(
+    (a, b) => b[1].sessions * b[1].average - a[1].sessions * a[1].average
+  )
   return (
     <div className="bg-white px-16 pb-8 mt-4">
       <p className="my-6">

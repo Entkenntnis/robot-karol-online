@@ -44,6 +44,8 @@ import { FaIcon } from '../helper/FaIcon'
 import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
 import { setLngStorage } from '../../lib/storage/storage'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { sub } from 'date-fns'
 
 export function Tasks() {
   const core = useCore()
@@ -340,19 +342,32 @@ export function Tasks() {
             </p>
           ) : core.ws.page == 'shared' || core.ws.page == 'imported' ? (
             <p className="z-10 w-full ml-3 overflow">
-              <a
-                className="underline"
-                target={core.ws.ui.isPlayground ? '_self' : '_blank'}
-                href={window.location.protocol + '//' + window.location.host}
-              >
-                {core.ws.ui.isPlayground
-                  ? core.strings.ide.back
-                  : 'Robot Karol Online'}
-              </a>
+              {core.ws.ui.isPlayground ? (
+                <a
+                  className="underline cursor-pointer"
+                  onClick={() => {
+                    switchToPage(core, 'overview')
+                  }}
+                >
+                  {core.strings.ide.back}
+                </a>
+              ) : (
+                <a
+                  className="underline"
+                  target={'_blank'}
+                  href={window.location.protocol + '//' + window.location.host}
+                >
+                  Robot Karol Online
+                </a>
+              )}
               {core.ws.ui.isPlayground && (
                 <button
                   className="ml-3 -mt-1 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
                   onClick={() => {
+                    submitAnalyzeEvent(
+                      core,
+                      'ev_click_ide_playgroundChangeSize'
+                    )
                     core.mutateWs((ws) => {
                       ws.world = ws.quest.tasks[0].start
                     })
@@ -378,7 +393,7 @@ export function Tasks() {
                   showModal(core, 'remix')
                 } else {
                   setShowStructogram(core, true)
-                  submit_event('show_structogram', core)
+                  submitAnalyzeEvent(core, 'ev_click_ide_structogram')
                 }
               }}
             >
@@ -393,6 +408,7 @@ export function Tasks() {
             <button
               className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600"
               onClick={() => {
+                submitAnalyzeEvent(core, 'ev_click_ide_appearance')
                 showModal(core, 'appearance')
               }}
             >
@@ -410,6 +426,11 @@ export function Tasks() {
                   if (lng == 'de' || lng == 'en') {
                     setLng(core, lng)
                     setLngStorage(lng)
+                    if (lng == 'en') {
+                      submitAnalyzeEvent(core, 'ev_click_ide_english')
+                    } else if (lng == 'de') {
+                      submitAnalyzeEvent(core, 'ev_click_ide_german')
+                    }
                   }
                 }}
               >
