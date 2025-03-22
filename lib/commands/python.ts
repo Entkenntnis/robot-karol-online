@@ -81,6 +81,9 @@ export function setupWorker(core: Core) {
       } else if (action == 'beenden') {
         endExecution(core)
         core.worker.reset()
+        core.mutateWs(({ ui }) => {
+          ui.isManualAbort = false
+        })
       }
     }
     if (event.data.type && event.data.type == 'stdout') {
@@ -232,7 +235,7 @@ export function setupWorker(core: Core) {
     })
   }
 
-  core.worker.reset = async () => {
+  core.worker.reset = () => {
     if (!core.worker || !core.worker.mainWorker || !core.worker.backupWorker)
       return
 

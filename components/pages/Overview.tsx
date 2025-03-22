@@ -354,11 +354,7 @@ export function Overview() {
                     className="absolute top-[350px] left-[1100px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_landing_snake')
-                      if (window.location.hostname == 'localhost') {
-                        window.open('/snake', '_blank')
-                      } else {
-                        window.open('/snake.html', '_blank')
-                      }
+                      window.open('/#CDBV', '_blank')
                     }}
                   >
                     <p className="text-center text-lg mb-1">
