@@ -254,47 +254,47 @@ export function EditArea() {
           </>
         )}
         {renderEditor()}
-        {core.ws.ui.state == 'error' ||
+        {(core.ws.ui.state == 'error' ||
           (core.ws.settings.language == 'python-pro' &&
-            core.ws.ui.errorMessages.length > 0 && (
-              <div className="absolute left-20 right-12 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
-                <div className="flex justify-between mt-[9px] relative">
-                  <div className="px-3 pb-1 pt-0">
-                    {core.ws.settings.language == 'python-pro' ? (
-                      <>
-                        <pre>{core.ws.ui.errorMessages[0]}</pre>
-                        <button
-                          className="absolute -top-1 right-2"
-                          onClick={() => {
-                            core.mutateWs(({ ui }) => {
-                              ui.state = 'ready'
-                              ui.errorMessages = []
-                            })
-                          }}
-                        >
-                          <FaIcon icon={faTimes} />
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <p className="mb-2">
-                          <FaIcon
-                            icon={faCircleExclamation}
-                            className="text-red-600 mr-2"
-                          />
-                          {core.strings.ide.problems}:
-                        </p>
-                        {core.ws.ui.errorMessages.map((err, i) => (
-                          <p className="mb-2" key={err + i.toString()}>
-                            {err}
-                          </p>
-                        ))}
-                      </>
-                    )}
-                  </div>
-                </div>
+            core.ws.ui.errorMessages.length > 0)) && (
+          <div className="absolute left-20 right-12 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
+            <div className="flex justify-between mt-[9px] relative">
+              <div className="px-3 pb-1 pt-0">
+                {core.ws.settings.language == 'python-pro' ? (
+                  <>
+                    <pre>{core.ws.ui.errorMessages[0]}</pre>
+                    <button
+                      className="absolute -top-1 right-2"
+                      onClick={() => {
+                        core.mutateWs(({ ui }) => {
+                          ui.state = 'ready'
+                          ui.errorMessages = []
+                        })
+                      }}
+                    >
+                      <FaIcon icon={faTimes} />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <p className="mb-2">
+                      <FaIcon
+                        icon={faCircleExclamation}
+                        className="text-red-600 mr-2"
+                      />
+                      {core.strings.ide.problems}:
+                    </p>
+                    {core.ws.ui.errorMessages.map((err, i) => (
+                      <p className="mb-2" key={err + i.toString()}>
+                        {err}
+                      </p>
+                    ))}
+                  </>
+                )}
               </div>
-            ))}
+            </div>
+          </div>
+        )}
       </div>
     )
   }
