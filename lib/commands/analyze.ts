@@ -385,7 +385,6 @@ export async function analyze(core: Core) {
 }
 
 export function submitAnalyzeEvent(core: Core, key: string, cb?: () => void) {
-  console.log('#debug submitAnalyzeEvent', key)
   submit_event(key, core, cb)
   if (cb) {
     setTimeout(() => {
