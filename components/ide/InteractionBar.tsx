@@ -34,7 +34,7 @@ export function InteractionBar() {
   return (
     <div
       className={clsx(
-        'flex justify-between items-center py-1 px-2 border-b',
+        'flex justify-between items-baseline pt-1 pb-0.5 px-2 border-b',
         core.ws.settings.mode == 'blocks' && 'border-r'
       )}
     >
