@@ -62,7 +62,7 @@ export function InteractionBar() {
         <label
           htmlFor="toggleSwitch"
           className={clsx(
-            'relative inline-block w-14 mx-2 align-middle',
+            'relative inline-block w-12 mx-2 align-middle',
             dontChangeLanguage
               ? 'opacity-30 cursor-not-allowed'
               : 'cursor-pointer'

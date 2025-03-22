@@ -345,6 +345,7 @@ const breakpointMarker = new (class extends GutterMarker {
 })()
 
 export function buildGutterWithBreakpoints(core: Core) {
+  if (core.ws.settings.language == 'python-pro') return []
   return [
     highlightExecutedLineField,
     breakpointState,

@@ -137,15 +137,16 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
   return <div ref={editorDiv} className="h-full" />
 }
 export function lint(core: Core, view: EditorView) {
-  if (core.ws.ui.state == 'running' || !view) {
-    return [] // auto formatting, ignore
-  }
   // good place to sync code with state
   const code = view.state.doc.sliceString(0)
   // console.log(code)
   core.mutateWs((state) => {
     state.pythonCode = code
   })
+
+  if (core.ws.ui.state == 'running' || !view) {
+    return [] // auto formatting, ignore
+  }
 
   resetUIAfterChange(core)
 

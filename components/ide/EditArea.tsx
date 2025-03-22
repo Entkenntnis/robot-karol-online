@@ -31,8 +31,6 @@ const BlockEditor = dynamic(
 export function EditArea() {
   const core = useCore()
 
-  const codeState = core.ws.ui.state
-
   const view = useRef<EditorView>()
 
   core.view = view
@@ -317,7 +315,7 @@ export function EditArea() {
             ) : core.ws.settings.language == 'java' ? (
               <JavaEditor innerRef={view} />
             ) : (
-              <PythonEditor innerRef={view} />
+              <PythonEditor innerRef={view} key={core.ws.settings.language} />
             )}
           </div>
         </div>
