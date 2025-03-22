@@ -288,7 +288,7 @@ while True:
 
 ### Tetris
 
-Alle Zutaten sind zusammen! Spiele Tetris innerhalb von Robot Karol. Schalte in die 2D-Ansicht und zoome mit dem Browser etwas heraus für ein augenschonenderes Spielerlebnis.
+Alle Zutaten sind zusammen! Spiele Tetris innerhalb von Robot Karol. Nützlich? Nicht wirklich, hat aber Spaß beim Programmieren gemacht.
 
 ![grafik](https://github.com/user-attachments/assets/c3102ba5-c800-48f4-88d7-d6f4f169be5c)
 
