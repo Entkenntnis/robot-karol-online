@@ -35,6 +35,7 @@ import { deserializeQuest } from '../../lib/commands/json'
 import { switchToPage } from '../../lib/commands/page'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { sub } from 'date-fns'
+import { InteractionBar } from './InteractionBar'
 
 export function IdeMain() {
   const core = useCore()
@@ -127,7 +128,7 @@ export function IdeMain() {
             ></div>
           )}
           <div className="h-full flex flex-col">
-            <div className="flex-none h-8 bg-gray-50 flex justify-center items-start relative ">
+            <div className="flex-none h-8 bg-gray-50 justify-center items-start relative hidden">
               <div className="absolute inset-0 z-20 flex justify-center items-start pointer-events-none">
                 {core.ws.ui.lockLanguage ? (
                   <span></span>
@@ -181,7 +182,7 @@ export function IdeMain() {
 
             <div
               className={clsx(
-                'flex-none h-8 bg-gray-50 flex justify-between items-start relative',
+                'flex-none h-8 bg-gray-50 flex justify-between items-start relative hidden',
                 core.ws.settings.mode == 'blocks'
                   ? 'min-w-[620px]'
                   : 'min-w-[450px]'
@@ -357,7 +358,8 @@ export function IdeMain() {
                 </button>
               </div>
             </div>
-            {!(
+
+            {/*!(
               core.ws.ui.isTesting &&
               core.ws.ui.state == 'ready' &&
               core.ws.quest.testerHandler
@@ -437,7 +439,8 @@ export function IdeMain() {
                     </span>
                   </button>
                 </div>
-              )}
+              )*/}
+            <InteractionBar />
             <EditArea />
           </div>
           {core.ws.ui.isHighlightDescription && (

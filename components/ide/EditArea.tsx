@@ -100,8 +100,8 @@ export function EditArea() {
       <div className="h-full flex flex-col overflow-y-auto relative">
         {core.ws.settings.language === 'python' && (
           <>
-            <div className="bg-gray-100 pr-32 py-2 flex items-baseline ">
-              <div className="mr-4 ml-3 h-[48px]">Einfügen:</div>
+            <div className="bg-gray-100 pr-2 py-2 flex items-baseline ">
+              <div className="mr-4 ml-3">Einfügen:</div>
               <div>
                 <button
                   onClick={() => {
