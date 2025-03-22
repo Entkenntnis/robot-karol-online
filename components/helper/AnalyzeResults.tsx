@@ -3,12 +3,46 @@ import { useCore } from '../../lib/state/core'
 
 export function AnalyzeResults() {
   const core = useCore()
+  const customQuests = Object.entries(core.ws.analyze.customQuests)
+  customQuests.sort((a, b) => b[1].start - a[1].start)
+
+  const stats = Object.entries(core.ws.analyze.newEventStats.stats)
+  stats.sort(
+    (a, b) => b[1].sessions * b[1].average - a[1].sessions * a[1].average
+  )
   return (
     <div className="bg-white px-16 pb-8 mt-4">
       <p className="my-6">
         Daten ab {core.ws.analyze.cutoff}, insgesamt {core.ws.analyze.count}{' '}
         Einträge
       </p>
+      <h2 className="mt-6 mb-4 text-lg">Nutzungshäufigkeit</h2>
+      <p>{core.ws.analyze.newEventStats.uniqueUsers} Sessions analysiert</p>
+      <table className="w-full my-4 border-collapse">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="p-2 text-left border border-gray-300">Funktion</th>
+            <th className="p-2 text-left border border-gray-300">Sessions</th>
+            <th className="p-2 text-left border border-gray-300">
+              Nutzungen pro Session
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {stats.map(([key, data]) => (
+            <tr key={key} className="hover:bg-gray-50">
+              <td className="p-2 border border-gray-300">{key}</td>
+              <td className="p-2 border border-gray-300">{data.sessions}</td>
+              <td className="p-2 border border-gray-300">
+                {data.average.toLocaleString('de-DE', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <h2 className="mt-6 mb-4 text-lg">Freigegebene Aufgaben</h2>
       {core.ws.analyze.published.map((entry, i) => (
         <span key={i} className="inline-block mr-6">
@@ -23,7 +57,7 @@ export function AnalyzeResults() {
           - {entry.date}
         </span>
       ))}
-      <p className="mt-6 mb-4">
+      {/*<p className="mt-6 mb-4">
         {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
         {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
         {core.ws.analyze.showHighscore} mal Highscore,{' '}
@@ -37,9 +71,9 @@ export function AnalyzeResults() {
         eingeschränkt, {core.ws.analyze.showQuestList} mal Liste aller Aufgaben
         angezeigt, {core.ws.analyze.showMaterials} mal Material für Lehrkräfte
         geöffnet, {core.ws.analyze.showInspiration} mal inspiriert
-      </p>
+      </p>*/}
       <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
-      {Object.entries(core.ws.analyze.customQuests).map((entry, i) => (
+      {customQuests.map((entry, i) => (
         <span key={i} className="inline-block mr-6">
           <a
             href={`/#${entry[0]}`}

@@ -48,10 +48,9 @@ export function PrivacyModal() {
                 ausgewertet. Dabei werden keine personenbezogenen Daten
                 gespeichert (außer du speicherst deinen Fortschritt, siehe
                 nächsten Abschnitt). Diese Protokolle umfassen
-                Nutzungshäufigkeiten verschiedener Funktionen und Lösungen zu
-                Aufgaben. Diese Informationen helfen bei der Weiterentwicklung
-                der Plattform und stellen sicher, dass bei Problemen schnell
-                reagiert werden kann.
+                Nutzungshäufigkeiten verschiedener Funktionen. Diese
+                Informationen helfen bei der Weiterentwicklung der Plattform und
+                stellen sicher, dass bei Problemen schnell reagiert werden kann.
               </p>
               <h2 className="font-bold my-3">Fortschritt speichern</h2>
               <p>

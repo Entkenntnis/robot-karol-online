@@ -21,6 +21,8 @@ import { renderDescription } from '../../lib/helper/processMiniMarkdown'
 import { useState } from 'react'
 import { View2D } from '../helper/View2D'
 import { twoWorldsEqual } from '../../lib/commands/world'
+import { sub } from 'date-fns'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function Output() {
   const core = useCore()
@@ -61,6 +63,10 @@ export function Output() {
             <button
               className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
               onClick={() => {
+                submitAnalyzeEvent(
+                  core,
+                  'ev_click_ide_toggleDescriptionCollapse'
+                )
                 core.mutateWs((ws) => {
                   ws.ui.collapseDescription = !ws.ui.collapseDescription
                 })
@@ -276,6 +282,7 @@ export function Output() {
                   className="cursor-pointer"
                   checked={core.ws.ui.showPreview}
                   onChange={(e) => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_togglePreview')
                     core.mutateWs((ws) => {
                       ws.ui.showPreview = e.target.checked
                     })
@@ -293,6 +300,7 @@ export function Output() {
                   className="cursor-pointer"
                   checked={core.ws.ui.show2D}
                   onChange={(e) => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_toggle2DView')
                     core.mutateWs((ws) => {
                       ws.ui.show2D = e.target.checked
                     })

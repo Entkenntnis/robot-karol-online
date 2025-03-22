@@ -229,6 +229,10 @@ export interface Analyze {
   ratings: {
     [key: string]: { count: number; average: number; values: number[] }
   }
+  newEventStats: {
+    uniqueUsers: number
+    stats: { [key: string]: { sessions: number; average: number } }
+  }
 }
 
 export interface CoreState {

@@ -6,12 +6,13 @@ import { questData } from '../data/quests'
 import { isSetName } from '../helper/events'
 import { Core } from '../state/core'
 import { switchToPage } from './page'
+import { submit_event } from '../helper/submit'
 
 export async function analyze(core: Core) {
   try {
     // cutoff is always one month before the current date
     const cutoff = new Date()
-    cutoff.setMonth(cutoff.getMonth() - 1)
+    cutoff.setDate(cutoff.getDate() - 8)
 
     const storedPW = sessionStorage.getItem('karol_stored_pw')
     const password = storedPW ?? prompt('Zugangspasswort:') ?? ''
@@ -59,6 +60,58 @@ export async function analyze(core: Core) {
       }
     } = {}
     const dedup: { [key: string]: boolean } = {}
+
+    // build completely new data structure for events, keep existing logic intact
+    // find all unique users
+    const users = new Set<string>()
+    for (const entry of data) {
+      users.add(entry.userId)
+    }
+
+    // find all events and count occurrences
+    const events = new Set<string>()
+    const idsPerEvent = new Map<string, Set<string>>()
+    const eventCount = new Map<string, number>()
+    for (const entry of data) {
+      if (
+        entry.event.startsWith('start_quest_') ||
+        entry.event.startsWith('quest_complete_') ||
+        entry.event.startsWith('select_appearance_') ||
+        entry.event.startsWith('load_custom_quest_') ||
+        entry.event.startsWith('custom_quest_complete_') ||
+        entry.event.startsWith('set_name_') ||
+        entry.event.startsWith('publish_custom_quest_') ||
+        entry.event.startsWith('load_id_') ||
+        entry.event.startsWith('unknown_quest_')
+      )
+        continue
+
+      // update session IDs
+      if (!idsPerEvent.has(entry.event)) {
+        idsPerEvent.set(entry.event, new Set<string>())
+      }
+      idsPerEvent.get(entry.event)!.add(entry.userId)
+
+      // update total count for the event
+      eventCount.set(entry.event, (eventCount.get(entry.event) ?? 0) + 1)
+
+      events.add(entry.event)
+    }
+
+    core.mutateWs((ws) => {
+      ws.analyze.newEventStats.uniqueUsers = users.size
+      ws.analyze.newEventStats.stats = {}
+      for (const [event, ids] of Array.from(idsPerEvent.entries())) {
+        const totalUses = eventCount.get(event) || 0
+        const sessions = ids.size
+        const average = sessions > 0 ? totalUses / sessions : 0
+        ws.analyze.newEventStats.stats[event] = {
+          sessions,
+          average,
+        }
+      }
+    })
+
     core.mutateWs((ws) => {
       for (const entry of data) {
         if (isAfter(new Date(entry.createdAt), cutoff)) {
@@ -328,5 +381,14 @@ export async function analyze(core: Core) {
     return
   } catch (e) {
     console.log(e)
+  }
+}
+
+export function submitAnalyzeEvent(core: Core, key: string, cb?: () => void) {
+  submit_event(key, core, cb)
+  if (cb) {
+    setTimeout(() => {
+      cb()
+    }, 500)
   }
 }

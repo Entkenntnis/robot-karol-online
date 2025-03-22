@@ -114,6 +114,10 @@ export function createWorkspaceState(): WorkspaceState {
       solutions: {},
       userEvents: {},
       ratings: {},
+      newEventStats: {
+        uniqueUsers: 0,
+        stats: {},
+      },
     },
     overview: {
       overviewScroll: 0,

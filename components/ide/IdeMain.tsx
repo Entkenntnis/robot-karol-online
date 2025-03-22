@@ -5,25 +5,17 @@ import {
   faDownload,
   faExclamationTriangle,
   faLock,
-  faPencil,
   faPlay,
   faPuzzlePiece,
   faQuestionCircle,
   faSpinner,
   faStop,
   faUpload,
-  faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
 import { closeHighlightDescription, setMode } from '../../lib/commands/mode'
-import {
-  closeOutput,
-  restartProgram,
-  runTask,
-  startTesting,
-} from '../../lib/commands/quest'
 import { useCore } from '../../lib/state/core'
 import { EditArea } from './EditArea'
 import { FaIcon } from '../helper/FaIcon'
@@ -32,7 +24,6 @@ import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
 import { WorldEditor } from './WorldEditor'
 import { HFullStyles } from '../helper/HFullStyles'
-import { abort } from '../../lib/commands/vm'
 import { showModal } from '../../lib/commands/modal'
 import { useEffect, useState } from 'react'
 import { JavaInfo } from './JavaInfo'
@@ -42,6 +33,8 @@ import { saveCodeToFile } from '../../lib/commands/save'
 import { startButtonClicked } from '../../lib/commands/start'
 import { deserializeQuest } from '../../lib/commands/json'
 import { switchToPage } from '../../lib/commands/page'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { sub } from 'date-fns'
 
 export function IdeMain() {
   const core = useCore()
@@ -151,6 +144,7 @@ export function IdeMain() {
                     )}
                     disabled={dontChangeLanguage}
                     onClick={() => {
+                      submitAnalyzeEvent(core, 'ev_click_ide_blocks')
                       setMode(core, 'blocks')
                     }}
                   >
@@ -175,6 +169,7 @@ export function IdeMain() {
                       : 'cursor-default'
                   )}
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_code')
                     setMode(core, 'code')
                   }}
                 >
@@ -232,6 +227,10 @@ export function IdeMain() {
                           ) : (
                             <button
                               onClick={() => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_ide_languageInfo'
+                                )
                                 showJavaInfo(core)
                               }}
                             >
@@ -248,6 +247,10 @@ export function IdeMain() {
                             )}
                             value={core.ws.settings.language}
                             onChange={(e) => {
+                              submitAnalyzeEvent(
+                                core,
+                                'ev_click_ide_language-' + e.target.value
+                              )
                               setLanguage(
                                 core,
                                 e.target.value as Settings['language']
@@ -275,6 +278,7 @@ export function IdeMain() {
                 <button
                   className="hover:bg-gray-200 px-2 py-0.5 rounded text-gray-700 hover:text-black"
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_saveToFile')
                     saveCodeToFile(core)
                   }}
                 >
@@ -284,6 +288,7 @@ export function IdeMain() {
                 <button
                   className="hover:bg-gray-200 px-2 py-0.5 rounded text-gray-700 hover:text-black"
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_loadFromFile')
                     const input = document.createElement('input')
                     input.type = 'file'
                     input.accept =
@@ -368,6 +373,7 @@ export function IdeMain() {
                       <button
                         className="mr-3 bg-red-300 px-1.5 py-0.5 rounded"
                         onClick={() => {
+                          submitAnalyzeEvent(core, 'ev_click_ide_errorMessages')
                           showModal(core, 'error')
                         }}
                       >
@@ -392,6 +398,17 @@ export function IdeMain() {
                         'bg-gray-100 text-gray-400 cursor-not-allowed'
                     )}
                     onClick={() => {
+                      if (
+                        core.ws.ui.state == 'running' &&
+                        !core.ws.vm.isDebugging
+                      ) {
+                        submitAnalyzeEvent(core, 'ev_click_ide_stop')
+                      } else if (
+                        core.ws.ui.state == 'running' &&
+                        core.ws.vm.isDebugging
+                      ) {
+                        submitAnalyzeEvent(core, 'ev_click_ide_continue')
+                      }
                       startButtonClicked(core)
                     }}
                   >
