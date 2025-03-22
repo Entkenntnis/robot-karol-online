@@ -14,7 +14,7 @@ Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION
 
 ## Windows-Installer
 
-Lade die [Version 1.3.6 der App zur lokalen Installation](http://arrrg.de/karol/Robot%20Karol%20Online%20Desktop_1.3.6_x64_de-DE.msi) herunter. 
+Lade die [Version 1.3.6 der App zur lokalen Installation](http://arrrg.de/karol/Robot%20Karol%20Online%20Desktop_1.3.6_x64_de-DE.msi) herunter. Nach der Installation kann die App offline genutzt werden.
 
 <br /><br /><br /><br /><br />
 
