@@ -27,6 +27,7 @@ export function switchToPage(core: Core, target: Pages) {
       quest.id = -1
       editor.editOptions = 'all'
       editor.saveProgram = true
+      ui.isPlayground = false
     })
 
     submit_event('show_editor', core)
@@ -61,6 +62,9 @@ export function switchToPage(core: Core, target: Pages) {
   }
 
   if (target == 'quest') {
+    core.mutateWs(({ ui }) => {
+      ui.isPlayground = false
+    })
     document.title = core.ws.quest.title + ' | Robot Karol Online'
     if (pushHistory) history.pushState(null, '', '#QUEST-' + core.ws.quest.id)
     return
@@ -73,6 +77,9 @@ export function switchToPage(core: Core, target: Pages) {
   }
 
   if (target == 'shared') {
+    core.mutateWs(({ ui }) => {
+      ui.isPlayground = false
+    })
     // don't set title
     return
   }

@@ -33,8 +33,8 @@ export const deStrings = {
   },
   ide: {
     backToOverview: 'zurück zur Übersicht',
-    save: 'Speichern',
-    load: 'Laden',
+    save: 'Code herunterladen',
+    load: 'Code von Computer öffnen',
     blocks: 'Blöcke',
     structogram: 'Struktogramm',
     welcome:
@@ -77,6 +77,7 @@ export const deStrings = {
     step: 'Einzelschritt',
     continueProgram: 'weiter',
     blockExplainer: 'Ziehe Blöcke auf die Arbeitsfläche und verbinde sie.',
+    menu: 'Menü',
   },
   profile: {
     title: 'Profil',

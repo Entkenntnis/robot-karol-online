@@ -10,6 +10,7 @@ import { deserializeQuest } from './json'
 import { startQuest } from './quest'
 import { setLanguage } from './language'
 import { analyze, submitAnalyzeEvent } from './analyze'
+import { endExecution } from './vm'
 
 export async function initClient(core: Core) {
   window.addEventListener('popstate', () => {
@@ -155,6 +156,13 @@ export function buildPlayground(core: Core) {
       { title: 'Spielwiese', start: createWorld(15, 10, 6), target: null },
     ]
     ws.ui.needsTextRefresh = true
+    ws.ui.isEndOfRun = false
+    ws.quest.lastStartedTask = undefined
+    ws.ui.showOutput = false
+    ws.ui.isTesting = false
+    ws.code = ''
+    ws.javaCode = ''
+    ws.pythonCode = ''
   })
   switchToPage(core, 'imported')
 }

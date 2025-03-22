@@ -289,7 +289,7 @@ export function Tasks() {
         className={clsx(
           'h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1',
           core.ws.ui.isPlayground
-            ? 'min-w-[600px]'
+            ? 'min-w-[400px]'
             : core.ws.page == 'editor'
             ? 'min-w-[550px]'
             : 'min-w-[380px]'
@@ -344,12 +344,12 @@ export function Tasks() {
             <p className="z-10 w-full ml-3 overflow">
               {core.ws.ui.isPlayground ? (
                 <a
-                  className="underline cursor-pointer"
+                  className="underline text-gray-600 cursor-pointer"
                   onClick={() => {
                     switchToPage(core, 'overview')
                   }}
                 >
-                  {core.strings.ide.back}
+                  zurück zu Robot Karol Online
                 </a>
               ) : (
                 <a
@@ -359,27 +359,6 @@ export function Tasks() {
                 >
                   Robot Karol Online
                 </a>
-              )}
-              {core.ws.ui.isPlayground && (
-                <button
-                  className="ml-3 -mt-1 px-2 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
-                  onClick={() => {
-                    submitAnalyzeEvent(
-                      core,
-                      'ev_click_ide_playgroundChangeSize'
-                    )
-                    core.mutateWs((ws) => {
-                      ws.world = ws.quest.tasks[0].start
-                    })
-                    showModal(core, 'resize')
-                  }}
-                >
-                  <FaIcon
-                    icon={faUpRightAndDownLeftFromCenter}
-                    className="mr-2"
-                  />
-                  {core.strings.editor.changeSize}
-                </button>
               )}
             </p>
           ) : null}
@@ -414,30 +393,6 @@ export function Tasks() {
             >
               <FaIcon icon={faShirt} />
             </button>
-          )}
-          {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
-            <span className="inline-block mx-2 bg-gray-200 px-1 rounded">
-              <FaIcon icon={faGlobe} />
-              <select
-                className="p-1 ml-2 rounded"
-                value={core.ws.settings.lng}
-                onChange={(e) => {
-                  const lng = e.target.value
-                  if (lng == 'de' || lng == 'en') {
-                    setLng(core, lng)
-                    setLngStorage(lng)
-                    if (lng == 'en') {
-                      submitAnalyzeEvent(core, 'ev_click_ide_english')
-                    } else if (lng == 'de') {
-                      submitAnalyzeEvent(core, 'ev_click_ide_german')
-                    }
-                  }
-                }}
-              >
-                <option value="de">Deutsch</option>
-                <option value="en">English</option>
-              </select>
-            </span>
           )}
         </div>
       </div>
