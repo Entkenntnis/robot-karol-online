@@ -186,19 +186,6 @@ export function FlyoutMenu() {
               </select>
             </span>
           )}
-          {core.ws.ui.isPlayground && (
-            <p className="px-2 pt-8">
-              <a
-                className="underline cursor-pointer"
-                onClick={() => {
-                  closeFlyoutMenu()
-                  switchToPage(core, 'overview')
-                }}
-              >
-                zurück zu Robot Karol Online
-              </a>
-            </p>
-          )}
         </p>
       </div>
     </div>

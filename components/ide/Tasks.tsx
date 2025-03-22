@@ -289,7 +289,7 @@ export function Tasks() {
         className={clsx(
           'h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1',
           core.ws.ui.isPlayground
-            ? 'min-w-[600px]'
+            ? 'min-w-[400px]'
             : core.ws.page == 'editor'
             ? 'min-w-[550px]'
             : 'min-w-[380px]'
@@ -342,7 +342,16 @@ export function Tasks() {
             </p>
           ) : core.ws.page == 'shared' || core.ws.page == 'imported' ? (
             <p className="z-10 w-full ml-3 overflow">
-              {core.ws.ui.isPlayground ? null : (
+              {core.ws.ui.isPlayground ? (
+                <a
+                  className="underline text-gray-600 cursor-pointer"
+                  onClick={() => {
+                    switchToPage(core, 'overview')
+                  }}
+                >
+                  zurück zu Robot Karol Online
+                </a>
+              ) : (
                 <a
                   className="underline"
                   target={'_blank'}
