@@ -66,6 +66,7 @@ export function InteractionBar() {
                 setMode(core, 'blocks')
               }
             }}
+            checked={core.ws.settings.mode == 'code'}
             className={clsx(
               'peer appearance-none w-14 h-8 rounded-full transition-colors duration-300 focus:outline-none cursor-pointer',
               core.ws.settings.mode == 'blocks'
