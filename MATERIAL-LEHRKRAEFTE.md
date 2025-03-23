@@ -14,7 +14,7 @@ Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION
 
 ## Windows-Installer
 
-Lade die [Version 1.3.9 der App](https://github.com/Entkenntnis/robot-karol-online/releases/download/v1.3.9/Robot.Karol.Online_1.3.9_x64_de-DE.msi) zur lokalen Installation herunter. Nach der Installation kann die App offline genutzt werden.
+Lade dir die aktuellste `Robot.Karol.Online_x.x.x_x64_de-DE.msi` unter den [Veröffentlichungen](https://github.com/Entkenntnis/robot-karol-online/releases) herunter.
 
 <br /><br /><br /><br /><br />
 
