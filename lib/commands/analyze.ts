@@ -82,7 +82,8 @@ export async function analyze(core: Core) {
         entry.event.startsWith('set_name_') ||
         entry.event.startsWith('publish_custom_quest_') ||
         entry.event.startsWith('load_id_') ||
-        entry.event.startsWith('unknown_quest_')
+        entry.event.startsWith('unknown_quest_') ||
+        entry.event.startsWith('open_image_')
       )
         continue
 

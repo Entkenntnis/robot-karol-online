@@ -148,7 +148,6 @@ export function lint(core: Core, view: EditorView) {
       core.mutateWs((ws) => {
         ws.ui.proMode = true
       })
-      submit_event('pro_mode', core)
     } else if (rkCode !== undefined) {
       core.mutateWs((ws) => {
         ws.code = rkCode
