@@ -305,6 +305,7 @@ export function Output() {
         !core.ws.ui.isTesting && (
           <button
             onClick={() => {
+              submitAnalyzeEvent(core, 'ev_click_ide_clear')
               resetOutput(core)
             }}
             className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2 hover:bg-gray-300"
