@@ -54,8 +54,15 @@ export function InteractionBar() {
         <span
           className={clsx(
             'font-semibold mr-1 select-none',
-            core.ws.settings.mode == 'code' && 'text-gray-400'
+            core.ws.settings.mode == 'code' && 'text-gray-400',
+            !dontChangeLanguage && 'cursor-pointer'
           )}
+          onClick={() => {
+            if (!dontChangeLanguage) {
+              submitAnalyzeEvent(core, 'ev_click_ide_blocks')
+              setMode(core, 'blocks')
+            }
+          }}
         >
           {core.strings.ide.blocks}
         </span>

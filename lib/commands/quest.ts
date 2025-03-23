@@ -46,7 +46,10 @@ export function runTask(core: Core, index: number) {
         }
       }
     }
-    if (core.ws.settings.language == 'python-pro') {
+    if (
+      core.ws.settings.mode == 'code' &&
+      core.ws.settings.language == 'python-pro'
+    ) {
       runPythonCode(core)
     } else {
       run(core)

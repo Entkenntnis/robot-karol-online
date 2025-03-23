@@ -163,6 +163,8 @@ export function buildPlayground(core: Core) {
     ws.code = ''
     ws.javaCode = ''
     ws.pythonCode = ''
+    ws.ui.controlBarShowFinishQuest = false
+    ws.ui.isAlreadyCompleted = false
   })
   switchToPage(core, 'imported')
 }
