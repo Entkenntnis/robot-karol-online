@@ -1,6 +1,7 @@
 import { backend } from '../../backend'
 import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
+import { submitAnalyzeEvent } from './analyze'
 import { serializeQuest } from './json'
 
 export async function share(core: Core) {
@@ -10,7 +11,7 @@ export async function share(core: Core) {
   const id = await shareRequest(json)
   submit_event(`publish_custom_quest_${id}`, core)
   if (obj.editOptions) {
-    submit_event('limit_edit_options', core)
+    submitAnalyzeEvent(core, `ev_event_limitEditOptions-${obj.editOptions}`)
   }
   return id
 }

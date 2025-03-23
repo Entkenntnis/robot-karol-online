@@ -73,30 +73,36 @@ export async function analyze(core: Core) {
     const idsPerEvent = new Map<string, Set<string>>()
     const eventCount = new Map<string, number>()
     for (const entry of data) {
-      if (
-        entry.event.startsWith('start_quest_') ||
-        entry.event.startsWith('quest_complete_') ||
-        entry.event.startsWith('select_appearance_') ||
-        entry.event.startsWith('load_custom_quest_') ||
-        entry.event.startsWith('custom_quest_complete_') ||
-        entry.event.startsWith('set_name_') ||
-        entry.event.startsWith('publish_custom_quest_') ||
-        entry.event.startsWith('load_id_') ||
-        entry.event.startsWith('unknown_quest_') ||
-        entry.event.startsWith('open_image_')
-      )
-        continue
+      let key = entry.event
+      const eventPrefixes = [
+        'start_quest_',
+        'quest_complete_',
+        'select_appearance_',
+        'load_custom_quest_',
+        'custom_quest_complete_',
+        'set_name_',
+        'publish_custom_quest_',
+        'load_id_',
+        'unknown_quest_',
+        'open_image_',
+      ]
+
+      for (const prefix of eventPrefixes) {
+        if (key.startsWith(prefix)) {
+          key = prefix + '*'
+        }
+      }
 
       // update session IDs
-      if (!idsPerEvent.has(entry.event)) {
-        idsPerEvent.set(entry.event, new Set<string>())
+      if (!idsPerEvent.has(key)) {
+        idsPerEvent.set(key, new Set<string>())
       }
-      idsPerEvent.get(entry.event)!.add(entry.userId)
+      idsPerEvent.get(key)!.add(entry.userId)
 
       // update total count for the event
-      eventCount.set(entry.event, (eventCount.get(entry.event) ?? 0) + 1)
+      eventCount.set(key, (eventCount.get(key) ?? 0) + 1)
 
-      events.add(entry.event)
+      events.add(key)
     }
 
     core.mutateWs((ws) => {
@@ -385,11 +391,6 @@ export async function analyze(core: Core) {
   }
 }
 
-export function submitAnalyzeEvent(core: Core, key: string, cb?: () => void) {
-  submit_event(key, core, cb)
-  if (cb) {
-    setTimeout(() => {
-      cb()
-    }, 500)
-  }
+export function submitAnalyzeEvent(core: Core, key: string) {
+  submit_event(key, core)
 }

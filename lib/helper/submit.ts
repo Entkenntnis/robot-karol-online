@@ -2,7 +2,7 @@ import { backend } from '../../backend'
 import { Core } from '../state/core'
 import { getUserId } from '../storage/storage'
 
-export function submit_event(event: string, core: Core, cb?: () => void) {
+export function submit_event(event: string, core: Core) {
   if (core.state.enableStats && backend.statsEndpoint) {
     const userId = getUserId()
 
@@ -21,9 +21,6 @@ export function submit_event(event: string, core: Core, cb?: () => void) {
         },
         body: JSON.stringify({ event, userId }),
       })
-      if (cb) {
-        cb()
-      }
     })()
   }
 }

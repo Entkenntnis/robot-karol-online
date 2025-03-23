@@ -1,4 +1,3 @@
-import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
@@ -10,7 +9,6 @@ import { deserializeQuest } from './json'
 import { startQuest } from './quest'
 import { setLanguage } from './language'
 import { analyze, submitAnalyzeEvent } from './analyze'
-import { endExecution } from './vm'
 
 export async function initClient(core: Core) {
   window.addEventListener('popstate', () => {
@@ -135,7 +133,7 @@ export async function initClient(core: Core) {
   }
 
   if (hash == '#DEMO') {
-    submit_event('show_demo', core)
+    submitAnalyzeEvent(core, 'ev_show_demo')
     switchToPage(core, 'demo')
     return
   } else if (hash.length == 5) {
