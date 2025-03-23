@@ -82,6 +82,7 @@ export async function initClient(core: Core) {
   }
 
   if (hash == '#OVERVIEW') {
+    submitAnalyzeEvent(core, 'ev_show_listOfAll')
     showOverviewList(core)
     return
   }
