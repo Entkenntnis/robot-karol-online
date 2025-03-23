@@ -30,7 +30,7 @@ export function switchToPage(core: Core, target: Pages) {
       ui.isPlayground = false
     })
 
-    submit_event('show_editor', core)
+    //submit_event('show_editor', core)
     addNewTask(core)
     if (pushHistory) history.pushState(null, '', '/#EDITOR')
     return
