@@ -14,7 +14,7 @@ Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION
 
 ## Windows-Installer
 
-Lade dir die aktuellste `Robot.Karol.Online_x.x.x_x64_de-DE.msi` unter den [Veröffentlichungen](https://github.com/Entkenntnis/robot-karol-online/releases) herunter.
+Lade dir die aktuellste `Robot.Karol.Online_x.x.x_x64_de-DE.msi` unter den [Veröffentlichungen](https://github.com/Entkenntnis/robot-karol-online/releases) herunter um Robot Karol auch offline nutzen zu können.
 
 <br /><br /><br /><br /><br />
 
