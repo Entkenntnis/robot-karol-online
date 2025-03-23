@@ -12,7 +12,7 @@ export async function analyze(core: Core) {
   try {
     // cutoff is always one month before the current date
     const cutoff = new Date()
-    cutoff.setDate(cutoff.getDate() - 8)
+    cutoff.setDate(cutoff.getDate() - 7)
 
     const storedPW = sessionStorage.getItem('karol_stored_pw')
     const password = storedPW ?? prompt('Zugangspasswort:') ?? ''
