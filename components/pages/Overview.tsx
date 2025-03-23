@@ -604,6 +604,7 @@ export function Overview() {
                     hideSaveHint(core)
                     forceRerender(core)
                     showModal(core, 'sync')
+                    submitAnalyzeEvent(core, 'ev_click_landing_syncProgress')
                   }}
                 >
                   {core.strings.overview.syncProgress}
@@ -612,6 +613,7 @@ export function Overview() {
                   className="text-gray-500 underline ml-6"
                   onClick={() => {
                     hideSaveHint(core)
+                    submitAnalyzeEvent(core, 'ev_click_landing_syncLater')
                   }}
                 >
                   {core.strings.overview.later}
