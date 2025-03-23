@@ -410,7 +410,7 @@ export function Overview() {
                     </p>
                   </a>
                 )}
-                {core.ws.settings.lng === 'de' && (
+                {core.ws.settings.lng === 'de' && numberOfSolvedQuests == 0 && (
                   <button
                     className={clsx(
                       'absolute top-[47px] left-[990px] block z-10 hover:bg-gray-100/60 rounded-xl',
@@ -419,17 +419,17 @@ export function Overview() {
                     //href="https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link"
                     onClick={() => {
                       // open feedback form in new tab
-                      submitAnalyzeEvent(core, 'ev_click_landing_feedback')
+                      submitAnalyzeEvent(core, 'ev_click_landing_video')
                       window.open(
-                        'https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link',
+                        'https://www.youtube.com/watch?v=xF3YrWzp400',
                         '_blank'
                       )
                     }}
                   >
-                    <p className="text-center text-lg mb-1">Feedback</p>
+                    <p className="text-center">Robot Karol in 60 Sekunden</p>
                     <img
-                      src="/gluehbirne.png"
-                      alt="Glühbrine"
+                      src="/youtube.png"
+                      alt="Youtube-Symbol"
                       className="w-[50px] mx-auto mb-2"
                     />
                   </button>
