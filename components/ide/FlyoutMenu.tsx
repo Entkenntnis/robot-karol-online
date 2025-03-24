@@ -4,6 +4,7 @@ import { FaIcon } from '../helper/FaIcon'
 import {
   faDownload,
   faGlobe,
+  faShareNodes,
   faTimes,
   faUpload,
   faUpRightAndDownLeftFromCenter,
@@ -156,6 +157,26 @@ export function FlyoutMenu() {
             {core.strings.ide.load}
           </button>
         </p>
+        {core.ws.ui.isPlayground && (
+          <p className="px-2 pt-4">
+            <button
+              className="px-2 py-0.5 rounded hover:bg-yellow-100"
+              onClick={() => {
+                closeFlyoutMenu()
+                submitAnalyzeEvent(core, 'ev_click_ide_playgroundShare')
+                showModal(core, 'playground-share')
+
+                // for debugging
+                //const obj = serializeQuest(core)
+                //const json = JSON.stringify(obj)
+                // console.log('output size', json.length, json)
+              }}
+            >
+              <FaIcon icon={faShareNodes} className="mr-2" />
+              Spielwiese teilen
+            </button>
+          </p>
+        )}
         <p className="px-2 pt-4">
           {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
             <span className="inline-block mx-2 border px-1 rounded bg-white">

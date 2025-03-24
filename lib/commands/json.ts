@@ -25,7 +25,9 @@ export function serializeQuest(core: Core): QuestSerialFormat {
       return {
         title: task.title,
         start: serializeWorld(task.start),
-        target: serializeWorld(task.target!),
+        target: task.target
+          ? serializeWorld(task.target!)
+          : serializeWorld(task.start),
       }
     }),
     lng: core.ws.settings.lng,

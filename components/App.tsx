@@ -25,6 +25,7 @@ import { SyncModal } from './modals/SyncModal'
 import { SurveyModal } from './modals/SurveyModal'
 import { InspirationOld } from './pages/InspirationOld'
 import { PyodideWorker } from './ide/PyodideWorker'
+import { PlaygroundShareModal } from './modals/PlaygroundShareModal'
 
 export function App() {
   const core = useCore()
@@ -93,6 +94,8 @@ export function App() {
       return <SyncModal />
     } else if (core.ws.modal == 'survey') {
       return <SurveyModal />
+    } else if (core.ws.modal == 'playground-share') {
+      return <PlaygroundShareModal />
     } else {
       return null
     }

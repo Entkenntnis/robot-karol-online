@@ -166,6 +166,7 @@ export interface WorkspaceState {
     | 'tutorial'
     | 'sync'
     | 'survey'
+    | 'playground-share'
     | null
 
   renderCounter: number // e.g. if storage is updated
