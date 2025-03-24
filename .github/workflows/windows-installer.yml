@@ -3,6 +3,8 @@ name: Build and Release MSI
 on:
   release:
     types: [published]
+  workflow_dispatch
+
 
 jobs:
   build:
