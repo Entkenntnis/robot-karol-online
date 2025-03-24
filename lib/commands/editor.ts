@@ -1,4 +1,3 @@
-import { cursorDocEnd } from '@codemirror/commands'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 
@@ -84,6 +83,9 @@ export function editWorld(core: Core, index: number) {
     ws.editor.showWorldPreview = true
     ws.editor.currentlyEditing = 'start'
     ws.world = ws.quest.tasks[ws.editor.editWorld!].start
+    if (!ws.quest.tasks[ws.editor.editWorld!].target) {
+      ws.quest.tasks[ws.editor.editWorld!].target = ws.world
+    }
   })
 }
 
