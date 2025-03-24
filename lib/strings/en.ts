@@ -79,6 +79,7 @@ export const enStrings: typeof deStrings = {
     continueProgram: 'continue',
     blockExplainer: 'Drag blocks onto the workspace and connect them.',
     menu: 'Menu',
+    openInEditor: 'Open in editor',
   },
   profile: {
     title: 'Profile',

@@ -78,6 +78,7 @@ export const deStrings = {
     continueProgram: 'weiter',
     blockExplainer: 'Ziehe Blöcke auf die Arbeitsfläche und verbinde sie.',
     menu: 'Menü',
+    openInEditor: 'Im Editor öffnen',
   },
   profile: {
     title: 'Profil',

@@ -19,19 +19,29 @@ export function switchToPage(core: Core, target: Pages) {
   if (target == 'editor') {
     document.title = 'Editor'
     resetQuestView(core)
-    core.mutateWs(({ quest, ui, editor }) => {
-      quest.title = core.strings.editor.title
-      quest.description = core.strings.editor.description
-      quest.tasks = []
-      ui.isHighlightDescription = false
-      quest.id = -1
-      editor.editOptions = 'all'
-      editor.saveProgram = true
-      ui.isPlayground = false
-    })
+    if (core.ws.editor.keepQuest) {
+      core.mutateWs(({ editor, ui, quest }) => {
+        editor.keepQuest = false
+        ui.isPlayground = false
+        editor.editOptions = 'all'
+        editor.saveProgram = true
+        ui.isHighlightDescription = false
+        quest.id = -1
+      })
+    } else {
+      core.mutateWs(({ quest, ui, editor }) => {
+        quest.title = core.strings.editor.title
+        quest.description = core.strings.editor.description
+        quest.tasks = []
+        ui.isHighlightDescription = false
+        quest.id = -1
+        editor.editOptions = 'all'
+        editor.saveProgram = true
+        ui.isPlayground = false
+      })
+      addNewTask(core)
+    }
 
-    //submit_event('show_editor', core)
-    addNewTask(core)
     if (pushHistory) history.pushState(null, '', '/#EDITOR')
     return
   }
