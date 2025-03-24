@@ -26,10 +26,10 @@ jobs:
         run: |
           # Extract the tag from the Git ref (e.g. "refs/tags/v1.2.3" becomes "v1.2.3")
           $tag = '${{ github.ref }}'.Split("/")[-1]
-          Write-Host "Using tag: $tag"
           if ($tag.StartsWith("v")) {
             $tag = $tag.Substring(1)
           }
+          Write-Host "Using tag: $tag"
           # Read the config file, update the version property, and write it back
           $config = Get-Content src-tauri\tauri.conf.json | ConvertFrom-Json
           $config.version = $tag
@@ -50,3 +50,11 @@ jobs:
           msi_file=$(find .\src-tauri\target -type f -name "*.msi" | head -n 1)
           Write-Host "Installer: $msi_file"
           echo "msi_file=$msi_file" >> $GITHUB_OUTPUT
+          
+      # Upload the MSI file to the GitHub release using softprops/action-gh-release@v2
+      - name: Upload MSI to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.find_msi.outputs.msi_file }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
