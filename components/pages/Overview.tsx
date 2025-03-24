@@ -427,7 +427,7 @@ export function Overview() {
                     Feedback
                   </button>
                 )}
-                {core.ws.settings.lng === 'de' && numberOfSolvedQuests == 0 && (
+                {core.ws.settings.lng === 'de' && (
                   <button
                     className={clsx(
                       'absolute top-[47px] left-[990px] block z-10 hover:bg-gray-100/60 rounded-xl',
