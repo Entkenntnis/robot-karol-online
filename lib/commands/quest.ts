@@ -11,6 +11,7 @@ import { showModal } from './modal'
 import { switchToPage } from './page'
 import { runPythonCode } from './python'
 import { run } from './vm'
+import { twoWorldsEqual } from './world'
 
 export function runTask(core: Core, index: number) {
   const task = core.ws.quest.tasks[index]
@@ -61,6 +62,9 @@ export function openTask(core: Core, index: number) {
   const task = core.ws.quest.tasks[index]
   core.mutateWs((ws) => {
     ws.world = task.start
+    if (task.target && twoWorldsEqual(ws.world, task.target)) {
+      ws.quest.tasks[index].target = null
+    }
     ws.ui.showOutput = true
     ws.quest.lastStartedTask = index
     ws.ui.isEndOfRun = false

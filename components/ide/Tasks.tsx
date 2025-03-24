@@ -4,15 +4,12 @@ import {
   faArrowUp,
   faCheck,
   faClone,
-  faGlobe,
   faPencil,
   faPlay,
   faPlus,
   faShareNodes,
   faShirt,
   faTrashCan,
-  faUpRightAndDownLeftFromCenter,
-  faVolumeHigh,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
@@ -27,7 +24,7 @@ import {
   setTaskTitle,
 } from '../../lib/commands/editor'
 import { closeModal, showModal } from '../../lib/commands/modal'
-import { setLng, setShowStructogram } from '../../lib/commands/mode'
+import { setShowStructogram } from '../../lib/commands/mode'
 import { switchToPage } from '../../lib/commands/page'
 import {
   openTask,
@@ -106,7 +103,7 @@ export function Tasks() {
               )}
             </div>
 
-            {core.ws.page === 'editor' && (
+            {core.ws.page === 'editor' && !core.ws.editor.showQuestPreview && (
               <div className="ml-3 mt-3">
                 {core.strings.editor.editOptions}:
                 <select
@@ -181,7 +178,11 @@ export function Tasks() {
                     )}
                     onClick={() => {
                       if (core.ws.page == 'editor') {
-                        editWorld(core, index)
+                        if (core.ws.editor.showQuestPreview) {
+                          openTask(core, index)
+                        } else {
+                          editWorld(core, index)
+                        }
                       }
                     }}
                   >
@@ -207,77 +208,80 @@ export function Tasks() {
                           onChange={(e) => {
                             setTaskTitle(core, index, e.target.value)
                           }}
+                          readOnly={core.ws.editor.showQuestPreview}
                         />
                       ) : (
                         task.title
                       )}
                     </h2>
-                    {core.ws.page == 'editor' && (
-                      <>
-                        <p className="mt-4">
-                          <button
-                            className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
-                            onClick={() => {
-                              openTask(core, index)
-                            }}
-                          >
-                            <FaIcon icon={faPlay} className="mr-2" />
-                            {core.strings.editor.test}
-                          </button>
-                          <button
-                            className="ml-3 rounded px-2 py-0.5 bg-blue-100 hover:bg-blue-200"
-                            onClick={() => {
-                              editWorld(core, index)
-                            }}
-                          >
-                            <FaIcon icon={faPencil} className="mr-2" />
-                            {core.strings.editor.editWorld}
-                          </button>
-                        </p>
-                        <p className="mt-20 text-sm text-gray-700">
-                          <button
-                            className="hover:text-black disabled:text-gray-200"
-                            disabled={index == 0}
-                            onClick={() => {
-                              moveTaskUp(core, index)
-                            }}
-                          >
-                            <FaIcon icon={faArrowUp} /> {core.strings.editor.up}
-                          </button>
-                          <button
-                            className="hover:text-black disabled:text-gray-200 ml-5"
-                            disabled={index + 1 == core.ws.quest.tasks.length}
-                            onClick={() => {
-                              moveTaskDown(core, index)
-                            }}
-                          >
-                            <FaIcon icon={faArrowDown} />{' '}
-                            {core.strings.editor.down}
-                          </button>
-                          <button
-                            className="hover:text-black ml-5"
-                            onClick={() => {
-                              cloneTask(core, index)
-                            }}
-                          >
-                            <FaIcon icon={faClone} className="mr-0.5" />{' '}
-                            {core.strings.editor.duplicate}
-                          </button>
-                          <button
-                            className="hover:text-red-600 ml-5"
-                            onClick={() => {
-                              deleteTask(core, index)
-                            }}
-                          >
-                            <FaIcon
-                              icon={faTrashCan}
-                              className="text-gray-500 mr-0.5"
-                            />{' '}
-                            {core.strings.editor.delete}
-                          </button>
-                        </p>
-                      </>
-                    )}
+                    {core.ws.page == 'editor' &&
+                      !core.ws.editor.showQuestPreview && (
+                        <>
+                          <p className="mt-4">
+                            <button
+                              className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
+                              onClick={() => {
+                                openTask(core, index)
+                              }}
+                            >
+                              <FaIcon icon={faPlay} className="mr-2" />
+                              {core.strings.editor.test}
+                            </button>
+                            <button
+                              className="ml-3 rounded px-2 py-0.5 bg-blue-100 hover:bg-blue-200"
+                              onClick={() => {
+                                editWorld(core, index)
+                              }}
+                            >
+                              <FaIcon icon={faPencil} className="mr-2" />
+                              {core.strings.editor.editWorld}
+                            </button>
+                          </p>
+                          <p className="mt-20 text-sm text-gray-700">
+                            <button
+                              className="hover:text-black disabled:text-gray-200"
+                              disabled={index == 0}
+                              onClick={() => {
+                                moveTaskUp(core, index)
+                              }}
+                            >
+                              <FaIcon icon={faArrowUp} />{' '}
+                              {core.strings.editor.up}
+                            </button>
+                            <button
+                              className="hover:text-black disabled:text-gray-200 ml-5"
+                              disabled={index + 1 == core.ws.quest.tasks.length}
+                              onClick={() => {
+                                moveTaskDown(core, index)
+                              }}
+                            >
+                              <FaIcon icon={faArrowDown} />{' '}
+                              {core.strings.editor.down}
+                            </button>
+                            <button
+                              className="hover:text-black ml-5"
+                              onClick={() => {
+                                cloneTask(core, index)
+                              }}
+                            >
+                              <FaIcon icon={faClone} className="mr-0.5" />{' '}
+                              {core.strings.editor.duplicate}
+                            </button>
+                            <button
+                              className="hover:text-red-600 ml-5"
+                              onClick={() => {
+                                deleteTask(core, index)
+                              }}
+                            >
+                              <FaIcon
+                                icon={faTrashCan}
+                                className="text-gray-500 mr-0.5"
+                              />{' '}
+                              {core.strings.editor.delete}
+                            </button>
+                          </p>
+                        </>
+                      )}
                   </div>
                 </div>
               ))}
