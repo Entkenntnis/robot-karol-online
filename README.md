@@ -34,7 +34,7 @@ Als Web-Anwendung entfällt die Installation. Einfach auf den Link https://karol
 
 Robot Karol Online enthält eine Sammmlung interaktiver Aufgaben, die für die Übung und zum Selbstlernen geeignet sind. Die Aufgaben fangen mit einfachen Tutorials an und steigern sich bis zu komplexen Algorithmen mit verschachtelten Kontrollstrukturen.
 
-Erhalte eine Übersicht über alle enthaltenen Aufgaben: https://karol.arrrg.de/#demo
+Erhalte eine Übersicht über alle enthaltenen Aufgaben: https://karol.arrrg.de/#OVERVIEW
 
 Für einen maßgeschneiderten Unterricht können im [Aufgaben-Editor](https://karol.arrrg.de/#editor) eigene interaktive Aufgaben erstellt werden und über einen Link wie https://karol.arrrg.de/#3XHV an die Klasse verteilt werden. Die Datei werden dabei auf meinem Server gespeichert, du kannst aber auch die Dateien selber hosten: https://karol.arrrg.de/#open:https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/refs/heads/main/material/quests/Quests_selber_hosten.json
 
