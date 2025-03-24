@@ -1,0 +1,39 @@
+name: Build and Release MSI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      # Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Setup Node.js (adjust the node version as needed)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      # Update config.tauri.json with the latest release tag
+      - name: Update config.tauri.json with release tag
+        shell: pwsh
+        run: |
+          # Extract the tag from the Git ref (e.g. "refs/tags/v1.2.3" becomes "v1.2.3")
+          $tag = '${{ github.ref }}'.Split("/")[-1]
+          Write-Host "Using tag: $tag"
+          # Read the config file, update the version property, and write it back
+          $config = Get-Content config.tauri.json | ConvertFrom-Json
+          $config.version = $tag
+          $config | ConvertTo-Json -Depth 10 | Out-File config.tauri.json
+
+      # Install npm dependencies
+      - name: Install npm dependencies
+        run: npm install
+
+      # Build the MSI using Tauri (assumes "tauri build" script is defined in package.json)
+      - name: Build MSI with Tauri
+        run: npm run tauri build
