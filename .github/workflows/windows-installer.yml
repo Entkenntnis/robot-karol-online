@@ -28,9 +28,9 @@ jobs:
           $tag = '${{ github.ref }}'.Split("/")[-1]
           Write-Host "Using tag: $tag"
           # Read the config file, update the version property, and write it back
-          $config = Get-Content config.tauri.json | ConvertFrom-Json
+          $config = Get-Content src-tauri\config.tauri.json | ConvertFrom-Json
           $config.version = $tag
-          $config | ConvertTo-Json -Depth 10 | Out-File config.tauri.json
+          $config | ConvertTo-Json -Depth 10 | Out-File src-tauri\config.tauri.json
 
       # Install npm dependencies
       - name: Install npm dependencies
@@ -39,3 +39,11 @@ jobs:
       # Build the MSI using Tauri (assumes "tauri build" script is defined in package.json)
       - name: Build MSI with Tauri
         run: npm run tauri build
+
+      - name: Find MSI file
+        id: find_msi
+        shell: bash
+        run: |
+          msi_file=$(find .\src-tauri\target -type f -name "*.msi" | head -n 1)
+          Write-Host "Installer: $msi_file"
+          echo "msi_file=$msi_file" >> $GITHUB_OUTPUT
