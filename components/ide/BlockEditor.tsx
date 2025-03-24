@@ -118,6 +118,10 @@ export function BlockEditor() {
     window.addEventListener('resize', onresize, false)
     onresize()
 
+    if (Object.keys(core.ws.ui.cmdBlockPositions).length == 0) {
+      blocklyWorkspace.cleanUp()
+    }
+
     blocklyWorkspace.scroll(30, 18)
 
     core.blockyResize = onresize
