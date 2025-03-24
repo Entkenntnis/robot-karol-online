@@ -54,6 +54,7 @@ import { searchKeymap } from '@codemirror/search'
 import { getParserWithLng } from './parser/get-parser-with-lng'
 import { deKeywords, enKeywords } from '../language/robot karol/compiler'
 import { Core } from '../state/core'
+import { submitAnalyzeEvent } from '../commands/analyze'
 
 function parserWithMetadata(lng: 'de' | 'en') {
   return getParserWithLng(lng).configure({
@@ -378,6 +379,7 @@ export function buildGutterWithBreakpoints(core: Core) {
                 core.ws.vm.bytecode!.some((op) => op.line === lineNumber)) ||
               hasBreakpoint
             ) {
+              submitAnalyzeEvent(core, 'ev_click_ide_breakpoint')
               view.dispatch({
                 effects: breakpointEffect.of({
                   pos: line.from,
