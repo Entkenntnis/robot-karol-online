@@ -48,7 +48,7 @@ jobs:
         shell: bash
         run: |
           msi_file=$(find ./src-tauri/target -type f -name "*.msi" | head -n 1)
-          Write-Host "Installer: $msi_file"
+          echo "Installer: $msi_file"
           echo "msi_file=$msi_file" >> $GITHUB_OUTPUT
           
       # Upload the MSI file to the GitHub release using softprops/action-gh-release@v2
