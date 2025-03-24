@@ -97,6 +97,7 @@ export interface Editor {
   showWorldPreview: boolean
   editOptions: 'all' | 'python-only' | 'java-only' | 'karol-only'
   saveProgram: boolean
+  keepQuest: boolean
 }
 
 export interface Quest {

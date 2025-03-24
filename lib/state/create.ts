@@ -87,6 +87,7 @@ export function createWorkspaceState(): WorkspaceState {
       showWorldPreview: false,
       editOptions: 'all',
       saveProgram: true,
+      keepQuest: false,
     },
     analyze: {
       published: [],

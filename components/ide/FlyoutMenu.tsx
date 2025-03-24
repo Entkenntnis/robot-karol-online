@@ -4,6 +4,7 @@ import { FaIcon } from '../helper/FaIcon'
 import {
   faDownload,
   faGlobe,
+  faPencil,
   faTimes,
   faUpload,
   faUpRightAndDownLeftFromCenter,
@@ -156,37 +157,57 @@ export function FlyoutMenu() {
             {core.strings.ide.load}
           </button>
         </p>
-        <p className="px-2 pt-4">
-          {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
-            <span className="inline-block mx-2 border px-1 rounded bg-white">
-              <FaIcon icon={faGlobe} />
-              <select
-                className="p-1 ml-2 rounded bg-white"
-                value={core.ws.settings.lng}
-                onChange={(e) => {
-                  const lng = e.target.value
-                  if (lng == 'de' || lng == 'en') {
-                    setLng(core, lng)
-                    setLngStorage(lng)
-                    if (lng == 'en') {
-                      submitAnalyzeEvent(core, 'ev_click_ide_english')
-                    } else if (lng == 'de') {
-                      submitAnalyzeEvent(core, 'ev_click_ide_german')
+        {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
+          <>
+            {!core.ws.ui.isPlayground && (
+              <p className="px-2 pt-4">
+                <button
+                  className="px-2 py-0.5 hover:bg-gray-300 rounded"
+                  onClick={() => {
+                    closeFlyoutMenu()
+                    submitAnalyzeEvent(core, 'ev_click_ide_openInEditor')
+                    core.mutateWs((ws) => {
+                      ws.editor.keepQuest = true
+                    })
+                    switchToPage(core, 'editor')
+                  }}
+                >
+                  <FaIcon icon={faPencil} className="mr-2" />{' '}
+                  {core.strings.ide.openInEditor}
+                </button>
+              </p>
+            )}
+            <p className="px-2 pt-4">
+              <span className="inline-block mx-2 border px-1 rounded bg-white">
+                <FaIcon icon={faGlobe} />
+                <select
+                  className="p-1 ml-2 rounded bg-white"
+                  value={core.ws.settings.lng}
+                  onChange={(e) => {
+                    const lng = e.target.value
+                    if (lng == 'de' || lng == 'en') {
+                      setLng(core, lng)
+                      setLngStorage(lng)
+                      if (lng == 'en') {
+                        submitAnalyzeEvent(core, 'ev_click_ide_english')
+                      } else if (lng == 'de') {
+                        submitAnalyzeEvent(core, 'ev_click_ide_german')
+                      }
                     }
-                  }
-                  closeFlyoutMenu()
-                }}
-              >
-                <option value="de" className="bg-white">
-                  Deutsch
-                </option>
-                <option value="en" className="bg-white">
-                  English
-                </option>
-              </select>
-            </span>
-          )}
-        </p>
+                    closeFlyoutMenu()
+                  }}
+                >
+                  <option value="de" className="bg-white">
+                    Deutsch
+                  </option>
+                  <option value="en" className="bg-white">
+                    English
+                  </option>
+                </select>
+              </span>
+            </p>
+          </>
+        )}
       </div>
     </div>
   )
