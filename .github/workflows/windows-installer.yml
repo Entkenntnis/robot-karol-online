@@ -27,6 +27,9 @@ jobs:
           # Extract the tag from the Git ref (e.g. "refs/tags/v1.2.3" becomes "v1.2.3")
           $tag = '${{ github.ref }}'.Split("/")[-1]
           Write-Host "Using tag: $tag"
+          if ($tag.StartsWith("v")) {
+            $tag = $tag.Substring(1)
+          }
           # Read the config file, update the version property, and write it back
           $config = Get-Content src-tauri\tauri.conf.json | ConvertFrom-Json
           $config.version = $tag
