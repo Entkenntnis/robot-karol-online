@@ -47,7 +47,7 @@ jobs:
         id: find_msi
         shell: bash
         run: |
-          msi_file=$(find .\src-tauri\target -type f -name "*.msi" | head -n 1)
+          msi_file=$(find ./src-tauri/target -type f -name "*.msi" | head -n 1)
           Write-Host "Installer: $msi_file"
           echo "msi_file=$msi_file" >> $GITHUB_OUTPUT
           
