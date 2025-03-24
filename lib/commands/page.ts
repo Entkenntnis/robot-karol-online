@@ -29,7 +29,8 @@ export function switchToPage(core: Core, target: Pages) {
         quest.id = -1
       })
     } else {
-      core.mutateWs(({ quest, ui, editor }) => {
+      core.mutateWs((ws) => {
+        const { quest, ui, editor } = ws
         quest.title = core.strings.editor.title
         quest.description = core.strings.editor.description
         quest.tasks = []
@@ -38,6 +39,9 @@ export function switchToPage(core: Core, target: Pages) {
         editor.editOptions = 'all'
         editor.saveProgram = true
         ui.isPlayground = false
+        ws.code = ''
+        ws.javaCode = ''
+        ws.pythonCode = ''
       })
       addNewTask(core)
     }
@@ -100,7 +104,6 @@ export function switchToPage(core: Core, target: Pages) {
 function resetQuestView(core: Core) {
   // run this function for all quest views
   core.mutateWs((ws) => {
-    ws.code = ''
     ws.ui.showOutput = false
     ws.ui.isAlreadyCompleted = false
     ws.ui.controlBarShowFinishQuest = false
