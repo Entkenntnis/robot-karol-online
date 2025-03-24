@@ -30,7 +30,7 @@ jobs:
           # Read the config file, update the version property, and write it back
           $config = Get-Content src-tauri\config.tauri.json | ConvertFrom-Json
           $config.version = $tag
-          $config | ConvertTo-Json -Depth 10 | Out-File src-tauri\config.tauri.json
+          $config | ConvertTo-Json -Depth 10 | Out-File src-tauri\tauri.conf.json
 
       # Install npm dependencies
       - name: Install npm dependencies
