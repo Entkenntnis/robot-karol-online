@@ -30,4 +30,4 @@ jobs:
         run: |
           npm install
           npx playwright install
-          npm run test
+          HEADLESS=true npm run test
