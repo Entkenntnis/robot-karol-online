@@ -1,8 +1,9 @@
-Feature('Landing')
+Feature('Main')
 
-Scenario('Is page loading?', ({ I }) => {
+Scenario('Is landing page loading?', ({ I }) => {
   I.amOnPage('/')
   I.see('Robot Karol Online')
+  I.seeTitleEquals('Robot Karol  Online')
 })
 
 Scenario('Learning path Start', ({ I }) => {
