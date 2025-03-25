@@ -559,8 +559,8 @@ export function Overview() {
                         Diese Online-Programmierumgebung führt dich in die
                         Grundlagen von Algorithmen ein: Sequenz, Wiederholung
                         (mit fester Anzahl, kopfgesteuert), bedingte Anweisungen
-                        und eigene Methoden. Programmiere mit Blöcken, Robot
-                        Karol Code, Python oder Java.
+                        und eigene Methoden. Programmiere mit Blöcken, Karol
+                        Code, Python oder Java.
                       </p>
                       <p className="mt-2">
                         Klicke auf „Start“ für den Selbst-Lern-Pfad. Entdecke
