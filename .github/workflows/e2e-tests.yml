@@ -29,5 +29,5 @@ jobs:
         working-directory: src-e2e
         run: |
           npm install
-          npx playwright install
+          npx playwright install firefox
           HEADLESS=true npm run test
