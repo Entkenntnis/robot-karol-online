@@ -437,12 +437,12 @@ export function Overview() {
                       // open feedback form in new tab
                       submitAnalyzeEvent(core, 'ev_click_landing_video')
                       window.open(
-                        'https://www.youtube.com/watch?v=xF3YrWzp400',
+                        'https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8',
                         '_blank'
                       )
                     }}
                   >
-                    <p className="text-center">Robot Karol in 60 Sekunden</p>
+                    <p className="text-center">Video-Anleitungen</p>
                     <img
                       src="/youtube.png"
                       alt="Youtube-Symbol"
