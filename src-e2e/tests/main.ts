@@ -3,7 +3,7 @@ Feature('Main')
 Scenario('Is landing page loading?', ({ I }) => {
   I.amOnPage('/')
   I.see('Robot Karol Online')
-  I.seeTitleEquals('Robot Karol  Online')
+  I.seeTitleEquals('Robot Karol Online')
 })
 
 Scenario('Learning path Start', ({ I }) => {
