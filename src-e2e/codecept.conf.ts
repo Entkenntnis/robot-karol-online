@@ -14,6 +14,8 @@ export const config: CodeceptJS.MainConfig = {
       browser: 'firefox',
       url: 'http://localhost:3000',
       show: true,
+      restart: 'session',
+      keepBrowserState: true,
     },
   },
   include: {
