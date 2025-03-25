@@ -1,0 +1,33 @@
+name: E2E Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*' # Passe die Node-Version ggf. an
+
+      - name: Abhängigkeiten installieren und bauen
+        run: |
+          npm install
+          npm run build
+
+      - name: Anwendung im Hintergrund starten
+        run: |
+          nohup npm start &  # Startet den Server im Hintergrund
+          sleep 5           # Kurze Pause, damit der Server Zeit zum Starten hat
+
+      - name: e2e Tests ausführen
+        working-directory: src-e2e
+        run: |
+          npm install
+          npx playwright install
+          npm run test
