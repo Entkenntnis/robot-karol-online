@@ -31,7 +31,7 @@ export function IdeMain() {
 
   const [toH, setToH] = useState<NodeJS.Timeout | null>(null)
 
-  useEffect(() => {
+  /*useEffect(() => {
     const onBeforeUnload = (ev: BeforeUnloadEvent) => {
       if (
         core.ws.page == 'shared' &&
@@ -49,7 +49,7 @@ export function IdeMain() {
       window.removeEventListener('beforeunload', onBeforeUnload)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [])*/
 
   useEffect(() => {
     const skipWait = core.ws.quest.description.length < 100
