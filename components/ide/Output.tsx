@@ -40,14 +40,6 @@ export function Output() {
     core.ws.quest.lastStartedTask !== undefined &&
     !!core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target
 
-  const previewNoEffect =
-    core.ws.page == 'editor' &&
-    hasPreview &&
-    twoWorldsEqual(
-      core.ws.quest.tasks[core.ws.quest.lastStartedTask!].start,
-      core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!
-    )
-
   const preview =
     core.ws.ui.showPreviewOfTarget && hasPreview && core.ws.ui.showPreview
       ? {
@@ -199,7 +191,7 @@ export function Output() {
               {core.ws.ui.show2D ? (
                 <View2D
                   world={core.ws.world}
-                  preview={previewNoEffect ? undefined : preview}
+                  preview={preview}
                   className={clsx(
                     'p-6',
                     core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
@@ -208,7 +200,7 @@ export function Output() {
               ) : (
                 <View
                   world={core.ws.world}
-                  preview={previewNoEffect ? undefined : preview}
+                  preview={preview}
                   className={clsx(
                     'p-6',
                     core.ws.ui.karolCrashMessage && 'border-4 border-red-300'

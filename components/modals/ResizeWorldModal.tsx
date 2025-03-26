@@ -8,6 +8,7 @@ import { closeModal } from '../../lib/commands/modal'
 import { createWorldCmd } from '../../lib/commands/world'
 import { useCore } from '../../lib/state/core'
 import { createWorld } from '../../lib/state/create'
+import { saveCodeToLocalStorage } from '../../lib/commands/save'
 
 export function ResizeWorldModal() {
   const core = useCore()
@@ -129,6 +130,7 @@ export function ResizeWorldModal() {
       core.mutateWs((ws) => {
         ws.quest.tasks[0].start = createWorld(localDimX, localDimY, localHeight)
       })
+      saveCodeToLocalStorage(core)
       closeModal(core)
       return
     }

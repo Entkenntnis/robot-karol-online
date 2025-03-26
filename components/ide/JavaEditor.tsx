@@ -45,6 +45,8 @@ import {
   completionKeymap,
 } from '@codemirror/autocomplete'
 import { submit_event } from '../../lib/helper/submit'
+import { save } from 'blockly/core/serialization/blocks'
+import { saveCodeToLocalStorage } from '../../lib/commands/save'
 
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>
@@ -132,7 +134,7 @@ export function lint(core: Core, view: EditorView) {
     state.javaCode = code
     // console.log(state.javaCode)
   })
-
+  saveCodeToLocalStorage(core)
   resetUIAfterChange(core)
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!

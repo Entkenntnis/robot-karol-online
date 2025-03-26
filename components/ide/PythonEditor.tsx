@@ -55,6 +55,8 @@ import {
   cursorToAstNode,
   prettyPrintAstNode,
 } from '../../lib/language/helper/astNode'
+import { save } from 'blockly/core/serialization/blocks'
+import { saveCodeToLocalStorage } from '../../lib/commands/save'
 
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>
@@ -147,7 +149,7 @@ export function lint(core: Core, view: EditorView) {
   if (core.ws.ui.state == 'running' || !view) {
     return [] // auto formatting, ignore
   }
-
+  saveCodeToLocalStorage(core)
   resetUIAfterChange(core)
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!

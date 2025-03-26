@@ -4,11 +4,12 @@ import { switchToPage } from './page'
 import { getAppearance, getLng } from '../storage/storage'
 import { setLng, showOverviewList, updatePlaygroundHashToMode } from './mode'
 import { createWorld } from '../state/create'
-import { QuestSerialFormat } from '../state/types'
+import { PlaygroundHashData, QuestSerialFormat } from '../state/types'
 import { deserializeQuest } from './json'
 import { startQuest } from './quest'
 import { setLanguage } from './language'
 import { analyze, submitAnalyzeEvent } from './analyze'
+import { loadProgram } from './save'
 
 export async function initClient(core: Core) {
   window.addEventListener('popstate', () => {
@@ -33,6 +34,7 @@ export async function initClient(core: Core) {
     if (id == 'Z9xO1rVGj') {
       submitAnalyzeEvent(core, 'ev_show_playgroundLegacyLink')
       buildPlayground(core)
+      switchToPage(core, 'imported')
       return
     }
     await loadLegacyProject(core, id)
@@ -54,7 +56,8 @@ export async function initClient(core: Core) {
 
   if (hash.startsWith('#SPIELWIESE')) {
     submitAnalyzeEvent(core, 'ev_show_playgroundHash' + hash.toLowerCase())
-    const parts = hash.split('-')
+    const [mainHash, dataPart] = normalHash.split(':')
+    const parts = mainHash.toUpperCase().split('-')
     if (parts.length > 1) {
       const mode = parts[1]
       core.mutateWs((ws) => {
@@ -76,6 +79,23 @@ export async function initClient(core: Core) {
     }
     buildPlayground(core)
     updatePlaygroundHashToMode(core)
+    if (dataPart) {
+      // deserialize world
+      try {
+        const data: PlaygroundHashData = JSON.parse(atob(dataPart))
+        core.mutateWs((ws) => {
+          ws.quest.tasks = [
+            {
+              title: 'Spielwiese',
+              start: createWorld(data.dimX, data.dimY, data.height),
+              target: null,
+            },
+          ]
+        })
+        loadProgram(core, data.program, data.language as any)
+      } catch (e) {}
+    }
+    switchToPage(core, 'imported')
     return
   }
 
@@ -165,5 +185,4 @@ export function buildPlayground(core: Core) {
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.isAlreadyCompleted = false
   })
-  switchToPage(core, 'imported')
 }
