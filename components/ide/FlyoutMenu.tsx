@@ -159,24 +159,22 @@ export function FlyoutMenu() {
         </p>
         {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
           <>
-            {!core.ws.ui.isPlayground && (
-              <p className="px-2 pt-4">
-                <button
-                  className="px-2 py-0.5 hover:bg-gray-300 rounded"
-                  onClick={() => {
-                    closeFlyoutMenu()
-                    submitAnalyzeEvent(core, 'ev_click_ide_openInEditor')
-                    core.mutateWs((ws) => {
-                      ws.editor.keepQuest = true
-                    })
-                    switchToPage(core, 'editor')
-                  }}
-                >
-                  <FaIcon icon={faPencil} className="mr-2" />{' '}
-                  {core.strings.ide.openInEditor}
-                </button>
-              </p>
-            )}
+            <p className="px-2 pt-4">
+              <button
+                className="px-2 py-0.5 hover:bg-gray-300 rounded"
+                onClick={() => {
+                  closeFlyoutMenu()
+                  submitAnalyzeEvent(core, 'ev_click_ide_openInEditor')
+                  core.mutateWs((ws) => {
+                    ws.editor.keepQuest = true
+                  })
+                  switchToPage(core, 'editor')
+                }}
+              >
+                <FaIcon icon={faPencil} className="mr-2" />{' '}
+                {core.strings.ide.openInEditor}
+              </button>
+            </p>
             <p className="px-2 pt-4">
               <span className="inline-block mx-2 border px-1 rounded bg-white">
                 <FaIcon icon={faGlobe} />

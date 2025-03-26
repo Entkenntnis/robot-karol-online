@@ -117,6 +117,7 @@ export function Overview() {
               onClick={() => {
                 submitAnalyzeEvent(core, 'ev_click_landing_playground')
                 buildPlayground(core)
+                switchToPage(core, 'imported')
               }}
             >
               {core.strings.overview.playground}
