@@ -64,7 +64,7 @@ export function saveCodeToLocalStorage(core: Core) {
     const hash = btoa(JSON.stringify(json))
     const prefix = window.location.hash.split(':')[0]
     const newHash = `${prefix}:${hash}`
-    if (newHash != hash) {
+    if (newHash != window.location.hash) {
       window.history.replaceState(
         {},
         document.title,
