@@ -1,5 +1,3 @@
-import { StringifyOptions } from 'querystring'
-
 export type Heading = 'north' | 'east' | 'south' | 'west'
 
 export interface World {
@@ -436,4 +434,12 @@ export interface PyodideWorker {
   reset: () => void
   input: (input: string) => void
   sharedArrayDelay: Int32Array
+}
+
+export interface PlaygroundHashData {
+  dimX: number
+  dimY: number
+  height: number
+  language: string
+  program: string
 }

@@ -1,6 +1,6 @@
-import { language } from '@codemirror/language'
 import { Core } from '../state/core'
-import { QuestSerialFormat } from '../state/types'
+import { PlaygroundHashData, QuestSerialFormat } from '../state/types'
+import { serializeQuest } from './json'
 
 export function saveCodeToFile(core: Core) {
   // 3. Create a Blob from the string
@@ -51,6 +51,26 @@ export function saveCodeToLocalStorage(core: Core) {
       `robot_karol_online_shared_quest_${core.ws.ui.sharedQuestId.toLowerCase()}_program`,
       JSON.stringify(state)
     )
+  }
+  if (core.ws.ui.isPlayground) {
+    const state = getProgram(core)
+    const json: PlaygroundHashData = {
+      dimX: core.ws.quest.tasks[0].start.dimX,
+      dimY: core.ws.quest.tasks[0].start.dimY,
+      height: core.ws.quest.tasks[0].start.height,
+      ...state,
+    }
+    // update hash
+    const hash = btoa(JSON.stringify(json))
+    const prefix = window.location.hash.split(':')[0]
+    const newHash = `${prefix}:${hash}`
+    if (newHash != window.location.hash) {
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname + newHash
+      )
+    }
   }
 }
 
