@@ -31,8 +31,7 @@ jobs:
       - name: Cache Cargo dependencies
         uses: actions/cache@v4
         with:
-          path: |
-            src-tauri/target
+          path: src-tauri/target
           key: cargo-${{ hashFiles('src-tauri/Cargo.lock', 'src-tauri/Cargo.toml') }}
 
       # Update config.tauri.json with the latest release tag
