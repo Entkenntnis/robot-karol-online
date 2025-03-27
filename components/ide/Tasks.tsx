@@ -204,14 +204,14 @@ export function Tasks() {
                   </div>
                   <div className="ml-4 mt-6">
                     <h2 className="text-lg font-bold">
-                      {core.ws.page == 'editor' ? (
+                      {core.ws.page == 'editor' &&
+                      !core.ws.editor.showQuestPreview ? (
                         <input
                           value={task.title}
                           className="bg-gray-100"
                           onChange={(e) => {
                             setTaskTitle(core, index, e.target.value)
                           }}
-                          readOnly={core.ws.editor.showQuestPreview}
                         />
                       ) : (
                         task.title
