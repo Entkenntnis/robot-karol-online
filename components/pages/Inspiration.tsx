@@ -18,6 +18,7 @@ import { View } from '../helper/View'
 import { deserializeWorld } from '../../lib/commands/json'
 import { tagsById } from '../../lib/data/tagsById'
 import { switchToPage } from '../../lib/commands/page'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 const tagTitles: { [key: string]: string } = {}
 
@@ -103,6 +104,7 @@ export function Inspiration() {
 
   // Toggles a tag in the selectedTags array
   const toggleTag = (tag: string) => {
+    submitAnalyzeEvent(core, 'ev_click_inspiration_toggleTag_' + tag)
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     )
@@ -249,7 +251,10 @@ export function Inspiration() {
             type="text"
             placeholder="Freitextsuche..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => {
+              submitAnalyzeEvent(core, 'ev_type_inspiration_search')
+              setSearchTerm(e.target.value)
+            }}
             className="w-full p-2 pr-8 border border-gray-300 rounded"
           />
           {searchTerm && (
@@ -363,6 +368,7 @@ function Entry({ entry }: { entry: EntryType }) {
         <button
           className="btn btn-sm my-3"
           onClick={() => {
+            submitAnalyzeEvent(core, 'ev_click_inspiration_openQuest')
             window.open('/#' + entry.id, '_blank')
           }}
         >
