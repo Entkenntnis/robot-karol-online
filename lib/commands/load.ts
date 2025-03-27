@@ -23,6 +23,9 @@ export async function loadQuest(core: Core, id: string) {
     }
     core.mutateWs(({ ui }) => {
       ui.sharedQuestId = id
+      if (obj.language && obj.program) {
+        ui.resetCode[id] = [obj.language, obj.program]
+      }
     })
     deserializeQuest(core, obj)
     submit_event(`load_custom_quest_${id}`, core)

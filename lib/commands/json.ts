@@ -188,9 +188,8 @@ export function deserializeQuest(
   }
   if (quest.program && quest.language) {
     loadProgram(core, quest.program, quest.language)
-  } else {
-    attemptToLoadProgramFromLocalStorage(core)
   }
+  attemptToLoadProgramFromLocalStorage(core)
 }
 
 export function deserlizeQuestToData(quest: QuestSerialFormat): QuestData {
