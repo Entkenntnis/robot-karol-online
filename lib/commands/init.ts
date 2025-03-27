@@ -93,6 +93,7 @@ export async function initClient(core: Core) {
           ]
         })
         loadProgram(core, data.program, data.language as any)
+        submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
       } catch (e) {}
     }
     switchToPage(core, 'imported')

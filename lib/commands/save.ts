@@ -53,6 +53,7 @@ export function saveCodeToLocalStorage(core: Core) {
     )
   }
   if (core.ws.ui.isPlayground) {
+    const prefix = window.location.hash.split(':')[0]
     const state = getProgram(core)
     const json: PlaygroundHashData = {
       dimX: core.ws.quest.tasks[0].start.dimX,
@@ -60,10 +61,18 @@ export function saveCodeToLocalStorage(core: Core) {
       height: core.ws.quest.tasks[0].start.height,
       ...state,
     }
-    // update hash
     const hash = btoa(JSON.stringify(json))
-    const prefix = window.location.hash.split(':')[0]
-    const newHash = `${prefix}:${hash}`
+    let newHash = `${prefix}:${hash}`
+    if (
+      json.program == '' &&
+      json.dimX == 15 &&
+      json.dimY == 10 &&
+      json.height == 6
+    ) {
+      // we don't need data part
+      newHash = prefix
+    }
+    // update hash
     if (newHash != window.location.hash) {
       window.history.replaceState(
         {},
