@@ -83,16 +83,6 @@ export function IdeMain() {
     }
   }, [core, core.ws.ui.isHighlightDescription])
 
-  const dontChangeLanguage =
-    (core.ws.ui.state !== 'ready' &&
-      !(
-        core.ws.settings.language == 'python-pro' &&
-        core.worker &&
-        !core.worker.mainWorkerReady
-      )) ||
-    !!core.ws.ui.lockLanguage ||
-    !core.ws.ui.pythonProCanSwitch
-
   return (
     <>
       <ReflexContainer orientation="vertical" windowResizeAware>

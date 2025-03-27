@@ -55,7 +55,7 @@ export interface Ui {
   cmdBlockPositions: CmdBlockPositions
   snippets: string[]
   showJavaInfo: boolean
-  lockLanguage?: 'python' | 'java' | 'karol'
+  lockLanguage?: 'python' | 'java' | 'karol' | 'python-pro'
   isPlayground: boolean
   showPreview: boolean
   show2D: boolean
@@ -94,7 +94,12 @@ export interface Editor {
   editWorld: number | null
   currentlyEditing: 'start' | 'target'
   showWorldPreview: boolean
-  editOptions: 'all' | 'python-only' | 'java-only' | 'karol-only'
+  editOptions:
+    | 'all'
+    | 'python-only'
+    | 'java-only'
+    | 'karol-only'
+    | 'python-pro-only'
   saveProgram: boolean
   keepQuest: boolean
 }
@@ -371,7 +376,7 @@ export interface QuestSerialFormat {
   description: string
   tasks: { title: string; start: SerialWorld; target: SerialWorld }[]
   lng?: 'de' | 'en'
-  editOptions?: 'python-only' | 'java-only' | 'karol-only'
+  editOptions?: 'python-only' | 'java-only' | 'karol-only' | 'python-pro-only'
   program?: string
   language?: 'blocks' | 'karol' | 'python' | 'java' | 'python-pro'
 }

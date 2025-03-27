@@ -125,6 +125,9 @@ export function Tasks() {
                   <option value="java-only">
                     {core.strings.editor.javaOnly}
                   </option>
+                  <option value="python-pro-only">
+                    {core.strings.editor.pythonProOnly}
+                  </option>
                 </select>
                 <span className="ml-14 inline-block">
                   <label className="select-none">

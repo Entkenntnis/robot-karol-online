@@ -171,6 +171,13 @@ export function deserializeQuest(
         ws.settings.mode = 'code'
       })
     }
+    if (quest.editOptions === 'python-pro-only') {
+      setLanguage(core, 'python-pro')
+      core.mutateWs((ws) => {
+        ws.ui.lockLanguage = 'python-pro'
+        ws.settings.mode = 'code'
+      })
+    }
     if (quest.editOptions === 'java-only') {
       setLanguage(core, 'java')
       core.mutateWs((ws) => {
