@@ -12,13 +12,12 @@ import clsx from 'clsx'
 import { useMemo } from 'react'
 
 import { setSpeedSliderValue } from '../../lib/commands/mode'
-import { finishQuest, startTesting } from '../../lib/commands/quest'
+import { finishQuest } from '../../lib/commands/quest'
 import { abort } from '../../lib/commands/vm'
 import { positiveText } from '../../lib/helper/positiveText'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
-import { twoWorldsEqual } from '../../lib/commands/world'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function ControlBar() {

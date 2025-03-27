@@ -2,13 +2,12 @@ import clsx from 'clsx'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import {
-  faDownload,
+  faFloppyDisk,
+  faFolderOpen,
   faGlobe,
   faPencil,
-  faRecycle,
   faRotateRight,
   faTimes,
-  faUpload,
   faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
@@ -81,20 +80,20 @@ export function FlyoutMenu() {
 
         <p className="px-2 pt-4">
           <button
-            className="hover:bg-gray-200 px-2 py-0.5 rounded text-gray-700 hover:text-black"
+            className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left"
             onClick={() => {
               submitAnalyzeEvent(core, 'ev_click_ide_saveToFile')
               saveCodeToFile(core)
               closeFlyoutMenu()
             }}
           >
-            <FaIcon icon={faDownload} className="mr-1 text-gray-500" />{' '}
+            <FaIcon icon={faFloppyDisk} className="mr-1" />{' '}
             {core.strings.ide.save}
           </button>
         </p>
         <p className="px-2 pt-4">
           <button
-            className="hover:bg-gray-200 px-2 py-0.5 rounded text-gray-700 hover:text-black"
+            className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left"
             onClick={() => {
               submitAnalyzeEvent(core, 'ev_click_ide_loadFromFile')
               const input = document.createElement('input')
@@ -156,7 +155,7 @@ export function FlyoutMenu() {
               input.dispatchEvent(evt)
             }}
           >
-            <FaIcon icon={faUpload} className="mr-1 text-gray-500" />{' '}
+            <FaIcon icon={faFolderOpen} className="mr-1" />{' '}
             {core.strings.ide.load}
           </button>
         </p>
