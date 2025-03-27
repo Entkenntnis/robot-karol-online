@@ -74,6 +74,10 @@ export async function analyze(core: Core) {
     const eventCount = new Map<string, number>()
     for (const entry of data) {
       let key = entry.event
+      // temporary fix for a mess up on my part
+      if (key.includes(':eyjkaw1yi')) {
+        continue
+      }
       const eventPrefixes = [
         'start_quest_',
         'quest_complete_',

@@ -55,8 +55,8 @@ export async function initClient(core: Core) {
   const normalHash = window.location.hash
 
   if (hash.startsWith('#SPIELWIESE')) {
-    submitAnalyzeEvent(core, 'ev_show_playgroundHash' + hash.toLowerCase())
     const [mainHash, dataPart] = normalHash.split(':')
+    submitAnalyzeEvent(core, 'ev_show_playgroundHash' + mainHash.toLowerCase())
     const parts = mainHash.toUpperCase().split('-')
     if (parts.length > 1) {
       const mode = parts[1]
