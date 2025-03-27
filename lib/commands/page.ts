@@ -27,6 +27,7 @@ export function switchToPage(core: Core, target: Pages) {
         editor.saveProgram = true
         ui.isHighlightDescription = false
         quest.id = -1
+        ui.errorMessages = []
       })
     } else {
       core.mutateWs((ws) => {
@@ -42,6 +43,7 @@ export function switchToPage(core: Core, target: Pages) {
         ws.code = ''
         ws.javaCode = ''
         ws.pythonCode = ''
+        ui.errorMessages = []
       })
       addNewTask(core)
     }
