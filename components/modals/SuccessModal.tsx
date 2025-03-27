@@ -195,7 +195,7 @@ export function SuccessModal() {
           ) :*/ <div className="h-12"></div>
           }
           <div className={clsx('px-12 flex w-full mb-12', 'justify-between')}>
-            {core.ws.page !== 'shared' ? (
+            {core.ws.page !== 'shared' && core.ws.page !== 'editor' ? (
               <>
                 <button
                   className="underline text-gray-700 hover:text-black"
