@@ -10,8 +10,10 @@ export function submit_event(event: string, core: Core) {
     if (
       window.location.host !== 'karol.arrrg.de' &&
       !backend.statsEndpoint.includes('localhost')
-    )
+    ) {
+      // console.log('debug:submit_event', event)
       return
+    }
 
     void (async () => {
       await fetch(backend.statsEndpoint, {
