@@ -3,6 +3,7 @@ import { Core } from '../state/core'
 import { CoreState } from '../state/types'
 import { addNewTask } from './editor'
 import { hideProfile } from './mode'
+import { loadProgram } from './save'
 
 type Pages = CoreState['workspace']['page']
 
@@ -20,15 +21,33 @@ export function switchToPage(core: Core, target: Pages) {
     document.title = 'Editor'
     resetQuestView(core)
     if (core.ws.editor.keepQuest) {
-      core.mutateWs(({ editor, ui, quest }) => {
+      const questId = core.ws.ui.sharedQuestId
+      core.mutateWs((ws) => {
+        ws.ui.sharedQuestId = undefined
+      })
+      if (questId && core.ws.ui.resetCode[questId]) {
+        const [language, program] = core.ws.ui.resetCode[questId]
+        loadProgram(core, program, language as any)
+      }
+      core.mutateWs((ws) => {
+        const { editor, ui, quest } = ws
         editor.keepQuest = false
         ui.isPlayground = false
         editor.editOptions = 'all'
         editor.saveProgram = true
         ui.isHighlightDescription = false
-        quest.id = -1
         ui.errorMessages = []
         ui.collapseDescription = false
+
+        if (!questId || !ui.resetCode[questId]) {
+          ws.code = ''
+          ws.javaCode = ''
+          ws.pythonCode = ''
+        }
+
+        ui.resetCode = {}
+        quest.id = -1
+        ui.needsTextRefresh = true
       })
     } else {
       core.mutateWs((ws) => {
@@ -47,6 +66,7 @@ export function switchToPage(core: Core, target: Pages) {
         ui.errorMessages = []
         ui.collapseDescription = false
         ui.resetCode = {}
+        ui.sharedQuestId = undefined
       })
       addNewTask(core)
     }
