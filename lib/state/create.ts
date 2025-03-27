@@ -57,6 +57,7 @@ export function createWorkspaceState(): WorkspaceState {
       initDone: false,
       keybindings: [],
       showFlyoutMenu: false,
+      resetCode: {},
     },
     vm: {
       pc: 0,

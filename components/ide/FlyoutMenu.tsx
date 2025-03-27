@@ -5,6 +5,8 @@ import {
   faDownload,
   faGlobe,
   faPencil,
+  faRecycle,
+  faRotateRight,
   faTimes,
   faUpload,
   faUpRightAndDownLeftFromCenter,
@@ -13,9 +15,10 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { deserializeQuest } from '../../lib/commands/json'
 import { setLng, setMode } from '../../lib/commands/mode'
 import { switchToPage } from '../../lib/commands/page'
-import { saveCodeToFile } from '../../lib/commands/save'
+import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
 import { setLngStorage } from '../../lib/storage/storage'
 import { showModal } from '../../lib/commands/modal'
+import { setLanguage } from '../../lib/commands/language'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -157,11 +160,39 @@ export function FlyoutMenu() {
             {core.strings.ide.load}
           </button>
         </p>
+        {core.ws.ui.sharedQuestId &&
+          core.ws.ui.resetCode[core.ws.ui.sharedQuestId] && (
+            <p className="px-2 pt-4">
+              <button
+                className="px-2 py-0.5 hover:bg-red-100 rounded"
+                onClick={() => {
+                  closeFlyoutMenu()
+                  submitAnalyzeEvent(core, 'ev_click_ide_resetQuestCode')
+                  const [language, program] =
+                    core.ws.ui.resetCode[core.ws.ui.sharedQuestId!]
+
+                  if (language == 'blocks') {
+                    setMode(core, 'blocks')
+                  } else {
+                    setMode(core, 'code')
+                    setLanguage(core, language as any)
+                  }
+                  core.mutateWs((ws) => {
+                    ws.ui.needsTextRefresh = true
+                  })
+                  loadProgram(core, program, language as any)
+                }}
+              >
+                <FaIcon icon={faRotateRight} className="mr-2" /> Code
+                zurücksetzen
+              </button>
+            </p>
+          )}
         {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
           <>
             <p className="px-2 pt-4">
               <button
-                className="px-2 py-0.5 hover:bg-gray-300 rounded"
+                className="px-2 py-0.5 hover:bg-yellow-300 rounded"
                 onClick={() => {
                   closeFlyoutMenu()
                   submitAnalyzeEvent(core, 'ev_click_ide_openInEditor')
