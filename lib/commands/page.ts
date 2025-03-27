@@ -46,6 +46,7 @@ export function switchToPage(core: Core, target: Pages) {
         ws.pythonCode = ''
         ui.errorMessages = []
         ui.collapseDescription = false
+        ui.resetCode = {}
       })
       addNewTask(core)
     }
