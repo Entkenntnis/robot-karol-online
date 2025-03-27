@@ -79,6 +79,7 @@ export const deStrings = {
     blockExplainer: 'Ziehe Blöcke auf die Arbeitsfläche und verbinde sie.',
     menu: 'Menü',
     openInEditor: 'Im Editor öffnen',
+    resetCode: 'Code zurücksetzen',
   },
   profile: {
     title: 'Profil',

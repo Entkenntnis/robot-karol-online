@@ -183,8 +183,8 @@ export function FlyoutMenu() {
                   loadProgram(core, program, language as any)
                 }}
               >
-                <FaIcon icon={faRotateRight} className="mr-2" /> Code
-                zurücksetzen
+                <FaIcon icon={faRotateRight} className="mr-2" />
+                {core.strings.ide.resetCode}
               </button>
             </p>
           )}
