@@ -28,6 +28,7 @@ export function switchToPage(core: Core, target: Pages) {
         ui.isHighlightDescription = false
         quest.id = -1
         ui.errorMessages = []
+        ui.collapseDescription = false
       })
     } else {
       core.mutateWs((ws) => {
@@ -44,6 +45,7 @@ export function switchToPage(core: Core, target: Pages) {
         ws.javaCode = ''
         ws.pythonCode = ''
         ui.errorMessages = []
+        ui.collapseDescription = false
       })
       addNewTask(core)
     }

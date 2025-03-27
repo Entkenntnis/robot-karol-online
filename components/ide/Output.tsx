@@ -49,46 +49,41 @@ export function Output() {
 
   return (
     <div className="flex flex-col h-full relative">
-      {core.ws.page !== 'editor' && (
-        <div className="border-b-2 border-gray-200">
-          <div className="p-4 px-7 bg-yellow-100 relative">
-            <button
-              className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
-              onClick={() => {
-                submitAnalyzeEvent(
-                  core,
-                  'ev_click_ide_toggleDescriptionCollapse'
-                )
-                core.mutateWs((ws) => {
-                  ws.ui.collapseDescription = !ws.ui.collapseDescription
-                })
-              }}
-            >
-              {!core.ws.ui.collapseDescription ? (
-                <FaIcon className="text-xl" icon={faCaretUp} />
-              ) : (
-                <FaIcon className="text-xl" icon={faCaretDown} />
-              )}
-            </button>
-            <h1
-              className={clsx(
-                'text-xl font-bold mt-1',
-                !core.ws.ui.collapseDescription ? 'mb-4' : 'mb-0'
-              )}
-            >
-              {core.ws.quest.title}
-              {core.ws.ui.isAlreadyCompleted && (
-                <span className="text-base font-normal text-green-600 ml-4">
-                  <FaIcon icon={faCheck} /> {core.strings.ide.taskCompleted}
-                </span>
-              )}
-            </h1>
-            {!core.ws.ui.collapseDescription && (
-              <div>{renderDescription(core)}</div>
+      <div className="border-b-2 border-gray-200">
+        <div className="p-4 px-7 bg-yellow-100 relative">
+          <button
+            className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
+            onClick={() => {
+              submitAnalyzeEvent(core, 'ev_click_ide_toggleDescriptionCollapse')
+              core.mutateWs((ws) => {
+                ws.ui.collapseDescription = !ws.ui.collapseDescription
+              })
+            }}
+          >
+            {!core.ws.ui.collapseDescription ? (
+              <FaIcon className="text-xl" icon={faCaretUp} />
+            ) : (
+              <FaIcon className="text-xl" icon={faCaretDown} />
             )}
-          </div>
+          </button>
+          <h1
+            className={clsx(
+              'text-xl font-bold mt-1',
+              !core.ws.ui.collapseDescription ? 'mb-4' : 'mb-0'
+            )}
+          >
+            {core.ws.quest.title}
+            {core.ws.ui.isAlreadyCompleted && (
+              <span className="text-base font-normal text-green-600 ml-4">
+                <FaIcon icon={faCheck} /> {core.strings.ide.taskCompleted}
+              </span>
+            )}
+          </h1>
+          {!core.ws.ui.collapseDescription && (
+            <div>{renderDescription(core)}</div>
+          )}
         </div>
-      )}
+      </div>
       <div className="flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100">
         <ControlBar />
       </div>
