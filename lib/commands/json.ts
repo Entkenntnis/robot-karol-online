@@ -158,6 +158,10 @@ export function deserializeQuest(
     }
   })
 
+  if (quest.program && quest.language) {
+    loadProgram(core, quest.program, quest.language)
+  }
+  attemptToLoadProgramFromLocalStorage(core)
   if (core.ws.page === 'editor') {
     core.mutateWs((ws) => {
       ws.editor.editOptions = quest.editOptions ? quest.editOptions : 'all'
@@ -193,10 +197,6 @@ export function deserializeQuest(
       })
     }
   }
-  if (quest.program && quest.language) {
-    loadProgram(core, quest.program, quest.language)
-  }
-  attemptToLoadProgramFromLocalStorage(core)
 }
 
 export function deserlizeQuestToData(quest: QuestSerialFormat): QuestData {
