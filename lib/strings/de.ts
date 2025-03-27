@@ -175,6 +175,7 @@ export const deStrings = {
     karolOnly: 'nur Robot-Karol-Code',
     pythonOnly: 'nur Python-Code',
     javaOnly: 'nur Java-Code',
+    pythonProOnly: 'nur Python Pro-Code',
     deleteWorld: 'Welt löschen',
     includeProgram: 'Programm mitspeichern',
     downloadJSON: 'Als JSON herunterladen',

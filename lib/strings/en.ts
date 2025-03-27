@@ -175,6 +175,7 @@ export const enStrings: typeof deStrings = {
     all: 'allow all',
     karolOnly: 'karol code only',
     pythonOnly: 'python only',
+    pythonProOnly: 'python pro only',
     javaOnly: 'java only',
     deleteWorld: 'Delete World Content',
     includeProgram: 'Include program',
