@@ -3,12 +3,10 @@ import { useEffect, useRef } from 'react'
 import { faCircleExclamation, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 
-import { setEditable } from '../../lib/codemirror/basicSetup'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { Editor } from './Editor'
 import { textRefreshDone } from '../../lib/commands/json'
-import dynamic from 'next/dynamic'
 import { JavaEditor } from './JavaEditor'
 import clsx from 'clsx'
 import { PythonEditor } from './PythonEditor'
@@ -18,15 +16,8 @@ import {
   simplifySelection,
   toggleComment,
 } from '@codemirror/commands'
-import { sub } from 'date-fns'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-
-const BlockEditor = dynamic(
-  () => import('./BlockEditor').then((mod) => mod.BlockEditor),
-  {
-    ssr: false,
-  }
-)
+import { BlockEditor } from './BlockEditor'
 
 export function EditArea() {
   const core = useCore()
