@@ -1,21 +1,21 @@
 export const questListByCategory = [
   {
-    title: 'Einführung / Sequenz',
+    title: 'Anweisung und Sequenz',
     titleEn: 'Introduction',
     quests: [1, 47, 48, 39, 49, 41, 6, 44],
   },
   {
-    title: 'Wiederholung mit fester Anzahl',
+    title: 'Wiederholung mit fester Anzahl (Zählschleife)',
     titleEn: 'Loops',
     quests: [43, 2, 40, 31, 22, 42, 7, 23, 10, 9, 32],
   },
   {
-    title: 'Bedingte Wiederholung',
+    title: 'Bedingte Wiederholung (Schleife mit Anfangsbedingung)',
     titleEn: 'Conditional Loops',
     quests: [29, 35, 36, 25, 27, 4, 24],
   },
   {
-    title: 'Bedingte Anweisungen',
+    title: 'Bedingte Anweisung',
     titleEn: 'Conditional statements',
     quests: [3, 46, 34, 45],
   },
