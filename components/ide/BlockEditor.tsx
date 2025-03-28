@@ -122,7 +122,7 @@ export function BlockEditor() {
       blocklyWorkspace.cleanUp()
     }
 
-    blocklyWorkspace.scroll(30, 18)
+    blocklyWorkspace.scroll(30, 36)
 
     core.blockyResize = onresize
     //console.log('mount', core.blockyResize)
