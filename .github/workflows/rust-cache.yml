@@ -1,0 +1,47 @@
+name: Update rust cache
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      # Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Setup Node.js (adjust the node version as needed)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      # Cache npm dependencies to speed up installs
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-
+
+      # Cache Cargo dependencies to speed up Rust builds
+      - name: Cache Cargo dependencies
+        uses: actions/cache@v4
+        with:
+          path: src-tauri/target
+          key: cargo-${{ hashFiles('src-tauri/Cargo.lock', 'src-tauri/Cargo.toml') }}
+          restore-keys: |
+            cargo-
+
+      # Install npm dependencies
+      - name: Install npm dependencies
+        run: npm install
+
+      # Build the MSI using Tauri (assumes "tauri build" script is defined in package.json)
+      - name: Build MSI with Tauri
+        run: npm run tauri build
