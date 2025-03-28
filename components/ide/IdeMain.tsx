@@ -1,13 +1,11 @@
 import {
   faCaretRight,
-  faDownload,
   faExclamationTriangle,
-  faUpload,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
 
-import { closeHighlightDescription, setMode } from '../../lib/commands/mode'
+import { closeHighlightDescription } from '../../lib/commands/mode'
 import { useCore } from '../../lib/state/core'
 import { EditArea } from './EditArea'
 import { FaIcon } from '../helper/FaIcon'
@@ -19,9 +17,6 @@ import { HFullStyles } from '../helper/HFullStyles'
 import { showModal } from '../../lib/commands/modal'
 import { useEffect, useState } from 'react'
 import { JavaInfo } from './JavaInfo'
-import { saveCodeToFile } from '../../lib/commands/save'
-import { deserializeQuest } from '../../lib/commands/json'
-import { switchToPage } from '../../lib/commands/page'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { InteractionBar } from './InteractionBar'
 import { FlyoutMenu } from './FlyoutMenu'
