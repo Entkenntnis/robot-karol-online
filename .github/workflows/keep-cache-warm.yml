@@ -1,4 +1,4 @@
-name: Update rust cache
+name: Keep npm and rust cache warm
 
 on:
   push:
@@ -33,7 +33,10 @@ jobs:
       - name: Cache Cargo dependencies
         uses: actions/cache@v4
         with:
-          path: src-tauri/target
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            src-tauri/target
           key: cargo-${{ hashFiles('src-tauri/Cargo.lock', 'src-tauri/Cargo.toml') }}
           restore-keys: |
             cargo-
