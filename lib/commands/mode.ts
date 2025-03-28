@@ -191,19 +191,21 @@ export function updatePlaygroundHashToMode(core: Core) {
   const hash = window.location.hash
 
   if (hash.startsWith('#SPIELWIESE')) {
-    const newHash = `#SPIELWIESE${
-      core.ws.settings.mode == 'blocks'
-        ? ''
-        : `-${
-            core.ws.settings.language == 'robot karol'
-              ? 'CODE'
-              : core.ws.settings.language == 'java'
-              ? 'JAVA'
-              : core.ws.settings.language == 'python-pro'
-              ? 'PYTHON-PRO'
-              : 'PYTHON'
-          }`
-    }`
+    const [, dataPart] = hash.split(':')
+    const newHash =
+      `#SPIELWIESE${
+        core.ws.settings.mode == 'blocks'
+          ? ''
+          : `-${
+              core.ws.settings.language == 'robot karol'
+                ? 'CODE'
+                : core.ws.settings.language == 'java'
+                ? 'JAVA'
+                : core.ws.settings.language == 'python-pro'
+                ? 'PYTHON-PRO'
+                : 'PYTHON'
+            }`
+      }` + (dataPart ? `:${dataPart}` : '')
     window.document.title =
       'Spielwiese' +
       (core.ws.settings.mode == 'blocks'
