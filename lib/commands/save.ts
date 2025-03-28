@@ -1,6 +1,30 @@
 import { Core } from '../state/core'
 import { PlaygroundHashData, QuestSerialFormat } from '../state/types'
-import { serializeQuest } from './json'
+
+const debouncedReplaceState = (() => {
+  const data: { latestHash: string; hasTimeout: boolean } = {
+    latestHash: '',
+    hasTimeout: false,
+  }
+
+  return (hash: string) => {
+    data.latestHash = hash
+
+    if (!data.hasTimeout) {
+      setTimeout(execute, 2000)
+      data.hasTimeout = true
+    }
+  }
+
+  function execute() {
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.pathname + data.latestHash
+    )
+    data.hasTimeout = false
+  }
+})()
 
 export function saveCodeToFile(core: Core) {
   // 3. Create a Blob from the string
@@ -74,11 +98,9 @@ export function saveCodeToLocalStorage(core: Core) {
     }
     // update hash
     if (newHash != window.location.hash) {
-      window.history.replaceState(
-        {},
-        document.title,
-        window.location.pathname + newHash
-      )
+      {
+        debouncedReplaceState(newHash)
+      }
     }
   }
 }
