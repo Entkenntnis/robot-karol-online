@@ -115,6 +115,11 @@ export function switchToPage(core: Core, target: Pages) {
     return
   }
 
+  if (target == 'demo') {
+    if (pushHistory) history.pushState(null, '', '/#DEMO')
+    return
+  }
+
   if (target == 'shared') {
     core.mutateWs(({ ui }) => {
       ui.isPlayground = false

@@ -347,7 +347,10 @@ export function Tasks() {
                     storeQuestToSession(core)
                   }
                   closeModal(core)
-                  switchToPage(core, 'overview')
+                  switchToPage(
+                    core,
+                    core.ws.ui.returnToDemoPage ? 'demo' : 'overview'
+                  )
                 }}
               >
                 <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
