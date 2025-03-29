@@ -25,6 +25,8 @@ export async function loadQuest(core: Core, id: string) {
       ui.sharedQuestId = id
       if (obj.language && obj.program) {
         ui.resetCode[id] = [obj.language, obj.program]
+      } else {
+        ui.resetCode[id] = ['blocks', '']
       }
     })
     deserializeQuest(core, obj)
