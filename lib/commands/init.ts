@@ -155,6 +155,9 @@ export async function initClient(core: Core) {
 
   if (hash == '#DEMO') {
     submitAnalyzeEvent(core, 'ev_show_demo')
+    core.mutateWs(({ ui }) => {
+      ui.returnToDemoPage = true
+    })
     switchToPage(core, 'demo')
     return
   } else if (hash.length == 5) {
