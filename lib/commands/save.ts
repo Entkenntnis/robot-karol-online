@@ -2,17 +2,22 @@ import { Core } from '../state/core'
 import { PlaygroundHashData, QuestSerialFormat } from '../state/types'
 
 const debouncedReplaceState = (() => {
-  const data: { latestHash: string; hasTimeout: boolean } = {
+  const data = {
     latestHash: '',
     hasTimeout: false,
+    lastUpdate: -1,
   }
 
   return (hash: string) => {
     data.latestHash = hash
 
     if (!data.hasTimeout) {
-      setTimeout(execute, 2000)
-      data.hasTimeout = true
+      if (data.lastUpdate + 2000 < Date.now()) {
+        execute()
+      } else {
+        setTimeout(execute, 2000)
+        data.hasTimeout = true
+      }
     }
   }
 
@@ -23,6 +28,7 @@ const debouncedReplaceState = (() => {
       window.location.pathname + data.latestHash
     )
     data.hasTimeout = false
+    data.lastUpdate = Date.now()
   }
 })()
 
