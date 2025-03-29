@@ -171,15 +171,31 @@ export function FlyoutMenu() {
                     core.ws.ui.resetCode[core.ws.ui.sharedQuestId!]
 
                   if (language == 'blocks') {
-                    setMode(core, 'blocks')
+                    loadProgram(core, program, language as any)
+                    if (core.ws.settings.mode == 'blocks') {
+                      setMode(core, 'code')
+                      core.mutateWs((ws) => {
+                        ws.ui.needsTextRefresh = true
+                      })
+                      const check = () => {
+                        if (core.ws.ui.needsTextRefresh) {
+                          setTimeout(check, 10)
+                        } else {
+                          setMode(core, 'blocks')
+                        }
+                      }
+                      check()
+                    } else {
+                      setMode(core, 'blocks')
+                    }
                   } else {
                     setMode(core, 'code')
                     setLanguage(core, language as any)
+                    core.mutateWs((ws) => {
+                      ws.ui.needsTextRefresh = true
+                    })
+                    loadProgram(core, program, language as any)
                   }
-                  core.mutateWs((ws) => {
-                    ws.ui.needsTextRefresh = true
-                  })
-                  loadProgram(core, program, language as any)
                 }}
               >
                 <FaIcon icon={faRotateRight} className="mr-2" />
