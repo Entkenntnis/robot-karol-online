@@ -16,13 +16,15 @@ Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION
 
 Lade dir die aktuellste `Robot.Karol.Online_x.x.x_x64_de-DE.msi` unter dem [neusten Release](https://github.com/Entkenntnis/robot-karol-online/releases/latest) herunter, um Robot Karol auch offline zu nutzen.
 
+## Einstieg mit Python
+
+Es gibt für den Einstieg einen <a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/Pythonkurs_mit_Robot_Karol_Online.pdf">Pythonkurs mit Robot Karol Online</a> mit dem gleichen Funktionsumfang wie die Blöcke.
+
 <br /><br /><br /><br /><br />
 
 ## Karol x Python
 
 ![grafik](https://github.com/user-attachments/assets/13b38eef-d9e4-497c-8b97-94b458f94f61)
-
-Es gibt für den Einstieg einen <a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/Pythonkurs_mit_Robot_Karol_Online.pdf">Pythonkurs mit Robot Karol Online</a> mit dem gleichen Funktionsumfang wie die Blöcke.
 
 Darüber hinaus stehen im [Python Pro Modus](https://karol.arrrg.de/#SPIELWIESE-PYTHON-PRO) viele weitere Standard-Python-Funktionen zur Verfügung. Hier findest du eine Sammlung an Beispielen. Viel Spaß beim Ausprobieren!
 
