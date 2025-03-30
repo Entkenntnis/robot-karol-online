@@ -4,12 +4,19 @@ import { PlaygroundHashData, QuestSerialFormat } from '../state/types'
 const debouncedReplaceState = (() => {
   const data = {
     latestHash: '',
+    lastestTitle: '',
     hasTimeout: false,
     lastUpdate: -1,
   }
 
-  return (hash: string) => {
+  return (hash: string, title: string, immediate: boolean) => {
     data.latestHash = hash
+    data.lastestTitle = title
+
+    if (immediate) {
+      execute()
+      return
+    }
 
     if (!data.hasTimeout) {
       if (data.lastUpdate + 2000 < Date.now()) {
@@ -22,11 +29,15 @@ const debouncedReplaceState = (() => {
   }
 
   function execute() {
+    if (window.location.hash == data.latestHash) {
+      return
+    }
     window.history.replaceState(
       {},
-      document.title,
+      data.lastestTitle,
       window.location.pathname + data.latestHash
     )
+    window.document.title = data.lastestTitle
     data.hasTimeout = false
     data.lastUpdate = Date.now()
   }
@@ -74,7 +85,7 @@ export function saveCodeToFile(core: Core) {
   window.URL.revokeObjectURL(url)
 }
 
-export function saveCodeToLocalStorage(core: Core) {
+export function saveCodeToLocalStorage(core: Core, immediate = false) {
   if (core.ws.ui.sharedQuestId) {
     const state = getProgram(core)
     localStorage.setItem(
@@ -83,7 +94,30 @@ export function saveCodeToLocalStorage(core: Core) {
     )
   }
   if (core.ws.ui.isPlayground) {
-    const prefix = window.location.hash.split(':')[0]
+    const prefix = `#SPIELWIESE${
+      core.ws.settings.mode == 'blocks'
+        ? ''
+        : `-${
+            core.ws.settings.language == 'robot karol'
+              ? 'CODE'
+              : core.ws.settings.language == 'java'
+              ? 'JAVA'
+              : core.ws.settings.language == 'python-pro'
+              ? 'PYTHON-PRO'
+              : 'PYTHON'
+          }`
+    }`
+    const newWindowTitle =
+      'Spielwiese' +
+      (core.ws.settings.mode == 'blocks'
+        ? ''
+        : core.ws.settings.language == 'robot karol'
+        ? ''
+        : core.ws.settings.language == 'java'
+        ? ' Java'
+        : core.ws.settings.language == 'python-pro'
+        ? ' Python Pro'
+        : ' Python')
     const state = getProgram(core)
     const json: PlaygroundHashData = {
       dimX: core.ws.quest.tasks[0].start.dimX,
@@ -103,9 +137,12 @@ export function saveCodeToLocalStorage(core: Core) {
       newHash = prefix
     }
     // update hash
-    if (newHash != window.location.hash) {
+    if (
+      newHash != window.location.hash ||
+      window.document.title != newWindowTitle
+    ) {
       {
-        debouncedReplaceState(newHash)
+        debouncedReplaceState(newHash, newWindowTitle, immediate)
       }
     }
   }
