@@ -12,6 +12,7 @@ import { startButtonClicked } from '../../lib/commands/start'
 import { setMode } from '../../lib/commands/mode'
 import { setLanguage } from '../../lib/commands/language'
 import { Settings } from '../../lib/state/types'
+import { useRef, useState } from 'react'
 
 export function InteractionBar() {
   const core = useCore()
@@ -99,13 +100,19 @@ export function InteractionBar() {
           />
           <span className="absolute left-1 top-1 w-5 h-5 bg-white shadow-white rounded-full transition duration-300 peer-checked:translate-x-5"></span>
         </label>
-        <select
+        <DropdownComponent dontChangeLanguage={dontChangeLanguage} />
+        {/*<select
           className={clsx(
             'rounded-lg px-2 py-0.5 transition focus:outline-none font-semibold ml-1 bg-white disabled:cursor-not-allowed cursor-pointer [&>option]:cursor-pointer',
             core.ws.settings.mode == 'code'
               ? 'border-[#770088] border'
               : 'text-gray-400 border'
           )}
+          onPointerDown={() => {
+            if (core.ws.settings.mode != 'code') {
+              setMode(core, 'code')
+            }
+          }}
           value={core.ws.settings.language}
           onChange={(e) => {
             submitAnalyzeEvent(core, 'ev_click_ide_language-' + e.target.value)
@@ -124,7 +131,7 @@ export function InteractionBar() {
               <option value="python-pro">Python Pro</option>
             </>
           )}
-        </select>
+        </select>*/}
       </div>
       <button
         className={clsx(
@@ -167,6 +174,143 @@ export function InteractionBar() {
         />
         <span className="text-xl">{core.strings.ide[mainButtonState]}</span>
       </button>
+    </div>
+  )
+}
+
+interface Props {
+  dontChangeLanguage: boolean
+}
+
+function DropdownComponent({ dontChangeLanguage }: Props) {
+  const core = useCore()
+
+  const [isOpen, setIsOpen] = useState(false)
+
+  const ignoreNextOnBlur = useRef({ value: false })
+
+  const options = [
+    { value: 'robot karol', label: 'Karol Code' },
+    ...(core.ws.settings.lng == 'de'
+      ? [
+          { value: 'java', label: 'Java' },
+          { value: 'python', label: 'Python' },
+          { value: 'python-pro', label: 'Python Pro' },
+        ]
+      : []),
+  ]
+
+  const selectedOption =
+    options.find((opt) => opt.value === core.ws.settings.language) || options[0]
+
+  return (
+    <div className="relative ml-1 inline-block">
+      <button
+        type="button"
+        className={clsx(
+          'flex items-center justify-between rounded-lg px-2 py-0.5 transition-all',
+          'w-32 font-semibold focus:outline-none disabled:cursor-not-allowed',
+          'bg-white border',
+          core.ws.settings.mode == 'code'
+            ? 'border-[#770088]'
+            : 'border-gray-300 text-gray-400',
+          dontChangeLanguage
+            ? 'cursor-not-allowed opacity-75'
+            : 'cursor-pointer'
+        )}
+        onPointerDown={() => {
+          console.log('on pointer down')
+          if (core.ws.settings.mode != 'code') {
+            ignoreNextOnBlur.current.value = true
+            console.log('ignore next on blue')
+            setMode(core, 'code')
+
+            // safeguard
+            setTimeout(() => {
+              ignoreNextOnBlur.current.value = false
+
+              console.log('reset ignore next on blue')
+            }, 100)
+          }
+        }}
+        onClick={() => {
+          console.log('on click event')
+          !dontChangeLanguage && setIsOpen(!isOpen)
+        }}
+        onBlur={() => {
+          console.log('on blur')
+          if (ignoreNextOnBlur.current.value) {
+            ignoreNextOnBlur.current.value = false
+            return
+          }
+          // on blur is called before the click handler, this  is bad and I need to work around it
+          // with this timeout
+          setTimeout(() => {
+            setIsOpen(false)
+          }, 100)
+        }}
+        disabled={dontChangeLanguage}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        id="select-language"
+      >
+        <span>{selectedOption.label}</span>
+        <svg
+          className={clsx(
+            'h-4 w-4 transition-transform',
+            isOpen ? 'rotate-180' : ''
+          )}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div
+          className="absolute z-10 mt-1 w-full rounded-lg border border-gray-200 bg-white shadow-lg"
+          role="listbox"
+        >
+          {options.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              id={`select-language-${option.value.replace(/\s+/g, '-')}`}
+              className={clsx(
+                'w-full px-2 py-1 text-left',
+                'transition-colors cursor-pointer font-semibold',
+                option.value === core.ws.settings.language
+                  ? 'bg-[#770088]/20'
+                  : 'hover:bg-[#770088]/5'
+              )}
+              onClick={() => {
+                console.log('on click handler button', option)
+                submitAnalyzeEvent(
+                  core,
+                  'ev_click_ide_language-' + option.value
+                )
+                if (core.ws.settings.mode == 'blocks') {
+                  setMode(core, 'code')
+                }
+                setLanguage(core, option.value as Settings['language'])
+                console.log('handle select')
+                setIsOpen(false)
+              }}
+              role="option"
+              aria-selected={option.value === core.ws.settings.language}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
