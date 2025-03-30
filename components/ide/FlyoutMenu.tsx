@@ -18,6 +18,7 @@ import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
 import { setLngStorage } from '../../lib/storage/storage'
 import { showModal } from '../../lib/commands/modal'
 import { setLanguage } from '../../lib/commands/language'
+import { useEffect } from 'react'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -29,6 +30,22 @@ export function FlyoutMenu() {
       ui.showFlyoutMenu = false
     })
   }
+
+  // register key down handler on document to close flyout menu as effect
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        core.mutateWs(({ ui }) => {
+          ui.showFlyoutMenu = false
+        })
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [core])
 
   return (
     <div
@@ -51,12 +68,12 @@ export function FlyoutMenu() {
         </h2>
         <hr />
         <button
-          className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+          className="absolute top-4 left-4 text-gray-600 hover:text-gray-800 rounded-lg bg-gray-50 hover:bg-gray-100 px-2 py-0.5"
           onClick={() => {
             closeFlyoutMenu()
           }}
         >
-          <FaIcon icon={faTimes} />
+          <FaIcon icon={faTimes} /> {core.strings.ide.close}
         </button>
 
         {core.ws.ui.isPlayground && (
