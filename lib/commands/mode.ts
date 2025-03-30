@@ -11,6 +11,7 @@ import {
 } from '../storage/storage'
 import { showModal } from './modal'
 import { switchToPage } from './page'
+import { saveCodeToLocalStorage } from './save'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
   if (core.ws.settings.mode == 'blocks') {
@@ -188,41 +189,5 @@ export function setLng(core: Core, lng: 'de' | 'en') {
 }
 
 export function updatePlaygroundHashToMode(core: Core) {
-  const hash = window.location.hash
-
-  if (hash.startsWith('#SPIELWIESE')) {
-    const [, dataPart] = hash.split(':')
-    const newHash =
-      `#SPIELWIESE${
-        core.ws.settings.mode == 'blocks'
-          ? ''
-          : `-${
-              core.ws.settings.language == 'robot karol'
-                ? 'CODE'
-                : core.ws.settings.language == 'java'
-                ? 'JAVA'
-                : core.ws.settings.language == 'python-pro'
-                ? 'PYTHON-PRO'
-                : 'PYTHON'
-            }`
-      }` + (dataPart ? `:${dataPart}` : '')
-    window.document.title =
-      'Spielwiese' +
-      (core.ws.settings.mode == 'blocks'
-        ? ''
-        : core.ws.settings.language == 'robot karol'
-        ? ''
-        : core.ws.settings.language == 'java'
-        ? ' Java'
-        : core.ws.settings.language == 'python-pro'
-        ? ' Python Pro'
-        : ' Python')
-    if (newHash != hash) {
-      window.history.replaceState(
-        {},
-        document.title,
-        window.location.pathname + newHash
-      )
-    }
-  }
+  saveCodeToLocalStorage(core, true)
 }

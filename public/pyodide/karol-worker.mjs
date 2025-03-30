@@ -19,7 +19,7 @@ self.onmessage = async (event) => {
       initStarted = true
       pyodide = await loadPyodide()
       pyodide.runPython(`import sys; sys.version`)
-      console.log('Pyodide warmup abgeschlossen')
+      // console.log('Pyodide warmup abgeschlossen')
       self.postMessage('ready')
     }
   }

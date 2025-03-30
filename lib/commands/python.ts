@@ -18,7 +18,7 @@ export function setupWorker(core: Core) {
     return
   }
 
-  console.log('Starte Setup der Worker ...')
+  // console.log('Starte Setup der Worker ...')
 
   // scaffolding
   core.worker = {
@@ -182,14 +182,14 @@ export function setupWorker(core: Core) {
 
     if (!core.worker.mainWorkerReady) {
       core.worker.mainWorker.postMessage('init')
-      console.log('Starte Haupt-Worker ...')
+      // console.log('Starte Haupt-Worker ...')
 
       return new Promise<void>((resolve) => {
         mainWorkerInitPromiseResolve = resolve
       })
     } else if (!core.worker.backupWorkerReady) {
       core.worker.backupWorker.postMessage('init')
-      console.log('Starte Backup-Worker ...')
+      // console.log('Starte Backup-Worker ...')
     }
 
     core.mutateWs(({ ui }) => {
