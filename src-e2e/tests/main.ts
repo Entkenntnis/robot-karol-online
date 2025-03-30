@@ -63,7 +63,7 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.see('Spiegelei')
 })
 
-Scenario('See if playground works fine', ({ I }) => {
+Scenario.only('See if playground works fine', ({ I }) => {
   I.amOnPage('/')
   I.click('Spielwiese')
   I.seeTitleEquals('Spielwiese')
@@ -81,11 +81,12 @@ Scenario('See if playground works fine', ({ I }) => {
   I.click('Spielwiese')
   I.see('Programmiere frei und baue dein Herzensprojekt.')
 
-  // HOW TO DO THAT?
-  /*I.selectOption('select.rounded-lg', 'python-pro')
-  I.waitForText('Spickzettel')
-  I.wait(10)
+  I.click({ css: '#select-language' })
+  I.click({ css: '#select-language-python-pro' })
+  I.dontSee('Hauptprogramm')
+  I.see('Spickzettel')
   I.click('Start')
-
-  I.wait(10)*/
+  I.click('Blöcke')
+  I.see('Hauptprogramm')
+  I.dontSee('Spickzettel')
 })
