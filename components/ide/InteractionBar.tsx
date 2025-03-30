@@ -208,7 +208,6 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
           {selectedOption.label}
         </div>
         <button
-          type="button"
           className={clsx(
             'flex items-center justify-between rounded-r-lg px-1.5 py-0.5 transition-all',
             'font-semibold focus:outline-none disabled:cursor-not-allowed',
@@ -239,10 +238,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
           id="select-language"
         >
           <svg
-            className={clsx(
-              'h-4 w-4 transition-transform',
-              isOpen ? 'rotate-180' : ''
-            )}
+            className={clsx('h-4 w-4')}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
