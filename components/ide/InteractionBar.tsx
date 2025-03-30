@@ -101,37 +101,6 @@ export function InteractionBar() {
           <span className="absolute left-1 top-1 w-5 h-5 bg-white shadow-white rounded-full transition duration-300 peer-checked:translate-x-5"></span>
         </label>
         <DropdownComponent dontChangeLanguage={dontChangeLanguage} />
-        {/*<select
-          className={clsx(
-            'rounded-lg px-2 py-0.5 transition focus:outline-none font-semibold ml-1 bg-white disabled:cursor-not-allowed cursor-pointer [&>option]:cursor-pointer',
-            core.ws.settings.mode == 'code'
-              ? 'border-[#770088] border'
-              : 'text-gray-400 border'
-          )}
-          onPointerDown={() => {
-            if (core.ws.settings.mode != 'code') {
-              setMode(core, 'code')
-            }
-          }}
-          value={core.ws.settings.language}
-          onChange={(e) => {
-            submitAnalyzeEvent(core, 'ev_click_ide_language-' + e.target.value)
-            if (core.ws.settings.mode == 'blocks') {
-              setMode(core, 'code')
-            }
-            setLanguage(core, e.target.value as Settings['language'])
-          }}
-          disabled={dontChangeLanguage}
-        >
-          <option value="robot karol">Karol Code</option>
-          {core.ws.settings.lng == 'de' && (
-            <>
-              <option value="java">Java</option>
-              <option value="python">Python</option>
-              <option value="python-pro">Python Pro</option>
-            </>
-          )}
-        </select>*/}
       </div>
       <button
         className={clsx(
