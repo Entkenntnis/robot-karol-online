@@ -123,6 +123,7 @@ export function EditArea() {
                     src="/icons/for.png"
                     alt="Struktogramm for"
                     className="inline-block -mt-0.5"
+                    width={16}
                   ></img>{' '}
                   for<span className="hidden xl:inline">-Anweisung</span>
                 </button>
@@ -140,6 +141,7 @@ export function EditArea() {
                     src="/icons/while.png"
                     alt="Struktogramm while"
                     className="inline-block -mt-0.5"
+                    width={16}
                   ></img>{' '}
                   while<span className="hidden xl:inline">-Anweisung</span>
                 </button>
@@ -163,6 +165,7 @@ export function EditArea() {
                     src="/icons/ifElse.png"
                     alt="Struktogramm if else"
                     className="inline-block -mt-0.5"
+                    width={15}
                   ></img>{' '}
                   if-else<span className="hidden xl:inline">-Anweisung</span>
                 </button>
@@ -180,6 +183,7 @@ export function EditArea() {
                     src="/icons/if.png"
                     alt="Struktogramm if"
                     className="inline-block -mt-0.5"
+                    width={15}
                   ></img>{' '}
                   if<span className="hidden xl:inline">-Anweisung</span>
                 </button>
@@ -194,6 +198,7 @@ export function EditArea() {
                     src="/icons/eigeneMethode.png"
                     alt="Struktogramm for"
                     className="inline-block -mt-0.5"
+                    width={16}
                   ></img>{' '}
                   eigene Methode
                 </button>
