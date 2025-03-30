@@ -52,12 +52,12 @@ export function InteractionBar() {
         <FaIcon icon={faBars} className="mr-2" /> {core.strings.ide.menu}
       </button>
       <div className="pt-1">
-        <span
+        <button
           className={clsx(
-            'font-semibold mr-1 select-none',
-            core.ws.settings.mode == 'code' && 'text-gray-400',
-            !dontChangeLanguage && 'cursor-pointer'
+            'font-semibold mr-1 select-none disabled:cursor-default',
+            core.ws.settings.mode == 'code' && 'text-gray-400'
           )}
+          disabled={dontChangeLanguage}
           onClick={() => {
             if (!dontChangeLanguage) {
               submitAnalyzeEvent(core, 'ev_click_ide_blocks')
@@ -66,7 +66,7 @@ export function InteractionBar() {
           }}
         >
           {core.strings.ide.blocks}
-        </span>
+        </button>
         <label
           htmlFor="toggleSwitch"
           className={clsx(
@@ -204,74 +204,84 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
     options.find((opt) => opt.value === core.ws.settings.language) || options[0]
 
   return (
-    <div className="relative ml-1 inline-block">
-      <button
-        type="button"
-        className={clsx(
-          'flex items-center justify-between rounded-lg px-2 py-0.5 transition-all',
-          'w-32 font-semibold focus:outline-none disabled:cursor-not-allowed',
-          'bg-white border',
-          core.ws.settings.mode == 'code'
-            ? 'border-[#770088]'
-            : 'border-gray-300 text-gray-400',
-          dontChangeLanguage
-            ? 'cursor-not-allowed opacity-75'
-            : 'cursor-pointer'
-        )}
-        onPointerDown={() => {
-          console.log('on pointer down')
-          if (core.ws.settings.mode != 'code') {
-            ignoreNextOnBlur.current.value = true
-            console.log('ignore next on blue')
-            setMode(core, 'code')
-
-            // safeguard
-            setTimeout(() => {
-              ignoreNextOnBlur.current.value = false
-
-              console.log('reset ignore next on blue')
-            }, 100)
-          }
-        }}
-        onClick={() => {
-          console.log('on click event')
-          !dontChangeLanguage && setIsOpen(!isOpen)
-        }}
-        onBlur={() => {
-          console.log('on blur')
-          if (ignoreNextOnBlur.current.value) {
-            ignoreNextOnBlur.current.value = false
-            return
-          }
-          // on blur is called before the click handler, this  is bad and I need to work around it
-          // with this timeout
-          setTimeout(() => {
-            setIsOpen(false)
-          }, 100)
-        }}
-        disabled={dontChangeLanguage}
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-        id="select-language"
-      >
-        <span>{selectedOption.label}</span>
-        <svg
+    <div className="relative ml-1 inline-block w-32">
+      <div className="flex justify-between">
+        <div
           className={clsx(
-            'h-4 w-4 transition-transform',
-            isOpen ? 'rotate-180' : ''
+            'flex-grow font-semibold border rounded-l-lg pl-2 py-0.5 transition-all border-r-0 select-none whitespace-nowrap',
+            core.ws.settings.mode == 'code'
+              ? 'border-[#770088]'
+              : 'border-gray-300 text-gray-400',
+            !dontChangeLanguage && 'cursor-pointer'
           )}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+          onClick={() => {
+            if (core.ws.settings.mode != 'code') {
+              setMode(core, 'code')
+            }
+          }}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
-      </button>
+          {selectedOption.label}
+        </div>
+        <button
+          type="button"
+          className={clsx(
+            'flex items-center justify-between rounded-r-lg px-1.5 py-0.5 transition-all',
+            'font-semibold focus:outline-none disabled:cursor-not-allowed',
+            'bg-[#770088]/20 border',
+            core.ws.settings.mode == 'code'
+              ? 'border-[#770088]'
+              : 'border-gray-300 text-gray-400',
+            dontChangeLanguage
+              ? 'cursor-not-allowed opacity-75'
+              : 'cursor-pointer'
+          )}
+          onKeyDown={(e) => {
+            // react on esc key
+            if (e.key === 'Escape') {
+              e.preventDefault()
+              setIsOpen(false)
+            }
+          }}
+          onClick={() => {
+            console.log('on click event')
+            !dontChangeLanguage && setIsOpen(!isOpen)
+          }}
+          onBlur={() => {
+            if (ignoreNextOnBlur.current.value) {
+              console.log('ignore this on blur')
+              ignoreNextOnBlur.current.value = false
+              return
+            }
+            console.log('on blur')
+            // on blur is called before the click handler, this  is bad and I need to work around it
+            // with this timeout
+            setTimeout(() => {
+              setIsOpen(false)
+            }, 0)
+          }}
+          disabled={dontChangeLanguage}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          id="select-language"
+        >
+          <svg
+            className={clsx(
+              'h-4 w-4 transition-transform',
+              isOpen ? 'rotate-180' : ''
+            )}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </button>
+      </div>
 
       {isOpen && (
         <div
@@ -290,6 +300,9 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
                   ? 'bg-[#770088]/20'
                   : 'hover:bg-[#770088]/5'
               )}
+              onPointerDown={(e) => {
+                e.preventDefault()
+              }}
               onClick={() => {
                 console.log('on click handler button', option)
                 submitAnalyzeEvent(
