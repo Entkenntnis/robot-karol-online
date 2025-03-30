@@ -156,15 +156,29 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
 
   const [isOpen, setIsOpen] = useState(false)
 
-  const ignoreNextOnBlur = useRef({ value: false })
-
   const options = [
-    { value: 'robot karol', label: 'Karol Code' },
+    {
+      value: 'robot karol',
+      label: 'Karol Code',
+      title: 'Die Original-Sprache von Robot Karol',
+    },
     ...(core.ws.settings.lng == 'de'
       ? [
-          { value: 'java', label: 'Java' },
-          { value: 'python', label: 'Python' },
-          { value: 'python-pro', label: 'Python Pro' },
+          {
+            value: 'java',
+            label: 'Java',
+            title: 'Reduzierte Version Java für Karol',
+          },
+          {
+            value: 'python',
+            label: 'Python',
+            title: 'Reduzierte Version von Python für Karol',
+          },
+          {
+            value: 'python-pro',
+            label: 'Python Pro',
+            title: 'Nutze den vollen Funktionsumfang von Python 3.12',
+          },
         ]
       : []),
   ]
@@ -181,13 +195,15 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
             core.ws.settings.mode == 'code'
               ? 'border-[#770088]'
               : 'border-gray-300 text-gray-400',
-            !dontChangeLanguage && 'cursor-pointer'
+            dontChangeLanguage ? 'cursor-not-allowed' : 'cursor-pointer'
           )}
           onClick={() => {
+            if (dontChangeLanguage) return
             if (core.ws.settings.mode != 'code') {
               setMode(core, 'code')
             }
           }}
+          title={selectedOption.title}
         >
           {selectedOption.label}
         </div>
@@ -196,10 +212,10 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
           className={clsx(
             'flex items-center justify-between rounded-r-lg px-1.5 py-0.5 transition-all',
             'font-semibold focus:outline-none disabled:cursor-not-allowed',
-            'bg-[#770088]/20 border',
+            'border',
             core.ws.settings.mode == 'code'
-              ? 'border-[#770088]'
-              : 'border-gray-300 text-gray-400',
+              ? 'border-[#770088] bg-[#770088]/20'
+              : 'border-gray-300 text-gray-400 bg-[#770088]/10',
             dontChangeLanguage
               ? 'cursor-not-allowed opacity-75'
               : 'cursor-pointer'
@@ -212,21 +228,10 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
             }
           }}
           onClick={() => {
-            console.log('on click event')
             !dontChangeLanguage && setIsOpen(!isOpen)
           }}
           onBlur={() => {
-            if (ignoreNextOnBlur.current.value) {
-              console.log('ignore this on blur')
-              ignoreNextOnBlur.current.value = false
-              return
-            }
-            console.log('on blur')
-            // on blur is called before the click handler, this  is bad and I need to work around it
-            // with this timeout
-            setTimeout(() => {
-              setIsOpen(false)
-            }, 0)
+            setIsOpen(false)
           }}
           disabled={dontChangeLanguage}
           aria-haspopup="listbox"
@@ -259,6 +264,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
         >
           {options.map((option) => (
             <button
+              title={option.title}
               key={option.value}
               type="button"
               id={`select-language-${option.value.replace(/\s+/g, '-')}`}
@@ -270,10 +276,10 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
                   : 'hover:bg-[#770088]/5'
               )}
               onPointerDown={(e) => {
+                // prevent on blur action to close the dropdown before click handler is called
                 e.preventDefault()
               }}
               onClick={() => {
-                console.log('on click handler button', option)
                 submitAnalyzeEvent(
                   core,
                   'ev_click_ide_language-' + option.value
@@ -282,7 +288,6 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
                   setMode(core, 'code')
                 }
                 setLanguage(core, option.value as Settings['language'])
-                console.log('handle select')
                 setIsOpen(false)
               }}
               role="option"
