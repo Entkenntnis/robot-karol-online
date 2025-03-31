@@ -1,0 +1,223 @@
+{
+  "version": "v1",
+  "title": "Mark Mover 2",
+  "description": "Extend the mark mover so that Karol performs steps as long as there is no wall in front of her. You can use the individual step from Mark Mover 1.",
+  "tasks": [
+    {
+      "title": "Welt 1",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [[1]]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 6,
+          "offsetX": 4,
+          "offsetY": 0,
+          "data": [[true], [false], [false], [false], [false], [true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 5, "dir": "west" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [1, 1, 1, 1, 1],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 6,
+          "offsetX": 4,
+          "offsetY": 0,
+          "data": [[true], [false], [false], [false], [false], [true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Welt 2",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 1, "y": 6, "dir": "north" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 6,
+          "data": [[1]]
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, false, false, true],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 4, "dir": "west" },
+        "bricks": {
+          "dimX": 6,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [
+            [0, 1, 1, 1, 1, 1],
+            [0, 1, 0, 0, 0, 1],
+            [0, 1, 0, 0, 0, 1],
+            [1, 2, 1, 1, 1, 1],
+            [0, 1, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, false, false, true],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Welt 3",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 3,
+          "data": [[1]]
+        },
+        "marks": {
+          "dimX": 3,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, false],
+            [false, false, false],
+            [false, false, true],
+            [false, false, false],
+            [true, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 6, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [
+            [0, 1, 1, 1, 1, 1, 1],
+            [0, 1, 0, 0, 0, 0, 0],
+            [1, 2, 1, 1, 0, 0, 0],
+            [0, 1, 0, 1, 0, 0, 0],
+            [0, 1, 1, 1, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 3,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, false],
+            [false, false, false],
+            [false, false, true],
+            [false, false, false],
+            [true, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "language": "blocks",
+  "program": ""
+}
