@@ -116,6 +116,7 @@ export function switchToPage(core: Core, target: Pages) {
   }
 
   if (target == 'demo') {
+    document.title = 'Robot Karol Online'
     if (pushHistory) history.pushState(null, '', '/#DEMO')
     return
   }
