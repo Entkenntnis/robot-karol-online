@@ -13,9 +13,9 @@ export const mapData: {
 
   18: { x: 110, y: 400, deps: [6, 39] },
 
-  46: { x: 220, y: 540, deps: [18, 30] },
+  53: { x: 220, y: 540, deps: [18, 30] },
 
-  45: { x: 100, y: 610, deps: [46] },
+  54: { x: 100, y: 610, deps: [53] },
 
   44: { x: 450, y: 55, deps: [48] },
 
@@ -55,29 +55,35 @@ export const mapData: {
 
   26: { x: 1160, y: 810, deps: [25], dir: 'west' },
 
-  5: { x: 650, y: 680, deps: [35], dir: 'west' },
+  36: { x: 650, y: 680, deps: [35], dir: 'west' },
 
   14: { x: 1000, y: 900, deps: [25], dir: 'west' },
 
   27: { x: 750, y: 780, deps: [29, 35], dir: 'west' },
 
-  3: { x: 900, y: 820, deps: [25, 29, 35], dir: 'west' },
+  55: { x: 900, y: 820, deps: [25, 29, 35], dir: 'west' },
 
-  24: { x: 570, y: 810, deps: [5, 27], dir: 'west' },
+  24: { x: 570, y: 810, deps: [36, 27], dir: 'west' },
 
   4: { x: 640, y: 900, deps: [27], dir: 'west' },
 
-  34: { x: 760, y: 950, deps: [3, 14, 27], dir: 'west' },
+  58: { x: 750, y: 950, deps: [55, 14, 27], dir: 'west' },
 
-  36: { x: 830, y: 1030, deps: [3, 14], dir: 'west' },
+  56: { x: 830, y: 1030, deps: [55, 14], dir: 'west' },
 
-  12: { x: 490, y: 960, deps: [4, 24, 34], dir: 'west' },
+  45: { x: 750, y: 1180, deps: [56], dir: 'west' },
 
-  28: { x: 560, y: 1060, deps: [4, 34, 36], dir: 'west' },
+  12: { x: 490, y: 960, deps: [4, 24, 58], dir: 'west' },
 
-  37: { x: 410, y: 900, deps: [24], dir: 'west' },
+  57: { x: 560, y: 1060, deps: [4, 56, 58], dir: 'west' },
 
-  13: { x: 350, y: 1090, deps: [12, 28, 37], dir: 'south' },
+  28: { x: 1100, y: 1040, deps: [14], dir: 'west' },
+
+  5: { x: 410, y: 900, deps: [24], dir: 'west' },
+
+  37: { x: 280, y: 890, deps: [5], dir: 'west' },
+
+  13: { x: 350, y: 1090, deps: [12, 57, 5], dir: 'south' },
 
   // end of part 2
 

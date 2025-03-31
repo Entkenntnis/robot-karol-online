@@ -1,0 +1,295 @@
+{
+  "version": "v1",
+  "title": "if then else",
+  "description": "In addition to the one-sided conditional statement, there is also a two-sided version. This version includes an `else` branch for instructions that are executed when the condition is not met. Think of it as an either-or situation.\n\n`If` there is a brick in front of Karol, `then` she should move one step and place a mark. `else`, she moves one step and clears the mark.",
+  "tasks": [
+    {
+      "title": "Schritt 1",
+      "start": {
+        "dimX": 10,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 1, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1, 0, 0, 1, 1, 0, 0, 1]]
+        },
+        "marks": {
+          "dimX": 6,
+          "dimY": 1,
+          "offsetX": 3,
+          "offsetY": 0,
+          "data": [[true, true, false, false, true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 10,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 1, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1, 0, 0, 1, 1, 0, 0, 1]]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[true, true, true, false, false, true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Schritt 2",
+      "start": {
+        "dimX": 10,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 2, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1, 0, 0, 1, 1, 0, 0, 1]]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[true, true, true, false, false, true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 10,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 3, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1, 0, 0, 1, 1, 0, 0, 1]]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[true, false, true, false, false, true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Schritt 3",
+      "start": {
+        "dimX": 10,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 4, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1, 0, 0, 1, 1, 0, 0, 1]]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[true, false, false, false, false, true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 10,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 5, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1, 0, 0, 1, 1, 0, 0, 1]]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[true, false, false, true, false, true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Schritt 4",
+      "start": {
+        "dimX": 10,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 5, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1, 0, 0, 1, 1, 0, 0, 1]]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[true, false, false, true, false, true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 10,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 6, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1, 0, 0, 1, 1, 0, 0, 1]]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[true, false, false, true, true, true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Schritt 5",
+      "start": {
+        "dimX": 10,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 6, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1, 0, 0, 1, 1, 0, 0, 1]]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[true, false, false, true, true, true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 10,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 7, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1, 0, 0, 1, 1, 0, 0, 1]]
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[true, false, false, true, true, false, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "language": "blocks",
+  "program": ""
+}

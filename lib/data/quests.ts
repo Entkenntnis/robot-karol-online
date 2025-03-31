@@ -10,9 +10,9 @@ export const questData: { [key: number]: QuestData } = {
     ...deserlizeQuestToData(require('./quests/2.json')),
   },
 
-  3: {
+  /* 3: {
     ...deserlizeQuestToData(require('./quests/3.json')),
-  },
+  },*/
 
   4: {
     ...deserlizeQuestToData(require('./quests/4.json')),
@@ -134,9 +134,9 @@ export const questData: { [key: number]: QuestData } = {
     ...deserlizeQuestToData(require('./quests/33.json')),
   },
 
-  34: {
+  /*34: {
     ...deserlizeQuestToData(require('./quests/34.json')),
-  },
+  },*/
 
   35: {
     ...deserlizeQuestToData(require('./quests/35.json')),
@@ -182,9 +182,9 @@ export const questData: { [key: number]: QuestData } = {
     ...deserlizeQuestToData(require('./quests/45.json')),
   },
 
-  46: {
+  /*46: {
     ...deserlizeQuestToData(require('./quests/46.json')),
-  },
+  },*/
 
   47: {
     ...deserlizeQuestToData(require('./quests/47.json')),
@@ -208,5 +208,29 @@ export const questData: { [key: number]: QuestData } = {
 
   52: {
     ...deserlizeQuestToData(require('./quests/52.json')),
+  },
+
+  53: {
+    ...deserlizeQuestToData(require('./quests/53.json')),
+  },
+
+  54: {
+    ...deserlizeQuestToData(require('./quests/54.json')),
+  },
+
+  55: {
+    ...deserlizeQuestToData(require('./quests/55.json')),
+  },
+
+  56: {
+    ...deserlizeQuestToData(require('./quests/56.json')),
+  },
+
+  57: {
+    ...deserlizeQuestToData(require('./quests/57.json')),
+  },
+
+  58: {
+    ...deserlizeQuestToData(require('./quests/58.json')),
   },
 }
