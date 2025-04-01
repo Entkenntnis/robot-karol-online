@@ -265,7 +265,7 @@ export function AppearanceModal() {
 
   return (
     <div
-      className="bg-black/20 fixed inset-0 z-[150]"
+      className="bg-black/50 fixed inset-0 z-[150]"
       onClick={() => {
         setRobotImage(core.ws.robotImageDataUrl)
         closeModal(core)
