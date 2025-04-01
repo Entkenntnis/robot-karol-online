@@ -129,7 +129,6 @@ export function createWorkspaceState(): WorkspaceState {
       showOverviewList: false,
       showProfile: false,
     },
-    robotImageDataUrl: null,
   }
   return ws
 }

@@ -43,6 +43,7 @@ export function AppearanceModal() {
       updateImageDataUrl(canvas)
     }
     ctx.imageSmoothingEnabled = false
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const updateImageDataUrl = (canvas: HTMLCanvasElement) => {
@@ -264,7 +265,7 @@ export function AppearanceModal() {
 
   return (
     <div
-      className="bg-black/20 fixed inset-0  z-[150]"
+      className="bg-black/20 fixed inset-0 z-[150]"
       onClick={() => {
         setRobotImage(core.ws.robotImageDataUrl)
         closeModal(core)
@@ -272,7 +273,7 @@ export function AppearanceModal() {
     >
       {/* Modal width increased to 900px */}
       <div
-        className="fixed inset-4 bg-white z-[200] rounded-xl flex flex-col"
+        className="fixed inset-8 bg-white z-[200] rounded-xl flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -285,7 +286,37 @@ export function AppearanceModal() {
           <FaIcon icon={faTimes} />
         </button>
         <div className="flex w-full h-full">
-          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-lime-200">
+          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-lime-200 rounded-l-xl">
+            <button
+              className={`px-3 py-1 border rounded ${
+                tool === 'brush' ? 'bg-gray-300' : 'bg-white'
+              }`}
+              onClick={() => setTool('brush')}
+            >
+              Brush
+            </button>
+            <button
+              className={`px-3 py-1 border rounded ${
+                tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
+              }`}
+              onClick={() => setTool('paintBucket')}
+            >
+              Paint Bucket
+            </button>
+            <button
+              className={`px-3 py-1 border rounded ${
+                tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
+              }`}
+              onClick={() => setTool('eraser')}
+            >
+              Eraser
+            </button>
+            <button
+              className="px-4 py-2 bg-blue-200 hover:bg-blue-300 rounded"
+              onClick={handleUndo}
+            >
+              Undo
+            </button>
             {/* Color Palette */}
             <div className="flex gap-1 mt-4 flex-wrap justify-center">
               {colors.map((color) => (
@@ -299,10 +330,100 @@ export function AppearanceModal() {
                 />
               ))}
             </div>
+            <div className="w-[120px] h-[120px] flex justify-center items-center mt-8">
+              <View
+                robotImageDataUrl={core.ws.robotImageDataUrl}
+                world={{
+                  dimX: 1,
+                  dimY: 1,
+                  karol: {
+                    x: 0,
+                    y: 0,
+                    dir: ['east', 'north', 'west', 'south'][
+                      count % 4
+                    ] as Heading,
+                  },
+                  blocks: [[false]],
+                  marks: [[false]],
+                  bricks: [[0]],
+                  height: 1,
+                }}
+              />
+            </div>
           </div>
           <div className="flex-grow flex-shrink flex flex-col">
-            <div className="flex-grow flex-shrink flex justify-center items-center">
-              {' '}
+            <div className="flex-grow-0 flex-shrink-0 h-[52px] bg-gray-100 flex gap-4 rounded-tr-xl">
+              <div className="mt-2">
+                <label htmlFor="brushSize" className="mr-2 w-36 inline-block">
+                  Brush Size: {brushSize}
+                </label>
+                <input
+                  id="brushSize"
+                  type="range"
+                  min="1"
+                  max="10"
+                  value={brushSize}
+                  onChange={(e) => setBrushSize(parseInt(e.target.value))}
+                />
+              </div>
+              <button
+                className="px-4 py-2 bg-red-200 hover:bg-red-300 rounded"
+                onClick={handleReset}
+              >
+                Reset
+              </button>
+              <button
+                className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 rounded"
+                onClick={() => {
+                  const dataUrl = canvasRef.current?.toDataURL()
+
+                  if (dataUrl) {
+                    // construct absolute link and copy to clipboard
+                    const link = `${
+                      window.location.origin
+                    }/#ROBOT:${encodeURIComponent(dataUrl)}`
+                    navigator.clipboard.writeText(link).then(() => {
+                      alert('Link kopiert!')
+                    })
+                  }
+                }}
+              >
+                Link kopieren
+              </button>
+              <button
+                className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 rounded"
+                onClick={() => {
+                  const dataUrl = canvasRef.current?.toDataURL()
+
+                  if (dataUrl) {
+                    // construct absolute link and copy to clipboard
+                    const link = `${
+                      window.location.origin
+                    }/#ROBOT:${encodeURIComponent(dataUrl)}`
+
+                    window.open(
+                      `https://docs.google.com/forms/d/e/1FAIpQLSfPGqtxcktRCgOhLdvTSy-OpseGX1h7zHxrtlvj2cD3zPHMiQ/viewform?usp=pp_url&entry.898288828=${encodeURIComponent(
+                        link
+                      )}`,
+                      '_blank'
+                    )
+                  }
+                }}
+              >
+                Einsenden
+              </button>
+              <button
+                onClick={() => {
+                  window.open(
+                    'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
+                    '_blank'
+                  )
+                }}
+              >
+                Figuren-Galerie
+              </button>
+            </div>
+            <div className="flex-grow flex-shrink flex justify-center items-center bg-gray-800">
               <div className="mt-4 flex flex-col items-center">
                 {/* Canvas container with refined checkerboard background */}
                 <div
@@ -367,133 +488,6 @@ export function AppearanceModal() {
                   />
                 </div>
               </div>
-            </div>
-            <div className="flex-grow-0 flex-shrink-0 h-[46px] bg-purple-800">
-              <div className="mt-2">
-                <label htmlFor="brushSize" className="mr-2 w-36 inline-block">
-                  Brush Size: {brushSize}
-                </label>
-                <input
-                  id="brushSize"
-                  type="range"
-                  min="1"
-                  max="10"
-                  value={brushSize}
-                  onChange={(e) => setBrushSize(parseInt(e.target.value))}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-pink-200">
-            <div className="w-[120px] h-[120px] flex justify-center items-center mt-8">
-              <View
-                robotImageDataUrl={core.ws.robotImageDataUrl}
-                world={{
-                  dimX: 1,
-                  dimY: 1,
-                  karol: {
-                    x: 0,
-                    y: 0,
-                    dir: ['east', 'north', 'west', 'south'][
-                      count % 4
-                    ] as Heading,
-                  },
-                  blocks: [[false]],
-                  marks: [[false]],
-                  bricks: [[0]],
-                  height: 1,
-                }}
-              />
-            </div>
-            <div className="flex gap-2 mt-4 flex-wrap">
-              <button
-                className={`px-3 py-1 border rounded ${
-                  tool === 'brush' ? 'bg-gray-300' : 'bg-white'
-                }`}
-                onClick={() => setTool('brush')}
-              >
-                Brush
-              </button>
-              <button
-                className={`px-3 py-1 border rounded ${
-                  tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
-                }`}
-                onClick={() => setTool('paintBucket')}
-              >
-                Paint Bucket
-              </button>
-              <button
-                className={`px-3 py-1 border rounded ${
-                  tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
-                }`}
-                onClick={() => setTool('eraser')}
-              >
-                Eraser
-              </button>
-              <button
-                className="px-4 py-2 bg-blue-200 hover:bg-blue-300 rounded"
-                onClick={handleUndo}
-              >
-                Undo
-              </button>
-              <button
-                className="px-4 py-2 bg-red-200 hover:bg-red-300 rounded"
-                onClick={handleReset}
-              >
-                Reset
-              </button>
-              <button
-                className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 rounded"
-                onClick={() => {
-                  const dataUrl = canvasRef.current?.toDataURL()
-
-                  if (dataUrl) {
-                    // construct absolute link and copy to clipboard
-                    const link = `${
-                      window.location.origin
-                    }/#ROBOT:${encodeURIComponent(dataUrl)}`
-                    navigator.clipboard.writeText(link).then(() => {
-                      alert('Link kopiert!')
-                    })
-                  }
-                }}
-              >
-                Link kopieren
-              </button>
-              <button
-                className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 rounded"
-                onClick={() => {
-                  const dataUrl = canvasRef.current?.toDataURL()
-
-                  if (dataUrl) {
-                    // construct absolute link and copy to clipboard
-                    const link = `${
-                      window.location.origin
-                    }/#ROBOT:${encodeURIComponent(dataUrl)}`
-
-                    window.open(
-                      `https://docs.google.com/forms/d/e/1FAIpQLSfPGqtxcktRCgOhLdvTSy-OpseGX1h7zHxrtlvj2cD3zPHMiQ/viewform?usp=pp_url&entry.898288828=${encodeURIComponent(
-                        link
-                      )}`,
-                      '_blank'
-                    )
-                  }
-                }}
-              >
-                Einsenden
-              </button>
-              <p>
-                <button
-                  onClick={() => {
-                    window.open(
-                      'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
-                      '_blank'
-                    )
-                  }}
-                >
-                  Figuren-Galerie
-                </button>
-              </p>
             </div>
           </div>
         </div>

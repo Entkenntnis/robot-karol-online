@@ -159,20 +159,10 @@ export async function initClient(core: Core) {
   }
 
   if (hash.startsWith('#ROBOT:')) {
-    if (core.ws.robotImageDataUrl) {
-      const answer = confirm(
-        'Es wird eine neue Figur geladen. Dabei wird die vorhandene Figur überschrieben. Fortfahren?'
-      )
-      if (!answer) {
-        switchToPage(core, 'overview')
-        return
-      }
-    }
     const data = normalHash.substring(7)
     core.mutateWs((ws) => {
-      ws.robotImageDataUrl = decodeURIComponent(data)
+      ws.ui.newRobotImage = decodeURIComponent(data)
     })
-    setRobotImage(core.ws.robotImageDataUrl)
     history.replaceState(null, '', '/')
     switchToPage(core, 'overview')
     return

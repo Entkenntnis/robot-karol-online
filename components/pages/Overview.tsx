@@ -44,6 +44,7 @@ import {
   resetStorage,
   saveToJSON,
   setLngStorage,
+  setRobotImage,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
@@ -360,13 +361,13 @@ export function Overview() {
                       window.open('/#CDBV', '_blank')
                     }}
                   >
-                    <p className="text-center text-lg mb-1">
+                    <p className="text-center mb-2">
                       {core.strings.overview.game}
                     </p>
                     <img
                       src="/snake.png"
                       alt="Snake-Icon"
-                      className="w-[60px] mx-auto"
+                      className="w-[40px] mx-auto mb-1"
                     />
                   </button>
                 )}
@@ -412,6 +413,48 @@ export function Overview() {
                       <FaIcon icon={faTable} />
                     </p>
                   </a>
+                )}
+                {core.ws.ui.newRobotImage && (
+                  <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
+                    <p className="mb-2">Neue Figur verfügbar:</p>
+                    <img
+                      src={core.ws.ui.newRobotImage}
+                      alt="Karol"
+                      className="border-2 border-gray-200 shadow-lg"
+                    />
+                    <p className="text-center mt-2">
+                      <button
+                        className="hover:underline mr-3"
+                        onClick={() => {
+                          core.mutateWs((ws) => {
+                            ws.ui.newRobotImage = undefined
+                          })
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_click_landing_closeNewKarol'
+                          )
+                        }}
+                      >
+                        schließen
+                      </button>
+                      <button
+                        className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
+                        onClick={() => {
+                          core.mutateWs((ws) => {
+                            ws.robotImageDataUrl = ws.ui.newRobotImage
+                            ws.ui.newRobotImage = undefined
+                          })
+                          setRobotImage(core.ws.robotImageDataUrl)
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_click_landing_saveNewKarol'
+                          )
+                        }}
+                      >
+                        Laden
+                      </button>
+                    </p>
+                  </div>
                 )}
                 {core.ws.settings.lng === 'de' && (
                   <button
