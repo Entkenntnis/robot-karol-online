@@ -1,7 +1,12 @@
 import { Core } from '../state/core'
 import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
-import { getAppearance, getLng } from '../storage/storage'
+import {
+  getAppearance,
+  getLng,
+  getRobotImage,
+  setRobotImage,
+} from '../storage/storage'
 import { setLng, showOverviewList, updatePlaygroundHashToMode } from './mode'
 import { createWorld } from '../state/create'
 import { PlaygroundHashData, QuestSerialFormat } from '../state/types'
@@ -42,10 +47,10 @@ export async function initClient(core: Core) {
     return
   }
 
-  const appearance = getAppearance()
-  if (appearance) {
+  const robotImage = getRobotImage()
+  if (robotImage) {
     core.mutateWs((ws) => {
-      ws.appearance = appearance
+      ws.robotImageDataUrl = robotImage
     })
   }
 
@@ -151,6 +156,25 @@ export async function initClient(core: Core) {
     } catch (e) {
       alert(e)
     }
+  }
+
+  if (hash.startsWith('#ROBOT:')) {
+    if (core.ws.robotImageDataUrl) {
+      const answer = confirm(
+        'Es wird eine neue Figur geladen. Dabei wird die vorhandene Figur überschrieben. Fortfahren?'
+      )
+      if (!answer) {
+        switchToPage(core, 'overview')
+        return
+      }
+    }
+    const data = normalHash.substring(7)
+    core.mutateWs((ws) => {
+      ws.robotImageDataUrl = decodeURIComponent(data)
+    })
+    setRobotImage(core.ws.robotImageDataUrl)
+    switchToPage(core, 'overview')
+    return
   }
 
   if (hash == '#DEMO') {

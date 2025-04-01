@@ -3,7 +3,7 @@ import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
 import { karolDefaultImage, View } from '../helper/View'
 import { Heading } from '../../lib/state/types'
-import { setAppearance } from '../../lib/storage/storage'
+import { setAppearance, setRobotImage } from '../../lib/storage/storage'
 import { FaIcon } from '../helper/FaIcon'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
@@ -266,7 +266,7 @@ export function AppearanceModal() {
     <div
       className="bg-black/20 fixed inset-0  z-[150]"
       onClick={() => {
-        setAppearance(core.ws.appearance)
+        setRobotImage(core.ws.robotImageDataUrl)
         closeModal(core)
       }}
     >
@@ -278,6 +278,7 @@ export function AppearanceModal() {
         <button
           className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300"
           onClick={() => {
+            setRobotImage(core.ws.robotImageDataUrl)
             closeModal(core)
           }}
         >
@@ -444,32 +445,44 @@ export function AppearanceModal() {
               <button
                 className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 rounded"
                 onClick={() => {
-                  alert(canvasRef.current?.toDataURL())
+                  const dataUrl = canvasRef.current?.toDataURL()
+
+                  if (dataUrl) {
+                    // construct absolute link and copy to clipboard
+                    const link = `${
+                      window.location.origin
+                    }/#ROBOT:${encodeURIComponent(dataUrl)}`
+                    navigator.clipboard.writeText(link).then(() => {
+                      alert('Link kopiert!')
+                    })
+                  }
                 }}
               >
-                Export as data URI
+                Link kopieren
               </button>
               <button
                 className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 rounded"
                 onClick={() => {
-                  const data = prompt('DATA')
-                  if (data) {
-                    const img = new Image()
-                    img.src = data
-                    img.onload = () => {
-                      const canvas = canvasRef.current
-                      const ctx = canvas?.getContext('2d')
-                      if (ctx && canvas) {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height)
-                        ctx.drawImage(img, 0, 0)
-                        updateImageDataUrl(canvas)
-                      }
-                    }
+                  const dataUrl = canvasRef.current?.toDataURL()
+
+                  if (dataUrl) {
+                    // construct absolute link and copy to clipboard
+                    const link = `${
+                      window.location.origin
+                    }/#ROBOT:${encodeURIComponent(dataUrl)}`
+
+                    window.open(
+                      `https://docs.google.com/forms/d/e/1FAIpQLSfPGqtxcktRCgOhLdvTSy-OpseGX1h7zHxrtlvj2cD3zPHMiQ/viewform?usp=pp_url&entry.898288828=${encodeURIComponent(
+                        link
+                      )}`,
+                      '_blank'
+                    )
                   }
                 }}
               >
-                Import from data URI
+                Einsenden
               </button>
+              <p>TODO: Link zur Galerie</p>
             </div>
           </div>
         </div>

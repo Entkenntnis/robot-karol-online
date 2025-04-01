@@ -1,5 +1,6 @@
 // manage session and local storage data
 
+import { karolDefaultImage } from '../../components/helper/View'
 import { questList } from '../data/overview'
 import { Core } from '../state/core'
 import { Appearance, QuestSessionData } from '../state/types'
@@ -10,6 +11,7 @@ const questKey = (id: number) => `karol_quest_beta_${id}`
 const persistKey = 'karol_quest_beta_persist'
 const appearanceKey = 'robot_karol_online_appearance'
 const lngKey = 'robot_karol_online_lng'
+const robotImageKey = 'robot_karol_online_robot_image'
 
 export function getUserId() {
   if (!sessionStorage.getItem(userIdKey) && !localStorage.getItem(userIdKey)) {
@@ -59,6 +61,16 @@ export function setAppearance(appearance: Appearance) {
     localStorage.setItem(appearanceKey, JSON.stringify(appearance))
   }
   sessionStorage.setItem(appearanceKey, JSON.stringify(appearance))
+}
+
+export function setRobotImage(image?: string | null) {
+  if (image) {
+    localStorage.setItem(robotImageKey, image)
+  }
+}
+
+export function getRobotImage() {
+  return localStorage.getItem(robotImageKey)
 }
 
 export function isPersisted() {
