@@ -15,6 +15,11 @@ export function AppearanceModal() {
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const core = useCore()
 
+  // Undo stack: stores ImageData snapshots
+  const undoStack = useRef<ImageData[]>([])
+  // Flag to ensure one push per drawing operation.
+  const hasPushedUndo = useRef(false)
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((prevCount) => prevCount + 1)
@@ -75,6 +80,17 @@ export function AppearanceModal() {
     return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3]
   }
 
+  // Push the current canvas state onto the undo stack.
+  const pushUndoState = () => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    // Capture the current state.
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+    undoStack.current.push(imageData)
+  }
+
   // Flood fill implementation for the paint bucket tool.
   const floodFill = (startX: number, startY: number, fillColor: string) => {
     const canvas = canvasRef.current
@@ -130,7 +146,7 @@ export function AppearanceModal() {
     const { x, y } = getCanvasCoordinates(e)
     const offset = Math.floor(brushSize / 2)
     if (tool === 'eraser') {
-      // Eraser clears pixels to make them transparent.
+      // Eraser clears pixels making them transparent.
       ctx.clearRect(x - offset, y - offset, brushSize, brushSize)
     } else {
       ctx.fillStyle = selectedColor
@@ -139,7 +155,7 @@ export function AppearanceModal() {
     updateImageDataUrl(canvas)
   }
 
-  // Update the preview canvas with a dashed outline for the brush/eraser.
+  // Update the preview canvas with a dashed outline for brush/eraser.
   const updatePreview = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const overlayCanvas = previewCanvasRef.current
     const canvas = canvasRef.current
@@ -167,7 +183,13 @@ export function AppearanceModal() {
     ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height)
   }
 
+  // Handle mouse down events.
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    // Push the current state if not already pushed.
+    if (!hasPushedUndo.current) {
+      pushUndoState()
+      hasPushedUndo.current = true
+    }
     const { x, y } = getCanvasCoordinates(e)
     if (tool === 'paintBucket') {
       floodFill(x, y, selectedColor)
@@ -185,7 +207,38 @@ export function AppearanceModal() {
 
   const handleMouseUpOrLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
     setIsDrawing(false)
+    hasPushedUndo.current = false
     clearPreview()
+  }
+
+  // Handle Undo: restore the last state.
+  const handleUndo = () => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx || undoStack.current.length === 0) return
+
+    const previousState = undoStack.current.pop()!
+    ctx.putImageData(previousState, 0, 0)
+    updateImageDataUrl(canvas)
+  }
+
+  // Handle Reset: push current state and reset to the default image.
+  const handleReset = () => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    pushUndoState()
+    const img = new Image()
+    img.src = karolDefaultImage
+    img.onload = () => {
+      // Clear canvas and draw default image.
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.drawImage(img, 0, 0)
+      updateImageDataUrl(canvas)
+    }
   }
 
   const colors = [
@@ -215,7 +268,7 @@ export function AppearanceModal() {
         closeModal(core)
       }}
     >
-      {/* Updated modal width to 900px */}
+      {/* Modal width increased to 900px */}
       <div
         className="min-h-[430px] w-[900px] bg-white z-[200] rounded-xl relative flex flex-col px-3 pb-4"
         onClick={(e) => e.stopPropagation()}
@@ -367,6 +420,22 @@ export function AppearanceModal() {
               />
             </div>
           )}
+
+          {/* Undo & Reset Buttons */}
+          <div className="flex gap-2 mt-4">
+            <button
+              className="px-4 py-2 bg-blue-200 hover:bg-blue-300 rounded"
+              onClick={handleUndo}
+            >
+              Undo
+            </button>
+            <button
+              className="px-4 py-2 bg-red-200 hover:bg-red-300 rounded"
+              onClick={handleReset}
+            >
+              Reset
+            </button>
+          </div>
         </div>
 
         <div className="text-center mt-4">
