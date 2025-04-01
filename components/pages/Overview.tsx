@@ -751,7 +751,7 @@ export function Overview() {
                     'block mx-auto max-h-full',
                     questDone && 'opacity-30'
                   )}
-                  appearance={core.ws.appearance}
+                  robotImageDataUrl={core.ws.robotImageDataUrl}
                 />{' '}
                 {questDone && (
                   <div className="absolute inset-0 flex justify-center items-center">

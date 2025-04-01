@@ -1,6 +1,5 @@
 // manage session and local storage data
 
-import { setLng } from '../commands/mode'
 import { questList } from '../data/overview'
 import { Core } from '../state/core'
 import { Appearance, QuestSessionData } from '../state/types'

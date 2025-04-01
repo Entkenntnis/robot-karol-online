@@ -177,6 +177,8 @@ export interface WorkspaceState {
   renderCounter: number // e.g. if storage is updated
 
   appearance: Appearance
+
+  robotImageDataUrl: string | null
 }
 
 export interface Appearance {

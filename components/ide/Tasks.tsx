@@ -206,7 +206,7 @@ export function Tasks() {
                       hideKarol={false}
                       wireframe={false}
                       className="h-full w-full object-contain"
-                      appearance={core.ws.appearance}
+                      robotImageDataUrl={core.ws.robotImageDataUrl}
                     />
                   </div>
                   <div className="ml-4 mt-6">

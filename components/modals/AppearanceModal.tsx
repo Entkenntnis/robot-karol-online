@@ -52,7 +52,7 @@ export function AppearanceModal() {
         <div className="flex justify-start">
           <div className="w-[200px] h-[200px] flex justify-center items-center">
             <View
-              appearance={core.ws.appearance}
+              robotImageDataUrl={core.ws.robotImageDataUrl}
               world={{
                 dimX: 1,
                 dimY: 1,

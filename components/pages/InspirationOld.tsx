@@ -114,7 +114,6 @@ function RandomElement({ data }: { data: DataEntry }) {
           <RenderIfVisible stayRendered visibleOffset={2000}>
             <View
               className="max-w-[300px] max-h-[200px]"
-              appearance={core.ws.appearance}
               world={deserializeWorld(quest.tasks[selected].start)}
               preview={{
                 world: deserializeWorld(quest.tasks[selected].target),
