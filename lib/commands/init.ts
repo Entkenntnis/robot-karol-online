@@ -173,6 +173,7 @@ export async function initClient(core: Core) {
       ws.robotImageDataUrl = decodeURIComponent(data)
     })
     setRobotImage(core.ws.robotImageDataUrl)
+    history.replaceState(null, '', '/')
     switchToPage(core, 'overview')
     return
   }

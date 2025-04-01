@@ -482,7 +482,18 @@ export function AppearanceModal() {
               >
                 Einsenden
               </button>
-              <p>TODO: Link zur Galerie</p>
+              <p>
+                <button
+                  onClick={() => {
+                    window.open(
+                      'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
+                      '_blank'
+                    )
+                  }}
+                >
+                  Figuren-Galerie
+                </button>
+              </p>
             </div>
           </div>
         </div>
