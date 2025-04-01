@@ -5,6 +5,7 @@ import {
   faGlobe,
   faLightbulb,
   faMessage,
+  faPaintBrush,
   faPencil,
   faPenToSquare,
   faSeedling,
@@ -451,6 +452,27 @@ export function Overview() {
                     />
                   </button>
                 )}
+                <button
+                  className={clsx(
+                    'absolute top-[500px] left-[1100px] block z-10 hover:bg-gray-100/60 rounded-xl',
+                    'w-[120px] cursor-pointer'
+                  )}
+                  onClick={() => {
+                    // open feedback form in new tab
+                    submitAnalyzeEvent(core, 'ev_click_landing_pixelart')
+                    showModal(core, 'appearance')
+                  }}
+                >
+                  <p className="text-center">
+                    Figur
+                    <br />
+                    zeichnen
+                  </p>
+                  <FaIcon
+                    icon={faPaintBrush}
+                    className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
+                  />
+                </button>
                 {core.ws.settings.lng == 'de' && (
                   <button
                     className="absolute top-[1520px] left-[880px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"

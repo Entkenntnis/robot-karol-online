@@ -4,6 +4,8 @@ import { useCore } from '../../lib/state/core'
 import { karolDefaultImage, View } from '../helper/View'
 import { Heading } from '../../lib/state/types'
 import { setAppearance } from '../../lib/storage/storage'
+import { FaIcon } from '../helper/FaIcon'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 export function AppearanceModal() {
   const [count, setCount] = useState(0)
@@ -262,7 +264,7 @@ export function AppearanceModal() {
 
   return (
     <div
-      className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
+      className="bg-black/20 fixed inset-0  z-[150]"
       onClick={() => {
         setAppearance(core.ws.appearance)
         closeModal(core)
@@ -270,184 +272,213 @@ export function AppearanceModal() {
     >
       {/* Modal width increased to 900px */}
       <div
-        className="min-h-[430px] w-[900px] bg-white z-[200] rounded-xl relative flex flex-col px-3 pb-4"
+        className="fixed inset-4 bg-white z-[200] rounded-xl flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-center font-bold text-xl mt-5">
-          {core.strings.outfit.title}
-        </h2>
-
-        <div className="flex justify-center mt-4">
-          <div className="w-[200px] h-[200px] flex justify-center items-center">
-            <View
-              robotImageDataUrl={core.ws.robotImageDataUrl}
-              world={{
-                dimX: 1,
-                dimY: 1,
-                karol: {
-                  x: 0,
-                  y: 0,
-                  dir: ['east', 'north', 'west', 'south'][count % 4] as Heading,
-                },
-                blocks: [[false]],
-                marks: [[false]],
-                bricks: [[0]],
-                height: 1,
-              }}
-            />
+        <button
+          className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300"
+          onClick={() => {
+            closeModal(core)
+          }}
+        >
+          <FaIcon icon={faTimes} />
+        </button>
+        <div className="flex w-full h-full">
+          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-lime-200">
+            {/* Color Palette */}
+            <div className="flex gap-1 mt-4 flex-wrap justify-center">
+              {colors.map((color) => (
+                <button
+                  key={color}
+                  className={`w-8 h-8 border-2 ${
+                    selectedColor === color ? 'border-black' : 'border-gray-300'
+                  }`}
+                  style={{ backgroundColor: color }}
+                  onClick={() => setSelectedColor(color)}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-
-        <div className="mt-4 flex flex-col items-center">
-          {/* Canvas container with refined checkerboard background */}
-          <div
-            className="relative"
-            style={{
-              backgroundColor: '#fff',
-              backgroundImage:
-                'linear-gradient(45deg, #e0e0e0 25%, transparent 25%), linear-gradient(-45deg, #e0e0e0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e0e0e0 75%), linear-gradient(-45deg, transparent 75%, #e0e0e0 75%)',
-              backgroundSize: '20px 20px',
-              backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
-            }}
-          >
-            {/* Reference image with low opacity */}
-            <img
-              src={karolDefaultImage}
-              alt="Reference"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '800px',
-                height: '355px',
-                opacity: 0.2,
-                pointerEvents: 'none',
-                zIndex: 1,
-                objectFit: 'cover',
-              }}
-            />
-            {/* Main drawing canvas */}
-            <canvas
-              ref={canvasRef}
-              width={160}
-              height={71}
-              style={{
-                width: '800px',
-                height: '355px',
-                imageRendering: 'pixelated',
-                position: 'relative',
-                zIndex: 2,
-              }}
-              className="border-2 border-gray-300"
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUpOrLeave}
-              onMouseLeave={handleMouseUpOrLeave}
-            />
-            {/* Overlay canvas for brush preview */}
-            <canvas
-              ref={previewCanvasRef}
-              width={160}
-              height={71}
-              style={{
-                width: '800px',
-                height: '355px',
-                imageRendering: 'pixelated',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                pointerEvents: 'none',
-                zIndex: 3,
-              }}
-            />
+          <div className="flex-grow flex-shrink flex flex-col">
+            <div className="flex-grow flex-shrink flex justify-center items-center">
+              {' '}
+              <div className="mt-4 flex flex-col items-center">
+                {/* Canvas container with refined checkerboard background */}
+                <div
+                  className="relative"
+                  style={{
+                    backgroundColor: '#fff',
+                    backgroundImage:
+                      'linear-gradient(45deg, #e0e0e0 25%, transparent 25%), linear-gradient(-45deg, #e0e0e0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e0e0e0 75%), linear-gradient(-45deg, transparent 75%, #e0e0e0 75%)',
+                    backgroundSize: '20px 20px',
+                    backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+                  }}
+                >
+                  {/* Reference image with low opacity */}
+                  <img
+                    src={karolDefaultImage}
+                    alt="Reference"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '800px',
+                      height: '355px',
+                      opacity: 0.2,
+                      pointerEvents: 'none',
+                      zIndex: 1,
+                      objectFit: 'cover',
+                    }}
+                  />
+                  {/* Main drawing canvas */}
+                  <canvas
+                    ref={canvasRef}
+                    width={160}
+                    height={71}
+                    style={{
+                      width: '800px',
+                      height: '355px',
+                      imageRendering: 'pixelated',
+                      position: 'relative',
+                      zIndex: 2,
+                    }}
+                    className="border-2 border-gray-300"
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUpOrLeave}
+                    onMouseLeave={handleMouseUpOrLeave}
+                  />
+                  {/* Overlay canvas for brush preview */}
+                  <canvas
+                    ref={previewCanvasRef}
+                    width={160}
+                    height={71}
+                    style={{
+                      width: '800px',
+                      height: '355px',
+                      imageRendering: 'pixelated',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      pointerEvents: 'none',
+                      zIndex: 3,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex-grow-0 flex-shrink-0 h-[46px] bg-purple-800">
+              <div className="mt-2">
+                <label htmlFor="brushSize" className="mr-2 w-36 inline-block">
+                  Brush Size: {brushSize}
+                </label>
+                <input
+                  id="brushSize"
+                  type="range"
+                  min="1"
+                  max="10"
+                  value={brushSize}
+                  onChange={(e) => setBrushSize(parseInt(e.target.value))}
+                />
+              </div>
+            </div>
           </div>
-
-          {/* Color Palette */}
-          <div className="flex gap-1 mt-4 flex-wrap justify-center">
-            {colors.map((color) => (
-              <button
-                key={color}
-                className={`w-8 h-8 border-2 ${
-                  selectedColor === color ? 'border-black' : 'border-gray-300'
-                }`}
-                style={{ backgroundColor: color }}
-                onClick={() => setSelectedColor(color)}
-              />
-            ))}
-          </div>
-
-          {/* Tool Selector */}
-          <div className="flex gap-2 mt-4">
-            <button
-              className={`px-3 py-1 border rounded ${
-                tool === 'brush' ? 'bg-gray-300' : 'bg-white'
-              }`}
-              onClick={() => setTool('brush')}
-            >
-              Brush
-            </button>
-            <button
-              className={`px-3 py-1 border rounded ${
-                tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
-              }`}
-              onClick={() => setTool('paintBucket')}
-            >
-              Paint Bucket
-            </button>
-            <button
-              className={`px-3 py-1 border rounded ${
-                tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
-              }`}
-              onClick={() => setTool('eraser')}
-            >
-              Eraser
-            </button>
-          </div>
-
-          {/* Brush Size (for brush and eraser) */}
-          {(tool === 'brush' || tool === 'eraser') && (
-            <div className="mt-2">
-              <label htmlFor="brushSize" className="mr-2">
-                Brush Size: {brushSize}
-              </label>
-              <input
-                id="brushSize"
-                type="range"
-                min="1"
-                max="10"
-                value={brushSize}
-                onChange={(e) => setBrushSize(parseInt(e.target.value))}
+          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-pink-200">
+            <div className="w-[120px] h-[120px] flex justify-center items-center mt-8">
+              <View
+                robotImageDataUrl={core.ws.robotImageDataUrl}
+                world={{
+                  dimX: 1,
+                  dimY: 1,
+                  karol: {
+                    x: 0,
+                    y: 0,
+                    dir: ['east', 'north', 'west', 'south'][
+                      count % 4
+                    ] as Heading,
+                  },
+                  blocks: [[false]],
+                  marks: [[false]],
+                  bricks: [[0]],
+                  height: 1,
+                }}
               />
             </div>
-          )}
-
-          {/* Undo & Reset Buttons */}
-          <div className="flex gap-2 mt-4">
-            <button
-              className="px-4 py-2 bg-blue-200 hover:bg-blue-300 rounded"
-              onClick={handleUndo}
-            >
-              Undo
-            </button>
-            <button
-              className="px-4 py-2 bg-red-200 hover:bg-red-300 rounded"
-              onClick={handleReset}
-            >
-              Reset
-            </button>
+            <div className="flex gap-2 mt-4 flex-wrap">
+              <button
+                className={`px-3 py-1 border rounded ${
+                  tool === 'brush' ? 'bg-gray-300' : 'bg-white'
+                }`}
+                onClick={() => setTool('brush')}
+              >
+                Brush
+              </button>
+              <button
+                className={`px-3 py-1 border rounded ${
+                  tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
+                }`}
+                onClick={() => setTool('paintBucket')}
+              >
+                Paint Bucket
+              </button>
+              <button
+                className={`px-3 py-1 border rounded ${
+                  tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
+                }`}
+                onClick={() => setTool('eraser')}
+              >
+                Eraser
+              </button>
+              <button
+                className="px-4 py-2 bg-blue-200 hover:bg-blue-300 rounded"
+                onClick={handleUndo}
+              >
+                Undo
+              </button>
+              <button
+                className="px-4 py-2 bg-red-200 hover:bg-red-300 rounded"
+                onClick={handleReset}
+              >
+                Reset
+              </button>
+              <button
+                className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 rounded"
+                onClick={() => {
+                  alert(canvasRef.current?.toDataURL())
+                }}
+              >
+                Export as data URI
+              </button>
+              <button
+                className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 rounded"
+                onClick={() => {
+                  const data = prompt('DATA')
+                  if (data) {
+                    const img = new Image()
+                    img.src = data
+                    img.onload = () => {
+                      const canvas = canvasRef.current
+                      const ctx = canvas?.getContext('2d')
+                      if (ctx && canvas) {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height)
+                        ctx.drawImage(img, 0, 0)
+                        updateImageDataUrl(canvas)
+                      }
+                    }
+                  }
+                }}
+              >
+                Import from data URI
+              </button>
+            </div>
           </div>
         </div>
+        <div className="hidden">
+          <h2 className="text-center font-bold text-xl mt-5">
+            {core.strings.outfit.title}
+          </h2>
 
-        <div className="text-center mt-4">
-          <button
-            className="px-4 py-2 bg-green-200 hover:bg-green-300 rounded"
-            onClick={() => {
-              setAppearance(core.ws.appearance)
-              closeModal(core)
-            }}
-          >
-            {core.strings.outfit.close}
-          </button>
+          <div className="flex justify-center mt-4"></div>
         </div>
       </div>
     </div>

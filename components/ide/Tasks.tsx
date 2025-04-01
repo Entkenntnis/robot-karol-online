@@ -4,6 +4,7 @@ import {
   faArrowUp,
   faCheck,
   faClone,
+  faPaintBrush,
   faPencil,
   faPlay,
   faPlus,
@@ -408,7 +409,7 @@ export function Tasks() {
                 showModal(core, 'appearance')
               }}
             >
-              <FaIcon icon={faShirt} />
+              <FaIcon icon={faPaintBrush} />
             </button>
           )}
         </div>
