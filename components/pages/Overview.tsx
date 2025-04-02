@@ -463,13 +463,13 @@ export function Overview() {
                       // open feedback form in new tab
                       submitAnalyzeEvent(core, 'ev_click_landing_feedback')
                       window.open(
-                        'https://docs.google.com/forms/d/e/1FAIpQLSeoiPIl9eI2g0sfCeWGIJ3EVfJlWAAB98hvLAHJlrokea_rhQ/viewform?usp=sf_link',
+                        'https://docs.google.com/forms/d/e/1FAIpQLSewUlIflolioBNRx6l9x1XriyHdlmBhqTgjOlHMctrGUiryPA/viewform?usp=preview',
                         '_blank'
                       )
                     }}
                   >
                     <FaIcon icon={faMessage} className="text-gray-600/30" />{' '}
-                    Feedback
+                    Problem melden
                   </button>
                 )}
                 {core.ws.settings.lng === 'de' && (
