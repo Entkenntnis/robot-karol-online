@@ -24,9 +24,9 @@ export function AppearanceModal() {
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const core = useCore()
 
-  // Undo stack: stores ImageData snapshots
+  // Undo-Stack: speichert ImageData-Snapshots
   const undoStack = useRef<ImageData[]>([])
-  // Flag to ensure one push per drawing operation.
+  // Flag, um pro Zeichenvorgang nur einmal zu pushen.
   const hasPushedUndo = useRef(false)
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export function AppearanceModal() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Load default image into canvas if available.
+    // Lade Standardbild in die Leinwand, falls vorhanden.
     const img = new Image()
     img.src = core.ws.robotImageDataUrl ?? karolDefaultImage
     img.onload = () => {
@@ -60,19 +60,36 @@ export function AppearanceModal() {
     })
   }
 
-  const getCanvasCoordinates = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  // Unterstützt sowohl Maus- als auch Touch-Events.
+  const getCanvasCoordinates = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+  ) => {
     const canvas = canvasRef.current
     if (!canvas) return { x: -1, y: -1 }
     const rect = canvas.getBoundingClientRect()
+    let clientX: number, clientY: number
+    if ('touches' in e) {
+      // Bei touchend können keine touches vorhanden sein – verwende changedTouches.
+      if (e.touches && e.touches.length > 0) {
+        clientX = e.touches[0].clientX
+        clientY = e.touches[0].clientY
+      } else {
+        clientX = e.changedTouches[0].clientX
+        clientY = e.changedTouches[0].clientY
+      }
+    } else {
+      clientX = e.clientX
+      clientY = e.clientY
+    }
     const scaleX = canvas.width / rect.width
     const scaleY = canvas.height / rect.height
     return {
-      x: Math.floor((e.clientX - rect.left) * scaleX),
-      y: Math.floor((e.clientY - rect.top) * scaleY),
+      x: Math.floor((clientX - rect.left) * scaleX),
+      y: Math.floor((clientY - rect.top) * scaleY),
     }
   }
 
-  // Helper: convert hex to RGBA array.
+  // Hilfsfunktion: Konvertiert hex in RGBA-Array.
   const hexToRGBA = (hex: string): [number, number, number, number] => {
     hex = hex.replace('#', '')
     if (hex.length === 3) {
@@ -85,9 +102,9 @@ export function AppearanceModal() {
     return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255, 255]
   }
 
-  // Helper: compare two RGBA arrays.
+  // Hilfsfunktion: Vergleicht zwei RGBA-Arrays.
   const colorsEqual = (a: number[], b: number[]) => {
-    const tolerance = 20 // approximately 5% of 255
+    const tolerance = 20 // ungefähr 5% von 255
     return (
       Math.abs(a[0] - b[0]) <= tolerance &&
       Math.abs(a[1] - b[1]) <= tolerance &&
@@ -96,18 +113,18 @@ export function AppearanceModal() {
     )
   }
 
-  // Push the current canvas state onto the undo stack.
+  // Schiebt den aktuellen Zustand der Leinwand auf den Undo-Stack.
   const pushUndoState = () => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-    // Capture the current state.
+    // Zustand erfassen.
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
     undoStack.current.push(imageData)
   }
 
-  // Flood fill implementation for the paint bucket tool.
+  // Flood-Fill-Implementierung für das Farbeimer-Werkzeug.
   const floodFill = (startX: number, startY: number, fillColor: string) => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -138,13 +155,13 @@ export function AppearanceModal() {
       ]
       if (!colorsEqual(currentColor, targetColor)) continue
 
-      // Set new color.
+      // Neue Farbe setzen.
       data[index] = replacementColor[0]
       data[index + 1] = replacementColor[1]
       data[index + 2] = replacementColor[2]
       data[index + 3] = replacementColor[3]
 
-      // Add neighbors if within bounds.
+      // Nachbarn hinzufügen, wenn innerhalb der Grenzen.
       if (x > 0) stack.push([x - 1, y])
       if (x < width - 1) stack.push([x + 1, y])
       if (y > 0) stack.push([x, y - 1])
@@ -154,15 +171,17 @@ export function AppearanceModal() {
     updateImageDataUrl(canvas)
   }
 
-  // Draw function for brush and eraser.
-  const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  // Zeichnen für Pinsel und Radiergummi.
+  const draw = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+  ) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
     if (!ctx || !canvas) return
     const { x, y } = getCanvasCoordinates(e)
     const offset = Math.floor(brushSize / 2)
     if (tool === 'eraser') {
-      // Eraser clears pixels making them transparent.
+      // Beim Radiergummi werden Pixel gelöscht (transparent gemacht).
       ctx.clearRect(x - offset, y - offset, brushSize, brushSize)
     } else {
       ctx.fillStyle = selectedColor
@@ -171,8 +190,10 @@ export function AppearanceModal() {
     updateImageDataUrl(canvas)
   }
 
-  // Update the preview canvas with a dashed outline exactly matching the pixels that will be drawn.
-  const updatePreview = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  // Aktualisiert die Vorschau-Leinwand mit einer gestrichelten Umrandung.
+  const updatePreview = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+  ) => {
     const overlayCanvas = previewCanvasRef.current
     const canvas = canvasRef.current
     if (!overlayCanvas || !canvas) return
@@ -187,8 +208,7 @@ export function AppearanceModal() {
       ctx.fillRect(x - offset, y - offset, brushSize, brushSize)
     } else {
       const { x, y } = getCanvasCoordinates(e)
-      const offset = Math.floor(1 / 2)
-      ctx.fillRect(x - offset, y - offset, 1, 1)
+      ctx.fillRect(x, y, 1, 1)
     }
     ctx.globalAlpha = 1.0
   }
@@ -201,9 +221,13 @@ export function AppearanceModal() {
     ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height)
   }
 
-  // Handle mouse down events.
-  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    // Push the current state if not already pushed.
+  // Maus- und Touch-Handler
+
+  // Gemeinsame Logik für den Start des Zeichnens.
+  const handleStart = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+  ) => {
+    e.preventDefault()
     if (!hasPushedUndo.current) {
       pushUndoState()
       hasPushedUndo.current = true
@@ -217,19 +241,49 @@ export function AppearanceModal() {
     }
   }
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  // Gemeinsame Logik für Bewegung.
+  const handleMove = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+  ) => {
+    e.preventDefault()
     updatePreview(e)
     if (!isDrawing || tool === 'paintBucket') return
     draw(e)
   }
 
-  const handleMouseUpOrLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  // Gemeinsame Logik für das Beenden des Zeichnens.
+  const handleEnd = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+  ) => {
+    e.preventDefault()
     setIsDrawing(false)
     hasPushedUndo.current = false
     clearPreview()
   }
 
-  // Handle Undo: restore the last state.
+  // Spezifische Wrapper für Touch-Events.
+  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    handleStart(e)
+  }
+  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    handleMove(e)
+  }
+  const handleTouchEnd = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    handleEnd(e)
+  }
+
+  // Maus-Handler.
+  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    handleStart(e)
+  }
+  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    handleMove(e)
+  }
+  const handleMouseUpOrLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    handleEnd(e)
+  }
+
+  // Undo: stellt den letzten Zustand wieder her.
   const handleUndo = () => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -241,7 +295,7 @@ export function AppearanceModal() {
     updateImageDataUrl(canvas)
   }
 
-  // Handle Reset: push current state and reset to the default image.
+  // Reset: speichert aktuellen Zustand und setzt auf das Standardbild zurück.
   const handleReset = () => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -252,7 +306,7 @@ export function AppearanceModal() {
     const img = new Image()
     img.src = karolDefaultImage
     img.onload = () => {
-      // Clear canvas and draw default image.
+      // Leinwand leeren und Standardbild zeichnen.
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.drawImage(img, 0, 0)
       updateImageDataUrl(canvas)
@@ -298,7 +352,7 @@ export function AppearanceModal() {
         closeModal(core)
       }}
     >
-      {/* Modal width increased to 900px */}
+      {/* Modal mit angepasster Breite */}
       <div
         className="fixed inset-8 bg-white z-[200] rounded-xl flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
@@ -346,7 +400,7 @@ export function AppearanceModal() {
                 <FaIcon icon={faUndo} />
               </button>
             </div>
-            {/* Color Palette */}
+            {/* Farbpalette */}
             <div className="flex gap-1 mt-4 flex-wrap justify-center">
               {colors.map((color) => (
                 <button
@@ -357,7 +411,7 @@ export function AppearanceModal() {
                   style={{ backgroundColor: color }}
                   onClick={() => {
                     setSelectedColor(color)
-                    if (tool == 'eraser') {
+                    if (tool === 'eraser') {
                       setTool('brush')
                     }
                   }}
@@ -430,7 +484,7 @@ export function AppearanceModal() {
                   const dataUrl = canvasRef.current?.toDataURL()
 
                   if (dataUrl) {
-                    // construct absolute link and copy to clipboard
+                    // Absoluten Link konstruieren und in die Zwischenablage kopieren.
                     const link = `${
                       window.location.origin
                     }/#ROBOT:${encodeURIComponent(dataUrl)}`
@@ -450,7 +504,7 @@ export function AppearanceModal() {
                   const dataUrl = canvasRef.current?.toDataURL()
 
                   if (dataUrl) {
-                    // construct absolute link and copy to clipboard
+                    // Absoluten Link konstruieren und in die Zwischenablage kopieren.
                     const link = `${
                       window.location.origin
                     }/#ROBOT:${encodeURIComponent(dataUrl)}`
@@ -472,7 +526,7 @@ export function AppearanceModal() {
                 <button
                   className="text-sm bg-gray-500 hover:bg-gray-400 px-1 rounded"
                   onClick={() => {
-                    // clear canvas
+                    // Leinwand löschen.
                     const canvas = canvasRef.current
                     const ctx = canvas?.getContext('2d')
                     if (!ctx || !canvas) return
@@ -485,20 +539,15 @@ export function AppearanceModal() {
                 </button>
               </div>
               <div className="mt-4 flex flex-col items-center">
-                {/* Canvas container with refined checkerboard background */}
+                {/* Container mit verfeinertem Rautenmuster */}
                 <div
                   className="relative"
                   style={{
                     background:
                       'repeating-conic-gradient(rgba(255, 255, 255, 0.7) 0% 25%, #e0e0e0 0% 50%) 50% / 20px 20px',
-                    /*backgroundColor: '#fff',
-                    backgroundImage:
-                      'linear-gradient(45deg, #e0e0e0 25%, transparent 25%), linear-gradient(-45deg, #e0e0e0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e0e0e0 75%), linear-gradient(-45deg, transparent 75%, #e0e0e0 75%)',
-                    backgroundSize: '20px 20px',
-                    backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',*/
                   }}
                 >
-                  {/* Reference image with low opacity */}
+                  {/* Referenzbild mit geringer Deckkraft */}
                   <img
                     src={karolDefaultImage}
                     alt="Reference"
@@ -514,7 +563,7 @@ export function AppearanceModal() {
                       objectFit: 'cover',
                     }}
                   />
-                  {/* Main drawing canvas */}
+                  {/* Haupt-Zeichenleinwand */}
                   <canvas
                     ref={canvasRef}
                     width={160}
@@ -531,8 +580,12 @@ export function AppearanceModal() {
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUpOrLeave}
                     onMouseLeave={handleMouseUpOrLeave}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    onTouchCancel={handleTouchEnd}
                   />
-                  {/* Overlay canvas for brush preview */}
+                  {/* Overlay-Leinwand für die Pinselvorschau */}
                   <canvas
                     ref={previewCanvasRef}
                     width={160}
