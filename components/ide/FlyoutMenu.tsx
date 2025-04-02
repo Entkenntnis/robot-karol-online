@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import {
+  faExpand,
   faFloppyDisk,
   faFolderOpen,
   faGlobe,
@@ -269,6 +270,21 @@ export function FlyoutMenu() {
             </p>
           </>
         )}
+        <p className="px-2 pt-4">
+          <button
+            className="ml-2 hover:underline"
+            onClick={() => {
+              closeFlyoutMenu()
+              submitAnalyzeEvent(core, 'ev_click_ide_fullscreen')
+              // open fullscreen via browser API
+              if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen()
+              }
+            }}
+          >
+            <FaIcon icon={faExpand} /> Vollbild
+          </button>
+        </p>
       </div>
     </div>
   )
