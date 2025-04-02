@@ -159,10 +159,14 @@ export async function initClient(core: Core) {
   }
 
   if (hash.startsWith('#ROBOT:')) {
-    const data = normalHash.substring(7)
+    const data = decodeURIComponent(normalHash.substring(7))
     core.mutateWs((ws) => {
-      ws.ui.newRobotImage = decodeURIComponent(data)
+      ws.ui.newRobotImage = data
     })
+    submitAnalyzeEvent(
+      core,
+      'ev_show_robotImage_' + (data.length > 50 ? data.slice(-50) : data)
+    )
     history.replaceState(null, '', '/')
     switchToPage(core, 'overview')
     return

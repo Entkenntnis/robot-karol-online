@@ -13,6 +13,8 @@ import {
   faTimes,
   faUndo,
 } from '@fortawesome/free-solid-svg-icons'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { sub } from 'date-fns'
 
 export function AppearanceModal() {
   const [count, setCount] = useState(0)
@@ -285,6 +287,7 @@ export function AppearanceModal() {
 
   // Undo: stellt den letzten Zustand wieder her.
   const handleUndo = () => {
+    submitAnalyzeEvent(core, 'ev_click_appearance_undo')
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
@@ -297,6 +300,7 @@ export function AppearanceModal() {
 
   // Reset: speichert aktuellen Zustand und setzt auf das Standardbild zurück.
   const handleReset = () => {
+    submitAnalyzeEvent(core, 'ev_click_appearance_resetFigure')
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
@@ -373,7 +377,10 @@ export function AppearanceModal() {
                 className={`px-3 py-1 border rounded ${
                   tool === 'brush' ? 'bg-gray-300' : 'bg-white'
                 }`}
-                onClick={() => setTool('brush')}
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_appearance_brush')
+                  setTool('brush')
+                }}
               >
                 <FaIcon icon={faPaintBrush} />
               </button>
@@ -381,7 +388,10 @@ export function AppearanceModal() {
                 className={`px-3 py-1 border rounded ${
                   tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
                 }`}
-                onClick={() => setTool('paintBucket')}
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_appearance_fill')
+                  setTool('paintBucket')
+                }}
               >
                 <FaIcon icon={faFillDrip} />
               </button>
@@ -389,7 +399,10 @@ export function AppearanceModal() {
                 className={`px-3 py-1 border rounded ${
                   tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
                 }`}
-                onClick={() => setTool('eraser')}
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
+                  setTool('eraser')
+                }}
               >
                 <FaIcon icon={faEraser} />
               </button>
@@ -410,6 +423,10 @@ export function AppearanceModal() {
                   }`}
                   style={{ backgroundColor: color }}
                   onClick={() => {
+                    submitAnalyzeEvent(
+                      core,
+                      'ev_click_appearance_selectColor_' + color
+                    )
                     setSelectedColor(color)
                     if (tool === 'eraser') {
                       setTool('brush')
@@ -421,7 +438,13 @@ export function AppearanceModal() {
                 {[1, 2, 3, 10].map((size) => (
                   <button
                     key={size}
-                    onClick={() => setBrushSize(size)}
+                    onClick={() => {
+                      submitAnalyzeEvent(
+                        core,
+                        'ev_click_appearance_selectBrushSize_' + size
+                      )
+                      setBrushSize(size)
+                    }}
                     className={`flex items-center justify-center w-10 h-10 border rounded-full ${
                       brushSize === size ? 'bg-gray-300' : 'bg-white'
                     }`}
@@ -469,6 +492,7 @@ export function AppearanceModal() {
               </button>
               <button
                 onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_appearance_openGallery')
                   window.open(
                     'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
                     '_self'
@@ -481,6 +505,7 @@ export function AppearanceModal() {
               <button
                 className="px-4 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
                 onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_appearance_copyLink')
                   const dataUrl = canvasRef.current?.toDataURL()
 
                   if (dataUrl) {
@@ -501,6 +526,7 @@ export function AppearanceModal() {
               <button
                 className="px-4 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
                 onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_appearance_sendToGallery')
                   const dataUrl = canvasRef.current?.toDataURL()
 
                   if (dataUrl) {
@@ -526,6 +552,7 @@ export function AppearanceModal() {
                 <button
                   className="text-sm bg-gray-500 hover:bg-gray-400 px-1 rounded"
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_appearance_resetCanvas')
                     pushUndoState()
                     // Leinwand löschen.
                     const canvas = canvasRef.current

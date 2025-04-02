@@ -502,7 +502,7 @@ export function Overview() {
                   )}
                   onClick={() => {
                     // open feedback form in new tab
-                    submitAnalyzeEvent(core, 'ev_click_landing_pixelart')
+                    submitAnalyzeEvent(core, 'ev_click_landing_appearance')
                     showModal(core, 'appearance')
                   }}
                 >
