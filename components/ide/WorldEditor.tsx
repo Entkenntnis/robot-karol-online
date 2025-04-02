@@ -205,10 +205,13 @@ export function WorldEditor() {
                       world:
                         core.ws.quest.tasks[core.ws.editor.editWorld!].target!,
                     }}
-                    appearance={core.ws.appearance}
+                    robotImageDataUrl={core.ws.robotImageDataUrl}
                   />
                 ) : (
-                  <View world={core.ws.world} appearance={core.ws.appearance} />
+                  <View
+                    world={core.ws.world}
+                    robotImageDataUrl={core.ws.robotImageDataUrl}
+                  />
                 )}
               </div>
             </div>

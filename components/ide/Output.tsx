@@ -200,7 +200,7 @@ export function Output() {
                     'p-6',
                     core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
                   )}
-                  appearance={core.ws.appearance}
+                  robotImageDataUrl={core.ws.robotImageDataUrl}
                 />
               )}
             </div>

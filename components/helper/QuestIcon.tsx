@@ -47,7 +47,7 @@ export function QuestIcon({
         </div>
       ) : (
         <View
-          appearance={core.ws.appearance}
+          robotImageDataUrl={core.ws.robotImageDataUrl}
           world={{
             dimX: 1,
             dimY: 1,

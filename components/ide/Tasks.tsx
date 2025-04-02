@@ -4,6 +4,7 @@ import {
   faArrowUp,
   faCheck,
   faClone,
+  faPaintBrush,
   faPencil,
   faPlay,
   faPlus,
@@ -206,7 +207,7 @@ export function Tasks() {
                       hideKarol={false}
                       wireframe={false}
                       className="h-full w-full object-contain"
-                      appearance={core.ws.appearance}
+                      robotImageDataUrl={core.ws.robotImageDataUrl}
                     />
                   </div>
                   <div className="ml-4 mt-6">
@@ -408,7 +409,7 @@ export function Tasks() {
                 showModal(core, 'appearance')
               }}
             >
-              <FaIcon icon={faShirt} />
+              <FaIcon icon={faPaintBrush} />
             </button>
           )}
         </div>

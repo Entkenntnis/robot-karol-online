@@ -68,6 +68,7 @@ export interface Ui {
   showFlyoutMenu: boolean
   resetCode: { [key: string]: [string, string] }
   returnToDemoPage: boolean
+  newRobotImage?: string
 }
 
 export interface Vm {
@@ -177,6 +178,8 @@ export interface WorkspaceState {
   renderCounter: number // e.g. if storage is updated
 
   appearance: Appearance
+
+  robotImageDataUrl?: string
 }
 
 export interface Appearance {

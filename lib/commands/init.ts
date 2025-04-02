@@ -1,7 +1,12 @@
 import { Core } from '../state/core'
 import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
-import { getAppearance, getLng } from '../storage/storage'
+import {
+  getAppearance,
+  getLng,
+  getRobotImage,
+  setRobotImage,
+} from '../storage/storage'
 import { setLng, showOverviewList, updatePlaygroundHashToMode } from './mode'
 import { createWorld } from '../state/create'
 import { PlaygroundHashData, QuestSerialFormat } from '../state/types'
@@ -42,10 +47,10 @@ export async function initClient(core: Core) {
     return
   }
 
-  const appearance = getAppearance()
-  if (appearance) {
+  const robotImage = getRobotImage()
+  if (robotImage) {
     core.mutateWs((ws) => {
-      ws.appearance = appearance
+      ws.robotImageDataUrl = robotImage
     })
   }
 
@@ -151,6 +156,20 @@ export async function initClient(core: Core) {
     } catch (e) {
       alert(e)
     }
+  }
+
+  if (hash.startsWith('#ROBOT:')) {
+    const data = decodeURIComponent(normalHash.substring(7))
+    core.mutateWs((ws) => {
+      ws.ui.newRobotImage = data
+    })
+    submitAnalyzeEvent(
+      core,
+      'ev_show_robotImage_' + (data.length > 50 ? data.slice(-50) : data)
+    )
+    history.replaceState(null, '', '/')
+    switchToPage(core, 'overview')
+    return
   }
 
   if (hash == '#DEMO') {
