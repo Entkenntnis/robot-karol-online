@@ -1,5 +1,7 @@
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { appearanceRegistry } from '../../lib/data/appearance'
 import { useCore } from '../../lib/state/core'
+import { FaIcon } from './FaIcon'
 
 export function AnalyzeResults() {
   const core = useCore()
@@ -87,16 +89,35 @@ export function AnalyzeResults() {
           abgeschlossen
         </span>
       ))}
-      <h2 className="mt-6 mb-4 text-lg">Aussehen</h2>
+      <h2 className="mt-6 mb-4 text-lg">Farben</h2>
       <p>
         {(() => {
-          const appearance = Object.entries(core.ws.analyze.appearance)
-          appearance.sort((a, b) => b[1].count - a[1].count)
+          const brushColors = Object.entries(core.ws.analyze.brushColors)
+          brushColors.sort((a, b) => b[1].count - a[1].count)
 
-          return appearance.map((entry) => (
+          return brushColors.map((entry) => (
             <span key={entry[0]} className="inline-block mr-3">
-              {entry[0]}:{appearanceRegistry[parseInt(entry[0])].type}-
-              {appearanceRegistry[parseInt(entry[0])].title} (x
+              {entry[0]}{' '}
+              <span style={{ color: entry[0] }} className="w-3 h-3">
+                <FaIcon icon={faCircle} />
+              </span>{' '}
+              (x
+              {entry[1].count})
+            </span>
+          ))
+        })()}
+      </p>
+      <h2 className="mt-6 mb-4 text-lg">geladene Figur</h2>
+      <p>
+        {(() => {
+          const loadedRobotImages = Object.entries(
+            core.ws.analyze.loadedRobotImages
+          )
+          loadedRobotImages.sort((a, b) => b[1].count - a[1].count)
+
+          return loadedRobotImages.map((entry) => (
+            <span key={entry[0]} className="inline-block mr-3">
+              {entry[0]} (x
               {entry[1].count})
             </span>
           ))
