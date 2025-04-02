@@ -3,7 +3,7 @@ import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
 import { karolDefaultImage, View } from '../helper/View'
 import { Heading } from '../../lib/state/types'
-import { setAppearance, setRobotImage } from '../../lib/storage/storage'
+import { setRobotImage } from '../../lib/storage/storage'
 import { FaIcon } from '../helper/FaIcon'
 import {
   faEraser,
