@@ -526,12 +526,12 @@ export function AppearanceModal() {
                 <button
                   className="text-sm bg-gray-500 hover:bg-gray-400 px-1 rounded"
                   onClick={() => {
+                    pushUndoState()
                     // Leinwand löschen.
                     const canvas = canvasRef.current
                     const ctx = canvas?.getContext('2d')
                     if (!ctx || !canvas) return
                     ctx.clearRect(0, 0, canvas.width, canvas.height)
-                    pushUndoState()
                     updateImageDataUrl(canvas)
                   }}
                 >
