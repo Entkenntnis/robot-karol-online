@@ -5,7 +5,14 @@ import { karolDefaultImage, View } from '../helper/View'
 import { Heading } from '../../lib/state/types'
 import { setAppearance, setRobotImage } from '../../lib/storage/storage'
 import { FaIcon } from '../helper/FaIcon'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import {
+  faEraser,
+  faFillDrip,
+  faPaintBrush,
+  faStar,
+  faTimes,
+  faUndo,
+} from '@fortawesome/free-solid-svg-icons'
 
 export function AppearanceModal() {
   const [count, setCount] = useState(0)
@@ -80,7 +87,13 @@ export function AppearanceModal() {
 
   // Helper: compare two RGBA arrays.
   const colorsEqual = (a: number[], b: number[]) => {
-    return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3]
+    const tolerance = 20 // approximately 5% of 255
+    return (
+      Math.abs(a[0] - b[0]) <= tolerance &&
+      Math.abs(a[1] - b[1]) <= tolerance &&
+      Math.abs(a[2] - b[2]) <= tolerance &&
+      Math.abs(a[3] - b[3]) <= tolerance
+    )
   }
 
   // Push the current canvas state onto the undo stack.
@@ -158,7 +171,7 @@ export function AppearanceModal() {
     updateImageDataUrl(canvas)
   }
 
-  // Update the preview canvas with a dashed outline for brush/eraser.
+  // Update the preview canvas with a dashed outline exactly matching the pixels that will be drawn.
   const updatePreview = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const overlayCanvas = previewCanvasRef.current
     const canvas = canvasRef.current
@@ -167,15 +180,17 @@ export function AppearanceModal() {
     if (!ctx) return
 
     ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height)
+    ctx.globalAlpha = 0.2
     if (tool === 'brush' || tool === 'eraser') {
       const { x, y } = getCanvasCoordinates(e)
       const offset = Math.floor(brushSize / 2)
-      ctx.beginPath()
-      ctx.setLineDash([2, 2])
-      ctx.strokeStyle = tool === 'eraser' ? '#FF0000' : '#000000'
-      ctx.strokeRect(x - offset, y - offset, brushSize, brushSize)
-      ctx.setLineDash([])
+      ctx.fillRect(x - offset, y - offset, brushSize, brushSize)
+    } else {
+      const { x, y } = getCanvasCoordinates(e)
+      const offset = Math.floor(1 / 2)
+      ctx.fillRect(x - offset, y - offset, 1, 1)
     }
+    ctx.globalAlpha = 1.0
   }
 
   const clearPreview = () => {
@@ -246,21 +261,33 @@ export function AppearanceModal() {
 
   const colors = [
     '#000000',
-    '#FFFFFF',
-    '#FF0000',
-    '#00FF00',
-    '#0000FF',
-    '#FFFF00',
-    '#FF00FF',
-    '#00FFFF',
-    '#808080',
-    '#C0C0C0',
-    '#FFA500', // orange
-    '#800080', // purple
-    '#008080', // teal
-    '#FFC0CB', // pink
-    '#A52A2A', // brown
-    '#FFD700', // gold
+    '#ffffff',
+    '#464646',
+    '#b4b4b4',
+    '#e96b6d',
+    '#2e5691',
+    '#ffd266',
+    '#990030',
+    '#9c5a3c',
+    '#ed1c24',
+    '#ffa3b1',
+    '#ff7e00',
+    '#e5aa7a',
+    '#ffc20e',
+    '#f5e49c',
+    '#fff200',
+    '#fff9bd',
+    '#a8e61d',
+    '#d3f9bc',
+    '#22b14c',
+    '#00b7ef',
+    '#99d9ea',
+    '#4d6df3',
+    '#709ad1',
+    '#2f3699',
+    '#546d8e',
+    '#6f3198',
+    '#b5a5d5',
   ]
 
   return (
@@ -286,49 +313,76 @@ export function AppearanceModal() {
           <FaIcon icon={faTimes} />
         </button>
         <div className="flex w-full h-full">
-          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-lime-200 rounded-l-xl">
-            <button
-              className={`px-3 py-1 border rounded ${
-                tool === 'brush' ? 'bg-gray-300' : 'bg-white'
-              }`}
-              onClick={() => setTool('brush')}
-            >
-              Brush
-            </button>
-            <button
-              className={`px-3 py-1 border rounded ${
-                tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
-              }`}
-              onClick={() => setTool('paintBucket')}
-            >
-              Paint Bucket
-            </button>
-            <button
-              className={`px-3 py-1 border rounded ${
-                tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
-              }`}
-              onClick={() => setTool('eraser')}
-            >
-              Eraser
-            </button>
-            <button
-              className="px-4 py-2 bg-blue-200 hover:bg-blue-300 rounded"
-              onClick={handleUndo}
-            >
-              Undo
-            </button>
+          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-white ">
+            <div className="flex flex-wrap justify-center gap-3 mt-3">
+              <button
+                className={`px-3 py-1 border rounded ${
+                  tool === 'brush' ? 'bg-gray-300' : 'bg-white'
+                }`}
+                onClick={() => setTool('brush')}
+              >
+                <FaIcon icon={faPaintBrush} />
+              </button>
+              <button
+                className={`px-3 py-1 border rounded ${
+                  tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
+                }`}
+                onClick={() => setTool('paintBucket')}
+              >
+                <FaIcon icon={faFillDrip} />
+              </button>
+              <button
+                className={`px-3 py-1 border rounded ${
+                  tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
+                }`}
+                onClick={() => setTool('eraser')}
+              >
+                <FaIcon icon={faEraser} />
+              </button>
+              <button
+                className="px-3 py-1 bg-purple-200 hover:bg-purple-300 rounded"
+                onClick={handleUndo}
+              >
+                <FaIcon icon={faUndo} />
+              </button>
+            </div>
             {/* Color Palette */}
             <div className="flex gap-1 mt-4 flex-wrap justify-center">
               {colors.map((color) => (
                 <button
                   key={color}
-                  className={`w-8 h-8 border-2 ${
+                  className={`w-6 h-6 border-2 ${
                     selectedColor === color ? 'border-black' : 'border-gray-300'
                   }`}
                   style={{ backgroundColor: color }}
-                  onClick={() => setSelectedColor(color)}
+                  onClick={() => {
+                    setSelectedColor(color)
+                    if (tool == 'eraser') {
+                      setTool('brush')
+                    }
+                  }}
                 />
               ))}
+              <div className="flex items-center gap-2 flex-wrap justify-center mt-3">
+                {[1, 2, 3, 10].map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setBrushSize(size)}
+                    className={`flex items-center justify-center w-10 h-10 border rounded-full ${
+                      brushSize === size ? 'bg-gray-300' : 'bg-white'
+                    }`}
+                  >
+                    <div
+                      style={{
+                        width: `${size * 3}px`,
+                        height: `${size * 3}px`,
+                        backgroundColor: '#000',
+                        borderRadius: '50%',
+                      }}
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
             <div className="w-[120px] h-[120px] flex justify-center items-center mt-8">
               <View
@@ -352,28 +406,26 @@ export function AppearanceModal() {
             </div>
           </div>
           <div className="flex-grow flex-shrink flex flex-col">
-            <div className="flex-grow-0 flex-shrink-0 h-[52px] bg-gray-100 flex gap-4 rounded-tr-xl">
-              <div className="mt-2">
-                <label htmlFor="brushSize" className="mr-2 w-36 inline-block">
-                  Brush Size: {brushSize}
-                </label>
-                <input
-                  id="brushSize"
-                  type="range"
-                  min="1"
-                  max="10"
-                  value={brushSize}
-                  onChange={(e) => setBrushSize(parseInt(e.target.value))}
-                />
-              </div>
+            <div className="flex-grow-0 flex-shrink-0 h-[52px] bg-gray-100 flex gap-4 rounded-tr-xl items-center">
               <button
-                className="px-4 py-2 bg-red-200 hover:bg-red-300 rounded"
+                className="px-4 py-0.5 bg-gray-200 hover:bg-gray-300 rounded ml-4"
                 onClick={handleReset}
               >
-                Reset
+                Figur zurücksetzen
               </button>
               <button
-                className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 rounded"
+                onClick={() => {
+                  window.open(
+                    'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
+                    '_self'
+                  )
+                }}
+                className="hover:underline"
+              >
+                Figuren-Galerie
+              </button>
+              <button
+                className="px-4 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
                 onClick={() => {
                   const dataUrl = canvasRef.current?.toDataURL()
 
@@ -383,7 +435,9 @@ export function AppearanceModal() {
                       window.location.origin
                     }/#ROBOT:${encodeURIComponent(dataUrl)}`
                     navigator.clipboard.writeText(link).then(() => {
-                      alert('Link kopiert!')
+                      alert(
+                        'Link kopiert! Öffne den Link in einem Browser, um deine Figur zu laden.'
+                      )
                     })
                   }
                 }}
@@ -391,7 +445,7 @@ export function AppearanceModal() {
                 Link kopieren
               </button>
               <button
-                className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 rounded"
+                className="px-4 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
                 onClick={() => {
                   const dataUrl = canvasRef.current?.toDataURL()
 
@@ -410,30 +464,38 @@ export function AppearanceModal() {
                   }
                 }}
               >
-                Einsenden
-              </button>
-              <button
-                onClick={() => {
-                  window.open(
-                    'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
-                    '_blank'
-                  )
-                }}
-              >
-                Figuren-Galerie
+                <FaIcon icon={faStar} className="mr-1" /> Einsenden zur Galerie
               </button>
             </div>
-            <div className="flex-grow flex-shrink flex justify-center items-center bg-gray-800">
+            <div className="flex-grow flex-shrink flex justify-center items-center bg-gray-800 relative">
+              <div className="absolute left-2 bottom-2">
+                <button
+                  className="text-sm bg-gray-500 hover:bg-gray-400 px-1 rounded"
+                  onClick={() => {
+                    // clear canvas
+                    const canvas = canvasRef.current
+                    const ctx = canvas?.getContext('2d')
+                    if (!ctx || !canvas) return
+                    ctx.clearRect(0, 0, canvas.width, canvas.height)
+                    pushUndoState()
+                    updateImageDataUrl(canvas)
+                  }}
+                >
+                  Leinwand löschen
+                </button>
+              </div>
               <div className="mt-4 flex flex-col items-center">
                 {/* Canvas container with refined checkerboard background */}
                 <div
                   className="relative"
                   style={{
-                    backgroundColor: '#fff',
+                    background:
+                      'repeating-conic-gradient(rgba(255, 255, 255, 0.7) 0% 25%, #e0e0e0 0% 50%) 50% / 20px 20px',
+                    /*backgroundColor: '#fff',
                     backgroundImage:
                       'linear-gradient(45deg, #e0e0e0 25%, transparent 25%), linear-gradient(-45deg, #e0e0e0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e0e0e0 75%), linear-gradient(-45deg, transparent 75%, #e0e0e0 75%)',
                     backgroundSize: '20px 20px',
-                    backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+                    backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',*/
                   }}
                 >
                   {/* Reference image with low opacity */}
@@ -490,13 +552,6 @@ export function AppearanceModal() {
               </div>
             </div>
           </div>
-        </div>
-        <div className="hidden">
-          <h2 className="text-center font-bold text-xl mt-5">
-            {core.strings.outfit.title}
-          </h2>
-
-          <div className="flex justify-center mt-4"></div>
         </div>
       </div>
     </div>
