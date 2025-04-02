@@ -217,6 +217,8 @@ export interface Analyze {
   customQuests: { [key: string]: { start: number; complete: number } }
   legacy: { [key: string]: { count: number } }
   appearance: { [key: string]: { count: number } }
+  brushColors: { [key: string]: { count: number } }
+  loadedRobotImages: { [key: string]: { count: number } }
   quests: { [key: string]: { reachable: number; complete: number } }
   userTimes: number[]
   solutions: {

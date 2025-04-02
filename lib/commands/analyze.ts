@@ -8,6 +8,12 @@ import { Core } from '../state/core'
 import { switchToPage } from './page'
 import { submit_event } from '../helper/submit'
 
+const robotImageDictionary: { [key: string]: string } = {
+  'L06wLCr1P4Lpa9x6UR+AvhBACTFaRE/QAAAABJRU5ErkJggg==': 'Robot Banana',
+  'usZBfFrfC7IrptcEwJ/A9dR43PHOavJQAAAABJRU5ErkJggg==': 'Minion',
+  'mmWqQTRZDb/Qe2bGv/TL3/C7U+IyXSnoHnAAAAAElFTkSuQmCC': 'Robot Karol 3.0',
+}
+
 export async function analyze(core: Core) {
   try {
     // cutoff is always one month before the current date
@@ -89,6 +95,8 @@ export async function analyze(core: Core) {
         'load_id_',
         'unknown_quest_',
         'open_image_',
+        'ev_click_appearance_selectColor_',
+        'ev_show_robotImage_',
       ]
 
       for (const prefix of eventPrefixes) {
@@ -266,6 +274,31 @@ export async function analyze(core: Core) {
               ws.analyze.appearance[id] = { count: 0 }
             }
             ws.analyze.appearance[id].count++
+            continue
+          }
+
+          const brushColor = /^ev_click_appearance_selectColor_(.+)/.exec(
+            entry.event
+          )
+
+          if (brushColor) {
+            const id = brushColor[1]
+            if (!ws.analyze.brushColors[id]) {
+              ws.analyze.brushColors[id] = { count: 0 }
+            }
+            ws.analyze.brushColors[id].count++
+            continue
+          }
+
+          const loadedRobotImages = /^ev_show_robotImage_(.+)/.exec(entry.event)
+
+          if (loadedRobotImages) {
+            const id =
+              robotImageDictionary[loadedRobotImages[1]] ?? loadedRobotImages[1]
+            if (!ws.analyze.loadedRobotImages[id]) {
+              ws.analyze.loadedRobotImages[id] = { count: 0 }
+            }
+            ws.analyze.loadedRobotImages[id].count++
             continue
           }
 

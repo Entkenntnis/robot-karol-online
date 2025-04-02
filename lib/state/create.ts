@@ -122,6 +122,8 @@ export function createWorkspaceState(): WorkspaceState {
         uniqueUsers: 0,
         stats: {},
       },
+      brushColors: {},
+      loadedRobotImages: {},
     },
     overview: {
       overviewScroll: 0,
