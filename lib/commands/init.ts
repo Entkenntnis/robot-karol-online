@@ -1,12 +1,7 @@
 import { Core } from '../state/core'
 import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage } from './page'
-import {
-  getAppearance,
-  getLng,
-  getRobotImage,
-  setRobotImage,
-} from '../storage/storage'
+import { getLng, getRobotImage } from '../storage/storage'
 import { setLng, showOverviewList, updatePlaygroundHashToMode } from './mode'
 import { createWorld } from '../state/create'
 import { PlaygroundHashData, QuestSerialFormat } from '../state/types'

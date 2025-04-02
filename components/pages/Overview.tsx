@@ -36,8 +36,8 @@ import { View } from '../helper/View'
 import { switchToPage } from '../../lib/commands/page'
 import { showModal } from '../../lib/commands/modal'
 import {
-  getAppearance,
   getLng,
+  getRobotImage,
   getUserName,
   isPersisted,
   loadFromJSON,
@@ -202,10 +202,10 @@ export function Overview() {
                         'ev_click_landing_importProgress'
                       )
                       await loadFromJSON()
-                      const appearance = getAppearance()
-                      if (appearance) {
+                      const image = getRobotImage()
+                      if (image) {
                         core.mutateWs((ws) => {
-                          ws.appearance = appearance
+                          ws.robotImageDataUrl = image
                         })
                       }
                       setLng(core, getLng())

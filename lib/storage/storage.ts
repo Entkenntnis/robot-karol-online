@@ -1,6 +1,5 @@
 // manage session and local storage data
 
-import { karolDefaultImage } from '../../components/helper/View'
 import { questList } from '../data/overview'
 import { Core } from '../state/core'
 import { Appearance, QuestSessionData } from '../state/types'
@@ -9,7 +8,6 @@ const userIdKey = 'robot_karol_online_tmp_id'
 const userNameKey = 'robot_karol_online_name'
 const questKey = (id: number) => `karol_quest_beta_${id}`
 const persistKey = 'karol_quest_beta_persist'
-const appearanceKey = 'robot_karol_online_appearance'
 const lngKey = 'robot_karol_online_lng'
 const robotImageKey = 'robot_karol_online_robot_image'
 
@@ -42,25 +40,6 @@ export function setLngStorage(lng: 'de' | 'en') {
     localStorage.setItem(lngKey, lng)
   }
   sessionStorage.setItem(lngKey, lng)
-}
-
-export function getAppearance() {
-  const rawSes = sessionStorage.getItem(appearanceKey)
-  const rawLoc = localStorage.getItem(appearanceKey)
-  if (rawLoc) {
-    return JSON.parse(rawLoc) as Appearance
-  }
-  if (rawSes) {
-    return JSON.parse(rawSes) as Appearance
-  }
-  return null
-}
-
-export function setAppearance(appearance: Appearance) {
-  if (isPersisted()) {
-    localStorage.setItem(appearanceKey, JSON.stringify(appearance))
-  }
-  sessionStorage.setItem(appearanceKey, JSON.stringify(appearance))
 }
 
 export function setRobotImage(image?: string | null) {
@@ -107,9 +86,9 @@ export function saveToJSON(core: Core) {
   let data: Record<string, any> = {
     [userIdKey]: getUserId(),
     [userNameKey]: getUserName(),
-    [appearanceKey]: getAppearance(),
     [persistKey]: isPersisted(),
     [lngKey]: getLng(),
+    [robotImageKey]: getRobotImage(),
   }
   for (const id of questList) {
     const questData = getQuestData(id)
@@ -148,7 +127,7 @@ export async function loadFromJSON() {
       if (e.target != null && typeof e.target.result === 'string') {
         const data = JSON.parse(e.target.result)
         setUserName(data[userNameKey])
-        setAppearance(data[appearanceKey])
+        //setAppearance(data[appearanceKey])
         for (const id of questList) {
           const questData = data[questKey(id)]
           if (questData != null) {
@@ -157,6 +136,7 @@ export async function loadFromJSON() {
         }
         setLngStorage(data[lngKey])
         res(true)
+        setRobotImage(data[robotImageKey])
       }
       rej(false)
     })
@@ -184,10 +164,6 @@ export function copySessionToLocal() {
   localStorage.setItem(persistKey, '1')
 
   localStorage.setItem(userNameKey, sessionStorage.getItem(userNameKey) ?? '')
-  localStorage.setItem(
-    appearanceKey,
-    sessionStorage.getItem(appearanceKey) ?? ''
-  )
 
   for (const id of questList) {
     const qd = getQuestData(id)
@@ -208,12 +184,6 @@ export function copyLocalToSession() {
 
   sessionStorage.setItem(lngKey, localStorage.getItem(lngKey) ?? '')
   localStorage.removeItem(lngKey)
-
-  sessionStorage.setItem(
-    appearanceKey,
-    localStorage.getItem(appearanceKey) ?? ''
-  )
-  localStorage.removeItem(appearanceKey)
 
   for (const id of questList) {
     const qd = getQuestData(id)
