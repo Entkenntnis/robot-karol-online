@@ -12,6 +12,9 @@ const robotImageDictionary: { [key: string]: string } = {
   'L06wLCr1P4Lpa9x6UR+AvhBACTFaRE/QAAAABJRU5ErkJggg==': 'Robot Banana',
   'usZBfFrfC7IrptcEwJ/A9dR43PHOavJQAAAABJRU5ErkJggg==': 'Minion',
   'mmWqQTRZDb/Qe2bGv/TL3/C7U+IyXSnoHnAAAAAElFTkSuQmCC': 'Robot Karol 3.0',
+  'd2EazjBvbNvg/k/SELmQT+D7Wxn/MCo1xXAAAAAElFTkSuQmCC': 'Amongay',
+  '2vCNHoJMi9lHjX8P87A/8CQ5IRopzCYEcAAAAASUVORK5CYII=':
+    'Cristiano Ronaldo mit Cap',
 }
 
 export async function analyze(core: Core) {
