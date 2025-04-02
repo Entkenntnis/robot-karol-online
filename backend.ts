@@ -15,6 +15,9 @@ export const backend = {
   // sharing quests in editor
   questShareEndpoint: host + '/quest_share',
 
+  // url shortener for robot iamge gallery
+  urlShortenerEndpoint: host + '/share_image',
+
   // internal routes
   analyzeEndpoint: host + '/export',
   solutionAnalyzeEndpoint: host + '/exportSolutions',

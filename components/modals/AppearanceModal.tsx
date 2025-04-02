@@ -15,6 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { sub } from 'date-fns'
+import { backend } from '../../backend'
 
 export function AppearanceModal() {
   const [count, setCount] = useState(0)
@@ -525,19 +526,29 @@ export function AppearanceModal() {
               </button>
               <button
                 className="px-4 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
-                onClick={() => {
+                onClick={async () => {
                   submitAnalyzeEvent(core, 'ev_click_appearance_sendToGallery')
                   const dataUrl = canvasRef.current?.toDataURL()
 
                   if (dataUrl) {
                     // Absoluten Link konstruieren und in die Zwischenablage kopieren.
-                    const link = `${
-                      window.location.origin
-                    }/#ROBOT:${encodeURIComponent(dataUrl)}`
+                    const link = `${window.location.origin}/#ROBOT:${dataUrl}`
+
+                    const rawResponse = await fetch(
+                      backend.urlShortenerEndpoint,
+                      {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ content: link }),
+                      }
+                    )
+                    const shortUrl = await rawResponse.text()
 
                     window.open(
                       `https://docs.google.com/forms/d/e/1FAIpQLSfPGqtxcktRCgOhLdvTSy-OpseGX1h7zHxrtlvj2cD3zPHMiQ/viewform?usp=pp_url&entry.898288828=${encodeURIComponent(
-                        link
+                        shortUrl
                       )}`,
                       '_blank'
                     )
