@@ -2,7 +2,7 @@
 
 ## Musterlösung zu den Aufgaben
 
-Bitte schreibe mir - Quinn Li (sie/ihr) - unter karol@arrrg.de eine nette Nachricht um die Musterlösung zu Aufgaben im Selbst-Lern-Pfad zu erhalten.
+Bitte schreibe mir - Quinn Li (sie/ihr) - unter karol@arrrg.de eine kleine Nachricht um die Musterlösung zu Aufgaben im Selbst-Lern-Pfad zu erhalten.
 
 ## Dokumentation
 
