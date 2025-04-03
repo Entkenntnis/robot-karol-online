@@ -24,8 +24,10 @@ export function runTask(core: Core, index: number) {
     ws.ui.showStructogram = false
     ws.quest.lastStartedTask = index
     ws.quest.progress = false
-    if (!task.target) {
-      ws.quest.progress = true
+    if (!ws.ui.isPlayground) {
+      if (!task.target || twoWorldsEqual(task.start, task.target)) {
+        ws.quest.progress = true
+      }
     }
   })
 

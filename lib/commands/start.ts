@@ -22,7 +22,7 @@ export function startButtonClicked(core: Core) {
     return
   }
   if (!core.ws.ui.showOutput && core.ws.ui.state == 'ready') {
-    if (core.ws.ui.isPlayground || core.ws.quest.tasks.some((t) => !t.target)) {
+    if (core.ws.ui.isPlayground) {
       runTask(core, 0)
     } else {
       startTesting(core)
