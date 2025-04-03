@@ -17,7 +17,7 @@ export const questListByCategory = [
   {
     title: 'Bedingte Anweisung',
     titleEn: 'Conditional statements',
-    quests: [53, 54, 55, 56, 57, 58, 45],
+    quests: [53, 54, 55, 58, 56, 57, 59, 45],
   },
   {
     title: 'Kombinationen von Kontrollstrukturen',
