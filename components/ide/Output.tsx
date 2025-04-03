@@ -5,7 +5,6 @@ import {
   faCheck,
   faComment,
   faTrashCan,
-  faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { closeOutput, resetOutput } from '../../lib/commands/quest'
@@ -16,12 +15,8 @@ import { FaIcon } from '../helper/FaIcon'
 import { TaskRunnerOverview } from './TaskRunnerOverview'
 import { View } from '../helper/View'
 import { abort } from '../../lib/commands/vm'
-import { showModal } from '../../lib/commands/modal'
 import { renderDescription } from '../../lib/helper/processMiniMarkdown'
-import { useState } from 'react'
 import { View2D } from '../helper/View2D'
-import { twoWorldsEqual } from '../../lib/commands/world'
-import { sub } from 'date-fns'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function Output() {

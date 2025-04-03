@@ -167,7 +167,8 @@ export function ControlBar() {
       if (core.ws.ui.isEndOfRun) {
         if (
           core.ws.page == 'imported' ||
-          core.ws.quest.tasks.some((task) => task.target === null)
+          (core.ws.quest.lastStartedTask !== undefined &&
+            core.ws.quest.tasks[core.ws.quest.lastStartedTask].target == null)
         ) {
           return (
             <span>

@@ -24,6 +24,9 @@ export function runTask(core: Core, index: number) {
     ws.ui.showStructogram = false
     ws.quest.lastStartedTask = index
     ws.quest.progress = false
+    if (!task.target) {
+      ws.quest.progress = true
+    }
   })
 
   if (core.ws.ui.state == 'ready') {
