@@ -77,6 +77,7 @@ export function closeOutput(core: Core) {
   if (core.ws.quest.testerHandler !== undefined) {
     clearTimeout(core.ws.quest.testerHandler)
   }
+  setExecutionMarker(core, 0)
   core.mutateWs((ws) => {
     ws.ui.showOutput = false
     ws.ui.isTesting = false
