@@ -458,22 +458,6 @@ export function Overview() {
                 )}
                 {core.ws.settings.lng === 'de' && (
                   <button
-                    className="hidden lg:block lg:fixed top-2 right-4 hover:underline"
-                    onClick={() => {
-                      // open feedback form in new tab
-                      submitAnalyzeEvent(core, 'ev_click_landing_feedback')
-                      window.open(
-                        'https://docs.google.com/forms/d/e/1FAIpQLSewUlIflolioBNRx6l9x1XriyHdlmBhqTgjOlHMctrGUiryPA/viewform?usp=preview',
-                        '_blank'
-                      )
-                    }}
-                  >
-                    <FaIcon icon={faMessage} className="text-gray-600/30" />{' '}
-                    Problem melden
-                  </button>
-                )}
-                {core.ws.settings.lng === 'de' && (
-                  <button
                     className={clsx(
                       'absolute top-[47px] left-[990px] block z-10 hover:bg-gray-100/60 rounded-xl',
                       'w-[120px] cursor-pointer'

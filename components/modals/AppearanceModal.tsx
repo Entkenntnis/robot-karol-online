@@ -6,6 +6,8 @@ import { Heading } from '../../lib/state/types'
 import { setRobotImage } from '../../lib/storage/storage'
 import { FaIcon } from '../helper/FaIcon'
 import {
+  faArrowLeft,
+  faArrowRight,
   faEraser,
   faFillDrip,
   faPaintBrush,
@@ -27,17 +29,14 @@ export function AppearanceModal() {
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const core = useCore()
 
+  const [originalImage] = useState(() => {
+    return core.ws.robotImageDataUrl
+  })
+
   // Undo-Stack: speichert ImageData-Snapshots
   const undoStack = useRef<ImageData[]>([])
   // Flag, um pro Zeichenvorgang nur einmal zu pushen.
   const hasPushedUndo = useRef(false)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prevCount) => prevCount + 1)
-    }, 750)
-    return () => clearInterval(interval)
-  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -350,29 +349,78 @@ export function AppearanceModal() {
   ]
 
   return (
-    <div
-      className="bg-black/50 fixed inset-0 z-[150]"
-      onClick={() => {
-        setRobotImage(core.ws.robotImageDataUrl)
-        closeModal(core)
-      }}
-    >
+    <div className="bg-black/50 fixed inset-0 z-[1150]" onClick={() => {}}>
       {/* Modal mit angepasster Breite */}
       <div
-        className="fixed inset-8 bg-white z-[200] rounded-xl flex flex-col overflow-hidden"
+        className="fixed inset-8 bg-white z-[1200] rounded-xl flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300"
-          onClick={() => {
-            setRobotImage(core.ws.robotImageDataUrl)
-            closeModal(core)
-          }}
-        >
-          <FaIcon icon={faTimes} />
-        </button>
+        <div className="absolute top-3 right-3">
+          <button
+            className="py-1 px-3 rounded-full bg-red-200 hover:bg-red-300 mr-3"
+            onClick={() => {
+              submitAnalyzeEvent(core, 'ev_click_appearance_abort')
+              core.mutateWs((ws) => {
+                ws.robotImageDataUrl = originalImage
+              })
+              closeModal(core)
+            }}
+          >
+            abbrechen
+          </button>
+          <button
+            className="py-1 px-3 rounded-full bg-green-200 hover:bg-green-300"
+            onClick={() => {
+              submitAnalyzeEvent(core, 'ev_click_appearance_save')
+              setRobotImage(core.ws.robotImageDataUrl)
+              closeModal(core)
+            }}
+          >
+            Speichern und schließen
+          </button>
+        </div>
         <div className="flex w-full h-full">
-          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-white ">
+          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-white">
+            <div className="text-center mt-4">
+              <button
+                className="mr-4 text-gray-400 hover:text-gray-500"
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_appearance_prev')
+                  setCount((prev) => prev + 3)
+                }}
+              >
+                <FaIcon icon={faArrowLeft} />
+              </button>
+              <button
+                className="text-gray-400 hover:text-gray-500"
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_appearance_next')
+                  setCount((prev) => prev + 1)
+                }}
+              >
+                <FaIcon icon={faArrowRight} />
+              </button>
+            </div>
+            <div className="w-[120px] h-[120px] flex justify-center items-center -mt-3 mb-5">
+              <View
+                robotImageDataUrl={core.ws.robotImageDataUrl}
+                world={{
+                  dimX: 1,
+                  dimY: 1,
+                  karol: {
+                    x: 0,
+                    y: 0,
+                    dir: ['east', 'north', 'west', 'south'][
+                      count % 4
+                    ] as Heading,
+                  },
+                  blocks: [[false]],
+                  marks: [[false]],
+                  bricks: [[0]],
+                  height: 1,
+                }}
+              />
+            </div>
             <div className="flex flex-wrap justify-center gap-3 mt-3">
               <button
                 className={`px-3 py-1 border rounded ${
@@ -461,26 +509,6 @@ export function AppearanceModal() {
                   </button>
                 ))}
               </div>
-            </div>
-            <div className="w-[120px] h-[120px] flex justify-center items-center mt-8">
-              <View
-                robotImageDataUrl={core.ws.robotImageDataUrl}
-                world={{
-                  dimX: 1,
-                  dimY: 1,
-                  karol: {
-                    x: 0,
-                    y: 0,
-                    dir: ['east', 'north', 'west', 'south'][
-                      count % 4
-                    ] as Heading,
-                  },
-                  blocks: [[false]],
-                  marks: [[false]],
-                  bricks: [[0]],
-                  height: 1,
-                }}
-              />
             </div>
           </div>
           <div className="flex-grow flex-shrink flex flex-col">
