@@ -1,0 +1,241 @@
+{
+  "version": "v1",
+  "title": "Mark Mover 3",
+  "description": "Like Marker Indicator 2. However, if a brick is already present on a field, no second brick should be placed.",
+  "tasks": [
+    {
+      "title": "Welt 1",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 6,
+          "offsetX": 4,
+          "offsetY": 0,
+          "data": [[true], [false], [false], [false], [false], [true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 5, "dir": "west" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [1, 1, 1, 1, 1],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1]
+          ]
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 6,
+          "offsetX": 4,
+          "offsetY": 0,
+          "data": [[true], [false], [false], [false], [false], [true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Welt 2",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 1, "y": 6, "dir": "north" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 6,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 1],
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0],
+            [1, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, false, false, true],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 1, "y": 6, "dir": "north" },
+        "bricks": {
+          "dimX": 6,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [
+            [0, 1, 1, 1, 1, 1],
+            [0, 1, 0, 0, 0, 1],
+            [0, 1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1],
+            [0, 1, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 4,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, false, false, true],
+            [false, false, false, false, false],
+            [false, false, false, false, false],
+            [false, false, false, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Welt 3",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 3,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, false],
+            [false, false, false],
+            [false, false, true],
+            [false, false, false],
+            [true, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 3, "dir": "east" },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [
+            [0, 1, 1, 1, 1, 1, 1],
+            [0, 1, 0, 0, 0, 0, 0],
+            [1, 1, 1, 1, 0, 0, 0],
+            [0, 1, 0, 1, 0, 0, 0],
+            [0, 1, 1, 1, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 3,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, false],
+            [false, false, false],
+            [false, false, true],
+            [false, false, false],
+            [true, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "language": "blocks",
+  "program": "wiederhole solange NichtIstWand\n  wenn NichtIstZiegel dann\n    Hinlegen\n  endewenn\n  Schritt\n  wenn IstMarke dann\n    RechtsDrehen\n  endewenn\nendewiederhole"
+}

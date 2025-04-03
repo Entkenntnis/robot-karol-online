@@ -71,11 +71,13 @@ export const mapData: {
 
   56: { x: 830, y: 1030, deps: [55, 14], dir: 'west' },
 
-  45: { x: 750, y: 1180, deps: [56], dir: 'west' },
+  45: { x: 810, y: 1180, deps: [56], dir: 'west' },
 
   12: { x: 490, y: 960, deps: [4, 24, 58], dir: 'west' },
 
   57: { x: 560, y: 1060, deps: [4, 56, 58], dir: 'west' },
+
+  59: { x: 620, y: 1190, deps: [57], dir: 'west' },
 
   28: { x: 1100, y: 1040, deps: [14], dir: 'west' },
 
