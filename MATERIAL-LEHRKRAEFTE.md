@@ -1,24 +1,28 @@
 # Material für Lehrkräfte
 
-## Musterlösung zu den Aufgaben
+### Musterlösung zu den Aufgaben
 
 Bitte schreibe mir - Quinn Li (sie/ihr) - unter karol@arrrg.de eine kleine Nachricht um die Musterlösung zu Aufgaben im Selbst-Lern-Pfad zu erhalten.
 
-## Dokumentation
+### Dokumentation
 
 Eine Übersicht über den Funktionsumfang und die Befehle findest du in der [Dokumentation](https://github.com/Entkenntnis/robot-karol-online#readme).
 
-## Inspiration
+### Inspiration
 
 Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION).
 
-## Windows-Installer
+### Windows-Installer
 
-Lade dir die aktuellste `Robot.Karol.Online_x.x.x_x64_de-DE.msi` unter dem [neusten Release](https://github.com/Entkenntnis/robot-karol-online/releases/latest) herunter, um Robot Karol auch offline zu nutzen.
+Lade dir die aktuelle `Robot.Karol.Online_x.x.x_x64_de-DE.msi` (bei Assets) unter dem [neusten Release](https://github.com/Entkenntnis/robot-karol-online/releases/latest) herunter, um Robot Karol auch offline zu nutzen.
 
-## Einstieg mit Python
+### Einstieg mit Python
 
 Es gibt für den Einstieg einen <a href="https://raw.githubusercontent.com/Entkenntnis/robot-karol-online/main/material/Pythonkurs_mit_Robot_Karol_Online.pdf">Pythonkurs mit Robot Karol Online</a> mit dem gleichen Funktionsumfang wie die Blöcke.
+
+### Kahoot
+
+Für den Einstieg: https://create.kahoot.it/share/robot-karol-basics/ba4288fc-159b-4d2a-ac3c-1b90f730b7af
 
 <br /><br /><br /><br /><br />
 
