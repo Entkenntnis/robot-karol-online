@@ -15,6 +15,9 @@ const robotImageDictionary: { [key: string]: string } = {
   'd2EazjBvbNvg/k/SELmQT+D7Wxn/MCo1xXAAAAAElFTkSuQmCC': 'Amongay',
   '2vCNHoJMi9lHjX8P87A/8CQ5IRopzCYEcAAAAASUVORK5CYII=':
     'Cristiano Ronaldo mit Cap',
+  'f/Lt5M37Bu9iMz+iftaQ78H3jFS7dikxNYAAAAAElFTkSuQmCC': 'Among-Ally',
+  'Fta96mVf/XMu+lKzPI4i/AAVnyaXDI9gAAAABJRU5ErkJggg==':
+    'RKO PixelArt (default)',
 }
 
 export async function analyze(core: Core) {

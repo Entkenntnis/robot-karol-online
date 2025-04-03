@@ -539,9 +539,7 @@ export function AppearanceModal() {
 
                   if (dataUrl) {
                     // Absoluten Link konstruieren und in die Zwischenablage kopieren.
-                    const link = `${
-                      window.location.origin
-                    }/#ROBOT:${encodeURIComponent(dataUrl)}`
+                    const link = `${window.location.origin}/#ROBOT:${dataUrl}`
                     navigator.clipboard.writeText(link).then(() => {
                       alert(
                         'Link kopiert! Öffne den Link in einem Browser, um deine Figur zu laden.'
