@@ -1,4 +1,3 @@
-import { Shared } from '../../components/pages/Shared'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import { addConsoleMessage, addMessage } from './messages'
@@ -228,9 +227,12 @@ export function setupWorker(core: Core) {
       ui.keybindings = []
     })
 
+    const [mainCode, questScript] = code.split('###')
+
     core.worker.mainWorker.postMessage({
       type: 'run',
-      code,
+      code: mainCode.trim(),
+      questScript: questScript?.trim(),
       delayBuffer,
     })
   }

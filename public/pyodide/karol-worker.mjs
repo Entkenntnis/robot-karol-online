@@ -121,6 +121,11 @@ self.onmessage = async (event) => {
           },
         }
       },
+      __ide_setOnDone: (fn) => {
+        setTimeout(() => {
+          fn()
+        }, 3000)
+      },
     })
     sleep(150)
     try {
@@ -176,6 +181,12 @@ self.onmessage = async (event) => {
         },
       })
       pyodide.setDebug(true) // maybe helpful?
+      if (event.data.questScript) {
+        await pyodide.runPythonAsync(event.data.questScript, {
+          globals,
+          filename: 'QuestScript.py',
+        })
+      }
       const result = await pyodide.runPythonAsync(event.data.code, {
         globals,
         filename: 'Programm.py',
