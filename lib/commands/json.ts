@@ -33,6 +33,7 @@ export function serializeQuest(core: Core): QuestSerialFormat {
       core.ws.editor.editOptions === 'all'
         ? undefined
         : core.ws.editor.editOptions,
+    questScript: core.ws.editor.questScript,
   }
 
   if (core.ws.editor.saveProgram) {
@@ -155,6 +156,10 @@ export function deserializeQuest(
       } else {
         ws.settings.lng = 'de'
       }
+    }
+
+    if (quest.questScript) {
+      ws.editor.questScript = quest.questScript
     }
   })
 

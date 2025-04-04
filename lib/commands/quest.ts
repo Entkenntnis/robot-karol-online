@@ -144,6 +144,9 @@ export function startQuest(core: Core, id: number) {
     ui.showPreview = true
     ui.collapseDescription = false
     ui.show2D = false
+    ui.lockLanguage = undefined
+    ws.editor.questScript = ''
+    ui.isPlayground = false
   })
   switchToPage(core, 'quest')
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {

@@ -387,6 +387,7 @@ export interface QuestSerialFormat {
   editOptions?: 'python-only' | 'java-only' | 'karol-only' | 'python-pro-only'
   program?: string
   language?: 'blocks' | 'karol' | 'python' | 'java' | 'python-pro'
+  questScript?: string
 }
 
 export interface SerialWorld {

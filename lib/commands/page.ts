@@ -43,11 +43,22 @@ export function switchToPage(core: Core, target: Pages) {
           ws.code = ''
           ws.javaCode = ''
           ws.pythonCode = ''
+          ws.editor.questScript = ''
         }
 
         ui.resetCode = {}
         quest.id = -1
         ui.needsTextRefresh = true
+        editor.editOptions = 'all'
+        if (ui.lockLanguage == 'java') {
+          editor.editOptions = 'java-only'
+        } else if (ui.lockLanguage == 'python') {
+          editor.editOptions = 'python-only'
+        } else if (ui.lockLanguage == 'karol') {
+          editor.editOptions = 'karol-only'
+        } else if (ui.lockLanguage == 'python-pro') {
+          editor.editOptions = 'python-pro-only'
+        }
       })
     } else {
       core.mutateWs((ws) => {
@@ -63,6 +74,7 @@ export function switchToPage(core: Core, target: Pages) {
         ws.code = ''
         ws.javaCode = ''
         ws.pythonCode = ''
+        ws.editor.questScript = ''
         ui.errorMessages = []
         ui.collapseDescription = false
         ui.resetCode = {}
@@ -101,9 +113,6 @@ export function switchToPage(core: Core, target: Pages) {
   }
 
   if (target == 'quest') {
-    core.mutateWs(({ ui }) => {
-      ui.isPlayground = false
-    })
     document.title = core.ws.quest.title + ' | Robot Karol Online'
     if (pushHistory) history.pushState(null, '', '#QUEST-' + core.ws.quest.id)
     return

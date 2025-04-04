@@ -246,21 +246,28 @@ export function EditArea() {
               >
                 Beispiele
               </a>
-              <label className="ml-8">
-                <input
-                  type="checkbox"
-                  onChange={(e) => {
-                    const checked = e.target.checked
-                    core.mutateWs(({ ui }) => {
-                      ui.editQuestScript = checked
-                    })
-                    core.mutateWs((ws) => {
-                      ws.ui.needsTextRefresh = true
-                    })
-                  }}
-                ></input>{' '}
-                QuestScript bearbeiten
-              </label>
+              {core.ws.page == 'editor' && (
+                <label className="ml-8">
+                  <input
+                    type="checkbox"
+                    onChange={(e) => {
+                      const checked = e.target.checked
+                      core.mutateWs(({ ui }) => {
+                        ui.editQuestScript = checked
+                      })
+                      core.mutateWs((ws) => {
+                        ws.ui.needsTextRefresh = true
+                      })
+                      if (checked) {
+                        core.mutateWs(({ editor }) => {
+                          editor.editOptions = 'python-pro-only'
+                        })
+                      }
+                    }}
+                  ></input>{' '}
+                  QuestScript bearbeiten
+                </label>
+              )}
             </div>
           </>
         )}
