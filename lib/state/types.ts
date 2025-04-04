@@ -37,7 +37,6 @@ export interface Ui {
   proMode: boolean
   showOutput: boolean
   speedSliderValue: number
-  showPreviewOfTarget: boolean
   karolCrashMessage?: string
   isManualAbort: boolean
   isEndOfRun: boolean

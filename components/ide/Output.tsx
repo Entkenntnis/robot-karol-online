@@ -35,12 +35,19 @@ export function Output() {
     core.ws.quest.lastStartedTask !== undefined &&
     !!core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target
 
-  const preview =
-    core.ws.ui.showPreviewOfTarget && hasPreview && core.ws.ui.showPreview
+  const preview = core.ws.ui.isTesting
+    ? core.ws.quest.lastStartedTask !== undefined
       ? {
-          world: core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!,
+          world:
+            core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target ??
+            core.ws.quest.tasks[core.ws.quest.lastStartedTask!].start,
         }
       : undefined
+    : hasPreview && core.ws.ui.showPreview
+    ? {
+        world: core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!,
+      }
+    : undefined
 
   return (
     <div className="flex flex-col h-full relative">

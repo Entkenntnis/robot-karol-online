@@ -284,25 +284,25 @@ function karolCrashed(core: Core, error: string) {
 export function onWorldChange(core: Core) {
   if (core.ws.quest.lastStartedTask === undefined) return
   const task = core.ws.quest.tasks[core.ws.quest.lastStartedTask]
-  if (task.target === null) return
+  const target = task.target ? task.target : task.start
 
   if (core.ws.editor.editWorld !== null) return
 
   let correctFields = 0
   let nonEmptyFields = 0
-  for (let x = 0; x < task.target.dimX; x++) {
-    for (let y = 0; y < task.target.dimY; y++) {
-      if (task.target.bricks[y][x] > 0) {
+  for (let x = 0; x < target.dimX; x++) {
+    for (let y = 0; y < target.dimY; y++) {
+      if (target.bricks[y][x] > 0) {
         nonEmptyFields++
-        if (core.ws.world.bricks[y][x] == task.target.bricks[y][x]) {
+        if (core.ws.world.bricks[y][x] == target.bricks[y][x]) {
           correctFields++
         }
       } else {
-        if (core.ws.world.bricks[y][x] !== task.target.bricks[y][x]) {
+        if (core.ws.world.bricks[y][x] !== target.bricks[y][x]) {
           correctFields--
         }
       }
-      if (task.target.marks[y][x]) {
+      if (target.marks[y][x]) {
         nonEmptyFields++
         if (core.ws.world.marks[y][x]) {
           correctFields++

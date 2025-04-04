@@ -75,12 +75,6 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
   updatePlaygroundHashToMode(core)
 }
 
-export function setShowTarget(core: Core, val: boolean) {
-  core.mutateWs(({ ui }) => {
-    ui.showPreviewOfTarget = val
-  })
-}
-
 export function setSpeedSliderValue(core: Core, val: number) {
   core.mutateWs((ws) => {
     ws.vm.isDebugging = false

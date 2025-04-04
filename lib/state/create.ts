@@ -31,7 +31,6 @@ export function createWorkspaceState(): WorkspaceState {
       pythonProCanSwitch: true,
       showOutput: false,
       speedSliderValue: 7,
-      showPreviewOfTarget: true,
       isManualAbort: false,
       isEndOfRun: false,
       freezeCode: false,
