@@ -69,6 +69,7 @@ export interface Ui {
   returnToDemoPage: boolean
   newRobotImage?: string
   questPrompt?: string
+  editQuestScript: boolean
 }
 
 export interface Vm {
@@ -104,6 +105,7 @@ export interface Editor {
     | 'python-pro-only'
   saveProgram: boolean
   keepQuest: boolean
+  questScript: string
 }
 
 export interface Quest {

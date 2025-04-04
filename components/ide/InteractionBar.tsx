@@ -32,7 +32,8 @@ export function InteractionBar() {
       )) ||
     !!core.ws.ui.lockLanguage ||
     !core.ws.ui.pythonProCanSwitch ||
-    core.ws.ui.proMode
+    core.ws.ui.proMode ||
+    core.ws.ui.editQuestScript
   return (
     <div
       className={clsx(

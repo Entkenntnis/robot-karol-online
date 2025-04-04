@@ -33,13 +33,14 @@ export function EditArea() {
         changes: {
           from: 0,
           to: view.current.state.doc.length,
-          insert:
-            core.ws.settings.language == 'robot karol'
-              ? core.ws.code
-              : core.ws.settings.language == 'python' ||
-                core.ws.settings.language == 'python-pro'
-              ? core.ws.pythonCode
-              : core.ws.javaCode,
+          insert: core.ws.ui.editQuestScript
+            ? core.ws.editor.questScript
+            : core.ws.settings.language == 'robot karol'
+            ? core.ws.code
+            : core.ws.settings.language == 'python' ||
+              core.ws.settings.language == 'python-pro'
+            ? core.ws.pythonCode
+            : core.ws.javaCode,
         },
       })
       forceLinting(view.current)
@@ -245,6 +246,21 @@ export function EditArea() {
               >
                 Beispiele
               </a>
+              <label className="ml-8">
+                <input
+                  type="checkbox"
+                  onChange={(e) => {
+                    const checked = e.target.checked
+                    core.mutateWs(({ ui }) => {
+                      ui.editQuestScript = checked
+                    })
+                    core.mutateWs((ws) => {
+                      ws.ui.needsTextRefresh = true
+                    })
+                  }}
+                ></input>{' '}
+                QuestScript bearbeiten
+              </label>
             </div>
           </>
         )}
