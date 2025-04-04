@@ -63,7 +63,7 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.see('Spiegelei')
 })
 
-Scenario.only('See if playground works fine', ({ I }) => {
+Scenario('See if playground works fine', ({ I }) => {
   I.amOnPage('/')
   I.click('Spielwiese')
   I.seeTitleEquals('Spielwiese')
