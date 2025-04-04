@@ -250,12 +250,10 @@ export function setupWorker(core: Core) {
       ui.keybindings = []
     })
 
-    const [mainCode, questScript] = code.split('###')
-
     core.worker.mainWorker.postMessage({
       type: 'run',
-      code: mainCode.trim(),
-      questScript: questScript?.trim(),
+      code,
+      questScript: core.ws.editor.questScript, // todo: currently only working within the editor
       delayBuffer,
     })
   }
