@@ -28,105 +28,98 @@ self.onmessage = async (event) => {
     delay = new Int32Array(event.data.delayBuffer)
     lastStepTs = performance.now() * 1000
     // console.log('Running Python code:', event.data.code)
-    const globals = pyodide.toPy({
-      Robot: () => {
-        return {
-          schritt: (n = 1) => {
-            const count = isNaN(n) ? 1 : n
-            for (let i = 0; i < count; i++) {
-              self.postMessage({ type: 'action', action: 'schritt' })
-              sleepWithDelay()
-            }
-          },
-          linksDrehen: (n = 1) => {
-            const count = isNaN(n) ? 1 : n
-            for (let i = 0; i < count; i++) {
-              self.postMessage({ type: 'action', action: 'linksDrehen' })
-              sleepWithDelay()
-            }
-          },
-          rechtsDrehen: (n = 1) => {
-            const count = isNaN(n) ? 1 : n
-            for (let i = 0; i < count; i++) {
-              self.postMessage({ type: 'action', action: 'rechtsDrehen' })
-              sleepWithDelay()
-            }
-          },
-          hinlegen: (n = 1) => {
-            const count = isNaN(n) ? 1 : n
-            for (let i = 0; i < count; i++) {
-              self.postMessage({ type: 'action', action: 'hinlegen' })
-              sleepWithDelay()
-            }
-          },
-          aufheben: (n = 1) => {
-            const count = isNaN(n) ? 1 : n
-            for (let i = 0; i < count; i++) {
-              self.postMessage({ type: 'action', action: 'aufheben' })
-              sleepWithDelay()
-            }
-          },
-          markeSetzen: (n = 1) => {
-            self.postMessage({ type: 'action', action: 'markeSetzen' })
+    const Robot = () => {
+      return {
+        schritt: (n = 1) => {
+          const count = isNaN(n) ? 1 : n
+          for (let i = 0; i < count; i++) {
+            self.postMessage({ type: 'action', action: 'schritt' })
             sleepWithDelay()
-          },
-          markeLöschen: (n = 1) => {
-            self.postMessage({ type: 'action', action: 'markeLöschen' })
+          }
+        },
+        linksDrehen: (n = 1) => {
+          const count = isNaN(n) ? 1 : n
+          for (let i = 0; i < count; i++) {
+            self.postMessage({ type: 'action', action: 'linksDrehen' })
             sleepWithDelay()
-          },
-          istWand: (direction = null) => {
-            return checkCondition({ type: 'wall', negated: false, direction })
-          },
-          nichtIstWand: (direction = null) => {
-            return checkCondition({ type: 'wall', negated: true, direction })
-          },
-          istMarke: () => {
-            return checkCondition({ type: 'mark', negated: false })
-          },
-          nichtIstMarke: () => {
-            return checkCondition({ type: 'mark', negated: true })
-          },
-          istZiegel: (count = undefined) => {
-            return checkCondition({ type: 'brick', negated: false, count })
-          },
-          nichtIstZiegel: (count = undefined) => {
-            return checkCondition({ type: 'brick', negated: true, count })
-          },
-          istNorden: () => {
-            return checkCondition({ type: 'north', negated: false })
-          },
-          nichtIstNorden: () => {
-            return checkCondition({ type: 'north', negated: true })
-          },
-          istOsten: () => {
-            return checkCondition({ type: 'east', negated: false })
-          },
-          nichtIstOsten: () => {
-            return checkCondition({ type: 'east', negated: true })
-          },
-          istSüden: () => {
-            return checkCondition({ type: 'south', negated: false })
-          },
-          nichtIstSüden: () => {
-            return checkCondition({ type: 'south', negated: true })
-          },
-          istWesten: () => {
-            return checkCondition({ type: 'west', negated: false })
-          },
-          nichtIstWesten: () => {
-            return checkCondition({ type: 'west', negated: true })
-          },
-          beenden: () => {
-            self.postMessage({ type: 'action', action: 'beenden' })
-          },
-        }
-      },
-      __ide_setOnDone: (fn) => {
-        setTimeout(() => {
-          fn()
-        }, 3000)
-      },
-    })
+          }
+        },
+        rechtsDrehen: (n = 1) => {
+          const count = isNaN(n) ? 1 : n
+          for (let i = 0; i < count; i++) {
+            self.postMessage({ type: 'action', action: 'rechtsDrehen' })
+            sleepWithDelay()
+          }
+        },
+        hinlegen: (n = 1) => {
+          const count = isNaN(n) ? 1 : n
+          for (let i = 0; i < count; i++) {
+            self.postMessage({ type: 'action', action: 'hinlegen' })
+            sleepWithDelay()
+          }
+        },
+        aufheben: (n = 1) => {
+          const count = isNaN(n) ? 1 : n
+          for (let i = 0; i < count; i++) {
+            self.postMessage({ type: 'action', action: 'aufheben' })
+            sleepWithDelay()
+          }
+        },
+        markeSetzen: (n = 1) => {
+          self.postMessage({ type: 'action', action: 'markeSetzen' })
+          sleepWithDelay()
+        },
+        markeLöschen: (n = 1) => {
+          self.postMessage({ type: 'action', action: 'markeLöschen' })
+          sleepWithDelay()
+        },
+        istWand: (direction = null) => {
+          return checkCondition({ type: 'wall', negated: false, direction })
+        },
+        nichtIstWand: (direction = null) => {
+          return checkCondition({ type: 'wall', negated: true, direction })
+        },
+        istMarke: () => {
+          return checkCondition({ type: 'mark', negated: false })
+        },
+        nichtIstMarke: () => {
+          return checkCondition({ type: 'mark', negated: true })
+        },
+        istZiegel: (count = undefined) => {
+          return checkCondition({ type: 'brick', negated: false, count })
+        },
+        nichtIstZiegel: (count = undefined) => {
+          return checkCondition({ type: 'brick', negated: true, count })
+        },
+        istNorden: () => {
+          return checkCondition({ type: 'north', negated: false })
+        },
+        nichtIstNorden: () => {
+          return checkCondition({ type: 'north', negated: true })
+        },
+        istOsten: () => {
+          return checkCondition({ type: 'east', negated: false })
+        },
+        nichtIstOsten: () => {
+          return checkCondition({ type: 'east', negated: true })
+        },
+        istSüden: () => {
+          return checkCondition({ type: 'south', negated: false })
+        },
+        nichtIstSüden: () => {
+          return checkCondition({ type: 'south', negated: true })
+        },
+        istWesten: () => {
+          return checkCondition({ type: 'west', negated: false })
+        },
+        nichtIstWesten: () => {
+          return checkCondition({ type: 'west', negated: true })
+        },
+        beenden: () => {
+          self.postMessage({ type: 'action', action: 'beenden' })
+        },
+      }
+    }
     sleep(150)
     try {
       pyodide.setStdout({
@@ -183,21 +176,52 @@ self.onmessage = async (event) => {
       pyodide.setDebug(true) // maybe helpful?
       if (event.data.questScript) {
         await pyodide.runPythonAsync(event.data.questScript, {
-          globals,
+          globals: pyodide.toPy({
+            Robot,
+            __ide_run_client: () => {
+              pyodide.runPython(event.data.code, {
+                globals: pyodide.toPy({
+                  Robot,
+                }),
+                filename: 'Programm.py',
+              })
+            },
+            __ide_set_progress: (progress) => {
+              self.postMessage({
+                type: 'progress',
+                progress,
+              })
+            },
+            __ide_prompt: (message) => {
+              const confirmBuffer = new SharedArrayBuffer(
+                Int32Array.BYTES_PER_ELEMENT
+              )
+              const sharedArray = new Int32Array(confirmBuffer)
+              sharedArray[0] = 42 // no data yet
+              self.postMessage({
+                type: 'prompt',
+                confirmBuffer,
+                message,
+              })
+              Atomics.wait(sharedArray, 0, 42)
+            },
+          }),
           filename: 'QuestScript.py',
         })
+        self.postMessage('done')
+      } else {
+        const result = await pyodide.runPythonAsync(event.data.code, {
+          globals: pyodide.toPy({ Robot }),
+          filename: 'Programm.py',
+        })
+        console.log('Python code result:', result)
+        self.postMessage('done')
       }
-      const result = await pyodide.runPythonAsync(event.data.code, {
-        globals,
-        filename: 'Programm.py',
-      })
-      console.log('Python code result:', result)
     } catch (error) {
       console.log('error!!!', error)
       self.postMessage({ type: 'error', error: error.message })
       return
     }
-    self.postMessage('done')
   }
 }
 

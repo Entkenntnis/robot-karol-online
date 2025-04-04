@@ -18,6 +18,7 @@ import {
 } from '@codemirror/commands'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { BlockEditor } from './BlockEditor'
+import { QuestPrompt } from '../helper/QuestPrompt'
 
 export function EditArea() {
   const core = useCore()
@@ -288,6 +289,9 @@ export function EditArea() {
               </div>
             </div>
           </div>
+        )}
+        {core.ws.ui.errorMessages.length == 0 && core.ws.ui.questPrompt && (
+          <QuestPrompt key={core.ws.ui.questPrompt} />
         )}
       </div>
     )

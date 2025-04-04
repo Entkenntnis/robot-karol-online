@@ -68,6 +68,7 @@ export interface Ui {
   resetCode: { [key: string]: [string, string] }
   returnToDemoPage: boolean
   newRobotImage?: string
+  questPrompt?: string
 }
 
 export interface Vm {
@@ -445,6 +446,7 @@ export interface PyodideWorker {
   reset: () => void
   input: (input: string) => void
   sharedArrayDelay: Int32Array
+  questPromptConfirm?: Int32Array
 }
 
 export interface PlaygroundHashData {
