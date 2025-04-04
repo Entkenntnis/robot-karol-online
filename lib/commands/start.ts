@@ -2,6 +2,7 @@ import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import { runTask, closeOutput, startTesting, restartProgram } from './quest'
 import { abort } from './vm'
+import { twoWorldsEqual } from './world'
 
 export function startButtonClicked(core: Core) {
   if (core.ws.editor.editWorld !== null && core.ws.ui.state == 'ready') {
@@ -22,7 +23,12 @@ export function startButtonClicked(core: Core) {
     return
   }
   if (!core.ws.ui.showOutput && core.ws.ui.state == 'ready') {
-    if (core.ws.ui.isPlayground) {
+    if (
+      core.ws.ui.isPlayground ||
+      core.ws.quest.tasks.every(
+        (t) => !t.target || twoWorldsEqual(t.start, t.target)
+      )
+    ) {
       runTask(core, 0)
     } else {
       startTesting(core)
