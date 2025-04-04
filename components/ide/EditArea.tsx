@@ -247,7 +247,7 @@ export function EditArea() {
                 Beispiele
               </a>
               {core.ws.page == 'editor' && (
-                <label className="ml-8">
+                <label className="ml-8 text-gray-500">
                   <input
                     type="checkbox"
                     onChange={(e) => {
@@ -265,7 +265,7 @@ export function EditArea() {
                       }
                     }}
                   ></input>{' '}
-                  QuestScript bearbeiten
+                  QuestScript bearbeiten (experimentell)
                 </label>
               )}
             </div>

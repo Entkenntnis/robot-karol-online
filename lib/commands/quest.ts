@@ -32,7 +32,13 @@ export function runTask(core: Core, index: number) {
   })
 
   if (core.ws.ui.state == 'ready') {
-    if (!core.ws.ui.isTesting && core.ws.page != 'editor') {
+    if (
+      !core.ws.ui.isTesting &&
+      core.ws.page != 'editor' &&
+      !core.ws.quest.tasks.every(
+        (t) => !t.target || twoWorldsEqual(t.start, t.target)
+      )
+    ) {
       core.executionEndCallback = () => {
         if (
           core.ws.quest.progress &&
