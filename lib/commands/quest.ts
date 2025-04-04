@@ -237,6 +237,11 @@ export function startTesting(core: Core) {
     quest.progress = false
     ui.isAlreadyCompleted = false
     quest.lastStartedTask = 0
+    for (let i = 0; i < quest.tasks.length; i++) {
+      if (!quest.tasks[i].target) {
+        quest.tasks[i].target = quest.tasks[i].start
+      }
+    }
   })
 
   if (core.ws.ui.state == 'error') {
