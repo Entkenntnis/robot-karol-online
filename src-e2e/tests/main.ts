@@ -123,3 +123,24 @@ Scenario('Test special case of empty world in standalone quest', ({ I }) => {
   I.click('Start')
   I.waitForText('Yay!', 20)
 })
+
+Scenario('Playground should not test for success', ({ I }) => {
+  I.amOnPage('/#SPIELWIESE-CODE')
+  I.click('div .cm-activeLine')
+  I.type('Hinlegen')
+  I.click('Start')
+  I.wait(2)
+  I.waitForText('Ausführung beendet', 10)
+})
+
+Scenario('Empty world should not continue testing', ({ I }) => {
+  I.amOnPage('/#BB82')
+  I.wait(0.5)
+  I.click({ css: '#select-language' })
+  I.click({ css: '#select-language-robot-karol' })
+  I.type('Hinlegen')
+  I.click({ css: 'h2.font-bold' })
+  I.click('Start')
+  I.wait(2)
+  I.see('Ausführung beendet')
+})
