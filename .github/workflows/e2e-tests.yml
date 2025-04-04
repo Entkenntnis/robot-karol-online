@@ -13,6 +13,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # if /src-e2e constains the string Scenario.only, fail the job
+      - name: Check for Scenario.only
+        run: |
+          if grep -q "Scenario.only" src-e2e/**/*.ts; then
+            echo "Scenario.only found in src-e2e, failing the job."
+            exit 1
+          fi
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
