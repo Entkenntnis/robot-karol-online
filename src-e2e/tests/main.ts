@@ -135,7 +135,7 @@ Scenario('Playground should not test for success', ({ I }) => {
 
 Scenario('Empty world should not continue testing', ({ I }) => {
   I.amOnPage('/#BB82')
-  I.wait(0.5)
+  I.waitForText('Start', 5)
   I.click({ css: '#select-language' })
   I.click({ css: '#select-language-robot-karol' })
   I.type('Hinlegen')
