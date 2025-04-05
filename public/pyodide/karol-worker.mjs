@@ -192,7 +192,7 @@ self.onmessage = async (event) => {
                 progress,
               })
             },
-            __ide_prompt: (message) => {
+            __ide_prompt: (message, confirm) => {
               const confirmBuffer = new SharedArrayBuffer(
                 Int32Array.BYTES_PER_ELEMENT
               )
@@ -202,8 +202,10 @@ self.onmessage = async (event) => {
                 type: 'prompt',
                 confirmBuffer,
                 message,
+                confirm: confirm || undefined,
               })
               Atomics.wait(sharedArray, 0, 42)
+              sleep(100)
             },
           }),
           filename: 'QuestScript.py',

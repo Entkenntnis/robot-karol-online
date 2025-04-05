@@ -172,6 +172,7 @@ export function setupWorker(core: Core) {
     ) {
       core.mutateWs((ws) => {
         ws.ui.questPrompt = event.data.message
+        ws.ui.questPromptConfirm = event.data.confirm
       })
       const sharedArray = new Int32Array(event.data.confirmBuffer)
       core.worker.questPromptConfirm = sharedArray

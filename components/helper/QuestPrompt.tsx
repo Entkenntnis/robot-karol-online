@@ -27,7 +27,7 @@ export function QuestPrompt() {
         (prev) => prev + core.ws.ui.questPrompt?.charAt(currentIndex)
       )
       setCurrentIndex((prev) => prev + 1)
-    }, 50)
+    }, 25)
 
     return () => clearTimeout(timeout)
   }, [currentIndex, core.ws.ui.questPrompt])
@@ -57,7 +57,7 @@ export function QuestPrompt() {
             }
           }}
         >
-          weiter
+          {core.ws.ui.questPromptConfirm ?? 'weiter'}
         </button>
       </div>
     </div>

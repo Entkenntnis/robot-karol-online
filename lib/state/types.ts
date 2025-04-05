@@ -69,6 +69,7 @@ export interface Ui {
   returnToDemoPage: boolean
   newRobotImage?: string
   questPrompt?: string
+  questPromptConfirm?: string
   editQuestScript: boolean
 }
 
