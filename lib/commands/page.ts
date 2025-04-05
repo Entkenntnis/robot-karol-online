@@ -80,6 +80,7 @@ export function switchToPage(core: Core, target: Pages) {
         ui.resetCode = {}
         ui.sharedQuestId = undefined
         ui.pythonProCanSwitch = true
+        ui.lockLanguage = undefined
         ws.settings.language = 'robot karol'
         ws.settings.mode = 'blocks'
       })
