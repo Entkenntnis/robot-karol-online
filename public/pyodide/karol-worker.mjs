@@ -19,7 +19,6 @@ self.onmessage = async (event) => {
       initStarted = true
       pyodide = await loadPyodide()
       pyodide.runPython(`import sys; sys.version`)
-      // console.log('Pyodide warmup abgeschlossen')
       self.postMessage('ready')
     }
   }
@@ -27,12 +26,21 @@ self.onmessage = async (event) => {
   if (event.data.type === 'run') {
     delay = new Int32Array(event.data.delayBuffer)
     lastStepTs = performance.now() * 1000
-    // console.log('Running Python code:', event.data.code)
+    const traceback = pyodide.pyimport('traceback')
+    function highlightCurrentLine() {
+      const stack = traceback.extract_stack()
+      const line = stack[stack.length - 1].lineno
+      self.postMessage({
+        type: 'highlight',
+        line,
+      })
+    }
     const Robot = () => {
       return {
         schritt: (n = 1) => {
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
+            highlightCurrentLine()
             self.postMessage({ type: 'action', action: 'schritt' })
             sleepWithDelay()
           }
@@ -40,6 +48,7 @@ self.onmessage = async (event) => {
         linksDrehen: (n = 1) => {
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
+            highlightCurrentLine()
             self.postMessage({ type: 'action', action: 'linksDrehen' })
             sleepWithDelay()
           }
@@ -47,6 +56,7 @@ self.onmessage = async (event) => {
         rechtsDrehen: (n = 1) => {
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
+            highlightCurrentLine()
             self.postMessage({ type: 'action', action: 'rechtsDrehen' })
             sleepWithDelay()
           }
@@ -54,6 +64,7 @@ self.onmessage = async (event) => {
         hinlegen: (n = 1) => {
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
+            highlightCurrentLine()
             self.postMessage({ type: 'action', action: 'hinlegen' })
             sleepWithDelay()
           }
@@ -61,15 +72,18 @@ self.onmessage = async (event) => {
         aufheben: (n = 1) => {
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
+            highlightCurrentLine()
             self.postMessage({ type: 'action', action: 'aufheben' })
             sleepWithDelay()
           }
         },
         markeSetzen: (n = 1) => {
+          highlightCurrentLine()
           self.postMessage({ type: 'action', action: 'markeSetzen' })
           sleepWithDelay()
         },
         markeLöschen: (n = 1) => {
+          highlightCurrentLine()
           self.postMessage({ type: 'action', action: 'markeLöschen' })
           sleepWithDelay()
         },
@@ -228,15 +242,13 @@ self.onmessage = async (event) => {
         })
         self.postMessage('done')
       } else {
-        const result = await pyodide.runPythonAsync(event.data.code, {
+        await pyodide.runPythonAsync(event.data.code, {
           globals,
           filename: 'Programm.py',
         })
-        console.log('Python code result:', result)
         self.postMessage('done')
       }
     } catch (error) {
-      console.log('error!!!', error)
       self.postMessage({ type: 'error', error: error.message })
       return
     }
@@ -260,9 +272,7 @@ function sleepWithDelay() {
 function sleep(ms) {
   const x = new WebAssembly.Memory({ shared: true, initial: 1, maximum: 1 })
   const b = new Int32Array(x.buffer)
-  // console.log('before sleep')
   Atomics.wait(b, 0, 0, ms)
-  // console.log('After sleep')
 }
 
 function checkCondition(cond) {
