@@ -72,7 +72,9 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
     if (currentEditor) {
       const view: EditorView = new EditorView({
         state: EditorState.create({
-          doc: core.ws.pythonCode,
+          doc: core.ws.ui.editQuestScript
+            ? core.ws.editor.questScript
+            : core.ws.pythonCode,
           extensions: [
             buildGutterWithBreakpoints(core),
             lineNumbers(),
@@ -143,7 +145,11 @@ export function lint(core: Core, view: EditorView) {
   const code = view.state.doc.sliceString(0)
   // console.log(code)
   core.mutateWs((state) => {
-    state.pythonCode = code
+    if (core.ws.ui.editQuestScript) {
+      state.editor.questScript = code
+    } else {
+      state.pythonCode = code
+    }
   })
 
   if (core.ws.ui.state == 'running' || !view) {

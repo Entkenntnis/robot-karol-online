@@ -24,7 +24,7 @@ export function runTask(core: Core, index: number) {
     ws.ui.showStructogram = false
     ws.quest.lastStartedTask = index
     ws.quest.progress = false
-    if (!ws.ui.isPlayground) {
+    if (!ws.ui.isPlayground && !ws.editor.questScript) {
       if (!task.target || twoWorldsEqual(task.start, task.target)) {
         ws.quest.progress = true
       }
@@ -32,7 +32,13 @@ export function runTask(core: Core, index: number) {
   })
 
   if (core.ws.ui.state == 'ready') {
-    if (!core.ws.ui.isTesting && core.ws.page != 'editor') {
+    if (
+      !core.ws.ui.isTesting &&
+      core.ws.page != 'editor' &&
+      !core.ws.quest.tasks.every(
+        (t) => !t.target || twoWorldsEqual(t.start, t.target)
+      )
+    ) {
       core.executionEndCallback = () => {
         if (
           core.ws.quest.progress &&
@@ -49,6 +55,24 @@ export function runTask(core: Core, index: number) {
               startTesting(core)
             }, 500)
           }
+        }
+      }
+    } else if (
+      core.ws.editor.questScript &&
+      core.ws.quest.tasks.length == 1 &&
+      index == 0
+    ) {
+      // quest scripts should control success manually
+      core.executionEndCallback = () => {
+        if (
+          core.ws.quest.progress &&
+          !core.ws.ui.karolCrashMessage &&
+          !core.ws.ui.isManualAbort
+        ) {
+          core.mutateWs((ws) => {
+            ws.ui.controlBarShowFinishQuest = true
+          })
+          showModal(core, 'success')
         }
       }
     }
@@ -144,6 +168,26 @@ export function startQuest(core: Core, id: number) {
     ui.showPreview = true
     ui.collapseDescription = false
     ui.show2D = false
+    ui.lockLanguage = undefined
+    ui.pythonProCanSwitch = true
+    ui.isPlayground = false
+    ui.editQuestScript = false
+    if (data.script) {
+      // I'm only setting python pro on default for quests that have a script
+      ws.pythonCode = data.script.program
+      ws.editor.questScript = data.script.questScript
+      ws.settings.language = 'python-pro'
+      ws.ui.lockLanguage = 'python-pro'
+      ws.settings.mode = 'code'
+    } else if (
+      ws.settings.language == 'python-pro' &&
+      ws.settings.mode == 'code'
+    ) {
+      // Users always have to explicitly select python pro for quests
+      ws.settings.language = 'robot karol'
+      ws.settings.mode = 'blocks'
+      ws.ui.lockLanguage = undefined
+    }
   })
   switchToPage(core, 'quest')
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {

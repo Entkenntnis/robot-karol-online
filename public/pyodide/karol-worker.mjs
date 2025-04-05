@@ -176,17 +176,60 @@ self.onmessage = async (event) => {
         },
       })
       pyodide.setDebug(true) // maybe helpful?
-      const result = await pyodide.runPythonAsync(event.data.code, {
-        globals,
-        filename: 'Programm.py',
-      })
-      console.log('Python code result:', result)
+      if (event.data.questScript) {
+        await pyodide.runPythonAsync(event.data.questScript, {
+          globals,
+          locals: pyodide.toPy({
+            __ide_run_client: () => {
+              pyodide.runPython(event.data.code, {
+                globals,
+                filename: 'Programm.py',
+              })
+            },
+            __ide_set_progress: (progress) => {
+              self.postMessage({
+                type: 'progress',
+                progress,
+              })
+            },
+            __ide_prompt: (message, confirm) => {
+              const confirmBuffer = new SharedArrayBuffer(
+                Int32Array.BYTES_PER_ELEMENT
+              )
+              const sharedArray = new Int32Array(confirmBuffer)
+              sharedArray[0] = 42 // no data yet
+              self.postMessage({
+                type: 'prompt',
+                confirmBuffer,
+                message,
+                confirm: confirm || undefined,
+              })
+              Atomics.wait(sharedArray, 0, 42)
+              sleep(100)
+            },
+            __ide_submit: (key) => {
+              self.postMessage({
+                type: 'submit',
+                key,
+              })
+            },
+          }),
+          filename: 'QuestScript.py',
+        })
+        self.postMessage('done')
+      } else {
+        const result = await pyodide.runPythonAsync(event.data.code, {
+          globals,
+          filename: 'Programm.py',
+        })
+        console.log('Python code result:', result)
+        self.postMessage('done')
+      }
     } catch (error) {
       console.log('error!!!', error)
       self.postMessage({ type: 'error', error: error.message })
       return
     }
-    self.postMessage('done')
   }
 }
 

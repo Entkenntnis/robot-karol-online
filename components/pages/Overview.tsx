@@ -240,6 +240,20 @@ export function Overview() {
                     Highscore
                   </button>
                 </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      // open feedback form in new tab
+                      submitAnalyzeEvent(core, 'ev_click_landing_video')
+                      window.open(
+                        'https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8',
+                        '_blank'
+                      )
+                    }}
+                  >
+                    Video-Erklärungen <FaIcon icon={faExternalLink} />
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
@@ -455,29 +469,6 @@ export function Overview() {
                       </button>
                     </p>
                   </div>
-                )}
-                {core.ws.settings.lng === 'de' && (
-                  <button
-                    className={clsx(
-                      'absolute top-[47px] left-[990px] block z-10 hover:bg-gray-100/60 rounded-xl',
-                      'w-[120px] cursor-pointer'
-                    )}
-                    onClick={() => {
-                      // open feedback form in new tab
-                      submitAnalyzeEvent(core, 'ev_click_landing_video')
-                      window.open(
-                        'https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8',
-                        '_blank'
-                      )
-                    }}
-                  >
-                    <p className="text-center">Video-Anleitungen</p>
-                    <img
-                      src="/youtube.png"
-                      alt="Youtube-Symbol"
-                      className="w-[50px] mx-auto mb-2"
-                    />
-                  </button>
                 )}
                 <button
                   className={clsx(

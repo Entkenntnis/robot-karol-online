@@ -200,6 +200,8 @@ export function buildPlayground(core: Core) {
     ws.code = ''
     ws.javaCode = ''
     ws.pythonCode = ''
+    ws.editor.questScript = ''
+    ws.ui.lockLanguage = undefined
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.isAlreadyCompleted = false
   })

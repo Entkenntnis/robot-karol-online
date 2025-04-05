@@ -58,6 +58,7 @@ export function createWorkspaceState(): WorkspaceState {
       showFlyoutMenu: false,
       resetCode: {},
       returnToDemoPage: false,
+      editQuestScript: false,
     },
     vm: {
       pc: 0,
@@ -89,6 +90,7 @@ export function createWorkspaceState(): WorkspaceState {
       editOptions: 'all',
       saveProgram: true,
       keepQuest: false,
+      questScript: '',
     },
     analyze: {
       published: [],

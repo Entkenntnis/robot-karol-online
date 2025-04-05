@@ -18,6 +18,7 @@ import {
 } from '@codemirror/commands'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { BlockEditor } from './BlockEditor'
+import { QuestPrompt } from '../helper/QuestPrompt'
 
 export function EditArea() {
   const core = useCore()
@@ -32,13 +33,14 @@ export function EditArea() {
         changes: {
           from: 0,
           to: view.current.state.doc.length,
-          insert:
-            core.ws.settings.language == 'robot karol'
-              ? core.ws.code
-              : core.ws.settings.language == 'python' ||
-                core.ws.settings.language == 'python-pro'
-              ? core.ws.pythonCode
-              : core.ws.javaCode,
+          insert: core.ws.ui.editQuestScript
+            ? core.ws.editor.questScript
+            : core.ws.settings.language == 'robot karol'
+            ? core.ws.code
+            : core.ws.settings.language == 'python' ||
+              core.ws.settings.language == 'python-pro'
+            ? core.ws.pythonCode
+            : core.ws.javaCode,
         },
       })
       forceLinting(view.current)
@@ -244,6 +246,28 @@ export function EditArea() {
               >
                 Beispiele
               </a>
+              {core.ws.page == 'editor' && (
+                <label className="ml-8 text-gray-500">
+                  <input
+                    type="checkbox"
+                    onChange={(e) => {
+                      const checked = e.target.checked
+                      core.mutateWs(({ ui }) => {
+                        ui.editQuestScript = checked
+                      })
+                      core.mutateWs((ws) => {
+                        ws.ui.needsTextRefresh = true
+                      })
+                      if (checked) {
+                        core.mutateWs(({ editor }) => {
+                          editor.editOptions = 'python-pro-only'
+                        })
+                      }
+                    }}
+                  ></input>{' '}
+                  QuestScript bearbeiten (experimentell)
+                </label>
+              )}
             </div>
           </>
         )}
@@ -288,6 +312,9 @@ export function EditArea() {
               </div>
             </div>
           </div>
+        )}
+        {core.ws.ui.errorMessages.length == 0 && core.ws.ui.questPrompt && (
+          <QuestPrompt key={core.ws.ui.questPrompt} />
         )}
       </div>
     )

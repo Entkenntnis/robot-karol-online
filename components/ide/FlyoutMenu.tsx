@@ -20,6 +20,8 @@ import { setLngStorage } from '../../lib/storage/storage'
 import { showModal } from '../../lib/commands/modal'
 import { setLanguage } from '../../lib/commands/language'
 import { useEffect } from 'react'
+import { questData } from '../../lib/data/quests'
+import { questDataEn } from '../../lib/data/questsEn'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -221,6 +223,27 @@ export function FlyoutMenu() {
               </button>
             </p>
           )}
+        {core.ws.quest.id > 0 && core.ws.editor.questScript && (
+          <p className="px-2 pt-4">
+            <button
+              className="px-2 py-0.5 hover:bg-red-100 rounded"
+              onClick={() => {
+                closeFlyoutMenu()
+                submitAnalyzeEvent(core, 'ev_click_ide_resetQuestScriptProgram')
+                const id = core.ws.quest.id
+                const data =
+                  core.ws.settings.lng == 'de' ? questData[id] : questDataEn[id]
+                core.mutateWs((ws) => {
+                  ws.pythonCode = data.script!.program
+                  ws.ui.needsTextRefresh = true
+                })
+              }}
+            >
+              <FaIcon icon={faRotateRight} className="mr-2" />
+              {core.strings.ide.resetCode}
+            </button>
+          </p>
+        )}
         {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
           <>
             <p className="px-2 pt-4">

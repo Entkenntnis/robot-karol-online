@@ -1,3 +1,4 @@
+import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
 import {
   Compressed2D,
@@ -33,6 +34,7 @@ export function serializeQuest(core: Core): QuestSerialFormat {
       core.ws.editor.editOptions === 'all'
         ? undefined
         : core.ws.editor.editOptions,
+    questScript: core.ws.editor.questScript,
   }
 
   if (core.ws.editor.saveProgram) {
@@ -156,6 +158,10 @@ export function deserializeQuest(
         ws.settings.lng = 'de'
       }
     }
+
+    if (quest.questScript) {
+      ws.editor.questScript = quest.questScript
+    }
   })
 
   if (quest.program && quest.language) {
@@ -211,6 +217,12 @@ export function deserlizeQuestToData(quest: QuestSerialFormat): QuestData {
         target: deserializeWorld(task.target),
       }
     }),
+    script: quest.questScript
+      ? {
+          program: quest.program ?? robotKarol2Python(''),
+          questScript: quest.questScript,
+        }
+      : undefined,
   }
 }
 

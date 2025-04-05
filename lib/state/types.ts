@@ -68,6 +68,9 @@ export interface Ui {
   resetCode: { [key: string]: [string, string] }
   returnToDemoPage: boolean
   newRobotImage?: string
+  questPrompt?: string
+  questPromptConfirm?: string
+  editQuestScript: boolean
 }
 
 export interface Vm {
@@ -103,6 +106,7 @@ export interface Editor {
     | 'python-pro-only'
   saveProgram: boolean
   keepQuest: boolean
+  questScript: string
 }
 
 export interface Quest {
@@ -362,6 +366,10 @@ export interface QuestData {
   tasks: QuestTask[]
   difficulty: string
   audioSrc?: string
+  script?: {
+    program: string
+    questScript: string
+  }
 }
 
 export interface QuestSessionData {
@@ -384,6 +392,7 @@ export interface QuestSerialFormat {
   editOptions?: 'python-only' | 'java-only' | 'karol-only' | 'python-pro-only'
   program?: string
   language?: 'blocks' | 'karol' | 'python' | 'java' | 'python-pro'
+  questScript?: string
 }
 
 export interface SerialWorld {
@@ -445,6 +454,7 @@ export interface PyodideWorker {
   reset: () => void
   input: (input: string) => void
   sharedArrayDelay: Int32Array
+  questPromptConfirm?: Int32Array
 }
 
 export interface PlaygroundHashData {

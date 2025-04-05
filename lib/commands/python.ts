@@ -1,6 +1,6 @@
-import { Shared } from '../../components/pages/Shared'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
+import { submitAnalyzeEvent } from './analyze'
 import { addConsoleMessage, addMessage } from './messages'
 import { endExecution, testCondition } from './vm'
 import {
@@ -113,6 +113,9 @@ export function setupWorker(core: Core) {
       // console.log('main thread notify done')
     }
     if (event.data.type && event.data.type == 'error') {
+      core.mutateWs(({ quest }) => {
+        quest.progress = false
+      })
       endExecution(core)
       core.mutateWs(({ ui }) => {
         ui.state = 'ready'
@@ -153,6 +156,34 @@ export function setupWorker(core: Core) {
       core.mutateWs(({ ui }) => {
         ui.keybindings.push({ key, title: title ?? '', pressed: false })
       })
+    }
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'progress'
+    ) {
+      core.mutateWs((ws) => {
+        ws.quest.progress = !!event.data.progress
+      })
+    }
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'prompt'
+    ) {
+      core.mutateWs((ws) => {
+        ws.ui.questPrompt = event.data.message
+        ws.ui.questPromptConfirm = event.data.confirm
+      })
+      const sharedArray = new Int32Array(event.data.confirmBuffer)
+      core.worker.questPromptConfirm = sharedArray
+    }
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'submit'
+    ) {
+      submitAnalyzeEvent(core, event.data.key)
     }
   }
 
@@ -231,6 +262,7 @@ export function setupWorker(core: Core) {
     core.worker.mainWorker.postMessage({
       type: 'run',
       code,
+      questScript: core.ws.editor.questScript, // todo: currently only working within the editor
       delayBuffer,
     })
   }
@@ -268,6 +300,7 @@ export function setupWorker(core: Core) {
       ui.isEndOfRun = true
       ui.inputPrompt = undefined
       ui.keybindings = []
+      ui.questPrompt = undefined
     })
   }
 }

@@ -445,6 +445,7 @@ export function endExecution(core: Core) {
     state.ui.state = 'ready'
     state.vm.pc = 0
     state.ui.isEndOfRun = true
+    state.ui.questPrompt = undefined
   })
   if (!core.ws.ui.karolCrashMessage) {
     setExecutionMarker(core, 0)
