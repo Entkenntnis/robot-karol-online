@@ -167,7 +167,8 @@ export function ControlBar() {
       if (core.ws.ui.isEndOfRun) {
         if (
           core.ws.quest.lastStartedTask !== undefined &&
-          core.ws.quest.tasks[core.ws.quest.lastStartedTask].target == null
+          core.ws.quest.tasks[core.ws.quest.lastStartedTask].target == null &&
+          !(core.ws.quest.tasks.length == 1 && core.ws.editor.questScript)
         ) {
           return (
             <span>
