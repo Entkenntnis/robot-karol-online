@@ -79,6 +79,9 @@ export function switchToPage(core: Core, target: Pages) {
         ui.collapseDescription = false
         ui.resetCode = {}
         ui.sharedQuestId = undefined
+        ui.pythonProCanSwitch = true
+        ws.settings.language = 'robot karol'
+        ws.settings.mode = 'blocks'
       })
       addNewTask(core)
     }
