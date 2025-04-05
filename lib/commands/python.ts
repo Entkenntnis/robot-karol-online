@@ -1,3 +1,4 @@
+import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import { submitAnalyzeEvent } from './analyze'
@@ -185,6 +186,13 @@ export function setupWorker(core: Core) {
     ) {
       submitAnalyzeEvent(core, event.data.key)
     }
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'highlight'
+    ) {
+      setExecutionMarker(core, event.data.line)
+    }
   }
 
   function messageHandlerBackup(event: MessageEvent) {
@@ -294,6 +302,11 @@ export function setupWorker(core: Core) {
       core.mutateWs(({ ui }) => {
         ui.state = 'ready'
       })
+    }
+    if (core.ws.ui.karolCrashMessage) {
+      //setExecutionMarker(core, 0)
+    } else {
+      setExecutionMarker(core, 0)
     }
     core.mutateWs(({ ui }) => {
       ui.isManualAbort = true
