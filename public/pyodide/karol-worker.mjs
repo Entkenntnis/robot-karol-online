@@ -207,6 +207,12 @@ self.onmessage = async (event) => {
               Atomics.wait(sharedArray, 0, 42)
               sleep(100)
             },
+            __ide_submit: (key) => {
+              self.postMessage({
+                type: 'submit',
+                key,
+              })
+            },
           }),
           filename: 'QuestScript.py',
         })
