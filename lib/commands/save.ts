@@ -114,10 +114,10 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
         : core.ws.settings.language == 'robot karol'
         ? ''
         : core.ws.settings.language == 'java'
-        ? ' Java'
+        ? ' Karol Java'
         : core.ws.settings.language == 'python-pro'
-        ? ' Python Pro'
-        : ' Python')
+        ? ' Python'
+        : ' Karol Python')
     const state = getProgram(core)
     const json: PlaygroundHashData = {
       dimX: core.ws.quest.tasks[0].start.dimX,
