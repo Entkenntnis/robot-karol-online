@@ -167,17 +167,17 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
       ? [
           {
             value: 'java',
-            label: 'Java',
+            label: 'Karol Java',
             title: 'Reduzierte Version Java für Karol',
           },
           {
             value: 'python',
-            label: 'Python',
+            label: 'Karol Python',
             title: 'Reduzierte Version von Python für Karol',
           },
           {
             value: 'python-pro',
-            label: 'Python Pro',
+            label: 'Python',
             title: 'Nutze den vollen Funktionsumfang von Python 3.12',
           },
         ]
@@ -188,7 +188,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
     options.find((opt) => opt.value === core.ws.settings.language) || options[0]
 
   return (
-    <div className="relative ml-1 inline-block w-32">
+    <div className="relative ml-1 inline-block w-[136px]">
       <div className="flex justify-between">
         <div
           className={clsx(
