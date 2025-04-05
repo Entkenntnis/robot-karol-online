@@ -365,6 +365,10 @@ export interface QuestData {
   tasks: QuestTask[]
   difficulty: string
   audioSrc?: string
+  script?: {
+    program: string
+    questScript: string
+  }
 }
 
 export interface QuestSessionData {

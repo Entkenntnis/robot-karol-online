@@ -402,22 +402,6 @@ export function Tasks() {
                 : core.strings.ide.structogram}
             </button>
           )}
-          {core.ws.page === 'quest' && (
-            <button
-              className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded"
-              onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_ide_askQuestion')
-                window.open(
-                  `https://docs.google.com/forms/d/e/1FAIpQLSd1uLRCpaVAFjSyN_T54p0QuFmLu4mHnS4mMZfgKJjTvDutGQ/viewform?usp=pp_url&entry.391269573=${
-                    core.ws.quest.id
-                  }%20${encodeURIComponent(core.ws.quest.title)}`,
-                  '_blank'
-                )
-              }}
-            >
-              <FaIcon icon={faComment} /> Frage stellen
-            </button>
-          )}
           {(core.ws.page === 'shared' ||
             core.ws.page === 'imported' ||
             core.ws.page === 'quest') && (

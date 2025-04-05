@@ -151,8 +151,23 @@ export function startQuest(core: Core, id: number) {
     ui.collapseDescription = false
     ui.show2D = false
     ui.lockLanguage = undefined
-    ws.editor.questScript = ''
     ui.isPlayground = false
+    if (data.script) {
+      // I'm only setting python pro on default for quests that have a script
+      ws.pythonCode = data.script.program
+      ws.editor.questScript = data.script.questScript
+      ws.settings.language = 'python-pro'
+      ws.ui.lockLanguage = 'python-pro'
+      ws.settings.mode = 'code'
+    } else if (
+      ws.settings.language == 'python-pro' &&
+      ws.settings.mode == 'code'
+    ) {
+      // Users always have to explicitly select python pro for quests
+      ws.settings.language = 'robot karol'
+      ws.settings.mode = 'blocks'
+      ws.ui.lockLanguage = undefined
+    }
   })
   switchToPage(core, 'quest')
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {

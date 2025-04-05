@@ -1,3 +1,4 @@
+import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
 import {
   Compressed2D,
@@ -216,6 +217,12 @@ export function deserlizeQuestToData(quest: QuestSerialFormat): QuestData {
         target: deserializeWorld(task.target),
       }
     }),
+    script: quest.questScript
+      ? {
+          program: quest.program ?? robotKarol2Python(''),
+          questScript: quest.questScript,
+        }
+      : undefined,
   }
 }
 
