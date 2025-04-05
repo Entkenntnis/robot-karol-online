@@ -30,7 +30,7 @@ Für den Einstieg: https://create.kahoot.it/share/robot-karol-basics/ba4288fc-15
 
 ![grafik](https://github.com/user-attachments/assets/13b38eef-d9e4-497c-8b97-94b458f94f61)
 
-Darüber hinaus stehen im [Python Pro Modus](https://karol.arrrg.de/#SPIELWIESE-PYTHON-PRO) viele weitere Standard-Python-Funktionen zur Verfügung. Hier findest du eine Sammlung an Beispielen. Viel Spaß beim Ausprobieren!
+Darüber hinaus stehen im [Python Modus](https://karol.arrrg.de/#SPIELWIESE-PYTHON-PRO) viele weitere Standard-Python-Funktionen zur Verfügung. Hier findest du eine Sammlung an Beispielen. Viel Spaß beim Ausprobieren!
 
 <br /><br /><br />
 
@@ -187,7 +187,7 @@ while True:
         if current_digits[pos] != prev_digits[pos]:
             drawDigit(pos, current_digits[pos])
             prev_digits[pos] = current_digits[pos]
-    
+
     # Wait before checking the time again
     karol.markeLöschen()
 ```
@@ -299,6 +299,5 @@ Alle Zutaten sind zusammen! Spiele Tetris innerhalb von Robot Karol. Nützlich? 
 ![grafik](https://github.com/user-attachments/assets/c3102ba5-c800-48f4-88d7-d6f4f169be5c)
 
 https://karol.arrrg.de/#CDBV
-
 
 <br /><br /><br />
