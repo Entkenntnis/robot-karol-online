@@ -250,6 +250,7 @@ export function EditArea() {
                 <label className="ml-8 text-gray-500">
                   <input
                     type="checkbox"
+                    checked={core.ws.ui.editQuestScript}
                     onChange={(e) => {
                       const checked = e.target.checked
                       core.mutateWs(({ ui }) => {
