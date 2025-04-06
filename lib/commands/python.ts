@@ -191,7 +191,9 @@ export function setupWorker(core: Core) {
       typeof event.data === 'object' &&
       event.data.type === 'highlight'
     ) {
-      setExecutionMarker(core, event.data.line)
+      try {
+        setExecutionMarker(core, event.data.line)
+      } catch (e) {}
     }
   }
 

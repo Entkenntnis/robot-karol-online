@@ -25,15 +25,17 @@ self.onmessage = async (event) => {
 
   if (event.data.type === 'run') {
     delay = new Int32Array(event.data.delayBuffer)
-    lastStepTs = performance.now() * 1000
     const traceback = pyodide.pyimport('traceback')
+    const enableHighlight = { current: true }
     function highlightCurrentLine() {
-      const stack = traceback.extract_stack()
-      const line = stack[stack.length - 1].lineno
-      self.postMessage({
-        type: 'highlight',
-        line,
-      })
+      if (enableHighlight.current) {
+        const stack = traceback.extract_stack()
+        const line = stack[stack.length - 1].lineno
+        self.postMessage({
+          type: 'highlight',
+          line,
+        })
+      }
     }
     const Robot = () => {
       return {
@@ -137,11 +139,14 @@ self.onmessage = async (event) => {
     const globals = pyodide.toPy({
       Robot,
       __ide_run_client: () => {
+        enableHighlight.current = true
         const tGlobals = pyodide.toPy({ Robot })
         pyodide.runPython(event.data.code, {
           globals: tGlobals,
           filename: 'Programm.py',
         })
+        self.postMessage({ type: 'highlight', line: 0 })
+        enableHighlight.current = false
         for (const key of tGlobals) {
           if (
             key == 'Robot' ||
@@ -234,8 +239,9 @@ self.onmessage = async (event) => {
           return sharedArray[0] === 1
         },
       })
-      pyodide.setDebug(true) // maybe helpful?
+      lastStepTs = performance.now() * 1000
       if (event.data.questScript) {
+        enableHighlight.current = false
         await pyodide.runPythonAsync(event.data.questScript, {
           globals,
           filename: 'QuestScript.py',
