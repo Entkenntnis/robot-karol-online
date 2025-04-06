@@ -464,3 +464,12 @@ export interface PlaygroundHashData {
   language: string
   program: string
 }
+
+export interface EditorSessionSnapshot {
+  settings: Settings
+  editor: Editor
+  quest: Quest
+  code: string
+  javaCode: string
+  pythonCode: string
+}

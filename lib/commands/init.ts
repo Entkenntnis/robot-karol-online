@@ -4,7 +4,11 @@ import { switchToPage } from './page'
 import { getLng, getRobotImage } from '../storage/storage'
 import { setLng, showOverviewList, updatePlaygroundHashToMode } from './mode'
 import { createWorld } from '../state/create'
-import { PlaygroundHashData, QuestSerialFormat } from '../state/types'
+import {
+  EditorSessionSnapshot,
+  PlaygroundHashData,
+  QuestSerialFormat,
+} from '../state/types'
 import { deserializeQuest } from './json'
 import { startQuest } from './quest'
 import { setLanguage } from './language'
@@ -131,6 +135,22 @@ export async function initClient(core: Core) {
   if (hash == '#EDITOR') {
     submitAnalyzeEvent(core, 'ev_show_editor')
     switchToPage(core, 'editor')
+    try {
+      const snapshotRaw = sessionStorage.getItem(
+        'robot_karol_online_session_snapshot'
+      )
+      if (snapshotRaw) {
+        const snapshot = JSON.parse(snapshotRaw) as EditorSessionSnapshot
+        core.mutateWs((ws) => {
+          ws.settings = snapshot.settings
+          ws.editor = snapshot.editor
+          ws.quest = snapshot.quest
+          ws.code = snapshot.code
+          ws.javaCode = snapshot.javaCode
+          ws.pythonCode = snapshot.pythonCode
+        })
+      }
+    } catch (e) {}
     return
   }
 
