@@ -110,7 +110,7 @@ Scenario('Test special case of empty world in learning path', ({ I }) => {
 
 Scenario('Test special case of empty world in standalone quest', ({ I }) => {
   I.amOnPage('/#NG2X')
-  I.wait(0.5)
+  I.waitForText('Start', 5)
   I.click({ css: '#select-language' })
   I.click({ css: '#select-language-robot-karol' })
   I.type('Hinlegen')
