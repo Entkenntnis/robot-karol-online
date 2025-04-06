@@ -101,6 +101,15 @@ export function RemixModal() {
                   ws.quest.title = obj.title
                   ws.quest.description = obj.description
                   ws.quest.tasks = obj.tasks
+                  if (obj.script) {
+                    ws.settings.language = 'python-pro'
+                    ws.settings.mode = 'code'
+                    ws.ui.needsTextRefresh = true
+                    ws.pythonCode = obj.script.program
+                    ws.editor.questScript = obj.script.questScript
+                    ws.ui.editQuestScript = false
+                    ws.ui.lockLanguage = 'python-pro'
+                  }
                 })
               }
               closeModal(core)
