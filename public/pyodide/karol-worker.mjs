@@ -37,6 +37,7 @@ self.onmessage = async (event) => {
         })
       }
     }
+    const output = []
     const Robot = () => {
       return {
         schritt: (n = 1) => {
@@ -190,12 +191,24 @@ self.onmessage = async (event) => {
           key,
         })
       },
+      __ide_get_output: () => {
+        console.log(output)
+        return pyodide.toPy(output)
+      },
+      __ide_sleep: (s) => {
+        sleep(s * 1000)
+      },
+      __ide_exit: () => {
+        self.postMessage({ type: 'action', action: 'beenden' })
+      },
     })
     sleep(150)
     try {
       pyodide.setStdout({
         write: (buf) => {
           const written_string = decoder.decode(buf)
+          console.log(written_string)
+          output.push(written_string)
           self.postMessage({ type: 'stdout', text: written_string })
           return buf.length
         },
