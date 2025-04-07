@@ -24,6 +24,9 @@ export function Editor() {
     }, 2000)
 
     return () => clearInterval(timer)
+    // I could in theory use a dep-array to only update when the state changes,
+    // but this would be a performance hit, because the state changes every time I type something in the editor.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return <IdeMain />
 }
