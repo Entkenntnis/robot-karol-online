@@ -35,9 +35,9 @@ export const questListByCategory = [
     quests: [30, 17, 18, 60, 37],
   },
   {
-    title: '[IM AUFBAU] Einführung in Python',
+    title: 'Einführung in Python (im Aufbau)',
     titleEn: 'Introduction to Python',
-    quests: [61],
+    quests: [61, 63, 62],
   },
 ]
 

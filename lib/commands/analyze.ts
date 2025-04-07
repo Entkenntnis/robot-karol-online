@@ -17,8 +17,14 @@ const robotImageDictionary: { [key: string]: string } = {
     'Cristiano Ronaldo mit Cap',
   'f/Lt5M37Bu9iMz+iftaQ78H3jFS7dikxNYAAAAAElFTkSuQmCC': 'Among-Ally',
   'Fta96mVf/XMu+lKzPI4i/AAVnyaXDI9gAAAABJRU5ErkJggg==': 'RKO PixelArt',
+  'D+JluLGVn0ncbMD1fX938AhqiDvzcqFmcAAAAASUVORK5CYII=': 'RKO handgezeichnet',
   'KYMWPIy8v7Lynvf/PfAPB/AWAB/vDattH7AAAAAElFTkSuQmCC': 'Robot Karola',
-  'gfCJpVBEQM6BpFYBUC/wMaM/y8hipucQAAAABJRU5ErkJggg==': 'BastiGHG',
+  'vN6mDcLAKQ6cDamAObHPgPIrjbRTBSZEAAAAAASUVORK5CYII=': 'BastiGHG 1',
+  'gfCJpVBEQM6BpFYBUC/wMaM/y8hipucQAAAABJRU5ErkJggg==': 'BastiGHG 2',
+  '4zfzhC+OEU/m5h/KSK/Q/x316TjAVE+gAAAABJRU5ErkJggg==': 'Banane mit Karotte',
+  'T1hY640JPEjbMrdf7n+g0rjQgPT4S1nAAAAABJRU5ErkJggg==':
+    'Annabeth Chase (aus Percy Jackson)',
+  '0wYxC7CbMWGyV73Isw8AO1Fp2ElKcQuAAAAABJRU5ErkJggg==': 'Tom',
 }
 
 export async function analyze(core: Core) {
