@@ -138,9 +138,14 @@ self.onmessage = async (event) => {
     }
     const globals = pyodide.toPy({
       Robot,
-      __ide_run_client: () => {
+      __ide_run_client: (args) => {
         enableHighlight.current = true
         const tGlobals = pyodide.toPy({ Robot })
+        if (args && args.globals) {
+          for (const key of args.globals) {
+            tGlobals.set(key, globals.get(key))
+          }
+        }
         pyodide.runPython(event.data.code, {
           globals: tGlobals,
           filename: 'Programm.py',
