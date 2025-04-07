@@ -34,6 +34,11 @@ export const questListByCategory = [
     titleEn: 'Fun',
     quests: [30, 17, 18, 60, 37],
   },
+  {
+    title: '[IM AUFBAU] Einführung in Python',
+    titleEn: 'Introduction to Python',
+    quests: [61],
+  },
 ]
 
 export const questList: number[] = []

@@ -221,23 +221,22 @@ export function Output() {
               <div className="absolute left-2 top-2">Variablen: {varStr}</div>
             )}
         </div>
-
-        {core.ws.settings.language == 'python-pro' && (
-          <div className="absolute bottom-2 left-2">
-            {core.ws.ui.messages.map((m) => (
-              <div
-                key={`${m.ts}-${m.text}`}
-                className="max-w-full py-1 px-2 rounded"
-              >
-                <span className="bg-lime-100 rounded px-2 py-0.5">
-                  {m.text}
-                  {m.count > 1 && <span> (x{m.count})</span>}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
+      {core.ws.settings.language == 'python-pro' && (
+        <div className="absolute bottom-10 left-2">
+          {core.ws.ui.messages.map((m) => (
+            <div
+              key={`${m.ts}-${m.text}`}
+              className="max-w-full py-1 px-2 rounded"
+            >
+              <span className="bg-lime-100 rounded px-2 py-0.5">
+                {m.text}
+                {m.count > 1 && <span> (x{m.count})</span>}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
       {core.ws.quest.lastStartedTask !== undefined && (
         <div className="absolute bottom-1.5 left-2 whitespace-nowrap">
           <button

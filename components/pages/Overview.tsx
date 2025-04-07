@@ -251,7 +251,8 @@ export function Overview() {
                       )
                     }}
                   >
-                    Video-Erklärungen <FaIcon icon={faExternalLink} />
+                    Video-Erklärungen{' '}
+                    <FaIcon className="text-gray-500" icon={faExternalLink} />
                   </button>
                 </li>
               </ul>
@@ -349,7 +350,7 @@ export function Overview() {
           )}
           {!core.ws.overview.showOverviewList &&
             !core.ws.overview.showProfile && (
-              <div className="w-[1240px] h-[1650px] mx-auto relative mt-6">
+              <div className="w-[1240px] h-[2250px] mx-auto relative mt-6">
                 <img
                   src="klecks1.png"
                   className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
@@ -493,7 +494,7 @@ export function Overview() {
                 </button>
                 {core.ws.settings.lng == 'de' && (
                   <button
-                    className="absolute top-[1520px] left-[880px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                    className="absolute top-[2120px] left-[880px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_landing_einhorn')
                       window.open('https://einhorn.arrrg.de', '_blank')
@@ -510,7 +511,7 @@ export function Overview() {
                   </button>
                 )}
                 <button
-                  className="absolute top-[1550px] left-[160px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                  className="absolute top-[2150px] left-[160px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
                   onClick={() => {
                     submitAnalyzeEvent(core, 'ev_click_landing_hacktheweb')
                     window.open(
@@ -709,6 +710,7 @@ export function Overview() {
       core.ws.page == 'analyze' ||
       core.ws.overview.showOverviewList ||
       position == 0 ||
+      id == 61 || // hallo python
       isQuestDone(id) ||
       mapData[id]?.deps.some(isQuestDone)
     )
