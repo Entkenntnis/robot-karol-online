@@ -183,7 +183,12 @@ export function Output() {
               </div>
             </div>
           )}
-          <div className="m-auto">
+          <div
+            className={clsx(
+              'm-auto',
+              core.ws.editor.questScript && 'opacity-50'
+            )}
+          >
             <div className="w-fit h-fit mb-32 mt-4 mx-4">
               {core.ws.ui.show2D ? (
                 <View2D
