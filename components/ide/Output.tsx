@@ -186,7 +186,9 @@ export function Output() {
           <div
             className={clsx(
               'm-auto',
-              core.ws.editor.questScript && 'opacity-50'
+              core.ws.editor.questScript &&
+                core.ws.ui.state == 'running' &&
+                'opacity-50'
             )}
           >
             <div className="w-fit h-fit mb-32 mt-4 mx-4">
