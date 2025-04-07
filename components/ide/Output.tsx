@@ -221,7 +221,6 @@ export function Output() {
               <div className="absolute left-2 top-2">Variablen: {varStr}</div>
             )}
         </div>
-
         {core.ws.settings.language == 'python-pro' && (
           <div className="absolute bottom-2 left-2">
             {core.ws.ui.messages.map((m) => (
