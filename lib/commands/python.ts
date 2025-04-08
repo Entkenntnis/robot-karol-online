@@ -211,6 +211,7 @@ export function setupWorker(core: Core) {
 
           core.mutateWs((ws) => {
             ws.ui.state = 'ready'
+            ws.ui.errorMessages = []
           })
         } else {
           const [lineno, offset, end_lineno, end_offset, msg] =
@@ -234,8 +235,10 @@ export function setupWorker(core: Core) {
               },
             ])
           )
-          core.mutateWs((ws) => {
-            ws.ui.state = 'loading'
+          core.mutateWs(({ ui }) => {
+            ui.state = 'error'
+            ui.errorMessages = [`Line ${lineno}: ${msg}`]
+            //ui.preview = undefined
           })
         }
       }
