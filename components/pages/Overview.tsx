@@ -589,6 +589,9 @@ export function Overview() {
                       key={entry[0]}
                       dir={entry[1].dir}
                       id={parseInt(entry[0])}
+                      python={
+                        questData[parseInt(entry[0])].script && entry[0] != '60'
+                      }
                     />
                   )
                 })}
@@ -805,6 +808,16 @@ export function Overview() {
                 )}
               </div>
             </div>
+            {data.script && index != 60 && (
+              <img
+                src="/python-logo-only.png"
+                className={clsx(
+                  'absolute bottom-0 right-2 h-8 bg-white/30 rounded-lg pointer-events-auto',
+                  questDone && 'opacity-30'
+                )}
+                alt=""
+              />
+            )}
           </div>
         </div>
         <style jsx>{`

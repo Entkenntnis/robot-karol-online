@@ -14,6 +14,7 @@ interface QuestIconProps {
   id: number
   dir?: Heading
   onClick: () => void
+  python?: boolean
 }
 
 export function QuestIcon({
@@ -24,6 +25,7 @@ export function QuestIcon({
   id,
   onClick,
   dir,
+  python,
 }: QuestIconProps) {
   const core = useCore()
   return (
@@ -46,28 +48,37 @@ export function QuestIcon({
           </div>
         </div>
       ) : (
-        <View
-          robotImageDataUrl={core.ws.robotImageDataUrl}
-          world={{
-            dimX: 1,
-            dimY: 1,
-            karol: {
-              x: 0,
-              y: 0,
-              dir: dir == 'west' ? 'east' : dir ?? 'east',
-            },
-            blocks: [[false]],
-            marks: [[false]],
-            bricks: [[0]],
-            height: 1,
-          }}
-          hideWorld
-          className={clsx(
-            'pointer-events-auto -mt-2',
-            dir == 'south' && '-translate-x-3',
-            dir == 'west' && '-scale-x-100 -translate-x-3'
+        <>
+          <View
+            robotImageDataUrl={core.ws.robotImageDataUrl}
+            world={{
+              dimX: 1,
+              dimY: 1,
+              karol: {
+                x: 0,
+                y: 0,
+                dir: dir == 'west' ? 'east' : dir ?? 'east',
+              },
+              blocks: [[false]],
+              marks: [[false]],
+              bricks: [[0]],
+              height: 1,
+            }}
+            hideWorld
+            className={clsx(
+              'pointer-events-auto -mt-2',
+              dir == 'south' && '-translate-x-3',
+              dir == 'west' && '-scale-x-100 -translate-x-3'
+            )}
+          />
+          {python && (
+            <img
+              src="/python-logo-only.png"
+              className="absolute bottom-0 right-2 h-8 bg-white/30 rounded-lg pointer-events-auto"
+              alt=""
+            />
           )}
-        />
+        </>
       )}
       {core.ws.page == 'analyze' && (
         <div className="whitespace-nowrap text-xs">
