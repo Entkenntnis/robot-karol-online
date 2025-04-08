@@ -172,6 +172,7 @@ export function startQuest(core: Core, id: number) {
     ui.pythonProCanSwitch = true
     ui.isPlayground = false
     ui.editQuestScript = false
+    ws.editor.questScript = ''
     if (data.script) {
       // I'm only setting python pro on default for quests that have a script
       ws.pythonCode = data.script.program
