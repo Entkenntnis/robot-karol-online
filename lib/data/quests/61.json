@@ -44,7 +44,7 @@
       "target": {
         "dimX": 9,
         "dimY": 9,
-        "height": 1,
+        "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
           "dimX": 8,
