@@ -17,7 +17,7 @@ def check_syntax(code):
     except SyntaxError as e:
         return f"[{e.lineno}, {e.offset}, {e.end_lineno}, {e.end_offset}, \\"{e.msg}\\"]"
 
-check_syntax('''${code.replace(/'/g, "\\'")}''')
+check_syntax(${JSON.stringify(code)})
 `
 
 self.onmessage = async (event) => {
