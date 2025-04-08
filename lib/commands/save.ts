@@ -125,7 +125,7 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
       height: core.ws.quest.tasks[0].start.height,
       ...state,
     }
-    const hash = btoa(JSON.stringify(json))
+    const hash = btoa(encodeURIComponent(JSON.stringify(json)))
     let newHash = `${prefix}:${hash}`
     if (
       json.program == '' &&
