@@ -216,7 +216,6 @@ export function setupWorker(core: Core) {
         } else {
           const [lineno, offset, end_lineno, end_offset, msg] =
             JSON.parse(diagnostics)
-          console.log(diagnostics)
           const from =
             core.view.current.state.doc.line(lineno).from +
             Math.max(offset - 1, 0)
@@ -224,7 +223,6 @@ export function setupWorker(core: Core) {
             from + 1,
             core.view.current.state.doc.line(end_lineno).from + end_offset
           )
-          console.log(from, to)
           core.view.current.dispatch(
             setDiagnostics(core.view.current.state, [
               {
