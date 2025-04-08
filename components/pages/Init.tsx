@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { initClient } from '../../lib/commands/init'
 import { useCore } from '../../lib/state/core'
+import { LoadingScreen } from '../helper/LoadingScreen'
 
 export function Init() {
   const core = useCore()
@@ -19,5 +20,5 @@ export function Init() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return null // empty page for loading, because loading is quite fast
+  return <LoadingScreen />
 }
