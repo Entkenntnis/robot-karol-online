@@ -286,10 +286,16 @@ export function EditArea() {
         {(core.ws.ui.state == 'error' ||
           (core.ws.settings.language == 'python-pro' &&
             core.ws.ui.errorMessages.length > 0)) && (
-          <div className="absolute left-20 right-12 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50">
+          <div
+            className={clsx(
+              'absolute right-12 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50',
+              core.ws.settings.language == 'python-pro' ? 'left-12' : 'left-20'
+            )}
+          >
             <div className="flex justify-between mt-[9px] relative">
               <div className="px-3 pb-1 pt-0">
-                {core.ws.settings.language == 'python-pro' ? (
+                {core.ws.settings.language == 'python-pro' &&
+                core.ws.ui.state !== 'error' ? (
                   <>
                     <pre>{core.ws.ui.errorMessages[0]}</pre>
                     <button

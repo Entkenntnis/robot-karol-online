@@ -453,6 +453,7 @@ export interface PyodideWorker {
   run: (code: string) => Promise<void>
   reset: () => void
   input: (input: string) => void
+  lint: (input: string) => void
   sharedArrayDelay: Int32Array
   questPromptConfirm?: Int32Array
 }
