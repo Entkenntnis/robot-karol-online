@@ -86,7 +86,9 @@ export async function initClient(core: Core) {
     if (dataPart) {
       // deserialize world
       try {
-        const data: PlaygroundHashData = JSON.parse(atob(dataPart))
+        const data: PlaygroundHashData = JSON.parse(
+          decodeURIComponent(atob(dataPart))
+        )
         core.mutateWs((ws) => {
           ws.quest.tasks = [
             {
