@@ -287,7 +287,7 @@ export function AppearanceModal() {
 
   // Undo: stellt den letzten Zustand wieder her.
   const handleUndo = () => {
-    submitAnalyzeEvent(core, 'ev_click_appearance_undo')
+    // submitAnalyzeEvent(core, 'ev_click_appearance_undo')
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
@@ -385,7 +385,7 @@ export function AppearanceModal() {
               <button
                 className="mr-4 text-gray-400 hover:text-gray-500"
                 onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_appearance_prev')
+                  // submitAnalyzeEvent(core, 'ev_click_appearance_prev')
                   setCount((prev) => prev + 3)
                 }}
               >
@@ -394,7 +394,7 @@ export function AppearanceModal() {
               <button
                 className="text-gray-400 hover:text-gray-500"
                 onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_appearance_next')
+                  // submitAnalyzeEvent(core, 'ev_click_appearance_next')
                   setCount((prev) => prev + 1)
                 }}
               >
@@ -427,7 +427,7 @@ export function AppearanceModal() {
                   tool === 'brush' ? 'bg-gray-300' : 'bg-white'
                 }`}
                 onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_appearance_brush')
+                  // submitAnalyzeEvent(core, 'ev_click_appearance_brush')
                   setTool('brush')
                 }}
               >
@@ -438,7 +438,7 @@ export function AppearanceModal() {
                   tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
                 }`}
                 onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_appearance_fill')
+                  // submitAnalyzeEvent(core, 'ev_click_appearance_fill')
                   setTool('paintBucket')
                 }}
               >
@@ -449,7 +449,7 @@ export function AppearanceModal() {
                   tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
                 }`}
                 onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
+                  // submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
                   setTool('eraser')
                 }}
               >
@@ -472,10 +472,10 @@ export function AppearanceModal() {
                   }`}
                   style={{ backgroundColor: color }}
                   onClick={() => {
-                    submitAnalyzeEvent(
+                    /*submitAnalyzeEvent(
                       core,
                       'ev_click_appearance_selectColor_' + color
-                    )
+                    )*/
                     setSelectedColor(color)
                     if (tool === 'eraser') {
                       setTool('brush')
@@ -488,10 +488,10 @@ export function AppearanceModal() {
                   <button
                     key={size}
                     onClick={() => {
-                      submitAnalyzeEvent(
+                      /*submitAnalyzeEvent(
                         core,
                         'ev_click_appearance_selectBrushSize_' + size
-                      )
+                      )*/
                       setBrushSize(size)
                     }}
                     className={`flex items-center justify-center w-10 h-10 border rounded-full ${
@@ -601,6 +601,9 @@ export function AppearanceModal() {
                 >
                   Leinwand löschen
                 </button>
+              </div>
+              <div className="absolute right-3 bottom-2 text-gray-500 text-sm">
+                Nutze zum Zoomen Strg + / -
               </div>
               <div className="mt-4 flex flex-col items-center">
                 {/* Container mit verfeinertem Rautenmuster */}
