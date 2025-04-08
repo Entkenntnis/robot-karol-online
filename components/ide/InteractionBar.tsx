@@ -12,7 +12,7 @@ import { startButtonClicked } from '../../lib/commands/start'
 import { setMode } from '../../lib/commands/mode'
 import { setLanguage } from '../../lib/commands/language'
 import { Settings } from '../../lib/state/types'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 export function InteractionBar() {
   const core = useCore()
@@ -71,7 +71,7 @@ export function InteractionBar() {
         <label
           htmlFor="toggleSwitch"
           className={clsx(
-            'relative inline-block w-12 mx-2 align-middle',
+            'relative inline-block w-12 mx-2 align-middle transition-opacity',
             dontChangeLanguage
               ? 'opacity-30 cursor-not-allowed'
               : 'cursor-pointer'
@@ -131,7 +131,8 @@ export function InteractionBar() {
             mainButtonState == 'stop'
               ? faStop
               : core.ws.ui.state == 'loading' &&
-                core.ws.settings.language == 'python-pro'
+                core.ws.settings.language == 'python-pro' &&
+                !core.worker?.mainWorkerReady
               ? faSpinner
               : faPlay
           }
@@ -139,6 +140,7 @@ export function InteractionBar() {
             'mr-2',
             core.ws.ui.state == 'loading' &&
               core.ws.settings.language == 'python-pro' &&
+              !core.worker?.mainWorkerReady &&
               'animate-spin-slow'
           )}
         />

@@ -1,3 +1,4 @@
+import { forceLinting, setDiagnostics } from '@codemirror/lint'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
@@ -27,6 +28,7 @@ export function setupWorker(core: Core) {
     run: async (code: string) => {},
     reset: () => {},
     input: (code: string) => {},
+    lint: (code: string) => {},
     mainWorker: null,
     backupWorker: null,
     mainWorkerReady: false,
@@ -195,6 +197,49 @@ export function setupWorker(core: Core) {
         setExecutionMarker(core, event.data.line)
       } catch (e) {}
     }
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'diagnostics'
+    ) {
+      const diagnostics = event.data.diagnostics
+      if (core.view?.current) {
+        if (diagnostics === 'ok') {
+          core.view.current.dispatch(
+            setDiagnostics(core.view.current.state, [])
+          )
+
+          core.mutateWs((ws) => {
+            ws.ui.state = 'ready'
+          })
+        } else {
+          const [lineno, offset, end_lineno, end_offset, msg] =
+            JSON.parse(diagnostics)
+          console.log(diagnostics)
+          const from =
+            core.view.current.state.doc.line(lineno).from +
+            Math.max(offset - 1, 0)
+          const to = Math.max(
+            from + 1,
+            core.view.current.state.doc.line(end_lineno).from + end_offset
+          )
+          console.log(from, to)
+          core.view.current.dispatch(
+            setDiagnostics(core.view.current.state, [
+              {
+                from: Math.max(0, from),
+                to: Math.min(to, core.view.current.state.doc.length),
+                severity: 'error',
+                message: msg,
+              },
+            ])
+          )
+          core.mutateWs((ws) => {
+            ws.ui.state = 'loading'
+          })
+        }
+      }
+    }
   }
 
   function messageHandlerBackup(event: MessageEvent) {
@@ -236,6 +281,10 @@ export function setupWorker(core: Core) {
     core.mutateWs(({ ui }) => {
       ui.state = 'ready'
     })
+
+    if (core.view?.current) {
+      core.worker.lint(core.view.current.state.doc.toString())
+    }
   }
 
   core.worker.run = async (code: string) => {
@@ -316,6 +365,16 @@ export function setupWorker(core: Core) {
       ui.inputPrompt = undefined
       ui.keybindings = []
       ui.questPrompt = undefined
+    })
+  }
+
+  core.worker.lint = (code: string) => {
+    if (!core.worker || !core.worker.mainWorker || !core.worker.mainWorkerReady)
+      return
+
+    core.worker.mainWorker.postMessage({
+      type: 'compile',
+      code,
     })
   }
 }

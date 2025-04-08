@@ -9,6 +9,17 @@ let lastStepTs = -1
 
 let decoder = new TextDecoder()
 
+const compileScript = (code) => `
+def check_syntax(code):
+    try:
+        compile(code, "<string>", "exec")
+        return "ok"
+    except SyntaxError as e:
+        return f"[{e.lineno}, {e.offset}, {e.end_lineno}, {e.end_offset}, \\"{e.msg}\\"]"
+
+check_syntax('''${code.replace(/'/g, "\\'")}''')
+`
+
 self.onmessage = async (event) => {
   if (event.data == 'init') {
     if (pyodide) {
@@ -21,6 +32,14 @@ self.onmessage = async (event) => {
       pyodide.runPython(`import sys; sys.version`)
       self.postMessage('ready')
     }
+  }
+
+  if (event.data.type === 'compile' && pyodide) {
+    const diagnostics = pyodide.runPython(compileScript(event.data.code))
+    self.postMessage({
+      type: 'diagnostics',
+      diagnostics,
+    })
   }
 
   if (event.data.type === 'run') {
@@ -207,7 +226,6 @@ self.onmessage = async (event) => {
       pyodide.setStdout({
         write: (buf) => {
           const written_string = decoder.decode(buf)
-          console.log(written_string)
           output.push(written_string)
           self.postMessage({ type: 'stdout', text: written_string })
           return buf.length

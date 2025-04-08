@@ -51,11 +51,7 @@ import {
 } from '@codemirror/autocomplete'
 import { pythonLanguage } from '../../lib/codemirror/pythonParser/pythonLanguage'
 import { compilePython } from '../../lib/language/python/compilePython'
-import {
-  cursorToAstNode,
-  prettyPrintAstNode,
-} from '../../lib/language/helper/astNode'
-import { save } from 'blockly/core/serialization/blocks'
+import { cursorToAstNode } from '../../lib/language/helper/astNode'
 import { saveCodeToLocalStorage } from '../../lib/commands/save'
 
 interface EditorProps {
@@ -117,8 +113,8 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
                 const t = e.transactions[0]
                 if (t.docChanged) {
                   if (
-                    core.ws.ui.state == 'ready' &&
-                    core.ws.settings.language != 'python-pro'
+                    core.ws.ui.state == 'ready' /*&&
+                    core.ws.settings.language != 'python-pro'*/
                   ) {
                     setLoading(core)
                   }
@@ -162,17 +158,20 @@ export function lint(core: Core, view: EditorView) {
   const { warnings, output, rkCode } = compilePython(tree, view.state.doc)
 
   if (core.ws.settings.language == 'python-pro') {
-    if (core.worker?.mainWorkerReady) {
+    /*if (core.worker?.mainWorkerReady) {
       core.mutateWs(({ ui }) => {
         ui.state = 'ready'
       })
-    }
+    }*/
     core.mutateWs((ws) => {
       ws.ui.pythonProCanSwitch = warnings.length == 0
       if (rkCode !== undefined) {
         ws.code = rkCode
       }
     })
+    if (core.worker?.mainWorkerReady) {
+      core.worker.lint(code)
+    }
     return []
   }
 
