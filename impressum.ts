@@ -1,6 +1,8 @@
+// Passe diese Datei an deine Bedarfe an.
+
 export const impressum = {
-  name: 'Max Mustermann',
-  address1: 'Beispielstraße 1',
-  address2: '12345 Dörfchen',
-  contact: 'foo@bar.de',
+  name: 'Das ist ein Mirror von Robot Karol Online.',
+  address1: '',
+  address2: 'Besuche https://karol.arrrg.de für die aktuelle',
+  contact: 'und vollständige Version.',
 }

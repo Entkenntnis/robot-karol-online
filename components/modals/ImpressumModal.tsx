@@ -1,5 +1,6 @@
 import { impressum } from '../../impressum'
 import { closeModal } from '../../lib/commands/modal'
+import { replaceWithJSX } from '../../lib/helper/replaceWithJSX'
 import { useCore } from '../../lib/state/core'
 
 export function ImpressumModal() {
@@ -12,7 +13,7 @@ export function ImpressumModal() {
       }}
     >
       <div
-        className="h-[250px] w-[500px] bg-white z-[200] rounded-xl relative flex justify-between flex-col"
+        className="h-[320px] w-[500px] bg-white z-[200] rounded-xl relative flex justify-between flex-col"
         onClick={(e) => {
           e.stopPropagation()
         }}
@@ -25,11 +26,17 @@ export function ImpressumModal() {
           <p className="m-3 mb-6 text-center">
             {impressum.name}
             <br />
-            {impressum.address1}
+            {replaceWithJSX([impressum.address1], /(<br>)/, (str, i) => (
+              <br key={i} />
+            ))}
             <br />
-            {impressum.address2}
+            {replaceWithJSX([impressum.address2], /(<br>)/g, (str, i) => (
+              <br key={i} />
+            ))}
             <br />
-            {impressum.contact}
+            {replaceWithJSX([impressum.contact], /(<br>)/g, (str, i) => (
+              <br key={i} />
+            ))}
           </p>
         </div>
         <p className="text-center mb-5 mt-3">
