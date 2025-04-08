@@ -22,7 +22,7 @@ export const questListByCategory = [
   {
     title: 'Kombinationen von Kontrollstrukturen',
     titleEn: 'Combinations',
-    quests: [5, 12, 26, 28, 14, 13],
+    quests: [5, 12, 64, 26, 28, 14, 13],
   },
   {
     title: 'Anspruchsvolle Aufgaben',
@@ -32,7 +32,7 @@ export const questListByCategory = [
   {
     title: 'Rätsel und Co.',
     titleEn: 'Fun',
-    quests: [30, 17, 18, 60, 37],
+    quests: [30, 17, 18, 37, 60],
   },
   {
     title: 'Einführung in Python (im Aufbau)',
