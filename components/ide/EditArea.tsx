@@ -225,49 +225,59 @@ export function EditArea() {
         )}
         {core.ws.settings.language === 'python-pro' && (
           <>
-            <div className="bg-gray-100 pr-32 py-2 pl-3 text-gray-600">
-              <a
-                href="https://quickref.me/python.html"
-                target="_blank"
-                className="link"
-                onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_ide_pythonQuickRef')
-                }}
-              >
-                Spickzettel
-              </a>
-              <a
-                href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md#karol-x-python"
-                target="_blank"
-                className="ml-5 link"
-                onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_ide_pythonExamples')
-                }}
-              >
-                Beispiele
-              </a>
-              {core.ws.page == 'editor' && (
-                <label className="ml-8 text-gray-500">
-                  <input
-                    type="checkbox"
-                    checked={core.ws.ui.editQuestScript}
-                    onChange={(e) => {
-                      const checked = e.target.checked
-                      core.mutateWs(({ ui }) => {
-                        ui.editQuestScript = checked
-                      })
-                      core.mutateWs((ws) => {
-                        ws.ui.needsTextRefresh = true
-                      })
-                      if (checked) {
-                        core.mutateWs(({ editor }) => {
-                          editor.editOptions = 'python-pro-only'
+            <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between">
+              <div>
+                <a
+                  href="https://quickref.me/python.html"
+                  target="_blank"
+                  className="link"
+                  onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_pythonQuickRef')
+                  }}
+                >
+                  Spickzettel
+                </a>
+                <a
+                  href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md#karol-x-python"
+                  target="_blank"
+                  className="ml-5 link"
+                  onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_pythonExamples')
+                  }}
+                >
+                  Beispiele
+                </a>
+                {core.ws.page == 'editor' && (
+                  <label className="ml-8 text-gray-500">
+                    <input
+                      type="checkbox"
+                      checked={core.ws.ui.editQuestScript}
+                      onChange={(e) => {
+                        const checked = e.target.checked
+                        core.mutateWs(({ ui }) => {
+                          ui.editQuestScript = checked
                         })
-                      }
-                    }}
-                  ></input>{' '}
-                  QuestScript bearbeiten (experimentell)
-                </label>
+                        core.mutateWs((ws) => {
+                          ws.ui.needsTextRefresh = true
+                        })
+                        if (checked) {
+                          core.mutateWs(({ editor }) => {
+                            editor.editOptions = 'python-pro-only'
+                          })
+                        }
+                      }}
+                    ></input>{' '}
+                    QuestScript bearbeiten (experimentell)
+                  </label>
+                )}
+              </div>
+              {core.ws.editor.questScript && core.ws.page == 'shared' && (
+                <div
+                  className="select-none text-purple-400 ml-2"
+                  title="Diese Aufgabe wird über ein QuestScript gesteuert"
+                >
+                  QuestScript
+                </div>
               )}
             </div>
           </>
