@@ -14,10 +14,21 @@ module.exports = {
           '50%': { color: '#8C80B1' }, // Soft lavender
           '75%': { color: '#D7A77E' }, // Warm peach
         },
+        fadeInUp: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(4px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
       },
       animation: {
         'spin-slow': 'spin 2s linear infinite',
         'pastel-fade': 'pastel-fade 10s ease-in-out infinite',
+        fadeInUp: 'fadeInUp 0.8s ease-out forwards',
       },
     },
   },

@@ -3,14 +3,10 @@ import {
   faCheckCircle,
   faExternalLink,
   faGlobe,
-  faLightbulb,
-  faMessage,
   faPaintBrush,
   faPencil,
   faPenToSquare,
-  faSeedling,
   faTable,
-  faTrowelBricks,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -26,7 +22,6 @@ import {
   showProfile,
 } from '../../lib/commands/mode'
 import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
-import { questDeps } from '../../lib/data/dependencies'
 import { questList, questListByCategory } from '../../lib/data/overview'
 import { questData as questDataDe } from '../../lib/data/quests'
 import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
@@ -49,12 +44,11 @@ import {
 import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
-import { submit_event } from '../../lib/helper/submit'
 import { questDataEn } from '../../lib/data/questsEn'
 import { AnalyzeResults } from '../helper/AnalyzeResults'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { sub } from 'date-fns'
 import { buildPlayground } from '../../lib/commands/init'
+import { AnimateInView } from '../helper/AnimateIntoView'
 
 export function Overview() {
   const core = useCore()
@@ -350,7 +344,7 @@ export function Overview() {
           )}
           {!core.ws.overview.showOverviewList &&
             !core.ws.overview.showProfile && (
-              <div className="w-[1240px] h-[2250px] mx-auto relative mt-6">
+              <div className="w-[1240px] h-[2750px] mx-auto relative mt-6">
                 <img
                   src="klecks1.png"
                   className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
@@ -387,47 +381,55 @@ export function Overview() {
                   </button>
                 )}
                 {core.ws.settings.lng === 'de' && (
-                  <a
-                    className={clsx(
-                      'absolute top-[760px] left-[170px] block z-10 hover:bg-gray-100/60 rounded-xl',
-                      'w-[120px] cursor-pointer'
-                    )}
-                    href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
-                    target="_blank"
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_material')
-                    }}
-                  >
-                    <p className="text-center text-lg mb-1">
-                      Material für Lehrkräfte
-                    </p>
-                    <img
-                      src="/kleeblatt.png"
-                      alt="Kleeblatt mit 4 Blättern"
-                      className="w-[60px] mx-auto"
-                    />
-                  </a>
+                  <div className="absolute top-[760px] left-[170px] z-10">
+                    <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                      <a
+                        className={clsx(
+                          'hover:bg-gray-100/60 rounded-xl block',
+                          'w-[120px] cursor-pointer'
+                        )}
+                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
+                        target="_blank"
+                        onClick={() => {
+                          submitAnalyzeEvent(core, 'ev_click_landing_material')
+                        }}
+                      >
+                        <p className="text-center mb-1">
+                          Material für Lehrkräfte
+                        </p>
+                        <img
+                          src="/kleeblatt.png"
+                          alt="Kleeblatt mit 4 Blättern"
+                          className="w-[50px] mx-auto"
+                        />
+                      </a>
+                    </AnimateInView>
+                  </div>
                 )}
                 {core.ws.settings.lng === 'de' && (
-                  <a
-                    className={clsx(
-                      'absolute top-[680px] left-[370px] block z-10 hover:bg-gray-100/60 rounded-xl',
-                      'w-[120px] cursor-pointer'
-                    )}
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_gallery')
-                      switchToPage(core, 'inspiration')
-                    }}
-                  >
-                    <p className="text-center text-lg mb-1">
-                      Aufgaben-
-                      <br />
-                      Galerie
-                    </p>
-                    <p className="text-center text-3xl text-purple-400">
-                      <FaIcon icon={faTable} />
-                    </p>
-                  </a>
+                  <div className="absolute top-[680px] left-[370px] z-10">
+                    <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                      <a
+                        className={clsx(
+                          'hover:bg-gray-100/60 rounded-xl block',
+                          'w-[120px] cursor-pointer'
+                        )}
+                        onClick={() => {
+                          submitAnalyzeEvent(core, 'ev_click_landing_gallery')
+                          switchToPage(core, 'inspiration')
+                        }}
+                      >
+                        <p className="text-center mb-1">
+                          Aufgaben-
+                          <br />
+                          Galerie
+                        </p>
+                        <p className="text-center text-3xl text-purple-400">
+                          <FaIcon icon={faTable} />
+                        </p>
+                      </a>
+                    </AnimateInView>
+                  </div>
                 )}
                 {core.ws.ui.newRobotImage && (
                   <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
@@ -471,66 +473,78 @@ export function Overview() {
                     </p>
                   </div>
                 )}
-                <button
-                  className={clsx(
-                    'absolute top-[500px] left-[1100px] block z-10 hover:bg-gray-100/60 rounded-xl',
-                    'w-[120px] cursor-pointer'
-                  )}
-                  onClick={() => {
-                    // open feedback form in new tab
-                    submitAnalyzeEvent(core, 'ev_click_landing_appearance')
-                    showModal(core, 'appearance')
-                  }}
-                >
-                  <p className="text-center">
-                    Figur
-                    <br />
-                    zeichnen
-                  </p>
-                  <FaIcon
-                    icon={faPaintBrush}
-                    className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
-                  />
-                </button>
+                <div className="absolute top-[500px] left-[1100px] z-10">
+                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                    <button
+                      className={clsx(
+                        'hover:bg-gray-100/60 rounded-xl',
+                        'w-[120px] cursor-pointer'
+                      )}
+                      onClick={() => {
+                        // open feedback form in new tab
+                        submitAnalyzeEvent(core, 'ev_click_landing_appearance')
+                        showModal(core, 'appearance')
+                      }}
+                    >
+                      <p className="text-center">
+                        Figur
+                        <br />
+                        zeichnen
+                      </p>
+                      <FaIcon
+                        icon={faPaintBrush}
+                        className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
+                      />
+                    </button>
+                  </AnimateInView>
+                </div>
                 {core.ws.settings.lng == 'de' && (
-                  <button
-                    className="absolute top-[2120px] left-[880px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_einhorn')
-                      window.open('https://einhorn.arrrg.de', '_blank')
-                    }}
-                  >
-                    <p className="text-center text-lg mb-1">
-                      Einhorn der Mathematik
-                    </p>
-                    <img
-                      src="/einhorn.png"
-                      alt="Einhorn"
-                      className="w-[50px] mx-auto"
-                    />
-                  </button>
+                  <div className="absolute top-[2620px] left-[880px] z-10">
+                    <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                      <button
+                        className="w-[120px] hover:bg-gray-100/60 rounded-xl"
+                        onClick={() => {
+                          submitAnalyzeEvent(core, 'ev_click_landing_einhorn')
+                          window.open('https://einhorn.arrrg.de', '_blank')
+                        }}
+                      >
+                        <p className="text-center mb-2">
+                          Einhorn der Mathematik
+                        </p>
+                        <img
+                          src="/einhorn.png"
+                          alt="Einhorn"
+                          className="w-[50px] mx-auto"
+                        />
+                      </button>
+                    </AnimateInView>
+                  </div>
                 )}
-                <button
-                  className="absolute top-[2150px] left-[160px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl"
-                  onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_landing_hacktheweb')
-                    window.open(
-                      'https://hack.arrrg.de/' +
-                        (core.ws.settings.lng === 'en' ? 'en' : ''),
-                      '_blank'
-                    )
-                  }}
-                >
-                  <p className="text-center text-lg mb-1">Hack The Web</p>
-                  <img
-                    src="htw.png"
-                    alt="H"
-                    className="w-[40px] mx-auto mb-2"
-                  />
-                </button>
+                <div className="absolute top-[2650px] left-[160px] z-10">
+                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                    <button
+                      className=" w-[120px] block hover:bg-gray-100/60 rounded-xl"
+                      onClick={() => {
+                        submitAnalyzeEvent(core, 'ev_click_landing_hacktheweb')
+                        window.open(
+                          'https://hack.arrrg.de/' +
+                            (core.ws.settings.lng === 'en' ? 'en' : ''),
+                          '_blank'
+                        )
+                      }}
+                    >
+                      <p className="text-center mb-2">Hack The Web</p>
+                      <img
+                        src="htw.png"
+                        alt="H"
+                        className="w-[32px] mx-auto mb-2"
+                      />
+                    </button>
+                  </AnimateInView>
+                </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 1240 2250"
+                  viewBox="0 0 1240 2750"
                   className="relative"
                 >
                   {Object.entries(mapData).map(([id, data]) => {
@@ -563,6 +577,48 @@ export function Overview() {
                     }
                     return null
                   })}
+                  <defs>
+                    <linearGradient
+                      id="pythonGradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stopColor="rgb(53, 114, 165)" />
+                      <stop offset="25%" stopColor="rgb(100, 105, 160)" />
+                      <stop offset="50%" stopColor="rgb(150, 140, 135)" />
+                      <stop offset="75%" stopColor="rgb(210, 175, 104)" />
+                      <stop offset="100%" stopColor="rgb(255, 213, 79)" />
+                    </linearGradient>
+
+                    <filter id="organicTexture">
+                      <feTurbulence
+                        type="fractalNoise"
+                        baseFrequency="0.05"
+                        numOctaves="3"
+                        result="noise"
+                      />
+                      <feDisplacementMap
+                        in="SourceGraphic"
+                        in2="noise"
+                        scale="8"
+                        xChannelSelector="R"
+                        yChannelSelector="G"
+                      />
+                    </filter>
+                  </defs>
+
+                  <path
+                    d="M 100 1700 C 393 1711 588 1648 726 1547 S 942 1374 1150 1400"
+                    stroke="url(#pythonGradient)"
+                    strokeWidth="6"
+                    fill="none"
+                    filter="url(#organicTexture)"
+                    strokeLinecap="round"
+                    strokeDasharray="20 28"
+                    style={{ transition: 'all 0.3s ease' }}
+                  />
                 </svg>
                 {Object.entries(mapData).map((entry) => {
                   if (!isQuestVisible(parseInt(entry[0]))) return null
@@ -599,24 +655,29 @@ export function Overview() {
                   numberOfSolvedQuests == 0 &&
                   core.ws.page !== 'demo' &&
                   core.ws.page !== 'analyze' && (
-                    <div className="absolute top-72 left-12 bg-gray-100 rounded-lg p-2 w-[550px]">
-                      <p>
-                        Diese Online-Programmierumgebung führt dich in die
-                        Grundlagen von Algorithmen ein: Sequenz, Wiederholung
-                        (mit fester Anzahl, kopfgesteuert), bedingte Anweisungen
-                        und eigene Methoden. Programmiere mit Blöcken, Karol
-                        Code, Python oder Java.
-                      </p>
-                      <p className="mt-2">
-                        Klicke auf „Start“ für den Selbst-Lern-Pfad. Entdecke
-                        dort auf eigene Faust die Welt von Robot Karol und löse
-                        Aufgaben.
-                      </p>
-                      <p className="mt-2">
-                        Lehrkräfte können mit dem Editor eigene Aufgaben anlegen
-                        und mit der Klasse teilen oder sich von der Galerie
-                        inspirieren lassen.
-                      </p>
+                    <div className="absolute top-72 left-12 ">
+                      <AnimateInView>
+                        <div className="bg-gray-100 rounded-lg p-2 w-[550px]">
+                          <p>
+                            Diese Online-Programmierumgebung führt dich in die
+                            Grundlagen von Algorithmen ein: Sequenz,
+                            Wiederholung (mit fester Anzahl, kopfgesteuert),
+                            bedingte Anweisungen und eigene Methoden.
+                            Programmiere mit Blöcken, Karol Code, Python oder
+                            Java.
+                          </p>
+                          <p className="mt-2">
+                            Klicke auf „Start“ für den Selbst-Lern-Pfad.
+                            Entdecke dort auf eigene Faust die Welt von Robot
+                            Karol und löse Aufgaben.
+                          </p>
+                          <p className="mt-2">
+                            Lehrkräfte können mit dem Editor eigene Aufgaben
+                            anlegen und mit der Klasse teilen oder sich von der
+                            Galerie inspirieren lassen.
+                          </p>
+                        </div>
+                      </AnimateInView>
                     </div>
                   )}
               </div>
