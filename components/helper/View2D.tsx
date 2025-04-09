@@ -9,7 +9,7 @@ interface View2DProps {
 
 export function View2D({ world, preview, className }: View2DProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const cellSize = 50
+  const cellSize = world.dimX > 9 || world.dimY > 9 ? 34 : 50
   const width = world.dimX * cellSize
   const height = world.dimY * cellSize
 

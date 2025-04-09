@@ -42,7 +42,7 @@ export function InteractionBar() {
       )}
     >
       <button
-        className="px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
+        className="whitespace-nowrap px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
         onClick={() => {
           submitAnalyzeEvent(core, 'ev_click_ide_menu')
           core.mutateWs(({ ui }) => {
@@ -52,7 +52,7 @@ export function InteractionBar() {
       >
         <FaIcon icon={faBars} className="mr-2" /> {core.strings.ide.menu}
       </button>
-      <div className="pt-1">
+      <div className="pt-1 whitespace-nowrap">
         <button
           className={clsx(
             'font-semibold mr-1 select-none disabled:cursor-default',
@@ -262,7 +262,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
 
       {isOpen && (
         <div
-          className="absolute z-10 mt-1 w-full rounded-lg border border-gray-200 bg-white shadow-lg"
+          className="absolute z-10 mt-1 w-full rounded-lg border border-gray-200 bg-white shadow-lg overflow-hidden"
           role="listbox"
         >
           {options.map((option) => (
@@ -272,7 +272,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
               type="button"
               id={`select-language-${option.value.replace(/\s+/g, '-')}`}
               className={clsx(
-                'w-full px-2 py-1 text-left',
+                'w-full px-2 py-1 text-left block',
                 'transition-colors cursor-pointer font-semibold',
                 option.value === core.ws.settings.language
                   ? 'bg-[#770088]/20'

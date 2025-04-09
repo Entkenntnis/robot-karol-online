@@ -89,140 +89,152 @@ export function Output() {
       <div className="flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100">
         <ControlBar />
       </div>
-      <div
-        className={clsx(
-          'flex-grow flex-shrink h-full relative',
-          'overflow-auto bg-white',
-          !core.ws.ui.isTesting && 'mb-10'
-        )}
-      >
-        <div className="flex flex-col h-full">
-          {core.ws.ui.inputPrompt && (
-            <form
-              className="bg-lime-200 px-2 py-3 flex gap-4 items-baseline absolute top-0 left-0 right-0 z-10"
-              onSubmit={(e) => {
-                const el = document.getElementById('input-prompt') as
-                  | HTMLInputElement
-                  | undefined
-                if (el && core.worker) {
-                  core.worker.input(el.value)
-                }
-                e.preventDefault()
-              }}
-            >
-              <span>
-                <FaIcon icon={faComment} className="mr-2 animate-pulse" />
-                {core.ws.ui.inputPrompt}
-              </span>
-              <input
-                id="input-prompt"
-                className="flex-grow px-1"
-                maxLength={200}
-                autoFocus
-                autoComplete="off"
-              ></input>
-              <button
-                className="px-2 py-0.5 bg-lime-400 hover:bg-lime-500 rounded"
-                type="submit"
-              >
-                Enter
-              </button>
-            </form>
+      <div className="flex-grow flex-shrink relative h-full">
+        <div
+          className={clsx(
+            'absolute top-0 left-0 right-0',
+            'overflow-auto bg-white',
+            core.ws.ui.isTesting ? 'bottom-0' : 'bottom-10'
           )}
-          {core.ws.ui.keybindings.length > 0 && (
-            <div className="top-3 left-3 absolute">
-              <div>Tasten:</div>
-              <div className="flex gap-4 mt-2">
-                {core.ws.ui.keybindings.map((el, i) => {
-                  return (
-                    <div
-                      key={i}
-                      className={clsx(
-                        'px-5 py-3 border-2 cursor-pointer select-none hover:bg-lime-50 rounded-lg active:bg-lime-200 active:scale-95 transition-all',
-                        el.pressed && 'bg-lime-200'
-                      )}
-                      title={el.title}
-                      onPointerDown={(e) => {
-                        // set pressed to true
-                        core.mutateWs((ws) => {
-                          const binding = ws.ui.keybindings.find(
-                            (binding) => binding.key === el.key
-                          )
-                          if (binding) {
-                            binding.pressed = true
-                          }
-                        })
-                      }}
-                      onPointerUp={(e) => {
-                        // set pressed to false
-                        core.mutateWs((ws) => {
-                          const binding = ws.ui.keybindings.find(
-                            (binding) => binding.key === el.key
-                          )
-                          if (binding) {
-                            binding.pressed = false
-                          }
-                        })
-                      }}
-                      onPointerCancel={(e) => {
-                        // ensure pressed is false if the pointer is canceled
-                        core.mutateWs((ws) => {
-                          const binding = ws.ui.keybindings.find(
-                            (binding) => binding.key === el.key
-                          )
-                          if (binding) {
-                            binding.pressed = false
-                          }
-                        })
-                      }}
-                    >
-                      {el.key}
-                    </div>
-                  )
-                })}
+        >
+          <div className="flex flex-col h-full">
+            <div
+              className={clsx(
+                'm-auto',
+                core.ws.editor.questScript &&
+                  core.ws.ui.state == 'running' &&
+                  'opacity-50'
+              )}
+            >
+              <div
+                className={clsx(
+                  'w-fit h-fit mt-4 mx-4',
+                  !core.ws.ui.show2D && 'mb-32'
+                )}
+              >
+                {core.ws.ui.show2D ? (
+                  <View2D
+                    world={core.ws.world}
+                    preview={preview}
+                    className={clsx(
+                      'p-6',
+                      core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
+                    )}
+                  />
+                ) : (
+                  <View
+                    world={core.ws.world}
+                    preview={preview}
+                    className={clsx(
+                      'p-6',
+                      core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
+                    )}
+                    robotImageDataUrl={core.ws.robotImageDataUrl}
+                  />
+                )}
               </div>
             </div>
+          </div>
+        </div>
+        {core.ws.ui.state === 'running' &&
+          core.ws.ui.proMode &&
+          core.ws.settings.language == 'java' &&
+          varStr && (
+            <div className="absolute left-2 top-2">Variablen: {varStr}</div>
           )}
-          <div
-            className={clsx(
-              'm-auto',
-              core.ws.editor.questScript &&
-                core.ws.ui.state == 'running' &&
-                'opacity-50'
-            )}
+        {core.ws.ui.inputPrompt && (
+          <form
+            className="bg-lime-200 px-2 py-3 flex gap-4 items-baseline absolute top-0 left-0 right-0 z-10"
+            onSubmit={(e) => {
+              const el = document.getElementById('input-prompt') as
+                | HTMLInputElement
+                | undefined
+              if (el && core.worker) {
+                core.worker.input(el.value)
+              }
+              e.preventDefault()
+            }}
           >
-            <div className="w-fit h-fit mb-32 mt-4 mx-4">
-              {core.ws.ui.show2D ? (
-                <View2D
-                  world={core.ws.world}
-                  preview={preview}
-                  className={clsx(
-                    'p-6',
-                    core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
-                  )}
-                />
-              ) : (
-                <View
-                  world={core.ws.world}
-                  preview={preview}
-                  className={clsx(
-                    'p-6',
-                    core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
-                  )}
-                  robotImageDataUrl={core.ws.robotImageDataUrl}
-                />
-              )}
+            <span>
+              <FaIcon icon={faComment} className="mr-2 animate-pulse" />
+              {core.ws.ui.inputPrompt}
+            </span>
+            <input
+              id="input-prompt"
+              className="flex-grow px-1"
+              maxLength={200}
+              autoFocus
+              autoComplete="off"
+            ></input>
+            <button
+              className="px-2 py-0.5 bg-lime-400 hover:bg-lime-500 rounded"
+              type="submit"
+            >
+              Enter
+            </button>
+          </form>
+        )}
+        {core.ws.ui.keybindings.length > 0 && (
+          <div className="top-3 left-3 absolute">
+            <div>Tasten:</div>
+            <div className="flex gap-4 mt-2">
+              {core.ws.ui.keybindings.map((el, i) => {
+                return (
+                  <div
+                    key={i}
+                    className={clsx(
+                      'px-5 py-3 border-2 cursor-pointer select-none hover:bg-lime-50 rounded-lg active:bg-lime-200 active:scale-95 transition-all',
+                      el.pressed && 'bg-lime-200'
+                    )}
+                    title={el.title}
+                    onPointerDown={(e) => {
+                      // set pressed to true
+                      core.mutateWs((ws) => {
+                        const binding = ws.ui.keybindings.find(
+                          (binding) => binding.key === el.key
+                        )
+                        if (binding) {
+                          binding.pressed = true
+                        }
+                      })
+                    }}
+                    onPointerUp={(e) => {
+                      // set pressed to false
+                      core.mutateWs((ws) => {
+                        const binding = ws.ui.keybindings.find(
+                          (binding) => binding.key === el.key
+                        )
+                        if (binding) {
+                          binding.pressed = false
+                        }
+                      })
+                    }}
+                    onPointerCancel={(e) => {
+                      // ensure pressed is false if the pointer is canceled
+                      core.mutateWs((ws) => {
+                        const binding = ws.ui.keybindings.find(
+                          (binding) => binding.key === el.key
+                        )
+                        if (binding) {
+                          binding.pressed = false
+                        }
+                      })
+                    }}
+                  >
+                    {el.key}
+                  </div>
+                )
+              })}
             </div>
           </div>
-          {core.ws.ui.state === 'running' &&
-            core.ws.ui.proMode &&
-            core.ws.settings.language == 'java' &&
-            varStr && (
-              <div className="absolute left-2 top-2">Variablen: {varStr}</div>
-            )}
-        </div>
+        )}
         {core.ws.settings.language == 'python-pro' && (
-          <div className="absolute bottom-2 left-2">
+          <div
+            className={clsx(
+              'absolute left-2',
+              core.ws.ui.isTesting ? 'bottom-2' : 'bottom-10'
+            )}
+          >
             {core.ws.ui.messages.map((m) => (
               <div
                 key={`${m.ts}-${m.text}`}
