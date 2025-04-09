@@ -56,7 +56,7 @@ export function InteractionBar() {
         <button
           className={clsx(
             'font-semibold mr-1 select-none disabled:cursor-default',
-            core.ws.settings.mode == 'code' && 'text-gray-400'
+            core.ws.settings.mode == 'code' && 'text-gray-600'
           )}
           disabled={dontChangeLanguage}
           onClick={() => {
@@ -197,7 +197,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
             'flex-grow font-semibold border rounded-l-lg pl-2 py-0.5 transition-all border-r-0 select-none whitespace-nowrap',
             core.ws.settings.mode == 'code'
               ? 'border-[#770088]'
-              : 'border-gray-300 text-gray-400',
+              : 'border-gray-300 text-gray-600',
             dontChangeLanguage ? 'cursor-not-allowed' : 'cursor-pointer'
           )}
           onClick={() => {
