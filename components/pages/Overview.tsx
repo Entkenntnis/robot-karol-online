@@ -664,6 +664,7 @@ export function Overview() {
                       python={
                         questData[parseInt(entry[0])].script && entry[0] != '60'
                       }
+                      dontFade={numberOfSolvedQuests > 0 || entry[0] != '61'}
                     />
                   )
                 })}
