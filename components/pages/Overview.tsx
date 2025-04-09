@@ -547,36 +547,6 @@ export function Overview() {
                   viewBox="0 0 1240 2750"
                   className="relative"
                 >
-                  {Object.entries(mapData).map(([id, data]) => {
-                    if (isQuestVisible(parseInt(id))) {
-                      return (
-                        <Fragment key={id}>
-                          {data.deps.map((dep) => {
-                            if (
-                              isQuestDone(dep) ||
-                              core.ws.page == 'analyze' ||
-                              core.ws.page == 'demo'
-                            ) {
-                              return (
-                                <line
-                                  key={`connect-${id}-${dep}`}
-                                  x1={data.x + 26}
-                                  y1={data.y + 76}
-                                  x2={mapData[dep].x + 26}
-                                  y2={mapData[dep].y + 76}
-                                  strokeWidth="10"
-                                  stroke="rgba(148, 163, 184, 0.8)"
-                                />
-                              )
-                            } else {
-                              return null
-                            }
-                          })}
-                        </Fragment>
-                      )
-                    }
-                    return null
-                  })}
                   <defs>
                     <linearGradient
                       id="pythonGradient"
@@ -607,7 +577,53 @@ export function Overview() {
                         yChannelSelector="G"
                       />
                     </filter>
+                    <filter id="organicTexture2">
+                      <feTurbulence
+                        type="fractalNoise"
+                        baseFrequency="0.05"
+                        numOctaves="3"
+                        result="noise"
+                      />
+                      <feDisplacementMap
+                        in="SourceGraphic"
+                        in2="noise"
+                        scale="2"
+                        xChannelSelector="R"
+                        yChannelSelector="G"
+                      />
+                    </filter>
                   </defs>
+                  {Object.entries(mapData).map(([id, data]) => {
+                    if (isQuestVisible(parseInt(id))) {
+                      return (
+                        <Fragment key={id}>
+                          {data.deps.map((dep) => {
+                            if (
+                              isQuestDone(dep) ||
+                              core.ws.page == 'analyze' ||
+                              core.ws.page == 'demo'
+                            ) {
+                              return (
+                                <line
+                                  key={`connect-${id}-${dep}`}
+                                  x1={data.x + 26}
+                                  y1={data.y + 76}
+                                  x2={mapData[dep].x + 26}
+                                  y2={mapData[dep].y + 76}
+                                  strokeWidth="10"
+                                  filter="url(#organicTexture2)"
+                                  stroke="rgba(148, 163, 184, 0.8)"
+                                />
+                              )
+                            } else {
+                              return null
+                            }
+                          })}
+                        </Fragment>
+                      )
+                    }
+                    return null
+                  })}
 
                   <path
                     d="M 100 1700 C 393 1711 588 1648 726 1547 S 942 1374 1150 1400"
