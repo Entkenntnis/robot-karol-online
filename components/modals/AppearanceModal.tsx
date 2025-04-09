@@ -380,7 +380,7 @@ export function AppearanceModal() {
           </button>
         </div>
         <div className="flex w-full h-full">
-          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-white">
+          <div className="flex-grow-0 flex-shrink-0 w-[120px] bg-white overflow-y-auto pb-3">
             <div className="text-center mt-4">
               <button
                 className="mr-4 text-gray-400 hover:text-gray-500"
@@ -642,7 +642,6 @@ export function AppearanceModal() {
                       position: 'relative',
                       zIndex: 2,
                     }}
-                    className="border-2 border-gray-300"
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUpOrLeave}
