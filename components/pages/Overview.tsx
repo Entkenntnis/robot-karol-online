@@ -717,25 +717,24 @@ export function Overview() {
               {core.strings.overview.version}
             </span>
             <button
-              className="hover:underline"
+              className="hover:underline mr-6"
               onClick={() => {
                 submitAnalyzeEvent(core, 'ev_click_landing_impressum')
                 showModal(core, 'impressum')
               }}
             >
               {core.strings.overview.imprint}
-            </button>{' '}
-            |{' '}
+            </button>
             <button
-              className="hover:underline"
+              className="hover:underline mr-6"
               onClick={() => {
                 submitAnalyzeEvent(core, 'ev_click_landing_privacy')
                 showModal(core, 'privacy')
               }}
             >
               {core.strings.overview.privacy}
-            </button>{' '}
-            | {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
+            </button>
+            {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
           </div>
           {!isPersisted() &&
             isQuestDone(1) &&
@@ -785,7 +784,7 @@ export function Overview() {
         }}
       >
         <span className="hover:underline">{title}</span>{' '}
-        <FaIcon icon={faExternalLink} className="text-xs" />
+        <FaIcon icon={faExternalLink} className="text-xs text-gray-600" />
       </a>
     )
   }
