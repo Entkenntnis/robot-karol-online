@@ -11,6 +11,7 @@ import {
   faPencil,
   faPenToSquare,
   faTable,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -155,7 +156,7 @@ export function Overview() {
                       } catch (e) {}
                     }}
                   >
-                    <FaIcon icon={faTable} />
+                    <FaIcon icon={faTable} className="text-gray-600" />
                     {core.strings.overview.showAll}
                   </button>
                 </li>
@@ -170,7 +171,8 @@ export function Overview() {
                       saveToJSON(core)
                     }}
                   >
-                    <FaIcon icon={faFloppyDisk} /> {core.strings.overview.save}
+                    <FaIcon icon={faFloppyDisk} className="text-green-600" />{' '}
+                    {core.strings.overview.save}
                   </button>
                 </li>
                 <li>
@@ -192,7 +194,8 @@ export function Overview() {
                       forceRerender(core)
                     }}
                   >
-                    <FaIcon icon={faFolderOpen} /> {core.strings.overview.load}
+                    <FaIcon icon={faFolderOpen} className="text-yellow-500" />{' '}
+                    {core.strings.overview.load}
                   </button>
                 </li>
                 <li>
@@ -387,12 +390,12 @@ export function Overview() {
             <>
               <div className="mx-auto mt-6 mb-3">
                 <button
-                  className="px-1 py-0.5 bg-blue-200 hover:bg-blue-300 rounded"
+                  className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
                   onClick={() => {
                     hideOverviewList(core)
                   }}
                 >
-                  {core.strings.overview.closeShowAll}
+                  <FaIcon icon={faTimes} /> {core.strings.overview.closeShowAll}
                 </button>
               </div>
               <div className="mx-6 min-w-[500px] relative bg-white/50">
