@@ -9,7 +9,7 @@ export function submit_event(event: string, core: Core) {
     // only log on production or to local server
     if (
       window.location.host !== 'karol.arrrg.de' &&
-      window.location.host !== 'neu-karol.arrrg.de' &&
+      window.location.host !== 'karol-neu.arrrg.de' &&
       !backend.statsEndpoint.includes('localhost')
     ) {
       // console.log('debug:submit_event', event)
