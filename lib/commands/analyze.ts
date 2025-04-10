@@ -25,6 +25,13 @@ const robotImageDictionary: { [key: string]: string } = {
   'T1hY640JPEjbMrdf7n+g0rjQgPT4S1nAAAAABJRU5ErkJggg==':
     'Annabeth Chase (aus Percy Jackson)',
   '0wYxC7CbMWGyV73Isw8AO1Fp2ElKcQuAAAAABJRU5ErkJggg==': 'Tom',
+  'XynEQuhpiK/73y3xQ4wRT4/1c1nBwXcCimAAAAAElFTkSuQmCC': 'Spiderman',
+  'MW6FRLPIsCFaZncfKmPD4AZWB8V/0KxlsAAAAASUVORK5CYII=': 'Strichmännlein',
+  'Pu13ovfqbWceWXLy4L+XeEX9GB6PjXtgAAAABJRU5ErkJggg==': 'Emmet',
+  'W+sh+ZUMQg0I45bCrwrMD/ZedQwIeOPFsAAAAASUVORK5CYII=': 'Powergirl',
+  'kMchacffgpANAejCMa+R8S8BGxYrMb/AAAAABJRU5ErkJggg==':
+    'Mädchen mit langen Haaren',
+  'rCjxgEodlRfJojb5+fEQP/A1fp1KJLRzhiAAAAAElFTkSuQmCC': 'Toni',
 }
 
 export async function analyze(core: Core) {
@@ -339,7 +346,11 @@ export async function analyze(core: Core) {
     // prepare: populate quest data and generate deps
     core.mutateWs((ws) => {
       for (const index in questData) {
-        ws.analyze.quests[index] = { reachable: 0, complete: 0 }
+        ws.analyze.quests[index] = {
+          reachable: 0,
+          complete: 0,
+          completedAll: 0,
+        }
       }
     })
 
@@ -349,6 +360,9 @@ export async function analyze(core: Core) {
     core.mutateWs((ws) => {
       for (const userId in userRawData) {
         const data = userRawData[userId]
+        for (const key in data.quests) {
+          ws.analyze.quests[key].completedAll++
+        }
         if (!data.quests[1]) {
           continue
         }

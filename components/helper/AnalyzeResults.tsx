@@ -89,7 +89,7 @@ export function AnalyzeResults() {
           abgeschlossen
         </span>
       ))}
-      <h2 className="mt-6 mb-4 text-lg">Farben</h2>
+      {/*<h2 className="mt-6 mb-4 text-lg">Farben</h2>
       <p>
         {(() => {
           const brushColors = Object.entries(core.ws.analyze.brushColors)
@@ -106,8 +106,8 @@ export function AnalyzeResults() {
             </span>
           ))
         })()}
-      </p>
-      <h2 className="mt-6 mb-4 text-lg">geladene Figur</h2>
+      </p>*/}
+      <h2 className="mt-6 mb-4 text-lg">Geladene Figur</h2>
       <p>
         {(() => {
           const loadedRobotImages = Object.entries(

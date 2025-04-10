@@ -222,7 +222,9 @@ export interface Analyze {
   appearance: { [key: string]: { count: number } }
   brushColors: { [key: string]: { count: number } }
   loadedRobotImages: { [key: string]: { count: number } }
-  quests: { [key: string]: { reachable: number; complete: number } }
+  quests: {
+    [key: string]: { reachable: number; complete: number; completedAll: number }
+  }
   userTimes: number[]
   solutions: {
     [questId: string]: {
