@@ -2,7 +2,11 @@ import {
   faCaretDown,
   faCheckCircle,
   faExternalLink,
+  faFloppyDisk,
+  faFolder,
+  faFolderOpen,
   faGlobe,
+  faList,
   faPaintBrush,
   faPencil,
   faPenToSquare,
@@ -116,58 +120,28 @@ export function Overview() {
               {core.strings.overview.playground}
             </a>
             <button
-              className="mr-8 hover:underline"
+              className="mr-2 hover:underline"
               onClick={() => {
                 setOverviewScroll(core, 0)
                 submitAnalyzeEvent(core, 'ev_click_landing_editor')
                 switchToPage(core, 'editor')
               }}
             >
-              <FaIcon icon={faPenToSquare} className="mr-1 text-sm" />
               {core.strings.overview.editor}
             </button>
             <div className="dropdown">
               <div
                 tabIndex={0}
                 role="button"
-                className="hover:underline cursor-pointer"
+                className="hover:underline cursor-pointer ml-6 mr-2 select-none"
               >
-                {core.strings.overview.path} <FaIcon icon={faCaretDown} />
+                {core.strings.overview.path}{' '}
+                <FaIcon icon={faCaretDown} className="text-gray-600" />
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu bg-base-100 rounded-box z-[11] w-52 p-2 shadow mt-1"
+                className="dropdown-content menu bg-base-100 rounded-box z-[11] w-56 p-2 shadow mt-1"
               >
-                {numberOfSolvedQuests == 0 &&
-                core.ws.page !== 'demo' &&
-                core.ws.page !== 'analyze' ? (
-                  <li>
-                    <button
-                      onClick={() => {
-                        submitAnalyzeEvent(core, 'ev_click_landing_startNow')
-                        startQuest(core, 1)
-                      }}
-                    >
-                      <strong>{core.strings.overview.startNow}</strong>
-                    </button>
-                  </li>
-                ) : (
-                  <li>
-                    <button
-                      onClick={() => {
-                        submitAnalyzeEvent(core, 'ev_click_landing_profile')
-                        hideOverviewList(core)
-                        showProfile(core)
-                        try {
-                          // @ts-ignore
-                          document.activeElement?.blur()
-                        } catch (e) {}
-                      }}
-                    >
-                      {core.strings.overview.profile}
-                    </button>
-                  </li>
-                )}
                 <li>
                   <button
                     onClick={() => {
@@ -181,7 +155,22 @@ export function Overview() {
                       } catch (e) {}
                     }}
                   >
+                    <FaIcon icon={faTable} />
                     {core.strings.overview.showAll}
+                  </button>
+                </li>
+                <li>
+                  <button
+                    title={core.strings.overview.saveTooltip}
+                    onClick={() => {
+                      submitAnalyzeEvent(
+                        core,
+                        'ev_click_landing_exportProgress'
+                      )
+                      saveToJSON(core)
+                    }}
+                  >
+                    <FaIcon icon={faFloppyDisk} /> {core.strings.overview.save}
                   </button>
                 </li>
                 <li>
@@ -203,21 +192,22 @@ export function Overview() {
                       forceRerender(core)
                     }}
                   >
-                    {core.strings.overview.load}
+                    <FaIcon icon={faFolderOpen} /> {core.strings.overview.load}
                   </button>
                 </li>
                 <li>
                   <button
-                    title={core.strings.overview.saveTooltip}
                     onClick={() => {
-                      submitAnalyzeEvent(
-                        core,
-                        'ev_click_landing_exportProgress'
-                      )
-                      saveToJSON(core)
+                      submitAnalyzeEvent(core, 'ev_click_landing_profile')
+                      hideOverviewList(core)
+                      showProfile(core)
+                      try {
+                        // @ts-ignore
+                        document.activeElement?.blur()
+                      } catch (e) {}
                     }}
                   >
-                    {core.strings.overview.save}
+                    {core.strings.overview.profile}
                   </button>
                 </li>
                 <li>
@@ -231,20 +221,91 @@ export function Overview() {
                     Highscore
                   </button>
                 </li>
+              </ul>
+            </div>
+            <div className="dropdown">
+              <div
+                tabIndex={0}
+                role="button"
+                className="hover:underline cursor-pointer ml-6 select-none"
+              >
+                Ressourcen{' '}
+                <FaIcon icon={faCaretDown} className="text-gray-600" />
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-base-100 rounded-box z-[11] w-60 p-2 shadow mt-1"
+              >
                 <li>
                   <button
                     onClick={() => {
-                      // open feedback form in new tab
-                      submitAnalyzeEvent(core, 'ev_click_landing_video')
+                      submitAnalyzeEvent(core, 'ev_click_landing_gallery')
+                      switchToPage(core, 'inspiration')
+                    }}
+                  >
+                    Aufgaben-Galerie
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      submitAnalyzeEvent(core, 'ev_click_landing_robotGallery')
                       window.open(
-                        'https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8',
-                        '_blank'
+                        'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
+                        '_self'
                       )
                     }}
                   >
-                    Video-Erklärungen{' '}
-                    <FaIcon className="text-gray-500" icon={faExternalLink} />
+                    Figuren-Galerie
                   </button>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://github.com/Entkenntnis/robot-karol-online#readme"
+                    onClick={() => {
+                      // open feedback form in new tab
+                      submitAnalyzeEvent(core, 'ev_click_landing_material')
+                    }}
+                  >
+                    {core.strings.overview.docs}{' '}
+                    <FaIcon
+                      icon={faExternalLink}
+                      className="text-gray-600 text-xs"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
+                    onClick={() => {
+                      // open feedback form in new tab
+                      submitAnalyzeEvent(core, 'ev_click_landing_material')
+                    }}
+                  >
+                    Materialien für Lehrkräfte{' '}
+                    <FaIcon
+                      icon={faExternalLink}
+                      className="text-gray-600 text-xs"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8"
+                    onClick={() => {
+                      // open feedback form in new tab
+                      submitAnalyzeEvent(core, 'ev_click_landing_video')
+                    }}
+                  >
+                    Video-Erklärungen{' '}
+                    <FaIcon
+                      icon={faExternalLink}
+                      className="text-gray-600 text-xs"
+                    />
+                  </a>
                 </li>
               </ul>
             </div>
@@ -361,7 +422,7 @@ export function Overview() {
                   core.ws.page == 'analyze' ||
                   core.ws.page == 'demo') && (
                   <button
-                    className="absolute top-[350px] left-[1100px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
+                    className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_landing_snake')
                       window.open('/#CDBV', '_blank')
@@ -377,57 +438,7 @@ export function Overview() {
                     />
                   </button>
                 )}
-                {core.ws.settings.lng === 'de' && (
-                  <div className="absolute top-[760px] left-[170px] z-10">
-                    <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                      <a
-                        className={clsx(
-                          'hover:bg-gray-100/60 rounded-xl block',
-                          'w-[120px] cursor-pointer'
-                        )}
-                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
-                        target="_blank"
-                        onClick={() => {
-                          submitAnalyzeEvent(core, 'ev_click_landing_material')
-                        }}
-                      >
-                        <p className="text-center mb-1">
-                          Material für Lehrkräfte
-                        </p>
-                        <img
-                          src="/kleeblatt.png"
-                          alt="Kleeblatt mit 4 Blättern"
-                          className="w-[50px] mx-auto"
-                        />
-                      </a>
-                    </AnimateInView>
-                  </div>
-                )}
-                {core.ws.settings.lng === 'de' && (
-                  <div className="absolute top-[720px] left-[310px] z-10">
-                    <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                      <a
-                        className={clsx(
-                          'hover:bg-gray-100/60 rounded-xl block',
-                          'w-[120px] cursor-pointer'
-                        )}
-                        onClick={() => {
-                          submitAnalyzeEvent(core, 'ev_click_landing_gallery')
-                          switchToPage(core, 'inspiration')
-                        }}
-                      >
-                        <p className="text-center mb-1">
-                          Aufgaben-
-                          <br />
-                          Galerie
-                        </p>
-                        <p className="text-center text-3xl text-purple-400">
-                          <FaIcon icon={faTable} />
-                        </p>
-                      </a>
-                    </AnimateInView>
-                  </div>
-                )}
+
                 {core.ws.ui.newRobotImage && (
                   <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
                     <p className="mb-2">Neue Figur verfügbar:</p>
@@ -470,7 +481,7 @@ export function Overview() {
                     </p>
                   </div>
                 )}
-                <div className="absolute top-[680px] left-[450px] z-10">
+                <div className="absolute top-[200px] left-[1000px] z-10">
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <button
                       className={clsx(
@@ -721,11 +732,7 @@ export function Overview() {
             >
               {core.strings.overview.privacy}
             </button>{' '}
-            | {renderExternalLink('Blog', 'https://blog.arrrg.de/')} |{' '}
-            {renderExternalLink(
-              core.strings.overview.docs,
-              'https://github.com/Entkenntnis/robot-karol-online#readme'
-            )}
+            | {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
           </div>
           {!isPersisted() &&
             isQuestDone(1) &&
