@@ -1,0 +1,9 @@
+.background-element {
+  background-image: url('/canvas_background.jpg'); /* Fallback */
+}
+
+@supports (background-image: url('/canvas_background.avif')) {
+  .background-element {
+    background-image: url('/canvas_background.avif'); /* AVIF for supported browsers */
+  }
+}

@@ -71,10 +71,7 @@ export function Overview() {
   return (
     <>
       <div className="h-full overflow-auto" id="scroll-container">
-        <div
-          className="flex flex-col relative min-h-full min-w-fit"
-          style={{ backgroundImage: "url('/canvas_background.jpg')" }}
-        >
+        <div className="flex flex-col relative min-h-full min-w-fit background-element">
           <div className="flex justify-center">
             <div
               className={clsx(
@@ -407,7 +404,7 @@ export function Overview() {
                   </div>
                 )}
                 {core.ws.settings.lng === 'de' && (
-                  <div className="absolute top-[680px] left-[370px] z-10">
+                  <div className="absolute top-[720px] left-[310px] z-10">
                     <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                       <a
                         className={clsx(
@@ -473,7 +470,7 @@ export function Overview() {
                     </p>
                   </div>
                 )}
-                <div className="absolute top-[500px] left-[1100px] z-10">
+                <div className="absolute top-[680px] left-[450px] z-10">
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <button
                       className={clsx(
@@ -816,6 +813,7 @@ export function Overview() {
     //const reachableCount = core.ws.analyze.reachable[index]
 
     const task = questData[index].tasks[0]
+    const showPython = data.script && index != 60
 
     //const times = quartiles(core.ws.analyze.questTimes[index] ?? [0])
 
@@ -868,7 +866,7 @@ export function Overview() {
                   preview={
                     task.target === null ? undefined : { world: task.target }
                   }
-                  hideKarol={questDone}
+                  hideKarol={questDone || showPython}
                   wireframe={false}
                   className={clsx(
                     'block mx-auto max-h-full',
@@ -886,7 +884,7 @@ export function Overview() {
                 )}
               </div>
             </div>
-            {data.script && index != 60 && (
+            {showPython && (
               <img
                 src="/python-logo-only.png"
                 className={clsx(
