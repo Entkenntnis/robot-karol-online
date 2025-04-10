@@ -6,7 +6,6 @@ console.log('  > Warning about headers is expected.')
 
 module.exports = withBundleAnalyzer({
   output: 'export',
-  productionBrowserSourceMaps: true,
   // necessary for pyodide to work in a webworker, for dev
   // set proper headers in production
   async headers() {
