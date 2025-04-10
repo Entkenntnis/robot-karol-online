@@ -109,8 +109,8 @@ export function Overview() {
             </select>
           </div>
           <div className="mx-auto mt-6">
-            <a
-              className="hover:underline cursor-pointer mr-8"
+            <button
+              className="hover:underline mr-8"
               onClick={() => {
                 submitAnalyzeEvent(core, 'ev_click_landing_playground')
                 buildPlayground(core)
@@ -118,7 +118,7 @@ export function Overview() {
               }}
             >
               {core.strings.overview.playground}
-            </a>
+            </button>
             <button
               className="mr-2 hover:underline"
               onClick={() => {
