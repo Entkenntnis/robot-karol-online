@@ -189,6 +189,11 @@ export function startQuest(core: Core, id: number) {
       ws.settings.mode = 'blocks'
       ws.ui.lockLanguage = undefined
     }
+    if (ws.quest.lockToKarolCode) {
+      ws.settings.language = 'robot karol'
+      ws.settings.mode = 'code'
+      ws.ui.lockLanguage = 'karol'
+    }
   })
   switchToPage(core, 'quest')
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {

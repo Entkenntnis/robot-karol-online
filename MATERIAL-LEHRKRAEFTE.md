@@ -4,13 +4,9 @@
 
 Bitte schreibe mir - Quinn Li (sie/ihr) - unter karol@arrrg.de eine kleine Nachricht um die Musterlösung zu Aufgaben im Selbst-Lern-Pfad zu erhalten.
 
-### Dokumentation
+### Lernpfad nur mit Karol Code
 
-Eine Übersicht über den Funktionsumfang und die Befehle findest du in der [Dokumentation](https://github.com/Entkenntnis/robot-karol-online#readme).
-
-### Inspiration
-
-Besuche die [Galerie freigegebener Aufgaben](https://karol.arrrg.de/#INSPIRATION).
+Mit dem Link https://karol.arrrg.de/?code=1 werden Blöcke deaktiviert.
 
 ### Windows-Installer
 

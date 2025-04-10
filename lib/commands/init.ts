@@ -17,7 +17,7 @@ import { loadProgram } from './save'
 
 export async function initClient(core: Core) {
   window.addEventListener('popstate', () => {
-    window.location.reload()
+    window.location.reload() // <---- this looks fishy
   })
 
   const parameterList = new URLSearchParams(window.location.search)
@@ -26,12 +26,15 @@ export async function initClient(core: Core) {
 
   const code = parameterList.get('code')
 
-  if (typeof code === 'string') {
+  if (
+    typeof code === 'string' ||
+    sessionStorage.getItem('robot_karol_online_lock_to_karol_code')
+  ) {
     // lock ui to code only
     core.mutateWs((ws) => {
-      ws.ui.lockLanguage = 'karol'
-      ws.settings.mode = 'code'
+      ws.quest.lockToKarolCode = true
     })
+    sessionStorage.setItem('robot_karol_online_lock_to_karol_code', '1')
   }
 
   if (id) {

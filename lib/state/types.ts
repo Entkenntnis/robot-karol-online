@@ -120,6 +120,7 @@ export interface Quest {
   completedOnce: boolean
   audioSrc?: string
   thisTaskIsAlreadyCompleted?: number
+  lockToKarolCode?: boolean
 }
 
 export interface Overview {
