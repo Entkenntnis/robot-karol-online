@@ -12,11 +12,9 @@ import {
   faFillDrip,
   faPaintBrush,
   faStar,
-  faTimes,
   faUndo,
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { sub } from 'date-fns'
 import { backend } from '../../backend'
 
 export function AppearanceModal() {
