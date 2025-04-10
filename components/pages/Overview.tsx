@@ -243,7 +243,7 @@ export function Overview() {
                       switchToPage(core, 'inspiration')
                     }}
                   >
-                    Aufgaben-Galerie
+                    💫 Aufgaben-Galerie
                   </button>
                 </li>
                 <li>
@@ -256,7 +256,7 @@ export function Overview() {
                       )
                     }}
                   >
-                    Figuren-Galerie
+                    🤖 Figuren-Galerie
                   </button>
                 </li>
                 <li>
