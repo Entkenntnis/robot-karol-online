@@ -41,7 +41,11 @@ export function QuestIcon({
       onClick={onClick}
       key={title}
     >
-      <AnimateInView dontFade={dontFade}>
+      <AnimateInView
+        dontFade={
+          dontFade || core.ws.page == 'analyze' || core.ws.page == 'demo'
+        }
+      >
         <div className="flex items-center flex-col w-[64px] cursor-pointer group pointer-events-none">
           <button className="text-lg bg-gray-100/70 px-1 py-0.5 rounded group-hover:bg-white/80 pointer-events-auto whitespace-nowrap -ml-2">
             {title}
@@ -98,7 +102,8 @@ export function QuestIcon({
                       {entry.complete} /{' '}
                       <strong>
                         {Math.round((entry.complete / entry.reachable) * 100)}%
-                      </strong>
+                      </strong>{' '}
+                      [{entry.completedAll}]
                     </span>
                   )
                 }
