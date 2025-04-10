@@ -165,16 +165,16 @@ export function BlockEditor() {
       const mainBlocks = topBlocks.filter((bl) => bl.type == 'main')
 
       let names: string[] = []
-      core.mutateWs(({ ui }) => {
-        cmdBlocks.forEach((block) => {
-          const name = block.getFieldValue('COMMAND_NAME')
-          if (name) {
-            names.push(name)
-          }
-          const { top, left } = block.getBoundingRectangle()
-          ui.cmdBlockPositions[name] = { x: left, y: top }
-        })
+      // core.mutateWs(({ ui }) => {
+      cmdBlocks.forEach((block) => {
+        const name = block.getFieldValue('COMMAND_NAME')
+        if (name) {
+          names.push(name)
+        }
+        //const { top, left } = block.getBoundingRectangle()
+        //ui.cmdBlockPositions[name] = { x: left, y: top }
       })
+      // })
       CmdBlocksStore.update((s) => {
         s.names = names
       })
