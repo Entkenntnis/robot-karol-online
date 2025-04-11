@@ -337,10 +337,12 @@ export function startTesting(core: Core) {
 
 export function finishQuest(core: Core, stay: boolean = false) {
   if (core.ws.quest.id < 0) {
-    submit_event(
-      `custom_quest_complete_${window.location.hash.substring(1)}`,
-      core
-    )
+    if (core.ws.page != 'editor') {
+      submit_event(
+        `custom_quest_complete_${window.location.hash.substring(1)}`,
+        core
+      )
+    }
     core.mutateWs((ws) => {
       ws.ui.isAlreadyCompleted = true
       ws.ui.controlBarShowFinishQuest = false
