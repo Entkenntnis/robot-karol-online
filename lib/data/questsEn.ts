@@ -259,4 +259,8 @@ export const questDataEn: { [key: number]: QuestData } = {
   63: {
     ...deserlizeQuestToData(require('./quests/63.json')),
   },
+
+  65: {
+    ...deserlizeQuestToData(require('./quests/65.json')),
+  },
 }
