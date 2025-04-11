@@ -59,6 +59,7 @@ export function switchToPage(core: Core, target: Pages) {
         } else if (ui.lockLanguage == 'python-pro') {
           editor.editOptions = 'python-pro-only'
         }
+        editor.showQuestPreview = false
       })
     } else {
       core.mutateWs((ws) => {
@@ -83,6 +84,7 @@ export function switchToPage(core: Core, target: Pages) {
         ui.lockLanguage = undefined
         ws.settings.language = 'robot karol'
         ws.settings.mode = 'blocks'
+        editor.showQuestPreview = false
       })
       addNewTask(core)
     }
