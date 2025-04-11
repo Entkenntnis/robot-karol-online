@@ -232,7 +232,7 @@ export function Output() {
           <div
             className={clsx(
               'absolute left-2',
-              core.ws.ui.isTesting ? 'bottom-2' : 'bottom-10'
+              core.ws.ui.isTesting ? 'bottom-2' : 'bottom-11'
             )}
           >
             {core.ws.ui.messages.map((m) => (
