@@ -7,7 +7,7 @@ let pyodide = null
 let delay = new Int32Array(1)
 let lastStepTs = -1
 
-let decoder = new TextDecoder()
+const decoder = new TextDecoder()
 
 const compileScript = (code) => `
 def check_syntax(code):
@@ -56,7 +56,8 @@ self.onmessage = async (event) => {
         })
       }
     }
-    const output = []
+    const outputs = []
+    const inputs = []
     const Robot = () => {
       return {
         schritt: (n = 1) => {
@@ -210,9 +211,11 @@ self.onmessage = async (event) => {
           key,
         })
       },
-      __ide_get_output: () => {
-        console.log(output)
-        return pyodide.toPy(output)
+      __ide_get_outputs: () => {
+        return pyodide.toPy(outputs)
+      },
+      __ide_get_inputs: () => {
+        return pyodide.toPy(inputs)
       },
       __ide_sleep: (s) => {
         sleep(s * 1000)
@@ -226,7 +229,7 @@ self.onmessage = async (event) => {
       pyodide.setStdout({
         write: (buf) => {
           const written_string = decoder.decode(buf)
-          output.push(written_string)
+          outputs.push(written_string)
           self.postMessage({ type: 'stdout', text: written_string })
           return buf.length
         },
@@ -248,6 +251,7 @@ self.onmessage = async (event) => {
           // Read the input bytes.
           const inputBytes = dataArray.slice(0, length)
           lastStepTs = performance.now() * 1000
+          inputs.push(decoder.decode(inputBytes))
           return inputBytes
         },
       })
