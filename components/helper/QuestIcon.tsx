@@ -83,7 +83,7 @@ export function QuestIcon({
               {python && (
                 <img
                   src="/python-logo-only.png"
-                  className="absolute bottom-0 right-2 h-8 bg-white/30 rounded-lg pointer-events-auto"
+                  className="absolute bottom-0 right-2 h-8 rounded-lg pointer-events-auto"
                   alt=""
                 />
               )}

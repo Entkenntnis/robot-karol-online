@@ -114,4 +114,5 @@ export const mapData: {
   62: { x: 830, y: 1520, deps: [61], dir: 'west' },
   63: { x: 960, y: 1660, deps: [61], dir: 'west' },
   65: { x: 650, y: 1660, deps: [61], dir: 'west' },
+  66: { x: 550, y: 1800, deps: [61], dir: 'west' },
 }
