@@ -59,6 +59,7 @@ export function switchToPage(core: Core, target: Pages) {
         } else if (ui.lockLanguage == 'python-pro') {
           editor.editOptions = 'python-pro-only'
         }
+        ui.lockLanguage = undefined
         editor.showQuestPreview = false
       })
     } else {
