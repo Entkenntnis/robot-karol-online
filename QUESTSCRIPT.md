@@ -1,6 +1,6 @@
 # QuestScript
 
-Über `QuestScript` können interaktive Aufgaben in Python programmiert werden. Dieser Modus eignet sich für Aufgaben, die über die Veränderungen in der Welt auch Variablen und Funktionen innerhalb des Codes überprüfen wollen.
+Über `QuestScript` können interaktive Aufgaben in Python programmiert werden. Dieser Modus eignet sich für Aufgaben, die über die Veränderungen in der Welt hinaus auch Variablen und Funktionen innerhalb des Codes überprüfen wollen.
 
 Das QuestScript wird **anstelle** der normalen Steuerung gestartet. Eine Reihe von Funktionen mit dem Prefix `__ide_` erlauben den Eingriff in interne Abläufe. So wird das Standard-Verhalten abgebildet:
 
