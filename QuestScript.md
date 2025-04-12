@@ -69,7 +69,35 @@ Erhalte eine Liste aller Zeile, die bisher an stdout geschickt wurden. Hilft die
 
 Erhalte eine Liste aller Zeile, die bisher über stdin eingelesen wurden. Hilft die efolgreiche Ausführung von `input` zu überprüfen.
 
+## Beispiel
 
+Das ist das QuestScript zur Aufgabe `Hallo, Python!`:
+
+```py
+__ide_run_client()
+
+__ide_sleep(0.4)
+
+stdout = __ide_get_outputs()
+
+if len(stdout) == 0:
+    __ide_prompt("Du hast nichts ausgegeben. `" +
+                 "Nutze den Befehl `print()` in deinem Programm.",
+                 "Beenden")
+    __ide_exit()
+
+if len(stdout) > 1:
+    __ide_prompt("Bitte gib nur einen Text aus.", "Beenden")
+    __ide_exit()
+
+if not stdout[0].strip().lower() == "hallo, python!":
+    __ide_prompt("Ein Text wurde ausgegeben 👍 Ändere deine Ausgabe noch " +
+                 "auf die passende Nachricht.", "Beenden")
+    __ide_exit()
+
+__ide_set_progress(True)
+__ide_prompt("Perfekt gemacht 🎉 Deine Ausgabe erscheint im rechten Fenster als grün-hinterlegter Text.", "Ja, hab ich gesehen")
+```
 
 
 
