@@ -32,7 +32,9 @@ monty = 4
 # QuestScript
 def test():
     print("Hallo aus QuestScript")
+
 __ide_run_client(globals=['test'])
+
 print(monty) # -> 4
 ```
 
@@ -57,7 +59,7 @@ ___ide_set_progress(True)
 
 Beendet das QuestScript sofort.
 
-### `__ide_sleep(sec: int) -> None`
+### `__ide_sleep(sec: int | float) -> None`
 
 Pausiert das Script für `sec` Sekunden. Bevorzuge diese Methode statt `time.sleep()`.
 
