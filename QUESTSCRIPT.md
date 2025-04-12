@@ -32,7 +32,7 @@ monty = 4
 # QuestScript
 def test():
     print("Hallo aus QuestScript")
-__ide_run_client(globals['test'])
+__ide_run_client(globals=['test'])
 print(monty) # -> 4
 ```
 
