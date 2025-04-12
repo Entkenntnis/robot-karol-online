@@ -1,6 +1,10 @@
 import { EditorView } from '@codemirror/view'
 import { useEffect, useRef, useState } from 'react'
-import { faCircleExclamation, faTimes } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCircleExclamation,
+  faExternalLink,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
 
 import { useCore } from '../../lib/state/core'
@@ -20,6 +24,7 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { BlockEditor } from './BlockEditor'
 import { QuestPrompt } from '../helper/QuestPrompt'
 import { PythonCheatsheet } from '../helper/PythonCheatsheet'
+import { set } from 'date-fns'
 
 export function EditArea() {
   const core = useCore()
@@ -230,20 +235,42 @@ export function EditArea() {
           <>
             <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between">
               <div>
-                <button
-                  className={clsx(
-                    'link',
-                    showPythonCheatSheet && 'text-purple-600'
-                  )}
-                  onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_ide_pythoncheatsheet')
-                    setShowPythonCheatSheet((prev) => !prev)
-                  }}
-                >
-                  Spickzettel
-                </button>
+                {core.ws.ui.editQuestScript ? (
+                  <a
+                    className={clsx(
+                      'link',
+                      showPythonCheatSheet && 'text-purple-600'
+                    )}
+                    href="https://github.com/Entkenntnis/robot-karol-online/blob/main/QUESTSCRIPT.md#questscript"
+                    target="_blank"
+                    onClick={() => {
+                      submitAnalyzeEvent(core, 'ev_click_ide_questscriptGuide')
+                    }}
+                  >
+                    Anleitung{' '}
+                    <FaIcon icon={faExternalLink} className="text-xs" />
+                  </a>
+                ) : (
+                  <button
+                    className={clsx(
+                      'link',
+                      showPythonCheatSheet && 'text-purple-600'
+                    )}
+                    onClick={() => {
+                      submitAnalyzeEvent(core, 'ev_click_ide_pythoncheatsheet')
+                      setShowPythonCheatSheet((prev) => !prev)
+                    }}
+                  >
+                    Spickzettel
+                  </button>
+                )}
                 {core.ws.page == 'editor' && (
-                  <label className="ml-8 text-gray-500">
+                  <label
+                    className={clsx(
+                      'ml-8 text-gray-500 cursor-pointer',
+                      core.ws.editor.questScript && 'font-semibold'
+                    )}
+                  >
                     <input
                       type="checkbox"
                       checked={core.ws.ui.editQuestScript}
@@ -260,9 +287,10 @@ export function EditArea() {
                             editor.editOptions = 'python-pro-only'
                           })
                         }
+                        setShowPythonCheatSheet(false)
                       }}
                     ></input>{' '}
-                    QuestScript bearbeiten (experimentell)
+                    QuestScript bearbeiten
                   </label>
                 )}
               </div>
