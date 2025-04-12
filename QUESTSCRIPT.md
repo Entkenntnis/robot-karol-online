@@ -100,3 +100,5 @@ if not stdout[0].strip().lower() == "hallo, python!":
 __ide_set_progress(True)
 __ide_prompt("Perfekt gemacht 🎉 Deine Ausgabe erscheint im rechten Fenster als grün-hinterlegter Text.", "Ja, hab ich gesehen")
 ```
+
+Im Editor können weitere Aufgaben über "Aus Vorlage laden" geöffnet und die zugehören QuestScripts betrachtet werden.
