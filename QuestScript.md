@@ -18,7 +18,7 @@ Der Client kann so oft wie gewünscht ausgeführt werden und davor/danach könne
 
 Führt den Client-Code in einer neuen, leeren Umgebung aus (nur built-ins und `Robot` verfügbar). Falls `globals` angegeben, werden aus der QuestScript-Umgebung diese Variable in die Client-Umgebung kopiert.
 
-Nach der Ausführung werden neue Variable der Client-Umgebung automatisch in die QuestScript-Umgebung kopiert. Variablen mit dem Prefix `__ide_` werden nicht überschrieben 
+Nach der Ausführung werden neue Variable der Client-Umgebung automatisch in die QuestScript-Umgebung kopiert. Variablen mit dem Prefix `__ide_` werden nicht überschrieben
 
 So sieht ein Beispiel aus:
 
@@ -38,7 +38,7 @@ print(monty) # -> 4
 
 ### `__ide_prompt(message: str, confirm="weiter": str) -> None`
 
-Zeigt die Nachricht an und wartet, bis der Client die Nachricht bestätigt. `message` ist der Text und `confirm` die Beschriftung des Buttons. 
+Zeigt die Nachricht an und wartet, bis der Client die Nachricht bestätigt. `message` ist der Text und `confirm` die Beschriftung des Buttons.
 
 ```py
 ___ide_prompt("Hallo")
@@ -98,12 +98,3 @@ if not stdout[0].strip().lower() == "hallo, python!":
 __ide_set_progress(True)
 __ide_prompt("Perfekt gemacht 🎉 Deine Ausgabe erscheint im rechten Fenster als grün-hinterlegter Text.", "Ja, hab ich gesehen")
 ```
-
-
-
-
-
-
-
-
-
