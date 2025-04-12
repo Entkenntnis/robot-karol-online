@@ -99,6 +99,12 @@ export function EditArea() {
       <div className="h-full flex flex-col overflow-y-auto relative">
         {core.ws.settings.language === 'python' && (
           <>
+            <div className="bg-yellow-200 p-2">
+              Hinweis: Dieser Karol Python Modus wird zum Ende des Schuljahrs in
+              den Python Modus integriert. Nutze wenn möglich schon jetzt den
+              neuen Python Modus. Melde dich bei Fragen gerne per E-Mail
+              (karol@arrrg.de).
+            </div>
             <div className="bg-gray-100 pr-2 py-2 flex items-baseline ">
               <div className="mr-4 ml-3">Einfügen:</div>
               <div>

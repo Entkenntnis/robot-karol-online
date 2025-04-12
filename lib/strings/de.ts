@@ -173,7 +173,7 @@ export const deStrings = {
     editOptions: 'Eingabeoptionen',
     all: 'alle erlauben',
     karolOnly: 'nur Robot-Karol-Code',
-    pythonOnly: 'nur Karol-Python-Code',
+    pythonOnly: 'nur Karol-Python-Code [veraltet]',
     javaOnly: 'nur Karol-Java-Code',
     pythonProOnly: 'nur Python-Code',
     deleteWorld: 'Welt löschen',

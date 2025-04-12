@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { FaIcon } from './FaIcon'
-import { faBook, faCheck, faCopy } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBook,
+  faCheck,
+  faCopy,
+  faExternalLink,
+} from '@fortawesome/free-solid-svg-icons'
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { indentUnit, syntaxHighlighting } from '@codemirror/language'
@@ -106,14 +111,14 @@ export function PythonCheatsheet() {
 
       <p>
         <a
-          href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md#karol-x-python"
+          href="https://github.com/Entkenntnis/robot-karol-online/blob/main/KAROL-X-PYTHON.md#karol-x-python"
           target="_blank"
           className="link"
           onClick={() => {
             submitAnalyzeEvent(core, 'ev_click_ide_pythonMoreExamples')
           }}
         >
-          weitere Beispiele
+          weitere Beispiele <FaIcon icon={faExternalLink} className="text-xs" />
         </a>
       </p>
 
