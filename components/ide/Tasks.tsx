@@ -132,7 +132,7 @@ export function Tasks() {
                     {core.strings.editor.pythonProOnly}
                   </option>
                 </select>
-                <span className="ml-14 inline-block">
+                <span className="ml-14 hidden">
                   <label className="select-none">
                     <input
                       type="checkbox"
