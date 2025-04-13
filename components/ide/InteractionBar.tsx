@@ -117,7 +117,8 @@ export function InteractionBar() {
           <DropdownComponent dontChangeLanguage={dontChangeLanguage} />
         </div>
       )}
-      <div className="flex gap-1 w-[111px] relative z-[100]">
+      <div className="w-[111px]"></div>
+      <div className="flex gap-1 w-[111px] z-[100] absolute right-1 top-0.5">
         {core.ws.vm.isDebugging && (
           <button
             className="absolute -bottom-[38px] right-0 px-3 py-1 bg-purple-300 hover:bg-purple-400 transition-colors rounded active:bg-purple-500 "
@@ -134,7 +135,7 @@ export function InteractionBar() {
         {debuggable && (
           <button
             className={clsx(
-              'py-0.5 bg-purple-100 hover:bg-purple-200 rounded flex-grow'
+              'py-0.5 bg-purple-100 hover:bg-purple-200 rounded absolute -left-[52px] top-0 w-12 h-10'
             )}
             onClick={() => {
               if (!core.ws.vm.isDebugging) {
