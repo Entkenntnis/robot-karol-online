@@ -108,7 +108,7 @@ export function RemixModal() {
                     ws.pythonCode = obj.script.program
                     ws.editor.questScript = obj.script.questScript
                     ws.ui.editQuestScript = false
-                    ws.ui.lockLanguage = 'python-pro'
+                    ws.editor.editOptions = 'python-pro-only'
                   }
                 })
               }
