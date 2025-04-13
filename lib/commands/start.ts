@@ -38,11 +38,8 @@ export function startButtonClicked(core: Core) {
 
   if (core.ws.ui.state == 'running') {
     if (core.ws.vm.isDebugging) {
-      core.mutateWs((ws) => {
-        ws.vm.isDebugging = false
-        ws.vm.startTime =
-          Date.now() - (ws.vm.steps + 1) * sliderToDelay(ws.ui.speedSliderValue)
-      })
+      abort(core)
+      return
     } else {
       if (core.ws.settings.language == 'python-pro') {
         core.worker?.reset()
