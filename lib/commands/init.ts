@@ -229,5 +229,6 @@ export function buildPlayground(core: Core) {
     ws.ui.lockLanguage = undefined
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.isAlreadyCompleted = false
+    ws.ui.sharedQuestId = undefined
   })
 }

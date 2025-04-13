@@ -75,10 +75,9 @@ export function saveCodeToFile(core: Core) {
   // 5. Create an anchor element for the download link
   const a = document.createElement('a')
   a.href = url
-  a.download = `${core.ws.quest.title.replace(
-    /[^A-Za-z0-9äüöÄÜÖß]/g,
-    '_'
-  )}-karol.${
+  a.download = `${core.ws.quest.title.replace(/[^A-Za-z0-9äüöÄÜÖß]/g, '_')}-${
+    core.ws.ui.sharedQuestId ? core.ws.ui.sharedQuestId + '-' : ''
+  }karol.${
     core.ws.settings.language == 'robot karol'
       ? 'txt'
       : core.ws.settings.language == 'python'
