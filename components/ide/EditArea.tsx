@@ -49,8 +49,7 @@ export function EditArea() {
             ? core.ws.editor.questScript
             : core.ws.settings.language == 'robot karol'
             ? core.ws.code
-            : core.ws.settings.language == 'python' ||
-              core.ws.settings.language == 'python-pro'
+            : core.ws.settings.language == 'python-pro'
             ? core.ws.pythonCode
             : core.ws.javaCode,
         },
@@ -101,7 +100,7 @@ export function EditArea() {
   if (core.ws.settings.mode == 'code') {
     return (
       <div className="h-full flex flex-col overflow-y-auto relative">
-        {core.ws.settings.language === 'python' && (
+        {false && (
           <>
             <div className="bg-yellow-200 p-2">
               Hinweis: Dieser Karol Python Modus wird zum Ende des Schuljahrs in

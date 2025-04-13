@@ -76,10 +76,7 @@ export async function initClient(core: Core) {
           ws.settings.language = 'robot karol'
         })
       } else if (mode == 'PYTHON') {
-        setLanguage(
-          core,
-          parts.length == 3 && parts[2] == 'PRO' ? 'python-pro' : 'python'
-        )
+        setLanguage(core, 'python-pro')
       } else if (mode == 'JAVA') {
         setLanguage(core, 'java')
       }

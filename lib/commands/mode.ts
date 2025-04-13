@@ -63,10 +63,7 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
         state.javaCode = robotKarol2Java(state.code)
       })
     }
-    if (
-      core.ws.settings.language == 'python' ||
-      core.ws.settings.language == 'python-pro'
-    ) {
+    if (core.ws.settings.language == 'python-pro') {
       core.mutateWs((state) => {
         state.pythonCode = robotKarol2Python(state.code)
       })

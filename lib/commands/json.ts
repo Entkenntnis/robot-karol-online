@@ -170,14 +170,19 @@ export function deserializeQuest(
   attemptToLoadProgramFromLocalStorage(core)
   if (core.ws.page === 'editor') {
     core.mutateWs((ws) => {
-      ws.editor.editOptions = quest.editOptions ? quest.editOptions : 'all'
+      ws.editor.editOptions =
+        quest.editOptions == 'python-only'
+          ? 'python-pro-only'
+          : quest.editOptions
+          ? quest.editOptions
+          : 'all'
       ws.editor.saveProgram = !!(quest.program && quest.language)
     })
   } else if (quest.editOptions) {
     if (quest.editOptions === 'python-only') {
-      setLanguage(core, 'python')
+      setLanguage(core, 'python-pro')
       core.mutateWs((ws) => {
-        ws.ui.lockLanguage = 'python'
+        ws.ui.lockLanguage = 'python-pro'
         ws.settings.mode = 'code'
       })
     }

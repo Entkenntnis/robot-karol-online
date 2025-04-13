@@ -54,7 +54,7 @@ export interface Ui {
   cmdBlockPositions: CmdBlockPositions
   snippets: string[]
   showJavaInfo: boolean
-  lockLanguage?: 'python' | 'java' | 'karol' | 'python-pro'
+  lockLanguage?: 'java' | 'karol' | 'python-pro'
   isPlayground: boolean
   showPreview: boolean
   show2D: boolean
@@ -89,7 +89,7 @@ export interface Vm {
 
 export interface Settings {
   mode: 'code' | 'blocks'
-  language: 'robot karol' | 'java' | 'python' | 'python-pro'
+  language: 'robot karol' | 'java' | 'python-pro'
   lng: 'de' | 'en'
 }
 
@@ -98,12 +98,7 @@ export interface Editor {
   editWorld: number | null
   currentlyEditing: 'start' | 'target'
   showWorldPreview: boolean
-  editOptions:
-    | 'all'
-    | 'python-only'
-    | 'java-only'
-    | 'karol-only'
-    | 'python-pro-only'
+  editOptions: 'all' | 'java-only' | 'karol-only' | 'python-pro-only'
   saveProgram: boolean
   keepQuest: boolean
   questScript: string

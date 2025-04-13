@@ -49,18 +49,14 @@ export function saveCodeToFile(core: Core) {
     [
       (core.ws.ui.isPlayground
         ? `${
-            core.ws.settings.language == 'python' ||
-            core.ws.settings.language == 'python-pro'
-              ? '#'
-              : '//'
+            core.ws.settings.language == 'python-pro' ? '#' : '//'
           } Spielwiese: ${core.ws.quest.tasks[0].start.dimX}, ${
             core.ws.quest.tasks[0].start.dimY
           }, ${core.ws.quest.tasks[0].start.height}\n\n`
         : '') +
         (core.ws.settings.language == 'robot karol'
           ? core.ws.code
-          : core.ws.settings.language == 'python' ||
-            core.ws.settings.language == 'python-pro'
+          : core.ws.settings.language == 'python-pro'
           ? core.ws.pythonCode
           : core.ws.javaCode),
     ],
@@ -80,8 +76,6 @@ export function saveCodeToFile(core: Core) {
   }karol.${
     core.ws.settings.language == 'robot karol'
       ? 'txt'
-      : core.ws.settings.language == 'python'
-      ? 'py.txt'
       : core.ws.settings.language == 'python-pro'
       ? 'py'
       : 'java.txt'
@@ -194,7 +188,7 @@ export function loadProgram(
     }
     if (language == 'python') {
       ws.settings.mode = 'code'
-      ws.settings.language = 'python'
+      ws.settings.language = 'python-pro'
       ws.pythonCode = program
     }
     if (language == 'java') {
@@ -224,8 +218,6 @@ export function getProgram(core: Core) {
   } else {
     if (core.ws.settings.language == 'robot karol') {
       return { language: 'karol', program: core.ws.code }
-    } else if (core.ws.settings.language == 'python') {
-      return { language: 'python', program: core.ws.pythonCode }
     } else if (core.ws.settings.language == 'java') {
       return { language: 'java', program: core.ws.javaCode }
     } else if (core.ws.settings.language == 'python-pro') {

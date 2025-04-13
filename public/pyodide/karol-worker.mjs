@@ -345,14 +345,16 @@ function checkDebug() {
   while (true) {
     if (debug[0] == 0) {
       break // not debugging
-    }
-    if (debug[0] == 2) {
+    } else if (debug[0] == 2) {
       // step
       debug[0] = 1
       break
-    }
-    if (debug[0] == 1) {
+    } else if (debug[0] == 1) {
       Atomics.wait(debug, 0, 1)
+    } else {
+      // safeguard
+      debug[0] = 0
+      break
     }
   }
 }

@@ -62,8 +62,6 @@ export function InteractionBar() {
         <div className="whitespace-nowrap font-semibold text-gray-600 select-none border-[#770088] px-2 py-0.5 border rounded-lg">
           {core.ws.ui.lockLanguage == 'karol'
             ? 'Karol Code'
-            : core.ws.ui.lockLanguage == 'python'
-            ? 'Karol Python'
             : core.ws.ui.lockLanguage == 'java'
             ? 'Karol Java'
             : core.ws.ui.lockLanguage == 'python-pro'
@@ -243,11 +241,6 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
             title: 'Reduzierte Version Java für Karol',
           },
           {
-            value: 'python',
-            label: 'Karol Python',
-            title: 'Reduzierte Version von Python für Karol',
-          },
-          {
             value: 'python-pro',
             label: 'Python',
             title: 'Nutze den vollen Funktionsumfang von Python 3.12',
@@ -260,7 +253,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
     options.find((opt) => opt.value === core.ws.settings.language) || options[0]
 
   return (
-    <div className="relative ml-1 inline-block w-[136px]">
+    <div className="relative ml-1 inline-block w-[124px]">
       <div className="flex justify-between">
         <div
           className={clsx(
