@@ -124,6 +124,13 @@ export function setupWorker(core: Core) {
         ui.state = 'ready'
         ui.errorMessages = [filterTraceback(event.data.error)]
       })
+      const match = event.data.error.match(
+        /File "Programm\.py", line (\d+), in <module>/
+      )
+      if (match) {
+        const line = parseInt(match[1])
+        setExecutionMarker(core, line, 'error')
+      }
     }
 
     if (event.data.type && event.data.type == 'stdin') {
@@ -393,6 +400,8 @@ function filterTraceback(traceback: string): string {
   const uninterestingPatterns = [
     /\/lib\/python[^"]*/, // Lines from system libraries
     /_pyodide/, // Pyodide internals
+    /pyodide/, // Pyodide internals
+    /QuestScript\.py/, // QuestScript file
   ]
 
   const result: string[] = []
