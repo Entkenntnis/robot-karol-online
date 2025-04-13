@@ -270,36 +270,37 @@ export function EditArea() {
                     Spickzettel
                   </button>
                 )}
-                {core.ws.page == 'editor' && (
-                  <label
-                    className={clsx(
-                      'ml-8 text-gray-500 cursor-pointer',
-                      core.ws.editor.questScript && 'font-semibold'
-                    )}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={core.ws.ui.editQuestScript}
-                      onChange={(e) => {
-                        const checked = e.target.checked
-                        core.mutateWs(({ ui }) => {
-                          ui.editQuestScript = checked
-                        })
-                        core.mutateWs((ws) => {
-                          ws.ui.needsTextRefresh = true
-                        })
-                        if (checked) {
-                          core.mutateWs(({ editor }) => {
-                            editor.editOptions = 'python-pro-only'
-                          })
-                        }
-                        setShowCheatSheet(false)
-                      }}
-                    ></input>{' '}
-                    QuestScript bearbeiten
-                  </label>
-                )}
               </div>
+
+              {core.ws.page == 'editor' && (
+                <label
+                  className={clsx(
+                    'ml-8 text-gray-500 cursor-pointer select-none',
+                    core.ws.editor.questScript && 'font-semibold'
+                  )}
+                >
+                  <input
+                    type="checkbox"
+                    checked={core.ws.ui.editQuestScript}
+                    onChange={(e) => {
+                      const checked = e.target.checked
+                      core.mutateWs(({ ui }) => {
+                        ui.editQuestScript = checked
+                      })
+                      core.mutateWs((ws) => {
+                        ws.ui.needsTextRefresh = true
+                      })
+                      if (checked) {
+                        core.mutateWs(({ editor }) => {
+                          editor.editOptions = 'python-pro-only'
+                        })
+                      }
+                      setShowCheatSheet(false)
+                    }}
+                  ></input>{' '}
+                  QuestScript bearbeiten
+                </label>
+              )}
               {core.ws.editor.questScript && core.ws.page == 'shared' && (
                 <div
                   className="select-none text-purple-400 ml-2"
