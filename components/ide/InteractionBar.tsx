@@ -52,57 +52,71 @@ export function InteractionBar() {
       >
         <FaIcon icon={faBars} className="mr-2" /> {core.strings.ide.menu}
       </button>
-      <div className="pt-1 whitespace-nowrap">
-        <button
-          className={clsx(
-            'font-semibold mr-1 select-none disabled:cursor-default',
-            core.ws.settings.mode == 'code' && 'text-gray-600'
-          )}
-          disabled={dontChangeLanguage}
-          onClick={() => {
-            if (!dontChangeLanguage) {
-              submitAnalyzeEvent(core, 'ev_click_ide_blocks')
-              setMode(core, 'blocks')
-            }
-          }}
-        >
-          {core.strings.ide.blocks}
-        </button>
-        <label
-          htmlFor="toggleSwitch"
-          className={clsx(
-            'relative inline-block w-12 mx-2 align-middle transition-opacity',
-            dontChangeLanguage
-              ? 'opacity-30 cursor-not-allowed'
-              : 'cursor-pointer'
-          )}
-        >
-          <input
-            type="checkbox"
-            id="toggleSwitch"
-            onChange={() => {
-              if (core.ws.settings.mode == 'blocks') {
-                submitAnalyzeEvent(core, 'ev_click_ide_code')
-                setMode(core, 'code')
-                setLanguage(core, core.ws.settings.language)
-              } else {
+      {core.ws.ui.lockLanguage ? (
+        <div className="whitespace-nowrap font-semibold text-gray-600 select-none border-[#770088] px-2 py-0.5 border rounded-lg">
+          {core.ws.ui.lockLanguage == 'karol'
+            ? 'Karol Code'
+            : core.ws.ui.lockLanguage == 'python'
+            ? 'Karol Python'
+            : core.ws.ui.lockLanguage == 'java'
+            ? 'Karol Java'
+            : core.ws.ui.lockLanguage == 'python-pro'
+            ? 'Python'
+            : ''}
+        </div>
+      ) : (
+        <div className="pt-1 whitespace-nowrap">
+          <button
+            className={clsx(
+              'font-semibold mr-1 select-none disabled:cursor-default',
+              core.ws.settings.mode == 'code' && 'text-gray-600'
+            )}
+            disabled={dontChangeLanguage}
+            onClick={() => {
+              if (!dontChangeLanguage) {
                 submitAnalyzeEvent(core, 'ev_click_ide_blocks')
                 setMode(core, 'blocks')
               }
             }}
-            checked={core.ws.settings.mode == 'code'}
+          >
+            {core.strings.ide.blocks}
+          </button>
+          <label
+            htmlFor="toggleSwitch"
             className={clsx(
-              'peer appearance-none w-12 h-7 rounded-full transition-colors duration-300 focus:outline-none enabled:cursor-pointer disabled:cursor-not-allowed',
-              core.ws.settings.mode == 'blocks'
-                ? 'bg-[#5ba55b]'
-                : 'bg-[#770088]'
+              'relative inline-block w-12 mx-2 align-middle transition-opacity',
+              dontChangeLanguage
+                ? 'opacity-30 cursor-not-allowed'
+                : 'cursor-pointer'
             )}
-            disabled={dontChangeLanguage}
-          />
-          <span className="absolute left-1 top-1 w-5 h-5 bg-white shadow-white rounded-full transition duration-300 peer-checked:translate-x-5"></span>
-        </label>
-        <DropdownComponent dontChangeLanguage={dontChangeLanguage} />
-      </div>
+          >
+            <input
+              type="checkbox"
+              id="toggleSwitch"
+              onChange={() => {
+                if (core.ws.settings.mode == 'blocks') {
+                  submitAnalyzeEvent(core, 'ev_click_ide_code')
+                  setMode(core, 'code')
+                  setLanguage(core, core.ws.settings.language)
+                } else {
+                  submitAnalyzeEvent(core, 'ev_click_ide_blocks')
+                  setMode(core, 'blocks')
+                }
+              }}
+              checked={core.ws.settings.mode == 'code'}
+              className={clsx(
+                'peer appearance-none w-12 h-7 rounded-full transition-colors duration-300 focus:outline-none enabled:cursor-pointer disabled:cursor-not-allowed',
+                core.ws.settings.mode == 'blocks'
+                  ? 'bg-[#5ba55b]'
+                  : 'bg-[#770088]'
+              )}
+              disabled={dontChangeLanguage}
+            />
+            <span className="absolute left-1 top-1 w-5 h-5 bg-white shadow-white rounded-full transition duration-300 peer-checked:translate-x-5"></span>
+          </label>
+          <DropdownComponent dontChangeLanguage={dontChangeLanguage} />
+        </div>
+      )}
       <button
         className={clsx(
           'rounded pt-1 pb-2 transition whitespace-nowrap enabled:active:scale-[0.98] w-[111px] text-center',
