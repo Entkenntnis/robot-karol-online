@@ -50,7 +50,7 @@ export function Structogram() {
   const keyCounter = { val: 0 }
 
   const isJavaOrPython =
-    core.ws.settings.language === 'python' ||
+    core.ws.settings.language === 'python-pro' ||
     core.ws.settings.language === 'java'
 
   return (

@@ -156,10 +156,7 @@ export function FlyoutMenu() {
                     core.mutateWs((s) => {
                       if (core.ws.settings.language == 'java') {
                         s.javaCode = code
-                      } else if (
-                        core.ws.settings.language == 'python' ||
-                        core.ws.settings.language == 'python-pro'
-                      ) {
+                      } else if (core.ws.settings.language == 'python-pro') {
                         s.pythonCode = code
                       } else {
                         s.code = code

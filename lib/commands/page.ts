@@ -1,4 +1,3 @@
-import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { CoreState } from '../state/types'
 import { addNewTask } from './editor'
@@ -52,8 +51,6 @@ export function switchToPage(core: Core, target: Pages) {
         editor.editOptions = 'all'
         if (ui.lockLanguage == 'java') {
           editor.editOptions = 'java-only'
-        } else if (ui.lockLanguage == 'python') {
-          editor.editOptions = 'python-only'
         } else if (ui.lockLanguage == 'karol') {
           editor.editOptions = 'karol-only'
         } else if (ui.lockLanguage == 'python-pro') {

@@ -331,7 +331,7 @@ const myHighlightPlugin = ViewPlugin.fromClass(
                 )
               }
             }
-            if (ast.children[0].name == 'MemberExpression') {
+            /*if (ast.children[0].name == 'MemberExpression') {
               const m = ast.children[0]
               if (m.children[2].name == 'PropertyName') {
                 const varName = m.children[2].text()
@@ -341,7 +341,7 @@ const myHighlightPlugin = ViewPlugin.fromClass(
                   )
                 }
               }
-            }
+            }*/
           }
         },
       })

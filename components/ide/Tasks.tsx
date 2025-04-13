@@ -122,9 +122,6 @@ export function Tasks() {
                   <option value="karol-only">
                     {core.strings.editor.karolOnly}
                   </option>
-                  <option value="python-only">
-                    {core.strings.editor.pythonOnly}
-                  </option>
                   <option value="java-only">
                     {core.strings.editor.javaOnly}
                   </option>
