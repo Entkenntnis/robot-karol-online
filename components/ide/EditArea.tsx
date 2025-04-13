@@ -25,6 +25,7 @@ import { BlockEditor } from './BlockEditor'
 import { QuestPrompt } from '../helper/QuestPrompt'
 import { Cheatsheet } from '../helper/Cheatsheet'
 import { set } from 'date-fns'
+import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
 
 export function EditArea() {
   const core = useCore()
@@ -356,6 +357,7 @@ export function EditArea() {
                           ui.state = 'ready'
                           ui.errorMessages = []
                         })
+                        setExecutionMarker(core, 0)
                       }}
                     >
                       <FaIcon icon={faTimes} />
