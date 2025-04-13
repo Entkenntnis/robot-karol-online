@@ -24,7 +24,6 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { BlockEditor } from './BlockEditor'
 import { QuestPrompt } from '../helper/QuestPrompt'
 import { Cheatsheet } from '../helper/Cheatsheet'
-import { set } from 'date-fns'
 import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
 
 export function EditArea() {
@@ -33,6 +32,10 @@ export function EditArea() {
   const view = useRef<EditorView>()
 
   const [showCheatSheet, setShowCheatSheet] = useState(false)
+
+  useEffect(() => {
+    setShowCheatSheet(false)
+  }, [core.ws.settings.language, core.ws.settings.mode])
 
   core.view = view
 

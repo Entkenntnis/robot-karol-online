@@ -37,8 +37,9 @@ export function InteractionBar() {
   return (
     <div
       className={clsx(
-        'flex justify-between items-baseline pt-1 pb-0.5 pl-2 pr-1 border-b',
-        core.ws.settings.mode == 'blocks' && 'border-r'
+        'flex justify-between pt-1 pb-0.5 pl-2 pr-1 border-b',
+        core.ws.settings.mode == 'blocks' && 'border-r',
+        core.ws.ui.lockLanguage ? 'items-center h-12' : 'items-baseline'
       )}
     >
       <button
