@@ -23,7 +23,7 @@ import {
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { BlockEditor } from './BlockEditor'
 import { QuestPrompt } from '../helper/QuestPrompt'
-import { PythonCheatsheet } from '../helper/PythonCheatsheet'
+import { Cheatsheet } from '../helper/Cheatsheet'
 import { set } from 'date-fns'
 
 export function EditArea() {
@@ -31,7 +31,7 @@ export function EditArea() {
 
   const view = useRef<EditorView>()
 
-  const [showPythonCheatSheet, setShowPythonCheatSheet] = useState(false)
+  const [showCheatSheet, setShowCheatSheet] = useState(false)
 
   core.view = view
 
@@ -245,7 +245,7 @@ export function EditArea() {
                   <a
                     className={clsx(
                       'link',
-                      showPythonCheatSheet && 'text-purple-600'
+                      showCheatSheet && 'text-purple-600'
                     )}
                     href="https://github.com/Entkenntnis/robot-karol-online/blob/main/QUESTSCRIPT.md#questscript"
                     target="_blank"
@@ -260,11 +260,11 @@ export function EditArea() {
                   <button
                     className={clsx(
                       'link',
-                      showPythonCheatSheet && 'text-purple-600'
+                      showCheatSheet && 'text-purple-600'
                     )}
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_ide_pythoncheatsheet')
-                      setShowPythonCheatSheet((prev) => !prev)
+                      setShowCheatSheet((prev) => !prev)
                     }}
                   >
                     Spickzettel
@@ -293,7 +293,7 @@ export function EditArea() {
                             editor.editOptions = 'python-pro-only'
                           })
                         }
-                        setShowPythonCheatSheet(false)
+                        setShowCheatSheet(false)
                       }}
                     ></input>{' '}
                     QuestScript bearbeiten
@@ -311,6 +311,23 @@ export function EditArea() {
             </div>
           </>
         )}
+        {core.ws.settings.language === 'robot karol' && (
+          <>
+            <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between">
+              <div>
+                <button
+                  className={clsx('link', showCheatSheet && 'text-purple-600')}
+                  onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_ide_karolcheatsheet')
+                    setShowCheatSheet((prev) => !prev)
+                  }}
+                >
+                  Spickzettel
+                </button>
+              </div>
+            </div>
+          </>
+        )}
         {renderEditor()}
         {(core.ws.ui.state == 'error' ||
           (core.ws.settings.language == 'python-pro' &&
@@ -319,7 +336,7 @@ export function EditArea() {
             className={clsx(
               'absolute right-12 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50',
               core.ws.settings.language == 'python-pro'
-                ? showPythonCheatSheet
+                ? showCheatSheet
                   ? 'left-[340px]'
                   : 'left-12'
                 : 'left-20'
@@ -376,8 +393,11 @@ export function EditArea() {
     return (
       <div className="flex h-full overflow-y-auto relative flex-shrink">
         <div className="w-full overflow-auto h-full flex">
-          {core.ws.settings.language == 'python-pro' &&
-            showPythonCheatSheet && <PythonCheatsheet />}
+          {(core.ws.settings.language == 'python-pro' ||
+            core.ws.settings.language == 'robot karol') &&
+            showCheatSheet && (
+              <Cheatsheet language={core.ws.settings.language} />
+            )}
           <div
             className={clsx(
               'w-full h-full flex flex-col relative',

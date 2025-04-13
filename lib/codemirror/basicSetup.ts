@@ -117,7 +117,7 @@ function parserWithMetadata(lng: 'de' | 'en') {
   })
 }
 
-function exampleLanguage(lng: 'de' | 'en') {
+export function exampleLanguage(lng: 'de' | 'en') {
   return LRLanguage.define({
     parser: parserWithMetadata(lng),
     languageData: {
