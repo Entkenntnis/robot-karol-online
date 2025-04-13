@@ -47,12 +47,22 @@ export function saveCodeToFile(core: Core) {
   // 3. Create a Blob from the string
   const blob = new Blob(
     [
-      core.ws.settings.language == 'robot karol'
-        ? core.ws.code
-        : core.ws.settings.language == 'python' ||
-          core.ws.settings.language == 'python-pro'
-        ? core.ws.pythonCode
-        : core.ws.javaCode,
+      (core.ws.ui.isPlayground
+        ? `${
+            core.ws.settings.language == 'python' ||
+            core.ws.settings.language == 'python-pro'
+              ? '#'
+              : '//'
+          } Spielwiese: ${core.ws.quest.tasks[0].start.dimX}, ${
+            core.ws.quest.tasks[0].start.dimY
+          }, ${core.ws.quest.tasks[0].start.height}\n\n`
+        : '') +
+        (core.ws.settings.language == 'robot karol'
+          ? core.ws.code
+          : core.ws.settings.language == 'python' ||
+            core.ws.settings.language == 'python-pro'
+          ? core.ws.pythonCode
+          : core.ws.javaCode),
     ],
     {
       type: 'text/plain',
