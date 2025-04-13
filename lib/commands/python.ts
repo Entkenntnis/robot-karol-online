@@ -29,11 +29,17 @@ export function setupWorker(core: Core) {
     reset: () => {},
     input: (code: string) => {},
     lint: (code: string) => {},
+    pause: () => {},
+    resume: () => {},
+    step: () => {},
+    addBreakpoint: (line: number) => {},
+    removeBreakpoint: (line: number) => {},
     mainWorker: null,
     backupWorker: null,
     mainWorkerReady: false,
     backupWorkerReady: false,
     sharedArrayDelay: new Int32Array(1),
+    debugInterface: new Int32Array(129),
   }
 
   let mainWorkerInitPromiseResolve: (() => void) | null = null
@@ -201,7 +207,16 @@ export function setupWorker(core: Core) {
       event.data.type === 'highlight'
     ) {
       try {
-        setExecutionMarker(core, event.data.line)
+        if (core.worker) {
+          core.mutateWs(({ vm }) => {
+            vm.isDebugging = core.worker!.debugInterface[0] > 0
+          })
+        }
+        setExecutionMarker(
+          core,
+          event.data.line,
+          core.ws.vm.isDebugging ? 'debugging' : 'normal'
+        )
       } catch (e) {}
     }
     if (
@@ -312,6 +327,18 @@ export function setupWorker(core: Core) {
       Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000)
     )
 
+    const debugInterfaceBuffer = new SharedArrayBuffer(
+      Int32Array.BYTES_PER_ELEMENT * 129
+    )
+    core.worker.debugInterface = new Int32Array(debugInterfaceBuffer)
+
+    core.worker.debugInterface[0] = 0
+
+    for (let i = 0; i < core.ws.ui.breakpoints.length; i++) {
+      if (i > 128) break
+      core.worker.debugInterface[i + 1] = core.ws.ui.breakpoints[i]
+    }
+
     core.mutateWs(({ ui, vm }) => {
       ui.state = 'running'
       ui.showJavaInfo = false
@@ -331,6 +358,7 @@ export function setupWorker(core: Core) {
       code,
       questScript: core.ws.editor.questScript, // todo: currently only working within the editor
       delayBuffer,
+      debugInterfaceBuffer,
     })
   }
 
@@ -367,12 +395,13 @@ export function setupWorker(core: Core) {
     } else {
       setExecutionMarker(core, 0)
     }
-    core.mutateWs(({ ui }) => {
+    core.mutateWs(({ ui, vm }) => {
       ui.isManualAbort = true
       ui.isEndOfRun = true
       ui.inputPrompt = undefined
       ui.keybindings = []
       ui.questPrompt = undefined
+      vm.isDebugging = false
     })
   }
 
@@ -384,6 +413,71 @@ export function setupWorker(core: Core) {
       type: 'compile',
       code,
     })
+  }
+
+  core.worker.pause = () => {
+    if (!core.worker || !core.worker.mainWorker || !core.worker.mainWorkerReady)
+      return
+
+    core.worker.debugInterface[0] = 1
+    Atomics.notify(core.worker.debugInterface, 0)
+  }
+
+  core.worker.resume = () => {
+    if (!core.worker || !core.worker.mainWorker || !core.worker.mainWorkerReady)
+      return
+
+    core.worker.debugInterface[0] = 0
+    Atomics.notify(core.worker.debugInterface, 0)
+  }
+
+  core.worker.step = () => {
+    if (!core.worker || !core.worker.mainWorker || !core.worker.mainWorkerReady)
+      return
+
+    core.worker.debugInterface[0] = 2
+    Atomics.notify(core.worker.debugInterface, 0)
+  }
+
+  core.worker.addBreakpoint = (line: number) => {
+    if (!core.worker || !core.worker.mainWorker || !core.worker.mainWorkerReady)
+      return
+
+    let i = 1
+    while (core.worker.debugInterface[i] > 0) {
+      if (core.worker.debugInterface[i] == line) {
+        return
+      }
+      i++
+      if (i > 128) {
+        return
+      }
+    }
+    core.worker.debugInterface[i] = line
+  }
+
+  core.worker.removeBreakpoint = (line: number) => {
+    if (!core.worker || !core.worker.mainWorker || !core.worker.mainWorkerReady)
+      return
+
+    let i = 1
+    while (core.worker.debugInterface[i] > 0) {
+      if (core.worker.debugInterface[i] == line) {
+        core.worker.debugInterface[i] = 0
+        // move all following breakpoints one step back
+        let j = i + 1
+        while (core.worker.debugInterface[j] > 0) {
+          core.worker.debugInterface[j - 1] = core.worker.debugInterface[j]
+          core.worker.debugInterface[j] = 0
+          j++
+        }
+        return
+      }
+      i++
+      if (i > 128) {
+        return
+      }
+    }
   }
 }
 

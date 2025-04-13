@@ -9,6 +9,8 @@ let lastStepTs = -1
 
 const decoder = new TextDecoder()
 
+let debug = new Int32Array(129)
+
 const compileScript = (code) => `
 def check_syntax(code):
     try:
@@ -44,12 +46,23 @@ self.onmessage = async (event) => {
 
   if (event.data.type === 'run') {
     delay = new Int32Array(event.data.delayBuffer)
+    debug = new Int32Array(event.data.debugInterfaceBuffer, 0, 129)
+    const debugRef = { current: debug }
     const traceback = pyodide.pyimport('traceback')
     const enableHighlight = { current: true }
     function highlightCurrentLine() {
       if (enableHighlight.current) {
         const stack = traceback.extract_stack()
         const line = stack[stack.length - 1].lineno
+        if (debugRef.current[0] == 0) {
+          // check if we are in a breakpoint
+          for (let i = 1; i < debugRef.current.length; i++) {
+            if (debugRef.current[i] == line) {
+              debugRef.current[0] = 1
+              break
+            }
+          }
+        }
         self.postMessage({
           type: 'highlight',
           line,
@@ -64,6 +77,7 @@ self.onmessage = async (event) => {
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
+            checkDebug()
             self.postMessage({ type: 'action', action: 'schritt' })
             sleepWithDelay()
           }
@@ -72,6 +86,7 @@ self.onmessage = async (event) => {
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
+            checkDebug()
             self.postMessage({ type: 'action', action: 'linksDrehen' })
             sleepWithDelay()
           }
@@ -80,6 +95,7 @@ self.onmessage = async (event) => {
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
+            checkDebug()
             self.postMessage({ type: 'action', action: 'rechtsDrehen' })
             sleepWithDelay()
           }
@@ -88,6 +104,7 @@ self.onmessage = async (event) => {
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
+            checkDebug()
             self.postMessage({ type: 'action', action: 'hinlegen' })
             sleepWithDelay()
           }
@@ -96,17 +113,20 @@ self.onmessage = async (event) => {
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
+            checkDebug()
             self.postMessage({ type: 'action', action: 'aufheben' })
             sleepWithDelay()
           }
         },
         markeSetzen: (n = 1) => {
           highlightCurrentLine()
+          checkDebug()
           self.postMessage({ type: 'action', action: 'markeSetzen' })
           sleepWithDelay()
         },
         markeLöschen: (n = 1) => {
           highlightCurrentLine()
+          checkDebug()
           self.postMessage({ type: 'action', action: 'markeLöschen' })
           sleepWithDelay()
         },
@@ -319,6 +339,22 @@ function sleep(ms) {
   const x = new WebAssembly.Memory({ shared: true, initial: 1, maximum: 1 })
   const b = new Int32Array(x.buffer)
   Atomics.wait(b, 0, 0, ms)
+}
+
+function checkDebug() {
+  while (true) {
+    if (debug[0] == 0) {
+      break // not debugging
+    }
+    if (debug[0] == 2) {
+      // step
+      debug[0] = 1
+      break
+    }
+    if (debug[0] == 1) {
+      Atomics.wait(debug, 0, 1)
+    }
+  }
 }
 
 function checkCondition(cond) {

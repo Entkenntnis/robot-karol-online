@@ -37,17 +37,12 @@ export function startButtonClicked(core: Core) {
   }
 
   if (core.ws.ui.state == 'running') {
-    if (core.ws.vm.isDebugging) {
-      abort(core)
-      return
+    if (core.ws.settings.language == 'python-pro') {
+      core.worker?.reset()
     } else {
-      if (core.ws.settings.language == 'python-pro') {
-        core.worker?.reset()
-      } else {
-        abort(core)
-      }
-      return
+      abort(core)
     }
+    return
   }
 
   if (core.ws.ui.showOutput && core.ws.ui.state == 'ready') {
