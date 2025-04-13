@@ -346,8 +346,8 @@ const breakpointMarker = new (class extends GutterMarker {
 })()
 
 export function buildGutterWithBreakpoints(core: Core) {
-  if (core.ws.settings.language == 'python-pro')
-    return [highlightExecutedLineField]
+  //if (core.ws.settings.language == 'python-pro')
+  //  return [highlightExecutedLineField]
   return [
     highlightExecutedLineField,
     breakpointState,
@@ -375,33 +375,28 @@ export function buildGutterWithBreakpoints(core: Core) {
             breakpoints.between(line.from, line.from, () => {
               hasBreakpoint = true
             })
-            if (
-              (core.ws.vm.bytecode &&
-                core.ws.vm.bytecode!.some((op) => op.line === lineNumber)) ||
-              hasBreakpoint
-            ) {
-              submitAnalyzeEvent(core, 'ev_click_ide_breakpoint')
-              view.dispatch({
-                effects: breakpointEffect.of({
-                  pos: line.from,
-                  on: !hasBreakpoint,
-                }),
+            submitAnalyzeEvent(core, 'ev_click_ide_breakpoint')
+            view.dispatch({
+              effects: breakpointEffect.of({
+                pos: line.from,
+                on: !hasBreakpoint,
+              }),
+            })
+            if (core.ws.ui.breakpoints.includes(lineNumber)) {
+              core.mutateWs((s) => {
+                s.ui.breakpoints = s.ui.breakpoints.filter(
+                  (x) => x !== lineNumber
+                )
               })
-              if (core.ws.ui.breakpoints.includes(lineNumber)) {
-                core.mutateWs((s) => {
-                  s.ui.breakpoints = s.ui.breakpoints.filter(
-                    (x) => x !== lineNumber
-                  )
-                })
-              } else {
-                core.mutateWs((s) => {
-                  s.ui.breakpoints.push(lineNumber)
-                })
-              }
+              core.worker?.removeBreakpoint(lineNumber)
+            } else {
+              core.mutateWs((s) => {
+                s.ui.breakpoints.push(lineNumber)
+              })
+              core.worker?.addBreakpoint(lineNumber)
             }
-            return true
           }
-          return false
+          return true
         },
       },
       lineMarkerChange(update) {

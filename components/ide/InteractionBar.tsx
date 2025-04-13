@@ -33,7 +33,12 @@ export function InteractionBar() {
     core.ws.ui.editQuestScript
 
   const debuggable =
-    core.ws.ui.state == 'running' && core.ws.settings.language != 'python-pro'
+    core.ws.ui.state == 'running' && !core.ws.editor.questScript
+
+  const debugPython =
+    core.ws.settings.language == 'python-pro' &&
+    core.ws.settings.mode == 'code' &&
+    core.worker?.mainWorkerReady
   return (
     <div
       className={clsx(
@@ -125,6 +130,9 @@ export function InteractionBar() {
             className="absolute -bottom-[38px] right-0 px-3 py-1 bg-purple-300 hover:bg-purple-400 transition-colors rounded active:bg-purple-500 "
             onClick={() => {
               submitAnalyzeEvent(core, 'ev_click_ide_singleStep')
+              if (debugPython) {
+                core.worker?.step()
+              }
               core.mutateWs((ws) => {
                 ws.vm.debuggerRequestNextStep = true
               })
@@ -141,11 +149,18 @@ export function InteractionBar() {
             onClick={() => {
               if (!core.ws.vm.isDebugging) {
                 submitAnalyzeEvent(core, 'ev_click_ide_debugger')
+                if (debugPython) {
+                  core.worker?.pause()
+                }
                 core.mutateWs((ws) => {
                   ws.vm.isDebugging = true
                   ws.vm.debuggerRequestNextStep = true
                 })
               } else {
+                submitAnalyzeEvent(core, 'ev_click_ide_continue')
+                if (debugPython) {
+                  core.worker?.resume()
+                }
                 core.mutateWs((ws) => {
                   ws.vm.isDebugging = false
                   ws.vm.startTime =
@@ -171,13 +186,8 @@ export function InteractionBar() {
                 )
           )}
           onClick={() => {
-            if (core.ws.ui.state == 'running' && !core.ws.vm.isDebugging) {
+            if (core.ws.ui.state == 'running') {
               submitAnalyzeEvent(core, 'ev_click_ide_stop')
-            } else if (
-              core.ws.ui.state == 'running' &&
-              core.ws.vm.isDebugging
-            ) {
-              submitAnalyzeEvent(core, 'ev_click_ide_continue')
             }
             startButtonClicked(core)
           }}
@@ -196,16 +206,14 @@ export function InteractionBar() {
                 : faPlay
             }
             className={clsx(
-              !debuggable && 'mr-2',
+              'mr-2',
               core.ws.ui.state == 'loading' &&
                 core.ws.settings.language == 'python-pro' &&
                 !core.worker?.mainWorkerReady &&
                 'animate-spin-slow'
             )}
           />
-          <span className="text-xl">
-            {debuggable ? '' : core.strings.ide[mainButtonState]}
-          </span>
+          <span className="text-xl">{core.strings.ide[mainButtonState]}</span>
         </button>
       </div>
     </div>

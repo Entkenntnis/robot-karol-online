@@ -457,7 +457,13 @@ export interface PyodideWorker {
   reset: () => void
   input: (input: string) => void
   lint: (input: string) => void
+  pause: () => void
+  resume: () => void
+  step: () => void
+  addBreakpoint: (line: number) => void
+  removeBreakpoint: (line: number) => void
   sharedArrayDelay: Int32Array
+  debugInterface: Int32Array
   questPromptConfirm?: Int32Array
 }
 
