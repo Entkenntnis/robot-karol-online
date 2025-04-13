@@ -22,6 +22,8 @@ import { setLanguage } from '../../lib/commands/language'
 import { useEffect } from 'react'
 import { questData } from '../../lib/data/quests'
 import { questDataEn } from '../../lib/data/questsEn'
+import { createWorldCmd } from '../../lib/commands/world'
+import { createWorld } from '../../lib/state/create'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -129,7 +131,28 @@ export function FlyoutMenu() {
                     history.pushState(null, '', '/')
                     switchToPage(core, 'shared')
                   } else {
-                    const code = e.target.result
+                    let code = e.target.result
+                    if (core.ws.ui.isPlayground) {
+                      // check for playground pragma and extract world size
+                      const match = code.match(
+                        /(\/\/|#) Spielwiese: (\d+), (\d+), (\d+)\n\n/
+                      )
+                      if (match) {
+                        const dimX = parseInt(match[2])
+                        const dimY = parseInt(match[3])
+                        const height = parseInt(match[4])
+                        console.log('create world', dimX, dimY, height)
+                        createWorldCmd(core, dimX, dimY, height)
+                        core.mutateWs((ws) => {
+                          ws.quest.tasks[0].start = createWorld(
+                            dimX,
+                            dimY,
+                            height
+                          )
+                        })
+                        code = code.replace(match[0], '')
+                      }
+                    }
                     core.mutateWs((s) => {
                       if (core.ws.settings.language == 'java') {
                         s.javaCode = code
