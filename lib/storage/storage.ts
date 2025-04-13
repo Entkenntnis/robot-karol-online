@@ -100,9 +100,11 @@ export function saveToJSON(core: Core) {
   const blob = new Blob([JSON.stringify(data)], { type: 'text/json' })
   const link = document.createElement('a')
 
-  link.download = `${new Date().toISOString().substring(0, 10)}-robot-karol-${
-    core.strings.overview.gameState
-  }.json`
+  link.download = `${new Date().toISOString().substring(0, 10)}-${
+    getUserName()
+      ? `${getUserName().replace(/[^A-Za-z0-9äüöÄÜÖß]/g, '_')}-`
+      : ''
+  }${core.strings.overview.gameState}_robot_karol_online.json`
   link.href = window.URL.createObjectURL(blob)
   link.dataset.downloadurl = ['text/json', link.download, link.href].join(':')
 
