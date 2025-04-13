@@ -1,5 +1,6 @@
 import {
   faBars,
+  faPause,
   faPlay,
   faSpinner,
   faStop,
@@ -13,15 +14,11 @@ import { setMode } from '../../lib/commands/mode'
 import { setLanguage } from '../../lib/commands/language'
 import { Settings } from '../../lib/state/types'
 import { useState } from 'react'
+import { sliderToDelay } from '../../lib/helper/speedSlider'
 
 export function InteractionBar() {
   const core = useCore()
-  const mainButtonState =
-    core.ws.ui.state == 'running'
-      ? core.ws.vm.isDebugging
-        ? 'continue'
-        : 'stop'
-      : 'start'
+  const mainButtonState = core.ws.ui.state == 'running' ? 'stop' : 'start'
 
   const dontChangeLanguage =
     (core.ws.ui.state !== 'ready' &&
@@ -34,6 +31,9 @@ export function InteractionBar() {
     !core.ws.ui.pythonProCanSwitch ||
     core.ws.ui.proMode ||
     core.ws.ui.editQuestScript
+
+  const debuggable =
+    core.ws.ui.state == 'running' && core.ws.settings.language != 'python-pro'
   return (
     <div
       className={clsx(
@@ -117,49 +117,95 @@ export function InteractionBar() {
           <DropdownComponent dontChangeLanguage={dontChangeLanguage} />
         </div>
       )}
-      <button
-        className={clsx(
-          'rounded pt-1 pb-2 transition whitespace-nowrap enabled:active:scale-[0.98] w-[111px] text-center',
-          core.ws.ui.state == 'error' || core.ws.ui.state == 'loading'
-            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-            : clsx(
-                mainButtonState == 'start' && 'bg-green-300 hover:bg-green-400',
-                mainButtonState == 'stop' &&
-                  'bg-yellow-500 hover:bg-yellow-600',
-                mainButtonState == 'continue' &&
-                  'bg-purple-100 hover:bg-purple-200'
-              )
+      <div className="flex gap-1 w-[111px] relative z-[100]">
+        {core.ws.vm.isDebugging && (
+          <button
+            className="absolute -bottom-[38px] right-0 px-3 py-1 bg-purple-300 hover:bg-purple-400 transition-colors rounded active:bg-purple-500 "
+            onClick={() => {
+              submitAnalyzeEvent(core, 'ev_click_ide_singleStep')
+              core.mutateWs((ws) => {
+                ws.vm.debuggerRequestNextStep = true
+              })
+            }}
+          >
+            {core.strings.ide.step}
+          </button>
         )}
-        onClick={() => {
-          if (core.ws.ui.state == 'running' && !core.ws.vm.isDebugging) {
-            submitAnalyzeEvent(core, 'ev_click_ide_stop')
-          } else if (core.ws.ui.state == 'running' && core.ws.vm.isDebugging) {
-            submitAnalyzeEvent(core, 'ev_click_ide_continue')
-          }
-          startButtonClicked(core)
-        }}
-        disabled={core.ws.ui.state == 'error' || core.ws.ui.state == 'loading'}
-      >
-        <FaIcon
-          icon={
-            mainButtonState == 'stop'
-              ? faStop
-              : core.ws.ui.state == 'loading' &&
-                core.ws.settings.language == 'python-pro' &&
-                !core.worker?.mainWorkerReady
-              ? faSpinner
-              : faPlay
-          }
+        {debuggable && (
+          <button
+            className={clsx(
+              'py-0.5 bg-purple-100 hover:bg-purple-200 rounded flex-grow'
+            )}
+            onClick={() => {
+              if (!core.ws.vm.isDebugging) {
+                submitAnalyzeEvent(core, 'ev_click_ide_debugger')
+                core.mutateWs((ws) => {
+                  ws.vm.isDebugging = true
+                  ws.vm.debuggerRequestNextStep = true
+                })
+              } else {
+                core.mutateWs((ws) => {
+                  ws.vm.isDebugging = false
+                  ws.vm.startTime =
+                    Date.now() -
+                    (ws.vm.steps + 1) * sliderToDelay(ws.ui.speedSliderValue)
+                })
+              }
+            }}
+          >
+            <FaIcon icon={core.ws.vm.isDebugging ? faPlay : faPause} />
+          </button>
+        )}
+        <button
           className={clsx(
-            'mr-2',
-            core.ws.ui.state == 'loading' &&
-              core.ws.settings.language == 'python-pro' &&
-              !core.worker?.mainWorkerReady &&
-              'animate-spin-slow'
+            'rounded pt-1 pb-2 transition whitespace-nowrap enabled:active:scale-[0.98] text-center flex-grow',
+            core.ws.ui.state == 'error' || core.ws.ui.state == 'loading'
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : clsx(
+                  mainButtonState == 'start' &&
+                    'bg-green-300 hover:bg-green-400',
+                  mainButtonState == 'stop' &&
+                    'bg-yellow-500 hover:bg-yellow-600'
+                )
           )}
-        />
-        <span className="text-xl">{core.strings.ide[mainButtonState]}</span>
-      </button>
+          onClick={() => {
+            if (core.ws.ui.state == 'running' && !core.ws.vm.isDebugging) {
+              submitAnalyzeEvent(core, 'ev_click_ide_stop')
+            } else if (
+              core.ws.ui.state == 'running' &&
+              core.ws.vm.isDebugging
+            ) {
+              submitAnalyzeEvent(core, 'ev_click_ide_continue')
+            }
+            startButtonClicked(core)
+          }}
+          disabled={
+            core.ws.ui.state == 'error' || core.ws.ui.state == 'loading'
+          }
+        >
+          <FaIcon
+            icon={
+              mainButtonState == 'stop' || core.ws.vm.isDebugging
+                ? faStop
+                : core.ws.ui.state == 'loading' &&
+                  core.ws.settings.language == 'python-pro' &&
+                  !core.worker?.mainWorkerReady
+                ? faSpinner
+                : faPlay
+            }
+            className={clsx(
+              !debuggable && 'mr-2',
+              core.ws.ui.state == 'loading' &&
+                core.ws.settings.language == 'python-pro' &&
+                !core.worker?.mainWorkerReady &&
+                'animate-spin-slow'
+            )}
+          />
+          <span className="text-xl">
+            {debuggable ? '' : core.strings.ide[mainButtonState]}
+          </span>
+        </button>
+      </div>
     </div>
   )
 }

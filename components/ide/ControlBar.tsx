@@ -61,76 +61,34 @@ export function ControlBar() {
         </div>
       </div>
 
-      {core.ws.vm.isDebugging && core.ws.ui.state == 'running' ? (
-        <div className="max-w-[230px] h-[58px] mr-3 my-3 bg-purple-200 p-2">
-          <button
-            className="h-full p-2 bg-purple-300 hover:bg-purple-400 transition-colors mr-3 align-top rounded active:bg-purple-500"
-            onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_ide_singleStep')
-              core.mutateWs((ws) => {
-                ws.vm.debuggerRequestNextStep = true
-              })
-            }}
-          >
-            {core.strings.ide.step}
-          </button>
-          <button
-            className="h-full p-2 bg-white hover:bg-gray-100 rounded"
-            onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_ide_terminateDebugger')
-              abort(core)
-            }}
-          >
-            {core.strings.ide.stop}
-          </button>
-        </div>
-      ) : (
-        <div className="max-w-[230px] h-[58px] mr-3 my-3 relative">
-          <button
-            className={clsx(
-              'px-2 py-0.5 bg-purple-100 hover:bg-purple-200 rounded absolute -top-1.5 right-0',
-              (core.ws.ui.state !== 'running' ||
-                core.ws.settings.language == 'python-pro') &&
-                'invisible'
-            )}
-            onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_ide_debugger')
-              core.mutateWs((ws) => {
-                ws.vm.isDebugging = true
-                ws.vm.debuggerRequestNextStep = true
-              })
-            }}
-          >
-            <FaIcon icon={faPause} /> Debugger
-          </button>
-          <span className="text-transparent h-1 inline-block overflow-hidden select-none">
-            das ist ein platzhalter text der nur dazu da ist die Breite
-            auszufüllen
-          </span>
-          <input
-            type="range"
-            value={core.ws.ui.speedSliderValue}
-            onChange={(val) => {
-              setSpeedSliderValue(core, parseFloat(val.target.value))
-            }}
-            min="0"
-            max="20"
-            step="1"
-            className="w-full h-3 cursor-pointer"
-          />
-          <p className="text-xs text-center">
-            {(
-              Math.round(
-                (1000 / sliderToDelay(core.ws.ui.speedSliderValue)) * 10
-              ) / 10
-            )
-              .toFixed(1)
-              .replace('.', ',') +
-              ' ' +
-              core.strings.ide.steps}
-          </p>
-        </div>
-      )}
+      <div className="max-w-[230px] h-[58px] mr-3 relative">
+        <span className="text-transparent h-1 inline-block overflow-hidden select-none">
+          das ist ein platzhalter text der nur dazu da ist die Breite
+          auszufüllen
+        </span>
+        <input
+          type="range"
+          value={core.ws.ui.speedSliderValue}
+          onChange={(val) => {
+            setSpeedSliderValue(core, parseFloat(val.target.value))
+          }}
+          min="0"
+          max="20"
+          step="1"
+          className="w-full h-3 cursor-pointer"
+        />
+        <p className="text-xs text-center mt-2">
+          {(
+            Math.round(
+              (1000 / sliderToDelay(core.ws.ui.speedSliderValue)) * 10
+            ) / 10
+          )
+            .toFixed(1)
+            .replace('.', ',') +
+            ' ' +
+            core.strings.ide.steps}
+        </p>
+      </div>
     </div>
   )
 
