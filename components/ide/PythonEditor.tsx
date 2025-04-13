@@ -261,7 +261,13 @@ const conditions = [
 ]
 
 const myAutocomplete: CompletionSource = (context) => {
-  const token = context.matchBefore(/\.[a-zA-Z_0-9äöüÄÜÖß]*$/)
+  const text = context.state.doc.toString()
+  const robot = /([a-z]+)\s*=\s*Robot\(\)/.exec(text)
+  if (!robot) return null
+  const robotName = robot[1]
+  const token = context.matchBefore(
+    new RegExp(robotName + '\\.[a-zA-Z_0-9äöüÄÜÖß]*$')
+  )
   if (!token) return null
 
   const doc = context.state.doc
@@ -282,24 +288,8 @@ const myAutocomplete: CompletionSource = (context) => {
 
   const options = (conditionMode ? conditions : commands).slice()
 
-  if (!conditionMode) {
-    const tree = syntaxTree(context.state)
-    const c = tree.cursor()
-    do {
-      if (c.node.name == 'FunctionDefinition') {
-        c.next() // def
-        c.next() // VariableName
-        // @ts-ignore
-        if (c.node.name == 'VariableName') {
-          const label = context.state.doc.sliceString(c.from, c.to) + '()'
-          options.push({ label })
-        }
-      }
-    } while (c.next())
-  }
-
   return {
-    from: token.from + 1,
+    from: token.from + robotName.length + 1,
     options,
   }
 }
