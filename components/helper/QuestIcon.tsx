@@ -6,6 +6,7 @@ import { useCore } from '../../lib/state/core'
 import { Heading } from '../../lib/state/types'
 import { Rating } from 'react-simple-star-rating'
 import { AnimateInView } from './AnimateIntoView'
+import { getUserName } from '../../lib/storage/storage'
 
 interface QuestIconProps {
   title: string
@@ -48,7 +49,9 @@ export function QuestIcon({
       >
         <div className="flex items-center flex-col w-[64px] cursor-pointer group pointer-events-none">
           <button className="text-lg bg-gray-100/70 px-1 py-0.5 rounded group-hover:bg-white/80 pointer-events-auto whitespace-nowrap -ml-2">
-            {title}
+            {title == 'Start' && getUserName()
+              ? 'Hallo, ' + getUserName() + '!'
+              : title}
           </button>
           {solved || core.ws.page == 'analyze' ? (
             <div className="w-16 pt-3 flex justify-center items-center">
