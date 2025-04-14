@@ -4,6 +4,7 @@ import { parser } from '../../lib/codemirror/parser/parser'
 import { setShowStructogram } from '../../lib/commands/mode'
 import { useCore } from '../../lib/state/core'
 import { ReactNode } from 'react'
+import ClassDiagram from './ClassDiagram'
 
 // new approach: parse AST into nested document, which allows queries on rendering
 
@@ -52,6 +53,12 @@ export function Structogram() {
   const isJavaOrPython =
     core.ws.settings.language === 'python-pro' ||
     core.ws.settings.language === 'java'
+
+  return (
+    <ClassDiagram
+      classes={['User', 'Account', 'Profile', 'Settings', 'Order']}
+    />
+  )
 
   return (
     <div className="relative flex flex-col h-full">
