@@ -73,7 +73,7 @@ Erhalte eine Liste aller Zeile, die bisher über stdin eingelesen wurden. Hilft 
 
 ## Beispiel
 
-Das ist das QuestScript zur Aufgabe `Hallo, Python!`:
+Das ist das QuestScript zur Aufgabe [`Neubeginn`](https://karol.arrrg.de/#QUEST-61):
 
 ```py
 __ide_run_client()
