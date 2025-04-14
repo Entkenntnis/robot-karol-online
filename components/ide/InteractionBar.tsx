@@ -125,7 +125,7 @@ export function InteractionBar() {
       <div className="flex gap-1 w-[111px] z-[100] absolute right-1 top-0.5">
         {core.ws.vm.isDebugging && (
           <button
-            className="absolute -bottom-[38px] right-0 px-3 py-1 bg-purple-300 hover:bg-purple-400 transition-colors rounded active:bg-purple-500 "
+            className="absolute -bottom-[38px] -left-[52px] px-3 py-1 bg-purple-300 hover:bg-purple-400 transition-colors rounded active:bg-purple-500 "
             onClick={() => {
               submitAnalyzeEvent(core, 'ev_click_ide_singleStep')
               if (debugPython) {
