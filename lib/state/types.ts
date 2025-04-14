@@ -71,6 +71,7 @@ export interface Ui {
   questPrompt?: string
   questPromptConfirm?: string
   editQuestScript: boolean
+  interactiveClassdiagram?: boolean
 }
 
 export interface Vm {

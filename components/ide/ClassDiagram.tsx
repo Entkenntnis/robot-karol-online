@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 
-interface ClassBoxProps {
+interface ClassDiagramProps {
   classes: string[]
 }
 
-export default function ClassDiagram({ classes }: ClassBoxProps) {
+export default function ClassDiagram({ classes }: ClassDiagramProps) {
   const [contextMenu, setContextMenu] = useState<{
     visible: boolean
     x: number
@@ -45,7 +45,7 @@ export default function ClassDiagram({ classes }: ClassBoxProps) {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen p-8 flex flex-wrap justify-center items-center gap-8 bg-gray-100"
+      className="relative px-8 py-16 flex flex-wrap justify-center items-center gap-8 bg-gray-100"
     >
       {classes.map((className, index) => (
         <div

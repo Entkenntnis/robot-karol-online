@@ -55,12 +55,6 @@ export function Structogram() {
     core.ws.settings.language === 'java'
 
   return (
-    <ClassDiagram
-      classes={['User', 'Account', 'Profile', 'Settings', 'Order']}
-    />
-  )
-
-  return (
     <div className="relative flex flex-col h-full">
       <div className="absolute right-4 top-4">
         <button

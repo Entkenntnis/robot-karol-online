@@ -1,10 +1,16 @@
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
+import { exitClassDiagram } from './class-diagram'
 import { runTask, closeOutput, startTesting, restartProgram } from './quest'
 import { abort } from './vm'
 import { twoWorldsEqual } from './world'
 
 export function startButtonClicked(core: Core) {
+  if (core.ws.ui.interactiveClassdiagram) {
+    exitClassDiagram(core)
+    return
+  }
+
   if (core.ws.editor.editWorld !== null && core.ws.ui.state == 'ready') {
     if (core.ws.editor.showWorldPreview) {
       alert('Bitte wähle Start- oder Zielwelt aus.')
