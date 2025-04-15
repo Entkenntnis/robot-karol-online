@@ -222,7 +222,9 @@ export function setupWorker(core: Core) {
     if (
       event.data &&
       typeof event.data === 'object' &&
-      event.data.type === 'diagnostics'
+      event.data.type === 'diagnostics' &&
+      core.ws.settings.language == 'python-pro' &&
+      core.ws.settings.mode == 'code'
     ) {
       const diagnostics = event.data.diagnostics
       if (core.view?.current) {
