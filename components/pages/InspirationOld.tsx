@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 
-import { QuestSerialFormat } from '../../lib/state/types'
+import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
 import { submit_event } from '../../lib/helper/submit'
 import RenderIfVisible from 'react-render-if-visible'
 
@@ -65,7 +65,9 @@ function RandomElement({ data }: { data: DataEntry }) {
   const core = useCore()
   const [selected, setSelected] = useState(0)
 
-  const quest = JSON.parse(data.content) as QuestSerialFormat
+  const quest = JSON.parse(
+    data.content
+  ) as QuestSerialFormat_MUST_STAY_COMPATIBLE
   const text = data.publicId
 
   if (!quest) {

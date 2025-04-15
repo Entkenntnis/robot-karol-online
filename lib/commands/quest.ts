@@ -5,7 +5,7 @@ import { submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
-import { QuestSessionData } from '../state/types'
+import { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
 import { getQuestData, getUserName, setQuestData } from '../storage/storage'
 import { showModal } from './modal'
 import { switchToPage } from './page'
@@ -213,7 +213,7 @@ export function startQuest(core: Core, id: number) {
 }
 
 export function storeQuestToSession(core: Core) {
-  const data: QuestSessionData = {
+  const data: QuestSessionData_MUST_STAY_COMPATIBLE = {
     code: core.ws.code,
     javaCode: core.ws.javaCode,
     pythonCode: core.ws.pythonCode,
@@ -232,7 +232,7 @@ export function storeQuestToSession(core: Core) {
 
 export function restoreQuestFromSessionData(
   core: Core,
-  data: QuestSessionData
+  data: QuestSessionData_MUST_STAY_COMPATIBLE
 ) {
   core.mutateWs((ws) => {
     ws.code = data.code

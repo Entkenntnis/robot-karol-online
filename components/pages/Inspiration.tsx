@@ -10,7 +10,7 @@ import { TAGS } from '../../lib/data/tags'
 import {
   EntryType,
   InspirationData,
-  QuestSerialFormat,
+  QuestSerialFormat_MUST_STAY_COMPATIBLE,
 } from '../../lib/state/types'
 import { useCore } from '../../lib/state/core'
 import RenderIfVisible from 'react-render-if-visible'
@@ -39,7 +39,7 @@ export function Inspiration() {
       .then((response) => response.json())
       .then((data: InspirationData[]) => {
         const parsedEntries: EntryType[] = data.map((item) => {
-          let quest: QuestSerialFormat
+          let quest: QuestSerialFormat_MUST_STAY_COMPATIBLE
           try {
             quest = JSON.parse(item.content)
           } catch (error) {

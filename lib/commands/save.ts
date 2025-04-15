@@ -1,5 +1,8 @@
 import { Core } from '../state/core'
-import { PlaygroundHashData, QuestSerialFormat } from '../state/types'
+import {
+  PlaygroundHashData,
+  QuestSerialFormat_MUST_STAY_COMPATIBLE,
+} from '../state/types'
 
 const debouncedReplaceState = (() => {
   const data = {
@@ -174,7 +177,7 @@ export function attemptToLoadProgramFromLocalStorage(core: Core) {
 export function loadProgram(
   core: Core,
   program: string,
-  language: QuestSerialFormat['language']
+  language: QuestSerialFormat_MUST_STAY_COMPATIBLE['language']
 ) {
   core.mutateWs((ws) => {
     if (language == 'blocks') {

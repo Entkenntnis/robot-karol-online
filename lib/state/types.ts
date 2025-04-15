@@ -371,22 +371,26 @@ export interface QuestData {
   }
 }
 
-export interface QuestSessionData {
+export interface QuestSessionData_MUST_STAY_COMPATIBLE {
   id: number
   completed: boolean
   code: string
   javaCode?: string
   pythonCode?: string
-  mode: Settings['mode']
+  mode: 'code' | 'blocks'
   completedOnce: boolean
-  language?: Settings['language']
+  language?: 'robot karol' | 'java' | 'python' | 'python-pro'
 }
 
-export interface QuestSerialFormat {
+export interface QuestSerialFormat_MUST_STAY_COMPATIBLE {
   version: 'v1'
   title: string
   description: string
-  tasks: { title: string; start: SerialWorld; target: SerialWorld }[]
+  tasks: {
+    title: string
+    start: SerialWorld_MUST_STAY_COMPATIBLE
+    target: SerialWorld_MUST_STAY_COMPATIBLE
+  }[]
   lng?: 'de' | 'en'
   editOptions?: 'python-only' | 'java-only' | 'karol-only' | 'python-pro-only'
   program?: string
@@ -394,7 +398,7 @@ export interface QuestSerialFormat {
   questScript?: string
 }
 
-export interface SerialWorld {
+export interface SerialWorld_MUST_STAY_COMPATIBLE {
   dimX: number
   dimY: number
   height: number
@@ -403,12 +407,12 @@ export interface SerialWorld {
     y: number
     dir: Heading
   }
-  bricks: Compressed2D<number>
-  marks: Compressed2D<boolean>
-  blocks: Compressed2D<boolean>
+  bricks: Compressed2D_MUST_STAY_COMPATIBLE<number>
+  marks: Compressed2D_MUST_STAY_COMPATIBLE<boolean>
+  blocks: Compressed2D_MUST_STAY_COMPATIBLE<boolean>
 }
 
-export interface Compressed2D<T> {
+export interface Compressed2D_MUST_STAY_COMPATIBLE<T> {
   offsetX: number
   offsetY: number
   dimX: number
@@ -438,7 +442,7 @@ export interface EntryType {
   id: string
   title: string
   tags: string[]
-  quest: QuestSerialFormat
+  quest: QuestSerialFormat_MUST_STAY_COMPATIBLE
   score: number
   jitter: number
 }

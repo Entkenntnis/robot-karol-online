@@ -2,7 +2,7 @@
 
 import { questList } from '../data/overview'
 import { Core } from '../state/core'
-import { Appearance, QuestSessionData } from '../state/types'
+import { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
 
 const userIdKey = 'robot_karol_online_tmp_id'
 const userNameKey = 'robot_karol_online_name'
@@ -67,15 +67,15 @@ export function getQuestData(id: number) {
   const rawSes = sessionStorage.getItem(questKey(id))
   const rawLoc = localStorage.getItem(questKey(id))
   if (rawLoc) {
-    return JSON.parse(rawLoc) as QuestSessionData
+    return JSON.parse(rawLoc) as QuestSessionData_MUST_STAY_COMPATIBLE
   }
   if (rawSes) {
-    return JSON.parse(rawSes) as QuestSessionData
+    return JSON.parse(rawSes) as QuestSessionData_MUST_STAY_COMPATIBLE
   }
   return null
 }
 
-export function setQuestData(data: QuestSessionData) {
+export function setQuestData(data: QuestSessionData_MUST_STAY_COMPATIBLE) {
   if (isPersisted()) {
     localStorage.setItem(questKey(data.id), JSON.stringify(data))
   }

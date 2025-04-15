@@ -7,7 +7,7 @@ import { createWorld } from '../state/create'
 import {
   EditorSessionSnapshot,
   PlaygroundHashData,
-  QuestSerialFormat,
+  QuestSerialFormat_MUST_STAY_COMPATIBLE,
 } from '../state/types'
 import { deserializeQuest } from './json'
 import { startQuest } from './quest'
@@ -163,7 +163,9 @@ export async function initClient(core: Core) {
       // fetch data
       const response = await fetch(url)
       const text = await response.text()
-      const obj = JSON.parse(text ?? '{}') as QuestSerialFormat
+      const obj = JSON.parse(
+        text ?? '{}'
+      ) as QuestSerialFormat_MUST_STAY_COMPATIBLE
       if (obj.version !== 'v1') {
         throw 'bad format'
       }
