@@ -112,16 +112,15 @@ export function Overview() {
             </select>
           </div>
           <div className="mx-auto mt-6">
-            <button
+            <a
+              href="/#SPIELWIESE"
               className="hover:underline mr-8"
               onClick={() => {
                 submitAnalyzeEvent(core, 'ev_click_landing_playground')
-                buildPlayground(core)
-                switchToPage(core, 'imported')
               }}
             >
               {core.strings.overview.playground}
-            </button>
+            </a>
             <a
               href="/#EDITOR"
               className="mr-2 hover:underline cursor-pointer"

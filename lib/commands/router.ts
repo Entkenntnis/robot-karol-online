@@ -1,4 +1,6 @@
 import { Core } from '../state/core'
+import { createWorld } from '../state/create'
+import { addNewTask } from './editor'
 
 export async function navigate(core: Core, hash: string) {
   history.pushState(null, '', '/' + hash)
@@ -31,8 +33,29 @@ export async function hydrateFromHash(core: Core) {
   if (page == 'EDITOR') {
     core.mutateWs((ws) => {
       ws.page = 'editor'
+
+      const { quest } = ws
+      quest.title = core.strings.editor.title
+      quest.description = core.strings.editor.description
+      quest.tasks = []
     })
+    addNewTask(core)
     document.title = 'Editor'
+    return
+  }
+
+  if (page.startsWith('SPIELWIESE')) {
+    core.mutateWs((ws) => {
+      ws.quest.title = 'Spielwiese'
+      ws.quest.description = 'Programmiere frei und baue dein Herzensprojekt.'
+      ws.quest.tasks = [
+        { title: 'Spielwiese', start: createWorld(15, 10, 6), target: null },
+      ]
+      ws.ui.needsTextRefresh = true
+
+      ws.ui.isPlayground = true
+      ws.page = 'imported' // playground should get a separate page, but this is a battle for another day
+    })
     return
   }
 

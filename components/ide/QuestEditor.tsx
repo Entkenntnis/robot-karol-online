@@ -1,13 +1,12 @@
 import clsx from 'clsx'
-import Link from 'next/link'
 import {
   setDescription,
   setQuestPreview,
   setTitle,
 } from '../../lib/commands/editor'
-import { switchToPage } from '../../lib/commands/page'
 import { processMiniMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
+import { navigate } from '../../lib/commands/router'
 
 export function QuestEditor() {
   const core = useCore()
@@ -18,7 +17,7 @@ export function QuestEditor() {
           onClick={() => {
             const res = confirm(core.strings.editor.leaveWarning)
             if (res) {
-              switchToPage(core, 'overview')
+              navigate(core, '')
             }
           }}
         >

@@ -19,6 +19,7 @@ import { deserializeWorld } from '../../lib/commands/json'
 import { tagsById } from '../../lib/data/tagsById'
 import { switchToPage } from '../../lib/commands/page'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { navigate } from '../../lib/commands/router'
 
 const tagTitles: { [key: string]: string } = {}
 
@@ -238,9 +239,11 @@ export function Inspiration() {
         <p className="mb-2">Stand: 5. Juli 2024</p>
         <p className="mb-4">
           <a
+            href="/#"
             className="text-blue-500 hover:underline cursor-pointer"
-            onClick={() => {
-              switchToPage(core, 'overview')
+            onClick={(e) => {
+              navigate(core, '')
+              e.preventDefault()
             }}
           >
             zurück

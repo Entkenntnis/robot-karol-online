@@ -46,6 +46,7 @@ import { View } from '../helper/View'
 import { setLngStorage } from '../../lib/storage/storage'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { sub } from 'date-fns'
+import { navigate } from '../../lib/commands/router'
 
 export function Tasks() {
   const core = useCore()
@@ -361,10 +362,12 @@ export function Tasks() {
             <p className="z-10 w-full ml-3 overflow">
               {core.ws.ui.isPlayground ? (
                 <a
-                  className="underline text-gray-600 cursor-pointer"
-                  onClick={() => {
-                    switchToPage(core, 'overview')
+                  href="/#"
+                  onClick={(e) => {
+                    navigate(core, '')
+                    e.preventDefault()
                   }}
+                  className="underline text-gray-600 cursor-pointer"
                 >
                   zurück zu Robot Karol Online
                 </a>
