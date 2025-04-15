@@ -1,24 +1,23 @@
 import { useEffect, useRef } from 'react'
-import { initClient } from '../../lib/commands/init'
 import { useCore } from '../../lib/state/core'
 import { LoadingScreen } from '../helper/LoadingScreen'
+import { hydrateFromHash, navigate } from '../../lib/commands/router'
 
 export function Init() {
   const core = useCore()
-  const isInit = useRef(false)
+
+  // ok, not good, but prevent react double rendering to call hydrate twice
+  const currentlyHydrating = useRef<boolean>(false)
+
   useEffect(() => {
-    if (isInit.current) return
-    isInit.current = true
-    initClient(core)
-    core.mutateWs((ws) => {
-      ws.ui.initDone = true
-    })
-    window.addEventListener('hashchange', () => {
-      window.location.reload()
-    })
-    // only run once
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    async function hydrate() {
+      currentlyHydrating.current = true
+      await hydrateFromHash(core)
+      currentlyHydrating.current = false
+    }
+
+    if (!currentlyHydrating.current) hydrate()
+  }, [core])
 
   return <LoadingScreen />
 }

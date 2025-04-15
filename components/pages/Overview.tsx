@@ -55,6 +55,7 @@ import { AnalyzeResults } from '../helper/AnalyzeResults'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { buildPlayground } from '../../lib/commands/init'
 import { AnimateInView } from '../helper/AnimateIntoView'
+import { navigate } from '../../lib/commands/router'
 
 export function Overview() {
   const core = useCore()
@@ -121,16 +122,16 @@ export function Overview() {
             >
               {core.strings.overview.playground}
             </button>
-            <button
-              className="mr-2 hover:underline"
+            <a
+              href="/#EDITOR"
+              className="mr-2 hover:underline cursor-pointer"
               onClick={() => {
                 setOverviewScroll(core, 0)
                 submitAnalyzeEvent(core, 'ev_click_landing_editor')
-                switchToPage(core, 'editor')
               }}
             >
               {core.strings.overview.editor}
-            </button>
+            </a>
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -148,14 +149,14 @@ export function Overview() {
                 className="dropdown-content menu bg-base-100 rounded-box z-[11] w-60 p-2 shadow mt-1"
               >
                 <li>
-                  <button
+                  <a
+                    href="/#INSPIRATION"
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_landing_gallery')
-                      switchToPage(core, 'inspiration')
                     }}
                   >
                     💫 Aufgaben-Galerie
-                  </button>
+                  </a>
                 </li>
                 <li>
                   <button

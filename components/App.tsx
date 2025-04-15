@@ -25,9 +25,22 @@ import { SyncModal } from './modals/SyncModal'
 import { SurveyModal } from './modals/SurveyModal'
 import { InspirationOld } from './pages/InspirationOld'
 import { PyodideWorker } from './ide/PyodideWorker'
+import { useEffect } from 'react'
+import { hydrateFromHash } from '../lib/commands/router'
 
 export function App() {
   const core = useCore()
+
+  useEffect(() => {
+    function onHashChange() {
+      hydrateFromHash(core)
+    }
+
+    window.addEventListener('hashchange', onHashChange)
+    return () => {
+      window.removeEventListener('hashchange', onHashChange)
+    }
+  }, [core])
 
   return (
     <ErrorBoundary>
