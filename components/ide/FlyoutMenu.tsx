@@ -123,61 +123,61 @@ export function FlyoutMenu() {
               const input = document.createElement('input')
               input.type = 'file'
               input.accept =
-                core.ws.settings.language == 'python-pro' ? '.py' : '.txt,.json'
+                core.ws.settings.language == 'python-pro' ? '.py' : '.txt'
 
               const reader = new FileReader()
               reader.addEventListener('load', (e) => {
                 if (e.target != null && typeof e.target.result === 'string') {
-                  if (e.target.result.startsWith('{"version":"v1",')) {
-                    deserializeQuest(core, JSON.parse(e.target.result))
-                    history.pushState(null, '', '/')
-                    // TODO: handle data dependencies
-                    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'shared')
-                  } else {
-                    let code = e.target.result
-                    if (core.ws.ui.isPlayground) {
-                      // check for playground pragma and extract world size
-                      const match = code.match(
-                        /(\/\/|#) Spielwiese: (\d+), (\d+), (\d+)\n\n/
-                      )
-                      if (match) {
-                        const dimX = parseInt(match[2])
-                        const dimY = parseInt(match[3])
-                        const height = parseInt(match[4])
-                        console.log('create world', dimX, dimY, height)
-                        createWorldCmd(core, dimX, dimY, height)
-                        core.mutateWs((ws) => {
-                          ws.quest.tasks[0].start = createWorld(
-                            dimX,
-                            dimY,
-                            height
-                          )
-                        })
-                        code = code.replace(match[0], '')
-                      }
-                    }
-                    core.mutateWs((s) => {
-                      if (core.ws.settings.language == 'java') {
-                        s.javaCode = code
-                      } else if (core.ws.settings.language == 'python-pro') {
-                        s.pythonCode = code
-                      } else {
-                        s.code = code
-                      }
-                      s.ui.needsTextRefresh = true
-                    })
-                    if (core.ws.settings.mode == 'blocks') {
-                      setMode(core, 'code')
-                      const check = () => {
-                        if (core.ws.ui.needsTextRefresh) {
-                          setTimeout(check, 10)
-                        } else {
-                          setMode(core, 'blocks')
-                        }
-                      }
-                      check()
+                  // if (e.target.result.startsWith('{"version":"v1",')) {
+                  //   deserializeQuest(core, JSON.parse(e.target.result))
+                  //   history.pushState(null, '', '/')
+                  //   // TODO: handle data dependencies
+                  //   switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'shared')
+                  // } else {
+                  let code = e.target.result
+                  if (core.ws.ui.isPlayground) {
+                    // check for playground pragma and extract world size
+                    const match = code.match(
+                      /(\/\/|#) Spielwiese: (\d+), (\d+), (\d+)\n\n/
+                    )
+                    if (match) {
+                      const dimX = parseInt(match[2])
+                      const dimY = parseInt(match[3])
+                      const height = parseInt(match[4])
+                      console.log('create world', dimX, dimY, height)
+                      createWorldCmd(core, dimX, dimY, height)
+                      core.mutateWs((ws) => {
+                        ws.quest.tasks[0].start = createWorld(
+                          dimX,
+                          dimY,
+                          height
+                        )
+                      })
+                      code = code.replace(match[0], '')
                     }
                   }
+                  core.mutateWs((s) => {
+                    if (core.ws.settings.language == 'java') {
+                      s.javaCode = code
+                    } else if (core.ws.settings.language == 'python-pro') {
+                      s.pythonCode = code
+                    } else {
+                      s.code = code
+                    }
+                    s.ui.needsTextRefresh = true
+                  })
+                  if (core.ws.settings.mode == 'blocks') {
+                    setMode(core, 'code')
+                    const check = () => {
+                      if (core.ws.ui.needsTextRefresh) {
+                        setTimeout(check, 10)
+                      } else {
+                        setMode(core, 'blocks')
+                      }
+                    }
+                    check()
+                  }
+                  // }
                   closeFlyoutMenu()
                 }
               })

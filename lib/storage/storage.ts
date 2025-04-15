@@ -234,6 +234,7 @@ export function restoreEditorSnapshot(core: Core) {
         ws.code = snapshot.code
         ws.javaCode = snapshot.javaCode
         ws.pythonCode = snapshot.pythonCode
+        ws.ui.needsTextRefresh = true
       })
     }
   } catch (e) {}
