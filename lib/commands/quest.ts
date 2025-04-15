@@ -214,7 +214,7 @@ export function startQuest(core: Core, id: number) {
       ui.isHighlightDescription = false
     })
   }
-  submit_event(`start_quest_${id}`, core)
+  // submit_event(`start_quest_${id}`, core)
   const sessionData = getQuestData(id)
   if (sessionData) restoreQuestFromSessionData(core, sessionData)
 }
