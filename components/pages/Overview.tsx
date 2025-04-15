@@ -4,13 +4,10 @@ import {
   faChevronDown,
   faExternalLink,
   faFloppyDisk,
-  faFolder,
   faFolderOpen,
   faGlobe,
-  faList,
   faPaintBrush,
   faPencil,
-  faPenToSquare,
   faTable,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
@@ -19,22 +16,16 @@ import { Fragment, useEffect } from 'react'
 
 import {
   forceRerender,
-  hideOverviewList,
-  hideProfile,
   hideSaveHint,
   setLng,
   setPersist,
-  showOverviewList,
-  showProfile,
 } from '../../lib/commands/mode'
-import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
 import { questList, questListByCategory } from '../../lib/data/overview'
 import { questData as questDataDe } from '../../lib/data/quests'
 import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { View } from '../helper/View'
-import { switchToPage } from '../../lib/commands/page'
 import { showModal } from '../../lib/commands/modal'
 import {
   getLng,
@@ -44,7 +35,10 @@ import {
   loadFromJSON,
   resetStorage,
   saveToJSON,
+  setLearningPathScroll,
   setLngStorage,
+  setOverviewScroll,
+  setQuestReturnToMode,
   setRobotImage,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
@@ -53,8 +47,8 @@ import { mapData } from '../../lib/data/map'
 import { questDataEn } from '../../lib/data/questsEn'
 import { AnalyzeResults } from '../helper/AnalyzeResults'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { buildPlayground } from '../../lib/commands/init'
 import { AnimateInView } from '../helper/AnimateIntoView'
+import { navigate } from '../../lib/commands/router'
 
 export function Overview() {
   const core = useCore()
@@ -68,9 +62,23 @@ export function Overview() {
   ).length
 
   useEffect(() => {
-    if (core.ws.overview.overviewScroll > 0) {
+    if (
+      core.ws.overview.overviewScroll > 0 &&
+      core.ws.overview.showOverviewList &&
+      !core.ws.overview.showProfile
+    ) {
       document.getElementById('scroll-container')!.scrollTop =
         core.ws.overview.overviewScroll
+      setOverviewScroll(0)
+    }
+    if (
+      core.ws.overview.learningPathScroll > 0 &&
+      !core.ws.overview.showOverviewList &&
+      !core.ws.overview.showProfile
+    ) {
+      document.getElementById('scroll-container')!.scrollTop =
+        core.ws.overview.learningPathScroll
+      setLearningPathScroll(0)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -111,26 +119,26 @@ export function Overview() {
             </select>
           </div>
           <div className="mx-auto mt-6">
-            <button
+            <a
+              href="/#SPIELWIESE"
               className="hover:underline mr-8"
               onClick={() => {
                 submitAnalyzeEvent(core, 'ev_click_landing_playground')
-                buildPlayground(core)
-                switchToPage(core, 'imported')
               }}
             >
               {core.strings.overview.playground}
-            </button>
-            <button
-              className="mr-2 hover:underline"
+            </a>
+            <a
+              href="/#EDITOR"
+              className="mr-2 hover:underline cursor-pointer"
               onClick={() => {
-                setOverviewScroll(core, 0)
+                setOverviewScroll(0)
+                setLearningPathScroll(0)
                 submitAnalyzeEvent(core, 'ev_click_landing_editor')
-                switchToPage(core, 'editor')
               }}
             >
               {core.strings.overview.editor}
-            </button>
+            </a>
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -148,14 +156,14 @@ export function Overview() {
                 className="dropdown-content menu bg-base-100 rounded-box z-[11] w-60 p-2 shadow mt-1"
               >
                 <li>
-                  <button
+                  <a
+                    href="/#INSPIRATION"
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_landing_gallery')
-                      switchToPage(core, 'inspiration')
                     }}
                   >
                     💫 Aufgaben-Galerie
-                  </button>
+                  </a>
                 </li>
                 <li>
                   <button
@@ -234,12 +242,11 @@ export function Overview() {
                 className="dropdown-content menu bg-base-100 rounded-box z-[11] w-56 p-2 shadow mt-1"
               >
                 <li>
-                  <button
+                  <a
+                    href="/#OVERVIEW"
                     onClick={() => {
-                      showOverviewList(core)
                       submitAnalyzeEvent(core, 'ev_click_landing_listOfAll')
-                      hideProfile(core)
-                      document.getElementById('scroll-container')!.scrollTop = 0
+                      //  document.getElementById('scroll-container')!.scrollTop = 0
                       try {
                         // @ts-ignore
                         document.activeElement?.blur()
@@ -248,7 +255,7 @@ export function Overview() {
                   >
                     <FaIcon icon={faTable} className="text-gray-600" />
                     {core.strings.overview.showAll}
-                  </button>
+                  </a>
                 </li>
                 <li>
                   <button
@@ -289,11 +296,10 @@ export function Overview() {
                   </button>
                 </li>
                 <li>
-                  <button
+                  <a
+                    href="/#PROFIL"
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_landing_profile')
-                      hideOverviewList(core)
-                      showProfile(core)
                       try {
                         // @ts-ignore
                         document.activeElement?.blur()
@@ -301,18 +307,19 @@ export function Overview() {
                     }}
                   >
                     {core.strings.overview.profile}
-                  </button>
+                  </a>
                 </li>
                 <li>
-                  <button
+                  <a
+                    href="/#HIGHSCORE"
                     onClick={() => {
-                      setOverviewScroll(core, 0)
+                      setOverviewScroll(0)
+                      setLearningPathScroll(0)
                       submitAnalyzeEvent(core, 'ev_click_landing_highscore')
-                      switchToPage(core, 'highscore')
                     }}
                   >
                     Highscore
-                  </button>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -327,7 +334,7 @@ export function Overview() {
                 <button
                   className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
                   onClick={() => {
-                    hideProfile(core)
+                    navigate(core, '')
                   }}
                 >
                   {core.strings.profile.close}
@@ -373,15 +380,7 @@ export function Overview() {
                       resetStorage()
                       forceRerender(core)
                       setLng(core, 'de')
-                      core.mutateWs((ws) => {
-                        ws.appearance = {
-                          cap: 0,
-                          skin: 1,
-                          shirt: 2,
-                          legs: 3,
-                        }
-                      })
-                      hideProfile(core)
+                      navigate(core, '')
                     }
                   }}
                 >
@@ -396,7 +395,7 @@ export function Overview() {
                 <button
                   className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
                   onClick={() => {
-                    hideOverviewList(core)
+                    navigate(core, '')
                   }}
                 >
                   <FaIcon icon={faTimes} /> {core.strings.overview.closeShowAll}
@@ -666,12 +665,14 @@ export function Overview() {
                             'ev_click_landing_startKarol'
                           )
                         }
-                        setOverviewScroll(
-                          core,
+                        setQuestReturnToMode(
+                          core.ws.page == 'demo' ? 'demo' : 'path'
+                        )
+                        setLearningPathScroll(
                           document.getElementById('scroll-container')
                             ?.scrollTop ?? -1
                         )
-                        startQuest(core, parseInt(entry[0]))
+                        navigate(core, '#QUEST-' + entry[0])
                       }}
                       key={entry[0]}
                       dir={entry[1].dir}
@@ -842,11 +843,11 @@ export function Overview() {
             )}
             tabIndex={0}
             onClick={() => {
+              setQuestReturnToMode('overview')
               setOverviewScroll(
-                core,
                 document.getElementById('scroll-container')?.scrollTop ?? -1
               )
-              startQuest(core, index)
+              navigate(core, '#QUEST-' + index)
             }}
           >
             <div>

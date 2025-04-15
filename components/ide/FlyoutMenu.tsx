@@ -12,11 +12,9 @@ import {
   faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { deserializeQuest } from '../../lib/commands/json'
 import { setLng, setMode } from '../../lib/commands/mode'
-import { switchToPage } from '../../lib/commands/page'
 import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
-import { setLngStorage } from '../../lib/storage/storage'
+import { saveEditorSnapshot, setLngStorage } from '../../lib/storage/storage'
 import { showModal } from '../../lib/commands/modal'
 import { setLanguage } from '../../lib/commands/language'
 import { useEffect } from 'react'
@@ -25,6 +23,7 @@ import { questDataEn } from '../../lib/data/questsEn'
 import { createWorldCmd } from '../../lib/commands/world'
 import { createWorld } from '../../lib/state/create'
 import { startButtonClicked } from '../../lib/commands/start'
+import { navigate } from '../../lib/commands/router'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -122,60 +121,61 @@ export function FlyoutMenu() {
               const input = document.createElement('input')
               input.type = 'file'
               input.accept =
-                core.ws.settings.language == 'python-pro' ? '.py' : '.txt,.json'
+                core.ws.settings.language == 'python-pro' ? '.py' : '.txt'
 
               const reader = new FileReader()
               reader.addEventListener('load', (e) => {
                 if (e.target != null && typeof e.target.result === 'string') {
-                  if (e.target.result.startsWith('{"version":"v1",')) {
-                    deserializeQuest(core, JSON.parse(e.target.result))
-                    history.pushState(null, '', '/')
-                    switchToPage(core, 'shared')
-                  } else {
-                    let code = e.target.result
-                    if (core.ws.ui.isPlayground) {
-                      // check for playground pragma and extract world size
-                      const match = code.match(
-                        /(\/\/|#) Spielwiese: (\d+), (\d+), (\d+)\n\n/
-                      )
-                      if (match) {
-                        const dimX = parseInt(match[2])
-                        const dimY = parseInt(match[3])
-                        const height = parseInt(match[4])
-                        console.log('create world', dimX, dimY, height)
-                        createWorldCmd(core, dimX, dimY, height)
-                        core.mutateWs((ws) => {
-                          ws.quest.tasks[0].start = createWorld(
-                            dimX,
-                            dimY,
-                            height
-                          )
-                        })
-                        code = code.replace(match[0], '')
-                      }
-                    }
-                    core.mutateWs((s) => {
-                      if (core.ws.settings.language == 'java') {
-                        s.javaCode = code
-                      } else if (core.ws.settings.language == 'python-pro') {
-                        s.pythonCode = code
-                      } else {
-                        s.code = code
-                      }
-                      s.ui.needsTextRefresh = true
-                    })
-                    if (core.ws.settings.mode == 'blocks') {
-                      setMode(core, 'code')
-                      const check = () => {
-                        if (core.ws.ui.needsTextRefresh) {
-                          setTimeout(check, 10)
-                        } else {
-                          setMode(core, 'blocks')
-                        }
-                      }
-                      check()
+                  // if (e.target.result.startsWith('{"version":"v1",')) {
+                  //   deserializeQuest(core, JSON.parse(e.target.result))
+                  //   history.pushState(null, '', '/')
+                  //   // TODO: handle data dependencies
+                  //   switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'shared')
+                  // } else {
+                  let code = e.target.result
+                  if (core.ws.ui.isPlayground) {
+                    // check for playground pragma and extract world size
+                    const match = code.match(
+                      /(\/\/|#) Spielwiese: (\d+), (\d+), (\d+)\n\n/
+                    )
+                    if (match) {
+                      const dimX = parseInt(match[2])
+                      const dimY = parseInt(match[3])
+                      const height = parseInt(match[4])
+                      console.log('create world', dimX, dimY, height)
+                      createWorldCmd(core, dimX, dimY, height)
+                      core.mutateWs((ws) => {
+                        ws.quest.tasks[0].start = createWorld(
+                          dimX,
+                          dimY,
+                          height
+                        )
+                      })
+                      code = code.replace(match[0], '')
                     }
                   }
+                  core.mutateWs((s) => {
+                    if (core.ws.settings.language == 'java') {
+                      s.javaCode = code
+                    } else if (core.ws.settings.language == 'python-pro') {
+                      s.pythonCode = code
+                    } else {
+                      s.code = code
+                    }
+                    s.ui.needsTextRefresh = true
+                  })
+                  if (core.ws.settings.mode == 'blocks') {
+                    setMode(core, 'code')
+                    const check = () => {
+                      if (core.ws.ui.needsTextRefresh) {
+                        setTimeout(check, 10)
+                      } else {
+                        setMode(core, 'blocks')
+                      }
+                    }
+                    check()
+                  }
+                  // }
                   closeFlyoutMenu()
                 }
               })
@@ -279,10 +279,24 @@ export function FlyoutMenu() {
                   }
                   closeFlyoutMenu()
                   submitAnalyzeEvent(core, 'ev_click_ide_openInEditor')
-                  core.mutateWs((ws) => {
-                    ws.editor.keepQuest = true
+                  // TODO: handle data dependencies
+                  const questId = core.ws.ui.sharedQuestId
+                  if (questId && core.ws.ui.resetCode[questId]) {
+                    const [language, program] = core.ws.ui.resetCode[questId]
+                    loadProgram(core, program, language as any)
+                  }
+                  core.mutateWs(({ editor, ui }) => {
+                    editor.editOptions = 'all'
+                    if (ui.lockLanguage == 'java') {
+                      editor.editOptions = 'java-only'
+                    } else if (ui.lockLanguage == 'karol') {
+                      editor.editOptions = 'karol-only'
+                    } else if (ui.lockLanguage == 'python-pro') {
+                      editor.editOptions = 'python-pro-only'
+                    }
                   })
-                  switchToPage(core, 'editor')
+                  saveEditorSnapshot(core)
+                  navigate(core, '#EDITOR')
                 }}
               >
                 <FaIcon icon={faPencil} className="mr-2" />{' '}

@@ -128,6 +128,7 @@ export function createWorkspaceState(): WorkspaceState {
     },
     overview: {
       overviewScroll: 0,
+      learningPathScroll: 0,
       showSaveHint: true,
       showOverviewList: false,
       showProfile: false,

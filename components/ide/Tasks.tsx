@@ -4,14 +4,11 @@ import {
   faArrowUp,
   faCheck,
   faClone,
-  faComment,
-  faMessage,
   faPaintBrush,
   faPencil,
   faPlay,
   faPlus,
   faShareNodes,
-  faShirt,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
@@ -28,24 +25,19 @@ import {
 } from '../../lib/commands/editor'
 import { closeModal, showModal } from '../../lib/commands/modal'
 import { setShowStructogram } from '../../lib/commands/mode'
-import { switchToPage } from '../../lib/commands/page'
 import {
   openTask,
   setTaskScroll,
   storeQuestToSession,
 } from '../../lib/commands/quest'
-import {
-  processMiniMarkdown,
-  renderDescription,
-} from '../../lib/helper/processMiniMarkdown'
-import { submit_event } from '../../lib/helper/submit'
+import { renderDescription } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
-import { setLngStorage } from '../../lib/storage/storage'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { sub } from 'date-fns'
+import { navigate } from '../../lib/commands/router'
+import { getQuestReturnToMode } from '../../lib/storage/storage'
 
 export function Tasks() {
   const core = useCore()
@@ -339,41 +331,58 @@ export function Tasks() {
             </p>
           ) : core.ws.page == 'quest' ? (
             <p className="z-[300] relative ml-2">
-              <button
+              <a
                 className="px-2 py-0.5 rounded-lg bg-fuchsia-100 hover:bg-fuchsia-200 whitespace-nowrap"
-                onClick={() => {
+                href={
+                  '/' +
+                  (getQuestReturnToMode() == 'path'
+                    ? '#'
+                    : getQuestReturnToMode() == 'demo'
+                    ? '#DEMO'
+                    : '#OVERVIEW')
+                }
+                onClick={(e) => {
                   if (!core.ws.ui.isHighlightDescription) {
                     // reshow highlight
                     storeQuestToSession(core)
                   }
                   closeModal(core)
-                  switchToPage(
+                  navigate(
                     core,
-                    core.ws.ui.returnToDemoPage ? 'demo' : 'overview'
+                    getQuestReturnToMode() == 'path'
+                      ? ''
+                      : getQuestReturnToMode() == 'demo'
+                      ? '#DEMO'
+                      : '#OVERVIEW'
                   )
+                  e.preventDefault()
                 }}
               >
                 <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
                 {core.strings.ide.backToOverview}
-              </button>
+              </a>
             </p>
           ) : core.ws.page == 'shared' || core.ws.page == 'imported' ? (
             <p className="z-10 w-full ml-3 overflow">
               {core.ws.ui.isPlayground ? (
                 <a
-                  className="underline text-gray-600 cursor-pointer"
-                  onClick={() => {
-                    switchToPage(core, 'overview')
+                  href="/#"
+                  onClick={(e) => {
+                    navigate(core, '')
+                    e.preventDefault()
                   }}
+                  className="underline text-gray-600 cursor-pointer"
                 >
                   zurück zu Robot Karol Online
                 </a>
               ) : (
                 <a
-                  className="underline cursor-pointer text-gray-600"
-                  onClick={() => {
-                    switchToPage(core, 'overview')
+                  href="/#"
+                  onClick={(e) => {
+                    navigate(core, '')
+                    e.preventDefault()
                   }}
+                  className="underline cursor-pointer text-gray-600"
                 >
                   Robot Karol Online
                 </a>

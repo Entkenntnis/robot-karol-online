@@ -1,7 +1,4 @@
-import { faCircle } from '@fortawesome/free-solid-svg-icons'
-import { appearanceRegistry } from '../../lib/data/appearance'
 import { useCore } from '../../lib/state/core'
-import { FaIcon } from './FaIcon'
 
 export function AnalyzeResults() {
   const core = useCore()

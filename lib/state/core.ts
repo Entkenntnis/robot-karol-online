@@ -48,14 +48,13 @@ export const CoreProvider = CoreContext.Provider
 export class Core {
   _setCoreState: Dispatch<SetStateAction<CoreState>>
   _coreRef: MutableRefObject<CoreRefs>
-  _workspaceStorage: { [key: string]: { world: World; code: string } }
 
-  blockyResize: undefined | (() => void)
-
-  view?: MutableRefObject<EditorView | undefined> // WOW, this is bad
   worker?: PyodideWorker
+  executionEndCallback?: () => void
 
-  executionEndCallback: undefined | (() => void)
+  // these two are managed by react lifecycles and should be always up to date
+  blockyResize?: () => void
+  view?: MutableRefObject<EditorView | undefined>
 
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,
@@ -63,7 +62,6 @@ export class Core {
   ) {
     this._setCoreState = setCoreState
     this._coreRef = coreRef
-    this._workspaceStorage = {}
   }
 
   // async-safe way to access core state
@@ -91,5 +89,16 @@ export class Core {
     this.mutateCore((state) => {
       updater(state.workspace)
     })
+  }
+
+  reset() {
+    if (this.worker) {
+      this.worker.reset()
+    }
+    this.executionEndCallback = undefined
+
+    const cleanState = createDefaultCoreState()
+    this._coreRef.current.state = cleanState
+    this._setCoreState(cleanState)
   }
 }

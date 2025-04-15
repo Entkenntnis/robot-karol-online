@@ -1,11 +1,11 @@
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
 import {
-  Compressed2D,
+  Compressed2D_MUST_STAY_COMPATIBLE,
   Quest,
   QuestData,
-  QuestSerialFormat,
-  SerialWorld,
+  QuestSerialFormat_MUST_STAY_COMPATIBLE,
+  SerialWorld_MUST_STAY_COMPATIBLE,
   World,
 } from '../state/types'
 import { setLanguage } from './language'
@@ -17,8 +17,10 @@ import {
 import { endExecution } from './vm'
 import { twoWorldsEqual } from './world'
 
-export function serializeQuest(core: Core): QuestSerialFormat {
-  const output: QuestSerialFormat = {
+export function serializeQuest(
+  core: Core
+): QuestSerialFormat_MUST_STAY_COMPATIBLE {
+  const output: QuestSerialFormat_MUST_STAY_COMPATIBLE = {
     version: 'v1',
     title: core.ws.quest.title,
     description: core.ws.quest.description,
@@ -46,7 +48,7 @@ export function serializeQuest(core: Core): QuestSerialFormat {
   return output
 }
 
-export function serializeWorld(world: World): SerialWorld {
+export function serializeWorld(world: World): SerialWorld_MUST_STAY_COMPATIBLE {
   const { dimX, dimY, height, blocks, bricks, karol, marks } = world
 
   return {
@@ -128,7 +130,7 @@ export function textRefreshDone(core: Core) {
 
 export function deserializeQuest(
   core: Core,
-  quest: QuestSerialFormat,
+  quest: QuestSerialFormat_MUST_STAY_COMPATIBLE,
   updateLng: boolean = true
 ) {
   // set title of window to quest title
@@ -210,7 +212,9 @@ export function deserializeQuest(
   }
 }
 
-export function deserlizeQuestToData(quest: QuestSerialFormat): QuestData {
+export function deserializeQuestToData(
+  quest: QuestSerialFormat_MUST_STAY_COMPATIBLE
+): QuestData {
   return {
     title: quest.title,
     description: quest.description,
@@ -231,7 +235,9 @@ export function deserlizeQuestToData(quest: QuestSerialFormat): QuestData {
   }
 }
 
-export function deserializeWorld(world: SerialWorld): World {
+export function deserializeWorld(
+  world: SerialWorld_MUST_STAY_COMPATIBLE
+): World {
   const { dimX, dimY, height, blocks, bricks, karol, marks } = world
 
   return {
@@ -245,7 +251,10 @@ export function deserializeWorld(world: SerialWorld): World {
   }
 }
 
-function compress2dArray<T>(input: T[][], defaultVal: T): Compressed2D<T> {
+function compress2dArray<T>(
+  input: T[][],
+  defaultVal: T
+): Compressed2D_MUST_STAY_COMPATIBLE<T> {
   const dimX = input[0].length
   const dimY = input.length
 
@@ -305,7 +314,7 @@ function compress2dArray<T>(input: T[][], defaultVal: T): Compressed2D<T> {
 }
 
 function decompress2dArray<T>(
-  input: Compressed2D<T>,
+  input: Compressed2D_MUST_STAY_COMPATIBLE<T>,
   dimX: number,
   dimY: number,
   defaultVal: T

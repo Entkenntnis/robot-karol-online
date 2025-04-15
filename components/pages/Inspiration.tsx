@@ -10,15 +10,15 @@ import { TAGS } from '../../lib/data/tags'
 import {
   EntryType,
   InspirationData,
-  QuestSerialFormat,
+  QuestSerialFormat_MUST_STAY_COMPATIBLE,
 } from '../../lib/state/types'
 import { useCore } from '../../lib/state/core'
 import RenderIfVisible from 'react-render-if-visible'
 import { View } from '../helper/View'
 import { deserializeWorld } from '../../lib/commands/json'
 import { tagsById } from '../../lib/data/tagsById'
-import { switchToPage } from '../../lib/commands/page'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { navigate } from '../../lib/commands/router'
 
 const tagTitles: { [key: string]: string } = {}
 
@@ -39,7 +39,7 @@ export function Inspiration() {
       .then((response) => response.json())
       .then((data: InspirationData[]) => {
         const parsedEntries: EntryType[] = data.map((item) => {
-          let quest: QuestSerialFormat
+          let quest: QuestSerialFormat_MUST_STAY_COMPATIBLE
           try {
             quest = JSON.parse(item.content)
           } catch (error) {
@@ -238,9 +238,11 @@ export function Inspiration() {
         <p className="mb-2">Stand: 5. Juli 2024</p>
         <p className="mb-4">
           <a
+            href="/#"
             className="text-blue-500 hover:underline cursor-pointer"
-            onClick={() => {
-              switchToPage(core, 'overview')
+            onClick={(e) => {
+              navigate(core, '')
+              e.preventDefault()
             }}
           >
             zurück
