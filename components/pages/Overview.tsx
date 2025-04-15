@@ -34,7 +34,7 @@ import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { View } from '../helper/View'
-import { switchToPage } from '../../lib/commands/page'
+import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from '../../lib/commands/page'
 import { showModal } from '../../lib/commands/modal'
 import {
   getLng,
@@ -308,7 +308,7 @@ export function Overview() {
                     onClick={() => {
                       setOverviewScroll(core, 0)
                       submitAnalyzeEvent(core, 'ev_click_landing_highscore')
-                      switchToPage(core, 'highscore')
+                      switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'highscore')
                     }}
                   >
                     Highscore
@@ -671,7 +671,7 @@ export function Overview() {
                           document.getElementById('scroll-container')
                             ?.scrollTop ?? -1
                         )
-                        startQuest(core, parseInt(entry[0]))
+                        navigate(core, '#QUEST-' + entry[0])
                       }}
                       key={entry[0]}
                       dir={entry[1].dir}

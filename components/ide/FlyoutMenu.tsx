@@ -14,7 +14,7 @@ import {
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { deserializeQuest } from '../../lib/commands/json'
 import { setLng, setMode } from '../../lib/commands/mode'
-import { switchToPage } from '../../lib/commands/page'
+import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from '../../lib/commands/page'
 import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
 import { setLngStorage } from '../../lib/storage/storage'
 import { showModal } from '../../lib/commands/modal'
@@ -130,7 +130,7 @@ export function FlyoutMenu() {
                   if (e.target.result.startsWith('{"version":"v1",')) {
                     deserializeQuest(core, JSON.parse(e.target.result))
                     history.pushState(null, '', '/')
-                    switchToPage(core, 'shared')
+                    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'shared')
                   } else {
                     let code = e.target.result
                     if (core.ws.ui.isPlayground) {
@@ -282,7 +282,7 @@ export function FlyoutMenu() {
                   core.mutateWs((ws) => {
                     ws.editor.keepQuest = true
                   })
-                  switchToPage(core, 'editor')
+                  switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'editor')
                 }}
               >
                 <FaIcon icon={faPencil} className="mr-2" />{' '}

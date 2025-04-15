@@ -8,7 +8,7 @@ import { backend } from '../../backend'
 import clsx from 'clsx'
 import { useCore } from '../../lib/state/core'
 import { getUserId } from '../../lib/storage/storage'
-import { switchToPage } from '../../lib/commands/page'
+import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from '../../lib/commands/page'
 import { questList } from '../../lib/data/overview'
 
 timeago.register('de', function (number, index, total_sec) {
@@ -116,7 +116,7 @@ export function Highscore() {
         <button
           className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
           onClick={() => {
-            switchToPage(core, 'overview')
+            switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
           }}
         >
           {core.strings.highscore.close}

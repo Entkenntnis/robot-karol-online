@@ -1,6 +1,6 @@
 import { Core } from '../state/core'
 import { loadLegacyProject, loadQuest } from './load'
-import { switchToPage } from './page'
+import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from './page'
 import { getLng, getRobotImage } from '../storage/storage'
 import { setLng, showOverviewList, updatePlaygroundHashToMode } from './mode'
 import { createWorld } from '../state/create'
@@ -15,7 +15,9 @@ import { setLanguage } from './language'
 import { analyze, submitAnalyzeEvent } from './analyze'
 import { loadProgram } from './save'
 
-export async function initClient(core: Core) {
+export async function initClient_THIS_IS_NEVER_CALLED_MOVE_CODE_AWAY(
+  core: Core
+) {
   window.addEventListener('popstate', () => {
     window.location.reload() // <---- this looks fishy
   })
@@ -41,11 +43,11 @@ export async function initClient(core: Core) {
     if (id == 'Z9xO1rVGj') {
       submitAnalyzeEvent(core, 'ev_show_playgroundLegacyLink')
       buildPlayground(core)
-      switchToPage(core, 'imported')
+      switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'imported')
       return
     }
     await loadLegacyProject(core, id)
-    switchToPage(core, 'imported')
+    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'imported')
     return
   }
 
@@ -102,7 +104,7 @@ export async function initClient(core: Core) {
         submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
       } catch (e) {}
     }
-    switchToPage(core, 'imported')
+    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'imported')
     return
   }
 
@@ -114,12 +116,12 @@ export async function initClient(core: Core) {
 
   if (hash == '#INSPIRATION') {
     submitAnalyzeEvent(core, 'ev_show_inspiration')
-    switchToPage(core, 'inspiration')
+    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'inspiration')
     return
   }
 
   if (hash == '#INSPIRATION-OLD') {
-    switchToPage(core, 'inspiration-old')
+    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'inspiration-old')
     return
   }
 
@@ -136,7 +138,7 @@ export async function initClient(core: Core) {
 
   if (hash == '#EDITOR') {
     submitAnalyzeEvent(core, 'ev_show_editor')
-    switchToPage(core, 'editor')
+    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'editor')
     try {
       const snapshotRaw = sessionStorage.getItem(
         'robot_karol_online_session_snapshot'
@@ -170,7 +172,7 @@ export async function initClient(core: Core) {
         throw 'bad format'
       }
       deserializeQuest(core, obj)
-      switchToPage(core, 'shared')
+      switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'shared')
       return
     } catch (e) {
       alert(e)
@@ -187,7 +189,7 @@ export async function initClient(core: Core) {
       'ev_show_robotImage_' + (data.length > 50 ? data.slice(-50) : data)
     )
     history.replaceState(null, '', '/')
-    switchToPage(core, 'overview')
+    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
     return
   }
 
@@ -196,16 +198,16 @@ export async function initClient(core: Core) {
     core.mutateWs(({ ui }) => {
       ui.returnToDemoPage = true
     })
-    switchToPage(core, 'demo')
+    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'demo')
     return
   } else if (hash.length == 5) {
     await loadQuest(core, hash.substring(1))
-    switchToPage(core, 'shared')
+    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'shared')
     return
   }
 
   submitAnalyzeEvent(core, 'ev_show_landing')
-  switchToPage(core, 'overview')
+  switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
 }
 
 export function buildPlayground(core: Core) {

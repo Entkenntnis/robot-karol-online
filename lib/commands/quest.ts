@@ -8,7 +8,7 @@ import { Core } from '../state/core'
 import { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
 import { getQuestData, getUserName, setQuestData } from '../storage/storage'
 import { showModal } from './modal'
-import { switchToPage } from './page'
+import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from './page'
 import { runPythonCode } from './python'
 import { run } from './vm'
 import { twoWorldsEqual } from './world'
@@ -194,8 +194,9 @@ export function startQuest(core: Core, id: number) {
       ws.settings.mode = 'code'
       ws.ui.lockLanguage = 'karol'
     }
+    ws.page = 'quest'
   })
-  switchToPage(core, 'quest')
+  // switchToPage(core, 'quest')
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {
     showModal(core, 'name')
     core.mutateWs(({ ui }) => {
@@ -252,7 +253,8 @@ export function restoreQuestFromSessionData(
       ws.ui.isHighlightDescription = false
     }
     if (data.language) {
-      ws.settings.language = data.language
+      ws.settings.language =
+        data.language == 'python' ? 'python-pro' : data.language
     }
   })
 }
@@ -362,7 +364,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
   }*/
   storeQuestToSession(core)
   if (!stay) {
-    switchToPage(core, 'overview')
+    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
   } else {
     core.mutateWs((ws) => {
       ws.ui.isAlreadyCompleted = true

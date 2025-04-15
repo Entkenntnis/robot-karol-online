@@ -33,14 +33,18 @@ export function QuestIcon({
 }: QuestIconProps) {
   const core = useCore()
   return (
-    <div
+    <a
       className={clsx(
-        'absolute',
+        'absolute block',
         (solved || core.ws.page == 'analyze') && 'pt-5'
       )}
       style={{ left: `${x}px`, top: `${y}px` }}
-      onClick={onClick}
+      onClick={(e) => {
+        onClick()
+        e.preventDefault()
+      }}
       key={title}
+      href={'/#QUEST-' + id}
     >
       <AnimateInView
         dontFade={
@@ -147,6 +151,6 @@ export function QuestIcon({
           )}
         </div>
       </AnimateInView>
-    </div>
+    </a>
   )
 }

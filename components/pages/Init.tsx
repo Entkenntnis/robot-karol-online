@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useCore } from '../../lib/state/core'
 import { LoadingScreen } from '../helper/LoadingScreen'
-import { hydrateFromHash, navigate } from '../../lib/commands/router'
+import { hydrateFromHash } from '../../lib/commands/router'
 
 export function Init() {
   const core = useCore()
@@ -15,6 +15,8 @@ export function Init() {
       await hydrateFromHash(core)
       currentlyHydrating.current = false
     }
+
+    // take care of search parameters here
 
     if (!currentlyHydrating.current) hydrate()
   }, [core])

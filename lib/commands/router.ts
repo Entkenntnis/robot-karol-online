@@ -1,6 +1,7 @@
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { addNewTask } from './editor'
+import { startQuest } from './quest'
 
 export async function navigate(core: Core, hash: string) {
   history.pushState(null, '', '/' + hash)
@@ -64,6 +65,13 @@ export async function hydrateFromHash(core: Core) {
       ws.page = 'inspiration'
     })
     document.title = 'Aufgaben-Galerie'
+    return
+  }
+
+  if (page.startsWith('QUEST-')) {
+    const questId = parseInt(page.substring(6))
+    startQuest(core, questId)
+    document.title = core.ws.quest.title + ' | Robot Karol Online'
     return
   }
 

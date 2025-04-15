@@ -10,7 +10,7 @@ import {
   setUserName as setUserNameStorage,
 } from '../storage/storage'
 import { showModal } from './modal'
-import { switchToPage } from './page'
+import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from './page'
 import { saveCodeToLocalStorage } from './save'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
@@ -151,14 +151,14 @@ export function showOverviewList(core: Core) {
   core.mutateWs(({ overview }) => {
     overview.showOverviewList = true
   })
-  switchToPage(core, 'overview')
+  switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
 }
 
 export function hideOverviewList(core: Core) {
   core.mutateWs(({ overview }) => {
     overview.showOverviewList = false
   })
-  switchToPage(core, 'overview')
+  switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
 }
 
 export function showProfile(core: Core) {

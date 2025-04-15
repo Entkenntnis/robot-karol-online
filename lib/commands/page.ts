@@ -6,7 +6,10 @@ import { loadProgram } from './save'
 
 type Pages = CoreState['workspace']['page']
 
-export function switchToPage(core: Core, target: Pages) {
+export function switchToPage_DEPRECATED_WILL_BE_REMOVED(
+  core: Core,
+  target: Pages
+) {
   core.mutateWs((ws) => {
     ws.page = target
   })
@@ -96,7 +99,7 @@ export function switchToPage(core: Core, target: Pages) {
     hideProfile(core)
     const hash = window.location.hash.toUpperCase()
     if (hash == '#DEMO') {
-      switchToPage(core, 'demo')
+      switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'demo')
       return
     } else if (core.ws.overview.showOverviewList) {
       document.title = core.strings.overview.showAll + ' | Robot Karol Online'
