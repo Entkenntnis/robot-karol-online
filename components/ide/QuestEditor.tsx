@@ -7,6 +7,7 @@ import {
 import { processMiniMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
 import { navigate } from '../../lib/commands/router'
+import { deleteEditorSnapshot } from '../../lib/storage/storage'
 
 export function QuestEditor() {
   const core = useCore()
@@ -17,6 +18,7 @@ export function QuestEditor() {
           onClick={() => {
             const res = confirm(core.strings.editor.leaveWarning)
             if (res) {
+              deleteEditorSnapshot()
               navigate(core, '')
             }
           }}

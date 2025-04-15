@@ -37,6 +37,7 @@ import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
+import { getQuestReturnToMode } from '../../lib/storage/storage'
 
 export function Tasks() {
   const core = useCore()
@@ -332,14 +333,19 @@ export function Tasks() {
             <p className="z-[300] relative ml-2">
               <a
                 className="px-2 py-0.5 rounded-lg bg-fuchsia-100 hover:bg-fuchsia-200 whitespace-nowrap"
-                href="/#"
+                href={
+                  '/#' + (getQuestReturnToMode() == 'path' ? '' : 'OVERVIEW')
+                }
                 onClick={(e) => {
                   if (!core.ws.ui.isHighlightDescription) {
                     // reshow highlight
                     storeQuestToSession(core)
                   }
                   closeModal(core)
-                  navigate(core, '')
+                  navigate(
+                    core,
+                    getQuestReturnToMode() == 'path' ? '' : '#OVERVIEW'
+                  )
                   e.preventDefault()
                 }}
               >

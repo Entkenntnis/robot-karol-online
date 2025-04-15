@@ -16,7 +16,7 @@ import { deserializeQuest } from '../../lib/commands/json'
 import { setLng, setMode } from '../../lib/commands/mode'
 import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from '../../lib/commands/page'
 import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
-import { setLngStorage } from '../../lib/storage/storage'
+import { saveEditorSnapshot, setLngStorage } from '../../lib/storage/storage'
 import { showModal } from '../../lib/commands/modal'
 import { setLanguage } from '../../lib/commands/language'
 import { useEffect } from 'react'
@@ -25,6 +25,7 @@ import { questDataEn } from '../../lib/data/questsEn'
 import { createWorldCmd } from '../../lib/commands/world'
 import { createWorld } from '../../lib/state/create'
 import { startButtonClicked } from '../../lib/commands/start'
+import { navigate } from '../../lib/commands/router'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -280,11 +281,24 @@ export function FlyoutMenu() {
                   }
                   closeFlyoutMenu()
                   submitAnalyzeEvent(core, 'ev_click_ide_openInEditor')
-                  core.mutateWs((ws) => {
-                    ws.editor.keepQuest = true
-                  })
                   // TODO: handle data dependencies
-                  switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'editor')
+                  const questId = core.ws.ui.sharedQuestId
+                  if (questId && core.ws.ui.resetCode[questId]) {
+                    const [language, program] = core.ws.ui.resetCode[questId]
+                    loadProgram(core, program, language as any)
+                  }
+                  core.mutateWs(({ editor, ui }) => {
+                    editor.editOptions = 'all'
+                    if (ui.lockLanguage == 'java') {
+                      editor.editOptions = 'java-only'
+                    } else if (ui.lockLanguage == 'karol') {
+                      editor.editOptions = 'karol-only'
+                    } else if (ui.lockLanguage == 'python-pro') {
+                      editor.editOptions = 'python-pro-only'
+                    }
+                  })
+                  saveEditorSnapshot(core)
+                  navigate(core, '#EDITOR')
                 }}
               >
                 <FaIcon icon={faPencil} className="mr-2" />{' '}

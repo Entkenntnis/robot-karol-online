@@ -1,7 +1,19 @@
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
+import { PlaygroundHashData } from '../state/types'
+import {
+  getLearningPathScroll,
+  getLng,
+  getOverviewScroll,
+  getRobotImage,
+  restoreEditorSnapshot,
+} from '../storage/storage'
+import { submitAnalyzeEvent } from './analyze'
 import { addNewTask } from './editor'
+import { loadQuest } from './load'
+import { setLng, updatePlaygroundHashToMode } from './mode'
 import { startQuest } from './quest'
+import { loadProgram } from './save'
 
 export async function navigate(core: Core, hash: string) {
   history.pushState(null, '', '/' + hash)
@@ -22,7 +34,23 @@ export async function hydrateFromHash(core: Core) {
   // PHASE 0: reset
   core.reset()
 
-  // PHASE 1: hydrate
+  // PHASE 1: common
+  setLng(core, getLng())
+
+  const robotImage = getRobotImage()
+  if (robotImage) {
+    core.mutateWs((ws) => {
+      ws.robotImageDataUrl = robotImage
+    })
+  }
+
+  // restore overview scroll position
+  core.mutateWs((ws) => {
+    ws.overview.overviewScroll = getOverviewScroll()
+    ws.overview.learningPathScroll = getLearningPathScroll()
+  })
+
+  // PHASE 2: hydrate page
   if (page == '') {
     core.mutateWs((ws) => {
       ws.page = 'overview'
@@ -41,11 +69,13 @@ export async function hydrateFromHash(core: Core) {
       quest.tasks = []
     })
     addNewTask(core)
-    document.title = 'Editor'
+    document.title = 'Editor | Robot Karol Online'
+    restoreEditorSnapshot(core)
     return
   }
 
   if (page.startsWith('SPIELWIESE')) {
+    document.title = 'Spielwiese | Robot Karol Online'
     core.mutateWs((ws) => {
       ws.quest.title = 'Spielwiese'
       ws.quest.description = 'Programmiere frei und baue dein Herzensprojekt.'
@@ -56,8 +86,43 @@ export async function hydrateFromHash(core: Core) {
 
       ws.ui.isPlayground = true
       ws.page = 'imported' // playground should get a separate page, but this is a battle for another day
+
+      if (page == 'SPIELWIESE-CODE') {
+        ws.settings.mode = 'code'
+        ws.settings.language = 'robot karol'
+      }
+
+      if (page == 'SPIELWIESE-PYTHON' || page == 'SPIELWIESE-PYTHON-PRO') {
+        ws.settings.mode = 'code'
+        ws.settings.language = 'python-pro'
+        document.title = 'Spielwiese Python | Robot Karol Online'
+      }
+
+      if (page == 'SPIELWIESE-JAVA') {
+        ws.settings.mode = 'code'
+        ws.settings.language = 'java'
+        document.title = 'Spielwiese Karol Java | Robot Karol Online'
+      }
     })
-    // TODO: title, sync data
+    if (data) {
+      // deserialize world
+      try {
+        const dataObj: PlaygroundHashData = JSON.parse(
+          decodeURIComponent(atob(data))
+        )
+        core.mutateWs((ws) => {
+          ws.quest.tasks = [
+            {
+              title: 'Spielwiese',
+              start: createWorld(dataObj.dimX, dataObj.dimY, dataObj.height),
+              target: null,
+            },
+          ]
+        })
+        loadProgram(core, dataObj.program, dataObj.language as any)
+        submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
+      } catch (e) {}
+    }
     return
   }
 
@@ -99,6 +164,31 @@ export async function hydrateFromHash(core: Core) {
       ws.overview.showOverviewList = true
     })
     document.title = core.strings.overview.showAll + ' | Robot Karol Online'
+    return
+  }
+
+  if (page.length == 4) {
+    await loadQuest(core, page)
+    core.mutateWs((ws) => {
+      ws.page = 'shared'
+    })
+    return
+  }
+
+  if (page == 'ROBOT') {
+    const decodedData = decodeURIComponent(data)
+    core.mutateWs((ws) => {
+      ws.ui.newRobotImage = decodedData
+    })
+    submitAnalyzeEvent(
+      core,
+      'ev_show_robotImage_' +
+        (decodedData.length > 50 ? decodedData.slice(-50) : decodedData)
+    )
+    history.replaceState(null, '', '/')
+    core.mutateWs((ws) => {
+      ws.page = 'overview'
+    })
     return
   }
 

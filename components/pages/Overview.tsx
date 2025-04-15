@@ -20,7 +20,7 @@ import {
   setLng,
   setPersist,
 } from '../../lib/commands/mode'
-import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
+import { startQuest } from '../../lib/commands/quest'
 import { questList, questListByCategory } from '../../lib/data/overview'
 import { questData as questDataDe } from '../../lib/data/quests'
 import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
@@ -36,7 +36,10 @@ import {
   loadFromJSON,
   resetStorage,
   saveToJSON,
+  setLearningPathScroll,
   setLngStorage,
+  setOverviewScroll,
+  setQuestReturnToMode,
   setRobotImage,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
@@ -60,9 +63,21 @@ export function Overview() {
   ).length
 
   useEffect(() => {
-    if (core.ws.overview.overviewScroll > 0) {
+    if (
+      core.ws.overview.overviewScroll > 0 &&
+      core.ws.overview.showOverviewList &&
+      !core.ws.overview.showProfile
+    ) {
       document.getElementById('scroll-container')!.scrollTop =
         core.ws.overview.overviewScroll
+    }
+    if (
+      core.ws.overview.learningPathScroll > 0 &&
+      !core.ws.overview.showOverviewList &&
+      !core.ws.overview.showProfile
+    ) {
+      document.getElementById('scroll-container')!.scrollTop =
+        core.ws.overview.learningPathScroll
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -116,7 +131,8 @@ export function Overview() {
               href="/#EDITOR"
               className="mr-2 hover:underline cursor-pointer"
               onClick={() => {
-                setOverviewScroll(core, 0)
+                setOverviewScroll(0)
+                setLearningPathScroll(0)
                 submitAnalyzeEvent(core, 'ev_click_landing_editor')
               }}
             >
@@ -229,11 +245,11 @@ export function Overview() {
                     href="/#OVERVIEW"
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_landing_listOfAll')
-                      /* document.getElementById('scroll-container')!.scrollTop = 0
+                      //  document.getElementById('scroll-container')!.scrollTop = 0
                       try {
                         // @ts-ignore
                         document.activeElement?.blur()
-                      } catch (e) {}*/
+                      } catch (e) {}
                     }}
                   >
                     <FaIcon icon={faTable} className="text-gray-600" />
@@ -296,7 +312,8 @@ export function Overview() {
                   <a
                     href="/#HIGHSCORE"
                     onClick={() => {
-                      setOverviewScroll(core, 0)
+                      setOverviewScroll(0)
+                      setLearningPathScroll(0)
                       submitAnalyzeEvent(core, 'ev_click_landing_highscore')
                     }}
                   >
@@ -647,8 +664,8 @@ export function Overview() {
                             'ev_click_landing_startKarol'
                           )
                         }
-                        setOverviewScroll(
-                          core,
+                        setQuestReturnToMode('path')
+                        setLearningPathScroll(
                           document.getElementById('scroll-container')
                             ?.scrollTop ?? -1
                         )
@@ -823,11 +840,11 @@ export function Overview() {
             )}
             tabIndex={0}
             onClick={() => {
+              setQuestReturnToMode('overview')
               setOverviewScroll(
-                core,
                 document.getElementById('scroll-container')?.scrollTop ?? -1
               )
-              startQuest(core, index)
+              navigate(core, '#QUEST-' + index)
             }}
           >
             <div>

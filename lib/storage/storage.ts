@@ -2,7 +2,10 @@
 
 import { questList } from '../data/overview'
 import { Core } from '../state/core'
-import { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
+import {
+  EditorSessionSnapshot,
+  QuestSessionData_MUST_STAY_COMPATIBLE,
+} from '../state/types'
 
 const userIdKey = 'robot_karol_online_tmp_id'
 const userNameKey = 'robot_karol_online_name'
@@ -199,4 +202,86 @@ export function copyLocalToSession() {
 export function resetStorage() {
   copyLocalToSession()
   sessionStorage.clear()
+}
+
+export function saveEditorSnapshot(core: Core) {
+  // create a snapshot
+  const snapshot: EditorSessionSnapshot = {
+    settings: core.ws.settings,
+    editor: core.ws.editor,
+    quest: core.ws.quest,
+    code: core.ws.code,
+    javaCode: core.ws.javaCode,
+    pythonCode: core.ws.pythonCode,
+  }
+  sessionStorage.setItem(
+    'robot_karol_online_session_snapshot',
+    JSON.stringify(snapshot)
+  )
+}
+
+export function restoreEditorSnapshot(core: Core) {
+  try {
+    const snapshotRaw = sessionStorage.getItem(
+      'robot_karol_online_session_snapshot'
+    )
+    if (snapshotRaw) {
+      const snapshot = JSON.parse(snapshotRaw) as EditorSessionSnapshot
+      core.mutateWs((ws) => {
+        ws.settings = snapshot.settings
+        ws.editor = snapshot.editor
+        ws.quest = snapshot.quest
+        ws.code = snapshot.code
+        ws.javaCode = snapshot.javaCode
+        ws.pythonCode = snapshot.pythonCode
+      })
+    }
+  } catch (e) {}
+}
+
+export function deleteEditorSnapshot() {
+  sessionStorage.removeItem('robot_karol_online_session_snapshot')
+}
+
+export function setOverviewScroll(scroll: number) {
+  sessionStorage.setItem(
+    'robot_karol_online_overview_scroll',
+    scroll.toString()
+  )
+}
+export function getOverviewScroll() {
+  const scroll = sessionStorage.getItem('robot_karol_online_overview_scroll')
+  if (scroll) {
+    return parseInt(scroll)
+  }
+  return 0
+}
+
+export function setLearningPathScroll(scroll: number) {
+  sessionStorage.setItem(
+    'robot_karol_online_learning_path_scroll',
+    scroll.toString()
+  )
+}
+
+export function getLearningPathScroll() {
+  const scroll = sessionStorage.getItem(
+    'robot_karol_online_learning_path_scroll'
+  )
+  if (scroll) {
+    return parseInt(scroll)
+  }
+  return 0
+}
+
+export function setQuestReturnToMode(mode: 'path' | 'overview') {
+  sessionStorage.setItem('robot_karol_online_quest_return_to', mode)
+}
+
+export function getQuestReturnToMode() {
+  const mode = sessionStorage.getItem('robot_karol_online_quest_return_to')
+  if (mode) {
+    return mode as 'path' | 'overview'
+  }
+  return 'path'
 }

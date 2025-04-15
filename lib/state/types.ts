@@ -121,6 +121,7 @@ export interface Quest {
 
 export interface Overview {
   overviewScroll: number
+  learningPathScroll: number
   showSaveHint: boolean
   showOverviewList: boolean
   showProfile: boolean
