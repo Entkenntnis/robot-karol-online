@@ -24,6 +24,7 @@ import { questData } from '../../lib/data/quests'
 import { questDataEn } from '../../lib/data/questsEn'
 import { createWorldCmd } from '../../lib/commands/world'
 import { createWorld } from '../../lib/state/create'
+import { startButtonClicked } from '../../lib/commands/start'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -270,6 +271,12 @@ export function FlyoutMenu() {
               <button
                 className="px-2 py-0.5 hover:bg-yellow-300 rounded"
                 onClick={() => {
+                  if (
+                    core.ws.ui.state == 'running' ||
+                    core.ws.ui.interactiveClassdiagram
+                  ) {
+                    startButtonClicked(core)
+                  }
                   closeFlyoutMenu()
                   submitAnalyzeEvent(core, 'ev_click_ide_openInEditor')
                   core.mutateWs((ws) => {

@@ -18,7 +18,10 @@ import { sliderToDelay } from '../../lib/helper/speedSlider'
 
 export function InteractionBar() {
   const core = useCore()
-  const mainButtonState = core.ws.ui.state == 'running' ? 'stop' : 'start'
+  const mainButtonState =
+    core.ws.ui.state == 'running' || core.ws.ui.interactiveClassdiagram
+      ? 'stop'
+      : 'start'
 
   const dontChangeLanguage =
     (core.ws.ui.state !== 'ready' &&

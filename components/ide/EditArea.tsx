@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import {
   faCircleExclamation,
   faExternalLink,
+  faPlay,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import { forceLinting } from '@codemirror/lint'
@@ -14,17 +15,14 @@ import { textRefreshDone } from '../../lib/commands/json'
 import { JavaEditor } from './JavaEditor'
 import clsx from 'clsx'
 import { PythonEditor } from './PythonEditor'
-import {
-  cursorLineEnd,
-  insertNewline,
-  simplifySelection,
-  toggleComment,
-} from '@codemirror/commands'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { BlockEditor } from './BlockEditor'
 import { QuestPrompt } from '../helper/QuestPrompt'
 import { Cheatsheet } from '../helper/Cheatsheet'
 import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
+import ClassDiagram from './ClassDiagram'
+import { startClassDiagram } from '../../lib/commands/class-diagram'
+import { InteractiveClassDiagram } from './InteractiveClassDiagram'
 
 export function EditArea() {
   const core = useCore()
@@ -35,7 +33,11 @@ export function EditArea() {
 
   useEffect(() => {
     setShowCheatSheet(false)
-  }, [core.ws.settings.language, core.ws.settings.mode])
+  }, [
+    core.ws.settings.language,
+    core.ws.settings.mode,
+    core.ws.ui.interactiveClassdiagram,
+  ])
 
   core.view = view
 
@@ -59,187 +61,15 @@ export function EditArea() {
     }
   })
 
-  function insertCodeSnippet(insert: string[], cursorOffset: number) {
-    if (view.current) {
-      simplifySelection(view.current)
-      cursorLineEnd(view.current)
-      const { from, to } = view.current.state.doc.lineAt(
-        view.current.state.selection.main.anchor
-      )
-      let lineText = view.current.state.sliceDoc(from, to)
-      let spaces = ''
-      while (lineText.startsWith(' ')) {
-        spaces += ' '
-        lineText = lineText.slice(1)
-      }
-
-      if (lineText.trim().length > 0) {
-        insertNewline(view.current)
-      }
-
-      const range = view.current.state.selection.main
-      view.current.dispatch({
-        changes: {
-          from: range.to,
-          to: range.to,
-          insert:
-            (lineText.trim().length > 0 ? spaces : '') +
-            insert.join('\n' + spaces),
-        },
-        selection: {
-          anchor:
-            range.to +
-            cursorOffset +
-            (lineText.trim().length > 0 ? spaces.length : 0),
-        },
-      })
-      view.current.focus()
-    }
-  }
-
   if (core.ws.settings.mode == 'code') {
+    if (
+      core.ws.settings.language == 'python-pro' &&
+      core.ws.ui.interactiveClassdiagram
+    ) {
+      return <InteractiveClassDiagram />
+    }
     return (
       <div className="h-full flex flex-col overflow-y-auto relative">
-        {false && (
-          <>
-            <div className="bg-yellow-200 p-2">
-              Hinweis: Dieser Karol Python Modus wird zum Ende des Schuljahrs in
-              den Python Modus integriert. Nutze wenn möglich schon jetzt den
-              neuen Python Modus. Melde dich bei Fragen gerne per E-Mail
-              (karol@arrrg.de).
-            </div>
-            <div className="bg-gray-100 pr-2 py-2 flex items-baseline ">
-              <div className="mr-4 ml-3">Einfügen:</div>
-              <div>
-                <button
-                  onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_ide_snippetFor')
-                    let safeLoopVar = 'i'
-                    const candidates =
-                      'ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZi'
-                    for (let i = 0; i < candidates.length; i++) {
-                      safeLoopVar = candidates[i]
-                      if (
-                        !view.current?.state.doc
-                          .toString()
-                          .includes('for ' + safeLoopVar)
-                      ) {
-                        break // found it
-                      }
-                    }
-                    insertCodeSnippet(
-                      [
-                        'for ' + safeLoopVar + ' in range():',
-                        '    # Aktion(en)',
-                        '',
-                      ],
-                      15
-                    )
-                  }}
-                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-                >
-                  <img
-                    src="/icons/for.png"
-                    alt="Struktogramm for"
-                    className="inline-block -mt-0.5"
-                    width={16}
-                  ></img>{' '}
-                  for<span className="hidden xl:inline">-Anweisung</span>
-                </button>
-                <button
-                  onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_ide_snippetWhile')
-                    insertCodeSnippet(
-                      ['while # Bedingung :', '    # Aktion(en)', ''],
-                      6
-                    )
-                  }}
-                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-                >
-                  <img
-                    src="/icons/while.png"
-                    alt="Struktogramm while"
-                    className="inline-block -mt-0.5"
-                    width={16}
-                  ></img>{' '}
-                  while<span className="hidden xl:inline">-Anweisung</span>
-                </button>
-                <button
-                  onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_ide_snippetIfElse')
-                    insertCodeSnippet(
-                      [
-                        'if # Bedingung :',
-                        '    # JA-Aktion(en)',
-                        'else:',
-                        '    # NEIN-Aktion(en)',
-                        '',
-                      ],
-                      3
-                    )
-                  }}
-                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-                >
-                  <img
-                    src="/icons/ifElse.png"
-                    alt="Struktogramm if else"
-                    className="inline-block -mt-0.5"
-                    width={15}
-                  ></img>{' '}
-                  if-else<span className="hidden xl:inline">-Anweisung</span>
-                </button>
-                <button
-                  onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_ide_snippetIf')
-                    insertCodeSnippet(
-                      ['if # Bedingung :', '    # JA-Aktion(en)', ''],
-                      3
-                    )
-                  }}
-                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-                >
-                  <img
-                    src="/icons/if.png"
-                    alt="Struktogramm if"
-                    className="inline-block -mt-0.5"
-                    width={15}
-                  ></img>{' '}
-                  if<span className="hidden xl:inline">-Anweisung</span>
-                </button>
-                <button
-                  onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_ide_snippetDef')
-                    insertCodeSnippet(['def ():', '    # Aktion(en)', ''], 4)
-                  }}
-                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-                >
-                  <img
-                    src="/icons/eigeneMethode.png"
-                    alt="Struktogramm for"
-                    className="inline-block -mt-0.5"
-                    width={16}
-                  ></img>{' '}
-                  eigene Methode
-                </button>
-                <button
-                  onClick={() => {
-                    submitAnalyzeEvent(
-                      core,
-                      'ev_click_ide_snippetToggleComment'
-                    )
-                    if (view.current) {
-                      toggleComment(view.current)
-                      view.current.focus()
-                    }
-                  }}
-                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 inline-block mr-3 my-1 rounded"
-                >
-                  <strong>#</strong> Ein-/Auskommentieren
-                </button>
-              </div>
-            </div>
-          </>
-        )}
         {core.ws.settings.language === 'python-pro' && (
           <>
             <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between">
@@ -271,6 +101,20 @@ export function EditArea() {
                     }}
                   >
                     Spickzettel
+                  </button>
+                )}
+                {core.ws.pythonCode.includes('class ') && (
+                  <button
+                    className={clsx(
+                      'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity',
+                      core.ws.ui.state == 'ready' ? 'opacity-100' : 'opacity-50'
+                    )}
+                    onClick={() => {
+                      startClassDiagram(core)
+                    }}
+                  >
+                    <FaIcon icon={faPlay} className="text-xs" /> Interaktives
+                    Klassendiagramm
                   </button>
                 )}
               </div>
@@ -342,7 +186,7 @@ export function EditArea() {
               core.ws.settings.language == 'python-pro'
                 ? showCheatSheet
                   ? 'left-[340px]'
-                  : 'left-12'
+                  : 'left-20'
                 : 'left-20'
             )}
           >
