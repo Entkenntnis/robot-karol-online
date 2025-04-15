@@ -4,14 +4,15 @@ import { PlaygroundHashData } from '../state/types'
 import {
   getLearningPathScroll,
   getLng,
+  getLockToKarolCode,
   getOverviewScroll,
   getRobotImage,
   restoreEditorSnapshot,
 } from '../storage/storage'
-import { submitAnalyzeEvent } from './analyze'
+import { analyze, submitAnalyzeEvent } from './analyze'
 import { addNewTask } from './editor'
-import { loadQuest } from './load'
-import { setLng, updatePlaygroundHashToMode } from './mode'
+import { loadLegacyProject, loadQuest } from './load'
+import { setLng } from './mode'
 import { startQuest } from './quest'
 import { loadProgram } from './save'
 
@@ -29,7 +30,7 @@ export async function hydrateFromHash(core: Core) {
   const colonIndex = hash.indexOf(':')
   const data = colonIndex !== -1 ? hash.substring(colonIndex + 1) : ''
 
-  console.log('NAV: hydrate from hash', page, data)
+  submitAnalyzeEvent(core, 'ev_show_hash_' + page.slice(0, 100))
 
   // PHASE 0: reset
   core.reset()
@@ -48,6 +49,7 @@ export async function hydrateFromHash(core: Core) {
   core.mutateWs((ws) => {
     ws.overview.overviewScroll = getOverviewScroll()
     ws.overview.learningPathScroll = getLearningPathScroll()
+    ws.quest.lockToKarolCode = getLockToKarolCode()
   })
 
   // PHASE 2: hydrate page
@@ -189,6 +191,20 @@ export async function hydrateFromHash(core: Core) {
     core.mutateWs((ws) => {
       ws.page = 'overview'
     })
+    return
+  }
+
+  if (page == 'LEGACY') {
+    await loadLegacyProject(core, data)
+    core.mutateWs((ws) => {
+      ws.page = 'imported'
+    })
+    document.title = 'Importiertes Projekt'
+    return
+  }
+
+  if (page == 'ANALYZE') {
+    await analyze(core)
     return
   }
 

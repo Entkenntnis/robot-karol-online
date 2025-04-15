@@ -20,7 +20,6 @@ import {
   setLng,
   setPersist,
 } from '../../lib/commands/mode'
-import { startQuest } from '../../lib/commands/quest'
 import { questList, questListByCategory } from '../../lib/data/overview'
 import { questData as questDataDe } from '../../lib/data/quests'
 import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
@@ -70,6 +69,7 @@ export function Overview() {
     ) {
       document.getElementById('scroll-container')!.scrollTop =
         core.ws.overview.overviewScroll
+      setOverviewScroll(0)
     }
     if (
       core.ws.overview.learningPathScroll > 0 &&
@@ -78,6 +78,7 @@ export function Overview() {
     ) {
       document.getElementById('scroll-container')!.scrollTop =
         core.ws.overview.learningPathScroll
+      setLearningPathScroll(0)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

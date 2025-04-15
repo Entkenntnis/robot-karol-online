@@ -446,7 +446,7 @@ export async function analyze(core: Core) {
     }, {} as { [key: string]: { events: (typeof data)[number][] } })
     core.mutateWs((ws) => {
       ws.analyze.userEvents = userEvents
-      ws.page == 'analyze'
+      ws.page = 'analyze'
     })
     return
   } catch (e) {

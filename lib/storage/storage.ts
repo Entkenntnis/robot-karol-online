@@ -286,3 +286,11 @@ export function getQuestReturnToMode() {
   }
   return 'path'
 }
+
+export function setLockToKarolCode() {
+  sessionStorage.setItem('robot_karol_online_lock_to_karol_code', '1')
+}
+
+export function getLockToKarolCode() {
+  return !!sessionStorage.getItem('robot_karol_online_lock_to_karol_code')
+}
