@@ -136,7 +136,7 @@ export async function hydrateFromHash(core: Core) {
     core.mutateWs((ws) => {
       ws.page = 'inspiration'
     })
-    document.title = 'Aufgaben-Galerie'
+    document.title = 'Aufgaben-Galerie | Robot Karol Online'
     return
   }
 
@@ -195,12 +195,13 @@ export async function hydrateFromHash(core: Core) {
     core.mutateWs((ws) => {
       ws.page = 'imported'
     })
-    document.title = 'Importiertes Projekt'
+    document.title = 'Importiertes Projekt | Robot Karol Online'
     return
   }
 
   if (page == 'ANALYZE') {
     await analyze(core)
+    document.title = 'Analyse-Dashboard'
     return
   }
 

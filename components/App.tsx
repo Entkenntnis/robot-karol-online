@@ -4,7 +4,6 @@ import { Overview } from './pages/Overview'
 import { Editor } from './pages/Editor'
 import { Highscore } from './pages/Highscore'
 import { Imported } from './pages/Imported'
-import { Init } from './pages/Init'
 import { Shared } from './pages/Shared'
 import { ErrorModal } from './modals/ErrorModal'
 import { ImpressumModal } from './modals/ImpressumModal'
@@ -25,14 +24,18 @@ import { SyncModal } from './modals/SyncModal'
 import { SurveyModal } from './modals/SurveyModal'
 import { InspirationOld } from './pages/InspirationOld'
 import { PyodideWorker } from './ide/PyodideWorker'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { hydrateFromHash } from '../lib/commands/router'
+import { LoadingScreen } from './helper/LoadingScreen'
+import { submitAnalyzeEvent } from '../lib/commands/analyze'
+import { setLockToKarolCode } from '../lib/storage/storage'
 
 export function App() {
   const core = useCore()
 
   useEffect(() => {
     function onHashChange() {
+      console.log('Hash change')
       hydrateFromHash(core)
     }
 
@@ -40,6 +43,43 @@ export function App() {
     return () => {
       window.removeEventListener('hashchange', onHashChange)
     }
+  }, [core])
+
+  // ok, not good, but prevent react double rendering to call hydrate twice
+  const currentlyHydrating = useRef<boolean>(false)
+
+  useEffect(() => {
+    async function hydrate() {
+      currentlyHydrating.current = true
+      console.log('hydrate from client')
+      await hydrateFromHash(core)
+      currentlyHydrating.current = false
+    }
+
+    // take care of search parameters here
+
+    const parameterList = new URLSearchParams(window.location.search)
+
+    const code = parameterList.get('code')
+    if (code) {
+      setLockToKarolCode()
+      window.open('/', '_self')
+      return
+    }
+
+    const id = parameterList.get('id')
+
+    if (id) {
+      if (id == 'Z9xO1rVGj') {
+        submitAnalyzeEvent(core, 'ev_show_playgroundLegacyLink')
+        window.open('/#SPIELWIESE', '_self')
+        return
+      }
+      window.open('/#LEGACY:' + id, '_self')
+      return
+    }
+
+    if (!currentlyHydrating.current) hydrate()
   }, [core])
 
   return (
@@ -59,7 +99,7 @@ export function App() {
     } else if (core.ws.page == 'imported') {
       return <Imported />
     } else if (core.ws.page == 'init') {
-      return <Init />
+      return <LoadingScreen />
     } else if (core.ws.page == 'overview') {
       return <Overview />
     } else if (core.ws.page == 'quest') {

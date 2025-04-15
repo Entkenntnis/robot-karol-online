@@ -212,7 +212,7 @@ export function deserializeQuest(
   }
 }
 
-export function deserlizeQuestToData(
+export function deserializeQuestToData(
   quest: QuestSerialFormat_MUST_STAY_COMPATIBLE
 ): QuestData {
   return {
