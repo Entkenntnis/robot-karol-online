@@ -370,6 +370,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
   }*/
   storeQuestToSession(core)
   setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
+  submit_event(`quest_complete_${core.ws.quest.id}`, core)
   if (!stay) {
     navigate(core, '')
   } else {
@@ -378,7 +379,6 @@ export function finishQuest(core: Core, stay: boolean = false) {
       ws.ui.controlBarShowFinishQuest = false
     })
   }
-  submit_event(`quest_complete_${core.ws.quest.id}`, core)
 }
 
 export function setTaskScroll(core: Core, scrollTop: number) {
