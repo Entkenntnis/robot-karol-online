@@ -37,7 +37,10 @@ import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
-import { getQuestReturnToMode } from '../../lib/storage/storage'
+import {
+  getQuestReturnToMode,
+  setPreferredQuestSettings,
+} from '../../lib/storage/storage'
 
 export function Tasks() {
   const core = useCore()
@@ -345,6 +348,10 @@ export function Tasks() {
                   if (!core.ws.ui.isHighlightDescription) {
                     // reshow highlight
                     storeQuestToSession(core)
+                    setPreferredQuestSettings(
+                      core.ws.settings.mode,
+                      core.ws.settings.language
+                    )
                   }
                   closeModal(core)
                   navigate(

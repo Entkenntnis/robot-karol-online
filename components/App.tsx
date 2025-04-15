@@ -51,7 +51,6 @@ export function App() {
   useEffect(() => {
     async function hydrate() {
       currentlyHydrating.current = true
-      console.log('hydrate from client')
       await hydrateFromHash(core)
       currentlyHydrating.current = false
     }

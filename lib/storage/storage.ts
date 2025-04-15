@@ -5,6 +5,7 @@ import { Core } from '../state/core'
 import {
   EditorSessionSnapshot,
   QuestSessionData_MUST_STAY_COMPATIBLE,
+  Settings,
 } from '../state/types'
 
 const userIdKey = 'robot_karol_online_tmp_id'
@@ -293,4 +294,27 @@ export function setLockToKarolCode() {
 
 export function getLockToKarolCode() {
   return !!sessionStorage.getItem('robot_karol_online_lock_to_karol_code')
+}
+
+export function setPreferredQuestSettings(
+  mode: Settings['mode'],
+  language: Settings['language']
+) {
+  sessionStorage.setItem(
+    'robot_karol_online_preferred_quest_settings',
+    JSON.stringify({ mode, language })
+  )
+}
+
+export function restorePreferredQuestSettings(core: Core) {
+  const raw = sessionStorage.getItem(
+    'robot_karol_online_preferred_quest_settings'
+  )
+  if (raw) {
+    const { mode, language } = JSON.parse(raw)
+    core.mutateWs((ws) => {
+      ws.settings.mode = mode
+      ws.settings.language = language
+    })
+  }
 }

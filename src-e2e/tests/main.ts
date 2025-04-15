@@ -66,7 +66,7 @@ Scenario("Let's solve the first quests", ({ I }) => {
 Scenario('See if playground works fine', ({ I }) => {
   I.amOnPage('/')
   I.click('Spielwiese')
-  I.seeTitleEquals('Spielwiese')
+  I.seeTitleEquals('Spielwiese | Robot Karol Online')
   // browser back button
   I.usePlaywrightTo('go back', async ({ page }) => {
     await page.goBack()
@@ -74,7 +74,7 @@ Scenario('See if playground works fine', ({ I }) => {
   I.seeTitleEquals('Robot Karol Online')
 
   I.click('Spielwiese')
-  I.seeTitleEquals('Spielwiese')
+  I.seeTitleEquals('Spielwiese | Robot Karol Online')
   I.click('zurück zu Robot Karol Online')
   I.seeTitleEquals('Robot Karol Online')
 

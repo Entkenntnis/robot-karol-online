@@ -6,7 +6,13 @@ import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
 import { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
-import { getQuestData, getUserName, setQuestData } from '../storage/storage'
+import {
+  getQuestData,
+  getUserName,
+  restorePreferredQuestSettings,
+  setPreferredQuestSettings,
+  setQuestData,
+} from '../storage/storage'
 import { showModal } from './modal'
 import { runPythonCode } from './python'
 import { navigate } from './router'
@@ -143,7 +149,7 @@ export function resetOutput(core: Core) {
 
 export function startQuest(core: Core, id: number) {
   const data = core.ws.settings.lng == 'de' ? questData[id] : questDataEn[id]
-
+  restorePreferredQuestSettings(core)
   core.mutateWs((ws) => {
     const { ui, quest } = ws
     ui.showOutput = false
@@ -363,6 +369,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
     )
   }*/
   storeQuestToSession(core)
+  setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
   if (!stay) {
     navigate(core, '')
   } else {
