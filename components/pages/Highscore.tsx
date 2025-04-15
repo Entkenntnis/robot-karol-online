@@ -8,8 +8,8 @@ import { backend } from '../../backend'
 import clsx from 'clsx'
 import { useCore } from '../../lib/state/core'
 import { getUserId } from '../../lib/storage/storage'
-import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from '../../lib/commands/page'
 import { questList } from '../../lib/data/overview'
+import { navigate } from '../../lib/commands/router'
 
 timeago.register('de', function (number, index, total_sec) {
   // Convert weeks to days.
@@ -116,7 +116,7 @@ export function Highscore() {
         <button
           className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
           onClick={() => {
-            switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
+            navigate(core, '')
           }}
         >
           {core.strings.highscore.close}

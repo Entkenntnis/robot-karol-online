@@ -57,6 +57,7 @@ export async function hydrateFromHash(core: Core) {
       ws.ui.isPlayground = true
       ws.page = 'imported' // playground should get a separate page, but this is a battle for another day
     })
+    // TODO: title, sync data
     return
   }
 
@@ -72,6 +73,32 @@ export async function hydrateFromHash(core: Core) {
     const questId = parseInt(page.substring(6))
     startQuest(core, questId)
     document.title = core.ws.quest.title + ' | Robot Karol Online'
+    return
+  }
+
+  if (page == 'HIGHSCORE') {
+    core.mutateWs((ws) => {
+      ws.page = 'highscore'
+    })
+    document.title = 'Highscore | Robot Karol Online'
+    return
+  }
+
+  if (page == 'PROFIL') {
+    core.mutateWs((ws) => {
+      ws.page = 'overview'
+      ws.overview.showProfile = true
+    })
+    document.title = 'Profil | Robot Karol Online'
+    return
+  }
+
+  if (page == 'OVERVIEW') {
+    core.mutateWs((ws) => {
+      ws.page = 'overview'
+      ws.overview.showOverviewList = true
+    })
+    document.title = core.strings.overview.showAll + ' | Robot Karol Online'
     return
   }
 

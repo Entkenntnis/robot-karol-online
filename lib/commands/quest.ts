@@ -8,8 +8,8 @@ import { Core } from '../state/core'
 import { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
 import { getQuestData, getUserName, setQuestData } from '../storage/storage'
 import { showModal } from './modal'
-import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from './page'
 import { runPythonCode } from './python'
+import { navigate } from './router'
 import { run } from './vm'
 import { twoWorldsEqual } from './world'
 
@@ -364,7 +364,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
   }*/
   storeQuestToSession(core)
   if (!stay) {
-    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
+    navigate(core, '')
   } else {
     core.mutateWs((ws) => {
       ws.ui.isAlreadyCompleted = true

@@ -4,13 +4,10 @@ import {
   faChevronDown,
   faExternalLink,
   faFloppyDisk,
-  faFolder,
   faFolderOpen,
   faGlobe,
-  faList,
   faPaintBrush,
   faPencil,
-  faPenToSquare,
   faTable,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
@@ -19,13 +16,9 @@ import { Fragment, useEffect } from 'react'
 
 import {
   forceRerender,
-  hideOverviewList,
-  hideProfile,
   hideSaveHint,
   setLng,
   setPersist,
-  showOverviewList,
-  showProfile,
 } from '../../lib/commands/mode'
 import { setOverviewScroll, startQuest } from '../../lib/commands/quest'
 import { questList, questListByCategory } from '../../lib/data/overview'
@@ -34,7 +27,6 @@ import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { View } from '../helper/View'
-import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from '../../lib/commands/page'
 import { showModal } from '../../lib/commands/modal'
 import {
   getLng,
@@ -53,7 +45,6 @@ import { mapData } from '../../lib/data/map'
 import { questDataEn } from '../../lib/data/questsEn'
 import { AnalyzeResults } from '../helper/AnalyzeResults'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { buildPlayground } from '../../lib/commands/init'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 
@@ -234,21 +225,20 @@ export function Overview() {
                 className="dropdown-content menu bg-base-100 rounded-box z-[11] w-56 p-2 shadow mt-1"
               >
                 <li>
-                  <button
+                  <a
+                    href="/#OVERVIEW"
                     onClick={() => {
-                      showOverviewList(core)
                       submitAnalyzeEvent(core, 'ev_click_landing_listOfAll')
-                      hideProfile(core)
-                      document.getElementById('scroll-container')!.scrollTop = 0
+                      /* document.getElementById('scroll-container')!.scrollTop = 0
                       try {
                         // @ts-ignore
                         document.activeElement?.blur()
-                      } catch (e) {}
+                      } catch (e) {}*/
                     }}
                   >
                     <FaIcon icon={faTable} className="text-gray-600" />
                     {core.strings.overview.showAll}
-                  </button>
+                  </a>
                 </li>
                 <li>
                   <button
@@ -289,11 +279,10 @@ export function Overview() {
                   </button>
                 </li>
                 <li>
-                  <button
+                  <a
+                    href="/#PROFIL"
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_landing_profile')
-                      hideOverviewList(core)
-                      showProfile(core)
                       try {
                         // @ts-ignore
                         document.activeElement?.blur()
@@ -301,18 +290,18 @@ export function Overview() {
                     }}
                   >
                     {core.strings.overview.profile}
-                  </button>
+                  </a>
                 </li>
                 <li>
-                  <button
+                  <a
+                    href="/#HIGHSCORE"
                     onClick={() => {
                       setOverviewScroll(core, 0)
                       submitAnalyzeEvent(core, 'ev_click_landing_highscore')
-                      switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'highscore')
                     }}
                   >
                     Highscore
-                  </button>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -327,7 +316,7 @@ export function Overview() {
                 <button
                   className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
                   onClick={() => {
-                    hideProfile(core)
+                    navigate(core, '')
                   }}
                 >
                   {core.strings.profile.close}
@@ -373,15 +362,7 @@ export function Overview() {
                       resetStorage()
                       forceRerender(core)
                       setLng(core, 'de')
-                      core.mutateWs((ws) => {
-                        ws.appearance = {
-                          cap: 0,
-                          skin: 1,
-                          shirt: 2,
-                          legs: 3,
-                        }
-                      })
-                      hideProfile(core)
+                      navigate(core, '')
                     }
                   }}
                 >
@@ -396,7 +377,7 @@ export function Overview() {
                 <button
                   className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
                   onClick={() => {
-                    hideOverviewList(core)
+                    navigate(core, '')
                   }}
                 >
                   <FaIcon icon={faTimes} /> {core.strings.overview.closeShowAll}

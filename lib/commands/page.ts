@@ -1,7 +1,6 @@
 import { Core } from '../state/core'
 import { CoreState } from '../state/types'
 import { addNewTask } from './editor'
-import { hideProfile } from './mode'
 import { loadProgram } from './save'
 
 type Pages = CoreState['workspace']['page']
@@ -96,7 +95,7 @@ export function switchToPage_DEPRECATED_WILL_BE_REMOVED(
 
   if (target == 'overview') {
     document.title = 'Robot Karol Online'
-    hideProfile(core)
+    // hideProfile(core)
     const hash = window.location.hash.toUpperCase()
     if (hash == '#DEMO') {
       switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'demo')

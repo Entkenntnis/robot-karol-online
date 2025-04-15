@@ -5,7 +5,6 @@ import { questList } from '../data/overview'
 import { questData } from '../data/quests'
 import { isSetName } from '../helper/events'
 import { Core } from '../state/core'
-import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from './page'
 import { submit_event } from '../helper/submit'
 
 const robotImageDictionary: { [key: string]: string } = {
@@ -447,8 +446,8 @@ export async function analyze(core: Core) {
     }, {} as { [key: string]: { events: (typeof data)[number][] } })
     core.mutateWs((ws) => {
       ws.analyze.userEvents = userEvents
+      ws.page == 'analyze'
     })
-    switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'analyze')
     return
   } catch (e) {
     console.log(e)

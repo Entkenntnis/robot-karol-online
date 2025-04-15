@@ -1,10 +1,10 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
-import { closeModal, showModal } from '../../lib/commands/modal'
+import { closeModal } from '../../lib/commands/modal'
 import { setUserName } from '../../lib/commands/mode'
-import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from '../../lib/commands/page'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
+import { navigate } from '../../lib/commands/router'
 
 export function NameModal() {
   const core = useCore()
@@ -21,7 +21,7 @@ export function NameModal() {
           className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300"
           onClick={() => {
             closeModal(core)
-            switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
+            navigate(core, '')
           }}
         >
           <FaIcon icon={faTimes} />

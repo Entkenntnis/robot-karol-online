@@ -2,7 +2,7 @@ import { Core } from '../state/core'
 import { loadLegacyProject, loadQuest } from './load'
 import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from './page'
 import { getLng, getRobotImage } from '../storage/storage'
-import { setLng, showOverviewList, updatePlaygroundHashToMode } from './mode'
+import { setLng, updatePlaygroundHashToMode } from './mode'
 import { createWorld } from '../state/create'
 import {
   EditorSessionSnapshot,
@@ -110,7 +110,7 @@ export async function initClient_THIS_IS_NEVER_CALLED_MOVE_CODE_AWAY(
 
   if (hash == '#OVERVIEW') {
     submitAnalyzeEvent(core, 'ev_show_listOfAll')
-    showOverviewList(core)
+    //showOverviewList(core)
     return
   }
 

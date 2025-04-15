@@ -4,14 +4,11 @@ import {
   faArrowUp,
   faCheck,
   faClone,
-  faComment,
-  faMessage,
   faPaintBrush,
   faPencil,
   faPlay,
   faPlus,
   faShareNodes,
-  faShirt,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
@@ -28,24 +25,17 @@ import {
 } from '../../lib/commands/editor'
 import { closeModal, showModal } from '../../lib/commands/modal'
 import { setShowStructogram } from '../../lib/commands/mode'
-import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from '../../lib/commands/page'
 import {
   openTask,
   setTaskScroll,
   storeQuestToSession,
 } from '../../lib/commands/quest'
-import {
-  processMiniMarkdown,
-  renderDescription,
-} from '../../lib/helper/processMiniMarkdown'
-import { submit_event } from '../../lib/helper/submit'
+import { renderDescription } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
-import { setLngStorage } from '../../lib/storage/storage'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { sub } from 'date-fns'
 import { navigate } from '../../lib/commands/router'
 
 export function Tasks() {

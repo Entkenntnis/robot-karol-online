@@ -10,7 +10,6 @@ import {
   setUserName as setUserNameStorage,
 } from '../storage/storage'
 import { showModal } from './modal'
-import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from './page'
 import { saveCodeToLocalStorage } from './save'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
@@ -144,32 +143,6 @@ export function openImage(core: Core, img: string) {
 export function closeHighlightDescription(core: Core) {
   core.mutateWs(({ ui }) => {
     ui.isHighlightDescription = false
-  })
-}
-
-export function showOverviewList(core: Core) {
-  core.mutateWs(({ overview }) => {
-    overview.showOverviewList = true
-  })
-  switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
-}
-
-export function hideOverviewList(core: Core) {
-  core.mutateWs(({ overview }) => {
-    overview.showOverviewList = false
-  })
-  switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'overview')
-}
-
-export function showProfile(core: Core) {
-  core.mutateWs(({ overview }) => {
-    overview.showProfile = true
-  })
-}
-
-export function hideProfile(core: Core) {
-  core.mutateWs(({ overview }) => {
-    overview.showProfile = false
   })
 }
 

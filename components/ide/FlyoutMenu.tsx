@@ -130,6 +130,7 @@ export function FlyoutMenu() {
                   if (e.target.result.startsWith('{"version":"v1",')) {
                     deserializeQuest(core, JSON.parse(e.target.result))
                     history.pushState(null, '', '/')
+                    // TODO: handle data dependencies
                     switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'shared')
                   } else {
                     let code = e.target.result
@@ -282,6 +283,7 @@ export function FlyoutMenu() {
                   core.mutateWs((ws) => {
                     ws.editor.keepQuest = true
                   })
+                  // TODO: handle data dependencies
                   switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'editor')
                 }}
               >
