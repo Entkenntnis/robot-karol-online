@@ -12,9 +12,7 @@ import {
   faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { deserializeQuest } from '../../lib/commands/json'
 import { setLng, setMode } from '../../lib/commands/mode'
-import { switchToPage_DEPRECATED_WILL_BE_REMOVED } from '../../lib/commands/page'
 import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
 import { saveEditorSnapshot, setLngStorage } from '../../lib/storage/storage'
 import { showModal } from '../../lib/commands/modal'

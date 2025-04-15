@@ -334,7 +334,12 @@ export function Tasks() {
               <a
                 className="px-2 py-0.5 rounded-lg bg-fuchsia-100 hover:bg-fuchsia-200 whitespace-nowrap"
                 href={
-                  '/#' + (getQuestReturnToMode() == 'path' ? '' : 'OVERVIEW')
+                  '/' +
+                  (getQuestReturnToMode() == 'path'
+                    ? '#'
+                    : getQuestReturnToMode() == 'demo'
+                    ? '#DEMO'
+                    : '#OVERVIEW')
                 }
                 onClick={(e) => {
                   if (!core.ws.ui.isHighlightDescription) {
@@ -344,7 +349,11 @@ export function Tasks() {
                   closeModal(core)
                   navigate(
                     core,
-                    getQuestReturnToMode() == 'path' ? '' : '#OVERVIEW'
+                    getQuestReturnToMode() == 'path'
+                      ? ''
+                      : getQuestReturnToMode() == 'demo'
+                      ? '#DEMO'
+                      : '#OVERVIEW'
                   )
                   e.preventDefault()
                 }}

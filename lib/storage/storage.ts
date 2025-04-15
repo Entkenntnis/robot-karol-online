@@ -275,14 +275,14 @@ export function getLearningPathScroll() {
   return 0
 }
 
-export function setQuestReturnToMode(mode: 'path' | 'overview') {
+export function setQuestReturnToMode(mode: 'path' | 'overview' | 'demo') {
   sessionStorage.setItem('robot_karol_online_quest_return_to', mode)
 }
 
 export function getQuestReturnToMode() {
   const mode = sessionStorage.getItem('robot_karol_online_quest_return_to')
   if (mode) {
-    return mode as 'path' | 'overview'
+    return mode as 'path' | 'overview' | 'demo'
   }
   return 'path'
 }

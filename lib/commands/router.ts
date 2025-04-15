@@ -1,6 +1,9 @@
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
-import { PlaygroundHashData } from '../state/types'
+import {
+  PlaygroundHashData,
+  QuestSerialFormat_MUST_STAY_COMPATIBLE,
+} from '../state/types'
 import {
   getLearningPathScroll,
   getLng,
@@ -11,6 +14,7 @@ import {
 } from '../storage/storage'
 import { analyze, submitAnalyzeEvent } from './analyze'
 import { addNewTask } from './editor'
+import { deserializeQuest } from './json'
 import { loadLegacyProject, loadQuest } from './load'
 import { setLng } from './mode'
 import { startQuest } from './quest'
@@ -169,14 +173,6 @@ export async function hydrateFromHash(core: Core) {
     return
   }
 
-  if (page.length == 4) {
-    await loadQuest(core, page)
-    core.mutateWs((ws) => {
-      ws.page = 'shared'
-    })
-    return
-  }
-
   if (page == 'ROBOT') {
     const decodedData = decodeURIComponent(data)
     core.mutateWs((ws) => {
@@ -205,6 +201,45 @@ export async function hydrateFromHash(core: Core) {
 
   if (page == 'ANALYZE') {
     await analyze(core)
+    return
+  }
+
+  if (page == 'DEMO') {
+    core.mutateWs((ws) => {
+      ws.page = 'demo'
+    })
+    document.title = 'Demo | Robot Karol Online'
+    return
+  }
+
+  if (page == 'OPEN') {
+    try {
+      // extract url
+      const url = data
+      // fetch data
+      const response = await fetch(url)
+      const text = await response.text()
+      const obj = JSON.parse(
+        text ?? '{}'
+      ) as QuestSerialFormat_MUST_STAY_COMPATIBLE
+      if (obj.version !== 'v1') {
+        throw 'bad format'
+      }
+      deserializeQuest(core, obj)
+      core.mutateWs((ws) => {
+        ws.page = 'shared'
+      })
+      return
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+  if (page.length == 4) {
+    await loadQuest(core, page)
+    core.mutateWs((ws) => {
+      ws.page = 'shared'
+    })
     return
   }
 

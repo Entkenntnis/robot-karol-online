@@ -665,7 +665,9 @@ export function Overview() {
                             'ev_click_landing_startKarol'
                           )
                         }
-                        setQuestReturnToMode('path')
+                        setQuestReturnToMode(
+                          core.ws.page == 'demo' ? 'demo' : 'path'
+                        )
                         setLearningPathScroll(
                           document.getElementById('scroll-container')
                             ?.scrollTop ?? -1
