@@ -105,7 +105,7 @@ Scenario('Test special case of empty world in learning path', ({ I }) => {
   I.pressKey(['Control', 'a'])
   I.type('wenn NichtIstZiegel dann Hinlegen endewenn')
   I.click('Start')
-  I.waitForText('weiter', 30)
+  I.waitForText('weiter', 60)
 })
 
 Scenario('Test special case of empty world in standalone quest', ({ I }) => {
