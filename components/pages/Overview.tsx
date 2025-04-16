@@ -49,6 +49,7 @@ import { AnalyzeResults } from '../helper/AnalyzeResults'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
+import { twoWorldsEqual } from '../../lib/commands/world'
 
 export function Overview() {
   const core = useCore()
@@ -880,7 +881,14 @@ export function Overview() {
                   preview={
                     task.target === null ? undefined : { world: task.target }
                   }
-                  hideKarol={questDone || showPython}
+                  hideKarol={
+                    questDone ||
+                    !!(
+                      showPython &&
+                      task.target &&
+                      twoWorldsEqual(task.start, task.target)
+                    )
+                  }
                   wireframe={false}
                   className={clsx(
                     'block mx-auto max-h-full',
