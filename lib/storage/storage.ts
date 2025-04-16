@@ -32,8 +32,8 @@ export function getUserName() {
 }
 
 export function getLng() {
-  return (localStorage.getItem(lngKey) ??
-    sessionStorage.getItem(lngKey) ??
+  return (localStorage.getItem(lngKey) ||
+    sessionStorage.getItem(lngKey) ||
     'de') == 'de'
     ? 'de'
     : 'en'
@@ -170,6 +170,8 @@ export function copySessionToLocal() {
   localStorage.setItem(persistKey, '1')
 
   localStorage.setItem(userNameKey, sessionStorage.getItem(userNameKey) ?? '')
+
+  localStorage.setItem(lngKey, sessionStorage.getItem(lngKey) ?? 'de')
 
   for (const id of questList) {
     const qd = getQuestData(id)

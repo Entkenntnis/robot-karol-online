@@ -144,3 +144,14 @@ Scenario('Empty world should not continue testing', ({ I }) => {
   I.wait(2)
   I.see('Ausführung beendet')
 })
+
+Scenario('Bug with profile and langauge switch', ({ I }) => {
+  I.amOnPage('/')
+  I.click({ css: '#overview-self-learning-path' })
+  I.click('Profil')
+  I.click('Fortschritt dauerhaft auf diesem Gerät speichern')
+  I.click('Fortschritt dauerhaft auf diesem Gerät speichern')
+  I.click('Schließen')
+  I.dontSee('Playground')
+  I.see('Spielwiese')
+})

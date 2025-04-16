@@ -1,9 +1,6 @@
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
-import {
-  PlaygroundHashData,
-  QuestSerialFormat_MUST_STAY_COMPATIBLE,
-} from '../state/types'
+import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
 import {
   getLearningPathScroll,
   getLng,
@@ -18,8 +15,6 @@ import { deserializeQuest } from './json'
 import { loadLegacyProject, loadQuest } from './load'
 import { setLng, setMode } from './mode'
 import { startQuest } from './quest'
-import { loadProgram } from './save'
-import { createWorldCmd } from './world'
 
 export async function navigate(core: Core, hash: string) {
   history.pushState(null, '', '/' + hash)
