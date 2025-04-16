@@ -8,6 +8,7 @@ import { Core } from '../state/core'
 import { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
 import {
   getQuestData,
+  getQuestReturnToMode,
   getUserName,
   restorePreferredQuestSettings,
   setPreferredQuestSettings,
@@ -372,7 +373,14 @@ export function finishQuest(core: Core, stay: boolean = false) {
   setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
   submit_event(`quest_complete_${core.ws.quest.id}`, core)
   if (!stay) {
-    navigate(core, '')
+    navigate(
+      core,
+      getQuestReturnToMode() == 'path'
+        ? ''
+        : getQuestReturnToMode() == 'demo'
+        ? '#DEMO'
+        : '#OVERVIEW'
+    )
   } else {
     core.mutateWs((ws) => {
       ws.ui.isAlreadyCompleted = true
