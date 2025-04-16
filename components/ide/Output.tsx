@@ -101,10 +101,8 @@ export function Output() {
           <div className="flex flex-col h-full">
             <div
               className={clsx(
-                'm-auto',
-                core.ws.editor.questScript &&
-                  core.ws.ui.state == 'running' &&
-                  'opacity-50'
+                'm-auto transition-opacity',
+                core.ws.ui.questPrompt && 'opacity-30'
               )}
             >
               <div
