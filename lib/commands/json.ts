@@ -231,6 +231,12 @@ export function deserializeQuestToData(
           program: quest.program ?? robotKarol2Python(''),
           questScript: quest.questScript,
         }
+      : quest.editOptions == 'python-pro-only' ||
+        quest.editOptions == 'python-only'
+      ? {
+          program: quest.program ?? robotKarol2Python(''),
+          questScript: '',
+        }
       : undefined,
   }
 }
