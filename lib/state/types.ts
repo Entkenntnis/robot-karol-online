@@ -466,6 +466,7 @@ export interface PyodideWorker {
   sharedArrayDelay: Int32Array
   debugInterface: Int32Array
   questPromptConfirm?: Int32Array
+  isFresh: boolean
 }
 
 export interface PlaygroundHashData {
