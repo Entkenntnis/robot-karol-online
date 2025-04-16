@@ -40,6 +40,7 @@ export function setupWorker(core: Core) {
     backupWorkerReady: false,
     sharedArrayDelay: new Int32Array(1),
     debugInterface: new Int32Array(129),
+    isFresh: true,
   }
 
   let mainWorkerInitPromiseResolve: (() => void) | null = null
@@ -320,6 +321,8 @@ export function setupWorker(core: Core) {
       await core.worker.init()
     }
 
+    core.worker.isFresh = false
+
     const delayBuffer = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT)
     core.worker.sharedArrayDelay = new Int32Array(delayBuffer)
 
@@ -405,6 +408,7 @@ export function setupWorker(core: Core) {
       ui.questPrompt = undefined
       vm.isDebugging = false
     })
+    core.worker.isFresh = true
   }
 
   core.worker.lint = (code: string) => {
