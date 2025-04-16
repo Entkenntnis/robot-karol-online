@@ -103,6 +103,7 @@ export interface Editor {
   saveProgram: boolean
   keepQuest: boolean
   questScript: string
+  originalCode?: string
 }
 
 export interface Quest {

@@ -36,6 +36,10 @@ export function QuestEditor() {
           onClick={() => {
             submitAnalyzeEvent(core, 'ev_click_editor_disablePreview')
             setQuestPreview(core, false)
+            core.mutateWs((ws) => {
+              ws.pythonCode = ws.editor.originalCode ?? ws.pythonCode
+              ws.ui.needsTextRefresh = true
+            })
           }}
         >
           {core.strings.editor.edit}
@@ -49,6 +53,9 @@ export function QuestEditor() {
           onClick={() => {
             submitAnalyzeEvent(core, 'ev_click_editor_enablePreview')
             setQuestPreview(core, true)
+            core.mutateWs((ws) => {
+              ws.editor.originalCode = ws.pythonCode
+            })
           }}
         >
           {core.strings.editor.preview}
