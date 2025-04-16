@@ -18,6 +18,7 @@ import { abort } from '../../lib/commands/vm'
 import { renderDescription } from '../../lib/helper/processMiniMarkdown'
 import { View2D } from '../helper/View2D'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { sliderToDelay } from '../../lib/helper/speedSlider'
 
 export function Output() {
   const core = useCore()
@@ -130,6 +131,10 @@ export function Output() {
                       core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
                     )}
                     robotImageDataUrl={core.ws.robotImageDataUrl}
+                    animationDuration={Math.min(
+                      200,
+                      sliderToDelay(core.ws.ui.speedSliderValue)
+                    )}
                   />
                 )}
               </div>

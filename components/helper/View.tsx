@@ -19,6 +19,7 @@ interface ViewProps {
   className?: string
   robotImageDataUrl?: string | null
   hideWorld?: boolean
+  animationDuration?: number
 }
 
 interface Resources {
@@ -40,6 +41,7 @@ export function View({
   className,
   robotImageDataUrl,
   hideWorld,
+  animationDuration,
 }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
@@ -56,6 +58,82 @@ export function View({
       y: originY + y * 15 - z * 15,
     }
   }
+
+  const [robotPos, setRobotPos] = useState({
+    x: world.karol.x,
+    y: world.karol.y,
+    z: world.bricks[world.karol.y][world.karol.x],
+  })
+  const prevWorld = useRef(world)
+  const animationFrameRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    const currentX = world.karol.x
+    const currentY = world.karol.y
+    const currentZ = world.bricks[currentY][currentX]
+
+    const prevX = prevWorld.current.karol.x
+    const prevY = prevWorld.current.karol.y
+    const prevZ = prevWorld.current.bricks[prevY][prevX]
+
+    const dx = currentX - prevX
+    const dy = currentY - prevY
+    const distance = Math.sqrt(dx * dx + dy * dy)
+
+    if (
+      distance > 1 ||
+      !animationDuration ||
+      // be a bit defensive
+      world.blocks !== prevWorld.current.blocks ||
+      world.bricks !== prevWorld.current.bricks ||
+      world.marks !== prevWorld.current.marks ||
+      world.dimX !== prevWorld.current.dimX ||
+      world.dimY !== prevWorld.current.dimY ||
+      world.height !== prevWorld.current.height ||
+      world.karol.dir !== prevWorld.current.karol.dir
+    ) {
+      setRobotPos({ x: currentX, y: currentY, z: currentZ })
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+        animationFrameRef.current = null
+      }
+    } else if (dx !== 0 || dy !== 0) {
+      const startTime = Date.now()
+      const duration = animationDuration
+
+      const animate = () => {
+        const now = Date.now()
+        const rawProgress = Math.min((now - startTime) / duration, 1)
+        const progress = easeInOutCubic(rawProgress)
+
+        const newX = prevX + dx * progress
+        const newY = prevY + dy * progress
+        const newZ =
+          prevZ +
+          (currentZ - prevZ) * progress +
+          Math.sin(progress * Math.PI) * (currentZ == prevZ ? 0.25 : 0.5)
+
+        setRobotPos({ x: newX, y: newY, z: newZ })
+
+        if (progress < 1) {
+          animationFrameRef.current = requestAnimationFrame(animate)
+        } else {
+          setRobotPos({ x: currentX, y: currentY, z: currentZ })
+        }
+      }
+
+      animationFrameRef.current = requestAnimationFrame(animate)
+    }
+
+    prevWorld.current = world
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+        animationFrameRef.current = null
+      }
+    }
+  }, [world, animationDuration])
 
   useEffect(() => {
     async function render() {
@@ -256,31 +334,26 @@ export function View({
             const p = to2d(x, y, 0)
             ctx.drawImage(quader, p.x - 15, p.y - 30)
           }
-          if (world.karol.x == x && world.karol.y == y && !hideKarol) {
+          if (
+            Math.round(robotPos.x) == x &&
+            Math.round(robotPos.y) == y &&
+            !hideKarol
+          ) {
+            const { x: animX, y: animY, z: animZ } = robotPos
+            const dir = world.karol.dir
+            const point = to2d(animX, animY, animZ)
             const sx = {
               north: 40,
               east: 0,
               south: 120,
               west: 80,
-            }[world.karol.dir]
-
-            const point = to2d(x, y, world.bricks[y][x])
+            }[dir]
 
             const dx =
-              point.x -
-              13 -
-              (world.karol.dir == 'south'
-                ? 3
-                : world.karol.dir == 'north'
-                ? -2
-                : 0)
-
+              point.x - 13 - (dir === 'south' ? 3 : dir === 'north' ? -2 : 0)
             const dy = point.y - 60
 
             ctx.drawImage(robot, sx, 0, 40, 71, dx, dy, 40, 71)
-            //ctx.drawImage(robot_legs, sx, 0, 40, 71, dx, dy, 40, 71)
-            //ctx.drawImage(robot_shirt, sx, 0, 40, 71, dx, dy, 40, 71)
-            //ctx.drawImage(robot_cap, sx, 0, 40, 71, dx, dy, 40, 71)
           }
         }
       }
@@ -290,7 +363,7 @@ export function View({
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world, wireframe, preview, hideKarol])
+  }, [resources, world, wireframe, preview, hideKarol, robotPos])
 
   return (
     <canvas
@@ -300,6 +373,10 @@ export function View({
       className={className}
     ></canvas>
   )
+}
+
+function easeInOutCubic(t: number) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
 }
 
 function renderDashed(
