@@ -243,6 +243,17 @@ self.onmessage = async (event) => {
       __ide_exit: () => {
         self.postMessage({ type: 'action', action: 'beenden' })
       },
+      __ide_set_world: (select, x, y, type, count) => {
+        console.log('ide set world', select, x, y, type, count)
+        self.postMessage({
+          type: 'set-world',
+          select,
+          x,
+          y,
+          elementType: type,
+          count,
+        })
+      },
     })
     sleep(150)
     try {

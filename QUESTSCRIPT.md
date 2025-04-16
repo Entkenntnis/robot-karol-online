@@ -71,6 +71,14 @@ Erhalte eine Liste aller Zeile, die bisher an stdout geschickt wurden. Hilft die
 
 Erhalte eine Liste aller Zeile, die bisher über stdin eingelesen wurden. Hilft die efolgreiche Ausführung von `input` zu überprüfen.
 
+### `__ide_set_world(selection : string, x: int, y: int, type: Literat['mark', 'brick', 'block'], count: int) -> None`
+
+(Diese Methode ist noch experimentell und führt keinerlei Sicherheitsprüfungen durch)
+
+Mit der Methode kann direkt auf die Welt zugegriffen werden. Über `selection` wird ausgewählt, welche Welt modifiziert wird. `S` ist die Startwelt des aktuellen Auftrags, `T` ist das Ziel des aktuellen Auftrags und `A` die aktive Welt. Am Anfang des Scripts ist die aktive Welt gleich der Startwelt. Es können mehrere Welten z.B. über `'SA'` addressiert werden.
+
+`x` und `y` sind die Koordinaten, oben links ist 0, 0, und an der Stelle wird der angegebene `type` auf den angegebenen `count` gesetzt.
+
 ## Beispiel
 
 Das ist das QuestScript zur Aufgabe [`Neubeginn`](https://karol.arrrg.de/#QUEST-61):

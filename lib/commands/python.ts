@@ -266,6 +266,47 @@ export function setupWorker(core: Core) {
         }
       }
     }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'set-world'
+    ) {
+      const {
+        select,
+        x: x_raw,
+        y: y_raw,
+        elementType: type,
+        count: count_raw,
+      } = event.data
+      const x = parseInt(x_raw)
+      const y = parseInt(y_raw)
+      const count = parseInt(count_raw)
+      console.log('set-world', select, x, y, type, count)
+
+      if (['brick', 'mark', 'block'].includes(type)) {
+        core.mutateWs((ws) => {
+          if (select.includes('A')) {
+            // @ts-ignore
+            ws.world[type + 's'][y][x] = type == 'brick' ? count : count > 0
+          }
+          if (select.includes('S')) {
+            // @ts-ignore
+            ws.quest.tasks[ws.quest.lastStartedTask!].start[type + 's'][y][x] =
+              type == 'brick' ? count : count > 0
+          }
+          if (select.includes('T')) {
+            if (!ws.quest.tasks[ws.quest.lastStartedTask!].target) {
+              ws.quest.tasks[ws.quest.lastStartedTask!].target =
+                ws.quest.tasks[ws.quest.lastStartedTask!].start
+            }
+            // @ts-ignore
+            ws.quest.tasks[ws.quest.lastStartedTask!].target[type + 's'][y][x] =
+              type == 'brick' ? count : count > 0
+          }
+        })
+      }
+    }
   }
 
   function messageHandlerBackup(event: MessageEvent) {
