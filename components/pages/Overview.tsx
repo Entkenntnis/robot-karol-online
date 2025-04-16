@@ -98,26 +98,29 @@ export function Overview() {
             </div>
           </div>
           <div className="absolute top-2 left-2">
-            <FaIcon icon={faGlobe} />
-            <select
-              className="p-1 ml-2 bg-white/40 rounded cursor-pointer"
-              value={core.ws.settings.lng}
-              onChange={(e) => {
-                const lng = e.target.value
-                if (lng == 'de' || lng == 'en') {
-                  setLng(core, lng)
-                  setLngStorage(lng)
-                  if (lng == 'en') {
-                    submitAnalyzeEvent(core, 'ev_click_landing_english')
-                  } else if (lng == 'de') {
-                    submitAnalyzeEvent(core, 'ev_click_landing_german')
+            <label>
+              <span className="hidden">Sprache</span>
+              <FaIcon icon={faGlobe} />
+              <select
+                className="p-1 ml-2 bg-white/40 rounded cursor-pointer"
+                value={core.ws.settings.lng}
+                onChange={(e) => {
+                  const lng = e.target.value
+                  if (lng == 'de' || lng == 'en') {
+                    setLng(core, lng)
+                    setLngStorage(lng)
+                    if (lng == 'en') {
+                      submitAnalyzeEvent(core, 'ev_click_landing_english')
+                    } else if (lng == 'de') {
+                      submitAnalyzeEvent(core, 'ev_click_landing_german')
+                    }
                   }
-                }
-              }}
-            >
-              <option value="de">Deutsch</option>
-              <option value="en">English</option>
-            </select>
+                }}
+              >
+                <option value="de">Deutsch</option>
+                <option value="en">English</option>
+              </select>
+            </label>
           </div>
           <div className="mx-auto mt-6">
             <a
