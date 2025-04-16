@@ -50,14 +50,13 @@ export function saveCodeToFile(core: Core) {
   // 3. Create a Blob from the string
   const blob = new Blob(
     [
-      (core.ws.ui.isPlayground
-        ? `${
-            core.ws.settings.language == 'python-pro' ? '#' : '//'
-          } Spielwiese: ${core.ws.quest.tasks[0].start.dimX}, ${
-            core.ws.quest.tasks[0].start.dimY
-          }, ${core.ws.quest.tasks[0].start.height}\n\n`
-        : '') +
-        (core.ws.settings.language == 'robot karol'
+      `${core.ws.settings.language == 'python-pro' ? '#' : '//'} Spielwiese: ${
+        core.ws.quest.tasks[0].start.dimX
+      }, ${core.ws.quest.tasks[0].start.dimY}, ${
+        core.ws.quest.tasks[0].start.height
+      }\n\n` +
+        (core.ws.settings.language == 'robot karol' ||
+        core.ws.settings.mode == 'blocks'
           ? core.ws.code
           : core.ws.settings.language == 'python-pro'
           ? core.ws.pythonCode
@@ -109,7 +108,7 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
               : core.ws.settings.language == 'java'
               ? 'JAVA'
               : core.ws.settings.language == 'python-pro'
-              ? 'PYTHON-PRO'
+              ? 'PYTHON'
               : 'PYTHON'
           }`
     }`
@@ -124,25 +123,30 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
         : core.ws.settings.language == 'python-pro'
         ? ' Python'
         : ' Karol Python')
-    const state = getProgram(core)
-    const json: PlaygroundHashData = {
-      dimX: core.ws.quest.tasks[0].start.dimX,
-      dimY: core.ws.quest.tasks[0].start.dimY,
-      height: core.ws.quest.tasks[0].start.height,
-      ...state,
-    }
-    const hash = btoa(encodeURIComponent(JSON.stringify(json)))
+    const code =
+      (core.ws.ui.isPlayground
+        ? `${
+            core.ws.settings.language == 'python-pro' ? '#' : '//'
+          } Spielwiese: ${core.ws.quest.tasks[0].start.dimX}, ${
+            core.ws.quest.tasks[0].start.dimY
+          }, ${core.ws.quest.tasks[0].start.height}\n\n`
+        : '') +
+      (core.ws.settings.language == 'robot karol' ||
+      core.ws.settings.mode == 'blocks'
+        ? core.ws.code
+        : core.ws.settings.language == 'python-pro'
+        ? core.ws.pythonCode
+        : core.ws.javaCode)
+    const hash = encodeURIComponent(code)
     let newHash = `${prefix}:${hash}`
     if (
-      json.program == '' &&
-      json.dimX == 15 &&
-      json.dimY == 10 &&
-      json.height == 6
+      code == '// Spielwiese: 15, 10, 6\n\n' ||
+      code == '# Spielwiese: 15, 10, 6\n\nkarol = Robot()\n\n' ||
+      code ==
+        '// Spielwiese: 15, 10, 6\n\nclass Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    \n  }\n}'
     ) {
-      // we don't need data part
       newHash = prefix
     }
-    // update hash
     if (
       newHash != window.location.hash ||
       window.document.title != newWindowTitle

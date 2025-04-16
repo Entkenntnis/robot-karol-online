@@ -16,9 +16,10 @@ import { analyze, submitAnalyzeEvent } from './analyze'
 import { addNewTask } from './editor'
 import { deserializeQuest } from './json'
 import { loadLegacyProject, loadQuest } from './load'
-import { setLng } from './mode'
+import { setLng, setMode } from './mode'
 import { startQuest } from './quest'
 import { loadProgram } from './save'
+import { createWorldCmd } from './world'
 
 export async function navigate(core: Core, hash: string) {
   history.pushState(null, '', '/' + hash)
@@ -35,6 +36,8 @@ export async function hydrateFromHash(core: Core) {
   const data = colonIndex !== -1 ? hash.substring(colonIndex + 1) : ''
 
   submitAnalyzeEvent(core, 'ev_show_hash_' + page.slice(0, 100))
+
+  const previousWs = core.ws
 
   // PHASE 0: reset
   core.reset()
@@ -112,22 +115,52 @@ export async function hydrateFromHash(core: Core) {
     })
     if (data) {
       // deserialize world
-      try {
-        const dataObj: PlaygroundHashData = JSON.parse(
-          decodeURIComponent(atob(data))
-        )
+      let code = decodeURIComponent(data)
+      // check for playground pragma and extract world size
+      const match = code.match(/(\/\/|#) Spielwiese: (\d+), (\d+), (\d+)\n\n/)
+      if (match) {
+        const dimX = parseInt(match[2])
+        const dimY = parseInt(match[3])
+        const height = parseInt(match[4])
         core.mutateWs((ws) => {
           ws.quest.tasks = [
             {
               title: 'Spielwiese',
-              start: createWorld(dataObj.dimX, dataObj.dimY, dataObj.height),
+              start: createWorld(dimX, dimY, height),
               target: null,
             },
           ]
         })
-        loadProgram(core, dataObj.program, dataObj.language as any)
-        submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
-      } catch (e) {}
+        code = code.replace(match[0], '')
+      }
+      core.mutateWs((s) => {
+        if (core.ws.settings.language == 'java') {
+          s.javaCode = code
+        } else if (core.ws.settings.language == 'python-pro') {
+          s.pythonCode = code
+        } else {
+          s.code = code
+        }
+        s.ui.needsTextRefresh = true
+      })
+      if (core.ws.settings.mode == 'blocks') {
+        // This "hack" is necessary to force an update for blockly
+        // there is probably a better way of doing it
+        // leaving it here for another day
+        core.mutateWs((ws) => {
+          ws.ui.state = 'ready'
+        })
+        setMode(core, 'code')
+        const check = () => {
+          if (core.ws.ui.needsTextRefresh) {
+            setTimeout(check, 10)
+          } else {
+            setMode(core, 'blocks')
+          }
+        }
+        check()
+      }
+      submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
     }
     return
   }

@@ -142,7 +142,6 @@ export function FlyoutMenu() {
                       const dimX = parseInt(match[2])
                       const dimY = parseInt(match[3])
                       const height = parseInt(match[4])
-                      console.log('create world', dimX, dimY, height)
                       createWorldCmd(core, dimX, dimY, height)
                       core.mutateWs((ws) => {
                         ws.quest.tasks[0].start = createWorld(
