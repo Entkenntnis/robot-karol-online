@@ -155,3 +155,16 @@ Scenario('Bug with profile and langauge switch', ({ I }) => {
   I.dontSee('Playground')
   I.see('Spielwiese')
 })
+
+Scenario('Changing speed is breaking debugger', ({ I }) => {
+  I.amOnPage(
+    '/#SPIELWIESE:%2F%2F Spielwiese%3A 15%2C 10%2C 6%0A%0Awiederhole immer%20%0A%20 LinksDrehen%0Aendewiederhole'
+  )
+  I.click('Start')
+  I.see('Stopp')
+  I.click({ css: '#ide-toggle-debugger' })
+  I.see('Einzelschritt')
+  I.dragSlider('#ide-speed-slider', 0)
+  I.wait(0.2)
+  I.see('Einzelschritt')
+})

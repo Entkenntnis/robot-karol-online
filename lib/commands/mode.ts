@@ -73,7 +73,6 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
 
 export function setSpeedSliderValue(core: Core, val: number) {
   core.mutateWs((ws) => {
-    ws.vm.isDebugging = false
     const previousDelay = sliderToDelay(ws.ui.speedSliderValue)
     ws.ui.speedSliderValue = val
     const delay = sliderToDelay(ws.ui.speedSliderValue)
