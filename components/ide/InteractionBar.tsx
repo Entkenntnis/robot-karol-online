@@ -144,6 +144,7 @@ export function InteractionBar() {
         )}
         {debuggable && (
           <button
+            id="ide-toggle-debugger"
             className={clsx(
               'py-0.5 bg-purple-100 hover:bg-purple-200 rounded absolute -left-[52px] top-0 w-12 h-10'
             )}

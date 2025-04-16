@@ -67,6 +67,7 @@ export function ControlBar() {
           auszufüllen
         </span>
         <input
+          id="ide-speed-slider"
           type="range"
           value={core.ws.ui.speedSliderValue}
           onChange={(val) => {
