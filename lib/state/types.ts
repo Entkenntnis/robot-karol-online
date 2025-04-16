@@ -241,6 +241,7 @@ export interface Analyze {
       }[]
     }
   }
+  survey: { value: string; ts: number }[]
   ratings: {
     [key: string]: { count: number; average: number; values: number[] }
   }

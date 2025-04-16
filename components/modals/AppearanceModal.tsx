@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
-import { karolDefaultImage, View } from '../helper/View'
+import { View } from '../helper/View'
 import { Heading } from '../../lib/state/types'
 import { setRobotImage } from '../../lib/storage/storage'
 import { FaIcon } from '../helper/FaIcon'
@@ -16,6 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { backend } from '../../backend'
+import { karolDefaultImage } from '../../lib/data/images'
 
 export function AppearanceModal() {
   const [count, setCount] = useState(0)

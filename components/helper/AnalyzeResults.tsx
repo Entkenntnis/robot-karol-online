@@ -9,6 +9,8 @@ export function AnalyzeResults() {
   stats.sort(
     (a, b) => b[1].sessions * b[1].average - a[1].sessions * a[1].average
   )
+  const survey = core.ws.analyze.survey.slice(0)
+  survey.sort((a, b) => b.ts - a.ts)
   return (
     <div className="bg-white px-16 pb-8 mt-4">
       <p className="my-6">
@@ -56,6 +58,17 @@ export function AnalyzeResults() {
           - {entry.date}
         </span>
       ))}
+      <h2 className="mt-6 mb-4 text-lg">Umfrage</h2>
+      <div>
+        {survey.map((entry, i) => (
+          <p key={i} className="mb-1">
+            <span className="text-gray-400 mr-3">
+              {new Date(entry.ts).toLocaleString('de-DE')}
+            </span>{' '}
+            {entry.value}
+          </p>
+        ))}
+      </div>
       {/*<p className="mt-6 mb-4">
         {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
         {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
