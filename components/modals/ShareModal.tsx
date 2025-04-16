@@ -10,6 +10,7 @@ import { share } from '../../lib/commands/share'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { replaceWithJSX } from '../../lib/helper/replaceWithJSX'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function ShareModal() {
   const core = useCore()
@@ -97,6 +98,7 @@ export function ShareModal() {
               <button
                 className="mr-3 text-sm text-gray-700 underline"
                 onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_editor_downloadJson')
                   // offer download
                   const blob = new Blob(
                     [JSON.stringify(serializeQuest(core))],
