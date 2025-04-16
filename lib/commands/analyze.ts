@@ -90,12 +90,17 @@ export async function analyze(core: Core) {
       'ev_click_appearance_selectColor_',
       'ev_show_robotImage_',
       'ev_submit_survey_',
+      'ev_show_hash_QUEST-',
     ]
 
     for (const prefix of eventPrefixes) {
       if (key.startsWith(prefix)) {
         key = prefix + '*'
       }
+    }
+
+    if (/ev_show_hash_[\w]{4}/.test(key) && key !== 'ev_show_hash_DEMO') {
+      continue
     }
 
     // update session IDs

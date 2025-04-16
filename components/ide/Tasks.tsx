@@ -226,6 +226,10 @@ export function Tasks() {
                             <button
                               className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
                               onClick={() => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_editor_testWorld'
+                                )
                                 openTask(core, index)
                               }}
                             >
@@ -235,6 +239,10 @@ export function Tasks() {
                             <button
                               className="ml-3 rounded px-2 py-0.5 bg-blue-100 hover:bg-blue-200"
                               onClick={() => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_editor_editWorld'
+                                )
                                 editWorld(core, index)
                               }}
                             >
@@ -247,6 +255,10 @@ export function Tasks() {
                               className="hover:text-black disabled:text-gray-200"
                               disabled={index == 0}
                               onClick={() => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_editor_moveUp'
+                                )
                                 moveTaskUp(core, index)
                               }}
                             >
@@ -257,6 +269,10 @@ export function Tasks() {
                               className="hover:text-black disabled:text-gray-200 ml-5"
                               disabled={index + 1 == core.ws.quest.tasks.length}
                               onClick={() => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_editor_moveDown'
+                                )
                                 moveTaskDown(core, index)
                               }}
                             >
@@ -266,6 +282,10 @@ export function Tasks() {
                             <button
                               className="hover:text-black ml-5"
                               onClick={() => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_editor_cloneTask'
+                                )
                                 cloneTask(core, index)
                               }}
                             >
@@ -275,6 +295,10 @@ export function Tasks() {
                             <button
                               className="hover:text-red-600 ml-5"
                               onClick={() => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_editor_deleteTask'
+                                )
                                 deleteTask(core, index)
                               }}
                             >
@@ -301,7 +325,8 @@ export function Tasks() {
             ? 'min-w-[400px]'
             : core.ws.page == 'editor'
             ? 'min-w-[550px]'
-            : 'min-w-[380px]'
+            : 'min-w-[380px]',
+          core.ws.editor.showQuestPreview && 'hidden'
         )}
       >
         <div className="flex justify-start relative items-center flex-grow">
@@ -404,6 +429,7 @@ export function Tasks() {
               className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
               onClick={() => {
                 if (core.ws.page == 'editor') {
+                  submitAnalyzeEvent(core, 'ev_click_ide_remix')
                   showModal(core, 'remix')
                 } else {
                   setShowStructogram(core, true)

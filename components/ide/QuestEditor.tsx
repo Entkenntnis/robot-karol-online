@@ -8,6 +8,7 @@ import { processMiniMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
 import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function QuestEditor() {
   const core = useCore()
@@ -33,6 +34,7 @@ export function QuestEditor() {
             !core.ws.editor.showQuestPreview && 'border-b-yellow-500 border-b-2'
           )}
           onClick={() => {
+            submitAnalyzeEvent(core, 'ev_click_editor_disablePreview')
             setQuestPreview(core, false)
           }}
         >
@@ -45,6 +47,7 @@ export function QuestEditor() {
             'ml-3'
           )}
           onClick={() => {
+            submitAnalyzeEvent(core, 'ev_click_editor_enablePreview')
             setQuestPreview(core, true)
           }}
         >
