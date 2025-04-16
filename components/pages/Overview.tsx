@@ -234,6 +234,7 @@ export function Overview() {
                 tabIndex={0}
                 role="button"
                 className="hover:underline cursor-pointer ml-6 mr-2 select-none"
+                id="overview-self-learning-path"
               >
                 {core.strings.overview.path}{' '}
                 <FaIcon icon={faCaretDown} className="text-gray-600" />
@@ -380,7 +381,7 @@ export function Overview() {
                       submitAnalyzeEvent(core, 'ev_click_profile_reset')
                       resetStorage()
                       forceRerender(core)
-                      setLng(core, 'de')
+                      setLngStorage('de')
                       navigate(core, '')
                     }
                   }}
