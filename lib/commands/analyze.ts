@@ -7,32 +7,6 @@ import { isSetName } from '../helper/events'
 import { Core } from '../state/core'
 import { submit_event } from '../helper/submit'
 
-const robotImageDictionary: { [key: string]: string } = {
-  'L06wLCr1P4Lpa9x6UR+AvhBACTFaRE/QAAAABJRU5ErkJggg==': 'Robot Banana',
-  'usZBfFrfC7IrptcEwJ/A9dR43PHOavJQAAAABJRU5ErkJggg==': 'Minion',
-  'mmWqQTRZDb/Qe2bGv/TL3/C7U+IyXSnoHnAAAAAElFTkSuQmCC': 'Robot Karol 3.0',
-  'd2EazjBvbNvg/k/SELmQT+D7Wxn/MCo1xXAAAAAElFTkSuQmCC': 'Amongay',
-  '2vCNHoJMi9lHjX8P87A/8CQ5IRopzCYEcAAAAASUVORK5CYII=':
-    'Cristiano Ronaldo mit Cap',
-  'f/Lt5M37Bu9iMz+iftaQ78H3jFS7dikxNYAAAAAElFTkSuQmCC': 'Among-Ally',
-  'Fta96mVf/XMu+lKzPI4i/AAVnyaXDI9gAAAABJRU5ErkJggg==': 'RKO PixelArt',
-  'D+JluLGVn0ncbMD1fX938AhqiDvzcqFmcAAAAASUVORK5CYII=': 'RKO handgezeichnet',
-  'KYMWPIy8v7Lynvf/PfAPB/AWAB/vDattH7AAAAAElFTkSuQmCC': 'Robot Karola',
-  'vN6mDcLAKQ6cDamAObHPgPIrjbRTBSZEAAAAAASUVORK5CYII=': 'BastiGHG 1',
-  'gfCJpVBEQM6BpFYBUC/wMaM/y8hipucQAAAABJRU5ErkJggg==': 'BastiGHG 2',
-  '4zfzhC+OEU/m5h/KSK/Q/x316TjAVE+gAAAABJRU5ErkJggg==': 'Banane mit Karotte',
-  'T1hY640JPEjbMrdf7n+g0rjQgPT4S1nAAAAABJRU5ErkJggg==':
-    'Annabeth Chase (aus Percy Jackson)',
-  '0wYxC7CbMWGyV73Isw8AO1Fp2ElKcQuAAAAABJRU5ErkJggg==': 'Tom',
-  'XynEQuhpiK/73y3xQ4wRT4/1c1nBwXcCimAAAAAElFTkSuQmCC': 'Spiderman',
-  'MW6FRLPIsCFaZncfKmPD4AZWB8V/0KxlsAAAAASUVORK5CYII=': 'Strichmännlein',
-  'Pu13ovfqbWceWXLy4L+XeEX9GB6PjXtgAAAABJRU5ErkJggg==': 'Emmet',
-  'W+sh+ZUMQg0I45bCrwrMD/ZedQwIeOPFsAAAAASUVORK5CYII=': 'Powergirl',
-  'kMchacffgpANAejCMa+R8S8BGxYrMb/AAAAABJRU5ErkJggg==':
-    'Mädchen mit langen Haaren',
-  'rCjxgEodlRfJojb5+fEQP/A1fp1KJLRzhiAAAAAElFTkSuQmCC': 'Toni',
-}
-
 export async function analyze(core: Core) {
   // cutoff is always one month before the current date
   const cutoff = new Date()
@@ -115,6 +89,7 @@ export async function analyze(core: Core) {
       'open_image_',
       'ev_click_appearance_selectColor_',
       'ev_show_robotImage_',
+      'ev_submit_survey_',
     ]
 
     for (const prefix of eventPrefixes) {
@@ -258,6 +233,14 @@ export async function analyze(core: Core) {
             ws.analyze.legacy[id] = { count: 0 }
           }
           ws.analyze.legacy[id].count++
+          continue
+        }
+
+        const survey = /^ev_submit_survey_(.+)/.exec(entry.event)
+
+        if (survey) {
+          const value = survey[1]
+          ws.analyze.survey.push({ value, ts })
           continue
         }
 
@@ -453,4 +436,35 @@ export async function analyze(core: Core) {
 
 export function submitAnalyzeEvent(core: Core, key: string) {
   submit_event(key, core)
+}
+
+const robotImageDictionary: { [key: string]: string } = {
+  'L06wLCr1P4Lpa9x6UR+AvhBACTFaRE/QAAAABJRU5ErkJggg==': 'Robot Banana',
+  'usZBfFrfC7IrptcEwJ/A9dR43PHOavJQAAAABJRU5ErkJggg==': 'Minion',
+  'mmWqQTRZDb/Qe2bGv/TL3/C7U+IyXSnoHnAAAAAElFTkSuQmCC': 'Robot Karol 3.0',
+  'd2EazjBvbNvg/k/SELmQT+D7Wxn/MCo1xXAAAAAElFTkSuQmCC': 'Amongay',
+  '2vCNHoJMi9lHjX8P87A/8CQ5IRopzCYEcAAAAASUVORK5CYII=':
+    'Cristiano Ronaldo mit Cap',
+  'f/Lt5M37Bu9iMz+iftaQ78H3jFS7dikxNYAAAAAElFTkSuQmCC': 'Among-Ally',
+  'Fta96mVf/XMu+lKzPI4i/AAVnyaXDI9gAAAABJRU5ErkJggg==': 'RKO PixelArt',
+  'D+JluLGVn0ncbMD1fX938AhqiDvzcqFmcAAAAASUVORK5CYII=': 'RKO handgezeichnet',
+  'KYMWPIy8v7Lynvf/PfAPB/AWAB/vDattH7AAAAAElFTkSuQmCC': 'Robot Karola',
+  'vN6mDcLAKQ6cDamAObHPgPIrjbRTBSZEAAAAAASUVORK5CYII=': 'BastiGHG 1',
+  'gfCJpVBEQM6BpFYBUC/wMaM/y8hipucQAAAABJRU5ErkJggg==': 'BastiGHG 2',
+  '4zfzhC+OEU/m5h/KSK/Q/x316TjAVE+gAAAABJRU5ErkJggg==': 'Banane mit Karotte',
+  'T1hY640JPEjbMrdf7n+g0rjQgPT4S1nAAAAABJRU5ErkJggg==':
+    'Annabeth Chase (aus Percy Jackson)',
+  '0wYxC7CbMWGyV73Isw8AO1Fp2ElKcQuAAAAABJRU5ErkJggg==': 'Tom',
+  'XynEQuhpiK/73y3xQ4wRT4/1c1nBwXcCimAAAAAElFTkSuQmCC': 'Spiderman',
+  'MW6FRLPIsCFaZncfKmPD4AZWB8V/0KxlsAAAAASUVORK5CYII=': 'Strichmännlein',
+  'Pu13ovfqbWceWXLy4L+XeEX9GB6PjXtgAAAABJRU5ErkJggg==': 'Emmet',
+  'W+sh+ZUMQg0I45bCrwrMD/ZedQwIeOPFsAAAAASUVORK5CYII=': 'Powergirl',
+  'kMchacffgpANAejCMa+R8S8BGxYrMb/AAAAABJRU5ErkJggg==':
+    'Mädchen mit langen Haaren',
+  'rCjxgEodlRfJojb5+fEQP/A1fp1KJLRzhiAAAAAElFTkSuQmCC': 'Toni',
+  'K0AvATUk48YwGYOJxPkPYfkcI3V5w2oOQAAAAASUVORK5CYII=': 'Strich Strich',
+  'wUQIAxi2IIlS7jxjde/wP1y51tGoWwrQAAAABJRU5ErkJggg==': 'Natasha',
+  '0QzU7CPKszePbtH42B/wAX2pGT5+UAIQAAAABJRU5ErkJggg==': 'Arda Guler',
+  'sZwxZ+bwS4lMI5zmUS+AtVqVV/T01B1wAAAABJRU5ErkJggg==': 'I ... am Steve',
+  'WX6G+nx9sVPNhvK33BwC8QdxJ1bhVEDgAAAABJRU5ErkJggg==': 'Böse Banana',
 }

@@ -123,6 +123,7 @@ export function createWorkspaceState(): WorkspaceState {
         uniqueUsers: 0,
         stats: {},
       },
+      survey: [],
       brushColors: {},
       loadedRobotImages: {},
     },
