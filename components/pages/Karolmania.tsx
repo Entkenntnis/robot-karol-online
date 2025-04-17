@@ -97,11 +97,7 @@ export function Karolmania() {
 
   // Dummy start function
   const handleStart = () => {
-    alert(
-      'Level ' +
-        levels[carouselIndex].quest.title +
-        ' selected! Game implementation coming soon.'
-    )
+    navigate(core, `#KAROLMANIA-${levels[carouselIndex].id}`)
   }
 
   // Function to navigate back to home page
@@ -277,24 +273,8 @@ export function Karolmania() {
                         <h3 className="font-bold text-lg text-gray-800">
                           {level.quest.title}
                         </h3>
-                        {/*<span
-                          className={clsx(
-                            'px-2 py-1 text-xs rounded-full font-semibold',
-                            level.difficulty === 'easy'
-                              ? 'bg-green-100 text-green-800'
-                              : level.difficulty === 'medium'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : 'bg-red-100 text-red-800'
-                          )}
-                        >
-                          {level.difficulty === 'easy'
-                            ? 'Leicht'
-                            : level.difficulty === 'medium'
-                            ? 'Mittel'
-                            : 'Schwer'}
-                        </span>*/}
                       </div>
-                      <p className="text-gray-600 text-sm line-clamp-2">
+                      <p className="text-sm text-gray-600 line-clamp-3 mb-2 flex-1">
                         {level.quest.description}
                       </p>
                     </div>

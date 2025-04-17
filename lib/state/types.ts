@@ -72,6 +72,7 @@ export interface Ui {
   questPromptConfirm?: string
   editQuestScript: boolean
   interactiveClassdiagram?: boolean
+  karolmaniaLevelId?: number
 }
 
 export interface Vm {
@@ -161,6 +162,7 @@ export interface WorkspaceState {
     | 'inspiration'
     | 'inspiration-old'
     | 'karolmania'
+    | 'karolmania-game'
 
   modal:
     | 'name'

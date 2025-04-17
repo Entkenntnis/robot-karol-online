@@ -249,6 +249,17 @@ export async function hydrateFromHash(core: Core) {
     return
   }
 
+  if (page.startsWith('KAROLMANIA-')) {
+    const levelId = parseInt(page.substring(11))
+    core.mutateWs((ws) => {
+      ws.page = 'karolmania-game'
+      // We could store the selected level in the workspace state here if needed
+      ws.ui.karolmaniaLevelId = levelId
+    })
+    document.title = 'Karolmania Level ' + levelId
+    return
+  }
+
   if (page == 'OPEN') {
     try {
       // extract url
