@@ -30,6 +30,25 @@ export function Karolmania() {
   const wheelDebounce = useRef(false)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
   const isFirstScroll = useRef(true) // Track if this is the first scroll
+  const audioRef = useRef<HTMLAudioElement | null>(null) // Reference for the audio element
+  const isInitialRender = useRef(true) // Track if it's the initial render
+
+  // Initialize audio element
+  useEffect(() => {
+    audioRef.current = new Audio('/audio/pick.mp3')
+  }, [])
+
+  // Function to play click sound
+  const playClickSound = useCallback(() => {
+    if (audioRef.current) {
+      setTimeout(() => {
+        audioRef.current!.currentTime = 0 // Reset audio to start
+        audioRef
+          .current!.play()
+          .catch((err) => console.error('Error playing sound:', err))
+      }, 80) // Add 80ms delay before playing the sound
+    }
+  }, [])
 
   // Constants to avoid magic numbers and duplication
   const CARD_WIDTH = 420
@@ -63,12 +82,17 @@ export function Karolmania() {
     setKarolmaniaCarouselIndex(carouselIndex)
   }, [carouselIndex])
 
-  // Scroll carousel when index changes
+  // Play sound and scroll carousel when index changes
   useEffect(() => {
     if (carouselIndex >= 0) {
+      if (!isInitialRender.current) {
+        playClickSound() // Play click sound only after the initial render
+      } else {
+        isInitialRender.current = false // Set flag to false after first render
+      }
       scrollToIndex(carouselIndex)
     }
-  }, [carouselIndex, scrollToIndex])
+  }, [carouselIndex, scrollToIndex, playClickSound])
 
   // Handle scroll wheel events for the carousel
   const handleWheel = (e: React.WheelEvent) => {
