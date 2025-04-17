@@ -30,9 +30,14 @@ export const questListByCategory = [
     quests: [33, 15, 19, 50, 16, 52, 51],
   },
   {
-    title: 'Rätsel und Co.',
+    title: 'Rätsel',
     titleEn: 'Fun',
-    quests: [30, 17, 18, 37, 60],
+    quests: [30, 17, 18, 37],
+  },
+  {
+    title: 'Sonstiges',
+    titleEn: 'Miscellaneous',
+    quests: [60],
   },
   {
     title: 'Einführung in Python (im Aufbau)',

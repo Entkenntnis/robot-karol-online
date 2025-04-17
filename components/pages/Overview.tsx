@@ -396,17 +396,22 @@ export function Overview() {
           )}
           {core.ws.overview.showOverviewList && (
             <>
-              <div className="mx-auto mt-6 mb-3">
-                <button
-                  className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
-                  onClick={() => {
+              <h1 className="mt-10 text-2xl text-center">
+                Liste aller Aufgaben
+              </h1>
+              <p className="text-center mt-6">
+                <a
+                  href="/#"
+                  onClick={(e) => {
                     navigate(core, '')
+                    e.preventDefault()
                   }}
+                  className="link"
                 >
-                  <FaIcon icon={faTimes} /> {core.strings.overview.closeShowAll}
-                </button>
-              </div>
-              <div className="mx-6 min-w-[500px] relative bg-white/50">
+                  schließen
+                </a>
+              </p>
+              <div className="px-6 mt-6 min-w-[360px] relative bg-white/50">
                 {questListByCategory.map(renderQuestCategory)}
               </div>
             </>
@@ -819,7 +824,7 @@ export function Overview() {
         <h2 className="text-xl ml-6 my-4">
           {core.ws.settings.lng == 'de' ? cat.title : cat.titleEn}
         </h2>
-        <div className="flex flex-wrap mx-3">{cat.quests.map(renderQuest)}</div>
+        <div className="flex flex-wrap">{cat.quests.map(renderQuest)}</div>
       </div>
     )
   }
@@ -839,20 +844,23 @@ export function Overview() {
     return (
       <Fragment key={index}>
         <div className="m-2">
-          <div
+          <a
+            href={`/#QUEST-${index}`}
             className={clsx(
               'p-3 bg-white rounded-md relative z-10',
               'w-[200px] cursor-pointer',
               !questDone && 'rainbow',
-              core.ws.page == 'analyze' ? 'h-[230px]' : 'h-[210px]'
+              core.ws.page == 'analyze' ? 'h-[230px]' : 'h-[210px]',
+              'block'
             )}
             tabIndex={0}
-            onClick={() => {
+            onClick={(e) => {
               setQuestReturnToMode('overview')
               setOverviewScroll(
                 document.getElementById('scroll-container')?.scrollTop ?? -1
               )
               navigate(core, '#QUEST-' + index)
+              e.preventDefault()
             }}
           >
             <div>
@@ -920,7 +928,7 @@ export function Overview() {
                 alt=""
               />
             )}
-          </div>
+          </a>
         </div>
         <style jsx>{`
           .rainbow:before {

@@ -241,6 +241,13 @@ export async function hydrateFromHash(core: Core) {
     return
   }
 
+  if (page == 'KAROLMANIA') {
+    core.mutateWs((ws) => {
+      ws.page = 'karolmania'
+    })
+    return
+  }
+
   if (page == 'OPEN') {
     try {
       // extract url

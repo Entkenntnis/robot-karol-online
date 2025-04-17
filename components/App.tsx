@@ -29,6 +29,7 @@ import { hydrateFromHash } from '../lib/commands/router'
 import { LoadingScreen } from './helper/LoadingScreen'
 import { submitAnalyzeEvent } from '../lib/commands/analyze'
 import { setLockToKarolCode } from '../lib/storage/storage'
+import { Karolmania } from './pages/Karolmania'
 
 export function App() {
   const core = useCore()
@@ -113,6 +114,8 @@ export function App() {
       return <Inspiration />
     } else if (core.ws.page == 'inspiration-old') {
       return <InspirationOld />
+    } else if (core.ws.page == 'karolmania') {
+      return <Karolmania />
     } else {
       return null
     }

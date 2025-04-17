@@ -160,6 +160,7 @@ export interface WorkspaceState {
     | 'demo'
     | 'inspiration'
     | 'inspiration-old'
+    | 'karolmania'
 
   modal:
     | 'name'
