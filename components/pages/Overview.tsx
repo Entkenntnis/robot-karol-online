@@ -437,22 +437,22 @@ export function Overview() {
                 {(numberOfSolvedQuests >= 5 ||
                   core.ws.page == 'analyze' ||
                   core.ws.page == 'demo') && (
-                  <button
-                    className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
-                    onClick={() => {
+                  <a
+                    href="/#KAROLMANIA"
+                    className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer"
+                    onClick={(e) => {
                       submitAnalyzeEvent(core, 'ev_click_landing_snake')
-                      window.open('/#CDBV', '_blank')
+                      navigate(core, '#KAROLMANIA')
+                      e.preventDefault()
                     }}
                   >
-                    <p className="text-center mb-2">
-                      {core.strings.overview.game}
-                    </p>
+                    <p className="text-center">Karolmania</p>
                     <img
-                      src="/snake.png"
-                      alt="Snake-Icon"
-                      className="w-[40px] mx-auto mb-1"
+                      src="/game-controller.png"
+                      alt=""
+                      className="w-[45px] mx-auto mb-1"
                     />
-                  </button>
+                  </a>
                 )}
 
                 {core.ws.ui.newRobotImage && (

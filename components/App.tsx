@@ -36,7 +36,6 @@ export function App() {
 
   useEffect(() => {
     function onHashChange() {
-      console.log('Hash change')
       hydrateFromHash(core)
     }
 
