@@ -18,7 +18,8 @@ const robotImageKey = 'robot_karol_online_robot_image'
 const karolmaniaCarouselIndexKey =
   'robot_karol_online_karolmania_carousel_index'
 const karolmaniaMusicEnabledKey = 'robot_karol_online_karolmania_music_enabled'
-const karolmaniaSoundEffectsEnabledKey = 'robot_karol_online_karolmania_sound_effects_enabled'
+const karolmaniaSoundEffectsEnabledKey =
+  'robot_karol_online_karolmania_sound_effects_enabled'
 
 export function getUserId() {
   if (!sessionStorage.getItem(userIdKey) && !localStorage.getItem(userIdKey)) {

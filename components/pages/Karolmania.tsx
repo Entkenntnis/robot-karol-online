@@ -39,8 +39,12 @@ export function Karolmania() {
   const isFirstScroll = useRef(true) // Track if this is the first scroll
   const audioRef = useRef<HTMLAudioElement | null>(null) // Reference for the click sound effect
   const bgMusicRef = useRef<HTMLAudioElement | null>(null) // Reference for background music
-  const [isMusicPlaying, setIsMusicPlaying] = useState(getKarolmaniaMusicEnabled()) // Initialize from storage
-  const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(getKarolmaniaSoundEffectsEnabled()) // Initialize from storage
+  const [isMusicPlaying, setIsMusicPlaying] = useState(
+    getKarolmaniaMusicEnabled()
+  ) // Initialize from storage
+  const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(
+    getKarolmaniaSoundEffectsEnabled()
+  ) // Initialize from storage
 
   // Initialize audio elements
   useEffect(() => {
@@ -141,8 +145,9 @@ export function Karolmania() {
   useEffect(() => {
     if (bgMusicRef.current) {
       if (isMusicPlaying) {
-        bgMusicRef.current.play()
-          .catch(err => console.error('Error playing background music:', err))
+        bgMusicRef.current
+          .play()
+          .catch((err) => console.error('Error playing background music:', err))
       } else {
         bgMusicRef.current.pause()
       }
