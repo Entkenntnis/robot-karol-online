@@ -245,6 +245,7 @@ export async function hydrateFromHash(core: Core) {
     core.mutateWs((ws) => {
       ws.page = 'karolmania'
     })
+    document.title = 'Karolmania'
     return
   }
 
