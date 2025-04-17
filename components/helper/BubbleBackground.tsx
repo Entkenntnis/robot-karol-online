@@ -16,7 +16,7 @@ interface BubbleBackgroundProps {
 }
 
 export function BubbleBackground({
-  bubbleCount = 30,
+  bubbleCount = 37,
   className = '',
 }: BubbleBackgroundProps) {
   // Memoize background bubbles to prevent regeneration on re-render

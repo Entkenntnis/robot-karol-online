@@ -37,77 +37,129 @@ export function Karolmania() {
   const wheelDebounce = useRef(false)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
   const isFirstScroll = useRef(true) // Track if this is the first scroll
-  const audioRef = useRef<HTMLAudioElement | null>(null) // Reference for the click sound effect
-  const bgMusicRef = useRef<HTMLAudioElement | null>(null) // Reference for background music
+
+  // Audio state management
+  const bgMusicRef = useRef<HTMLAudioElement | null>(null)
+  const clickSoundRef = useRef<HTMLAudioElement | null>(null)
+  const silentContextRef = useRef<AudioContext | null>(null) // Keep a reference to the audio context
   const [isMusicPlaying, setIsMusicPlaying] = useState(
     getKarolmaniaMusicEnabled()
-  ) // Initialize from storage
+  )
   const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(
     getKarolmaniaSoundEffectsEnabled()
-  ) // Initialize from storage
+  )
+  const hasPlayedInitialSound = useRef(false)
+  const prevCarouselIndexRef = useRef(carouselIndex)
 
-  // Initialize audio elements
+  // Initialize audio system once
   useEffect(() => {
-    audioRef.current = new Audio('/audio/pick.mp3')
-    bgMusicRef.current = new Audio('/audio/lobby.mp3')
-    bgMusicRef.current.loop = true
-    bgMusicRef.current.volume = 0.2 // Set to 20% volume as requested
+    // Create an audio context first to ensure it's properly initialized
+    // This silent context is necessary to keep the audio system "warm"
+    // Without it, the audio context would be suspended and reactivated with each sound,
+    // causing audible popping/clicking artifacts when sounds are played
+    const silentContext = new (window.AudioContext ||
+      (window as any).webkitAudioContext)()
+    silentContextRef.current = silentContext
 
-    // Only attempt to autoplay the background music if it should be playing
-    if (isMusicPlaying) {
-      bgMusicRef.current
-        .play()
-        .catch((err) => console.error('Error playing background music:', err))
+    // Play a silent sound to initialize audio context
+    const silentSound = silentContext.createOscillator()
+    const gainNode = silentContext.createGain()
+    gainNode.gain.value = 0 // Silent
+    silentSound.connect(gainNode)
+    gainNode.connect(silentContext.destination)
+    silentSound.start()
+    silentSound.stop(0.001) // Stop after a very short time
+
+    // Create audio elements
+    bgMusicRef.current = new Audio('/audio/lobby.mp3')
+    clickSoundRef.current = new Audio('/audio/pick.mp3')
+
+    // Set properties
+    if (bgMusicRef.current) {
+      bgMusicRef.current.loop = true
+      bgMusicRef.current.volume = 0.2
+
+      // Attempt autoplay if music should be playing
+      if (isMusicPlaying) {
+        bgMusicRef.current.play().catch(() => {
+          // Silently handle autoplay restrictions
+        })
+      }
     }
 
-    // Cleanup function to stop audio when component unmounts
+    // Cleanup function
     return () => {
       if (bgMusicRef.current) {
         bgMusicRef.current.pause()
         bgMusicRef.current = null
       }
-      if (audioRef.current) {
-        audioRef.current = null
+      clickSoundRef.current = null
+
+      // Close audio context when component unmounts
+      if (silentContextRef.current) {
+        silentContextRef.current.close().catch(() => {
+          // Silently handle close failures
+        })
+        silentContextRef.current = null
       }
     }
   }, [])
 
-  // Function to toggle background music
-  const toggleMusic = useCallback(() => {
-    if (bgMusicRef.current) {
-      if (isMusicPlaying) {
-        bgMusicRef.current.pause()
-      } else {
-        bgMusicRef.current
-          .play()
-          .catch((err) => console.error('Error playing background music:', err))
-      }
-      setIsMusicPlaying(!isMusicPlaying)
-      setKarolmaniaMusicEnabled(!isMusicPlaying) // Update storage
-    }
-  }, [isMusicPlaying])
+  // Audio control functions
+  const playMusic = useCallback(() => {
+    if (!bgMusicRef.current) return
 
-  // Function to toggle sound effects without playing click sound
+    bgMusicRef.current.play().catch(() => {
+      // Silently handle play failures
+    })
+  }, [])
+
+  const pauseMusic = useCallback(() => {
+    if (!bgMusicRef.current) return
+
+    bgMusicRef.current.pause()
+  }, [])
+
+  const toggleMusic = useCallback(() => {
+    const newState = !isMusicPlaying
+    setIsMusicPlaying(newState)
+    setKarolmaniaMusicEnabled(newState)
+
+    if (newState) {
+      playMusic()
+    } else {
+      pauseMusic()
+    }
+  }, [isMusicPlaying, playMusic, pauseMusic])
+
   const toggleSoundEffects = useCallback(() => {
     setIsSoundEffectsEnabled((prev) => {
-      setKarolmaniaSoundEffectsEnabled(!prev) // Update storage
+      setKarolmaniaSoundEffectsEnabled(!prev)
       return !prev
     })
-    // We intentionally don't trigger playClickSound here to avoid
-    // playing a sound when re-enabling sound effects
   }, [])
 
-  // Function to play click sound
   const playClickSound = useCallback(() => {
-    if (audioRef.current && isSoundEffectsEnabled) {
-      setTimeout(() => {
-        audioRef.current!.currentTime = 0 // Reset audio to start
-        audioRef
-          .current!.play()
-          .catch((err) => console.error('Error playing sound:', err))
-      }, 80) // Add 80ms delay before playing the sound
+    if (!isSoundEffectsEnabled) return
+
+    // Use existing audio element but reset it for immediate playback
+    if (clickSoundRef.current) {
+      clickSoundRef.current.currentTime = 0
+      clickSoundRef.current.volume = 0.95
+      clickSoundRef.current.play().catch(() => {
+        // Silently handle play failures
+      })
     }
   }, [isSoundEffectsEnabled])
+
+  // Keep music playback in sync with state
+  useEffect(() => {
+    if (isMusicPlaying) {
+      playMusic()
+    } else {
+      pauseMusic()
+    }
+  }, [isMusicPlaying, playMusic, pauseMusic])
 
   // Constants to avoid magic numbers and duplication
   const CARD_WIDTH = 420
@@ -141,23 +193,23 @@ export function Karolmania() {
     setKarolmaniaCarouselIndex(carouselIndex)
   }, [carouselIndex])
 
-  // Keep background music state in sync with isMusicPlaying
-  useEffect(() => {
-    if (bgMusicRef.current) {
-      if (isMusicPlaying) {
-        bgMusicRef.current
-          .play()
-          .catch((err) => console.error('Error playing background music:', err))
-      } else {
-        bgMusicRef.current.pause()
-      }
-    }
-  }, [isMusicPlaying])
-
   // Play sound and scroll carousel when index changes
   useEffect(() => {
     if (carouselIndex >= 0) {
-      playClickSound() // Play click sound when index changes
+      // Only play sound if this is not the initial render and the index has changed
+      if (
+        hasPlayedInitialSound.current &&
+        prevCarouselIndexRef.current !== carouselIndex
+      ) {
+        playClickSound()
+      } else {
+        hasPlayedInitialSound.current = true // Mark that we've passed the initial render
+      }
+
+      // Update the previous index ref
+      prevCarouselIndexRef.current = carouselIndex
+
+      // Always scroll to the current index
       scrollToIndex(carouselIndex)
     }
   }, [carouselIndex, scrollToIndex, playClickSound])
@@ -256,7 +308,7 @@ export function Karolmania() {
 
         <div className="text-2xl text-white mb-8 text-center">
           <span className="bg-teal-600/50 px-6 py-2 rounded-full shadow-lg">
-            Wähle ein Level
+            Wähle ein Level.
           </span>
         </div>
 
@@ -293,41 +345,61 @@ export function Karolmania() {
               ref={carouselRef}
               className="pt-6 flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-20"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              onTouchStart={() => {
+                // Set a flag to indicate touch interaction has started
+                carouselRef.current?.setAttribute('data-touch-scroll', 'true')
+              }}
+              onTouchEnd={() => {
+                // Remove the touch indicator when touch ends
+                setTimeout(
+                  () =>
+                    carouselRef.current?.removeAttribute('data-touch-scroll'),
+                  100
+                )
+              }}
               onScroll={() => {
                 // Clear any existing timeout
                 if (scrollTimeout.current) {
                   clearTimeout(scrollTimeout.current)
                 }
 
+                // Check if this is a touch-based scroll
+                const isTouchScroll =
+                  carouselRef.current?.hasAttribute('data-touch-scroll')
+
                 // Set a new timeout to detect when scrolling stops
-                scrollTimeout.current = setTimeout(() => {
-                  if (carouselRef.current) {
-                    // Get the scroll position
-                    const scrollPosition = carouselRef.current.scrollLeft
-                    const paddingWidth =
-                      carouselRef.current.clientWidth / 2 - CARD_WIDTH / 2
+                scrollTimeout.current = setTimeout(
+                  () => {
+                    if (carouselRef.current) {
+                      // Get the scroll position
+                      const scrollPosition = carouselRef.current.scrollLeft
+                      const paddingWidth =
+                        carouselRef.current.clientWidth / 2 - CARD_WIDTH / 2
 
-                    // Calculate the closest index based on scroll position
-                    const newIndex = Math.round(
-                      (scrollPosition + paddingWidth) / CARD_WIDTH
-                    )
+                      // Calculate the closest index based on scroll position
+                      const newIndex = Math.round(
+                        (scrollPosition + paddingWidth) / CARD_WIDTH
+                      )
 
-                    // Update the active index if needed
-                    if (
-                      newIndex !== carouselIndex &&
-                      newIndex >= 0 &&
-                      newIndex < levels.length
-                    ) {
-                      setCarouselIndex(newIndex)
+                      // Update the active index if needed
+                      if (
+                        newIndex !== carouselIndex &&
+                        newIndex >= 0 &&
+                        newIndex < levels.length
+                      ) {
+                        setCarouselIndex(newIndex)
 
-                      // Ensure scroll is perfectly aligned to card position
-                      const perfectPosition = calculateScrollPosition(newIndex)
-                      if (Math.abs(scrollPosition - perfectPosition) > 10) {
-                        scrollToIndex(newIndex)
+                        // Ensure scroll is perfectly aligned to card position
+                        const perfectPosition =
+                          calculateScrollPosition(newIndex)
+                        if (Math.abs(scrollPosition - perfectPosition) > 10) {
+                          scrollToIndex(newIndex)
+                        }
                       }
                     }
-                  }
-                }, 500) // Slightly increased to ensure scrolling has fully settled
+                  },
+                  isTouchScroll ? 0 : 500
+                ) // Use 0ms delay for touch scrolling, 500ms for other scrolling
               }}
             >
               <div className="flex-none w-[calc(50%-216px)]"></div>

@@ -1,7 +1,6 @@
 // manage session and local storage data
 
 import { questList } from '../data/overview'
-import { levels } from '../data/karolmaniaLevels'
 import { Core } from '../state/core'
 import {
   EditorSessionSnapshot,
