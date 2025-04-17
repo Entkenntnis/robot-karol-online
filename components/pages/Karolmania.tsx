@@ -31,7 +31,6 @@ export function Karolmania() {
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
   const isFirstScroll = useRef(true) // Track if this is the first scroll
   const audioRef = useRef<HTMLAudioElement | null>(null) // Reference for the audio element
-  const isInitialRender = useRef(true) // Track if it's the initial render
 
   // Initialize audio element
   useEffect(() => {
@@ -85,11 +84,7 @@ export function Karolmania() {
   // Play sound and scroll carousel when index changes
   useEffect(() => {
     if (carouselIndex >= 0) {
-      if (!isInitialRender.current) {
-        playClickSound() // Play click sound only after the initial render
-      } else {
-        isInitialRender.current = false // Set flag to false after first render
-      }
+      playClickSound() // Play click sound when index changes
       scrollToIndex(carouselIndex)
     }
   }, [carouselIndex, scrollToIndex, playClickSound])
