@@ -1,3 +1,4 @@
+import { levels } from '../data/karolmaniaLevels'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
@@ -32,8 +33,6 @@ export async function hydrateFromHash(core: Core) {
 
   submitAnalyzeEvent(core, 'ev_show_hash_' + page.slice(0, 100))
 
-  const previousWs = core.ws
-
   // PHASE 0: reset
   core.reset()
 
@@ -66,7 +65,6 @@ export async function hydrateFromHash(core: Core) {
   if (page == 'EDITOR') {
     core.mutateWs((ws) => {
       ws.page = 'editor'
-
       const { quest } = ws
       quest.title = core.strings.editor.title
       quest.description = core.strings.editor.description
@@ -256,7 +254,8 @@ export async function hydrateFromHash(core: Core) {
       // We could store the selected level in the workspace state here if needed
       ws.ui.karolmaniaLevelId = levelId
     })
-    document.title = 'Karolmania Level ' + levelId
+    document.title =
+      'Karolmania - ' + levels.find((l) => l.id == levelId)?.quest.title
     return
   }
 
