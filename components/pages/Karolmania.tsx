@@ -11,11 +11,12 @@ import {
   faCaretRight,
   faHome,
 } from '@fortawesome/free-solid-svg-icons'
-import { levels, Level } from '../../lib/data/karolmaniaLevels'
+import { levels } from '../../lib/data/karolmaniaLevels'
 import { HFullStyles } from '../helper/HFullStyles'
 import { navigate } from '../../lib/commands/router'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { getQuestReturnToMode } from '../../lib/storage/storage'
+import { deserializeQuest, deserializeWorld } from '../../lib/commands/json'
 
 export function Karolmania() {
   const core = useCore()
@@ -98,7 +99,7 @@ export function Karolmania() {
   const handleStart = () => {
     alert(
       'Level ' +
-        levels[carouselIndex].name +
+        levels[carouselIndex].quest.title +
         ' selected! Game implementation coming soon.'
     )
   }
@@ -184,7 +185,7 @@ export function Karolmania() {
           )}
 
           {/* Carousel container with fixed content width and scroll snapping */}
-          <div className="" onWheel={handleWheel}>
+          <div className=" pointer-events-none" onWheel={handleWheel}>
             <div
               ref={carouselRef}
               className="pt-6 flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-20"
@@ -234,7 +235,7 @@ export function Karolmania() {
                 <div
                   key={level.id}
                   className={clsx(
-                    'flex-none w-96 px-5 py-3 snap-center transition-all duration-300',
+                    'flex-none w-96 px-5 py-3 snap-center transition-all duration-300 pointer-events-auto',
                     carouselIndex === index
                       ? 'scale-110 z-10'
                       : 'scale-100 opacity-80'
@@ -264,17 +265,19 @@ export function Karolmania() {
                   >
                     <div className="p-1 flex justify-center items-center h-60 bg-gray-50">
                       <View
-                        world={level.targetWorld}
-                        hideKarol
+                        world={deserializeWorld(level.quest.tasks[0].start)}
+                        preview={{
+                          world: deserializeWorld(level.quest.tasks[0].target),
+                        }}
                         className="max-w-full max-h-full"
                       />
                     </div>
-                    <div className="p-3 flex-1 flex flex-col">
+                    <div className="px-3 py-2 flex-1 flex flex-col">
                       <div className="flex justify-between items-center mb-1">
                         <h3 className="font-bold text-lg text-gray-800">
-                          {level.name}
+                          {level.quest.title}
                         </h3>
-                        <span
+                        {/*<span
                           className={clsx(
                             'px-2 py-1 text-xs rounded-full font-semibold',
                             level.difficulty === 'easy'
@@ -289,10 +292,10 @@ export function Karolmania() {
                             : level.difficulty === 'medium'
                             ? 'Mittel'
                             : 'Schwer'}
-                        </span>
+                        </span>*/}
                       </div>
                       <p className="text-gray-600 text-sm line-clamp-2">
-                        {level.description}
+                        {level.quest.description}
                       </p>
                     </div>
                   </div>
