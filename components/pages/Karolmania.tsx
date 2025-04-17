@@ -2,174 +2,205 @@
 import { useEffect, useState, useRef } from 'react'
 import { useCore } from '../../lib/state/core'
 import { View } from '../helper/View'
+import { AnimateInView } from '../helper/AnimateIntoView'
+import clsx from 'clsx'
+import { FaIcon } from '../helper/FaIcon'
 import {
-  left,
-  right,
-  forward,
-  brick,
-  unbrick,
-  toggleMark,
-  toggleBlock,
-} from '../../lib/commands/world'
-import { deserializeWorld } from '../../lib/commands/json'
-import { createWorld } from '../../lib/state/create'
-import { World } from '../../lib/state/types'
+  faArrowLeft,
+  faArrowRight,
+  faCaretLeft,
+  faHome,
+} from '@fortawesome/free-solid-svg-icons'
+import { levels, Level } from '../../lib/data/karolmaniaLevels'
+import { HFullStyles } from '../helper/HFullStyles'
+import { navigate } from '../../lib/commands/router'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { getQuestReturnToMode } from '../../lib/storage/storage'
 
 export function Karolmania() {
   const core = useCore()
-  const [gameStatus, setGameStatus] = useState<
-    'idle' | 'intro' | 'running' | 'finished'
-  >('idle')
-  const [timeLeft, setTimeLeft] = useState(0)
-  const [targetWorld, setTargetWorld] = useState(
-    deserializeWorld({
-      dimX: 10,
-      dimY: 10,
-      height: 6,
-      karol: { x: 3, y: 6, dir: 'west' },
-      bricks: { offsetX: -1, offsetY: -1, dimX: 0, dimY: 0, data: [] },
-      marks: {
-        dimX: 4,
-        dimY: 4,
-        offsetX: 3,
-        offsetY: 3,
-        data: [
-          [true, true, true, true],
-          [true, true, true, true],
-          [true, true, true, true],
-          [true, true, true, true],
-        ],
-      },
-      blocks: { offsetX: -1, offsetY: -1, dimX: 0, dimY: 0, data: [] },
-    })
-  )
-  const gameRef = useRef<HTMLDivElement>(null)
-  const timerRef = useRef<number>()
+  const [carouselIndex, setCarouselIndex] = useState(0)
+  const carouselRef = useRef<HTMLDivElement>(null)
 
-  // Tastatursteuerung
-  const actions: { [key: string]: () => void } = {
-    ArrowLeft: () => left(core),
-    ArrowRight: () => right(core),
-    ArrowUp: () => forward(core),
-    KeyH: () => brick(core),
-    KeyA: () => unbrick(core),
-    KeyM: () => toggleMark(core),
-    KeyQ: () => toggleBlock(core),
-  }
-
-  // Spielinitialisierung
-  const startGame = () => {
-    setGameStatus('intro')
-    setTimeLeft(5)
-
-    // 5 Sekunden Intro-Countdown
-    const countdown = setInterval(() => {
-      setTimeLeft((t) => {
-        if (t === 1) {
-          clearInterval(countdown)
-          setGameStatus('running')
-          return 0
-        }
-        return t - 1
+  // Scroll carousel when index changes
+  useEffect(() => {
+    if (carouselRef.current && carouselIndex >= 0) {
+      const cardWidth = 280 // Card width + margins
+      carouselRef.current.scrollTo({
+        left: carouselIndex * cardWidth,
+        behavior: 'smooth',
       })
-    }, 1000)
+    }
+  }, [carouselIndex])
+
+  // Move carousel to previous level
+  const prevLevel = () => {
+    if (carouselIndex > 0) {
+      setCarouselIndex(carouselIndex - 1)
+    } else {
+      setCarouselIndex(levels.length - 1)
+    }
   }
 
-  // Timer-Logik
-  useEffect(() => {
-    if (gameStatus === 'running') {
-      timerRef.current = window.setInterval(() => {
-        setTimeLeft((t) => t + 1)
-      }, 1000)
+  // Move carousel to next level
+  const nextLevel = () => {
+    if (carouselIndex < levels.length - 1) {
+      setCarouselIndex(carouselIndex + 1)
+    } else {
+      setCarouselIndex(0)
     }
-    return () => clearInterval(timerRef.current)
-  }, [gameStatus])
+  }
 
-  // Spielende prüfen
-  useEffect(() => {
-    if (isWorldEqual(core.ws.world, targetWorld)) {
-      setGameStatus('finished')
-      clearInterval(timerRef.current)
-    }
-  }, [core.ws.world, targetWorld])
+  // Dummy start function
+  const handleStart = () => {
+    alert(
+      'Level ' +
+        levels[carouselIndex].name +
+        ' selected! Game implementation coming soon.'
+    )
+  }
 
-  // Tastaturfokus
-  useEffect(() => {
-    gameRef.current?.focus()
-    core.mutateWs((ws) => {
-      ws.world = createWorld(
-        targetWorld.dimX,
-        targetWorld.dimY,
-        targetWorld.height
-      )
-    })
-  }, [])
-
-  // Weltvergleichslogik
-  const isWorldEqual = (a: World, b: World) => {
-    // Implementiere den tatsächlichen Vergleich
-    return false
-    return JSON.stringify(a) === JSON.stringify(b)
+  // Function to navigate back to home page
+  const handleBack = () => {
+    submitAnalyzeEvent(core, 'ev_click_karolmania_back')
+    navigate(
+      core,
+      getQuestReturnToMode() == 'path'
+        ? ''
+        : getQuestReturnToMode() == 'demo'
+        ? '#DEMO'
+        : '#OVERVIEW'
+    )
   }
 
   return (
-    <div className="h-full flex flex-col items-center justify-center bg-gray-100">
-      <div className="mb-4 text-6xl font-bold">
-        {gameStatus === 'intro' ? timeLeft : timeLeft}
-      </div>
+    <>
+      <div className="h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-teal-700 via-teal-500 to-emerald-400 relative overflow-hidden">
+        {/* Back button */}
+        <button
+          onClick={handleBack}
+          className="absolute top-4 left-4 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
+          aria-label="Zurück zur Startseite"
+        >
+          <FaIcon icon={faArrowLeft} className="text-2xl" />
+        </button>
 
-      {gameStatus === 'finished' && (
-        <div className="text-4xl mb-4 text-green-600">
-          Geschafft in {timeLeft} Sekunden!
+        {/* Background animation - bubbles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {Array.from({ length: 30 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full bg-white/10 animate-bubble"
+              style={{
+                width: `${Math.random() * 150 + 20}px`,
+                height: `${Math.random() * 150 + 20}px`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100 + 50}%`,
+                animationDelay: `${Math.random() * 8}s`,
+                animationDuration: `${Math.random() * 8 + 5}s`,
+              }}
+            />
+          ))}
         </div>
-      )}
 
-      <div className="flex gap-8">
-        <div>
-          <h2 className="text-xl mb-2">Zielwelt</h2>
-          <View world={targetWorld} hideKarol />
+        <AnimateInView>
+          <h1 className="text-6xl font-bold text-white mb-8 text-center drop-shadow-lg animate-float">
+            Karolmania
+          </h1>
+        </AnimateInView>
+
+        <div className="text-2xl text-white mb-8 text-center">
+          <span className="bg-teal-600/50 px-6 py-2 rounded-full shadow-lg">
+            Wähle ein Level
+          </span>
         </div>
 
-        <div>
-          <h2 className="text-xl mb-2">Deine Welt</h2>
-          <div
-            ref={gameRef}
-            tabIndex={0}
-            className="border-4 border-gray-300 focus:border-blue-400 outline-none"
-            onKeyDown={(e) => {
-              if (gameStatus === 'running' && actions[e.code]) {
-                actions[e.code]()
-                e.preventDefault()
-              }
-            }}
+        <div className="relative w-full max-w-4xl px-16">
+          {/* Navigation arrows */}
+          <button
+            onClick={prevLevel}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-teal-600 hover:bg-teal-400 text-white rounded-full p-3 shadow-lg z-10 transition-all hover:scale-110"
+            aria-label="Vorheriges Level"
           >
-            <View world={core.ws.world} />
+            <FaIcon icon={faArrowLeft} className="text-xl" />
+          </button>
+
+          <button
+            onClick={nextLevel}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-teal-600 hover:bg-teal-400 text-white rounded-full p-3 shadow-lg z-10 transition-all hover:scale-110"
+            aria-label="Nächstes Level"
+          >
+            <FaIcon icon={faArrowRight} className="text-xl" />
+          </button>
+
+          {/* Carousel container */}
+          <div
+            ref={carouselRef}
+            className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {levels.map((level, index) => (
+              <div
+                key={level.id}
+                className={clsx(
+                  'flex-shrink-0 w-64 mx-2 snap-center transition-all duration-300',
+                  carouselIndex === index
+                    ? 'scale-110 z-10'
+                    : 'scale-100 opacity-80'
+                )}
+                onClick={() => setCarouselIndex(index)}
+              >
+                <div
+                  className={clsx(
+                    'bg-white rounded-lg shadow-xl overflow-hidden transition-all transform cursor-pointer hover:scale-105',
+                    carouselIndex === index && 'ring-4 ring-teal-300'
+                  )}
+                >
+                  <div className="p-1 flex justify-center items-center h-48 bg-gray-50">
+                    <View
+                      world={level.targetWorld}
+                      hideKarol
+                      className="max-w-full max-h-full"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <h3 className="font-bold text-lg text-gray-800">
+                        {level.name}
+                      </h3>
+                      <span
+                        className={clsx(
+                          'px-2 py-1 text-xs rounded-full font-semibold',
+                          level.difficulty === 'easy'
+                            ? 'bg-green-100 text-green-800'
+                            : level.difficulty === 'medium'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-red-100 text-red-800'
+                        )}
+                      >
+                        {level.difficulty === 'easy'
+                          ? 'Leicht'
+                          : level.difficulty === 'medium'
+                          ? 'Mittel'
+                          : 'Schwer'}
+                      </span>
+                    </div>
+                    <p className="text-gray-600 text-sm">{level.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
 
-      {gameStatus === 'idle' && (
         <button
-          onClick={startGame}
-          className="mt-8 px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 text-2xl"
+          onClick={handleStart}
+          className="mt-12 px-8 py-4 bg-teal-500 text-white text-xl font-bold rounded-full shadow-lg hover:bg-teal-400 transition-all hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300 animate-pulse"
         >
-          Spiel starten
+          Start
         </button>
-      )}
-
-      {gameStatus === 'finished' && (
-        <button
-          onClick={() => window.location.reload()}
-          className="mt-8 px-6 py-3 bg-green-500 text-white rounded hover:bg-green-600 text-2xl"
-        >
-          Nochmal spielen
-        </button>
-      )}
-
-      <div className="mt-8 text-gray-600">
-        Steuerung: Pfeiltasten bewegen, H=Hinlegen, A=Aufheben, M=Marke,
-        Q=Quader
       </div>
-    </div>
+      <HFullStyles />
+    </>
   )
 }

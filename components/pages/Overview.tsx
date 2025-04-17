@@ -6,6 +6,7 @@ import {
   faFloppyDisk,
   faFolderOpen,
   faGlobe,
+  faMedal,
   faPaintBrush,
   faPencil,
   faTable,
@@ -439,18 +440,24 @@ export function Overview() {
                   core.ws.page == 'demo') && (
                   <a
                     href="/#KAROLMANIA"
-                    className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer"
+                    className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
                     onClick={(e) => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_snake')
+                      submitAnalyzeEvent(core, 'ev_click_landing_karolmania')
+                      setQuestReturnToMode(
+                        core.ws.page == 'demo' ? 'demo' : 'path'
+                      )
+                      setLearningPathScroll(
+                        document.getElementById('scroll-container')
+                          ?.scrollTop ?? -1
+                      )
                       navigate(core, '#KAROLMANIA')
                       e.preventDefault()
                     }}
                   >
                     <p className="text-center">Karolmania</p>
-                    <img
-                      src="/game-controller.png"
-                      alt=""
-                      className="w-[45px] mx-auto mb-1"
+                    <FaIcon
+                      icon={faMedal}
+                      className="text-4xl text-teal-800 inline-block mt-2 pb-2"
                     />
                   </a>
                 )}
