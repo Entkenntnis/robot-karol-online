@@ -17,6 +17,8 @@ const lngKey = 'robot_karol_online_lng'
 const robotImageKey = 'robot_karol_online_robot_image'
 const karolmaniaCarouselIndexKey =
   'robot_karol_online_karolmania_carousel_index'
+const karolmaniaMusicEnabledKey = 'robot_karol_online_karolmania_music_enabled'
+const karolmaniaSoundEffectsEnabledKey = 'robot_karol_online_karolmania_sound_effects_enabled'
 
 export function getUserId() {
   if (!sessionStorage.getItem(userIdKey) && !localStorage.getItem(userIdKey)) {
@@ -334,4 +336,28 @@ export function getKarolmaniaCarouselIndex() {
     return parseInt(index)
   }
   return 0
+}
+
+export function setKarolmaniaMusicEnabled(enabled: boolean) {
+  sessionStorage.setItem(karolmaniaMusicEnabledKey, enabled ? '1' : '0')
+}
+
+export function getKarolmaniaMusicEnabled() {
+  const value = sessionStorage.getItem(karolmaniaMusicEnabledKey)
+  if (value === null) {
+    return true // Default to music enabled if not set
+  }
+  return value === '1'
+}
+
+export function setKarolmaniaSoundEffectsEnabled(enabled: boolean) {
+  sessionStorage.setItem(karolmaniaSoundEffectsEnabledKey, enabled ? '1' : '0')
+}
+
+export function getKarolmaniaSoundEffectsEnabled() {
+  const value = sessionStorage.getItem(karolmaniaSoundEffectsEnabledKey)
+  if (value === null) {
+    return true // Default to sound effects enabled if not set
+  }
+  return value === '1'
 }

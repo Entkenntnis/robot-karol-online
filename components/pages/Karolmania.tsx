@@ -9,6 +9,9 @@ import {
   faArrowLeft,
   faCaretLeft,
   faCaretRight,
+  faMusic,
+  faVolumeHigh,
+  faVolumeXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import { levels } from '../../lib/data/karolmaniaLevels'
 import { HFullStyles } from '../helper/HFullStyles'
@@ -17,6 +20,10 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import {
   getQuestReturnToMode,
   setKarolmaniaCarouselIndex,
+  getKarolmaniaMusicEnabled,
+  setKarolmaniaMusicEnabled,
+  getKarolmaniaSoundEffectsEnabled,
+  setKarolmaniaSoundEffectsEnabled,
 } from '../../lib/storage/storage'
 import { deserializeWorld } from '../../lib/commands/json'
 import { BubbleBackground } from '../helper/BubbleBackground'
@@ -30,16 +37,65 @@ export function Karolmania() {
   const wheelDebounce = useRef(false)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
   const isFirstScroll = useRef(true) // Track if this is the first scroll
-  const audioRef = useRef<HTMLAudioElement | null>(null) // Reference for the audio element
+  const audioRef = useRef<HTMLAudioElement | null>(null) // Reference for the click sound effect
+  const bgMusicRef = useRef<HTMLAudioElement | null>(null) // Reference for background music
+  const [isMusicPlaying, setIsMusicPlaying] = useState(getKarolmaniaMusicEnabled()) // Initialize from storage
+  const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(getKarolmaniaSoundEffectsEnabled()) // Initialize from storage
 
-  // Initialize audio element
+  // Initialize audio elements
   useEffect(() => {
     audioRef.current = new Audio('/audio/pick.mp3')
+    bgMusicRef.current = new Audio('/audio/lobby.mp3')
+    bgMusicRef.current.loop = true
+    bgMusicRef.current.volume = 0.2 // Set to 20% volume as requested
+
+    // Only attempt to autoplay the background music if it should be playing
+    if (isMusicPlaying) {
+      bgMusicRef.current
+        .play()
+        .catch((err) => console.error('Error playing background music:', err))
+    }
+
+    // Cleanup function to stop audio when component unmounts
+    return () => {
+      if (bgMusicRef.current) {
+        bgMusicRef.current.pause()
+        bgMusicRef.current = null
+      }
+      if (audioRef.current) {
+        audioRef.current = null
+      }
+    }
+  }, [])
+
+  // Function to toggle background music
+  const toggleMusic = useCallback(() => {
+    if (bgMusicRef.current) {
+      if (isMusicPlaying) {
+        bgMusicRef.current.pause()
+      } else {
+        bgMusicRef.current
+          .play()
+          .catch((err) => console.error('Error playing background music:', err))
+      }
+      setIsMusicPlaying(!isMusicPlaying)
+      setKarolmaniaMusicEnabled(!isMusicPlaying) // Update storage
+    }
+  }, [isMusicPlaying])
+
+  // Function to toggle sound effects without playing click sound
+  const toggleSoundEffects = useCallback(() => {
+    setIsSoundEffectsEnabled((prev) => {
+      setKarolmaniaSoundEffectsEnabled(!prev) // Update storage
+      return !prev
+    })
+    // We intentionally don't trigger playClickSound here to avoid
+    // playing a sound when re-enabling sound effects
   }, [])
 
   // Function to play click sound
   const playClickSound = useCallback(() => {
-    if (audioRef.current) {
+    if (audioRef.current && isSoundEffectsEnabled) {
       setTimeout(() => {
         audioRef.current!.currentTime = 0 // Reset audio to start
         audioRef
@@ -47,7 +103,7 @@ export function Karolmania() {
           .catch((err) => console.error('Error playing sound:', err))
       }, 80) // Add 80ms delay before playing the sound
     }
-  }, [])
+  }, [isSoundEffectsEnabled])
 
   // Constants to avoid magic numbers and duplication
   const CARD_WIDTH = 420
@@ -80,6 +136,18 @@ export function Karolmania() {
   useEffect(() => {
     setKarolmaniaCarouselIndex(carouselIndex)
   }, [carouselIndex])
+
+  // Keep background music state in sync with isMusicPlaying
+  useEffect(() => {
+    if (bgMusicRef.current) {
+      if (isMusicPlaying) {
+        bgMusicRef.current.play()
+          .catch(err => console.error('Error playing background music:', err))
+      } else {
+        bgMusicRef.current.pause()
+      }
+    }
+  }, [isMusicPlaying])
 
   // Play sound and scroll carousel when index changes
   useEffect(() => {
@@ -142,6 +210,34 @@ export function Karolmania() {
           aria-label="Zurück zur Startseite"
         >
           <FaIcon icon={faArrowLeft} className="text-2xl" />
+        </button>
+
+        {/* Music toggle button */}
+        <button
+          onClick={toggleMusic}
+          className="absolute top-4 right-4 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
+          aria-label="Musik umschalten"
+        >
+          <div className="relative">
+            <FaIcon icon={faMusic} className="text-2xl" />
+            {!isMusicPlaying && (
+              <div className="absolute top-1/2 left-0 w-8 border-t-2 border-red-500 transform -rotate-45"></div>
+            )}
+          </div>
+        </button>
+
+        {/* Sound effects toggle button */}
+        <button
+          onClick={toggleSoundEffects}
+          className="absolute top-4 right-20 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
+          aria-label="Soundeffekte umschalten"
+        >
+          <div className="relative">
+            <FaIcon icon={faVolumeHigh} className="text-2xl" />
+            {!isSoundEffectsEnabled && (
+              <div className="absolute top-1/2 left-0 w-8 border-t-2 border-red-500 transform -rotate-45"></div>
+            )}
+          </div>
         </button>
 
         {/* Background animation - bubbles */}
@@ -260,6 +356,7 @@ export function Karolmania() {
                         preview={{
                           world: deserializeWorld(level.quest.tasks[0].target),
                         }}
+                        robotImageDataUrl={core.ws.robotImageDataUrl}
                         className="max-w-full max-h-full mb-3"
                       />
                     </div>
