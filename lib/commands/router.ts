@@ -8,6 +8,7 @@ import {
   getLockToKarolCode,
   getOverviewScroll,
   getRobotImage,
+  getKarolmaniaCarouselIndex,
   restoreEditorSnapshot,
 } from '../storage/storage'
 import { analyze, submitAnalyzeEvent } from './analyze'
@@ -242,6 +243,8 @@ export async function hydrateFromHash(core: Core) {
   if (page == 'KAROLMANIA') {
     core.mutateWs((ws) => {
       ws.page = 'karolmania'
+      // Set the carousel index from session storage
+      ws.ui.karolmaniaCarouselIndex = getKarolmaniaCarouselIndex()
     })
     document.title = 'Karolmania'
     return

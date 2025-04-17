@@ -1,6 +1,7 @@
 // manage session and local storage data
 
 import { questList } from '../data/overview'
+import { levels } from '../data/karolmaniaLevels'
 import { Core } from '../state/core'
 import {
   EditorSessionSnapshot,
@@ -14,6 +15,8 @@ const questKey = (id: number) => `karol_quest_beta_${id}`
 const persistKey = 'karol_quest_beta_persist'
 const lngKey = 'robot_karol_online_lng'
 const robotImageKey = 'robot_karol_online_robot_image'
+const karolmaniaCarouselIndexKey =
+  'robot_karol_online_karolmania_carousel_index'
 
 export function getUserId() {
   if (!sessionStorage.getItem(userIdKey) && !localStorage.getItem(userIdKey)) {
@@ -319,4 +322,16 @@ export function restorePreferredQuestSettings(core: Core) {
       ws.settings.language = language
     })
   }
+}
+
+export function setKarolmaniaCarouselIndex(index: number) {
+  sessionStorage.setItem(karolmaniaCarouselIndexKey, index.toString())
+}
+
+export function getKarolmaniaCarouselIndex() {
+  const index = sessionStorage.getItem(karolmaniaCarouselIndexKey)
+  if (index !== null) {
+    return parseInt(index)
+  }
+  return 0
 }

@@ -73,6 +73,7 @@ export interface Ui {
   editQuestScript: boolean
   interactiveClassdiagram?: boolean
   karolmaniaLevelId?: number
+  karolmaniaCarouselIndex: number
 }
 
 export interface Vm {

@@ -1,5 +1,5 @@
 // filepath: c:\Users\dal12\Desktop\_github\robot-karol-online\components\pages\Karolmania.tsx
-import { useEffect, useState, useRef, useMemo } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { useCore } from '../../lib/state/core'
 import { View } from '../helper/View'
 import { AnimateInView } from '../helper/AnimateIntoView'
@@ -9,61 +9,66 @@ import {
   faArrowLeft,
   faCaretLeft,
   faCaretRight,
-  faHome,
 } from '@fortawesome/free-solid-svg-icons'
 import { levels } from '../../lib/data/karolmaniaLevels'
 import { HFullStyles } from '../helper/HFullStyles'
 import { navigate } from '../../lib/commands/router'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { getQuestReturnToMode } from '../../lib/storage/storage'
-import { deserializeQuest, deserializeWorld } from '../../lib/commands/json'
+import {
+  getQuestReturnToMode,
+  setKarolmaniaCarouselIndex,
+} from '../../lib/storage/storage'
+import { deserializeWorld } from '../../lib/commands/json'
+import { BubbleBackground } from '../helper/BubbleBackground'
 
 export function Karolmania() {
   const core = useCore()
-  const [carouselIndex, setCarouselIndex] = useState(0)
+  const [carouselIndex, setCarouselIndex] = useState(
+    core.ws.ui.karolmaniaCarouselIndex || 0
+  )
   const carouselRef = useRef<HTMLDivElement>(null)
   const wheelDebounce = useRef(false)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
+  const isFirstScroll = useRef(true) // Track if this is the first scroll
 
-  // Memoize background bubbles to prevent regeneration on re-render
-  const backgroundBubbles = useMemo(() => {
-    return Array.from({ length: 30 }).map((_, i) => ({
-      id: i,
-      size: Math.random() * 150 + 20,
-      left: Math.random() * 100,
-      top: Math.random() * 100 + 50,
-      delay: Math.random() * 8,
-      duration: Math.random() * 8 + 5,
-    }))
-  }, []) // Empty dependency array means this only runs once
+  // Constants to avoid magic numbers and duplication
+  const CARD_WIDTH = 420
+
+  // Calculate scroll position based on index - used in multiple places
+  const calculateScrollPosition = useCallback((index: number) => {
+    if (!carouselRef.current) return 0
+    const paddingWidth = carouselRef.current.clientWidth / 2 - CARD_WIDTH / 2
+    return Math.max(0, index * CARD_WIDTH - paddingWidth)
+  }, [])
+
+  // Scroll to a specific index
+  const scrollToIndex = useCallback(
+    (index: number, behavior: ScrollBehavior = 'smooth') => {
+      if (!carouselRef.current) return
+      const scrollPosition = calculateScrollPosition(index)
+      carouselRef.current.scrollTo({
+        left: scrollPosition,
+        behavior: isFirstScroll.current ? 'auto' : behavior,
+      })
+
+      if (isFirstScroll.current) {
+        isFirstScroll.current = false
+      }
+    },
+    [calculateScrollPosition]
+  )
+
+  // Store carousel index to session storage whenever it changes
+  useEffect(() => {
+    setKarolmaniaCarouselIndex(carouselIndex)
+  }, [carouselIndex])
 
   // Scroll carousel when index changes
   useEffect(() => {
-    if (carouselRef.current && carouselIndex >= 0) {
-      // Add a small offset to account for the edge padding
-      const cardWidth = 420 // Increased from 280 to 420 (1.5x larger)
-      const scrollPosition = carouselIndex * cardWidth
-
-      carouselRef.current.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth',
-      })
+    if (carouselIndex >= 0) {
+      scrollToIndex(carouselIndex)
     }
-  }, [carouselIndex])
-
-  // Move carousel to previous level
-  const prevLevel = () => {
-    if (carouselIndex > 0) {
-      setCarouselIndex(carouselIndex - 1)
-    }
-  }
-
-  // Move carousel to next level
-  const nextLevel = () => {
-    if (carouselIndex < levels.length - 1) {
-      setCarouselIndex(carouselIndex + 1)
-    }
-  }
+  }, [carouselIndex, scrollToIndex])
 
   // Handle scroll wheel events for the carousel
   const handleWheel = (e: React.WheelEvent) => {
@@ -79,38 +84,20 @@ export function Karolmania() {
 
     setTimeout(() => {
       wheelDebounce.current = false
-    }, 200) // Debounce for 200ms
+    }, 400) // Debounce for 400ms
 
     // Determine scroll direction (positive deltaY = scroll down = move right)
     if (e.deltaY > 0) {
-      // Don't wrap - only move if not at the last element
+      // Scrolling down/right - move to next element if we're not at the last one
       if (carouselIndex < levels.length - 1) {
         setCarouselIndex(carouselIndex + 1)
       }
     } else {
-      // Don't wrap - only move if not at the first element
+      // Scrolling up/left - move to previous element if we're not at the first one
       if (carouselIndex > 0) {
         setCarouselIndex(carouselIndex - 1)
       }
     }
-  }
-
-  // Dummy start function
-  const handleStart = () => {
-    navigate(core, `#KAROLMANIA-${levels[carouselIndex].id}`)
-  }
-
-  // Function to navigate back to home page
-  const handleBack = () => {
-    submitAnalyzeEvent(core, 'ev_click_karolmania_back')
-    navigate(
-      core,
-      getQuestReturnToMode() == 'path'
-        ? ''
-        : getQuestReturnToMode() == 'demo'
-        ? '#DEMO'
-        : '#OVERVIEW'
-    )
   }
 
   return (
@@ -121,7 +108,17 @@ export function Karolmania() {
       >
         {/* Back button */}
         <button
-          onClick={handleBack}
+          onClick={() => {
+            submitAnalyzeEvent(core, 'ev_click_karolmania_back')
+            navigate(
+              core,
+              getQuestReturnToMode() == 'path'
+                ? ''
+                : getQuestReturnToMode() == 'demo'
+                ? '#DEMO'
+                : '#OVERVIEW'
+            )
+          }}
           className="absolute top-4 left-4 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
           aria-label="Zurück zur Startseite"
         >
@@ -129,22 +126,7 @@ export function Karolmania() {
         </button>
 
         {/* Background animation - bubbles */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {backgroundBubbles.map((bubble) => (
-            <div
-              key={bubble.id}
-              className="absolute rounded-full bg-white/10 animate-bubble"
-              style={{
-                width: `${bubble.size}px`,
-                height: `${bubble.size}px`,
-                left: `${bubble.left}%`,
-                top: `${bubble.top}%`,
-                animationDelay: `${bubble.delay}s`,
-                animationDuration: `${bubble.duration}s`,
-              }}
-            />
-          ))}
-        </div>
+        <BubbleBackground />
 
         <AnimateInView>
           <h1 className="text-6xl font-bold text-white mb-8 text-center drop-shadow-lg animate-float">
@@ -162,7 +144,9 @@ export function Karolmania() {
           {/* Navigation arrows */}
           {carouselIndex > 0 && (
             <button
-              onClick={prevLevel}
+              onClick={() =>
+                carouselIndex > 0 && setCarouselIndex(carouselIndex - 1)
+              }
               className="absolute left-4 top-1/2 -translate-y-1/2 bg-teal-600 hover:bg-teal-400 text-white rounded-full p-3 shadow-lg z-10 transition-all hover:scale-110"
               aria-label="Vorheriges Level"
             >
@@ -172,7 +156,10 @@ export function Karolmania() {
 
           {carouselIndex < levels.length - 1 && (
             <button
-              onClick={nextLevel}
+              onClick={() =>
+                carouselIndex < levels.length - 1 &&
+                setCarouselIndex(carouselIndex + 1)
+              }
               className="absolute right-4 top-1/2 -translate-y-1/2 bg-teal-600 hover:bg-teal-400 text-white rounded-full p-3 shadow-lg z-10 transition-all hover:scale-110"
               aria-label="Nächstes Level"
             >
@@ -181,7 +168,7 @@ export function Karolmania() {
           )}
 
           {/* Carousel container with fixed content width and scroll snapping */}
-          <div className=" pointer-events-none" onWheel={handleWheel}>
+          <div className="pointer-events-none" onWheel={handleWheel}>
             <div
               ref={carouselRef}
               className="pt-6 flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-20"
@@ -197,13 +184,13 @@ export function Karolmania() {
                   if (carouselRef.current) {
                     // Get the scroll position
                     const scrollPosition = carouselRef.current.scrollLeft
-
-                    // Card width including margins (w-96 = 384px + padding)
-                    const cardWidth = 420
+                    const paddingWidth =
+                      carouselRef.current.clientWidth / 2 - CARD_WIDTH / 2
 
                     // Calculate the closest index based on scroll position
-                    // Using Math.round for better snapping to nearest card
-                    const newIndex = Math.round(scrollPosition / cardWidth)
+                    const newIndex = Math.round(
+                      (scrollPosition + paddingWidth) / CARD_WIDTH
+                    )
 
                     // Update the active index if needed
                     if (
@@ -214,12 +201,9 @@ export function Karolmania() {
                       setCarouselIndex(newIndex)
 
                       // Ensure scroll is perfectly aligned to card position
-                      const perfectPosition = newIndex * cardWidth
+                      const perfectPosition = calculateScrollPosition(newIndex)
                       if (Math.abs(scrollPosition - perfectPosition) > 10) {
-                        carouselRef.current.scrollTo({
-                          left: perfectPosition,
-                          behavior: 'smooth',
-                        })
+                        scrollToIndex(newIndex)
                       }
                     }
                   }
@@ -237,16 +221,8 @@ export function Karolmania() {
                       : 'scale-100 opacity-80'
                   )}
                   onClick={() => {
-                    // Immediately set the carousel index on click for instant feedback
                     setCarouselIndex(index)
-                    // Also scroll to the item for synchronized UI
-                    if (carouselRef.current) {
-                      const cardWidth = 420
-                      carouselRef.current.scrollTo({
-                        left: index * cardWidth,
-                        behavior: 'smooth',
-                      })
-                    }
+                    scrollToIndex(index)
                   }}
                 >
                   <div
@@ -259,13 +235,13 @@ export function Karolmania() {
                       marginTop: carouselIndex === index ? '10px' : '0',
                     }}
                   >
-                    <div className="p-1 flex justify-center items-center h-60 bg-gray-50">
+                    <div className="p-1 flex justify-center items-center h-[220px] flex-shrink-0">
                       <View
                         world={deserializeWorld(level.quest.tasks[0].start)}
                         preview={{
                           world: deserializeWorld(level.quest.tasks[0].target),
                         }}
-                        className="max-w-full max-h-full"
+                        className="max-w-full max-h-full mb-3"
                       />
                     </div>
                     <div className="px-3 py-2 flex-1 flex flex-col">
@@ -274,7 +250,7 @@ export function Karolmania() {
                           {level.quest.title}
                         </h3>
                       </div>
-                      <p className="text-sm text-gray-600 line-clamp-3 mb-2 flex-1">
+                      <p className="text-sm text-gray-600 line-clamp-1 mb-2 flex-1">
                         {level.quest.description}
                       </p>
                     </div>
@@ -287,7 +263,9 @@ export function Karolmania() {
         </div>
 
         <button
-          onClick={handleStart}
+          onClick={() =>
+            navigate(core, `#KAROLMANIA-${levels[carouselIndex].id}`)
+          }
           className="mt-12 px-8 py-4 bg-teal-500 text-white text-xl font-bold rounded-full shadow-lg hover:bg-teal-400 transition-all hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300"
         >
           Start
