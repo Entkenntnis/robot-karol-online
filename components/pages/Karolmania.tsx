@@ -7,8 +7,8 @@ import clsx from 'clsx'
 import { FaIcon } from '../helper/FaIcon'
 import {
   faArrowLeft,
-  faArrowRight,
   faCaretLeft,
+  faCaretRight,
   faHome,
 } from '@fortawesome/free-solid-svg-icons'
 import { levels, Level } from '../../lib/data/karolmaniaLevels'
@@ -132,7 +132,7 @@ export function Karolmania() {
         </button>
 
         {/* Background animation - bubbles */}
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {backgroundBubbles.map((bubble) => (
             <div
               key={bubble.id}
@@ -161,29 +161,33 @@ export function Karolmania() {
           </span>
         </div>
 
-        <div className="relative w-full max-w-4xl px-16">
+        <div className="relative w-full max-w-4xl px-16 h-[346px]">
           {/* Navigation arrows */}
-          <button
-            onClick={prevLevel}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-teal-600 hover:bg-teal-400 text-white rounded-full p-3 shadow-lg z-10 transition-all hover:scale-110"
-            aria-label="Vorheriges Level"
-          >
-            <FaIcon icon={faArrowLeft} className="text-xl" />
-          </button>
+          {carouselIndex > 0 && (
+            <button
+              onClick={prevLevel}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-teal-600 hover:bg-teal-400 text-white rounded-full p-3 shadow-lg z-10 transition-all hover:scale-110"
+              aria-label="Vorheriges Level"
+            >
+              <FaIcon icon={faCaretLeft} className="text-xl" />
+            </button>
+          )}
 
-          <button
-            onClick={nextLevel}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-teal-600 hover:bg-teal-400 text-white rounded-full p-3 shadow-lg z-10 transition-all hover:scale-110"
-            aria-label="Nächstes Level"
-          >
-            <FaIcon icon={faArrowRight} className="text-xl" />
-          </button>
+          {carouselIndex < levels.length - 1 && (
+            <button
+              onClick={nextLevel}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-teal-600 hover:bg-teal-400 text-white rounded-full p-3 shadow-lg z-10 transition-all hover:scale-110"
+              aria-label="Nächstes Level"
+            >
+              <FaIcon icon={faCaretRight} className="text-xl" />
+            </button>
+          )}
 
           {/* Carousel container with fixed content width and scroll snapping */}
           <div className="" onWheel={handleWheel}>
             <div
               ref={carouselRef}
-              className="pt-6 flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-8"
+              className="pt-6 flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-20"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               onScroll={() => {
                 // Clear any existing timeout
@@ -250,7 +254,7 @@ export function Karolmania() {
                 >
                   <div
                     className={clsx(
-                      'bg-white rounded-lg shadow-xl overflow-hidden transition-all transform cursor-pointer hover:scale-105 h-96 flex flex-col',
+                      'bg-white rounded-lg shadow-xl overflow-hidden transition-all transform cursor-pointer hover:scale-105 h-72 flex flex-col',
                       carouselIndex === index && 'ring-4 ring-teal-300'
                     )}
                     style={{
@@ -301,7 +305,7 @@ export function Karolmania() {
 
         <button
           onClick={handleStart}
-          className="mt-12 px-8 py-4 bg-teal-500 text-white text-xl font-bold rounded-full shadow-lg hover:bg-teal-400 transition-all hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300 animate-pulse"
+          className="mt-12 px-8 py-4 bg-teal-500 text-white text-xl font-bold rounded-full shadow-lg hover:bg-teal-400 transition-all hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300"
         >
           Start
         </button>
