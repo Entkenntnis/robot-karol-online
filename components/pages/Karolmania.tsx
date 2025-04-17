@@ -308,7 +308,7 @@ export function Karolmania() {
 
         <div className="text-2xl text-white mb-8 text-center">
           <span className="bg-teal-600/50 px-6 py-2 rounded-full shadow-lg">
-            Wähle ein Level.
+            Wähle ein Level
           </span>
         </div>
 
@@ -437,7 +437,7 @@ export function Karolmania() {
                         className="max-w-full max-h-full mb-3"
                       />
                     </div>
-                    <div className="px-3 py-2 flex-1 flex flex-col">
+                    <div className="px-3 py-2 flex-1 flex flex-col select-none">
                       <div className="flex justify-between items-center mb-1">
                         <h3 className="font-bold text-lg text-gray-800">
                           {level.quest.title}
