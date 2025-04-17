@@ -22,6 +22,11 @@ def check_syntax(code):
 check_syntax(${JSON.stringify(code)})
 `
 
+const throwFauxTypeError = (cls, member, expected_args, rest) => {
+  if (rest.length > 0)
+    throw TypeError(`${cls}.${member}() only takes ${expected_args} argument(s) (${expected_args + rest.length} were given)`);
+}
+
 self.onmessage = async (event) => {
   if (event.data == 'init') {
     if (pyodide) {
@@ -73,7 +78,8 @@ self.onmessage = async (event) => {
     const inputs = []
     const Robot = () => {
       return {
-        schritt: (n = 1) => {
+        schritt: (n, ...rest) => {
+          throwFauxTypeError("Robot", "schritt", 1, rest);
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
@@ -82,7 +88,8 @@ self.onmessage = async (event) => {
             sleepWithDelay()
           }
         },
-        linksDrehen: (n = 1) => {
+        linksDrehen: (n, ...rest) => {
+          throwFauxTypeError("Robot", "linksDrehen", 1, rest);
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
@@ -91,7 +98,8 @@ self.onmessage = async (event) => {
             sleepWithDelay()
           }
         },
-        rechtsDrehen: (n = 1) => {
+        rechtsDrehen: (n, ...rest) => {
+          throwFauxTypeError("Robot", "rechtsDrehen", 1, rest);
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
@@ -100,7 +108,8 @@ self.onmessage = async (event) => {
             sleepWithDelay()
           }
         },
-        hinlegen: (n = 1) => {
+        hinlegen: (n, ...rest) => {
+          throwFauxTypeError("Robot", "hinlegen", 1, rest);
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
@@ -109,7 +118,8 @@ self.onmessage = async (event) => {
             sleepWithDelay()
           }
         },
-        aufheben: (n = 1) => {
+        aufheben: (n, ...rest) => {
+          throwFauxTypeError("Robot", "aufheben", 1, rest);
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
@@ -118,61 +128,82 @@ self.onmessage = async (event) => {
             sleepWithDelay()
           }
         },
-        markeSetzen: (n = 1) => {
+        markeSetzen: (...rest) => {
+          throwFauxTypeError("Robot", "markeSetzen", 0, rest);
           highlightCurrentLine()
           checkDebug()
           self.postMessage({ type: 'action', action: 'markeSetzen' })
           sleepWithDelay()
         },
-        markeLöschen: (n = 1) => {
+        markeLöschen: (...rest) => {
+          throwFauxTypeError("Robot", "markeLöschen", 0, rest);
           highlightCurrentLine()
           checkDebug()
           self.postMessage({ type: 'action', action: 'markeLöschen' })
           sleepWithDelay()
         },
-        istWand: (direction = null) => {
-          return checkCondition({ type: 'wall', negated: false, direction })
+        istWand: (...rest) => {
+          throwFauxTypeError("Robot", "istWand", 0, rest);
+          if (!direction) direction = null;
+          return checkCondition({ type: 'wall', negated: false }) // direction is not handled by testCondition, removed
         },
-        nichtIstWand: (direction = null) => {
-          return checkCondition({ type: 'wall', negated: true, direction })
+        nichtIstWand: (...rest) => {
+          throwFauxTypeError("Robot", "nichtIstWand", 0, rest);
+          if (!direction) direction = null;
+          return checkCondition({ type: 'wall', negated: true }) // direction is not handled by testCondition, removed
         },
-        istMarke: () => {
+        istMarke: (...rest) => {
+          throwFauxTypeError("Robot", "istMarke", 0, rest);
           return checkCondition({ type: 'mark', negated: false })
         },
-        nichtIstMarke: () => {
+        nichtIstMarke: (...rest) => {
+          throwFauxTypeError("Robot", "nichtIstMarke", 0, rest);
           return checkCondition({ type: 'mark', negated: true })
         },
-        istZiegel: (count = undefined) => {
+        istZiegel: (count, ...rest) => {
+          throwFauxTypeError("Robot", "istZiegel", 1, rest);
+          if (count !== undefined) return checkCondition({ type: 'brick_count', negated: false, count })
           return checkCondition({ type: 'brick', negated: false, count })
         },
-        nichtIstZiegel: (count = undefined) => {
+        nichtIstZiegel: (count, ...rest) => {
+          throwFauxTypeError("Robot", "nichtIstZiegel", 1, rest);
+          if (count !== undefined) return checkCondition({ type: 'brick_count', negated: true, count })
           return checkCondition({ type: 'brick', negated: true, count })
         },
-        istNorden: () => {
+        istNorden: (...rest) => {
+          throwFauxTypeError("Robot", "istNorden", 0, rest);
           return checkCondition({ type: 'north', negated: false })
         },
-        nichtIstNorden: () => {
+        nichtIstNorden: (...rest) => {
+          throwFauxTypeError("Robot", "nichtIstNorden", 0, rest);
           return checkCondition({ type: 'north', negated: true })
         },
-        istOsten: () => {
+        istOsten: (...rest) => {
+          throwFauxTypeError("Robot", "istOsten", 0, rest);
           return checkCondition({ type: 'east', negated: false })
         },
-        nichtIstOsten: () => {
+        nichtIstOsten: (...rest) => {
+          throwFauxTypeError("Robot", "nichtIstOsten", 0, rest);
           return checkCondition({ type: 'east', negated: true })
         },
-        istSüden: () => {
+        istSüden: (...rest) => {
+          throwFauxTypeError("Robot", "istSüden", 0, rest);
           return checkCondition({ type: 'south', negated: false })
         },
-        nichtIstSüden: () => {
+        nichtIstSüden: (...rest) => {
+          throwFauxTypeError("Robot", "nichtIstSüden", 0, rest);
           return checkCondition({ type: 'south', negated: true })
         },
-        istWesten: () => {
+        istWesten: (...rest) => {
+          throwFauxTypeError("Robot", "istWesten", 0, rest);
           return checkCondition({ type: 'west', negated: false })
         },
-        nichtIstWesten: () => {
+        nichtIstWesten: (...rest) => {
+          throwFauxTypeError("Robot", "nichtIstWesten", 0, rest);
           return checkCondition({ type: 'west', negated: true })
         },
-        beenden: () => {
+        beenden: (...rest) => {
+          throwFauxTypeError("Robot", "beenden", 0, rest);
           self.postMessage({ type: 'action', action: 'beenden' })
         },
       }
