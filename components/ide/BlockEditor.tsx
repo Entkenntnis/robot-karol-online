@@ -102,11 +102,11 @@ export function BlockEditor() {
       let element = blocklyArea
       let x = 0
       let y = 0
-      do {
+      /*do {
         x += element.offsetLeft
         y += element.offsetTop
         element = element.offsetParent as HTMLElement
-      } while (element)
+      } while (element)*/
       // Position blocklyDiv over blocklyArea.
       blocklyDiv.style.left = x + 'px'
       blocklyDiv.style.top = y + 'px'
@@ -309,7 +309,7 @@ export function BlockEditor() {
 
   return (
     <>
-      <div id="blocklyArea" className="w-full h-full flex-shrink">
+      <div id="blocklyArea" className="w-full h-full flex-shrink relative">
         <div className="absolute" ref={editorDiv} id="blocklyDiv" />
       </div>
       <style jsx global>{`
