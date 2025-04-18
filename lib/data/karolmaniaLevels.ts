@@ -1,8 +1,11 @@
-import { deserializeWorld } from '../commands/json'
 import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
 
 export interface Level {
   id: number
+  at: number
+  gold: number
+  silver: number
+  bronze: number
   quest: QuestSerialFormat_MUST_STAY_COMPATIBLE
 }
 
@@ -10,6 +13,10 @@ export interface Level {
 export const levels: Level[] = [
   {
     id: 1,
+    at: 2,
+    gold: 5,
+    silver: 10,
+    bronze: 15,
     quest: {
       version: 'v1',
       title: 'Informatik ist cool!',
@@ -51,6 +58,10 @@ export const levels: Level[] = [
   },
   {
     id: 2,
+    at: 3,
+    gold: 7,
+    silver: 12,
+    bronze: 18,
     quest: {
       version: 'v1',
       title: 'Zickzack ',
@@ -99,6 +110,10 @@ export const levels: Level[] = [
   },
   {
     id: 3,
+    at: 4,
+    gold: 9,
+    silver: 14,
+    bronze: 21,
     quest: {
       version: 'v1',
       title: 'Pyramide',
@@ -144,6 +159,10 @@ export const levels: Level[] = [
   },
   {
     id: 4,
+    at: 5,
+    gold: 11,
+    silver: 16,
+    bronze: 24,
     quest: {
       version: 'v1',
       title: 'Schachbrett-Muster',

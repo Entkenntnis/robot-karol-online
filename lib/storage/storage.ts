@@ -4,6 +4,7 @@ import { questList } from '../data/overview'
 import { Core } from '../state/core'
 import {
   EditorSessionSnapshot,
+  KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT,
   QuestSessionData_MUST_STAY_COMPATIBLE,
   Settings,
 } from '../state/types'
@@ -19,6 +20,7 @@ const karolmaniaCarouselIndexKey =
 const karolmaniaMusicEnabledKey = 'robot_karol_online_karolmania_music_enabled'
 const karolmaniaSoundEffectsEnabledKey =
   'robot_karol_online_karolmania_sound_effects_enabled'
+const karolmaniaProgressKey = 'robot_karol_online_karolmania_progress'
 
 export function getUserId() {
   if (!sessionStorage.getItem(userIdKey) && !localStorage.getItem(userIdKey)) {
@@ -360,4 +362,51 @@ export function getKarolmaniaSoundEffectsEnabled() {
     return true // Default to sound effects enabled if not set
   }
   return value === '1'
+}
+
+// Functions for Karolmania high scores
+export function getKarolmaniaProgress(): KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT {
+  const progressData = localStorage.getItem(karolmaniaProgressKey)
+  if (!progressData) {
+    return { levels: {} }
+  }
+
+  try {
+    return JSON.parse(
+      progressData
+    ) as KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT
+  } catch (e) {
+    // If there's an error parsing the data, return a new empty object
+    return { levels: {} }
+  }
+}
+
+export function saveKarolmaniaHighScore(
+  levelId: number,
+  timeInSeconds: number
+): boolean {
+  const progress = getKarolmaniaProgress()
+
+  // Check if this is a new personal best
+  const isNewPB =
+    !progress.levels[levelId] || timeInSeconds < progress.levels[levelId].pb
+
+  if (isNewPB) {
+    // Save the new personal best
+    if (!progress.levels[levelId]) {
+      progress.levels[levelId] = { pb: timeInSeconds }
+    } else {
+      progress.levels[levelId].pb = timeInSeconds
+    }
+
+    // Save to localStorage
+    localStorage.setItem(karolmaniaProgressKey, JSON.stringify(progress))
+  }
+
+  return isNewPB
+}
+
+export function getBestTimeForLevel(levelId: number): number | null {
+  const progress = getKarolmaniaProgress()
+  return progress.levels[levelId]?.pb || null
 }

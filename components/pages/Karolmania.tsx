@@ -12,6 +12,7 @@ import {
   faMusic,
   faVolumeHigh,
   faVolumeXmark,
+  faTrophy,
 } from '@fortawesome/free-solid-svg-icons'
 import { levels } from '../../lib/data/karolmaniaLevels'
 import { HFullStyles } from '../helper/HFullStyles'
@@ -24,6 +25,7 @@ import {
   setKarolmaniaMusicEnabled,
   getKarolmaniaSoundEffectsEnabled,
   setKarolmaniaSoundEffectsEnabled,
+  getKarolmaniaProgress,
 } from '../../lib/storage/storage'
 import { deserializeWorld } from '../../lib/commands/json'
 import { BubbleBackground } from '../helper/BubbleBackground'
@@ -37,6 +39,33 @@ export function Karolmania() {
   const wheelDebounce = useRef(false)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
   const isFirstScroll = useRef(true) // Track if this is the first scroll
+  const [bestTimes, setBestTimes] = useState<{ [key: number]: number | null }>(
+    {}
+  )
+
+  // Load best times for all levels from localStorage when component mounts
+  useEffect(() => {
+    const progress = getKarolmaniaProgress()
+    const times: { [key: number]: number | null } = {}
+
+    levels.forEach((level) => {
+      times[level.id] = progress.levels[level.id]?.pb || null
+    })
+
+    setBestTimes(times)
+  }, [])
+
+  // Format time as MM:SS:HH
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60)
+    const secs = Math.floor(seconds % 60)
+    const hundredths = Math.floor((seconds * 100) % 100)
+
+    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(
+      2,
+      '0'
+    )}:${String(hundredths).padStart(2, '0')}`
+  }
 
   // Audio state management
   const bgMusicRef = useRef<HTMLAudioElement | null>(null)
@@ -447,6 +476,25 @@ export function Karolmania() {
                       <p className="text-sm text-gray-600 line-clamp-1 mb-2 flex-1">
                         {level.quest.description}
                       </p>
+
+                      {/* Display best time if available */}
+                      <div className="absolute top-3 left-3">
+                        {bestTimes[level.id] ? (
+                          <div className="text-xs text-gray-700 flex items-center justify-end">
+                            <FaIcon
+                              icon={faTrophy}
+                              className="text-yellow-500 mr-1"
+                            />
+                            <span className="font-medium">
+                              Bestzeit: {formatTime(bestTimes[level.id]!)}
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="text-xs text-gray-400 flex items-center justify-end italic">
+                            Keine Bestzeit
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

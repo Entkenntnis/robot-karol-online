@@ -19,13 +19,18 @@ import {
   faArrowLeft,
   faMusic,
   faVolumeHigh,
+  faTrophy,
+  faMedal,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   getKarolmaniaMusicEnabled,
   setKarolmaniaMusicEnabled,
   getKarolmaniaSoundEffectsEnabled,
   setKarolmaniaSoundEffectsEnabled,
+  saveKarolmaniaHighScore,
+  getBestTimeForLevel,
 } from '../../lib/storage/storage'
+import { levels } from '../../lib/data/karolmaniaLevels'
 
 export function KarolmaniaGame() {
   const core = useCore()
@@ -35,6 +40,67 @@ export function KarolmaniaGame() {
   const isDone = twoWorldsEqual(core.ws.world, core.ws.quest.tasks[0].target!)
   const hasPlayedCountdownSound = useRef(false)
   const hasPlayedWinSound = useRef(false)
+  const savedHighScore = useRef(false)
+  const [isNewPersonalBest, setIsNewPersonalBest] = useState(false)
+  const [previousBestTime, setPreviousBestTime] = useState<number | null>(null)
+  const levelId = core.ws.ui.karolmaniaLevelId || 0
+
+  // Get the current level's medal times
+  const currentLevel = levels.find((level) => level.id === levelId)
+  const medalTimes = {
+    gold: currentLevel?.gold || 0,
+    silver: currentLevel?.silver || 0,
+    bronze: currentLevel?.bronze || 0,
+    at: currentLevel?.at || 0,
+  }
+
+  // Create sorted medals array including personal best if available
+  const getSortedMedals = () => {
+    const medals = [
+      {
+        type: 'gold',
+        time: medalTimes.gold,
+        icon: faMedal,
+        color: 'text-yellow-500',
+        label: 'Gold',
+      },
+      {
+        type: 'silver',
+        time: medalTimes.silver,
+        icon: faMedal,
+        color: 'text-gray-400',
+        label: 'Silber',
+      },
+      {
+        type: 'bronze',
+        time: medalTimes.bronze,
+        icon: faMedal,
+        color: 'text-amber-700',
+        label: 'Bronze',
+      },
+      {
+        type: 'at',
+        time: medalTimes.at,
+        icon: faMedal,
+        color: 'text-teal-800',
+        label: 'AutorIn',
+      },
+    ]
+
+    // Add personal best if available
+    if (previousBestTime !== null) {
+      medals.push({
+        type: 'pb',
+        time: previousBestTime,
+        icon: faTrophy,
+        color: 'text-gray-600',
+        label: 'Pers. Best',
+      })
+    }
+
+    // Sort by time (fastest to slowest)
+    return medals.sort((a, b) => a.time - b.time)
+  }
 
   // Keep track of countdown state
   const isCountdownRunning = useRef(false)
@@ -70,6 +136,7 @@ export function KarolmaniaGame() {
     if (!isSoundEffectsEnabled) return
 
     if (countdownSoundRef.current) {
+      console.log('play countdown sound')
       countdownSoundRef.current.currentTime = 0
       countdownSoundRef.current.volume = 0.95
       countdownSoundRef.current.play().catch(() => {
@@ -90,6 +157,10 @@ export function KarolmaniaGame() {
     // Reset sound flags
     hasPlayedCountdownSound.current = false
     hasPlayedWinSound.current = false
+
+    // Reset high score flag
+    savedHighScore.current = false
+    setIsNewPersonalBest(false)
 
     // Reset music state
     setShouldPlayMusic(false)
@@ -296,11 +367,45 @@ export function KarolmaniaGame() {
     }
   }, [isDone, isGameActive, isSoundEffectsEnabled, pauseMusic, playWinSound])
 
+  // Save high score when level is completed
+  useEffect(() => {
+    if (isDone && isGameActive && !savedHighScore.current) {
+      savedHighScore.current = true
+
+      // Convert milliseconds to seconds with 2 decimal precision
+      const timeInSeconds = Math.round(timerMs / 10) / 100
+
+      // Check if this is a new high score
+      const isNewPB = saveKarolmaniaHighScore(levelId, timeInSeconds)
+
+      // Update state to show high score notification
+      setIsNewPersonalBest(isNewPB)
+
+      // Update the previous best time if this was a new personal best
+      if (isNewPB) {
+        setPreviousBestTime(timeInSeconds)
+      }
+
+      // Track the event
+      /*submitAnalyzeEvent(core, 'ev_karolmania_complete', {
+        levelId,
+        timeInSeconds,
+        isNewPB,
+      })*/
+    }
+  }, [isDone, isGameActive, timerMs, levelId, core])
+
+  // Load previous best time when component mounts
+  useEffect(() => {
+    const bestTime = getBestTimeForLevel(levelId)
+    setPreviousBestTime(bestTime)
+  }, [levelId])
+
   // Format timer as MM:SS:HH
   const formatTime = (ms: number) => {
     const minutes = Math.floor(ms / 60000)
     const seconds = Math.floor((ms % 60000) / 1000)
-    const hundredths = Math.floor((ms % 1000) / 10)
+    const hundredths = Math.round((ms % 1000) / 10)
 
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(
       2,
@@ -386,6 +491,50 @@ export function KarolmaniaGame() {
         {/* Back button */}
         <button
           onClick={() => {
+            // First, immediately stop and reset all audio playing
+            // This is crucial to prevent sounds continuing after navigation
+            if (countdownSoundRef.current) {
+              // Force stop the countdown sound
+              countdownSoundRef.current.pause()
+              countdownSoundRef.current.currentTime = 0
+              countdownSoundRef.current.volume = 0
+            }
+
+            if (bgMusicRef.current) {
+              // Force stop the background music
+              bgMusicRef.current.pause()
+              bgMusicRef.current.currentTime = 0
+              // Remove the source to ensure complete cleanup
+              bgMusicRef.current.src = ''
+              bgMusicRef.current.load()
+            }
+
+            if (winSoundRef.current) {
+              // Force stop any win sound
+              winSoundRef.current.pause()
+              winSoundRef.current.currentTime = 0
+              // Remove the source to ensure complete cleanup
+              winSoundRef.current.src = ''
+              winSoundRef.current.load()
+            }
+
+            if (clickSoundRef.current) {
+              // Force stop any click sound
+              clickSoundRef.current.pause()
+              clickSoundRef.current.currentTime = 0
+              // Remove the source to ensure complete cleanup
+              clickSoundRef.current.src = ''
+              clickSoundRef.current.load()
+            }
+
+            // Stop countdown and reset game state when navigating away
+            if (isCountdownRunning.current) {
+              setCountdown(-1) // Set to -1 to indicate countdown is done
+              isCountdownRunning.current = false
+              hasPlayedCountdownSound.current = false
+            }
+
+            // Navigate back after cleanup is done
             navigate(core, '#KAROLMANIA')
           }}
           className="absolute top-4 left-4 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
@@ -431,6 +580,32 @@ export function KarolmaniaGame() {
           </div>
         </button>
 
+        {/* Medal Box */}
+        <div className="fixed left-3 top-[30vh] bg-white/50 p-3 rounded shadow-lg w-[200px]">
+          <h3 className="font-bold text-center border-b pb-1 mb-2">
+            Medaillen
+          </h3>
+          <div className="space-y-2">
+            {getSortedMedals().map((medal, index) => (
+              <div
+                key={index}
+                className={clsx(
+                  'flex items-center',
+                  medal.type == 'pb' && 'text-sky-800'
+                )}
+              >
+                <FaIcon icon={medal.icon} className={`${medal.color} mr-2`} />
+                <span className="text-sm w-[188px] inline-block">
+                  <span>{medal.label}:</span>
+                </span>
+                <span className="inline-block text-right text-sm">
+                  {formatTime(medal.time * 1000)}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="bg-white p-8 rounded-xl shadow-xl max-w-4xl">
           <View
             robotImageDataUrl={core.ws.robotImageDataUrl}
@@ -447,7 +622,7 @@ export function KarolmaniaGame() {
       {/* Countdown animation */}
       {countdown > 0 && (
         <div className="fixed inset-0 flex items-center justify-center z-10 pointer-events-none">
-          <div className="text-9xl font-bold text-white animate-bounce shadow-text">
+          <div className="text-9xl font-bold text-white shadow-text">
             {countdown}
           </div>
         </div>
@@ -473,13 +648,32 @@ export function KarolmaniaGame() {
           <div
             className={clsx(
               'font-bold',
-              isDone ? 'text-green-600 text-3xl' : 'text-gray-800 text-lg'
+              isDone
+                ? isNewPersonalBest
+                  ? 'text-green-600 text-3xl'
+                  : 'text-3xl text-gray-700'
+                : 'text-gray-800 text-lg'
             )}
           >
             {formatTime(timerMs)}
           </div>
         </div>
       </div>
+
+      {/* Personal Best notification */}
+      {isDone && isNewPersonalBest && (
+        <div className="fixed top-24 left-0 right-0 flex justify-center">
+          <div className=" bg-yellow-100 p-3 rounded-lg shadow-lg border-2 border-yellow-400 animate-bounce">
+            <div className="text-center flex items-center">
+              <FaIcon
+                icon={faTrophy}
+                className="text-yellow-500 mr-2 text-xl"
+              />
+              <span className="font-bold text-yellow-700">Neue Bestzeit!</span>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
