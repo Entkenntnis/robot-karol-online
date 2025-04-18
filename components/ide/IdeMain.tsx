@@ -49,7 +49,7 @@ export function IdeMain() {
     return () => {
       window.removeEventListener('resize', checkMobileView)
     }
-  }, [activeTab])
+  }, [])
 
   useEffect(() => {
     if (core.ws.ui.state == 'running') {
@@ -57,7 +57,6 @@ export function IdeMain() {
         setActiveTab('output')
       }
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [core.ws.ui.state])
 
