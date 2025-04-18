@@ -12,7 +12,7 @@ export function NameModal() {
   return (
     <div className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]">
       <div
-        className="h-[280px] w-[500px] bg-white z-[200] rounded-xl relative"
+        className="h-[280px] w-[500px] bg-white z-[200] rounded-xl relative mb-[30vh] sm:mb-[10vh]"
         onClick={(e) => {
           e.stopPropagation()
         }}
@@ -31,48 +31,52 @@ export function NameModal() {
             {core.strings.nameModal.title}
           </p>
           <p className="text-center mt-6">{core.strings.nameModal.invite}</p>
-          <p className="text-center">
-            <input
-              autoFocus
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value)
-              }}
-              onKeyDown={(e) => {
-                if (e.code == 'Enter' && name.trim()) {
-                  submit()
-                }
-              }}
-              className="mt-4 text-3xl border-blue-500 border-2 rounded text-center"
-              maxLength={30}
-            />
-          </p>
-          <p className="text-center mt-3 text-sm text-gray-500 italic">
-            {/* {core.strings.nameModal.hint} */}
-            <button
-              className="underline"
-              onClick={() => {
-                const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
-                let n = ''
-                while (n.length < 6) {
-                  n += letters[Math.floor(Math.random() * letters.length)]
-                }
-                setName(n)
-              }}
-            >
-              {core.strings.nameModal.random}
-            </button>
-          </p>
-        </div>
-        <p className="text-center mb-5 px-4 mt-8">
-          <button
-            className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded disabled:bg-gray-200 disabled:text-gray-700"
-            onClick={submit}
-            disabled={!name.trim()}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              if (name.trim()) {
+                submit()
+              }
+            }}
           >
-            {core.strings.nameModal.start}
-          </button>
-        </p>
+            <p className="text-center">
+              <input
+                autoFocus
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value)
+                }}
+                className="mt-4 text-3xl border-blue-500 border-2 rounded text-center"
+                maxLength={30}
+              />
+            </p>
+            <p className="text-center mt-3 text-sm text-gray-500 italic">
+              <button
+                type="button"
+                className="underline"
+                onClick={() => {
+                  const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
+                  let n = ''
+                  while (n.length < 6) {
+                    n += letters[Math.floor(Math.random() * letters.length)]
+                  }
+                  setName(n)
+                }}
+              >
+                {core.strings.nameModal.random}
+              </button>
+            </p>
+            <p className="text-center mb-5 px-4 sm:mt-8 mt-3">
+              <button
+                type="submit"
+                className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded disabled:bg-gray-200 disabled:text-gray-700"
+                disabled={!name.trim()}
+              >
+                {core.strings.nameModal.start}
+              </button>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   )

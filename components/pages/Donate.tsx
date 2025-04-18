@@ -93,8 +93,8 @@ export function Donate() {
 
           <p className="mb-4">
             Kostenlos heißt aber nicht, dass es nichts kostet! Ich habe in den
-            letzten Jahren weit über 50.000 Euro an umgerechneter Arbeitszeit in
-            dieses Projekt investiert - alles ehrenamtlich.
+            letzten Jahren ca. über 50.000 Euro an umgerechneter Arbeitszeit in
+            dieses Projekt investiert - ehrenamtlich.
           </p>
           <p className="mb-8">
             Das ist viel Zeit und Energie. Ich freue mich über jede

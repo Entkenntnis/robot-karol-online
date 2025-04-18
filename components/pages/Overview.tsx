@@ -88,7 +88,7 @@ export function Overview() {
     <>
       <div className="h-full overflow-auto" id="scroll-container">
         <div className="flex flex-col relative min-h-full min-w-fit background-element">
-          <div className="flex md:justify-center justify-start mt-3 md:mt-0">
+          <div className="flex md:justify-center justify-start mt-6 ml-3 md:m-0">
             <div
               className={clsx(
                 'flex mt-8 items-center rounded-xl',
