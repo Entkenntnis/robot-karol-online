@@ -100,6 +100,7 @@ export function saveToJSON(core: Core) {
     [persistKey]: isPersisted(),
     [lngKey]: getLng(),
     [robotImageKey]: getRobotImage(),
+    [karolmaniaProgressKey]: getKarolmaniaProgress,
   }
   for (const id of questList) {
     const questData = getQuestData(id)
@@ -148,8 +149,9 @@ export async function loadFromJSON() {
           }
         }
         setLngStorage(data[lngKey])
-        res(true)
         setRobotImage(data[robotImageKey])
+        setKarolmaniaProgress(data[karolmaniaProgressKey])
+        res(true)
       }
       rej(false)
     })
@@ -379,6 +381,12 @@ export function getKarolmaniaProgress(): KarolmaniaProgress_WILL_BE_STORED_ON_CL
     // If there's an error parsing the data, return a new empty object
     return { levels: {} }
   }
+}
+
+export function setKarolmaniaProgress(
+  progress: KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT
+) {
+  localStorage.setItem(karolmaniaProgressKey, JSON.stringify(progress))
 }
 
 export function saveKarolmaniaHighScore(
