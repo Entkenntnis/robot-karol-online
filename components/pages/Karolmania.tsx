@@ -13,6 +13,7 @@ import {
   faVolumeHigh,
   faVolumeXmark,
   faTrophy,
+  faMedal,
 } from '@fortawesome/free-solid-svg-icons'
 import { levels } from '../../lib/data/karolmaniaLevels'
 import { HFullStyles } from '../helper/HFullStyles'
@@ -42,17 +43,52 @@ export function Karolmania() {
   const [bestTimes, setBestTimes] = useState<{ [key: number]: number | null }>(
     {}
   )
+  const [earnedMedals, setEarnedMedals] = useState<{
+    [key: number]: {
+      gold: boolean
+      silver: boolean
+      bronze: boolean
+      at: boolean
+    }
+  }>({})
 
   // Load best times for all levels from localStorage when component mounts
   useEffect(() => {
     const progress = getKarolmaniaProgress()
     const times: { [key: number]: number | null } = {}
+    const medals: {
+      [key: number]: {
+        gold: boolean
+        silver: boolean
+        bronze: boolean
+        at: boolean
+      }
+    } = {}
 
     levels.forEach((level) => {
-      times[level.id] = progress.levels[level.id]?.pb || null
+      const bestTime = progress.levels[level.id]?.pb || null
+      times[level.id] = bestTime
+
+      // Calculate earned medals based on best time
+      if (bestTime !== null) {
+        medals[level.id] = {
+          gold: bestTime <= level.gold,
+          silver: bestTime <= level.silver,
+          bronze: bestTime <= level.bronze,
+          at: bestTime <= level.at,
+        }
+      } else {
+        medals[level.id] = {
+          gold: false,
+          silver: false,
+          bronze: false,
+          at: false,
+        }
+      }
     })
 
     setBestTimes(times)
+    setEarnedMedals(medals)
   }, [])
 
   // Format time as MM:SS:HH
@@ -493,6 +529,34 @@ export function Karolmania() {
                           <div className="text-xs text-gray-400 flex items-center justify-end italic">
                             Keine Bestzeit
                           </div>
+                        )}
+                      </div>
+
+                      {/* Display earned medals */}
+                      <div className="absolute top-3 right-3 flex space-x-1">
+                        {earnedMedals[level.id]?.at && (
+                          <FaIcon
+                            icon={faMedal}
+                            className="text-teal-800 text-lg"
+                          />
+                        )}
+                        {earnedMedals[level.id]?.gold && (
+                          <FaIcon
+                            icon={faMedal}
+                            className="text-yellow-500 text-lg"
+                          />
+                        )}
+                        {earnedMedals[level.id]?.silver && (
+                          <FaIcon
+                            icon={faMedal}
+                            className="text-gray-400 text-lg"
+                          />
+                        )}
+                        {earnedMedals[level.id]?.bronze && (
+                          <FaIcon
+                            icon={faMedal}
+                            className="text-amber-700 text-lg"
+                          />
                         )}
                       </div>
                     </div>

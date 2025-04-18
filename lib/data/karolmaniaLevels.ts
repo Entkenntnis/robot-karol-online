@@ -13,10 +13,10 @@ export interface Level {
 export const levels: Level[] = [
   {
     id: 1,
-    at: 2,
-    gold: 5,
-    silver: 10,
-    bronze: 15,
+    at: 1.71,
+    gold: 2.4,
+    silver: 4,
+    bronze: 8,
     quest: {
       version: 'v1',
       title: 'Informatik ist cool!',
@@ -58,10 +58,10 @@ export const levels: Level[] = [
   },
   {
     id: 2,
-    at: 3,
-    gold: 7,
-    silver: 12,
-    bronze: 18,
+    at: 2.65,
+    gold: 4,
+    silver: 7,
+    bronze: 14,
     quest: {
       version: 'v1',
       title: 'Zickzack ',
@@ -110,10 +110,10 @@ export const levels: Level[] = [
   },
   {
     id: 3,
-    at: 4,
-    gold: 9,
-    silver: 14,
-    bronze: 21,
+    at: 3.67,
+    gold: 5.3,
+    silver: 9,
+    bronze: 17,
     quest: {
       version: 'v1',
       title: 'Pyramide',
@@ -159,10 +159,10 @@ export const levels: Level[] = [
   },
   {
     id: 4,
-    at: 5,
-    gold: 11,
-    silver: 16,
-    bronze: 24,
+    at: 7.72,
+    gold: 9.5,
+    silver: 12,
+    bronze: 19,
     quest: {
       version: 'v1',
       title: 'Schachbrett-Muster',

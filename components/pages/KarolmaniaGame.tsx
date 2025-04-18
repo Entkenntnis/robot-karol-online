@@ -44,6 +44,9 @@ export function KarolmaniaGame() {
   const [isNewPersonalBest, setIsNewPersonalBest] = useState(false)
   const [previousBestTime, setPreviousBestTime] = useState<number | null>(null)
   const levelId = core.ws.ui.karolmaniaLevelId || 0
+  const [newMedal, setNewMedal] = useState<
+    'at' | 'gold' | 'silver' | 'bronze' | null
+  >(null)
 
   // Get the current level's medal times
   const currentLevel = levels.find((level) => level.id === levelId)
@@ -109,7 +112,8 @@ export function KarolmaniaGame() {
   const bgMusicRef = useRef<HTMLAudioElement | null>(null)
   const clickSoundRef = useRef<HTMLAudioElement | null>(null)
   const countdownSoundRef = useRef<HTMLAudioElement | null>(null)
-  const winSoundRef = useRef<HTMLAudioElement | null>(null)
+  const loseSoundRef = useRef<HTMLAudioElement | null>(null)
+  const successSoundRef = useRef<HTMLAudioElement | null>(null)
   const silentContextRef = useRef<AudioContext | null>(null)
   const [isMusicPlaying, setIsMusicPlaying] = useState(
     getKarolmaniaMusicEnabled()
@@ -132,6 +136,18 @@ export function KarolmaniaGame() {
     }
   }, [isSoundEffectsEnabled])
 
+  const playSuccessSound = useCallback(() => {
+    if (!isSoundEffectsEnabled) return
+
+    if (successSoundRef.current) {
+      successSoundRef.current.currentTime = 0
+      successSoundRef.current.volume = 1
+      successSoundRef.current.play().catch(() => {
+        // Silently handle play failures
+      })
+    }
+  }, [isSoundEffectsEnabled])
+
   const playCountdownSound = useCallback(() => {
     if (!isSoundEffectsEnabled) return
 
@@ -147,6 +163,12 @@ export function KarolmaniaGame() {
 
   // Function to reset the game
   const resetGame = useCallback(() => {
+    // Stop any currently playing countdown sound first
+    if (countdownSoundRef.current) {
+      countdownSoundRef.current.pause()
+      countdownSoundRef.current.currentTime = 0
+    }
+
     // Reset timer
     setTimerMs(0)
 
@@ -162,6 +184,9 @@ export function KarolmaniaGame() {
     savedHighScore.current = false
     setIsNewPersonalBest(false)
 
+    // Reset medal notification
+    setNewMedal(null)
+
     // Reset music state
     setShouldPlayMusic(false)
 
@@ -170,14 +195,9 @@ export function KarolmaniaGame() {
       bgMusicRef.current.currentTime = 0
     }
 
-    if (countdownSoundRef.current) {
-      countdownSoundRef.current.pause()
-      countdownSoundRef.current.currentTime = 0
-    }
-
-    if (winSoundRef.current) {
-      winSoundRef.current.pause()
-      winSoundRef.current.currentTime = 0
+    if (loseSoundRef.current) {
+      loseSoundRef.current.pause()
+      loseSoundRef.current.currentTime = 0
     }
 
     // Reset the world if needed by re-loading the current quest
@@ -192,7 +212,7 @@ export function KarolmaniaGame() {
 
       // Play countdown sound immediately after reset
       setTimeout(() => {
-        if (isSoundEffectsEnabled) {
+        if (isSoundEffectsEnabled && !hasPlayedCountdownSound.current) {
           playCountdownSound()
           hasPlayedCountdownSound.current = true
         }
@@ -223,7 +243,8 @@ export function KarolmaniaGame() {
     bgMusicRef.current = new Audio('/audio/paganini.mp3')
     clickSoundRef.current = new Audio('/audio/pick.mp3')
     countdownSoundRef.current = new Audio('/audio/countdown.mp3')
-    winSoundRef.current = new Audio('/audio/win.mp3')
+    loseSoundRef.current = new Audio('/audio/win.mp3')
+    successSoundRef.current = new Audio('/audio/success.mp3')
 
     // Set properties
     if (bgMusicRef.current) {
@@ -238,10 +259,14 @@ export function KarolmaniaGame() {
         bgMusicRef.current.pause()
         bgMusicRef.current = null
       }
+      countdownSoundRef.current?.pause()
+      hasPlayedCountdownSound.current = false
 
       clickSoundRef.current = null
       countdownSoundRef.current = null
-      winSoundRef.current = null
+
+      loseSoundRef.current = null
+      successSoundRef.current = null
 
       if (silentContextRef.current) {
         silentContextRef.current.close().catch(() => {
@@ -289,10 +314,10 @@ export function KarolmaniaGame() {
   const playWinSound = useCallback(() => {
     if (!isSoundEffectsEnabled) return
 
-    if (winSoundRef.current) {
-      winSoundRef.current.currentTime = 0
-      winSoundRef.current.volume = 1
-      winSoundRef.current.play().catch(() => {
+    if (loseSoundRef.current) {
+      loseSoundRef.current.currentTime = 0
+      loseSoundRef.current.volume = 1
+      loseSoundRef.current.play().catch(() => {
         // Silently handle play failures
       })
     }
@@ -354,18 +379,18 @@ export function KarolmaniaGame() {
   }, [isDone, isGameActive])
 
   // Play sound when game is completed
-  useEffect(() => {
+  /*useEffect(() => {
     if (isDone && isGameActive && !hasPlayedWinSound.current) {
       // Stop background music
       pauseMusic()
 
       // Play win sound when game is completed
-      if (isSoundEffectsEnabled) {
+      if (isSoundEffectsEnabled && !isNewPersonalBest) {
         playWinSound()
         hasPlayedWinSound.current = true
       }
     }
-  }, [isDone, isGameActive, isSoundEffectsEnabled, pauseMusic, playWinSound])
+  }, [isDone, isGameActive, isSoundEffectsEnabled, pauseMusic, playWinSound])*/
 
   // Save high score when level is completed
   useEffect(() => {
@@ -381,9 +406,40 @@ export function KarolmaniaGame() {
       // Update state to show high score notification
       setIsNewPersonalBest(isNewPB)
 
+      pauseMusic()
       // Update the previous best time if this was a new personal best
       if (isNewPB) {
         setPreviousBestTime(timeInSeconds)
+        // Only play success sound, not other sounds
+        playSuccessSound()
+      } else {
+        playWinSound()
+      }
+
+      // Prüfen, ob eine neue Medaille erreicht wurde
+      const bestTime = previousBestTime || Number.MAX_VALUE
+
+      // Überprüfe, ob die aktuelle Zeit eine Medaille verdient hat,
+      // die der Spieler bisher noch nicht hatte
+      if (timeInSeconds <= medalTimes.at && bestTime > medalTimes.at) {
+        setNewMedal('at')
+      } else if (
+        timeInSeconds <= medalTimes.gold &&
+        bestTime > medalTimes.gold
+      ) {
+        setNewMedal('gold')
+      } else if (
+        timeInSeconds <= medalTimes.silver &&
+        bestTime > medalTimes.silver
+      ) {
+        setNewMedal('silver')
+      } else if (
+        timeInSeconds <= medalTimes.bronze &&
+        bestTime > medalTimes.bronze
+      ) {
+        setNewMedal('bronze')
+      } else {
+        setNewMedal(null)
       }
 
       // Track the event
@@ -393,7 +449,16 @@ export function KarolmaniaGame() {
         isNewPB,
       })*/
     }
-  }, [isDone, isGameActive, timerMs, levelId, core])
+  }, [
+    isDone,
+    isGameActive,
+    timerMs,
+    levelId,
+    core,
+    medalTimes,
+    previousBestTime,
+    playSuccessSound,
+  ])
 
   // Load previous best time when component mounts
   useEffect(() => {
@@ -484,7 +549,9 @@ export function KarolmaniaGame() {
       <div
         className={`h-full w-full flex flex-col items-center justify-center ${
           isDone
-            ? 'bg-gradient-to-br from-green-700 via-green-500 to-emerald-400 transition-colors duration-1000'
+            ? isNewPersonalBest
+              ? 'bg-gradient-to-br from-green-700 via-green-500 to-emerald-400 transition-colors duration-1000'
+              : 'bg-gradient-to-br from-slate-700 via-blue-600 to-teal-400 transition-colors duration-1000'
             : 'bg-gradient-to-br from-teal-700 via-teal-500 to-emerald-400'
         } relative overflow-hidden`}
       >
@@ -509,13 +576,13 @@ export function KarolmaniaGame() {
               bgMusicRef.current.load()
             }
 
-            if (winSoundRef.current) {
+            if (loseSoundRef.current) {
               // Force stop any win sound
-              winSoundRef.current.pause()
-              winSoundRef.current.currentTime = 0
+              loseSoundRef.current.pause()
+              loseSoundRef.current.currentTime = 0
               // Remove the source to ensure complete cleanup
-              winSoundRef.current.src = ''
-              winSoundRef.current.load()
+              loseSoundRef.current.src = ''
+              loseSoundRef.current.load()
             }
 
             if (clickSoundRef.current) {
@@ -657,19 +724,88 @@ export function KarolmaniaGame() {
           >
             {formatTime(timerMs)}
           </div>
+          {/* Display time difference only after game is finished and time is worse than personal best */}
+          {isDone &&
+            previousBestTime &&
+            timerMs > previousBestTime * 1000 &&
+            !isNewPersonalBest && (
+              <div className="text-red-600 text-sm font-bold">
+                +{formatTime(timerMs - previousBestTime * 1000)}
+              </div>
+            )}
         </div>
       </div>
 
       {/* Personal Best notification */}
       {isDone && isNewPersonalBest && (
         <div className="fixed top-24 left-0 right-0 flex justify-center">
-          <div className=" bg-yellow-100 p-3 rounded-lg shadow-lg border-2 border-yellow-400 animate-bounce">
+          <div
+            className={clsx(
+              'bg-yellow-100 p-3 rounded-lg shadow-lg border-2 border-yellow-400',
+              !newMedal && 'animate-bounce'
+            )}
+          >
             <div className="text-center flex items-center">
               <FaIcon
                 icon={faTrophy}
                 className="text-yellow-500 mr-2 text-xl"
               />
               <span className="font-bold text-yellow-700">Neue Bestzeit!</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* New Medal notification */}
+      {isDone && newMedal && (
+        <div className="fixed top-44 left-0 right-0 flex justify-center">
+          <div
+            className={clsx(
+              'p-3 rounded-lg shadow-lg border-2 animate-bounce',
+              newMedal === 'at'
+                ? 'bg-teal-100 border-teal-400'
+                : newMedal === 'gold'
+                ? 'bg-yellow-100 border-yellow-400'
+                : newMedal === 'silver'
+                ? 'bg-gray-100 border-gray-400'
+                : 'bg-amber-100 border-amber-700'
+            )}
+          >
+            <div className="text-center flex items-center">
+              <FaIcon
+                icon={faMedal}
+                className={clsx(
+                  'mr-2 text-xl',
+                  newMedal === 'at'
+                    ? 'text-teal-800'
+                    : newMedal === 'gold'
+                    ? 'text-yellow-500'
+                    : newMedal === 'silver'
+                    ? 'text-gray-400'
+                    : 'text-amber-700'
+                )}
+              />
+              <span
+                className={clsx(
+                  'font-bold',
+                  newMedal === 'at'
+                    ? 'text-teal-800'
+                    : newMedal === 'gold'
+                    ? 'text-yellow-700'
+                    : newMedal === 'silver'
+                    ? 'text-gray-700'
+                    : 'text-amber-900'
+                )}
+              >
+                Neue Medaille:{' '}
+                {newMedal === 'at'
+                  ? 'AutorIn'
+                  : newMedal === 'gold'
+                  ? 'Gold'
+                  : newMedal === 'silver'
+                  ? 'Silber'
+                  : 'Bronze'}
+              </span>
             </div>
           </div>
         </div>
