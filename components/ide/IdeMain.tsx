@@ -62,9 +62,10 @@ export function IdeMain() {
 
   useEffect(() => {
     if (core.ws.ui.isHighlightDescription && window.innerWidth < 640) {
-      console.log('closeHighlightDescription')
-
       closeHighlightDescription(core)
+      core.mutateWs((ws) => {
+        ws.ui.collapseDescription = true
+      })
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
