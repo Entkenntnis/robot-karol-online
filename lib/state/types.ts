@@ -492,3 +492,11 @@ export interface EditorSessionSnapshot {
   javaCode: string
   pythonCode: string
 }
+
+export interface KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT {
+  levels: {
+    [key: number]: {
+      pb: number // seconds
+    }
+  }
+}
