@@ -19,7 +19,6 @@ import {
   faArrowLeft,
   faMusic,
   faVolumeHigh,
-  faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   getKarolmaniaMusicEnabled,
@@ -67,6 +66,18 @@ export function KarolmaniaGame() {
     }
   }, [isSoundEffectsEnabled])
 
+  const playCountdownSound = useCallback(() => {
+    if (!isSoundEffectsEnabled) return
+
+    if (countdownSoundRef.current) {
+      countdownSoundRef.current.currentTime = 0
+      countdownSoundRef.current.volume = 0.95
+      countdownSoundRef.current.play().catch(() => {
+        // Silently handle play failures
+      })
+    }
+  }, [isSoundEffectsEnabled])
+
   // Function to reset the game
   const resetGame = useCallback(() => {
     // Reset timer
@@ -83,7 +94,7 @@ export function KarolmaniaGame() {
     // Reset music state
     setShouldPlayMusic(false)
 
-    // Reset audio - restart music from beginning and stop countdown sound
+    // Reset audio - restart music from beginning and stop countdown and win sounds
     if (bgMusicRef.current) {
       bgMusicRef.current.currentTime = 0
     }
@@ -91,6 +102,11 @@ export function KarolmaniaGame() {
     if (countdownSoundRef.current) {
       countdownSoundRef.current.pause()
       countdownSoundRef.current.currentTime = 0
+    }
+
+    if (winSoundRef.current) {
+      winSoundRef.current.pause()
+      winSoundRef.current.currentTime = 0
     }
 
     // Reset the world if needed by re-loading the current quest
@@ -102,8 +118,19 @@ export function KarolmaniaGame() {
 
     if (isSoundEffectsEnabled) {
       playClickSound()
+
+      // Play countdown sound immediately after reset
+      setTimeout(() => {
+        if (isSoundEffectsEnabled) {
+          playCountdownSound()
+          hasPlayedCountdownSound.current = true
+        }
+      }, 100) // Small delay to ensure click sound plays first
     }
-  }, [core, isSoundEffectsEnabled, playClickSound])
+
+    // Mark that countdown is running
+    isCountdownRunning.current = true
+  }, [core, isSoundEffectsEnabled, playClickSound, playCountdownSound])
 
   // Initialize audio system
   useEffect(() => {
@@ -187,18 +214,6 @@ export function KarolmaniaGame() {
       return !prev
     })
   }, [])
-
-  const playCountdownSound = useCallback(() => {
-    if (!isSoundEffectsEnabled) return
-
-    if (countdownSoundRef.current) {
-      countdownSoundRef.current.currentTime = 0
-      countdownSoundRef.current.volume = 0.95
-      countdownSoundRef.current.play().catch(() => {
-        // Silently handle play failures
-      })
-    }
-  }, [isSoundEffectsEnabled])
 
   const playWinSound = useCallback(() => {
     if (!isSoundEffectsEnabled) return
@@ -296,6 +311,12 @@ export function KarolmaniaGame() {
   // Handle keyboard commands to control the robot - match WorldEditor keymap
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
+      // Check if Enter key is pressed to reset the game
+      if (event.code === 'Enter') {
+        resetGame()
+        return
+      }
+
       // Don't allow controls when done or game isn't active yet
       if (isDone || !isGameActive) return
 
@@ -332,7 +353,14 @@ export function KarolmaniaGame() {
         }
       }
     },
-    [core, isDone, isGameActive, isSoundEffectsEnabled, playClickSound]
+    [
+      core,
+      isDone,
+      isGameActive,
+      isSoundEffectsEnabled,
+      playClickSound,
+      resetGame,
+    ]
   )
 
   // Set up keyboard event listeners when component mounts
@@ -372,7 +400,7 @@ export function KarolmaniaGame() {
           className="absolute top-4 left-20 bg-white/30 hover:bg-white/50 text-white rounded-full px-4 py-3 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
           aria-label="Spiel zurücksetzen"
         >
-          Neustart
+          Neustart [Enter]
         </button>
 
         {/* Music toggle button */}
