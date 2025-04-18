@@ -117,7 +117,7 @@ export const levels: Level[] = [
     quest: {
       version: 'v1',
       title: 'Pyramide',
-      description: 'Nur für Wirtual <3',
+      description: 'Wirtual würde sowas gefallen!',
       tasks: [
         {
           title: 'Neuer Auftrag',
@@ -166,7 +166,7 @@ export const levels: Level[] = [
     quest: {
       version: 'v1',
       title: 'Schachbrett-Muster',
-      description: 'Und für Anna Cramling ♕',
+      description: 'Und das ist für Anna Cramling ♕',
       tasks: [
         {
           title: 'Muster-Challenge',
