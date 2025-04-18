@@ -29,6 +29,7 @@ import {
 } from '../../lib/storage/storage'
 import { deserializeWorld } from '../../lib/commands/json'
 import { BubbleBackground } from '../helper/BubbleBackground'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function Karolmania() {
   const core = useCore()
@@ -186,6 +187,7 @@ export function Karolmania() {
   }, [])
 
   const toggleMusic = useCallback(() => {
+    submitAnalyzeEvent(core, 'ev_click_karolmania_toggleMusic')
     const newState = !isMusicPlaying
     setIsMusicPlaying(newState)
     setKarolmaniaMusicEnabled(newState)
@@ -198,6 +200,7 @@ export function Karolmania() {
   }, [isMusicPlaying, playMusic, pauseMusic])
 
   const toggleSoundEffects = useCallback(() => {
+    submitAnalyzeEvent(core, 'ev_click_karolmania_toggleSoundEffects')
     setIsSoundEffectsEnabled((prev) => {
       setKarolmaniaSoundEffectsEnabled(!prev)
       return !prev

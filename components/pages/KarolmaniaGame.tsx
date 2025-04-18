@@ -32,6 +32,7 @@ import {
 } from '../../lib/storage/storage'
 import { levels } from '../../lib/data/karolmaniaLevels'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { sub } from 'date-fns'
 
 export function KarolmaniaGame() {
   const core = useCore()
@@ -293,6 +294,7 @@ export function KarolmaniaGame() {
   }, [])
 
   const toggleMusic = useCallback(() => {
+    submitAnalyzeEvent(core, 'ev_click_karolmania_toggleMusic')
     const newState = !isMusicPlaying
     setIsMusicPlaying(newState)
     setKarolmaniaMusicEnabled(newState)
@@ -305,6 +307,7 @@ export function KarolmaniaGame() {
   }, [isMusicPlaying, playMusic, pauseMusic, isDone])
 
   const toggleSoundEffects = useCallback(() => {
+    submitAnalyzeEvent(core, 'ev_click_karolmania_toggleSoundEffects')
     setIsSoundEffectsEnabled((prev) => {
       setKarolmaniaSoundEffectsEnabled(!prev)
       return !prev
