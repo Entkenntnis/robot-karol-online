@@ -160,8 +160,6 @@ Hintergrundbild: [Bild von rawpixel.com](https://de.freepik.com/fotos-kostenlos/
 
 Farbkleckse: [Bild von starline](https://de.freepik.com/vektoren-kostenlos/isolierter-aquarell-spritzerfleck-bunter-satz-von-acht_9728054.htm#query=klecks&position=4&from_view=keyword&track=sph) auf Freepik
 
-Joystick Icon: [Joystick icons created by Us and Up - Flaticon](https://www.flaticon.com/free-icons/joystick)
-
 ## Trivia
 
 Karol verwendet sie/ihr-Pronomen.
