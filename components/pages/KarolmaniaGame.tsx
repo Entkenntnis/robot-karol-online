@@ -31,6 +31,7 @@ import {
   getBestTimeForLevel,
 } from '../../lib/storage/storage'
 import { levels } from '../../lib/data/karolmaniaLevels'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function KarolmaniaGame() {
   const core = useCore()
@@ -152,7 +153,6 @@ export function KarolmaniaGame() {
     if (!isSoundEffectsEnabled) return
 
     if (countdownSoundRef.current) {
-      console.log('play countdown sound')
       countdownSoundRef.current.currentTime = 0
       countdownSoundRef.current.volume = 0.95
       countdownSoundRef.current.play().catch(() => {
@@ -442,12 +442,10 @@ export function KarolmaniaGame() {
         setNewMedal(null)
       }
 
-      // Track the event
-      /*submitAnalyzeEvent(core, 'ev_karolmania_complete', {
-        levelId,
-        timeInSeconds,
-        isNewPB,
-      })*/
+      submitAnalyzeEvent(
+        core,
+        `ev_submit_karolmania_pb_${levelId}_${timeInSeconds}`
+      )
     }
   }, [
     isDone,

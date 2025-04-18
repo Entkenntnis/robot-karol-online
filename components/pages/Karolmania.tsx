@@ -18,7 +18,6 @@ import {
 import { levels } from '../../lib/data/karolmaniaLevels'
 import { HFullStyles } from '../helper/HFullStyles'
 import { navigate } from '../../lib/commands/router'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import {
   getQuestReturnToMode,
   setKarolmaniaCarouselIndex,
@@ -319,7 +318,6 @@ export function Karolmania() {
         {/* Back button */}
         <button
           onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_karolmania_back')
             navigate(
               core,
               getQuestReturnToMode() == 'path'
