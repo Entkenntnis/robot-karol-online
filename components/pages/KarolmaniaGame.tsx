@@ -1,7 +1,7 @@
 import { useCore } from '../../lib/state/core'
 import { HFullStyles } from '../helper/HFullStyles'
 import { View } from '../helper/View'
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useCallback, useState, useRef } from 'react'
 import {
   forward,
   left,
@@ -13,6 +13,19 @@ import {
 } from '../../lib/commands/world'
 import { View2D } from '../helper/View2D'
 import clsx from 'clsx'
+import { navigate } from '../../lib/commands/router'
+import { FaIcon } from '../helper/FaIcon'
+import {
+  faArrowLeft,
+  faMusic,
+  faVolumeHigh,
+} from '@fortawesome/free-solid-svg-icons'
+import {
+  getKarolmaniaMusicEnabled,
+  setKarolmaniaMusicEnabled,
+  getKarolmaniaSoundEffectsEnabled,
+  setKarolmaniaSoundEffectsEnabled,
+} from '../../lib/storage/storage'
 
 export function KarolmaniaGame() {
   const core = useCore()
@@ -20,10 +33,145 @@ export function KarolmaniaGame() {
   const [isGameActive, setIsGameActive] = useState(false)
   const [countdown, setCountdown] = useState(3)
   const isDone = twoWorldsEqual(core.ws.world, core.ws.quest.tasks[0].target!)
+  const hasPlayedCountdownSound = useRef(false)
+
+  // Audio state management
+  const bgMusicRef = useRef<HTMLAudioElement | null>(null)
+  const clickSoundRef = useRef<HTMLAudioElement | null>(null)
+  const countdownSoundRef = useRef<HTMLAudioElement | null>(null)
+  const silentContextRef = useRef<AudioContext | null>(null)
+  const [isMusicPlaying, setIsMusicPlaying] = useState(
+    getKarolmaniaMusicEnabled()
+  )
+  const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(
+    getKarolmaniaSoundEffectsEnabled()
+  )
+  const [shouldPlayMusic, setShouldPlayMusic] = useState(false)
+
+  // Initialize audio system
+  useEffect(() => {
+    // Create an audio context first to ensure it's properly initialized
+    const silentContext = new (window.AudioContext ||
+      (window as any).webkitAudioContext)()
+    silentContextRef.current = silentContext
+
+    // Play a silent sound to initialize audio context
+    const silentSound = silentContext.createOscillator()
+    const gainNode = silentContext.createGain()
+    gainNode.gain.value = 0 // Silent
+    silentSound.connect(gainNode)
+    gainNode.connect(silentContext.destination)
+    silentSound.start()
+    silentSound.stop(0.001) // Stop after a very short time
+
+    // Create audio elements
+    bgMusicRef.current = new Audio('/audio/paganini.mp3')
+    clickSoundRef.current = new Audio('/audio/pick.mp3')
+    countdownSoundRef.current = new Audio('/audio/countdown.mp3')
+
+    // Set properties
+    if (bgMusicRef.current) {
+      bgMusicRef.current.loop = true
+      bgMusicRef.current.volume = 1
+
+      // Don't autoplay music initially - wait for countdown to complete
+    }
+
+    return () => {
+      if (bgMusicRef.current) {
+        bgMusicRef.current.pause()
+        bgMusicRef.current = null
+      }
+
+      clickSoundRef.current = null
+      countdownSoundRef.current = null
+
+      if (silentContextRef.current) {
+        silentContextRef.current.close().catch(() => {
+          // Silently handle close failures
+        })
+        silentContextRef.current = null
+      }
+    }
+  }, [])
+
+  // Audio control functions
+  const playMusic = useCallback(() => {
+    if (!bgMusicRef.current || !shouldPlayMusic) return
+
+    bgMusicRef.current.play().catch(() => {
+      // Silently handle play failures
+    })
+  }, [shouldPlayMusic])
+
+  const pauseMusic = useCallback(() => {
+    if (!bgMusicRef.current) return
+
+    bgMusicRef.current.pause()
+  }, [])
+
+  const toggleMusic = useCallback(() => {
+    const newState = !isMusicPlaying
+    setIsMusicPlaying(newState)
+    setKarolmaniaMusicEnabled(newState)
+
+    if (newState) {
+      playMusic()
+    } else {
+      pauseMusic()
+    }
+  }, [isMusicPlaying, playMusic, pauseMusic])
+
+  const toggleSoundEffects = useCallback(() => {
+    setIsSoundEffectsEnabled((prev) => {
+      setKarolmaniaSoundEffectsEnabled(!prev)
+      return !prev
+    })
+  }, [])
+
+  const playClickSound = useCallback(() => {
+    if (!isSoundEffectsEnabled) return
+
+    // Use existing audio element but reset it for immediate playback
+    if (clickSoundRef.current) {
+      clickSoundRef.current.currentTime = 0
+      clickSoundRef.current.volume = 0.95
+      clickSoundRef.current.play().catch(() => {
+        // Silently handle play failures
+      })
+    }
+  }, [isSoundEffectsEnabled])
+
+  const playCountdownSound = useCallback(() => {
+    if (!isSoundEffectsEnabled) return
+
+    if (countdownSoundRef.current) {
+      countdownSoundRef.current.currentTime = 0
+      countdownSoundRef.current.volume = 0.95
+      countdownSoundRef.current.play().catch(() => {
+        // Silently handle play failures
+      })
+    }
+  }, [isSoundEffectsEnabled])
+
+  // Keep music playback in sync with state
+  useEffect(() => {
+    if (isMusicPlaying && shouldPlayMusic) {
+      playMusic()
+    } else {
+      pauseMusic()
+    }
+  }, [isMusicPlaying, playMusic, pauseMusic, shouldPlayMusic])
 
   // Countdown effect
   useEffect(() => {
     if (countdown > 0) {
+      // Play countdown sound once at the start
+      if (!hasPlayedCountdownSound.current && isSoundEffectsEnabled) {
+        playCountdownSound()
+        hasPlayedCountdownSound.current = true
+      }
+
       const countdownTimer = setTimeout(() => {
         setCountdown(countdown - 1)
       }, 1000)
@@ -32,8 +180,13 @@ export function KarolmaniaGame() {
       // Start game after countdown finishes
       setIsGameActive(true)
       setCountdown(-1) // Set to -1 to indicate countdown is done
+      // Reset the flag for next time
+      hasPlayedCountdownSound.current = false
+
+      // Now that countdown is done, enable music playback
+      setShouldPlayMusic(true)
     }
-  }, [countdown])
+  }, [countdown, isSoundEffectsEnabled, playCountdownSound])
 
   // Timer effect, updates every 10ms, stops when isDone is true
   useEffect(() => {
@@ -47,6 +200,14 @@ export function KarolmaniaGame() {
 
     return () => clearInterval(timerInterval)
   }, [isDone, isGameActive])
+
+  // Play sound when game is completed
+  useEffect(() => {
+    if (isDone && isGameActive && isSoundEffectsEnabled) {
+      // Play success sound when game is completed
+      playClickSound()
+    }
+  }, [isDone, isGameActive, isSoundEffectsEnabled, playClickSound])
 
   // Format timer as MM:SS:HH
   const formatTime = (ms: number) => {
@@ -94,9 +255,12 @@ export function KarolmaniaGame() {
       if (action) {
         event.preventDefault()
         action()
+        if (isSoundEffectsEnabled) {
+          playClickSound()
+        }
       }
     },
-    [core, isDone, isGameActive]
+    [core, isDone, isGameActive, isSoundEffectsEnabled, playClickSound]
   )
 
   // Set up keyboard event listeners when component mounts
@@ -119,11 +283,51 @@ export function KarolmaniaGame() {
             : 'bg-gradient-to-br from-teal-700 via-teal-500 to-emerald-400'
         } relative overflow-hidden`}
       >
+        {/* Back button */}
+        <button
+          onClick={() => {
+            navigate(core, '#KAROLMANIA')
+          }}
+          className="absolute top-4 left-4 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
+          aria-label="Zurück zur Startseite"
+        >
+          <FaIcon icon={faArrowLeft} className="text-2xl" />
+        </button>
+
+        {/* Music toggle button */}
+        <button
+          onClick={toggleMusic}
+          className="absolute top-4 right-4 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
+          aria-label="Musik umschalten"
+        >
+          <div className="relative">
+            <FaIcon icon={faMusic} className="text-2xl" />
+            {!isMusicPlaying && (
+              <div className="absolute top-1/2 left-0 w-8 border-t-2 border-red-500 transform -rotate-45"></div>
+            )}
+          </div>
+        </button>
+
+        {/* Sound effects toggle button */}
+        <button
+          onClick={toggleSoundEffects}
+          className="absolute top-4 right-20 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
+          aria-label="Soundeffekte umschalten"
+        >
+          <div className="relative">
+            <FaIcon icon={faVolumeHigh} className="text-2xl" />
+            {!isSoundEffectsEnabled && (
+              <div className="absolute top-1/2 left-0 w-8 border-t-2 border-red-500 transform -rotate-45"></div>
+            )}
+          </div>
+        </button>
+
         <div className="bg-white p-8 rounded-xl shadow-xl max-w-4xl">
           <View
             robotImageDataUrl={core.ws.robotImageDataUrl}
             world={core.ws.world}
             preview={{ world: core.ws.quest.tasks[0].target! }}
+            animationDuration={100}
             className="ml-2 -mt-2 mr-2"
           />
         </div>
