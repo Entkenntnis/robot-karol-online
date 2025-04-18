@@ -12,7 +12,7 @@ export function NameModal() {
   return (
     <div className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]">
       <div
-        className="h-[280px] w-[500px] bg-white z-[200] rounded-xl relative mb-[30vh] sm:mb-[10vh]"
+        className="h-[280px] sm:w-[500px] w-full mx-3 bg-white z-[200] rounded-xl relative mb-[30vh] sm:mb-[10vh]"
         onClick={(e) => {
           e.stopPropagation()
         }}
