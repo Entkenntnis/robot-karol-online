@@ -6,6 +6,7 @@ import {
   faFloppyDisk,
   faFolderOpen,
   faGlobe,
+  faMedal,
   faHeart,
   faPaintBrush,
   faPencil,
@@ -449,22 +450,28 @@ export function Overview() {
                 {(numberOfSolvedQuests >= 5 ||
                   core.ws.page == 'analyze' ||
                   core.ws.page == 'demo') && (
-                  <button
-                    className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl"
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_snake')
-                      window.open('/#CDBV', '_blank')
+                  <a
+                    href="/#KAROLMANIA"
+                    className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+                    onClick={(e) => {
+                      submitAnalyzeEvent(core, 'ev_click_landing_karolmania')
+                      setQuestReturnToMode(
+                        core.ws.page == 'demo' ? 'demo' : 'path'
+                      )
+                      setLearningPathScroll(
+                        document.getElementById('scroll-container')
+                          ?.scrollTop ?? -1
+                      )
+                      navigate(core, '#KAROLMANIA')
+                      e.preventDefault()
                     }}
                   >
-                    <p className="text-center mb-2">
-                      {core.strings.overview.game}
-                    </p>
-                    <img
-                      src="/snake.png"
-                      alt="Snake-Icon"
-                      className="w-[40px] mx-auto mb-1"
+                    <p className="text-center">Karolmania</p>
+                    <FaIcon
+                      icon={faMedal}
+                      className="text-4xl text-teal-800 inline-block mt-2 pb-2"
                     />
-                  </button>
+                  </a>
                 )}
 
                 {core.ws.ui.newRobotImage && (

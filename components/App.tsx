@@ -30,6 +30,7 @@ import { LoadingScreen } from './helper/LoadingScreen'
 import { submitAnalyzeEvent } from '../lib/commands/analyze'
 import { setLockToKarolCode } from '../lib/storage/storage'
 import { Karolmania } from './pages/Karolmania'
+import { KarolmaniaGame } from './pages/KarolmaniaGame'
 import { Donate } from './pages/Donate'
 
 export function App() {
@@ -37,7 +38,6 @@ export function App() {
 
   useEffect(() => {
     function onHashChange() {
-      console.log('Hash change')
       hydrateFromHash(core)
     }
 
@@ -117,6 +117,8 @@ export function App() {
       return <InspirationOld />
     } else if (core.ws.page == 'karolmania') {
       return <Karolmania />
+    } else if (core.ws.page == 'karolmania-game') {
+      return <KarolmaniaGame />
     } else if (core.ws.page == 'donate') {
       return <Donate />
     } else {

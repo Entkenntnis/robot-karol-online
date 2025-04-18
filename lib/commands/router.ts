@@ -1,3 +1,4 @@
+import { levels } from '../data/karolmaniaLevels'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
@@ -7,6 +8,7 @@ import {
   getLockToKarolCode,
   getOverviewScroll,
   getRobotImage,
+  getKarolmaniaCarouselIndex,
   restoreEditorSnapshot,
 } from '../storage/storage'
 import { analyze, submitAnalyzeEvent } from './analyze'
@@ -31,8 +33,6 @@ export async function hydrateFromHash(core: Core) {
   const data = colonIndex !== -1 ? hash.substring(colonIndex + 1) : ''
 
   submitAnalyzeEvent(core, 'ev_show_hash_' + page.slice(0, 100))
-
-  const previousWs = core.ws
 
   // PHASE 0: reset
   core.reset()
@@ -66,7 +66,6 @@ export async function hydrateFromHash(core: Core) {
   if (page == 'EDITOR') {
     core.mutateWs((ws) => {
       ws.page = 'editor'
-
       const { quest } = ws
       quest.title = core.strings.editor.title
       quest.description = core.strings.editor.description
@@ -244,7 +243,28 @@ export async function hydrateFromHash(core: Core) {
   if (page == 'KAROLMANIA') {
     core.mutateWs((ws) => {
       ws.page = 'karolmania'
+      // Set the carousel index from session storage
+      ws.ui.karolmaniaCarouselIndex = getKarolmaniaCarouselIndex()
     })
+    document.title = 'Karolmania'
+    return
+  }
+
+  if (page.startsWith('KAROLMANIA-')) {
+    const levelId = parseInt(page.substring(11))
+    const level = levels.find((l) => l.id == levelId)
+    if (!level) {
+      console.error('Level not found:', levelId)
+      return
+    }
+    deserializeQuest(core, level.quest)
+    core.mutateWs((ws) => {
+      ws.page = 'karolmania-game'
+      // We could store the selected level in the workspace state here if needed
+      ws.ui.karolmaniaLevelId = levelId
+      ws.world = ws.quest.tasks[0].start
+    })
+    document.title = 'Karolmania - ' + level.quest.title
     return
   }
 

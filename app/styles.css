@@ -7,3 +7,9 @@
     background-image: url('/canvas_background.avif'); /* AVIF for supported browsers */
   }
 }
+
+/* Text shadow for countdown numbers */
+.shadow-text {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5),
+    2px 2px 4px rgba(0, 0, 0, 0.5);
+}

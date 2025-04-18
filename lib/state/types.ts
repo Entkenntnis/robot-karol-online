@@ -72,6 +72,8 @@ export interface Ui {
   questPromptConfirm?: string
   editQuestScript: boolean
   interactiveClassdiagram?: boolean
+  karolmaniaLevelId?: number
+  karolmaniaCarouselIndex: number
 }
 
 export interface Vm {
@@ -161,6 +163,7 @@ export interface WorkspaceState {
     | 'inspiration'
     | 'inspiration-old'
     | 'karolmania'
+    | 'karolmania-game'
     | 'donate'
 
   modal:
@@ -488,4 +491,12 @@ export interface EditorSessionSnapshot {
   code: string
   javaCode: string
   pythonCode: string
+}
+
+export interface KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT {
+  levels: {
+    [key: number]: {
+      pb: number // seconds
+    }
+  }
 }
