@@ -767,7 +767,7 @@ export function Overview() {
             isQuestDone(1) &&
             core.ws.overview.showSaveHint &&
             core.ws.page != 'analyze' && (
-              <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5 z-20">
+              <div className="fixed left-0 right-0 bottom-0 pb-1.5 sm:pb-0 sm:h-10 bg-yellow-100 text-center pt-1.5 z-20">
                 {core.strings.overview.storeOnDevice}{' '}
                 <button
                   className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 ml-6 rounded"
