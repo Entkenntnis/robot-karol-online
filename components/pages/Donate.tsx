@@ -55,7 +55,7 @@ export function Donate() {
               'p-2 px-6 bg-white/30'
             )}
           >
-            <h1 className="text-2xl whitespace-nowrap">
+            <h1 className="whitespace-nowrap text-lg md:text-2xl">
               <FaIcon icon={faHeartCirclePlus} className="text-rose-500 mr-3" />
               Robot Karol Online - Spenden
             </h1>
