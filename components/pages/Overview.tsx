@@ -88,7 +88,7 @@ export function Overview() {
     <>
       <div className="h-full overflow-auto" id="scroll-container">
         <div className="flex flex-col relative min-h-full min-w-fit background-element">
-          <div className="flex justify-center">
+          <div className="flex md:justify-center justify-start mt-3 md:mt-0">
             <div
               className={clsx(
                 'flex mt-8 items-center rounded-xl',
@@ -134,7 +134,7 @@ export function Overview() {
               <FaIcon icon={faHeart} className="text-rose-400" /> Spenden
             </button>
           </div>
-          <div className="mx-auto mt-6">
+          <div className="mx-3 md:mx-auto mt-6">
             <a
               href="/#SPIELWIESE"
               className="hover:underline mr-8"
