@@ -19,6 +19,7 @@ import {
   faArrowLeft,
   faMusic,
   faVolumeHigh,
+  faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   getKarolmaniaMusicEnabled,
@@ -34,11 +35,16 @@ export function KarolmaniaGame() {
   const [countdown, setCountdown] = useState(3)
   const isDone = twoWorldsEqual(core.ws.world, core.ws.quest.tasks[0].target!)
   const hasPlayedCountdownSound = useRef(false)
+  const hasPlayedWinSound = useRef(false)
+
+  // Keep track of countdown state
+  const isCountdownRunning = useRef(false)
 
   // Audio state management
   const bgMusicRef = useRef<HTMLAudioElement | null>(null)
   const clickSoundRef = useRef<HTMLAudioElement | null>(null)
   const countdownSoundRef = useRef<HTMLAudioElement | null>(null)
+  const winSoundRef = useRef<HTMLAudioElement | null>(null)
   const silentContextRef = useRef<AudioContext | null>(null)
   const [isMusicPlaying, setIsMusicPlaying] = useState(
     getKarolmaniaMusicEnabled()
@@ -47,6 +53,57 @@ export function KarolmaniaGame() {
     getKarolmaniaSoundEffectsEnabled()
   )
   const [shouldPlayMusic, setShouldPlayMusic] = useState(false)
+
+  const playClickSound = useCallback(() => {
+    if (!isSoundEffectsEnabled) return
+
+    // Use existing audio element but reset it for immediate playback
+    if (clickSoundRef.current) {
+      clickSoundRef.current.currentTime = 0
+      clickSoundRef.current.volume = 0.95
+      clickSoundRef.current.play().catch(() => {
+        // Silently handle play failures
+      })
+    }
+  }, [isSoundEffectsEnabled])
+
+  // Function to reset the game
+  const resetGame = useCallback(() => {
+    // Reset timer
+    setTimerMs(0)
+
+    // Reset countdown and game state
+    setCountdown(3)
+    setIsGameActive(false)
+
+    // Reset sound flags
+    hasPlayedCountdownSound.current = false
+    hasPlayedWinSound.current = false
+
+    // Reset music state
+    setShouldPlayMusic(false)
+
+    // Reset audio - restart music from beginning and stop countdown sound
+    if (bgMusicRef.current) {
+      bgMusicRef.current.currentTime = 0
+    }
+
+    if (countdownSoundRef.current) {
+      countdownSoundRef.current.pause()
+      countdownSoundRef.current.currentTime = 0
+    }
+
+    // Reset the world if needed by re-loading the current quest
+    if (core.ws.quest && core.ws.quest.tasks && core.ws.quest.tasks[0]) {
+      core.mutateWs((ws) => {
+        ws.world = ws.quest.tasks[0].start
+      })
+    }
+
+    if (isSoundEffectsEnabled) {
+      playClickSound()
+    }
+  }, [core, isSoundEffectsEnabled, playClickSound])
 
   // Initialize audio system
   useEffect(() => {
@@ -68,6 +125,7 @@ export function KarolmaniaGame() {
     bgMusicRef.current = new Audio('/audio/paganini.mp3')
     clickSoundRef.current = new Audio('/audio/pick.mp3')
     countdownSoundRef.current = new Audio('/audio/countdown.mp3')
+    winSoundRef.current = new Audio('/audio/win.mp3')
 
     // Set properties
     if (bgMusicRef.current) {
@@ -85,6 +143,7 @@ export function KarolmaniaGame() {
 
       clickSoundRef.current = null
       countdownSoundRef.current = null
+      winSoundRef.current = null
 
       if (silentContextRef.current) {
         silentContextRef.current.close().catch(() => {
@@ -97,12 +156,12 @@ export function KarolmaniaGame() {
 
   // Audio control functions
   const playMusic = useCallback(() => {
-    if (!bgMusicRef.current || !shouldPlayMusic) return
+    if (!bgMusicRef.current || !shouldPlayMusic || isDone) return
 
     bgMusicRef.current.play().catch(() => {
       // Silently handle play failures
     })
-  }, [shouldPlayMusic])
+  }, [shouldPlayMusic, isDone])
 
   const pauseMusic = useCallback(() => {
     if (!bgMusicRef.current) return
@@ -115,12 +174,12 @@ export function KarolmaniaGame() {
     setIsMusicPlaying(newState)
     setKarolmaniaMusicEnabled(newState)
 
-    if (newState) {
+    if (newState && !isDone) {
       playMusic()
     } else {
       pauseMusic()
     }
-  }, [isMusicPlaying, playMusic, pauseMusic])
+  }, [isMusicPlaying, playMusic, pauseMusic, isDone])
 
   const toggleSoundEffects = useCallback(() => {
     setIsSoundEffectsEnabled((prev) => {
@@ -128,19 +187,6 @@ export function KarolmaniaGame() {
       return !prev
     })
   }, [])
-
-  const playClickSound = useCallback(() => {
-    if (!isSoundEffectsEnabled) return
-
-    // Use existing audio element but reset it for immediate playback
-    if (clickSoundRef.current) {
-      clickSoundRef.current.currentTime = 0
-      clickSoundRef.current.volume = 0.95
-      clickSoundRef.current.play().catch(() => {
-        // Silently handle play failures
-      })
-    }
-  }, [isSoundEffectsEnabled])
 
   const playCountdownSound = useCallback(() => {
     if (!isSoundEffectsEnabled) return
@@ -154,19 +200,38 @@ export function KarolmaniaGame() {
     }
   }, [isSoundEffectsEnabled])
 
+  const playWinSound = useCallback(() => {
+    if (!isSoundEffectsEnabled) return
+
+    if (winSoundRef.current) {
+      winSoundRef.current.currentTime = 0
+      winSoundRef.current.volume = 1
+      winSoundRef.current.play().catch(() => {
+        // Silently handle play failures
+      })
+    }
+  }, [isSoundEffectsEnabled])
+
   // Keep music playback in sync with state
   useEffect(() => {
-    if (isMusicPlaying && shouldPlayMusic) {
+    if (isDone) {
+      // Stop music when game is complete
+      pauseMusic()
+    } else if (isMusicPlaying && shouldPlayMusic) {
       playMusic()
     } else {
       pauseMusic()
     }
-  }, [isMusicPlaying, playMusic, pauseMusic, shouldPlayMusic])
+  }, [isMusicPlaying, playMusic, pauseMusic, shouldPlayMusic, isDone])
 
   // Countdown effect
   useEffect(() => {
     if (countdown > 0) {
+      // Mark that countdown is running
+      isCountdownRunning.current = true
+
       // Play countdown sound once at the start
+      // Only play if sound effects are enabled AND we haven't played it yet for this countdown
       if (!hasPlayedCountdownSound.current && isSoundEffectsEnabled) {
         playCountdownSound()
         hasPlayedCountdownSound.current = true
@@ -182,6 +247,7 @@ export function KarolmaniaGame() {
       setCountdown(-1) // Set to -1 to indicate countdown is done
       // Reset the flag for next time
       hasPlayedCountdownSound.current = false
+      isCountdownRunning.current = false
 
       // Now that countdown is done, enable music playback
       setShouldPlayMusic(true)
@@ -203,11 +269,17 @@ export function KarolmaniaGame() {
 
   // Play sound when game is completed
   useEffect(() => {
-    if (isDone && isGameActive && isSoundEffectsEnabled) {
-      // Play success sound when game is completed
-      playClickSound()
+    if (isDone && isGameActive && !hasPlayedWinSound.current) {
+      // Stop background music
+      pauseMusic()
+
+      // Play win sound when game is completed
+      if (isSoundEffectsEnabled) {
+        playWinSound()
+        hasPlayedWinSound.current = true
+      }
     }
-  }, [isDone, isGameActive, isSoundEffectsEnabled, playClickSound])
+  }, [isDone, isGameActive, isSoundEffectsEnabled, pauseMusic, playWinSound])
 
   // Format timer as MM:SS:HH
   const formatTime = (ms: number) => {
@@ -292,6 +364,15 @@ export function KarolmaniaGame() {
           aria-label="Zurück zur Startseite"
         >
           <FaIcon icon={faArrowLeft} className="text-2xl" />
+        </button>
+
+        {/* Reset game button - moved to left side with text */}
+        <button
+          onClick={resetGame}
+          className="absolute top-4 left-20 bg-white/30 hover:bg-white/50 text-white rounded-full px-4 py-3 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
+          aria-label="Spiel zurücksetzen"
+        >
+          Neustart
         </button>
 
         {/* Music toggle button */}
