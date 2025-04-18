@@ -252,13 +252,19 @@ export async function hydrateFromHash(core: Core) {
 
   if (page.startsWith('KAROLMANIA-')) {
     const levelId = parseInt(page.substring(11))
+    const level = levels.find((l) => l.id == levelId)
+    if (!level) {
+      console.error('Level not found:', levelId)
+      return
+    }
+    deserializeQuest(core, level.quest)
     core.mutateWs((ws) => {
       ws.page = 'karolmania-game'
       // We could store the selected level in the workspace state here if needed
       ws.ui.karolmaniaLevelId = levelId
+      ws.world = ws.quest.tasks[0].start
     })
-    document.title =
-      'Karolmania - ' + levels.find((l) => l.id == levelId)?.quest.title
+    document.title = 'Karolmania - ' + level.quest.title
     return
   }
 

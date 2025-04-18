@@ -1,50 +1,94 @@
-import { useEffect } from 'react'
 import { useCore } from '../../lib/state/core'
-import { FaIcon } from '../helper/FaIcon'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { navigate } from '../../lib/commands/router'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { getQuestReturnToMode } from '../../lib/storage/storage'
+import { HFullStyles } from '../helper/HFullStyles'
+import { View } from '../helper/View'
+import { useEffect, useCallback } from 'react'
+import {
+  forward,
+  left,
+  right,
+  brick,
+  unbrick,
+  toggleMark,
+} from '../../lib/commands/world'
+import { View2D } from '../helper/View2D'
 
 export function KarolmaniaGame() {
   const core = useCore()
 
-  // Extract level ID from hash
+  // Handle keyboard commands to control the robot - match WorldEditor keymap
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      const actions: { [key: string]: () => void } = {
+        ArrowLeft: () => {
+          left(core)
+        },
+        ArrowRight: () => {
+          right(core)
+        },
+        ArrowUp: () => {
+          forward(core)
+        },
+        ArrowDown: () => {
+          forward(core, { reverse: true })
+        },
+        KeyM: () => {
+          toggleMark(core)
+        },
+        KeyH: () => {
+          brick(core)
+        },
+        KeyA: () => {
+          unbrick(core)
+        },
+      }
+
+      const action = actions[event.code]
+      if (action) {
+        event.preventDefault()
+        action()
+      }
+    },
+    [core]
+  )
+
+  // Set up keyboard event listeners when component mounts
   useEffect(() => {
-    const hash = window.location.hash
-    const levelIdMatch = hash.match(/#KAROLMANIA-(\d+)/)
-    const levelId = levelIdMatch ? parseInt(levelIdMatch[1]) : null
+    // Add the keyboard event listener directly to window
+    window.addEventListener('keydown', handleKeyDown)
 
-    // Log analytics event
-    submitAnalyzeEvent(core, `ev_karolmania_game_level_${levelId || 'unknown'}`)
-  }, [core])
-
-  // Function to navigate back to Karolmania level selection
-  const handleBack = () => {
-    submitAnalyzeEvent(core, 'ev_click_karolmania_game_back')
-    navigate(core, '#KAROLMANIA')
-  }
+    // Clean up event listener when component unmounts
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [handleKeyDown])
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-teal-700 via-teal-500 to-emerald-400 relative overflow-hidden">
-      {/* Back button */}
-      <button
-        onClick={handleBack}
-        className="absolute top-4 left-4 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
-        aria-label="Zurück zur Levelauswahl"
-      >
-        <FaIcon icon={faArrowLeft} />
-      </button>
+    <>
+      <div className="h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-teal-700 via-teal-500 to-emerald-400 relative overflow-hidden">
+        <div className="bg-white p-8 rounded-xl shadow-xl max-w-4xl">
+          <View
+            robotImageDataUrl={core.ws.robotImageDataUrl}
+            world={core.ws.world}
+            preview={{ world: core.ws.quest.tasks[0].target! }}
+            className="ml-2 -mt-2 mr-2"
+          />
+        </div>
 
-      <div className="bg-white/30 p-8 rounded-xl shadow-xl max-w-4xl w-full">
-        <h1 className="text-2xl font-bold text-white text-center mb-6">
-          Karolmania Game
-        </h1>
-        <p className="text-white text-center">
-          Diese Seite ist noch in Entwicklung. Hier wird in Zukunft das
-          ausgewählte Level spielbar sein.
-        </p>
+        <HFullStyles />
       </div>
-    </div>
+      <div className="fixed right-3 bottom-3 bg-white">
+        <View2D
+          world={core.ws.world}
+          preview={{ world: core.ws.quest.tasks[0].target! }}
+          className="w-[200px] h-[200px]"
+        />
+      </div>
+      <div className="mt-4 text-left text-gray-700 fixed left-3 bottom-3">
+        <h3 className="font-bold">Steuerung:</h3>
+        <div className=" mt-2">
+          Pfeiltasten, (H)inlegen, (A)ufheben, (M)arkeSetzen/Löschen
+        </div>
+      </div>
+    </>
   )
 }
