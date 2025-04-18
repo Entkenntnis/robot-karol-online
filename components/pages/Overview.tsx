@@ -6,6 +6,7 @@ import {
   faFloppyDisk,
   faFolderOpen,
   faGlobe,
+  faHeart,
   faPaintBrush,
   faPencil,
   faTable,
@@ -121,6 +122,17 @@ export function Overview() {
                 <option value="en">English</option>
               </select>
             </label>
+          </div>
+          <div className="fixed top-2 right-2 z-[1000]">
+            <button
+              className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
+              onClick={() => {
+                submitAnalyzeEvent(core, 'ev_click_landing_donate')
+                navigate(core, '#SPENDEN')
+              }}
+            >
+              <FaIcon icon={faHeart} className="text-rose-400" /> Spenden
+            </button>
           </div>
           <div className="mx-auto mt-6">
             <a
@@ -700,7 +712,7 @@ export function Overview() {
                   core.ws.page !== 'analyze' && (
                     <div className="absolute top-72 left-12 ">
                       <AnimateInView>
-                        <div className="bg-gray-100 rounded-lg p-2 w-[550px]">
+                        <div className="bg-white/50 rounded-lg p-2 w-[550px]">
                           <p>
                             Diese Online-Programmierumgebung führt dich in die
                             Grundlagen von Algorithmen ein: Sequenz,

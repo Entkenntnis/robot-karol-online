@@ -248,6 +248,14 @@ export async function hydrateFromHash(core: Core) {
     return
   }
 
+  if (page == 'SPENDEN') {
+    core.mutateWs((ws) => {
+      ws.page = 'donate'
+    })
+    document.title = 'Spenden | Robot Karol Online'
+    return
+  }
+
   if (page == 'OPEN') {
     try {
       // extract url

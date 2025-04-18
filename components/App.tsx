@@ -30,6 +30,7 @@ import { LoadingScreen } from './helper/LoadingScreen'
 import { submitAnalyzeEvent } from '../lib/commands/analyze'
 import { setLockToKarolCode } from '../lib/storage/storage'
 import { Karolmania } from './pages/Karolmania'
+import { Donate } from './pages/Donate'
 
 export function App() {
   const core = useCore()
@@ -116,6 +117,8 @@ export function App() {
       return <InspirationOld />
     } else if (core.ws.page == 'karolmania') {
       return <Karolmania />
+    } else if (core.ws.page == 'donate') {
+      return <Donate />
     } else {
       return null
     }
