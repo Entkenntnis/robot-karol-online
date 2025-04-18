@@ -273,7 +273,7 @@ export function Output() {
             {core.strings.ide.back}
           </button>
           {!core.ws.ui.isPlayground && !core.ws.ui.isTesting && hasPreview && (
-            <span className="ml-12 bg-white/80 rounded p-1">
+            <span className="ml-12 bg-white/80 rounded p-1 hidden small:inline">
               <label className="select-none cursor-pointer text-gray-600">
                 <input
                   type="checkbox"

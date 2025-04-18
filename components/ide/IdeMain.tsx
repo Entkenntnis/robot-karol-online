@@ -1,6 +1,8 @@
 import {
   faCaretRight,
+  faCode,
   faExclamationTriangle,
+  faPlayCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
@@ -20,31 +22,54 @@ import { JavaInfo } from './JavaInfo'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { InteractionBar } from './InteractionBar'
 import { FlyoutMenu } from './FlyoutMenu'
+import { is } from 'date-fns/locale'
 
 export function IdeMain() {
   const core = useCore()
 
   const [toH, setToH] = useState<NodeJS.Timeout | null>(null)
 
-  /*useEffect(() => {
-    const onBeforeUnload = (ev: BeforeUnloadEvent) => {
-      if (
-        core.ws.page == 'shared' &&
-        core.ws.vm.bytecode &&
-        core.ws.vm.bytecode.length > 0
-      ) {
-        ev.preventDefault()
-        return "Anything here as well, doesn't matter!"
+  const [activeTab, setActiveTab] = useState<'program' | 'output'>('output')
+  const [isMobileView, setIsMobileView] = useState<boolean>(false)
+
+  // Check if we're in mobile view on mount and when window resizes
+  useEffect(() => {
+    const checkMobileView = () => {
+      const isMobile = window.innerWidth < 640
+      setIsMobileView(isMobile)
+    }
+
+    // Check on mount
+    checkMobileView()
+
+    // Add resize listener
+    window.addEventListener('resize', checkMobileView)
+
+    // Clean up
+    return () => {
+      window.removeEventListener('resize', checkMobileView)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (core.ws.ui.state == 'running') {
+      if (isMobileView) {
+        setActiveTab('output')
       }
     }
-
-    window.addEventListener('beforeunload', onBeforeUnload)
-
-    return () => {
-      window.removeEventListener('beforeunload', onBeforeUnload)
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])*/
+  }, [core.ws.ui.state])
+
+  useEffect(() => {
+    if (core.ws.ui.isHighlightDescription && window.innerWidth < 640) {
+      closeHighlightDescription(core)
+      core.mutateWs((ws) => {
+        ws.ui.collapseDescription = true
+      })
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [core.ws.ui.isHighlightDescription])
 
   useEffect(() => {
     const skipWait = core.ws.quest.description.length < 100
@@ -80,10 +105,62 @@ export function IdeMain() {
 
   return (
     <>
-      <ReflexContainer orientation="vertical" windowResizeAware>
+      <div className="flex w-full bg-gray-200 border-b border-gray-300 sm:hidden">
+        <button
+          className={clsx(
+            'flex-1 py-2 px-4 text-center font-medium',
+            activeTab === 'program'
+              ? 'bg-white text-blue-600 border-b-2 border-blue-600'
+              : 'text-gray-600'
+          )}
+          onClick={() => {
+            submitAnalyzeEvent(core, 'ev_click_ide_mobileTabProgram')
+            setActiveTab('program')
+            if (core.blockyResize) {
+              setTimeout(() => {
+                if (core.blockyResize) core.blockyResize()
+              }, 10)
+              setTimeout(() => {
+                if (core.blockyResize) core.blockyResize()
+              }, 20)
+              setTimeout(() => {
+                if (core.blockyResize) core.blockyResize()
+              }, 100)
+              setTimeout(() => {
+                if (core.blockyResize) core.blockyResize()
+              }, 400)
+            }
+          }}
+        >
+          <FaIcon icon={faCode} className="mr-2" /> Programm
+        </button>
+        <button
+          className={clsx(
+            'flex-1 py-2 px-4 text-center font-medium',
+            activeTab === 'output'
+              ? 'bg-white text-blue-600 border-b-2 border-blue-600'
+              : 'text-gray-600'
+          )}
+          onClick={() => {
+            submitAnalyzeEvent(core, 'ev_click_ide_mobileTabOutput')
+            setActiveTab('output')
+          }}
+        >
+          <FaIcon icon={faPlayCircle} className="mr-2" /> Welt
+        </button>
+      </div>
+      <ReflexContainer
+        orientation="vertical"
+        windowResizeAware
+        className={clsx(isMobileView ? '!h-[calc(100%-43px)]' : '')}
+      >
         <ReflexElement
-          className="h-full !overflow-hidden relative"
+          className={clsx(
+            'h-full !overflow-hidden relative',
+            isMobileView && (activeTab == 'program' ? '!flex-1' : 'hidden')
+          )}
           minSize={0}
+          size={isMobileView ? (activeTab == 'program' ? 640 : 0) : undefined}
           onResize={() => {
             if (core.blockyResize) {
               core.blockyResize()
@@ -101,7 +178,7 @@ export function IdeMain() {
               }}
             ></div>
           )}
-          <div className="h-full flex flex-col">
+          <div className={clsx('flex flex-col h-full')}>
             {!(
               core.ws.ui.isTesting &&
               core.ws.ui.state == 'ready' &&
@@ -168,10 +245,16 @@ export function IdeMain() {
 
         <ReflexSplitter
           style={{ width: 6 }}
-          className="!bg-gray-300 !border-0 hover:!bg-blue-400 active:!bg-blue-400"
+          className="!bg-gray-300 !border-0 hover:!bg-blue-400 active:!bg-blue-400 hidden sm:block"
         />
 
-        <ReflexElement minSize={0}>
+        <ReflexElement
+          minSize={0}
+          size={isMobileView ? (activeTab == 'output' ? 640 : 0) : undefined}
+          className={clsx(
+            isMobileView && (activeTab == 'output' ? '!flex-1' : 'hidden')
+          )}
+        >
           {core.ws.ui.showJavaInfo ? (
             <JavaInfo />
           ) : core.ws.ui.showOutput ? (

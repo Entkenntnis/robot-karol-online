@@ -322,10 +322,10 @@ export function Tasks() {
         className={clsx(
           'h-10 flex-shrink-0 flex-grow-0 flex bg-gray-100 py-1',
           core.ws.ui.isPlayground
-            ? 'min-w-[400px]'
+            ? 'sm:min-w-[400px]'
             : core.ws.page == 'editor'
-            ? 'min-w-[550px]'
-            : 'min-w-[380px]',
+            ? 'sm:min-w-[550px]'
+            : 'sm:min-w-[380px]',
           core.ws.editor.showQuestPreview && 'hidden'
         )}
       >
@@ -446,7 +446,7 @@ export function Tasks() {
             core.ws.page === 'imported' ||
             core.ws.page === 'quest') && (
             <button
-              className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600"
+              className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"
               onClick={() => {
                 submitAnalyzeEvent(core, 'ev_click_ide_appearance')
                 showModal(core, 'appearance')

@@ -164,6 +164,7 @@ export interface WorkspaceState {
     | 'inspiration-old'
     | 'karolmania'
     | 'karolmania-game'
+    | 'donate'
 
   modal:
     | 'name'

@@ -7,6 +7,7 @@ import {
   faFolderOpen,
   faGlobe,
   faMedal,
+  faHeart,
   faPaintBrush,
   faPencil,
   faTable,
@@ -88,7 +89,7 @@ export function Overview() {
     <>
       <div className="h-full overflow-auto" id="scroll-container">
         <div className="flex flex-col relative min-h-full min-w-fit background-element">
-          <div className="flex justify-center">
+          <div className="flex md:justify-center justify-start mt-6 ml-3 md:m-0">
             <div
               className={clsx(
                 'flex mt-8 items-center rounded-xl',
@@ -123,7 +124,18 @@ export function Overview() {
               </select>
             </label>
           </div>
-          <div className="mx-auto mt-6">
+          <div className="fixed top-2 right-2 z-[1000]">
+            <button
+              className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
+              onClick={() => {
+                submitAnalyzeEvent(core, 'ev_click_landing_donate')
+                navigate(core, '#SPENDEN')
+              }}
+            >
+              <FaIcon icon={faHeart} className="text-rose-400" /> Spenden
+            </button>
+          </div>
+          <div className="mx-3 md:mx-auto mt-6">
             <a
               href="/#SPIELWIESE"
               className="hover:underline mr-8"
@@ -707,7 +719,7 @@ export function Overview() {
                   core.ws.page !== 'analyze' && (
                     <div className="absolute top-72 left-12 ">
                       <AnimateInView>
-                        <div className="bg-gray-100 rounded-lg p-2 w-[550px]">
+                        <div className="bg-white/50 rounded-lg p-2 w-[550px]">
                           <p>
                             Diese Online-Programmierumgebung führt dich in die
                             Grundlagen von Algorithmen ein: Sequenz,
@@ -762,7 +774,7 @@ export function Overview() {
             isQuestDone(1) &&
             core.ws.overview.showSaveHint &&
             core.ws.page != 'analyze' && (
-              <div className="fixed left-0 right-0 bottom-0 h-10 bg-yellow-100 text-center pt-1.5 z-20">
+              <div className="fixed left-0 right-0 bottom-0 pb-1.5 sm:pb-0 sm:h-10 bg-yellow-100 text-center pt-1.5 z-20">
                 {core.strings.overview.storeOnDevice}{' '}
                 <button
                   className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 ml-6 rounded"

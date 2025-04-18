@@ -59,7 +59,8 @@ export function InteractionBar() {
           })
         }}
       >
-        <FaIcon icon={faBars} className="mr-2" /> {core.strings.ide.menu}
+        <FaIcon icon={faBars} className="sm:mr-2" />
+        <span className="hidden sm:inline"> {core.strings.ide.menu}</span>
       </button>
       {core.ws.ui.lockLanguage ? (
         <div className="whitespace-nowrap font-semibold text-gray-600 select-none border-[#770088] px-2 py-0.5 border rounded-lg">
@@ -125,7 +126,7 @@ export function InteractionBar() {
         </div>
       )}
       <div className="w-[111px]"></div>
-      <div className="flex gap-1 w-[111px] z-[100] absolute right-1 top-0.5">
+      <div className="flex gap-1 sm:w-[111px] z-[100] absolute right-1 top-0.5">
         {core.ws.vm.isDebugging && (
           <button
             className="absolute -bottom-[38px] -left-[52px] px-3 py-1 bg-purple-300 hover:bg-purple-400 transition-colors rounded active:bg-purple-500 "
@@ -208,14 +209,16 @@ export function InteractionBar() {
                 : faPlay
             }
             className={clsx(
-              'mr-2',
+              'mr-2 pl-6 pr-4 inline-block sm:p-0',
               core.ws.ui.state == 'loading' &&
                 core.ws.settings.language == 'python-pro' &&
                 !core.worker?.mainWorkerReady &&
                 'animate-spin-slow'
             )}
           />
-          <span className="text-xl">{core.strings.ide[mainButtonState]}</span>
+          <span className="text-xl sm:inline hidden">
+            {core.strings.ide[mainButtonState]}
+          </span>
         </button>
       </div>
     </div>
