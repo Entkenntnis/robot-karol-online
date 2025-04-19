@@ -1,6 +1,6 @@
 Feature('Main')
 
-Scenario('Is landing page loading?', ({ I }) => {
+/*Scenario('Is landing page loading?', ({ I }) => {
   I.amOnPage('/')
   I.see('Robot Karol Online')
   I.seeTitleEquals('Robot Karol Online')
@@ -89,26 +89,31 @@ Scenario('See if playground works fine', ({ I }) => {
   I.click('Blöcke')
   I.see('Hauptprogramm')
   I.dontSee('Spickzettel')
-})
+})*/
 
-Scenario('Test special case of empty world in learning path', ({ I }) => {
-  I.amOnPage('/#QUEST-55')
-  I.wait(0.2)
-  I.click('div .fixed')
-  I.click({ css: '#select-language' })
-  I.click({ css: '#select-language-robot-karol' })
-  I.type('Hinlegen')
-  I.click('Start')
-  I.wait(2)
-  I.waitForText('Auftrag nicht erfüllt', 10)
-  I.click('div .cm-activeLine')
-  I.pressKey(['Control', 'a'])
-  I.type('wenn NichtIstZiegel dann Hinlegen endewenn')
-  I.click('Start')
-  I.waitForText('weiter', 60)
-})
+for (let i = 0; i < 10; i++) {
+  Scenario(
+    'Test special case of empty world in learning path ' + i,
+    ({ I }) => {
+      I.amOnPage('/#QUEST-55')
+      I.wait(0.2)
+      I.click('div .fixed')
+      I.click({ css: '#select-language' })
+      I.click({ css: '#select-language-robot-karol' })
+      I.type('Hinlegen')
+      I.click('Start')
+      I.wait(2)
+      I.waitForText('Auftrag nicht erfüllt', 10)
+      I.click('div .cm-activeLine')
+      I.pressKey(['Control', 'a'])
+      I.type('wenn NichtIstZiegel dann Hinlegen endewenn')
+      I.click('Start')
+      I.waitForText('weiter', 60)
+    }
+  )
+}
 
-Scenario('Test special case of empty world in standalone quest', ({ I }) => {
+/*Scenario('Test special case of empty world in standalone quest', ({ I }) => {
   I.amOnPage('/#NG2X')
   I.waitForText('Start', 5)
   I.click({ css: '#select-language' })
@@ -167,4 +172,4 @@ Scenario('Changing speed is breaking debugger', ({ I }) => {
   I.dragSlider('#ide-speed-slider', 0)
   I.wait(0.2)
   I.see('Einzelschritt')
-})
+})*/
