@@ -1,7 +1,7 @@
 import { useCore } from '../../lib/state/core'
 import { HFullStyles } from '../helper/HFullStyles'
 import { View } from '../helper/View'
-import { useEffect, useCallback, useState, useRef } from 'react'
+import { useEffect, useCallback, useState, useRef, useMemo } from 'react'
 import {
   forward,
   left,
@@ -52,12 +52,15 @@ export function KarolmaniaGame() {
 
   // Get the current level's medal times
   const currentLevel = levels.find((level) => level.id === levelId)
-  const medalTimes = {
-    gold: currentLevel?.gold || 0,
-    silver: currentLevel?.silver || 0,
-    bronze: currentLevel?.bronze || 0,
-    at: currentLevel?.at || 0,
-  }
+  const medalTimes = useMemo(
+    () => ({
+      gold: currentLevel?.gold || 0,
+      silver: currentLevel?.silver || 0,
+      bronze: currentLevel?.bronze || 0,
+      at: currentLevel?.at || 0,
+    }),
+    [currentLevel]
+  )
 
   // Create sorted medals array including personal best if available
   const getSortedMedals = () => {
@@ -83,14 +86,18 @@ export function KarolmaniaGame() {
         color: 'text-amber-700',
         label: 'Bronze',
       },
-      {
+    ]
+
+    const pb = getBestTimeForLevel(levelId)
+    if (pb !== null && pb <= medalTimes.gold) {
+      medals.push({
         type: 'at',
         time: medalTimes.at,
         icon: faMedal,
         color: 'text-teal-800',
         label: 'AutorIn',
-      },
-    ]
+      })
+    }
 
     // Add personal best if available
     if (previousBestTime !== null) {
@@ -304,7 +311,7 @@ export function KarolmaniaGame() {
     } else {
       pauseMusic()
     }
-  }, [isMusicPlaying, playMusic, pauseMusic, isDone])
+  }, [core, isMusicPlaying, isDone, playMusic, pauseMusic])
 
   const toggleSoundEffects = useCallback(() => {
     submitAnalyzeEvent(core, 'ev_click_karolmania_toggleSoundEffects')
@@ -312,7 +319,7 @@ export function KarolmaniaGame() {
       setKarolmaniaSoundEffectsEnabled(!prev)
       return !prev
     })
-  }, [])
+  }, [core])
 
   const playWinSound = useCallback(() => {
     if (!isSoundEffectsEnabled) return
@@ -459,6 +466,8 @@ export function KarolmaniaGame() {
     medalTimes,
     previousBestTime,
     playSuccessSound,
+    pauseMusic,
+    playWinSound,
   ])
 
   // Load previous best time when component mounts
