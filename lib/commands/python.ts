@@ -50,14 +50,20 @@ export function setupWorker(core: Core) {
 
     if (event.data == 'ready') {
       core.worker.mainWorkerReady = true
-      core.mutateWs(({ ui }) => {
-        ui.state = 'ready'
-      })
-      if (mainWorkerInitPromiseResolve) {
-        mainWorkerInitPromiseResolve()
-        mainWorkerInitPromiseResolve = null
+      // only continue if we are still in python mode
+      if (
+        core.ws.settings.language == 'python-pro' &&
+        core.ws.settings.mode == 'code'
+      ) {
+        core.mutateWs(({ ui }) => {
+          ui.state = 'ready'
+        })
+        if (mainWorkerInitPromiseResolve) {
+          mainWorkerInitPromiseResolve()
+          mainWorkerInitPromiseResolve = null
+        }
+        core.worker.init()
       }
-      core.worker.init()
     }
 
     if (event.data === 'done') {
