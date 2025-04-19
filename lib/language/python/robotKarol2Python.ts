@@ -119,7 +119,7 @@ export function robotKarol2Python(code: string) {
         }
       } else if (node.name == 'CustomRef') {
         pad()
-        output += `karol.${node.text()}()\n`
+        output += `${node.text()}()\n`
       } else if (node.name == 'LineComment') {
         pad()
         output += `#${node.text().substring(2)}\n`
@@ -173,12 +173,12 @@ export function robotKarol2Python(code: string) {
 
   return `karol = Robot()
 
-${main ? main : ''}${methods
-    .map((method) => {
-      const name = method.children[1].text()
-      const inner = method.children.slice(2, -1)
-      const code = nodes2Code(inner, 1)
-      return `\n\ndef ${name}():\n${code ? code : '    pass'}`
-    })
-    .join('')}`
+${methods
+  .map((method) => {
+    const name = method.children[1].text()
+    const inner = method.children.slice(2, -1)
+    const code = nodes2Code(inner, 1)
+    return `def ${name}():\n${code ? code : '    pass'}\n\n`
+  })
+  .join('')}${main ? main : ''}`
 }

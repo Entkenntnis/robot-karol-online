@@ -168,3 +168,17 @@ Scenario('Changing speed is breaking debugger', ({ I }) => {
   I.wait(0.2)
   I.see('Einzelschritt')
 })
+
+Scenario('Correctly convert code to python', ({ I }) => {
+  I.amOnPage(
+    '/#SPIELWIESE-CODE:%2F%2F Spielwiese%3A 15%2C 10%2C 6%0A%0ATueEtwas%0A%0AAnweisung TueEtwas%0A%20 Schritt%0AendeAnweisung'
+  )
+
+  I.click({ css: '#select-language' })
+  I.click({ css: '#select-language-python-pro' })
+
+  I.waitForClickable('Start')
+  I.click('Start')
+  I.waitForText('Ausführung beendet', 10)
+  I.dontSee('Traceback')
+})
