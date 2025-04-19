@@ -38,8 +38,8 @@ jobs:
         working-directory: src-e2e
         run: |
           npm install
-          npx playwright install firefox
-          HEADLESS=true npm run test
+          npx playwright install firefox chromium
+          HEADLESS=true npm run test:all
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

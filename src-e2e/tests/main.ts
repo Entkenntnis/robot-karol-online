@@ -177,7 +177,6 @@ Scenario('Correctly convert code to python', ({ I }) => {
   I.click({ css: '#select-language' })
   I.click({ css: '#select-language-python-pro' })
 
-  I.waitForClickable('Start')
   I.click('Start')
   I.waitForText('Ausführung beendet', 10)
   I.dontSee('Traceback')

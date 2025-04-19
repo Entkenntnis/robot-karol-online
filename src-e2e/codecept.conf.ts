@@ -22,4 +22,12 @@ export const config: CodeceptJS.MainConfig = {
     I: './steps_file',
   },
   name: 'src-e2e',
+  multiple: {
+    firefox: {
+      browsers: ['firefox'],
+    },
+    chromium: {
+      browsers: ['chromium'],
+    },
+  },
 }
