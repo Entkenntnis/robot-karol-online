@@ -7,10 +7,9 @@ export function InteractiveClassDiagram() {
     <div className="flex flex-col h-full">
       <div className="">
         <ClassDiagram
-          classes={core.ws.pythonCode
-            .split('class ')
-            .slice(1)
-            .map((c) => c.split(':')[0].trim())}
+          classes={Object.values(core.ws.bench.classInfo).map(
+            (cls) => cls.name
+          )}
         />
       </div>
       <div className="flex-grow bg-gray-200 relative">

@@ -1,10 +1,13 @@
+import { set } from 'date-fns'
 import { useState, useRef, useEffect } from 'react'
+import { useCore } from '../../lib/state/core'
 
 interface ClassDiagramProps {
   classes: string[]
 }
 
 export default function ClassDiagram({ classes }: ClassDiagramProps) {
+  const core = useCore()
   const [contextMenu, setContextMenu] = useState<{
     visible: boolean
     x: number
@@ -13,19 +16,7 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
   }>({ visible: false, x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
-
-  const handleContextMenu = (e: React.MouseEvent) => {
-    e.preventDefault()
-    const containerRect = containerRef.current?.getBoundingClientRect()
-    if (!containerRect) return
-
-    setContextMenu({
-      visible: true,
-      x: e.clientX - containerRect.left,
-      y: e.clientY - containerRect.top,
-      targetRect: e.currentTarget.getBoundingClientRect(),
-    })
-  }
+  const [selectedClass, setSelectedClass] = useState<string | null>(null)
 
   const closeContextMenu = () => {
     setContextMenu({ visible: false, x: 0, y: 0 })
@@ -50,7 +41,19 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
       {classes.map((className, index) => (
         <div
           key={index}
-          onContextMenu={handleContextMenu}
+          onContextMenu={(e) => {
+            e.preventDefault()
+            const containerRect = containerRef.current?.getBoundingClientRect()
+            if (!containerRect) return
+
+            setContextMenu({
+              visible: true,
+              x: e.clientX - containerRect.left,
+              y: e.clientY - containerRect.top,
+              targetRect: e.currentTarget.getBoundingClientRect(),
+            })
+            setSelectedClass(className)
+          }}
           className="relative bg-white border-2 border-gray-800 rounded-sm cursor-pointer hover:shadow-lg transition-shadow"
         >
           <div className="px-8 py-1 border-b-2 border-gray-800">
@@ -70,13 +73,11 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
           }}
         >
           <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-            Option 1
-          </div>
-          <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-            Option 2
-          </div>
-          <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-            Option 3
+            {`${selectedClass}(${core.ws.bench.classInfo[
+              selectedClass!
+            ].constructor.parameters
+              .map((p) => p.name)
+              .join(', ')})`}
           </div>
         </div>
       )}

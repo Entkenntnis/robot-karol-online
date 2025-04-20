@@ -143,6 +143,7 @@ export interface WorkspaceState {
   // IDE Modes
   quest: Quest
   editor: Editor
+  bench: Bench
 
   // Overview
   analyze: Analyze
@@ -194,6 +195,26 @@ export interface Appearance {
   skin: number
   shirt: number
   legs: number
+}
+
+export interface Bench {
+  classInfo: { [key: string]: ClassInfo }
+}
+
+export interface ClassInfo {
+  name: string
+  constructor: FunctionInfo
+  methods: { [key: string]: FunctionInfo }
+}
+
+export interface FunctionInfo {
+  name: string
+  parameters: ParameterInfo[]
+}
+
+export interface ParameterInfo {
+  name: string
+  default?: any
 }
 
 export interface QuestTask {

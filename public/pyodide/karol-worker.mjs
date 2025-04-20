@@ -384,19 +384,115 @@ self.onmessage = async (event) => {
       benchGlobals = pyodide.toPy({
         Robot: buildRobot(),
       })
-      const version = pyodide.runPython(`import sys; sys.version;`)
+      const version = pyodide.runPython(`import sys; sys.version;\n`)
       self.postMessage({ type: 'bench', id, payload: { version } })
     }
     if (command == 'message') {
       const { request } = event.data.payload
-      if (request == 'listing') {
-        console.log('hi, listing')
-        const keys = []
-        for (const key of benchGlobals) {
-          if (key == '__builtins__') continue
-          keys.push(key)
-        }
-        self.postMessage({ type: 'bench', id, payload: { keys } })
+      if (request == 'execute') {
+        const { code } = event.data.payload
+        const payload = pyodide.runPython(code, {
+          globals: benchGlobals,
+          filename: 'Bench.py',
+        })
+        self.postMessage({
+          type: 'bench',
+          id,
+          payload: { result: payload },
+        })
+      }
+      if (request == 'class-info') {
+        const payload = pyodide.runPython(
+          `
+import inspect
+import json
+
+def get_class_info():
+    processed_classes = set()
+    class_info = {}
+
+    for obj in globals().values():
+        if isinstance(obj, type):
+            class_name = obj.__name__
+
+            # Process constructor (__init__)
+            init_method = obj.__init__
+            parameters = []
+            if '__init__' in vars(obj):
+                try:
+                    sig = inspect.signature(init_method)
+                except (ValueError, TypeError):
+                    pass
+                else:
+                    params = list(sig.parameters.values())
+                    if params:
+                        params = params[1:]  # Skip the first parameter (self)
+                    for param in params:
+                        param_info = {'name': param.name}
+                        if param.default is not inspect.Parameter.empty:
+                            param_info['default'] = param.default
+                        parameters.append(param_info)
+
+            constructor_info = {
+                'name': '__init__',
+                'parameters': parameters
+            }
+
+            # Process methods (excluding __init__)
+            methods = {}
+            for attr_name, attr_value in obj.__dict__.items():
+                if attr_name == '__init__':
+                    continue
+
+                func = None
+                if isinstance(attr_value, staticmethod):
+                    func = attr_value.__func__
+                elif isinstance(attr_value, classmethod):
+                    func = attr_value.__func__
+                elif inspect.isfunction(attr_value):
+                    func = attr_value
+                else:
+                    continue
+
+                try:
+                    sig = inspect.signature(func)
+                except (ValueError, TypeError):
+                    func_params = []
+                else:
+                    func_params = []
+                    for param in sig.parameters.values():
+                        if param.name == 'self':
+                            continue
+                        param_info = {'name': param.name}
+                        if param.default is not inspect.Parameter.empty:
+                            param_info['default'] = param.default
+                        func_params.append(param_info)
+
+                method_info = {
+                    'name': func.__name__,
+                    'parameters': func_params
+                }
+                methods[attr_name] = method_info
+
+            class_info[class_name] = {
+                'name': class_name,
+                'constructor': constructor_info,
+                'methods': methods
+            }
+
+    return class_info
+
+info = get_class_info()
+json.dumps(info)
+
+`,
+          { globals: benchGlobals }
+        )
+        self.postMessage({
+          type: 'bench',
+          id,
+          payload: { classInfo: payload },
+        })
       }
     }
   }

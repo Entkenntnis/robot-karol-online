@@ -92,6 +92,9 @@ export function createWorkspaceState(): WorkspaceState {
       keepQuest: false,
       questScript: '',
     },
+    bench: {
+      classInfo: {},
+    },
     analyze: {
       published: [],
       cutoff: '',

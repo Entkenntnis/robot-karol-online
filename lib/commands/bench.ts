@@ -17,10 +17,18 @@ export async function startBench(core: Core) {
     ws.quest.lastStartedTask = 0
     ws.ui.state = 'running'
   })
+  await core.worker!.messageBench({
+    request: 'execute',
+    code: core.ws.pythonCode,
+  })
   updateBench(core)
 }
 
 export async function updateBench(core: Core) {
-  const result = await core.worker!.messageBench({ request: 'listing' })
-  alert(JSON.stringify(result))
+  const result = (await core.worker!.messageBench({
+    request: 'class-info',
+  })) as any
+  core.mutateWs((ws) => {
+    ws.bench.classInfo = JSON.parse(result.classInfo)
+  })
 }
