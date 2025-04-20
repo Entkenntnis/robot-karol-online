@@ -6,12 +6,17 @@ setHeadlessWhen(process.env.HEADLESS)
 // enable all common plugins https://github.com/codeceptjs/configure#setcommonplugins
 setCommonPlugins()
 
+// Type-safe browser selection
+const browser =
+  (process.env.BROWSER as 'chromium' | 'firefox' | 'webkit' | 'electron') ||
+  'firefox'
+
 export const config: CodeceptJS.MainConfig = {
   tests: 'tests/*.ts',
   output: './output',
   helpers: {
     Playwright: {
-      browser: 'firefox',
+      browser: browser,
       url: 'http://localhost:3000',
       show: true,
       restart: 'session',
@@ -22,12 +27,4 @@ export const config: CodeceptJS.MainConfig = {
     I: './steps_file',
   },
   name: 'src-e2e',
-  multiple: {
-    firefox: {
-      browsers: ['firefox'],
-    },
-    chromium: {
-      browsers: ['chromium'],
-    },
-  },
 }

@@ -4,9 +4,9 @@
   "description": "E2E-Tests for Robot Karol Online",
   "scripts": {
     "test": "codeceptjs run --steps",
-    "test:firefox": "codeceptjs run --steps --profile firefox",
-    "test:chromium": "codeceptjs run --steps --profile chromium",
-    "test:all": "run-s test:firefox test:chromium"
+    "test:firefox": "cross-env BROWSER=firefox codeceptjs run --steps",
+    "test:chromium": "cross-env BROWSER=chromium codeceptjs run --steps",
+    "test:all": "npm-run-all -s test:firefox test:chromium"
   },
   "devDependencies": {
     "@codeceptjs/configure": "^1.0.3",
@@ -14,6 +14,7 @@
     "@codeceptjs/ui": "^1.2.3",
     "@types/node": "^22.13.13",
     "codeceptjs": "^3.7.3",
+    "cross-env": "^7.0.3",
     "npm-run-all": "^4.1.5",
     "playwright": "^1.51.1",
     "ts-node": "^10.9.2",
