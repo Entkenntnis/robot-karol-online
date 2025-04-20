@@ -470,7 +470,7 @@ export interface PyodideWorker {
   step: () => void
   addBreakpoint: (line: number) => void
   removeBreakpoint: (line: number) => void
-  prepareBench: () => void
+  prepareBench: () => Promise<object>
   messageBench: (payload: object) => Promise<object>
   sharedArrayDelay: Int32Array
   debugInterface: Int32Array

@@ -34,7 +34,7 @@ export function setupWorker(core: Core) {
     step: () => {},
     addBreakpoint: (line: number) => {},
     removeBreakpoint: (line: number) => {},
-    prepareBench: () => {},
+    prepareBench: () => new Promise(() => {}),
     messageBench: () => new Promise(() => {}),
     mainWorker: null,
     backupWorker: null,
@@ -551,14 +551,14 @@ export function setupWorker(core: Core) {
     }
   }
 
-  core.worker.prepareBench = () => {
+  core.worker.prepareBench = async () => {
     if (
       !core.worker ||
       !core.worker.mainWorker ||
       !core.worker.backupWorker ||
       !core.worker.mainWorkerReady
     )
-      return
+      throw new Error('Worker not ready')
 
     core.worker.isFresh = false
 

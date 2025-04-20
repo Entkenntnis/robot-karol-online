@@ -9,6 +9,7 @@ export function exitBench(core: Core) {
 }
 
 export async function startBench(core: Core) {
+  await core.worker!.prepareBench()
   core.mutateWs((ws) => {
     ws.ui.isBench = true
     ws.world = ws.quest.tasks[0].start
@@ -16,7 +17,10 @@ export async function startBench(core: Core) {
     ws.quest.lastStartedTask = 0
     ws.ui.state = 'running'
   })
+  updateBench(core)
+}
 
-  const version = ((await core.worker!.prepareBench()) as any).version
-  alert(version)
+export async function updateBench(core: Core) {
+  const result = await core.worker!.messageBench({ request: 'listing' })
+  alert(JSON.stringify(result))
 }
