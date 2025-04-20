@@ -34,6 +34,8 @@ export function setupWorker(core: Core) {
     step: () => {},
     addBreakpoint: (line: number) => {},
     removeBreakpoint: (line: number) => {},
+    prepareBench: () => {},
+    messageBench: () => new Promise(() => {}),
     mainWorker: null,
     backupWorker: null,
     mainWorkerReady: false,
@@ -41,6 +43,8 @@ export function setupWorker(core: Core) {
     sharedArrayDelay: new Int32Array(1),
     debugInterface: new Int32Array(129),
     isFresh: true,
+    benchMessageIdCounter: 1,
+    benchMessageResolvers: new Map(),
   }
 
   let mainWorkerInitPromiseResolve: (() => void) | null = null
@@ -288,7 +292,6 @@ export function setupWorker(core: Core) {
       const x = parseInt(x_raw)
       const y = parseInt(y_raw)
       const count = parseInt(count_raw)
-      console.log('set-world', select, x, y, type, count)
 
       if (['brick', 'mark', 'block'].includes(type)) {
         core.mutateWs((ws) => {
@@ -311,6 +314,21 @@ export function setupWorker(core: Core) {
               type == 'brick' ? count : count > 0
           }
         })
+      }
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'bench'
+    ) {
+      const { payload, id } = event.data
+      if (core.worker.benchMessageResolvers.has(id)) {
+        const resolve = core.worker.benchMessageResolvers.get(id)
+        core.worker.benchMessageResolvers.delete(id)
+        if (resolve) {
+          resolve(payload)
+        }
       }
     }
   }
@@ -531,6 +549,53 @@ export function setupWorker(core: Core) {
         return
       }
     }
+  }
+
+  core.worker.prepareBench = () => {
+    if (
+      !core.worker ||
+      !core.worker.mainWorker ||
+      !core.worker.backupWorker ||
+      !core.worker.mainWorkerReady
+    )
+      return
+
+    core.worker.isFresh = false
+
+    const id = core.worker.benchMessageIdCounter++
+
+    core.worker.mainWorker.postMessage({
+      type: 'bench',
+      command: 'prepare',
+      id,
+    })
+
+    return new Promise((resolve) => {
+      core.worker!.benchMessageResolvers.set(id, resolve)
+    })
+  }
+
+  core.worker.messageBench = async (payload: object) => {
+    if (
+      !core.worker ||
+      !core.worker.mainWorker ||
+      !core.worker.backupWorker ||
+      !core.worker.mainWorkerReady
+    )
+      throw new Error('Worker not ready')
+
+    const id = core.worker.benchMessageIdCounter++
+
+    core.worker.mainWorker.postMessage({
+      type: 'bench',
+      command: 'message',
+      payload,
+      id,
+    })
+
+    return new Promise((resolve) => {
+      core.worker!.benchMessageResolvers.set(id, resolve)
+    })
   }
 }
 

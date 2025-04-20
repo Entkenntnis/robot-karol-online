@@ -21,7 +21,7 @@ import { QuestPrompt } from '../helper/QuestPrompt'
 import { Cheatsheet } from '../helper/Cheatsheet'
 import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
 import ClassDiagram from './ClassDiagram'
-import { startClassDiagram } from '../../lib/commands/class-diagram'
+import { startBench } from '../../lib/commands/bench'
 import { InteractiveClassDiagram } from './InteractiveClassDiagram'
 
 export function EditArea() {
@@ -33,11 +33,7 @@ export function EditArea() {
 
   useEffect(() => {
     setShowCheatSheet(false)
-  }, [
-    core.ws.settings.language,
-    core.ws.settings.mode,
-    core.ws.ui.interactiveClassdiagram,
-  ])
+  }, [core.ws.settings.language, core.ws.settings.mode, core.ws.ui.isBench])
 
   core.view = view
 
@@ -62,10 +58,7 @@ export function EditArea() {
   })
 
   if (core.ws.settings.mode == 'code') {
-    if (
-      core.ws.settings.language == 'python-pro' &&
-      core.ws.ui.interactiveClassdiagram
-    ) {
+    if (core.ws.settings.language == 'python-pro' && core.ws.ui.isBench) {
       return <InteractiveClassDiagram />
     }
     return (
@@ -103,20 +96,20 @@ export function EditArea() {
                     Spickzettel
                   </button>
                 )}
-                {core.ws.pythonCode.includes('class ') && (
+                {
                   <button
                     className={clsx(
-                      'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity',
-                      core.ws.ui.state == 'ready' ? 'opacity-100' : 'opacity-50'
+                      'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed'
                     )}
                     onClick={() => {
-                      startClassDiagram(core)
+                      startBench(core)
                     }}
+                    disabled={core.ws.ui.state != 'ready'}
                   >
                     <FaIcon icon={faPlay} className="text-xs" /> Interaktives
                     Klassendiagramm
                   </button>
-                )}
+                }
               </div>
 
               {core.ws.page == 'editor' &&

@@ -270,10 +270,7 @@ export function FlyoutMenu() {
               <button
                 className="px-2 py-0.5 hover:bg-yellow-300 rounded"
                 onClick={() => {
-                  if (
-                    core.ws.ui.state == 'running' ||
-                    core.ws.ui.interactiveClassdiagram
-                  ) {
+                  if (core.ws.ui.state == 'running' || core.ws.ui.isBench) {
                     startButtonClicked(core)
                   }
                   closeFlyoutMenu()

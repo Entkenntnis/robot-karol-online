@@ -19,6 +19,7 @@ import { renderDescription } from '../../lib/helper/processMiniMarkdown'
 import { View2D } from '../helper/View2D'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
+import { exitBench } from '../../lib/commands/bench'
 
 export function Output() {
   const core = useCore()
@@ -257,7 +258,9 @@ export function Output() {
           <button
             className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
-              if (
+              if (core.ws.ui.isBench) {
+                exitBench(core)
+              } else if (
                 core.ws.settings.language == 'python-pro' &&
                 core.worker &&
                 core.ws.ui.state == 'running'

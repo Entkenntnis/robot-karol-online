@@ -24,7 +24,11 @@ check_syntax(${JSON.stringify(code)})
 
 const throwFauxTypeError = (cls, member, expected_args, rest) => {
   if (rest.length > 0)
-    throw TypeError(`${cls}.${member}() only takes ${expected_args} argument(s) (${expected_args + rest.length} were given)`);
+    throw TypeError(
+      `${cls}.${member}() only takes ${expected_args} argument(s) (${
+        expected_args + rest.length
+      } were given)`
+    )
 }
 
 self.onmessage = async (event) => {
@@ -79,7 +83,7 @@ self.onmessage = async (event) => {
     const Robot = () => {
       return {
         schritt: (n, ...rest) => {
-          throwFauxTypeError("Robot", "schritt", 1, rest);
+          throwFauxTypeError('Robot', 'schritt', 1, rest)
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
@@ -89,7 +93,7 @@ self.onmessage = async (event) => {
           }
         },
         linksDrehen: (n, ...rest) => {
-          throwFauxTypeError("Robot", "linksDrehen", 1, rest);
+          throwFauxTypeError('Robot', 'linksDrehen', 1, rest)
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
@@ -99,7 +103,7 @@ self.onmessage = async (event) => {
           }
         },
         rechtsDrehen: (n, ...rest) => {
-          throwFauxTypeError("Robot", "rechtsDrehen", 1, rest);
+          throwFauxTypeError('Robot', 'rechtsDrehen', 1, rest)
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
@@ -109,7 +113,7 @@ self.onmessage = async (event) => {
           }
         },
         hinlegen: (n, ...rest) => {
-          throwFauxTypeError("Robot", "hinlegen", 1, rest);
+          throwFauxTypeError('Robot', 'hinlegen', 1, rest)
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
@@ -119,7 +123,7 @@ self.onmessage = async (event) => {
           }
         },
         aufheben: (n, ...rest) => {
-          throwFauxTypeError("Robot", "aufheben", 1, rest);
+          throwFauxTypeError('Robot', 'aufheben', 1, rest)
           const count = isNaN(n) ? 1 : n
           for (let i = 0; i < count; i++) {
             highlightCurrentLine()
@@ -129,81 +133,87 @@ self.onmessage = async (event) => {
           }
         },
         markeSetzen: (...rest) => {
-          throwFauxTypeError("Robot", "markeSetzen", 0, rest);
+          throwFauxTypeError('Robot', 'markeSetzen', 0, rest)
           highlightCurrentLine()
           checkDebug()
           self.postMessage({ type: 'action', action: 'markeSetzen' })
           sleepWithDelay()
         },
         markeLöschen: (...rest) => {
-          throwFauxTypeError("Robot", "markeLöschen", 0, rest);
+          throwFauxTypeError('Robot', 'markeLöschen', 0, rest)
           highlightCurrentLine()
           checkDebug()
           self.postMessage({ type: 'action', action: 'markeLöschen' })
           sleepWithDelay()
         },
         istWand: (...rest) => {
-          throwFauxTypeError("Robot", "istWand", 0, rest);
-          if (!direction) direction = null;
+          throwFauxTypeError('Robot', 'istWand', 0, rest)
+          if (!direction) direction = null
           return checkCondition({ type: 'wall', negated: false }) // direction is not handled by testCondition, removed
         },
         nichtIstWand: (...rest) => {
-          throwFauxTypeError("Robot", "nichtIstWand", 0, rest);
-          if (!direction) direction = null;
+          throwFauxTypeError('Robot', 'nichtIstWand', 0, rest)
+          if (!direction) direction = null
           return checkCondition({ type: 'wall', negated: true }) // direction is not handled by testCondition, removed
         },
         istMarke: (...rest) => {
-          throwFauxTypeError("Robot", "istMarke", 0, rest);
+          throwFauxTypeError('Robot', 'istMarke', 0, rest)
           return checkCondition({ type: 'mark', negated: false })
         },
         nichtIstMarke: (...rest) => {
-          throwFauxTypeError("Robot", "nichtIstMarke", 0, rest);
+          throwFauxTypeError('Robot', 'nichtIstMarke', 0, rest)
           return checkCondition({ type: 'mark', negated: true })
         },
         istZiegel: (count, ...rest) => {
-          throwFauxTypeError("Robot", "istZiegel", 1, rest);
-          if (count !== undefined) return checkCondition({ type: 'brick_count', negated: false, count })
+          throwFauxTypeError('Robot', 'istZiegel', 1, rest)
+          if (count !== undefined)
+            return checkCondition({
+              type: 'brick_count',
+              negated: false,
+              count,
+            })
           return checkCondition({ type: 'brick', negated: false, count })
         },
         nichtIstZiegel: (count, ...rest) => {
-          throwFauxTypeError("Robot", "nichtIstZiegel", 1, rest);
-          if (count !== undefined) return checkCondition({ type: 'brick_count', negated: true, count })
+          throwFauxTypeError('Robot', 'nichtIstZiegel', 1, rest)
+          if (count !== undefined)
+            return checkCondition({ type: 'brick_count', negated: true, count })
           return checkCondition({ type: 'brick', negated: true, count })
         },
         istNorden: (...rest) => {
-          throwFauxTypeError("Robot", "istNorden", 0, rest);
+          throwFauxTypeError('Robot', 'istNorden', 0, rest)
           return checkCondition({ type: 'north', negated: false })
         },
         nichtIstNorden: (...rest) => {
-          throwFauxTypeError("Robot", "nichtIstNorden", 0, rest);
+          throwFauxTypeError('Robot', 'nichtIstNorden', 0, rest)
           return checkCondition({ type: 'north', negated: true })
         },
         istOsten: (...rest) => {
-          throwFauxTypeError("Robot", "istOsten", 0, rest);
+          throwFauxTypeError('Robot', 'istOsten', 0, rest)
           return checkCondition({ type: 'east', negated: false })
         },
         nichtIstOsten: (...rest) => {
-          throwFauxTypeError("Robot", "nichtIstOsten", 0, rest);
+          throwFauxTypeError('Robot', 'nichtIstOsten', 0, rest)
           return checkCondition({ type: 'east', negated: true })
         },
         istSüden: (...rest) => {
-          throwFauxTypeError("Robot", "istSüden", 0, rest);
+          throwFauxTypeError('Robot', 'istSüden', 0, rest)
           return checkCondition({ type: 'south', negated: false })
         },
         nichtIstSüden: (...rest) => {
-          throwFauxTypeError("Robot", "nichtIstSüden", 0, rest);
+          throwFauxTypeError('Robot', 'nichtIstSüden', 0, rest)
           return checkCondition({ type: 'south', negated: true })
         },
         istWesten: (...rest) => {
-          throwFauxTypeError("Robot", "istWesten", 0, rest);
+          throwFauxTypeError('Robot', 'istWesten', 0, rest)
           return checkCondition({ type: 'west', negated: false })
         },
         nichtIstWesten: (...rest) => {
-          throwFauxTypeError("Robot", "nichtIstWesten", 0, rest);
+          throwFauxTypeError('Robot', 'nichtIstWesten', 0, rest)
           return checkCondition({ type: 'west', negated: true })
         },
         beenden: (...rest) => {
-          throwFauxTypeError("Robot", "beenden", 0, rest);
+          throwFauxTypeError('Robot', 'beenden', 0, rest)
           self.postMessage({ type: 'action', action: 'beenden' })
         },
       }
@@ -275,7 +285,6 @@ self.onmessage = async (event) => {
         self.postMessage({ type: 'action', action: 'beenden' })
       },
       __ide_set_world: (select, x, y, type, count) => {
-        console.log('ide set world', select, x, y, type, count)
         self.postMessage({
           type: 'set-world',
           select,
@@ -359,6 +368,16 @@ self.onmessage = async (event) => {
     } catch (error) {
       self.postMessage({ type: 'error', error: error.message })
       return
+    }
+  }
+
+  if (event.data.type === 'bench') {
+    const id = event.data.id
+    const command = event.data.command
+
+    if (command == 'prepare') {
+      const version = pyodide.runPython(`import sys; sys.version`)
+      self.postMessage({ type: 'bench', id, payload: { version } })
     }
   }
 }

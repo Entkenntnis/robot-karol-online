@@ -19,9 +19,7 @@ import { sliderToDelay } from '../../lib/helper/speedSlider'
 export function InteractionBar() {
   const core = useCore()
   const mainButtonState =
-    core.ws.ui.state == 'running' || core.ws.ui.interactiveClassdiagram
-      ? 'stop'
-      : 'start'
+    core.ws.ui.state == 'running' || core.ws.ui.isBench ? 'stop' : 'start'
 
   const dontChangeLanguage =
     (core.ws.ui.state !== 'ready' &&
@@ -36,7 +34,9 @@ export function InteractionBar() {
     core.ws.ui.editQuestScript
 
   const debuggable =
-    core.ws.ui.state == 'running' && !core.ws.editor.questScript
+    core.ws.ui.state == 'running' &&
+    !core.ws.editor.questScript &&
+    !core.ws.ui.isBench
 
   const debugPython =
     core.ws.settings.language == 'python-pro' &&

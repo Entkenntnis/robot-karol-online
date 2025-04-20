@@ -71,7 +71,7 @@ export interface Ui {
   questPrompt?: string
   questPromptConfirm?: string
   editQuestScript: boolean
-  interactiveClassdiagram?: boolean
+  isBench?: boolean
   karolmaniaLevelId?: number
   karolmaniaCarouselIndex?: number
 }
@@ -470,10 +470,14 @@ export interface PyodideWorker {
   step: () => void
   addBreakpoint: (line: number) => void
   removeBreakpoint: (line: number) => void
+  prepareBench: () => void
+  messageBench: (payload: object) => Promise<object>
   sharedArrayDelay: Int32Array
   debugInterface: Int32Array
   questPromptConfirm?: Int32Array
   isFresh: boolean
+  benchMessageIdCounter: number
+  benchMessageResolvers: Map<number, (value: object) => void>
 }
 
 export interface PlaygroundHashData {
