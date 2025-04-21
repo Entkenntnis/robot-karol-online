@@ -11,6 +11,9 @@ const decoder = new TextDecoder()
 
 let debug = new Int32Array(129)
 
+const outputs = []
+const inputs = []
+
 const compileScript = (code) => `
 def check_syntax(code):
     try:
@@ -184,6 +187,59 @@ self.onmessage = async (event) => {
       initStarted = true
       pyodide = await loadPyodide()
       pyodide.runPython(`import sys; sys.version`)
+      pyodide.setStdout({
+        write: (buf) => {
+          const written_string = decoder.decode(buf)
+          outputs.push(written_string)
+          self.postMessage({ type: 'stdout', text: written_string })
+          return buf.length
+        },
+      })
+      pyodide.setStdin({
+        stdin() {
+          const buffer = new SharedArrayBuffer(1024)
+          const syncArray = new Int32Array(buffer, 0, 2)
+          const dataArray = new Uint8Array(buffer, 8)
+
+          self.postMessage({
+            type: 'stdin',
+            buffer,
+          })
+
+          Atomics.wait(syncArray, 0, 0)
+
+          const length = Atomics.load(syncArray, 1)
+          // Read the input bytes.
+          const inputBytes = dataArray.slice(0, length)
+          lastStepTs = performance.now() * 1000
+          inputs.push(decoder.decode(inputBytes))
+          return inputBytes
+        },
+      })
+      pyodide.registerJsModule('RobotKarolOnline', {
+        tasteRegistrieren: (key, title) => {
+          postMessage({
+            type: 'register_key',
+            key,
+            title,
+          })
+        },
+        tasteGedrückt: (key) => {
+          const sharedBuffer = new SharedArrayBuffer(
+            Int32Array.BYTES_PER_ELEMENT
+          )
+          const sharedArray = new Int32Array(sharedBuffer)
+          Atomics.store(sharedArray, 0, 42) // no data yet
+          self.postMessage({
+            type: 'check-key',
+            sharedBuffer,
+            key,
+          })
+          Atomics.wait(sharedArray, 0, 42)
+          lastStepTs = performance.now() * 1000
+          return sharedArray[0] === 1
+        },
+      })
       self.postMessage('ready')
     }
   }
@@ -221,8 +277,6 @@ self.onmessage = async (event) => {
         })
       }
     }
-    const outputs = []
-    const inputs = []
     const globals = pyodide.toPy({
       Robot: buildRobot(highlightCurrentLine),
       __ide_run_client: (args) => {
@@ -302,62 +356,11 @@ self.onmessage = async (event) => {
     })
     sleep(150)
     try {
-      pyodide.setStdout({
-        write: (buf) => {
-          const written_string = decoder.decode(buf)
-          outputs.push(written_string)
-          self.postMessage({ type: 'stdout', text: written_string })
-          return buf.length
-        },
-      })
-      pyodide.setStdin({
-        stdin() {
-          const buffer = new SharedArrayBuffer(1024)
-          const syncArray = new Int32Array(buffer, 0, 2)
-          const dataArray = new Uint8Array(buffer, 8)
-
-          self.postMessage({
-            type: 'stdin',
-            buffer,
-          })
-
-          Atomics.wait(syncArray, 0, 0)
-
-          const length = Atomics.load(syncArray, 1)
-          // Read the input bytes.
-          const inputBytes = dataArray.slice(0, length)
-          lastStepTs = performance.now() * 1000
-          inputs.push(decoder.decode(inputBytes))
-          return inputBytes
-        },
-      })
-      pyodide.registerJsModule('RobotKarolOnline', {
-        tasteRegistrieren: (key, title) => {
-          postMessage({
-            type: 'register_key',
-            key,
-            title,
-          })
-        },
-        tasteGedrückt: (key) => {
-          const sharedBuffer = new SharedArrayBuffer(
-            Int32Array.BYTES_PER_ELEMENT
-          )
-          const sharedArray = new Int32Array(sharedBuffer)
-          Atomics.store(sharedArray, 0, 42) // no data yet
-          self.postMessage({
-            type: 'check-key',
-            sharedBuffer,
-            key,
-          })
-          Atomics.wait(sharedArray, 0, 42)
-          lastStepTs = performance.now() * 1000
-          return sharedArray[0] === 1
-        },
-      })
       lastStepTs = performance.now() * 1000
       if (event.data.questScript) {
         enableHighlight.current = false
+        inputs = []
+        outputs = []
         await pyodide.runPythonAsync(event.data.questScript, {
           globals,
           filename: 'QuestScript.py',
@@ -382,8 +385,83 @@ self.onmessage = async (event) => {
 
     if (command == 'prepare') {
       benchGlobals = pyodide.toPy({
-        Robot: buildRobot(),
+        _internal_Robot: buildRobot(),
       })
+      debug[0] = 0
+      pyodide.runPython(
+        `
+class Robot:
+  def schritt(self, n=1):
+    self._internal_Robot.schritt(n)
+    
+  def hinlegen(self, n=1):
+    self._internal_Robot.hinlegen(n)
+
+  def aufheben(self, n=1):
+    self._internal_Robot.aufheben(n)
+
+  def markseSetzen(self):
+    self._internal_Robot.markeSetzen()
+
+  def markeLöschen(self):
+    self._internal_Robot.markeLöschen()
+
+  def linksDrehen(self, n=1):
+    self._internal_Robot.linksDrehen(n)
+
+  def rechtsDrehen(self, n=1):
+    self._internal_Robot.rechtsDrehen(n)
+
+  def beenden(self):
+    self._internal_Robot.beenden()
+
+  def istWand(self):
+    return self._internal_Robot.istWand()
+
+  def nichtIstWand(self):
+    return self._internal_Robot.nichtIstWand()
+
+  def istMarke(self):
+    return self._internal_Robot.istMarke()
+
+  def nichtIstMarke(self):
+    return self._internal_Robot.nichtIstMarke()
+
+  def istZiegel(self, count=None):
+    return self._internal_Robot.istZiegel(count)
+
+  def nichtIstZiegel(self, count=None):
+    return self._internal_Robot.nichtIstZiegel(count)
+
+  def istNorden(self):
+    return self._internal_Robot.istNorden()
+
+  def nichtIstNorden(self):
+    return self._internal_Robot.nichtIstNorden()
+
+  def istOsten(self):
+    return self._internal_Robot.istOsten()
+
+  def nichtIstOsten(self):
+    return self._internal_Robot.nichtIstOsten()
+
+  def istSüden(self):
+    return self._internal_Robot.istSüden()
+
+  def nichtIstSüden(self):
+    return self._internal_Robot.nichtIstSüden()
+
+  def istWesten(self):
+    return self._internal_Robot.istWesten()
+
+  def nichtIstWesten(self):
+    return self._internal_Robot.nichtIstWesten()
+
+  def __init__(self):
+    self._internal_Robot = _internal_Robot()
+`,
+        { globals: benchGlobals }
+      )
       const version = pyodide.runPython(`import sys; sys.version;\n`)
       self.postMessage({ type: 'bench', id, payload: { version } })
     }
@@ -391,17 +469,26 @@ self.onmessage = async (event) => {
       const { request } = event.data.payload
       if (request == 'execute') {
         const { code } = event.data.payload
-        const payload = pyodide.runPython(code, {
-          globals: benchGlobals,
-          filename: 'Bench.py',
-        })
-        self.postMessage({
-          type: 'bench',
-          id,
-          payload: { result: payload },
-        })
+        console.log('execute', code)
+        try {
+          const payload = pyodide.runPython(code, {
+            globals: benchGlobals,
+            filename: 'Bench.py',
+          })
+          console.log('execute result', payload)
+          self.postMessage({
+            type: 'bench',
+            id,
+            payload: { result: payload },
+          })
+        } catch (error) {
+          console.log(error)
+          self.postMessage({ type: 'error', error: error.message })
+          return
+        }
       }
       if (request == 'class-info') {
+        console.log('get class info')
         const payload = pyodide.runPython(
           `
 import inspect

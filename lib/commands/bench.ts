@@ -17,11 +17,15 @@ export async function startBench(core: Core) {
     ws.quest.lastStartedTask = 0
     ws.ui.state = 'running'
   })
-  await core.worker!.messageBench({
+  await executeInBench(core, core.ws.pythonCode)
+  await updateBench(core)
+}
+
+export async function executeInBench(core: Core, code: string) {
+  return await core.worker!.messageBench({
     request: 'execute',
-    code: core.ws.pythonCode,
+    code,
   })
-  updateBench(core)
 }
 
 export async function updateBench(core: Core) {

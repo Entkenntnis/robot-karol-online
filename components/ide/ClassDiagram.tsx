@@ -1,6 +1,6 @@
-import { set } from 'date-fns'
 import { useState, useRef, useEffect } from 'react'
 import { useCore } from '../../lib/state/core'
+import { executeInBench } from '../../lib/commands/bench'
 
 interface ClassDiagramProps {
   classes: string[]
@@ -12,7 +12,6 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
     visible: boolean
     x: number
     y: number
-    targetRect?: DOMRect
   }>({ visible: false, x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -41,8 +40,7 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
       {classes.map((className, index) => (
         <div
           key={index}
-          onContextMenu={(e) => {
-            e.preventDefault()
+          onClickCapture={(e) => {
             const containerRect = containerRef.current?.getBoundingClientRect()
             if (!containerRect) return
 
@@ -50,9 +48,22 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
               visible: true,
               x: e.clientX - containerRect.left,
               y: e.clientY - containerRect.top,
-              targetRect: e.currentTarget.getBoundingClientRect(),
             })
             setSelectedClass(className)
+            e.preventDefault()
+            e.stopPropagation()
+          }}
+          onContextMenu={(e) => {
+            const containerRect = containerRef.current?.getBoundingClientRect()
+            if (!containerRect) return
+
+            setContextMenu({
+              visible: true,
+              x: e.clientX - containerRect.left,
+              y: e.clientY - containerRect.top,
+            })
+            setSelectedClass(className)
+            e.preventDefault()
           }}
           className="relative bg-white border-2 border-gray-800 rounded-sm cursor-pointer hover:shadow-lg transition-shadow"
         >
@@ -72,7 +83,21 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
             top: contextMenu.y,
           }}
         >
-          <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+          <div
+            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+            onClick={() => {
+              const name = prompt('Enter the name of the object:')
+              executeInBench(
+                core,
+                `${name} = ${selectedClass}(${core.ws.bench.classInfo[
+                  selectedClass!
+                ].constructor.parameters
+                  .map((p) => prompt(`Enter value for ${p.name}:`))
+                  .join(', ')})`
+              )
+              closeContextMenu()
+            }}
+          >
             {`${selectedClass}(${core.ws.bench.classInfo[
               selectedClass!
             ].constructor.parameters
