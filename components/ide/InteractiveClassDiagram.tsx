@@ -13,7 +13,19 @@ export function InteractiveClassDiagram() {
         />
       </div>
       <div className="flex-grow bg-gray-200 relative">
-        <div className="inset-2 rounded bg-gray-50 absolute">Object Bench</div>
+        <div className="inset-2 rounded bg-gray-50 absolute flex flex-wrap gap-4 items-start p-2">
+          {core.ws.bench.objects.map((obj, i) => {
+            return (
+              <div
+                key={i}
+                className="bg-red-500 rounded-lg p-4 font-bold text-white text-center"
+              >
+                {obj.name} :<br />
+                {obj.className}
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

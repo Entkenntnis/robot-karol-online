@@ -199,6 +199,12 @@ export interface Appearance {
 
 export interface Bench {
   classInfo: { [key: string]: ClassInfo }
+  objects: ObjectInfo[]
+}
+
+export interface ObjectInfo {
+  name: string
+  className: string
 }
 
 export interface ClassInfo {

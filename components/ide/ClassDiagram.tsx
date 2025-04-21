@@ -35,7 +35,7 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
   return (
     <div
       ref={containerRef}
-      className="relative px-8 py-16 flex flex-wrap justify-center items-center gap-8 bg-gray-100"
+      className="relative px-8 py-16 flex flex-wrap justify-center items-center gap-8 bg-gray-100 min-h-[36vh]"
     >
       {classes.map((className, index) => (
         <div

@@ -94,6 +94,7 @@ export function createWorkspaceState(): WorkspaceState {
     },
     bench: {
       classInfo: {},
+      objects: [],
     },
     analyze: {
       published: [],

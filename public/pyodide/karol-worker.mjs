@@ -569,9 +569,35 @@ def get_class_info():
 
     return class_info
 
-info = get_class_info()
-json.dumps(info)
+json.dumps(get_class_info())
 
+`,
+          { globals: benchGlobals }
+        )
+        self.postMessage({
+          type: 'bench',
+          id,
+          payload: { classInfo: payload },
+        })
+      }
+      if (request == 'object-info') {
+        console.log('get class info')
+        const payload = pyodide.runPython(
+          `
+import types
+import json
+
+def find_objects():
+    excluded_types = (types.ModuleType, type, types.FunctionType,
+                      types.BuiltinFunctionType, types.MethodType)
+    results = []
+    for name, obj in globals().items():
+        if isinstance(obj, excluded_types):
+            continue
+        class_name = obj.__class__.__name__
+        results.append((name, class_name))
+    return json.dumps(results)
+find_objects()
 `,
           { globals: benchGlobals }
         )
