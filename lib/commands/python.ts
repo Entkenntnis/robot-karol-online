@@ -104,6 +104,7 @@ export function setupWorker(core: Core) {
         core.worker.reset()
         core.mutateWs(({ ui }) => {
           ui.isManualAbort = false
+          ui.isBench = false
         })
       }
     }
