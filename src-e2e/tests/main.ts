@@ -182,7 +182,7 @@ Scenario('Correctly convert code to python', ({ I }) => {
   I.dontSee('Traceback')
 })
 
-Scenario.only('Test python quest', ({ I }) => {
+Scenario('Test python quest', ({ I }) => {
   I.amOnPage('/#QUEST-61')
   I.wait(1)
   I.click('div .fixed')
