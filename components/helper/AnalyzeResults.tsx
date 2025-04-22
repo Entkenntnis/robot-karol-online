@@ -1,4 +1,39 @@
 import { useCore } from '../../lib/state/core'
+import { levels as karolmaniaLevels } from '../../lib/data/karolmaniaLevels' // Import level data
+
+// Helper function to format time in seconds to MM:SS:hh
+function formatTime(seconds: number) {
+  const minutes = Math.floor(seconds / 60)
+  const secs = Math.floor(seconds % 60)
+  const hundredths = Math.floor((seconds * 100) % 100)
+
+  return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(
+    2,
+    '0'
+  )}:${String(hundredths).padStart(2, '0')}`
+}
+
+// Helper function to calculate median
+function calculateMedian(arr: number[]) {
+  if (!arr || arr.length === 0) return 0
+  const sortedArr = [...arr].sort((a, b) => a - b)
+  const middle = Math.floor(sortedArr.length / 2)
+  if (sortedArr.length % 2 === 0) {
+    return (sortedArr[middle - 1] + sortedArr[middle]) / 2
+  } else {
+    return sortedArr[middle]
+  }
+}
+
+// Helper function to calculate average
+function calculateAverage(arr: number[]) {
+  if (!arr || arr.length === 0) return 0
+  const sum = arr.reduce((acc, val) => acc + val, 0)
+  return sum / arr.length
+}
+
+// Create a map for quick lookup of level metadata by ID
+const levelMap = new Map(karolmaniaLevels.map((level) => [level.id, level]))
 
 export function AnalyzeResults() {
   const core = useCore()
@@ -11,6 +46,35 @@ export function AnalyzeResults() {
   )
   const survey = core.ws.analyze.survey.slice(0)
   survey.sort((a, b) => b.ts - a.ts)
+
+  // Process Karolmania data
+  const karolmaniaData = Object.entries(core.ws.analyze.karolmania)
+    .map(([levelIdStr, data]) => {
+      const levelId = parseInt(levelIdStr, 10)
+      const levelInfo = levelMap.get(levelId)
+      const times = data.times || []
+      const bestTime = times.length > 0 ? Math.min(...times) : null
+
+      return {
+        id: levelId,
+        title: levelInfo?.quest.title || `Level ${levelId}`,
+        count: data.times.length || 0,
+        times: times,
+        medianTime: calculateMedian(times),
+        averageTime: calculateAverage(times),
+        bestTime: bestTime,
+        medalTimes: levelInfo
+          ? {
+              at: levelInfo.at,
+              gold: levelInfo.gold,
+              silver: levelInfo.silver,
+              bronze: levelInfo.bronze,
+            }
+          : null,
+      }
+    })
+    .sort((a, b) => b.count - a.count) // Sort by play count descending
+
   return (
     <div className="bg-white px-16 pb-8 mt-4">
       <p className="my-6">
@@ -69,21 +133,6 @@ export function AnalyzeResults() {
           </p>
         ))}
       </div>
-      {/*<p className="mt-6 mb-4">
-        {core.ws.analyze.showEditor} mal Editor angezeigt,{' '}
-        {core.ws.analyze.showPlayground} mal Spielwiese,{' '}
-        {core.ws.analyze.showHighscore} mal Highscore,{' '}
-        {core.ws.analyze.showDemo} mal Demo, {core.ws.analyze.showStructogram}{' '}
-        mal Struktogramm, {core.ws.analyze.usePersist} mal Fortschritt
-        gespeichert, {core.ws.analyze.useJava} mal Java verwendet,{' '}
-        {core.ws.analyze.usePython} mal Python verwendet,{' '}
-        {core.ws.analyze.playSnake} mal Snake gespielt, {core.ws.analyze.lngEn}{' '}
-        mal Englisch ausgewählt, {core.ws.analyze.proMode} mal Profi-Modus
-        aktiviert, {core.ws.analyze.limitEditOptions} mal Eingabeoptionen
-        eingeschränkt, {core.ws.analyze.showQuestList} mal Liste aller Aufgaben
-        angezeigt, {core.ws.analyze.showMaterials} mal Material für Lehrkräfte
-        geöffnet, {core.ws.analyze.showInspiration} mal inspiriert
-      </p>*/}
       <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
       {customQuests.map((entry, i) => (
         <span key={i} className="inline-block mr-6">
@@ -99,24 +148,6 @@ export function AnalyzeResults() {
           abgeschlossen
         </span>
       ))}
-      {/*<h2 className="mt-6 mb-4 text-lg">Farben</h2>
-      <p>
-        {(() => {
-          const brushColors = Object.entries(core.ws.analyze.brushColors)
-          brushColors.sort((a, b) => b[1].count - a[1].count)
-
-          return brushColors.map((entry) => (
-            <span key={entry[0]} className="inline-block mr-3">
-              {entry[0]}{' '}
-              <span style={{ color: entry[0] }} className="w-3 h-3">
-                <FaIcon icon={faCircle} />
-              </span>{' '}
-              (x
-              {entry[1].count})
-            </span>
-          ))
-        })()}
-      </p>*/}
       <h2 className="mt-6 mb-4 text-lg">Geladene Figur</h2>
       <p>
         {(() => {
@@ -133,6 +164,70 @@ export function AnalyzeResults() {
           ))
         })()}
       </p>
+      {/* Abschnitt für Karolmania */}
+      <h2 className="mt-6 mb-4 text-lg">Karolmania Results</h2>
+      {karolmaniaData.length > 0 ? (
+        <table className="w-full my-4 border-collapse">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-2 text-left border border-gray-300">Level</th>
+              <th className="p-2 text-left border border-gray-300">
+                Play Count
+              </th>
+              <th className="p-2 text-left border border-gray-300">
+                Median Time
+              </th>
+              <th className="p-2 text-left border border-gray-300">
+                Average Time
+              </th>
+              <th className="p-2 text-left border border-gray-300">
+                Best Time
+              </th>
+              <th className="p-2 text-left border border-gray-300">
+                Medals (AT/G/S/B)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {karolmaniaData.map((levelData) => (
+              <tr key={levelData.id} className="hover:bg-gray-50">
+                <td className="p-2 border border-gray-300">
+                  {levelData.title}
+                </td>
+                <td className="p-2 border border-gray-300">
+                  {levelData.count}
+                </td>
+                <td className="p-2 border border-gray-300">
+                  {levelData.times.length > 0
+                    ? formatTime(levelData.medianTime)
+                    : '-'}
+                </td>
+                <td className="p-2 border border-gray-300">
+                  {levelData.times.length > 0
+                    ? formatTime(levelData.averageTime)
+                    : '-'}
+                </td>
+                <td className="p-2 border border-gray-300">
+                  {levelData.bestTime !== null
+                    ? formatTime(levelData.bestTime)
+                    : '-'}
+                </td>
+                <td className="p-2 border border-gray-300">
+                  {levelData.medalTimes
+                    ? `${formatTime(levelData.medalTimes.at)} / ${formatTime(
+                        levelData.medalTimes.gold
+                      )} / ${formatTime(
+                        levelData.medalTimes.silver
+                      )} / ${formatTime(levelData.medalTimes.bronze)}`
+                    : '-'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No Karolmania data available.</p>
+      )}
       <h2 className="mt-6 mb-4 text-lg">Legacy</h2>{' '}
       {Object.entries(core.ws.analyze.legacy).map((entry, i) => (
         <span key={i} className="inline-block mr-6">
@@ -151,12 +246,6 @@ export function AnalyzeResults() {
       <p className="mb-2">
         Median: {format(median(core.ws.analyze.userTimes))}
       </p>
-      {/*<p>{core.ws.analyze.userTimes.map(format).join(', ')}</p>*/}
-      {/*<h2 className="mt-6 mb-4 text-lg">Anzahl gelöste Aufgaben</h2>
-                <p className="mb-2">
-                  Median: {median(core.ws.analyze.solvedCount)}
-                </p>
-                <p>{core.ws.analyze.solvedCount.join(', ')}</p>*/}
     </div>
   )
 }
