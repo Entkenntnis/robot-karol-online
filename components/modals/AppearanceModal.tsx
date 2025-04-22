@@ -22,9 +22,11 @@ import { karolDefaultImage } from '../../lib/data/images'
 export function AppearanceModal() {
   const [count, setCount] = useState(0)
   const [isDrawing, setIsDrawing] = useState(false)
-  const [lastDrawingPosition, setLastDrawingPosition] = useState({x: 0, y: 0});
+  const [lastDrawingPosition, setLastDrawingPosition] = useState({ x: 0, y: 0 })
   const [selectedColor, setSelectedColor] = useState('#000000')
-  const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser' | 'line'>('line')
+  const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser' | 'line'>(
+    'line'
+  )
   const [brushSize, setBrushSize] = useState(3)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -175,27 +177,27 @@ export function AppearanceModal() {
   }
 
   const drawLineTo = (
-    ctx: CanvasRenderingContext2D, 
-    toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void, 
-    from: {x: number, y: number}, 
-    to: {x: number, y:number}, 
+    ctx: CanvasRenderingContext2D,
+    toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void,
+    from: { x: number; y: number },
+    to: { x: number; y: number },
     offset: number
   ) => {
-    ctx.save();
-    const distance = Math.sqrt((to.x - from.x)**2 + (to.y - from.y)**2) // a global distance function might be useful
+    ctx.save()
+    const distance = Math.sqrt((to.x - from.x) ** 2 + (to.y - from.y) ** 2) // a global distance function might be useful
     // interpolating between last and current position as to avoid gaps
     // moveTo and lineTo do not work here because of anti-aliasing
-    let stepSize = 1; // looks the best
+    let stepSize = 1 // looks the best
     for (let d = 0; d < distance; d += stepSize) {
       toolCall(
         // vector normalization could also be a global function
         ctx,
-        Math.round(from.x + d * (to.x - from.x) / distance - offset), 
-        Math.round(from.y + d * (to.y - from.y) / distance - offset), 
+        Math.round(from.x + (d * (to.x - from.x)) / distance - offset),
+        Math.round(from.y + (d * (to.y - from.y)) / distance - offset)
       )
     }
-    toolCall(ctx, to.x - offset, to.y - offset);
-    ctx.restore();
+    toolCall(ctx, to.x - offset, to.y - offset)
+    ctx.restore()
   }
 
   // Zeichnen für Pinsel, Linie und Radiergummi.
@@ -208,14 +210,16 @@ export function AppearanceModal() {
 
     const { x, y } = getCanvasCoordinates(e)
     const offset = Math.floor(brushSize / 2)
-    
-    let toolCall: (ctx: CanvasRenderingContext2D, x: number, y:number) => void;
+
+    let toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void
     if (tool === 'eraser') {
       // Beim Radiergummi werden Pixel gelöscht (transparent gemacht).
-      toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) => ctx.clearRect(x, y, brushSize, brushSize);
+      toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) =>
+        ctx.clearRect(x, y, brushSize, brushSize)
     } else {
       ctx.fillStyle = selectedColor
-      toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) => ctx.fillRect(x, y, brushSize, brushSize);
+      toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) =>
+        ctx.fillRect(x, y, brushSize, brushSize)
     }
 
     if (tool === 'line') {
@@ -225,24 +229,24 @@ export function AppearanceModal() {
         const previewCtx = previewCanvas?.getContext('2d')
         if (!previewCtx || !canvas) return
 
-        previewCtx.save(); // for safety
-        previewCtx.fillStyle = selectedColor;
-        drawLineTo(previewCtx, toolCall, lastDrawingPosition, {x, y}, offset);
-        previewCtx.restore();
+        previewCtx.save() // for safety
+        previewCtx.fillStyle = selectedColor
+        drawLineTo(previewCtx, toolCall, lastDrawingPosition, { x, y }, offset)
+        previewCtx.restore()
       } else {
         // only store this at the start of a new line!
-        setLastDrawingPosition({x, y});
+        setLastDrawingPosition({ x, y })
       }
     } else {
       if (isDrawing) {
-        drawLineTo(ctx, toolCall, lastDrawingPosition, {x, y}, offset);
+        drawLineTo(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
       }
       // always draw at least one point
-      ctx.save();
-      toolCall(ctx, x - offset, y - offset);
-      ctx.restore();
+      ctx.save()
+      toolCall(ctx, x - offset, y - offset)
+      ctx.restore()
       // store the last drawing position
-      setLastDrawingPosition({x, y}); // is that how you use React?
+      setLastDrawingPosition({ x, y }) // is that how you use React?
     }
 
     updateImageDataUrl(canvas)
@@ -259,16 +263,17 @@ export function AppearanceModal() {
     const { x, y } = getCanvasCoordinates(e)
     const offset = Math.floor(brushSize / 2)
 
-    let toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) => ctx.fillRect(x, y, brushSize, brushSize);
+    let toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) =>
+      ctx.fillRect(x, y, brushSize, brushSize)
 
-    ctx.save(); // for safety
+    ctx.save() // for safety
     ctx.fillStyle = selectedColor
     if (tool === 'line' && isDrawing) {
       // complete the line
-      drawLineTo(ctx, toolCall, lastDrawingPosition, {x, y}, offset);
-      setLastDrawingPosition({x, y});
+      drawLineTo(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
+      setLastDrawingPosition({ x, y })
     }
-    ctx.restore();
+    ctx.restore()
   }
 
   // Aktualisiert die Vorschau-Leinwand mit einer gestrichelten Umrandung.
@@ -295,15 +300,15 @@ export function AppearanceModal() {
 
     // Show sprite boundary while drawing.
     // This should make it easier to keep 'inside the lines'
-    ctx.save();
+    ctx.save()
     ctx.globalAlpha = 0.2
-    ctx.fillStyle = 'black';
-    const panelWidth = overlayCanvas.width / 4;
+    ctx.fillStyle = 'black'
+    const panelWidth = overlayCanvas.width / 4
     for (let i = 0; i < 4; i++) {
-      if (x < i * panelWidth || x >= (i+1) * panelWidth)
-        ctx.fillRect(i * panelWidth, 0, panelWidth, overlayCanvas.height);
+      if (x < i * panelWidth || x >= (i + 1) * panelWidth)
+        ctx.fillRect(i * panelWidth, 0, panelWidth, overlayCanvas.height)
     }
-    ctx.restore();
+    ctx.restore()
   }
 
   const clearPreview = () => {
@@ -349,7 +354,7 @@ export function AppearanceModal() {
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     e.preventDefault()
-    endDraw(e);
+    endDraw(e)
     setIsDrawing(false)
     hasPushedUndo.current = false
     clearPreview()
@@ -514,7 +519,8 @@ export function AppearanceModal() {
               />
             </div>
             <div className="flex flex-wrap justify-center gap-3 mt-3">
-              <button title='Pinsel'
+              <button
+                title="Pinsel"
                 className={`px-3 py-1 border rounded ${
                   tool === 'brush' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -525,7 +531,8 @@ export function AppearanceModal() {
               >
                 <FaIcon icon={faPaintBrush} />
               </button>
-              <button title='Füllen'
+              <button
+                title="Füllen"
                 className={`px-3 py-1 border rounded ${
                   tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -536,7 +543,8 @@ export function AppearanceModal() {
               >
                 <FaIcon icon={faFillDrip} />
               </button>
-              <button title='Linie'
+              <button
+                title="Linie"
                 className={`px-3 py-1 border rounded ${
                   tool === 'line' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -545,9 +553,20 @@ export function AppearanceModal() {
                   setTool('line')
                 }}
               >
-                <FaIcon icon={faLinesLeaning} />
+                <svg width="18" height="18" viewBox="0 0 14 14">
+                  <line
+                    x1="2"
+                    y1="12"
+                    x2="12"
+                    y2="2"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
               </button>
-              <button title='Radierer'
+              <button
+                title="Radierer"
                 className={`px-3 py-1 border rounded ${
                   tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -558,7 +577,8 @@ export function AppearanceModal() {
               >
                 <FaIcon icon={faEraser} />
               </button>
-              <button title='Rückgängig'
+              <button
+                title="Rückgängig"
                 className="px-3 py-1 bg-purple-200 hover:bg-purple-300 rounded"
                 onClick={handleUndo}
               >
