@@ -11,8 +11,8 @@ const decoder = new TextDecoder()
 
 let debug = new Int32Array(129)
 
-const outputs = []
-const inputs = []
+let outputs = []
+let inputs = []
 
 const compileScript = (code) => `
 def check_syntax(code):
