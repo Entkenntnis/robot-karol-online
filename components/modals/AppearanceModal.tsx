@@ -21,6 +21,7 @@ import { karolDefaultImage } from '../../lib/data/images'
 export function AppearanceModal() {
   const [count, setCount] = useState(0)
   const [isDrawing, setIsDrawing] = useState(false)
+  const [lastDrawingPosition, setLastDrawingPosition] = useState({x: 0, y: 0});
   const [selectedColor, setSelectedColor] = useState('#000000')
   const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser'>('brush')
   const [brushSize, setBrushSize] = useState(3)
@@ -181,13 +182,35 @@ export function AppearanceModal() {
     if (!ctx || !canvas) return
     const { x, y } = getCanvasCoordinates(e)
     const offset = Math.floor(brushSize / 2)
+    
+    let toolCall: (x: number, y:number) => void;
     if (tool === 'eraser') {
       // Beim Radiergummi werden Pixel gelöscht (transparent gemacht).
-      ctx.clearRect(x - offset, y - offset, brushSize, brushSize)
+      toolCall = (x: number, y: number) => ctx.clearRect(x, y, brushSize, brushSize);
     } else {
       ctx.fillStyle = selectedColor
-      ctx.fillRect(x - offset, y - offset, brushSize, brushSize)
+      toolCall = (x: number, y: number) => ctx.fillRect(x, y, brushSize, brushSize);
     }
+
+    if (isDrawing) {
+      // interpolating between last and current position as to avoid gaps
+      // moveTo and lineTo do not work here because of anti-aliasing
+      const {x: lastX, y: lastY} = lastDrawingPosition;
+      const distance = Math.sqrt((x - lastX)**2 + (y - lastY)**2) // a global distance function might be useful
+      for (let d = 0; d < distance; d += brushSize) {
+        toolCall(
+          // vector normalization could also be a global function
+          Math.round(lastX + d * (x - lastX) / distance) - offset, 
+          Math.round(lastY + d * (y - lastY) / distance) - offset, 
+        )
+      }
+    }
+    // always draw at least one point
+    toolCall(x - offset, y - offset);
+
+    // store the last drawing position
+    setLastDrawingPosition({x, y}); // is that how you use React?
+
     updateImageDataUrl(canvas)
   }
 
