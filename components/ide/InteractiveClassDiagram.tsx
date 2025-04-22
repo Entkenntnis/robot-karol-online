@@ -5,6 +5,7 @@ import { executeInBench } from '../../lib/commands/bench'
 import clsx from 'clsx'
 import { FaIcon } from '../helper/FaIcon'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { showModal } from '../../lib/commands/modal'
 
 export function InteractiveClassDiagram() {
   const core = useCore()
@@ -103,15 +104,18 @@ export function InteractiveClassDiagram() {
                   key={i}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
-                    const objName =
-                      core.ws.bench.objects[contextMenu.selectedIndex!].name
-                    const args = val.parameters.map((p) => {
-                      return prompt(`Enter value for ${p.name}:`)
+                    core.mutateWs(({ bench }) => {
+                      bench.invocationMode = 'method'
+                      bench.invocationClass =
+                        core.ws.bench.objects[
+                          contextMenu.selectedIndex!
+                        ].className
+                      bench.invocationMethod = name
+                      bench.invocationParameters = val.parameters
+                      bench.invocationObject =
+                        bench.objects[contextMenu.selectedIndex!].name
                     })
-                    executeInBench(
-                      core,
-                      `${objName}.${name}(${args.join(', ')})`
-                    )
+                    showModal(core, 'invocation')
                     closeContextMenu()
                   }}
                 >

@@ -1,10 +1,17 @@
 import { useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
+import { executeInBench } from '../../lib/commands/bench'
 
 export function InvocationModal() {
   const core = useCore()
-  const { invocationClass, invocationParameters } = core.ws.bench
+  const {
+    invocationClass,
+    invocationParameters,
+    invocationMethod,
+    invocationObject,
+    invocationMode,
+  } = core.ws.bench
 
   const [variableName, setVariableName] = useState(
     getDefaultVariableName(invocationClass)
@@ -24,12 +31,6 @@ export function InvocationModal() {
     setParameters(newParams)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // TODO: Implement actual execution logic
-    closeModal(core)
-  }
-
   const codeParams = invocationParameters
     .map((param, index) => {
       const value = parameters[index]
@@ -38,7 +39,16 @@ export function InvocationModal() {
     .filter(Boolean)
     .join(', ')
 
-  const codePreview = `${variableName} = ${invocationClass}(${codeParams})`
+  const codePreview =
+    invocationMode == 'constructor'
+      ? `${variableName} = ${invocationClass}(${codeParams})`
+      : `${invocationObject}.${invocationMethod}(${codeParams})`
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    executeInBench(core, codePreview)
+    closeModal(core)
+  }
 
   return (
     <div
@@ -46,36 +56,52 @@ export function InvocationModal() {
       onClick={() => closeModal(core)}
     >
       <div
-        className="min-h-[250px] w-[500px] bg-white z-[400] rounded-xl relative flex flex-col"
+        className="w-[500px] bg-white z-[400] rounded-xl relative flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <form onSubmit={handleSubmit} className="flex-1 p-6 space-y-4">
           <h1 className="text-xl">
-            Erzeuge neues Objekt der Klasse <strong>{invocationClass}</strong>
+            {invocationMode == 'constructor' ? (
+              <>
+                Erzeuge neues Objekt der Klasse{' '}
+                <strong>{invocationClass}</strong>
+              </>
+            ) : (
+              <>Methodenaufruf</>
+            )}
           </h1>
 
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">
-              Name der Variable
-            </label>
-            <input
-              type="text"
-              value={variableName}
-              onChange={(e) => setVariableName(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
-          </div>
-
-          {invocationParameters.map((param, index) => (
-            <div key={param.name} className="space-y-2">
-              <label className="block text-sm font-medium">{param.name}</label>
+          {invocationMode == 'constructor' && (
+            <div className="space-y-2">
+              <label className="block text-sm font-medium">
+                Name der Variable
+              </label>
               <input
-                type={'text'}
+                type="text"
+                value={variableName}
+                onChange={(e) => setVariableName(e.target.value)}
+                className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+          )}
+
+          {invocationParameters.length > 0 && (
+            <div className=" text-sm font-medium">Argumente</div>
+          )}
+          {invocationParameters.map((param, index) => (
+            <div key={param.name} className="flex items-center space-x-2">
+              <label className="text-sm font-medium whitespace-nowrap">
+                {param.name}
+              </label>{' '}
+              <span className="mx-3">=</span>
+              <input
+                type="text"
                 value={parameters[index]}
                 onChange={(e) => handleParamChange(index, e.target.value)}
-                className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder={param.default || `Wähle Wert für ${param.name}`}
+                className="flex-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder={`Bitte gib einen Wert für den Parameter ${param.name} ein`}
+                required
               />
             </div>
           ))}
@@ -93,7 +119,7 @@ export function InvocationModal() {
               onClick={() => closeModal(core)}
               className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
             >
-              abbrechen
+              Abbrechen
             </button>
             <button
               type="submit"
