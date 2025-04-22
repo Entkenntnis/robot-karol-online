@@ -225,8 +225,10 @@ export function AppearanceModal() {
         const previewCtx = previewCanvas?.getContext('2d')
         if (!previewCtx || !canvas) return
 
+        previewCtx.save(); // for safety
         previewCtx.fillStyle = selectedColor;
         drawLineTo(previewCtx, toolCall, lastDrawingPosition, {x, y}, offset);
+        previewCtx.restore();
       } else {
         // only store this at the start of a new line!
         setLastDrawingPosition({x, y});
@@ -236,8 +238,9 @@ export function AppearanceModal() {
         drawLineTo(ctx, toolCall, lastDrawingPosition, {x, y}, offset);
       }
       // always draw at least one point
+      ctx.save();
       toolCall(ctx, x - offset, y - offset);
-
+      ctx.restore();
       // store the last drawing position
       setLastDrawingPosition({x, y}); // is that how you use React?
     }
@@ -256,14 +259,16 @@ export function AppearanceModal() {
     const { x, y } = getCanvasCoordinates(e)
     const offset = Math.floor(brushSize / 2)
 
-    ctx.fillStyle = selectedColor
     let toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) => ctx.fillRect(x, y, brushSize, brushSize);
 
+    ctx.save(); // for safety
+    ctx.fillStyle = selectedColor
     if (tool === 'line' && isDrawing) {
       // complete the line
       drawLineTo(ctx, toolCall, lastDrawingPosition, {x, y}, offset);
       setLastDrawingPosition({x, y});
     }
+    ctx.restore();
   }
 
   // Aktualisiert die Vorschau-Leinwand mit einer gestrichelten Umrandung.
@@ -278,26 +283,23 @@ export function AppearanceModal() {
 
     ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height)
     ctx.globalAlpha = 0.2
+
+    const { x, y } = getCanvasCoordinates(e)
     if (tool === 'brush' || tool === 'eraser') {
-      const { x, y } = getCanvasCoordinates(e)
       const offset = Math.floor(brushSize / 2)
       ctx.fillRect(x - offset, y - offset, brushSize, brushSize)
     } else {
-      const { x, y } = getCanvasCoordinates(e)
       ctx.fillRect(x, y, 1, 1)
     }
     ctx.globalAlpha = 1.0
 
-    /**
-     * Show sprite boundary while drawing.
-     * This should make it easier to keep 'inside the lines'
-     */
+    // Show sprite boundary while drawing.
+    // This should make it easier to keep 'inside the lines'
     ctx.save();
     ctx.globalAlpha = 0.2
     ctx.fillStyle = 'black';
     const panelWidth = overlayCanvas.width / 4;
     for (let i = 0; i < 4; i++) {
-      const { x, y } = getCanvasCoordinates(e);
       if (x < i * panelWidth || x >= (i+1) * panelWidth)
         ctx.fillRect(i * panelWidth, 0, panelWidth, overlayCanvas.height);
     }
