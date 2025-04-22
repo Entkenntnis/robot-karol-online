@@ -10,6 +10,7 @@ import {
   faArrowRight,
   faEraser,
   faFillDrip,
+  faLinesLeaning,
   faPaintBrush,
   faStar,
   faUndo,
@@ -21,8 +22,11 @@ import { karolDefaultImage } from '../../lib/data/images'
 export function AppearanceModal() {
   const [count, setCount] = useState(0)
   const [isDrawing, setIsDrawing] = useState(false)
+  const [lastDrawingPosition, setLastDrawingPosition] = useState({ x: 0, y: 0 })
   const [selectedColor, setSelectedColor] = useState('#000000')
-  const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser'>('brush')
+  const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser' | 'line'>(
+    'brush'
+  )
   const [brushSize, setBrushSize] = useState(3)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -172,23 +176,104 @@ export function AppearanceModal() {
     updateImageDataUrl(canvas)
   }
 
-  // Zeichnen für Pinsel und Radiergummi.
+  const drawLineTo = (
+    ctx: CanvasRenderingContext2D,
+    toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void,
+    from: { x: number; y: number },
+    to: { x: number; y: number },
+    offset: number
+  ) => {
+    ctx.save()
+    const distance = Math.sqrt((to.x - from.x) ** 2 + (to.y - from.y) ** 2) // a global distance function might be useful
+    // interpolating between last and current position as to avoid gaps
+    // moveTo and lineTo do not work here because of anti-aliasing
+    let stepSize = 1 // looks the best
+    for (let d = 0; d < distance; d += stepSize) {
+      toolCall(
+        // vector normalization could also be a global function
+        ctx,
+        Math.round(from.x + (d * (to.x - from.x)) / distance - offset),
+        Math.round(from.y + (d * (to.y - from.y)) / distance - offset)
+      )
+    }
+    toolCall(ctx, to.x - offset, to.y - offset)
+    ctx.restore()
+  }
+
+  // Zeichnen für Pinsel, Linie und Radiergummi.
   const draw = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
     if (!ctx || !canvas) return
+
     const { x, y } = getCanvasCoordinates(e)
     const offset = Math.floor(brushSize / 2)
+
+    let toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void
     if (tool === 'eraser') {
       // Beim Radiergummi werden Pixel gelöscht (transparent gemacht).
-      ctx.clearRect(x - offset, y - offset, brushSize, brushSize)
+      toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) =>
+        ctx.clearRect(x, y, brushSize, brushSize)
     } else {
       ctx.fillStyle = selectedColor
-      ctx.fillRect(x - offset, y - offset, brushSize, brushSize)
+      toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) =>
+        ctx.fillRect(x, y, brushSize, brushSize)
     }
+
+    if (tool === 'line') {
+      if (isDrawing) {
+        // we only need this stuff when previewing lines
+        const previewCanvas = previewCanvasRef.current
+        const previewCtx = previewCanvas?.getContext('2d')
+        if (!previewCtx || !canvas) return
+
+        previewCtx.save() // for safety
+        previewCtx.fillStyle = selectedColor
+        drawLineTo(previewCtx, toolCall, lastDrawingPosition, { x, y }, offset)
+        previewCtx.restore()
+      } else {
+        // only store this at the start of a new line!
+        setLastDrawingPosition({ x, y })
+      }
+    } else {
+      if (isDrawing) {
+        drawLineTo(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
+      }
+      // always draw at least one point
+      ctx.save()
+      toolCall(ctx, x - offset, y - offset)
+      ctx.restore()
+      // store the last drawing position
+      setLastDrawingPosition({ x, y }) // is that how you use React?
+    }
+
     updateImageDataUrl(canvas)
+  }
+
+  // Abschluss einer Zeichnung (aktuell nur Linie)
+  const endDraw = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+  ) => {
+    const canvas = canvasRef.current
+    const ctx = canvas?.getContext('2d')
+    if (!ctx || !canvas) return
+
+    const { x, y } = getCanvasCoordinates(e)
+    const offset = Math.floor(brushSize / 2)
+
+    let toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) =>
+      ctx.fillRect(x, y, brushSize, brushSize)
+
+    ctx.save() // for safety
+    ctx.fillStyle = selectedColor
+    if (tool === 'line' && isDrawing) {
+      // complete the line
+      drawLineTo(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
+      setLastDrawingPosition({ x, y })
+    }
+    ctx.restore()
   }
 
   // Aktualisiert die Vorschau-Leinwand mit einer gestrichelten Umrandung.
@@ -203,15 +288,27 @@ export function AppearanceModal() {
 
     ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height)
     ctx.globalAlpha = 0.2
-    if (tool === 'brush' || tool === 'eraser') {
-      const { x, y } = getCanvasCoordinates(e)
+
+    const { x, y } = getCanvasCoordinates(e)
+    if (tool === 'brush' || tool === 'eraser' || tool === 'line') {
       const offset = Math.floor(brushSize / 2)
       ctx.fillRect(x - offset, y - offset, brushSize, brushSize)
     } else {
-      const { x, y } = getCanvasCoordinates(e)
       ctx.fillRect(x, y, 1, 1)
     }
     ctx.globalAlpha = 1.0
+
+    // Show sprite boundary while drawing.
+    // This should make it easier to keep 'inside the lines'
+    ctx.save()
+    ctx.globalAlpha = 0.2
+    ctx.fillStyle = 'black'
+    const panelWidth = overlayCanvas.width / 4
+    for (let i = 0; i < 4; i++) {
+      if (x < i * panelWidth || x >= (i + 1) * panelWidth)
+        ctx.fillRect(i * panelWidth, 0, panelWidth, overlayCanvas.height)
+    }
+    ctx.restore()
   }
 
   const clearPreview = () => {
@@ -254,12 +351,15 @@ export function AppearanceModal() {
 
   // Gemeinsame Logik für das Beenden des Zeichnens.
   const handleEnd = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>,
+    clear: boolean
   ) => {
     e.preventDefault()
+    endDraw(e)
     setIsDrawing(false)
     hasPushedUndo.current = false
-    clearPreview()
+    if (clear) clearPreview();
+    else updatePreview(e)
   }
 
   // Spezifische Wrapper für Touch-Events.
@@ -270,7 +370,7 @@ export function AppearanceModal() {
     handleMove(e)
   }
   const handleTouchEnd = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    handleEnd(e)
+    handleEnd(e, true)
   }
 
   // Maus-Handler.
@@ -280,8 +380,12 @@ export function AppearanceModal() {
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     handleMove(e)
   }
-  const handleMouseUpOrLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    handleEnd(e)
+  const handleMouseUp = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    handleEnd(e, false)
+  }
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    handleEnd(e, true);
   }
 
   // Undo: stellt den letzten Zustand wieder her.
@@ -422,6 +526,7 @@ export function AppearanceModal() {
             </div>
             <div className="flex flex-wrap justify-center gap-3 mt-3">
               <button
+                title="Pinsel"
                 className={`px-3 py-1 border rounded ${
                   tool === 'brush' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -433,6 +538,7 @@ export function AppearanceModal() {
                 <FaIcon icon={faPaintBrush} />
               </button>
               <button
+                title="Füllen"
                 className={`px-3 py-1 border rounded ${
                   tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -444,6 +550,29 @@ export function AppearanceModal() {
                 <FaIcon icon={faFillDrip} />
               </button>
               <button
+                title="Linie"
+                className={`px-3 py-1 border rounded ${
+                  tool === 'line' ? 'bg-gray-300' : 'bg-white'
+                }`}
+                onClick={() => {
+                  // submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
+                  setTool('line')
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 14 14">
+                  <line
+                    x1="2"
+                    y1="12"
+                    x2="12"
+                    y2="2"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+              <button
+                title="Radierer"
                 className={`px-3 py-1 border rounded ${
                   tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -455,6 +584,7 @@ export function AppearanceModal() {
                 <FaIcon icon={faEraser} />
               </button>
               <button
+                title="Rückgängig"
                 className="px-3 py-1 bg-purple-200 hover:bg-purple-300 rounded"
                 onClick={handleUndo}
               >
@@ -643,8 +773,8 @@ export function AppearanceModal() {
                     }}
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUpOrLeave}
-                    onMouseLeave={handleMouseUpOrLeave}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseLeave}
                     onTouchStart={handleTouchStart}
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
