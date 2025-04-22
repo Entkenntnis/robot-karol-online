@@ -25,7 +25,7 @@ export function AppearanceModal() {
   const [lastDrawingPosition, setLastDrawingPosition] = useState({ x: 0, y: 0 })
   const [selectedColor, setSelectedColor] = useState('#000000')
   const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser' | 'line'>(
-    'line'
+    'brush'
   )
   const [brushSize, setBrushSize] = useState(3)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -290,7 +290,7 @@ export function AppearanceModal() {
     ctx.globalAlpha = 0.2
 
     const { x, y } = getCanvasCoordinates(e)
-    if (tool === 'brush' || tool === 'eraser') {
+    if (tool === 'brush' || tool === 'eraser' || tool === 'line') {
       const offset = Math.floor(brushSize / 2)
       ctx.fillRect(x - offset, y - offset, brushSize, brushSize)
     } else {
@@ -351,13 +351,15 @@ export function AppearanceModal() {
 
   // Gemeinsame Logik für das Beenden des Zeichnens.
   const handleEnd = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>,
+    clear: boolean
   ) => {
     e.preventDefault()
     endDraw(e)
     setIsDrawing(false)
     hasPushedUndo.current = false
-    clearPreview()
+    if (clear) clearPreview();
+    else updatePreview(e)
   }
 
   // Spezifische Wrapper für Touch-Events.
@@ -368,7 +370,7 @@ export function AppearanceModal() {
     handleMove(e)
   }
   const handleTouchEnd = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    handleEnd(e)
+    handleEnd(e, true)
   }
 
   // Maus-Handler.
@@ -378,8 +380,12 @@ export function AppearanceModal() {
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     handleMove(e)
   }
-  const handleMouseUpOrLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    handleEnd(e)
+  const handleMouseUp = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    handleEnd(e, false)
+  }
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    handleEnd(e, true);
   }
 
   // Undo: stellt den letzten Zustand wieder her.
@@ -767,8 +773,8 @@ export function AppearanceModal() {
                     }}
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUpOrLeave}
-                    onMouseLeave={handleMouseUpOrLeave}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseLeave}
                     onTouchStart={handleTouchStart}
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
