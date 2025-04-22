@@ -1,13 +1,13 @@
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
-import { exitClassDiagram } from './class-diagram'
+import { exitBench } from './bench'
 import { runTask, closeOutput, startTesting, restartProgram } from './quest'
 import { abort } from './vm'
 import { twoWorldsEqual } from './world'
 
 export function startButtonClicked(core: Core) {
-  if (core.ws.ui.interactiveClassdiagram) {
-    exitClassDiagram(core)
+  if (core.ws.ui.isBench) {
+    exitBench(core)
     return
   }
 

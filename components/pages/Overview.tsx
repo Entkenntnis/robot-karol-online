@@ -11,7 +11,6 @@ import {
   faPaintBrush,
   faPencil,
   faTable,
-  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -52,6 +51,9 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 import { twoWorldsEqual } from '../../lib/commands/world'
+
+const bluejPlaygroundHash =
+  '#SPIELWIESE-PYTHON:%23%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0A%23%20Hallo!%20Die%20Spielwiese%20hat%20einen%20neuen%20Modus.%20Sobald%20du%20Python%20aktiviert%2C%0A%23%20kannst%20du%20auf%20das%20interaktive%20Klassendiagramm%20zugreifen.%0A%0A%23%20Dort%20kannst%20du%20Objekte%20erzeugen%20und%20Methoden%20aufrufen%20wie%20in%20BlueJ.%0A%0A%23%20Probiere%20es%20jetzt%20aus!%20Klicke%20jetzt%20auf%20interaktives%20Klassendiagramm%2C%0A%23%20erzeuge%20einen%20Robot%20und%20steuere%20Karol%20direkt%20%C3%BCber%20die%20Objektkarte.%0A%0A%0A%0A%0A%23%20Das%20Diagramm%20befindest%20sich%20aktuell%20in%20der%20Entwicklung%20und%20wird%20%C3%BCber%0A%23%20die%20n%C3%A4chste%20Zeit%20laufend%20verbessert.'
 
 export function Overview() {
   const core = useCore()
@@ -473,6 +475,31 @@ export function Overview() {
                     />
                   </a>
                 )}
+
+                <a
+                  href={`/${bluejPlaygroundHash}`}
+                  className="absolute top-[1800px] left-[111px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+                  onClick={(e) => {
+                    submitAnalyzeEvent(core, 'ev_click_landing_blueJPlayground')
+                    setLearningPathScroll(
+                      document.getElementById('scroll-container')?.scrollTop ??
+                        -1
+                    )
+                    navigate(core, bluejPlaygroundHash)
+                    e.preventDefault()
+                  }}
+                >
+                  <p className="text-center">
+                    BlueJ-
+                    <br />
+                    Spielwiese
+                  </p>
+                  <img
+                    src="/bluej.png"
+                    alt=""
+                    className="w-[50px] mx-auto inline-block mt-2"
+                  />
+                </a>
 
                 {core.ws.ui.newRobotImage && (
                   <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
