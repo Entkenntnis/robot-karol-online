@@ -95,6 +95,11 @@ export function createWorkspaceState(): WorkspaceState {
     bench: {
       classInfo: {},
       objects: [],
+      invocationMode: 'constructor',
+      invocationParameters: [],
+      invocationClass: '',
+      invocationMethod: '',
+      invocationObject: '',
     },
     analyze: {
       published: [],

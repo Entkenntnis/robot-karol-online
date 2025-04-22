@@ -32,6 +32,7 @@ import { setLockToKarolCode } from '../lib/storage/storage'
 import { Karolmania } from './pages/Karolmania'
 import { KarolmaniaGame } from './pages/KarolmaniaGame'
 import { Donate } from './pages/Donate'
+import { InvocationModal } from './modals/InvocationModal'
 
 export function App() {
   const core = useCore()
@@ -153,6 +154,8 @@ export function App() {
       return <SyncModal />
     } else if (core.ws.modal == 'survey') {
       return <SurveyModal />
+    } else if (core.ws.modal == 'invocation') {
+      return <InvocationModal />
     } else {
       return null
     }

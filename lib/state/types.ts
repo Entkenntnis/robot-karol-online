@@ -181,6 +181,7 @@ export interface WorkspaceState {
     | 'tutorial'
     | 'sync'
     | 'survey'
+    | 'invocation'
     | null
 
   renderCounter: number // e.g. if storage is updated
@@ -200,6 +201,13 @@ export interface Appearance {
 export interface Bench {
   classInfo: { [key: string]: ClassInfo }
   objects: ObjectInfo[]
+  invocationMode: 'constructor' | 'method'
+  invocationParameters: ParameterInfo[]
+  // only constructor
+  invocationClass: string
+  // only method
+  invocationObject: string
+  invocationMethod: string
 }
 
 export interface ObjectInfo {
