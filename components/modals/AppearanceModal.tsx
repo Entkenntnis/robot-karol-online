@@ -10,6 +10,7 @@ import {
   faArrowRight,
   faEraser,
   faFillDrip,
+  faLinesLeaning,
   faPaintBrush,
   faStar,
   faUndo,
@@ -23,7 +24,7 @@ export function AppearanceModal() {
   const [isDrawing, setIsDrawing] = useState(false)
   const [lastDrawingPosition, setLastDrawingPosition] = useState({x: 0, y: 0});
   const [selectedColor, setSelectedColor] = useState('#000000')
-  const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser'>('brush')
+  const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser' | 'line'>('line')
   const [brushSize, setBrushSize] = useState(3)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -173,45 +174,96 @@ export function AppearanceModal() {
     updateImageDataUrl(canvas)
   }
 
-  // Zeichnen für Pinsel und Radiergummi.
+  const drawLineTo = (
+    ctx: CanvasRenderingContext2D, 
+    toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void, 
+    from: {x: number, y: number}, 
+    to: {x: number, y:number}, 
+    offset: number
+  ) => {
+    ctx.save();
+    const distance = Math.sqrt((to.x - from.x)**2 + (to.y - from.y)**2) // a global distance function might be useful
+    // interpolating between last and current position as to avoid gaps
+    // moveTo and lineTo do not work here because of anti-aliasing
+    let stepSize = 1; // looks the best
+    for (let d = 0; d < distance; d += stepSize) {
+      toolCall(
+        // vector normalization could also be a global function
+        ctx,
+        Math.round(from.x + d * (to.x - from.x) / distance - offset), 
+        Math.round(from.y + d * (to.y - from.y) / distance - offset), 
+      )
+    }
+    toolCall(ctx, to.x - offset, to.y - offset);
+    ctx.restore();
+  }
+
+  // Zeichnen für Pinsel, Linie und Radiergummi.
   const draw = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
     if (!ctx || !canvas) return
+
     const { x, y } = getCanvasCoordinates(e)
     const offset = Math.floor(brushSize / 2)
     
-    let toolCall: (x: number, y:number) => void;
+    let toolCall: (ctx: CanvasRenderingContext2D, x: number, y:number) => void;
     if (tool === 'eraser') {
       // Beim Radiergummi werden Pixel gelöscht (transparent gemacht).
-      toolCall = (x: number, y: number) => ctx.clearRect(x, y, brushSize, brushSize);
+      toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) => ctx.clearRect(x, y, brushSize, brushSize);
     } else {
       ctx.fillStyle = selectedColor
-      toolCall = (x: number, y: number) => ctx.fillRect(x, y, brushSize, brushSize);
+      toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) => ctx.fillRect(x, y, brushSize, brushSize);
     }
 
-    if (isDrawing) {
-      // interpolating between last and current position as to avoid gaps
-      // moveTo and lineTo do not work here because of anti-aliasing
-      const {x: lastX, y: lastY} = lastDrawingPosition;
-      const distance = Math.sqrt((x - lastX)**2 + (y - lastY)**2) // a global distance function might be useful
-      for (let d = 0; d < distance; d += brushSize) {
-        toolCall(
-          // vector normalization could also be a global function
-          Math.round(lastX + d * (x - lastX) / distance) - offset, 
-          Math.round(lastY + d * (y - lastY) / distance) - offset, 
-        )
+    if (tool === 'line') {
+      if (isDrawing) {
+        // we only need this stuff when previewing lines
+        const previewCanvas = previewCanvasRef.current
+        const previewCtx = previewCanvas?.getContext('2d')
+        if (!previewCtx || !canvas) return
+
+        previewCtx.fillStyle = selectedColor;
+        drawLineTo(previewCtx, toolCall, lastDrawingPosition, {x, y}, offset);
+      } else {
+        // only store this at the start of a new line!
+        setLastDrawingPosition({x, y});
       }
-    }
-    // always draw at least one point
-    toolCall(x - offset, y - offset);
+    } else {
+      if (isDrawing) {
+        drawLineTo(ctx, toolCall, lastDrawingPosition, {x, y}, offset);
+      }
+      // always draw at least one point
+      toolCall(ctx, x - offset, y - offset);
 
-    // store the last drawing position
-    setLastDrawingPosition({x, y}); // is that how you use React?
+      // store the last drawing position
+      setLastDrawingPosition({x, y}); // is that how you use React?
+    }
 
     updateImageDataUrl(canvas)
+  }
+
+  // Abschluss einer Zeichnung (aktuell nur Linie)
+  const endDraw = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+  ) => {
+    const canvas = canvasRef.current
+    const ctx = canvas?.getContext('2d')
+    if (!ctx || !canvas) return
+
+    const { x, y } = getCanvasCoordinates(e)
+    const offset = Math.floor(brushSize / 2)
+
+    ctx.fillStyle = selectedColor
+    let toolCall = (ctx: CanvasRenderingContext2D, x: number, y: number) => ctx.fillRect(x, y, brushSize, brushSize);
+
+    if (tool === 'line' && isDrawing) {
+      // complete the line
+      drawLineTo(ctx, toolCall, lastDrawingPosition, {x, y}, offset);
+      setLastDrawingPosition({x, y});
+    }
   }
 
   // Aktualisiert die Vorschau-Leinwand mit einer gestrichelten Umrandung.
@@ -295,6 +347,7 @@ export function AppearanceModal() {
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     e.preventDefault()
+    endDraw(e);
     setIsDrawing(false)
     hasPushedUndo.current = false
     clearPreview()
@@ -459,7 +512,7 @@ export function AppearanceModal() {
               />
             </div>
             <div className="flex flex-wrap justify-center gap-3 mt-3">
-              <button
+              <button title='Pinsel'
                 className={`px-3 py-1 border rounded ${
                   tool === 'brush' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -470,7 +523,7 @@ export function AppearanceModal() {
               >
                 <FaIcon icon={faPaintBrush} />
               </button>
-              <button
+              <button title='Füllen'
                 className={`px-3 py-1 border rounded ${
                   tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -481,7 +534,18 @@ export function AppearanceModal() {
               >
                 <FaIcon icon={faFillDrip} />
               </button>
-              <button
+              <button title='Linie'
+                className={`px-3 py-1 border rounded ${
+                  tool === 'line' ? 'bg-gray-300' : 'bg-white'
+                }`}
+                onClick={() => {
+                  // submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
+                  setTool('line')
+                }}
+              >
+                <FaIcon icon={faLinesLeaning} />
+              </button>
+              <button title='Radierer'
                 className={`px-3 py-1 border rounded ${
                   tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -492,7 +556,7 @@ export function AppearanceModal() {
               >
                 <FaIcon icon={faEraser} />
               </button>
-              <button
+              <button title='Rückgängig'
                 className="px-3 py-1 bg-purple-200 hover:bg-purple-300 rounded"
                 onClick={handleUndo}
               >
