@@ -129,7 +129,6 @@ export async function analyze(core: Core) {
         average,
       }
     }
-    ws.analyze.karolmania = {}
     for (const level of levels) {
       ws.analyze.karolmania[level.id] = {
         times: [],

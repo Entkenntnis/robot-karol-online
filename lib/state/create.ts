@@ -128,6 +128,7 @@ export function createWorkspaceState(): WorkspaceState {
       solutions: {},
       userEvents: {},
       ratings: {},
+      karolmania: {},
       newEventStats: {
         uniqueUsers: 0,
         stats: {},
