@@ -14,6 +14,7 @@ import {
   setMark,
   resetMark,
 } from './world'
+import { del } from '../codemirror/pythonParser/parser.terms'
 
 export function setupWorker(core: Core) {
   if (core.worker) {
@@ -564,10 +565,20 @@ export function setupWorker(core: Core) {
 
     const id = core.worker.benchMessageIdCounter++
 
+    const delayBuffer = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT)
+    core.worker.sharedArrayDelay = new Int32Array(delayBuffer)
+
+    Atomics.store(
+      core.worker.sharedArrayDelay,
+      0,
+      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000)
+    )
+
     core.worker.mainWorker.postMessage({
       type: 'bench',
       command: 'prepare',
       id,
+      delayBuffer: core.worker.sharedArrayDelay,
     })
 
     return new Promise((resolve) => {

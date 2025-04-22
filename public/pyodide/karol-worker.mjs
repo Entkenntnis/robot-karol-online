@@ -387,6 +387,7 @@ self.onmessage = async (event) => {
       benchGlobals = pyodide.toPy({
         _internal_Robot: buildRobot(),
       })
+      delay = new Int32Array(event.data.delayBuffer)
       debug[0] = 0
       pyodide.runPython(
         `
@@ -469,26 +470,23 @@ class Robot:
       const { request } = event.data.payload
       if (request == 'execute') {
         const { code } = event.data.payload
-        console.log('execute', code)
         try {
+          lastStepTs = performance.now() * 1000
           const payload = pyodide.runPython(code, {
             globals: benchGlobals,
             filename: 'Bench.py',
           })
-          console.log('execute result', payload)
           self.postMessage({
             type: 'bench',
             id,
             payload: { result: payload },
           })
         } catch (error) {
-          console.log(error)
           self.postMessage({ type: 'error', error: error.message })
           return
         }
       }
       if (request == 'class-info') {
-        console.log('get class info')
         const payload = pyodide.runPython(
           `
 import inspect
