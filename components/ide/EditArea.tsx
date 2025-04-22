@@ -102,6 +102,7 @@ export function EditArea() {
                       'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed'
                     )}
                     onClick={() => {
+                      submitAnalyzeEvent(core, 'ev_click_ide_bench')
                       startBench(core)
                     }}
                     disabled={core.ws.ui.state != 'ready'}

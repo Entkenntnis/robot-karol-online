@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useCore } from '../../lib/state/core'
 import { executeInBench } from '../../lib/commands/bench'
 import { showModal } from '../../lib/commands/modal'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 interface ClassDiagramProps {
   classes: string[]
@@ -16,6 +17,7 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
         <div
           key={index}
           onClick={() => {
+            submitAnalyzeEvent(core, 'ev_click_bench_createClass')
             core.mutateWs(({ bench }) => {
               bench.invocationMode = 'constructor'
               bench.invocationClass = className

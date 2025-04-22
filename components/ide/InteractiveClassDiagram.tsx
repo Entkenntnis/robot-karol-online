@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import { FaIcon } from '../helper/FaIcon'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { showModal } from '../../lib/commands/modal'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function InteractiveClassDiagram() {
   const core = useCore()
@@ -104,6 +105,7 @@ export function InteractiveClassDiagram() {
                   key={i}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
+                    submitAnalyzeEvent(core, 'ev_click_bench_method')
                     core.mutateWs(({ bench }) => {
                       bench.invocationMode = 'method'
                       bench.invocationClass =
@@ -126,6 +128,7 @@ export function InteractiveClassDiagram() {
             <div
               className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600"
               onClick={() => {
+                submitAnalyzeEvent(core, 'ev_click_bench_del')
                 const objName =
                   core.ws.bench.objects[contextMenu.selectedIndex!].name
                 executeInBench(core, `del ${objName}`)

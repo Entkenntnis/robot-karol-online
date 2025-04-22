@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
 import { executeInBench } from '../../lib/commands/bench'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function InvocationModal() {
   const core = useCore()
@@ -45,6 +46,7 @@ export function InvocationModal() {
       : `${invocationObject}.${invocationMethod}(${codeParams})`
 
   const handleSubmit = (e: React.FormEvent) => {
+    submitAnalyzeEvent(core, 'ev_click_bench_invocationExecute')
     e.preventDefault()
     executeInBench(core, codePreview)
     closeModal(core)
