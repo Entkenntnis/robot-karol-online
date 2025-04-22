@@ -181,3 +181,17 @@ Scenario('Correctly convert code to python', ({ I }) => {
   I.waitForText('Ausführung beendet', 10)
   I.dontSee('Traceback')
 })
+
+Scenario.only('Test python quest', ({ I }) => {
+  I.amOnPage('/#QUEST-61')
+  I.wait(1)
+  I.click('div .fixed')
+  I.click('div .cm-activeLine')
+  I.pressKey(['Control', 'a'])
+  I.type('print("Hallo, Python!")')
+  I.click('Start')
+  I.waitForText('Perfekt gemacht', 3)
+  I.click('Ja, hab ich gesehen')
+  I.click('weiter')
+  I.see('Würfel')
+})

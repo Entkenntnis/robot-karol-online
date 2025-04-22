@@ -281,7 +281,9 @@ self.onmessage = async (event) => {
       Robot: buildRobot(highlightCurrentLine),
       __ide_run_client: (args) => {
         enableHighlight.current = true
-        const tGlobals = pyodide.toPy({ Robot })
+        const tGlobals = pyodide.toPy({
+          Robot: buildRobot(highlightCurrentLine),
+        })
         if (args && args.globals) {
           for (const key of args.globals) {
             tGlobals.set(key, globals.get(key))
