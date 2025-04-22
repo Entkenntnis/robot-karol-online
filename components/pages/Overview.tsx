@@ -476,30 +476,37 @@ export function Overview() {
                   </a>
                 )}
 
-                <a
-                  href={`/${bluejPlaygroundHash}`}
-                  className="absolute top-[1800px] left-[111px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
-                  onClick={(e) => {
-                    submitAnalyzeEvent(core, 'ev_click_landing_blueJPlayground')
-                    setLearningPathScroll(
-                      document.getElementById('scroll-container')?.scrollTop ??
-                        -1
-                    )
-                    navigate(core, bluejPlaygroundHash)
-                    e.preventDefault()
-                  }}
-                >
-                  <p className="text-center">
-                    BlueJ-
-                    <br />
-                    Spielwiese
-                  </p>
-                  <img
-                    src="/bluej.png"
-                    alt=""
-                    className="w-[50px] mx-auto inline-block mt-2"
-                  />
-                </a>
+                <div className="absolute top-[1800px] left-[111px]  z-10">
+                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                    <a
+                      href={`/${bluejPlaygroundHash}`}
+                      className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+                      onClick={(e) => {
+                        submitAnalyzeEvent(
+                          core,
+                          'ev_click_landing_blueJPlayground'
+                        )
+                        setLearningPathScroll(
+                          document.getElementById('scroll-container')
+                            ?.scrollTop ?? -1
+                        )
+                        navigate(core, bluejPlaygroundHash)
+                        e.preventDefault()
+                      }}
+                    >
+                      <p className="text-center">
+                        BlueJ-
+                        <br />
+                        Spielwiese
+                      </p>
+                      <img
+                        src="/bluej.png"
+                        alt=""
+                        className="w-[50px] mx-auto inline-block mt-2"
+                      />
+                    </a>
+                  </AnimateInView>
+                </div>
 
                 {core.ws.ui.newRobotImage && (
                   <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
