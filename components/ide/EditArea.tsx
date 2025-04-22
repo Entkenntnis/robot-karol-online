@@ -96,7 +96,7 @@ export function EditArea() {
                     Spickzettel
                   </button>
                 )}
-                {
+                {core.ws.ui.isPlayground && (
                   <button
                     className={clsx(
                       'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed'
@@ -110,7 +110,7 @@ export function EditArea() {
                     <FaIcon icon={faPlay} className="text-xs" /> Interaktives
                     Klassendiagramm
                   </button>
-                }
+                )}
               </div>
 
               {core.ws.page == 'editor' &&

@@ -105,12 +105,12 @@ export function buildRobot(highlightCurrentLine = () => {}) {
       },
       istWand: (...rest) => {
         throwFauxTypeError('Robot', 'istWand', 0, rest)
-        if (!direction) direction = null
+        //if (!direction) direction = null
         return checkCondition({ type: 'wall', negated: false }) // direction is not handled by testCondition, removed
       },
       nichtIstWand: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstWand', 0, rest)
-        if (!direction) direction = null
+        //if (!direction) direction = null
         return checkCondition({ type: 'wall', negated: true }) // direction is not handled by testCondition, removed
       },
       istMarke: (...rest) => {
