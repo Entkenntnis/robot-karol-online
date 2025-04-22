@@ -212,6 +212,21 @@ export function AppearanceModal() {
       ctx.fillRect(x, y, 1, 1)
     }
     ctx.globalAlpha = 1.0
+
+    /**
+     * Show sprite boundary while drawing.
+     * This should make it easier to keep 'inside the lines'
+     */
+    ctx.save();
+    ctx.globalAlpha = 0.2
+    ctx.fillStyle = 'black';
+    const panelWidth = overlayCanvas.width / 4;
+    for (let i = 0; i < 4; i++) {
+      const { x, y } = getCanvasCoordinates(e);
+      if (x < i * panelWidth || x >= (i+1) * panelWidth)
+        ctx.fillRect(i * panelWidth, 0, panelWidth, overlayCanvas.height);
+    }
+    ctx.restore();
   }
 
   const clearPreview = () => {
