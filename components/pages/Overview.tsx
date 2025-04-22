@@ -53,7 +53,7 @@ import { navigate } from '../../lib/commands/router'
 import { twoWorldsEqual } from '../../lib/commands/world'
 
 const bluejPlaygroundHash =
-  '#SPIELWIESE-PYTHON:%23%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0A%23%20Hallo!%20Die%20Spielwiese%20hat%20einen%20neuen%20Modus.%20Sobald%20du%20Python%20aktiviert%2C%0A%23%20kannst%20du%20auf%20das%20interaktive%20Klassendiagramm%20zugreifen.%0A%0A%23%20Dort%20kannst%20du%20Objekte%20erzeugen%20und%20Methoden%20aufrufen%20wie%20in%20BlueJ.%0A%0A%23%20Probiere%20es%20jetzt%20aus!%20Klicke%20jetzt%20auf%20interaktives%20Klassendiagramm%2C%0A%23%20erzeuge%20einen%20Robot%20und%20steuere%20Karol%20direkt%20%C3%BCber%20die%20Objektkarte.%0A%0A%0A%23%20Der%20Modus%20funktioniert%20mit%20der%20eingebauten%20Klasse%20Robot%20und%20auch%0A%23%20mit%20eigenen%20Klassen%2C%20die%20du%20hier%20im%20Script%20definierst.%0A%0A%22%22%22%0Aclass%20Test%3A%0A%20%20%20%20def%20hallo()%3A%0A%20%20%20%20%20%20%20%20print(%22Hallo%22)%0A%22%22%22'
+  '#SPIELWIESE-PYTHON:%23%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0A%23%20Hallo!%20Die%20Spielwiese%20hat%20einen%20neuen%20Modus.%20Sobald%20du%20Python%20aktiviert%2C%0A%23%20kannst%20du%20auf%20das%20interaktive%20Klassendiagramm%20zugreifen.%0A%0A%23%20Dort%20kannst%20du%20Objekte%20erzeugen%20und%20Methoden%20aufrufen%20wie%20in%20BlueJ.%0A%0A%23%20Probiere%20es%20jetzt%20aus!%20Klicke%20jetzt%20auf%20interaktives%20Klassendiagramm%2C%0A%23%20erzeuge%20einen%20Robot%20und%20steuere%20Karol%20direkt%20%C3%BCber%20die%20Objektkarte.%0A%0A%0A%0A%0A%23%20Das%20Diagramm%20befindest%20sich%20aktuell%20in%20der%20Entwicklung%20und%20wird%20%C3%BCber%0A%23%20die%20n%C3%A4chste%20Zeit%20laufend%20verbessert.'
 
 export function Overview() {
   const core = useCore()
