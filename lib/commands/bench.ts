@@ -17,6 +17,7 @@ export async function startBench(core: Core) {
     ws.ui.showOutput = true
     ws.quest.lastStartedTask = 0
     ws.ui.state = 'running'
+    ws.bench.objects = []
   })
   await executeInBench(core, core.ws.pythonCode)
   await updateBenchClasses(core)

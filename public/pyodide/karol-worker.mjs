@@ -428,10 +428,10 @@ class Robot:
   def nichtIstMarke(self):
     return self._internal_Robot.nichtIstMarke()
 
-  def istZiegel(self, count=None):
+  def istZiegel(self, anzahl=None):
     return self._internal_Robot.istZiegel(count)
 
-  def nichtIstZiegel(self, count=None):
+  def nichtIstZiegel(self, anzahl=None):
     return self._internal_Robot.nichtIstZiegel(count)
 
   def istNorden(self):
