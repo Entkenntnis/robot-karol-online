@@ -264,6 +264,9 @@ export interface Analyze {
   quests: {
     [key: string]: { reachable: number; complete: number; completedAll: number }
   }
+  karolmania: {
+    [key: number]: { times: number[] }
+  }
   userTimes: number[]
   solutions: {
     [questId: string]: {

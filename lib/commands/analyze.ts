@@ -6,6 +6,7 @@ import { questData } from '../data/quests'
 import { isSetName } from '../helper/events'
 import { Core } from '../state/core'
 import { submit_event } from '../helper/submit'
+import { levels } from '../data/karolmaniaLevels'
 
 export async function analyze(core: Core) {
   // cutoff is always one month before the current date
@@ -91,6 +92,7 @@ export async function analyze(core: Core) {
       'ev_show_robotImage_',
       'ev_submit_survey_',
       'ev_show_hash_QUEST-',
+      'ev_submit_karolmania_pb_',
     ]
 
     for (const prefix of eventPrefixes) {
@@ -125,6 +127,12 @@ export async function analyze(core: Core) {
       ws.analyze.newEventStats.stats[event] = {
         sessions,
         average,
+      }
+    }
+    ws.analyze.karolmania = {}
+    for (const level of levels) {
+      ws.analyze.karolmania[level.id] = {
+        times: [],
       }
     }
   })
@@ -305,6 +313,16 @@ export async function analyze(core: Core) {
             ws.analyze.loadedRobotImages[id] = { count: 0 }
           }
           ws.analyze.loadedRobotImages[id].count++
+          continue
+        }
+
+        const karolmania = /^ev_submit_karolmania_pb_([\d]+)_(.+)/.exec(
+          entry.event
+        )
+        if (karolmania) {
+          const id = parseInt(karolmania[1])
+          const value = parseFloat(karolmania[2])
+          ws.analyze.karolmania[id].times.push(value)
           continue
         }
 
