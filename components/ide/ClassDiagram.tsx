@@ -1,6 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
 import { useCore } from '../../lib/state/core'
-import { executeInBench } from '../../lib/commands/bench'
 import { showModal } from '../../lib/commands/modal'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import clsx from 'clsx'

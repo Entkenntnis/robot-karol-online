@@ -3,6 +3,7 @@ import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
 import { executeInBench } from '../../lib/commands/bench'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { capitalize } from '../../lib/helper/capitalize'
 
 export function InvocationModal() {
   const core = useCore()
@@ -48,7 +49,18 @@ export function InvocationModal() {
   const handleSubmit = (e: React.FormEvent) => {
     submitAnalyzeEvent(core, 'ev_click_bench_invocationExecute')
     e.preventDefault()
-    executeInBench(core, codePreview)
+    executeInBench(core, codePreview).then((res: any) => {
+      if (res.result !== undefined) {
+        if (typeof res.result === 'boolean') {
+          alert('Rückgabewert: ' + capitalize(res.result.toString()))
+        } else if (
+          typeof res.result === 'string' ||
+          typeof res.result === 'number'
+        ) {
+          alert('Rückgabewert: ' + JSON.stringify(res.result))
+        }
+      }
+    })
     closeModal(core)
   }
 
