@@ -353,7 +353,17 @@ export function View({
               point.x - 13 - (dir === 'south' ? 3 : dir === 'north' ? -2 : 0)
             const dy = point.y - 60
 
-            ctx.drawImage(robot, sx, 0, 40, 71, dx, dy, 40, 71)
+            ctx.drawImage(
+              robot,
+              sx,
+              0,
+              40,
+              71,
+              Math.round(dx),
+              Math.round(dy),
+              40,
+              71
+            )
           }
         }
       }
