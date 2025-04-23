@@ -143,7 +143,7 @@ export function InteractiveClassDiagram() {
                   closeContextMenu()
                 }}
               >
-                Löschen <code>del</code>
+                Löschen
               </div>
             </div>
           )}

@@ -53,7 +53,7 @@ import { navigate } from '../../lib/commands/router'
 import { twoWorldsEqual } from '../../lib/commands/world'
 
 const bluejPlaygroundHash =
-  '#SPIELWIESE-PYTHON:%23%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0A%23%20Hallo!%20Die%20Spielwiese%20hat%20einen%20neuen%20Modus.%20Sobald%20du%20Python%20aktiviert%2C%0A%23%20kannst%20du%20auf%20das%20interaktive%20Klassendiagramm%20zugreifen.%0A%0A%23%20Dort%20kannst%20du%20Objekte%20erzeugen%20und%20Methoden%20aufrufen%20wie%20in%20BlueJ.%0A%0A%23%20Probiere%20es%20jetzt%20aus!%20Klicke%20jetzt%20auf%20interaktives%20Klassendiagramm%2C%0A%23%20erzeuge%20einen%20Robot%20und%20steuere%20Karol%20direkt%20%C3%BCber%20die%20Objektkarte.%0A%0A%0A%0A%0A%23%20Das%20Diagramm%20befindest%20sich%20aktuell%20in%20der%20Entwicklung%20und%20wird%20%C3%BCber%0A%23%20die%20n%C3%A4chste%20Zeit%20laufend%20verbessert.'
+  '#SPIELWIESE-PYTHON:%23 Spielwiese%3A 15%2C 10%2C 6%0A%0A%23 Hallo! Die Spielwiese hat einen neuen Modus. Sobald du Python aktiviert%2C%0A%23 kannst du auf das interaktive Klassendiagramm zugreifen.%0A%0A%23 Dort kannst du Objekte erzeugen und Methoden aufrufen wie in BlueJ.%0A%0A%23 Probiere es jetzt aus! Klicke jetzt auf interaktives Klassendiagramm%2C%0A%23 erzeuge einen Robot und steuere Karol direkt über die Objektkarte.%0A%0A%0A%0A%23 Das ganze funktioniert auch mit eigenen Klassen%3A%0A%23 (zum Testen auskommentieren)%0A%0A"""%0Aclass MeineKlasse%3A%0A%20%20%20 def hallo(self)%3A%0A%20%20%20%20%20%20%20 "Das ist ein Docstring für die Methode hallo"%0A%20%20%20%20%20%20%20 print("Hallo %3A)")%0A"""'
 
 export function Overview() {
   const core = useCore()
