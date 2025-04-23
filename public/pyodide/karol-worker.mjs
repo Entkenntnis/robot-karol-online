@@ -394,7 +394,7 @@ self.onmessage = async (event) => {
       pyodide.runPython(
         `
 class Robot:
-  """Die Klasse Robot funktioniert wie eine Fernbedienung. Du kannst damit Karol steuern. Wenn du mehrere Objekte der Klasse Robot erzeugst, steuern sie alle den gleichen Roboter."""
+  """Die Klasse Robot funktioniert wie eine Fernbedienung für Karol. Wenn du mehrere Objekte der Klasse Robot erzeugst, steuern sie alle den gleichen Roboter."""
   def schritt(self, n=1):
     self._internal_Robot.schritt(n)
     

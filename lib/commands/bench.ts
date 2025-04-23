@@ -22,6 +22,7 @@ export async function startBench(core: Core) {
     ws.ui.karolCrashMessage = undefined
     ws.ui.isEndOfRun = false
     ws.ui.isManualAbort = false
+    ws.ui.messages = []
   })
   await executeInBench(core, core.ws.pythonCode)
   await updateBenchClasses(core)
