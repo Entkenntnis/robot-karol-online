@@ -53,10 +53,7 @@ export function InvocationModal() {
   }
 
   return (
-    <div
-      className="bg-black/20 fixed inset-0 flex justify-center items-center z-[350]"
-      onClick={() => closeModal(core)}
-    >
+    <div className="bg-black/20 fixed inset-0 flex justify-center items-center z-[350]">
       <div
         className="w-[500px] bg-white z-[400] rounded-xl relative flex flex-col"
         onClick={(e) => e.stopPropagation()}
@@ -83,6 +80,7 @@ export function InvocationModal() {
                 value={variableName}
                 onChange={(e) => setVariableName(e.target.value)}
                 className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                pattern="^(?!\d)(?:[\p{L}_])(?:[\p{L}\p{N}_]*)$"
                 required
               />
             </div>
