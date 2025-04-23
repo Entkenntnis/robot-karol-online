@@ -100,6 +100,7 @@ export function createWorkspaceState(): WorkspaceState {
       invocationClass: '',
       invocationMethod: '',
       invocationObject: '',
+      locked: false,
     },
     analyze: {
       published: [],

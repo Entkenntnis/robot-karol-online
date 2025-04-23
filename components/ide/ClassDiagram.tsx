@@ -3,6 +3,7 @@ import { useCore } from '../../lib/state/core'
 import { executeInBench } from '../../lib/commands/bench'
 import { showModal } from '../../lib/commands/modal'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import clsx from 'clsx'
 
 interface ClassDiagramProps {
   classes: string[]
@@ -17,6 +18,7 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
         <div
           key={index}
           onClick={() => {
+            if (core.ws.bench.locked) return
             submitAnalyzeEvent(core, 'ev_click_bench_createClass')
             core.mutateWs(({ bench }) => {
               bench.invocationMode = 'constructor'
@@ -26,7 +28,10 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
             })
             showModal(core, 'invocation')
           }}
-          className="relative bg-white border-2 border-gray-800 rounded-sm cursor-pointer hover:shadow-lg transition-shadow"
+          className={clsx(
+            'relative bg-white border-2 border-gray-800 rounded-sm cursor-pointer hover:shadow-lg transition-shadow',
+            core.ws.bench.locked && 'cursor-wait'
+          )}
         >
           <div className="px-8 py-1 border-b-2 border-gray-800">
             {className}
