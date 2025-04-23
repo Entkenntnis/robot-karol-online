@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Treppe",
-  "description": "Karol hat einen unsichtbaren unendlichen Rucksack, aber sie kann nicht fliegen. Um höher zu kommen, braucht sie eine Treppe. Sie kann damit %img[Stufe für Stufe|/quests/treppe.gif]% hochsteigen.\n\nLege die Ziegel wie abgebildet. Du kannst mehrere Ziegel auf einmal legen, indem du die %img[Anzahl eingibst|/quests/treppe.png]%. ",
+  "description": "Karol hat einen unsichtbaren unendlichen Rucksack, aber sie kann nicht fliegen. Um höher zu kommen, braucht sie eine Treppe. Sie kann damit <ImageButton text=\"Stufe für Stufe\" src=\"/quests/treppe.gif\" /> hochsteigen.\n\nLege die Ziegel wie abgebildet. Du kannst mehrere Ziegel auf einmal legen, indem du die <ImageButton text=\"Anzahl eingibst\" src=\"/quests/treppe.png\" />",
   "tasks": [
     {
       "title": "Treppe",

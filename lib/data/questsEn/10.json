@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Castle",
-  "description": "Awaken the child in you and start your big castle-building project.\n\nBuild the castle shown with Karol - here's a %img[preview|/quests/burg_2.png]%.",
+  "description": "Awaken the child in you and start your big castle-building project.\n\nBuild the castle shown with Karol - here's a <ImageButton text=\"preview\" src=\"/quests/burg_2.png\" />.",
   "tasks": [
     {
       "title": "Castle with Battlements",

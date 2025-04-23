@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Look Closely",
-  "description": "Your sharp eyes are needed. This time, the placeholder for the brick is a bit more hidden. Find the spot and place a brick there.\n\nNo bricks need to be picked up. Move around and place exactly one brick.\n\nYou can take multiple steps by changing the %img[number of steps|/quests/schau_genau.png]% in the command.",
+  "description": "Your sharp eyes are needed. This time, the placeholder for the brick is a bit more hidden. Find the spot and place a brick there.\n\nNo bricks need to be picked up. Move around and place exactly one brick.\n\nYou can take multiple steps by changing the <ImageButton text=\"number of steps\" src=\"/quests/schau_genau.png\" /> in the command.",
   "tasks": [
     {
       "title": "Look Closely",

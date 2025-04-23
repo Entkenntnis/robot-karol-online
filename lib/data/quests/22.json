@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Hoch hinaus",
-  "description": "Karol möchte ihren Horizont erweitern und mehr von der Welt sehen. Dafür hat sie sich eine hohe Treppe gebaut.\n\nLaufe mit Karol an die Spitze der Treppe und setze %img[am Ende|/quests/hoch.png]% eine Marke. \n\nDie Treppe ist bereits fertig gebaut. Es müssen keine Ziegel gelegt werden.",
+  "description": "Karol möchte ihren Horizont erweitern und mehr von der Welt sehen. Dafür hat sie sich eine hohe Treppe gebaut.\n\nLaufe mit Karol an die Spitze der Treppe und setze <ImageButton text=\"am Ende\" src=\"/quests/hoch.png\" /> eine Marke. \n\nDie Treppe ist bereits fertig gebaut. Es müssen keine Ziegel gelegt werden.",
   "tasks": [
     {
       "title": "Lange Treppe",

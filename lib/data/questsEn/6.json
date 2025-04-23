@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Stairs",
-  "description": "Karol has an invisible infinite backpack, but she can't fly. To go higher, she needs stairs. She can climb up with it %img[step by step|/quests/treppe.gif]%.\n\nPlace the bricks as shown. You can place multiple bricks at once by entering the %img[quantity|/quests/treppe.png]%. ",
+  "description": "Karol has an invisible infinite backpack, but she can't fly. To go higher, she needs stairs. She can climb up with it <ImageButton text=\"step by step\" src=\"/quests/treppe.gif\" />.\n\nPlace the bricks as shown. You can place multiple bricks at once by entering the <ImageButton text=\"quantity\" src=\"/quests/treppe.png\" />. ",
   "tasks": [
     {
       "title": "Stairs",
