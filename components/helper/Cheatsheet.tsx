@@ -207,7 +207,7 @@ export function Cheatsheet({ language }: CheatsheetProps) {
   )
 }
 
-function CodeBox({
+export function CodeBox({
   doc,
   language,
 }: {
