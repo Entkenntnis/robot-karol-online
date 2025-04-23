@@ -68,7 +68,7 @@ export function QuestEditor() {
         </>
       ) : (
         <>
-          <p>
+          <p className="flex justify-between items-end">
             <input
               value={core.ws.quest.title}
               onChange={(e) => {
@@ -76,8 +76,9 @@ export function QuestEditor() {
               }}
               className="font-bold text-xl"
             />
+            <small className="italic text-gray-500">Markdown verfügbar</small>
           </p>
-          <p className="mt-3">
+          <p className="mt-3 mb-2">
             <textarea
               className="w-full h-[150px]"
               value={core.ws.quest.description}
