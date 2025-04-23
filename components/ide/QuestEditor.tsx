@@ -4,7 +4,7 @@ import {
   setQuestPreview,
   setTitle,
 } from '../../lib/commands/editor'
-import { processMiniMarkdown } from '../../lib/helper/processMiniMarkdown'
+import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
 import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
@@ -64,7 +64,7 @@ export function QuestEditor() {
       {core.ws.editor.showQuestPreview ? (
         <>
           <h1 className="mb-3 text-xl font-bold">{core.ws.quest.title}</h1>
-          <div>{processMiniMarkdown(core.ws.quest.description)}</div>
+          <div>{processMarkdown(core.ws.quest.description)}</div>
         </>
       ) : (
         <>
