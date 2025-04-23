@@ -351,14 +351,16 @@ export function AppearanceModal() {
 
   // Gemeinsame Logik für das Beenden des Zeichnens.
   const handleEnd = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>,
+    e:
+      | React.MouseEvent<HTMLCanvasElement>
+      | React.TouchEvent<HTMLCanvasElement>,
     clear: boolean
   ) => {
     e.preventDefault()
     endDraw(e)
     setIsDrawing(false)
     hasPushedUndo.current = false
-    if (clear) clearPreview();
+    if (clear) clearPreview()
     else updatePreview(e)
   }
 
@@ -385,7 +387,7 @@ export function AppearanceModal() {
   }
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    handleEnd(e, true);
+    handleEnd(e, true)
   }
 
   // Undo: stellt den letzten Zustand wieder her.
@@ -651,10 +653,12 @@ export function AppearanceModal() {
               <button
                 onClick={() => {
                   submitAnalyzeEvent(core, 'ev_click_appearance_openGallery')
-                  window.open(
-                    'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
-                    '_self'
-                  )
+                  setTimeout(() => {
+                    window.open(
+                      'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
+                      '_self'
+                    )
+                  }, 100)
                 }}
                 className="hover:underline"
               >

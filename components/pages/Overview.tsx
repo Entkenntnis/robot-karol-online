@@ -185,17 +185,20 @@ export function Overview() {
                   </a>
                 </li>
                 <li>
-                  <button
+                  <a
+                    href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_landing_robotGallery')
-                      window.open(
-                        'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
-                        '_self'
-                      )
+                      setTimeout(() => {
+                        window.open(
+                          'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
+                          '_self'
+                        )
+                      }, 50)
                     }}
                   >
                     🤖 Figuren-Galerie
-                  </button>
+                  </a>
                 </li>
                 <li>
                   <a
