@@ -275,7 +275,13 @@ function karolCrashed(core: Core, error: string) {
       ui.karolCrashMessage = error
     })
     if (core.worker) {
-      core.worker.reset()
+      if (core.ws.ui.isBench) {
+        core.mutateWs((ws) => {
+          ws.bench.locked = false
+        })
+      } else {
+        core.worker.reset()
+      }
     }
     endExecution(core)
   }
