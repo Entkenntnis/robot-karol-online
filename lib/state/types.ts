@@ -217,6 +217,7 @@ export interface ObjectInfo {
 
 export interface ClassInfo {
   name: string
+  doc: string
   constructor: FunctionInfo
   methods: { [key: string]: FunctionInfo }
 }

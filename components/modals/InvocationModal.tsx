@@ -69,6 +69,12 @@ export function InvocationModal() {
               <>Methodenaufruf</>
             )}
           </h1>
+          {invocationMode == 'constructor' &&
+            core.ws.bench.classInfo[invocationClass].doc && (
+              <p className="my-4 italic text-gray-500">
+                {core.ws.bench.classInfo[invocationClass].doc}
+              </p>
+            )}
 
           {invocationMode == 'constructor' && (
             <div className="space-y-2">
