@@ -152,6 +152,11 @@ export function setupWorker(core: Core) {
       ) {
         return
       }
+      if (core.ws.ui.isBench) {
+        core.mutateWs(({ bench }) => {
+          bench.locked = false
+        })
+      }
       core.mutateWs(({ ui }) => {
         ui.state = 'ready'
         ui.errorMessages = [filterTraceback(event.data.error)]
