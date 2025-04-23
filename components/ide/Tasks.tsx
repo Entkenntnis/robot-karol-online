@@ -71,7 +71,7 @@ export function Tasks() {
           <div>
             <div
               className={clsx(
-                'p-4 px-7 bg-yellow-100',
+                'pt-4 pb-1 px-7 bg-yellow-100',
                 core.ws.ui.isHighlightDescription && 'z-[300] relative'
               )}
             >

@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Schau genau",
-  "description": "Deine scharfen Augen sind gefragt. Diesmal ist der Platzhalter für den Ziegel etwas versteckter. Finde die Stelle und lege dort einen Ziegel.\n\nEs müssen keine Ziegel aufgehoben werden. Bewege dich und lege genau einen Ziegel.\n\nDu kannst mehrere Schritte gehen, indem du beim Befehl die %img[Anzahl änderst|/quests/schau_genau.png]%.",
+  "description": "Deine scharfen Augen sind gefragt. Diesmal ist der Platzhalter für den Ziegel etwas versteckter. Finde die Stelle und lege dort einen Ziegel.\n\nEs müssen keine Ziegel aufgehoben werden. Bewege dich und lege genau einen Ziegel.\n\nDu kannst mehrere Schritte gehen, indem du beim Befehl die <ImageButton text=\"Anzahl änderst\" src=\"/quests/schau_genau.png\" />.",
   "tasks": [
     {
       "title": "Schau genau",

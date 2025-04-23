@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Pattern",
-  "description": "You're not lazy; you're just conserving energy for later when you really need it.\n\nYou can shorten your programs by using %img[loops|/quests/muster.png]%. Drag them onto the workspace and insert %img[commands in between|/quests/muster_2.png]%. Adjust the %img[number of repetitions|/quests/muster_3.png]%.\n\nThis way, you can create this pattern without having to write each command individually.",
+  "description": "You're not lazy; you're just conserving energy for later when you really need it.\n\nYou can shorten your programs by using <ImageButton text=\"loops\" src=\"/quests/muster.png\" />. Drag them onto the workspace and insert <ImageButton text=\"commands in between\" src=\"/quests/muster_2.png\" />. Adjust the <ImageButton text=\"number of repetitions\" src=\"/quests/muster_3.png\" />.\n\nThis way, you can create this pattern without having to write each command individually.",
   "tasks": [
     {
       "title": "Pattern",

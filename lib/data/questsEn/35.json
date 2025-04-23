@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Cleaner",
-  "description": "In front of Karol, there are different numbers of bricks. Pick up all the bricks. Write a program that works for all three cases.\n\nUse Karol's sensors for this. Choose a suitable sensor type, %img[hint|/quests/abr.png]%.",
+  "description": "In front of Karol, there are different numbers of bricks. Pick up all the bricks. Write a program that works for all three cases.\n\nUse Karol's sensors for this. Choose a suitable sensor type, <ImageButton text=\"hint\" src=\"/quests/abr.png\" />.",
   "tasks": [
     {
       "title": "2 Bricks",

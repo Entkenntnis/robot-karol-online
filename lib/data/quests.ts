@@ -10,10 +10,6 @@ export const questData: { [key: number]: QuestData } = {
     ...deserializeQuestToData(require('./quests/2.json')),
   },
 
-  /* 3: {
-    ...deserlizeQuestToData(require('./quests/3.json')),
-  },*/
-
   4: {
     ...deserializeQuestToData(require('./quests/4.json')),
   },
@@ -30,10 +26,6 @@ export const questData: { [key: number]: QuestData } = {
     ...deserializeQuestToData(require('./quests/7.json')),
   },
 
-  /*8: {
-    ...deserlizeQuestToData(require('./quests/8.json')),
-  },*/
-
   9: {
     ...deserializeQuestToData(require('./quests/9.json')),
   },
@@ -41,10 +33,6 @@ export const questData: { [key: number]: QuestData } = {
   10: {
     ...deserializeQuestToData(require('./quests/10.json')),
   },
-
-  /*11: {
-    ...deserlizeQuestToData(require('./quests/11.json')),
-  },*/
 
   12: {
     ...deserializeQuestToData(require('./quests/12.json')),
@@ -78,14 +66,6 @@ export const questData: { [key: number]: QuestData } = {
     ...deserializeQuestToData(require('./quests/19.json')),
   },
 
-  20: {
-    ...deserializeQuestToData(require('./quests/20.json')),
-  },
-
-  21: {
-    ...deserializeQuestToData(require('./quests/21.json')),
-  },
-
   22: {
     ...deserializeQuestToData(require('./quests/22.json')),
   },
@@ -107,7 +87,7 @@ export const questData: { [key: number]: QuestData } = {
   },
 
   27: {
-    ...require('./quests/27.json'),
+    ...deserializeQuestToData(require('./quests/27.json')),
   },
 
   28: {
@@ -134,10 +114,6 @@ export const questData: { [key: number]: QuestData } = {
     ...deserializeQuestToData(require('./quests/33.json')),
   },
 
-  /*34: {
-    ...deserlizeQuestToData(require('./quests/34.json')),
-  },*/
-
   35: {
     ...deserializeQuestToData(require('./quests/35.json')),
   },
@@ -148,10 +124,6 @@ export const questData: { [key: number]: QuestData } = {
 
   37: {
     ...deserializeQuestToData(require('./quests/37.json')),
-  },
-
-  38: {
-    ...deserializeQuestToData(require('./quests/38.json')),
   },
 
   39: {
@@ -181,10 +153,6 @@ export const questData: { [key: number]: QuestData } = {
   45: {
     ...deserializeQuestToData(require('./quests/45.json')),
   },
-
-  /*46: {
-    ...deserlizeQuestToData(require('./quests/46.json')),
-  },*/
 
   47: {
     ...deserializeQuestToData(require('./quests/47.json')),

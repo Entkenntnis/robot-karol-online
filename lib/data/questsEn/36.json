@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Traces",
-  "description": "Go forward until Karol's sensors detect a wall. Mark the field after each step.\n\nThe number of steps varies. Choose a suitable sensor type, %img[hint|/quests/spuren.png]%.\n\nA block is also recognized as a wall.",
+  "description": "Go forward until Karol's sensors detect a wall. Mark the field after each step.\n\nThe number of steps varies. Choose a suitable sensor type, <ImageButton text=\"hint\" src=\"/quests/spuren.png\" />.\n\nA block is also recognized as a wall.",
   "tasks": [
     {
       "title": "Empty World",

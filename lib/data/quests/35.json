@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Abräumer",
-  "description": "Vor Karol liegen unterschiedlich viele Ziegel. Hebe alle Ziegel auf. Schreibe ein Programm, das für alle drei Fälle funktioniert.\n\nNutze dafür die Sensoren von Karol. Wähle einen passenden Sensor-Typ, %img[Hinweis|/quests/abr.png]%.",
+  "description": "Vor Karol liegen unterschiedlich viele Ziegel. Hebe alle Ziegel auf. Schreibe ein Programm, das für alle drei Fälle funktioniert.\n\nNutze dafür die Sensoren von Karol. Wähle einen passenden Sensor-Typ, <ImageButton text=\"Hinweis\" src=\"/quests/abr.png\" />.",
   "tasks": [
     {
       "title": "2 Ziegel",

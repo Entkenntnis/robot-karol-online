@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Ecken",
-  "description": "Nutze deine flinken Finger, um dein Programm schneller zu schreiben. Das geht mit dem %img[Code-Editor|/quests/ecken_2.png]%.\n\nDu kannst jederzeit - wenn du willst - zwischen %img[Blöcke und Code|/quests/ecken.png]% wechseln.\n\nLege mit Karol in jede Ecke des Raums einen Ziegel.",
+  "description": "Nutze deine flinken Finger, um dein Programm schneller zu schreiben. Das geht mit dem <ImageButton text=\"Code-Editor\" src=\"/quests/ecken_2.png\" />.\n\nDu kannst jederzeit - wenn du willst - zwischen <ImageButton text=\"Blöcke und Code\" src=\"/quests/ecken.png\" /> wechseln.\n\nLege mit Karol in jede Ecke des Raums einen Ziegel.",
   "tasks": [
     {
       "title": "Ziegel in den vier Ecken",

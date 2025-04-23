@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Spuren",
-  "description": "Gehe solange vorwärts, bis die Sensoren von Karol eine Wand erkennen. Setze nach jedem Schritt eine Marke.\n\nDie Anzahl der Schritte ist unterschiedlich. Wähle einen passenden Sensor-Typ, %img[Hinweis|/quests/spuren.png]%.\n\nEin Quader wird auch als Wand erkannt.",
+  "description": "Gehe solange vorwärts, bis die Sensoren von Karol eine Wand erkennen. Setze nach jedem Schritt eine Marke.\n\nDie Anzahl der Schritte ist unterschiedlich. Wähle einen passenden Sensor-Typ, <ImageButton text=\"Hinweis\" src=\"/quests/spuren.png\" />.\n\nEin Quader wird auch als Wand erkannt.",
   "tasks": [
     {
       "title": "Leere Welt",
