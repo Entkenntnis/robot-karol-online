@@ -84,20 +84,21 @@ export function setupWorker(core: Core) {
       event.data.type === 'action'
     ) {
       const action = event.data.action
+      let result = true
       if (action === 'schritt') {
-        forward(core)
+        result = forward(core)
       } else if (action === 'linksDrehen') {
         left(core)
       } else if (action === 'rechtsDrehen') {
         right(core)
       } else if (action === 'hinlegen') {
-        brick(core)
+        result = brick(core)
       } else if (action === 'aufheben') {
-        unbrick(core)
+        result = unbrick(core)
       } else if (action === 'markeSetzen') {
-        setMark(core)
+        result = setMark(core)
       } else if (action === 'markeLöschen') {
-        resetMark(core)
+        result = resetMark(core)
       } else if (action == 'beenden') {
         endExecution(core)
         core.worker.reset()
@@ -105,6 +106,12 @@ export function setupWorker(core: Core) {
           ui.isManualAbort = false
           ui.isBench = false
         })
+      }
+
+      if (event.data.sharedBuffer) {
+        const sharedArray = new Int32Array(event.data.sharedBuffer)
+        sharedArray[0] = result ? 1 : 0
+        Atomics.notify(sharedArray, 0)
       }
     }
     if (event.data.type && event.data.type == 'stdout') {
@@ -138,6 +145,13 @@ export function setupWorker(core: Core) {
         quest.progress = false
       })
       endExecution(core)
+      if (
+        core.ws.ui.isBench &&
+        event.data.error.includes('Action') &&
+        event.data.error.includes('failed')
+      ) {
+        return
+      }
       core.mutateWs(({ ui }) => {
         ui.state = 'ready'
         ui.errorMessages = [filterTraceback(event.data.error)]

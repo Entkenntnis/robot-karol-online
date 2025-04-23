@@ -45,7 +45,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
           checkDebug()
-          self.postMessage({ type: 'action', action: 'schritt' })
+          runAction('schritt')
           sleepWithDelay()
         }
       },
@@ -55,7 +55,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
           checkDebug()
-          self.postMessage({ type: 'action', action: 'linksDrehen' })
+          runAction('linksDrehen')
           sleepWithDelay()
         }
       },
@@ -65,7 +65,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
           checkDebug()
-          self.postMessage({ type: 'action', action: 'rechtsDrehen' })
+          runAction('rechtsDrehen')
           sleepWithDelay()
         }
       },
@@ -75,7 +75,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
           checkDebug()
-          self.postMessage({ type: 'action', action: 'hinlegen' })
+          runAction('hinlegen')
           sleepWithDelay()
         }
       },
@@ -85,7 +85,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
           checkDebug()
-          self.postMessage({ type: 'action', action: 'aufheben' })
+          runAction('aufheben')
           sleepWithDelay()
         }
       },
@@ -93,14 +93,14 @@ export function buildRobot(highlightCurrentLine = () => {}) {
         throwFauxTypeError('Robot', 'markeSetzen', 0, rest)
         highlightCurrentLine()
         checkDebug()
-        self.postMessage({ type: 'action', action: 'markeSetzen' })
+        runAction('markeSetzen')
         sleepWithDelay()
       },
       markeLöschen: (...rest) => {
         throwFauxTypeError('Robot', 'markeLöschen', 0, rest)
         highlightCurrentLine()
         checkDebug()
-        self.postMessage({ type: 'action', action: 'markeLöschen' })
+        runAction('markeLöschen')
         sleepWithDelay()
       },
       istWand: (...rest) => {
@@ -648,6 +648,21 @@ function checkDebug() {
       debug[0] = 0
       break
     }
+  }
+}
+
+function runAction(action) {
+  const sharedBuffer = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT)
+  const sharedArray = new Int32Array(sharedBuffer)
+  Atomics.store(sharedArray, 0, 42) // no data yet
+  self.postMessage({
+    type: 'action',
+    action,
+    sharedBuffer,
+  })
+  Atomics.wait(sharedArray, 0, 42)
+  if (sharedArray[0] == 0) {
+    throw new Error(`Action ${action} failed`)
   }
 }
 
