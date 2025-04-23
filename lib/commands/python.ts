@@ -1,9 +1,9 @@
-import { forceLinting, setDiagnostics } from '@codemirror/lint'
+import { setDiagnostics } from '@codemirror/lint'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import { submitAnalyzeEvent } from './analyze'
-import { addConsoleMessage, addMessage } from './messages'
+import { addConsoleMessage } from './messages'
 import { endExecution, testCondition } from './vm'
 import {
   forward,
@@ -14,7 +14,6 @@ import {
   setMark,
   resetMark,
 } from './world'
-import { del } from '../codemirror/pythonParser/parser.terms'
 
 export function setupWorker(core: Core) {
   if (core.worker) {
