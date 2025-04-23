@@ -23,8 +23,23 @@ export function InvocationModal() {
   )
 
   function getDefaultVariableName(className: string) {
-    if (!className) return 'obj'
-    return className.charAt(0).toLowerCase() + className.slice(1)
+    let baseName: string
+    if (!className) {
+      baseName = 'obj'
+    } else {
+      baseName = className.charAt(0).toLowerCase() + className.slice(1)
+    }
+
+    const existingNames = core.ws.bench.objects.map((obj) => obj.name)
+    let candidate = baseName
+    let counter = 2
+
+    while (existingNames.includes(candidate)) {
+      candidate = `${baseName}${counter}`
+      counter++
+    }
+
+    return candidate
   }
 
   const handleParamChange = (index: number, value: string) => {
