@@ -558,6 +558,7 @@ def get_class_info():
 
                 method_info = {
                     'name': func.__name__,
+                    'doc': func.__doc__,
                     'parameters': func_params
                 }
                 methods[attr_name] = method_info

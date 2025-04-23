@@ -226,6 +226,7 @@ export interface ClassInfo {
 
 export interface FunctionInfo {
   name: string
+  doc: string
   parameters: ParameterInfo[]
 }
 

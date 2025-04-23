@@ -46,6 +46,11 @@ export function InvocationModal() {
       ? `${variableName} = ${invocationClass}(${codeParams})`
       : `${invocationObject}.${invocationMethod}(${codeParams})`
 
+  const doc =
+    invocationMode == 'constructor'
+      ? core.ws.bench.classInfo[invocationClass].doc
+      : core.ws.bench.classInfo[invocationClass].methods[invocationMethod].doc
+
   const handleSubmit = (e: React.FormEvent) => {
     submitAnalyzeEvent(core, 'ev_click_bench_invocationExecute')
     e.preventDefault()
@@ -81,12 +86,7 @@ export function InvocationModal() {
               <>Methodenaufruf</>
             )}
           </h1>
-          {invocationMode == 'constructor' &&
-            core.ws.bench.classInfo[invocationClass].doc && (
-              <p className="my-4 italic text-gray-500">
-                {core.ws.bench.classInfo[invocationClass].doc}
-              </p>
-            )}
+          {doc && <p className="my-4 italic text-gray-500">{doc}</p>}
 
           {invocationMode == 'constructor' && (
             <div className="space-y-2">
