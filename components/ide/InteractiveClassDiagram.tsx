@@ -50,8 +50,12 @@ export function InteractiveClassDiagram() {
             return (
               <div
                 key={i}
-                className="bg-red-500 rounded-lg p-4 font-bold text-white text-center cursor-pointer"
+                className={clsx(
+                  'bg-red-500 rounded-lg p-4 font-bold text-white text-center cursor-pointer',
+                  core.ws.bench.locked && 'cursor-wait'
+                )}
                 onContextMenu={(e) => {
+                  if (core.ws.bench.locked) return
                   e.preventDefault()
                   const containerRect =
                     containerRef.current?.getBoundingClientRect()
@@ -65,6 +69,7 @@ export function InteractiveClassDiagram() {
                   })
                 }}
                 onClickCapture={(e) => {
+                  if (core.ws.bench.locked) return
                   e.preventDefault()
                   e.stopPropagation()
                   const containerRect =
@@ -86,59 +91,62 @@ export function InteractiveClassDiagram() {
           })}
         </div>
 
-        {contextMenu.visible && contextMenu.selectedIndex !== undefined && (
-          <div
-            ref={menuRef}
-            className="absolute bg-white border border-gray-200 shadow-lg rounded-md py-1 z-50 max-h-[30vh] overflow-y-auto"
-            style={{
-              left: contextMenu.x,
-              top: contextMenu.y,
-            }}
-          >
-            {Object.entries(
-              core.ws.bench.classInfo[
-                core.ws.bench.objects[contextMenu.selectedIndex!].className
-              ].methods
-            ).map(([name, val], i) => {
-              return (
-                <div
-                  key={i}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_bench_method')
-                    core.mutateWs(({ bench }) => {
-                      bench.invocationMode = 'method'
-                      bench.invocationClass =
-                        core.ws.bench.objects[
-                          contextMenu.selectedIndex!
-                        ].className
-                      bench.invocationMethod = name
-                      bench.invocationParameters = val.parameters
-                      bench.invocationObject =
-                        bench.objects[contextMenu.selectedIndex!].name
-                    })
-                    showModal(core, 'invocation')
-                    closeContextMenu()
-                  }}
-                >
-                  {`${name}(${val.parameters.map((p) => p.name).join(', ')})`}
-                </div>
-              )
-            })}
+        {contextMenu.visible &&
+          contextMenu.selectedIndex !== undefined &&
+          !core.ws.bench.locked && (
             <div
-              className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600"
-              onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_bench_del')
-                const objName =
-                  core.ws.bench.objects[contextMenu.selectedIndex!].name
-                executeInBench(core, `del ${objName}`)
-                closeContextMenu()
+              ref={menuRef}
+              className="absolute bg-white border border-gray-200 shadow-lg rounded-md py-1 z-50 max-h-[30vh] overflow-y-auto"
+              style={{
+                left: contextMenu.x,
+                top: contextMenu.y,
               }}
             >
-              Löschen <code>del</code>
+              {Object.entries(
+                core.ws.bench.classInfo[
+                  core.ws.bench.objects[contextMenu.selectedIndex!].className
+                ].methods
+              ).map(([name, val], i) => {
+                return (
+                  <div
+                    key={i}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => {
+                      if (core.ws.bench.locked) return
+                      submitAnalyzeEvent(core, 'ev_click_bench_method')
+                      core.mutateWs(({ bench }) => {
+                        bench.invocationMode = 'method'
+                        bench.invocationClass =
+                          core.ws.bench.objects[
+                            contextMenu.selectedIndex!
+                          ].className
+                        bench.invocationMethod = name
+                        bench.invocationParameters = val.parameters
+                        bench.invocationObject =
+                          bench.objects[contextMenu.selectedIndex!].name
+                      })
+                      showModal(core, 'invocation')
+                      closeContextMenu()
+                    }}
+                  >
+                    {`${name}(${val.parameters.map((p) => p.name).join(', ')})`}
+                  </div>
+                )
+              })}
+              <div
+                className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600"
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_bench_del')
+                  const objName =
+                    core.ws.bench.objects[contextMenu.selectedIndex!].name
+                  executeInBench(core, `del ${objName}`)
+                  closeContextMenu()
+                }}
+              >
+                Löschen <code>del</code>
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
       {core.ws.ui.errorMessages.length > 0 && (
         <div

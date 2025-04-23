@@ -18,6 +18,10 @@ export async function startBench(core: Core) {
     ws.quest.lastStartedTask = 0
     ws.ui.state = 'running'
     ws.bench.objects = []
+    ws.bench.locked = false
+    ws.ui.karolCrashMessage = undefined
+    ws.ui.isEndOfRun = false
+    ws.ui.isManualAbort = false
   })
   await executeInBench(core, core.ws.pythonCode)
   await updateBenchClasses(core)
@@ -25,9 +29,15 @@ export async function startBench(core: Core) {
 }
 
 export async function executeInBench(core: Core, code: string) {
+  core.mutateWs((ws) => {
+    ws.bench.locked = true
+  })
   const result = await core.worker!.messageBench({
     request: 'execute',
     code,
+  })
+  core.mutateWs((ws) => {
+    ws.bench.locked = false
   })
   await updateBenchObjects(core)
   return result

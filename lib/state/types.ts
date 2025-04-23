@@ -208,6 +208,8 @@ export interface Bench {
   // only method
   invocationObject: string
   invocationMethod: string
+
+  locked: boolean
 }
 
 export interface ObjectInfo {
