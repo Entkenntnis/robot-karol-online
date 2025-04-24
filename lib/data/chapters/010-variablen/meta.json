@@ -1,0 +1,7 @@
+{
+  "title": "Variablen",
+  "quests": [
+    { "filename": "intro1.json", "x": 300, "y": 200 },
+    { "filename": "intro2.json", "x": 500, "y": 200 }
+  ]
+}

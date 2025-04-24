@@ -1,3 +1,6 @@
+import { chapterOverviewData } from './chapters'
+import { questData } from './quests'
+
 export const questListByCategory = [
   {
     title: 'Anweisung und Sequenz',
@@ -37,13 +40,9 @@ export const questListByCategory = [
   {
     title: 'Sonstiges',
     titleEn: 'Miscellaneous',
-    quests: [60],
+    quests: [60, 61],
   },
-  {
-    title: 'Einführung in Python (im Aufbau)',
-    titleEn: 'Introduction to Python',
-    quests: [61, 63, 66, 65, 62, 67, 68, 69],
-  },
+  ...chapterOverviewData,
 ]
 
 export const questList: number[] = []
