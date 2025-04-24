@@ -128,6 +128,7 @@ export interface Overview {
   showSaveHint: boolean
   showOverviewList: boolean
   showProfile: boolean
+  chapter: number
 }
 
 export interface WorkspaceState {
