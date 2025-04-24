@@ -12,13 +12,13 @@ const chapterInfo = [
     "quests": [
       {
         "filename": "intro1.json",
-        "x": 300,
-        "y": 200,
+        "x": 100,
+        "y": 100,
         "id": 100,
         "content": {
           "version": "v1",
           "title": "Raumschiffvorbereitung",
-          "description": "Ein Raumschiff braucht dringend Systemchecks! Initialisiere die Variablen für die Startfreigabe.\n\n- `treibstoff`: Ganzzahl mit 10000 Litern\n\n- `sauerstoff`: Ganzzahl mit 500 Einheiten\n\n- `antriebsleistung`: Fließkommazahl 3.5\n\n- `system_aktiv`: Wahrheitswert True\n\nNutze die richtigen Datentypen und vermeide Ein-/Ausgabe-Befehle.",
+          "description": "Ein Raumschiff braucht dringend Systemchecks! Initialisiere die Variablen für die Startfreigabe.\n\n- `treibstoff`: Ganzzahl mit 10000 Litern\n- `sauerstoff`: Ganzzahl mit 500 Einheiten\n- `antriebsleistung`: Fließkommazahl 3.5\n- `system_aktiv`: Wahrheitswert True\n\nNutze die richtigen Datentypen.",
           "tasks": [
             {
               "title": "Systeminitialisierung",
@@ -32,18 +32,72 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                  "dimX": 5,
+                  "dimY": 6,
+                  "offsetX": 2,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1,
+                      1
+                    ]
+                  ]
                 },
                 "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                  "dimX": 3,
+                  "dimY": 2,
+                  "offsetX": 3,
+                  "offsetY": 6,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
                 },
                 "blocks": {
                   "offsetX": -1,
@@ -63,18 +117,72 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                  "dimX": 5,
+                  "dimY": 6,
+                  "offsetX": 2,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1,
+                      1
+                    ]
+                  ]
                 },
                 "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                  "dimX": 3,
+                  "dimY": 2,
+                  "offsetX": 3,
+                  "offsetY": 6,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
                 },
                 "blocks": {
                   "offsetX": -1,
@@ -95,7 +203,7 @@ const chapterInfo = [
       },
       {
         "filename": "intro2.json",
-        "x": 500,
+        "x": 250,
         "y": 200,
         "id": 101,
         "content": {
@@ -218,7 +326,7 @@ const chapterInfo = [
     "quests": [
       {
         "filename": "63.json",
-        "x": 500,
+        "x": 300,
         "y": 200,
         "id": 103,
         "content": {
@@ -319,7 +427,7 @@ const chapterInfo = [
       },
       {
         "filename": "62.json",
-        "x": 300,
+        "x": 100,
         "y": 200,
         "id": 102,
         "content": {
@@ -492,7 +600,7 @@ const chapterInfo = [
       },
       {
         "filename": "65.json",
-        "x": 700,
+        "x": 500,
         "y": 200,
         "id": 104,
         "content": {
@@ -685,7 +793,7 @@ const chapterInfo = [
       },
       {
         "filename": "66.json",
-        "x": 900,
+        "x": 700,
         "y": 200,
         "id": 105,
         "content": {
@@ -860,7 +968,7 @@ const chapterInfo = [
       },
       {
         "filename": "67.json",
-        "x": 1100,
+        "x": 900,
         "y": 200,
         "id": 106,
         "content": {
@@ -1041,7 +1149,7 @@ const chapterInfo = [
       },
       {
         "filename": "68.json",
-        "x": 300,
+        "x": 100,
         "y": 400,
         "id": 107,
         "content": {
@@ -1210,7 +1318,7 @@ const chapterInfo = [
       },
       {
         "filename": "69.json",
-        "x": 500,
+        "x": 300,
         "y": 400,
         "id": 108,
         "content": {

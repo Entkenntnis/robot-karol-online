@@ -733,6 +733,12 @@ export function Overview() {
                 {Object.entries(mapData).map((entry) => {
                   const id = parseInt(entry[0])
                   if (!isQuestVisible(id)) return null
+                  if (
+                    isQuestDone(id) &&
+                    id >= 100 &&
+                    !entry[1].deps.includes(core.ws.overview.chapter)
+                  )
+                    return null
                   if (id >= 10000) {
                     // chapter marker
                     return (
@@ -781,8 +787,10 @@ export function Overview() {
                   )
                 })}
                 {isQuestDone(61) && (
-                  <div className="absolute left-[400px] top-[1740px] w-[440px] h-[110px] bg-white rounded-xl bg-gradient-to-tr from-[#8ab4f8] via-[#ffe082] to-[#fff3a0]">
-                    <p className="text-center mt-3">Wähle ein Kapitel:</p>
+                  <div className="absolute left-[400px] top-[1740px] w-[440px] h-[110px] bg-white rounded-xl">
+                    <p className="text-center mt-3">
+                      Wähle ein Kapitel (im Aufbau):
+                    </p>
                     <p className="mt-3 flex justify-center w-full">
                       <select
                         className="w-[90%] p-2 rounded"
