@@ -51,6 +51,28 @@ function readChapterMeta(chapterDir) {
   }
 }
 
+// Read info.md file for a chapter
+function readChapterInfo(chapterDir) {
+  const infoPath = path.join(chaptersDir, chapterDir, 'info.md')
+
+  try {
+    if (fs.existsSync(infoPath)) {
+      const infoContent = fs.readFileSync(infoPath, 'utf8')
+      console.log(`Found info.md for chapter ${chapterDir}`)
+      return infoContent
+    } else {
+      // No need to warn, info.md is optional
+      return null
+    }
+  } catch (error) {
+    console.error(
+      `Error reading info.md for chapter ${chapterDir}:`,
+      error.message
+    )
+    return null
+  }
+}
+
 // Read quest JSON file
 function readQuestFile(chapterDir, questFilename) {
   const questPath = path.join(chaptersDir, chapterDir, questFilename)
@@ -141,6 +163,7 @@ const idsData = readAndUpdateIds()
 // Read meta.json for each chapter and prepare data
 const chaptersData = chapters.map((chapterDir, index) => {
   const meta = readChapterMeta(chapterDir)
+  const info = readChapterInfo(chapterDir)
   const id = 10001 + index // Start IDs from 10001
 
   return {
@@ -148,6 +171,7 @@ const chaptersData = chapters.map((chapterDir, index) => {
     dirName: chapterDir,
     title: `${index + 1}. ${meta?.title || chapterDir}`,
     originalTitle: meta?.title || chapterDir,
+    description: info || '', // Add the info.md content as description
     quests: meta?.quests || [],
   }
 })
@@ -204,13 +228,14 @@ export const chapterOverviewData: {
 export const chapterQuests: { [key: number]: QuestData } = {}
 
 // Generate chapterData based on chapter information
-export const chapterData: { [key: number]: { title: string } } = {}
+export const chapterData: { [key: number]: { title: string, description: string } } = {}
 
 // Populate the exported objects
 chapterInfo.forEach((chapter) => {
   // Add chapter to chapterData
   chapterData[chapter.id] = {
     title: chapter.title,
+    description: chapter.description,
   }
 
   // Default chapter position and dependencies

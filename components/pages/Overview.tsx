@@ -492,7 +492,7 @@ export function Overview() {
                   </a>
                 )}
 
-                <div className="absolute top-[1730px] left-[111px]  z-10">
+                <div className="absolute top-[1730px] left-[1011px]  z-10">
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <a
                       href={`/${bluejPlaygroundHash}`}
@@ -718,6 +718,19 @@ export function Overview() {
                     }
                     return null
                   })}
+                  {isQuestDone(61) &&
+                    chapterData[core.ws.overview.chapter].description && (
+                      <line
+                        key={`connect-to-explanation`}
+                        x1={650 + 26}
+                        y1={1750 + 76}
+                        x2={280 + 26}
+                        y2={1730 + 76}
+                        strokeWidth="10"
+                        filter="url(#organicTexture2)"
+                        stroke="rgba(148, 163, 184, 0.8)"
+                      />
+                    )}
 
                   <path
                     d="M 100 1700 C 393 1711 588 1648 726 1547 S 942 1374 1150 1400"
@@ -787,37 +800,61 @@ export function Overview() {
                   )
                 })}
                 {isQuestDone(61) && (
-                  <div className="absolute left-[400px] top-[1740px] w-[440px] h-[110px] bg-white rounded-xl">
-                    <p className="text-center mt-3">
-                      Wähle ein Kapitel (im Aufbau):
-                    </p>
-                    <p className="mt-3 flex justify-center w-full">
-                      <select
-                        className="w-[90%] p-2 rounded"
-                        value={core.ws.overview.chapter}
-                        onChange={(e) => {
-                          const chapterId = parseInt(e.target.value)
-                          core.mutateWs((ws) => {
-                            ws.overview.chapter = chapterId
-                          })
-                          // Persist the chapter selection to session storage
-                          setChapter(chapterId)
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_select_chapter_' + chapterId
-                          )
-                        }}
-                      >
-                        {chapterList.map((chapter) => {
-                          return (
-                            <option key={chapter.id} value={chapter.id}>
-                              {chapter.name}
-                            </option>
-                          )
-                        })}
-                      </select>
-                    </p>
-                  </div>
+                  <>
+                    {chapterData[core.ws.overview.chapter].description && (
+                      <div className="absolute top-[1734px] left-[260px]  z-10">
+                        <button
+                          className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+                          onClick={(e) => {
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_explanation_chapter_' +
+                                core.ws.overview.chapter
+                            )
+                            showModal(core, 'explanation')
+                          }}
+                        >
+                          <p className="text-center">Erklärung</p>
+                          <img
+                            src="/gluehbirne.png"
+                            alt=""
+                            className="w-[60px] mx-auto inline-block mt-2 mb-2"
+                          />
+                        </button>
+                      </div>
+                    )}
+                    <div className="absolute left-[400px] top-[1740px] w-[440px] h-[110px] bg-white rounded-xl">
+                      <p className="text-center mt-3">
+                        Wähle ein Kapitel (im Aufbau):
+                      </p>
+                      <p className="mt-3 flex justify-center w-full">
+                        <select
+                          className="w-[90%] p-2 rounded"
+                          value={core.ws.overview.chapter}
+                          onChange={(e) => {
+                            const chapterId = parseInt(e.target.value)
+                            core.mutateWs((ws) => {
+                              ws.overview.chapter = chapterId
+                            })
+                            // Persist the chapter selection to session storage
+                            setChapter(chapterId)
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_select_chapter_' + chapterId
+                            )
+                          }}
+                        >
+                          {chapterList.map((chapter) => {
+                            return (
+                              <option key={chapter.id} value={chapter.id}>
+                                {chapter.name}
+                              </option>
+                            )
+                          })}
+                        </select>
+                      </p>
+                    </div>
+                  </>
                 )}
                 {core.ws.settings.lng === 'de' &&
                   numberOfSolvedQuests == 0 &&

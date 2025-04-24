@@ -183,6 +183,7 @@ export interface WorkspaceState {
     | 'sync'
     | 'survey'
     | 'invocation'
+    | 'explanation'
     | null
 
   renderCounter: number // e.g. if storage is updated

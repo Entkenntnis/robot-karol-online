@@ -9,6 +9,7 @@ const chapterInfo = [
     "dirName": "010-variablen",
     "title": "1. Variablen",
     "originalTitle": "Variablen",
+    "description": "Das ist eine Beschreibung für dieses Modul",
     "quests": [
       {
         "filename": "intro1.json",
@@ -323,6 +324,7 @@ const chapterInfo = [
     "dirName": "999-fundgrube",
     "title": "2. Fundgrupe",
     "originalTitle": "Fundgrupe",
+    "description": "",
     "quests": [
       {
         "filename": "63.json",
@@ -1668,13 +1670,14 @@ export const chapterOverviewData: {
 export const chapterQuests: { [key: number]: QuestData } = {}
 
 // Generate chapterData based on chapter information
-export const chapterData: { [key: number]: { title: string } } = {}
+export const chapterData: { [key: number]: { title: string, description: string } } = {}
 
 // Populate the exported objects
 chapterInfo.forEach((chapter) => {
   // Add chapter to chapterData
   chapterData[chapter.id] = {
     title: chapter.title,
+    description: chapter.description,
   }
 
   // Default chapter position and dependencies
