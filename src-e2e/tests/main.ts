@@ -193,5 +193,5 @@ Scenario('Test python quest', ({ I }) => {
   I.waitForText('Perfekt gemacht', 3)
   I.click('Ja, hab ich gesehen')
   I.click('weiter')
-  I.see('Würfel')
+  I.see('Wähle ein Kapitel')
 })

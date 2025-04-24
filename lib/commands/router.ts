@@ -10,6 +10,7 @@ import {
   getRobotImage,
   getKarolmaniaCarouselIndex,
   restoreEditorSnapshot,
+  getChapter,
 } from '../storage/storage'
 import { analyze, submitAnalyzeEvent } from './analyze'
 import { addNewTask } from './editor'
@@ -47,11 +48,12 @@ export async function hydrateFromHash(core: Core) {
     })
   }
 
-  // restore overview scroll position
+  // restore overview scroll position and chapter
   core.mutateWs((ws) => {
     ws.overview.overviewScroll = getOverviewScroll()
     ws.overview.learningPathScroll = getLearningPathScroll()
     ws.quest.lockToKarolCode = getLockToKarolCode()
+    ws.overview.chapter = getChapter()
   })
 
   // PHASE 2: hydrate page

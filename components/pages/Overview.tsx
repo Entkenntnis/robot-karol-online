@@ -41,6 +41,7 @@ import {
   setOverviewScroll,
   setQuestReturnToMode,
   setRobotImage,
+  setChapter,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
@@ -779,22 +780,29 @@ export function Overview() {
                     />
                   )
                 })}
-                {isQuestVisible(61) && (
-                  <div className="absolute left-[400px] top-[1740px] w-[440px] h-[110px] bg-white rounded-lg">
+                {isQuestDone(61) && (
+                  <div className="absolute left-[400px] top-[1740px] w-[440px] h-[110px] bg-white rounded-xl bg-gradient-to-tr from-[#8ab4f8] via-[#ffe082] to-[#fff3a0]">
                     <p className="text-center mt-3">Wähle ein Kapitel:</p>
                     <p className="mt-3 flex justify-center w-full">
-                      <select className="w-[90%] p-2 rounded">
+                      <select
+                        className="w-[90%] p-2 rounded"
+                        value={core.ws.overview.chapter}
+                        onChange={(e) => {
+                          const chapterId = parseInt(e.target.value)
+                          core.mutateWs((ws) => {
+                            ws.overview.chapter = chapterId
+                          })
+                          // Persist the chapter selection to session storage
+                          setChapter(chapterId)
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_select_chapter_' + chapterId
+                          )
+                        }}
+                      >
                         {chapterList.map((chapter) => {
                           return (
-                            <option
-                              key={chapter.id}
-                              value={chapter.id}
-                              onClick={() => {
-                                core.mutateWs((ws) => {
-                                  ws.overview.chapter = chapter.id
-                                })
-                              }}
-                            >
+                            <option key={chapter.id} value={chapter.id}>
                               {chapter.name}
                             </option>
                           )
@@ -924,7 +932,8 @@ export function Overview() {
       id == 61 || // hallo python
       isQuestDone(id) ||
       mapData[id]?.deps.some(isQuestDone) ||
-      mapData[id]?.deps.some((dep) => dep == core.ws.overview.chapter)
+      (isQuestDone(61) &&
+        mapData[id]?.deps.some((dep) => dep == core.ws.overview.chapter))
     )
   }
 

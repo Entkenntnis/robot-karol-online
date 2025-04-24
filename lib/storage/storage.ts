@@ -21,6 +21,7 @@ const karolmaniaMusicEnabledKey = 'robot_karol_online_karolmania_music_enabled'
 const karolmaniaSoundEffectsEnabledKey =
   'robot_karol_online_karolmania_sound_effects_enabled'
 const karolmaniaProgressKey = 'robot_karol_online_karolmania_progress'
+const chapterKey = 'robot_karol_online_chapter'
 
 export function getUserId() {
   if (!sessionStorage.getItem(userIdKey) && !localStorage.getItem(userIdKey)) {
@@ -417,4 +418,16 @@ export function saveKarolmaniaHighScore(
 export function getBestTimeForLevel(levelId: number): number | null {
   const progress = getKarolmaniaProgress()
   return progress.levels[levelId]?.pb || null
+}
+
+export function setChapter(chapterId: number) {
+  sessionStorage.setItem(chapterKey, chapterId.toString())
+}
+
+export function getChapter(): number {
+  const chapter = sessionStorage.getItem(chapterKey)
+  if (chapter) {
+    return parseInt(chapter)
+  }
+  return 10001 // Default chapter
 }
