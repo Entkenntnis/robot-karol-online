@@ -2,7 +2,7 @@
   "keys": {
     "010-variablen/intro1.json": 100,
     "010-variablen/gen1.json": 109,
-    "040-mathematik/intro2.json": 112,
+    "040-mathematik/intro2.json": 110,
     "999-fundgrube/63.json": 103,
     "999-fundgrube/62.json": 102,
     "999-fundgrube/65.json": 104,
@@ -11,5 +11,5 @@
     "999-fundgrube/68.json": 107,
     "999-fundgrube/69.json": 108
   },
-  "counter": 120
+  "counter": 111
 }

@@ -84,6 +84,7 @@ function readQuestFile(chapterDir, questFilename) {
       return questData
     } else {
       console.warn(`Quest file not found: ${questPath}`)
+      process.exit(1)
       return null
     }
   } catch (error) {

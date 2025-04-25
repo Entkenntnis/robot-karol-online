@@ -410,7 +410,7 @@ const chapterInfo = [
         "filename": "intro2.json",
         "x": 100,
         "y": 100,
-        "id": 112,
+        "id": 110,
         "content": {
           "version": "v1",
           "title": "Magische Trankbrauerei",
@@ -1930,7 +1930,7 @@ chapterInfo.forEach((chapter) => {
     chaptersMap[questId] = {
       x: quest.x,
       y: quest.y + 1800,
-      deps: [chapter.id],
+      deps: [chapter],
     }
     c.quests.push(questId)
   })
