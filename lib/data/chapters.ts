@@ -9,7 +9,7 @@ const chapterInfo = [
     "dirName": "010-variablen",
     "title": "1. Variablen",
     "originalTitle": "Variablen",
-    "description": "Das ist eine Beschreibung für dieses Modul",
+    "description": "# 🎓 Kapitel 1: Deine ersten Variablen\r\n\r\nWillkommen in der Welt der Programmierung! 🚀 Variablen sind wie kleine Schubladen, in denen wir Informationen speichern können. Lass uns gemeinsam entdecken, wie sie funktionieren!\r\n\r\n## 📦 Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\n```python\r\nname = \"Max\"         # Doppelte Anführungszeichen\r\nhobby = 'Programmieren'  # Einfache gehen auch!\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 🔄 Variablen verändern\r\n\r\nDu kannst Werte jederzeit ändern:\r\n\r\n```python\r\npunkte = 10\r\nprint(punkte)  # Ausgabe: 10\r\n\r\npunkte = 15    # Neuer Wert\r\nprint(punkte)  # Ausgabe: 15\r\n```\r\n\r\n## 💡 Kommentare\r\n\r\nErkläre deinen Code mit #:\r\n\r\n```python\r\n# Diese Variable zählt die Highscores\r\nhighscore = 0  # Startwert ist 0\r\n```\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nSo geht's **nicht**:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang\r\nmein-name = \"Lena\" # Bindestrich nicht erlaubt\r\nclass = 8B         # Schlüsselwörter verboten\r\n```\r\n\r\n## ✅ Gute Praxis\r\n\r\n```python\r\nschulnote = 2       # Klarer Name\r\nmax_geschwindigkeit = 50  # Unterstrich für Lesbarkeit\r\nPI = 3.1415         # Großbuchstaben für Konstanten\r\n```\r\n\r\n## 🎯 Mini-Übung\r\n\r\nErstelle Variablen für:\r\n\r\n- Deinen Lieblingsfilm (String)\r\n- Die Anzahl deiner Haustiere (Integer)\r\n- Deine Körpergröße in Metern (Float)\r\n- Ob du heute Sport gemacht hast (Boolean)\r\n\r\n```python\r\n# Hier ein Beispiel:\r\nlieblingsfilm = \"Harry Potter\"\r\nanzahl_haustiere = 1\r\ngroesse = 1.65\r\nsport_heute = True\r\n```\r\n\r\nJetzt kannst du Informationen speichern wie ein Profi! 🎉 Probier's aus und vergiss nicht: Variablennamen sollten immer klar beschreiben, was sie enthalten.\r\n",
     "quests": [
       {
         "filename": "intro1.json",
@@ -203,10 +203,206 @@ const chapterInfo = [
         }
       },
       {
-        "filename": "intro2.json",
-        "x": 250,
+        "filename": "gen1.json",
+        "x": 350,
         "y": 200,
-        "id": 101,
+        "id": 109,
+        "content": {
+          "version": "v1",
+          "title": "Zaubertrank brauen",
+          "description": "Hilf der Hexe Zischa, ihren Super-Sprudel-Trank zu brauen! 🧙♀️\n\nSpeichere die Zutaten in Variablen:\n- zutat1 als String\n- zutat2 als String\n- menge als Integer (wie viele Tropfen?)\n\nTipp: Nutze Anführungszeichen für Text!",
+          "tasks": [
+            {
+              "title": "Zutaten mischen",
+              "start": {
+                "dimX": 5,
+                "dimY": 5,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 2,
+                  "dimY": 2,
+                  "offsetX": 3,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 5,
+                "dimY": 5,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 2,
+                  "dimY": 2,
+                  "offsetX": 3,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "questScript": "__ide_run_client()\nif 'zutat1' not in globals():\n    __ide_prompt('Zutat 1 fehlt! 🧪 Nutze zutat1 = \"...\"', 'Nochmal')\nif type(zutat1) != str:\n    __ide_prompt('Zutat 1 muss Text sein! 📜 Vergiss die Anführungszeichen nicht', 'Okay')\nif 'menge' not in globals():\n    __ide_prompt('Wie viele Tropfen? 💧 Nutze menge = ...', 'Verstanden')\nif menge < 3:\n    __ide_prompt('Zu wenig Tropfen! Mindestens 3 ⚠️', 'Mehr!')\n__ide_set_progress(True)\n__ide_prompt('Bzzz! Der Trank glüht ' + zutat1 + '! 🎉', 'Hurra!')",
+          "language": "python-pro",
+          "program": "# Hier kommt dein Zaubertrank-Code hin!"
+        }
+      }
+    ]
+  },
+  {
+    "id": 10002,
+    "dirName": "020-eingabe-ausgabe",
+    "title": "2. Eingabe/Ausgabe",
+    "originalTitle": "Eingabe/Ausgabe",
+    "description": "",
+    "quests": []
+  },
+  {
+    "id": 10003,
+    "dirName": "030-bedingte-anweisungen",
+    "title": "3. Intelligenter Code mit bedingten Anweisungen",
+    "originalTitle": "Intelligenter Code mit bedingten Anweisungen",
+    "description": "",
+    "quests": []
+  },
+  {
+    "id": 10004,
+    "dirName": "040-mathematik",
+    "title": "4. Mathe-Genie",
+    "originalTitle": "Mathe-Genie",
+    "description": "",
+    "quests": [
+      {
+        "filename": "intro2.json",
+        "x": 100,
+        "y": 100,
+        "id": 112,
         "content": {
           "version": "v1",
           "title": "Magische Trankbrauerei",
@@ -320,9 +516,33 @@ const chapterInfo = [
     ]
   },
   {
-    "id": 10002,
+    "id": 10005,
+    "dirName": "050-schleifen",
+    "title": "5. Die Kunst der Wiederholung",
+    "originalTitle": "Die Kunst der Wiederholung",
+    "description": "",
+    "quests": []
+  },
+  {
+    "id": 10006,
+    "dirName": "060-zufall",
+    "title": "6. Glücksspiel kann süchtig machen",
+    "originalTitle": "Glücksspiel kann süchtig machen",
+    "description": "",
+    "quests": []
+  },
+  {
+    "id": 10007,
+    "dirName": "070-funktionen",
+    "title": "7. Weniger Chaos, mehr Funktionen",
+    "originalTitle": "Weniger Chaos, mehr Funktionen",
+    "description": "",
+    "quests": []
+  },
+  {
+    "id": 10008,
     "dirName": "999-fundgrube",
-    "title": "2. Fundgrupe",
+    "title": "8. Fundgrupe",
     "originalTitle": "Fundgrupe",
     "description": "",
     "quests": [
