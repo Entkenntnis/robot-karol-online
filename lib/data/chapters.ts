@@ -836,7 +836,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "Rechenwettbewerb",
-          "description": "Zumindest das sollte der Computer gut können: rechnen!\n\nHinweise:\n\n- `+` und `-` sind einleuchtend\n\n- nutze für die Multiplikation das `*`-Sternchen (Shift-Plus) \n\n- und für die Division den `/`-Schrägstrich (Alt-Gr-7)",
+          "description": "Zumindest das sollte der Computer gut können: rechnen!\n\nHinweise:\n\n- `+` und `-` sind einleuchtend\n- nutze für die Multiplikation das `*`-Sternchen (Shift-Plus) \n- und für die Division den `/`-Schrägstrich (Alt-Gr-7)",
           "tasks": [
             {
               "title": "Die 4 Grundrechenarten",
@@ -1204,7 +1204,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "MacDonald's Farm",
-          "description": "Programmiere verschiedene Tiere und ihre Laute.\n\nHinweise:\n\n- Erstelle für jedes Tier eine eigene Funktion mit `def <name>():`\n\n- Rücke die zweite Zeile mit der Tab-Taste ein.\n\n- Das `return` zeigt das Ergebnis der Funktion an, schreibe hier den Laut hin.\n",
+          "description": "Programmiere verschiedene Tiere und ihre Laute.\n\nHinweise:\n\n- Erstelle für jedes Tier eine eigene Funktion mit `def <name>():`\n- Rücke die zweite Zeile mit der Tab-Taste ein.\n- Das `return` zeigt das Ergebnis der Funktion an, schreibe hier den Laut hin.",
           "tasks": [
             {
               "title": "Katze",
@@ -1930,7 +1930,7 @@ chapterInfo.forEach((chapter) => {
     chaptersMap[questId] = {
       x: quest.x,
       y: quest.y + 1800,
-      deps: [chapter],
+      deps: [chapter.id],
     }
     c.quests.push(questId)
   })

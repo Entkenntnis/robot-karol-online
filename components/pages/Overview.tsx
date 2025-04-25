@@ -102,7 +102,10 @@ export function Overview() {
 
   return (
     <>
-      <div className="h-full overflow-auto" id="scroll-container">
+      <div
+        className="h-full overflow-auto overscroll-none"
+        id="scroll-container"
+      >
         <div className="flex flex-col relative min-h-full min-w-fit background-element">
           <div className="flex md:justify-center justify-start mt-6 ml-3 md:m-0">
             <div
