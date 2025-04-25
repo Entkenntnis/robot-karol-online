@@ -981,6 +981,7 @@ export function Overview() {
       isQuestDone(id) ||
       mapData[id]?.deps.some(isQuestDone) ||
       (isQuestDone(61) &&
+        id >= 100 &&
         (mapData[id]?.deps.some((dep) => dep == core.ws.overview.chapter) ||
           mapData[id]?.deps.some((dep) => dep < 10000)))
     )

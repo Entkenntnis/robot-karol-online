@@ -34,6 +34,7 @@ export function processMarkdown(input: string) {
       {compiler(input, {
         disableAutoLink: true,
         wrapper: null,
+        forceBlock: true,
         overrides: {
           a: {
             props: {

@@ -249,7 +249,7 @@ chapterInfo.forEach((chapter) => {
     deps: [61],
   }
   
-  const title = \`\${chapter.title} (Python-Kurs)\`
+  const title = \`\${chapter.title}\`
 
   const c = {
     title,
