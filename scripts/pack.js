@@ -58,7 +58,7 @@ function readChapterInfo(chapterDir) {
   try {
     if (fs.existsSync(infoPath)) {
       const infoContent = fs.readFileSync(infoPath, 'utf8')
-      console.log(`Found info.md for chapter ${chapterDir}`)
+      // console.log(`Found info.md for chapter ${chapterDir}`)
       return infoContent
     } else {
       // No need to warn, info.md is optional
@@ -169,7 +169,7 @@ const chaptersData = chapters.map((chapterDir, index) => {
   return {
     id,
     dirName: chapterDir,
-    title: `${index + 1}. ${meta?.title || chapterDir}`,
+    title: `${index}. ${meta?.title || chapterDir}`,
     originalTitle: meta?.title || chapterDir,
     description: info || '', // Add the info.md content as description
     quests: meta?.quests || [],

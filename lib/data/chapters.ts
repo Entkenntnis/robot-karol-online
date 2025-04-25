@@ -6,6 +6,14 @@ import { deserializeQuestToData } from '../commands/json'
 const chapterInfo = [
   {
     "id": 10001,
+    "dirName": "000-intro",
+    "title": "0. Einleitung",
+    "originalTitle": "Einleitung",
+    "description": "# 🎉 Willkommen in der Welt des Programmierens! 🚀\r\n\r\nHallo liebe Entdeckerinnen und Entdecker! 🌟  \r\nBist du bereit, in die spannende Welt der Codes und Algorithmen einzutauchen? Hier lernst du Schritt für Schritt, wie man Computer zum Leben erweckt – und das auf eine ganz einfache und spielerische Art!\r\n\r\n## 🗺️ So funktioniert's:\r\n\r\n- **Kapitel aussuchen** wie aus einem Abenteuerbuch 📖\r\n- **Aufgaben lösen** wie ein echter Code-Detektiv 🕵️♂️\r\n- **Ausprobieren, staunen, meistern** – ganz ohne Druck!\r\n\r\nEgal ob du zum ersten Mal programmierst oder schon ein paar Tricks kennst: Hier findest du Challenges, die Spaß machen und schlau machen! 💡\r\n\r\n🔥 **Pro-Tipp:** Fang einfach dort an, wo es dich am meisten interessiert!  \r\n🆘 **Keine Sorge bei Fehlern:** Jeder Klick bringt dich weiter – sogar falsche bringen dich ans Ziel!\r\n\r\n_Bereit für dein erstes Coding-Abenteuer? Such dir ein Kapitel aus und leg los!_ 🎮💻\r\n\r\n_(Pssst... Die Kapitel bauen zwar aufeinander auf, aber du kannst jederzeit springen, wenn du magst!)_\r\n",
+    "quests": []
+  },
+  {
+    "id": 10002,
     "dirName": "010-variablen",
     "title": "1. Variablen",
     "originalTitle": "Variablen",
@@ -376,7 +384,7 @@ const chapterInfo = [
     ]
   },
   {
-    "id": 10002,
+    "id": 10003,
     "dirName": "020-eingabe-ausgabe",
     "title": "2. Eingabe/Ausgabe",
     "originalTitle": "Eingabe/Ausgabe",
@@ -384,7 +392,7 @@ const chapterInfo = [
     "quests": []
   },
   {
-    "id": 10003,
+    "id": 10004,
     "dirName": "030-bedingte-anweisungen",
     "title": "3. Intelligenter Code mit bedingten Anweisungen",
     "originalTitle": "Intelligenter Code mit bedingten Anweisungen",
@@ -392,7 +400,7 @@ const chapterInfo = [
     "quests": []
   },
   {
-    "id": 10004,
+    "id": 10005,
     "dirName": "040-mathematik",
     "title": "4. Mathe-Genie",
     "originalTitle": "Mathe-Genie",
@@ -516,15 +524,15 @@ const chapterInfo = [
     ]
   },
   {
-    "id": 10005,
+    "id": 10006,
     "dirName": "050-schleifen",
-    "title": "5. Die Kunst der Wiederholung",
-    "originalTitle": "Die Kunst der Wiederholung",
+    "title": "5. Die Kunst der Wiederholung mit for und while",
+    "originalTitle": "Die Kunst der Wiederholung mit for und while",
     "description": "# 🎯 Kapitel 5: Die Kunst der Wiederholung mit for & while\r\n\r\nHeute lernst du, wie man Code wiederholt – wie ein DJ, der den perfekten Beat loopt! 🎧\r\n\r\n## 🧩 Listen – Deine Daten-Sammelbox\r\n\r\nStell dir eine Einkaufsliste vor, aber für Computer:\r\n\r\n```python\r\n# So erstellst du eine Liste\r\nspielkarten = [\"Herz Ass\", \"Karo König\", \"Pik Dame\", \"Kreuz Bube\"]\r\nprimzahlen = [2, 3, 5, 7, 11]\r\nmixed_list = [42, \"Antwort\", True] # Alles mögliche drin!\r\n```\r\n\r\n## 🔄 Die for-Schleife – Dein Wiederholungs-Profi\r\n\r\n**\"Für jedes Element in der Liste: Mach was damit!\"**\r\n\r\n```python\r\n# Einkaufsliste abarbeiten\r\neinkaufsliste = [\"Äpfel\", \"Banane\", \"Milch\"]\r\n\r\nfor produkt in einkaufsliste:\r\n    print(f\"✏️ Brauche noch: {produkt}\")\r\n    print(\"...auf zum nächsten Produkt!\\n\")\r\n```\r\n\r\n_Ausgabe:_\r\n\r\n```\r\n✏️ Brauche noch: Äpfel\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Banane\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Milch\r\n...auf zum nächsten Produkt!\r\n```\r\n\r\n**Mit Zahlen arbeiten? Klar mit range():**\r\n\r\n```python\r\n# Countdown mit Style 🚀\r\nfor sekunde in range(5, 0, -1):\r\n    print(f\"{sekunde... Abflug!\")\r\nprint(\"🔥 Liftoff!\")\r\n```\r\n\r\n## ⏳ Die while-Schleife – Der Hartnäckige\r\n\r\n**\"Mach weiter, solange die Bedingung stimmt!\"**\r\n\r\n```python\r\n# Pizza-Back-Simulator 🍕\r\ntemperatur = 20\r\nziel_temp = 220\r\n\r\nwhile temperatur < ziel_temp:\r\n    temperatur += 20\r\n    print(f\"°C: {temperatur}°C | Heizt auf...\")\r\n\r\nprint(\"🔔 Pizza ist fertig! Buon appetito!\")\r\n```\r\n\r\n_Vorsicht:_ Vergiss nicht die Temperatur zu erhöhen, sonst brennt der Ofen durch! 🔥\r\n\r\n## 🥊 for vs. while – Wer wann?\r\n\r\n- **FOR:** Wenn du weißt, wie oft's laufen soll (z.B. Liste durchgehen)\r\n- **WHILE:** Wenn es auf eine Bedingung ankommt (z.B. Spiel läuft, bis Game Over)\r\n\r\n## 🎯 Challenge:\r\n\r\nErrate die geheime Zahl mit nur 3 Versuchen!\r\n\r\n```python\r\ngeheimzahl = 7\r\nversuche = 3\r\n\r\nwhile versuche > 0:\r\n    raten = int(input(\"🎯 Dein Tipp (1-10): \"))\r\n    if raten == geheimzahl:\r\n        print(\"🎉 Treffer! Gewonnen!\")\r\n        break\r\n    versuche -= 1\r\n    print(f\"❌ Daneben! Noch {versuche} Versuche\")\r\nelse:\r\n    print(\"😢 Game Over! Keine Versuche mehr\")\r\n```\r\n\r\n## 💡 Pro-Tipps:\r\n\r\n- `range()` kann auch so: `range(start, ende, schritt)`\r\n- Benenne Schleifen-Variablen sinnvoll:\r\n  - `for schüler in klasse:` statt `for x in y:`\r\n- Breakpoint setzen? Einfach `break` schreiben!\r\n\r\nJetzt du: Erfinde deine eigenen Schleifen-Experimente! 🔄 Wie wär's mit einem Roboter-Tanz per Code? 🤖💃🕺\r\n",
     "quests": []
   },
   {
-    "id": 10006,
+    "id": 10007,
     "dirName": "060-zufall",
     "title": "6. Glücksspiel kann süchtig machen",
     "originalTitle": "Glücksspiel kann süchtig machen",
@@ -532,15 +540,15 @@ const chapterInfo = [
     "quests": []
   },
   {
-    "id": 10007,
+    "id": 10008,
     "dirName": "070-funktionen",
     "title": "7. Weniger Chaos, mehr Funktionen",
     "originalTitle": "Weniger Chaos, mehr Funktionen",
-    "description": "",
+    "description": "# 🎉 Kapitel 7: Weniger Chaos, mehr Funktionen 🎉\r\n\r\nWillkommen in der Welt der Funktionen! Hier lernst du, wie du deinen Code organisierst und Wiederholungen vermeidest. Funktionen sind wie kleine Helfer, die Aufgaben für dich übernehmen – praktisch, oder? 😊\r\n\r\n## 1. Funktionen erstellen mit `def`\r\n\r\nSo baust du deine eigene Funktion:\r\n\r\n```python\r\ndef begruessung():\r\n    print(\"Hallo Coding-Champion!\")\r\n    print(\"Heute wird ein super Tag zum Lernen! 🌟\")\r\n```\r\n\r\n**Aufrufen nicht vergessen:**\r\n\r\n```python\r\nbegruessung()  # Die Funktion wird ausgeführt\r\n```\r\n\r\n## 2. Parameter – Deine persönlichen Boten\r\n\r\nFunktionen können Eingaben entgegennehmen:\r\n\r\n```python\r\ndef persönliche_begrüßung(name):\r\n    print(f\"Hallo {name}!\")\r\n    print(\"Wie geht's?\")\r\n```\r\n\r\n**So verwendest du sie:**\r\n\r\n```python\r\npersönliche_begrüßung(\"Anna\")   # Hallo Anna!\r\npersönliche_begrüßung(\"Max\")    # Hallo Max!\r\n```\r\n\r\n## 3. Docstrings – Deine Funktions-Bedienungsanleitung\r\n\r\n```python\r\ndef quadrat(zahl):\r\n    \"\"\"\r\n    Berechnet das Quadrat einer Zahl\r\n    Parameter: zahl (int/float)\r\n    Rückgabewert: Quadrat der Zahl\r\n    \"\"\"\r\n    return zahl ** 2\r\n```\r\n\r\n**Tipp:** Mit `help(quadrat)` siehst du die Erklärung!\r\n\r\n## 4. Return – Der magische Bringdienst\r\n\r\n```python\r\ndef rechteck_fläche(länge, breite):\r\n    return länge * breite\r\n\r\nergebnis = rechteck_fläche(5, 3)\r\nprint(ergebnis)  # 15\r\n```\r\n\r\n**Wichtig:** `return` beendet die Funktion sofort!\r\n\r\n## 5. Lokale vs. Globale Variablen\r\n\r\n```python\r\nglobale_variable = 10\r\n\r\ndef test_funktion():\r\n    lokale_variable = 5\r\n    print(\"In der Funktion:\", globale_variable + lokale_variable)  # 15\r\n\r\ntest_funktion()\r\nprint(\"Draußen:\", globale_variable)  # 10\r\n# print(lokale_variable) würde einen Fehler geben!\r\n```\r\n\r\n## 🏆 Zusammenfassung\r\n\r\n- `def name():` erstellt Funktionen\r\n- Parameter machen Funktionen flexibel\r\n- `return` gibt Werte zurück\r\n- Docstrings erklären deinen Code\r\n- Lokale Variablen leben nur in der Funktion\r\n\r\n## 🚀 Challenge-Time!\r\n\r\n**Aufgabe:** Erstelle eine Funktion `würfel_volumen`, die die Kantenlänge als Parameter nimmt und das Volumen zurückgibt. Vergiss den Docstring nicht!\r\n\r\n```python\r\n# Hier kommt deine Lösung hin!\r\n\r\ndef würfel_volumen(kante):\r\n    \"\"\"\r\n    Berechnet das Volumen eines Würfels\r\n    Parameter: kante (Zahl)\r\n    Rückgabewert: Volumen (Zahl)\r\n    \"\"\"\r\n    return kante ** 3\r\n\r\n# Teste deine Funktion\r\nprint(würfel_volumen(3))  # Sollte 27 ausgeben\r\n```\r\n\r\nProbiere es aus und lass deine Funktionen tanzen! 💃🕺 Bei Fragen: Einfach ausprobieren – Fehler sind die besten Lehrer! 😉\r\n",
     "quests": []
   },
   {
-    "id": 10008,
+    "id": 10009,
     "dirName": "999-fundgrube",
     "title": "8. Fundgrupe",
     "originalTitle": "Fundgrupe",
