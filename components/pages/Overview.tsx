@@ -973,7 +973,7 @@ export function Overview() {
     const position = questList.indexOf(id)
 
     return (
-      core.ws.page == 'demo' ||
+      (id < 100 && core.ws.page == 'demo') ||
       core.ws.page == 'analyze' ||
       core.ws.overview.showOverviewList ||
       position == 0 ||
