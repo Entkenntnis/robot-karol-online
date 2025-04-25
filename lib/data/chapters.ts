@@ -208,7 +208,10 @@ const chapterInfo = [
           "questScript": "__ide_run_client()\n\nchecks = [\n    ('treibstoff', int, 10000),\n    ('sauerstoff', int, 500),\n    ('antriebsleistung', float, 3.5),\n    ('system_aktiv', bool, True)\n]\n\nfor var, typ, wert in checks:\n    if var not in globals():\n        __ide_prompt(f'Variable `{var}` fehlt!', 'Beenden')\n        __ide_exit()\n    \n    if not isinstance(globals()[var], typ):\n        __ide_prompt(f'Falscher Typ für {var}: Erwartet {typ.__name__}', 'Beenden')\n        __ide_exit()\n    \n    if globals()[var] != wert:\n        __ide_prompt(f'{var} ist {globals()[var]} statt {wert}', 'Beenden')\n        __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Alle Systeme grün! Startfreigabe erteilt 🚀', 'Mission starten')",
           "language": "python-pro",
           "program": "# Setze die Systemvariablen korrekt\n\ntreibstoff = 9000\nsauerstoff = '500'\nantriebsleistung = 3\nsystem_aktiv = False\n"
-        }
+        },
+        "deps": [
+          10002
+        ]
       },
       {
         "filename": "gen1.json",
@@ -379,7 +382,10 @@ const chapterInfo = [
           "questScript": "__ide_run_client()\nif 'zutat1' not in globals():\n    __ide_prompt('Zutat 1 fehlt! 🧪 Nutze zutat1 = \"...\"', 'Nochmal')\nif type(zutat1) != str:\n    __ide_prompt('Zutat 1 muss Text sein! 📜 Vergiss die Anführungszeichen nicht', 'Okay')\nif 'menge' not in globals():\n    __ide_prompt('Wie viele Tropfen? 💧 Nutze menge = ...', 'Verstanden')\nif menge < 3:\n    __ide_prompt('Zu wenig Tropfen! Mindestens 3 ⚠️', 'Mehr!')\n__ide_set_progress(True)\n__ide_prompt('Bzzz! Der Trank glüht ' + zutat1 + '! 🎉', 'Hurra!')",
           "language": "python-pro",
           "program": "# Hier kommt dein Zaubertrank-Code hin!"
-        }
+        },
+        "deps": [
+          10002
+        ]
       }
     ]
   },
@@ -519,7 +525,10 @@ const chapterInfo = [
           "questScript": "import random\n\n__ide_prompt(\"Der magische Kessel ist bereit!\", \"Brauen beginnen\")\n\nschlamm = random.randint(90, 210)\nerwartet_pilz = round(schlamm / 3, 2)\nerwartet_glitzer = round(erwartet_pilz * 2, 2)\n\n__ide_run_client(globals=['schlamm'])\n\nfor var in ['pilzpulver', 'glitzer']:\n    if var not in globals():\n        __ide_prompt(f`Variable '{var}' fehlt! Bitte berechne alle Zutaten.`, \"Beenden\")\n        __ide_exit()\n\nif not abs(pilzpulver - erwartet_pilz) < 0.01:\n    __ide_prompt(f\"Pilzpulver: {schlamm} / 3 = {erwartet_pilz}, nicht {pilzpulver}\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif not abs(glitzer - erwartet_glitzer) < 0.01:\n    __ide_prompt(f\"Glitzer: {erwartet_pilz} * 2 = {erwartet_glitzer}, nicht {glitzer}\", \"Überprüfen\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(f\"⚗️ Der Trank brodelt perfekt! ({schlamm}ml Schlamm verarbeitet)\", \"Magisch!\")",
           "language": "python-pro",
           "program": "# Der magische Schlamm-Wert ist vorgegeben\npilzpulver = 0  # Ersetze 0 durch schlamm / 3\nglitzer = 0     # Ersetze 0 durch pilzpulver * 2"
-        }
+        },
+        "deps": [
+          10005
+        ]
       }
     ]
   },
@@ -653,7 +662,10 @@ const chapterInfo = [
           "questScript": "__ide_prompt(\"Ist dein Würfel bereit? Auf Los wird der Test gestartet.\", \"Los\")\n__ide_karol = Robot()\n\nresults = []\n\nfor i in range(100):\n    augenzahl = None\n    __ide_run_client()\n    if not augenzahl in [1, 2, 3, 4, 5, 6]:\n        __ide_prompt(f\"Augenzahl '{augenzahl}' ungültig, erwarte eine Zahl zwischen 1 und 6. Bitte überarbeite dein Programm.\", \"Beenden\")\n    print(\"Würfel zeigt: \" + str(augenzahl))\n    __ide_sleep(0.03)\n    results.append(augenzahl)\n\n__ide_prompt(\"Würfel wurde 100 Mal geworfen.\")\n\nfor i in range(1, 7):\n    if not i in results:\n        __ide_prompt(f\"Dein Würfel hat in 100 Würfen keine einzige {i} gewürfelt. Bitte überprüfe dein Programm.\", \"Beenden\")\n        __ide_karol.beenden()\n\n__ide_set_progress(True)\n__ide_prompt(\"Sehr gut! Dein Würfel funktioniert!\")",
           "language": "python-pro",
           "program": "# Simuliere einen Würfel. Wähle eine zufällige Zahl zwischen 1 und 6\n# und speichere sie in der Variable augenzahl.\nimport random\n\naugenzahl = 4\n"
-        }
+        },
+        "deps": [
+          10009
+        ]
       },
       {
         "filename": "62.json",
@@ -826,7 +838,10 @@ const chapterInfo = [
           "questScript": "import random\n\nrounds = [\"schere\", \"stein\", \"papier\"]\nrandom.shuffle(rounds)\nkarolWahl = \"\"\nmeineWahl = \"\"\n\n__ide_karol = Robot()\n__ide_prompt(\"Bist du bereit?\", \"Ja!\")\n\n\ndef runRound(n):\n    global karolWahl\n    global meineWahl\n    karolWahl = rounds[n-1]\n    meineWahl = \"\"\n    __ide_prompt(f\"Runde {n}: Schere, Stein, Papier! Karol wählt '{karolWahl}'.\")\n    __ide_run_client(globals=['karolWahl'])\n    if not meineWahl in [\"schere\", \"stein\", \"papier\"]:\n        __ide_prompt(f\"Auf '{karolWahl}' reagierst du mit '{meineWahl}'. Das ist kein gültiges Zeichen. Bitte erweitere dein Programm 🚧\", 'Beenden')\n        __ide_karol.beenden()\n    # check\n    if karolWahl == meineWahl:\n        __ide_prompt(f\"Auf '{karolWahl}' reagierst du mit '{meineWahl}', das ist Unentschieden. Gewinne alle Runden, um die Aufgabe zu lösen.\", \"Beenden\")\n        __ide_karol.beenden()\n    if (karolWahl == 'schere' and meineWahl == 'papier' or \n        karolWahl == 'stein' and meineWahl == 'schere' or\n        karolWahl == 'papier' and meineWahl == 'stein'):\n        __ide_prompt(f\"Auf '{karolWahl}' reagierst du mit '{meineWahl}'. Du verlierst :( Gewinne alle Runden, um die Aufgabe zu lösen.\", \"Beenden\")\n        __ide_karol.beenden()\n    __ide_prompt(f\"Auf '{karolWahl}' reagierst du mit '{meineWahl}'. Du gewinnst die Runde, bravo!\", \"weiter\")\n\nrunRound(1)\nrunRound(2)\nrunRound(3)\n\n__ide_prompt(\"Glückwunsch! Du hast alle drei Runden gewonnen!\")\n__ide_set_progress(True)",
           "language": "python-pro",
           "program": "# Karol wählt zuerst ein Zeichen und speichert es in der Variable karolWahl\n# print(karolWahl) -> \"schere\", \"stein\" oder \"papier\"\n\n# Reagiere jetzt darauf:\n\nmeineWahl = \"nichts\"\n\nif karolWahl == \"schere\":\n    meineWahl = \"papier\"\n\n"
-        }
+        },
+        "deps": [
+          10009
+        ]
       },
       {
         "filename": "65.json",
@@ -1019,7 +1034,10 @@ const chapterInfo = [
           "questScript": "import random\n\n__ide_prompt(\"Rechenwettbewerb startet in 3, 2, 1 ...\", \"Los!\")\n\nfor i in range(10):\n    b = random.randint(4, 14)\n    a = b * random.randint(0, 15)\n    print(f\"Runde {i + 1}: a = {a}, b = {b}\")\n    def ladeA():\n        return a\n    def ladeB():\n        return b\n    __ide_run_client(globals=['ladeA', 'ladeB'])\n    names = ['summe', 'differenz', 'produkt', 'quotient']\n    for name in names:\n        if not name in globals():\n            __ide_prompt(f\"`{name}` nicht gefunden. \" +\n                         \"Da scheint eine Variable verloren gegangen zu sein.\",\n                        \"Beenden\")\n            __ide_exit()\n    \n    if not summe == a + b:\n        __ide_prompt(f\"Oh no! {a} + {b} = {a + b}, aber deine Summe ist {summe}. \" +\n                     \"Damit scheidest du leider aus dem Wettbewerb aus.\",\n                    \"Beenden\")\n        __ide_exit()\n\n    if not differenz == a - b:\n        __ide_prompt(f\"Oh no! {a} - {b} = {a - b}, aber deine Differenz ist {differenz}. \" +\n                     \"Damit scheidest du leider aus dem Wettbewerb aus.\",\n                    \"Beenden\")\n        __ide_exit()\n\n    if not produkt == a * b:\n        __ide_prompt(f\"Oh no! {a} * {b} = {a * b}, aber dein Produkt ist {produkt}. \" +\n                     \"Damit scheidest du leider aus dem Wettbewerb aus.\",\n                    \"Beenden\")\n        __ide_exit()\n\n    if not quotient == a / b:\n        __ide_prompt(f\"Oh no! {a} / {b} = {a / b}, aber dein Quotient ist {quotient}. \" +\n                     \"Damit scheidest du leider aus dem Wettbewerb aus.\",\n                    \"Beenden\")\n        __ide_exit()\n        \n    print(\"✅\")\n    __ide_sleep(1)\n\n__ide_set_progress(True)\n__ide_prompt(\"Du hast den Wettbewerb gewonnen 🏆!\")",
           "language": "python-pro",
           "program": "# Führe mit a und b die vier Grundrechenarten aus und \n# speichere das Ergebnis in den Variablen\n\na = ladeA()\nb = ladeB()\n\n# Beispiel: a plus b\nsumme = a + b\n\n# TODO: rechne a minus b\ndifferenz = 42\n\n# TODO: rechne a mal b\nprodukt = 42\n\n# TODO: rechne a geteilt durch b\nquotient = 42\n"
-        }
+        },
+        "deps": [
+          10009
+        ]
       },
       {
         "filename": "66.json",
@@ -1194,7 +1212,10 @@ const chapterInfo = [
           "questScript": "__ide_run_client()\ninputs = __ide_get_inputs()\nif len(inputs) < 2:\n    __ide_prompt(\"Du hast nicht nach dem Hobby gefragt. Los, sei nicht schüchtern! \"+\n                 \"Nutze `input()`.\",\n                 \"Beenden\")\n    __ide_exit()\n\nhobby = inputs[1]\n\noutputs = __ide_get_outputs()\nif len(outputs) < 4:\n    __ide_prompt(\"Es fehlt deine Antwort zum Hobby.\",\n                 \"Beenden\")\n    __ide_exit()\n\nlast = outputs[-1]\n\nif not hobby in last:\n    __ide_prompt(\"Das Hobby soll als Text in deiner Antwort vorkommen!\",\n                 \"Beenden\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"Small Talk erfolgreich ausgeführt ◕ ◡ ◕\")",
           "language": "python-pro",
           "program": "# Führe ein kleines Gespräche und frage nach Name und Hobby.\n\n# Beispiel\nname = input(\"Wie heißt du?\")\nprint(\"Hallo, \" + name + \"!\")\n\n# eine kurze Pause\nimport time; time.sleep(1.5)\n\n# TODO: Frage nach dem Hobby der Person\nhobby = \"\"\n\n# TODO: Sage was Nettes und wiederhole dabei das Hobby\n"
-        }
+        },
+        "deps": [
+          10009
+        ]
       },
       {
         "filename": "67.json",
@@ -1375,7 +1396,10 @@ const chapterInfo = [
           "questScript": "__ide_run_client()\n\nanimals = [x for x in globals().keys() if \n           not x.startswith(\"__\") and not x == 'Robot']\n\n__ide_prompt(\"Willkommen auf MacDonald's Farm!\", \"Los\")\n\nfor animal in animals:\n    f = globals()[animal]\n    if not callable(f):\n        __ide_prompt(f\"Erwarte für '{animal}' eine Funktion. Bitte nutze `def`.\", \"Beenden\")\n        __ide_exit()\n    sound = f().title()\n    __ide_prompt(f\"Die {animal.title()} machen: {sound}, {sound}, {sound}\")\n\nif len(animals) < 4:\n    __ide_prompt(\"MacDonald fühlt sich noch einsam. Füge weitere Tiere hinzu!\", \"Beenden\")\n    __ide_exit()\n\n__ide_set_progress(True)",
           "language": "python-pro",
           "program": "# Das sind die Tiere auf der Farm von MacDonald.\n\ndef katzen():\n    return \"miau\"\n\n# TODO: füge 3 weitere Tiere hinzu\n"
-        }
+        },
+        "deps": [
+          10009
+        ]
       },
       {
         "filename": "68.json",
@@ -1544,7 +1568,10 @@ const chapterInfo = [
           "questScript": "def ladeCode(n):\n    __ide_sleep(0.2)\n    print(f\"Lade Code {n}.\")\n    __ide_sleep(0.5)\n    if n == 123:\n        __ide_prompt(\"Ein guter Anfang. Finde den nächsten Hinweis unter dem Code 765.\", \"Beenden\")\n        return\n\n    \n    if n == 765:\n        __ide_prompt(\"Dein nächster Code ist das Ergebnis von `12 * 12`.\", \"Beenden\")\n        return\n    \n    if n == 144:\n        __ide_prompt(\"Dein finaler Code ist das Ergebnis von `3 ** 5` (3 hoch 5).\", \"Beenden\")\n        return\n    \n    if n == 243:\n        __ide_set_progress(True)\n        __ide_exit()\n\n    __ide_prompt(f\"Beim Code '{n}' ist nichts zu finden.\", \"Beenden\")\n    __ide_exit()\n\n__ide_run_client(globals=['ladeCode'])",
           "language": "python-pro",
           "program": "# Starte mit dem Code 123\n\nladeCode(0)"
-        }
+        },
+        "deps": [
+          10009
+        ]
       },
       {
         "filename": "69.json",
@@ -1877,7 +1904,10 @@ const chapterInfo = [
           "questScript": "",
           "language": "python-pro",
           "program": "karol = Robot()\n\n"
-        }
+        },
+        "deps": [
+          10009
+        ]
       }
     ]
   }
@@ -1930,7 +1960,7 @@ chapterInfo.forEach((chapter) => {
     chaptersMap[questId] = {
       x: quest.x,
       y: quest.y + 1800,
-      deps: [chapter.id],
+      deps: quest.deps,
     }
     c.quests.push(questId)
   })

@@ -194,6 +194,9 @@ function generateChaptersFile() {
         ...quest,
         id: uniqueId,
         content: questData,
+        deps: quest.deps
+          ? quest.deps.map((file) => getQuestId(chapter.dirName, file, idsData))
+          : [chapter.id], // Ensure chapter ID is included in dependencies
       }
     })
 
@@ -261,7 +264,7 @@ chapterInfo.forEach((chapter) => {
     chaptersMap[questId] = {
       x: quest.x,
       y: quest.y + 1800,
-      deps: [chapter.id],
+      deps: quest.deps,
     }
     c.quests.push(questId)
   })
