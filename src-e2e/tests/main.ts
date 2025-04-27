@@ -190,6 +190,7 @@ Scenario('Test python quest', ({ I }) => {
   I.pressKey(['Control', 'a'])
   I.type('print("Hallo, Python!")')
   I.click('Start')
+  I.click("Ja, los geht's!")
   I.waitForText('Perfekt gemacht', 3)
   I.click('Ja, hab ich gesehen')
   I.click('weiter')

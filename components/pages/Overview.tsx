@@ -817,7 +817,7 @@ export function Overview() {
                             showModal(core, 'explanation')
                           }}
                         >
-                          <p className="text-center">Erklärung</p>
+                          <p className="text-center">README</p>
                           <img
                             src="/gluehbirne.png"
                             alt=""
