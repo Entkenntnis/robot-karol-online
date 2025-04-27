@@ -24,7 +24,7 @@ export function ExplanationModal() {
           <FaIcon icon={faTimes} />
         </button>
         <div className="flex-grow flex-shrink overflow-auto">
-          <div className="mb-5 px-6 my-12">
+          <div className="px-6 mt-12 mb-8">
             {processMarkdown(chapterData[core.ws.overview.chapter].description)}
           </div>
         </div>

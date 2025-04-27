@@ -728,7 +728,7 @@ export function Overview() {
                         x1={650 + 26}
                         y1={1750 + 76}
                         x2={280 + 26}
-                        y2={1730 + 76}
+                        y2={1700 + 76}
                         strokeWidth="10"
                         filter="url(#organicTexture2)"
                         stroke="rgba(148, 163, 184, 0.8)"
@@ -765,9 +765,7 @@ export function Overview() {
                           left: `${entry[1].x}px`,
                           top: `${entry[1].y}px`,
                         }}
-                      >
-                        Chapter selector
-                      </div>
+                      ></div>
                     )
                   }
                   return (
@@ -805,7 +803,7 @@ export function Overview() {
                 {isQuestDone(61) && (
                   <>
                     {chapterData[core.ws.overview.chapter].description && (
-                      <div className="absolute top-[1734px] left-[260px]  z-10">
+                      <div className="absolute top-[1704px] left-[260px]  z-10">
                         <button
                           className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
                           onClick={(e) => {
@@ -826,7 +824,7 @@ export function Overview() {
                         </button>
                       </div>
                     )}
-                    <div className="absolute left-[400px] top-[1740px] w-[440px] h-[110px] bg-white rounded-xl">
+                    <div className="absolute left-[400px] top-[1755px] w-[440px] h-[110px] bg-white/70 rounded-xl">
                       <p className="text-center mt-3">Wähle ein Kapitel:</p>
                       <p className="mt-3 flex justify-center w-full">
                         <select

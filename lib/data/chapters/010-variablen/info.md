@@ -1,14 +1,26 @@
-# 🎓 Kapitel 1: Deine ersten Variablen
+# 🎓 Kapitel 1: Variablen
 
-Willkommen in der Welt der Programmierung! 🚀 Variablen sind wie kleine Schubladen, in denen wir Informationen speichern können. Lass uns gemeinsam entdecken, wie sie funktionieren!
+Diese Leinwände sind eine Verbindung aus Quantentechnik und AI. Seitdem ich hier gefangen bin, konnte ich ihre innere Struktur untersuchen und sie ist sehr faszinierend, aber auch verwirrend. Anscheinend gibt es die Möglichkeit, durch Python-Code mit der Quantenstruktur zu kommunizieren. Es kann daher nicht schaden, wenn ich dir ein paar Grundlagen der Programmiersprache zeige. Aber keine Sorge, ich werde mich knapp halten.
+
+Lass dich nicht von Variablen erschrecken, sie sind viel einfacher zu verstehen als in der Mathematik. Sie funktionieren wie kleine Boxen, in denen du Informationen speichern kannst:
+
+```py
+name = "Anna"
+alter = 14
+größe = 1.65
+kann_schwimmen = True
+```
+
+Das `=` nennt sich _Wertzuweisung_ und speichert den Wert auf der rechten Seite unter den Namen auf der linken Seite.
 
 ## 📦 Datentypen im Überblick
 
 ### 1. Strings - Für Text
 
+Nutze doppelte Anführungszeichen.
+
 ```python
-name = "Max"         # Doppelte Anführungszeichen
-hobby = 'Programmieren'  # Einfache gehen auch!
+name = "Max"
 ```
 
 ### 2. Integer - Ganze Zahlen
@@ -19,6 +31,8 @@ klassenstufe = 7
 ```
 
 ### 3. Float - Kommazahlen
+
+Verwende als Dezimaltrenner einen Punkt.
 
 ```python
 note = 2.3
@@ -44,15 +58,6 @@ punkte = 15    # Neuer Wert
 print(punkte)  # Ausgabe: 15
 ```
 
-## 💡 Kommentare
-
-Erkläre deinen Code mit #:
-
-```python
-# Diese Variable zählt die Highscores
-highscore = 0  # Startwert ist 0
-```
-
 ## 🚫 Verbotene Namen
 
 So geht's **nicht**:
@@ -63,29 +68,11 @@ mein-name = "Lena" # Bindestrich nicht erlaubt
 class = 8B         # Schlüsselwörter verboten
 ```
 
-## ✅ Gute Praxis
+## 💡 Kommentare
+
+Manchmal stehen Erklärungen im Text. Diese beginnen mit einem `#` (Hash-Tag).
 
 ```python
-schulnote = 2       # Klarer Name
-max_geschwindigkeit = 50  # Unterstrich für Lesbarkeit
-PI = 3.1415         # Großbuchstaben für Konstanten
+# Diese Variable zählt die Highscores
+highscore = 0  # Startwert ist 0
 ```
-
-## 🎯 Mini-Übung
-
-Erstelle Variablen für:
-
-- Deinen Lieblingsfilm (String)
-- Die Anzahl deiner Haustiere (Integer)
-- Deine Körpergröße in Metern (Float)
-- Ob du heute Sport gemacht hast (Boolean)
-
-```python
-# Hier ein Beispiel:
-lieblingsfilm = "Harry Potter"
-anzahl_haustiere = 1
-groesse = 1.65
-sport_heute = True
-```
-
-Jetzt kannst du Informationen speichern wie ein Profi! 🎉 Probier's aus und vergiss nicht: Variablennamen sollten immer klar beschreiben, was sie enthalten.

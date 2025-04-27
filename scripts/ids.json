@@ -1,7 +1,9 @@
 {
   "keys": {
-    "010-variablen/intro1.json": 100,
-    "010-variablen/gen1.json": 109,
+    "010-variablen/Raumschiffvorbereitung.json": 114,
+    "010-variablen/Zaubertrank_brauen.json": 115,
+    "010-variablen/Hin_und_her.json": 116,
+    "010-variablen/Drei_W_nsche.json": 117,
     "040-mathematik/intro2.json": 110,
     "999-fundgrube/63.json": 103,
     "999-fundgrube/62.json": 102,
@@ -11,5 +13,5 @@
     "999-fundgrube/68.json": 107,
     "999-fundgrube/69.json": 108
   },
-  "counter": 111
+  "counter": 118
 }
