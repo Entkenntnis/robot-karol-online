@@ -11,6 +11,8 @@ größe = 1.65
 kann_schwimmen = True
 ```
 
+Das `=` nennt sich _Wertzuweisung_ und speichert den Wert auf der rechten Seite unter den Namen auf der linken Seite.
+
 ## 📦 Datentypen im Überblick
 
 ### 1. Strings - Für Text

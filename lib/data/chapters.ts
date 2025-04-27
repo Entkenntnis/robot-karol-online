@@ -15,9 +15,9 @@ const chapterInfo = [
   {
     "id": 10002,
     "dirName": "010-variablen",
-    "title": "1. Variablen 🚧",
-    "originalTitle": "Variablen 🚧",
-    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nDiese Leinwände sind eine Verbindung aus Quantentechnik und AI. Seitdem ich hier gefangen bin, konnte ich ihre innere Struktur untersuchen und sie ist sehr faszinierend, aber auch verwirrend. Anscheinend gibt es die Möglichkeit, durch Python-Code mit der Quantenstruktur zu kommunizieren. Es kann daher nicht schaden, wenn ich dir ein paar Grundlagen der Programmiersprache zeige. Aber keine Sorge, ich werde mich knapp halten.\r\n\r\nLass dich nicht von Variablen erschrecken, sie sind viel einfacher zu verstehen als in der Mathematik. Sie funktionieren wie kleine Boxen, in denen du Informationen speichern kannst:\r\n\r\n```py\r\nname = \"Anna\"\r\nalter = 14\r\ngröße = 1.65\r\nkann_schwimmen = True\r\n```\r\n\r\n## 📦 Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 🔄 Variablen verändern\r\n\r\nDu kannst Werte jederzeit ändern:\r\n\r\n```python\r\npunkte = 10\r\nprint(punkte)  # Ausgabe: 10\r\n\r\npunkte = 15    # Neuer Wert\r\nprint(punkte)  # Ausgabe: 15\r\n```\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nSo geht's **nicht**:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang\r\nmein-name = \"Lena\" # Bindestrich nicht erlaubt\r\nclass = 8B         # Schlüsselwörter verboten\r\n```\r\n\r\n## 💡 Kommentare\r\n\r\nManchmal stehen Erklärungen im Text. Diese beginnen mit einem `#` (Hash-Tag).\r\n\r\n```python\r\n# Diese Variable zählt die Highscores\r\nhighscore = 0  # Startwert ist 0\r\n```\r\n",
+    "title": "1. Variablen",
+    "originalTitle": "Variablen",
+    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nDiese Leinwände sind eine Verbindung aus Quantentechnik und AI. Seitdem ich hier gefangen bin, konnte ich ihre innere Struktur untersuchen und sie ist sehr faszinierend, aber auch verwirrend. Anscheinend gibt es die Möglichkeit, durch Python-Code mit der Quantenstruktur zu kommunizieren. Es kann daher nicht schaden, wenn ich dir ein paar Grundlagen der Programmiersprache zeige. Aber keine Sorge, ich werde mich knapp halten.\r\n\r\nLass dich nicht von Variablen erschrecken, sie sind viel einfacher zu verstehen als in der Mathematik. Sie funktionieren wie kleine Boxen, in denen du Informationen speichern kannst:\r\n\r\n```py\r\nname = \"Anna\"\r\nalter = 14\r\ngröße = 1.65\r\nkann_schwimmen = True\r\n```\r\n\r\nDas `=` nennt sich _Wertzuweisung_ und speichert den Wert auf der rechten Seite unter den Namen auf der linken Seite.\r\n\r\n## 📦 Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 🔄 Variablen verändern\r\n\r\nDu kannst Werte jederzeit ändern:\r\n\r\n```python\r\npunkte = 10\r\nprint(punkte)  # Ausgabe: 10\r\n\r\npunkte = 15    # Neuer Wert\r\nprint(punkte)  # Ausgabe: 15\r\n```\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nSo geht's **nicht**:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang\r\nmein-name = \"Lena\" # Bindestrich nicht erlaubt\r\nclass = 8B         # Schlüsselwörter verboten\r\n```\r\n\r\n## 💡 Kommentare\r\n\r\nManchmal stehen Erklärungen im Text. Diese beginnen mit einem `#` (Hash-Tag).\r\n\r\n```python\r\n# Diese Variable zählt die Highscores\r\nhighscore = 0  # Startwert ist 0\r\n```\r\n",
     "quests": [
       {
         "filename": "Raumschiffvorbereitung.json",
@@ -652,6 +652,124 @@ const chapterInfo = [
           "questScript": "__ide_prompt(\"In diesem Programm werden Variablen wild gesetzt. Hast du noch den Durchblick?\", \"Klar\")\n\nergebnis = input(\"Welchen Wert hat am Ende des Programms die Variable Erde?\")\n\nif ergebnis != \"hase\":\n    __ide_prompt(\"Das ist leider nicht die richtige Antwort.\", \"Nochmal\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"erde = himmel, himmel = blau, blau = a, a = \\\"hase\\\" - so behältst du den Überblick :)\")",
           "language": "python-pro",
           "program": "a = \"hase\"\nb = \"fuchs\"\nc = \"eule\"\n\nrot = c\ngrün = b\nblau = a\n\nhimmel = a\nerde = rot\nhimmel = blau\nerde = himmel\n\n# Welchen Wert hat `erde` hier?"
+        },
+        "deps": [
+          10002
+        ]
+      },
+      {
+        "filename": "Drei_W_nsche.json",
+        "x": 660,
+        "y": 250,
+        "id": 117,
+        "content": {
+          "version": "v1",
+          "title": "Drei Wünsche",
+          "description": "Wenn du drei Wünsche hättest, wie würden sie lauten? Es gib nur diese Bedingungen:\n\n- Es müssen genau drei Wünsche sein, nicht mehr und nicht weniger.\n- Jeder Wunsch ist eine Wertzuweisung auf eine Variable wie `kontostand_in_euro = 1000000`.\n- Jeder Wunsch nutzt einen anderen Datentyp.",
+          "tasks": [
+            {
+              "title": "Variablen definieren",
+              "start": {
+                "dimX": 8,
+                "dimY": 8,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 3,
+                  "dimY": 3,
+                  "offsetX": 3,
+                  "offsetY": 3,
+                  "data": [
+                    [
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 8,
+                "dimY": 8,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 3,
+                  "dimY": 3,
+                  "offsetX": 3,
+                  "offsetY": 3,
+                  "data": [
+                    [
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Hast du deine Wünsche notiert?\", \"Simsalabim\")\n\n__ide_run_client()\n\n# Variablen sammeln (ohne Systemvariablen)\nuser_vars = [v for v in globals() if not v.startswith('__ide_') and v != '__builtins__' and v != 'Robot']\n\ntypen = [type(globals()[v]).__name__ for v in user_vars]\n\nerforderliche_typen = {'int', 'float', 'str', 'bool'}\n\nif len(user_vars) != 3:\n    __ide_prompt(f'❌ Falsche Anzahl Wünsche: {len(user_vars)} statt 3', 'Nochmal versuchen')\n    __ide_exit()\n\nif len(set(typen)) < 3:\n    doppelte = [t for t in ['int','float','str', 'bool'] if typen.count(t) > 1]\n    __ide_prompt(f'❌ Doppelte Datentypen: {\", \".join(doppelte)}', 'Typen prüfen')\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Das klingt wunderbar ٩(^‿^)۶ Deine Wünsche wurden an das Quantensystem weitergeleitet.')",
+          "language": "python-pro",
+          "program": "# Notiere deine drei Wünsche:\n\n"
         },
         "deps": [
           10002

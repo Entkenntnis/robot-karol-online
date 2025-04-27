@@ -1,8 +1,9 @@
 {
-  "title": "Variablen 🚧",
+  "title": "Variablen",
   "quests": [
     { "filename": "Raumschiffvorbereitung.json", "x": 100, "y": 100 },
     { "filename": "Zaubertrank_brauen.json", "x": 350, "y": 200 },
-    { "filename": "Hin_und_her.json", "x": 980, "y": 180 }
+    { "filename": "Hin_und_her.json", "x": 980, "y": 180 },
+    { "filename": "Drei_W_nsche.json", "x": 660, "y": 250 }
   ]
 }
