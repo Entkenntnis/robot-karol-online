@@ -214,20 +214,20 @@ const chapterInfo = [
         ]
       },
       {
-        "filename": "gen1.json",
+        "filename": "Zaubertrank_brauen.json",
         "x": 350,
         "y": 200,
-        "id": 109,
+        "id": 113,
         "content": {
           "version": "v1",
           "title": "Zaubertrank brauen",
-          "description": "Hilf der Hexe Zischa, ihren Super-Sprudel-Trank zu brauen! 🧙♀️\n\nSpeichere die Zutaten in Variablen:\n- zutat1 als String\n- zutat2 als String\n- menge als Integer (wie viele Tropfen?)\n\nTipp: Nutze Anführungszeichen für Text!",
+          "description": "Bereite hier einen mächtigen Zaubertrank vor. Initialisiere die Variablen mit den richtigen Werten und Typen.\n\n- `eulenfedern`: Ganzzahl mit 5 Federn\n- `mondstaub`: Kommazahl 2.5 Gramm\n- `drachenblut`: Text \"3 Tropfen\"\n- `kessel_heiss`: Wahrheitswert True",
           "tasks": [
             {
-              "title": "Zutaten mischen",
+              "title": "Zutaten vorbereiten",
               "start": {
-                "dimX": 5,
-                "dimY": 5,
+                "dimX": 8,
+                "dimY": 8,
                 "height": 6,
                 "karol": {
                   "x": 0,
@@ -235,51 +235,72 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 3,
-                  "offsetY": 0,
+                  "dimX": 5,
+                  "dimY": 6,
+                  "offsetX": 2,
+                  "offsetY": 1,
                   "data": [
                     [
+                      1,
+                      1,
+                      0,
                       1,
                       1
                     ],
                     [
+                      0,
+                      1,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
                       1,
                       1
                     ]
                   ]
                 },
                 "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
+                  "dimX": 3,
+                  "dimY": 4,
+                  "offsetX": 3,
+                  "offsetY": 2,
                   "data": [
                     [
                       false,
                       true,
-                      false,
-                      false,
                       false
                     ],
                     [
                       false,
                       true,
-                      false,
-                      false,
                       false
                     ],
                     [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
                       true,
                       true,
                       true
@@ -287,9 +308,7 @@ const chapterInfo = [
                     [
                       true,
                       true,
-                      false,
-                      false,
-                      false
+                      true
                     ]
                   ]
                 },
@@ -302,8 +321,8 @@ const chapterInfo = [
                 }
               },
               "target": {
-                "dimX": 5,
-                "dimY": 5,
+                "dimX": 8,
+                "dimY": 8,
                 "height": 6,
                 "karol": {
                   "x": 0,
@@ -311,51 +330,72 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 3,
-                  "offsetY": 0,
+                  "dimX": 5,
+                  "dimY": 6,
+                  "offsetX": 2,
+                  "offsetY": 1,
                   "data": [
                     [
+                      1,
+                      1,
+                      0,
                       1,
                       1
                     ],
                     [
+                      0,
+                      1,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
                       1,
                       1
                     ]
                   ]
                 },
                 "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
+                  "dimX": 3,
+                  "dimY": 4,
+                  "offsetX": 3,
+                  "offsetY": 2,
                   "data": [
                     [
                       false,
                       true,
-                      false,
-                      false,
                       false
                     ],
                     [
                       false,
                       true,
-                      false,
-                      false,
                       false
                     ],
                     [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
                       true,
                       true,
                       true
@@ -363,9 +403,7 @@ const chapterInfo = [
                     [
                       true,
                       true,
-                      false,
-                      false,
-                      false
+                      true
                     ]
                   ]
                 },
@@ -379,9 +417,11 @@ const chapterInfo = [
               }
             }
           ],
-          "questScript": "__ide_run_client()\nif 'zutat1' not in globals():\n    __ide_prompt('Zutat 1 fehlt! 🧪 Nutze zutat1 = \"...\"', 'Nochmal')\nif type(zutat1) != str:\n    __ide_prompt('Zutat 1 muss Text sein! 📜 Vergiss die Anführungszeichen nicht', 'Okay')\nif 'menge' not in globals():\n    __ide_prompt('Wie viele Tropfen? 💧 Nutze menge = ...', 'Verstanden')\nif menge < 3:\n    __ide_prompt('Zu wenig Tropfen! Mindestens 3 ⚠️', 'Mehr!')\n__ide_set_progress(True)\n__ide_prompt('Bzzz! Der Trank glüht ' + zutat1 + '! 🎉', 'Hurra!')",
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Bist du bereit für die Zaubertrank-Herstellung?\", \"Zutaten mischen\")\n\n__ide_run_client()\n\nzutaten_checks = [\n    ('eulenfedern', int, 5, \"Ganzzahl\"),\n    ('mondstaub', float, 2.5, \"Kommazahl\"),\n    ('drachenblut', str, \"3 Tropfen\", \"Text in Anführungszeichen\"),\n    ('kessel_heiss', bool, True, \"Wahrheitswert\")\n]\n\nfor var, typ, wert, hinweis in zutaten_checks:\n    if var not in globals():\n        __ide_prompt(f'Zutat fehlt: `{var}` nicht gefunden!', 'Nochmal versuchen')\n        __ide_exit()\n    \n    if not isinstance(globals()[var], typ):\n        __ide_prompt(f'Falsche Zubereitung: {var} sollte {hinweis} sein', 'Rezept prüfen')\n        __ide_exit()\n    \n    if globals()[var] != wert:\n        __ide_prompt(f'{var} ist {globals()[var]} statt {wert}!', 'Menge anpassen')\n        __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Der Kessel brodelt! Magischer Trank erfolgreich gebraut! ✨', 'Trank testen')",
           "language": "python-pro",
-          "program": "# Hier kommt dein Zaubertrank-Code hin!"
+          "program": "# Korrigiere die Zutatenangaben\n\neulenfedern = 5.0\nmondstaub = 2\ndrachenblut = 3\nkessel_heiss = \"True\"\n"
         },
         "deps": [
           10002

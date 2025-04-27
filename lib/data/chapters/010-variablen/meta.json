@@ -2,6 +2,6 @@
   "title": "Variablen 🚧",
   "quests": [
     { "filename": "Raumschiffvorbereitung.json", "x": 100, "y": 100 },
-    { "filename": "gen1.json", "x": 350, "y": 200 }
+    { "filename": "Zaubertrank_brauen.json", "x": 350, "y": 200 }
   ]
 }
