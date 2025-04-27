@@ -1,14 +1,24 @@
-# 🎓 Kapitel 1: Deine ersten Variablen
+# 🎓 Kapitel 1: Variablen
 
-Willkommen in der Welt der Programmierung! 🚀 Variablen sind wie kleine Schubladen, in denen wir Informationen speichern können. Lass uns gemeinsam entdecken, wie sie funktionieren!
+Diese Leinwände sind eine Verbindung aus Quantentechnik und AI. Ich habe sie seit ein paar Tagen untersucht und die Struktur ist sehr faszinierend, aber auch verwirrend. Anscheinend gibt es die Möglichkeit, durch Python-Code mit der Quantenstruktur zu kommunizieren. Es kann daher nicht schaden, wenn ich dir ein paar Grundlagen der Programmiersprache zeige. Aber keine Sorge, ich werde mich knapp halten.
+
+Lass dich nicht von Variablen erschrecken, sie sind viel einfacher zu verstehen als Variablen in der Mathematik. Sie funktionieren wie kleine Boxen, in denen du Informationen speichern kannst:
+
+```py
+name = "Anna"
+alter = 14
+größe = 1.65
+kann_schwimmen = True
+```
 
 ## 📦 Datentypen im Überblick
 
 ### 1. Strings - Für Text
 
+Nutze doppelte Anführungszeichen.
+
 ```python
-name = "Max"         # Doppelte Anführungszeichen
-hobby = 'Programmieren'  # Einfache gehen auch!
+name = "Max"
 ```
 
 ### 2. Integer - Ganze Zahlen
@@ -19,6 +29,8 @@ klassenstufe = 7
 ```
 
 ### 3. Float - Kommazahlen
+
+Verwende als Dezimaltrenner einen Punkt.
 
 ```python
 note = 2.3
@@ -63,29 +75,6 @@ mein-name = "Lena" # Bindestrich nicht erlaubt
 class = 8B         # Schlüsselwörter verboten
 ```
 
-## ✅ Gute Praxis
+## Übungen
 
-```python
-schulnote = 2       # Klarer Name
-max_geschwindigkeit = 50  # Unterstrich für Lesbarkeit
-PI = 3.1415         # Großbuchstaben für Konstanten
-```
-
-## 🎯 Mini-Übung
-
-Erstelle Variablen für:
-
-- Deinen Lieblingsfilm (String)
-- Die Anzahl deiner Haustiere (Integer)
-- Deine Körpergröße in Metern (Float)
-- Ob du heute Sport gemacht hast (Boolean)
-
-```python
-# Hier ein Beispiel:
-lieblingsfilm = "Harry Potter"
-anzahl_haustiere = 1
-groesse = 1.65
-sport_heute = True
-```
-
-Jetzt kannst du Informationen speichern wie ein Profi! 🎉 Probier's aus und vergiss nicht: Variablennamen sollten immer klar beschreiben, was sie enthalten.
+In den Leinwänden finden sich verschiedene Welten. Gehen wir da mal rein.
