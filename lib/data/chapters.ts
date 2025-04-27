@@ -23,7 +23,7 @@ const chapterInfo = [
         "filename": "Raumschiffvorbereitung.json",
         "x": 100,
         "y": 100,
-        "id": 111,
+        "id": 114,
         "content": {
           "version": "v1",
           "title": "Raumschiffvorbereitung",
@@ -217,11 +217,11 @@ const chapterInfo = [
         "filename": "Zaubertrank_brauen.json",
         "x": 350,
         "y": 200,
-        "id": 113,
+        "id": 115,
         "content": {
           "version": "v1",
           "title": "Zaubertrank brauen",
-          "description": "Bereite hier einen mächtigen Zaubertrank vor. Initialisiere die Variablen mit den richtigen Werten und Typen.\n\n- `eulenfedern`: Ganzzahl mit 5 Federn\n- `mondstaub`: Kommazahl 2.5 Gramm\n- `drachenblut`: Text \"3 Tropfen\"\n- `kessel_heiss`: Wahrheitswert True",
+          "description": "Bereite einen mächtigen Zaubertrank vor. Initialisiere die Variablen mit den richtigen Werten und Typen.\n\n- `eulenfedern`: Ganzzahl mit 5 Federn\n- `mondstaub`: Kommazahl 2.5 Gramm\n- `drachenblut`: Text \"3 Tropfen\"\n- `kessel_heiss`: Wahrheitswert True",
           "tasks": [
             {
               "title": "Zutaten vorbereiten",
@@ -422,6 +422,236 @@ const chapterInfo = [
           "questScript": "__ide_prompt(\"Bist du bereit für die Zaubertrank-Herstellung?\", \"Zutaten mischen\")\n\n__ide_run_client()\n\nzutaten_checks = [\n    ('eulenfedern', int, 5, \"Ganzzahl\"),\n    ('mondstaub', float, 2.5, \"Kommazahl\"),\n    ('drachenblut', str, \"3 Tropfen\", \"Text in Anführungszeichen\"),\n    ('kessel_heiss', bool, True, \"Wahrheitswert\")\n]\n\nfor var, typ, wert, hinweis in zutaten_checks:\n    if var not in globals():\n        __ide_prompt(f'Zutat fehlt: `{var}` nicht gefunden!', 'Nochmal versuchen')\n        __ide_exit()\n    \n    if not isinstance(globals()[var], typ):\n        __ide_prompt(f'Falsche Zubereitung: {var} sollte {hinweis} sein', 'Rezept prüfen')\n        __ide_exit()\n    \n    if globals()[var] != wert:\n        __ide_prompt(f'{var} ist {globals()[var]} statt {wert}!', 'Menge anpassen')\n        __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Der Kessel brodelt! Magischer Trank erfolgreich gebraut! ✨', 'Trank testen')",
           "language": "python-pro",
           "program": "# Korrigiere die Zutatenangaben\n\neulenfedern = 5.0\nmondstaub = 2\ndrachenblut = 3\nkessel_heiss = \"True\"\n"
+        },
+        "deps": [
+          10002
+        ]
+      },
+      {
+        "filename": "Hin_und_her.json",
+        "x": 980,
+        "y": 180,
+        "id": 116,
+        "content": {
+          "version": "v1",
+          "title": "Hin und her",
+          "description": "Bei dieser Aufgabe geht es wild durcheinander. Die Variablen werden ohne erkennbares System hin und her gesetzt.\n\nSchaue dir das Script an und finde heraus, welchen Wert die Variable `erde` am Ende des Programms hat. Wenn du die Antwort weißt, dann klicke auf Start.",
+          "tasks": [
+            {
+              "title": "Ein Durcheinander",
+              "start": {
+                "dimX": 5,
+                "dimY": 5,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      0,
+                      3,
+                      0
+                    ],
+                    [
+                      2,
+                      0,
+                      0,
+                      1,
+                      3
+                    ],
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 5,
+                "dimY": 5,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      0,
+                      3,
+                      0
+                    ],
+                    [
+                      2,
+                      0,
+                      0,
+                      1,
+                      3
+                    ],
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"In diesem Programm werden Variablen wild gesetzt. Hast du noch den Durchblick?\", \"Klar\")\n\nergebnis = input(\"Welchen Wert hat am Ende des Programms die Variable Erde?\")\n\nif ergebnis != \"hase\":\n    __ide_prompt(\"Das ist leider nicht die richtige Antwort.\", \"Nochmal\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"erde = himmel, himmel = blau, blau = a, a = \\\"hase\\\" - so behältst du den Überblick :)\")",
+          "language": "python-pro",
+          "program": "a = \"hase\"\nb = \"fuchs\"\nc = \"eule\"\n\nrot = c\ngrün = b\nblau = a\n\nhimmel = a\nerde = rot\nhimmel = blau\nerde = himmel\n\n# Welchen Wert hat `erde` hier?"
         },
         "deps": [
           10002
