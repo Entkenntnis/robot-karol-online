@@ -60,7 +60,7 @@ export function QuestPrompt() {
         />
       </div>
       <div className="flex-grow flex justify-between flex-col min-h-[80px]">
-        <div className="px-3 py-2">{processMarkdown(displayedText)}</div>
+        <div className="px-3">{processMarkdown(displayedText)}</div>
         <div className="flex justify-end mr-2 mb-2">
           <button
             className={clsx(

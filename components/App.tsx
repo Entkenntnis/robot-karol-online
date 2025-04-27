@@ -33,6 +33,7 @@ import { Karolmania } from './pages/Karolmania'
 import { KarolmaniaGame } from './pages/KarolmaniaGame'
 import { Donate } from './pages/Donate'
 import { InvocationModal } from './modals/InvocationModal'
+import { ExplanationModal } from './modals/ExplanationModal'
 
 export function App() {
   const core = useCore()
@@ -156,6 +157,8 @@ export function App() {
       return <SurveyModal />
     } else if (core.ws.modal == 'invocation') {
       return <InvocationModal />
+    } else if (core.ws.modal == 'explanation') {
+      return <ExplanationModal />
     } else {
       return null
     }

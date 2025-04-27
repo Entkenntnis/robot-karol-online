@@ -41,6 +41,7 @@ import {
   setOverviewScroll,
   setQuestReturnToMode,
   setRobotImage,
+  setChapter,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
@@ -51,6 +52,7 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 import { twoWorldsEqual } from '../../lib/commands/world'
+import { chapterData } from '../../lib/data/chapters'
 
 const bluejPlaygroundHash =
   '#SPIELWIESE-PYTHON:%23 Spielwiese%3A 15%2C 10%2C 6%0A%0A%23 Hallo! Die Spielwiese hat einen neuen Modus. Sobald du Python aktiviert%2C%0A%23 kannst du auf das interaktive Klassendiagramm zugreifen.%0A%0A%23 Dort kannst du Objekte erzeugen und Methoden aufrufen wie in BlueJ.%0A%0A%23 Probiere es jetzt aus! Klicke jetzt auf interaktives Klassendiagramm%2C%0A%23 erzeuge einen Robot und steuere Karol direkt über die Objektkarte.%0A%0A%0A%0A%23 Das Ganze funktioniert auch mit eigenen Klassen%3A%0A%23 (zum Testen auskommentieren)%0A%0A"""%0Aclass MeineKlasse%3A%0A%20%20%20 def hallo(self)%3A%0A%20%20%20%20%20%20%20 "Das ist ein Docstring für die Methode hallo"%0A%20%20%20%20%20%20%20 print("Hallo %3A)")%0A"""'
@@ -87,9 +89,23 @@ export function Overview() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const chapterList = Object.entries(chapterData).map(([id, data]) => {
+    return {
+      id: parseInt(id),
+      name: data.title,
+    }
+  })
+  chapterList.sort((a, b) => {
+    return a.id - b.id
+  })
+
   return (
     <>
-      <div className="h-full overflow-auto" id="scroll-container">
+      <div
+        className="h-full overflow-auto overscroll-none"
+        id="scroll-container"
+      >
         <div className="flex flex-col relative min-h-full min-w-fit background-element">
           <div className="flex md:justify-center justify-start mt-6 ml-3 md:m-0">
             <div
@@ -479,7 +495,7 @@ export function Overview() {
                   </a>
                 )}
 
-                <div className="absolute top-[1800px] left-[111px]  z-10">
+                <div className="absolute top-[1730px] left-[1011px]  z-10">
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <a
                       href={`/${bluejPlaygroundHash}`}
@@ -681,7 +697,8 @@ export function Overview() {
                             if (
                               isQuestDone(dep) ||
                               core.ws.page == 'analyze' ||
-                              core.ws.page == 'demo'
+                              core.ws.page == 'demo' ||
+                              dep == core.ws.overview.chapter
                             ) {
                               return (
                                 <line
@@ -704,6 +721,19 @@ export function Overview() {
                     }
                     return null
                   })}
+                  {isQuestDone(61) &&
+                    chapterData[core.ws.overview.chapter].description && (
+                      <line
+                        key={`connect-to-explanation`}
+                        x1={650 + 26}
+                        y1={1750 + 76}
+                        x2={280 + 26}
+                        y2={1730 + 76}
+                        strokeWidth="10"
+                        filter="url(#organicTexture2)"
+                        stroke="rgba(148, 163, 184, 0.8)"
+                      />
+                    )}
 
                   <path
                     d="M 100 1700 C 393 1711 588 1648 726 1547 S 942 1374 1150 1400"
@@ -717,7 +747,29 @@ export function Overview() {
                   />
                 </svg>
                 {Object.entries(mapData).map((entry) => {
-                  if (!isQuestVisible(parseInt(entry[0]))) return null
+                  const id = parseInt(entry[0])
+                  if (!isQuestVisible(id)) return null
+                  if (
+                    isQuestDone(id) &&
+                    id >= 100 &&
+                    !entry[1].deps.includes(core.ws.overview.chapter)
+                  )
+                    return null
+                  if (id >= 10000) {
+                    // chapter marker
+                    return (
+                      <div
+                        key={id}
+                        className={clsx('absolute')}
+                        style={{
+                          left: `${entry[1].x}px`,
+                          top: `${entry[1].y}px`,
+                        }}
+                      >
+                        Chapter selector
+                      </div>
+                    )
+                  }
                   return (
                     <QuestIcon
                       x={entry[1].x}
@@ -750,6 +802,61 @@ export function Overview() {
                     />
                   )
                 })}
+                {isQuestDone(61) && (
+                  <>
+                    {chapterData[core.ws.overview.chapter].description && (
+                      <div className="absolute top-[1734px] left-[260px]  z-10">
+                        <button
+                          className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+                          onClick={(e) => {
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_explanation_chapter_' +
+                                core.ws.overview.chapter
+                            )
+                            showModal(core, 'explanation')
+                          }}
+                        >
+                          <p className="text-center">README</p>
+                          <img
+                            src="/gluehbirne.png"
+                            alt=""
+                            className="w-[60px] mx-auto inline-block mt-2 mb-2"
+                          />
+                        </button>
+                      </div>
+                    )}
+                    <div className="absolute left-[400px] top-[1740px] w-[440px] h-[110px] bg-white rounded-xl">
+                      <p className="text-center mt-3">Wähle ein Kapitel:</p>
+                      <p className="mt-3 flex justify-center w-full">
+                        <select
+                          className="w-[90%] p-2 rounded"
+                          value={core.ws.overview.chapter}
+                          onChange={(e) => {
+                            const chapterId = parseInt(e.target.value)
+                            core.mutateWs((ws) => {
+                              ws.overview.chapter = chapterId
+                            })
+                            // Persist the chapter selection to session storage
+                            setChapter(chapterId)
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_select_chapter_' + chapterId
+                            )
+                          }}
+                        >
+                          {chapterList.map((chapter) => {
+                            return (
+                              <option key={chapter.id} value={chapter.id}>
+                                {chapter.name}
+                              </option>
+                            )
+                          })}
+                        </select>
+                      </p>
+                    </div>
+                  </>
+                )}
                 {core.ws.settings.lng === 'de' &&
                   numberOfSolvedQuests == 0 &&
                   core.ws.page !== 'demo' &&
@@ -864,13 +971,17 @@ export function Overview() {
     const position = questList.indexOf(id)
 
     return (
-      core.ws.page == 'demo' ||
+      (id < 100 && core.ws.page == 'demo') ||
       core.ws.page == 'analyze' ||
       core.ws.overview.showOverviewList ||
       position == 0 ||
       id == 61 || // hallo python
       isQuestDone(id) ||
-      mapData[id]?.deps.some(isQuestDone)
+      mapData[id]?.deps.some(isQuestDone) ||
+      (isQuestDone(61) &&
+        id >= 100 &&
+        (mapData[id]?.deps.some((dep) => dep == core.ws.overview.chapter) ||
+          mapData[id]?.deps.some((dep) => dep < 10000)))
     )
   }
 

@@ -10,6 +10,7 @@
     "grammar": "lezer-generator ./lib/codemirror/parser/karol.grammar -o ./lib/codemirror/parser/parser.js",
     "grammar-java": "lezer-generator ./lib/codemirror/javaParser/java.grammar -o ./lib/codemirror/javaParser/parser.js",
     "grammar-python": "lezer-generator ./lib/codemirror/pythonParser/python.grammar -o ./lib/codemirror/pythonParser/parser.js",
+    "pack": "nodemon --watch lib/data/chapters --ext \"*\" scripts/pack.js",
     "tauri": "tauri"
   },
   "dependencies": {
@@ -50,6 +51,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.13.0",
     "eslint-config-next": "^14.0.1",
+    "nodemon": "^3.1.10",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.0.0"
