@@ -10,7 +10,7 @@ export function ExplanationModal() {
   return (
     <div className="bg-black/20 fixed inset-0 flex justify-center items-center z-[350]">
       <div
-        className="max-h-[90%] w-[800px] min-h-[30%] bg-white z-[400] rounded-xl relative flex"
+        className="max-h-[90%] w-[72ch] min-h-[30%] bg-white z-[400] rounded-xl relative flex"
         onClick={(e) => {
           e.stopPropagation()
         }}
@@ -24,7 +24,7 @@ export function ExplanationModal() {
           <FaIcon icon={faTimes} />
         </button>
         <div className="flex-grow flex-shrink overflow-auto">
-          <div className="mb-5 px-6 mt-8">
+          <div className="mb-5 px-6 my-12">
             {processMarkdown(chapterData[core.ws.overview.chapter].description)}
           </div>
         </div>

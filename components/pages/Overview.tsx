@@ -827,9 +827,7 @@ export function Overview() {
                       </div>
                     )}
                     <div className="absolute left-[400px] top-[1740px] w-[440px] h-[110px] bg-white rounded-xl">
-                      <p className="text-center mt-3">
-                        Wähle ein Kapitel (im Aufbau):
-                      </p>
+                      <p className="text-center mt-3">Wähle ein Kapitel:</p>
                       <p className="mt-3 flex justify-center w-full">
                         <select
                           className="w-[90%] p-2 rounded"
