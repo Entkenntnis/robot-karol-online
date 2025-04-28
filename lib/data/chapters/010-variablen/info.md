@@ -78,3 +78,7 @@ Manchmal stehen Erklärungen im Text. Diese beginnen mit einem `#` (Hash-Tag).
 # Diese Variable zählt die Highscores
 highscore = 0  # Startwert ist 0
 ```
+
+## Quantenknoten
+
+Wenn du auf "weiter" klickst, öffnen sich Quantenknoten. Dort kannst du mit dieser mysteriösen Energie interagieren. Viel Erfolg beim Lösen der Aufgaben!

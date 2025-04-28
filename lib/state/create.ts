@@ -145,7 +145,7 @@ export function createWorkspaceState(): WorkspaceState {
       showSaveHint: true,
       showOverviewList: false,
       showProfile: false,
-      chapter: 10001,
+      explanationId: -1,
     },
   }
   return ws

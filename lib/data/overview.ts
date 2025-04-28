@@ -1,4 +1,4 @@
-import { chapterOverviewData } from './chapters'
+import { chapterData, chapterOverviewData } from './chapters'
 import { questData } from './quests'
 
 export const questListByCategory = [
@@ -52,3 +52,7 @@ questListByCategory.forEach((entry) =>
     questList.push(id)
   })
 )
+
+Object.keys(chapterData).forEach((chapter) => {
+  questList.push(parseInt(chapter))
+})

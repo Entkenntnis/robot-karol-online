@@ -419,15 +419,3 @@ export function getBestTimeForLevel(levelId: number): number | null {
   const progress = getKarolmaniaProgress()
   return progress.levels[levelId]?.pb || null
 }
-
-export function setChapter(chapterId: number) {
-  sessionStorage.setItem(chapterKey, chapterId.toString())
-}
-
-export function getChapter(): number {
-  const chapter = sessionStorage.getItem(chapterKey)
-  if (chapter) {
-    return parseInt(chapter)
-  }
-  return 10001 // Default chapter
-}

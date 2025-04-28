@@ -1,4 +1,6 @@
 {
   "title": "Mathe-Genie 🚧",
-  "quests": [{ "filename": "intro2.json", "x": 100, "y": 100 }]
+  "quests": [{ "filename": "intro2.json", "x": 100, "y": 100 }],
+  "x": 250,
+  "y": 2200
 }
