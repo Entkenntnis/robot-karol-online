@@ -710,19 +710,6 @@ export function Overview() {
                     }
                     return null
                   })}
-                  {false &&
-                    chapterData[core.ws.overview.chapter].description && (
-                      <line
-                        key={`connect-to-explanation`}
-                        x1={650 + 26}
-                        y1={1750 + 76}
-                        x2={280 + 26}
-                        y2={1700 + 76}
-                        strokeWidth="10"
-                        filter="url(#organicTexture2)"
-                        stroke="rgba(148, 163, 184, 0.8)"
-                      />
-                    )}
 
                   <path
                     d="M 100 1700 C 393 1711 588 1648 726 1547 S 942 1374 1150 1400"
