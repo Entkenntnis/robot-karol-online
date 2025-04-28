@@ -299,6 +299,9 @@ export interface Analyze {
     uniqueUsers: number
     stats: { [key: string]: { sessions: number; average: number } }
   }
+  chapters: {
+    [key: number]: { selected: number; explanation: number }
+  }
 }
 
 export interface CoreState {
