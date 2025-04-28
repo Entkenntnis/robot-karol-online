@@ -129,6 +129,7 @@ export interface Overview {
   showOverviewList: boolean
   showProfile: boolean
   chapter: number
+  explanationId: number
 }
 
 export interface WorkspaceState {

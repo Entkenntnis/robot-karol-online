@@ -41,7 +41,6 @@ import {
   setOverviewScroll,
   setQuestReturnToMode,
   setRobotImage,
-  setChapter,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
@@ -64,8 +63,8 @@ export function Overview() {
 
   const questData = core.ws.settings.lng == 'de' ? questDataDe : questDataEn
 
-  const numberOfSolvedQuests = Object.keys(mapData).filter((id) =>
-    isQuestDone(parseInt(id))
+  const numberOfSolvedQuests = Object.keys(mapData).filter(
+    (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id))
   ).length
 
   useEffect(() => {
@@ -89,16 +88,6 @@ export function Overview() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const chapterList = Object.entries(chapterData).map(([id, data]) => {
-    return {
-      id: parseInt(id),
-      name: data.title,
-    }
-  })
-  chapterList.sort((a, b) => {
-    return a.id - b.id
-  })
 
   return (
     <>
@@ -392,7 +381,8 @@ export function Overview() {
               <div className="my-4">
                 {core.strings.profile.solved}:{' '}
                 <strong>{numberOfSolvedQuests}</strong>{' '}
-                {core.strings.profile.of} {Object.keys(mapData).length}
+                {core.strings.profile.of}{' '}
+                {Object.keys(mapData).filter((x) => parseInt(x) < 10000).length}
               </div>
               <div className="my-4">
                 <label>
@@ -452,7 +442,7 @@ export function Overview() {
           )}
           {!core.ws.overview.showOverviewList &&
             !core.ws.overview.showProfile && (
-              <div className="w-[1240px] h-[2750px] mx-auto relative mt-6">
+              <div className="w-[1240px] h-[3250px] mx-auto relative mt-6">
                 <img
                   src="klecks1.png"
                   className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
@@ -595,7 +585,7 @@ export function Overview() {
                   </AnimateInView>
                 </div>
                 {core.ws.settings.lng == 'de' && (
-                  <div className="absolute top-[2620px] left-[880px] z-10">
+                  <div className="absolute top-[3120px] left-[880px] z-10">
                     <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                       <button
                         className="w-[120px] hover:bg-gray-100/60 rounded-xl"
@@ -616,7 +606,7 @@ export function Overview() {
                     </AnimateInView>
                   </div>
                 )}
-                <div className="absolute top-[2650px] left-[160px] z-10">
+                <div className="absolute top-[3150px] left-[160px] z-10">
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <button
                       className=" w-[120px] block hover:bg-gray-100/60 rounded-xl"
@@ -640,7 +630,7 @@ export function Overview() {
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 1240 2750"
+                  viewBox="0 0 1240 3250"
                   className="relative"
                 >
                   <defs>
@@ -697,8 +687,7 @@ export function Overview() {
                             if (
                               isQuestDone(dep) ||
                               core.ws.page == 'analyze' ||
-                              core.ws.page == 'demo' ||
-                              dep == core.ws.overview.chapter
+                              core.ws.page == 'demo'
                             ) {
                               return (
                                 <line
@@ -721,7 +710,7 @@ export function Overview() {
                     }
                     return null
                   })}
-                  {(isQuestDone(61) || core.ws.page == 'analyze') &&
+                  {false &&
                     chapterData[core.ws.overview.chapter].description && (
                       <line
                         key={`connect-to-explanation`}
@@ -749,23 +738,47 @@ export function Overview() {
                 {Object.entries(mapData).map((entry) => {
                   const id = parseInt(entry[0])
                   if (!isQuestVisible(id)) return null
-                  if (
-                    isQuestDone(id) &&
-                    id >= 100 &&
-                    !entry[1].deps.includes(core.ws.overview.chapter)
-                  )
-                    return null
                   if (id >= 10000) {
                     // chapter marker
                     return (
                       <div
+                        className="absolute z-10"
                         key={id}
-                        className={clsx('absolute')}
                         style={{
-                          left: `${entry[1].x}px`,
+                          left: `${entry[1].x - 22}px`,
                           top: `${entry[1].y}px`,
                         }}
-                      ></div>
+                      >
+                        <button
+                          className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+                          onClick={(e) => {
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_explanation_chapter_' + id
+                            )
+                            core.mutateWs((ws) => {
+                              ws.overview.explanationId = id
+                            })
+                            showModal(core, 'explanation')
+                          }}
+                        >
+                          <p className="text-center whitespace-nowrap flex justify-center ">
+                            <span className="bg-white/50 px-2 rounded">
+                              {chapterData[id].title}
+                            </span>
+                            {core.ws.page == 'analyze' && (
+                              <span>
+                                [{core.ws.analyze.chapters[id]?.explanation}]
+                              </span>
+                            )}
+                          </p>
+                          <img
+                            src="/gluehbirne.png"
+                            alt=""
+                            className="w-[60px] mx-auto inline-block mt-2 mb-2"
+                          />
+                        </button>
+                      </div>
                     )
                   }
                   return (
@@ -800,90 +813,7 @@ export function Overview() {
                     />
                   )
                 })}
-                {(isQuestDone(61) || core.ws.page == 'analyze') && (
-                  <>
-                    {chapterData[core.ws.overview.chapter].description && (
-                      <div className="absolute top-[1704px] left-[260px]  z-10">
-                        <button
-                          className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
-                          onClick={(e) => {
-                            if (core.ws.page != 'analyze') {
-                              submitAnalyzeEvent(
-                                core,
-                                'ev_click_landing_explanation_chapter_' +
-                                  core.ws.overview.chapter
-                              )
-                            }
-                            showModal(core, 'explanation')
-                          }}
-                        >
-                          <p className="text-center whitespace-nowrap flex justify-center">
-                            {chapterData[
-                              core.ws.overview.chapter
-                            ].title.substring(3)}
-                            {core.ws.page == 'analyze' && (
-                              <span>
-                                [
-                                {
-                                  core.ws.analyze.chapters[
-                                    core.ws.overview.chapter
-                                  ]?.explanation
-                                }
-                                ]
-                              </span>
-                            )}
-                          </p>
-                          <img
-                            src="/gluehbirne.png"
-                            alt=""
-                            className="w-[60px] mx-auto inline-block mt-2 mb-2"
-                          />
-                        </button>
-                      </div>
-                    )}
-                    <div className="absolute left-[400px] top-[1755px] w-[440px] h-[110px] bg-white/70 rounded-xl">
-                      <p className="text-center mt-3">Wähle ein Kapitel:</p>
-                      <p className="mt-3 flex justify-center w-full">
-                        <select
-                          className="w-[90%] p-2 rounded"
-                          value={core.ws.overview.chapter}
-                          onChange={(e) => {
-                            const chapterId = parseInt(e.target.value)
-                            core.mutateWs((ws) => {
-                              ws.overview.chapter = chapterId
-                            })
-                            // Persist the chapter selection to session storage
-                            setChapter(chapterId)
-                            if (core.ws.page != 'analyze') {
-                              submitAnalyzeEvent(
-                                core,
-                                'ev_select_chapter_' + chapterId
-                              )
-                            }
-                          }}
-                        >
-                          {chapterList.map((chapter) => {
-                            return (
-                              <option key={chapter.id} value={chapter.id}>
-                                {chapter.name}
-                                {core.ws.page == 'analyze' && (
-                                  <span>
-                                    [
-                                    {
-                                      core.ws.analyze.chapters[chapter.id]
-                                        ?.selected
-                                    }
-                                    ]
-                                  </span>
-                                )}
-                              </option>
-                            )
-                          })}
-                        </select>
-                      </p>
-                    </div>
-                  </>
-                )}
+
                 {core.ws.settings.lng === 'de' &&
                   numberOfSolvedQuests == 0 &&
                   core.ws.page !== 'demo' &&
@@ -942,7 +872,7 @@ export function Overview() {
             {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
           </div>
           {!isPersisted() &&
-            isQuestDone(1) &&
+            numberOfSolvedQuests > 0 &&
             core.ws.overview.showSaveHint &&
             core.ws.page != 'analyze' && (
               <div className="fixed left-0 right-0 bottom-0 pb-1.5 sm:pb-0 sm:h-10 bg-yellow-100 text-center pt-1.5 z-20">
@@ -998,17 +928,13 @@ export function Overview() {
     const position = questList.indexOf(id)
 
     return (
-      (id < 100 && core.ws.page == 'demo') ||
-      (core.ws.page == 'analyze' && (id < 100 || id >= 10000)) ||
+      core.ws.page == 'demo' ||
+      core.ws.page == 'analyze' ||
       core.ws.overview.showOverviewList ||
       position == 0 ||
       id == 61 || // hallo python
       isQuestDone(id) ||
-      mapData[id]?.deps.some(isQuestDone) ||
-      ((isQuestDone(61) || core.ws.page == 'analyze') &&
-        id >= 100 &&
-        (mapData[id]?.deps.some((dep) => dep == core.ws.overview.chapter) ||
-          mapData[id]?.deps.some((dep) => dep < 10000)))
+      mapData[id]?.deps.some(isQuestDone)
     )
   }
 

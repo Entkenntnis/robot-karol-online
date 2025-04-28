@@ -73,7 +73,9 @@ export function Highscore() {
         .then((val: typeof data) => {
           //console.log(val)
           val.forEach((entry) => {
-            entry.solved = entry.solved.filter((id) => questList.includes(id))
+            entry.solved = entry.solved.filter(
+              (id) => questList.includes(id) && id < 10000
+            )
             if (entry.solved.length > 35) {
               /*console.log(
                 entry.solved.length,

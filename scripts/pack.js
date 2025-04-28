@@ -174,6 +174,8 @@ const chaptersData = chapters.map((chapterDir, index) => {
     originalTitle: meta?.title || chapterDir,
     description: info || '', // Add the info.md content as description
     quests: meta?.quests || [],
+    x: meta?.x || 0,
+    y: meta?.y || 0,
   }
 })
 
@@ -244,9 +246,9 @@ chapterInfo.forEach((chapter) => {
 
   // Default chapter position and dependencies
   chaptersMap[chapter.id] = {
-    x: 600,
-    y: 1750,
-    deps: [61],
+    x: chapter.x,
+    y: chapter.y,
+    deps: [chapter.id == 10001 ? 61 : chapter.id - 1],
   }
   
   const title = \`\${chapter.title}\`
@@ -263,7 +265,7 @@ chapterInfo.forEach((chapter) => {
     chapterQuests[questId] = deserializeQuestToData(quest.content as any)
     chaptersMap[questId] = {
       x: quest.x,
-      y: quest.y + 1800,
+      y: quest.y + chapter.y,
       deps: quest.deps,
     }
     c.quests.push(questId)
