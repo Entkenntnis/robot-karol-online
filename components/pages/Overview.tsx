@@ -800,18 +800,20 @@ export function Overview() {
                     />
                   )
                 })}
-                {isQuestDone(61) && (
+                {(isQuestDone(61) || core.ws.page == 'analyze') && (
                   <>
                     {chapterData[core.ws.overview.chapter].description && (
                       <div className="absolute top-[1704px] left-[260px]  z-10">
                         <button
                           className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
                           onClick={(e) => {
-                            submitAnalyzeEvent(
-                              core,
-                              'ev_click_landing_explanation_chapter_' +
-                                core.ws.overview.chapter
-                            )
+                            if (core.ws.page != 'analyze') {
+                              submitAnalyzeEvent(
+                                core,
+                                'ev_click_landing_explanation_chapter_' +
+                                  core.ws.overview.chapter
+                              )
+                            }
                             showModal(core, 'explanation')
                           }}
                         >
@@ -819,6 +821,17 @@ export function Overview() {
                             {chapterData[
                               core.ws.overview.chapter
                             ].title.substring(3)}
+                            {core.ws.page == 'analyze' && (
+                              <span>
+                                [
+                                {
+                                  core.ws.analyze.chapters[
+                                    core.ws.overview.chapter
+                                  ]?.explanation
+                                }
+                                ]
+                              </span>
+                            )}
                           </p>
                           <img
                             src="/gluehbirne.png"
@@ -841,16 +854,28 @@ export function Overview() {
                             })
                             // Persist the chapter selection to session storage
                             setChapter(chapterId)
-                            submitAnalyzeEvent(
-                              core,
-                              'ev_select_chapter_' + chapterId
-                            )
+                            if (core.ws.page != 'analyze') {
+                              submitAnalyzeEvent(
+                                core,
+                                'ev_select_chapter_' + chapterId
+                              )
+                            }
                           }}
                         >
                           {chapterList.map((chapter) => {
                             return (
                               <option key={chapter.id} value={chapter.id}>
                                 {chapter.name}
+                                {core.ws.page == 'analyze' && (
+                                  <span>
+                                    [
+                                    {
+                                      core.ws.analyze.chapters[chapter.id]
+                                        ?.selected
+                                    }
+                                    ]
+                                  </span>
+                                )}
                               </option>
                             )
                           })}
@@ -974,7 +999,7 @@ export function Overview() {
 
     return (
       (id < 100 && core.ws.page == 'demo') ||
-      core.ws.page == 'analyze' ||
+      (core.ws.page == 'analyze' && id < 100) ||
       core.ws.overview.showOverviewList ||
       position == 0 ||
       id == 61 || // hallo python
