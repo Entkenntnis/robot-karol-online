@@ -371,7 +371,10 @@ function Entry({ entry }: { entry: EntryType }) {
           className="btn btn-sm my-3"
           onClick={() => {
             submitAnalyzeEvent(core, 'ev_click_inspiration_openQuest')
-            window.open('/#' + entry.id, '_blank')
+            window.open(
+              '/#' + entry.id,
+              '__TAURI_INTERNALS__' in window ? '_self' : '_blank'
+            )
           }}
         >
           #{entry.id} öffnen
