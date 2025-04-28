@@ -721,7 +721,7 @@ export function Overview() {
                     }
                     return null
                   })}
-                  {isQuestDone(61) &&
+                  {(isQuestDone(61) || core.ws.page == 'analyze') &&
                     chapterData[core.ws.overview.chapter].description && (
                       <line
                         key={`connect-to-explanation`}
@@ -999,13 +999,13 @@ export function Overview() {
 
     return (
       (id < 100 && core.ws.page == 'demo') ||
-      (core.ws.page == 'analyze' && id < 100) ||
+      (core.ws.page == 'analyze' && (id < 100 || id >= 10000)) ||
       core.ws.overview.showOverviewList ||
       position == 0 ||
       id == 61 || // hallo python
       isQuestDone(id) ||
       mapData[id]?.deps.some(isQuestDone) ||
-      (isQuestDone(61) &&
+      ((isQuestDone(61) || core.ws.page == 'analyze') &&
         id >= 100 &&
         (mapData[id]?.deps.some((dep) => dep == core.ws.overview.chapter) ||
           mapData[id]?.deps.some((dep) => dep < 10000)))
