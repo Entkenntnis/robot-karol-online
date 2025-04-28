@@ -137,6 +137,7 @@ export function createWorkspaceState(): WorkspaceState {
       survey: [],
       brushColors: {},
       loadedRobotImages: {},
+      chapters: {},
     },
     overview: {
       overviewScroll: 0,

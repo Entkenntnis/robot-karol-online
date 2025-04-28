@@ -93,6 +93,8 @@ export async function analyze(core: Core) {
       'ev_submit_survey_',
       'ev_show_hash_QUEST-',
       'ev_submit_karolmania_pb_',
+      'ev_select_chapter_',
+      'ev_click_landing_explanation_chapter_',
     ]
 
     for (const prefix of eventPrefixes) {
@@ -300,6 +302,30 @@ export async function analyze(core: Core) {
             ws.analyze.brushColors[id] = { count: 0 }
           }
           ws.analyze.brushColors[id].count++
+          continue
+        }
+
+        const selectChapter = /^ev_select_chapter_(.+)/.exec(entry.event)
+
+        if (selectChapter) {
+          const id = parseInt(selectChapter[1])
+          if (!ws.analyze.chapters[id]) {
+            ws.analyze.chapters[id] = { explanation: 0, selected: 0 }
+          }
+          ws.analyze.chapters[id].selected++
+          continue
+        }
+
+        const explantion = /^ev_click_landing_explanation_chapter_(.+)/.exec(
+          entry.event
+        )
+
+        if (explantion) {
+          const id = parseInt(explantion[1])
+          if (!ws.analyze.chapters[id]) {
+            ws.analyze.chapters[id] = { explanation: 0, selected: 0 }
+          }
+          ws.analyze.chapters[id].explanation++
           continue
         }
 
