@@ -1,6 +1,8 @@
-# 🖨️ Kapitel 2: Eingabe/Ausgabe – Deine erste Kommunikation mit Python!
+# 💬 Kapitel 2: Interaktionen
 
-Willkommen zum interaktiven Teil! Hier lernst du, wie dein Programm mit der Außenwelt kommuniziert – es wird Texte anzeigen und auf Eingaben reagieren können. Let's go! 🚀
+Es ist wunderbar, ich spüre, wie mit jeder gelösten Aufgabe in der Quantenstruktur der Leinwände mehr Ordnung entsteht. Wenn wir so weitermachen, findet sich sicher ein Weg für mich hier raus.
+
+Bis dahin werde ich dir ein paar weitere Dinge in Python zeigen. Ich möchte dir zeigen, wie dein Programm mit der Außenwelt kommuniziert – es wird Texte anzeigen und auf Eingaben reagieren können. Let's go! 🚀
 
 ## 1. Die `print()`-Funktion – Sprich mit der Welt!
 
@@ -11,8 +13,9 @@ Mit `print()` kannst du alles ausgeben – Texte, Zahlen oder Variablen.
 print("Hallo Welt! 🌍")
 
 # Mehrere Elemente ausgeben
+# Kommas fügen automatisch Leerzeichen ein
 alter = 12
-print("Ich bin", alter, "Jahre alt!")  # Kommas fügen automatisch Leerzeichen ein
+print("Ich bin", alter, "Jahre alt!")
 ```
 
 ## 2. Die `input()`-Funktion – Frag deine Nutzer!
@@ -78,21 +81,6 @@ print(f"In 5 Jahren bist du {alter + 5}!")
 # Formatierung von Zahlen
 preis = 3.1415
 print(f"Preis: {preis:.2f}€")  # Zwei Nachkommastellen
-```
-
-## 🧩 Challenge Time!
-
-Erstelle ein Programm, das:
-
-1. Nach dem Lieblingsessen fragt
-2. Nach der gewünschten Portionsanzahl fragt
-3. Ausgibt: "Du möchtest 3 Portionen Pizza bestellen. Guten Appetit! 🍕"
-
-```python
-# Hier deine Lösung:
-essen = input("Was ist dein Lieblingsessen? ")
-portionen = int(input("Wie viele Portionen möchtest du? "))
-print(f"Du möchtest {portionen} Portionen {essen} bestellen. Guten Appetit! 🍽️")
 ```
 
 ## 💡 Wichtigste Erkenntnisse

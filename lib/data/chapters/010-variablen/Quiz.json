@@ -1,0 +1,83 @@
+{
+  "version": "v1",
+  "title": "Quiz",
+  "description": "Dein Allgemeinwissen ist gefragt. Weise diesen drei Variablen den richtigen Wert zu:\n\n- `hauptstadt_deutschland`\n- `ende_des_zweiten_weltkriegs`\n- `ein_viertel_als_dezimalzahl`\n\nWähle jeweils einen passenden Datentyp. Achte auf Groß-/Kleinschreibung.",
+  "tasks": [
+    {
+      "title": "Quiz",
+      "start": {
+        "dimX": 6,
+        "dimY": 6,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [true, true, true, false, true],
+            [false, false, true, false, true],
+            [false, false, true, false, true],
+            [false, true, false, false, true],
+            [false, false, false, false, false],
+            [false, true, false, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 6,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [true, true, true, false, true],
+            [false, false, true, false, true],
+            [false, false, true, false, true],
+            [false, true, false, false, true],
+            [false, false, false, false, false],
+            [false, true, false, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "__ide_prompt(\"Bereit für das Quiz?\", \"Quiz starten\")\n\n__ide_run_client()\n\nquiz_checks = [\n    ('hauptstadt_deutschland', str, \"Berlin\", \"Text in Anführungszeichen\"),\n    ('ende_des_zweiten_weltkriegs', int, 1945, \"Ganzzahl\"),\n    ('ein_viertel_als_dezimalzahl', float, 0.25, \"Kommazahl\")\n]\n\nfehler = 0\nresultate = []\n\nfor var, typ, wert, hinweis in quiz_checks:\n    if var not in globals():\n        resultate.append(f'❌ Variable `{var}` fehlt!\\n\\n')\n        fehler += 1\n        continue\n    \n    if not isinstance(globals()[var], typ):\n        resultate.append(f'❌ `{var}` hat nicht den richtigen Datentyp\\n\\n')\n        fehler += 1\n        continue\n    \n    if globals()[var] != wert:\n        resultate.append(f'❌ `{var}` hat den falschen Wert: {globals()[var]}\\n\\n')\n        fehler += 1\n        continue\n        \n    resultate.append(f'✅ `{var}` ist korrekt!\\n\\n')\n\nif fehler > 0:\n    message = \"\\n\".join(resultate)\n    __ide_prompt(f'Es gibt noch {fehler} Fehler:\\n\\n{message}', 'Nochmal versuchen')\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Super! 🎉 Alle Fragen wurden richtig beantwortet!', 'Fertig')",
+  "language": "python-pro",
+  "program": "# Schreibe hier deine Antworten auf"
+}
