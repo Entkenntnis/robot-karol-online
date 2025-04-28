@@ -10,7 +10,7 @@ export function ExplanationModal() {
   return (
     <div className="bg-black/20 fixed inset-0 flex justify-center items-center z-[350]">
       <div
-        className="max-h-[90%] w-[72ch] min-h-[30%] bg-white z-[400] rounded-xl relative flex"
+        className="max-h-[90%] w-[calc(min(72ch,90vw))] min-h-[30%] bg-white z-[400] rounded-xl relative flex"
         onClick={(e) => {
           e.stopPropagation()
         }}
