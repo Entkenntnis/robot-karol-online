@@ -815,7 +815,11 @@ export function Overview() {
                             showModal(core, 'explanation')
                           }}
                         >
-                          <p className="text-center">README</p>
+                          <p className="text-center whitespace-nowrap flex justify-center">
+                            {chapterData[
+                              core.ws.overview.chapter
+                            ].title.substring(3)}
+                          </p>
                           <img
                             src="/gluehbirne.png"
                             alt=""
