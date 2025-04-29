@@ -930,7 +930,7 @@ export function Overview() {
                     setPersist(core, true)
                     hideSaveHint(core)
                     forceRerender(core)
-                    showModal(core, 'sync')
+                    //showModal(core, 'sync')
                     submitAnalyzeEvent(core, 'ev_click_landing_syncProgress')
                   }}
                 >

@@ -87,11 +87,13 @@ export function RemixModal() {
             }}
           >
             <option value={-1}>{core.strings.editor.pleaseChoose}</option>
-            {questList.map((id) => (
-              <option key={id} value={id}>
-                {questData[id].title} (id {id})
-              </option>
-            ))}
+            {questList
+              .filter((id) => id < 10000)
+              .map((id) => (
+                <option key={id} value={id}>
+                  {questData[id].title} (id {id})
+                </option>
+              ))}
           </select>
           <button
             className="px-1 py-0.5 rounded bg-green-300 hover:bg-green-400 ml-3 disabled:bg-gray-300"

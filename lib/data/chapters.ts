@@ -10,26 +10,28 @@ const chapterInfo = [
     "title": "0. Einleitung",
     "originalTitle": "Einleitung",
     "description": "# Einleitung\r\n\r\nAuf deinem Weg zur Schule steht das Haus einer alten Künstlerin. Sie sitzt oft im Garten und malt. Doch seit mehreren Tagen ist sie nicht mehr zu sehen und die Balkontür steht weit offen.\r\n\r\nNach einer Woche hältst du es nicht mehr aus. Du entscheidest dich, der Sache auf den Grund zu gehen. Du nimmst deinen Mut zusammen, kletterst über den Zaun und schaust vorsichtig in das Haus rein. Alles ruhig. Du betrittst über die Tür die Küche und schaust dich weiter um.\r\n\r\nAls du das Wohnzimmer betrittst, bleibt dir die Luft weg. Im ganzen Raum verteilt stehen leuchtende Leinwände. Was ist das für eine Technologie? Sie zeigen abstrakte Muster und Farben.\r\n\r\n\"Oh, ich bin so froh, dass du hier bist.\", ertönt eine Stimme. Du stößt einen Schrei aus. Auf einer Leinwand erscheint eine Figur, die mit dir redet.\r\n\r\n\"Ich bin Karol, die Künstlerin. Diese Leinwände sind sehr gefährlich. Ich wurde gewarnt, aber ich war zu neugierig. Ich habe sie natürlich sofort ausprobiert. Jetzt bin ich hier drinnen gefangen und komme nicht mehr raus. Wärst du bereit, mir ein wenig in meiner misslichen Lage zu helfen?\"\r\n",
+    "image": "/story/0.jpg",
     "quests": [],
-    "x": 780,
-    "y": 1660
+    "x": 890,
+    "y": 1580
   },
   {
     "id": 10002,
     "dirName": "010-variablen",
     "title": "1. Variablen",
     "originalTitle": "Variablen",
-    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nKarol spricht weiter: Diese Leinwände sind eine Verbindung aus Quantentechnik und AI. Seitdem ich hier gefangen bin, konnte ich ihre innere Struktur untersuchen und sie ist sehr faszinierend, aber auch verwirrend. Anscheinend gibt es die Möglichkeit, durch Python-Code mit der Quantenstruktur zu kommunizieren. Es kann daher nicht schaden, wenn ich dir ein paar Grundlagen der Programmiersprache zeige. Aber keine Sorge, ich werde mich knapp halten.\r\n\r\nLass dich nicht von Variablen erschrecken, sie sind viel einfacher zu verstehen als in der Mathematik. Sie funktionieren wie kleine Boxen, in denen du Informationen speichern kannst:\r\n\r\n```py\r\nname = \"Anna\"\r\nalter = 14\r\ngröße = 1.65\r\nkann_schwimmen = True\r\n```\r\n\r\nDas `=` nennt sich _Wertzuweisung_ und speichert den Wert auf der rechten Seite unter den Namen auf der linken Seite.\r\n\r\n## 📦 Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 🔄 Variablen verändern\r\n\r\nDu kannst Werte jederzeit ändern:\r\n\r\n```python\r\npunkte = 10\r\nprint(punkte)  # Ausgabe: 10\r\n\r\npunkte = 15    # Neuer Wert\r\nprint(punkte)  # Ausgabe: 15\r\n```\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nSo geht's **nicht**:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang\r\nmein-name = \"Lena\" # Bindestrich nicht erlaubt\r\nclass = 8B         # Schlüsselwörter verboten\r\n```\r\n\r\nAchte bei den Variablenamen auf Groß- und Kleinschreibung!\r\n\r\n## 💡 Kommentare\r\n\r\nManchmal stehen Erklärungen im Text. Diese beginnen mit einem `#` (Hash-Tag).\r\n\r\n```python\r\n# Diese Variable zählt die Highscores\r\nhighscore = 0  # Startwert ist 0\r\n```\r\n\r\n## Quantenknoten\r\n\r\nWenn du auf \"weiter\" klickst, öffnen sich Quantenknoten. Dort kannst du mit dieser mysteriösen Energie interagieren. Viel Erfolg beim Lösen der Aufgaben!\r\n",
+    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nDu entscheidest dich dazu, der alten Dame zu helfen. Für den Nachmittag hast du eh nichts mehr vor. Also warum nicht ein kleines Abenteuer erleben? Karol ist sichtlich erleichtert und fängt an zu erzählen:\r\n\r\n\"Diese Leinwände sind eine Verbindung aus Quantentechnik und AI. Seitdem ich hier gefangen bin, konnte ich ihre innere Struktur untersuchen und sie ist sehr faszinierend, aber auch verwirrend. Anscheinend gibt es die Möglichkeit, durch **Python-Code** mit der Quantenstruktur zu kommunizieren. Es kann daher nicht schaden, wenn ich dir ein paar Grundlagen der Programmiersprache zeige. Aber keine Sorge, ich werde mich knapp halten.\r\n\r\nLass dich nicht von Variablen erschrecken, sie sind viel einfacher zu verstehen als in der Mathematik. Sie funktionieren wie kleine Boxen, in denen du Informationen speichern kannst. Sie bilden die Grundlage deiner Programme:\r\n\r\n```py\r\nname = \"Anna\"\r\nalter = 14\r\ngröße = 1.65\r\nkann_schwimmen = True\r\n```\r\n\r\nDas `=` nennt sich _Wertzuweisung_ und speichert den Wert auf der rechten Seite unter den Namen auf der linken Seite.\r\n\r\n## 📦 Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 🔄 Variablen verändern\r\n\r\nDu kannst Werte jederzeit ändern:\r\n\r\n```python\r\npunkte = 10\r\nprint(punkte)  # Ausgabe: 10\r\n\r\npunkte = 15    # Neuer Wert\r\nprint(punkte)  # Ausgabe: 15\r\n```\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nEin paar Sachen sind bei Namen von Variablen nicht erlaubt:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang geht nicht\r\nmein-name = \"Lena\" # Bindestrich nicht erlaubt\r\nclass = 8B         # Schlüsselwörter verboten\r\n```\r\n\r\nAchte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen Unterschied.\r\n\r\n## 💡 Kommentare\r\n\r\nOft stehen Erklärungen im Text. Diese beginnen mit einem `#` (Hash-Tag).\r\n\r\n```python\r\n# Diese Variable zählt die Highscores\r\nhighscore = 0  # Startwert ist 0\r\n```\r\n\r\n## ⚛️ Quantenknoten\r\n\r\nWenn du auf _Weiter_ klickst, öffnen sich Quantenknoten. Dort kannst du mit dieser mysteriösen Energie interagieren. Viel Erfolg beim Lösen der Aufgaben!\"\r\n",
+    "image": "/story/1.jpg",
     "quests": [
       {
         "filename": "Raumschiffvorbereitung.json",
-        "x": 100,
-        "y": 100,
+        "x": 540,
+        "y": 30,
         "id": 114,
         "content": {
           "version": "v1",
           "title": "Raumschiffvorbereitung",
-          "description": "In dieser Quantenwelt dreht sich alles um die Steuerung eines Raumschiffs! Initialisiere die Variablen für die Startfreigabe.\n\n- `treibstoff`: Ganzzahl mit 10000 Litern\n- `sauerstoff`: Ganzzahl mit 500 Einheiten\n- `antriebsleistung`: Kommazahl 3.5\n- `system_aktiv`: Wahrheitswert True",
+          "description": "In diesem Quantenknoten dreht sich alles um die Steuerung eines Raumschiffs! Initialisiere die Variablen für die Startfreigabe.\n\n- `treibstoff`: Ganzzahl mit 10000 Litern\n- `sauerstoff`: Ganzzahl mit 500 Einheiten\n- `antriebsleistung`: Kommazahl 3.5\n- `system_aktiv`: Wahrheitswert True",
           "tasks": [
             {
               "title": "Systeminitialisierung",
@@ -217,8 +219,8 @@ const chapterInfo = [
       },
       {
         "filename": "Zaubertrank_brauen.json",
-        "x": 300,
-        "y": 230,
+        "x": 428,
+        "y": 144,
         "id": 115,
         "content": {
           "version": "v1",
@@ -431,8 +433,8 @@ const chapterInfo = [
       },
       {
         "filename": "Drei_W_nsche.json",
-        "x": 500,
-        "y": 280,
+        "x": 620,
+        "y": 184,
         "id": 117,
         "content": {
           "version": "v1",
@@ -653,8 +655,8 @@ const chapterInfo = [
       },
       {
         "filename": "Quiz.json",
-        "x": 800,
-        "y": 230,
+        "x": 777,
+        "y": 210,
         "id": 118,
         "content": {
           "version": "v1",
@@ -825,13 +827,13 @@ const chapterInfo = [
       },
       {
         "filename": "Hin_und_her.json",
-        "x": 780,
+        "x": 850,
         "y": 90,
         "id": 116,
         "content": {
           "version": "v1",
           "title": "Hin und her",
-          "description": "Bei dieser Aufgabe geht es wild durcheinander. Die Variablen werden ohne erkennbares System hin und her gesetzt.\n\nSchaue dir das Script an und finde heraus, welchen Wert die Variable `erde` am Ende des Programms hat. Wenn du die Antwort weißt, dann klicke auf Start.",
+          "description": "Es herrscht Chaos. Die Variablen wurden ohne erkennbares System hin und her gesetzt.\n\nSchaue dir das Script an und finde heraus, welchen Wert die Variable `erde` am Ende des Programms hat. Wenn du die Antwort weißt, dann klicke auf Start.",
           "tasks": [
             {
               "title": "Ein Durcheinander",
@@ -1054,8 +1056,8 @@ const chapterInfo = [
         ]
       }
     ],
-    "x": 430,
-    "y": 1750
+    "x": 710,
+    "y": 1640
   },
   {
     "id": 10003,
@@ -1063,9 +1065,10 @@ const chapterInfo = [
     "title": "2. Interaktionen 🚧",
     "originalTitle": "Interaktionen 🚧",
     "description": "# 💬 Kapitel 2: Interaktionen\r\n\r\nEs ist wunderbar, ich spüre, wie mit jeder gelösten Aufgabe die Quantenstruktur der Leinwände mehr Ordnung erhält. Wenn wir so weitermachen, findet sich sicher ein Weg für mich hier raus.\r\n\r\nBis dahin werde ich dir ein paar weitere Dinge in Python zeigen. Als nächstes möchte ich dir zeigen, wie dein Programm mit der Außenwelt kommuniziert – es wird Texte anzeigen und auf Eingaben reagieren können. Let's go! 🚀\r\n\r\n## 1. Die `print()`-Funktion – Sprich mit der Welt!\r\n\r\nMit `print()` kannst du alles ausgeben – Texte, Zahlen oder Variablen.\r\n\r\n```python\r\n# Einfache Ausgabe\r\nprint(\"Hallo Welt! 🌍\")\r\n\r\n# Mehrere Elemente ausgeben\r\n# Kommas fügen automatisch Leerzeichen ein\r\nalter = 12\r\nprint(\"Ich bin\", alter, \"Jahre alt!\")\r\n```\r\n\r\n## 2. Die `input()`-Funktion – Frag deine Nutzer!\r\n\r\nSo holst du dir Eingaben vom Benutzer ab:\r\n\r\n```python\r\n# Einfache Eingabe\r\nname = input(\"Wie heißt du? \")\r\nprint(\"Hallo\", name, \"! 😊\")  # Kommas fügen automatisch Leerzeichen ein\r\n\r\n# Achtung Falle: Alles ist erstmal Text!\r\ngeburtsjahr = input(\"In welchem Jahr bist du geboren? \")\r\nprint(type(geburtsjahr))  # Gibt <class 'str'> aus – obwohl wir eine Zahl erwarten!\r\n```\r\n\r\n## 3. Typumwandlung – Mach aus Texten Zahlen\r\n\r\nDamit du mit Eingaben rechnen kannst:\r\n\r\n```python\r\n# String zu Integer\r\ngeburtsjahr = int(input(\"Geburtsjahr: \"))\r\naktuelles_jahr = 2023\r\nalter = aktuelles_jahr - geburtsjahr\r\nprint(\"Du bist etwa\", alter, \"Jahre jung! 🎂\")\r\n\r\n# String zu Float\r\ngroesse = float(input(\"Wie groß bist du (in Metern)? \"))\r\nprint(\"Wow,\", groesse, \"m – du wächst bestimmt noch! 🌱\")\r\n```\r\n\r\n## 4. Texte verbinden – Verschiedene Wege zum Ziel\r\n\r\nIn Python gibt es mehrere Möglichkeiten, Texte und andere Werte auszugeben. Beginnen wir mit der einfachsten:\r\n\r\n### a) Die Komma-Methode – einfach und anfängerfreundlich\r\n\r\n```python\r\n# Mit Kommas werden verschiedene Werte durch Leerzeichen getrennt:\r\nname = \"Max\"\r\nalter = 12\r\nprint(\"Hallo\", name, \"du bist\", alter, \"Jahre alt!\")\r\n# Ausgabe: \"Hallo Max du bist 12 Jahre alt!\"\r\n\r\n# Diese Methode ist besonders praktisch, weil:\r\n# - Sie funktioniert mit allen Datentypen ohne Umwandlung\r\n# - Sie fügt automatisch Leerzeichen ein\r\n# - Sie ist leicht zu lesen und zu schreiben\r\n```\r\n\r\n### b) Fortgeschritten: f-Strings – Die moderne Art für schöne Ausgaben 💫\r\n\r\nAb Python 3.6 gibt es eine elegante Lösung für formatierte Ausgaben:\r\n\r\n```python\r\nname = \"Anna\"\r\nalter = 12\r\ngroesse = 1.56\r\n\r\n# Ein f-String beginnt mit f\" und kann Variablen in { } einbetten\r\nprint(f\"Hallo {name}, du bist {alter} Jahre alt und {groesse}m groß!\")\r\n\r\n# Du kannst sogar Berechnungen direkt einfügen:\r\nprint(f\"In 5 Jahren wirst du {alter + 5} Jahre alt sein.\")\r\n\r\n# Und Zahlen schön formatieren:\r\npreis = 3.1415\r\nprint(f\"Das kostet {preis:.2f}€\")  # Zwei Nachkommastellen\r\n```\r\n\r\n### c) Zusatzwissen: String-Konkatenation mit +\r\n\r\nEs gibt noch eine dritte Methode, die in vielen Programmiersprachen verwendet wird:\r\n\r\n```python\r\n# Mit + kannst du Strings verbinden (aber nur Strings!)\r\nvorname = \"Max\"\r\nnachname = \"Mustermann\"\r\nprint(vorname + \" \" + nachname)  # Ausgabe: \"Max Mustermann\"\r\n\r\n# WICHTIG: Mit + musst du alle Werte zu Strings machen!\r\n# Das funktioniert NICHT:\r\n# print(\"Ich bin \" + 12 + \" Jahre alt\")  # Fehler!\r\n\r\n# So geht es richtig:\r\nprint(\"Ich bin \" + str(12) + \" Jahre alt\")  # str() wandelt in Text um\r\n```\r\n\r\n## 💡 Wichtigste Erkenntnisse\r\n\r\n- `print()` gibt aus, `input()` liest ein (immer als String!)\r\n- Mit `int()` und `float()` machst du aus Texten Zahlen\r\n- Für Textausgaben:\r\n  - Anfänger: Nutze Kommas in print() für einfachste Handhabung\r\n  - Fortgeschrittene: f-Strings sind leicht lesbar und vielseitig\r\n  - Zusätzlich: \"+\" verbindet nur Strings, erfordert Typumwandlung\r\n- f-Strings sind besonders nützlich für formatierte Ausgaben\r\n\r\nJetzt kannst du schon richtige Dialoge mit deinem Programm führen! Probiere verschiedene Kombinationen aus und sieh, was passiert. 🎮💬\r\n",
+    "image": "",
     "quests": [],
-    "x": 850,
-    "y": 2200
+    "x": 310,
+    "y": 1930
   },
   {
     "id": 10004,
@@ -1073,6 +1076,7 @@ const chapterInfo = [
     "title": "3. Dein Code wird schlau 🚧",
     "originalTitle": "Dein Code wird schlau 🚧",
     "description": "# 🎮 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\nWillkommen in der Welt der intelligenten Programme! Heute lernen wir, wie Computer Entscheidungen treffen – genau wie du im echten Leben. 🧠\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nStell dir vor, du stehst an einer Ampel:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\"\r\n- `==` prüft auf Gleichheit\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Achtung: Einrückungen (meist 4 Leerzeichen) sind in Python Pflicht!\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\nWas, wenn die Ampel **nicht** grün ist?\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    print(\"Noch etwas Geduld... 🕒\")  # Wird ausgeführt, weil 15 < 18\r\n```\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\nMehrere Bedingungen hintereinander prüfen:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    print(\"Eiszeit! 🍦\")  # Wird ausgeführt, weil sonnig\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n## 🏆 Übungsaufgabe: Rabattrechner\r\n\r\nErstelle ein Programm, das:\r\n\r\n1. Nach dem Einkaufswert fragt\r\n2. 10% Rabatt gibt bei über 100€\r\n3. 15% Rabatt bei über 200€\r\n4. 5% Rabatt für Treuekunden (zusätzliche Frage)\r\n\r\n**Tipp:** Kombiniere if-elif-else und logische Operatoren!\r\n\r\n```python\r\n# Hier deine Lösung versuchen!\r\n```\r\n\r\nProbiere es aus und lass deinen Code verschiedene Entscheidungen treffen! 🚀 Jedes Mal, wenn du `if` schreibst, gibst du deinem Programm ein Stück Intelligenz. Viel Spaß beim Coden! 😊\r\n",
+    "image": "",
     "quests": [],
     "x": 550,
     "y": 2300
@@ -1083,6 +1087,7 @@ const chapterInfo = [
     "title": "4. Mathe-Genie 🚧",
     "originalTitle": "Mathe-Genie 🚧",
     "description": "# 🧮 Kapitel 4: Mathe-Genie – Rechnen wie ein Profi!\r\n\r\nWillkommen in der Welt der Python-Mathematik! Hier lernst du, wie du Zahlen gekonnt jonglierst und coole Berechnungen anstellst. Let's go! 🚀\r\n\r\n## 1. Arithmetische Grundoperationen\r\n\r\nPython versteht alle Grundrechenarten – probier's aus:\r\n\r\n```python\r\nprint(5 + 3)   # Addition: 8\r\nprint(10 - 4)  # Subtraktion: 6\r\nprint(2 * 6)   # Multiplikation: 12\r\nprint(8 / 2)   # Division: 4.0 (Achtung, Ergebnis ist float!)\r\n```\r\n\r\n## 2. Punkt-vor-Strich & Klammern\r\n\r\nPython rechnet wie in der Schule – erst Punkt- dann Strichrechnung:\r\n\r\n```python\r\nprint(3 + 4 * 2)   # 11 (nicht 14!)\r\nprint((3 + 4) * 2) # 14 – Klammern ändern alles!\r\n```\r\n\r\n## 3. Turbo-Zuweisungen 🚀\r\n\r\nKurze Schreibweise für Variablen-Updates:\r\n\r\n```python\r\npunkte = 10\r\npunkte += 5  # Äquivalent zu: punkte = punkte + 5\r\nprint(punkte) # 15\r\n\r\n# Funktioniert auch mit -=, *=, /=\r\n```\r\n\r\n## 4. Power mit \\*\\*\r\n\r\nPotenzieren leicht gemacht:\r\n\r\n```python\r\nprint(2 ** 3)  # 8 (2³)\r\nprint(5 ** 0.5) # Wurzel aus 5 ≈ 2.236\r\n```\r\n\r\n## 5. Mathe-Modul für Profis\r\n\r\nFür komplexere Rechnungen brauchen wir `math`:\r\n\r\n```python\r\nimport math\r\n\r\n# Wurzel ziehen\r\nprint(math.sqrt(25))  # 5.0\r\n\r\n# Mit Pi rechnen\r\nradius = 3\r\numfang = 2 * math.pi * radius\r\nprint(f\"Umfang: {umfang:.2f} cm\")  # Formatierung auf 2 Nachkommastellen\r\n```\r\n\r\n## 6. Variablen im Einsatz\r\n\r\nVariablen machen Berechnungen dynamisch:\r\n\r\n```python\r\nlänge = 8\r\nbreite = 5\r\nfläche = länge * breite\r\nprint(f\"Die Fläche beträgt {fläche} m²\")  # 40 m²\r\n```\r\n\r\n## 🏆 Übungszeit!\r\n\r\n1. Berechne das Volumen eines Würfels mit Kantenlänge 7 cm\r\n2. Wandele 100° Fahrenheit in Celsius um: (°F − 32) × 5/9\r\n3. Berechne die Hypotenuse eines rechtwinkligen Dreiecks mit Katheten 3 und 4 cm\r\n\r\n```python\r\n# Lösung 3:\r\nimport math\r\na = 3\r\nb = 4\r\nc = math.sqrt(a**2 + b**2)\r\nprint(c)  # 5.0 – der berühmte Pythagoras!\r\n```\r\n\r\nMathe macht mit Python richtig Spaß, oder? 😎 Probiere verschiedene Kombinationen aus und werde zum Rechenkünstler!\r\n",
+    "image": "",
     "quests": [
       {
         "filename": "intro2.json",
@@ -1194,7 +1199,7 @@ const chapterInfo = [
           ],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "import random\n\n__ide_prompt(\"Der magische Kessel ist bereit!\", \"Brauen beginnen\")\n\nschlamm = random.randint(90, 210)\nerwartet_pilz = round(schlamm / 3, 2)\nerwartet_glitzer = round(erwartet_pilz * 2, 2)\n\n__ide_run_client(globals=['schlamm'])\n\nfor var in ['pilzpulver', 'glitzer']:\n    if var not in globals():\n        __ide_prompt(f`Variable '{var}' fehlt! Bitte berechne alle Zutaten.`, \"Beenden\")\n        __ide_exit()\n\nif not abs(pilzpulver - erwartet_pilz) < 0.01:\n    __ide_prompt(f\"Pilzpulver: {schlamm} / 3 = {erwartet_pilz}, nicht {pilzpulver}\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif not abs(glitzer - erwartet_glitzer) < 0.01:\n    __ide_prompt(f\"Glitzer: {erwartet_pilz} * 2 = {erwartet_glitzer}, nicht {glitzer}\", \"Überprüfen\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(f\"⚗️ Der Trank brodelt perfekt! ({schlamm}ml Schlamm verarbeitet)\", \"Magisch!\")",
+          "questScript": "import random\n\n__ide_prompt(\"Der magische Kessel ist bereit!\", \"Brauen beginnen\")\n\nschlamm = random.randint(90, 210)\nerwartet_pilz = round(schlamm / 3, 2)\nerwartet_glitzer = round(erwartet_pilz * 2, 2)\n\n__ide_run_client(globals=['schlamm'])\n\nfor var in ['pilzpulver', 'glitzer']:\n    if var not in globals():\n        __ide_prompt(f\"Variable '{var}' fehlt! Bitte berechne alle Zutaten.\", \"Beenden\")\n        __ide_exit()\n\nif not abs(pilzpulver - erwartet_pilz) < 0.01:\n    __ide_prompt(f\"Pilzpulver: {schlamm} / 3 = {erwartet_pilz}, nicht {pilzpulver}\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif not abs(glitzer - erwartet_glitzer) < 0.01:\n    __ide_prompt(f\"Glitzer: {erwartet_pilz} * 2 = {erwartet_glitzer}, nicht {glitzer}\", \"Überprüfen\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(f\"⚗️ Der Trank brodelt perfekt! ({schlamm}ml Schlamm verarbeitet)\", \"Magisch!\")",
           "language": "python-pro",
           "program": "# Der magische Schlamm-Wert ist vorgegeben\npilzpulver = 0  # Ersetze 0 durch schlamm / 3\nglitzer = 0     # Ersetze 0 durch pilzpulver * 2"
         },
@@ -1212,6 +1217,7 @@ const chapterInfo = [
     "title": "5. Wiederholungen 🚧",
     "originalTitle": "Wiederholungen 🚧",
     "description": "# 🎯 Kapitel 5: Die Kunst der Wiederholung mit for & while\r\n\r\nHeute lernst du, wie man Code wiederholt – wie ein DJ, der den perfekten Beat loopt! 🎧\r\n\r\n## 🧩 Listen – Deine Daten-Sammelbox\r\n\r\nStell dir eine Einkaufsliste vor, aber für Computer:\r\n\r\n```python\r\n# So erstellst du eine Liste\r\nspielkarten = [\"Herz Ass\", \"Karo König\", \"Pik Dame\", \"Kreuz Bube\"]\r\nprimzahlen = [2, 3, 5, 7, 11]\r\nmixed_list = [42, \"Antwort\", True] # Alles mögliche drin!\r\n```\r\n\r\n## 🔄 Die for-Schleife – Dein Wiederholungs-Profi\r\n\r\n**\"Für jedes Element in der Liste: Mach was damit!\"**\r\n\r\n```python\r\n# Einkaufsliste abarbeiten\r\neinkaufsliste = [\"Äpfel\", \"Banane\", \"Milch\"]\r\n\r\nfor produkt in einkaufsliste:\r\n    print(f\"✏️ Brauche noch: {produkt}\")\r\n    print(\"...auf zum nächsten Produkt!\\n\")\r\n```\r\n\r\n_Ausgabe:_\r\n\r\n```\r\n✏️ Brauche noch: Äpfel\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Banane\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Milch\r\n...auf zum nächsten Produkt!\r\n```\r\n\r\n**Mit Zahlen arbeiten? Klar mit range():**\r\n\r\n```python\r\n# Countdown mit Style 🚀\r\nfor sekunde in range(5, 0, -1):\r\n    print(f\"{sekunde... Abflug!\")\r\nprint(\"🔥 Liftoff!\")\r\n```\r\n\r\n## ⏳ Die while-Schleife – Der Hartnäckige\r\n\r\n**\"Mach weiter, solange die Bedingung stimmt!\"**\r\n\r\n```python\r\n# Pizza-Back-Simulator 🍕\r\ntemperatur = 20\r\nziel_temp = 220\r\n\r\nwhile temperatur < ziel_temp:\r\n    temperatur += 20\r\n    print(f\"°C: {temperatur}°C | Heizt auf...\")\r\n\r\nprint(\"🔔 Pizza ist fertig! Buon appetito!\")\r\n```\r\n\r\n_Vorsicht:_ Vergiss nicht die Temperatur zu erhöhen, sonst brennt der Ofen durch! 🔥\r\n\r\n## 🥊 for vs. while – Wer wann?\r\n\r\n- **FOR:** Wenn du weißt, wie oft's laufen soll (z.B. Liste durchgehen)\r\n- **WHILE:** Wenn es auf eine Bedingung ankommt (z.B. Spiel läuft, bis Game Over)\r\n\r\n## 🎯 Challenge:\r\n\r\nErrate die geheime Zahl mit nur 3 Versuchen!\r\n\r\n```python\r\ngeheimzahl = 7\r\nversuche = 3\r\n\r\nwhile versuche > 0:\r\n    raten = int(input(\"🎯 Dein Tipp (1-10): \"))\r\n    if raten == geheimzahl:\r\n        print(\"🎉 Treffer! Gewonnen!\")\r\n        break\r\n    versuche -= 1\r\n    print(f\"❌ Daneben! Noch {versuche} Versuche\")\r\nelse:\r\n    print(\"😢 Game Over! Keine Versuche mehr\")\r\n```\r\n\r\n## 💡 Pro-Tipps:\r\n\r\n- `range()` kann auch so: `range(start, ende, schritt)`\r\n- Benenne Schleifen-Variablen sinnvoll:\r\n  - `for schüler in klasse:` statt `for x in y:`\r\n- Breakpoint setzen? Einfach `break` schreiben!\r\n\r\nJetzt du: Erfinde deine eigenen Schleifen-Experimente! 🔄 Wie wär's mit einem Roboter-Tanz per Code? 🤖💃🕺\r\n",
+    "image": "",
     "quests": [],
     "x": 350,
     "y": 2400
@@ -1222,6 +1228,7 @@ const chapterInfo = [
     "title": "6. Glücksspiel kann süchtig machen 🚧",
     "originalTitle": "Glücksspiel kann süchtig machen 🚧",
     "description": "# 🎲 Kapitel 6: Glücksspiel kann süchtig machen\r\n\r\nWillkommen in der Welt des Zufalls! Hier lernst du, wie du deine Programme unvorhersehbar und spannend gestalten kannst – perfekt für Spiele, Simulationen und Überraschungseffekte. 🎮✨\r\n\r\n## 🎯 Zufallszahlen mit `random.randint()`\r\n\r\nZuerst müssen wir das `random`-Modul importieren:\r\n\r\n```python\r\nimport random\r\n```\r\n\r\n**Würfel-Simulator**:  \r\nErzeuge eine zufällige Ganzzahl zwischen 1 und 6:\r\n\r\n```python\r\nwürfel = random.randint(1, 6)\r\nprint(f\"Du hast eine {würfel} gewürfelt! 🎲\")\r\n```\r\n\r\n**Ratespiel**:  \r\nDer Computer denkt sich eine Zahl aus, die du erraten musst:\r\n\r\n```python\r\ngeheimzahl = random.randint(1, 100)\r\nversuch = int(input(\"Rate eine Zahl zwischen 1-100: \"))\r\n\r\nif versuch == geheimzahl:\r\n    print(\"Treffer! 🎯\")\r\nelse:\r\n    print(f\"Leider daneben. Die Zahl war {geheimzahl}. 😅\")\r\n```\r\n\r\n## 🎁 Zufällige Auswahl mit `random.choice()`\r\n\r\n**Münzwurf**:  \r\nKopf oder Zahl? Entscheide dich!\r\n\r\n```python\r\nmöglichkeiten = [\"Kopf\", \"Zahl\"]\r\nergebnis = random.choice(möglichkeiten)\r\nprint(f\"Die Münze zeigt: {ergebnis}! 💰\")\r\n```\r\n\r\n**Glückskeks-Simulator**:  \r\nLass dich von weisen Sprüchen überraschen:\r\n\r\n```python\r\nsprüche = [\r\n    \"Heute ist dein Glückstag! 🌟\",\r\n    \"Vorsicht vor fallenden Kokosnüssen. 🥥\",\r\n    \"Code, den du heute schreibst, wird dich morgen retten. 💻\"\r\n]\r\nprint(random.choice(sprüche))\r\n```\r\n\r\n## 🚀 Tipps & Tricks\r\n\r\n- `randint(a, b)` inkludiert **beide** Grenzen (1 **und** 6 beim Würfel).\r\n- Mit `random.choice()` kannst du auch Listen von Zahlen, Farben oder Spielkarten mischen.\r\n- Probiere ein **Mini-Lotteriespiel**: Ziehe 6 Zahlen zwischen 1-49:\r\n  ```python\r\n  lottozahlen = random.sample(range(1,50), 6)\r\n  print(f\"Gewinnzahlen: {lottozahlen} 🍀\")\r\n  ```\r\n\r\n## 💡 Challenge: Stein-Schere-Papier\r\n\r\nProgrammiere ein Spiel gegen den Computer! Der Benutzer gibt seine Wahl ein (z.B. \"Stein\"), der Computer wählt zufällig aus [\"Stein\", \"Schere\", \"Papier\"] und entscheidet, wer gewinnt. 🪨✂️📄\r\n\r\n**Beispiel-Lösung**:\r\n\r\n```python\r\noptionen = [\"Stein\", \"Schere\", \"Papier\"]\r\ncomputer_wahl = random.choice(optionen)\r\nspieler_wahl = input(\"Stein, Schere oder Papier? \")\r\n\r\nprint(f\"Computer wählt: {computer_wahl}\")\r\n# Vergleichslogik hier einfügen (if/elif/else)\r\n```\r\n\r\nViel Spaß beim Experimentieren – aber pass auf, dass du nicht süchtig nach deinen eigenen Spielen wirst! 😉🔥\r\n",
+    "image": "",
     "quests": [],
     "x": 600,
     "y": 2500
@@ -1232,6 +1239,7 @@ const chapterInfo = [
     "title": "7. Weniger Chaos, mehr Funktionen 🚧",
     "originalTitle": "Weniger Chaos, mehr Funktionen 🚧",
     "description": "# 🎉 Kapitel 7: Weniger Chaos, mehr Funktionen 🎉\r\n\r\nWillkommen in der Welt der Funktionen! Hier lernst du, wie du deinen Code organisierst und Wiederholungen vermeidest. Funktionen sind wie kleine Helfer, die Aufgaben für dich übernehmen – praktisch, oder? 😊\r\n\r\n## 1. Funktionen erstellen mit `def`\r\n\r\nSo baust du deine eigene Funktion:\r\n\r\n```python\r\ndef begruessung():\r\n    print(\"Hallo Coding-Champion!\")\r\n    print(\"Heute wird ein super Tag zum Lernen! 🌟\")\r\n```\r\n\r\n**Aufrufen nicht vergessen:**\r\n\r\n```python\r\nbegruessung()  # Die Funktion wird ausgeführt\r\n```\r\n\r\n## 2. Parameter – Deine persönlichen Boten\r\n\r\nFunktionen können Eingaben entgegennehmen:\r\n\r\n```python\r\ndef persönliche_begrüßung(name):\r\n    print(f\"Hallo {name}!\")\r\n    print(\"Wie geht's?\")\r\n```\r\n\r\n**So verwendest du sie:**\r\n\r\n```python\r\npersönliche_begrüßung(\"Anna\")   # Hallo Anna!\r\npersönliche_begrüßung(\"Max\")    # Hallo Max!\r\n```\r\n\r\n## 3. Docstrings – Deine Funktions-Bedienungsanleitung\r\n\r\n```python\r\ndef quadrat(zahl):\r\n    \"\"\"\r\n    Berechnet das Quadrat einer Zahl\r\n    Parameter: zahl (int/float)\r\n    Rückgabewert: Quadrat der Zahl\r\n    \"\"\"\r\n    return zahl ** 2\r\n```\r\n\r\n**Tipp:** Mit `help(quadrat)` siehst du die Erklärung!\r\n\r\n## 4. Return – Der magische Bringdienst\r\n\r\n```python\r\ndef rechteck_fläche(länge, breite):\r\n    return länge * breite\r\n\r\nergebnis = rechteck_fläche(5, 3)\r\nprint(ergebnis)  # 15\r\n```\r\n\r\n**Wichtig:** `return` beendet die Funktion sofort!\r\n\r\n## 5. Lokale vs. Globale Variablen\r\n\r\n```python\r\nglobale_variable = 10\r\n\r\ndef test_funktion():\r\n    lokale_variable = 5\r\n    print(\"In der Funktion:\", globale_variable + lokale_variable)  # 15\r\n\r\ntest_funktion()\r\nprint(\"Draußen:\", globale_variable)  # 10\r\n# print(lokale_variable) würde einen Fehler geben!\r\n```\r\n\r\n## 🏆 Zusammenfassung\r\n\r\n- `def name():` erstellt Funktionen\r\n- Parameter machen Funktionen flexibel\r\n- `return` gibt Werte zurück\r\n- Docstrings erklären deinen Code\r\n- Lokale Variablen leben nur in der Funktion\r\n\r\n## 🚀 Challenge-Time!\r\n\r\n**Aufgabe:** Erstelle eine Funktion `würfel_volumen`, die die Kantenlänge als Parameter nimmt und das Volumen zurückgibt. Vergiss den Docstring nicht!\r\n\r\n```python\r\n# Hier kommt deine Lösung hin!\r\n\r\ndef würfel_volumen(kante):\r\n    \"\"\"\r\n    Berechnet das Volumen eines Würfels\r\n    Parameter: kante (Zahl)\r\n    Rückgabewert: Volumen (Zahl)\r\n    \"\"\"\r\n    return kante ** 3\r\n\r\n# Teste deine Funktion\r\nprint(würfel_volumen(3))  # Sollte 27 ausgeben\r\n```\r\n\r\nProbiere es aus und lass deine Funktionen tanzen! 💃🕺 Bei Fragen: Einfach ausprobieren – Fehler sind die besten Lehrer! 😉\r\n",
+    "image": "",
     "quests": [],
     "x": 850,
     "y": 2450
@@ -1242,6 +1250,7 @@ const chapterInfo = [
     "title": "8. BONUS",
     "originalTitle": "BONUS",
     "description": "Hier findest du weitere Bonus-Aufgaben.\r\n",
+    "image": "",
     "quests": [
       {
         "filename": "63.json",
@@ -2610,7 +2619,7 @@ export const chapterOverviewData: {
 export const chapterQuests: { [key: number]: QuestData } = {}
 
 // Generate chapterData based on chapter information
-export const chapterData: { [key: number]: { title: string, description: string } } = {}
+export const chapterData: { [key: number]: { title: string, description: string, image: string } } = {}
 
 // Populate the exported objects
 chapterInfo.forEach((chapter) => {
@@ -2618,6 +2627,7 @@ chapterInfo.forEach((chapter) => {
   chapterData[chapter.id] = {
     title: chapter.title,
     description: chapter.description,
+    image: chapter.image,
   }
 
   // Default chapter position and dependencies
