@@ -10,6 +10,8 @@ import { useCore } from '../../lib/state/core'
 import { getUserId } from '../../lib/storage/storage'
 import { questList } from '../../lib/data/overview'
 import { navigate } from '../../lib/commands/router'
+import { FaIcon } from '../helper/FaIcon'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 timeago.register('de', function (number, index, total_sec) {
   // Convert weeks to days.
@@ -114,14 +116,15 @@ export function Highscore() {
 
   return (
     <>
-      <div className="absolute right-2 top-2">
+      <div className="absolute left-2 top-2">
         <button
           className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
           onClick={() => {
             navigate(core, '')
           }}
         >
-          {core.strings.highscore.close}
+          <FaIcon icon={faArrowLeft} className="mr-2" />
+          {core.strings.editor.back}
         </button>
       </div>
       <div className="mt-12 mb-12">

@@ -67,11 +67,12 @@ export function Overview() {
     (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id))
   ).length
 
-  const maxMapY = Math.max(
-    ...Object.entries(mapData)
-      .filter(([id]) => isQuestVisible(parseInt(id)))
-      .map(([, quest]) => quest.y)
-  )
+  const maxMapY =
+    Math.max(
+      ...Object.entries(mapData)
+        .filter(([id]) => isQuestVisible(parseInt(id)))
+        .map(([, quest]) => quest.y)
+    ) + (!isQuestDone(61) ? 500 : -200)
 
   useEffect(() => {
     if (
@@ -381,7 +382,7 @@ export function Overview() {
                   core.ws.page !== 'analyze' && (
                     <div className="absolute top-72 left-12 ">
                       <AnimateInView>
-                        <div className="bg-white/50 rounded-lg p-2 w-[550px]">
+                        <div className="bg-white/50 rounded-lg p-2 w-[550px] shadow-lg">
                           <p>
                             Diese Online-Programmierumgebung führt dich in die
                             Grundlagen von Algorithmen ein: Sequenz,
@@ -460,7 +461,7 @@ export function Overview() {
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content menu bg-base-100/50 rounded-box w-60 p-2 mt-1"
+                      className="dropdown-content menu bg-base-100/20 rounded-box w-60 p-2 mt-1"
                     >
                       <li>
                         <a
@@ -553,9 +554,9 @@ export function Overview() {
                   !isQuestDone(61) &&
                   core.ws.page !== 'demo' &&
                   core.ws.page !== 'analyze' && (
-                    <div className="absolute top-[1640px] left-[670px] ">
+                    <div className="absolute top-[1690px] left-[620px] ">
                       <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                        <div className="bg-white/50 rounded-lg p-2 w-[490px] shadow-lg">
+                        <div className="bg-white/50 rounded-lg p-2 w-[560px] shadow-lg">
                           <p>
                             Programmierung beschränkt sich nicht auf Blöcke oder
                             Karol Code. Lerne hier eine „große“

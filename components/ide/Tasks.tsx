@@ -357,57 +357,10 @@ export function Tasks() {
                 {core.strings.editor.publish}
               </button>
             </p>
-          ) : core.ws.page == 'quest' ? (
-            <p className="z-[300] relative ml-2">
-              <a
-                className="px-2 py-0.5 rounded-lg bg-fuchsia-100 hover:bg-fuchsia-200 whitespace-nowrap"
-                href={
-                  '/' +
-                  (getQuestReturnToMode() == 'path'
-                    ? '#'
-                    : getQuestReturnToMode() == 'demo'
-                    ? '#DEMO'
-                    : '#OVERVIEW')
-                }
-                onClick={(e) => {
-                  if (!core.ws.ui.isHighlightDescription) {
-                    // reshow highlight
-                    storeQuestToSession(core)
-                    setPreferredQuestSettings(
-                      core.ws.settings.mode,
-                      core.ws.settings.language
-                    )
-                  }
-                  closeModal(core)
-                  navigate(
-                    core,
-                    getQuestReturnToMode() == 'path'
-                      ? ''
-                      : getQuestReturnToMode() == 'demo'
-                      ? '#DEMO'
-                      : '#OVERVIEW'
-                  )
-                  e.preventDefault()
-                }}
-              >
-                <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
-                {core.strings.ide.backToOverview}
-              </a>
-            </p>
-          ) : core.ws.page == 'shared' || core.ws.page == 'imported' ? (
+          ) : core.ws.page == 'quest' ? null : core.ws.page == 'shared' ||
+            core.ws.page == 'imported' ? (
             <p className="z-10 w-full ml-3 overflow">
-              {core.ws.ui.isPlayground ? (
-                <a
-                  href="/#"
-                  onClick={(e) => {
-                    navigate(core, '')
-                    e.preventDefault()
-                  }}
-                  className="underline text-gray-600 cursor-pointer"
-                >
-                  zurück zu Robot Karol Online
-                </a>
-              ) : (
+              {core.ws.ui.isPlayground ? null : (
                 <a
                   href="/#"
                   onClick={(e) => {

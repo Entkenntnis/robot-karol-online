@@ -1,4 +1,5 @@
 import {
+  faArrowLeft,
   faBars,
   faPause,
   faPlay,
@@ -15,6 +16,9 @@ import { setLanguage } from '../../lib/commands/language'
 import { Settings } from '../../lib/state/types'
 import { useState } from 'react'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
+import { exitQuest } from '../../lib/commands/quest'
+import { navigate } from '../../lib/commands/router'
+import { deleteEditorSnapshot } from '../../lib/storage/storage'
 
 export function InteractionBar() {
   const core = useCore()
@@ -50,18 +54,42 @@ export function InteractionBar() {
         core.ws.ui.lockLanguage ? 'items-center h-12' : 'items-baseline'
       )}
     >
-      <button
-        className="whitespace-nowrap px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
-        onClick={() => {
-          submitAnalyzeEvent(core, 'ev_click_ide_menu')
-          core.mutateWs(({ ui }) => {
-            ui.showFlyoutMenu = true
-          })
-        }}
-      >
-        <FaIcon icon={faBars} className="sm:mr-2" />
-        <span className="hidden sm:inline"> {core.strings.ide.menu}</span>
-      </button>
+      <div className="whitespace-nowrap">
+        {(core.ws.page == 'quest' ||
+          core.ws.ui.isPlayground ||
+          core.ws.page == 'editor') && (
+          <button
+            className="px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 mr-2"
+            onClick={() => {
+              if (core.ws.page == 'quest') {
+                exitQuest(core)
+              } else if (core.ws.ui.isPlayground) {
+                navigate(core, '')
+              } else if (core.ws.page == 'editor') {
+                const res = confirm(core.strings.editor.leaveWarning)
+                if (res) {
+                  deleteEditorSnapshot()
+                  navigate(core, '')
+                }
+              }
+            }}
+          >
+            <FaIcon icon={faArrowLeft} />
+          </button>
+        )}
+        <button
+          className="whitespace-nowrap px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
+          onClick={() => {
+            submitAnalyzeEvent(core, 'ev_click_ide_menu')
+            core.mutateWs(({ ui }) => {
+              ui.showFlyoutMenu = true
+            })
+          }}
+        >
+          <FaIcon icon={faBars} className="sm:mr-2" />
+          <span className="hidden sm:inline"> {core.strings.ide.menu}</span>
+        </button>
+      </div>
       {core.ws.ui.lockLanguage ? (
         <div className="whitespace-nowrap font-semibold text-gray-600 select-none border-[#770088] px-2 py-0.5 border rounded-lg">
           {core.ws.ui.lockLanguage == 'karol'
