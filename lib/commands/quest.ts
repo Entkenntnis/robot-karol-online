@@ -14,7 +14,7 @@ import {
   setPreferredQuestSettings,
   setQuestData,
 } from '../storage/storage'
-import { showModal } from './modal'
+import { closeModal, showModal } from './modal'
 import { runPythonCode } from './python'
 import { navigate } from './router'
 import { run } from './vm'
@@ -236,6 +236,23 @@ export function storeQuestToSession(core: Core) {
     language: core.ws.settings.language,
   }
   setQuestData(data)
+}
+
+export function exitQuest(core: Core) {
+  if (!core.ws.ui.isHighlightDescription) {
+    // reshow highlight
+    storeQuestToSession(core)
+    setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
+  }
+  closeModal(core)
+  navigate(
+    core,
+    getQuestReturnToMode() == 'path'
+      ? ''
+      : getQuestReturnToMode() == 'demo'
+      ? '#DEMO'
+      : '#OVERVIEW'
+  )
 }
 
 export function restoreQuestFromSessionData(

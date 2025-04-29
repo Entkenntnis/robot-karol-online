@@ -14,7 +14,7 @@ export function QuestEditor() {
   const core = useCore()
   return (
     <>
-      <div className="absolute right-3 top-4 text-gray-600 hover:text-black">
+      <div className="absolute right-3 top-4 text-gray-600 hover:text-black hidden">
         <button
           onClick={() => {
             const res = confirm(core.strings.editor.leaveWarning)
