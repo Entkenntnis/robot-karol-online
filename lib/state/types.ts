@@ -551,3 +551,11 @@ export interface KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT {
     }
   }
 }
+
+export interface OverviewMapData {
+  x: number
+  y: number
+  deps: number[]
+  dir?: Heading
+  chapter?: number
+}

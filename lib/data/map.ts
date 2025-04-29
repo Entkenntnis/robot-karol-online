@@ -1,8 +1,8 @@
-import { Heading } from '../state/types'
+import { OverviewMapData } from '../state/types'
 import { chaptersMap } from './chapters'
 
 export const mapData: {
-  [key: number]: { x: number; y: number; deps: number[]; dir?: Heading }
+  [key: number]: OverviewMapData
 } = {
   1: { x: 101, y: 0, deps: [] },
   48: { x: 300, y: 30, deps: [1] },
