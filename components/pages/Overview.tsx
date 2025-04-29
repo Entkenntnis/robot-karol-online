@@ -375,6 +375,60 @@ export function Overview() {
                   className="w-[150px] top-[1100px] left-[300px] absolute user-select-none"
                   alt="Farbklecks 3"
                 />
+                {core.ws.settings.lng === 'de' &&
+                  numberOfSolvedQuests == 0 &&
+                  core.ws.page !== 'demo' &&
+                  core.ws.page !== 'analyze' && (
+                    <div className="absolute top-72 left-12 ">
+                      <AnimateInView>
+                        <div className="bg-white/50 rounded-lg p-2 w-[550px]">
+                          <p>
+                            Diese Online-Programmierumgebung führt dich in die
+                            Grundlagen von Algorithmen ein: Sequenz,
+                            Wiederholung (mit fester Anzahl, kopfgesteuert),
+                            bedingte Anweisungen und eigene Methoden.
+                            Programmiere mit Blöcken, Karol Code, Python oder
+                            Java.
+                          </p>
+                          <p className="mt-2">
+                            Klicke auf „Start“ für den Selbst-Lern-Pfad.
+                            Entdecke dort auf eigene Faust die Welt von Robot
+                            Karol und löse Aufgaben.
+                          </p>
+                          <p className="mt-2">
+                            Lehrkräfte können mit dem Editor eigene Aufgaben
+                            anlegen und mit der Klasse teilen oder sich von der
+                            Galerie inspirieren lassen.
+                          </p>
+                        </div>
+                      </AnimateInView>
+                    </div>
+                  )}
+                <div className="absolute top-[200px] left-[1000px] z-10">
+                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                    <button
+                      className={clsx(
+                        'hover:bg-gray-100/60 rounded-xl',
+                        'w-[120px] cursor-pointer'
+                      )}
+                      onClick={() => {
+                        // open feedback form in new tab
+                        submitAnalyzeEvent(core, 'ev_click_landing_appearance')
+                        showModal(core, 'appearance')
+                      }}
+                    >
+                      <p className="text-center">
+                        Figur
+                        <br />
+                        zeichnen
+                      </p>
+                      <FaIcon
+                        icon={faPaintBrush}
+                        className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
+                      />
+                    </button>
+                  </AnimateInView>
+                </div>
                 {(numberOfSolvedQuests >= 5 ||
                   core.ws.page == 'analyze' ||
                   core.ws.page == 'demo') && (
@@ -406,7 +460,7 @@ export function Overview() {
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content menu bg-base-100/50 rounded-box w-60 p-2 shadow mt-1"
+                      className="dropdown-content menu bg-base-100/50 rounded-box w-60 p-2 mt-1"
                     >
                       <li>
                         <a
@@ -494,6 +548,36 @@ export function Overview() {
                     </ul>
                   </AnimateInView>
                 </div>
+
+                {core.ws.settings.lng === 'de' &&
+                  !isQuestDone(61) &&
+                  core.ws.page !== 'demo' &&
+                  core.ws.page !== 'analyze' && (
+                    <div className="absolute top-[1640px] left-[670px] ">
+                      <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                        <div className="bg-white/50 rounded-lg p-2 w-[490px] shadow-lg">
+                          <p>
+                            Programmierung beschränkt sich nicht auf Blöcke oder
+                            Karol Code. Lerne hier eine „große“
+                            Programmiersprache mit Variablen, Ein-/Ausgabe,
+                            mathematischen Operatoren, Zufallszahlen und eigenen
+                            Funktionen inklusive Parametern kennen!
+                          </p>
+                          <p className="mt-2">
+                            Das Ganze ist eingebettet in eine kleine Geschichte.
+                            In der Liste der Aufgaben kannst du direkt alle
+                            Inhalte einsehen, falls du ein bestimmtes Thema
+                            suchst. Viel Spaß beim Lernen!
+                          </p>
+                          <p className="mt-2">
+                            🚧 Die ersten Kapitel sind bereits verfügbar, an den
+                            restlichen Kapiteln wird gerade fleißig gearbeitet.
+                            🚧
+                          </p>
+                        </div>
+                      </AnimateInView>
+                    </div>
+                  )}
 
                 <div
                   className="absolute left-[101px]  z-10"
@@ -583,31 +667,6 @@ export function Overview() {
                     </p>
                   </div>
                 )}
-                <div className="absolute top-[200px] left-[1000px] z-10">
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <button
-                      className={clsx(
-                        'hover:bg-gray-100/60 rounded-xl',
-                        'w-[120px] cursor-pointer'
-                      )}
-                      onClick={() => {
-                        // open feedback form in new tab
-                        submitAnalyzeEvent(core, 'ev_click_landing_appearance')
-                        showModal(core, 'appearance')
-                      }}
-                    >
-                      <p className="text-center">
-                        Figur
-                        <br />
-                        zeichnen
-                      </p>
-                      <FaIcon
-                        icon={faPaintBrush}
-                        className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
-                      />
-                    </button>
-                  </AnimateInView>
-                </div>
                 {core.ws.settings.lng == 'de' && (
                   <div
                     className="absolute left-[760px] z-10"
@@ -830,36 +889,6 @@ export function Overview() {
                     />
                   )
                 })}
-
-                {core.ws.settings.lng === 'de' &&
-                  numberOfSolvedQuests == 0 &&
-                  core.ws.page !== 'demo' &&
-                  core.ws.page !== 'analyze' && (
-                    <div className="absolute top-72 left-12 ">
-                      <AnimateInView>
-                        <div className="bg-white/50 rounded-lg p-2 w-[550px]">
-                          <p>
-                            Diese Online-Programmierumgebung führt dich in die
-                            Grundlagen von Algorithmen ein: Sequenz,
-                            Wiederholung (mit fester Anzahl, kopfgesteuert),
-                            bedingte Anweisungen und eigene Methoden.
-                            Programmiere mit Blöcken, Karol Code, Python oder
-                            Java.
-                          </p>
-                          <p className="mt-2">
-                            Klicke auf „Start“ für den Selbst-Lern-Pfad.
-                            Entdecke dort auf eigene Faust die Welt von Robot
-                            Karol und löse Aufgaben.
-                          </p>
-                          <p className="mt-2">
-                            Lehrkräfte können mit dem Editor eigene Aufgaben
-                            anlegen und mit der Klasse teilen oder sich von der
-                            Galerie inspirieren lassen.
-                          </p>
-                        </div>
-                      </AnimateInView>
-                    </div>
-                  )}
               </div>
             )}
           <div className="flex-auto"></div>
