@@ -75,7 +75,7 @@ Scenario('See if playground works fine', ({ I }) => {
 
   I.click('Spielwiese')
   I.seeTitleEquals('Spielwiese | Robot Karol Online')
-  I.click('zurück zu Robot Karol Online')
+  I.click({ css: '#ide-back-button' })
   I.seeTitleEquals('Robot Karol Online')
 
   I.click('Spielwiese')

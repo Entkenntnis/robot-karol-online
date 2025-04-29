@@ -60,6 +60,7 @@ export function InteractionBar() {
           core.ws.page == 'editor') && (
           <button
             className="px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 mr-2 hidden sm:inline-block"
+            id="ide-back-button"
             onClick={() => {
               if (core.ws.page == 'quest') {
                 exitQuest(core)
