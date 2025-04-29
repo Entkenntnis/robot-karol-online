@@ -26,27 +26,27 @@ module.exports = {
         },
         // New bubble animation keyframes
         bubble: {
-          '0%': { 
-            transform: 'translateY(0) scale(1)', 
-            opacity: '0.7'
+          '0%': {
+            transform: 'translateY(0) scale(1)',
+            opacity: '0.7',
           },
-          '50%': { 
-            transform: 'translateY(-40%) scale(1.05)', 
-            opacity: '0.5' 
+          '50%': {
+            transform: 'translateY(-40%) scale(1.05)',
+            opacity: '0.5',
           },
-          '100%': { 
-            transform: 'translateY(-80%) scale(1.1)', 
-            opacity: '0' 
+          '100%': {
+            transform: 'translateY(-80%) scale(1.1)',
+            opacity: '0',
           },
         },
         float: {
-          '0%, 100%': { 
-            transform: 'translateY(0)', 
+          '0%, 100%': {
+            transform: 'translateY(0)',
           },
-          '50%': { 
-            transform: 'translateY(-8px)' 
+          '50%': {
+            transform: 'translateY(-8px)',
           },
-        }
+        },
       },
       animation: {
         'spin-slow': 'spin 2s linear infinite',
@@ -60,7 +60,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('daisyui')],
+  plugins: [require('daisyui'), require('@tailwindcss/typography')],
   daisyui: {
     logs: false,
     base: false,

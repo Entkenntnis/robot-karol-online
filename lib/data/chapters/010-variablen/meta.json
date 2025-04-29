@@ -1,12 +1,13 @@
 {
   "title": "Variablen",
   "quests": [
-    { "filename": "Raumschiffvorbereitung.json", "x": 100, "y": 100 },
-    { "filename": "Zaubertrank_brauen.json", "x": 300, "y": 230 },
-    { "filename": "Drei_W_nsche.json", "x": 500, "y": 280 },
-    { "filename": "Quiz.json", "x": 800, "y": 230 },
-    { "filename": "Hin_und_her.json", "x": 780, "y": 90 }
+    { "filename": "Raumschiffvorbereitung.json", "x": 540, "y": 30 },
+    { "filename": "Zaubertrank_brauen.json", "x": 428, "y": 144 },
+    { "filename": "Drei_W_nsche.json", "x": 620, "y": 184 },
+    { "filename": "Quiz.json", "x": 777, "y": 210 },
+    { "filename": "Hin_und_her.json", "x": 850, "y": 90 }
   ],
-  "x": 430,
-  "y": 1750
+  "x": 710,
+  "y": 1640,
+  "image": "/story/1.jpg"
 }

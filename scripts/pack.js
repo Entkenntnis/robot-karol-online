@@ -173,6 +173,7 @@ const chaptersData = chapters.map((chapterDir, index) => {
     title: `${index}. ${meta?.title || chapterDir}`,
     originalTitle: meta?.title || chapterDir,
     description: info || '', // Add the info.md content as description
+    image: meta?.image || '', // Use the image from meta.json if available
     quests: meta?.quests || [],
     x: meta?.x || 0,
     y: meta?.y || 0,
@@ -234,7 +235,7 @@ export const chapterOverviewData: {
 export const chapterQuests: { [key: number]: QuestData } = {}
 
 // Generate chapterData based on chapter information
-export const chapterData: { [key: number]: { title: string, description: string } } = {}
+export const chapterData: { [key: number]: { title: string, description: string, image: string } } = {}
 
 // Populate the exported objects
 chapterInfo.forEach((chapter) => {
@@ -242,6 +243,7 @@ chapterInfo.forEach((chapter) => {
   chapterData[chapter.id] = {
     title: chapter.title,
     description: chapter.description,
+    image: chapter.image,
   }
 
   // Default chapter position and dependencies
