@@ -300,7 +300,7 @@ export function AppearanceModal() {
 
     // Show sprite boundary while drawing.
     // This should make it easier to keep 'inside the lines'
-    ctx.save()
+    /*ctx.save()
     ctx.globalAlpha = 0.2
     ctx.fillStyle = 'black'
     const panelWidth = overlayCanvas.width / 4
@@ -308,7 +308,7 @@ export function AppearanceModal() {
       if (x < i * panelWidth || x >= (i + 1) * panelWidth)
         ctx.fillRect(i * panelWidth, 0, panelWidth, overlayCanvas.height)
     }
-    ctx.restore()
+    ctx.restore()*/
   }
 
   const clearPreview = () => {
