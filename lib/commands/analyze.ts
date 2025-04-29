@@ -515,4 +515,7 @@ const robotImageDictionary: { [key: string]: string } = {
   '0QzU7CPKszePbtH42B/wAX2pGT5+UAIQAAAABJRU5ErkJggg==': 'Arda Guler',
   'sZwxZ+bwS4lMI5zmUS+AtVqVV/T01B1wAAAABJRU5ErkJggg==': 'I ... am Steve',
   'WX6G+nx9sVPNhvK33BwC8QdxJ1bhVEDgAAAABJRU5ErkJggg==': 'Böse Banana',
+  'HaMBf3KK1lVA05Xd35/wNy98yTFjK79gAAAABJRU5ErkJggg==': 'Aubergine',
+  'tu8z7qOwNoMaDROVkf/wVm8FLFWxvQ4AAAAABJRU5ErkJggg==': 'Schrottplatz RK4',
+  'Yb1YG4mQUgMoC2UQeSHPgHX2XaRZWWvr4AAAAASUVORK5CYII=': 'Basti 2025',
 }
