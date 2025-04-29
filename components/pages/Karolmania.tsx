@@ -11,7 +11,6 @@ import {
   faCaretRight,
   faMusic,
   faVolumeHigh,
-  faVolumeXmark,
   faTrophy,
   faMedal,
 } from '@fortawesome/free-solid-svg-icons'
@@ -197,7 +196,7 @@ export function Karolmania() {
     } else {
       pauseMusic()
     }
-  }, [isMusicPlaying, playMusic, pauseMusic])
+  }, [core, isMusicPlaying, playMusic, pauseMusic])
 
   const toggleSoundEffects = useCallback(() => {
     submitAnalyzeEvent(core, 'ev_click_karolmania_toggleSoundEffects')
@@ -205,7 +204,7 @@ export function Karolmania() {
       setKarolmaniaSoundEffectsEnabled(!prev)
       return !prev
     })
-  }, [])
+  }, [core])
 
   const playClickSound = useCallback(() => {
     if (!isSoundEffectsEnabled) return
