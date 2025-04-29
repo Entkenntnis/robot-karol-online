@@ -72,7 +72,7 @@ export function Overview() {
       ...Object.entries(mapData)
         .filter(([id]) => isQuestVisible(parseInt(id)))
         .map(([, quest]) => quest.y)
-    ) + (!isQuestDone(61) ? 500 : -200)
+    ) + (!isQuestDone(61) ? 500 : 0)
 
   useEffect(() => {
     if (

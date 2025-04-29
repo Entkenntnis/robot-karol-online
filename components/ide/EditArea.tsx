@@ -20,7 +20,6 @@ import { BlockEditor } from './BlockEditor'
 import { QuestPrompt } from '../helper/QuestPrompt'
 import { Cheatsheet } from '../helper/Cheatsheet'
 import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
-import ClassDiagram from './ClassDiagram'
 import { startBench } from '../../lib/commands/bench'
 import { InteractiveClassDiagram } from './InteractiveClassDiagram'
 
