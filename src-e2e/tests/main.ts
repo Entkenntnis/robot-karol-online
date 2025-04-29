@@ -57,7 +57,7 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.wait(1)
 
   I.click('Fortschritt speichern')
-  I.click('OK')
+  //I.click('OK')
   I.refreshPage()
   I.dontSee('Fortschritt speichern')
   I.see('Spiegelei')
