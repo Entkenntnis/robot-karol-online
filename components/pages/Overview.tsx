@@ -113,7 +113,7 @@ export function Overview() {
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
           </div>
-          <div className="absolute top-2 left-2">
+          <div className="absolute top-2 right-32">
             <label>
               <span className="hidden">Sprache</span>
               <FaIcon icon={faGlobe} />
@@ -585,7 +585,7 @@ export function Overview() {
                   style={{ top: `${maxMapY + 840}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <h2 className="text-lg bg-white/50 pl-2 pr-4 py-1.5 rounded-lg">
+                    <h2 className="text-lg bg-white/20 pl-2 pr-4 py-0.5 rounded-lg">
                       Entdecke weitere Inhalte:
                     </h2>
                   </AnimateInView>

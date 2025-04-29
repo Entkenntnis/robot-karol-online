@@ -1,6 +1,5 @@
 import {
   faArrowDown,
-  faArrowLeft,
   faArrowUp,
   faCheck,
   faClone,
@@ -23,24 +22,16 @@ import {
   moveTaskUp,
   setTaskTitle,
 } from '../../lib/commands/editor'
-import { closeModal, showModal } from '../../lib/commands/modal'
+import { showModal } from '../../lib/commands/modal'
 import { setShowStructogram } from '../../lib/commands/mode'
-import {
-  openTask,
-  setTaskScroll,
-  storeQuestToSession,
-} from '../../lib/commands/quest'
-import { renderDescription } from '../../lib/helper/processMiniMarkdown'
+import { openTask, setTaskScroll } from '../../lib/commands/quest'
+import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
-import {
-  getQuestReturnToMode,
-  setPreferredQuestSettings,
-} from '../../lib/storage/storage'
 
 export function Tasks() {
   const core = useCore()
@@ -88,7 +79,7 @@ export function Tasks() {
                       </span>
                     )}
                   </h1>
-                  <div>{renderDescription(core)}</div>
+                  <div>{processMarkdown(core.ws.quest.description)}</div>
                   {!skipWait && core.ws.ui.isHighlightDescription && (
                     <div className="absolute left-0 right-0 top-0 h-1 w-full flex justify-end">
                       <div

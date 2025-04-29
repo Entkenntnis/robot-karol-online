@@ -1,32 +1,8 @@
 import { compiler } from 'markdown-to-jsx'
 import { showModal } from '../commands/modal'
 import { openImage } from '../commands/mode'
-import { Core, useCore } from '../state/core'
+import { useCore } from '../state/core'
 import { CodeBox } from '../../components/helper/Cheatsheet'
-
-export function renderDescription(core: Core) {
-  return (
-    <>
-      {core.ws.quest.description == '[[tutorial]]' ? (
-        <>
-          <p>{core.strings.ide.welcome}</p>
-          <div className="mt-6">
-            <button
-              className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"
-              onClick={() => {
-                showModal(core, 'tutorial')
-              }}
-            >
-              {core.strings.ide.tutorialButton}
-            </button>
-          </div>
-        </>
-      ) : (
-        processMarkdown(core.ws.quest.description)
-      )}
-    </>
-  )
-}
 
 export function processMarkdown(input: string) {
   return (
@@ -46,6 +22,7 @@ export function processMarkdown(input: string) {
           ImageButton: {
             component: ImageButton,
           },
+          Tutorial,
         },
       })}
     </div>
@@ -101,5 +78,24 @@ function Code({
         }
       />
     </div>
+  )
+}
+
+function Tutorial() {
+  const core = useCore()
+  return (
+    <>
+      <p>{core.strings.ide.welcome}</p>
+      <div className="mt-6 mb-2">
+        <button
+          className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"
+          onClick={() => {
+            showModal(core, 'tutorial')
+          }}
+        >
+          {core.strings.ide.tutorialButton}
+        </button>
+      </div>
+    </>
   )
 }
