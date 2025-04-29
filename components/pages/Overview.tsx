@@ -67,6 +67,12 @@ export function Overview() {
     (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id))
   ).length
 
+  const maxMapY = Math.max(
+    ...Object.entries(mapData)
+      .filter(([id]) => isQuestVisible(parseInt(id)))
+      .map(([, quest]) => quest.y)
+  )
+
   useEffect(() => {
     if (
       core.ws.overview.overviewScroll > 0 &&
@@ -442,7 +448,10 @@ export function Overview() {
           )}
           {!core.ws.overview.showOverviewList &&
             !core.ws.overview.showProfile && (
-              <div className="w-[1240px] h-[3250px] mx-auto relative mt-6">
+              <div
+                className="w-[1240px] mx-auto relative mt-6"
+                style={{ height: `${maxMapY + 1000}px` }}
+              >
                 <img
                   src="klecks1.png"
                   className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
@@ -485,7 +494,21 @@ export function Overview() {
                   </a>
                 )}
 
-                <div className="absolute top-[1730px] left-[1011px]  z-10">
+                <div
+                  className="absolute left-[101px]  z-10"
+                  style={{ top: `${maxMapY + 840}px` }}
+                >
+                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                    <h2 className="text-lg bg-white/50 pl-2 pr-4 py-1.5 rounded-lg">
+                      Entdecke weitere Inhalte:
+                    </h2>
+                  </AnimateInView>
+                </div>
+
+                <div
+                  className="absolute left-[478px]  z-10"
+                  style={{ top: `${maxMapY + 870}px` }}
+                >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <a
                       href={`/${bluejPlaygroundHash}`}
@@ -585,7 +608,10 @@ export function Overview() {
                   </AnimateInView>
                 </div>
                 {core.ws.settings.lng == 'de' && (
-                  <div className="absolute top-[3120px] left-[880px] z-10">
+                  <div
+                    className="absolute left-[760px] z-10"
+                    style={{ top: `${maxMapY + 900}px` }}
+                  >
                     <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                       <button
                         className="w-[120px] hover:bg-gray-100/60 rounded-xl"
@@ -606,7 +632,10 @@ export function Overview() {
                     </AnimateInView>
                   </div>
                 )}
-                <div className="absolute top-[3150px] left-[160px] z-10">
+                <div
+                  className="absolute left-[160px] z-10"
+                  style={{ top: `${maxMapY + 930}px` }}
+                >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <button
                       className=" w-[120px] block hover:bg-gray-100/60 rounded-xl"
@@ -630,7 +659,7 @@ export function Overview() {
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 1240 3250"
+                  viewBox={`0 0 1240 ${maxMapY + 1000}`}
                   className="relative"
                 >
                   <defs>
