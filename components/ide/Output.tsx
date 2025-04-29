@@ -15,7 +15,7 @@ import { FaIcon } from '../helper/FaIcon'
 import { TaskRunnerOverview } from './TaskRunnerOverview'
 import { View } from '../helper/View'
 import { abort } from '../../lib/commands/vm'
-import { renderDescription } from '../../lib/helper/processMiniMarkdown'
+import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { View2D } from '../helper/View2D'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
@@ -84,7 +84,7 @@ export function Output() {
             )}
           </h1>
           {!core.ws.ui.collapseDescription && (
-            <div>{renderDescription(core)}</div>
+            <div>{processMarkdown(core.ws.quest.description)}</div>
           )}
         </div>
       </div>

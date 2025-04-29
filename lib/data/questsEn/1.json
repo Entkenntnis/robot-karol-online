@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Start",
-  "description": "[[tutorial]]",
+  "description": "<Tutorial />",
   "tasks": [
     {
       "title": "Set down a brick",
