@@ -55,6 +55,6 @@
     "nodemon": "^3.1.10",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
-    "typescript": "^5.0.0"
+    "typescript": "^5.8.3"
   }
 }

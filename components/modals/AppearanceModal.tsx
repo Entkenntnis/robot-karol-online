@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
 import { View } from '../helper/View'
@@ -9,11 +9,8 @@ import {
   faArrowLeft,
   faArrowRight,
   faEraser,
-  faFillDrip,
-  faLinesLeaning,
-  faPaintBrush,
-  faStar,
-  faUndo,
+  faFillDrip, faPaintBrush, faStar,
+  faUndo
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { backend } from '../../backend'
@@ -24,7 +21,7 @@ export function AppearanceModal() {
   const [isDrawing, setIsDrawing] = useState(false)
   const [lastDrawingPosition, setLastDrawingPosition] = useState({ x: 0, y: 0 })
   const [selectedColor, setSelectedColor] = useState('#000000')
-  const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser' | 'line'>(
+  const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser' | 'line' | 'rectangle' | 'ellipse'>(
     'brush'
   )
   const [brushSize, setBrushSize] = useState(3)
@@ -176,6 +173,8 @@ export function AppearanceModal() {
     updateImageDataUrl(canvas)
   }
 
+
+
   const drawLineTo = (
     ctx: CanvasRenderingContext2D,
     toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void,
@@ -200,9 +199,48 @@ export function AppearanceModal() {
     ctx.restore()
   }
 
+  const drawRectangle = (
+    ctx: CanvasRenderingContext2D,
+    toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void,
+    from: { x: number; y: number },
+    to: { x: number; y: number },
+    offset: number
+  ) => {
+    ctx.save()
+    drawLineTo(ctx, toolCall, from, { x: from.x, y: to.y }, offset);
+    drawLineTo(ctx, toolCall, from, { x: to.x, y: from.y }, offset);
+    drawLineTo(ctx, toolCall, to, { x: from.x, y: to.y }, offset);
+    drawLineTo(ctx, toolCall, to, { x: to.x, y: from.y }, offset);
+    ctx.restore()
+  }
+
+  const drawEllipse = (
+    ctx: CanvasRenderingContext2D,
+    toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void,
+    from: { x: number; y: number },
+    to: { x: number; y: number },
+    offset: number
+  ) => {
+    ctx.save()
+    let a = (to.x - from.x) / 2;
+    let b = (to.y - from.y) / 2;
+    let step = Math.PI * 2 / 100; // looks okay
+    let lastPoint = {x: 0, y: 0};
+    for (let theta = 0; theta <= Math.PI * 2; theta += step) {
+      // sample point
+      let x = Math.round(a * Math.sin(theta) + from.x + a);
+      let y = Math.round(b * Math.cos(theta) + from.y + b);
+      if (theta === 0) lastPoint = {x, y};
+      drawLineTo(ctx, toolCall, lastPoint, {x, y}, offset);
+      // save last point
+      lastPoint = {x, y};
+    }
+    ctx.restore()
+  }
+
   // Zeichnen für Pinsel, Linie und Radiergummi.
   const draw = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement> | React.PointerEvent<HTMLCanvasElement>
   ) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
@@ -222,16 +260,35 @@ export function AppearanceModal() {
         ctx.fillRect(x, y, brushSize, brushSize)
     }
 
+    const previewCanvas = previewCanvasRef.current
+    const previewCtx = previewCanvas?.getContext('2d')
+    if (!previewCtx || !canvas) return
+
     if (tool === 'line') {
       if (isDrawing) {
-        // we only need this stuff when previewing lines
-        const previewCanvas = previewCanvasRef.current
-        const previewCtx = previewCanvas?.getContext('2d')
-        if (!previewCtx || !canvas) return
-
         previewCtx.save() // for safety
         previewCtx.fillStyle = selectedColor
         drawLineTo(previewCtx, toolCall, lastDrawingPosition, { x, y }, offset)
+        previewCtx.restore()
+      } else {
+        // only store this at the start of a new line!
+        setLastDrawingPosition({ x, y })
+      }
+    } else if (tool === 'rectangle') {
+      if (isDrawing) {
+        previewCtx.save() // for safety
+        previewCtx.fillStyle = selectedColor
+        drawRectangle(previewCtx, toolCall, lastDrawingPosition, { x, y }, offset)
+        previewCtx.restore()
+      } else {
+        // only store this at the start of a new line!
+        setLastDrawingPosition({ x, y })
+      }
+    } else if (tool === 'ellipse') {
+      if (isDrawing) {
+        previewCtx.save() // for safety
+        previewCtx.fillStyle = selectedColor
+        drawEllipse(previewCtx, toolCall, lastDrawingPosition, { x, y }, offset)
         previewCtx.restore()
       } else {
         // only store this at the start of a new line!
@@ -254,7 +311,7 @@ export function AppearanceModal() {
 
   // Abschluss einer Zeichnung (aktuell nur Linie)
   const endDraw = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement> | React.PointerEvent<HTMLCanvasElement>
   ) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
@@ -268,17 +325,27 @@ export function AppearanceModal() {
 
     ctx.save() // for safety
     ctx.fillStyle = selectedColor
-    if (tool === 'line' && isDrawing) {
-      // complete the line
-      drawLineTo(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
-      setLastDrawingPosition({ x, y })
+    if (isDrawing) {
+      if (tool === 'line') {
+        // complete the line
+        drawLineTo(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
+        setLastDrawingPosition({ x, y })
+      } else if (tool === 'rectangle') {
+        // complete the line
+        drawRectangle(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
+        setLastDrawingPosition({ x, y })
+      } else if (tool === 'ellipse') {
+        // complete the line
+        drawEllipse(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
+        setLastDrawingPosition({ x, y })
+      }
     }
     ctx.restore()
   }
 
   // Aktualisiert die Vorschau-Leinwand mit einer gestrichelten Umrandung.
   const updatePreview = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement> | React.PointerEvent<HTMLCanvasElement>
   ) => {
     const overlayCanvas = previewCanvasRef.current
     const canvas = canvasRef.current
@@ -323,7 +390,7 @@ export function AppearanceModal() {
 
   // Gemeinsame Logik für den Start des Zeichnens.
   const handleStart = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement> | React.PointerEvent<HTMLCanvasElement>
   ) => {
     e.preventDefault()
     if (!hasPushedUndo.current) {
@@ -341,7 +408,7 @@ export function AppearanceModal() {
 
   // Gemeinsame Logik für Bewegung.
   const handleMove = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement> | React.PointerEvent<HTMLCanvasElement>
   ) => {
     e.preventDefault()
     updatePreview(e)
@@ -353,7 +420,8 @@ export function AppearanceModal() {
   const handleEnd = (
     e:
       | React.MouseEvent<HTMLCanvasElement>
-      | React.TouchEvent<HTMLCanvasElement>,
+      | React.TouchEvent<HTMLCanvasElement>
+      | React.PointerEvent<HTMLCanvasElement>,
     clear: boolean
   ) => {
     e.preventDefault()
@@ -387,6 +455,21 @@ export function AppearanceModal() {
   }
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    handleEnd(e, true)
+  }
+
+  // pointer event for everything
+  const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    handleStart(e)
+  }
+  const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    handleMove(e)
+  }
+  const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    handleEnd(e, false)
+  }
+
+  const handlePointerLeave = (e: React.PointerEvent<HTMLCanvasElement>) => {
     handleEnd(e, true)
   }
 
@@ -454,7 +537,7 @@ export function AppearanceModal() {
   ]
 
   return (
-    <div className="bg-black/50 fixed inset-0 z-[1150]" onClick={() => {}}>
+    <div className="bg-black/50 fixed inset-0 z-[1150]" onClick={() => { }}>
       {/* Modal mit angepasster Breite */}
       <div
         className="fixed inset-8 bg-white z-[1200] rounded-xl flex flex-col overflow-hidden"
@@ -529,9 +612,8 @@ export function AppearanceModal() {
             <div className="flex flex-wrap justify-center gap-3 mt-3">
               <button
                 title="Pinsel"
-                className={`px-3 py-1 border rounded ${
-                  tool === 'brush' ? 'bg-gray-300' : 'bg-white'
-                }`}
+                className={`px-3 py-1 border rounded ${tool === 'brush' ? 'bg-gray-300' : 'bg-white'
+                  }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_brush')
                   setTool('brush')
@@ -541,9 +623,8 @@ export function AppearanceModal() {
               </button>
               <button
                 title="Füllen"
-                className={`px-3 py-1 border rounded ${
-                  tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
-                }`}
+                className={`px-3 py-1 border rounded ${tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
+                  }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_fill')
                   setTool('paintBucket')
@@ -553,9 +634,8 @@ export function AppearanceModal() {
               </button>
               <button
                 title="Linie"
-                className={`px-3 py-1 border rounded ${
-                  tool === 'line' ? 'bg-gray-300' : 'bg-white'
-                }`}
+                className={`px-3 py-1 border rounded ${tool === 'line' ? 'bg-gray-300' : 'bg-white'
+                  }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
                   setTool('line')
@@ -574,10 +654,35 @@ export function AppearanceModal() {
                 </svg>
               </button>
               <button
+                title="Rechteck"
+                className={`px-3 py-1 border rounded ${tool === 'rectangle' ? 'bg-gray-300' : 'bg-white'
+                  }`}
+                onClick={() => {
+                  // submitAnalyzeEvent(core, 'ev_click_appearance_fill')
+                  setTool('rectangle')
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 14 14">
+                  <rect x="1" y="2" width="12" height="10" strokeLinejoin='round' fill='none' stroke='currentColor' strokeWidth="2" />
+                </svg>
+              </button>
+              <button
+                title="Ellipse"
+                className={`px-3 py-1 border rounded ${tool === 'ellipse' ? 'bg-gray-300' : 'bg-white'
+                  }`}
+                onClick={() => {
+                  // submitAnalyzeEvent(core, 'ev_click_appearance_fill')
+                  setTool('ellipse')
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 14 14">
+                  <ellipse cx="7" cy="7" rx="6" ry="5" strokeLinejoin='round' fill='none' stroke='currentColor' strokeWidth="2" />
+                </svg>
+              </button>
+              <button
                 title="Radierer"
-                className={`px-3 py-1 border rounded ${
-                  tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
-                }`}
+                className={`px-3 py-1 border rounded ${tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
+                  }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
                   setTool('eraser')
@@ -598,9 +703,8 @@ export function AppearanceModal() {
               {colors.map((color) => (
                 <button
                   key={color}
-                  className={`w-6 h-6 border-2 ${
-                    selectedColor === color ? 'border-black' : 'border-gray-300'
-                  }`}
+                  className={`w-6 h-6 border-2 ${selectedColor === color ? 'border-black' : 'border-gray-300'
+                    }`}
                   style={{ backgroundColor: color }}
                   onClick={() => {
                     /*submitAnalyzeEvent(
@@ -625,15 +729,14 @@ export function AppearanceModal() {
                       )*/
                       setBrushSize(size)
                     }}
-                    className={`flex items-center justify-center w-10 h-10 border rounded-full ${
-                      brushSize === size ? 'bg-gray-300' : 'bg-white'
-                    }`}
+                    className={`flex items-center justify-center w-10 h-10 border rounded-full ${brushSize === size ? 'bg-gray-300' : 'bg-white'
+                      }`}
                   >
                     <div
                       style={{
                         width: `${size * 3}px`,
                         height: `${size * 3}px`,
-                        backgroundColor: '#000',
+                        backgroundColor: `${selectedColor}`,
                         borderRadius: '50%',
                       }}
                     />
@@ -775,6 +878,7 @@ export function AppearanceModal() {
                       position: 'relative',
                       zIndex: 2,
                     }}
+                    /*
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
@@ -783,6 +887,12 @@ export function AppearanceModal() {
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
                     onTouchCancel={handleTouchEnd}
+                    */
+                    onPointerDown={handlePointerDown}
+                    onPointerMove={handlePointerMove}
+                    onPointerUp={handlePointerUp}
+                    onPointerCancel={handlePointerLeave}
+                    onPointerLeave={handlePointerLeave}
                   />
                   {/* Overlay-Leinwand für die Pinselvorschau */}
                   <canvas
