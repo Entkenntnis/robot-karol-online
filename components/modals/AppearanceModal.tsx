@@ -225,22 +225,22 @@ export function AppearanceModal() {
     let a = (to.x - from.x) / 2;
     let b = (to.y - from.y) / 2;
     let step = Math.PI * 2 / 100; // looks okay
-    let lastPoint = {x: 0, y: 0};
+    let lastPoint = { x: 0, y: 0 };
     for (let theta = 0; theta <= Math.PI * 2; theta += step) {
       // sample point
       let x = Math.round(a * Math.sin(theta) + from.x + a);
       let y = Math.round(b * Math.cos(theta) + from.y + b);
-      if (theta === 0) lastPoint = {x, y};
-      drawLineTo(ctx, toolCall, lastPoint, {x, y}, offset);
+      if (theta === 0) lastPoint = { x, y };
+      drawLineTo(ctx, toolCall, lastPoint, { x, y }, offset);
       // save last point
-      lastPoint = {x, y};
+      lastPoint = { x, y };
     }
     ctx.restore()
   }
 
   // Zeichnen für Pinsel, Linie und Radiergummi.
   const draw = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement> | React.PointerEvent<HTMLCanvasElement>
+    e: React.PointerEvent<HTMLCanvasElement>
   ) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
@@ -311,7 +311,7 @@ export function AppearanceModal() {
 
   // Abschluss einer Zeichnung (aktuell nur Linie)
   const endDraw = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement> | React.PointerEvent<HTMLCanvasElement>
+    e: React.PointerEvent<HTMLCanvasElement>
   ) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
@@ -345,7 +345,7 @@ export function AppearanceModal() {
 
   // Aktualisiert die Vorschau-Leinwand mit einer gestrichelten Umrandung.
   const updatePreview = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement> | React.PointerEvent<HTMLCanvasElement>
+    e: React.PointerEvent<HTMLCanvasElement>
   ) => {
     const overlayCanvas = previewCanvasRef.current
     const canvas = canvasRef.current
@@ -386,13 +386,10 @@ export function AppearanceModal() {
     ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height)
   }
 
-  // Maus- und Touch-Handler
-
   // Gemeinsame Logik für den Start des Zeichnens.
   const handleStart = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement> | React.PointerEvent<HTMLCanvasElement>
+    e: React.PointerEvent<HTMLCanvasElement>
   ) => {
-    e.preventDefault()
     if (!hasPushedUndo.current) {
       pushUndoState()
       hasPushedUndo.current = true
@@ -408,9 +405,8 @@ export function AppearanceModal() {
 
   // Gemeinsame Logik für Bewegung.
   const handleMove = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement> | React.PointerEvent<HTMLCanvasElement>
+    e: React.PointerEvent<HTMLCanvasElement>
   ) => {
-    e.preventDefault()
     updatePreview(e)
     if (!isDrawing || tool === 'paintBucket') return
     draw(e)
@@ -418,13 +414,9 @@ export function AppearanceModal() {
 
   // Gemeinsame Logik für das Beenden des Zeichnens.
   const handleEnd = (
-    e:
-      | React.MouseEvent<HTMLCanvasElement>
-      | React.TouchEvent<HTMLCanvasElement>
-      | React.PointerEvent<HTMLCanvasElement>,
+    e: React.PointerEvent<HTMLCanvasElement>,
     clear: boolean
   ) => {
-    e.preventDefault()
     endDraw(e)
     setIsDrawing(false)
     hasPushedUndo.current = false
@@ -432,44 +424,25 @@ export function AppearanceModal() {
     else updatePreview(e)
   }
 
-  // Spezifische Wrapper für Touch-Events.
-  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    handleStart(e)
-  }
-  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    handleMove(e)
-  }
-  const handleTouchEnd = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    handleEnd(e, true)
-  }
-
-  // Maus-Handler.
-  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    handleStart(e)
-  }
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    handleMove(e)
-  }
-  const handleMouseUp = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    handleEnd(e, false)
-  }
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    handleEnd(e, true)
-  }
-
-  // pointer event for everything
+  // Pointer Events for everything
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    // capture the event, so moves outside of the canvas are still registered
+    // this would probably also work for close-on-click in modals
+    e.currentTarget.setPointerCapture(e.pointerId);
     handleStart(e)
   }
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    e.preventDefault()
     handleMove(e)
   }
   const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    e.preventDefault()
     handleEnd(e, false)
   }
 
   const handlePointerLeave = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    e.preventDefault()
     handleEnd(e, true)
   }
 
@@ -864,7 +837,9 @@ export function AppearanceModal() {
                       pointerEvents: 'none',
                       zIndex: 1,
                       objectFit: 'cover',
+                      touchAction: 'none'
                     }}
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                   {/* Haupt-Zeichenleinwand */}
                   <canvas
@@ -877,22 +852,14 @@ export function AppearanceModal() {
                       imageRendering: 'pixelated',
                       position: 'relative',
                       zIndex: 2,
+                      touchAction: 'none'
                     }}
-                    /*
-                    onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
-                    onMouseLeave={handleMouseLeave}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                    onTouchCancel={handleTouchEnd}
-                    */
                     onPointerDown={handlePointerDown}
                     onPointerMove={handlePointerMove}
                     onPointerUp={handlePointerUp}
                     onPointerCancel={handlePointerLeave}
                     onPointerLeave={handlePointerLeave}
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                   {/* Overlay-Leinwand für die Pinselvorschau */}
                   <canvas
@@ -908,7 +875,9 @@ export function AppearanceModal() {
                       left: 0,
                       pointerEvents: 'none',
                       zIndex: 3,
+                      touchAction: 'none'
                     }}
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                 </div>
               </div>
