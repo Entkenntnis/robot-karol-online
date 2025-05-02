@@ -1062,11 +1062,894 @@ const chapterInfo = [
   {
     "id": 10003,
     "dirName": "020-eingabe-ausgabe",
-    "title": "2. Interaktionen 🚧",
-    "originalTitle": "Interaktionen 🚧",
-    "description": "# 💬 Kapitel 2: Interaktionen\r\n\r\nEs ist wunderbar, ich spüre, wie mit jeder gelösten Aufgabe die Quantenstruktur der Leinwände mehr Ordnung erhält. Wenn wir so weitermachen, findet sich sicher ein Weg für mich hier raus.\r\n\r\nBis dahin werde ich dir ein paar weitere Dinge in Python zeigen. Als nächstes möchte ich dir zeigen, wie dein Programm mit der Außenwelt kommuniziert – es wird Texte anzeigen und auf Eingaben reagieren können. Let's go! 🚀\r\n\r\n## 1. Die `print()`-Funktion – Sprich mit der Welt!\r\n\r\nMit `print()` kannst du alles ausgeben – Texte, Zahlen oder Variablen.\r\n\r\n```python\r\n# Einfache Ausgabe\r\nprint(\"Hallo Welt! 🌍\")\r\n\r\n# Mehrere Elemente ausgeben\r\n# Kommas fügen automatisch Leerzeichen ein\r\nalter = 12\r\nprint(\"Ich bin\", alter, \"Jahre alt!\")\r\n```\r\n\r\n## 2. Die `input()`-Funktion – Frag deine Nutzer!\r\n\r\nSo holst du dir Eingaben vom Benutzer ab:\r\n\r\n```python\r\n# Einfache Eingabe\r\nname = input(\"Wie heißt du? \")\r\nprint(\"Hallo\", name, \"! 😊\")  # Kommas fügen automatisch Leerzeichen ein\r\n\r\n# Achtung Falle: Alles ist erstmal Text!\r\ngeburtsjahr = input(\"In welchem Jahr bist du geboren? \")\r\nprint(type(geburtsjahr))  # Gibt <class 'str'> aus – obwohl wir eine Zahl erwarten!\r\n```\r\n\r\n## 3. Typumwandlung – Mach aus Texten Zahlen\r\n\r\nDamit du mit Eingaben rechnen kannst:\r\n\r\n```python\r\n# String zu Integer\r\ngeburtsjahr = int(input(\"Geburtsjahr: \"))\r\naktuelles_jahr = 2023\r\nalter = aktuelles_jahr - geburtsjahr\r\nprint(\"Du bist etwa\", alter, \"Jahre jung! 🎂\")\r\n\r\n# String zu Float\r\ngroesse = float(input(\"Wie groß bist du (in Metern)? \"))\r\nprint(\"Wow,\", groesse, \"m – du wächst bestimmt noch! 🌱\")\r\n```\r\n\r\n## 4. Texte verbinden – Verschiedene Wege zum Ziel\r\n\r\nIn Python gibt es mehrere Möglichkeiten, Texte und andere Werte auszugeben. Beginnen wir mit der einfachsten:\r\n\r\n### a) Die Komma-Methode – einfach und anfängerfreundlich\r\n\r\n```python\r\n# Mit Kommas werden verschiedene Werte durch Leerzeichen getrennt:\r\nname = \"Max\"\r\nalter = 12\r\nprint(\"Hallo\", name, \"du bist\", alter, \"Jahre alt!\")\r\n# Ausgabe: \"Hallo Max du bist 12 Jahre alt!\"\r\n\r\n# Diese Methode ist besonders praktisch, weil:\r\n# - Sie funktioniert mit allen Datentypen ohne Umwandlung\r\n# - Sie fügt automatisch Leerzeichen ein\r\n# - Sie ist leicht zu lesen und zu schreiben\r\n```\r\n\r\n### b) Fortgeschritten: f-Strings – Die moderne Art für schöne Ausgaben 💫\r\n\r\nAb Python 3.6 gibt es eine elegante Lösung für formatierte Ausgaben:\r\n\r\n```python\r\nname = \"Anna\"\r\nalter = 12\r\ngroesse = 1.56\r\n\r\n# Ein f-String beginnt mit f\" und kann Variablen in { } einbetten\r\nprint(f\"Hallo {name}, du bist {alter} Jahre alt und {groesse}m groß!\")\r\n\r\n# Du kannst sogar Berechnungen direkt einfügen:\r\nprint(f\"In 5 Jahren wirst du {alter + 5} Jahre alt sein.\")\r\n\r\n# Und Zahlen schön formatieren:\r\npreis = 3.1415\r\nprint(f\"Das kostet {preis:.2f}€\")  # Zwei Nachkommastellen\r\n```\r\n\r\n### c) Zusatzwissen: String-Konkatenation mit +\r\n\r\nEs gibt noch eine dritte Methode, die in vielen Programmiersprachen verwendet wird:\r\n\r\n```python\r\n# Mit + kannst du Strings verbinden (aber nur Strings!)\r\nvorname = \"Max\"\r\nnachname = \"Mustermann\"\r\nprint(vorname + \" \" + nachname)  # Ausgabe: \"Max Mustermann\"\r\n\r\n# WICHTIG: Mit + musst du alle Werte zu Strings machen!\r\n# Das funktioniert NICHT:\r\n# print(\"Ich bin \" + 12 + \" Jahre alt\")  # Fehler!\r\n\r\n# So geht es richtig:\r\nprint(\"Ich bin \" + str(12) + \" Jahre alt\")  # str() wandelt in Text um\r\n```\r\n\r\n## 💡 Wichtigste Erkenntnisse\r\n\r\n- `print()` gibt aus, `input()` liest ein (immer als String!)\r\n- Mit `int()` und `float()` machst du aus Texten Zahlen\r\n- Für Textausgaben:\r\n  - Anfänger: Nutze Kommas in print() für einfachste Handhabung\r\n  - Fortgeschrittene: f-Strings sind leicht lesbar und vielseitig\r\n  - Zusätzlich: \"+\" verbindet nur Strings, erfordert Typumwandlung\r\n- f-Strings sind besonders nützlich für formatierte Ausgaben\r\n\r\nJetzt kannst du schon richtige Dialoge mit deinem Programm führen! Probiere verschiedene Kombinationen aus und sieh, was passiert. 🎮💬\r\n",
-    "image": "",
-    "quests": [],
+    "title": "2. Interaktionen",
+    "originalTitle": "Interaktionen",
+    "description": "# 💬 Kapitel 2: Interaktionen\r\n\r\n\"Wir kommen voran!\", feiert Karol. \"Mal sehen, was uns als Nächstes erwartet.\" Sie verschwindet für ein paar Minuten in der Leinwand. Du nutzt die Zeit, dich ein wenig in ihrem Wohnzimmer umzusehen. Du bist überrascht, dass einige der Gemälde von Karol sehr kindlich aussehen.\r\n\r\n\"Was für Kunst machst du eigentlich?\", fragst du, als Karol wieder erscheint. Die alte Dame antwortet mit einem Grinsen: \"Haha, das ist eine komplizierte Sache. Aber aktuell male ich Bilder, die ich an Schulen schenke, um die Kinder dort ein wenig zu inspirieren...\"\r\n\r\nKarol schaut für einen kurzen Moment verträumt in die Ferne, dann findet sie sich wieder: \"Ich hab mir das Kapitel angeschaut, es wird interaktiv, denn du lernst, wie du Texte anzeigen und auf Eingaben reagieren kannst.\r\n\r\n## 1. Die `print()`-Funktion – sprich mit der Welt!\r\n\r\nMit `print()` kannst du alles ausgeben – Texte, Zahlen oder Variablen.\r\n\r\n```python\r\nprint(\"Hallo Welt! 🌍\")\r\n\r\nprint(42)\r\n\r\nalter = 17\r\nprint(alter)\r\n```\r\n\r\n## 2. Mit `f-Strings` Texte bauen\r\n\r\nHäufig wollen wir Informationen in einen netten Text verpacken. Dazu sind _f-Strings_ sehr hilfreich, denn damit kannst du Text mit Variablen und anderen Daten mischen. Nutze geschweifte Klammern `{}` als Platzhalter und schreibe dazwischen eine Variable. Dann wird der Wert an diese Stelle in den Text eingefügt:\r\n\r\n```py\r\nanzahl = \"4\"\r\nfarbe = \"rot\"\r\n\r\nprint(f\"Da sind {anzahl} Autos mit der Farbe {farbe}.\")\r\n\r\n# -> Da sind 4 Autos mit der Farbe rot.\r\n```\r\n\r\n## 3. Die `input()`-Funktion – stelle Fragen!\r\n\r\nSo holst du dir Eingaben vom Benutzer ab:\r\n\r\n```python\r\n# Einfache Eingabe\r\nname = input(\"Wie heißt du? \")\r\n\r\nprint(f\"Hallo, {name}! 😊\")\r\n```\r\n\r\n## 4. Typumwandlung – mach aus Text eine Zahl\r\n\r\nUm eine Zahl abzufragen, verpacke die Eingabe in die Funktion `int()`. Diese wandelt einen Text in eine Zahl um:\r\n\r\n```python\r\n# String zu Integer\r\ngeburtsjahr = int(input(\"Geburtsjahr: \"))\r\n\r\naktuelles_jahr = 2025\r\nalter = aktuelles_jahr - geburtsjahr\r\nprint(f\"Du bist etwa {alter} Jahre jung! 🎂\")\r\n```\r\n\r\n## 💡 Wichtigste Erkenntnisse\r\n\r\n- `print()` gibt aus, `input()` liest ein (immer als String!)\r\n- `f-Strings` sind besonders nützlich für zusammengesetzte Texte\r\n- Mit `int()` machst aus Texten Ganzzahlen\r\n\r\nJetzt kannst du schon richtige Dialoge mit deinem Programm führen! Probiere dich gleich an den Aufgaben aus! 🎮💬\"\r\n",
+    "image": "/story/2.jpg",
+    "quests": [
+      {
+        "filename": "Systemstatus.json",
+        "x": 160,
+        "y": -70,
+        "id": 119,
+        "content": {
+          "version": "v1",
+          "title": "Systemstatus",
+          "description": "Beim Start der Rakete müssen Temperatur und Geschwindigkeit eng beobachtet werden.\n\nErsetze `X` und `Y` mit  `{}`-Klammern und setze die passende Variable ein. So soll eine Ausgabe aussehen:\n\n**Triebwerkstemperatur: 555 °C, Geschwindigkeit: 423 km/h**",
+          "tasks": [
+            {
+              "title": "Instrumentenanzeige",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 6,
+                  "dimY": 3,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 2,
+                  "dimY": 4,
+                  "offsetX": 3,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 6,
+                  "dimY": 3,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 2,
+                  "dimY": 4,
+                  "offsetX": 3,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "import random\n\n__ide_prompt(\"T minus 3, 2, 1, ...\", \"Start\")\n\nts = [0, 500, 800, 1100, 1300, 1500, 1665, 1780, 1990, 2102]\n\nvs = [0, 10, 26, 45, 56, 78, 98, 135, 180, 240]\n\nfor i in range(10):\n    t = ts[i]\n    v = vs[i]\n    def ladeTemperatur():\n        return t\n\n    def ladeGeschwindigkeit():\n        return v\n\n    __ide_run_client(globals=[\"ladeTemperatur\", \"ladeGeschwindigkeit\"])\n\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"Triebwerkstemperatur: {t} °C, Geschwindigkeit: {v} km/h\"\n    if lastOutput != expected:\n        __ide_prompt(\"Statusanzeige fehlerhaft, Messwerte wurden nicht richtig dargestellt.\", \"Korrigieren\")\n        __ide_exit()\n\n    __ide_sleep(0.3)\n\n__ide_set_progress(True)\n__ide_prompt(\"Start erfolgreich 🚀\")",
+          "language": "python-pro",
+          "program": "temperatur = ladeTemperatur()\n\ngeschwindigkeit = ladeGeschwindigkeit()\n\nprint(f\"Triebwerkstemperatur: X °C, Geschwindigkeit: Y km/h\")"
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "Runen.json",
+        "x": 190,
+        "y": 70,
+        "id": 120,
+        "content": {
+          "version": "v1",
+          "title": "Runen",
+          "description": "In einer magischen Beschwörung müssen  X mit dem Wert der Variable `rune` ersetzt werden. Sei vorsichtig und lösche keine der Tilden.",
+          "tasks": [
+            {
+              "title": "magische Rune",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 2,
+                  "dimY": 2,
+                  "offsetX": 2,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 2,
+                  "dimY": 2,
+                  "offsetX": 2,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "runes = [' ✿ڿڰۣ— ', '(=^･ｪ･^=))ﾉ彡☆', '\tヽ(｀Д´)⊃━☆ﾟ. * ･ ｡ﾟ,']\n\n__ide_prompt(\"Die große Beschwörung steht bevor.\", \"Runen einsetzen\")\n\n\nfor rune in runes:\n    def ladeRune():\n        return rune\n    __ide_run_client(globals=[\"ladeRune\"])\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"~~~~~~~{rune}~~~~~{rune}~~~~~{rune}~~~~\"\n    if lastOutput != expected:\n        __ide_prompt(\"Beschwörung fehlgeschlagen 💥\", \"Korrigieren\")\n        __ide_exit()\n    __ide_sleep(0.8)\n\n__ide_set_progress(True)\n__ide_prompt(\"Danke für die Unterstützung!\", \"Gerne\")",
+          "language": "python-pro",
+          "program": "rune = ladeRune()\n\nprint(f\"~~~~~~~X~~~~~X~~~~~X~~~~\")"
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "Begrüßung.json",
+        "x": 560,
+        "y": 57,
+        "id": 121,
+        "content": {
+          "version": "v1",
+          "title": "Begrüßung",
+          "description": "Eine persönliche Begrüßung fühlt sich doch gleich viel wärmer an. Ergänze das Script:\n\n- Frage mit `input()` den Namen ab und weise den Wert einer Variable zu\n- Gib eine Begrüßung aus, nutze einen f-string.",
+          "tasks": [
+            {
+              "title": "Ein Lächeln",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Probieren wir das Script aus.\", \"Begegnung starten\")\n\n__ide_run_client()\n\n# Prüfe Eingabe über input()\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst den Namen mit `input()` abfragen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Extrahiere den eingegebenen Namen\nname = inputs[0]\n\n# Prüfe Ausgabe\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Begrüßung ausgegeben. Nutze einen f-string mit `print()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob der Name in der Ausgabe verwendet wurde\nlast_output = outputs[-1].strip()\nif name not in last_output:\n    __ide_prompt(f\"Deine Begrüßung enthält nicht den Namen '{name}'. Nutze einen f-string, der den Namen einbaut.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n\n__ide_set_progress(True)\n__ide_prompt(f\"Super! Du hast {name} erfolgreich mit einem f-string begrüßt!\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "\nname = \"\" # TODO: ersetze mit input(\"Wie lautet dein Name?\")\n\nprint(f\"...\") # TODO: antworte den Namen, z.B. Hi, X!\n"
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "Harry_Potter_Fan.json",
+        "x": 330,
+        "y": 148,
+        "id": 122,
+        "content": {
+          "version": "v1",
+          "title": "Harry Potter Fan",
+          "description": "Alle Harry Potter Fans aufgepasst: Schreibe ein Script, dass drei bekannte Tatsachen abfragt. Nutze für jede Tatsache einmal `input` und speichere die Informationen in den passenden Variablen.\n\nAchte bei der dritten Tatsache darauf, die Eingabe mit `int(input())` in eine Ganzzahl umzuwandeln.\n\n> 7 - ƃıʍpǝH - ɥɔʇıppınὉ :uǝʇnɐן uǝʇɹoʍʇu∀ ǝıᗡ",
+          "tasks": [
+            {
+              "title": "Initialien",
+              "start": {
+                "dimX": 8,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 1,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      0,
+                      1,
+                      0,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 1,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      false,
+                      true,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 8,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 1,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      0,
+                      1,
+                      0,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 1,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      false,
+                      true,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Willkommen im Zaubererquiz!\", \"Accio Fragen!\")\n\n__ide_run_client()\n\n# Überprüfe die Anzahl der Eingaben\ninputs = __ide_get_inputs()\nif len(inputs) < 3:\n    __ide_prompt(\"Du hast nicht alle drei Fragen gestellt. Nutze dreimal `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe die Variablen im Client-Code\nvars_to_check = ['sport', 'name_harrys_eule', 'anzahl_horkruxe']\nmissing_vars = []\n\nfor var in vars_to_check:\n    if var not in globals():\n        missing_vars.append(var)\n\nif missing_vars:\n    __ide_prompt(f\"Es fehlen folgende Variablen: {', '.join(missing_vars)}\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe die Datentypen\nif not isinstance(sport, str):\n    __ide_prompt(\"Die Variable 'sport' sollte ein String sein.\", \"Nochmal versuchen\")\n    __ide_exit()\n    \nif not isinstance(name_harrys_eule, str):\n    __ide_prompt(\"Die Variable 'name_harrys_eule' sollte ein String sein.\", \"Nochmal versuchen\")\n    __ide_exit()\n    \nif not isinstance(anzahl_horkruxe, int):\n    __ide_prompt(\"Die Variable 'anzahl_horkruxe' sollte eine Ganzzahl sein. Hast du int(input()) verwendet?\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Optionale Überprüfung der korrekten Antworten\nif sport.lower() == \"quidditch\" and name_harrys_eule.lower() == \"hedwig\" and anzahl_horkruxe == 7:\n    __ide_prompt(\"Perfekt! Du bist ein echter Harry Potter Fan! ⚡\", \"Wingardium Leviosa!\")\nelse:\n    __ide_prompt(\"Dein Code funktioniert, aber überprüfe nochmal deine Antworten. Die Hinweise stehen übrigens auf dem Kopf in der Aufgabenstellung. 😉\", \"Ok\")\n\n__ide_set_progress(True)",
+          "language": "python-pro",
+          "program": "# Beispiel\nsport = input(\"Welche Sportart ist zentral für Harry Potter?\")\n\n# TODO\n# name_harrys_eule = \n\n# anzahl_horkruxe = "
+        },
+        "deps": [
+          10003
+        ]
+      }
+    ],
     "x": 380,
     "y": 1930
   },

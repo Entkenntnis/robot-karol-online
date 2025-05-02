@@ -1,6 +1,12 @@
 {
-  "title": "Interaktionen 🚧",
-  "quests": [],
+  "title": "Interaktionen",
+  "quests": [
+    { "filename": "Systemstatus.json", "x": 160, "y": -70 },
+    { "filename": "Runen.json", "x": 190, "y": 70 },
+    { "filename": "Begrüßung.json", "x": 560, "y": 57 },
+    { "filename": "Harry_Potter_Fan.json", "x": 330, "y": 148 }
+  ],
   "x": 380,
-  "y": 1930
+  "y": 1930,
+  "image": "/story/2.jpg"
 }

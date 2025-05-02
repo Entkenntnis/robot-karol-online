@@ -77,6 +77,7 @@ function Code({
   return (
     <div className=" " {...props}>
       <CodeBox
+        key={children.trim()}
         doc={children.trim()}
         language={
           className == 'lang-py' || className == 'lang-python'

@@ -109,7 +109,8 @@ export function ShareModal() {
                   a.href = url
                   const title = core.ws.quest.title || 'quest'
                   // make sure to remove special characters
-                  a.download = title.replace(/[^a-z0-9]/gi, '_') + '.json'
+                  a.download =
+                    title.replace(/[^A-Za-z0-9äüöÄÜÖß]/gi, '_') + '.json'
                   a.click()
                   URL.revokeObjectURL(url)
                 }}
