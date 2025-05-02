@@ -9,6 +9,8 @@ export function QuestPrompt() {
   const [displayedText, setDisplayedText] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
 
+  const useStoryIcon = core.ws.quest.id >= 100
+
   useEffect(() => {
     if (core.ws.ui.questPrompt) {
       setDisplayedText('')
@@ -39,25 +41,33 @@ export function QuestPrompt() {
 
   return (
     <div className="absolute left-20 right-12 rounded bottom-4 overflow-auto min-h-[47px] bg-yellow-100 flex items-center">
-      <div>
-        <View
-          robotImageDataUrl={core.ws.robotImageDataUrl}
-          world={{
-            dimX: 1,
-            dimY: 1,
-            karol: {
-              x: 0,
-              y: 0,
-              dir: 'east',
-            },
-            blocks: [[false]],
-            marks: [[false]],
-            bricks: [[0]],
-            height: 1,
-          }}
-          hideWorld
-          className="ml-1 -mt-2 mr-2"
-        />
+      <div className="flex-shrink-0">
+        {useStoryIcon ? (
+          <img
+            src="/story/icon.gif"
+            className="w-[52px] rounded-full overflow-hidden mx-2"
+            alt="animation"
+          />
+        ) : (
+          <View
+            robotImageDataUrl={core.ws.robotImageDataUrl}
+            world={{
+              dimX: 1,
+              dimY: 1,
+              karol: {
+                x: 0,
+                y: 0,
+                dir: 'east',
+              },
+              blocks: [[false]],
+              marks: [[false]],
+              bricks: [[0]],
+              height: 1,
+            }}
+            hideWorld
+            className="ml-1 -mt-2 mr-2"
+          />
+        )}
       </div>
       <div className="flex-grow flex justify-between flex-col min-h-[80px]">
         <div className="px-3">{processMarkdown(displayedText)}</div>

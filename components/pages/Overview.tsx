@@ -974,6 +974,10 @@ export function Overview() {
   function isQuestVisible(id: number) {
     const position = questList.indexOf(id)
 
+    const questsInPreviousChapter = Object.entries(mapData)
+      .filter(([i, data]) => data.chapter === id - 1 && parseInt(i) < 10000)
+      .map(([id]) => parseInt(id))
+
     return (
       core.ws.page == 'demo' ||
       core.ws.page == 'analyze' ||
@@ -981,7 +985,11 @@ export function Overview() {
       position == 0 ||
       id == 61 || // hallo python
       isQuestDone(id) ||
-      mapData[id]?.deps.some(isQuestDone)
+      (id < 10000
+        ? mapData[id]?.deps.some(isQuestDone)
+        : questsInPreviousChapter.filter(isQuestDone).length > 0 ||
+          (questsInPreviousChapter.length == 0 &&
+            isQuestDone(id == 10001 ? 61 : id - 1)))
     )
   }
 
