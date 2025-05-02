@@ -13,3 +13,4 @@ yarn-error.log*
 /out/
 /src-e2e/output
 tsconfig.tsbuildinfo
+.vscode
