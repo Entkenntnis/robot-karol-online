@@ -20,6 +20,7 @@ import { View2D } from '../helper/View2D'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { exitBench } from '../../lib/commands/bench'
+import { PythonConsole } from '../helper/PythonConsole'
 
 export function Output() {
   const core = useCore()
@@ -232,26 +233,7 @@ export function Output() {
             </div>
           </div>
         )}
-        {core.ws.settings.language == 'python-pro' && (
-          <div
-            className={clsx(
-              'absolute left-2',
-              core.ws.ui.isTesting ? 'bottom-2' : 'bottom-11'
-            )}
-          >
-            {core.ws.ui.messages.map((m) => (
-              <div
-                key={`${m.ts}-${m.text}`}
-                className="max-w-full py-1 px-2 rounded"
-              >
-                <span className="bg-lime-100 rounded px-2 py-0.5">
-                  {m.text}
-                  {m.count > 1 && <span> (x{m.count})</span>}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
+        <PythonConsole />
       </div>
       {core.ws.quest.lastStartedTask !== undefined && (
         <div className="absolute bottom-1.5 left-2 whitespace-nowrap">
