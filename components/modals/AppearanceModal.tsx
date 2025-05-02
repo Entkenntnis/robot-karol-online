@@ -582,10 +582,10 @@ export function AppearanceModal() {
                 }}
               />
             </div>
-            <div className="flex flex-wrap justify-center gap-3 mt-3">
+            <div className="flex flex-wrap justify-center justify-items-center gap-2 mt-2">
               <button
                 title="Pinsel"
-                className={`px-3 py-1 border rounded ${tool === 'brush' ? 'bg-gray-300' : 'bg-white'
+                className={`h-8 w-10 flex justify-center items-center border rounded ${tool === 'brush' ? 'bg-gray-300' : 'bg-white'
                   }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_brush')
@@ -596,7 +596,7 @@ export function AppearanceModal() {
               </button>
               <button
                 title="Füllen"
-                className={`px-3 py-1 border rounded ${tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
+                className={`h-8 w-10 flex justify-center items-center border rounded ${tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
                   }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_fill')
@@ -607,7 +607,7 @@ export function AppearanceModal() {
               </button>
               <button
                 title="Linie"
-                className={`px-3 py-1 border rounded ${tool === 'line' ? 'bg-gray-300' : 'bg-white'
+                className={`h-8 w-10 flex justify-center items-center border rounded ${tool === 'line' ? 'bg-gray-300' : 'bg-white'
                   }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
@@ -626,7 +626,7 @@ export function AppearanceModal() {
                   />
                 </svg>
               </button>
-              <button
+              {/*<button
                 title="Rechteck"
                 className={`px-3 py-1 border rounded ${tool === 'rectangle' ? 'bg-gray-300' : 'bg-white'
                   }`}
@@ -638,10 +638,10 @@ export function AppearanceModal() {
                 <svg width="18" height="18" viewBox="0 0 14 14">
                   <rect x="1" y="2" width="12" height="10" strokeLinejoin='round' fill='none' stroke='currentColor' strokeWidth="2" />
                 </svg>
-              </button>
+              </button>*/}
               <button
                 title="Ellipse"
-                className={`px-3 py-1 border rounded ${tool === 'ellipse' ? 'bg-gray-300' : 'bg-white'
+                className={`h-8 w-10 flex justify-center items-center border rounded ${tool === 'ellipse' ? 'bg-gray-300' : 'bg-white'
                   }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_fill')
@@ -654,7 +654,7 @@ export function AppearanceModal() {
               </button>
               <button
                 title="Radierer"
-                className={`px-3 py-1 border rounded ${tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
+                className={`h-8 w-10 h-8 flex justify-center items-center border rounded ${tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
                   }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
@@ -665,7 +665,7 @@ export function AppearanceModal() {
               </button>
               <button
                 title="Rückgängig"
-                className="px-3 py-1 bg-purple-200 hover:bg-purple-300 rounded"
+                className="h-8 w-10 flex justify-center items-center bg-purple-200 hover:bg-purple-300 rounded"
                 onClick={handleUndo}
               >
                 <FaIcon icon={faUndo} />
@@ -691,31 +691,31 @@ export function AppearanceModal() {
                   }}
                 />
               ))}
-              <div className="flex items-center gap-2 flex-wrap justify-center mt-3">
-                {[1, 2, 3, 10].map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => {
-                      /*submitAnalyzeEvent(
-                        core,
-                        'ev_click_appearance_selectBrushSize_' + size
-                      )*/
-                      setBrushSize(size)
+            </div>
+            <div className="flex items-center gap-2 flex-wrap justify-center mt-3">
+              {[1, 2, 3, 10].map((size) => (
+                <button
+                  key={size}
+                  onClick={() => {
+                    /*submitAnalyzeEvent(
+                      core,
+                      'ev_click_appearance_selectBrushSize_' + size
+                    )*/
+                    setBrushSize(size)
+                  }}
+                  className={`flex items-center justify-center w-10 h-10 border rounded-full ${brushSize === size ? 'bg-gray-300' : 'bg-white'
+                    }`}
+                >
+                  <div
+                    style={{
+                      width: `${size * 3}px`,
+                      height: `${size * 3}px`,
+                      backgroundColor: `${selectedColor}`,
+                      borderRadius: '50%',
                     }}
-                    className={`flex items-center justify-center w-10 h-10 border rounded-full ${brushSize === size ? 'bg-gray-300' : 'bg-white'
-                      }`}
-                  >
-                    <div
-                      style={{
-                        width: `${size * 3}px`,
-                        height: `${size * 3}px`,
-                        backgroundColor: `${selectedColor}`,
-                        borderRadius: '50%',
-                      }}
-                    />
-                  </button>
-                ))}
-              </div>
+                  />
+                </button>
+              ))}
             </div>
           </div>
           <div className="flex-grow flex-shrink flex flex-col">
