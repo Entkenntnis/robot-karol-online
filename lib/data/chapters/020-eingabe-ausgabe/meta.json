@@ -1,6 +1,10 @@
 {
-  "title": "Interaktionen 🚧",
-  "quests": [{ "filename": "Systemstatus.json", "x": 160, "y": -70 }],
+  "title": "Interaktionen",
+  "quests": [
+    { "filename": "Systemstatus.json", "x": 160, "y": -70 },
+    { "filename": "Runen.json", "x": 190, "y": 70 },
+    { "filename": "Begrüßung.json", "x": 560, "y": 57 }
+  ],
   "x": 380,
   "y": 1930,
   "image": "/story/2.jpg"
