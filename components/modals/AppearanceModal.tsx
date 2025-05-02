@@ -885,12 +885,11 @@ export function AppearanceModal() {
                     style={{
                       width: '800px',
                       height: '355px',
-                      imageRendering: 'pixelated',
                       position: 'absolute',
                       top: 0,
                       left: 0,
                       pointerEvents: 'none',
-                      zIndex: 3,
+                      zIndex: 4,
                       touchAction: 'none'
                     }}
                   >
