@@ -974,6 +974,7 @@ export function Overview() {
   function isQuestVisible(id: number) {
     const position = questList.indexOf(id)
 
+    const questsInPreviousChapter = Object.entries(mapData)
       .filter(([i, data]) => data.chapter === id - 1 && parseInt(i) < 10000)
       .map(([id]) => parseInt(id))
 
