@@ -3,7 +3,8 @@
   "quests": [
     { "filename": "Systemstatus.json", "x": 160, "y": -70 },
     { "filename": "Runen.json", "x": 190, "y": 70 },
-    { "filename": "Begrüßung.json", "x": 560, "y": 57 }
+    { "filename": "Begrüßung.json", "x": 560, "y": 57 },
+    { "filename": "Harry_Potter_Fan.json", "x": 330, "y": 148 }
   ],
   "x": 380,
   "y": 1930,

@@ -1606,6 +1606,348 @@ const chapterInfo = [
         "deps": [
           10003
         ]
+      },
+      {
+        "filename": "Harry_Potter_Fan.json",
+        "x": 330,
+        "y": 148,
+        "id": 122,
+        "content": {
+          "version": "v1",
+          "title": "Harry Potter Fan",
+          "description": "Alle Harry Potter Fans aufgepasst: Schreibe ein Script, dass drei bekannte Tatsachen abfragt. Nutze für jede Tatsache einmal `input` und speichere die Informationen in den passenden Variablen.\n\nAchte bei der dritten Tatsache darauf, die Eingabe mit `int(input())` in eine Ganzzahl umzuwandeln.\n\n> 7 - ƃıʍpǝH - ɥɔʇıppınὉ :uǝʇnɐן uǝʇɹoʍʇu∀ ǝıᗡ",
+          "tasks": [
+            {
+              "title": "Initialien",
+              "start": {
+                "dimX": 8,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 1,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      0,
+                      1,
+                      0,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 1,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      false,
+                      true,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 8,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 1,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      0,
+                      1,
+                      0,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      1,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 1,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      false,
+                      true,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Willkommen im Zaubererquiz!\", \"Accio Fragen!\")\n\n__ide_run_client()\n\n# Überprüfe die Anzahl der Eingaben\ninputs = __ide_get_inputs()\nif len(inputs) < 3:\n    __ide_prompt(\"Du hast nicht alle drei Fragen gestellt. Nutze dreimal `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe die Variablen im Client-Code\nvars_to_check = ['sport', 'name_harrys_eule', 'anzahl_horkruxe']\nmissing_vars = []\n\nfor var in vars_to_check:\n    if var not in globals():\n        missing_vars.append(var)\n\nif missing_vars:\n    __ide_prompt(f\"Es fehlen folgende Variablen: {', '.join(missing_vars)}\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe die Datentypen\nif not isinstance(sport, str):\n    __ide_prompt(\"Die Variable 'sport' sollte ein String sein.\", \"Nochmal versuchen\")\n    __ide_exit()\n    \nif not isinstance(name_harrys_eule, str):\n    __ide_prompt(\"Die Variable 'name_harrys_eule' sollte ein String sein.\", \"Nochmal versuchen\")\n    __ide_exit()\n    \nif not isinstance(anzahl_horkruxe, int):\n    __ide_prompt(\"Die Variable 'anzahl_horkruxe' sollte eine Ganzzahl sein. Hast du int(input()) verwendet?\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Optionale Überprüfung der korrekten Antworten\nif sport.lower() == \"quidditch\" and name_harrys_eule.lower() == \"hedwig\" and anzahl_horkruxe == 7:\n    __ide_prompt(\"Perfekt! Du bist ein echter Harry Potter Fan! ⚡\", \"Wingardium Leviosa!\")\nelse:\n    __ide_prompt(\"Dein Code funktioniert, aber überprüfe nochmal deine Antworten. Die Hinweise stehen übrigens auf dem Kopf in der Aufgabenstellung. 😉\", \"Ok\")\n\n__ide_set_progress(True)",
+          "language": "python-pro",
+          "program": "# Beispiel\nsport = input(\"Welche Sportart ist zentral für Harry Potter?\")\n\n# TODO\n# name_harrys_eule = \n\n# anzahl_horkruxe = "
+        },
+        "deps": [
+          10003
+        ]
       }
     ],
     "x": 380,

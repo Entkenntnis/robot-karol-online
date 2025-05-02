@@ -169,6 +169,7 @@ export function Output() {
               className="flex-grow px-1"
               maxLength={200}
               autoFocus
+              required
               autoComplete="off"
             ></input>
             <button
