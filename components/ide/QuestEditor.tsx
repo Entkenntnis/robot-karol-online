@@ -55,6 +55,8 @@ export function QuestEditor() {
             setQuestPreview(core, true)
             core.mutateWs((ws) => {
               ws.editor.originalCode = ws.pythonCode
+              ws.ui.editQuestScript = false
+              ws.ui.needsTextRefresh = true
             })
           }}
         >

@@ -1,6 +1,7 @@
 {
   "title": "Interaktionen 🚧",
-  "quests": [],
+  "quests": [{ "filename": "Systemstatus.json", "x": 160, "y": -70 }],
   "x": 380,
-  "y": 1930
+  "y": 1930,
+  "image": "/story/2.jpg"
 }

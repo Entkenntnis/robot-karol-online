@@ -119,6 +119,7 @@ export function closeOutput(core: Core) {
     ws.ui.isTesting = false
     ws.ui.karolCrashMessage = undefined
     ws.quest.progress = false
+    ws.ui.messages = []
   })
 }
 

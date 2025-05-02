@@ -1065,8 +1065,179 @@ const chapterInfo = [
     "title": "2. Interaktionen 🚧",
     "originalTitle": "Interaktionen 🚧",
     "description": "# 💬 Kapitel 2: Interaktionen\r\n\r\nEs ist wunderbar, ich spüre, wie mit jeder gelösten Aufgabe die Quantenstruktur der Leinwände mehr Ordnung erhält. Wenn wir so weitermachen, findet sich sicher ein Weg für mich hier raus.\r\n\r\nBis dahin werde ich dir ein paar weitere Dinge in Python zeigen. Als nächstes möchte ich dir zeigen, wie dein Programm mit der Außenwelt kommuniziert – es wird Texte anzeigen und auf Eingaben reagieren können. Let's go! 🚀\r\n\r\n## 1. Die `print()`-Funktion – Sprich mit der Welt!\r\n\r\nMit `print()` kannst du alles ausgeben – Texte, Zahlen oder Variablen.\r\n\r\n```python\r\n# Einfache Ausgabe\r\nprint(\"Hallo Welt! 🌍\")\r\n\r\n# Mehrere Elemente ausgeben\r\n# Kommas fügen automatisch Leerzeichen ein\r\nalter = 12\r\nprint(\"Ich bin\", alter, \"Jahre alt!\")\r\n```\r\n\r\n## 2. Die `input()`-Funktion – Frag deine Nutzer!\r\n\r\nSo holst du dir Eingaben vom Benutzer ab:\r\n\r\n```python\r\n# Einfache Eingabe\r\nname = input(\"Wie heißt du? \")\r\nprint(\"Hallo\", name, \"! 😊\")  # Kommas fügen automatisch Leerzeichen ein\r\n\r\n# Achtung Falle: Alles ist erstmal Text!\r\ngeburtsjahr = input(\"In welchem Jahr bist du geboren? \")\r\nprint(type(geburtsjahr))  # Gibt <class 'str'> aus – obwohl wir eine Zahl erwarten!\r\n```\r\n\r\n## 3. Typumwandlung – Mach aus Texten Zahlen\r\n\r\nDamit du mit Eingaben rechnen kannst:\r\n\r\n```python\r\n# String zu Integer\r\ngeburtsjahr = int(input(\"Geburtsjahr: \"))\r\naktuelles_jahr = 2023\r\nalter = aktuelles_jahr - geburtsjahr\r\nprint(\"Du bist etwa\", alter, \"Jahre jung! 🎂\")\r\n\r\n# String zu Float\r\ngroesse = float(input(\"Wie groß bist du (in Metern)? \"))\r\nprint(\"Wow,\", groesse, \"m – du wächst bestimmt noch! 🌱\")\r\n```\r\n\r\n## 4. Texte verbinden – Verschiedene Wege zum Ziel\r\n\r\nIn Python gibt es mehrere Möglichkeiten, Texte und andere Werte auszugeben. Beginnen wir mit der einfachsten:\r\n\r\n### a) Die Komma-Methode – einfach und anfängerfreundlich\r\n\r\n```python\r\n# Mit Kommas werden verschiedene Werte durch Leerzeichen getrennt:\r\nname = \"Max\"\r\nalter = 12\r\nprint(\"Hallo\", name, \"du bist\", alter, \"Jahre alt!\")\r\n# Ausgabe: \"Hallo Max du bist 12 Jahre alt!\"\r\n\r\n# Diese Methode ist besonders praktisch, weil:\r\n# - Sie funktioniert mit allen Datentypen ohne Umwandlung\r\n# - Sie fügt automatisch Leerzeichen ein\r\n# - Sie ist leicht zu lesen und zu schreiben\r\n```\r\n\r\n### b) Fortgeschritten: f-Strings – Die moderne Art für schöne Ausgaben 💫\r\n\r\nAb Python 3.6 gibt es eine elegante Lösung für formatierte Ausgaben:\r\n\r\n```python\r\nname = \"Anna\"\r\nalter = 12\r\ngroesse = 1.56\r\n\r\n# Ein f-String beginnt mit f\" und kann Variablen in { } einbetten\r\nprint(f\"Hallo {name}, du bist {alter} Jahre alt und {groesse}m groß!\")\r\n\r\n# Du kannst sogar Berechnungen direkt einfügen:\r\nprint(f\"In 5 Jahren wirst du {alter + 5} Jahre alt sein.\")\r\n\r\n# Und Zahlen schön formatieren:\r\npreis = 3.1415\r\nprint(f\"Das kostet {preis:.2f}€\")  # Zwei Nachkommastellen\r\n```\r\n\r\n### c) Zusatzwissen: String-Konkatenation mit +\r\n\r\nEs gibt noch eine dritte Methode, die in vielen Programmiersprachen verwendet wird:\r\n\r\n```python\r\n# Mit + kannst du Strings verbinden (aber nur Strings!)\r\nvorname = \"Max\"\r\nnachname = \"Mustermann\"\r\nprint(vorname + \" \" + nachname)  # Ausgabe: \"Max Mustermann\"\r\n\r\n# WICHTIG: Mit + musst du alle Werte zu Strings machen!\r\n# Das funktioniert NICHT:\r\n# print(\"Ich bin \" + 12 + \" Jahre alt\")  # Fehler!\r\n\r\n# So geht es richtig:\r\nprint(\"Ich bin \" + str(12) + \" Jahre alt\")  # str() wandelt in Text um\r\n```\r\n\r\n## 💡 Wichtigste Erkenntnisse\r\n\r\n- `print()` gibt aus, `input()` liest ein (immer als String!)\r\n- Mit `int()` und `float()` machst du aus Texten Zahlen\r\n- Für Textausgaben:\r\n  - Anfänger: Nutze Kommas in print() für einfachste Handhabung\r\n  - Fortgeschrittene: f-Strings sind leicht lesbar und vielseitig\r\n  - Zusätzlich: \"+\" verbindet nur Strings, erfordert Typumwandlung\r\n- f-Strings sind besonders nützlich für formatierte Ausgaben\r\n\r\nJetzt kannst du schon richtige Dialoge mit deinem Programm führen! Probiere verschiedene Kombinationen aus und sieh, was passiert. 🎮💬\r\n",
-    "image": "",
-    "quests": [],
+    "image": "/story/2.jpg",
+    "quests": [
+      {
+        "filename": "Systemstatus.json",
+        "x": 160,
+        "y": -70,
+        "id": 119,
+        "content": {
+          "version": "v1",
+          "title": "Systemstatus",
+          "description": "Beim Start der Rakete müssen Temperatur und Geschwindigkeit eng beobachtet werden.\n\nErsetze `X` und `Y` mit  `{}`-Klammern und setze die passende Variable ein. So sieht eine Zeile beispielsweise aus:\n\n**Triebwerkstemperatur: 555 °C, Geschwindigkeit: 423 km/h**",
+          "tasks": [
+            {
+              "title": "Instrumentenanzeige",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 6,
+                  "dimY": 3,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 2,
+                  "dimY": 4,
+                  "offsetX": 3,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 6,
+                  "dimY": 3,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 2,
+                  "dimY": 4,
+                  "offsetX": 3,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "import random\n\n__ide_prompt(\"T minus 3, 2, 1, ...\", \"Start\")\n\nts = [0, 500, 800, 1100, 1300, 1500, 1665, 1780, 1990, 2102]\n\nvs = [0, 10, 26, 45, 56, 78, 98, 135, 180, 240]\n\nfor i in range(10):\n    t = ts[i]\n    v = vs[i]\n    def ladeTemperatur():\n        return t\n\n    def ladeGeschwindigkeit():\n        return v\n\n    __ide_run_client(globals=[\"ladeTemperatur\", \"ladeGeschwindigkeit\"])\n\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"Triebwerkstemperatur: {t} °C, Geschwindigkeit: {v} km/h\"\n    if lastOutput != expected:\n        __ide_prompt(\"Statusanzeige fehlerhaft, Messwerte wurden nicht richtig dargestellt.\", \"Korrigieren\")\n        __ide_exit()\n\n    __ide_sleep(0.3)\n\n__ide_set_progress(True)\n__ide_prompt(\"Start erfolgreich 🚀\")",
+          "language": "python-pro",
+          "program": "temperatur = ladeTemperatur()\n\ngeschwindigkeit = ladeGeschwindigkeit()\n\nprint(f\"Triebwerkstemperatur: X °C, Geschwindigkeit: Y km/h\")"
+        },
+        "deps": [
+          10003
+        ]
+      }
+    ],
     "x": 380,
     "y": 1930
   },
