@@ -880,6 +880,25 @@ export function AppearanceModal() {
                     }}
                     onContextMenu={(e) => e.preventDefault()}
                   />
+                  {/* Sprite boundary overlay*/}
+                  <div className='grid grid-cols-4'
+                    style={{
+                      width: '800px',
+                      height: '355px',
+                      imageRendering: 'pixelated',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      pointerEvents: 'none',
+                      zIndex: 3,
+                      touchAction: 'none'
+                    }}
+                  >
+                    <div className='border-r border-black border-opacity-50'></div>
+                    <div className='border-r border-black border-opacity-50'></div>
+                    <div className='border-r border-black border-opacity-50'></div>
+                    <div></div>
+                  </div>
                 </div>
               </div>
             </div>
