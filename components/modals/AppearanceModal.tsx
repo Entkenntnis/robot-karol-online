@@ -562,7 +562,7 @@ export function AppearanceModal() {
                 <FaIcon icon={faArrowRight} />
               </button>
             </div>
-            <div className="w-[120px] h-[120px] flex justify-center items-center -mt-3 mb-5">
+            <div className="w-[120px] h-[120px] flex justify-center items-center -mt-3 mb-2">
               <View
                 robotImageDataUrl={core.ws.robotImageDataUrl}
                 world={{
@@ -676,7 +676,7 @@ export function AppearanceModal() {
               {colors.map((color) => (
                 <button
                   key={color}
-                  className={`w-6 h-6 border-2 ${selectedColor === color ? 'border-black' : 'border-gray-300'
+                  className={`w-6 h-6 rounded border-black border ${selectedColor === color ? 'border-2 border-opacity-100' : 'border-opacity-50'
                     }`}
                   style={{ backgroundColor: color }}
                   onClick={() => {
@@ -710,8 +710,9 @@ export function AppearanceModal() {
                     style={{
                       width: `${size * 3}px`,
                       height: `${size * 3}px`,
-                      backgroundColor: `${selectedColor}`,
+                      backgroundColor: `${tool === "eraser" ? "black" : selectedColor}`,
                       borderRadius: '50%',
+                      border: '1px solid rgba(0, 0, 0, 0.5)'
                     }}
                   />
                 </button>
