@@ -562,7 +562,7 @@ export function AppearanceModal() {
                 <FaIcon icon={faArrowRight} />
               </button>
             </div>
-            <div className="w-[120px] h-[120px] flex justify-center items-center -mt-3 mb-2">
+            <div className="w-100 h-[120px] flex justify-center items-center -mt-3">
               <View
                 robotImageDataUrl={core.ws.robotImageDataUrl}
                 world={{
