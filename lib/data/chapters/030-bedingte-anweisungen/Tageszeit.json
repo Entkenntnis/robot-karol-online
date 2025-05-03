@@ -1,0 +1,83 @@
+{
+  "version": "v1",
+  "title": "Tageszeit",
+  "description": "Schreibe ein Programm, das den Benutzer nach der aktuellen Stunde fragt (0-23) und dann eine passende Begrüßung ausgibt:\n\n- Frage mit `input()` nach der aktuellen Stunde\n- Gib \"Guten Morgen\" aus, wenn die Stunde zwischen 5 und 11 liegt\n- Gib \"Guten Tag\" aus, wenn die Stunde zwischen 12 und 17 liegt\n- Gib \"Guten Abend\" aus, wenn die Stunde größer als 17 ist\n- Gib \"Gute Nacht\" aus, wenn die Stunde kleiner als 5 ist",
+  "tasks": [
+    {
+      "title": "Tageszeit-Begrüßung",
+      "start": {
+        "dimX": 6,
+        "dimY": 6,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 6,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, false, false],
+            [false, false, true, true, false, false],
+            [false, true, false, false, true, false],
+            [false, true, false, false, true, false],
+            [false, false, true, true, false, false],
+            [false, false, false, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 6,
+        "height": 6,
+        "karol": { "x": 2, "y": 2, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 6,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, false, false],
+            [false, false, true, true, false, false],
+            [false, true, false, false, true, false],
+            [false, true, false, false, true, false],
+            [false, false, true, true, false, false],
+            [false, false, false, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "__ide_prompt(\"In dieser Aufgabe erstellst du ein einfaches Programm, das je nach Tageszeit unterschiedlich grüßt.\", \"Starten\")\n\n__ide_run_client()\n\n# Prüfe, ob eine Eingabe gemacht wurde\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst nach der aktuellen Stunde fragen. Verwende dafür `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Begrüßung ausgegeben. Nutze `print()` für die Ausgabe.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Versuche, die eingegebene Stunde zu ermitteln\nvalid_hour = False\ntry:\n    stunde = int(inputs[0])\n    valid_hour = True\nexcept:\n    __ide_prompt(\"Die eingegebene Stunde konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif stunde < 0 or stunde > 23:\n    __ide_prompt(\"Die eingegebene Stunde muss zwischen 0 und 23 liegen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Ermittle die erwartete Begrüßung basierend auf der Stunde\nif 5 <= stunde <= 11:\n    expected_greeting = \"morgen\"\nelif 12 <= stunde <= 17:\n    expected_greeting = \"tag\"\nelif stunde > 17:\n    expected_greeting = \"abend\"\nelse:  # stunde < 5\n    expected_greeting = \"nacht\"\n\n# Überprüfe, ob die richtige Begrüßung ausgegeben wurde\nlast_output = outputs[-1].lower()\nif expected_greeting not in last_output:\n    __ide_prompt(f\"Die Begrüßung passt nicht zur Tageszeit. Bei {stunde} Uhr sollte die Ausgabe '{expected_greeting}' enthalten.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Super gemacht! 🎉 Dein Programm gibt je nach Tageszeit die passende Begrüßung aus.\", \"Weiter\")",
+  "language": "python-pro",
+  "program": "# Tageszeit-Begrüßung\n# 1. Frage nach der aktuellen Stunde (0-23)\n# 2. Gib die passende Begrüßung aus:\n#    - \"Guten Morgen\" zwischen 5 und 11 Uhr\n#    - \"Guten Tag\" zwischen 12 und 17 Uhr\n#    - \"Guten Abend\" ab 18 Uhr\n#    - \"Gute Nacht\" vor 5 Uhr\n\n# TODO: Schreibe deinen Code hier\n"
+}

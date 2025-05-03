@@ -9,6 +9,15 @@
     "020-eingabe-ausgabe/Runen.json": 120,
     "020-eingabe-ausgabe/Begrüßung.json": 121,
     "020-eingabe-ausgabe/Harry_Potter_Fan.json": 122,
+    "030-bedingte-anweisungen/Tageszeit.json": 124,
+    "030-bedingte-anweisungen/Zahlentyp.json": 125,
+    "030-bedingte-anweisungen/Notenbewertung.json": 126,
+    "030-bedingte-anweisungen/Passwortprüfung.json": 127,
+    "030-bedingte-anweisungen/Altersgruppen.json": 128,
+    "030-bedingte-anweisungen/Schaltjahr.json": 129,
+    "030-bedingte-anweisungen/Wetterempfehlung.json": 130,
+    "030-bedingte-anweisungen/Rabattrechner.json": 123,
+    "030-bedingte-anweisungen/Weltraum_Navigation.json": 131,
     "040-mathematik/intro2.json": 110,
     "999-fundgrube/63.json": 103,
     "999-fundgrube/62.json": 102,
@@ -18,5 +27,5 @@
     "999-fundgrube/68.json": 107,
     "999-fundgrube/69.json": 108
   },
-  "counter": 123
+  "counter": 132
 }

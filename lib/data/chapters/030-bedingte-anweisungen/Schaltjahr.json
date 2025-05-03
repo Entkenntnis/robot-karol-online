@@ -1,0 +1,85 @@
+{
+  "version": "v1",
+  "title": "Schaltjahr",
+  "description": "Schreibe ein Programm, das überprüft, ob ein Jahr ein Schaltjahr ist:\n\n- Frage mit `input()` nach einem Jahr\n- Ein Jahr ist ein Schaltjahr, wenn es durch 4 teilbar ist\n- Ausnahme: Jahre, die durch 100 teilbar sind, sind keine Schaltjahre\n- Ausnahme der Ausnahme: Jahre, die durch 400 teilbar sind, sind doch Schaltjahre\n- Gib \"[Jahr] ist ein Schaltjahr!\" oder \"[Jahr] ist kein Schaltjahr!\" aus",
+  "tasks": [
+    {
+      "title": "Schaltjahrprüfung",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 7,
+        "karol": { "x": 3, "y": 3, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, false, false, false],
+            [false, false, true, true, true, false, false],
+            [false, true, false, false, false, true, false],
+            [false, true, false, false, false, true, false],
+            [false, true, false, false, false, true, false],
+            [false, false, true, true, true, false, false],
+            [false, false, false, false, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 7,
+        "karol": { "x": 3, "y": 3, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, false, false, false],
+            [false, false, true, true, true, false, false],
+            [false, true, false, false, false, true, false],
+            [false, true, false, false, false, true, false],
+            [false, true, false, false, false, true, false],
+            [false, false, true, true, true, false, false],
+            [false, false, false, false, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "__ide_prompt(\"In dieser Aufgabe erstellst du ein Programm, das bestimmt, ob ein Jahr ein Schaltjahr ist.\", \"Starten\")\n\n__ide_run_client()\n\n# Prüfe, ob eine Eingabe gemacht wurde\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst nach einem Jahr fragen. Verwende dafür `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Versuche, das eingegebene Jahr zu ermitteln\ntry:\n    jahr = int(inputs[0].strip())\n    \n    # Bestimme, ob es ein Schaltjahr ist\n    ist_schaltjahr = False\n    if jahr % 400 == 0:\n        ist_schaltjahr = True\n    elif jahr % 100 == 0:\n        ist_schaltjahr = False\n    elif jahr % 4 == 0:\n        ist_schaltjahr = True\n    else:\n        ist_schaltjahr = False\n        \n    # Überprüfe, ob die richtige Ausgabe gemacht wurde\n    last_output = outputs[-1].lower()\n    if ist_schaltjahr and \"schaltjahr\" in last_output and \"kein\" in last_output:\n        __ide_prompt(f\"Das Jahr {jahr} ist ein Schaltjahr, aber deine Ausgabe sagt 'kein Schaltjahr'.\", \"Nochmal versuchen\")\n        __ide_exit()\n    if not ist_schaltjahr and \"schaltjahr\" in last_output and \"kein\" not in last_output:\n        __ide_prompt(f\"Das Jahr {jahr} ist kein Schaltjahr, aber deine Ausgabe sagt, dass es ein Schaltjahr ist.\", \"Nochmal versuchen\")\n        __ide_exit()\n    if \"schaltjahr\" not in last_output:\n        __ide_prompt(\"Deine Ausgabe sollte das Wort 'Schaltjahr' enthalten.\", \"Nochmal versuchen\")\n        __ide_exit()\n        \nexcept ValueError:\n    __ide_prompt(\"Das eingegebene Jahr konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Super gemacht! 🎉 Dein Programm kann korrekt erkennen, ob ein Jahr ein Schaltjahr ist.\", \"Weiter\")",
+  "language": "python-pro",
+  "program": "# Schaltjahrprüfung\n# 1. Frage nach einem Jahr\n# 2. Prüfe, ob es ein Schaltjahr ist nach diesen Regeln:\n#    - Durch 4 teilbar: ja\n#    - Durch 100 teilbar: nein\n#    - Durch 400 teilbar: ja\n# 3. Gib das Ergebnis aus\n\n# TODO: Schreibe deinen Code hier\n"
+}

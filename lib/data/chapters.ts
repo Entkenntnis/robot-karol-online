@@ -1956,13 +1956,1742 @@ const chapterInfo = [
   {
     "id": 10004,
     "dirName": "030-bedingte-anweisungen",
-    "title": "3. Dein Code wird schlau 🚧",
-    "originalTitle": "Dein Code wird schlau 🚧",
+    "title": "3. Bedingte Anweisungen",
+    "originalTitle": "Bedingte Anweisungen",
     "description": "# 🎮 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\nWillkommen in der Welt der intelligenten Programme! Heute lernen wir, wie Computer Entscheidungen treffen – genau wie du im echten Leben. 🧠\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nStell dir vor, du stehst an einer Ampel:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\"\r\n- `==` prüft auf Gleichheit\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Achtung: Einrückungen (meist 4 Leerzeichen) sind in Python Pflicht!\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\nWas, wenn die Ampel **nicht** grün ist?\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    print(\"Noch etwas Geduld... 🕒\")  # Wird ausgeführt, weil 15 < 18\r\n```\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\nMehrere Bedingungen hintereinander prüfen:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    print(\"Eiszeit! 🍦\")  # Wird ausgeführt, weil sonnig\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n## 🏆 Übungsaufgabe: Rabattrechner\r\n\r\nErstelle ein Programm, das:\r\n\r\n1. Nach dem Einkaufswert fragt\r\n2. 10% Rabatt gibt bei über 100€\r\n3. 15% Rabatt bei über 200€\r\n4. 5% Rabatt für Treuekunden (zusätzliche Frage)\r\n\r\n**Tipp:** Kombiniere if-elif-else und logische Operatoren!\r\n\r\n```python\r\n# Hier deine Lösung versuchen!\r\n```\r\n\r\nProbiere es aus und lass deinen Code verschiedene Entscheidungen treffen! 🚀 Jedes Mal, wenn du `if` schreibst, gibst du deinem Programm ein Stück Intelligenz. Viel Spaß beim Coden! 😊\r\n",
-    "image": "",
-    "quests": [],
-    "x": 550,
-    "y": 2300
+    "image": "/story/3.jpg",
+    "quests": [
+      {
+        "filename": "Tageszeit.json",
+        "x": 180,
+        "y": -20,
+        "id": 124,
+        "content": {
+          "version": "v1",
+          "title": "Tageszeit",
+          "description": "Schreibe ein Programm, das den Benutzer nach der aktuellen Stunde fragt (0-23) und dann eine passende Begrüßung ausgibt:\n\n- Frage mit `input()` nach der aktuellen Stunde\n- Gib \"Guten Morgen\" aus, wenn die Stunde zwischen 5 und 11 liegt\n- Gib \"Guten Tag\" aus, wenn die Stunde zwischen 12 und 17 liegt\n- Gib \"Guten Abend\" aus, wenn die Stunde größer als 17 ist\n- Gib \"Gute Nacht\" aus, wenn die Stunde kleiner als 5 ist",
+          "tasks": [
+            {
+              "title": "Tageszeit-Begrüßung",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 2,
+                  "y": 2,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 2,
+                  "y": 2,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"In dieser Aufgabe erstellst du ein einfaches Programm, das je nach Tageszeit unterschiedlich grüßt.\", \"Starten\")\n\n__ide_run_client()\n\n# Prüfe, ob eine Eingabe gemacht wurde\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst nach der aktuellen Stunde fragen. Verwende dafür `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Begrüßung ausgegeben. Nutze `print()` für die Ausgabe.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Versuche, die eingegebene Stunde zu ermitteln\nvalid_hour = False\ntry:\n    stunde = int(inputs[0])\n    valid_hour = True\nexcept:\n    __ide_prompt(\"Die eingegebene Stunde konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif stunde < 0 or stunde > 23:\n    __ide_prompt(\"Die eingegebene Stunde muss zwischen 0 und 23 liegen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Ermittle die erwartete Begrüßung basierend auf der Stunde\nif 5 <= stunde <= 11:\n    expected_greeting = \"morgen\"\nelif 12 <= stunde <= 17:\n    expected_greeting = \"tag\"\nelif stunde > 17:\n    expected_greeting = \"abend\"\nelse:  # stunde < 5\n    expected_greeting = \"nacht\"\n\n# Überprüfe, ob die richtige Begrüßung ausgegeben wurde\nlast_output = outputs[-1].lower()\nif expected_greeting not in last_output:\n    __ide_prompt(f\"Die Begrüßung passt nicht zur Tageszeit. Bei {stunde} Uhr sollte die Ausgabe '{expected_greeting}' enthalten.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Super gemacht! 🎉 Dein Programm gibt je nach Tageszeit die passende Begrüßung aus.\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Tageszeit-Begrüßung\n# 1. Frage nach der aktuellen Stunde (0-23)\n# 2. Gib die passende Begrüßung aus:\n#    - \"Guten Morgen\" zwischen 5 und 11 Uhr\n#    - \"Guten Tag\" zwischen 12 und 17 Uhr\n#    - \"Guten Abend\" ab 18 Uhr\n#    - \"Gute Nacht\" vor 5 Uhr\n\n# TODO: Schreibe deinen Code hier\n"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Zahlentyp.json",
+        "x": 280,
+        "y": -20,
+        "id": 125,
+        "content": {
+          "version": "v1",
+          "title": "Weltraum-Navigation",
+          "description": "Nach dem erfolgreichen Start deines Raumschiffs ist die Navigationseinheit für den interplanetaren Kurs bereit. Das System muss verschiedene Gravitationsfelder analysieren:\n\n- Frage mit `input()` nach einem Gravitationswert\n- Gib \"Positives Gravitationsfeld - Antrieb verstärken!\" aus, wenn der Wert größer als 0 ist\n- Gib \"Negatives Gravitationsfeld - Bremssysteme aktivieren!\" aus, wenn der Wert kleiner als 0 ist\n- Gib \"Neutrale Zone - Schwebemodus aktivieren!\" aus, wenn der Wert gleich 0 ist",
+          "tasks": [
+            {
+              "title": "Gravitationsfeld analysieren",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Nach dem erfolgreichen Start deines Raumschiffs und der Systemüberprüfung navigierst du nun durch verschiedene Gravitationsfelder. Du musst alle drei Arten von Gravitationsfeldern (positiv, negativ und neutral) analysieren, um die Mission abzuschließen.\", \"Mission starten\")\n\n# Initialisiere Tracking-Variablen für getestete Fälle\ntested_positive = False\ntested_negative = False\ntested_zero = False\n\nwhile not (tested_positive and tested_negative and tested_zero):\n    __ide_run_client()\n\n    # Prüfe, ob eine Eingabe gemacht wurde\n    inputs = __ide_get_inputs()\n    if len(inputs) == 0:\n        __ide_prompt(\"Du musst nach einem Gravitationswert fragen. Verwende dafür `input()`.\", \"Nochmal versuchen\")\n        continue\n\n    # Prüfe, ob eine Ausgabe vorhanden ist\n    outputs = __ide_get_outputs()\n    if len(outputs) == 0:\n        __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Nochmal versuchen\")\n        continue\n\n    # Versuche, den eingegebenen Gravitationswert zu ermitteln\n    valid_number = False\n    try:\n        gravitation = float(inputs[0].replace(',', '.'))\n        valid_number = True\n    except:\n        __ide_prompt(\"Der eingegebene Gravitationswert konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n        continue\n\n    # Ermittle den erwarteten Gravitationstyp\n    if gravitation > 0:\n        expected_type = \"positiv\"\n        tested_positive = True\n    elif gravitation < 0:\n        expected_type = \"negativ\"\n        tested_negative = True\n    else:  # gravitation == 0\n        expected_type = \"neutral\"\n        tested_zero = True\n\n    # Überprüfe, ob der richtige Gravitationstyp ausgegeben wurde\n    last_output = outputs[-1].lower()\n    if expected_type not in last_output:\n        __ide_prompt(f\"Die Ausgabe passt nicht zum Gravitationsfeld. Bei dem Wert {gravitation} sollte die Ausgabe '{expected_type}' enthalten.\", \"Nochmal versuchen\")\n        continue\n\n    # Zeige an, welche Fälle bereits getestet wurden und welche noch fehlen\n    remaining_cases = []\n    if not tested_positive:\n        remaining_cases.append(\"positives Gravitationsfeld\")\n    if not tested_negative:\n        remaining_cases.append(\"negatives Gravitationsfeld\")\n    if not tested_zero:\n        remaining_cases.append(\"neutrale Zone\")\n    \n    if remaining_cases:\n        case_list = \", \".join(remaining_cases)\n        __ide_prompt(f\"Navigationsanalyse erfolgreich! Du hast {expected_type}e Gravitationsfelder korrekt erkannt. Teste noch folgende Arten von Feldern: {case_list}\", \"Weiter navigieren\")\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(\"Mission erfolgreich abgeschlossen! 🎉 Die Navigation deines Raumschiffs kann nun alle Gravitationsfelder korrekt identifizieren und die entsprechenden Systeme aktivieren. Dein Raumschiff ist bereit für die interplanetare Reise!\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Weltraum-Navigation: Gravitationsfeld-Analyse\n# 1. Frage nach einem Gravitationswert\n# 2. Bestimme, ob das Feld positiv, negativ oder neutral ist\n# 3. Gib die entsprechende Systemanweisung aus\n\n# TODO: Schreibe deinen Code hier\n"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Notenbewertung.json",
+        "x": 380,
+        "y": -20,
+        "id": 126,
+        "content": {
+          "version": "v1",
+          "title": "Notenbewertung",
+          "description": "Schreibe ein Programm, das eine Schulnote (1-6) einliest und eine Bewertung ausgibt:\n\n- Frage mit `input()` nach einer Schulnote (1-6)\n- Gib \"Sehr gut!\" aus, wenn die Note 1 ist\n- Gib \"Gut gemacht!\" aus, wenn die Note 2 ist\n- Gib \"Befriedigend.\" aus, wenn die Note 3 ist\n- Gib \"Ausreichend.\" aus, wenn die Note 4 ist\n- Gib \"Noch bestanden.\" aus, wenn die Note 5 ist\n- Gib \"Leider nicht bestanden.\" aus, wenn die Note 6 ist\n- Gib \"Ungültige Note!\" aus bei jeder anderen Eingabe",
+          "tasks": [
+            {
+              "title": "Notenbewertung",
+              "start": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 7,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 7,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"In dieser Aufgabe erstellst du ein Programm, das Schulnoten bewertet.\", \"Starten\")\n\n__ide_run_client()\n\n# Prüfe, ob eine Eingabe gemacht wurde\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst nach einer Schulnote fragen. Verwende dafür `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Bewertung ausgegeben. Nutze `print()` für die Ausgabe.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe die eingegebene Note\nnote_eingabe = inputs[0].strip()\ntry:\n    note = int(note_eingabe)\n    # Bestimme die erwartete Bewertung basierend auf der Note\n    if note == 1:\n        expected_message = \"sehr gut\"\n    elif note == 2:\n        expected_message = \"gut\"\n    elif note == 3:\n        expected_message = \"befriedigend\"\n    elif note == 4:\n        expected_message = \"ausreichend\"\n    elif note == 5:\n        expected_message = \"bestanden\"\n    elif note == 6:\n        expected_message = \"nicht bestanden\"\n    else:\n        expected_message = \"ungültig\"\n        \n    # Überprüfe, ob die richtige Bewertung ausgegeben wurde\n    last_output = outputs[-1].lower()\n    if expected_message not in last_output:\n        __ide_prompt(f\"Die Bewertung passt nicht zur Note {note}. Die Ausgabe sollte '{expected_message}' enthalten.\", \"Nochmal versuchen\")\n        __ide_exit()\n        \nexcept ValueError:\n    # Wenn keine gültige Zahl eingegeben wurde, sollte \"ungültig\" in der Ausgabe enthalten sein\n    last_output = outputs[-1].lower()\n    if \"ungültig\" not in last_output:\n        __ide_prompt(f\"Bei einer ungültigen Eingabe wie '{note_eingabe}' sollte die Ausgabe 'ungültig' enthalten.\", \"Nochmal versuchen\")\n        __ide_exit()\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Super gemacht! 🎉 Dein Programm gibt die richtige Bewertung für jede Schulnote aus.\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Notenbewertung\n# 1. Frage nach einer Schulnote (1-6)\n# 2. Gib je nach Note eine passende Bewertung aus\n# 3. Prüfe auf ungültige Eingaben\n\n# TODO: Schreibe deinen Code hier\n"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Passwortprüfung.json",
+        "x": 180,
+        "y": 50,
+        "id": 127,
+        "content": {
+          "version": "v1",
+          "title": "Passwortprüfung",
+          "description": "Programmiere eine einfache Passwortprüfung:\n\n- Frage mit `input()` nach einem Passwort\n- Wenn das Passwort \"geheim123\" lautet, gib \"Zugriff gewährt!\" aus\n- Wenn das Passwort falsch ist, gib \"Zugriff verweigert!\" aus\n- Wenn das Passwort falsch ist, gib außerdem aus, ob das eingegebene Passwort kürzer oder länger als das richtige ist",
+          "tasks": [
+            {
+              "title": "Passwortprüfung",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 2,
+                  "y": 2,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 2,
+                  "y": 2,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"In dieser Aufgabe erstellst du eine einfache Passwortprüfung.\", \"Starten\")\n\n__ide_run_client()\n\n# Prüfe, ob eine Eingabe gemacht wurde\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst nach einem Passwort fragen. Verwende dafür `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe das eingegebene Passwort\npasswort = inputs[0].strip()\nrichtiges_passwort = \"geheim123\"\n\n# Überprüfen, ob die richtige Meldung ausgegeben wurde\nlast_output = outputs[-1].lower()\nif passwort == richtiges_passwort:\n    if \"zugriff gewährt\" not in last_output:\n        __ide_prompt(\"Bei richtigem Passwort sollte 'Zugriff gewährt' ausgegeben werden.\", \"Nochmal versuchen\")\n        __ide_exit()\nelse:\n    if \"zugriff verweigert\" not in ' '.join(o.lower() for o in outputs):\n        __ide_prompt(\"Bei falschem Passwort sollte 'Zugriff verweigert' ausgegeben werden.\", \"Nochmal versuchen\")\n        __ide_exit()\n    \n    # Prüfen, ob eine Längenangabe vorhanden ist\n    outputs_text = ' '.join(o.lower() for o in outputs)\n    if len(passwort) < len(richtiges_passwort):\n        if not ('kürzer' in outputs_text or 'kurz' in outputs_text):\n            __ide_prompt(\"Bei einem zu kurzen Passwort solltest du angeben, dass es kürzer ist.\", \"Nochmal versuchen\")\n            __ide_exit()\n    elif len(passwort) > len(richtiges_passwort):\n        if not ('länger' in outputs_text or 'lang' in outputs_text):\n            __ide_prompt(\"Bei einem zu langen Passwort solltest du angeben, dass es länger ist.\", \"Nochmal versuchen\")\n            __ide_exit()\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Super gemacht! 🎉 Deine Passwortprüfung funktioniert und gibt hilfreiche Hinweise.\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Passwortprüfung\n# 1. Frage nach einem Passwort\n# 2. Prüfe, ob das Passwort \"geheim123\" ist\n# 3. Gib \"Zugriff gewährt\" oder \"Zugriff verweigert\" aus\n# 4. Bei falschem Passwort gib an, ob es zu kurz oder zu lang ist\n\n# TODO: Schreibe deinen Code hier\n"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Altersgruppen.json",
+        "x": 280,
+        "y": 50,
+        "id": 128,
+        "content": {
+          "version": "v1",
+          "title": "Altersgruppen",
+          "description": "Schreibe ein Programm, das anhand des Alters die richtige Altersgruppe bestimmt:\n\n- Frage mit `input()` nach dem Alter einer Person\n- Gib \"Kind\" aus, wenn das Alter unter 13 ist\n- Gib \"Teenager\" aus, wenn das Alter zwischen 13 und 19 liegt\n- Gib \"Erwachsener\" aus, wenn das Alter zwischen 20 und 64 liegt\n- Gib \"Senior\" aus, wenn das Alter 65 oder höher ist",
+          "tasks": [
+            {
+              "title": "Altersgruppen bestimmen",
+              "start": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 7,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 7,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"In dieser Aufgabe erstellst du ein Programm, das anhand des Alters die passende Altersgruppe bestimmt.\", \"Starten\")\n\n__ide_run_client()\n\n# Prüfe, ob eine Eingabe gemacht wurde\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst nach dem Alter fragen. Verwende dafür `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Altersgruppe ausgegeben. Nutze `print()` für die Ausgabe.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Versuche, das eingegebene Alter zu ermitteln\ntry:\n    alter = int(inputs[0].strip())\n    \n    # Bestimme die erwartete Altersgruppe basierend auf dem Alter\n    if alter < 0:\n        __ide_prompt(\"Das eingegebene Alter darf nicht negativ sein.\", \"Nochmal versuchen\")\n        __ide_exit()\n    elif alter < 13:\n        expected_group = \"kind\"\n    elif 13 <= alter <= 19:\n        expected_group = \"teenager\"\n    elif 20 <= alter <= 64:\n        expected_group = \"erwachsener\"\n    else:  # alter >= 65\n        expected_group = \"senior\"\n        \n    # Überprüfe, ob die richtige Altersgruppe ausgegeben wurde\n    last_output = outputs[-1].lower()\n    if expected_group not in last_output:\n        __ide_prompt(f\"Die Altersgruppe passt nicht zum Alter {alter}. Die Ausgabe sollte '{expected_group}' enthalten.\", \"Nochmal versuchen\")\n        __ide_exit()\n        \nexcept ValueError:\n    __ide_prompt(\"Das eingegebene Alter konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Prima! 🎉 Dein Programm kann das Alter korrekt einer Altersgruppe zuordnen.\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Altersgruppen bestimmen\n# 1. Frage nach dem Alter einer Person\n# 2. Bestimme die passende Altersgruppe:\n#    - Kind (unter 13 Jahre)\n#    - Teenager (13-19 Jahre)\n#    - Erwachsener (20-64 Jahre)\n#    - Senior (65 Jahre und älter)\n\n# TODO: Schreibe deinen Code hier\n"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Schaltjahr.json",
+        "x": 380,
+        "y": 50,
+        "id": 129,
+        "content": {
+          "version": "v1",
+          "title": "Schaltjahr",
+          "description": "Schreibe ein Programm, das überprüft, ob ein Jahr ein Schaltjahr ist:\n\n- Frage mit `input()` nach einem Jahr\n- Ein Jahr ist ein Schaltjahr, wenn es durch 4 teilbar ist\n- Ausnahme: Jahre, die durch 100 teilbar sind, sind keine Schaltjahre\n- Ausnahme der Ausnahme: Jahre, die durch 400 teilbar sind, sind doch Schaltjahre\n- Gib \"[Jahr] ist ein Schaltjahr!\" oder \"[Jahr] ist kein Schaltjahr!\" aus",
+          "tasks": [
+            {
+              "title": "Schaltjahrprüfung",
+              "start": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 7,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 7,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"In dieser Aufgabe erstellst du ein Programm, das bestimmt, ob ein Jahr ein Schaltjahr ist.\", \"Starten\")\n\n__ide_run_client()\n\n# Prüfe, ob eine Eingabe gemacht wurde\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst nach einem Jahr fragen. Verwende dafür `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Versuche, das eingegebene Jahr zu ermitteln\ntry:\n    jahr = int(inputs[0].strip())\n    \n    # Bestimme, ob es ein Schaltjahr ist\n    ist_schaltjahr = False\n    if jahr % 400 == 0:\n        ist_schaltjahr = True\n    elif jahr % 100 == 0:\n        ist_schaltjahr = False\n    elif jahr % 4 == 0:\n        ist_schaltjahr = True\n    else:\n        ist_schaltjahr = False\n        \n    # Überprüfe, ob die richtige Ausgabe gemacht wurde\n    last_output = outputs[-1].lower()\n    if ist_schaltjahr and \"schaltjahr\" in last_output and \"kein\" in last_output:\n        __ide_prompt(f\"Das Jahr {jahr} ist ein Schaltjahr, aber deine Ausgabe sagt 'kein Schaltjahr'.\", \"Nochmal versuchen\")\n        __ide_exit()\n    if not ist_schaltjahr and \"schaltjahr\" in last_output and \"kein\" not in last_output:\n        __ide_prompt(f\"Das Jahr {jahr} ist kein Schaltjahr, aber deine Ausgabe sagt, dass es ein Schaltjahr ist.\", \"Nochmal versuchen\")\n        __ide_exit()\n    if \"schaltjahr\" not in last_output:\n        __ide_prompt(\"Deine Ausgabe sollte das Wort 'Schaltjahr' enthalten.\", \"Nochmal versuchen\")\n        __ide_exit()\n        \nexcept ValueError:\n    __ide_prompt(\"Das eingegebene Jahr konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Super gemacht! 🎉 Dein Programm kann korrekt erkennen, ob ein Jahr ein Schaltjahr ist.\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Schaltjahrprüfung\n# 1. Frage nach einem Jahr\n# 2. Prüfe, ob es ein Schaltjahr ist nach diesen Regeln:\n#    - Durch 4 teilbar: ja\n#    - Durch 100 teilbar: nein\n#    - Durch 400 teilbar: ja\n# 3. Gib das Ergebnis aus\n\n# TODO: Schreibe deinen Code hier\n"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Wetterempfehlung.json",
+        "x": 280,
+        "y": 120,
+        "id": 130,
+        "content": {
+          "version": "v1",
+          "title": "Wetterempfehlung",
+          "description": "Schreibe ein Programm, das basierend auf Temperatur und Niederschlagswahrscheinlichkeit eine Aktivität empfiehlt:\n\n- Frage mit `input()` nach der Temperatur in °C\n- Frage mit `input()` nach der Regenwahrscheinlichkeit in % (0-100)\n- Gib folgende Empfehlungen aus:\n  - Bei Temperaturen über 25°C und weniger als 30% Regenwahrscheinlichkeit: \"Perfekt für ein Picknick!\"\n  - Bei Temperaturen über 15°C und weniger als 50% Regenwahrscheinlichkeit: \"Ein Spaziergang wäre schön.\"\n  - Bei Regenwahrscheinlichkeit über 70%: \"Besser drinnen bleiben.\"\n  - Bei Temperaturen unter 5°C: \"Es ist zu kalt, bleib drinnen.\"\n  - In allen anderen Fällen: \"Ein Museumsbesuch ist eine gute Idee.\"",
+          "tasks": [
+            {
+              "title": "Wetterempfehlung",
+              "start": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 7,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 7,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"In dieser Aufgabe erstellst du ein Programm, das basierend auf dem Wetter eine Aktivität empfiehlt.\", \"Starten\")\n\n__ide_run_client()\n\n# Prüfe, ob Eingaben gemacht wurden\ninputs = __ide_get_inputs()\nif len(inputs) < 2:\n    __ide_prompt(\"Du musst sowohl nach der Temperatur als auch nach der Regenwahrscheinlichkeit fragen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Empfehlung ausgegeben. Nutze `print()` für die Ausgabe.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Versuche, die eingegebenen Werte zu ermitteln\ntry:\n    temperatur = float(inputs[0].strip().replace(',', '.'))\n    regen_wahrscheinlichkeit = float(inputs[1].strip().replace(',', '.'))\n    \n    # Prüfe, ob die Regenwahrscheinlichkeit im gültigen Bereich liegt\n    if regen_wahrscheinlichkeit < 0 or regen_wahrscheinlichkeit > 100:\n        __ide_prompt(\"Die Regenwahrscheinlichkeit muss zwischen 0 und 100 Prozent liegen.\", \"Nochmal versuchen\")\n        __ide_exit()\n    \n    # Bestimme die erwartete Empfehlung basierend auf den Werten\n    if temperatur > 25 and regen_wahrscheinlichkeit < 30:\n        expected_message = \"picknick\"\n    elif temperatur > 15 and regen_wahrscheinlichkeit < 50:\n        expected_message = \"spaziergang\"\n    elif regen_wahrscheinlichkeit > 70:\n        expected_message = \"drinnen bleiben\"\n    elif temperatur < 5:\n        expected_message = \"kalt\"\n    else:\n        expected_message = \"museum\"\n        \n    # Überprüfe, ob die Ausgabe zur erwarteten Empfehlung passt\n    last_output = outputs[-1].lower()\n    \n    if expected_message == \"picknick\" and \"picknick\" not in last_output:\n        __ide_prompt(f\"Bei {temperatur}°C und {regen_wahrscheinlichkeit}% Regenwahrscheinlichkeit sollte die Empfehlung ein Picknick sein.\", \"Nochmal versuchen\")\n        __ide_exit()\n    elif expected_message == \"spaziergang\" and \"spaziergang\" not in last_output:\n        __ide_prompt(f\"Bei {temperatur}°C und {regen_wahrscheinlichkeit}% Regenwahrscheinlichkeit sollte die Empfehlung ein Spaziergang sein.\", \"Nochmal versuchen\")\n        __ide_exit()\n    elif expected_message == \"drinnen bleiben\" and \"drinnen\" not in last_output:\n        __ide_prompt(f\"Bei {regen_wahrscheinlichkeit}% Regenwahrscheinlichkeit sollte die Empfehlung sein, drinnen zu bleiben.\", \"Nochmal versuchen\")\n        __ide_exit()\n    elif expected_message == \"kalt\" and \"kalt\" not in last_output:\n        __ide_prompt(f\"Bei {temperatur}°C sollte die Empfehlung sein, dass es zu kalt ist und man drinnen bleiben sollte.\", \"Nochmal versuchen\")\n        __ide_exit()\n    elif expected_message == \"museum\" and \"museum\" not in last_output:\n        __ide_prompt(f\"Bei {temperatur}°C und {regen_wahrscheinlichkeit}% Regenwahrscheinlichkeit sollte die Empfehlung ein Museumsbesuch sein.\", \"Nochmal versuchen\")\n        __ide_exit()\n        \nexcept ValueError:\n    __ide_prompt(\"Die eingegebene Temperatur oder Regenwahrscheinlichkeit konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Super gemacht! 🎉 Dein Programm gibt basierend auf dem Wetter die passende Aktivitätsempfehlung.\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Wetterempfehlung\n# 1. Frage nach der Temperatur in °C\n# 2. Frage nach der Regenwahrscheinlichkeit in % (0-100)\n# 3. Gib eine Empfehlung basierend auf den folgenden Regeln aus:\n#    - T > 25°C und Regen < 30%: \"Perfekt für ein Picknick!\"\n#    - T > 15°C und Regen < 50%: \"Ein Spaziergang wäre schön.\"\n#    - Regen > 70%: \"Besser drinnen bleiben.\"\n#    - T < 5°C: \"Es ist zu kalt, bleib drinnen.\"\n#    - Ansonsten: \"Ein Museumsbesuch ist eine gute Idee.\"\n\n# TODO: Schreibe deinen Code hier\n"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Rabattrechner.json",
+        "x": 380,
+        "y": 120,
+        "id": 123,
+        "content": {
+          "version": "v1",
+          "title": "Rabattrechner",
+          "description": "Du arbeitest in einem Online-Shop und sollst ein Rabattsystem programmieren:\n\n- Frage mit `input()` nach dem Einkaufswert (in Euro)\n- Gib 10% Rabatt bei einem Einkaufswert über 100€\n- Gib 15% Rabatt bei einem Einkaufswert über 200€\n- Frage, ob der Kunde ein Treuekunde ist (ja/nein)\n- Gib Treuekunden zusätzlich 5% Rabatt\n- Gib den Endpreis nach Rabatt aus",
+          "tasks": [
+            {
+              "title": "Rabattrechnung",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Willkommen beim Rabattrechner! Du wirst ein Programm erstellen, das Rabattprozente berechnet und den Endpreis ausgibt.\", \"Los geht's!\")\n\n__ide_run_client()\n\n# Prüfe, ob Eingaben vorhanden sind\ninputs = __ide_get_inputs()\nif len(inputs) < 2:\n    __ide_prompt(\"Du musst mindestens zwei Eingaben machen: den Einkaufswert und ob es ein Treuekunde ist.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Ausgabe gemacht. Gib den Endpreis mit `print()` aus.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Versuche, den Einkaufswert zu ermitteln\nvalid_input = False\ntry:\n    einkaufswert = float(inputs[0].replace(',', '.'))\n    valid_input = True\nexcept:\n    __ide_prompt(\"Der eingegebene Einkaufswert konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Treuekunden-Eingabe vorhanden ist\ntreuekunde_eingabe = inputs[1].lower()\ntreuekunde = treuekunde_eingabe in [\"ja\", \"j\", \"yes\", \"y\", \"true\", \"1\"]\n\n# Berechne den korrekten Rabatt\nrabatt = 0\nif einkaufswert > 200:\n    rabatt = 0.15  # 15%\nelif einkaufswert > 100:\n    rabatt = 0.10  # 10%\n    \nif treuekunde:\n    rabatt += 0.05  # Extra 5% für Treuekunden\n\n# Berechne den erwarteten Endpreis\nerwarteter_endpreis = einkaufswert * (1 - rabatt)\n\n# Überprüfe, ob der richtige Rabatt-Typ verwendet wurde\nlast_output = outputs[-1].lower()\n\n# Überprüfe, ob eine Zahl in der Ausgabe vorhanden ist\nimport re\npreise = re.findall(r'\\d+[.,]?\\d*', last_output)\n\nif not preise:\n    __ide_prompt(\"Du hast keinen Preis in deiner Ausgabe. Bitte gib den Endpreis nach dem Rabatt aus.\", \"Nochmal versuchen\")\n    __ide_exit()\n\ntry:\n    ausgabe_preis = float(preise[-1].replace(',', '.'))\n    # Überprüfe mit 2% Toleranz für Rundungsfehler\n    if abs(ausgabe_preis - erwarteter_endpreis) > erwarteter_endpreis * 0.02:\n        __ide_prompt(f\"Der berechnete Preis scheint nicht korrekt zu sein. Überprüfe deine Rabattberechnung.\", \"Nochmal versuchen\")\n        __ide_exit()\nexcept:\n    pass  # Wenn die Konvertierung fehlschlägt, ignorieren wir das\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Super gemacht! 🎉 Du hast erfolgreich ein Programm geschrieben, das Rabatte berechnet und den Endpreis ausgibt. Ein wichtiger Schritt beim Erlernen von Bedingungen!\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Rabattrechner\n# 1. Frage nach dem Einkaufswert\n# 2. Berechne den Rabatt: 10% bei >100€, 15% bei >200€\n# 3. Frage, ob Treuekunde (ja/nein) -> dann zusätzlich 5%\n# 4. Gib den Endpreis aus\n\n# TODO: Schreibe deinen Code hier\n"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Weltraum_Navigation.json",
+        "x": 680,
+        "y": -40,
+        "id": 131,
+        "content": {
+          "version": "v1",
+          "title": "Weltraum-Navigation",
+          "description": "Nach dem erfolgreichen Start deines Raumschiffs ist die Navigationseinheit für den interplanetaren Kurs bereit. Das System muss verschiedene Gravitationsfelder analysieren:\n\n- Frage mit `input()` nach einem Gravitationswert (bereits programmiert)\n- Gib \"Positives Gravitationsfeld - Antrieb verstärken!\" aus, wenn der Wert größer als 0 ist\n- Gib \"Negatives Gravitationsfeld - Bremssysteme aktivieren!\" aus, wenn der Wert kleiner als 0 ist\n- Gib \"Neutrale Zone - Schwebemodus aktivieren!\" aus, wenn der Wert gleich 0 ist\n\nVorlage:\n\n```py\nif graviation < 0:\n    print(\"Negatives Gravitationsfeld - Bremssysteme aktivieren!\")\nelif ...:\n    ...\nelse:\n    ...\n```",
+          "tasks": [
+            {
+              "title": "Gravitationsfeld analysieren",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Nach dem erfolgreichen Start deines Raumschiffs und der Systemüberprüfung navigierst du nun durch verschiedene Gravitationsfelder. Du musst alle drei Arten von Gravitationsfeldern (positiv, negativ und neutral) analysieren, um die Mission abzuschließen.\", \"Mission starten\")\n\n# Initialisiere Tracking-Variablen für getestete Fälle\ntested_positive = False\ntested_negative = False\ntested_zero = False\n\nwhile not (tested_positive and tested_negative and tested_zero):\n    __ide_run_client()\n\n    # Prüfe, ob eine Eingabe gemacht wurde\n    inputs = __ide_get_inputs()\n    if len(inputs) == 0:\n        __ide_prompt(\"Du musst nach einem Gravitationswert fragen. Verwende dafür `input()`.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Prüfe, ob eine Ausgabe vorhanden ist\n    outputs = __ide_get_outputs()\n    if len(outputs) == 0:\n        __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Versuche, den eingegebenen Gravitationswert zu ermitteln\n    valid_number = False\n    try:\n        gravitation = float(inputs[-1].replace(',', '.'))\n        valid_number = True\n    except:\n        __ide_prompt(\"Der eingegebene Gravitationswert konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n        continue\n\n    # Ermittle den erwarteten Gravitationstyp\n    if gravitation > 0:\n        expected_type = \"positiv\"\n        tested_positive = True\n    elif gravitation < 0:\n        expected_type = \"negativ\"\n        tested_negative = True\n    else:  # gravitation == 0\n        expected_type = \"neutral\"\n        tested_zero = True\n\n    # Überprüfe, ob der richtige Gravitationstyp ausgegeben wurde\n    last_output = outputs[-1].lower()\n    if expected_type not in last_output:\n        __ide_prompt(f\"Die Ausgabe passt nicht zum Gravitationsfeld. Bei dem Wert {gravitation} sollte die Ausgabe '{expected_type}' enthalten.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Zeige an, welche Fälle bereits getestet wurden und welche noch fehlen\n    remaining_cases = []\n    if not tested_positive:\n        remaining_cases.append(\"positives Gravitationsfeld\")\n    if not tested_negative:\n        remaining_cases.append(\"negatives Gravitationsfeld\")\n    if not tested_zero:\n        remaining_cases.append(\"neutrale Zone\")\n    \n    if remaining_cases:\n        case_list = \", \".join(remaining_cases)\n        __ide_prompt(f\"Navigationsanalyse erfolgreich! Du hast {expected_type}e Gravitationsfelder korrekt erkannt. Teste noch folgende Arten von Feldern: {case_list}\", \"Weiter navigieren\")\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(\"Mission erfolgreich abgeschlossen! 🎉 Die Navigation deines Raumschiffs kann nun alle Gravitationsfelder korrekt identifizieren und die entsprechenden Systeme aktivieren. Dein Raumschiff ist bereit für die interplanetare Reise!\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Weltraum-Navigation: Gravitationsfeld-Analyse\n# 1. Frage nach einem Gravitationswert\n# 2. Bestimme, ob das Feld positiv, negativ oder neutral ist\n# 3. Gib die entsprechende Systemanweisung aus\n\n# TODO: Schreibe deinen Code hier\ngravitation = float(input(\"Aktueller Graviationswert:\"))"
+        },
+        "deps": [
+          10004
+        ]
+      }
+    ],
+    "x": 450,
+    "y": 2290
   },
   {
     "id": 10005,
@@ -1974,8 +3703,8 @@ const chapterInfo = [
     "quests": [
       {
         "filename": "intro2.json",
-        "x": 100,
-        "y": 100,
+        "x": 1000,
+        "y": -100,
         "id": 110,
         "content": {
           "version": "v1",
@@ -2091,8 +3820,8 @@ const chapterInfo = [
         ]
       }
     ],
-    "x": 250,
-    "y": 2200
+    "x": 920,
+    "y": 2400
   },
   {
     "id": 10006,
@@ -2102,8 +3831,8 @@ const chapterInfo = [
     "description": "# 🎯 Kapitel 5: Die Kunst der Wiederholung mit for & while\r\n\r\nHeute lernst du, wie man Code wiederholt – wie ein DJ, der den perfekten Beat loopt! 🎧\r\n\r\n## 🧩 Listen – Deine Daten-Sammelbox\r\n\r\nStell dir eine Einkaufsliste vor, aber für Computer:\r\n\r\n```python\r\n# So erstellst du eine Liste\r\nspielkarten = [\"Herz Ass\", \"Karo König\", \"Pik Dame\", \"Kreuz Bube\"]\r\nprimzahlen = [2, 3, 5, 7, 11]\r\nmixed_list = [42, \"Antwort\", True] # Alles mögliche drin!\r\n```\r\n\r\n## 🔄 Die for-Schleife – Dein Wiederholungs-Profi\r\n\r\n**\"Für jedes Element in der Liste: Mach was damit!\"**\r\n\r\n```python\r\n# Einkaufsliste abarbeiten\r\neinkaufsliste = [\"Äpfel\", \"Banane\", \"Milch\"]\r\n\r\nfor produkt in einkaufsliste:\r\n    print(f\"✏️ Brauche noch: {produkt}\")\r\n    print(\"...auf zum nächsten Produkt!\\n\")\r\n```\r\n\r\n_Ausgabe:_\r\n\r\n```\r\n✏️ Brauche noch: Äpfel\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Banane\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Milch\r\n...auf zum nächsten Produkt!\r\n```\r\n\r\n**Mit Zahlen arbeiten? Klar mit range():**\r\n\r\n```python\r\n# Countdown mit Style 🚀\r\nfor sekunde in range(5, 0, -1):\r\n    print(f\"{sekunde... Abflug!\")\r\nprint(\"🔥 Liftoff!\")\r\n```\r\n\r\n## ⏳ Die while-Schleife – Der Hartnäckige\r\n\r\n**\"Mach weiter, solange die Bedingung stimmt!\"**\r\n\r\n```python\r\n# Pizza-Back-Simulator 🍕\r\ntemperatur = 20\r\nziel_temp = 220\r\n\r\nwhile temperatur < ziel_temp:\r\n    temperatur += 20\r\n    print(f\"°C: {temperatur}°C | Heizt auf...\")\r\n\r\nprint(\"🔔 Pizza ist fertig! Buon appetito!\")\r\n```\r\n\r\n_Vorsicht:_ Vergiss nicht die Temperatur zu erhöhen, sonst brennt der Ofen durch! 🔥\r\n\r\n## 🥊 for vs. while – Wer wann?\r\n\r\n- **FOR:** Wenn du weißt, wie oft's laufen soll (z.B. Liste durchgehen)\r\n- **WHILE:** Wenn es auf eine Bedingung ankommt (z.B. Spiel läuft, bis Game Over)\r\n\r\n## 🎯 Challenge:\r\n\r\nErrate die geheime Zahl mit nur 3 Versuchen!\r\n\r\n```python\r\ngeheimzahl = 7\r\nversuche = 3\r\n\r\nwhile versuche > 0:\r\n    raten = int(input(\"🎯 Dein Tipp (1-10): \"))\r\n    if raten == geheimzahl:\r\n        print(\"🎉 Treffer! Gewonnen!\")\r\n        break\r\n    versuche -= 1\r\n    print(f\"❌ Daneben! Noch {versuche} Versuche\")\r\nelse:\r\n    print(\"😢 Game Over! Keine Versuche mehr\")\r\n```\r\n\r\n## 💡 Pro-Tipps:\r\n\r\n- `range()` kann auch so: `range(start, ende, schritt)`\r\n- Benenne Schleifen-Variablen sinnvoll:\r\n  - `for schüler in klasse:` statt `for x in y:`\r\n- Breakpoint setzen? Einfach `break` schreiben!\r\n\r\nJetzt du: Erfinde deine eigenen Schleifen-Experimente! 🔄 Wie wär's mit einem Roboter-Tanz per Code? 🤖💃🕺\r\n",
     "image": "",
     "quests": [],
-    "x": 350,
-    "y": 2400
+    "x": 950,
+    "y": 2600
   },
   {
     "id": 10007,

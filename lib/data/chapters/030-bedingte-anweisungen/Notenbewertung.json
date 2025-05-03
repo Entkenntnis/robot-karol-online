@@ -1,0 +1,85 @@
+{
+  "version": "v1",
+  "title": "Notenbewertung",
+  "description": "Schreibe ein Programm, das eine Schulnote (1-6) einliest und eine Bewertung ausgibt:\n\n- Frage mit `input()` nach einer Schulnote (1-6)\n- Gib \"Sehr gut!\" aus, wenn die Note 1 ist\n- Gib \"Gut gemacht!\" aus, wenn die Note 2 ist\n- Gib \"Befriedigend.\" aus, wenn die Note 3 ist\n- Gib \"Ausreichend.\" aus, wenn die Note 4 ist\n- Gib \"Noch bestanden.\" aus, wenn die Note 5 ist\n- Gib \"Leider nicht bestanden.\" aus, wenn die Note 6 ist\n- Gib \"Ungültige Note!\" aus bei jeder anderen Eingabe",
+  "tasks": [
+    {
+      "title": "Notenbewertung",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 7,
+        "karol": { "x": 3, "y": 3, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, false, false, false],
+            [false, false, true, true, true, false, false],
+            [false, true, false, false, false, true, false],
+            [false, true, false, false, false, true, false],
+            [false, true, false, false, false, true, false],
+            [false, false, true, true, true, false, false],
+            [false, false, false, false, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 7,
+        "karol": { "x": 3, "y": 3, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, false, false, false],
+            [false, false, true, true, true, false, false],
+            [false, true, false, false, false, true, false],
+            [false, true, false, false, false, true, false],
+            [false, true, false, false, false, true, false],
+            [false, false, true, true, true, false, false],
+            [false, false, false, false, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "__ide_prompt(\"In dieser Aufgabe erstellst du ein Programm, das Schulnoten bewertet.\", \"Starten\")\n\n__ide_run_client()\n\n# Prüfe, ob eine Eingabe gemacht wurde\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst nach einer Schulnote fragen. Verwende dafür `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Bewertung ausgegeben. Nutze `print()` für die Ausgabe.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe die eingegebene Note\nnote_eingabe = inputs[0].strip()\ntry:\n    note = int(note_eingabe)\n    # Bestimme die erwartete Bewertung basierend auf der Note\n    if note == 1:\n        expected_message = \"sehr gut\"\n    elif note == 2:\n        expected_message = \"gut\"\n    elif note == 3:\n        expected_message = \"befriedigend\"\n    elif note == 4:\n        expected_message = \"ausreichend\"\n    elif note == 5:\n        expected_message = \"bestanden\"\n    elif note == 6:\n        expected_message = \"nicht bestanden\"\n    else:\n        expected_message = \"ungültig\"\n        \n    # Überprüfe, ob die richtige Bewertung ausgegeben wurde\n    last_output = outputs[-1].lower()\n    if expected_message not in last_output:\n        __ide_prompt(f\"Die Bewertung passt nicht zur Note {note}. Die Ausgabe sollte '{expected_message}' enthalten.\", \"Nochmal versuchen\")\n        __ide_exit()\n        \nexcept ValueError:\n    # Wenn keine gültige Zahl eingegeben wurde, sollte \"ungültig\" in der Ausgabe enthalten sein\n    last_output = outputs[-1].lower()\n    if \"ungültig\" not in last_output:\n        __ide_prompt(f\"Bei einer ungültigen Eingabe wie '{note_eingabe}' sollte die Ausgabe 'ungültig' enthalten.\", \"Nochmal versuchen\")\n        __ide_exit()\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Super gemacht! 🎉 Dein Programm gibt die richtige Bewertung für jede Schulnote aus.\", \"Weiter\")",
+  "language": "python-pro",
+  "program": "# Notenbewertung\n# 1. Frage nach einer Schulnote (1-6)\n# 2. Gib je nach Note eine passende Bewertung aus\n# 3. Prüfe auf ungültige Eingaben\n\n# TODO: Schreibe deinen Code hier\n"
+}
