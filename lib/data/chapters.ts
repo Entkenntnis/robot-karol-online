@@ -3697,7 +3697,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "Zaubertrankprüfung",
-          "description": "Als Zauberlehrling musst du die richtigen Zutaten für deinen Zaubertrank wählen:\n\n- Frage mit `input()` nach der Temperatur des Kessels in Grad (bereits programmiert)\n- Gib \"Perfekt! Füge die Drachenblut-Essenz hinzu.\" aus, wenn die Temperatur über 90 Grad liegt\n- Gib \"Zu kalt! Erhöhe die Flammen unter dem Kessel.\" aus, wenn die Temperatur 90 Grad oder weniger ist\n\nVorlage:\n\n```py\nif temperatur > 90:\n    print(\"Perfekt! Füge die Drachenblut-Essenz hinzu.\")\nelse:\n    print(\"Zu kalt! Erhöhe die Flammen unter dem Kessel.\")\n```",
+          "description": "Als Zauberlehrling musst du die richtigen Zutaten für deinen Zaubertrank wählen:\n\n- Frage mit `input()` nach der Temperatur des Kessels in Grad (bereits programmiert)\n- Gib \"Perfekt! Füge die Drachenblut-Essenz hinzu.\" aus, wenn die Temperatur über 90 Grad liegt\n- Gib \"Zu kalt! Erhöhe die Flammen unter dem Kessel.\" aus, wenn die Temperatur 90 Grad oder weniger ist\n\nVorlage:\n\n```py\nif temperatur > ...:\n    ...\nelse:\n    ...\n```",
           "tasks": [
             {
               "title": "Zaubertrankprüfung",
