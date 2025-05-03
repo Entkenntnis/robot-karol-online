@@ -863,7 +863,10 @@ export function Overview() {
                       x={entry[1].x}
                       y={entry[1].y}
                       title={questData[parseInt(entry[0])].title}
-                      solved={isQuestDone(parseInt(entry[0]))}
+                      solved={
+                        isQuestDone(parseInt(entry[0])) &&
+                        core.ws.page != 'demo'
+                      }
                       onClick={() => {
                         if (parseInt(entry[0]) == 1) {
                           submitAnalyzeEvent(

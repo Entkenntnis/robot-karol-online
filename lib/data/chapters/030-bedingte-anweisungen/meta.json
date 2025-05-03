@@ -1,23 +1,23 @@
 {
   "title": "Bedingte Anweisungen",
   "quests": [
-    { "filename": "Zaubertrankprüfung.json", "x": 680, "y": 100 },
-    { "filename": "Weltraum_Navigation.json", "x": 680, "y": -40 },
-    { "filename": "Wetterstation_Alarm_1.json", "x": 580, "y": 220 },
+    { "filename": "Zaubertrankprüfung.json", "x": 570, "y": 130 },
+    { "filename": "Weltraum_Navigation.json", "x": 630, "y": -60 },
+    { "filename": "Wetterstation_Alarm_1.json", "x": 330, "y": 120 },
     {
       "filename": "Wetterstation_Alarm_2.json",
-      "x": 370,
-      "y": 300,
+      "x": 180,
+      "y": 30,
       "deps": ["Wetterstation_Alarm_1.json"]
     },
     {
       "filename": "Wetterstation_Alarm_3.json",
-      "x": 170,
+      "x": 130,
       "y": 200,
       "deps": ["Wetterstation_Alarm_2.json"]
     }
   ],
-  "x": 450,
-  "y": 2290,
+  "x": 430,
+  "y": 2240,
   "image": "/story/3.jpg"
 }

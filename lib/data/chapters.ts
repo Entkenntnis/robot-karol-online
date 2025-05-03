@@ -1958,13 +1958,13 @@ const chapterInfo = [
     "dirName": "030-bedingte-anweisungen",
     "title": "3. Bedingte Anweisungen",
     "originalTitle": "Bedingte Anweisungen",
-    "description": "# 🎮 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\nWillkommen in der Welt der intelligenten Programme! Heute lernen wir, wie Computer Entscheidungen treffen – genau wie du im echten Leben. 🧠\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nStell dir vor, du stehst an einer Ampel:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\"\r\n- `==` prüft auf Gleichheit\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Achtung: Einrückungen (meist 4 Leerzeichen) sind in Python Pflicht!\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\nWas, wenn die Ampel **nicht** grün ist?\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    print(\"Noch etwas Geduld... 🕒\")  # Wird ausgeführt, weil 15 < 18\r\n```\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\nMehrere Bedingungen hintereinander prüfen:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    print(\"Eiszeit! 🍦\")  # Wird ausgeführt, weil sonnig\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n## 🏆 Übungsaufgabe: Rabattrechner\r\n\r\nErstelle ein Programm, das:\r\n\r\n1. Nach dem Einkaufswert fragt\r\n2. 10% Rabatt gibt bei über 100€\r\n3. 15% Rabatt bei über 200€\r\n4. 5% Rabatt für Treuekunden (zusätzliche Frage)\r\n\r\n**Tipp:** Kombiniere if-elif-else und logische Operatoren!\r\n\r\n```python\r\n# Hier deine Lösung versuchen!\r\n```\r\n\r\nProbiere es aus und lass deinen Code verschiedene Entscheidungen treffen! 🚀 Jedes Mal, wenn du `if` schreibst, gibst du deinem Programm ein Stück Intelligenz. Viel Spaß beim Coden! 😊\r\n",
+    "description": "# 🧠 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\n\"Dein Erfolg bei den bisherigen Aufgaben ist beeindruckend!\", freut sich Karol. Du bemerkst, dass die Muster auf den Leinwänden sich verändert haben – sie wirken jetzt dynamischer, als würden sie auf etwas reagieren.\r\n\r\n\"Etwas stimmt nicht...\", murmelt Karol besorgt. \"Die Leinwände müssten sich öffnen, aber es passiert nichts. Ich habe den Verdacht, dass die Quantensysteme eine Sicherheitsprüfung durchführen.\" Sie schaut dich hoffnungsvoll an. \"Deine Hilfe ist jetzt wichtiger denn je! Wir müssen dem System beibringen, kluge Entscheidungen zu treffen.\"\r\n\r\nIhre Stimme wird ernst: \"In der Programmierung ist das ein entscheidender Schritt: deinem Code beizubringen, verschiedene Situationen zu erkennen und entsprechend zu handeln. Genau wie ein Zauberlehrling wissen muss, wann der Kessel die richtige Temperatur hat, oder eine Wetterstation erkennen muss, wann ein Sturm aufzieht.\"\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nKarol projiziert ein einfaches Beispiel auf die Leinwand:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n\"Das ist wie eine Verzweigung auf deinem Weg\", erklärt sie. \"Der Code fragt: 'Ist die Ampel grün?' Wenn ja, dann fahre los. Wenn nicht, dann mache... nichts in diesem Beispiel.\"\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\" oder \"wenn\"\r\n- `==` prüft auf Gleichheit (Achtung: nicht verwechseln mit `=`, das ist für Zuweisungen!)\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Die Einrückungen (4 Leerzeichen) sind in Python Pflicht – sie zeigen, welcher Code zur Bedingung gehört\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\n\"Aber was, wenn die Ampel **nicht** grün ist?\", fragt Karol. Die Leinwand verändert sich und zeigt ein erweitertes Beispiel:\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    # Wird ausgeführt, weil 15 < 18\r\n    print(\"Noch etwas Geduld... 🕒\")\r\n```\r\n\r\n\"Mit `else` hast du einen Plan B! Wenn die Bedingung nicht zutrifft, wird stattdessen der Code im `else`-Block ausgeführt. So hat dein Programm für jede Situation eine Antwort.\"\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\n\"Manchmal gibt es mehr als nur zwei Möglichkeiten\", sagt Karol und zaubert ein neues Beispiel hervor:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    # Wird ausgeführt, weil 2.3 <= 3.0\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n\"Mit `elif` (kurz für 'else if') kannst du mehrere Bedingungen nacheinander prüfen. Sobald eine davon zutrifft, wird der zugehörige Code ausgeführt und die restlichen Bedingungen werden übersprungen.\"\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n\"Um Entscheidungen zu treffen, brauchst du die richtigen Werkzeuge\", erklärt Karol und lässt eine Tabelle erscheinen:\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n\"Diese Operatoren sind wie deine Sinne – sie helfen dir, die Welt um dich herum zu verstehen und zu bewerten.\"\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n\"Manchmal müssen mehrere Bedingungen gleichzeitig erfüllt sein\", fährt Karol fort. Die Leinwand leuchtet heller und zeigt neue Beispiele:\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    # Wird ausgeführt, weil wetter == \"sonnig\"\r\n    print(\"Eiszeit! 🍦\")\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    # Wird ausgeführt, weil login_erfolgreich False ist\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n\"Mit diesen drei Operatoren – `and`, `or` und `not` – kannst du komplexe Entscheidungen programmieren, genau wie das menschliche Gehirn.\"\r\n\r\n## 🏆 Jetzt bist du dran!\r\n\r\n\"Mit diesem Wissen kannst du jetzt richtig mächtige Programme schreiben\", sagt Karol aufgeregt. \"Du kannst deinem Code beibringen, intelligente Entscheidungen zu treffen – sei es für die Temperatur eines Zaubertranks oder die Warnsysteme einer Wetterstation. Die Leinwände reagieren bereits positiv, ich spüre es!\"\r\n\r\nDie Muster auf den Leinwänden flimmern und bilden kurz ein Lächeln, bevor sie wieder zu abstrakten Formen werden.\r\n\r\n\"Ich glaube, wir sind auf dem richtigen Weg\", flüstert Karol. \"Die Quantentore zu den Aufgaben öffnen sich. Löse sie, und wir kommen dem Ausgang näher...\"\r\n\r\nDu betrachtest die schimmernden Quantenknoten, die vor dir erscheinen, und bereitest dich auf die nächste Herausforderung vor.\r\n",
     "image": "/story/3.jpg",
     "quests": [
       {
         "filename": "Zaubertrankprüfung.json",
-        "x": 680,
-        "y": 100,
+        "x": 570,
+        "y": 130,
         "id": 132,
         "content": {
           "version": "v1",
@@ -2099,8 +2099,8 @@ const chapterInfo = [
       },
       {
         "filename": "Weltraum_Navigation.json",
-        "x": 680,
-        "y": -40,
+        "x": 630,
+        "y": -60,
         "id": 131,
         "content": {
           "version": "v1",
@@ -2235,8 +2235,8 @@ const chapterInfo = [
       },
       {
         "filename": "Wetterstation_Alarm_1.json",
-        "x": 580,
-        "y": 220,
+        "x": 330,
+        "y": 120,
         "id": 133,
         "content": {
           "version": "v1",
@@ -2321,8 +2321,8 @@ const chapterInfo = [
       },
       {
         "filename": "Wetterstation_Alarm_2.json",
-        "x": 370,
-        "y": 300,
+        "x": 180,
+        "y": 30,
         "deps": [
           133
         ],
@@ -2406,7 +2406,7 @@ const chapterInfo = [
       },
       {
         "filename": "Wetterstation_Alarm_3.json",
-        "x": 170,
+        "x": 130,
         "y": 200,
         "deps": [
           134
@@ -2490,8 +2490,8 @@ const chapterInfo = [
         }
       }
     ],
-    "x": 450,
-    "y": 2290
+    "x": 430,
+    "y": 2240
   },
   {
     "id": 10005,
@@ -2632,7 +2632,7 @@ const chapterInfo = [
     "image": "",
     "quests": [],
     "x": 950,
-    "y": 2600
+    "y": 2640
   },
   {
     "id": 10007,
@@ -2642,8 +2642,8 @@ const chapterInfo = [
     "description": "# 🎲 Kapitel 6: Glücksspiel kann süchtig machen\r\n\r\nWillkommen in der Welt des Zufalls! Hier lernst du, wie du deine Programme unvorhersehbar und spannend gestalten kannst – perfekt für Spiele, Simulationen und Überraschungseffekte. 🎮✨\r\n\r\n## 🎯 Zufallszahlen mit `random.randint()`\r\n\r\nZuerst müssen wir das `random`-Modul importieren:\r\n\r\n```python\r\nimport random\r\n```\r\n\r\n**Würfel-Simulator**:  \r\nErzeuge eine zufällige Ganzzahl zwischen 1 und 6:\r\n\r\n```python\r\nwürfel = random.randint(1, 6)\r\nprint(f\"Du hast eine {würfel} gewürfelt! 🎲\")\r\n```\r\n\r\n**Ratespiel**:  \r\nDer Computer denkt sich eine Zahl aus, die du erraten musst:\r\n\r\n```python\r\ngeheimzahl = random.randint(1, 100)\r\nversuch = int(input(\"Rate eine Zahl zwischen 1-100: \"))\r\n\r\nif versuch == geheimzahl:\r\n    print(\"Treffer! 🎯\")\r\nelse:\r\n    print(f\"Leider daneben. Die Zahl war {geheimzahl}. 😅\")\r\n```\r\n\r\n## 🎁 Zufällige Auswahl mit `random.choice()`\r\n\r\n**Münzwurf**:  \r\nKopf oder Zahl? Entscheide dich!\r\n\r\n```python\r\nmöglichkeiten = [\"Kopf\", \"Zahl\"]\r\nergebnis = random.choice(möglichkeiten)\r\nprint(f\"Die Münze zeigt: {ergebnis}! 💰\")\r\n```\r\n\r\n**Glückskeks-Simulator**:  \r\nLass dich von weisen Sprüchen überraschen:\r\n\r\n```python\r\nsprüche = [\r\n    \"Heute ist dein Glückstag! 🌟\",\r\n    \"Vorsicht vor fallenden Kokosnüssen. 🥥\",\r\n    \"Code, den du heute schreibst, wird dich morgen retten. 💻\"\r\n]\r\nprint(random.choice(sprüche))\r\n```\r\n\r\n## 🚀 Tipps & Tricks\r\n\r\n- `randint(a, b)` inkludiert **beide** Grenzen (1 **und** 6 beim Würfel).\r\n- Mit `random.choice()` kannst du auch Listen von Zahlen, Farben oder Spielkarten mischen.\r\n- Probiere ein **Mini-Lotteriespiel**: Ziehe 6 Zahlen zwischen 1-49:\r\n  ```python\r\n  lottozahlen = random.sample(range(1,50), 6)\r\n  print(f\"Gewinnzahlen: {lottozahlen} 🍀\")\r\n  ```\r\n\r\n## 💡 Challenge: Stein-Schere-Papier\r\n\r\nProgrammiere ein Spiel gegen den Computer! Der Benutzer gibt seine Wahl ein (z.B. \"Stein\"), der Computer wählt zufällig aus [\"Stein\", \"Schere\", \"Papier\"] und entscheidet, wer gewinnt. 🪨✂️📄\r\n\r\n**Beispiel-Lösung**:\r\n\r\n```python\r\noptionen = [\"Stein\", \"Schere\", \"Papier\"]\r\ncomputer_wahl = random.choice(optionen)\r\nspieler_wahl = input(\"Stein, Schere oder Papier? \")\r\n\r\nprint(f\"Computer wählt: {computer_wahl}\")\r\n# Vergleichslogik hier einfügen (if/elif/else)\r\n```\r\n\r\nViel Spaß beim Experimentieren – aber pass auf, dass du nicht süchtig nach deinen eigenen Spielen wirst! 😉🔥\r\n",
     "image": "",
     "quests": [],
-    "x": 1200,
-    "y": 2600
+    "x": 700,
+    "y": 2700
   },
   {
     "id": 10008,
@@ -2654,7 +2654,7 @@ const chapterInfo = [
     "image": "",
     "quests": [],
     "x": 950,
-    "y": 2700
+    "y": 2900
   },
   {
     "id": 10009,
@@ -4012,7 +4012,7 @@ const chapterInfo = [
       }
     ],
     "x": 680,
-    "y": 2630
+    "y": 2930
   }
 ]
 
