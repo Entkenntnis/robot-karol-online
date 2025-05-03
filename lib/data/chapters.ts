@@ -1956,13 +1956,542 @@ const chapterInfo = [
   {
     "id": 10004,
     "dirName": "030-bedingte-anweisungen",
-    "title": "3. Dein Code wird schlau 🚧",
-    "originalTitle": "Dein Code wird schlau 🚧",
-    "description": "# 🎮 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\nWillkommen in der Welt der intelligenten Programme! Heute lernen wir, wie Computer Entscheidungen treffen – genau wie du im echten Leben. 🧠\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nStell dir vor, du stehst an einer Ampel:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\"\r\n- `==` prüft auf Gleichheit\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Achtung: Einrückungen (meist 4 Leerzeichen) sind in Python Pflicht!\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\nWas, wenn die Ampel **nicht** grün ist?\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    print(\"Noch etwas Geduld... 🕒\")  # Wird ausgeführt, weil 15 < 18\r\n```\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\nMehrere Bedingungen hintereinander prüfen:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    print(\"Eiszeit! 🍦\")  # Wird ausgeführt, weil sonnig\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n## 🏆 Übungsaufgabe: Rabattrechner\r\n\r\nErstelle ein Programm, das:\r\n\r\n1. Nach dem Einkaufswert fragt\r\n2. 10% Rabatt gibt bei über 100€\r\n3. 15% Rabatt bei über 200€\r\n4. 5% Rabatt für Treuekunden (zusätzliche Frage)\r\n\r\n**Tipp:** Kombiniere if-elif-else und logische Operatoren!\r\n\r\n```python\r\n# Hier deine Lösung versuchen!\r\n```\r\n\r\nProbiere es aus und lass deinen Code verschiedene Entscheidungen treffen! 🚀 Jedes Mal, wenn du `if` schreibst, gibst du deinem Programm ein Stück Intelligenz. Viel Spaß beim Coden! 😊\r\n",
-    "image": "",
-    "quests": [],
-    "x": 550,
-    "y": 2300
+    "title": "3. Bedingte Anweisungen",
+    "originalTitle": "Bedingte Anweisungen",
+    "description": "# 🧠 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\n\"Dein Erfolg bei den bisherigen Aufgaben ist beeindruckend!\", freut sich Karol. Du bemerkst, dass die Muster auf den Leinwänden sich verändert haben – sie wirken jetzt dynamischer, als würden sie auf etwas reagieren.\r\n\r\n\"Etwas stimmt nicht...\", murmelt Karol besorgt. \"Die Leinwände müssten sich öffnen, aber es passiert nichts. Ich habe den Verdacht, dass die Quantensysteme eine Sicherheitsprüfung durchführen.\" Sie schaut dich hoffnungsvoll an. \"Deine Hilfe ist jetzt wichtiger denn je! Wir müssen dem System beibringen, kluge Entscheidungen zu treffen.\"\r\n\r\nIhre Stimme wird ernst: \"In der Programmierung ist das ein entscheidender Schritt: deinem Code beizubringen, verschiedene Situationen zu erkennen und entsprechend zu handeln. Genau wie ein Zauberlehrling wissen muss, wann der Kessel die richtige Temperatur hat, oder eine Wetterstation erkennen muss, wann ein Sturm aufzieht.\"\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nKarol projiziert ein einfaches Beispiel auf die Leinwand:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n\"Das ist wie eine Verzweigung auf deinem Weg\", erklärt sie. \"Der Code fragt: 'Ist die Ampel grün?' Wenn ja, dann fahre los. Wenn nicht, dann mache... nichts in diesem Beispiel.\"\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\" oder \"wenn\"\r\n- `==` prüft auf Gleichheit (Achtung: nicht verwechseln mit `=`, das ist für Zuweisungen!)\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Die Einrückungen (4 Leerzeichen) sind in Python Pflicht – sie zeigen, welcher Code zur Bedingung gehört\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\n\"Aber was, wenn die Ampel **nicht** grün ist?\", fragt Karol. Die Leinwand verändert sich und zeigt ein erweitertes Beispiel:\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    # Wird ausgeführt, weil 15 < 18\r\n    print(\"Noch etwas Geduld... 🕒\")\r\n```\r\n\r\n\"Mit `else` hast du einen Plan B! Wenn die Bedingung nicht zutrifft, wird stattdessen der Code im `else`-Block ausgeführt. So hat dein Programm für jede Situation eine Antwort.\"\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\n\"Manchmal gibt es mehr als nur zwei Möglichkeiten\", sagt Karol und zaubert ein neues Beispiel hervor:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    # Wird ausgeführt, weil 2.3 <= 3.0\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n\"Mit `elif` (kurz für 'else if') kannst du mehrere Bedingungen nacheinander prüfen. Sobald eine davon zutrifft, wird der zugehörige Code ausgeführt und die restlichen Bedingungen werden übersprungen.\"\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n\"Um Entscheidungen zu treffen, brauchst du die richtigen Werkzeuge\", erklärt Karol und lässt eine Tabelle erscheinen:\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n\"Diese Operatoren sind wie deine Sinne – sie helfen dir, die Welt um dich herum zu verstehen und zu bewerten.\"\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n\"Manchmal müssen mehrere Bedingungen gleichzeitig erfüllt sein\", fährt Karol fort. Die Leinwand leuchtet heller und zeigt neue Beispiele:\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    # Wird ausgeführt, weil wetter == \"sonnig\"\r\n    print(\"Eiszeit! 🍦\")\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    # Wird ausgeführt, weil login_erfolgreich False ist\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n\"Mit diesen drei Operatoren – `and`, `or` und `not` – kannst du komplexe Entscheidungen programmieren, genau wie das menschliche Gehirn.\"\r\n\r\n## 🏆 Jetzt bist du dran!\r\n\r\n\"Mit diesem Wissen kannst du jetzt richtig mächtige Programme schreiben\", sagt Karol aufgeregt. \"Du kannst deinem Code beibringen, intelligente Entscheidungen zu treffen – sei es für die Temperatur eines Zaubertranks oder die Warnsysteme einer Wetterstation. Die Leinwände reagieren bereits positiv, ich spüre es!\"\r\n\r\nDie Muster auf den Leinwänden flimmern und bilden kurz ein Lächeln, bevor sie wieder zu abstrakten Formen werden.\r\n\r\n\"Ich glaube, wir sind auf dem richtigen Weg\", flüstert Karol. \"Die Quantentore zu den Aufgaben öffnen sich. Löse sie, und wir kommen dem Ausgang näher...\"\r\n\r\nDu betrachtest die schimmernden Quantenknoten, die vor dir erscheinen, und bereitest dich auf die nächste Herausforderung vor.\r\n",
+    "image": "/story/3.jpg",
+    "quests": [
+      {
+        "filename": "Zaubertrankprüfung.json",
+        "x": 570,
+        "y": 130,
+        "id": 132,
+        "content": {
+          "version": "v1",
+          "title": "Zaubertrankprüfung",
+          "description": "Als Zauberlehrling musst du die richtigen Zutaten für deinen Zaubertrank wählen:\n\n- Frage mit `input()` nach der Temperatur des Kessels in Grad (bereits programmiert)\n- Gib \"Perfekt! Füge die Drachenblut-Essenz hinzu.\" aus, wenn die Temperatur über 90 Grad liegt\n- Gib \"Zu kalt! Erhöhe die Flammen unter dem Kessel.\" aus, wenn die Temperatur 90 Grad oder weniger ist\n\nVorlage:\n\n```py\nif temperatur > ...:\n    ...\nelse:\n    ...\n```",
+          "tasks": [
+            {
+              "title": "Zaubertrankprüfung",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Als Zauberlehrling stehst du vor einem dampfenden Kessel und musst entscheiden, ob er die richtige Temperatur für die nächste Zutat erreicht hat.\", \"Trank brauen beginnen\")\n\n# Initialisiere Tracking-Variablen für getestete Fälle\ntested_hot = False\ntested_cold = False\n\nwhile not (tested_hot and tested_cold):\n    __ide_run_client()\n\n    # Prüfe, ob eine Eingabe gemacht wurde\n    inputs = __ide_get_inputs()\n    if len(inputs) == 0:\n        __ide_prompt(\"Du musst nach der Kesseltemperatur fragen. Verwende dafür `input()`.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Prüfe, ob eine Ausgabe vorhanden ist\n    outputs = __ide_get_outputs()\n    if len(outputs) == 0:\n        __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Versuche, die eingegebene Temperatur zu ermitteln\n    valid_number = False\n    try:\n        temperatur = float(inputs[-1].replace(',', '.'))\n        valid_number = True\n    except:\n        __ide_prompt(\"Die eingegebene Temperatur konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n        continue\n\n    # Ermittle den erwarteten Temperaturzustand\n    if temperatur > 90:\n        expected_state = \"perfekt\"\n        tested_hot = True\n    else:  # temperatur <= 90\n        expected_state = \"kalt\"\n        tested_cold = True\n\n    # Überprüfe, ob die richtige Ausgabe gemacht wurde\n    last_output = outputs[-1].lower()\n    if expected_state not in last_output:\n        __ide_prompt(f\"Die Ausgabe passt nicht zur Temperatur. Bei {temperatur} Grad sollte deine Ausgabe '{expected_state}' enthalten.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Zeige an, welche Fälle bereits getestet wurden und welche noch fehlen\n    remaining_cases = []\n    if not tested_hot:\n        remaining_cases.append(\"heißer Kessel (über 90 Grad)\")\n    if not tested_cold:\n        remaining_cases.append(\"kalter Kessel (90 Grad oder weniger)\")\n    \n    if remaining_cases:\n        case_list = \", \".join(remaining_cases)\n        __ide_prompt(f\"Zauberhafte Arbeit! Du hast die {expected_state}e Temperatur richtig erkannt. Teste noch: {case_list}\", \"Weiter brauen\")\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(\"Ausgezeichnet! 🎉 Du hast alle Temperaturzustände richtig erkannt und weißt jetzt genau, wann du die Drachenblut-Essenz hinzufügen kannst. Deine Fähigkeiten als Zauberlehrling verbessern sich!\", \"Weiter\")\n",
+          "language": "python-pro",
+          "program": "# Zaubertrankprüfung: Bestimme die Kesseltemperatur\n# 1. Frage nach der Kesseltemperatur\n# 2. Bestimme, ob der Kessel heiß genug ist\n# 3. Gib die entsprechende Anweisung aus\n\n# TODO: Schreibe deinen Code hier\ntemperatur = float(input(\"Wie heiß ist der Kessel in Grad?\"))"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Weltraum_Navigation.json",
+        "x": 630,
+        "y": -60,
+        "id": 131,
+        "content": {
+          "version": "v1",
+          "title": "Weltraum-Navigation",
+          "description": "Nach dem erfolgreichen Start deines Raumschiffs ist die Navigationseinheit für den interplanetaren Kurs bereit. Das System muss verschiedene Gravitationsfelder analysieren:\n\n- Frage mit `input()` nach einem Gravitationswert (bereits programmiert)\n- Gib \"Positives Gravitationsfeld - Antrieb verstärken!\" aus, wenn der Wert größer als 0 ist\n- Gib \"Negatives Gravitationsfeld - Bremssysteme aktivieren!\" aus, wenn der Wert kleiner als 0 ist\n- Gib \"Neutrale Zone - Schwebemodus aktivieren!\" aus, wenn der Wert gleich 0 ist\n\nVorlage:\n\n```py\nif graviation < 0:\n    print(\"Negatives Gravitationsfeld - Bremssysteme aktivieren!\")\nelif ...:\n    ...\nelse:\n    ...\n```",
+          "tasks": [
+            {
+              "title": "Gravitationsfeld analysieren",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Nach dem erfolgreichen Start deines Raumschiffs und der Systemüberprüfung navigierst du nun durch verschiedene Gravitationsfelder. Du musst alle drei Arten von Gravitationsfeldern (positiv, negativ und neutral) analysieren, um die Mission abzuschließen.\", \"Mission starten\")\n\n# Initialisiere Tracking-Variablen für getestete Fälle\ntested_positive = False\ntested_negative = False\ntested_zero = False\n\nwhile not (tested_positive and tested_negative and tested_zero):\n    __ide_run_client()\n\n    # Prüfe, ob eine Eingabe gemacht wurde\n    inputs = __ide_get_inputs()\n    if len(inputs) == 0:\n        __ide_prompt(\"Du musst nach einem Gravitationswert fragen. Verwende dafür `input()`.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Prüfe, ob eine Ausgabe vorhanden ist\n    outputs = __ide_get_outputs()\n    if len(outputs) == 0:\n        __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Versuche, den eingegebenen Gravitationswert zu ermitteln\n    valid_number = False\n    try:\n        gravitation = float(inputs[-1].replace(',', '.'))\n        valid_number = True\n    except:\n        __ide_prompt(\"Der eingegebene Gravitationswert konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n        continue\n\n    # Ermittle den erwarteten Gravitationstyp\n    if gravitation > 0:\n        expected_type = \"positiv\"\n        tested_positive = True\n    elif gravitation < 0:\n        expected_type = \"negativ\"\n        tested_negative = True\n    else:  # gravitation == 0\n        expected_type = \"neutral\"\n        tested_zero = True\n\n    # Überprüfe, ob der richtige Gravitationstyp ausgegeben wurde\n    last_output = outputs[-1].lower()\n    if expected_type not in last_output:\n        __ide_prompt(f\"Die Ausgabe passt nicht zum Gravitationsfeld. Bei dem Wert {gravitation} sollte die Ausgabe '{expected_type}' enthalten.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Zeige an, welche Fälle bereits getestet wurden und welche noch fehlen\n    remaining_cases = []\n    if not tested_positive:\n        remaining_cases.append(\"positives Gravitationsfeld\")\n    if not tested_negative:\n        remaining_cases.append(\"negatives Gravitationsfeld\")\n    if not tested_zero:\n        remaining_cases.append(\"neutrale Zone\")\n    \n    if remaining_cases:\n        case_list = \", \".join(remaining_cases)\n        __ide_prompt(f\"Navigationsanalyse erfolgreich! Du hast {expected_type}e Gravitationsfelder korrekt erkannt. Teste noch folgende Arten von Feldern: {case_list}\", \"Weiter navigieren\")\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(\"Mission erfolgreich abgeschlossen! 🎉 Die Navigation deines Raumschiffs kann nun alle Gravitationsfelder korrekt identifizieren und die entsprechenden Systeme aktivieren. Dein Raumschiff ist bereit für die interplanetare Reise!\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Weltraum-Navigation: Gravitationsfeld-Analyse\n# 1. Frage nach einem Gravitationswert\n# 2. Bestimme, ob das Feld positiv, negativ oder neutral ist\n# 3. Gib die entsprechende Systemanweisung aus\n\n# TODO: Schreibe deinen Code hier\ngravitation = float(input(\"Aktueller Graviationswert:\"))"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Wetterstation_Alarm_1.json",
+        "x": 330,
+        "y": 120,
+        "id": 133,
+        "content": {
+          "version": "v1",
+          "title": "Wetterstation-Alarm 1",
+          "description": "Du betreust eine automatische Wetterstation in den Bergen. Bei extremen Wetterbedingungen muss ein Alarmsignal ausgelöst werden, um die Bevölkerung zu warnen.\n\n**Deine Aufgaben:**\n- Die Funktion `messeSturmgeschwindigkeit()` liefert die aktuelle Windgeschwindigkeit in km/h\n- Wenn die Windgeschwindigkeit 75 km/h oder mehr beträgt, muss eine Sturmwarnung ausgegeben werden\n- Gib \"STURMWARNUNG! Fenster und Türen sichern!\" aus, wenn die Bedingung eintritt\n\nTipp: Verwende eine bedingte Anweisung mit `if` und `print()`",
+          "tasks": [
+            {
+              "title": "Sturmwarnung",
+              "start": {
+                "dimX": 6,
+                "dimY": 4,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 4,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Willkommen zur Wetterstation-Überwachung! Du bist verantwortlich für das automatische Sturmwarnsystem.\", \"Überwachung starten\")\n\n# Tracking-Variablen für getestete Fälle\ntested_storm = False\ntested_normal = False\nwindspeed = 50\ndef messeSturmgeschwindigkeit():\n            return windspeed\n\nwhile not (tested_storm and tested_normal):\n    # Generiere verschiedene Windgeschwindigkeiten zum Testen\n    if not tested_normal:\n        # Teste normalen Fall\n        windspeed = 50\n    else:\n        # Teste Sturm-Fall\n        windspeed = 80\n        \n    __ide_run_client(globals=[\"messeSturmgeschwindigkeit\"])\n    \n    # Prüfe die Ausgaben\n    outputs = __ide_get_outputs()\n    \n    if not tested_normal:\n        # Überprüfe normale Ausgabe\n        if len(outputs) > 0:\n            __ide_prompt(f\"Bei normalen Wetterbedingungen ({windspeed} km/h) sollte keine Warnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_normal = True\n            __ide_prompt(f\"Sehr gut! Die Windgeschwindigkeit beträgt {windspeed} km/h und du hast korrekt keine Warnung ausgegeben.\", \"Weiter\")\n    elif not tested_storm:\n        # Überprüfe Sturmausgabe\n        if len(outputs) == 0:\n            __ide_prompt(\"Du hast keine Ausgabe gemacht. Bei Sturm (≥ 75 km/h) musst du eine Warnung ausgeben.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"STURMWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei starkem Wind ({windspeed} km/h) muss die Warnung \\\"STURMWARNUNG! Fenster und Türen sichern!\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_storm = True\n            __ide_prompt(f\"Gut gemacht! Die Windgeschwindigkeit beträgt {windspeed} km/h und du hast die Warnung ausgegeben.\", \"Weiter\")\n            continue\n\n__ide_set_progress(True)\n__ide_prompt(\"Herzlichen Glückwunsch! Dein Wetterstation-Alarmsystem funktioniert einwandfrei.\")",
+          "language": "python-pro",
+          "program": "wind = messeSturmgeschwindigkeit()\n\n# TODO\n"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Wetterstation_Alarm_2.json",
+        "x": 180,
+        "y": 30,
+        "deps": [
+          133
+        ],
+        "id": 134,
+        "content": {
+          "version": "v1",
+          "title": "Wetterstation-Alarm 2",
+          "description": "Du betreust weiterhin die automatische Wetterstation in den Bergen. Nun musst du die Alarmfunktion erweitern, um mehrere Wetterfaktoren zu berücksichtigen.\n\n**Deine Aufgaben:**\n- Die Funktion `messeSturmgeschwindigkeit()` liefert die aktuelle Windgeschwindigkeit in km/h\n- Die Funktion `messeNiederschlag()` liefert die Niederschlagsmenge in mm/h\n- Ein Unwetter liegt vor, wenn **ENTWEDER**:\n  - Die Windgeschwindigkeit 75 km/h oder mehr beträgt **ODER**\n  - Die Niederschlagsmenge 30 mm/h oder mehr beträgt\n- Gib \"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\" aus, wenn eine der Bedingungen zutrifft\n\nTipp: Verwende eine bedingte Anweisung mit `if` und den logischen Operator `or` für ODER-Verknüpfungen.",
+          "tasks": [
+            {
+              "title": "Unwetterwarnung",
+              "start": {
+                "dimX": 6,
+                "dimY": 4,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 4,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Willkommen zur erweiterten Wetterstation-Überwachung! Du überwachst nun sowohl Wind als auch Niederschlag.\", \"Überwachung starten\")\n\n# Tracking-Variablen für getestete Fälle\ntested_normal = False\ntested_storm_only = False\ntested_rain_only = False\n\nwind = 50\nrain = 20\n\ndef messeSturmgeschwindigkeit():\n    return wind\n\ndef messeNiederschlag():\n    return rain\n\nwhile not (tested_normal and tested_storm_only and tested_rain_only):\n    # Generiere verschiedene Wetterbedingungen zum Testen\n    if not tested_normal:\n        # Teste normalen Fall - alles ok\n        wind = 50\n        rain = 20\n    elif not tested_storm_only:\n        # Teste nur Wind - Sturm\n        wind = 80\n        rain = 20\n    elif not tested_rain_only:\n        # Teste nur Regen - Starkregen\n        wind = 50\n        rain = 35\n        \n    __ide_run_client(globals=[\"messeSturmgeschwindigkeit\", \"messeNiederschlag\"])\n    \n    # Prüfe die Ausgaben\n    outputs = __ide_get_outputs()\n    \n    if not tested_normal:\n        # Überprüfe normale Ausgabe\n        if len(outputs) > 0:\n            __ide_prompt(f\"Bei normalen Wetterbedingungen (Wind: {wind} km/h, Regen: {rain} mm/h) sollte keine Warnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_normal = True\n            __ide_prompt(f\"Sehr gut! Bei normalen Bedingungen (Wind: {wind} km/h, Regen: {rain} mm/h) hast du korrekt keine Warnung ausgegeben.\", \"Weiter\")\n    elif not tested_storm_only:\n        # Überprüfe Sturmausgabe\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss eine Unwetterwarnung ausgegeben werden, auch wenn der Niederschlag normal ist.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_storm_only = True\n            __ide_prompt(f\"Gut gemacht! Du hast bei Sturm ({wind} km/h) korrekt eine Unwetterwarnung ausgegeben.\", \"Weiter\")\n    elif not tested_rain_only:\n        # Überprüfe Starkregenausgabe\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss eine Unwetterwarnung ausgegeben werden, auch wenn der Wind normal ist.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_rain_only = True\n            __ide_prompt(f\"Sehr gut! Du hast bei Starkregen ({rain} mm/h) korrekt eine Unwetterwarnung ausgegeben.\", \"Weiter\")\n\n__ide_set_progress(True)\n__ide_prompt(\"Herzlichen Glückwunsch! Dein erweitertes Wetterstation-Alarmsystem mit ODER-Verknüpfung funktioniert einwandfrei.\")",
+          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\n\n# TODO\n"
+        }
+      },
+      {
+        "filename": "Wetterstation_Alarm_3.json",
+        "x": 130,
+        "y": 200,
+        "deps": [
+          134
+        ],
+        "id": 135,
+        "content": {
+          "version": "v1",
+          "title": "Wetterstation-Alarm 3",
+          "description": "Die Wetterstation benötigt ein erweitertes Warnsystem für besondere Wetterbedingungen.\n\n**Deine Aufgaben:**\n- Die Funktion `messeSturmgeschwindigkeit()` liefert die aktuelle Windgeschwindigkeit in km/h\n- Die Funktion `messeNiederschlag()` liefert die Niederschlagsmenge in mm/h\n- Die Funktion `messeTemperatur()` liefert die aktuelle Temperatur in °C\n\n**Folgende Bedingungen müssen geprüft werden:**\n1. FROSTWARNUNG: Wenn die Temperatur unter dem Gefrierpunkt (< 0 °C) liegt **UND** Niederschlag vorhanden ist (> 0 mm/h)\n2. UNWETTERWARNUNG: Wenn Wind ≥ 75 km/h **ODER** Niederschlag ≥ 30 mm/h\n\nGib je nach Bedingung die entsprechende Warnung aus:\n- \"FROSTWARNUNG! Glättegefahr auf Straßen und Wegen!\"\n- \"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\"\n\nTipp: Verwende den logischen Operator `and` für UND-Verknüpfungen und `or` für ODER-Verknüpfungen.",
+          "tasks": [
+            {
+              "title": "Erweitertes Alarmsystem",
+              "start": {
+                "dimX": 6,
+                "dimY": 4,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 4,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Willkommen zur erweiterten Wetterstation-Überwachung! Du überwachst nun auch Temperaturbedingungen.\", \"Überwachung starten\")\n\n# Tracking-Variablen für getestete Fälle\ntested_normal = False\ntested_frost = False\ntested_storm = False\ntested_rain = False\n\nwind = 50\nrain = 5\ntemp = 15\n\ndef messeSturmgeschwindigkeit():\n    return wind\n\ndef messeNiederschlag():\n    return rain\n\ndef messeTemperatur():\n    return temp\n\nwhile not (tested_normal and tested_frost and tested_storm and tested_rain):\n    # Generiere verschiedene Wetterbedingungen zum Testen\n    if not tested_normal:\n        # Teste normalen Fall - alles ok\n        wind = 50\n        rain = 5\n        temp = 15\n    elif not tested_frost:\n        # Teste Frost mit Niederschlag\n        wind = 30\n        rain = 10\n        temp = -5\n    elif not tested_storm:\n        # Teste nur Sturm\n        wind = 80\n        rain = 5\n        temp = 15\n    elif not tested_rain:\n        # Teste nur Starkregen\n        wind = 50\n        rain = 35\n        temp = 15\n        \n    __ide_run_client(globals=[\"messeSturmgeschwindigkeit\", \"messeNiederschlag\", \"messeTemperatur\"])\n    \n    # Prüfe die Ausgaben\n    outputs = __ide_get_outputs()\n    \n    if not tested_normal:\n        # Überprüfe normale Ausgabe\n        if len(outputs) > 0:\n            __ide_prompt(f\"Bei normalen Wetterbedingungen (Wind: {wind} km/h, Regen: {rain} mm/h, Temp: {temp}°C) sollte keine Warnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_normal = True\n            __ide_prompt(f\"Sehr gut! Bei normalen Bedingungen hast du korrekt keine Warnung ausgegeben.\", \"Weiter\")\n    elif not tested_frost:\n        # Überprüfe Frostwarnung\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Frost mit Niederschlag (Temp: {temp}°C, Regen: {rain} mm/h) muss eine Frostwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"FROSTWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Frost mit Niederschlag (Temp: {temp}°C, Regen: {rain} mm/h) muss \\\"FROSTWARNUNG! Glättegefahr auf Straßen und Wegen!\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_frost = True\n            __ide_prompt(f\"Sehr gut! Du hast die Frostwarnung korrekt ausgegeben.\", \"Weiter\")\n    elif not tested_storm:\n        # Überprüfe Sturmausgabe (Unwetter)\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss eine Unwetterwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_storm = True\n            __ide_prompt(f\"Gut gemacht! Du hast die Unwetterwarnung bei Sturm korrekt ausgegeben.\", \"Weiter\")\n    elif not tested_rain:\n        # Überprüfe Starkregenausgabe (Unwetter)\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss eine Unwetterwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_rain = True\n            __ide_prompt(f\"Sehr gut! Du hast die Unwetterwarnung bei Starkregen korrekt ausgegeben.\", \"Weiter\")\n\n__ide_set_progress(True)\n__ide_prompt(\"Herzlichen Glückwunsch! Dein erweitertes Wetterstation-Alarmsystem funktioniert einwandfrei.\")",
+          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\ntemperatur = messeTemperatur()\n\n# TODO\n"
+        }
+      }
+    ],
+    "x": 430,
+    "y": 2240
   },
   {
     "id": 10005,
@@ -1974,8 +2503,8 @@ const chapterInfo = [
     "quests": [
       {
         "filename": "intro2.json",
-        "x": 100,
-        "y": 100,
+        "x": 1000,
+        "y": -100,
         "id": 110,
         "content": {
           "version": "v1",
@@ -2091,8 +2620,8 @@ const chapterInfo = [
         ]
       }
     ],
-    "x": 250,
-    "y": 2200
+    "x": 920,
+    "y": 2400
   },
   {
     "id": 10006,
@@ -2102,8 +2631,8 @@ const chapterInfo = [
     "description": "# 🎯 Kapitel 5: Die Kunst der Wiederholung mit for & while\r\n\r\nHeute lernst du, wie man Code wiederholt – wie ein DJ, der den perfekten Beat loopt! 🎧\r\n\r\n## 🧩 Listen – Deine Daten-Sammelbox\r\n\r\nStell dir eine Einkaufsliste vor, aber für Computer:\r\n\r\n```python\r\n# So erstellst du eine Liste\r\nspielkarten = [\"Herz Ass\", \"Karo König\", \"Pik Dame\", \"Kreuz Bube\"]\r\nprimzahlen = [2, 3, 5, 7, 11]\r\nmixed_list = [42, \"Antwort\", True] # Alles mögliche drin!\r\n```\r\n\r\n## 🔄 Die for-Schleife – Dein Wiederholungs-Profi\r\n\r\n**\"Für jedes Element in der Liste: Mach was damit!\"**\r\n\r\n```python\r\n# Einkaufsliste abarbeiten\r\neinkaufsliste = [\"Äpfel\", \"Banane\", \"Milch\"]\r\n\r\nfor produkt in einkaufsliste:\r\n    print(f\"✏️ Brauche noch: {produkt}\")\r\n    print(\"...auf zum nächsten Produkt!\\n\")\r\n```\r\n\r\n_Ausgabe:_\r\n\r\n```\r\n✏️ Brauche noch: Äpfel\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Banane\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Milch\r\n...auf zum nächsten Produkt!\r\n```\r\n\r\n**Mit Zahlen arbeiten? Klar mit range():**\r\n\r\n```python\r\n# Countdown mit Style 🚀\r\nfor sekunde in range(5, 0, -1):\r\n    print(f\"{sekunde... Abflug!\")\r\nprint(\"🔥 Liftoff!\")\r\n```\r\n\r\n## ⏳ Die while-Schleife – Der Hartnäckige\r\n\r\n**\"Mach weiter, solange die Bedingung stimmt!\"**\r\n\r\n```python\r\n# Pizza-Back-Simulator 🍕\r\ntemperatur = 20\r\nziel_temp = 220\r\n\r\nwhile temperatur < ziel_temp:\r\n    temperatur += 20\r\n    print(f\"°C: {temperatur}°C | Heizt auf...\")\r\n\r\nprint(\"🔔 Pizza ist fertig! Buon appetito!\")\r\n```\r\n\r\n_Vorsicht:_ Vergiss nicht die Temperatur zu erhöhen, sonst brennt der Ofen durch! 🔥\r\n\r\n## 🥊 for vs. while – Wer wann?\r\n\r\n- **FOR:** Wenn du weißt, wie oft's laufen soll (z.B. Liste durchgehen)\r\n- **WHILE:** Wenn es auf eine Bedingung ankommt (z.B. Spiel läuft, bis Game Over)\r\n\r\n## 🎯 Challenge:\r\n\r\nErrate die geheime Zahl mit nur 3 Versuchen!\r\n\r\n```python\r\ngeheimzahl = 7\r\nversuche = 3\r\n\r\nwhile versuche > 0:\r\n    raten = int(input(\"🎯 Dein Tipp (1-10): \"))\r\n    if raten == geheimzahl:\r\n        print(\"🎉 Treffer! Gewonnen!\")\r\n        break\r\n    versuche -= 1\r\n    print(f\"❌ Daneben! Noch {versuche} Versuche\")\r\nelse:\r\n    print(\"😢 Game Over! Keine Versuche mehr\")\r\n```\r\n\r\n## 💡 Pro-Tipps:\r\n\r\n- `range()` kann auch so: `range(start, ende, schritt)`\r\n- Benenne Schleifen-Variablen sinnvoll:\r\n  - `for schüler in klasse:` statt `for x in y:`\r\n- Breakpoint setzen? Einfach `break` schreiben!\r\n\r\nJetzt du: Erfinde deine eigenen Schleifen-Experimente! 🔄 Wie wär's mit einem Roboter-Tanz per Code? 🤖💃🕺\r\n",
     "image": "",
     "quests": [],
-    "x": 350,
-    "y": 2400
+    "x": 950,
+    "y": 2640
   },
   {
     "id": 10007,
@@ -2113,8 +2642,8 @@ const chapterInfo = [
     "description": "# 🎲 Kapitel 6: Glücksspiel kann süchtig machen\r\n\r\nWillkommen in der Welt des Zufalls! Hier lernst du, wie du deine Programme unvorhersehbar und spannend gestalten kannst – perfekt für Spiele, Simulationen und Überraschungseffekte. 🎮✨\r\n\r\n## 🎯 Zufallszahlen mit `random.randint()`\r\n\r\nZuerst müssen wir das `random`-Modul importieren:\r\n\r\n```python\r\nimport random\r\n```\r\n\r\n**Würfel-Simulator**:  \r\nErzeuge eine zufällige Ganzzahl zwischen 1 und 6:\r\n\r\n```python\r\nwürfel = random.randint(1, 6)\r\nprint(f\"Du hast eine {würfel} gewürfelt! 🎲\")\r\n```\r\n\r\n**Ratespiel**:  \r\nDer Computer denkt sich eine Zahl aus, die du erraten musst:\r\n\r\n```python\r\ngeheimzahl = random.randint(1, 100)\r\nversuch = int(input(\"Rate eine Zahl zwischen 1-100: \"))\r\n\r\nif versuch == geheimzahl:\r\n    print(\"Treffer! 🎯\")\r\nelse:\r\n    print(f\"Leider daneben. Die Zahl war {geheimzahl}. 😅\")\r\n```\r\n\r\n## 🎁 Zufällige Auswahl mit `random.choice()`\r\n\r\n**Münzwurf**:  \r\nKopf oder Zahl? Entscheide dich!\r\n\r\n```python\r\nmöglichkeiten = [\"Kopf\", \"Zahl\"]\r\nergebnis = random.choice(möglichkeiten)\r\nprint(f\"Die Münze zeigt: {ergebnis}! 💰\")\r\n```\r\n\r\n**Glückskeks-Simulator**:  \r\nLass dich von weisen Sprüchen überraschen:\r\n\r\n```python\r\nsprüche = [\r\n    \"Heute ist dein Glückstag! 🌟\",\r\n    \"Vorsicht vor fallenden Kokosnüssen. 🥥\",\r\n    \"Code, den du heute schreibst, wird dich morgen retten. 💻\"\r\n]\r\nprint(random.choice(sprüche))\r\n```\r\n\r\n## 🚀 Tipps & Tricks\r\n\r\n- `randint(a, b)` inkludiert **beide** Grenzen (1 **und** 6 beim Würfel).\r\n- Mit `random.choice()` kannst du auch Listen von Zahlen, Farben oder Spielkarten mischen.\r\n- Probiere ein **Mini-Lotteriespiel**: Ziehe 6 Zahlen zwischen 1-49:\r\n  ```python\r\n  lottozahlen = random.sample(range(1,50), 6)\r\n  print(f\"Gewinnzahlen: {lottozahlen} 🍀\")\r\n  ```\r\n\r\n## 💡 Challenge: Stein-Schere-Papier\r\n\r\nProgrammiere ein Spiel gegen den Computer! Der Benutzer gibt seine Wahl ein (z.B. \"Stein\"), der Computer wählt zufällig aus [\"Stein\", \"Schere\", \"Papier\"] und entscheidet, wer gewinnt. 🪨✂️📄\r\n\r\n**Beispiel-Lösung**:\r\n\r\n```python\r\noptionen = [\"Stein\", \"Schere\", \"Papier\"]\r\ncomputer_wahl = random.choice(optionen)\r\nspieler_wahl = input(\"Stein, Schere oder Papier? \")\r\n\r\nprint(f\"Computer wählt: {computer_wahl}\")\r\n# Vergleichslogik hier einfügen (if/elif/else)\r\n```\r\n\r\nViel Spaß beim Experimentieren – aber pass auf, dass du nicht süchtig nach deinen eigenen Spielen wirst! 😉🔥\r\n",
     "image": "",
     "quests": [],
-    "x": 600,
-    "y": 2500
+    "x": 700,
+    "y": 2700
   },
   {
     "id": 10008,
@@ -2124,8 +2653,8 @@ const chapterInfo = [
     "description": "# 🎉 Kapitel 7: Weniger Chaos, mehr Funktionen 🎉\r\n\r\nWillkommen in der Welt der Funktionen! Hier lernst du, wie du deinen Code organisierst und Wiederholungen vermeidest. Funktionen sind wie kleine Helfer, die Aufgaben für dich übernehmen – praktisch, oder? 😊\r\n\r\n## 1. Funktionen erstellen mit `def`\r\n\r\nSo baust du deine eigene Funktion:\r\n\r\n```python\r\ndef begruessung():\r\n    print(\"Hallo Coding-Champion!\")\r\n    print(\"Heute wird ein super Tag zum Lernen! 🌟\")\r\n```\r\n\r\n**Aufrufen nicht vergessen:**\r\n\r\n```python\r\nbegruessung()  # Die Funktion wird ausgeführt\r\n```\r\n\r\n## 2. Parameter – Deine persönlichen Boten\r\n\r\nFunktionen können Eingaben entgegennehmen:\r\n\r\n```python\r\ndef persönliche_begrüßung(name):\r\n    print(f\"Hallo {name}!\")\r\n    print(\"Wie geht's?\")\r\n```\r\n\r\n**So verwendest du sie:**\r\n\r\n```python\r\npersönliche_begrüßung(\"Anna\")   # Hallo Anna!\r\npersönliche_begrüßung(\"Max\")    # Hallo Max!\r\n```\r\n\r\n## 3. Docstrings – Deine Funktions-Bedienungsanleitung\r\n\r\n```python\r\ndef quadrat(zahl):\r\n    \"\"\"\r\n    Berechnet das Quadrat einer Zahl\r\n    Parameter: zahl (int/float)\r\n    Rückgabewert: Quadrat der Zahl\r\n    \"\"\"\r\n    return zahl ** 2\r\n```\r\n\r\n**Tipp:** Mit `help(quadrat)` siehst du die Erklärung!\r\n\r\n## 4. Return – Der magische Bringdienst\r\n\r\n```python\r\ndef rechteck_fläche(länge, breite):\r\n    return länge * breite\r\n\r\nergebnis = rechteck_fläche(5, 3)\r\nprint(ergebnis)  # 15\r\n```\r\n\r\n**Wichtig:** `return` beendet die Funktion sofort!\r\n\r\n## 5. Lokale vs. Globale Variablen\r\n\r\n```python\r\nglobale_variable = 10\r\n\r\ndef test_funktion():\r\n    lokale_variable = 5\r\n    print(\"In der Funktion:\", globale_variable + lokale_variable)  # 15\r\n\r\ntest_funktion()\r\nprint(\"Draußen:\", globale_variable)  # 10\r\n# print(lokale_variable) würde einen Fehler geben!\r\n```\r\n\r\n## 🏆 Zusammenfassung\r\n\r\n- `def name():` erstellt Funktionen\r\n- Parameter machen Funktionen flexibel\r\n- `return` gibt Werte zurück\r\n- Docstrings erklären deinen Code\r\n- Lokale Variablen leben nur in der Funktion\r\n\r\n## 🚀 Challenge-Time!\r\n\r\n**Aufgabe:** Erstelle eine Funktion `würfel_volumen`, die die Kantenlänge als Parameter nimmt und das Volumen zurückgibt. Vergiss den Docstring nicht!\r\n\r\n```python\r\n# Hier kommt deine Lösung hin!\r\n\r\ndef würfel_volumen(kante):\r\n    \"\"\"\r\n    Berechnet das Volumen eines Würfels\r\n    Parameter: kante (Zahl)\r\n    Rückgabewert: Volumen (Zahl)\r\n    \"\"\"\r\n    return kante ** 3\r\n\r\n# Teste deine Funktion\r\nprint(würfel_volumen(3))  # Sollte 27 ausgeben\r\n```\r\n\r\nProbiere es aus und lass deine Funktionen tanzen! 💃🕺 Bei Fragen: Einfach ausprobieren – Fehler sind die besten Lehrer! 😉\r\n",
     "image": "",
     "quests": [],
-    "x": 850,
-    "y": 2450
+    "x": 950,
+    "y": 2900
   },
   {
     "id": 10009,
@@ -3483,7 +4012,7 @@ const chapterInfo = [
       }
     ],
     "x": 680,
-    "y": 2630
+    "y": 2930
   }
 ]
 

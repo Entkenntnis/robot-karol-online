@@ -26,12 +26,12 @@ export function addConsoleMessage(core: Core, text: string) {
     /*while (ui.messages.length >= 5) {
       ui.messages.shift()
     }*/
-    const lastIndex = ui.messages.length - 1
-    if (lastIndex >= 0 && ui.messages[lastIndex].text == text) {
-      ui.messages[lastIndex].count++
-    } else {
-      ui.messages.push({ text, ts, count: 1 })
-    }
+    // const lastIndex = ui.messages.length - 1
+    //if (lastIndex >= 0 && ui.messages[lastIndex].text == text) {
+    // ui.messages[lastIndex].count++
+    // } else {
+    ui.messages.push({ text, ts, count: 1 })
+    // }
   })
   /*setTimeout(() => {
     core.mutateWs(({ ui }) => {

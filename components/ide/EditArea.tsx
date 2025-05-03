@@ -22,6 +22,8 @@ import { Cheatsheet } from '../helper/Cheatsheet'
 import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
 import { startBench } from '../../lib/commands/bench'
 import { InteractiveClassDiagram } from './InteractiveClassDiagram'
+import { closeOutput } from '../../lib/commands/quest'
+import { setQuestPreview } from '../../lib/commands/editor'
 
 export function EditArea() {
   const core = useCore()
@@ -117,7 +119,20 @@ export function EditArea() {
                 core.ws.settings.language == 'python-pro' &&
                 core.ws.settings.mode == 'code' ? (
                   <div className="bg-yellow-300 px-2 rounded">
-                    Code wird beim Verlassen der Vorschau zurückgesetzt.
+                    Code wird beim Verlassen der Vorschau zurückgesetzt.{' '}
+                    <button
+                      onClick={() => {
+                        closeOutput(core)
+                        setQuestPreview(core, false)
+                        core.mutateWs((ws) => {
+                          ws.pythonCode =
+                            ws.editor.originalCode ?? ws.pythonCode
+                          ws.ui.needsTextRefresh = true
+                        })
+                      }}
+                    >
+                      X
+                    </button>
                   </div>
                 ) : (
                   <label
