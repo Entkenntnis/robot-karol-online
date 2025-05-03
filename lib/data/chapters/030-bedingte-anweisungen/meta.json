@@ -1,21 +1,20 @@
 {
   "title": "Bedingte Anweisungen",
   "quests": [
-    { "filename": "Weltraum_Navigation.json", "x": 680, "y": -40 },
     { "filename": "Zaubertrankprüfung.json", "x": 680, "y": 100 },
-
-    { "filename": "Tageszeit.json", "x": 180, "y": -20 },
-    { "filename": "Zahlentyp.json", "x": 280, "y": -20 },
-    { "filename": "Notenbewertung.json", "x": 380, "y": -20 },
-    { "filename": "Passwortprüfung.json", "x": 180, "y": 50 },
-    { "filename": "Altersgruppen.json", "x": 280, "y": 50 },
-    { "filename": "Schaltjahr.json", "x": 380, "y": 50 },
-    { "filename": "Wetterempfehlung.json", "x": 280, "y": 120 },
+    { "filename": "Weltraum_Navigation.json", "x": 680, "y": -40 },
+    { "filename": "Wetterstation_Alarm_1.json", "x": 580, "y": 220 },
     {
-      "filename": "Rabattrechner.json",
-      "x": 30,
-      "y": 120,
-      "deps": ["Tageszeit.json"]
+      "filename": "Wetterstation_Alarm_2.json",
+      "x": 370,
+      "y": 300,
+      "deps": ["Wetterstation_Alarm_1.json"]
+    },
+    {
+      "filename": "Wetterstation_Alarm_3.json",
+      "x": 170,
+      "y": 200,
+      "deps": ["Wetterstation_Alarm_2.json"]
     }
   ],
   "x": 450,
