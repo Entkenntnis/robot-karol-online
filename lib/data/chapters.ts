@@ -1962,6 +1962,278 @@ const chapterInfo = [
     "image": "/story/3.jpg",
     "quests": [
       {
+        "filename": "Weltraum_Navigation.json",
+        "x": 680,
+        "y": -40,
+        "id": 131,
+        "content": {
+          "version": "v1",
+          "title": "Weltraum-Navigation",
+          "description": "Nach dem erfolgreichen Start deines Raumschiffs ist die Navigationseinheit für den interplanetaren Kurs bereit. Das System muss verschiedene Gravitationsfelder analysieren:\n\n- Frage mit `input()` nach einem Gravitationswert (bereits programmiert)\n- Gib \"Positives Gravitationsfeld - Antrieb verstärken!\" aus, wenn der Wert größer als 0 ist\n- Gib \"Negatives Gravitationsfeld - Bremssysteme aktivieren!\" aus, wenn der Wert kleiner als 0 ist\n- Gib \"Neutrale Zone - Schwebemodus aktivieren!\" aus, wenn der Wert gleich 0 ist\n\nVorlage:\n\n```py\nif graviation < 0:\n    print(\"Negatives Gravitationsfeld - Bremssysteme aktivieren!\")\nelif ...:\n    ...\nelse:\n    ...\n```",
+          "tasks": [
+            {
+              "title": "Gravitationsfeld analysieren",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Nach dem erfolgreichen Start deines Raumschiffs und der Systemüberprüfung navigierst du nun durch verschiedene Gravitationsfelder. Du musst alle drei Arten von Gravitationsfeldern (positiv, negativ und neutral) analysieren, um die Mission abzuschließen.\", \"Mission starten\")\n\n# Initialisiere Tracking-Variablen für getestete Fälle\ntested_positive = False\ntested_negative = False\ntested_zero = False\n\nwhile not (tested_positive and tested_negative and tested_zero):\n    __ide_run_client()\n\n    # Prüfe, ob eine Eingabe gemacht wurde\n    inputs = __ide_get_inputs()\n    if len(inputs) == 0:\n        __ide_prompt(\"Du musst nach einem Gravitationswert fragen. Verwende dafür `input()`.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Prüfe, ob eine Ausgabe vorhanden ist\n    outputs = __ide_get_outputs()\n    if len(outputs) == 0:\n        __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Versuche, den eingegebenen Gravitationswert zu ermitteln\n    valid_number = False\n    try:\n        gravitation = float(inputs[-1].replace(',', '.'))\n        valid_number = True\n    except:\n        __ide_prompt(\"Der eingegebene Gravitationswert konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n        continue\n\n    # Ermittle den erwarteten Gravitationstyp\n    if gravitation > 0:\n        expected_type = \"positiv\"\n        tested_positive = True\n    elif gravitation < 0:\n        expected_type = \"negativ\"\n        tested_negative = True\n    else:  # gravitation == 0\n        expected_type = \"neutral\"\n        tested_zero = True\n\n    # Überprüfe, ob der richtige Gravitationstyp ausgegeben wurde\n    last_output = outputs[-1].lower()\n    if expected_type not in last_output:\n        __ide_prompt(f\"Die Ausgabe passt nicht zum Gravitationsfeld. Bei dem Wert {gravitation} sollte die Ausgabe '{expected_type}' enthalten.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Zeige an, welche Fälle bereits getestet wurden und welche noch fehlen\n    remaining_cases = []\n    if not tested_positive:\n        remaining_cases.append(\"positives Gravitationsfeld\")\n    if not tested_negative:\n        remaining_cases.append(\"negatives Gravitationsfeld\")\n    if not tested_zero:\n        remaining_cases.append(\"neutrale Zone\")\n    \n    if remaining_cases:\n        case_list = \", \".join(remaining_cases)\n        __ide_prompt(f\"Navigationsanalyse erfolgreich! Du hast {expected_type}e Gravitationsfelder korrekt erkannt. Teste noch folgende Arten von Feldern: {case_list}\", \"Weiter navigieren\")\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(\"Mission erfolgreich abgeschlossen! 🎉 Die Navigation deines Raumschiffs kann nun alle Gravitationsfelder korrekt identifizieren und die entsprechenden Systeme aktivieren. Dein Raumschiff ist bereit für die interplanetare Reise!\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "# Weltraum-Navigation: Gravitationsfeld-Analyse\n# 1. Frage nach einem Gravitationswert\n# 2. Bestimme, ob das Feld positiv, negativ oder neutral ist\n# 3. Gib die entsprechende Systemanweisung aus\n\n# TODO: Schreibe deinen Code hier\ngravitation = float(input(\"Aktueller Graviationswert:\"))"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "Zaubertrankprüfung.json",
+        "x": 680,
+        "y": 100,
+        "id": 132,
+        "content": {
+          "version": "v1",
+          "title": "Zaubertrankprüfung",
+          "description": "Als Zauberlehrling musst du die richtigen Zutaten für deinen Zaubertrank wählen:\n\n- Frage mit `input()` nach der Temperatur des Kessels in Grad (bereits programmiert)\n- Gib \"Perfekt! Füge die Drachenblut-Essenz hinzu.\" aus, wenn die Temperatur über 90 Grad liegt\n- Gib \"Zu kalt! Erhöhe die Flammen unter dem Kessel.\" aus, wenn die Temperatur 90 Grad oder weniger ist\n\nVorlage:\n\n```py\nif temperatur > ...:\n    ...\nelse:\n    ...\n```",
+          "tasks": [
+            {
+              "title": "Zaubertrankprüfung",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Als Zauberlehrling stehst du vor einem dampfenden Kessel und musst entscheiden, ob er die richtige Temperatur für die nächste Zutat erreicht hat.\", \"Trank brauen beginnen\")\n\n# Initialisiere Tracking-Variablen für getestete Fälle\ntested_hot = False\ntested_cold = False\n\nwhile not (tested_hot and tested_cold):\n    __ide_run_client()\n\n    # Prüfe, ob eine Eingabe gemacht wurde\n    inputs = __ide_get_inputs()\n    if len(inputs) == 0:\n        __ide_prompt(\"Du musst nach der Kesseltemperatur fragen. Verwende dafür `input()`.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Prüfe, ob eine Ausgabe vorhanden ist\n    outputs = __ide_get_outputs()\n    if len(outputs) == 0:\n        __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Versuche, die eingegebene Temperatur zu ermitteln\n    valid_number = False\n    try:\n        temperatur = float(inputs[-1].replace(',', '.'))\n        valid_number = True\n    except:\n        __ide_prompt(\"Die eingegebene Temperatur konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n        continue\n\n    # Ermittle den erwarteten Temperaturzustand\n    if temperatur > 90:\n        expected_state = \"perfekt\"\n        tested_hot = True\n    else:  # temperatur <= 90\n        expected_state = \"kalt\"\n        tested_cold = True\n\n    # Überprüfe, ob die richtige Ausgabe gemacht wurde\n    last_output = outputs[-1].lower()\n    if expected_state not in last_output:\n        __ide_prompt(f\"Die Ausgabe passt nicht zur Temperatur. Bei {temperatur} Grad sollte deine Ausgabe '{expected_state}' enthalten.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Zeige an, welche Fälle bereits getestet wurden und welche noch fehlen\n    remaining_cases = []\n    if not tested_hot:\n        remaining_cases.append(\"heißer Kessel (über 90 Grad)\")\n    if not tested_cold:\n        remaining_cases.append(\"kalter Kessel (90 Grad oder weniger)\")\n    \n    if remaining_cases:\n        case_list = \", \".join(remaining_cases)\n        __ide_prompt(f\"Zauberhafte Arbeit! Du hast die {expected_state}e Temperatur richtig erkannt. Teste noch: {case_list}\", \"Weiter brauen\")\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(\"Ausgezeichnet! 🎉 Du hast alle Temperaturzustände richtig erkannt und weißt jetzt genau, wann du die Drachenblut-Essenz hinzufügen kannst. Deine Fähigkeiten als Zauberlehrling verbessern sich!\", \"Weiter\")\n",
+          "language": "python-pro",
+          "program": "# Zaubertrankprüfung: Bestimme die Kesseltemperatur\n# 1. Frage nach der Kesseltemperatur\n# 2. Bestimme, ob der Kessel heiß genug ist\n# 3. Gib die entsprechende Anweisung aus\n\n# TODO: Schreibe deinen Code hier\ntemperatur = float(input(\"Wie heiß ist der Kessel in Grad?\"))"
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
         "filename": "Tageszeit.json",
         "x": 180,
         "y": -20,
@@ -3371,8 +3643,11 @@ const chapterInfo = [
       },
       {
         "filename": "Rabattrechner.json",
-        "x": 380,
+        "x": 30,
         "y": 120,
+        "deps": [
+          124
+        ],
         "id": 123,
         "content": {
           "version": "v1",
@@ -3548,282 +3823,7 @@ const chapterInfo = [
           "questScript": "__ide_prompt(\"Willkommen beim Rabattrechner! Du wirst ein Programm erstellen, das Rabattprozente berechnet und den Endpreis ausgibt.\", \"Los geht's!\")\n\n__ide_run_client()\n\n# Prüfe, ob Eingaben vorhanden sind\ninputs = __ide_get_inputs()\nif len(inputs) < 2:\n    __ide_prompt(\"Du musst mindestens zwei Eingaben machen: den Einkaufswert und ob es ein Treuekunde ist.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Ausgabe vorhanden ist\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Ausgabe gemacht. Gib den Endpreis mit `print()` aus.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Versuche, den Einkaufswert zu ermitteln\nvalid_input = False\ntry:\n    einkaufswert = float(inputs[0].replace(',', '.'))\n    valid_input = True\nexcept:\n    __ide_prompt(\"Der eingegebene Einkaufswert konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob eine Treuekunden-Eingabe vorhanden ist\ntreuekunde_eingabe = inputs[1].lower()\ntreuekunde = treuekunde_eingabe in [\"ja\", \"j\", \"yes\", \"y\", \"true\", \"1\"]\n\n# Berechne den korrekten Rabatt\nrabatt = 0\nif einkaufswert > 200:\n    rabatt = 0.15  # 15%\nelif einkaufswert > 100:\n    rabatt = 0.10  # 10%\n    \nif treuekunde:\n    rabatt += 0.05  # Extra 5% für Treuekunden\n\n# Berechne den erwarteten Endpreis\nerwarteter_endpreis = einkaufswert * (1 - rabatt)\n\n# Überprüfe, ob der richtige Rabatt-Typ verwendet wurde\nlast_output = outputs[-1].lower()\n\n# Überprüfe, ob eine Zahl in der Ausgabe vorhanden ist\nimport re\npreise = re.findall(r'\\d+[.,]?\\d*', last_output)\n\nif not preise:\n    __ide_prompt(\"Du hast keinen Preis in deiner Ausgabe. Bitte gib den Endpreis nach dem Rabatt aus.\", \"Nochmal versuchen\")\n    __ide_exit()\n\ntry:\n    ausgabe_preis = float(preise[-1].replace(',', '.'))\n    # Überprüfe mit 2% Toleranz für Rundungsfehler\n    if abs(ausgabe_preis - erwarteter_endpreis) > erwarteter_endpreis * 0.02:\n        __ide_prompt(f\"Der berechnete Preis scheint nicht korrekt zu sein. Überprüfe deine Rabattberechnung.\", \"Nochmal versuchen\")\n        __ide_exit()\nexcept:\n    pass  # Wenn die Konvertierung fehlschlägt, ignorieren wir das\n\n# Überprüfe auf Verwendung von if-Anweisungen im Code\ncode = __ide_get_client_code()\nif \"if\" not in code:\n    __ide_prompt(\"Dein Code sollte if-Anweisungen zur Entscheidungsfindung nutzen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(f\"Super gemacht! 🎉 Du hast erfolgreich ein Programm geschrieben, das Rabatte berechnet und den Endpreis ausgibt. Ein wichtiger Schritt beim Erlernen von Bedingungen!\", \"Weiter\")",
           "language": "python-pro",
           "program": "# Rabattrechner\n# 1. Frage nach dem Einkaufswert\n# 2. Berechne den Rabatt: 10% bei >100€, 15% bei >200€\n# 3. Frage, ob Treuekunde (ja/nein) -> dann zusätzlich 5%\n# 4. Gib den Endpreis aus\n\n# TODO: Schreibe deinen Code hier\n"
-        },
-        "deps": [
-          10004
-        ]
-      },
-      {
-        "filename": "Weltraum_Navigation.json",
-        "x": 680,
-        "y": -40,
-        "id": 131,
-        "content": {
-          "version": "v1",
-          "title": "Weltraum-Navigation",
-          "description": "Nach dem erfolgreichen Start deines Raumschiffs ist die Navigationseinheit für den interplanetaren Kurs bereit. Das System muss verschiedene Gravitationsfelder analysieren:\n\n- Frage mit `input()` nach einem Gravitationswert (bereits programmiert)\n- Gib \"Positives Gravitationsfeld - Antrieb verstärken!\" aus, wenn der Wert größer als 0 ist\n- Gib \"Negatives Gravitationsfeld - Bremssysteme aktivieren!\" aus, wenn der Wert kleiner als 0 ist\n- Gib \"Neutrale Zone - Schwebemodus aktivieren!\" aus, wenn der Wert gleich 0 ist\n\nVorlage:\n\n```py\nif graviation < 0:\n    print(\"Negatives Gravitationsfeld - Bremssysteme aktivieren!\")\nelif ...:\n    ...\nelse:\n    ...\n```",
-          "tasks": [
-            {
-              "title": "Gravitationsfeld analysieren",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 3,
-                  "y": 3,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 3,
-                  "y": 3,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Nach dem erfolgreichen Start deines Raumschiffs und der Systemüberprüfung navigierst du nun durch verschiedene Gravitationsfelder. Du musst alle drei Arten von Gravitationsfeldern (positiv, negativ und neutral) analysieren, um die Mission abzuschließen.\", \"Mission starten\")\n\n# Initialisiere Tracking-Variablen für getestete Fälle\ntested_positive = False\ntested_negative = False\ntested_zero = False\n\nwhile not (tested_positive and tested_negative and tested_zero):\n    __ide_run_client()\n\n    # Prüfe, ob eine Eingabe gemacht wurde\n    inputs = __ide_get_inputs()\n    if len(inputs) == 0:\n        __ide_prompt(\"Du musst nach einem Gravitationswert fragen. Verwende dafür `input()`.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Prüfe, ob eine Ausgabe vorhanden ist\n    outputs = __ide_get_outputs()\n    if len(outputs) == 0:\n        __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Versuche, den eingegebenen Gravitationswert zu ermitteln\n    valid_number = False\n    try:\n        gravitation = float(inputs[-1].replace(',', '.'))\n        valid_number = True\n    except:\n        __ide_prompt(\"Der eingegebene Gravitationswert konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n        continue\n\n    # Ermittle den erwarteten Gravitationstyp\n    if gravitation > 0:\n        expected_type = \"positiv\"\n        tested_positive = True\n    elif gravitation < 0:\n        expected_type = \"negativ\"\n        tested_negative = True\n    else:  # gravitation == 0\n        expected_type = \"neutral\"\n        tested_zero = True\n\n    # Überprüfe, ob der richtige Gravitationstyp ausgegeben wurde\n    last_output = outputs[-1].lower()\n    if expected_type not in last_output:\n        __ide_prompt(f\"Die Ausgabe passt nicht zum Gravitationsfeld. Bei dem Wert {gravitation} sollte die Ausgabe '{expected_type}' enthalten.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Zeige an, welche Fälle bereits getestet wurden und welche noch fehlen\n    remaining_cases = []\n    if not tested_positive:\n        remaining_cases.append(\"positives Gravitationsfeld\")\n    if not tested_negative:\n        remaining_cases.append(\"negatives Gravitationsfeld\")\n    if not tested_zero:\n        remaining_cases.append(\"neutrale Zone\")\n    \n    if remaining_cases:\n        case_list = \", \".join(remaining_cases)\n        __ide_prompt(f\"Navigationsanalyse erfolgreich! Du hast {expected_type}e Gravitationsfelder korrekt erkannt. Teste noch folgende Arten von Feldern: {case_list}\", \"Weiter navigieren\")\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(\"Mission erfolgreich abgeschlossen! 🎉 Die Navigation deines Raumschiffs kann nun alle Gravitationsfelder korrekt identifizieren und die entsprechenden Systeme aktivieren. Dein Raumschiff ist bereit für die interplanetare Reise!\", \"Weiter\")",
-          "language": "python-pro",
-          "program": "# Weltraum-Navigation: Gravitationsfeld-Analyse\n# 1. Frage nach einem Gravitationswert\n# 2. Bestimme, ob das Feld positiv, negativ oder neutral ist\n# 3. Gib die entsprechende Systemanweisung aus\n\n# TODO: Schreibe deinen Code hier\ngravitation = float(input(\"Aktueller Graviationswert:\"))"
-        },
-        "deps": [
-          10004
-        ]
-      },
-      {
-        "filename": "Zaubertrankprüfung.json",
-        "x": 680,
-        "y": 100,
-        "id": 132,
-        "content": {
-          "version": "v1",
-          "title": "Zaubertrankprüfung",
-          "description": "Als Zauberlehrling musst du die richtigen Zutaten für deinen Zaubertrank wählen:\n\n- Frage mit `input()` nach der Temperatur des Kessels in Grad (bereits programmiert)\n- Gib \"Perfekt! Füge die Drachenblut-Essenz hinzu.\" aus, wenn die Temperatur über 90 Grad liegt\n- Gib \"Zu kalt! Erhöhe die Flammen unter dem Kessel.\" aus, wenn die Temperatur 90 Grad oder weniger ist\n\nVorlage:\n\n```py\nif temperatur > ...:\n    ...\nelse:\n    ...\n```",
-          "tasks": [
-            {
-              "title": "Zaubertrankprüfung",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 3,
-                  "y": 3,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 3,
-                  "y": 3,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Als Zauberlehrling stehst du vor einem dampfenden Kessel und musst entscheiden, ob er die richtige Temperatur für die nächste Zutat erreicht hat.\", \"Trank brauen beginnen\")\n\n# Initialisiere Tracking-Variablen für getestete Fälle\ntested_hot = False\ntested_cold = False\n\nwhile not (tested_hot and tested_cold):\n    __ide_run_client()\n\n    # Prüfe, ob eine Eingabe gemacht wurde\n    inputs = __ide_get_inputs()\n    if len(inputs) == 0:\n        __ide_prompt(\"Du musst nach der Kesseltemperatur fragen. Verwende dafür `input()`.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Prüfe, ob eine Ausgabe vorhanden ist\n    outputs = __ide_get_outputs()\n    if len(outputs) == 0:\n        __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Versuche, die eingegebene Temperatur zu ermitteln\n    valid_number = False\n    try:\n        temperatur = float(inputs[-1].replace(',', '.'))\n        valid_number = True\n    except:\n        __ide_prompt(\"Die eingegebene Temperatur konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n        continue\n\n    # Ermittle den erwarteten Temperaturzustand\n    if temperatur > 90:\n        expected_state = \"perfekt\"\n        tested_hot = True\n    else:  # temperatur <= 90\n        expected_state = \"kalt\"\n        tested_cold = True\n\n    # Überprüfe, ob die richtige Ausgabe gemacht wurde\n    last_output = outputs[-1].lower()\n    if expected_state not in last_output:\n        __ide_prompt(f\"Die Ausgabe passt nicht zur Temperatur. Bei {temperatur} Grad sollte deine Ausgabe '{expected_state}' enthalten.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Zeige an, welche Fälle bereits getestet wurden und welche noch fehlen\n    remaining_cases = []\n    if not tested_hot:\n        remaining_cases.append(\"heißer Kessel (über 90 Grad)\")\n    if not tested_cold:\n        remaining_cases.append(\"kalter Kessel (90 Grad oder weniger)\")\n    \n    if remaining_cases:\n        case_list = \", \".join(remaining_cases)\n        __ide_prompt(f\"Zauberhafte Arbeit! Du hast die {expected_state}e Temperatur richtig erkannt. Teste noch: {case_list}\", \"Weiter brauen\")\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(\"Ausgezeichnet! 🎉 Du hast alle Temperaturzustände richtig erkannt und weißt jetzt genau, wann du die Drachenblut-Essenz hinzufügen kannst. Deine Fähigkeiten als Zauberlehrling verbessern sich!\", \"Weiter\")\n",
-          "language": "python-pro",
-          "program": "# Zaubertrankprüfung: Bestimme die Kesseltemperatur\n# 1. Frage nach der Kesseltemperatur\n# 2. Bestimme, ob der Kessel heiß genug ist\n# 3. Gib die entsprechende Anweisung aus\n\n# TODO: Schreibe deinen Code hier\ntemperatur = float(input(\"Wie heiß ist der Kessel in Grad?\"))"
-        },
-        "deps": [
-          10004
-        ]
+        }
       }
     ],
     "x": 450,
@@ -3978,8 +3978,8 @@ const chapterInfo = [
     "description": "# 🎲 Kapitel 6: Glücksspiel kann süchtig machen\r\n\r\nWillkommen in der Welt des Zufalls! Hier lernst du, wie du deine Programme unvorhersehbar und spannend gestalten kannst – perfekt für Spiele, Simulationen und Überraschungseffekte. 🎮✨\r\n\r\n## 🎯 Zufallszahlen mit `random.randint()`\r\n\r\nZuerst müssen wir das `random`-Modul importieren:\r\n\r\n```python\r\nimport random\r\n```\r\n\r\n**Würfel-Simulator**:  \r\nErzeuge eine zufällige Ganzzahl zwischen 1 und 6:\r\n\r\n```python\r\nwürfel = random.randint(1, 6)\r\nprint(f\"Du hast eine {würfel} gewürfelt! 🎲\")\r\n```\r\n\r\n**Ratespiel**:  \r\nDer Computer denkt sich eine Zahl aus, die du erraten musst:\r\n\r\n```python\r\ngeheimzahl = random.randint(1, 100)\r\nversuch = int(input(\"Rate eine Zahl zwischen 1-100: \"))\r\n\r\nif versuch == geheimzahl:\r\n    print(\"Treffer! 🎯\")\r\nelse:\r\n    print(f\"Leider daneben. Die Zahl war {geheimzahl}. 😅\")\r\n```\r\n\r\n## 🎁 Zufällige Auswahl mit `random.choice()`\r\n\r\n**Münzwurf**:  \r\nKopf oder Zahl? Entscheide dich!\r\n\r\n```python\r\nmöglichkeiten = [\"Kopf\", \"Zahl\"]\r\nergebnis = random.choice(möglichkeiten)\r\nprint(f\"Die Münze zeigt: {ergebnis}! 💰\")\r\n```\r\n\r\n**Glückskeks-Simulator**:  \r\nLass dich von weisen Sprüchen überraschen:\r\n\r\n```python\r\nsprüche = [\r\n    \"Heute ist dein Glückstag! 🌟\",\r\n    \"Vorsicht vor fallenden Kokosnüssen. 🥥\",\r\n    \"Code, den du heute schreibst, wird dich morgen retten. 💻\"\r\n]\r\nprint(random.choice(sprüche))\r\n```\r\n\r\n## 🚀 Tipps & Tricks\r\n\r\n- `randint(a, b)` inkludiert **beide** Grenzen (1 **und** 6 beim Würfel).\r\n- Mit `random.choice()` kannst du auch Listen von Zahlen, Farben oder Spielkarten mischen.\r\n- Probiere ein **Mini-Lotteriespiel**: Ziehe 6 Zahlen zwischen 1-49:\r\n  ```python\r\n  lottozahlen = random.sample(range(1,50), 6)\r\n  print(f\"Gewinnzahlen: {lottozahlen} 🍀\")\r\n  ```\r\n\r\n## 💡 Challenge: Stein-Schere-Papier\r\n\r\nProgrammiere ein Spiel gegen den Computer! Der Benutzer gibt seine Wahl ein (z.B. \"Stein\"), der Computer wählt zufällig aus [\"Stein\", \"Schere\", \"Papier\"] und entscheidet, wer gewinnt. 🪨✂️📄\r\n\r\n**Beispiel-Lösung**:\r\n\r\n```python\r\noptionen = [\"Stein\", \"Schere\", \"Papier\"]\r\ncomputer_wahl = random.choice(optionen)\r\nspieler_wahl = input(\"Stein, Schere oder Papier? \")\r\n\r\nprint(f\"Computer wählt: {computer_wahl}\")\r\n# Vergleichslogik hier einfügen (if/elif/else)\r\n```\r\n\r\nViel Spaß beim Experimentieren – aber pass auf, dass du nicht süchtig nach deinen eigenen Spielen wirst! 😉🔥\r\n",
     "image": "",
     "quests": [],
-    "x": 600,
-    "y": 2500
+    "x": 1200,
+    "y": 2600
   },
   {
     "id": 10008,
@@ -3989,8 +3989,8 @@ const chapterInfo = [
     "description": "# 🎉 Kapitel 7: Weniger Chaos, mehr Funktionen 🎉\r\n\r\nWillkommen in der Welt der Funktionen! Hier lernst du, wie du deinen Code organisierst und Wiederholungen vermeidest. Funktionen sind wie kleine Helfer, die Aufgaben für dich übernehmen – praktisch, oder? 😊\r\n\r\n## 1. Funktionen erstellen mit `def`\r\n\r\nSo baust du deine eigene Funktion:\r\n\r\n```python\r\ndef begruessung():\r\n    print(\"Hallo Coding-Champion!\")\r\n    print(\"Heute wird ein super Tag zum Lernen! 🌟\")\r\n```\r\n\r\n**Aufrufen nicht vergessen:**\r\n\r\n```python\r\nbegruessung()  # Die Funktion wird ausgeführt\r\n```\r\n\r\n## 2. Parameter – Deine persönlichen Boten\r\n\r\nFunktionen können Eingaben entgegennehmen:\r\n\r\n```python\r\ndef persönliche_begrüßung(name):\r\n    print(f\"Hallo {name}!\")\r\n    print(\"Wie geht's?\")\r\n```\r\n\r\n**So verwendest du sie:**\r\n\r\n```python\r\npersönliche_begrüßung(\"Anna\")   # Hallo Anna!\r\npersönliche_begrüßung(\"Max\")    # Hallo Max!\r\n```\r\n\r\n## 3. Docstrings – Deine Funktions-Bedienungsanleitung\r\n\r\n```python\r\ndef quadrat(zahl):\r\n    \"\"\"\r\n    Berechnet das Quadrat einer Zahl\r\n    Parameter: zahl (int/float)\r\n    Rückgabewert: Quadrat der Zahl\r\n    \"\"\"\r\n    return zahl ** 2\r\n```\r\n\r\n**Tipp:** Mit `help(quadrat)` siehst du die Erklärung!\r\n\r\n## 4. Return – Der magische Bringdienst\r\n\r\n```python\r\ndef rechteck_fläche(länge, breite):\r\n    return länge * breite\r\n\r\nergebnis = rechteck_fläche(5, 3)\r\nprint(ergebnis)  # 15\r\n```\r\n\r\n**Wichtig:** `return` beendet die Funktion sofort!\r\n\r\n## 5. Lokale vs. Globale Variablen\r\n\r\n```python\r\nglobale_variable = 10\r\n\r\ndef test_funktion():\r\n    lokale_variable = 5\r\n    print(\"In der Funktion:\", globale_variable + lokale_variable)  # 15\r\n\r\ntest_funktion()\r\nprint(\"Draußen:\", globale_variable)  # 10\r\n# print(lokale_variable) würde einen Fehler geben!\r\n```\r\n\r\n## 🏆 Zusammenfassung\r\n\r\n- `def name():` erstellt Funktionen\r\n- Parameter machen Funktionen flexibel\r\n- `return` gibt Werte zurück\r\n- Docstrings erklären deinen Code\r\n- Lokale Variablen leben nur in der Funktion\r\n\r\n## 🚀 Challenge-Time!\r\n\r\n**Aufgabe:** Erstelle eine Funktion `würfel_volumen`, die die Kantenlänge als Parameter nimmt und das Volumen zurückgibt. Vergiss den Docstring nicht!\r\n\r\n```python\r\n# Hier kommt deine Lösung hin!\r\n\r\ndef würfel_volumen(kante):\r\n    \"\"\"\r\n    Berechnet das Volumen eines Würfels\r\n    Parameter: kante (Zahl)\r\n    Rückgabewert: Volumen (Zahl)\r\n    \"\"\"\r\n    return kante ** 3\r\n\r\n# Teste deine Funktion\r\nprint(würfel_volumen(3))  # Sollte 27 ausgeben\r\n```\r\n\r\nProbiere es aus und lass deine Funktionen tanzen! 💃🕺 Bei Fragen: Einfach ausprobieren – Fehler sind die besten Lehrer! 😉\r\n",
     "image": "",
     "quests": [],
-    "x": 850,
-    "y": 2450
+    "x": 950,
+    "y": 2700
   },
   {
     "id": 10009,
