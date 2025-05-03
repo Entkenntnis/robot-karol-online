@@ -9,7 +9,8 @@
     { "filename": "Schaltjahr.json", "x": 380, "y": 50 },
     { "filename": "Wetterempfehlung.json", "x": 280, "y": 120 },
     { "filename": "Rabattrechner.json", "x": 380, "y": 120 },
-    { "filename": "Weltraum_Navigation.json", "x": 680, "y": -40 }
+    { "filename": "Weltraum_Navigation.json", "x": 680, "y": -40 },
+    { "filename": "Zaubertrankprüfung.json", "x": 680, "y": 100 }
   ],
   "x": 450,
   "y": 2290,
