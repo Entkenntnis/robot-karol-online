@@ -2496,8 +2496,8 @@ const chapterInfo = [
   {
     "id": 10005,
     "dirName": "040-mathematik",
-    "title": "4. Mathe-Genie 🚧",
-    "originalTitle": "Mathe-Genie 🚧",
+    "title": "4. Mathematik 🚧",
+    "originalTitle": "Mathematik 🚧",
     "description": "# 🧮 Kapitel 4: Mathe-Genie – Rechnen wie ein Profi!\r\n\r\nWillkommen in der Welt der Python-Mathematik! Hier lernst du, wie du Zahlen gekonnt jonglierst und coole Berechnungen anstellst. Let's go! 🚀\r\n\r\n## 1. Arithmetische Grundoperationen\r\n\r\nPython versteht alle Grundrechenarten – probier's aus:\r\n\r\n```python\r\nprint(5 + 3)   # Addition: 8\r\nprint(10 - 4)  # Subtraktion: 6\r\nprint(2 * 6)   # Multiplikation: 12\r\nprint(8 / 2)   # Division: 4.0 (Achtung, Ergebnis ist float!)\r\n```\r\n\r\n## 2. Punkt-vor-Strich & Klammern\r\n\r\nPython rechnet wie in der Schule – erst Punkt- dann Strichrechnung:\r\n\r\n```python\r\nprint(3 + 4 * 2)   # 11 (nicht 14!)\r\nprint((3 + 4) * 2) # 14 – Klammern ändern alles!\r\n```\r\n\r\n## 3. Turbo-Zuweisungen 🚀\r\n\r\nKurze Schreibweise für Variablen-Updates:\r\n\r\n```python\r\npunkte = 10\r\npunkte += 5  # Äquivalent zu: punkte = punkte + 5\r\nprint(punkte) # 15\r\n\r\n# Funktioniert auch mit -=, *=, /=\r\n```\r\n\r\n## 4. Power mit \\*\\*\r\n\r\nPotenzieren leicht gemacht:\r\n\r\n```python\r\nprint(2 ** 3)  # 8 (2³)\r\nprint(5 ** 0.5) # Wurzel aus 5 ≈ 2.236\r\n```\r\n\r\n## 5. Mathe-Modul für Profis\r\n\r\nFür komplexere Rechnungen brauchen wir `math`:\r\n\r\n```python\r\nimport math\r\n\r\n# Wurzel ziehen\r\nprint(math.sqrt(25))  # 5.0\r\n\r\n# Mit Pi rechnen\r\nradius = 3\r\numfang = 2 * math.pi * radius\r\nprint(f\"Umfang: {umfang:.2f} cm\")  # Formatierung auf 2 Nachkommastellen\r\n```\r\n\r\n## 6. Variablen im Einsatz\r\n\r\nVariablen machen Berechnungen dynamisch:\r\n\r\n```python\r\nlänge = 8\r\nbreite = 5\r\nfläche = länge * breite\r\nprint(f\"Die Fläche beträgt {fläche} m²\")  # 40 m²\r\n```\r\n\r\n## 🏆 Übungszeit!\r\n\r\n1. Berechne das Volumen eines Würfels mit Kantenlänge 7 cm\r\n2. Wandele 100° Fahrenheit in Celsius um: (°F − 32) × 5/9\r\n3. Berechne die Hypotenuse eines rechtwinkligen Dreiecks mit Katheten 3 und 4 cm\r\n\r\n```python\r\n# Lösung 3:\r\nimport math\r\na = 3\r\nb = 4\r\nc = math.sqrt(a**2 + b**2)\r\nprint(c)  # 5.0 – der berühmte Pythagoras!\r\n```\r\n\r\nMathe macht mit Python richtig Spaß, oder? 😎 Probiere verschiedene Kombinationen aus und werde zum Rechenkünstler!\r\n",
     "image": "",
     "quests": [
@@ -2631,36 +2631,14 @@ const chapterInfo = [
     "description": "# 🎯 Kapitel 5: Die Kunst der Wiederholung mit for & while\r\n\r\nHeute lernst du, wie man Code wiederholt – wie ein DJ, der den perfekten Beat loopt! 🎧\r\n\r\n## 🧩 Listen – Deine Daten-Sammelbox\r\n\r\nStell dir eine Einkaufsliste vor, aber für Computer:\r\n\r\n```python\r\n# So erstellst du eine Liste\r\nspielkarten = [\"Herz Ass\", \"Karo König\", \"Pik Dame\", \"Kreuz Bube\"]\r\nprimzahlen = [2, 3, 5, 7, 11]\r\nmixed_list = [42, \"Antwort\", True] # Alles mögliche drin!\r\n```\r\n\r\n## 🔄 Die for-Schleife – Dein Wiederholungs-Profi\r\n\r\n**\"Für jedes Element in der Liste: Mach was damit!\"**\r\n\r\n```python\r\n# Einkaufsliste abarbeiten\r\neinkaufsliste = [\"Äpfel\", \"Banane\", \"Milch\"]\r\n\r\nfor produkt in einkaufsliste:\r\n    print(f\"✏️ Brauche noch: {produkt}\")\r\n    print(\"...auf zum nächsten Produkt!\\n\")\r\n```\r\n\r\n_Ausgabe:_\r\n\r\n```\r\n✏️ Brauche noch: Äpfel\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Banane\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Milch\r\n...auf zum nächsten Produkt!\r\n```\r\n\r\n**Mit Zahlen arbeiten? Klar mit range():**\r\n\r\n```python\r\n# Countdown mit Style 🚀\r\nfor sekunde in range(5, 0, -1):\r\n    print(f\"{sekunde... Abflug!\")\r\nprint(\"🔥 Liftoff!\")\r\n```\r\n\r\n## ⏳ Die while-Schleife – Der Hartnäckige\r\n\r\n**\"Mach weiter, solange die Bedingung stimmt!\"**\r\n\r\n```python\r\n# Pizza-Back-Simulator 🍕\r\ntemperatur = 20\r\nziel_temp = 220\r\n\r\nwhile temperatur < ziel_temp:\r\n    temperatur += 20\r\n    print(f\"°C: {temperatur}°C | Heizt auf...\")\r\n\r\nprint(\"🔔 Pizza ist fertig! Buon appetito!\")\r\n```\r\n\r\n_Vorsicht:_ Vergiss nicht die Temperatur zu erhöhen, sonst brennt der Ofen durch! 🔥\r\n\r\n## 🥊 for vs. while – Wer wann?\r\n\r\n- **FOR:** Wenn du weißt, wie oft's laufen soll (z.B. Liste durchgehen)\r\n- **WHILE:** Wenn es auf eine Bedingung ankommt (z.B. Spiel läuft, bis Game Over)\r\n\r\n## 🎯 Challenge:\r\n\r\nErrate die geheime Zahl mit nur 3 Versuchen!\r\n\r\n```python\r\ngeheimzahl = 7\r\nversuche = 3\r\n\r\nwhile versuche > 0:\r\n    raten = int(input(\"🎯 Dein Tipp (1-10): \"))\r\n    if raten == geheimzahl:\r\n        print(\"🎉 Treffer! Gewonnen!\")\r\n        break\r\n    versuche -= 1\r\n    print(f\"❌ Daneben! Noch {versuche} Versuche\")\r\nelse:\r\n    print(\"😢 Game Over! Keine Versuche mehr\")\r\n```\r\n\r\n## 💡 Pro-Tipps:\r\n\r\n- `range()` kann auch so: `range(start, ende, schritt)`\r\n- Benenne Schleifen-Variablen sinnvoll:\r\n  - `for schüler in klasse:` statt `for x in y:`\r\n- Breakpoint setzen? Einfach `break` schreiben!\r\n\r\nJetzt du: Erfinde deine eigenen Schleifen-Experimente! 🔄 Wie wär's mit einem Roboter-Tanz per Code? 🤖💃🕺\r\n",
     "image": "",
     "quests": [],
-    "x": 950,
-    "y": 2640
+    "x": 850,
+    "y": 2720
   },
   {
     "id": 10007,
-    "dirName": "060-zufall",
-    "title": "6. Glücksspiel kann süchtig machen 🚧",
-    "originalTitle": "Glücksspiel kann süchtig machen 🚧",
-    "description": "# 🎲 Kapitel 6: Glücksspiel kann süchtig machen\r\n\r\nWillkommen in der Welt des Zufalls! Hier lernst du, wie du deine Programme unvorhersehbar und spannend gestalten kannst – perfekt für Spiele, Simulationen und Überraschungseffekte. 🎮✨\r\n\r\n## 🎯 Zufallszahlen mit `random.randint()`\r\n\r\nZuerst müssen wir das `random`-Modul importieren:\r\n\r\n```python\r\nimport random\r\n```\r\n\r\n**Würfel-Simulator**:  \r\nErzeuge eine zufällige Ganzzahl zwischen 1 und 6:\r\n\r\n```python\r\nwürfel = random.randint(1, 6)\r\nprint(f\"Du hast eine {würfel} gewürfelt! 🎲\")\r\n```\r\n\r\n**Ratespiel**:  \r\nDer Computer denkt sich eine Zahl aus, die du erraten musst:\r\n\r\n```python\r\ngeheimzahl = random.randint(1, 100)\r\nversuch = int(input(\"Rate eine Zahl zwischen 1-100: \"))\r\n\r\nif versuch == geheimzahl:\r\n    print(\"Treffer! 🎯\")\r\nelse:\r\n    print(f\"Leider daneben. Die Zahl war {geheimzahl}. 😅\")\r\n```\r\n\r\n## 🎁 Zufällige Auswahl mit `random.choice()`\r\n\r\n**Münzwurf**:  \r\nKopf oder Zahl? Entscheide dich!\r\n\r\n```python\r\nmöglichkeiten = [\"Kopf\", \"Zahl\"]\r\nergebnis = random.choice(möglichkeiten)\r\nprint(f\"Die Münze zeigt: {ergebnis}! 💰\")\r\n```\r\n\r\n**Glückskeks-Simulator**:  \r\nLass dich von weisen Sprüchen überraschen:\r\n\r\n```python\r\nsprüche = [\r\n    \"Heute ist dein Glückstag! 🌟\",\r\n    \"Vorsicht vor fallenden Kokosnüssen. 🥥\",\r\n    \"Code, den du heute schreibst, wird dich morgen retten. 💻\"\r\n]\r\nprint(random.choice(sprüche))\r\n```\r\n\r\n## 🚀 Tipps & Tricks\r\n\r\n- `randint(a, b)` inkludiert **beide** Grenzen (1 **und** 6 beim Würfel).\r\n- Mit `random.choice()` kannst du auch Listen von Zahlen, Farben oder Spielkarten mischen.\r\n- Probiere ein **Mini-Lotteriespiel**: Ziehe 6 Zahlen zwischen 1-49:\r\n  ```python\r\n  lottozahlen = random.sample(range(1,50), 6)\r\n  print(f\"Gewinnzahlen: {lottozahlen} 🍀\")\r\n  ```\r\n\r\n## 💡 Challenge: Stein-Schere-Papier\r\n\r\nProgrammiere ein Spiel gegen den Computer! Der Benutzer gibt seine Wahl ein (z.B. \"Stein\"), der Computer wählt zufällig aus [\"Stein\", \"Schere\", \"Papier\"] und entscheidet, wer gewinnt. 🪨✂️📄\r\n\r\n**Beispiel-Lösung**:\r\n\r\n```python\r\noptionen = [\"Stein\", \"Schere\", \"Papier\"]\r\ncomputer_wahl = random.choice(optionen)\r\nspieler_wahl = input(\"Stein, Schere oder Papier? \")\r\n\r\nprint(f\"Computer wählt: {computer_wahl}\")\r\n# Vergleichslogik hier einfügen (if/elif/else)\r\n```\r\n\r\nViel Spaß beim Experimentieren – aber pass auf, dass du nicht süchtig nach deinen eigenen Spielen wirst! 😉🔥\r\n",
-    "image": "",
-    "quests": [],
-    "x": 700,
-    "y": 2700
-  },
-  {
-    "id": 10008,
-    "dirName": "070-funktionen",
-    "title": "7. Weniger Chaos, mehr Funktionen 🚧",
-    "originalTitle": "Weniger Chaos, mehr Funktionen 🚧",
-    "description": "# 🎉 Kapitel 7: Weniger Chaos, mehr Funktionen 🎉\r\n\r\nWillkommen in der Welt der Funktionen! Hier lernst du, wie du deinen Code organisierst und Wiederholungen vermeidest. Funktionen sind wie kleine Helfer, die Aufgaben für dich übernehmen – praktisch, oder? 😊\r\n\r\n## 1. Funktionen erstellen mit `def`\r\n\r\nSo baust du deine eigene Funktion:\r\n\r\n```python\r\ndef begruessung():\r\n    print(\"Hallo Coding-Champion!\")\r\n    print(\"Heute wird ein super Tag zum Lernen! 🌟\")\r\n```\r\n\r\n**Aufrufen nicht vergessen:**\r\n\r\n```python\r\nbegruessung()  # Die Funktion wird ausgeführt\r\n```\r\n\r\n## 2. Parameter – Deine persönlichen Boten\r\n\r\nFunktionen können Eingaben entgegennehmen:\r\n\r\n```python\r\ndef persönliche_begrüßung(name):\r\n    print(f\"Hallo {name}!\")\r\n    print(\"Wie geht's?\")\r\n```\r\n\r\n**So verwendest du sie:**\r\n\r\n```python\r\npersönliche_begrüßung(\"Anna\")   # Hallo Anna!\r\npersönliche_begrüßung(\"Max\")    # Hallo Max!\r\n```\r\n\r\n## 3. Docstrings – Deine Funktions-Bedienungsanleitung\r\n\r\n```python\r\ndef quadrat(zahl):\r\n    \"\"\"\r\n    Berechnet das Quadrat einer Zahl\r\n    Parameter: zahl (int/float)\r\n    Rückgabewert: Quadrat der Zahl\r\n    \"\"\"\r\n    return zahl ** 2\r\n```\r\n\r\n**Tipp:** Mit `help(quadrat)` siehst du die Erklärung!\r\n\r\n## 4. Return – Der magische Bringdienst\r\n\r\n```python\r\ndef rechteck_fläche(länge, breite):\r\n    return länge * breite\r\n\r\nergebnis = rechteck_fläche(5, 3)\r\nprint(ergebnis)  # 15\r\n```\r\n\r\n**Wichtig:** `return` beendet die Funktion sofort!\r\n\r\n## 5. Lokale vs. Globale Variablen\r\n\r\n```python\r\nglobale_variable = 10\r\n\r\ndef test_funktion():\r\n    lokale_variable = 5\r\n    print(\"In der Funktion:\", globale_variable + lokale_variable)  # 15\r\n\r\ntest_funktion()\r\nprint(\"Draußen:\", globale_variable)  # 10\r\n# print(lokale_variable) würde einen Fehler geben!\r\n```\r\n\r\n## 🏆 Zusammenfassung\r\n\r\n- `def name():` erstellt Funktionen\r\n- Parameter machen Funktionen flexibel\r\n- `return` gibt Werte zurück\r\n- Docstrings erklären deinen Code\r\n- Lokale Variablen leben nur in der Funktion\r\n\r\n## 🚀 Challenge-Time!\r\n\r\n**Aufgabe:** Erstelle eine Funktion `würfel_volumen`, die die Kantenlänge als Parameter nimmt und das Volumen zurückgibt. Vergiss den Docstring nicht!\r\n\r\n```python\r\n# Hier kommt deine Lösung hin!\r\n\r\ndef würfel_volumen(kante):\r\n    \"\"\"\r\n    Berechnet das Volumen eines Würfels\r\n    Parameter: kante (Zahl)\r\n    Rückgabewert: Volumen (Zahl)\r\n    \"\"\"\r\n    return kante ** 3\r\n\r\n# Teste deine Funktion\r\nprint(würfel_volumen(3))  # Sollte 27 ausgeben\r\n```\r\n\r\nProbiere es aus und lass deine Funktionen tanzen! 💃🕺 Bei Fragen: Einfach ausprobieren – Fehler sind die besten Lehrer! 😉\r\n",
-    "image": "",
-    "quests": [],
-    "x": 950,
-    "y": 2900
-  },
-  {
-    "id": 10009,
     "dirName": "999-fundgrube",
-    "title": "8. BONUS",
-    "originalTitle": "BONUS",
+    "title": "6. Jetzt bist du ein Profi!",
+    "originalTitle": "Jetzt bist du ein Profi!",
     "description": "Hier findest du weitere Bonus-Aufgaben.\r\n",
     "image": "",
     "quests": [
@@ -2765,7 +2743,7 @@ const chapterInfo = [
           "program": "# Simuliere einen Würfel. Wähle eine zufällige Zahl zwischen 1 und 6\n# und speichere sie in der Variable augenzahl.\nimport random\n\naugenzahl = 4\n"
         },
         "deps": [
-          10009
+          10007
         ]
       },
       {
@@ -2941,7 +2919,7 @@ const chapterInfo = [
           "program": "# Karol wählt zuerst ein Zeichen und speichert es in der Variable karolWahl\n# print(karolWahl) -> \"schere\", \"stein\" oder \"papier\"\n\n# Reagiere jetzt darauf:\n\nmeineWahl = \"nichts\"\n\nif karolWahl == \"schere\":\n    meineWahl = \"papier\"\n\n"
         },
         "deps": [
-          10009
+          10007
         ]
       },
       {
@@ -3137,7 +3115,7 @@ const chapterInfo = [
           "program": "# Führe mit a und b die vier Grundrechenarten aus und \n# speichere das Ergebnis in den Variablen\n\na = ladeA()\nb = ladeB()\n\n# Beispiel: a plus b\nsumme = a + b\n\n# TODO: rechne a minus b\ndifferenz = 42\n\n# TODO: rechne a mal b\nprodukt = 42\n\n# TODO: rechne a geteilt durch b\nquotient = 42\n"
         },
         "deps": [
-          10009
+          10007
         ]
       },
       {
@@ -3315,7 +3293,7 @@ const chapterInfo = [
           "program": "# Führe ein kleines Gespräche und frage nach Name und Hobby.\n\n# Beispiel\nname = input(\"Wie heißt du?\")\nprint(\"Hallo, \" + name + \"!\")\n\n# eine kurze Pause\nimport time; time.sleep(1.5)\n\n# TODO: Frage nach dem Hobby der Person\nhobby = \"\"\n\n# TODO: Sage was Nettes und wiederhole dabei das Hobby\n"
         },
         "deps": [
-          10009
+          10007
         ]
       },
       {
@@ -3499,7 +3477,7 @@ const chapterInfo = [
           "program": "# Das sind die Tiere auf der Farm von MacDonald.\n\ndef katzen():\n    return \"miau\"\n\n# TODO: füge 3 weitere Tiere hinzu\n"
         },
         "deps": [
-          10009
+          10007
         ]
       },
       {
@@ -3671,7 +3649,7 @@ const chapterInfo = [
           "program": "# Starte mit dem Code 123\n\nladeCode(0)"
         },
         "deps": [
-          10009
+          10007
         ]
       },
       {
@@ -4007,12 +3985,12 @@ const chapterInfo = [
           "program": "karol = Robot()\n\n"
         },
         "deps": [
-          10009
+          10007
         ]
       }
     ],
-    "x": 680,
-    "y": 2930
+    "x": 380,
+    "y": 2850
   }
 ]
 

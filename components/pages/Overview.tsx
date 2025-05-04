@@ -72,7 +72,7 @@ export function Overview() {
       ...Object.entries(mapData)
         .filter(([id]) => isQuestVisible(parseInt(id)))
         .map(([, quest]) => quest.y)
-    ) + (!isQuestDone(61) ? 500 : 0)
+    ) + (core.ws.page == 'demo' ? -530 : !isQuestDone(61) ? 500 : 0)
 
   useEffect(() => {
     if (
@@ -561,8 +561,8 @@ export function Overview() {
                             Programmierung beschränkt sich nicht auf Blöcke oder
                             Karol Code. Lerne hier eine „große“
                             Programmiersprache mit Variablen, Ein-/Ausgabe,
-                            mathematischen Operatoren, Zufallszahlen und eigenen
-                            Funktionen inklusive Parametern kennen!
+                            mathematischen Operatoren, Kontrollstrukturen und
+                            weiteren Themen kennen!
                           </p>
                           <p className="mt-2">
                             Das Ganze ist eingebettet in eine kleine Geschichte.

@@ -1,5 +1,5 @@
 {
-  "title": "BONUS",
+  "title": "Jetzt bist du ein Profi!",
   "quests": [
     { "filename": "63.json", "x": 300, "y": 200 },
     { "filename": "62.json", "x": 100, "y": 200 },
@@ -9,6 +9,6 @@
     { "filename": "68.json", "x": 500, "y": 340 },
     { "filename": "69.json", "x": 650, "y": 340 }
   ],
-  "x": 680,
-  "y": 2930
+  "x": 380,
+  "y": 2850
 }
