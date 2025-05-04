@@ -1,7 +1,13 @@
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import { exitBench } from './bench'
-import { runTask, closeOutput, startTesting, restartProgram } from './quest'
+import {
+  runTask,
+  closeOutput,
+  startTesting,
+  restartProgram,
+  openTask,
+} from './quest'
 import { abort } from './vm'
 import { twoWorldsEqual } from './world'
 
@@ -35,6 +41,7 @@ export function startButtonClicked(core: Core) {
         (t) => !t.target || twoWorldsEqual(t.start, t.target)
       )
     ) {
+      openTask(core, 0)
       runTask(core, 0)
     } else {
       startTesting(core)

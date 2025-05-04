@@ -52,6 +52,8 @@ export function Output() {
       }
     : undefined
 
+  const minimalModeForQuestScript = core.ws.editor.questScript && !hasPreview
+
   return (
     <div className="flex flex-col h-full relative">
       <div className="border-b-2 border-gray-200">
@@ -89,7 +91,12 @@ export function Output() {
           )}
         </div>
       </div>
-      <div className="flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100">
+      <div
+        className={clsx(
+          'flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100',
+          minimalModeForQuestScript && 'hidden'
+        )}
+      >
         <ControlBar />
       </div>
       <div className="flex-grow flex-shrink relative h-full">
@@ -258,25 +265,29 @@ export function Output() {
             <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
             {core.strings.ide.back}
           </button>
-          {!core.ws.ui.isPlayground && !core.ws.ui.isTesting && hasPreview && (
-            <span className="ml-12 bg-white/80 rounded p-1 hidden small:inline">
-              <label className="select-none cursor-pointer text-gray-600">
-                <input
-                  type="checkbox"
-                  className="cursor-pointer"
-                  checked={core.ws.ui.showPreview}
-                  onChange={(e) => {
-                    submitAnalyzeEvent(core, 'ev_click_ide_togglePreview')
-                    core.mutateWs((ws) => {
-                      ws.ui.showPreview = e.target.checked
-                    })
-                  }}
-                />{' '}
-                {core.strings.ide.preview}
-              </label>
-            </span>
-          )}
-          {!core.ws.ui.isTesting && (
+          {!core.ws.ui.isPlayground &&
+            !core.ws.ui.isTesting &&
+            core.ws.quest.id <= 0 &&
+            !minimalModeForQuestScript &&
+            hasPreview && (
+              <span className="ml-12 bg-white/80 rounded p-1 small:inline">
+                <label className="select-none cursor-pointer text-gray-600">
+                  <input
+                    type="checkbox"
+                    className="cursor-pointer"
+                    checked={core.ws.ui.showPreview}
+                    onChange={(e) => {
+                      submitAnalyzeEvent(core, 'ev_click_ide_togglePreview')
+                      core.mutateWs((ws) => {
+                        ws.ui.showPreview = e.target.checked
+                      })
+                    }}
+                  />{' '}
+                  {core.strings.ide.preview}
+                </label>
+              </span>
+            )}
+          {!core.ws.ui.isTesting && !minimalModeForQuestScript && (
             <span className="ml-6 bg-white/80 rounded p-1">
               <label className="select-none cursor-pointer text-gray-600">
                 <input
