@@ -196,3 +196,13 @@ Scenario('Test python quest', ({ I }) => {
   I.click('weiter')
   I.see('0. Einleitung')
 })
+
+Scenario('Toggles in output', ({ I }) => {
+  I.amOnPage('/#VPY8')
+  I.click({ css: 'canvas.object-contain' })
+  I.see('Auftragsvorschau')
+  I.amOnPage('#QUEST-27')
+  I.click({ css: 'canvas.object-contain' })
+  I.see('2D-Ansicht')
+  I.dontSee('Auftragsvorschau')
+})
