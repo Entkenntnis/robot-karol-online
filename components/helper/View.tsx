@@ -76,6 +76,16 @@ export function View({
     const currentY = world.karol[i].y
     const currentZ = world.bricks[currentY][currentX]
 
+    if (prevWorld.current.karol.length !== world.karol.length) {
+      setRobotPos({ x: currentX, y: currentY, z: currentZ })
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+        animationFrameRef.current = null
+      }
+      prevWorld.current = world
+      return
+    }
+
     const prevX = prevWorld.current.karol[i].x
     const prevY = prevWorld.current.karol[i].y
     const prevZ = prevWorld.current.bricks[prevY][prevX]
