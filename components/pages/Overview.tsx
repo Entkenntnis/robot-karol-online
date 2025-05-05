@@ -561,8 +561,8 @@ export function Overview() {
                             Programmierung beschränkt sich nicht auf Blöcke oder
                             Karol Code. Lerne hier eine „große“
                             Programmiersprache mit Variablen, Ein-/Ausgabe,
-                            mathematischen Operatoren, Kontrollstrukturen und
-                            weiteren Themen kennen!
+                            mathematischen Operatoren, Kontrollstrukturen mehr
+                            kennen!
                           </p>
                           <p className="mt-2">
                             Das Ganze ist eingebettet in eine kleine Geschichte.

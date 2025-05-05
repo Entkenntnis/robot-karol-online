@@ -1,12 +1,12 @@
 # 🎓 Kapitel 1: Variablen
 
-Du erklärst dich bereit, der alten Dame zu helfen. Du hast heute Nachmittag sowieso noch nichts vor, warum nicht ein kleines Abenteuer erleben? Karol ist sichtlich erleichtert und fängt an zu erzählen:
+Du erklärst dich bereit, der alten Dame zu helfen. Du hast heute Nachmittag Zeit, warum nicht ein kleines Abenteuer erleben? Karol ist sichtlich erleichtert und fängt an zu erzählen:
 
-"Diese Leinwände sind eine Verbindungn aus Quantentechnik und AI. Sie wurden entwickelt, um eine neue Form des Lernens zu ermöglichen. Doch es gibt gefährliche Nebeneffekte, daher hat man das Projekt gestoppt."
+"Diese Leinwände sind eine Verbindungn aus Quantentechnik und AI. Sie wurden entwickelt, um eine neue Form des Lernens zu ermöglichen. Doch es gibt gefährliche Nebeneffekte."
 
 Dein Kopf schwirrt. "Was haben die Leinwände mit Lernen zu tun?"
 
-Karol lächelt geheimnisvoll. "Komm, ich zeige es dir. Siehst du die Tastatur? Tippe diesen Befehl ein und drücke Enter."
+"Komm, ich zeige es dir. Siehst du die Tastatur? Tippe diesen Befehl ein und drücke Enter."
 
 ```py
 muster_farbe = "rot"
@@ -22,9 +22,11 @@ animation_geschwindigkeit = 200
 
 Du tippst es ein und sofort fangen die Muster an im hohen Tempo herumzuwirbeln. Deine Augen schmerzen und du tippst instinktiv `animation_geschwindigkeit = 0`. Plötzlich bleibt alles stehen.
 
-"Sehr gut! Du hast das System verstanden! Es wurde entwickelt, um dir die Grundlagen von Python auf eine lebendige Art zu vermitteln. Es ist sehr mächtig ... vielleicht etwas zu mächtig. Ich vermute, dass ich erst freikomme, wenn wir alle Kapitel bearbeitet haben. Leider kann ich selber keinen Code eintippen. Ich kann dir aber aus der Anleitung vorlesen und du bearbeitest die Aufgaben. Klingt das nach einem Deal?"
+"Sehr gut! Du hast das System verstanden! Es wurde entwickelt, um dir die Grundlagen von Python auf eine lebendige Art zu vermitteln. Es ist sehr mächtig ... zu mächtig. Eine Labormaus ist in der Leinwand verschwunden - danach wurde das Projekt gestoppt, bevor das mit einem Menschen passiert. Haha, hoffentlich sind wir schlauer als die Maus und finden einen Weg heraus!"
 
-Oh nein, es geht ums Lernen! Aber du kannst die alte Dame jetzt nicht hängen lassen, zumal die Leinwände schon ziemlich cool sind. Also nickst du.
+Plötzlich ist Karol kurz verpixelt und sie stößt einen Schmerzenschrei aus. "Aua. Die Zeit drängt. Lasst uns gleich loslegen."
+
+Sie fährt fort: "Damit du mir gut helfen kannst, würde ich dir gerne ein paar Grundlagen von Python zeigen. Es wird nicht zu kompliziert, versprochen."
 
 ## Datentypen im Überblick
 
@@ -79,7 +81,7 @@ punkte = 15    # Neuer Wert
 print(punkte)  # Ausgabe: 15
 ```
 
-Die grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und dürfen in normaler Sprache geschrieben werden.
+Die grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und werden vom Computer ignoriert.
 
 ## 🚫 Verbotene Namen
 
@@ -95,4 +97,4 @@ Achte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen U
 
 ## ⚛️ Quantenknoten
 
-Das wars bisher an Theorie, mehr steht hier nicht drin. Aber das ist ja schon einiges. Wenn du auf _Weiter_ klickst, öffnen sich mehrere Quantenknoten. Dort findest du die Aufgaben. Viel Erfolg beim Lösen und wir sehen uns im zweiten Kapitel wieder."
+Und jetzt machen wir uns auf die Suche nach einem Ausweg! Hier sind ein paar Quantenknoten in der Nähe, die vielversprechend aussehen. Vielleicht können wir dort etwas bewirken."

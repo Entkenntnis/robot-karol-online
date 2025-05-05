@@ -1,9 +1,14 @@
 {
   "title": "Variablen",
   "quests": [
-    { "filename": "Raumschiffvorbereitung.json", "x": 540, "y": 30 },
-    { "filename": "Zaubertrank_brauen.json", "x": 428, "y": 144 },
-    { "filename": "Drei_W_nsche.json", "x": 620, "y": 184 },
+    { "filename": "Lieblinge.json", "x": 540, "y": 30 },
+    { "filename": "Quantenknoten_stabilisieren.json", "x": 620, "y": 184 },
+    {
+      "filename": "Drei_mal_raten.json",
+      "x": 428,
+      "y": 144,
+      "deps": ["Quantenknoten_stabilisieren.json"]
+    },
     { "filename": "Quiz.json", "x": 777, "y": 210 },
     { "filename": "Hin_und_her.json", "x": 850, "y": 90 }
   ],
