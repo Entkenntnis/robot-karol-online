@@ -351,6 +351,30 @@ export function setupWorker(core: Core) {
         }
       }
     }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'spawn-robot'
+    ) {
+      core.mutateWs(({ world }) => {
+        world.karol.push({
+          x: 0,
+          y: 0,
+          dir: 'south',
+        })
+      })
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'set-active-robot'
+    ) {
+      core.mutateWs((ws) => {
+        ws.__activeRobot = event.data.id
+      })
+    }
   }
 
   function messageHandlerBackup(event: MessageEvent) {
@@ -429,6 +453,9 @@ export function setupWorker(core: Core) {
       core.worker.debugInterface[i + 1] = core.ws.ui.breakpoints[i]
     }
 
+    core.mutateWs((ws) => {
+      ws.__activeRobot = 0
+    })
     core.mutateWs(({ ui, vm }) => {
       ui.state = 'running'
       ui.showJavaInfo = false

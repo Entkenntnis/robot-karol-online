@@ -2,6 +2,9 @@ import { Core } from '../state/core'
 import { ObjectInfo } from '../state/types'
 
 export function exitBench(core: Core) {
+  core.mutateWs((ws) => {
+    ws.__activeRobot = 0
+  })
   core.mutateWs(({ ui }) => {
     ui.isBench = false
     ui.state = 'ready'

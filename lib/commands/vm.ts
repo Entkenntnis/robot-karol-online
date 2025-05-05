@@ -24,6 +24,9 @@ export function patch(core: Core, bytecode: Op[]) {
 type MarkerMode = 'lastExecuted' | 'currentlyExecuting' | 'newOnCallStack'
 
 export function run(core: Core) {
+  core.mutateWs((ws) => {
+    ws.__activeRobot = 0
+  })
   core.mutateWs(({ ui, vm }) => {
     ui.state = 'running'
     ui.showJavaInfo = false
@@ -373,7 +376,7 @@ function* executeProgramAsGenerator(core: Core) {
 }
 
 export function testCondition(core: Core, cond: Condition) {
-  const { x, y, dir } = core.ws.world.karol
+  const { x, y, dir } = core.ws.world.karol[core.ws.__activeRobot]
   if (cond.type == 'mark') {
     const val = core.ws.world.marks[y][x]
     if (cond.negated) {
@@ -447,6 +450,9 @@ export function endExecution(core: Core) {
     state.ui.isEndOfRun = true
     state.ui.questPrompt = undefined
     state.vm.isDebugging = false
+  })
+  core.mutateWs((ws) => {
+    ws.__activeRobot = 0
   })
   if (!core.ws.ui.karolCrashMessage) {
     setExecutionMarker(core, 0)

@@ -68,11 +68,13 @@ export function Donate() {
             world={{
               dimX: 1,
               dimY: 1,
-              karol: {
-                x: 0,
-                y: 0,
-                dir: robotDirection,
-              },
+              karol: [
+                {
+                  x: 0,
+                  y: 0,
+                  dir: robotDirection,
+                },
+              ],
               blocks: [[false]],
               marks: [[false]],
               bricks: [[0]],
