@@ -665,7 +665,7 @@ export function AppearanceModal() {
               </button>
               <button
                 title="Radierer"
-                className={`h-8 w-10 h-8 flex justify-center items-center border rounded ${
+                className={`h-8 w-10 flex justify-center items-center border rounded ${
                   tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
                 }`}
                 onClick={() => {
