@@ -19,6 +19,7 @@ export function createWorkspaceState(): WorkspaceState {
     },
     renderCounter: 0,
     world: createWorld(5, 10, 6),
+    __activeRobot: 0,
     code: '',
     javaCode: '',
     pythonCode: '',
@@ -156,11 +157,13 @@ export function createWorld(dimX: number, dimY: number, height: number): World {
     dimX,
     dimY,
     height,
-    karol: {
-      x: 0,
-      y: 0,
-      dir: 'south',
-    },
+    karol: [
+      {
+        x: 0,
+        y: 0,
+        dir: 'south',
+      },
+    ],
     bricks: Array(dimY)
       .fill(0)
       .map(() => Array(dimX).fill(0)),

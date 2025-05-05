@@ -9,8 +9,10 @@ import {
   faArrowLeft,
   faArrowRight,
   faEraser,
-  faFillDrip, faPaintBrush, faStar,
-  faUndo
+  faFillDrip,
+  faPaintBrush,
+  faStar,
+  faUndo,
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { backend } from '../../backend'
@@ -21,9 +23,9 @@ export function AppearanceModal() {
   const [isDrawing, setIsDrawing] = useState(false)
   const [lastDrawingPosition, setLastDrawingPosition] = useState({ x: 0, y: 0 })
   const [selectedColor, setSelectedColor] = useState('#000000')
-  const [tool, setTool] = useState<'brush' | 'paintBucket' | 'eraser' | 'line' | 'rectangle' | 'ellipse'>(
-    'brush'
-  )
+  const [tool, setTool] = useState<
+    'brush' | 'paintBucket' | 'eraser' | 'line' | 'rectangle' | 'ellipse'
+  >('brush')
   const [brushSize, setBrushSize] = useState(3)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -173,8 +175,6 @@ export function AppearanceModal() {
     updateImageDataUrl(canvas)
   }
 
-
-
   const drawLineTo = (
     ctx: CanvasRenderingContext2D,
     toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void,
@@ -207,10 +207,10 @@ export function AppearanceModal() {
     offset: number
   ) => {
     ctx.save()
-    drawLineTo(ctx, toolCall, from, { x: from.x, y: to.y }, offset);
-    drawLineTo(ctx, toolCall, from, { x: to.x, y: from.y }, offset);
-    drawLineTo(ctx, toolCall, to, { x: from.x, y: to.y }, offset);
-    drawLineTo(ctx, toolCall, to, { x: to.x, y: from.y }, offset);
+    drawLineTo(ctx, toolCall, from, { x: from.x, y: to.y }, offset)
+    drawLineTo(ctx, toolCall, from, { x: to.x, y: from.y }, offset)
+    drawLineTo(ctx, toolCall, to, { x: from.x, y: to.y }, offset)
+    drawLineTo(ctx, toolCall, to, { x: to.x, y: from.y }, offset)
     ctx.restore()
   }
 
@@ -222,26 +222,24 @@ export function AppearanceModal() {
     offset: number
   ) => {
     ctx.save()
-    let a = (to.x - from.x) / 2;
-    let b = (to.y - from.y) / 2;
-    let step = Math.PI * 2 / 100; // looks okay
-    let lastPoint = { x: 0, y: 0 };
+    let a = (to.x - from.x) / 2
+    let b = (to.y - from.y) / 2
+    let step = (Math.PI * 2) / 100 // looks okay
+    let lastPoint = { x: 0, y: 0 }
     for (let theta = 0; theta <= Math.PI * 2; theta += step) {
       // sample point
-      let x = Math.round(a * Math.sin(theta) + from.x + a);
-      let y = Math.round(b * Math.cos(theta) + from.y + b);
-      if (theta === 0) lastPoint = { x, y };
-      drawLineTo(ctx, toolCall, lastPoint, { x, y }, offset);
+      let x = Math.round(a * Math.sin(theta) + from.x + a)
+      let y = Math.round(b * Math.cos(theta) + from.y + b)
+      if (theta === 0) lastPoint = { x, y }
+      drawLineTo(ctx, toolCall, lastPoint, { x, y }, offset)
       // save last point
-      lastPoint = { x, y };
+      lastPoint = { x, y }
     }
     ctx.restore()
   }
 
   // Zeichnen für Pinsel, Linie und Radiergummi.
-  const draw = (
-    e: React.PointerEvent<HTMLCanvasElement>
-  ) => {
+  const draw = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
     if (!ctx || !canvas) return
@@ -278,7 +276,13 @@ export function AppearanceModal() {
       if (isDrawing) {
         previewCtx.save() // for safety
         previewCtx.fillStyle = selectedColor
-        drawRectangle(previewCtx, toolCall, lastDrawingPosition, { x, y }, offset)
+        drawRectangle(
+          previewCtx,
+          toolCall,
+          lastDrawingPosition,
+          { x, y },
+          offset
+        )
         previewCtx.restore()
       } else {
         // only store this at the start of a new line!
@@ -310,9 +314,7 @@ export function AppearanceModal() {
   }
 
   // Abschluss einer Zeichnung (aktuell nur Linie)
-  const endDraw = (
-    e: React.PointerEvent<HTMLCanvasElement>
-  ) => {
+  const endDraw = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
     if (!ctx || !canvas) return
@@ -344,9 +346,7 @@ export function AppearanceModal() {
   }
 
   // Aktualisiert die Vorschau-Leinwand mit einer gestrichelten Umrandung.
-  const updatePreview = (
-    e: React.PointerEvent<HTMLCanvasElement>
-  ) => {
+  const updatePreview = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const overlayCanvas = previewCanvasRef.current
     const canvas = canvasRef.current
     if (!overlayCanvas || !canvas) return
@@ -387,9 +387,7 @@ export function AppearanceModal() {
   }
 
   // Gemeinsame Logik für den Start des Zeichnens.
-  const handleStart = (
-    e: React.PointerEvent<HTMLCanvasElement>
-  ) => {
+  const handleStart = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!hasPushedUndo.current) {
       pushUndoState()
       hasPushedUndo.current = true
@@ -404,9 +402,7 @@ export function AppearanceModal() {
   }
 
   // Gemeinsame Logik für Bewegung.
-  const handleMove = (
-    e: React.PointerEvent<HTMLCanvasElement>
-  ) => {
+  const handleMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     updatePreview(e)
     if (!isDrawing || tool === 'paintBucket') return
     draw(e)
@@ -426,10 +422,10 @@ export function AppearanceModal() {
 
   // Pointer Events for everything
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     // capture the event, so moves outside of the canvas are still registered
     // this would probably also work for close-on-click in modals
-    e.currentTarget.setPointerCapture(e.pointerId);
+    e.currentTarget.setPointerCapture(e.pointerId)
     handleStart(e)
   }
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -510,7 +506,7 @@ export function AppearanceModal() {
   ]
 
   return (
-    <div className="bg-black/50 fixed inset-0 z-[1150]" onClick={() => { }}>
+    <div className="bg-black/50 fixed inset-0 z-[1150]" onClick={() => {}}>
       {/* Modal mit angepasster Breite */}
       <div
         className="fixed inset-8 bg-white z-[1200] rounded-xl flex flex-col overflow-hidden"
@@ -568,13 +564,15 @@ export function AppearanceModal() {
                 world={{
                   dimX: 1,
                   dimY: 1,
-                  karol: {
-                    x: 0,
-                    y: 0,
-                    dir: ['east', 'north', 'west', 'south'][
-                      count % 4
-                    ] as Heading,
-                  },
+                  karol: [
+                    {
+                      x: 0,
+                      y: 0,
+                      dir: ['east', 'north', 'west', 'south'][
+                        count % 4
+                      ] as Heading,
+                    },
+                  ],
                   blocks: [[false]],
                   marks: [[false]],
                   bricks: [[0]],
@@ -585,8 +583,9 @@ export function AppearanceModal() {
             <div className="flex flex-wrap justify-center justify-items-center gap-2 mt-2">
               <button
                 title="Pinsel"
-                className={`h-8 w-10 flex justify-center items-center border rounded ${tool === 'brush' ? 'bg-gray-300' : 'bg-white'
-                  }`}
+                className={`h-8 w-10 flex justify-center items-center border rounded ${
+                  tool === 'brush' ? 'bg-gray-300' : 'bg-white'
+                }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_brush')
                   setTool('brush')
@@ -596,8 +595,9 @@ export function AppearanceModal() {
               </button>
               <button
                 title="Füllen"
-                className={`h-8 w-10 flex justify-center items-center border rounded ${tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
-                  }`}
+                className={`h-8 w-10 flex justify-center items-center border rounded ${
+                  tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
+                }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_fill')
                   setTool('paintBucket')
@@ -607,8 +607,9 @@ export function AppearanceModal() {
               </button>
               <button
                 title="Linie"
-                className={`h-8 w-10 flex justify-center items-center border rounded ${tool === 'line' ? 'bg-gray-300' : 'bg-white'
-                  }`}
+                className={`h-8 w-10 flex justify-center items-center border rounded ${
+                  tool === 'line' ? 'bg-gray-300' : 'bg-white'
+                }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
                   setTool('line')
@@ -641,21 +642,32 @@ export function AppearanceModal() {
               </button>*/}
               <button
                 title="Ellipse"
-                className={`h-8 w-10 flex justify-center items-center border rounded ${tool === 'ellipse' ? 'bg-gray-300' : 'bg-white'
-                  }`}
+                className={`h-8 w-10 flex justify-center items-center border rounded ${
+                  tool === 'ellipse' ? 'bg-gray-300' : 'bg-white'
+                }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_fill')
                   setTool('ellipse')
                 }}
               >
                 <svg width="18" height="18" viewBox="0 0 14 14">
-                  <ellipse cx="7" cy="7" rx="6" ry="5" strokeLinejoin='round' fill='none' stroke='currentColor' strokeWidth="2" />
+                  <ellipse
+                    cx="7"
+                    cy="7"
+                    rx="6"
+                    ry="5"
+                    strokeLinejoin="round"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
                 </svg>
               </button>
               <button
                 title="Radierer"
-                className={`h-8 w-10 h-8 flex justify-center items-center border rounded ${tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
-                  }`}
+                className={`h-8 w-10 flex justify-center items-center border rounded ${
+                  tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
+                }`}
                 onClick={() => {
                   // submitAnalyzeEvent(core, 'ev_click_appearance_eraser')
                   setTool('eraser')
@@ -676,8 +688,11 @@ export function AppearanceModal() {
               {colors.map((color) => (
                 <button
                   key={color}
-                  className={`w-6 h-6 rounded border-black border ${selectedColor === color ? 'border-2 border-opacity-100' : 'border-opacity-50'
-                    }`}
+                  className={`w-6 h-6 rounded border-black border ${
+                    selectedColor === color
+                      ? 'border-2 border-opacity-100'
+                      : 'border-opacity-50'
+                  }`}
                   style={{ backgroundColor: color }}
                   onClick={() => {
                     /*submitAnalyzeEvent(
@@ -703,16 +718,19 @@ export function AppearanceModal() {
                     )*/
                     setBrushSize(size)
                   }}
-                  className={`flex items-center justify-center w-10 h-10 border rounded-full ${brushSize === size ? 'bg-gray-300' : 'bg-white'
-                    }`}
+                  className={`flex items-center justify-center w-10 h-10 border rounded-full ${
+                    brushSize === size ? 'bg-gray-300' : 'bg-white'
+                  }`}
                 >
                   <div
                     style={{
                       width: `${size * 3}px`,
                       height: `${size * 3}px`,
-                      backgroundColor: `${tool === "eraser" ? "black" : selectedColor}`,
+                      backgroundColor: `${
+                        tool === 'eraser' ? 'black' : selectedColor
+                      }`,
                       borderRadius: '50%',
-                      border: '1px solid rgba(0, 0, 0, 0.5)'
+                      border: '1px solid rgba(0, 0, 0, 0.5)',
                     }}
                   />
                 </button>
@@ -838,7 +856,7 @@ export function AppearanceModal() {
                       pointerEvents: 'none',
                       zIndex: 1,
                       objectFit: 'cover',
-                      touchAction: 'none'
+                      touchAction: 'none',
                     }}
                     onContextMenu={(e) => e.preventDefault()}
                   />
@@ -853,7 +871,7 @@ export function AppearanceModal() {
                       imageRendering: 'pixelated',
                       position: 'relative',
                       zIndex: 2,
-                      touchAction: 'none'
+                      touchAction: 'none',
                     }}
                     onPointerDown={handlePointerDown}
                     onPointerMove={handlePointerMove}
@@ -876,12 +894,13 @@ export function AppearanceModal() {
                       left: 0,
                       pointerEvents: 'none',
                       zIndex: 3,
-                      touchAction: 'none'
+                      touchAction: 'none',
                     }}
                     onContextMenu={(e) => e.preventDefault()}
                   />
                   {/* Sprite boundary overlay*/}
-                  <div className='grid grid-cols-4'
+                  <div
+                    className="grid grid-cols-4"
                     style={{
                       width: '800px',
                       height: '355px',
@@ -890,12 +909,12 @@ export function AppearanceModal() {
                       left: 0,
                       pointerEvents: 'none',
                       zIndex: 4,
-                      touchAction: 'none'
+                      touchAction: 'none',
                     }}
                   >
-                    <div className='border-r border-black border-opacity-50'></div>
-                    <div className='border-r border-black border-opacity-50'></div>
-                    <div className='border-r border-black border-opacity-50'></div>
+                    <div className="border-r border-black border-opacity-50"></div>
+                    <div className="border-r border-black border-opacity-50"></div>
+                    <div className="border-r border-black border-opacity-50"></div>
                     <div></div>
                   </div>
                 </div>

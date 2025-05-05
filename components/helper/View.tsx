@@ -20,6 +20,7 @@ interface ViewProps {
   robotImageDataUrl?: string | null
   hideWorld?: boolean
   animationDuration?: number
+  activeRobot?: number
 }
 
 interface Resources {
@@ -42,6 +43,7 @@ export function View({
   robotImageDataUrl,
   hideWorld,
   animationDuration,
+  activeRobot,
 }: ViewProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
@@ -59,21 +61,23 @@ export function View({
     }
   }
 
+  const i = activeRobot ?? 0
+
   const [robotPos, setRobotPos] = useState({
-    x: world.karol.x,
-    y: world.karol.y,
-    z: world.bricks[world.karol.y][world.karol.x],
+    x: world.karol[i].x,
+    y: world.karol[i].y,
+    z: world.bricks[world.karol[i].y][world.karol[i].x],
   })
   const prevWorld = useRef(world)
   const animationFrameRef = useRef<number | null>(null)
 
   useEffect(() => {
-    const currentX = world.karol.x
-    const currentY = world.karol.y
+    const currentX = world.karol[i].x
+    const currentY = world.karol[i].y
     const currentZ = world.bricks[currentY][currentX]
 
-    const prevX = prevWorld.current.karol.x
-    const prevY = prevWorld.current.karol.y
+    const prevX = prevWorld.current.karol[i].x
+    const prevY = prevWorld.current.karol[i].y
     const prevZ = prevWorld.current.bricks[prevY][prevX]
 
     const dx = currentX - prevX
@@ -90,7 +94,7 @@ export function View({
       world.dimX !== prevWorld.current.dimX ||
       world.dimY !== prevWorld.current.dimY ||
       world.height !== prevWorld.current.height ||
-      world.karol.dir !== prevWorld.current.karol.dir
+      world.karol[i].dir !== prevWorld.current.karol[i].dir
     ) {
       setRobotPos({ x: currentX, y: currentY, z: currentZ })
       if (animationFrameRef.current) {
@@ -133,7 +137,7 @@ export function View({
         animationFrameRef.current = null
       }
     }
-  }, [world, animationDuration])
+  }, [world, animationDuration, i])
 
   useEffect(() => {
     async function render() {
@@ -340,7 +344,7 @@ export function View({
             !hideKarol
           ) {
             const { x: animX, y: animY, z: animZ } = robotPos
-            const dir = world.karol.dir
+            const dir = world.karol[i].dir
             const point = to2d(animX, animY, animZ)
             const sx = {
               north: 40,
@@ -364,6 +368,56 @@ export function View({
               40,
               71
             )
+            if (world.karol.length > 1) {
+              ctx.font = '22px sans-serif'
+              ctx.fillText(
+                (i + 1).toString(),
+                Math.round(dx),
+                Math.round(dy) + 10
+              )
+            }
+          } else if (!hideKarol) {
+            for (let k = 0; k < world.karol.length; k++) {
+              if (i == k) continue
+              if (x == world.karol[k].x && y == world.karol[k].y) {
+                const { x, y } = world.karol[k]
+                const z = world.bricks[y][x]
+                const point = to2d(x, y, z)
+                const dir = world.karol[k].dir
+                const sx = {
+                  north: 40,
+                  east: 0,
+                  south: 120,
+                  west: 80,
+                }[dir]
+
+                const dx =
+                  point.x -
+                  13 -
+                  (dir === 'south' ? 3 : dir === 'north' ? -2 : 0)
+                const dy = point.y - 60
+
+                ctx.drawImage(
+                  robot,
+                  sx,
+                  0,
+                  40,
+                  71,
+                  Math.round(dx),
+                  Math.round(dy),
+                  40,
+                  71
+                )
+                if (world.karol.length > 1) {
+                  ctx.font = '22px sans-serif'
+                  ctx.fillText(
+                    (k + 1).toString(),
+                    Math.round(dx),
+                    Math.round(dy) + 10
+                  )
+                }
+              }
+            }
           }
         }
       }

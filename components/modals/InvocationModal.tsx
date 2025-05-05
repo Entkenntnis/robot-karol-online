@@ -106,7 +106,7 @@ export function InvocationModal() {
           {invocationMode == 'constructor' && (
             <div className="space-y-2">
               <label className="block text-sm font-medium">
-                Name der Variable
+                Name des Objekts
               </label>
               <input
                 type="text"

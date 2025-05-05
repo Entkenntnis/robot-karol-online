@@ -13,6 +13,7 @@ let debug = new Int32Array(129)
 
 let outputs = []
 let inputs = []
+let robotIndex = 0
 
 const compileScript = (code) => `
 def check_syntax(code):
@@ -38,9 +39,14 @@ let benchGlobals = null
 
 export function buildRobot(highlightCurrentLine = () => {}) {
   return () => {
+    const id = robotIndex++
+    if (id > 0) {
+      self.postMessage({ type: 'spawn-robot' })
+    }
     return {
       schritt: (n, ...rest) => {
         throwFauxTypeError('Robot', 'schritt', 1, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         const count = isNaN(n) ? 1 : n
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
@@ -51,6 +57,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
       },
       linksDrehen: (n, ...rest) => {
         throwFauxTypeError('Robot', 'linksDrehen', 1, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         const count = isNaN(n) ? 1 : n
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
@@ -61,6 +68,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
       },
       rechtsDrehen: (n, ...rest) => {
         throwFauxTypeError('Robot', 'rechtsDrehen', 1, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         const count = isNaN(n) ? 1 : n
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
@@ -71,6 +79,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
       },
       hinlegen: (n, ...rest) => {
         throwFauxTypeError('Robot', 'hinlegen', 1, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         const count = isNaN(n) ? 1 : n
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
@@ -81,6 +90,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
       },
       aufheben: (n, ...rest) => {
         throwFauxTypeError('Robot', 'aufheben', 1, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         const count = isNaN(n) ? 1 : n
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
@@ -91,6 +101,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
       },
       markeSetzen: (...rest) => {
         throwFauxTypeError('Robot', 'markeSetzen', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         highlightCurrentLine()
         checkDebug()
         runAction('markeSetzen')
@@ -98,6 +109,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
       },
       markeLöschen: (...rest) => {
         throwFauxTypeError('Robot', 'markeLöschen', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         highlightCurrentLine()
         checkDebug()
         runAction('markeLöschen')
@@ -105,24 +117,29 @@ export function buildRobot(highlightCurrentLine = () => {}) {
       },
       istWand: (...rest) => {
         throwFauxTypeError('Robot', 'istWand', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         //if (!direction) direction = null
         return checkCondition({ type: 'wall', negated: false }) // direction is not handled by testCondition, removed
       },
       nichtIstWand: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstWand', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         //if (!direction) direction = null
         return checkCondition({ type: 'wall', negated: true }) // direction is not handled by testCondition, removed
       },
       istMarke: (...rest) => {
         throwFauxTypeError('Robot', 'istMarke', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         return checkCondition({ type: 'mark', negated: false })
       },
       nichtIstMarke: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstMarke', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         return checkCondition({ type: 'mark', negated: true })
       },
       istZiegel: (count, ...rest) => {
         throwFauxTypeError('Robot', 'istZiegel', 1, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         if (count !== undefined)
           return checkCondition({
             type: 'brick_count',
@@ -133,44 +150,54 @@ export function buildRobot(highlightCurrentLine = () => {}) {
       },
       nichtIstZiegel: (count, ...rest) => {
         throwFauxTypeError('Robot', 'nichtIstZiegel', 1, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         if (count !== undefined)
           return checkCondition({ type: 'brick_count', negated: true, count })
         return checkCondition({ type: 'brick', negated: true, count })
       },
       istNorden: (...rest) => {
         throwFauxTypeError('Robot', 'istNorden', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         return checkCondition({ type: 'north', negated: false })
       },
       nichtIstNorden: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstNorden', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         return checkCondition({ type: 'north', negated: true })
       },
       istOsten: (...rest) => {
         throwFauxTypeError('Robot', 'istOsten', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         return checkCondition({ type: 'east', negated: false })
       },
       nichtIstOsten: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstOsten', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         return checkCondition({ type: 'east', negated: true })
       },
       istSüden: (...rest) => {
         throwFauxTypeError('Robot', 'istSüden', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         return checkCondition({ type: 'south', negated: false })
       },
       nichtIstSüden: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstSüden', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         return checkCondition({ type: 'south', negated: true })
       },
       istWesten: (...rest) => {
         throwFauxTypeError('Robot', 'istWesten', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         return checkCondition({ type: 'west', negated: false })
       },
       nichtIstWesten: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstWesten', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         return checkCondition({ type: 'west', negated: true })
       },
       beenden: (...rest) => {
         throwFauxTypeError('Robot', 'beenden', 0, rest)
+        self.postMessage({ type: 'set-active-robot', id })
         self.postMessage({ type: 'action', action: 'beenden' })
       },
     }
@@ -255,6 +282,7 @@ self.onmessage = async (event) => {
   if (event.data.type === 'run') {
     delay = new Int32Array(event.data.delayBuffer)
     debug = new Int32Array(event.data.debugInterfaceBuffer, 0, 129)
+    robotIndex = 0
     const debugRef = { current: debug }
     const traceback = pyodide.pyimport('traceback')
     const enableHighlight = { current: true }
@@ -391,10 +419,11 @@ self.onmessage = async (event) => {
       })
       delay = new Int32Array(event.data.delayBuffer)
       debug[0] = 0
+      robotIndex = 0
       pyodide.runPython(
         `
 class Robot:
-  """Die Klasse Robot funktioniert wie eine Fernbedienung für Karol. Wenn du mehrere Objekte der Klasse Robot erzeugst, steuern sie alle den gleichen Roboter."""
+  """Steuere einen Roboter. Wenn bereits ein Roboter vorhanden, dann wird ein neuer Roboter platziert."""
   def schritt(self, n=1):
     self._internal_Robot.schritt(n)
     

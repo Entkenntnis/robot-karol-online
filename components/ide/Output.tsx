@@ -142,6 +142,7 @@ export function Output() {
                       200,
                       sliderToDelay(core.ws.ui.speedSliderValue)
                     )}
+                    activeRobot={core.ws.__activeRobot}
                   />
                 )}
               </div>

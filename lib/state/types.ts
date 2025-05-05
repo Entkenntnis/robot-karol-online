@@ -8,7 +8,7 @@ export interface World {
     x: number
     y: number
     dir: Heading
-  }
+  }[]
   bricks: number[][]
   marks: boolean[][]
   blocks: boolean[][]
@@ -134,6 +134,7 @@ export interface Overview {
 export interface WorkspaceState {
   // IDE
   world: World
+  __activeRobot: number
   ui: Ui
   code: string
   javaCode: string
