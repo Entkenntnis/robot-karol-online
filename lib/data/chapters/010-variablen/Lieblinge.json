@@ -1,0 +1,91 @@
+{
+  "version": "v1",
+  "title": "Lieblinge",
+  "description": "An diesem Knoten kannst du deine Favoriten eintragen. Vielleicht möchte das Quantensystem uns einfach nur besser kennenlernen?\n\nNutze für die Variablen einen passenden Datentyp und setze sie auf die Werte, die für dich passen.",
+  "tasks": [
+    {
+      "title": "Herz",
+      "start": {
+        "dimX": 7,
+        "dimY": 6,
+        "height": 6,
+        "karol": {
+          "x": 0,
+          "y": 0,
+          "dir": "south"
+        },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 0, 1, 0, 1, 0, 0],
+            [0, 1, 1, 1, 1, 1, 0],
+            [1, 1, 1, 1, 1, 1, 1],
+            [0, 1, 1, 1, 1, 1, 0],
+            [0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 6,
+        "height": 6,
+        "karol": {
+          "x": 0,
+          "y": 0,
+          "dir": "south"
+        },
+        "bricks": {
+          "dimX": 7,
+          "dimY": 6,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 0, 1, 0, 1, 0, 0],
+            [0, 1, 1, 1, 1, 1, 0],
+            [1, 1, 1, 1, 1, 1, 1],
+            [0, 1, 1, 1, 1, 1, 0],
+            [0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "__ide_prompt(\"Bereit, deine Vorlieben zu teilen?\", \"Los geht's\")\n\n__ide_run_client()\n\n# Prüfen, ob alle Variablen definiert sind\nvariablen = [\"lieblingsfarbe\", \"lieblingszahl\", \"mag_winter\", \"mag_frühling\", \"mag_sommer\", \"mag_herbst\"]\n\nfor var in variablen:\n    if var not in globals() or globals()[var] is None:\n        __ide_prompt(f'Variable `{var}` fehlt oder ist None!', 'Beenden')\n        __ide_exit()\n\n# Typprüfungen\nif not isinstance(lieblingsfarbe, str):\n    __ide_prompt('Die Lieblingsfarbe sollte ein Text sein (str).', 'Korrigieren')\n    __ide_exit()\n\nif not isinstance(lieblingszahl, (int, float)):\n    __ide_prompt('Die Lieblingszahl sollte eine Zahl sein (int oder float).', 'Korrigieren')\n    __ide_exit()\n\n# Prüfen der Jahreszeiten-Vorlieben\njahreszeiten = [mag_winter, mag_frühling, mag_sommer, mag_herbst]\nfor i, jahreszeit in enumerate(jahreszeiten):\n    if not isinstance(jahreszeit, bool):\n        jahreszeit_name = variablen[i+2]\n        __ide_prompt(f'`{jahreszeit_name}` sollte ein Wahrheitswert sein (bool).', 'Korrigieren')\n        __ide_exit()\n\n# Ausgabe der Lieblingswerte\nprint(f\"Deine Lieblingsfarbe ist: {lieblingsfarbe}\")\nprint(f\"Deine Lieblingszahl ist: {lieblingszahl}\")\nprint(f\"Du magst den Winter: {mag_winter}\")\nprint(f\"Du magst den Frühling: {mag_frühling}\")\nprint(f\"Du magst den Sommer: {mag_sommer}\")\nprint(f\"Du magst den Herbst: {mag_herbst}\")\n\n__ide_set_progress(True)\n__ide_prompt('Danke für deine Eingaben! Das Quantensystem hat deine Vorlieben registriert. 🚀', 'Weiter')",
+  "language": "python-pro",
+  "program": "# Setze deine persönlichen Vorlieben\n\n# Lieblingsfarbe als Text (String)\nlieblingsfarbe = None\n\n# Lieblingszahl als Ganzzahl (int) oder Kommazahl (float)\nlieblingszahl = None\n\n# Jahreszeiten-Vorlieben als Wahrheitswerte (bool: True/False)\nmag_winter = None\nmag_frühling = None\nmag_sommer = None\nmag_herbst = None"
+}
