@@ -20,7 +20,7 @@ const chapterInfo = [
     "dirName": "010-variablen",
     "title": "1. Variablen",
     "originalTitle": "Variablen",
-    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nIm Karols Atelier sind einige Laptops aufgestellt, an der einzig freien Wand projeziert ein Beamer, den man aber im hellen Licht kaum lesen kann. \"Den werden wir erstmal nicht brauchen, solange ihr zu zweit seid\", bemerkt Emi.\r\n\r\nDu traust dich dann doch zu fragen: \"Kommen noch weitere Leute?\" Karol nickt: \"Ein paar weitere Leute haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen.\" Karol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.\r\n\r\n\"Ich möchte mit Variablen anfangen. Diese sind sind ein entspannter Einstieg. Stellt es euch so vor: Der Computer muss sich ja viele Dinge merken. Und jede Information speichert dein Programm in einer solchen Variable.\" Emi fängt an zu tippen:\r\n\r\n```py\r\nfarbe = \"blasslila\"\r\npinsel_größe = 13\r\nbild_breite_cm = 27.8\r\nist_inspiriert = True\r\n```\r\n\r\n\"So kannst du, meine Tante, dir die wichtigsten Dinge notieren, falls du sie mal wieder vergisst.\"\r\n\r\n\"Hey, so alt bin ich auch wieder nicht\", beschwert sich Karol. Gut zu wissen, dass Emi nicht nur dir gegenüber etwas schnippisch ist.\r\n\r\n\"Sind das alle Arten von Informationen, die man speichern kann?\", fragt Karol zurück. \"Ich würde erstmal mit diesen anfangen\", erklärte Emi. \"Später kannst du aus diesen grundlegenden Datentypen größere Objekte bauen oder eine Liste anlegen. Ah, ich sollte vielleicht noch ein paar Details ergänzen.\r\n\r\nDieses Gleichheitszeichen (`=`) ist eine Wertzuweisung:\r\n\r\n```\r\n<Name der Variable> = <Wert>\r\n```\r\n\r\nDabei wird der alte Wert der Variable weggeschmissen und der neue Wert geschrieben. Der Name ist wichtig, denn nur mit diesem kannst du auf die Information zugreifen. Du kannst einer Variable jederzeit einen neuen Wert zuweisen:\r\n\r\n```py\r\nfarbe = \"grün\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"grün\"\r\n\r\nfarbe = \"rot\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"rot\"\r\n\r\nfarbe = \"dunkelviolett\"\r\n```\r\n\r\nJede Variable hat außerdem einen Typ. Nicht wie die Typen auf der Straße, sondern im Sinne von Kategorie. Ihr habt die vier wichtigsten Typen jetzt gesehen, ich fasse sie für euch nochmal zusammen.\r\n\r\n## Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 📝 Kommentare\r\n\r\n```py\r\n# die Lieblingsfarbe meiner Tante\r\nfarbe = \"?\" # bitte noch ausfüllen\r\n```\r\n\r\nDie grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und werden vom Computer ignoriert.\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nIhr dürft die Variablenamen fast beliebig wählen. Ein paar wenige Sachen sind nicht erlaubt:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang geht nicht\r\nmein-name = \"Emi\" # Bindestrich nicht erlaubt\r\nclass = 8         # Schlüsselwörter verboten\r\n```\r\n\r\nAchte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen Unterschied und `alter` ist eine andere Variable als `ALTER`.\r\n\r\n## 🏋️ Übungen\r\n\r\nBis hierher alles klar?\", Emi blickt uns beide an. Du nickst brav, Karol ist voller Tatendrang und bittet Emi, uns ein paar Übungsaufgaben zu stellen, damit wir die Theorie etwas üben können. Sie antwortet nur: \"Ich wäre doch eine schlechte Dozentin wenn ich keine Übungsaufgaben vorbereitet hätte.\"\r\n",
+    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nIm Karols Atelier sind einige Laptops aufgestellt, an der einzig freien Wand projeziert ein Beamer, den man aber im hellen Licht kaum lesen kann. \"Den werden wir erstmal nicht brauchen, solange ihr zu zweit seid\", bemerkt Emi.\r\n\r\nDu traust dich dann doch zu fragen: \"Kommen noch weitere Leute?\" Karol nickt: \"Ein paar weitere Gäste haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen.\" Karol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.\r\n\r\n\"Ich möchte mit Variablen anfangen. Diese sind sind ein entspannter Einstieg. Stellt es euch so vor: Der Computer muss sich ja viele Dinge merken. Und jede Information speichert dein Programm in einer solchen Variable.\" Emi fängt an zu tippen:\r\n\r\n```py\r\nfarbe = \"blasslila\"\r\npinsel_größe = 13\r\nbild_breite_cm = 27.8\r\nist_inspiriert = True\r\n```\r\n\r\n\"So kannst du, meine Tante, dir die wichtigsten Dinge notieren, falls du sie mal wieder vergisst.\"\r\n\r\n\"Hey, so alt bin ich auch wieder nicht\", beschwert sich Karol. Gut zu wissen, dass Emi nicht nur dir gegenüber etwas schnippisch ist.\r\n\r\n\"Sind das alle Arten von Informationen, die man speichern kann?\", fragt Karol zurück. \"Ich würde erstmal mit diesen anfangen\", erklärte Emi. \"Später kannst du aus diesen grundlegenden Datentypen größere Objekte bauen oder eine Liste anlegen. Ah, ich sollte vielleicht noch ein paar Details ergänzen.\r\n\r\nDieses Gleichheitszeichen (`=`) ist eine Wertzuweisung:\r\n\r\n```\r\n<Name der Variable> = <Wert>\r\n```\r\n\r\nDabei wird der alte Wert der Variable weggeschmissen und der neue Wert geschrieben. Der Name ist wichtig, denn nur mit diesem kannst du auf die Information zugreifen. Du kannst einer Variable jederzeit einen neuen Wert zuweisen:\r\n\r\n```py\r\nfarbe = \"grün\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"grün\"\r\n\r\nfarbe = \"rot\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"rot\"\r\n\r\nfarbe = \"dunkelviolett\"\r\n```\r\n\r\nJede Variable hat außerdem einen Typ. Nicht wie die Typen auf der Straße, sondern im Sinne von Kategorie. Ihr habt die vier wichtigsten Typen jetzt gesehen, ich fasse sie für euch nochmal zusammen.\r\n\r\n## Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 📝 Kommentare\r\n\r\n```py\r\n# die Lieblingsfarbe meiner Tante\r\nfarbe = \"?\" # bitte noch ausfüllen\r\n```\r\n\r\nDie grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und werden vom Computer ignoriert.\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nIhr dürft die Variablenamen fast beliebig wählen. Ein paar wenige Sachen sind nicht erlaubt:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang geht nicht\r\nmein-name = \"Emi\" # Bindestrich nicht erlaubt\r\nclass = 8         # Schlüsselwörter verboten\r\n```\r\n\r\nAchte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen Unterschied und `alter` ist eine andere Variable als `ALTER`.\r\n\r\n## 🏋️ Übungen\r\n\r\nBis hierher alles klar?\", Emi blickt uns beide an. Du nickst brav, Karol ist voller Tatendrang und bittet Emi, uns ein paar Übungsaufgaben zu stellen, damit wir die Theorie etwas üben können. Sie antwortet nur: \"Ich wäre doch eine schlechte Dozentin wenn ich keine Übungsaufgaben vorbereitet hätte.\"\r\n",
     "image": "/story/1_v2.jpg",
     "quests": [
       {
@@ -2150,7 +2150,7 @@ const chapterInfo = [
     "dirName": "030-bedingte-anweisungen",
     "title": "3. Bedingte Anweisungen",
     "originalTitle": "Bedingte Anweisungen",
-    "description": "# 🧠 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\n\"Dein Erfolg bei den bisherigen Aufgaben ist beeindruckend!\", freut sich Karol. Du bemerkst, dass die Muster auf den Leinwänden sich verändert haben – sie wirken jetzt dynamischer, als würden sie auf etwas reagieren.\r\n\r\n\"Etwas stimmt nicht...\", murmelt Karol besorgt. \"Die Leinwände müssten sich öffnen, aber es passiert nichts. Ich habe den Verdacht, dass die Quantensysteme eine Sicherheitsprüfung durchführen.\" Sie schaut dich hoffnungsvoll an. \"Deine Hilfe ist jetzt wichtiger denn je! Wir müssen dem System beibringen, kluge Entscheidungen zu treffen.\"\r\n\r\nIhre Stimme wird ernst: \"In der Programmierung ist das ein entscheidender Schritt: deinem Code beizubringen, verschiedene Situationen zu erkennen und entsprechend zu handeln. Genau wie ein Zauberlehrling wissen muss, wann der Kessel die richtige Temperatur hat, oder eine Wetterstation erkennen muss, wann ein Sturm aufzieht.\"\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nKarol projiziert ein einfaches Beispiel auf die Leinwand:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n\"Das ist wie eine Verzweigung auf deinem Weg\", erklärt sie. \"Der Code fragt: 'Ist die Ampel grün?' Wenn ja, dann fahre los. Wenn nicht, dann mache... nichts in diesem Beispiel.\"\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\" oder \"wenn\"\r\n- `==` prüft auf Gleichheit (Achtung: nicht verwechseln mit `=`, das ist für Zuweisungen!)\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Die Einrückungen (4 Leerzeichen) sind in Python Pflicht – sie zeigen, welcher Code zur Bedingung gehört\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\n\"Aber was, wenn die Ampel **nicht** grün ist?\", fragt Karol. Die Leinwand verändert sich und zeigt ein erweitertes Beispiel:\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    # Wird ausgeführt, weil 15 < 18\r\n    print(\"Noch etwas Geduld... 🕒\")\r\n```\r\n\r\n\"Mit `else` hast du einen Plan B! Wenn die Bedingung nicht zutrifft, wird stattdessen der Code im `else`-Block ausgeführt. So hat dein Programm für jede Situation eine Antwort.\"\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\n\"Manchmal gibt es mehr als nur zwei Möglichkeiten\", sagt Karol und zaubert ein neues Beispiel hervor:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    # Wird ausgeführt, weil 2.3 <= 3.0\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n\"Mit `elif` (kurz für 'else if') kannst du mehrere Bedingungen nacheinander prüfen. Sobald eine davon zutrifft, wird der zugehörige Code ausgeführt und die restlichen Bedingungen werden übersprungen.\"\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n\"Um Entscheidungen zu treffen, brauchst du die richtigen Werkzeuge\", erklärt Karol und lässt eine Tabelle erscheinen:\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n\"Diese Operatoren sind wie deine Sinne – sie helfen dir, die Welt um dich herum zu verstehen und zu bewerten.\"\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n\"Manchmal müssen mehrere Bedingungen gleichzeitig erfüllt sein\", fährt Karol fort. Die Leinwand leuchtet heller und zeigt neue Beispiele:\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    # Wird ausgeführt, weil wetter == \"sonnig\"\r\n    print(\"Eiszeit! 🍦\")\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    # Wird ausgeführt, weil login_erfolgreich False ist\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n\"Mit diesen drei Operatoren – `and`, `or` und `not` – kannst du komplexe Entscheidungen programmieren, genau wie das menschliche Gehirn.\"\r\n\r\n## 🏆 Jetzt bist du dran!\r\n\r\n\"Mit diesem Wissen kannst du jetzt richtig mächtige Programme schreiben\", sagt Karol aufgeregt. \"Du kannst deinem Code beibringen, intelligente Entscheidungen zu treffen – sei es für die Temperatur eines Zaubertranks oder die Warnsysteme einer Wetterstation. Die Leinwände reagieren bereits positiv, ich spüre es!\"\r\n\r\nDie Muster auf den Leinwänden flimmern und bilden kurz ein Lächeln, bevor sie wieder zu abstrakten Formen werden.\r\n\r\n\"Ich glaube, wir sind auf dem richtigen Weg\", flüstert Karol. \"Die Quantentore zu den Aufgaben öffnen sich. Löse sie, und wir kommen dem Ausgang näher...\"\r\n\r\nDu betrachtest die schimmernden Quantenknoten, die vor dir erscheinen, und bereitest dich auf die nächste Herausforderung vor.\r\n",
+    "description": "# 🧠 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\nPlötzlich klingelt es an der Tür. \"Ah, das müssen unsere anderen Gäste sein\", sagt Karol und huscht zur Tür. Kurz darauf kommt sie mit zwei Jungs zurück, die etwa in deinem Alter sind. \"Das sind Max und Tim, sie sind extra angereist\", stellt sie die beiden vor. \"Ihre Mutter ist Informatikerin und hat ihnen schon ein bisschen das Programmieren beigebracht.\"\r\n\r\nMax, der Größere der beiden mit einem grünen T-Shirt und zerzausten blonden Haaren, nickt dir freundlich zu. Tim, sein kleinerer Bruder mit einer auffälligen roten Brille, strahlt und fragt sofort: \"Habt ihr schon mit Schleifen angefangen? Oder Funktionen?\"\r\n\r\nEmi verdreht leicht die Augen. \"Wir sind gerade bei Bedingten Anweisungen. Die beiden haben schon Variablen und Ein-/Ausgabe geschafft.\"\r\n\r\n\"Cool, dann sind wir ja genau richtig\", sagt Max und setzt sich neben dich. \"Bedingte Anweisungen sind super wichtig. Damit wird der Code erst richtig interessant!\"\r\n\r\nEmi fährt fort: \"In der Programmierung ist das ein entscheidender Schritt: eurem Code beizubringen, verschiedene Situationen zu erkennen und entsprechend zu handeln. Genau wie eine Wetterstation erkennen muss, wann ein Sturm aufzieht.\"\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nEmi zeigt ein einfaches Beispiel am Computer:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n\"Das ist wie eine Verzweigung auf deinem Weg\", erklärt sie. \"Der Code fragt: 'Ist die Ampel grün?' Wenn ja, dann fahre los. Wenn nicht, dann mache... nichts in diesem Beispiel.\"\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\" oder \"wenn\"\r\n- `==` prüft auf Gleichheit (Achtung: nicht verwechseln mit `=`, das ist für Zuweisungen!)\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Die Einrückungen (4 Leerzeichen) sind in Python Pflicht – sie zeigen, welcher Code zur Bedingung gehört\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\n\"Aber was, wenn die Ampel **nicht** grün ist?\", fragt Emi. Sie passt den Code an:\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    # Wird ausgeführt, weil 15 < 18\r\n    print(\"Noch etwas Geduld... 🕒\")\r\n```\r\n\r\n\"Mit `else` hast du einen Plan B! Wenn die Bedingung nicht zutrifft, wird stattdessen der Code im `else`-Block ausgeführt. So hat dein Programm für jede Situation eine Antwort.\"\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\n\"Manchmal gibt es mehr als nur zwei Möglichkeiten\", sagt Emi und zaubert ein neues Beispiel hervor:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    # Wird ausgeführt, weil 2.3 <= 3.0\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n\"Mit `elif` (kurz für 'else if') kannst du mehrere Bedingungen nacheinander prüfen. Sobald eine davon zutrifft, wird der zugehörige Code ausgeführt und die restlichen Bedingungen werden übersprungen.\"\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n\"Um Entscheidungen zu treffen, brauchst du die richtigen Werkzeuge\", erklärt Emi und lässt eine Tabelle erscheinen:\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n\"Diese Operatoren sind wie deine Sinne – sie helfen dir, die Welt um dich herum zu verstehen und zu bewerten.\"\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n\"Manchmal müssen mehrere Bedingungen gleichzeitig erfüllt sein\", fährt Emi fort:\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    # Wird ausgeführt, weil wetter == \"sonnig\"\r\n    print(\"Eiszeit! 🍦\")\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    # Wird ausgeführt, weil login_erfolgreich False ist\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n\"Mit diesen drei Operatoren – `and`, `or` und `not` – kannst du komplexe Entscheidungen programmieren, genau wie das menschliche Gehirn.\"\r\n\r\n## 🏆 Jetzt bist du dran!\r\n\r\n\"Mit diesem Wissen kannst du jetzt richtig mächtige Programme schreiben\", sagt Emi begeistert. \"Du kannst deinem Code beibringen, intelligente Entscheidungen zu treffen – wie ein Mensch. Jetzt los, probiert euch an den Übungsaufgaben aus. Und seid nicht überrascht: diesmal habe ich mir ein paar kreative Sachen ausgedacht!\"\r\n",
     "image": "/story/3.jpg",
     "quests": [
       {
@@ -2593,7 +2593,8 @@ const chapterInfo = [
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "__ide_prompt(\"Willkommen zur erweiterten Wetterstation-Überwachung! Du überwachst nun sowohl Wind als auch Niederschlag.\", \"Überwachung starten\")\n\n# Tracking-Variablen für getestete Fälle\ntested_normal = False\ntested_storm_only = False\ntested_rain_only = False\n\nwind = 50\nrain = 20\n\ndef messeSturmgeschwindigkeit():\n    return wind\n\ndef messeNiederschlag():\n    return rain\n\nwhile not (tested_normal and tested_storm_only and tested_rain_only):\n    # Generiere verschiedene Wetterbedingungen zum Testen\n    if not tested_normal:\n        # Teste normalen Fall - alles ok\n        wind = 50\n        rain = 20\n    elif not tested_storm_only:\n        # Teste nur Wind - Sturm\n        wind = 80\n        rain = 20\n    elif not tested_rain_only:\n        # Teste nur Regen - Starkregen\n        wind = 50\n        rain = 35\n        \n    __ide_run_client(globals=[\"messeSturmgeschwindigkeit\", \"messeNiederschlag\"])\n    \n    # Prüfe die Ausgaben\n    outputs = __ide_get_outputs()\n    \n    if not tested_normal:\n        # Überprüfe normale Ausgabe\n        if len(outputs) > 0:\n            __ide_prompt(f\"Bei normalen Wetterbedingungen (Wind: {wind} km/h, Regen: {rain} mm/h) sollte keine Warnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_normal = True\n            __ide_prompt(f\"Sehr gut! Bei normalen Bedingungen (Wind: {wind} km/h, Regen: {rain} mm/h) hast du korrekt keine Warnung ausgegeben.\", \"Weiter\")\n    elif not tested_storm_only:\n        # Überprüfe Sturmausgabe\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss eine Unwetterwarnung ausgegeben werden, auch wenn der Niederschlag normal ist.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_storm_only = True\n            __ide_prompt(f\"Gut gemacht! Du hast bei Sturm ({wind} km/h) korrekt eine Unwetterwarnung ausgegeben.\", \"Weiter\")\n    elif not tested_rain_only:\n        # Überprüfe Starkregenausgabe\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss eine Unwetterwarnung ausgegeben werden, auch wenn der Wind normal ist.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_rain_only = True\n            __ide_prompt(f\"Sehr gut! Du hast bei Starkregen ({rain} mm/h) korrekt eine Unwetterwarnung ausgegeben.\", \"Weiter\")\n\n__ide_set_progress(True)\n__ide_prompt(\"Herzlichen Glückwunsch! Dein erweitertes Wetterstation-Alarmsystem mit ODER-Verknüpfung funktioniert einwandfrei.\")",
-          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\n\n# TODO\n"
+          "language": "python-pro",
+          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\n\n# TODO\nif wind > 75:\n    print(\"STURMWARNUNG!\")"
         }
       },
       {
@@ -2678,7 +2679,8 @@ const chapterInfo = [
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "__ide_prompt(\"Willkommen zur erweiterten Wetterstation-Überwachung! Du überwachst nun auch Temperaturbedingungen.\", \"Überwachung starten\")\n\n# Tracking-Variablen für getestete Fälle\ntested_normal = False\ntested_frost = False\ntested_storm = False\ntested_rain = False\n\nwind = 50\nrain = 5\ntemp = 15\n\ndef messeSturmgeschwindigkeit():\n    return wind\n\ndef messeNiederschlag():\n    return rain\n\ndef messeTemperatur():\n    return temp\n\nwhile not (tested_normal and tested_frost and tested_storm and tested_rain):\n    # Generiere verschiedene Wetterbedingungen zum Testen\n    if not tested_normal:\n        # Teste normalen Fall - alles ok\n        wind = 50\n        rain = 5\n        temp = 15\n    elif not tested_frost:\n        # Teste Frost mit Niederschlag\n        wind = 30\n        rain = 10\n        temp = -5\n    elif not tested_storm:\n        # Teste nur Sturm\n        wind = 80\n        rain = 5\n        temp = 15\n    elif not tested_rain:\n        # Teste nur Starkregen\n        wind = 50\n        rain = 35\n        temp = 15\n        \n    __ide_run_client(globals=[\"messeSturmgeschwindigkeit\", \"messeNiederschlag\", \"messeTemperatur\"])\n    \n    # Prüfe die Ausgaben\n    outputs = __ide_get_outputs()\n    \n    if not tested_normal:\n        # Überprüfe normale Ausgabe\n        if len(outputs) > 0:\n            __ide_prompt(f\"Bei normalen Wetterbedingungen (Wind: {wind} km/h, Regen: {rain} mm/h, Temp: {temp}°C) sollte keine Warnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_normal = True\n            __ide_prompt(f\"Sehr gut! Bei normalen Bedingungen hast du korrekt keine Warnung ausgegeben.\", \"Weiter\")\n    elif not tested_frost:\n        # Überprüfe Frostwarnung\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Frost mit Niederschlag (Temp: {temp}°C, Regen: {rain} mm/h) muss eine Frostwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"FROSTWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Frost mit Niederschlag (Temp: {temp}°C, Regen: {rain} mm/h) muss \\\"FROSTWARNUNG! Glättegefahr auf Straßen und Wegen!\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_frost = True\n            __ide_prompt(f\"Sehr gut! Du hast die Frostwarnung korrekt ausgegeben.\", \"Weiter\")\n    elif not tested_storm:\n        # Überprüfe Sturmausgabe (Unwetter)\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss eine Unwetterwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_storm = True\n            __ide_prompt(f\"Gut gemacht! Du hast die Unwetterwarnung bei Sturm korrekt ausgegeben.\", \"Weiter\")\n    elif not tested_rain:\n        # Überprüfe Starkregenausgabe (Unwetter)\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss eine Unwetterwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_rain = True\n            __ide_prompt(f\"Sehr gut! Du hast die Unwetterwarnung bei Starkregen korrekt ausgegeben.\", \"Weiter\")\n\n__ide_set_progress(True)\n__ide_prompt(\"Herzlichen Glückwunsch! Dein erweitertes Wetterstation-Alarmsystem funktioniert einwandfrei.\")",
-          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\ntemperatur = messeTemperatur()\n\n# TODO\n"
+          "language": "python-pro",
+          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\ntemperatur = messeTemperatur()\n\n# TODO\nif wind > 75 or regen > 30:\n    print(\"UNWETTERWARNUNG!\")"
         }
       }
     ],
@@ -2690,13 +2692,13 @@ const chapterInfo = [
     "dirName": "040-mathematik",
     "title": "4. Mathematik 🚧",
     "originalTitle": "Mathematik 🚧",
-    "description": "# 🧮 Kapitel 4: Mathe-Genie – Rechnen wie ein Profi!\r\n\r\nWillkommen in der Welt der Python-Mathematik! Hier lernst du, wie du Zahlen gekonnt jonglierst und coole Berechnungen anstellst. Let's go! 🚀\r\n\r\n## 1. Arithmetische Grundoperationen\r\n\r\nPython versteht alle Grundrechenarten – probier's aus:\r\n\r\n```python\r\nprint(5 + 3)   # Addition: 8\r\nprint(10 - 4)  # Subtraktion: 6\r\nprint(2 * 6)   # Multiplikation: 12\r\nprint(8 / 2)   # Division: 4.0 (Achtung, Ergebnis ist float!)\r\n```\r\n\r\n## 2. Punkt-vor-Strich & Klammern\r\n\r\nPython rechnet wie in der Schule – erst Punkt- dann Strichrechnung:\r\n\r\n```python\r\nprint(3 + 4 * 2)   # 11 (nicht 14!)\r\nprint((3 + 4) * 2) # 14 – Klammern ändern alles!\r\n```\r\n\r\n## 3. Turbo-Zuweisungen 🚀\r\n\r\nKurze Schreibweise für Variablen-Updates:\r\n\r\n```python\r\npunkte = 10\r\npunkte += 5  # Äquivalent zu: punkte = punkte + 5\r\nprint(punkte) # 15\r\n\r\n# Funktioniert auch mit -=, *=, /=\r\n```\r\n\r\n## 4. Power mit \\*\\*\r\n\r\nPotenzieren leicht gemacht:\r\n\r\n```python\r\nprint(2 ** 3)  # 8 (2³)\r\nprint(5 ** 0.5) # Wurzel aus 5 ≈ 2.236\r\n```\r\n\r\n## 5. Mathe-Modul für Profis\r\n\r\nFür komplexere Rechnungen brauchen wir `math`:\r\n\r\n```python\r\nimport math\r\n\r\n# Wurzel ziehen\r\nprint(math.sqrt(25))  # 5.0\r\n\r\n# Mit Pi rechnen\r\nradius = 3\r\numfang = 2 * math.pi * radius\r\nprint(f\"Umfang: {umfang:.2f} cm\")  # Formatierung auf 2 Nachkommastellen\r\n```\r\n\r\n## 6. Variablen im Einsatz\r\n\r\nVariablen machen Berechnungen dynamisch:\r\n\r\n```python\r\nlänge = 8\r\nbreite = 5\r\nfläche = länge * breite\r\nprint(f\"Die Fläche beträgt {fläche} m²\")  # 40 m²\r\n```\r\n\r\n## 🏆 Übungszeit!\r\n\r\n1. Berechne das Volumen eines Würfels mit Kantenlänge 7 cm\r\n2. Wandele 100° Fahrenheit in Celsius um: (°F − 32) × 5/9\r\n3. Berechne die Hypotenuse eines rechtwinkligen Dreiecks mit Katheten 3 und 4 cm\r\n\r\n```python\r\n# Lösung 3:\r\nimport math\r\na = 3\r\nb = 4\r\nc = math.sqrt(a**2 + b**2)\r\nprint(c)  # 5.0 – der berühmte Pythagoras!\r\n```\r\n\r\nMathe macht mit Python richtig Spaß, oder? 😎 Probiere verschiedene Kombinationen aus und werde zum Rechenkünstler!\r\n",
-    "image": "",
+    "description": "# 🧮 Kapitel 4: Mathe-Genie – Rechnen wie ein Profi!\r\n\r\n\"Ich glaube, wir können jetzt etwas anspruchsvoller werden\", sagt Emi mit einem Blick zu Karol. Du bemerkst ihr kurzes Zögern. \"In echten Programmen dreht sich vieles um Zahlen und Berechnungen.\"\r\n\r\nKarol streicht sich eine graue Haarsträhne aus dem Gesicht. \"Tatsächlich habe ich mich kürzlich mit dem goldenen Schnitt beschäftigt.\" Ihre Hände zittern leicht. \"Zu schade, dass meine Lehrer früher nie den Zusammenhang zwischen Kunst und Zahlen erklärt haben.\"\r\n\r\nMax lehnt sich vor, die Müdigkeit in seinen Augen erkennbar. \"Meine Mutter sagt immer, dass Mathe das Herz der Programmierung ist. Letzte Woche hat sie mich beim Abendessen mit Binärzahlen gelöchert.\" Tim wirft ihm einen besorgten Blick zu.\r\n\r\n## 1. Arithmetische Grundoperationen\r\n\r\n\"Python versteht alle Grundrechenarten:\", erklärt Emi, ihre Stimme sanfter als sonst.\r\n\r\n```python\r\nprint(5 + 3)   # Addition: 8\r\nprint(10 - 4)  # Subtraktion: 6\r\nprint(2 * 6)   # Multiplikation: 12\r\nprint(8 / 2)   # Division: 4.0 (Achtung, Ergebnis ist float!)\r\n```\r\n\r\n\"Was bedeutet diese Anmerkung mit dem 'float'?\", fragst du, trotz deiner Angst, dumm zu wirken.\r\n\r\n\"Gute Frage! Bei der Division gibt Python immer eine Dezimalzahl zurück, auch wenn das Ergebnis eine ganze Zahl ist.\"\r\n\r\n## 2. Punkt-vor-Strich & Klammern\r\n\r\n\"Karol, erinnerst du dich an die Regel 'Punkt vor Strich' aus der Schule?\", fragt Emi.\r\n\r\nKarol verzieht kurz das Gesicht. \"Meine Mathelehrerin war... nicht gerade ermutigend.\" Ein Schatten huscht über ihr Gesicht.\r\n\r\n```python\r\nprint(3 + 4 * 2)   # 11 (nicht 14!)\r\nprint((3 + 4) * 2) # 14 – Klammern ändern alles!\r\n```\r\n\r\nTim erklärt leise: \"Mit Klammern kannst du die Reihenfolge ändern.\" Du hörst den Hauch von Stolz in seiner Stimme.\r\n\r\n## 3. Turbo-Zuweisungen 🚀\r\n\r\n```python\r\npunkte = 10\r\npunkte += 5  # Äquivalent zu: punkte = punkte + 5\r\nprint(punkte) # 15\r\n\r\n# Funktioniert auch mit -=, *=, /=\r\n```\r\n\r\n\"Das ist wie im Spiel!\", ruft Tim begeistert. Seine plötzliche Begeisterung lässt sein schüchternes Wesen kurz in den Hintergrund treten.\r\n\r\n## 4. Power mit \\*\\*\r\n\r\n```python\r\nprint(2 ** 3)  # 8 (2³)\r\nprint(5 ** 0.5) # Wurzel aus 5 ≈ 2.236\r\n```\r\n\r\n\"Mit 5 hoch 0.5 kann ich Wurzeln ziehen?\", fragt Karol überrascht.\r\n\r\nMax erklärt: \"Die Wurzel ist dasselbe wie Potenzieren mit 1/2.\" Seine Wangen färben sich leicht rot, als Emi ihm anerkennend zunickt.\r\n\r\n## 5. Mathe-Modul für Profis\r\n\r\n\"Für komplexere Berechnungen brauchen wir das 'math'-Modul:\", erklärt Emi, während ihre Hände nervös über die Tastatur huschen.\r\n\r\n```python\r\nimport math\r\n\r\n# Wurzel ziehen\r\nprint(math.sqrt(25))  # 5.0\r\n\r\n# Mit Pi rechnen\r\nradius = 3\r\numfang = 2 * math.pi * radius\r\nprint(f\"Umfang: {umfang:.2f} cm\")  # Formatierung auf 2 Nachkommastellen\r\n```\r\n\r\n\"Was bedeutet dieser Teil mit '{umfang:.2f}'?\", fragst du mit klopfendem Herzen.\r\n\r\n\"Das ist eine erweiterte Form der f-Strings. Der Teil ':.2f' bedeutet, dass wir die Zahl auf zwei Dezimalstellen formatieren.\"\r\n\r\nKarol murmelt: \"Ich habe immer auf ganze Euro-Beträge gerundet, weil mir die Berechnung zu kompliziert war.\"\r\n\r\n## 6. Variablen im Einsatz\r\n\r\n\"Lass uns das Ganze praktisch anwenden\", sagt Emi.\r\n\r\n```python\r\n# Fläche berechnen\r\nlänge = 8\r\nbreite = 5\r\nfläche = länge * breite\r\nprint(f\"Die Fläche beträgt {fläche} m²\")  # 40 m²\r\n\r\n# Der goldene Schnitt\r\nphi = (1 + math.sqrt(5)) / 2\r\nprint(f\"Der goldene Schnitt beträgt etwa: {phi:.3f}\")  # ungefähr 1.618\r\n```\r\n\r\n\"Fantastisch!\", ruft Karol. \"Wenn ich damals in der Schule gewusst hätte, wozu all diese abstrakten Zahlen gut sind...\"\r\n\r\n\"Ihr müsst nicht alles auswendig lernen\", beruhigt Emi euch, während sie nervös mit ihrem Armband spielt. \"Die meisten Programmierer schlagen regelmäßig in der Dokumentation nach.\"\r\n\r\n\"Zeit für eine Pause\", schlägt Karol vor und massiert ihre Schläfen. \"Mein alter Kopf braucht etwas Zeit zum Verarbeiten.\"\r\n\r\nDu bemerkst, wie Tim dir immer wieder nervöse Blicke zuwirft, und fragst dich, ob deine Abneigung gegen Mathe vielleicht gar nicht so stark ist, wie du immer gedacht hast – ein Gedanke, der dich gleichzeitig befreit und beunruhigt.\r\n",
+    "image": "/story/4.jpg",
     "quests": [
       {
         "filename": "intro2.json",
-        "x": 1000,
-        "y": -100,
+        "x": 1080,
+        "y": -140,
         "id": 110,
         "content": {
           "version": "v1",
@@ -2806,6 +2808,164 @@ const chapterInfo = [
           "questScript": "import random\n\n__ide_prompt(\"Der magische Kessel ist bereit!\", \"Brauen beginnen\")\n\nschlamm = random.randint(90, 210)\nerwartet_pilz = round(schlamm / 3, 2)\nerwartet_glitzer = round(erwartet_pilz * 2, 2)\n\n__ide_run_client(globals=['schlamm'])\n\nfor var in ['pilzpulver', 'glitzer']:\n    if var not in globals():\n        __ide_prompt(f\"Variable '{var}' fehlt! Bitte berechne alle Zutaten.\", \"Beenden\")\n        __ide_exit()\n\nif not abs(pilzpulver - erwartet_pilz) < 0.01:\n    __ide_prompt(f\"Pilzpulver: {schlamm} / 3 = {erwartet_pilz}, nicht {pilzpulver}\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif not abs(glitzer - erwartet_glitzer) < 0.01:\n    __ide_prompt(f\"Glitzer: {erwartet_pilz} * 2 = {erwartet_glitzer}, nicht {glitzer}\", \"Überprüfen\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(f\"⚗️ Der Trank brodelt perfekt! ({schlamm}ml Schlamm verarbeitet)\", \"Magisch!\")",
           "language": "python-pro",
           "program": "# Der magische Schlamm-Wert ist vorgegeben\npilzpulver = 0  # Ersetze 0 durch schlamm / 3\nglitzer = 0     # Ersetze 0 durch pilzpulver * 2"
+        },
+        "deps": [
+          10005
+        ]
+      },
+      {
+        "filename": "math_module_quest.json",
+        "x": 900,
+        "y": -180,
+        "id": 146,
+        "content": {
+          "version": "v1",
+          "title": "Kreisberechnung",
+          "description": "Karol braucht deine Hilfe bei der Kreisberechnung für ein Kunstprojekt!\n\n1. Berechne den Umfang eines Kreises mit dem gegebenen Radius\n2. Berechne die Fläche des Kreises\n3. Formatiere beide Ergebnisse auf 2 Nachkommastellen\n\nDer Wert von Pi ist im Math-Modul verfügbar. ⭕",
+          "tasks": [
+            {
+              "title": "Kreisberechnung",
+              "start": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "import random\nimport math\n\n__ide_prompt(\"Karol möchte einen perfekten Kreis zeichnen. Hilf ihr dabei!\", \"Starten\")\n\nradius = random.randint(3, 10)\nerwarteter_umfang = round(2 * math.pi * radius, 2)\nerwartete_flaeche = round(math.pi * radius**2, 2)\n\n__ide_run_client(globals=['radius'])\n\nfor var in ['umfang', 'flaeche']:\n    if var not in globals():\n        __ide_prompt(f\"Variable '{var}' fehlt! Du musst beide Ergebnisse berechnen.\", \"Beenden\")\n        __ide_exit()\n\nif not abs(umfang - erwarteter_umfang) < 0.01:\n    __ide_prompt(f\"Der Umfang ist nicht korrekt. Bei Radius {radius} sollte er {erwarteter_umfang} betragen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif not abs(flaeche - erwartete_flaeche) < 0.01:\n    __ide_prompt(f\"Die Fläche ist nicht korrekt. Bei Radius {radius} sollte sie {erwartete_flaeche} betragen.\", \"Überprüfen\")\n    __ide_exit()\n\noutputs = __ide_get_outputs()\nif len(outputs) < 2:\n    __ide_prompt(\"Du musst beide Ergebnisse ausgeben (mit print).\", \"Beenden\")\n    __ide_exit()\n\n# Prüfen, ob Formatierung mit 2 Nachkommastellen erfolgt ist\nif not any(f\"{erwarteter_umfang:.2f}\" in output for output in outputs) or \\\n   not any(f\"{erwartete_flaeche:.2f}\" in output for output in outputs):\n    __ide_prompt(\"Formatiere die Ausgaben auf 2 Nachkommastellen mit ':.2f' in einem f-String.\", \"Beenden\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(f\"🎯 Perfekt! Mit einem Radius von {radius} hast du korrekt berechnet:\\nUmfang: {erwarteter_umfang:.2f}\\nFläche: {erwartete_flaeche:.2f}\", \"Geschafft!\")",
+          "language": "python-pro",
+          "program": "import math\n\n# Der Radius ist bereits gegeben\n\n# 1. Berechne den Umfang (2 * pi * radius)\n# Formel: umfang = 2 * math.pi * radius\numfang = 0\n\n# 2. Berechne die Fläche (pi * radius²)\n# Formel: flaeche = math.pi * (radius ** 2)\nflaeche = 0\n\n# 3. Gib beide Ergebnisse mit 2 Nachkommastellen aus\n# Nutze f-Strings mit :.2f für 2 Nachkommastellen\nprint(f\"Umfang: {...}\")\nprint(f\"Fläche: {...}\")"
         },
         "deps": [
           10005

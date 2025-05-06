@@ -32,9 +32,9 @@ export function ExplanationModal() {
 
       {/* Modal content */}
       <div className="fixed inset-0 flex justify-center items-center">
-        <div className="h-screen max-w-[620px] bg-white/90 backdrop-blur-lg relative flex flex-col">
+        <div className="h-screen max-w-[660px] bg-white/90 backdrop-blur-lg relative flex flex-col">
           <div className="flex-grow overflow-auto">
-            <div className="px-6 mt-12 mb-8 animate-fadeInUp">
+            <div className="px-16 mt-12 mb-8 animate-fadeInUp">
               {processMarkdown(
                 chapterData[core.ws.overview.explanationId].description,
                 { useProse: true }

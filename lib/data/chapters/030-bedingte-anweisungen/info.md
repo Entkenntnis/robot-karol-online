@@ -1,14 +1,18 @@
 # 🧠 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen
 
-"Dein Erfolg bei den bisherigen Aufgaben ist beeindruckend!", freut sich Karol. Du bemerkst, dass die Muster auf den Leinwänden sich verändert haben – sie wirken jetzt dynamischer, als würden sie auf etwas reagieren.
+Plötzlich klingelt es an der Tür. "Ah, das müssen unsere anderen Gäste sein", sagt Karol und huscht zur Tür. Kurz darauf kommt sie mit zwei Jungs zurück, die etwa in deinem Alter sind. "Das sind Max und Tim, sie sind extra angereist", stellt sie die beiden vor. "Ihre Mutter ist Informatikerin und hat ihnen schon ein bisschen das Programmieren beigebracht."
 
-"Etwas stimmt nicht...", murmelt Karol besorgt. "Die Leinwände müssten sich öffnen, aber es passiert nichts. Ich habe den Verdacht, dass die Quantensysteme eine Sicherheitsprüfung durchführen." Sie schaut dich hoffnungsvoll an. "Deine Hilfe ist jetzt wichtiger denn je! Wir müssen dem System beibringen, kluge Entscheidungen zu treffen."
+Max, der Größere der beiden mit einem grünen T-Shirt und zerzausten blonden Haaren, nickt dir freundlich zu. Tim, sein kleinerer Bruder mit einer auffälligen roten Brille, strahlt und fragt sofort: "Habt ihr schon mit Schleifen angefangen? Oder Funktionen?"
 
-Ihre Stimme wird ernst: "In der Programmierung ist das ein entscheidender Schritt: deinem Code beizubringen, verschiedene Situationen zu erkennen und entsprechend zu handeln. Genau wie ein Zauberlehrling wissen muss, wann der Kessel die richtige Temperatur hat, oder eine Wetterstation erkennen muss, wann ein Sturm aufzieht."
+Emi verdreht leicht die Augen. "Wir sind gerade bei Bedingten Anweisungen. Die beiden haben schon Variablen und Ein-/Ausgabe geschafft."
+
+"Cool, dann sind wir ja genau richtig", sagt Max und setzt sich neben dich. "Bedingte Anweisungen sind super wichtig. Damit wird der Code erst richtig interessant!"
+
+Emi fährt fort: "In der Programmierung ist das ein entscheidender Schritt: eurem Code beizubringen, verschiedene Situationen zu erkennen und entsprechend zu handeln. Genau wie eine Wetterstation erkennen muss, wann ein Sturm aufzieht."
 
 ## 🚦 If-Statement: Die Grundlage aller Entscheidungen
 
-Karol projiziert ein einfaches Beispiel auf die Leinwand:
+Emi zeigt ein einfaches Beispiel am Computer:
 
 ```python
 ampelfarbe = "grün"
@@ -28,7 +32,7 @@ if ampelfarbe == "grün":
 
 ## 🚧 Else: Der "Alles andere"-Fall
 
-"Aber was, wenn die Ampel **nicht** grün ist?", fragt Karol. Die Leinwand verändert sich und zeigt ein erweitertes Beispiel:
+"Aber was, wenn die Ampel **nicht** grün ist?", fragt Emi. Sie passt den Code an:
 
 ```python
 alter = 15
@@ -44,7 +48,7 @@ else:
 
 ## 🔄 Elif: Für komplexe Entscheidungen
 
-"Manchmal gibt es mehr als nur zwei Möglichkeiten", sagt Karol und zaubert ein neues Beispiel hervor:
+"Manchmal gibt es mehr als nur zwei Möglichkeiten", sagt Emi und zaubert ein neues Beispiel hervor:
 
 ```python
 note = 2.3
@@ -64,7 +68,7 @@ else:
 
 ## 🔍 Vergleichsoperatoren – Unsere Werkzeuge
 
-"Um Entscheidungen zu treffen, brauchst du die richtigen Werkzeuge", erklärt Karol und lässt eine Tabelle erscheinen:
+"Um Entscheidungen zu treffen, brauchst du die richtigen Werkzeuge", erklärt Emi und lässt eine Tabelle erscheinen:
 
 | Operator | Bedeutung      | Beispiel        |
 | -------- | -------------- | --------------- |
@@ -79,7 +83,7 @@ else:
 
 ## 🧩 Logische Operatoren: Kombiniere Bedingungen
 
-"Manchmal müssen mehrere Bedingungen gleichzeitig erfüllt sein", fährt Karol fort. Die Leinwand leuchtet heller und zeigt neue Beispiele:
+"Manchmal müssen mehrere Bedingungen gleichzeitig erfüllt sein", fährt Emi fort:
 
 **AND** (beides muss stimmen):
 
@@ -116,10 +120,4 @@ if not login_erfolgreich:
 
 ## 🏆 Jetzt bist du dran!
 
-"Mit diesem Wissen kannst du jetzt richtig mächtige Programme schreiben", sagt Karol aufgeregt. "Du kannst deinem Code beibringen, intelligente Entscheidungen zu treffen – sei es für die Temperatur eines Zaubertranks oder die Warnsysteme einer Wetterstation. Die Leinwände reagieren bereits positiv, ich spüre es!"
-
-Die Muster auf den Leinwänden flimmern und bilden kurz ein Lächeln, bevor sie wieder zu abstrakten Formen werden.
-
-"Ich glaube, wir sind auf dem richtigen Weg", flüstert Karol. "Die Quantentore zu den Aufgaben öffnen sich. Löse sie, und wir kommen dem Ausgang näher..."
-
-Du betrachtest die schimmernden Quantenknoten, die vor dir erscheinen, und bereitest dich auf die nächste Herausforderung vor.
+"Mit diesem Wissen kannst du jetzt richtig mächtige Programme schreiben", sagt Emi begeistert. "Du kannst deinem Code beibringen, intelligente Entscheidungen zu treffen – wie ein Mensch. Jetzt los, probiert euch an den Übungsaufgaben aus. Und seid nicht überrascht: diesmal habe ich mir ein paar kreative Sachen ausgedacht!"

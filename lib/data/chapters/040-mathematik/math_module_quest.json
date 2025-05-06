@@ -1,0 +1,89 @@
+{
+  "version": "v1",
+  "title": "Kreisberechnung",
+  "description": "Karol braucht deine Hilfe bei der Kreisberechnung für ein Kunstprojekt!\n\n1. Berechne den Umfang eines Kreises mit dem gegebenen Radius\n2. Berechne die Fläche des Kreises\n3. Formatiere beide Ergebnisse auf 2 Nachkommastellen\n\nDer Wert von Pi ist im Math-Modul verfügbar. ⭕",
+  "tasks": [
+    {
+      "title": "Kreisberechnung",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": {
+          "x": 3,
+          "y": 3,
+          "dir": "south"
+        },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 1, 0, 0],
+            [0, 1, 0, 1, 0],
+            [1, 0, 0, 0, 1],
+            [0, 1, 0, 1, 0],
+            [0, 0, 1, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": {
+          "x": 3,
+          "y": 3,
+          "dir": "south"
+        },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 1, 0, 0],
+            [0, 1, 0, 1, 0],
+            [1, 0, 0, 0, 1],
+            [0, 1, 0, 1, 0],
+            [0, 0, 1, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "import random\nimport math\n\n__ide_prompt(\"Karol möchte einen perfekten Kreis zeichnen. Hilf ihr dabei!\", \"Starten\")\n\nradius = random.randint(3, 10)\nerwarteter_umfang = round(2 * math.pi * radius, 2)\nerwartete_flaeche = round(math.pi * radius**2, 2)\n\n__ide_run_client(globals=['radius'])\n\nfor var in ['umfang', 'flaeche']:\n    if var not in globals():\n        __ide_prompt(f\"Variable '{var}' fehlt! Du musst beide Ergebnisse berechnen.\", \"Beenden\")\n        __ide_exit()\n\nif not abs(umfang - erwarteter_umfang) < 0.01:\n    __ide_prompt(f\"Der Umfang ist nicht korrekt. Bei Radius {radius} sollte er {erwarteter_umfang} betragen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif not abs(flaeche - erwartete_flaeche) < 0.01:\n    __ide_prompt(f\"Die Fläche ist nicht korrekt. Bei Radius {radius} sollte sie {erwartete_flaeche} betragen.\", \"Überprüfen\")\n    __ide_exit()\n\noutputs = __ide_get_outputs()\nif len(outputs) < 2:\n    __ide_prompt(\"Du musst beide Ergebnisse ausgeben (mit print).\", \"Beenden\")\n    __ide_exit()\n\n# Prüfen, ob Formatierung mit 2 Nachkommastellen erfolgt ist\nif not any(f\"{erwarteter_umfang:.2f}\" in output for output in outputs) or \\\n   not any(f\"{erwartete_flaeche:.2f}\" in output for output in outputs):\n    __ide_prompt(\"Formatiere die Ausgaben auf 2 Nachkommastellen mit ':.2f' in einem f-String.\", \"Beenden\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(f\"🎯 Perfekt! Mit einem Radius von {radius} hast du korrekt berechnet:\\nUmfang: {erwarteter_umfang:.2f}\\nFläche: {erwartete_flaeche:.2f}\", \"Geschafft!\")",
+  "language": "python-pro",
+  "program": "import math\n\n# Der Radius ist bereits gegeben\n\n# 1. Berechne den Umfang (2 * pi * radius)\n# Formel: umfang = 2 * math.pi * radius\numfang = 0\n\n# 2. Berechne die Fläche (pi * radius²)\n# Formel: flaeche = math.pi * (radius ** 2)\nflaeche = 0\n\n# 3. Gib beide Ergebnisse mit 2 Nachkommastellen aus\n# Nutze f-Strings mit :.2f für 2 Nachkommastellen\nprint(f\"Umfang: {...}\")\nprint(f\"Fläche: {...}\")"
+}

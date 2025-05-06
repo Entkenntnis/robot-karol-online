@@ -2,7 +2,7 @@
 
 Im Karols Atelier sind einige Laptops aufgestellt, an der einzig freien Wand projeziert ein Beamer, den man aber im hellen Licht kaum lesen kann. "Den werden wir erstmal nicht brauchen, solange ihr zu zweit seid", bemerkt Emi.
 
-Du traust dich dann doch zu fragen: "Kommen noch weitere Leute?" Karol nickt: "Ein paar weitere Leute haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen." Karol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.
+Du traust dich dann doch zu fragen: "Kommen noch weitere Leute?" Karol nickt: "Ein paar weitere Gäste haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen." Karol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.
 
 "Ich möchte mit Variablen anfangen. Diese sind sind ein entspannter Einstieg. Stellt es euch so vor: Der Computer muss sich ja viele Dinge merken. Und jede Information speichert dein Programm in einer solchen Variable." Emi fängt an zu tippen:
 
