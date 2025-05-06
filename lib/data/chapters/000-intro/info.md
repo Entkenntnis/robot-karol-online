@@ -6,7 +6,7 @@ Die alte Dame hat sich in den Kopf gesetzt, Programmieren zu lernen und damit si
 
 Die Tür zum Haus steht offen. Als du eintrittst, begrüßt dich Karol ("Schön dass du hier bist, deine Eltern haben mir schon von dir erzählt") und du siehst neben ihr ein Mädchen, ungefähr in deinem Alter. Sie ist sicherlich auch hier für den Workshop, puh, immerhin bist du nicht alleine.
 
-"Darf ich dir vorstellen, das ist Emi, meine Nichte." Du streckst deine Hand aus, aber sie schaut dich nur mit funkelnden Augen an. "Ok, dann halt nicht", antwortest du, etwas irritiert. Na toll, das kann ja was werden.
+"Darf ich dir vorstellen, das ist Emi, meine Nichte." Du streckst deine Hand aus, aber sie schaut dich nur mit forschen Augen an. "Ok, dann halt nicht", antwortest du kleinlaut. Na toll, das kann ja was werden.
 
 "Kennen wir uns?", fragt Emi. Karol stellt dich hastig vor und ergänzt: "Bitte entschuldige ihr verhalten. Sie kommt manchmal etwas kühl rüber, aber sie hat ein gutes Herz. Sie ist übrigends unsere Dozentin für den Tag."
 

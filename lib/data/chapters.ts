@@ -9,7 +9,7 @@ const chapterInfo = [
     "dirName": "000-intro",
     "title": "0. Einleitung",
     "originalTitle": "Einleitung",
-    "description": "# Einleitung\r\n\r\nDu hättest deinen Eltern nicht sagen sollen, dass dir langweilig sei. Was für ein Anfänger-Fehler. Jetzt stehst du an einem Montag in den Ferien um 9 Uhr vor dem Haus der alten Künstlerin und schaust dich vorsichtig um.\r\n\r\nDie alte Dame hat sich in den Kopf gesetzt, Programmieren zu lernen und damit sie nicht ganz alleine ist, bietet sie einen offenen Workshop an, bei dem alle vorbeikommen und mitlernen können. Deine Eltern haben den Aushang gesehen, denn Karol, die Künstlerin, wohnt gleich um die Ecke und haben dich gleich da hingeschickt (\"dir ist ja sonst langweilig, mein Schatz\").\r\n\r\nDie Tür zum Haus steht offen. Als du eintrittst, begrüßt dich Karol (\"Schön dass du hier bist, deine Eltern haben mir schon von dir erzählt\") und du siehst neben ihr ein Mädchen, ungefähr in deinem Alter. Sie ist sicherlich auch hier für den Workshop, puh, immerhin bist du nicht alleine.\r\n\r\n\"Darf ich dir vorstellen, das ist Emi, meine Nichte.\" Du streckst deine Hand aus, aber sie schaut dich nur mit funkelnden Augen an. \"Ok, dann halt nicht\", antwortest du, etwas irritiert. Na toll, das kann ja was werden.\r\n\r\n\"Kennen wir uns?\", fragt Emi. Karol stellt dich hastig vor und ergänzt: \"Bitte entschuldige ihr verhalten. Sie kommt manchmal etwas kühl rüber, aber sie hat ein gutes Herz. Sie ist übrigends unsere Dozentin für den Tag.\"\r\n\r\nOhje! Wo bist du hier nur reingeraten. Aber für einen Rückzieher ist es jetzt zu spät. Karol ist unbesorgt: \"Kommt mit ins Atelier und lasst uns beginnen!\"\r\n",
+    "description": "# Einleitung\r\n\r\nDu hättest deinen Eltern nicht sagen sollen, dass dir langweilig sei. Was für ein Anfänger-Fehler. Jetzt stehst du an einem Montag in den Ferien um 9 Uhr vor dem Haus der alten Künstlerin und schaust dich vorsichtig um.\r\n\r\nDie alte Dame hat sich in den Kopf gesetzt, Programmieren zu lernen und damit sie nicht ganz alleine ist, bietet sie einen offenen Workshop an, bei dem alle vorbeikommen und mitlernen können. Deine Eltern haben den Aushang gesehen, denn Karol, die Künstlerin, wohnt gleich um die Ecke und haben dich gleich da hingeschickt (\"dir ist ja sonst langweilig, mein Schatz\").\r\n\r\nDie Tür zum Haus steht offen. Als du eintrittst, begrüßt dich Karol (\"Schön dass du hier bist, deine Eltern haben mir schon von dir erzählt\") und du siehst neben ihr ein Mädchen, ungefähr in deinem Alter. Sie ist sicherlich auch hier für den Workshop, puh, immerhin bist du nicht alleine.\r\n\r\n\"Darf ich dir vorstellen, das ist Emi, meine Nichte.\" Du streckst deine Hand aus, aber sie schaut dich nur mit forschen Augen an. \"Ok, dann halt nicht\", antwortest du kleinlaut. Na toll, das kann ja was werden.\r\n\r\n\"Kennen wir uns?\", fragt Emi. Karol stellt dich hastig vor und ergänzt: \"Bitte entschuldige ihr verhalten. Sie kommt manchmal etwas kühl rüber, aber sie hat ein gutes Herz. Sie ist übrigends unsere Dozentin für den Tag.\"\r\n\r\nOhje! Wo bist du hier nur reingeraten. Aber für einen Rückzieher ist es jetzt zu spät. Karol ist unbesorgt: \"Kommt mit ins Atelier und lasst uns beginnen!\"\r\n",
     "image": "/story/0.jpg",
     "quests": [],
     "x": 930,
@@ -2989,8 +2989,8 @@ const chapterInfo = [
   {
     "id": 10007,
     "dirName": "999-fundgrube",
-    "title": "6. Die Befreiung",
-    "originalTitle": "Die Befreiung",
+    "title": "6. Weitere Themen",
+    "originalTitle": "Weitere Themen",
     "description": "Hier findest du weitere Bonus-Aufgaben.\r\n",
     "image": "",
     "quests": [
