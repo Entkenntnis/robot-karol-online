@@ -2,12 +2,11 @@
   "title": "Variablen",
   "quests": [
     { "filename": "Lieblinge.json", "x": 540, "y": 30 },
-    { "filename": "Quantenknoten_stabilisieren.json", "x": 620, "y": 184 },
+    { "filename": "Korrekturen.json", "x": 620, "y": 184 },
     {
-      "filename": "Drei_mal_raten.json",
+      "filename": "Drei_Wünsche.json",
       "x": 428,
-      "y": 144,
-      "deps": ["Quantenknoten_stabilisieren.json"]
+      "y": 144
     },
     { "filename": "Quiz.json", "x": 777, "y": 210 },
     { "filename": "Hin_und_her.json", "x": 850, "y": 90 }

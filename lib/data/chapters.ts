@@ -20,7 +20,7 @@ const chapterInfo = [
     "dirName": "010-variablen",
     "title": "1. Variablen",
     "originalTitle": "Variablen",
-    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nIm Karols Atelier sind auf einigen Plätzen Laptops aufgestellt, an der einzig freien Wand projeziert ein Beamer, den man aber im hellen Licht kaum lesen kann. \"Den werden wir erstmal nicht brauchen, solange ihr zu zweit seid\", bemerkt Emi.\r\n\r\nDu traust dich dann doch zu fragen: \"Kommen noch weitere Leute?\" Karol nickt: \"Ein paar weitere Leute haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen.\"\r\n\r\nKarol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.\r\n\r\n\"Ich möchte mit Variablen anfangen. Diese sind sind ein entspannter Einstieg. Stellt euch so vor: Der Computer muss sich ja viele Dinge merken. Und jede Information speichert dein Programm in einer solchen Variable.\r\n\r\n# TODO\r\n\r\nDu erklärst dich bereit, der alten Dame zu helfen. Du hast heute Nachmittag Zeit, warum nicht ein kleines Abenteuer erleben? Karol ist sichtlich erleichtert und fängt an zu erzählen:\r\n\r\n\"Diese Leinwände sind eine Verbindungn aus Quantentechnik und AI. Sie wurden entwickelt, um eine neue Form des Lernens zu ermöglichen. Doch es gibt gefährliche Nebeneffekte.\"\r\n\r\nDein Kopf schwirrt. \"Was haben die Leinwände mit Lernen zu tun?\"\r\n\r\n\"Komm, ich zeige es dir. Siehst du die Tastatur? Tippe diesen Befehl ein und drücke Enter.\"\r\n\r\n```py\r\nmuster_farbe = \"rot\"\r\n```\r\n\r\nEs ist ungewohnt, auf einer Leinwand zu tippen. Als du die Eingabe abschickst, passiert etwas Magisches: Die Muster auf der Leinwand färben sich rot.\r\n\r\n\"Damit ist es noch nicht genug, mache weiter mit diesem Befehl:\"\r\n\r\n```py\r\nanimation_geschwindigkeit = 200\r\n```\r\n\r\nDu tippst es ein und sofort fangen die Muster an im hohen Tempo herumzuwirbeln. Deine Augen schmerzen und du tippst instinktiv `animation_geschwindigkeit = 0`. Plötzlich bleibt alles stehen.\r\n\r\n\"Sehr gut! Du hast das System verstanden! Es wurde entwickelt, um dir die Grundlagen von Python auf eine lebendige Art zu vermitteln. Es ist sehr mächtig ... zu mächtig. Eine Labormaus ist in der Leinwand verschwunden - danach wurde das Projekt gestoppt, bevor das mit einem Menschen passiert. Haha, hoffentlich sind wir schlauer als die Maus und finden einen Weg heraus!\"\r\n\r\nPlötzlich ist Karol kurz verpixelt und sie stößt einen Schmerzenschrei aus. \"Aua. Die Zeit drängt. Lasst uns gleich loslegen.\"\r\n\r\nSie fährt fort: \"Damit du mir gut helfen kannst, würde ich dir gerne ein paar Grundlagen von Python zeigen. Es wird nicht zu kompliziert, versprochen.\"\r\n\r\n## Datentypen im Überblick\r\n\r\n\"Was du vorhin gemacht hast ist eine _Wertzuweisung_ auf eine Variable:\r\n\r\n```\r\n<Name der Variable> = <Wert>\r\n```\r\n\r\nKeine Sorge, Variablen in Python sind viel einfacher als Variablen in der Mathematik. Sie speichern nur Informationen - du musst sie nicht umformen oder so. Es gibt Variablen in verschiedenen Typen, je nach dem, was für eine Information du speichern willst:\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 🔄 Variablen verändern\r\n\r\nDu kannst Werte jederzeit ändern:\r\n\r\n```python\r\npunkte = 10\r\nprint(punkte)  # Ausgabe: 10\r\n\r\npunkte = 15    # Neuer Wert\r\nprint(punkte)  # Ausgabe: 15\r\n```\r\n\r\nDie grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und werden vom Computer ignoriert.\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nDu darfst die Variablenamen fast beliebig wählen. Ein paar wenige Sachen sind nicht erlaubt:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang geht nicht\r\nmein-name = \"Lena\" # Bindestrich nicht erlaubt\r\nclass = 8B         # Schlüsselwörter verboten\r\n```\r\n\r\nAchte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen Unterschied und `alter` ist eine andere Variable als `ALTER`.\r\n\r\n## ⚛️ Quantenknoten\r\n\r\nUnd jetzt machen wir uns auf die Suche nach einem Ausweg! Hier sind ein paar Quantenknoten in der Nähe, die vielversprechend aussehen. Vielleicht können wir dort etwas bewirken.\"\r\n",
+    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nIm Karols Atelier sind einige Laptops aufgestellt, an der einzig freien Wand projeziert ein Beamer, den man aber im hellen Licht kaum lesen kann. \"Den werden wir erstmal nicht brauchen, solange ihr zu zweit seid\", bemerkt Emi.\r\n\r\nDu traust dich dann doch zu fragen: \"Kommen noch weitere Leute?\" Karol nickt: \"Ein paar weitere Leute haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen.\" Karol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.\r\n\r\n\"Ich möchte mit Variablen anfangen. Diese sind sind ein entspannter Einstieg. Stellt es euch so vor: Der Computer muss sich ja viele Dinge merken. Und jede Information speichert dein Programm in einer solchen Variable.\" Emi fängt an zu tippen:\r\n\r\n```py\r\nfarbe = \"blasslila\"\r\npinsel_größe = 13\r\nbild_breite_cm = 27.8\r\nist_inspiriert = True\r\n```\r\n\r\n\"So kannst du, meine Tante, dir die wichtigsten Dinge notieren, falls du sie mal wieder vergisst.\"\r\n\r\n\"Hey, so alt bin ich auch wieder nicht\", beschwert sich Karol. Gut zu wissen, dass Emi nicht nur dir gegenüber etwas schnippisch ist.\r\n\r\n\"Sind das alle Arten von Informationen, die man speichern kann?\", fragt Karol zurück. \"Ich würde erstmal mit diesen anfangen\", erklärte Emi. \"Später kannst du aus diesen grundlegenden Datentypen größere Objekte bauen oder eine Liste anlegen. Ah, ich sollte vielleicht noch ein paar Details ergänzen.\r\n\r\nDieses Gleichheitszeichen (`=`) ist eine Wertzuweisung:\r\n\r\n```\r\n<Name der Variable> = <Wert>\r\n```\r\n\r\nDabei wird der alte Wert der Variable weggeschmissen und der neue Wert geschrieben. Der Name ist wichtig, denn nur mit diesem kannst du auf die Information zugreifen. Du kannst einer Variable jederzeit einen neuen Wert zuweisen:\r\n\r\n```py\r\nfarbe = \"grün\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"grün\"\r\n\r\nfarbe = \"rot\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"rot\"\r\n\r\nfarbe = \"dunkelviolett\"\r\n```\r\n\r\nJede Variable hat außerdem einen Typ. Nicht wie die Typen auf der Straße, sondern im Sinne von Kategorie. Ihr habt die vier wichtigsten Typen jetzt gesehen, ich fasse sie für euch nochmal zusammen.\r\n\r\n## Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 📝 Kommentare\r\n\r\n```py\r\n# die Lieblingsfarbe meiner Tante\r\nfarbe = \"?\" # bitte noch ausfüllen\r\n```\r\n\r\nDie grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und werden vom Computer ignoriert.\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nIhr dürft die Variablenamen fast beliebig wählen. Ein paar wenige Sachen sind nicht erlaubt:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang geht nicht\r\nmein-name = \"Emi\" # Bindestrich nicht erlaubt\r\nclass = 8         # Schlüsselwörter verboten\r\n```\r\n\r\nAchte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen Unterschied und `alter` ist eine andere Variable als `ALTER`.\r\n\r\n## 🏋️ Übungen\r\n\r\nBis hierher alles klar?\", Emi blickt uns beide an. Du nickst brav, Karol ist voller Tatendrang und bittet Emi, uns ein paar Übungsaufgaben zu stellen, damit wir die Theorie etwas üben können. Sie antwortet nur: \"Ich wäre doch eine schlechte Dozentin wenn ich keine Übungsaufgaben vorbereitet hätte.\"\r\n",
     "image": "/story/1_v2.jpg",
     "quests": [
       {
@@ -31,7 +31,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "Lieblinge",
-          "description": "An diesem Knoten kannst du deine Favoriten eintragen. Vielleicht möchte das Quantensystem uns einfach nur besser kennenlernen?\n\nNutze für die Variablen einen passenden Datentyp und setze sie auf die Werte, die für dich passen.",
+          "description": "Emi und ich kennen uns ja schon ganz gut, aber magst du vielleicht ein paar Sachen über dich mitteilen?\n\nNutze für die Variablen einen passenden Datentyp und setze sie auf die Werte, die für dich passen.",
           "tasks": [
             {
               "title": "Herz",
@@ -220,17 +220,17 @@ const chapterInfo = [
         ]
       },
       {
-        "filename": "Quantenknoten_stabilisieren.json",
+        "filename": "Korrekturen.json",
         "x": 620,
         "y": 184,
-        "id": 139,
+        "id": 143,
         "content": {
           "version": "v1",
-          "title": "Quantenknoten stabilisieren",
-          "description": "Das System ist aktuell sehr unruhig. Ich sehe auch warum: einige Systemvariablen sind auf unsinnige Werte gesetzt!\n\nHinweise:\n- Beim Namen der Maus fehlen die Anführungszeichen\n- Die Temperatur soll eine Kommazahl sein\n- Setze Helligkeit auf die positive Zahl 34\n- Setze den Alarm auf den Wahrheitswert False",
+          "title": "Korrekturen",
+          "description": "Emi hat ein paar Übungsaufgaben für dich und Karol vorbereitet. In diesem Code sind einige Variablen falsch definiert. Bitte korrigiere sie.\n\nHinweise:\n- Beim Namen fehlen die Anführungszeichen\n- Die Note soll eine Kommazahl sein\n- Setze Pinselgröße auf die positive Zahl 34\n- Setze ist_inspiriert auf den Wahrheitswert True",
           "tasks": [
             {
-              "title": "Quantenknoten",
+              "title": "Bug",
               "start": {
                 "dimX": 5,
                 "dimY": 5,
@@ -241,35 +241,51 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "dimX": 1,
-                  "dimY": 1,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      1
-                    ]
-                  ]
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
                 },
                 "marks": {
-                  "dimX": 3,
-                  "dimY": 3,
-                  "offsetX": 1,
-                  "offsetY": 1,
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
                   "data": [
                     [
+                      false,
                       true,
+                      false,
                       true,
-                      true
+                      false
                     ],
                     [
+                      true,
+                      false,
                       true,
                       false,
                       true
                     ],
                     [
+                      false,
                       true,
                       true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
                       true
                     ]
                   ]
@@ -292,35 +308,51 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "dimX": 1,
-                  "dimY": 1,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      1
-                    ]
-                  ]
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
                 },
                 "marks": {
-                  "dimX": 3,
-                  "dimY": 3,
-                  "offsetX": 1,
-                  "offsetY": 1,
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
                   "data": [
                     [
+                      false,
                       true,
+                      false,
                       true,
-                      true
+                      false
                     ],
                     [
+                      true,
+                      false,
                       true,
                       false,
                       true
                     ],
                     [
+                      false,
                       true,
                       true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
                       true
                     ]
                   ]
@@ -337,32 +369,29 @@ const chapterInfo = [
           ],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Achtung! Quantensystem destabilisiert!\", \"Stabilisierung starten\")\n\n__ide_run_client()\n\nsystem_checks = [\n    ('name_der_maus', str, \"Mimi\", \"Text in Anführungszeichen\"),\n    ('temperatur', float, 23.4, \"Kommazahl\"),\n    ('helligkeit', int, 34, \"positive Zahl\"),\n    ('ist_alarm_aktiv', bool, False, \"Wahrheitswert\")\n]\n\nfor var, typ, wert, hinweis in system_checks:\n    if var not in globals():\n        __ide_prompt(f'Systemfehler: `{var}` nicht gefunden!', 'Korrigieren')\n        __ide_exit()\n    \n    if not isinstance(globals()[var], typ):\n        __ide_prompt(f'Datentypfehler: `{var}` muss {hinweis} sein', 'Korrigieren')\n        __ide_exit()\n    \n    if globals()[var] != wert:\n        __ide_prompt(f'`{var}` zeigt {globals()[var]} statt {wert}!', 'Wert korrigieren')\n        __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('System stabil! Quantenportal öffnet sich... ✨', 'Portal betreten')",
+          "questScript": "__ide_prompt(\"Emi's Workshop: Variablen korrigieren\", \"Übung starten\")\n\n__ide_run_client()\n\nsystem_checks = [\n    ('farbe', str, \"blasslila\", \"Text in Anführungszeichen\"),\n    ('note', float, 2.3, \"Kommazahl\"),\n    ('pinsel_größe', int, 34, \"positive Zahl\"),\n    ('ist_inspiriert', bool, True, \"Wahrheitswert\")\n]\n\nfor var, typ, wert, hinweis in system_checks:\n    if var not in globals():\n        __ide_prompt(f'Fehler: `{var}` nicht gefunden!', 'Korrigieren')\n        __ide_exit()\n    \n    if not isinstance(globals()[var], typ):\n        __ide_prompt(f'Datentypfehler: `{var}` muss {hinweis} sein', 'Korrigieren')\n        __ide_exit()\n    \n    if globals()[var] != wert:\n        __ide_prompt(f'`{var}` zeigt {globals()[var]} statt {wert}!', 'Wert korrigieren')\n        __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Sehr gut! Emi nickt anerkennend: \"Das habt ihr richtig gemacht!\"', 'Weiter')",
           "language": "python-pro",
-          "program": "# Korrigiere die Systemvariablen\n\nname_der_maus = Mimi\n\ntemperatur = \"23.4\"\nhelligkeit = -34\n\nist_alarm_aktiv = None"
+          "program": "# Korrigiere die Variablen nach Emis Anweisungen\n\nfarbe = blasslila\n\nnote = \"2.3\"\npinsel_größe = -34\n\nist_inspiriert = None"
         },
         "deps": [
           10002
         ]
       },
       {
-        "filename": "Drei_mal_raten.json",
+        "filename": "Drei_Wünsche.json",
         "x": 428,
         "y": 144,
-        "deps": [
-          139
-        ],
-        "id": 140,
+        "id": 144,
         "content": {
           "version": "v1",
-          "title": "Drei mal raten",
-          "description": "Das System fühlt sich schon ruhiger an. Vielleicht können wir die Gelegenheit nutzen und drei verschiedene Systemvariablen blind raten. Ich hätte an sowas gedacht wie `karol_ist_frei = True` oder so.\n\nDenke dir drei Variablen aus. Bitte nutze für jede Variable einen anderen Datentyp.",
+          "title": "Drei Wünsche",
+          "description": "Jetzt ist eure Kreativität gefordert. Wenn ihr drei Wünsche hättet, wie würden sie lauten? Achtet auf diese Bedingungen:\n\n- Es müssen genau drei Wünsche sein, nicht mehr und nicht weniger.\n- Jeder Wunsch ist eine Wertzuweisung auf eine Variable wie `kontostand_in_euro = 1000000`.\n- Jeder Wunsch nutzt einen anderen Datentyp.",
           "tasks": [
             {
-              "title": "Drei mal raten",
+              "title": "Sternschnuppe",
               "start": {
-                "dimX": 5,
-                "dimY": 5,
+                "dimX": 8,
+                "dimY": 8,
                 "height": 6,
                 "karol": {
                   "x": 0,
@@ -370,38 +399,84 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 3,
-                  "offsetX": 0,
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 3,
                   "offsetY": 1,
                   "data": [
                     [
-                      true,
+                      0,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
                       false,
                       true,
                       false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true,
                       true
                     ],
                     [
                       true,
-                      false,
                       true,
-                      false,
-                      true
+                      true,
+                      true,
+                      false
                     ],
                     [
                       true,
-                      false,
+                      true,
                       true,
                       false,
-                      true
+                      false
                     ]
                   ]
                 },
@@ -414,8 +489,8 @@ const chapterInfo = [
                 }
               },
               "target": {
-                "dimX": 5,
-                "dimY": 5,
+                "dimX": 8,
+                "dimY": 8,
                 "height": 6,
                 "karol": {
                   "x": 0,
@@ -423,38 +498,84 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 3,
-                  "offsetX": 0,
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 3,
                   "offsetY": 1,
                   "data": [
                     [
-                      true,
+                      0,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
                       false,
                       true,
                       false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true,
                       true
                     ],
                     [
                       true,
-                      false,
                       true,
-                      false,
-                      true
+                      true,
+                      true,
+                      false
                     ],
                     [
                       true,
-                      false,
+                      true,
                       true,
                       false,
-                      true
+                      false
                     ]
                   ]
                 },
@@ -470,10 +591,13 @@ const chapterInfo = [
           ],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Systemvariablen bereit?\", \"Es kann losgehen\")\n\n__ide_run_client()\n\n# Variablen sammeln (ohne Systemvariablen)\nuser_vars = [v for v in globals() if not v.startswith('__ide_') and v != '__builtins__' and v != 'Robot']\n\ntypen = [type(globals()[v]).__name__ for v in user_vars]\n\nerforderliche_typen = {'int', 'float', 'str', 'bool'}\n\nif len(user_vars) != 3:\n    __ide_prompt(f'❌ Falsche Anzahl Variablen: {len(user_vars)} statt 3', 'Nochmal versuchen')\n    __ide_exit()\n\nif len(set(typen)) < 3:\n    doppelte = [t for t in ['int','float','str', 'bool'] if typen.count(t) > 1]\n    __ide_prompt(f'❌ Doppelte Datentypen: {\", \".join(doppelte)}', 'Typen prüfen')\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Deine drei Variablen wurden gesetzt. Ich spüre keine sofortige Veränderung ¯\\\\\\\\(°_o)/¯. Aber es hat sich trotzdem gelohnt!')",
+          "questScript": "__ide_prompt(\"Das sind also unsere Wünsche!\", \"Simsalabim\")\n\n__ide_run_client()\n\n# Variablen sammeln (ohne Systemvariablen)\nuser_vars = [v for v in globals() if not v.startswith('__ide_') and v != '__builtins__' and v != 'Robot']\n\ntypen = [type(globals()[v]).__name__ for v in user_vars]\n\nerforderliche_typen = {'int', 'float', 'str', 'bool'}\n\nif len(user_vars) != 3:\n    __ide_prompt(f'❌ Falsche Anzahl Wünsche: {len(user_vars)} statt 3', 'Nochmal versuchen')\n    __ide_exit()\n\nif len(set(typen)) < 3:\n    doppelte = [t for t in ['int','float','str', 'bool'] if typen.count(t) > 1]\n    __ide_prompt(f'❌ Doppelte Datentypen: {\", \".join(doppelte)}', 'Typen prüfen')\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Das klingt wunderbar ٩(^‿^)۶')",
           "language": "python-pro",
-          "program": "# Notiere deine drei Variablen:\n\n"
-        }
+          "program": "# Notiere deine drei Wünsche:\n\n"
+        },
+        "deps": [
+          10002
+        ]
       },
       {
         "filename": "Quiz.json",
@@ -483,7 +607,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "Quiz",
-          "description": "Schau mal, hier ist ein Quiz. Vielleicht hilft es uns weiter, wenn wir es lösen!\n\nWeise diesen drei Variablen den richtigen Wert zu. Wähle jeweils einen passenden Datentyp. Achte auf Groß-/Kleinschreibung.",
+          "description": "Meine Tante mag Quiz-Fragen, deshalb gibt es hier ein Quiz für euch.\n\nWeise den drei Variablen den richtigen Wert zu. Wähle jeweils einen passenden Datentyp. Achte auf Groß-/Kleinschreibung.",
           "tasks": [
             {
               "title": "Quiz",
@@ -655,7 +779,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "Hin und her",
-          "description": "In diesem Knoten herrscht ja richtiges Chaos. Die Variablen wurden ohne erkennbares Muster hin und her gesetzt.\n\nSchaue dir das Script an und finde heraus, welchen Wert die Variable `erde` am Ende des Programms hat. Wenn du die Antwort weißt, dann klicke auf Start.",
+          "description": "Zeigt mal, ihr beiden, ob ihr auch mit etwas Chaos klarkommt. Die Variablen wurden ohne erkennbares Muster hin und her gesetzt.\n\nSchaut euch das Script an und findet heraus, welchen Wert die Variable `erde` am Ende des Programms hat. Wenn du die Antwort weißt, dann klicke auf Start.",
           "tasks": [
             {
               "title": "Ein Durcheinander",
@@ -869,7 +993,7 @@ const chapterInfo = [
           ],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"In diesem Programm werden Variablen wild gesetzt. Hast du noch den Durchblick?\", \"Klar\")\n\nergebnis = input(\"Welchen Wert hat am Ende des Programms die Variable Erde?\")\n\nif ergebnis != \"hase\":\n    __ide_prompt(\"Das ist leider nicht die richtige Antwort.\", \"Nochmal\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"erde = himmel, himmel = blau, blau = a, a = \\\"hase\\\" - so behältst du den Überblick :)\")",
+          "questScript": "__ide_prompt(\"Haha, von dem bisschen Chaos werden wir uns nicht verwirren lassen!\", \"Natürlich nicht!\")\n\nergebnis = input(\"Welchen Wert hat am Ende des Programms die Variable Erde?\")\n\nif ergebnis != \"hase\":\n    __ide_prompt(\"Das ist leider nicht die richtige Antwort.\", \"Nochmal\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"erde = himmel, himmel = blau, blau = a, a = \\\"hase\\\" - so behälten wir den Überblick :)\")",
           "language": "python-pro",
           "program": "a = \"hase\"\nb = \"fuchs\"\nc = \"eule\"\n\nrot = c\ngrün = b\nblau = a\n\nhimmel = a\nerde = rot\nhimmel = blau\nerde = himmel\n\n# Welchen Wert hat `erde` hier?"
         },

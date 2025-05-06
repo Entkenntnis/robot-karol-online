@@ -1,8 +1,8 @@
 {
   "keys": {
     "010-variablen/Lieblinge.json": 138,
-    "010-variablen/Quantenknoten_stabilisieren.json": 139,
-    "010-variablen/Drei_mal_raten.json": 140,
+    "010-variablen/Korrekturen.json": 143,
+    "010-variablen/Drei_Wünsche.json": 144,
     "010-variablen/Quiz.json": 141,
     "010-variablen/Hin_und_her.json": 142,
     "020-eingabe-ausgabe/Systemstatus.json": 119,
@@ -23,5 +23,5 @@
     "999-fundgrube/68.json": 107,
     "999-fundgrube/69.json": 108
   },
-  "counter": 143
+  "counter": 145
 }
