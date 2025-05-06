@@ -1,5 +1,15 @@
 # 🎓 Kapitel 1: Variablen
 
+Im Karols Atelier sind auf einigen Plätzen Laptops aufgestellt, an der einzig freien Wand projeziert ein Beamer, den man aber im hellen Licht kaum lesen kann. "Den werden wir erstmal nicht brauchen, solange ihr zu zweit seid", bemerkt Emi.
+
+Du traust dich dann doch zu fragen: "Kommen noch weitere Leute?" Karol nickt: "Ein paar weitere Leute haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen."
+
+Karol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.
+
+"Ich möchte mit Variablen anfangen. Diese sind sind ein entspannter Einstieg. Stellt euch so vor: Der Computer muss sich ja viele Dinge merken. Und jede Information speichert dein Programm in einer solchen Variable.
+
+# TODO
+
 Du erklärst dich bereit, der alten Dame zu helfen. Du hast heute Nachmittag Zeit, warum nicht ein kleines Abenteuer erleben? Karol ist sichtlich erleichtert und fängt an zu erzählen:
 
 "Diese Leinwände sind eine Verbindungn aus Quantentechnik und AI. Sie wurden entwickelt, um eine neue Form des Lernens zu ermöglichen. Doch es gibt gefährliche Nebeneffekte."

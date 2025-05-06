@@ -1,11 +1,13 @@
 # Einleitung
 
-Auf deinem Weg zur Schule steht das Haus einer alten Künstlerin. Sie sitzt oft im Garten und malt. Doch seit mehreren Tagen ist sie nicht mehr zu sehen und die Balkontür steht weit offen.
+Du hättest deinen Eltern nicht sagen sollen, dass dir langweilig sei. Was für ein Anfänger-Fehler. Jetzt stehst du an einem Montag in den Ferien um 9 Uhr vor dem Haus der alten Künstlerin und schaust dich vorsichtig um.
 
-Nach einer Woche hältst du es nicht mehr aus. Du entscheidest dich, der Sache auf den Grund zu gehen. Du nimmst deinen Mut zusammen, kletterst über den Zaun und schaust vorsichtig in das Haus rein. Alles ruhig. Du betrittst über die Tür die Küche und schaust dich weiter um.
+Die alte Dame hat sich in den Kopf gesetzt, Programmieren zu lernen und damit sie nicht ganz alleine ist, bietet sie einen offenen Workshop an, bei dem alle vorbeikommen und mitlernen können. Deine Eltern haben den Aushang gesehen, denn Karol, die Künstlerin, wohnt gleich um die Ecke und haben dich gleich da hingeschickt ("dir ist ja sonst langweilig, mein Schatz").
 
-Als du das Wohnzimmer betrittst, bleibt dir die Luft weg. Im ganzen Raum verteilt stehen leuchtende Leinwände. Was ist das für eine Technologie? Sie zeigen abstrakte Muster und Farben.
+Die Tür zum Haus steht offen. Als du eintrittst, begrüßt dich Karol ("Schön dass du hier bist, deine Eltern haben mir schon von dir erzählt") und du siehst neben ihr ein Mädchen, ungefähr in deinem Alter. Sie ist sicherlich auch hier für den Workshop, puh, immerhin bist du nicht alleine.
 
-"Oh, ich bin so froh, dass du hier bist.", ertönt eine Stimme. Du stößt einen Schrei aus. Auf einer Leinwand erscheint eine Figur, die mit dir redet.
+"Darf ich dir vorstellen, das ist Emi, meine Nichte." Du streckst deine Hand aus, aber sie schaut dich nur mit funkelnden Augen an. "Ok, dann halt nicht", antwortest du, etwas irritiert. Na toll, das kann ja was werden.
 
-"Ich bin Karol, die Künstlerin. Diese Leinwände sind sehr gefährlich. Ich wurde gewarnt, aber ich war zu neugierig. Ich habe sie natürlich sofort ausprobiert. Jetzt bin ich hier drinnen gefangen und komme nicht mehr raus. Wärst du bereit, mir ein wenig in meiner misslichen Lage zu helfen?"
+"Kennen wir uns?", fragt Emi. Karol stellt dich hastig vor und ergänzt: "Bitte entschuldige ihr verhalten. Sie kommt manchmal etwas kühl rüber, aber sie hat ein gutes Herz. Sie ist übrigends unsere Dozentin für den Tag."
+
+Ohje! Wo bist du hier nur reingeraten. Aber für einen Rückzieher ist es jetzt zu spät. Karol ist unbesorgt: "Kommt mit ins Atelier und lasst uns beginnen!"
