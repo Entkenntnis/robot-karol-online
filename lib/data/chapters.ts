@@ -1014,378 +1014,6 @@ const chapterInfo = [
     "image": "/story/2.jpg",
     "quests": [
       {
-        "filename": "Systemstatus.json",
-        "x": 160,
-        "y": -70,
-        "id": 119,
-        "content": {
-          "version": "v1",
-          "title": "Systemstatus",
-          "description": "Beim Start der Rakete müssen Temperatur und Geschwindigkeit eng beobachtet werden.\n\nErsetze `X` und `Y` mit  `{}`-Klammern und setze die passende Variable ein. So soll eine Ausgabe aussehen:\n\n**Triebwerkstemperatur: 555 °C, Geschwindigkeit: 423 km/h**",
-          "tasks": [
-            {
-              "title": "Instrumentenanzeige",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 6,
-                  "dimY": 3,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 2,
-                  "dimY": 4,
-                  "offsetX": 3,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 6,
-                  "dimY": 3,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 2,
-                  "dimY": 4,
-                  "offsetX": 3,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "import random\n\n__ide_prompt(\"T minus 3, 2, 1, ...\", \"Start\")\n\nts = [0, 500, 800, 1100, 1300, 1500, 1665, 1780, 1990, 2102]\n\nvs = [0, 10, 26, 45, 56, 78, 98, 135, 180, 240]\n\nfor i in range(10):\n    t = ts[i]\n    v = vs[i]\n    def ladeTemperatur():\n        return t\n\n    def ladeGeschwindigkeit():\n        return v\n\n    __ide_run_client(globals=[\"ladeTemperatur\", \"ladeGeschwindigkeit\"])\n\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"Triebwerkstemperatur: {t} °C, Geschwindigkeit: {v} km/h\"\n    if lastOutput != expected:\n        __ide_prompt(\"Statusanzeige fehlerhaft, Messwerte wurden nicht richtig dargestellt.\", \"Korrigieren\")\n        __ide_exit()\n\n    __ide_sleep(0.3)\n\n__ide_set_progress(True)\n__ide_prompt(\"Start erfolgreich 🚀\")",
-          "language": "python-pro",
-          "program": "temperatur = ladeTemperatur()\n\ngeschwindigkeit = ladeGeschwindigkeit()\n\nprint(f\"Triebwerkstemperatur: X °C, Geschwindigkeit: Y km/h\")"
-        },
-        "deps": [
-          10003
-        ]
-      },
-      {
-        "filename": "Runen.json",
-        "x": 190,
-        "y": 70,
-        "id": 120,
-        "content": {
-          "version": "v1",
-          "title": "Runen",
-          "description": "In einer magischen Beschwörung müssen  X mit dem Wert der Variable `rune` ersetzt werden. Sei vorsichtig und lösche keine der Tilden.",
-          "tasks": [
-            {
-              "title": "magische Rune",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 6,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 6,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "runes = [' ✿ڿڰۣ— ', '(=^･ｪ･^=))ﾉ彡☆', '\tヽ(｀Д´)⊃━☆ﾟ. * ･ ｡ﾟ,']\n\n__ide_prompt(\"Die große Beschwörung steht bevor.\", \"Runen einsetzen\")\n\n\nfor rune in runes:\n    def ladeRune():\n        return rune\n    __ide_run_client(globals=[\"ladeRune\"])\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"~~~~~~~{rune}~~~~~{rune}~~~~~{rune}~~~~\"\n    if lastOutput != expected:\n        __ide_prompt(\"Beschwörung fehlgeschlagen 💥\", \"Korrigieren\")\n        __ide_exit()\n    __ide_sleep(0.8)\n\n__ide_set_progress(True)\n__ide_prompt(\"Danke für die Unterstützung!\", \"Gerne\")",
-          "language": "python-pro",
-          "program": "rune = ladeRune()\n\nprint(f\"~~~~~~~X~~~~~X~~~~~X~~~~\")"
-        },
-        "deps": [
-          10003
-        ]
-      },
-      {
         "filename": "Begrüßung.json",
         "x": 560,
         "y": 57,
@@ -1556,7 +1184,7 @@ const chapterInfo = [
       {
         "filename": "Harry_Potter_Fan.json",
         "x": 330,
-        "y": 148,
+        "y": 158,
         "id": 122,
         "content": {
           "version": "v1",
@@ -1890,6 +1518,624 @@ const chapterInfo = [
           "questScript": "__ide_prompt(\"Willkommen im Zaubererquiz!\", \"Accio Fragen!\")\n\n__ide_run_client()\n\n# Überprüfe die Anzahl der Eingaben\ninputs = __ide_get_inputs()\nif len(inputs) < 3:\n    __ide_prompt(\"Du hast nicht alle drei Fragen gestellt. Nutze dreimal `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe die Variablen im Client-Code\nvars_to_check = ['sport', 'name_harrys_eule', 'anzahl_horkruxe']\nmissing_vars = []\n\nfor var in vars_to_check:\n    if var not in globals():\n        missing_vars.append(var)\n\nif missing_vars:\n    __ide_prompt(f\"Es fehlen folgende Variablen: {', '.join(missing_vars)}\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe die Datentypen\nif not isinstance(sport, str):\n    __ide_prompt(\"Die Variable 'sport' sollte ein String sein.\", \"Nochmal versuchen\")\n    __ide_exit()\n    \nif not isinstance(name_harrys_eule, str):\n    __ide_prompt(\"Die Variable 'name_harrys_eule' sollte ein String sein.\", \"Nochmal versuchen\")\n    __ide_exit()\n    \nif not isinstance(anzahl_horkruxe, int):\n    __ide_prompt(\"Die Variable 'anzahl_horkruxe' sollte eine Ganzzahl sein. Hast du int(input()) verwendet?\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Optionale Überprüfung der korrekten Antworten\nif sport.lower() == \"quidditch\" and name_harrys_eule.lower() == \"hedwig\" and anzahl_horkruxe == 7:\n    __ide_prompt(\"Perfekt! Du bist ein echter Harry Potter Fan! ⚡\", \"Wingardium Leviosa!\")\nelse:\n    __ide_prompt(\"Dein Code funktioniert, aber überprüfe nochmal deine Antworten. Die Hinweise stehen übrigens auf dem Kopf in der Aufgabenstellung. 😉\", \"Ok\")\n\n__ide_set_progress(True)",
           "language": "python-pro",
           "program": "# Beispiel\nsport = input(\"Welche Sportart ist zentral für Harry Potter?\")\n\n# TODO\n# name_harrys_eule = \n\n# anzahl_horkruxe = "
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "Explosion.json",
+        "x": 190,
+        "y": 170,
+        "id": 145,
+        "content": {
+          "version": "v1",
+          "title": "Explosion",
+          "description": "Wollt ihr etwas Spaß haben? Das bleibt unter uns, ok? Mit f-Strings kann man eine Art Text-Bombe bauen, indem ihr einen Text wiederholt.\n\nJedes boom wird aus dem vorherigen boom gebaut, ergänzt noch `boom4` bis `boom6` und freut euch auf die Explosion!\n\nVergesst nicht, die letzte Zeile zu aktualisieren.",
+          "tasks": [
+            {
+              "title": "Explosion",
+              "start": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 3,
+                  "dimY": 3,
+                  "offsetX": 2,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 3,
+                  "dimY": 3,
+                  "offsetX": 2,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Emi: 'Zurücktreten! Diese Textbombe könnte größer werden als erwartet!'\", \"Explosion starten\")\n\n# Führe den Client-Code aus\n__ide_run_client()\n\n# Überprüfe, ob die Variablen korrekt definiert wurden\nvars_to_check = ['boom', 'boom2', 'boom3', 'boom4', 'boom5', 'boom6']\nmissing_vars = []\n\nfor var in vars_to_check:\n    if var not in globals() or globals()[var] is None:\n        missing_vars.append(var)\n\nif missing_vars:\n    __ide_prompt(f\"Emi: 'Du hast nicht alle boom-Variablen definiert. Es fehlen: {', '.join(missing_vars)}'\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe, ob die Variablen korrekt aufgebaut wurden\nexpected_boom = \"BOOOOM\"\nexpected_boom2 = f\"{expected_boom}-{expected_boom}-{expected_boom}\"\nexpected_boom3 = f\"{expected_boom2}-{expected_boom2}-{expected_boom2}\"\nexpected_boom4 = f\"{expected_boom3}-{expected_boom3}-{expected_boom3}\"\nexpected_boom5 = f\"{expected_boom4}-{expected_boom4}-{expected_boom4}\"\nexpected_boom6 = f\"{expected_boom5}-{expected_boom5}-{expected_boom5}\"\n\nwrong_vars = []\nif boom != expected_boom:\n    wrong_vars.append('boom')\nif boom2 != expected_boom2:\n    wrong_vars.append('boom2')\nif boom3 != expected_boom3:\n    wrong_vars.append('boom3')\nif boom4 != expected_boom4:\n    wrong_vars.append('boom4')\nif boom5 != expected_boom5:\n    wrong_vars.append('boom5')\nif boom6 != expected_boom6:\n    wrong_vars.append('boom6')\n\nif wrong_vars:\n    __ide_prompt(f\"Emi: 'Die folgenden boom-Variablen sind nicht korrekt definiert: {', '.join(wrong_vars)}. Achte darauf, das f-String-Muster fortzusetzen.'\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe, ob boom6 ausgegeben wurde\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Emi: 'Du hast nichts ausgegeben! Vergiss nicht, print() zu verwenden.'\", \"Nochmal versuchen\")\n    __ide_exit()\n\nlast_output = outputs[-1].strip()\nif last_output != expected_boom6:\n    __ide_prompt(\"Emi: 'Du musst boom6 ausgeben, nicht irgendeine andere Variable.'\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Alles korrekt\n__ide_set_progress(True)\n__ide_prompt(\"Karol klatscht begeistert: 'WOW! Diese Textketten-Explosion ist fantastisch! Das erinnert mich an meine Feuerwerk-Kunstinstallation von 1987!'\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "boom = \"BOOOOM\"\n\nboom2 = f\"{boom}-{boom}-{boom}\"\n\nboom3 = f\"{boom2}-{boom2}-{boom2}\"\n\nboom4 = None\n\nboom5 = None\n\nboom6 = None\n\nprint(boom3)"
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "Runen.json",
+        "x": 110,
+        "y": 50,
+        "id": 120,
+        "content": {
+          "version": "v1",
+          "title": "Runen",
+          "description": "\"Weißt du was, Emi? Diese f-Strings erinnern mich an meine magische Runen-Sammlung!\", ruft Karol aufgeregt und kramt in einer Schublade. Emi stöhnt: \"Tante, nicht schon wieder deine Fantasie-Geschichten...\"\n\nKarol lächelt verschmitzt: \"Aber diese Runen sind echt magisch! Mit f-Strings werden sie zum Leben erweckt.\"\n\nIn der magischen Beschwörung müssen alle `X` mit dem Wert der Variable `rune` ersetzt werden. Nutze f-Strings! Sei vorsichtig und lösche keine der Tilden (`~`).",
+          "tasks": [
+            {
+              "title": "magische Rune",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 2,
+                  "dimY": 2,
+                  "offsetX": 2,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 2,
+                  "dimY": 2,
+                  "offsetX": 2,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "runes = [' ✿ڿڰۣ— ', '(=^･ｪ･^=))ﾉ彡☆', '\tヽ(｀Д´)⊃━☆ﾟ. * ･ ｡ﾟ,']\n\n__ide_prompt(\"Karol breitet ihre Hände aus: 'Die große Beschwörung steht bevor! Konzentriere dich auf die Runen!'\", \"Runen aktivieren\")\n\n\nfor rune in runes:\n    def ladeRune():\n        return rune\n    __ide_run_client(globals=[\"ladeRune\"])\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"~~~~~~~{rune}~~~~~{rune}~~~~~{rune}~~~~\"\n    if lastOutput != expected:\n        __ide_prompt(\"Emi schüttelt den Kopf: 'Die Beschwörung ist fehlgeschlagen. Du musst alle X durch die Variable rune ersetzen - mit f-Strings!'💥\", \"Korrigieren\")\n        __ide_exit()\n    __ide_sleep(0.8)\n\n__ide_set_progress(True)\n__ide_prompt(\"'Fantastisch!' Karol tanzt begeistert durch den Raum. 'Siehst du, Emi? Ich hab's dir doch gesagt - Programmieren ist auch eine Art Magie!' Emi verdreht die Augen, kann sich aber ein kleines Lächeln nicht verkneifen.\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "rune = ladeRune()\n\nprint(f\"~~~~~~~X~~~~~X~~~~~X~~~~\")"
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "Systemstatus.json",
+        "x": 160,
+        "y": -70,
+        "id": 119,
+        "content": {
+          "version": "v1",
+          "title": "Systemstatus",
+          "description": "\"Das mit den f-Strings muss ich unbedingt für meine Weltraum-Kunstserie nutzen!\", ruft Karol begeistert. Emi verdreht die Augen: \"Hab ich ja gesagt, dass das nützlich ist.\"\n\nIn diesem Programm für die Raketensteuerung müssen Temperatur und Geschwindigkeit überwacht werden.\n\nErsetze `X` und `Y` mit geschweiften Klammern `{}` und setze die passenden Variablen ein. So soll die Ausgabe aussehen:\n\n**Triebwerkstemperatur: 555 °C, Geschwindigkeit: 423 km/h**",
+          "tasks": [
+            {
+              "title": "Instrumentenanzeige",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 6,
+                  "dimY": 3,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 2,
+                  "dimY": 4,
+                  "offsetX": 3,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 6,
+                  "dimY": 3,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 2,
+                  "dimY": 4,
+                  "offsetX": 3,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "import random\n\n__ide_prompt(\"Emi: 'Achtet auf die Messwerte! T minus 3, 2, 1, ...'.\", \"Start\")\n\nts = [0, 500, 800, 1100, 1300, 1500, 1665, 1780, 1990, 2102]\n\nvs = [0, 10, 26, 45, 56, 78, 98, 135, 180, 240]\n\nfor i in range(10):\n    t = ts[i]\n    v = vs[i]\n    def ladeTemperatur():\n        return t\n\n    def ladeGeschwindigkeit():\n        return v\n\n    __ide_run_client(globals=[\"ladeTemperatur\", \"ladeGeschwindigkeit\"])\n\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"Triebwerkstemperatur: {t} °C, Geschwindigkeit: {v} km/h\"\n    if lastOutput != expected:\n        __ide_prompt(\"Karol: 'Statusanzeige fehlerhaft! Die Messwerte werden nicht richtig dargestellt. Hast du die f-Strings richtig verwendet?'\", \"Korrigieren\")\n        __ide_exit()\n\n    __ide_sleep(0.3)\n\n__ide_set_progress(True)\n__ide_prompt(\"Karol jubelt: 'Start erfolgreich! 🚀 Das könnte ich in meinem nächsten Bild umsetzen!'\")",
+          "language": "python-pro",
+          "program": "# Diese Funktionen holen aktuelle Messwerte\ntemperatur = ladeTemperatur()\ngeschwindigkeit = ladeGeschwindigkeit()\n\n# Gib die Messwerte mit f-Strings aus\nprint(f\"Triebwerkstemperatur: X °C, Geschwindigkeit: Y km/h\")"
         },
         "deps": [
           10003

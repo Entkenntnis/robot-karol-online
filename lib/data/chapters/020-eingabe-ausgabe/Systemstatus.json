@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Systemstatus",
-  "description": "Beim Start der Rakete müssen Temperatur und Geschwindigkeit eng beobachtet werden.\n\nErsetze `X` und `Y` mit  `{}`-Klammern und setze die passende Variable ein. So soll eine Ausgabe aussehen:\n\n**Triebwerkstemperatur: 555 °C, Geschwindigkeit: 423 km/h**",
+  "description": "\"Das mit den f-Strings muss ich unbedingt für meine Weltraum-Kunstserie nutzen!\", ruft Karol begeistert. Emi verdreht die Augen: \"Hab ich ja gesagt, dass das nützlich ist.\"\n\nIn diesem Programm für die Raketensteuerung müssen Temperatur und Geschwindigkeit überwacht werden.\n\nErsetze `X` und `Y` mit geschweiften Klammern `{}` und setze die passenden Variablen ein. So soll die Ausgabe aussehen:\n\n**Triebwerkstemperatur: 555 °C, Geschwindigkeit: 423 km/h**",
   "tasks": [
     {
       "title": "Instrumentenanzeige",
@@ -81,7 +81,7 @@
   ],
   "lng": "de",
   "editOptions": "python-pro-only",
-  "questScript": "import random\n\n__ide_prompt(\"T minus 3, 2, 1, ...\", \"Start\")\n\nts = [0, 500, 800, 1100, 1300, 1500, 1665, 1780, 1990, 2102]\n\nvs = [0, 10, 26, 45, 56, 78, 98, 135, 180, 240]\n\nfor i in range(10):\n    t = ts[i]\n    v = vs[i]\n    def ladeTemperatur():\n        return t\n\n    def ladeGeschwindigkeit():\n        return v\n\n    __ide_run_client(globals=[\"ladeTemperatur\", \"ladeGeschwindigkeit\"])\n\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"Triebwerkstemperatur: {t} °C, Geschwindigkeit: {v} km/h\"\n    if lastOutput != expected:\n        __ide_prompt(\"Statusanzeige fehlerhaft, Messwerte wurden nicht richtig dargestellt.\", \"Korrigieren\")\n        __ide_exit()\n\n    __ide_sleep(0.3)\n\n__ide_set_progress(True)\n__ide_prompt(\"Start erfolgreich 🚀\")",
+  "questScript": "import random\n\n__ide_prompt(\"Emi: 'Achtet auf die Messwerte! T minus 3, 2, 1, ...'.\", \"Start\")\n\nts = [0, 500, 800, 1100, 1300, 1500, 1665, 1780, 1990, 2102]\n\nvs = [0, 10, 26, 45, 56, 78, 98, 135, 180, 240]\n\nfor i in range(10):\n    t = ts[i]\n    v = vs[i]\n    def ladeTemperatur():\n        return t\n\n    def ladeGeschwindigkeit():\n        return v\n\n    __ide_run_client(globals=[\"ladeTemperatur\", \"ladeGeschwindigkeit\"])\n\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"Triebwerkstemperatur: {t} °C, Geschwindigkeit: {v} km/h\"\n    if lastOutput != expected:\n        __ide_prompt(\"Karol: 'Statusanzeige fehlerhaft! Die Messwerte werden nicht richtig dargestellt. Hast du die f-Strings richtig verwendet?'\", \"Korrigieren\")\n        __ide_exit()\n\n    __ide_sleep(0.3)\n\n__ide_set_progress(True)\n__ide_prompt(\"Karol jubelt: 'Start erfolgreich! 🚀 Das könnte ich in meinem nächsten Bild umsetzen!'\")",
   "language": "python-pro",
-  "program": "temperatur = ladeTemperatur()\n\ngeschwindigkeit = ladeGeschwindigkeit()\n\nprint(f\"Triebwerkstemperatur: X °C, Geschwindigkeit: Y km/h\")"
+  "program": "# Diese Funktionen holen aktuelle Messwerte\ntemperatur = ladeTemperatur()\ngeschwindigkeit = ladeGeschwindigkeit()\n\n# Gib die Messwerte mit f-Strings aus\nprint(f\"Triebwerkstemperatur: X °C, Geschwindigkeit: Y km/h\")"
 }
