@@ -828,9 +828,7 @@ export function Overview() {
                         }}
                       >
                         <AnimateInView
-                          dontFade={
-                            numberOfSolvedQuests > 0 || entry[0] != '10001'
-                          }
+                          dontFade={numberOfSolvedQuests > 0 || id != 10001}
                         >
                           <button
                             className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
@@ -856,7 +854,11 @@ export function Overview() {
                               )}
                             </p>
                             <img
-                              src="/gluehbirne.png"
+                              src={
+                                isQuestDone(id)
+                                  ? '/gluehbirne.png'
+                                  : '/gluehbirne_aus.png'
+                              }
                               alt=""
                               className="w-[60px] mx-auto inline-block mt-2 mb-2"
                             />
