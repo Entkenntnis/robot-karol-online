@@ -1547,7 +1547,7 @@ const chapterInfo = [
           "editOptions": "python-pro-only",
           "questScript": "__ide_prompt(\"Probieren wir das Script aus.\", \"Begegnung starten\")\n\n__ide_run_client()\n\n# Prüfe Eingabe über input()\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst den Namen mit `input()` abfragen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Extrahiere den eingegebenen Namen\nname = inputs[0]\n\n# Prüfe Ausgabe\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Begrüßung ausgegeben. Nutze einen f-string mit `print()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob der Name in der Ausgabe verwendet wurde\nlast_output = outputs[-1].strip()\nif name not in last_output:\n    __ide_prompt(f\"Deine Begrüßung enthält nicht den Namen '{name}'. Nutze einen f-string, der den Namen einbaut.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n\n__ide_set_progress(True)\n__ide_prompt(f\"Super! Du hast {name} erfolgreich mit einem f-string begrüßt!\", \"Weiter\")",
           "language": "python-pro",
-          "program": "\nname = \"\" # TODO: ersetze mit input(\"Wie lautet dein Name?\")\n\nprint(f\"...\") # TODO: antworte den Namen, z.B. Hi, X!\n"
+          "program": "\nname = \"\" # TODO: ersetze mit input(\"Wie lautet dein Name?\")\n\nprint(f\"Hallo, X\") # TODO: ersetze X mit dem Namen\n"
         },
         "deps": [
           10003
@@ -1561,7 +1561,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "Harry Potter Fan",
-          "description": "Alle Harry Potter Fans aufgepasst: Schreibe ein Script, dass drei bekannte Tatsachen abfragt. Nutze für jede Tatsache einmal `input` und speichere die Informationen in den passenden Variablen.\n\nAchte bei der dritten Tatsache darauf, die Eingabe mit `int(input())` in eine Ganzzahl umzuwandeln.\n\n> 7 - ƃıʍpǝH - ɥɔʇıppınὉ :uǝʇnɐן uǝʇɹoʍʇu∀ ǝıᗡ",
+          "description": "Meine Tante ist ein geheimer Harry Potter Fan, diese Aufgabe sollte für sie leicht zu machen sein.\n\nSchreibe ein Script, dass drei bekannte Tatsachen abfragt. Nutze für jede Tatsache einmal `input` und speichere die Informationen in den passenden Variablen.\n\nAchte bei der dritten Tatsache darauf, die Eingabe mit `int(input())` in eine Ganzzahl umzuwandeln.\n\n> 7 - ƃıʍpǝH - ɥɔʇıppınὉ :uǝʇnɐן uǝʇɹoʍʇu∀ ǝıᗡ",
           "tasks": [
             {
               "title": "Initialien",
