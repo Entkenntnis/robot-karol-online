@@ -9,19 +9,19 @@ const chapterInfo = [
     "dirName": "000-intro",
     "title": "0. Einleitung",
     "originalTitle": "Einleitung",
-    "description": "# Einleitung\r\n\r\nAuf deinem Weg zur Schule steht das Haus einer alten Künstlerin. Sie sitzt oft im Garten und malt. Doch seit mehreren Tagen ist sie nicht mehr zu sehen und die Balkontür steht weit offen.\r\n\r\nNach einer Woche hältst du es nicht mehr aus. Du entscheidest dich, der Sache auf den Grund zu gehen. Du nimmst deinen Mut zusammen, kletterst über den Zaun und schaust vorsichtig in das Haus rein. Alles ruhig. Du betrittst über die Tür die Küche und schaust dich weiter um.\r\n\r\nAls du das Wohnzimmer betrittst, bleibt dir die Luft weg. Im ganzen Raum verteilt stehen leuchtende Leinwände. Was ist das für eine Technologie? Sie zeigen abstrakte Muster und Farben.\r\n\r\n\"Oh, ich bin so froh, dass du hier bist.\", ertönt eine Stimme. Du stößt einen Schrei aus. Auf einer Leinwand erscheint eine Figur, die mit dir redet.\r\n\r\n\"Ich bin Karol, die Künstlerin. Diese Leinwände sind sehr gefährlich. Ich wurde gewarnt, aber ich war zu neugierig. Ich habe sie natürlich sofort ausprobiert. Jetzt bin ich hier drinnen gefangen und komme nicht mehr raus. Wärst du bereit, mir ein wenig in meiner misslichen Lage zu helfen?\"\r\n",
+    "description": "# Einleitung\r\n\r\nDu hättest deinen Eltern nicht sagen sollen, dass dir langweilig sei. Was für ein Anfänger-Fehler. Jetzt stehst du an einem Montag in den Ferien um 9 Uhr vor dem Haus der alten Künstlerin und schaust dich vorsichtig um.\r\n\r\nDie alte Dame hat sich in den Kopf gesetzt, Programmieren zu lernen und damit sie nicht ganz alleine ist, bietet sie einen offenen Workshop an, bei dem alle vorbeikommen und mitlernen können. Deine Eltern haben den Aushang gesehen, denn Karol, die Künstlerin, wohnt gleich um die Ecke und haben dich gleich da hingeschickt (\"dir ist ja sonst langweilig, mein Schatz\").\r\n\r\nDie Tür zum Haus steht offen. Als du eintrittst, begrüßt dich Karol (\"Schön dass du hier bist, deine Eltern haben mir schon von dir erzählt\") und du siehst neben ihr ein Mädchen, ungefähr in deinem Alter. Sie ist sicherlich auch hier für den Workshop, puh, immerhin bist du nicht alleine.\r\n\r\n\"Darf ich dir vorstellen, das ist Emi, meine Nichte.\" Du streckst deine Hand aus, aber sie schaut dich nur mit forschen Augen an. \"Ok, dann halt nicht\", antwortest du kleinlaut. Na toll, das kann ja was werden.\r\n\r\n\"Kennen wir uns?\", fragt Emi. Karol stellt dich hastig vor und ergänzt: \"Bitte entschuldige ihr verhalten. Sie kommt manchmal etwas kühl rüber, aber sie hat ein gutes Herz. Sie ist übrigends unsere Dozentin für den Tag.\"\r\n\r\nOhje! Wo bist du hier nur reingeraten. Aber für einen Rückzieher ist es jetzt zu spät. Karol ist unbesorgt: \"Kommt mit ins Atelier und lasst uns beginnen!\"\r\n",
     "image": "/story/0.jpg",
     "quests": [],
-    "x": 890,
-    "y": 1580
+    "x": 930,
+    "y": 1520
   },
   {
     "id": 10002,
     "dirName": "010-variablen",
     "title": "1. Variablen",
     "originalTitle": "Variablen",
-    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nDu erklärst dich bereit, der alten Dame zu helfen. Du hast heute Nachmittag Zeit, warum nicht ein kleines Abenteuer erleben? Karol ist sichtlich erleichtert und fängt an zu erzählen:\r\n\r\n\"Diese Leinwände sind eine Verbindungn aus Quantentechnik und AI. Sie wurden entwickelt, um eine neue Form des Lernens zu ermöglichen. Doch es gibt gefährliche Nebeneffekte.\"\r\n\r\nDein Kopf schwirrt. \"Was haben die Leinwände mit Lernen zu tun?\"\r\n\r\n\"Komm, ich zeige es dir. Siehst du die Tastatur? Tippe diesen Befehl ein und drücke Enter.\"\r\n\r\n```py\r\nmuster_farbe = \"rot\"\r\n```\r\n\r\nEs ist ungewohnt, auf einer Leinwand zu tippen. Als du die Eingabe abschickst, passiert etwas Magisches: Die Muster auf der Leinwand färben sich rot.\r\n\r\n\"Damit ist es noch nicht genug, mache weiter mit diesem Befehl:\"\r\n\r\n```py\r\nanimation_geschwindigkeit = 200\r\n```\r\n\r\nDu tippst es ein und sofort fangen die Muster an im hohen Tempo herumzuwirbeln. Deine Augen schmerzen und du tippst instinktiv `animation_geschwindigkeit = 0`. Plötzlich bleibt alles stehen.\r\n\r\n\"Sehr gut! Du hast das System verstanden! Es wurde entwickelt, um dir die Grundlagen von Python auf eine lebendige Art zu vermitteln. Es ist sehr mächtig ... zu mächtig. Eine Labormaus ist in der Leinwand verschwunden - danach wurde das Projekt gestoppt, bevor das mit einem Menschen passiert. Haha, hoffentlich sind wir schlauer als die Maus und finden einen Weg heraus!\"\r\n\r\nPlötzlich ist Karol kurz verpixelt und sie stößt einen Schmerzenschrei aus. \"Aua. Die Zeit drängt. Lasst uns gleich loslegen.\"\r\n\r\nSie fährt fort: \"Damit du mir gut helfen kannst, würde ich dir gerne ein paar Grundlagen von Python zeigen. Es wird nicht zu kompliziert, versprochen.\"\r\n\r\n## Datentypen im Überblick\r\n\r\n\"Was du vorhin gemacht hast ist eine _Wertzuweisung_ auf eine Variable:\r\n\r\n```\r\n<Name der Variable> = <Wert>\r\n```\r\n\r\nKeine Sorge, Variablen in Python sind viel einfacher als Variablen in der Mathematik. Sie speichern nur Informationen - du musst sie nicht umformen oder so. Es gibt Variablen in verschiedenen Typen, je nach dem, was für eine Information du speichern willst:\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 🔄 Variablen verändern\r\n\r\nDu kannst Werte jederzeit ändern:\r\n\r\n```python\r\npunkte = 10\r\nprint(punkte)  # Ausgabe: 10\r\n\r\npunkte = 15    # Neuer Wert\r\nprint(punkte)  # Ausgabe: 15\r\n```\r\n\r\nDie grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und werden vom Computer ignoriert.\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nDu darfst die Variablenamen fast beliebig wählen. Ein paar wenige Sachen sind nicht erlaubt:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang geht nicht\r\nmein-name = \"Lena\" # Bindestrich nicht erlaubt\r\nclass = 8B         # Schlüsselwörter verboten\r\n```\r\n\r\nAchte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen Unterschied und `alter` ist eine andere Variable als `ALTER`.\r\n\r\n## ⚛️ Quantenknoten\r\n\r\nUnd jetzt machen wir uns auf die Suche nach einem Ausweg! Hier sind ein paar Quantenknoten in der Nähe, die vielversprechend aussehen. Vielleicht können wir dort etwas bewirken.\"\r\n",
-    "image": "/story/1.jpg",
+    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nIm Karols Atelier sind einige Laptops aufgestellt, an der einzig freien Wand projeziert ein Beamer, den man aber im hellen Licht kaum lesen kann. \"Den werden wir erstmal nicht brauchen, solange ihr zu zweit seid\", bemerkt Emi.\r\n\r\nDu traust dich dann doch zu fragen: \"Kommen noch weitere Leute?\" Karol nickt: \"Ein paar weitere Gäste haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen.\" Karol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.\r\n\r\n\"Ich möchte mit Variablen anfangen. Diese sind sind ein entspannter Einstieg. Stellt es euch so vor: Der Computer muss sich ja viele Dinge merken. Und jede Information speichert dein Programm in einer solchen Variable.\" Emi fängt an zu tippen:\r\n\r\n```py\r\nfarbe = \"blasslila\"\r\npinsel_größe = 13\r\nbild_breite_cm = 27.8\r\nist_inspiriert = True\r\n```\r\n\r\n\"So kannst du, meine Tante, dir die wichtigsten Dinge notieren, falls du sie mal wieder vergisst.\"\r\n\r\n\"Hey, so alt bin ich auch wieder nicht\", beschwert sich Karol. Gut zu wissen, dass Emi nicht nur dir gegenüber etwas schnippisch ist.\r\n\r\n\"Sind das alle Arten von Informationen, die man speichern kann?\", fragt Karol zurück. \"Ich würde erstmal mit diesen anfangen\", erklärte Emi. \"Später kannst du aus diesen grundlegenden Datentypen größere Objekte bauen oder eine Liste anlegen. Ah, ich sollte vielleicht noch ein paar Details ergänzen.\r\n\r\nDieses Gleichheitszeichen (`=`) ist eine Wertzuweisung:\r\n\r\n```\r\n<Name der Variable> = <Wert>\r\n```\r\n\r\nDabei wird der alte Wert der Variable weggeschmissen und der neue Wert geschrieben. Der Name ist wichtig, denn nur mit diesem kannst du auf die Information zugreifen. Du kannst einer Variable jederzeit einen neuen Wert zuweisen:\r\n\r\n```py\r\nfarbe = \"grün\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"grün\"\r\n\r\nfarbe = \"rot\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"rot\"\r\n\r\nfarbe = \"dunkelviolett\"\r\n```\r\n\r\nJede Variable hat außerdem einen Typ. Nicht wie die Typen auf der Straße, sondern im Sinne von Kategorie. Ihr habt die vier wichtigsten Typen jetzt gesehen, ich fasse sie für euch nochmal zusammen.\r\n\r\n## Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 📝 Kommentare\r\n\r\n```py\r\n# die Lieblingsfarbe meiner Tante\r\nfarbe = \"?\" # bitte noch ausfüllen\r\n```\r\n\r\nDie grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und werden vom Computer ignoriert.\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nIhr dürft die Variablenamen fast beliebig wählen. Ein paar wenige Sachen sind nicht erlaubt:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang geht nicht\r\nmein-name = \"Emi\" # Bindestrich nicht erlaubt\r\nclass = 8         # Schlüsselwörter verboten\r\n```\r\n\r\nAchte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen Unterschied und `alter` ist eine andere Variable als `ALTER`.\r\n\r\n## 🏋️ Übungen\r\n\r\nBis hierher alles klar?\", Emi blickt uns beide an. Du nickst brav, Karol ist voller Tatendrang und bittet Emi, uns ein paar Übungsaufgaben zu stellen, damit wir die Theorie etwas üben können. Sie antwortet nur: \"Ich wäre doch eine schlechte Dozentin wenn ich keine Übungsaufgaben vorbereitet hätte.\"\r\n",
+    "image": "/story/1_v2.jpg",
     "quests": [
       {
         "filename": "Lieblinge.json",
@@ -31,7 +31,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "Lieblinge",
-          "description": "An diesem Knoten kannst du deine Favoriten eintragen. Vielleicht möchte das Quantensystem uns einfach nur besser kennenlernen?\n\nNutze für die Variablen einen passenden Datentyp und setze sie auf die Werte, die für dich passen.",
+          "description": "Emi und ich kennen uns ja schon ganz gut, aber magst du vielleicht ein paar Sachen über dich mitteilen?\n\nNutze für die Variablen einen passenden Datentyp und setze sie auf die Werte, die für dich passen.",
           "tasks": [
             {
               "title": "Herz",
@@ -220,17 +220,17 @@ const chapterInfo = [
         ]
       },
       {
-        "filename": "Quantenknoten_stabilisieren.json",
+        "filename": "Korrekturen.json",
         "x": 620,
         "y": 184,
-        "id": 139,
+        "id": 143,
         "content": {
           "version": "v1",
-          "title": "Quantenknoten stabilisieren",
-          "description": "Das System ist aktuell sehr unruhig. Ich sehe auch warum: einige Systemvariablen sind auf unsinnige Werte gesetzt!\n\nHinweise:\n- Beim Namen der Maus fehlen die Anführungszeichen\n- Die Temperatur soll eine Kommazahl sein\n- Setze Helligkeit auf die positive Zahl 34\n- Setze den Alarm auf den Wahrheitswert False",
+          "title": "Korrekturen",
+          "description": "Emi hat ein paar Übungsaufgaben für dich und Karol vorbereitet. In diesem Code sind einige Variablen falsch definiert. Bitte korrigiere sie.\n\nHinweise:\n- Beim Namen fehlen die Anführungszeichen\n- Die Note soll eine Kommazahl sein\n- Setze Pinselgröße auf die positive Zahl 34\n- Setze ist_inspiriert auf den Wahrheitswert True",
           "tasks": [
             {
-              "title": "Quantenknoten",
+              "title": "Bug",
               "start": {
                 "dimX": 5,
                 "dimY": 5,
@@ -241,35 +241,51 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "dimX": 1,
-                  "dimY": 1,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      1
-                    ]
-                  ]
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
                 },
                 "marks": {
-                  "dimX": 3,
-                  "dimY": 3,
-                  "offsetX": 1,
-                  "offsetY": 1,
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
                   "data": [
                     [
+                      false,
                       true,
+                      false,
                       true,
-                      true
+                      false
                     ],
                     [
+                      true,
+                      false,
                       true,
                       false,
                       true
                     ],
                     [
+                      false,
                       true,
                       true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
                       true
                     ]
                   ]
@@ -292,35 +308,51 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "dimX": 1,
-                  "dimY": 1,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      1
-                    ]
-                  ]
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
                 },
                 "marks": {
-                  "dimX": 3,
-                  "dimY": 3,
-                  "offsetX": 1,
-                  "offsetY": 1,
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
                   "data": [
                     [
+                      false,
                       true,
+                      false,
                       true,
-                      true
+                      false
                     ],
                     [
+                      true,
+                      false,
                       true,
                       false,
                       true
                     ],
                     [
+                      false,
                       true,
                       true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
                       true
                     ]
                   ]
@@ -337,32 +369,29 @@ const chapterInfo = [
           ],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Achtung! Quantensystem destabilisiert!\", \"Stabilisierung starten\")\n\n__ide_run_client()\n\nsystem_checks = [\n    ('name_der_maus', str, \"Mimi\", \"Text in Anführungszeichen\"),\n    ('temperatur', float, 23.4, \"Kommazahl\"),\n    ('helligkeit', int, 34, \"positive Zahl\"),\n    ('ist_alarm_aktiv', bool, False, \"Wahrheitswert\")\n]\n\nfor var, typ, wert, hinweis in system_checks:\n    if var not in globals():\n        __ide_prompt(f'Systemfehler: `{var}` nicht gefunden!', 'Korrigieren')\n        __ide_exit()\n    \n    if not isinstance(globals()[var], typ):\n        __ide_prompt(f'Datentypfehler: `{var}` muss {hinweis} sein', 'Korrigieren')\n        __ide_exit()\n    \n    if globals()[var] != wert:\n        __ide_prompt(f'`{var}` zeigt {globals()[var]} statt {wert}!', 'Wert korrigieren')\n        __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('System stabil! Quantenportal öffnet sich... ✨', 'Portal betreten')",
+          "questScript": "__ide_prompt(\"Emi's Workshop: Variablen korrigieren\", \"Übung starten\")\n\n__ide_run_client()\n\nsystem_checks = [\n    ('farbe', str, \"blasslila\", \"Text in Anführungszeichen\"),\n    ('note', float, 2.3, \"Kommazahl\"),\n    ('pinsel_größe', int, 34, \"positive Zahl\"),\n    ('ist_inspiriert', bool, True, \"Wahrheitswert\")\n]\n\nfor var, typ, wert, hinweis in system_checks:\n    if var not in globals():\n        __ide_prompt(f'Fehler: `{var}` nicht gefunden!', 'Korrigieren')\n        __ide_exit()\n    \n    if not isinstance(globals()[var], typ):\n        __ide_prompt(f'Datentypfehler: `{var}` muss {hinweis} sein', 'Korrigieren')\n        __ide_exit()\n    \n    if globals()[var] != wert:\n        __ide_prompt(f'`{var}` zeigt {globals()[var]} statt {wert}!', 'Wert korrigieren')\n        __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Sehr gut! Emi nickt anerkennend: \"Das habt ihr richtig gemacht!\"', 'Weiter')",
           "language": "python-pro",
-          "program": "# Korrigiere die Systemvariablen\n\nname_der_maus = Mimi\n\ntemperatur = \"23.4\"\nhelligkeit = -34\n\nist_alarm_aktiv = None"
+          "program": "# Korrigiere die Variablen nach Emis Anweisungen\n\nfarbe = blasslila\n\nnote = \"2.3\"\npinsel_größe = -34\n\nist_inspiriert = None"
         },
         "deps": [
           10002
         ]
       },
       {
-        "filename": "Drei_mal_raten.json",
+        "filename": "Drei_Wünsche.json",
         "x": 428,
         "y": 144,
-        "deps": [
-          139
-        ],
-        "id": 140,
+        "id": 144,
         "content": {
           "version": "v1",
-          "title": "Drei mal raten",
-          "description": "Das System fühlt sich schon ruhiger an. Vielleicht können wir die Gelegenheit nutzen und drei verschiedene Systemvariablen blind raten. Ich hätte an sowas gedacht wie `karol_ist_frei = True` oder so.\n\nDenke dir drei Variablen aus. Bitte nutze für jede Variable einen anderen Datentyp.",
+          "title": "Drei Wünsche",
+          "description": "Jetzt ist eure Kreativität gefordert. Wenn ihr drei Wünsche hättet, wie würden sie lauten? Achtet auf diese Bedingungen:\n\n- Es müssen genau drei Wünsche sein, nicht mehr und nicht weniger.\n- Jeder Wunsch ist eine Wertzuweisung auf eine Variable wie `kontostand_in_euro = 1000000`.\n- Jeder Wunsch nutzt einen anderen Datentyp.",
           "tasks": [
             {
-              "title": "Drei mal raten",
+              "title": "Sternschnuppe",
               "start": {
-                "dimX": 5,
-                "dimY": 5,
+                "dimX": 8,
+                "dimY": 8,
                 "height": 6,
                 "karol": {
                   "x": 0,
@@ -370,38 +399,84 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 3,
-                  "offsetX": 0,
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 3,
                   "offsetY": 1,
                   "data": [
                     [
-                      true,
+                      0,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
                       false,
                       true,
                       false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true,
                       true
                     ],
                     [
                       true,
-                      false,
                       true,
-                      false,
-                      true
+                      true,
+                      true,
+                      false
                     ],
                     [
                       true,
-                      false,
+                      true,
                       true,
                       false,
-                      true
+                      false
                     ]
                   ]
                 },
@@ -414,8 +489,8 @@ const chapterInfo = [
                 }
               },
               "target": {
-                "dimX": 5,
-                "dimY": 5,
+                "dimX": 8,
+                "dimY": 8,
                 "height": 6,
                 "karol": {
                   "x": 0,
@@ -423,38 +498,84 @@ const chapterInfo = [
                   "dir": "south"
                 },
                 "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 3,
-                  "offsetX": 0,
+                  "dimX": 4,
+                  "dimY": 4,
+                  "offsetX": 3,
                   "offsetY": 1,
                   "data": [
                     [
-                      true,
+                      0,
+                      1,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
                       false,
                       true,
                       false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true,
                       true
                     ],
                     [
                       true,
-                      false,
                       true,
-                      false,
-                      true
+                      true,
+                      true,
+                      false
                     ],
                     [
                       true,
-                      false,
+                      true,
                       true,
                       false,
-                      true
+                      false
                     ]
                   ]
                 },
@@ -470,10 +591,13 @@ const chapterInfo = [
           ],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Systemvariablen bereit?\", \"Es kann losgehen\")\n\n__ide_run_client()\n\n# Variablen sammeln (ohne Systemvariablen)\nuser_vars = [v for v in globals() if not v.startswith('__ide_') and v != '__builtins__' and v != 'Robot']\n\ntypen = [type(globals()[v]).__name__ for v in user_vars]\n\nerforderliche_typen = {'int', 'float', 'str', 'bool'}\n\nif len(user_vars) != 3:\n    __ide_prompt(f'❌ Falsche Anzahl Variablen: {len(user_vars)} statt 3', 'Nochmal versuchen')\n    __ide_exit()\n\nif len(set(typen)) < 3:\n    doppelte = [t for t in ['int','float','str', 'bool'] if typen.count(t) > 1]\n    __ide_prompt(f'❌ Doppelte Datentypen: {\", \".join(doppelte)}', 'Typen prüfen')\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Deine drei Variablen wurden gesetzt. Ich spüre keine sofortige Veränderung ¯\\\\\\\\(°_o)/¯. Aber es hat sich trotzdem gelohnt!')",
+          "questScript": "__ide_prompt(\"Das sind also unsere Wünsche!\", \"Simsalabim\")\n\n__ide_run_client()\n\n# Variablen sammeln (ohne Systemvariablen)\nuser_vars = [v for v in globals() if not v.startswith('__ide_') and v != '__builtins__' and v != 'Robot']\n\ntypen = [type(globals()[v]).__name__ for v in user_vars]\n\nerforderliche_typen = {'int', 'float', 'str', 'bool'}\n\nif len(user_vars) != 3:\n    __ide_prompt(f'❌ Falsche Anzahl Wünsche: {len(user_vars)} statt 3', 'Nochmal versuchen')\n    __ide_exit()\n\nif len(set(typen)) < 3:\n    doppelte = [t for t in ['int','float','str', 'bool'] if typen.count(t) > 1]\n    __ide_prompt(f'❌ Doppelte Datentypen: {\", \".join(doppelte)}', 'Typen prüfen')\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Das klingt wunderbar ٩(^‿^)۶')",
           "language": "python-pro",
-          "program": "# Notiere deine drei Variablen:\n\n"
-        }
+          "program": "# Notiere deine drei Wünsche:\n\n"
+        },
+        "deps": [
+          10002
+        ]
       },
       {
         "filename": "Quiz.json",
@@ -483,7 +607,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "Quiz",
-          "description": "Schau mal, hier ist ein Quiz. Vielleicht hilft es uns weiter, wenn wir es lösen!\n\nWeise diesen drei Variablen den richtigen Wert zu. Wähle jeweils einen passenden Datentyp. Achte auf Groß-/Kleinschreibung.",
+          "description": "Meine Tante mag Quiz-Fragen, deshalb gibt es hier ein Quiz für euch.\n\nWeise den drei Variablen den richtigen Wert zu. Wähle jeweils einen passenden Datentyp. Achte auf Groß-/Kleinschreibung.",
           "tasks": [
             {
               "title": "Quiz",
@@ -655,7 +779,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "Hin und her",
-          "description": "In diesem Knoten herrscht ja richtiges Chaos. Die Variablen wurden ohne erkennbares Muster hin und her gesetzt.\n\nSchaue dir das Script an und finde heraus, welchen Wert die Variable `erde` am Ende des Programms hat. Wenn du die Antwort weißt, dann klicke auf Start.",
+          "description": "Zeigt mal, ihr beiden, ob ihr auch mit etwas Chaos klarkommt. Die Variablen wurden ohne erkennbares Muster hin und her gesetzt.\n\nSchaut euch das Script an und findet heraus, welchen Wert die Variable `erde` am Ende des Programms hat. Wenn du die Antwort weißt, dann klicke auf Start.",
           "tasks": [
             {
               "title": "Ein Durcheinander",
@@ -869,7 +993,7 @@ const chapterInfo = [
           ],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"In diesem Programm werden Variablen wild gesetzt. Hast du noch den Durchblick?\", \"Klar\")\n\nergebnis = input(\"Welchen Wert hat am Ende des Programms die Variable Erde?\")\n\nif ergebnis != \"hase\":\n    __ide_prompt(\"Das ist leider nicht die richtige Antwort.\", \"Nochmal\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"erde = himmel, himmel = blau, blau = a, a = \\\"hase\\\" - so behältst du den Überblick :)\")",
+          "questScript": "__ide_prompt(\"Haha, von dem bisschen Chaos werden wir uns nicht verwirren lassen!\", \"Natürlich nicht!\")\n\nergebnis = input(\"Welchen Wert hat am Ende des Programms die Variable Erde?\")\n\nif ergebnis != \"hase\":\n    __ide_prompt(\"Das ist leider nicht die richtige Antwort.\", \"Nochmal\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"erde = himmel, himmel = blau, blau = a, a = \\\"hase\\\" - so behälten wir den Überblick :)\")",
           "language": "python-pro",
           "program": "a = \"hase\"\nb = \"fuchs\"\nc = \"eule\"\n\nrot = c\ngrün = b\nblau = a\n\nhimmel = a\nerde = rot\nhimmel = blau\nerde = himmel\n\n# Welchen Wert hat `erde` hier?"
         },
@@ -886,381 +1010,9 @@ const chapterInfo = [
     "dirName": "020-eingabe-ausgabe",
     "title": "2. Interaktionen",
     "originalTitle": "Interaktionen",
-    "description": "# 💬 Kapitel 2: Interaktionen\r\n\r\n\"Wir kommen voran!\", feiert Karol. \"Mal sehen, was uns als Nächstes erwartet.\" Sie verschwindet für ein paar Minuten in der Leinwand. Du nutzt die Zeit, dich ein wenig in ihrem Wohnzimmer umzusehen. Du bist überrascht, dass einige der Gemälde von Karol sehr kindlich aussehen.\r\n\r\n\"Was für Kunst machst du eigentlich?\", fragst du, als Karol wieder erscheint. Die alte Dame antwortet mit einem Grinsen: \"Haha, das ist eine komplizierte Sache. Aber aktuell male ich Bilder, die ich an Schulen schenke, um die Kinder dort ein wenig zu inspirieren...\"\r\n\r\nKarol schaut für einen kurzen Moment verträumt in die Ferne, dann findet sie sich wieder: \"Ich hab mir das Kapitel angeschaut, es wird interaktiv, denn du lernst, wie du Texte anzeigen und auf Eingaben reagieren kannst.\r\n\r\n## 1. Die `print()`-Funktion – sprich mit der Welt!\r\n\r\nMit `print()` kannst du alles ausgeben – Texte, Zahlen oder Variablen.\r\n\r\n```python\r\nprint(\"Hallo Welt! 🌍\")\r\n\r\nprint(42)\r\n\r\nalter = 17\r\nprint(alter)\r\n```\r\n\r\n## 2. Mit `f-Strings` Texte bauen\r\n\r\nHäufig wollen wir Informationen in einen netten Text verpacken. Dazu sind _f-Strings_ sehr hilfreich, denn damit kannst du Text mit Variablen und anderen Daten mischen. Nutze geschweifte Klammern `{}` als Platzhalter und schreibe dazwischen eine Variable. Dann wird der Wert an diese Stelle in den Text eingefügt:\r\n\r\n```py\r\nanzahl = \"4\"\r\nfarbe = \"rot\"\r\n\r\nprint(f\"Da sind {anzahl} Autos mit der Farbe {farbe}.\")\r\n\r\n# -> Da sind 4 Autos mit der Farbe rot.\r\n```\r\n\r\n## 3. Die `input()`-Funktion – stelle Fragen!\r\n\r\nSo holst du dir Eingaben vom Benutzer ab:\r\n\r\n```python\r\n# Einfache Eingabe\r\nname = input(\"Wie heißt du? \")\r\n\r\nprint(f\"Hallo, {name}! 😊\")\r\n```\r\n\r\n## 4. Typumwandlung – mach aus Text eine Zahl\r\n\r\nUm eine Zahl abzufragen, verpacke die Eingabe in die Funktion `int()`. Diese wandelt einen Text in eine Zahl um:\r\n\r\n```python\r\n# String zu Integer\r\ngeburtsjahr = int(input(\"Geburtsjahr: \"))\r\n\r\naktuelles_jahr = 2025\r\nalter = aktuelles_jahr - geburtsjahr\r\nprint(f\"Du bist etwa {alter} Jahre jung! 🎂\")\r\n```\r\n\r\n## 💡 Wichtigste Erkenntnisse\r\n\r\n- `print()` gibt aus, `input()` liest ein (immer als String!)\r\n- `f-Strings` sind besonders nützlich für zusammengesetzte Texte\r\n- Mit `int()` machst aus Texten Ganzzahlen\r\n\r\nJetzt kannst du schon richtige Dialoge mit deinem Programm führen! Probiere dich gleich an den Aufgaben aus! 🎮💬\"\r\n",
+    "description": "# 💬 Kapitel 2: Interaktionen\r\n\r\n\"Wir kommen voran!\", feiert Karol mit einem strahlenden Lächeln. \"Mal sehen, was uns als Nächstes erwartet. Davor muss ich mal kurz.\" Sie verschwindet für ein paar Minuten und du bist mit Emi alleine. Du nutzt die Zeit, dich ein wenig im Atelier umzusehen. Die Wände sind übersät mit bunten Bildern, und du bist überrascht, dass viele von Karols Kunstwerken fast kindlich anmuten – farbenfroh, fantasievoll und voller Lebensfreude.\r\n\r\nEmi tippt währenddessen konzentriert auf ihrem Laptop. \"Willst du auch einen Blick darauf werfen?\", fragt sie plötzlich, etwas weniger schroff als zuvor. Du nickst und siehst Codezeilen über ihren Bildschirm flimmern. Aber sobald Karol wieder da ist, klappt sie den Laptop wieder zu und ist wieder ganz ernst.\r\n\r\n\"Was für Kunst machst du eigentlich?\", fragst du, als Karol wieder erscheint. Die alte Dame antwortet mit einem verschmitzten Grinsen: \"Haha, das ist eine komplizierte Sache. Früher habe ich mich mit abstrakter Kunst beschäftigt, aber heute male ich hauptsächlich Bilder, die ich an Schulen verschenke, um die Kinder dort ein wenig zu inspirieren...\"\r\n\r\nKarol schaut für einen kurzen Moment verträumt in die Ferne, dann findet sie sich wieder: \"Kunst und Programmieren haben übrigens mehr gemeinsam, als man denkt – bei beiden geht es um Kreativität und Kommunikation!\"\r\n\r\nEmi übernimmt wieder: \"Kommunikation ist das perfekte Stichwort. Jetzt zeige ich euch, wie man dem Computer das Sprechen beibringt und er euch fragen stellen kann.\"\r\n\r\n## 1. Die `print()`-Funktion – sprich mit der Welt!\r\n\r\n\"Mit `print()` kannst du alles ausgeben – Texte, Zahlen oder Variablen\", erklärt Emi und tippt ein paar Beispiele:\r\n\r\n```python\r\nprint(\"Hallo Welt! 🌍\")\r\n\r\nprint(42)\r\n\r\nalter = 17\r\nprint(alter)\r\n```\r\n\r\n\"So einfach ist das?\", fragt Karol erstaunt. \"Ja, so einfach\", bestätigt Emi, \"du kannst alles, was du zeigen möchtest, zwischen die Klammern schreiben.\"\r\n\r\n## 2. Mit `f-Strings` Texte bauen\r\n\r\n\"Jetzt wird's interessant\", fährt Emi fort. \"Stell dir vor, du willst nicht nur einzelne Informationen ausgeben, sondern sie in einen schönen Satz packen.\"\r\n\r\n\"Wie bei einer Bildunterschrift in einer Ausstellung?\", fragt Karol.\r\n\r\n\"Genau! Dafür sind _f-Strings_ super praktisch\", erklärt Emi. \"Du kannst damit Text mit Variablen mischen. Schau mal:\"\r\n\r\n```python\r\nbildart = \"Ölgemälde\"\r\njahr = 1995\r\n\r\nprint(f\"Ein {bildart} aus dem Jahr {jahr}.\")\r\n\r\n# -> Ein Ölgemälde aus dem Jahr 1995.\r\n```\r\n\r\n\"Das f am Anfang des Textes ist wichtig\", betont Emi. \"Es bedeutet 'formatierter String'. Und in die geschweiften Klammern schreibst du die Variablen, deren Werte du einfügen möchtest.\"\r\n\r\n## 3. Die `input()`-Funktion – stelle Fragen!\r\n\r\nDu meintest, der Computer kan auch Fragen stellen?\", hakt Karol nach. \"Dafür haben wir die `input()`-Funktion\", antwortet Emi und tippt weiter:\r\n\r\n```python\r\n# Einfache Eingabe\r\nname = input(\"Wie heißt du? \")\r\n\r\nprint(f\"Hallo, {name}! 😊\")\r\n```\r\n\r\n\"Probier's aus\", fordert sie dich auf. Du tippst deinen Namen ein und das Programm begrüßt dich persönlich. Karol ist begeistert und klatscht in die Hände.\r\n\r\n\"Die Zeichenkette in den Klammern ist die Frage, die angezeigt wird\", erklärt Emi. \"Und was der Benutzer eingibt, wird in der Variable gespeichert.\r\n\r\n## 4. Typumwandlung – mach aus Text eine Zahl\r\n\r\nEs gibt aber einen kleinen Haken, `input` gibt immer nur einen Text zurück. Wenn ihr eine Zahl abfragen wollt, muss dieser noch in eine Zahl umwandelt werden. So, jetzt wisst ihr Bescheid, wenn euer Programm später einen Fehler wirft, dann beschwert euch nicht, ich hätte es euch nicht erklärt!\"\r\n\r\n```python\r\n# String zu Integer\r\ngeburtsjahr = int(input(\"Geburtsjahr: \"))\r\n\r\naktuelles_jahr = 2025\r\nalter = aktuelles_jahr - geburtsjahr\r\nprint(f\"Du bist etwa {alter} Jahre jung! 🎂\")\r\n```\r\n\r\n\"Die `int()`-Funktion wandelt den Text in eine ganze Zahl um\", erklärt Emi. \"Für Kommazahlen würden wir `float()` verwenden.\"\r\n\r\n## 💡 Wichtigste Erkenntnisse\r\n\r\nKarol bittet dich, einen Blick über ihre Notizen zu werfen und diese zu überprüfen:\r\n\r\n- `print()` gibt Informationen aus – deine Botschaft an die Welt\r\n- `input()` nimmt Eingaben entgegen – immer als Text (String)\r\n- `f-Strings` mit `{variable}` sind perfekt, um Texte mit Daten zu mischen\r\n- Mit `int()` und `float()` wandelst du Text in Zahlen um\r\n\r\n\"Und, passt alles?\". Du sieht keine Probleme und nickst. Du sprichst Emi an: \"Lass mal raten, Dozentin, jetzt ist wieder Zeit für Übungsaufgaben?\"\r\n\r\nEmi lächelt – zum ersten Mal, seit du hier bist. \"Genau. Ab an die Aufgaben ihr beiden! Hop, hop, worauf wartet ihr noch? 🎮💬\"\r\n",
     "image": "/story/2.jpg",
     "quests": [
-      {
-        "filename": "Systemstatus.json",
-        "x": 160,
-        "y": -70,
-        "id": 119,
-        "content": {
-          "version": "v1",
-          "title": "Systemstatus",
-          "description": "Beim Start der Rakete müssen Temperatur und Geschwindigkeit eng beobachtet werden.\n\nErsetze `X` und `Y` mit  `{}`-Klammern und setze die passende Variable ein. So soll eine Ausgabe aussehen:\n\n**Triebwerkstemperatur: 555 °C, Geschwindigkeit: 423 km/h**",
-          "tasks": [
-            {
-              "title": "Instrumentenanzeige",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 6,
-                  "dimY": 3,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 2,
-                  "dimY": 4,
-                  "offsetX": 3,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 6,
-                  "dimY": 3,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 2,
-                  "dimY": 4,
-                  "offsetX": 3,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "import random\n\n__ide_prompt(\"T minus 3, 2, 1, ...\", \"Start\")\n\nts = [0, 500, 800, 1100, 1300, 1500, 1665, 1780, 1990, 2102]\n\nvs = [0, 10, 26, 45, 56, 78, 98, 135, 180, 240]\n\nfor i in range(10):\n    t = ts[i]\n    v = vs[i]\n    def ladeTemperatur():\n        return t\n\n    def ladeGeschwindigkeit():\n        return v\n\n    __ide_run_client(globals=[\"ladeTemperatur\", \"ladeGeschwindigkeit\"])\n\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"Triebwerkstemperatur: {t} °C, Geschwindigkeit: {v} km/h\"\n    if lastOutput != expected:\n        __ide_prompt(\"Statusanzeige fehlerhaft, Messwerte wurden nicht richtig dargestellt.\", \"Korrigieren\")\n        __ide_exit()\n\n    __ide_sleep(0.3)\n\n__ide_set_progress(True)\n__ide_prompt(\"Start erfolgreich 🚀\")",
-          "language": "python-pro",
-          "program": "temperatur = ladeTemperatur()\n\ngeschwindigkeit = ladeGeschwindigkeit()\n\nprint(f\"Triebwerkstemperatur: X °C, Geschwindigkeit: Y km/h\")"
-        },
-        "deps": [
-          10003
-        ]
-      },
-      {
-        "filename": "Runen.json",
-        "x": 190,
-        "y": 70,
-        "id": 120,
-        "content": {
-          "version": "v1",
-          "title": "Runen",
-          "description": "In einer magischen Beschwörung müssen  X mit dem Wert der Variable `rune` ersetzt werden. Sei vorsichtig und lösche keine der Tilden.",
-          "tasks": [
-            {
-              "title": "magische Rune",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 6,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 6,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "runes = [' ✿ڿڰۣ— ', '(=^･ｪ･^=))ﾉ彡☆', '\tヽ(｀Д´)⊃━☆ﾟ. * ･ ｡ﾟ,']\n\n__ide_prompt(\"Die große Beschwörung steht bevor.\", \"Runen einsetzen\")\n\n\nfor rune in runes:\n    def ladeRune():\n        return rune\n    __ide_run_client(globals=[\"ladeRune\"])\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"~~~~~~~{rune}~~~~~{rune}~~~~~{rune}~~~~\"\n    if lastOutput != expected:\n        __ide_prompt(\"Beschwörung fehlgeschlagen 💥\", \"Korrigieren\")\n        __ide_exit()\n    __ide_sleep(0.8)\n\n__ide_set_progress(True)\n__ide_prompt(\"Danke für die Unterstützung!\", \"Gerne\")",
-          "language": "python-pro",
-          "program": "rune = ladeRune()\n\nprint(f\"~~~~~~~X~~~~~X~~~~~X~~~~\")"
-        },
-        "deps": [
-          10003
-        ]
-      },
       {
         "filename": "Begrüßung.json",
         "x": 560,
@@ -1423,7 +1175,7 @@ const chapterInfo = [
           "editOptions": "python-pro-only",
           "questScript": "__ide_prompt(\"Probieren wir das Script aus.\", \"Begegnung starten\")\n\n__ide_run_client()\n\n# Prüfe Eingabe über input()\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst den Namen mit `input()` abfragen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Extrahiere den eingegebenen Namen\nname = inputs[0]\n\n# Prüfe Ausgabe\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Begrüßung ausgegeben. Nutze einen f-string mit `print()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob der Name in der Ausgabe verwendet wurde\nlast_output = outputs[-1].strip()\nif name not in last_output:\n    __ide_prompt(f\"Deine Begrüßung enthält nicht den Namen '{name}'. Nutze einen f-string, der den Namen einbaut.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n\n__ide_set_progress(True)\n__ide_prompt(f\"Super! Du hast {name} erfolgreich mit einem f-string begrüßt!\", \"Weiter\")",
           "language": "python-pro",
-          "program": "\nname = \"\" # TODO: ersetze mit input(\"Wie lautet dein Name?\")\n\nprint(f\"...\") # TODO: antworte den Namen, z.B. Hi, X!\n"
+          "program": "\nname = \"\" # TODO: ersetze mit input(\"Wie lautet dein Name?\")\n\nprint(f\"Hallo, X\") # TODO: ersetze X mit dem Namen\n"
         },
         "deps": [
           10003
@@ -1432,12 +1184,12 @@ const chapterInfo = [
       {
         "filename": "Harry_Potter_Fan.json",
         "x": 330,
-        "y": 148,
+        "y": 158,
         "id": 122,
         "content": {
           "version": "v1",
           "title": "Harry Potter Fan",
-          "description": "Alle Harry Potter Fans aufgepasst: Schreibe ein Script, dass drei bekannte Tatsachen abfragt. Nutze für jede Tatsache einmal `input` und speichere die Informationen in den passenden Variablen.\n\nAchte bei der dritten Tatsache darauf, die Eingabe mit `int(input())` in eine Ganzzahl umzuwandeln.\n\n> 7 - ƃıʍpǝH - ɥɔʇıppınὉ :uǝʇnɐן uǝʇɹoʍʇu∀ ǝıᗡ",
+          "description": "Meine Tante ist ein geheimer Harry Potter Fan, diese Aufgabe sollte für sie leicht zu machen sein.\n\nSchreibe ein Script, dass drei bekannte Tatsachen abfragt. Nutze für jede Tatsache einmal `input` und speichere die Informationen in den passenden Variablen.\n\nAchte bei der dritten Tatsache darauf, die Eingabe mit `int(input())` in eine Ganzzahl umzuwandeln.\n\n> 7 - ƃıʍpǝH - ɥɔʇıppınὉ :uǝʇnɐן uǝʇɹoʍʇu∀ ǝıᗡ",
           "tasks": [
             {
               "title": "Initialien",
@@ -1770,6 +1522,624 @@ const chapterInfo = [
         "deps": [
           10003
         ]
+      },
+      {
+        "filename": "Explosion.json",
+        "x": 190,
+        "y": 170,
+        "id": 145,
+        "content": {
+          "version": "v1",
+          "title": "Explosion",
+          "description": "Wollt ihr etwas Spaß haben? Das bleibt unter uns, ok? Mit f-Strings kann man eine Art Text-Bombe bauen, indem ihr einen Text wiederholt.\n\nJedes boom wird aus dem vorherigen boom gebaut, ergänzt noch `boom4` bis `boom6` und freut euch auf die Explosion!\n\nVergesst nicht, die letzte Zeile zu aktualisieren.",
+          "tasks": [
+            {
+              "title": "Explosion",
+              "start": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 3,
+                  "dimY": 3,
+                  "offsetX": 2,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 3,
+                  "dimY": 3,
+                  "offsetX": 2,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 7,
+                  "dimY": 7,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_prompt(\"Emi: 'Zurücktreten! Diese Textbombe könnte größer werden als erwartet!'\", \"Explosion starten\")\n\n# Führe den Client-Code aus\n__ide_run_client()\n\n# Überprüfe, ob die Variablen korrekt definiert wurden\nvars_to_check = ['boom', 'boom2', 'boom3', 'boom4', 'boom5', 'boom6']\nmissing_vars = []\n\nfor var in vars_to_check:\n    if var not in globals() or globals()[var] is None:\n        missing_vars.append(var)\n\nif missing_vars:\n    __ide_prompt(f\"Emi: 'Du hast nicht alle boom-Variablen definiert. Es fehlen: {', '.join(missing_vars)}'\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe, ob die Variablen korrekt aufgebaut wurden\nexpected_boom = \"BOOOOM\"\nexpected_boom2 = f\"{expected_boom}-{expected_boom}-{expected_boom}\"\nexpected_boom3 = f\"{expected_boom2}-{expected_boom2}-{expected_boom2}\"\nexpected_boom4 = f\"{expected_boom3}-{expected_boom3}-{expected_boom3}\"\nexpected_boom5 = f\"{expected_boom4}-{expected_boom4}-{expected_boom4}\"\nexpected_boom6 = f\"{expected_boom5}-{expected_boom5}-{expected_boom5}\"\n\nwrong_vars = []\nif boom != expected_boom:\n    wrong_vars.append('boom')\nif boom2 != expected_boom2:\n    wrong_vars.append('boom2')\nif boom3 != expected_boom3:\n    wrong_vars.append('boom3')\nif boom4 != expected_boom4:\n    wrong_vars.append('boom4')\nif boom5 != expected_boom5:\n    wrong_vars.append('boom5')\nif boom6 != expected_boom6:\n    wrong_vars.append('boom6')\n\nif wrong_vars:\n    __ide_prompt(f\"Emi: 'Die folgenden boom-Variablen sind nicht korrekt definiert: {', '.join(wrong_vars)}. Achte darauf, das f-String-Muster fortzusetzen.'\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe, ob boom6 ausgegeben wurde\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Emi: 'Du hast nichts ausgegeben! Vergiss nicht, print() zu verwenden.'\", \"Nochmal versuchen\")\n    __ide_exit()\n\nlast_output = outputs[-1].strip()\nif last_output != expected_boom6:\n    __ide_prompt(\"Emi: 'Du musst boom6 ausgeben, nicht irgendeine andere Variable.'\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Alles korrekt\n__ide_set_progress(True)\n__ide_prompt(\"Karol klatscht begeistert: 'WOW! Diese Textketten-Explosion ist fantastisch! Das erinnert mich an meine Feuerwerk-Kunstinstallation von 1987!'\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "boom = \"BOOOOM\"\n\nboom2 = f\"{boom}-{boom}-{boom}\"\n\nboom3 = f\"{boom2}-{boom2}-{boom2}\"\n\nboom4 = None\n\nboom5 = None\n\nboom6 = None\n\nprint(boom3)"
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "Runen.json",
+        "x": 110,
+        "y": 50,
+        "id": 120,
+        "content": {
+          "version": "v1",
+          "title": "Runen",
+          "description": "\"Weißt du was, Emi? Diese f-Strings erinnern mich an meine magische Runen-Sammlung!\", ruft Karol aufgeregt und kramt in einer Schublade. Emi stöhnt: \"Tante, nicht schon wieder deine Fantasie-Geschichten...\"\n\nKarol lächelt verschmitzt: \"Aber diese Runen sind echt magisch! Mit f-Strings werden sie zum Leben erweckt.\"\n\nIn der magischen Beschwörung müssen alle `X` mit dem Wert der Variable `rune` ersetzt werden. Nutze f-Strings! Sei vorsichtig und lösche keine der Tilden (`~`).",
+          "tasks": [
+            {
+              "title": "magische Rune",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 2,
+                  "dimY": 2,
+                  "offsetX": 2,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 2,
+                  "dimY": 2,
+                  "offsetX": 2,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 6,
+                  "dimY": 6,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      true,
+                      true,
+                      true,
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "runes = [' ✿ڿڰۣ— ', '(=^･ｪ･^=))ﾉ彡☆', '\tヽ(｀Д´)⊃━☆ﾟ. * ･ ｡ﾟ,']\n\n__ide_prompt(\"Karol breitet ihre Hände aus: 'Die große Beschwörung steht bevor! Konzentriere dich auf die Runen!'\", \"Runen aktivieren\")\n\n\nfor rune in runes:\n    def ladeRune():\n        return rune\n    __ide_run_client(globals=[\"ladeRune\"])\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"~~~~~~~{rune}~~~~~{rune}~~~~~{rune}~~~~\"\n    if lastOutput != expected:\n        __ide_prompt(\"Emi schüttelt den Kopf: 'Die Beschwörung ist fehlgeschlagen. Du musst alle X durch die Variable rune ersetzen - mit f-Strings!'💥\", \"Korrigieren\")\n        __ide_exit()\n    __ide_sleep(0.8)\n\n__ide_set_progress(True)\n__ide_prompt(\"'Fantastisch!' Karol tanzt begeistert durch den Raum. 'Siehst du, Emi? Ich hab's dir doch gesagt - Programmieren ist auch eine Art Magie!' Emi verdreht die Augen, kann sich aber ein kleines Lächeln nicht verkneifen.\", \"Weiter\")",
+          "language": "python-pro",
+          "program": "rune = ladeRune()\n\nprint(f\"~~~~~~~X~~~~~X~~~~~X~~~~\")"
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "Systemstatus.json",
+        "x": 160,
+        "y": -70,
+        "id": 119,
+        "content": {
+          "version": "v1",
+          "title": "Systemstatus",
+          "description": "\"Das mit den f-Strings muss ich unbedingt für meine Weltraum-Kunstserie nutzen!\", ruft Karol begeistert. Emi verdreht die Augen: \"Hab ich ja gesagt, dass das nützlich ist.\"\n\nIn diesem Programm für die Raketensteuerung müssen Temperatur und Geschwindigkeit überwacht werden.\n\nErsetze `X` und `Y` mit geschweiften Klammern `{}` und setze die passenden Variablen ein. So soll die Ausgabe aussehen:\n\n**Triebwerkstemperatur: 555 °C, Geschwindigkeit: 423 km/h**",
+          "tasks": [
+            {
+              "title": "Instrumentenanzeige",
+              "start": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 6,
+                  "dimY": 3,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 2,
+                  "dimY": 4,
+                  "offsetX": 3,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 6,
+                "dimY": 6,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 6,
+                  "dimY": 3,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  ]
+                },
+                "marks": {
+                  "dimX": 2,
+                  "dimY": 4,
+                  "offsetX": 3,
+                  "offsetY": 2,
+                  "data": [
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      false,
+                      true
+                    ],
+                    [
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "import random\n\n__ide_prompt(\"Emi: 'Achtet auf die Messwerte! T minus 3, 2, 1, ...'.\", \"Start\")\n\nts = [0, 500, 800, 1100, 1300, 1500, 1665, 1780, 1990, 2102]\n\nvs = [0, 10, 26, 45, 56, 78, 98, 135, 180, 240]\n\nfor i in range(10):\n    t = ts[i]\n    v = vs[i]\n    def ladeTemperatur():\n        return t\n\n    def ladeGeschwindigkeit():\n        return v\n\n    __ide_run_client(globals=[\"ladeTemperatur\", \"ladeGeschwindigkeit\"])\n\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"Triebwerkstemperatur: {t} °C, Geschwindigkeit: {v} km/h\"\n    if lastOutput != expected:\n        __ide_prompt(\"Karol: 'Statusanzeige fehlerhaft! Die Messwerte werden nicht richtig dargestellt. Hast du die f-Strings richtig verwendet?'\", \"Korrigieren\")\n        __ide_exit()\n\n    __ide_sleep(0.3)\n\n__ide_set_progress(True)\n__ide_prompt(\"Karol jubelt: 'Start erfolgreich! 🚀 Das könnte ich in meinem nächsten Bild umsetzen!'\")",
+          "language": "python-pro",
+          "program": "# Diese Funktionen holen aktuelle Messwerte\ntemperatur = ladeTemperatur()\ngeschwindigkeit = ladeGeschwindigkeit()\n\n# Gib die Messwerte mit f-Strings aus\nprint(f\"Triebwerkstemperatur: X °C, Geschwindigkeit: Y km/h\")"
+        },
+        "deps": [
+          10003
+        ]
       }
     ],
     "x": 380,
@@ -1780,7 +2150,7 @@ const chapterInfo = [
     "dirName": "030-bedingte-anweisungen",
     "title": "3. Bedingte Anweisungen",
     "originalTitle": "Bedingte Anweisungen",
-    "description": "# 🧠 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\n\"Dein Erfolg bei den bisherigen Aufgaben ist beeindruckend!\", freut sich Karol. Du bemerkst, dass die Muster auf den Leinwänden sich verändert haben – sie wirken jetzt dynamischer, als würden sie auf etwas reagieren.\r\n\r\n\"Etwas stimmt nicht...\", murmelt Karol besorgt. \"Die Leinwände müssten sich öffnen, aber es passiert nichts. Ich habe den Verdacht, dass die Quantensysteme eine Sicherheitsprüfung durchführen.\" Sie schaut dich hoffnungsvoll an. \"Deine Hilfe ist jetzt wichtiger denn je! Wir müssen dem System beibringen, kluge Entscheidungen zu treffen.\"\r\n\r\nIhre Stimme wird ernst: \"In der Programmierung ist das ein entscheidender Schritt: deinem Code beizubringen, verschiedene Situationen zu erkennen und entsprechend zu handeln. Genau wie ein Zauberlehrling wissen muss, wann der Kessel die richtige Temperatur hat, oder eine Wetterstation erkennen muss, wann ein Sturm aufzieht.\"\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nKarol projiziert ein einfaches Beispiel auf die Leinwand:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n\"Das ist wie eine Verzweigung auf deinem Weg\", erklärt sie. \"Der Code fragt: 'Ist die Ampel grün?' Wenn ja, dann fahre los. Wenn nicht, dann mache... nichts in diesem Beispiel.\"\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\" oder \"wenn\"\r\n- `==` prüft auf Gleichheit (Achtung: nicht verwechseln mit `=`, das ist für Zuweisungen!)\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Die Einrückungen (4 Leerzeichen) sind in Python Pflicht – sie zeigen, welcher Code zur Bedingung gehört\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\n\"Aber was, wenn die Ampel **nicht** grün ist?\", fragt Karol. Die Leinwand verändert sich und zeigt ein erweitertes Beispiel:\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    # Wird ausgeführt, weil 15 < 18\r\n    print(\"Noch etwas Geduld... 🕒\")\r\n```\r\n\r\n\"Mit `else` hast du einen Plan B! Wenn die Bedingung nicht zutrifft, wird stattdessen der Code im `else`-Block ausgeführt. So hat dein Programm für jede Situation eine Antwort.\"\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\n\"Manchmal gibt es mehr als nur zwei Möglichkeiten\", sagt Karol und zaubert ein neues Beispiel hervor:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    # Wird ausgeführt, weil 2.3 <= 3.0\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n\"Mit `elif` (kurz für 'else if') kannst du mehrere Bedingungen nacheinander prüfen. Sobald eine davon zutrifft, wird der zugehörige Code ausgeführt und die restlichen Bedingungen werden übersprungen.\"\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n\"Um Entscheidungen zu treffen, brauchst du die richtigen Werkzeuge\", erklärt Karol und lässt eine Tabelle erscheinen:\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n\"Diese Operatoren sind wie deine Sinne – sie helfen dir, die Welt um dich herum zu verstehen und zu bewerten.\"\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n\"Manchmal müssen mehrere Bedingungen gleichzeitig erfüllt sein\", fährt Karol fort. Die Leinwand leuchtet heller und zeigt neue Beispiele:\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    # Wird ausgeführt, weil wetter == \"sonnig\"\r\n    print(\"Eiszeit! 🍦\")\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    # Wird ausgeführt, weil login_erfolgreich False ist\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n\"Mit diesen drei Operatoren – `and`, `or` und `not` – kannst du komplexe Entscheidungen programmieren, genau wie das menschliche Gehirn.\"\r\n\r\n## 🏆 Jetzt bist du dran!\r\n\r\n\"Mit diesem Wissen kannst du jetzt richtig mächtige Programme schreiben\", sagt Karol aufgeregt. \"Du kannst deinem Code beibringen, intelligente Entscheidungen zu treffen – sei es für die Temperatur eines Zaubertranks oder die Warnsysteme einer Wetterstation. Die Leinwände reagieren bereits positiv, ich spüre es!\"\r\n\r\nDie Muster auf den Leinwänden flimmern und bilden kurz ein Lächeln, bevor sie wieder zu abstrakten Formen werden.\r\n\r\n\"Ich glaube, wir sind auf dem richtigen Weg\", flüstert Karol. \"Die Quantentore zu den Aufgaben öffnen sich. Löse sie, und wir kommen dem Ausgang näher...\"\r\n\r\nDu betrachtest die schimmernden Quantenknoten, die vor dir erscheinen, und bereitest dich auf die nächste Herausforderung vor.\r\n",
+    "description": "# 🧠 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\nPlötzlich klingelt es an der Tür. \"Ah, das müssen unsere anderen Gäste sein\", sagt Karol und huscht zur Tür. Kurz darauf kommt sie mit zwei Jungs zurück, die etwa in deinem Alter sind. \"Das sind Max und Tim, sie sind extra angereist\", stellt sie die beiden vor. \"Ihre Mutter ist Informatikerin und hat ihnen schon ein bisschen das Programmieren beigebracht.\"\r\n\r\nMax, der Größere der beiden mit einem grünen T-Shirt und zerzausten blonden Haaren, nickt dir freundlich zu. Tim, sein kleinerer Bruder mit einer auffälligen roten Brille, strahlt und fragt sofort: \"Habt ihr schon mit Schleifen angefangen? Oder Funktionen?\"\r\n\r\nEmi verdreht leicht die Augen. \"Wir sind gerade bei Bedingten Anweisungen. Die beiden haben schon Variablen und Ein-/Ausgabe geschafft.\"\r\n\r\n\"Cool, dann sind wir ja genau richtig\", sagt Max und setzt sich neben dich. \"Bedingte Anweisungen sind super wichtig. Damit wird der Code erst richtig interessant!\"\r\n\r\nEmi fährt fort: \"In der Programmierung ist das ein entscheidender Schritt: eurem Code beizubringen, verschiedene Situationen zu erkennen und entsprechend zu handeln. Genau wie eine Wetterstation erkennen muss, wann ein Sturm aufzieht.\"\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nEmi zeigt ein einfaches Beispiel am Computer:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n\"Das ist wie eine Verzweigung auf deinem Weg\", erklärt sie. \"Der Code fragt: 'Ist die Ampel grün?' Wenn ja, dann fahre los. Wenn nicht, dann mache... nichts in diesem Beispiel.\"\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\" oder \"wenn\"\r\n- `==` prüft auf Gleichheit (Achtung: nicht verwechseln mit `=`, das ist für Zuweisungen!)\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Die Einrückungen (4 Leerzeichen) sind in Python Pflicht – sie zeigen, welcher Code zur Bedingung gehört\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\n\"Aber was, wenn die Ampel **nicht** grün ist?\", fragt Emi. Sie passt den Code an:\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    # Wird ausgeführt, weil 15 < 18\r\n    print(\"Noch etwas Geduld... 🕒\")\r\n```\r\n\r\n\"Mit `else` hast du einen Plan B! Wenn die Bedingung nicht zutrifft, wird stattdessen der Code im `else`-Block ausgeführt. So hat dein Programm für jede Situation eine Antwort.\"\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\n\"Manchmal gibt es mehr als nur zwei Möglichkeiten\", sagt Emi und zaubert ein neues Beispiel hervor:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    # Wird ausgeführt, weil 2.3 <= 3.0\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n\"Mit `elif` (kurz für 'else if') kannst du mehrere Bedingungen nacheinander prüfen. Sobald eine davon zutrifft, wird der zugehörige Code ausgeführt und die restlichen Bedingungen werden übersprungen.\"\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n\"Um Entscheidungen zu treffen, brauchst du die richtigen Werkzeuge\", erklärt Emi und lässt eine Tabelle erscheinen:\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n\"Diese Operatoren sind wie deine Sinne – sie helfen dir, die Welt um dich herum zu verstehen und zu bewerten.\"\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n\"Manchmal müssen mehrere Bedingungen gleichzeitig erfüllt sein\", fährt Emi fort:\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    # Wird ausgeführt, weil wetter == \"sonnig\"\r\n    print(\"Eiszeit! 🍦\")\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    # Wird ausgeführt, weil login_erfolgreich False ist\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n\"Mit diesen drei Operatoren – `and`, `or` und `not` – kannst du komplexe Entscheidungen programmieren, genau wie das menschliche Gehirn.\"\r\n\r\n## 🏆 Jetzt bist du dran!\r\n\r\n\"Mit diesem Wissen kannst du jetzt richtig mächtige Programme schreiben\", sagt Emi begeistert. \"Du kannst deinem Code beibringen, intelligente Entscheidungen zu treffen – wie ein Mensch. Jetzt los, probiert euch an den Übungsaufgaben aus. Und seid nicht überrascht: diesmal habe ich mir ein paar kreative Sachen ausgedacht!\"\r\n",
     "image": "/story/3.jpg",
     "quests": [
       {
@@ -2223,7 +2593,8 @@ const chapterInfo = [
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "__ide_prompt(\"Willkommen zur erweiterten Wetterstation-Überwachung! Du überwachst nun sowohl Wind als auch Niederschlag.\", \"Überwachung starten\")\n\n# Tracking-Variablen für getestete Fälle\ntested_normal = False\ntested_storm_only = False\ntested_rain_only = False\n\nwind = 50\nrain = 20\n\ndef messeSturmgeschwindigkeit():\n    return wind\n\ndef messeNiederschlag():\n    return rain\n\nwhile not (tested_normal and tested_storm_only and tested_rain_only):\n    # Generiere verschiedene Wetterbedingungen zum Testen\n    if not tested_normal:\n        # Teste normalen Fall - alles ok\n        wind = 50\n        rain = 20\n    elif not tested_storm_only:\n        # Teste nur Wind - Sturm\n        wind = 80\n        rain = 20\n    elif not tested_rain_only:\n        # Teste nur Regen - Starkregen\n        wind = 50\n        rain = 35\n        \n    __ide_run_client(globals=[\"messeSturmgeschwindigkeit\", \"messeNiederschlag\"])\n    \n    # Prüfe die Ausgaben\n    outputs = __ide_get_outputs()\n    \n    if not tested_normal:\n        # Überprüfe normale Ausgabe\n        if len(outputs) > 0:\n            __ide_prompt(f\"Bei normalen Wetterbedingungen (Wind: {wind} km/h, Regen: {rain} mm/h) sollte keine Warnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_normal = True\n            __ide_prompt(f\"Sehr gut! Bei normalen Bedingungen (Wind: {wind} km/h, Regen: {rain} mm/h) hast du korrekt keine Warnung ausgegeben.\", \"Weiter\")\n    elif not tested_storm_only:\n        # Überprüfe Sturmausgabe\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss eine Unwetterwarnung ausgegeben werden, auch wenn der Niederschlag normal ist.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_storm_only = True\n            __ide_prompt(f\"Gut gemacht! Du hast bei Sturm ({wind} km/h) korrekt eine Unwetterwarnung ausgegeben.\", \"Weiter\")\n    elif not tested_rain_only:\n        # Überprüfe Starkregenausgabe\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss eine Unwetterwarnung ausgegeben werden, auch wenn der Wind normal ist.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_rain_only = True\n            __ide_prompt(f\"Sehr gut! Du hast bei Starkregen ({rain} mm/h) korrekt eine Unwetterwarnung ausgegeben.\", \"Weiter\")\n\n__ide_set_progress(True)\n__ide_prompt(\"Herzlichen Glückwunsch! Dein erweitertes Wetterstation-Alarmsystem mit ODER-Verknüpfung funktioniert einwandfrei.\")",
-          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\n\n# TODO\n"
+          "language": "python-pro",
+          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\n\n# TODO\nif wind > 75:\n    print(\"STURMWARNUNG!\")"
         }
       },
       {
@@ -2308,7 +2679,8 @@ const chapterInfo = [
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "__ide_prompt(\"Willkommen zur erweiterten Wetterstation-Überwachung! Du überwachst nun auch Temperaturbedingungen.\", \"Überwachung starten\")\n\n# Tracking-Variablen für getestete Fälle\ntested_normal = False\ntested_frost = False\ntested_storm = False\ntested_rain = False\n\nwind = 50\nrain = 5\ntemp = 15\n\ndef messeSturmgeschwindigkeit():\n    return wind\n\ndef messeNiederschlag():\n    return rain\n\ndef messeTemperatur():\n    return temp\n\nwhile not (tested_normal and tested_frost and tested_storm and tested_rain):\n    # Generiere verschiedene Wetterbedingungen zum Testen\n    if not tested_normal:\n        # Teste normalen Fall - alles ok\n        wind = 50\n        rain = 5\n        temp = 15\n    elif not tested_frost:\n        # Teste Frost mit Niederschlag\n        wind = 30\n        rain = 10\n        temp = -5\n    elif not tested_storm:\n        # Teste nur Sturm\n        wind = 80\n        rain = 5\n        temp = 15\n    elif not tested_rain:\n        # Teste nur Starkregen\n        wind = 50\n        rain = 35\n        temp = 15\n        \n    __ide_run_client(globals=[\"messeSturmgeschwindigkeit\", \"messeNiederschlag\", \"messeTemperatur\"])\n    \n    # Prüfe die Ausgaben\n    outputs = __ide_get_outputs()\n    \n    if not tested_normal:\n        # Überprüfe normale Ausgabe\n        if len(outputs) > 0:\n            __ide_prompt(f\"Bei normalen Wetterbedingungen (Wind: {wind} km/h, Regen: {rain} mm/h, Temp: {temp}°C) sollte keine Warnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_normal = True\n            __ide_prompt(f\"Sehr gut! Bei normalen Bedingungen hast du korrekt keine Warnung ausgegeben.\", \"Weiter\")\n    elif not tested_frost:\n        # Überprüfe Frostwarnung\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Frost mit Niederschlag (Temp: {temp}°C, Regen: {rain} mm/h) muss eine Frostwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"FROSTWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Frost mit Niederschlag (Temp: {temp}°C, Regen: {rain} mm/h) muss \\\"FROSTWARNUNG! Glättegefahr auf Straßen und Wegen!\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_frost = True\n            __ide_prompt(f\"Sehr gut! Du hast die Frostwarnung korrekt ausgegeben.\", \"Weiter\")\n    elif not tested_storm:\n        # Überprüfe Sturmausgabe (Unwetter)\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss eine Unwetterwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_storm = True\n            __ide_prompt(f\"Gut gemacht! Du hast die Unwetterwarnung bei Sturm korrekt ausgegeben.\", \"Weiter\")\n    elif not tested_rain:\n        # Überprüfe Starkregenausgabe (Unwetter)\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss eine Unwetterwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_rain = True\n            __ide_prompt(f\"Sehr gut! Du hast die Unwetterwarnung bei Starkregen korrekt ausgegeben.\", \"Weiter\")\n\n__ide_set_progress(True)\n__ide_prompt(\"Herzlichen Glückwunsch! Dein erweitertes Wetterstation-Alarmsystem funktioniert einwandfrei.\")",
-          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\ntemperatur = messeTemperatur()\n\n# TODO\n"
+          "language": "python-pro",
+          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\ntemperatur = messeTemperatur()\n\n# TODO\nif wind > 75 or regen > 30:\n    print(\"UNWETTERWARNUNG!\")"
         }
       }
     ],
@@ -2320,13 +2692,13 @@ const chapterInfo = [
     "dirName": "040-mathematik",
     "title": "4. Mathematik 🚧",
     "originalTitle": "Mathematik 🚧",
-    "description": "# 🧮 Kapitel 4: Mathe-Genie – Rechnen wie ein Profi!\r\n\r\nWillkommen in der Welt der Python-Mathematik! Hier lernst du, wie du Zahlen gekonnt jonglierst und coole Berechnungen anstellst. Let's go! 🚀\r\n\r\n## 1. Arithmetische Grundoperationen\r\n\r\nPython versteht alle Grundrechenarten – probier's aus:\r\n\r\n```python\r\nprint(5 + 3)   # Addition: 8\r\nprint(10 - 4)  # Subtraktion: 6\r\nprint(2 * 6)   # Multiplikation: 12\r\nprint(8 / 2)   # Division: 4.0 (Achtung, Ergebnis ist float!)\r\n```\r\n\r\n## 2. Punkt-vor-Strich & Klammern\r\n\r\nPython rechnet wie in der Schule – erst Punkt- dann Strichrechnung:\r\n\r\n```python\r\nprint(3 + 4 * 2)   # 11 (nicht 14!)\r\nprint((3 + 4) * 2) # 14 – Klammern ändern alles!\r\n```\r\n\r\n## 3. Turbo-Zuweisungen 🚀\r\n\r\nKurze Schreibweise für Variablen-Updates:\r\n\r\n```python\r\npunkte = 10\r\npunkte += 5  # Äquivalent zu: punkte = punkte + 5\r\nprint(punkte) # 15\r\n\r\n# Funktioniert auch mit -=, *=, /=\r\n```\r\n\r\n## 4. Power mit \\*\\*\r\n\r\nPotenzieren leicht gemacht:\r\n\r\n```python\r\nprint(2 ** 3)  # 8 (2³)\r\nprint(5 ** 0.5) # Wurzel aus 5 ≈ 2.236\r\n```\r\n\r\n## 5. Mathe-Modul für Profis\r\n\r\nFür komplexere Rechnungen brauchen wir `math`:\r\n\r\n```python\r\nimport math\r\n\r\n# Wurzel ziehen\r\nprint(math.sqrt(25))  # 5.0\r\n\r\n# Mit Pi rechnen\r\nradius = 3\r\numfang = 2 * math.pi * radius\r\nprint(f\"Umfang: {umfang:.2f} cm\")  # Formatierung auf 2 Nachkommastellen\r\n```\r\n\r\n## 6. Variablen im Einsatz\r\n\r\nVariablen machen Berechnungen dynamisch:\r\n\r\n```python\r\nlänge = 8\r\nbreite = 5\r\nfläche = länge * breite\r\nprint(f\"Die Fläche beträgt {fläche} m²\")  # 40 m²\r\n```\r\n\r\n## 🏆 Übungszeit!\r\n\r\n1. Berechne das Volumen eines Würfels mit Kantenlänge 7 cm\r\n2. Wandele 100° Fahrenheit in Celsius um: (°F − 32) × 5/9\r\n3. Berechne die Hypotenuse eines rechtwinkligen Dreiecks mit Katheten 3 und 4 cm\r\n\r\n```python\r\n# Lösung 3:\r\nimport math\r\na = 3\r\nb = 4\r\nc = math.sqrt(a**2 + b**2)\r\nprint(c)  # 5.0 – der berühmte Pythagoras!\r\n```\r\n\r\nMathe macht mit Python richtig Spaß, oder? 😎 Probiere verschiedene Kombinationen aus und werde zum Rechenkünstler!\r\n",
-    "image": "",
+    "description": "# 🧮 Kapitel 4: Mathe-Genie – Rechnen wie ein Profi!\r\n\r\n\"Ich glaube, wir können jetzt etwas anspruchsvoller werden\", sagt Emi mit einem Blick zu Karol. Du bemerkst ihr kurzes Zögern. \"In echten Programmen dreht sich vieles um Zahlen und Berechnungen.\"\r\n\r\nKarol streicht sich eine graue Haarsträhne aus dem Gesicht. \"Tatsächlich habe ich mich kürzlich mit dem goldenen Schnitt beschäftigt.\" Ihre Hände zittern leicht. \"Zu schade, dass meine Lehrer früher nie den Zusammenhang zwischen Kunst und Zahlen erklärt haben.\"\r\n\r\nMax lehnt sich vor, die Müdigkeit in seinen Augen erkennbar. \"Meine Mutter sagt immer, dass Mathe das Herz der Programmierung ist. Letzte Woche hat sie mich beim Abendessen mit Binärzahlen gelöchert.\" Tim wirft ihm einen besorgten Blick zu.\r\n\r\n## 1. Arithmetische Grundoperationen\r\n\r\n\"Python versteht alle Grundrechenarten:\", erklärt Emi, ihre Stimme sanfter als sonst.\r\n\r\n```python\r\nprint(5 + 3)   # Addition: 8\r\nprint(10 - 4)  # Subtraktion: 6\r\nprint(2 * 6)   # Multiplikation: 12\r\nprint(8 / 2)   # Division: 4.0 (Achtung, Ergebnis ist float!)\r\n```\r\n\r\n\"Was bedeutet diese Anmerkung mit dem 'float'?\", fragst du, trotz deiner Angst, dumm zu wirken.\r\n\r\n\"Gute Frage! Bei der Division gibt Python immer eine Dezimalzahl zurück, auch wenn das Ergebnis eine ganze Zahl ist.\"\r\n\r\n## 2. Punkt-vor-Strich & Klammern\r\n\r\n\"Karol, erinnerst du dich an die Regel 'Punkt vor Strich' aus der Schule?\", fragt Emi.\r\n\r\nKarol verzieht kurz das Gesicht. \"Meine Mathelehrerin war... nicht gerade ermutigend.\" Ein Schatten huscht über ihr Gesicht.\r\n\r\n```python\r\nprint(3 + 4 * 2)   # 11 (nicht 14!)\r\nprint((3 + 4) * 2) # 14 – Klammern ändern alles!\r\n```\r\n\r\nTim erklärt leise: \"Mit Klammern kannst du die Reihenfolge ändern.\" Du hörst den Hauch von Stolz in seiner Stimme.\r\n\r\n## 3. Turbo-Zuweisungen 🚀\r\n\r\n```python\r\npunkte = 10\r\npunkte += 5  # Äquivalent zu: punkte = punkte + 5\r\nprint(punkte) # 15\r\n\r\n# Funktioniert auch mit -=, *=, /=\r\n```\r\n\r\n\"Das ist wie im Spiel!\", ruft Tim begeistert. Seine plötzliche Begeisterung lässt sein schüchternes Wesen kurz in den Hintergrund treten.\r\n\r\n## 4. Power mit \\*\\*\r\n\r\n```python\r\nprint(2 ** 3)  # 8 (2³)\r\nprint(5 ** 0.5) # Wurzel aus 5 ≈ 2.236\r\n```\r\n\r\n\"Mit 5 hoch 0.5 kann ich Wurzeln ziehen?\", fragt Karol überrascht.\r\n\r\nMax erklärt: \"Die Wurzel ist dasselbe wie Potenzieren mit 1/2.\" Seine Wangen färben sich leicht rot, als Emi ihm anerkennend zunickt.\r\n\r\n## 5. Mathe-Modul für Profis\r\n\r\n\"Für komplexere Berechnungen brauchen wir das 'math'-Modul:\", erklärt Emi, während ihre Hände nervös über die Tastatur huschen.\r\n\r\n```python\r\nimport math\r\n\r\n# Wurzel ziehen\r\nprint(math.sqrt(25))  # 5.0\r\n\r\n# Mit Pi rechnen\r\nradius = 3\r\numfang = 2 * math.pi * radius\r\nprint(f\"Umfang: {umfang:.2f} cm\")  # Formatierung auf 2 Nachkommastellen\r\n```\r\n\r\n\"Was bedeutet dieser Teil mit '{umfang:.2f}'?\", fragst du mit klopfendem Herzen.\r\n\r\n\"Das ist eine erweiterte Form der f-Strings. Der Teil ':.2f' bedeutet, dass wir die Zahl auf zwei Dezimalstellen formatieren.\"\r\n\r\nKarol murmelt: \"Ich habe immer auf ganze Euro-Beträge gerundet, weil mir die Berechnung zu kompliziert war.\"\r\n\r\n## 6. Variablen im Einsatz\r\n\r\n\"Lass uns das Ganze praktisch anwenden\", sagt Emi.\r\n\r\n```python\r\n# Fläche berechnen\r\nlänge = 8\r\nbreite = 5\r\nfläche = länge * breite\r\nprint(f\"Die Fläche beträgt {fläche} m²\")  # 40 m²\r\n\r\n# Der goldene Schnitt\r\nphi = (1 + math.sqrt(5)) / 2\r\nprint(f\"Der goldene Schnitt beträgt etwa: {phi:.3f}\")  # ungefähr 1.618\r\n```\r\n\r\n\"Fantastisch!\", ruft Karol. \"Wenn ich damals in der Schule gewusst hätte, wozu all diese abstrakten Zahlen gut sind...\"\r\n\r\n\"Ihr müsst nicht alles auswendig lernen\", beruhigt Emi euch, während sie nervös mit ihrem Armband spielt. \"Die meisten Programmierer schlagen regelmäßig in der Dokumentation nach.\"\r\n\r\n\"Zeit für eine Pause\", schlägt Karol vor und massiert ihre Schläfen. \"Mein alter Kopf braucht etwas Zeit zum Verarbeiten.\"\r\n\r\nDu bemerkst, wie Tim dir immer wieder nervöse Blicke zuwirft, und fragst dich, ob deine Abneigung gegen Mathe vielleicht gar nicht so stark ist, wie du immer gedacht hast – ein Gedanke, der dich gleichzeitig befreit und beunruhigt.\r\n",
+    "image": "/story/4.jpg",
     "quests": [
       {
         "filename": "intro2.json",
-        "x": 1000,
-        "y": -100,
+        "x": 1080,
+        "y": -140,
         "id": 110,
         "content": {
           "version": "v1",
@@ -2440,6 +2812,164 @@ const chapterInfo = [
         "deps": [
           10005
         ]
+      },
+      {
+        "filename": "math_module_quest.json",
+        "x": 900,
+        "y": -180,
+        "id": 146,
+        "content": {
+          "version": "v1",
+          "title": "Kreisberechnung",
+          "description": "Karol braucht deine Hilfe bei der Kreisberechnung für ein Kunstprojekt!\n\n1. Berechne den Umfang eines Kreises mit dem gegebenen Radius\n2. Berechne die Fläche des Kreises\n3. Formatiere beide Ergebnisse auf 2 Nachkommastellen\n\nDer Wert von Pi ist im Math-Modul verfügbar. ⭕",
+          "tasks": [
+            {
+              "title": "Kreisberechnung",
+              "start": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 7,
+                "dimY": 7,
+                "height": 6,
+                "karol": {
+                  "x": 3,
+                  "y": 3,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 1,
+                  "offsetY": 1,
+                  "data": [
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0,
+                      0,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1,
+                      0,
+                      0
+                    ]
+                  ]
+                },
+                "marks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "import random\nimport math\n\n__ide_prompt(\"Karol möchte einen perfekten Kreis zeichnen. Hilf ihr dabei!\", \"Starten\")\n\nradius = random.randint(3, 10)\nerwarteter_umfang = round(2 * math.pi * radius, 2)\nerwartete_flaeche = round(math.pi * radius**2, 2)\n\n__ide_run_client(globals=['radius'])\n\nfor var in ['umfang', 'flaeche']:\n    if var not in globals():\n        __ide_prompt(f\"Variable '{var}' fehlt! Du musst beide Ergebnisse berechnen.\", \"Beenden\")\n        __ide_exit()\n\nif not abs(umfang - erwarteter_umfang) < 0.01:\n    __ide_prompt(f\"Der Umfang ist nicht korrekt. Bei Radius {radius} sollte er {erwarteter_umfang} betragen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif not abs(flaeche - erwartete_flaeche) < 0.01:\n    __ide_prompt(f\"Die Fläche ist nicht korrekt. Bei Radius {radius} sollte sie {erwartete_flaeche} betragen.\", \"Überprüfen\")\n    __ide_exit()\n\noutputs = __ide_get_outputs()\nif len(outputs) < 2:\n    __ide_prompt(\"Du musst beide Ergebnisse ausgeben (mit print).\", \"Beenden\")\n    __ide_exit()\n\n# Prüfen, ob Formatierung mit 2 Nachkommastellen erfolgt ist\nif not any(f\"{erwarteter_umfang:.2f}\" in output for output in outputs) or \\\n   not any(f\"{erwartete_flaeche:.2f}\" in output for output in outputs):\n    __ide_prompt(\"Formatiere die Ausgaben auf 2 Nachkommastellen mit ':.2f' in einem f-String.\", \"Beenden\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(f\"🎯 Perfekt! Mit einem Radius von {radius} hast du korrekt berechnet:\\nUmfang: {erwarteter_umfang:.2f}\\nFläche: {erwartete_flaeche:.2f}\", \"Geschafft!\")",
+          "language": "python-pro",
+          "program": "import math\n\n# Der Radius ist bereits gegeben\n\n# 1. Berechne den Umfang (2 * pi * radius)\n# Formel: umfang = 2 * math.pi * radius\numfang = 0\n\n# 2. Berechne die Fläche (pi * radius²)\n# Formel: flaeche = math.pi * (radius ** 2)\nflaeche = 0\n\n# 3. Gib beide Ergebnisse mit 2 Nachkommastellen aus\n# Nutze f-Strings mit :.2f für 2 Nachkommastellen\nprint(f\"Umfang: {...}\")\nprint(f\"Fläche: {...}\")"
+        },
+        "deps": [
+          10005
+        ]
       }
     ],
     "x": 920,
@@ -2459,8 +2989,8 @@ const chapterInfo = [
   {
     "id": 10007,
     "dirName": "999-fundgrube",
-    "title": "6. Die Befreiung",
-    "originalTitle": "Die Befreiung",
+    "title": "6. Weitere Themen",
+    "originalTitle": "Weitere Themen",
     "description": "Hier findest du weitere Bonus-Aufgaben.\r\n",
     "image": "",
     "quests": [
@@ -3846,7 +4376,7 @@ chapterInfo.forEach((chapter) => {
   chaptersMap[chapter.id] = {
     x: chapter.x,
     y: chapter.y,
-    deps: [chapter.id == 10001 ? 61 : chapter.id - 1],
+    deps: chapter.id == 10001 ? []  : [chapter.id - 1],
   }
   
   const title = `${chapter.title}`

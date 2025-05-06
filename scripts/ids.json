@@ -1,20 +1,22 @@
 {
   "keys": {
     "010-variablen/Lieblinge.json": 138,
-    "010-variablen/Quantenknoten_stabilisieren.json": 139,
-    "010-variablen/Drei_mal_raten.json": 140,
+    "010-variablen/Korrekturen.json": 143,
+    "010-variablen/Drei_Wünsche.json": 144,
     "010-variablen/Quiz.json": 141,
     "010-variablen/Hin_und_her.json": 142,
-    "020-eingabe-ausgabe/Systemstatus.json": 119,
-    "020-eingabe-ausgabe/Runen.json": 120,
     "020-eingabe-ausgabe/Begrüßung.json": 121,
     "020-eingabe-ausgabe/Harry_Potter_Fan.json": 122,
+    "020-eingabe-ausgabe/Explosion.json": 145,
+    "020-eingabe-ausgabe/Runen.json": 120,
+    "020-eingabe-ausgabe/Systemstatus.json": 119,
     "030-bedingte-anweisungen/Zaubertrankprüfung.json": 132,
     "030-bedingte-anweisungen/Weltraum_Navigation.json": 131,
     "030-bedingte-anweisungen/Wetterstation_Alarm_1.json": 133,
     "030-bedingte-anweisungen/Wetterstation_Alarm_2.json": 134,
     "030-bedingte-anweisungen/Wetterstation_Alarm_3.json": 135,
     "040-mathematik/intro2.json": 110,
+    "040-mathematik/math_module_quest.json": 146,
     "999-fundgrube/63.json": 103,
     "999-fundgrube/62.json": 102,
     "999-fundgrube/65.json": 104,
@@ -23,5 +25,5 @@
     "999-fundgrube/68.json": 107,
     "999-fundgrube/69.json": 108
   },
-  "counter": 143
+  "counter": 147
 }

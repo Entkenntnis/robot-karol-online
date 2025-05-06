@@ -72,7 +72,7 @@ export function Overview() {
       ...Object.entries(mapData)
         .filter(([id]) => isQuestVisible(parseInt(id)))
         .map(([, quest]) => quest.y)
-    ) + (core.ws.page == 'demo' ? -530 : !isQuestDone(61) ? 500 : 0)
+    ) + (core.ws.page == 'demo' ? -530 : !isQuestDone(10001) ? 500 : 0)
 
   useEffect(() => {
     if (
@@ -551,7 +551,7 @@ export function Overview() {
                 </div>
 
                 {core.ws.settings.lng === 'de' &&
-                  !isQuestDone(61) &&
+                  !isQuestDone(10001) &&
                   core.ws.page !== 'demo' &&
                   core.ws.page !== 'analyze' && (
                     <div className="absolute top-[1690px] left-[620px] ">
@@ -561,14 +561,15 @@ export function Overview() {
                             Programmierung beschränkt sich nicht auf Blöcke oder
                             Karol Code. Lerne hier eine „große“
                             Programmiersprache mit Variablen, Ein-/Ausgabe,
-                            mathematischen Operatoren, Kontrollstrukturen mehr
-                            kennen!
+                            mathematischen Operatoren, Kontrollstrukturen und
+                            mehr kennen!
                           </p>
                           <p className="mt-2">
                             Das Ganze ist eingebettet in eine kleine Geschichte.
-                            In der Liste der Aufgaben kannst du direkt alle
-                            Inhalte einsehen, falls du ein bestimmtes Thema
-                            suchst. Viel Spaß beim Lernen!
+                            Falls du ein bestimmtes Thema suchst, findest du in
+                            der Liste der Aufgaben eine Übersicht.
+                            <br />
+                            Viel Spaß beim Lernen!
                           </p>
                           <p className="mt-2">
                             🚧 Die ersten Kapitel sind bereits verfügbar, an den
@@ -826,35 +827,43 @@ export function Overview() {
                           top: `${entry[1].y}px`,
                         }}
                       >
-                        <button
-                          className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
-                          onClick={(e) => {
-                            submitAnalyzeEvent(
-                              core,
-                              'ev_click_landing_explanation_chapter_' + id
-                            )
-                            core.mutateWs((ws) => {
-                              ws.overview.explanationId = id
-                            })
-                            showModal(core, 'explanation')
-                          }}
+                        <AnimateInView
+                          dontFade={numberOfSolvedQuests > 0 || id != 10001}
                         >
-                          <p className="text-center whitespace-nowrap flex justify-center ">
-                            <span className="bg-white/50 px-2 rounded">
-                              {chapterData[id].title}
-                            </span>
-                            {core.ws.page == 'analyze' && (
-                              <span>
-                                [{core.ws.analyze.chapters[id]?.explanation}]
+                          <button
+                            className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+                            onClick={(e) => {
+                              submitAnalyzeEvent(
+                                core,
+                                'ev_click_landing_explanation_chapter_' + id
+                              )
+                              core.mutateWs((ws) => {
+                                ws.overview.explanationId = id
+                              })
+                              showModal(core, 'explanation')
+                            }}
+                          >
+                            <p className="text-center whitespace-nowrap flex justify-center ">
+                              <span className="bg-white/50 px-2 rounded">
+                                {chapterData[id].title}
                               </span>
-                            )}
-                          </p>
-                          <img
-                            src="/gluehbirne.png"
-                            alt=""
-                            className="w-[60px] mx-auto inline-block mt-2 mb-2"
-                          />
-                        </button>
+                              {core.ws.page == 'analyze' && (
+                                <span>
+                                  [{core.ws.analyze.chapters[id]?.explanation}]
+                                </span>
+                              )}
+                            </p>
+                            <img
+                              src={
+                                isQuestDone(id)
+                                  ? '/gluehbirne.png'
+                                  : '/gluehbirne_aus.png'
+                              }
+                              alt=""
+                              className="w-[60px] mx-auto inline-block mt-2 mb-2"
+                            />
+                          </button>
+                        </AnimateInView>
                       </div>
                     )
                   }
@@ -889,7 +898,7 @@ export function Overview() {
                       python={
                         questData[parseInt(entry[0])].script && entry[0] != '60'
                       }
-                      dontFade={numberOfSolvedQuests > 0 || entry[0] != '61'}
+                      dontFade
                     />
                   )
                 })}
@@ -986,13 +995,12 @@ export function Overview() {
       core.ws.page == 'analyze' ||
       core.ws.overview.showOverviewList ||
       position == 0 ||
-      id == 61 || // hallo python
+      id == 10001 || // Einleitung
       isQuestDone(id) ||
       (id < 10000
         ? mapData[id]?.deps.some(isQuestDone)
         : questsInPreviousChapter.filter(isQuestDone).length > 0 ||
-          (questsInPreviousChapter.length == 0 &&
-            isQuestDone(id == 10001 ? 61 : id - 1)))
+          (questsInPreviousChapter.length == 0 && isQuestDone(id - 1)))
     )
   }
 

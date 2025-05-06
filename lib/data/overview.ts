@@ -40,7 +40,7 @@ export const questListByCategory = [
   {
     title: 'Sonstiges',
     titleEn: 'Miscellaneous',
-    quests: [60, 61],
+    quests: [60],
   },
   ...chapterOverviewData,
 ]

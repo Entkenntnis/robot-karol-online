@@ -250,7 +250,7 @@ chapterInfo.forEach((chapter) => {
   chaptersMap[chapter.id] = {
     x: chapter.x,
     y: chapter.y,
-    deps: [chapter.id == 10001 ? 61 : chapter.id - 1],
+    deps: chapter.id == 10001 ? []  : [chapter.id - 1],
   }
   
   const title = \`\${chapter.title}\`

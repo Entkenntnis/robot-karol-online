@@ -111,7 +111,7 @@ export const mapData: {
   52: { x: 180, y: 1330, deps: [13] },
 
   // python
-  61: { x: 1000, y: 1470, deps: [], dir: 'south' },
+  // 61: { x: 1000, y: 1470, deps: [], dir: 'south' },
   /*62: { x: 830, y: 1520, deps: [61], dir: 'west' },
   63: { x: 960, y: 1660, deps: [61], dir: 'west' },
   65: { x: 650, y: 1660, deps: [61], dir: 'west' },
