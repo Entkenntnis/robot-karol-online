@@ -262,13 +262,33 @@ const conditions = [
 
 const myAutocomplete: CompletionSource = (context) => {
   const text = context.state.doc.toString()
-  const robot = /([a-z]+)\s*=\s*Robot\(\)/.exec(text)
-  if (!robot) return null
-  const robotName = robot[1]
-  const token = context.matchBefore(
-    new RegExp(robotName + '\\.[a-zA-Z_0-9äöüÄÜÖß]*$')
-  )
-  if (!token) return null
+  // Find all robot instances, not just the first one
+  const robotRegex = /([a-zA-Z0-9]+)\s*=\s*Robot\(\)/g
+  let match
+  const robotNames = []
+
+  while ((match = robotRegex.exec(text)) !== null) {
+    robotNames.push(match[1])
+  }
+
+  if (robotNames.length === 0) return null
+
+  // Check if we're typing after any of the robot names with a period
+  let matchedToken = null
+  let matchedRobot = null
+
+  for (const robotName of robotNames) {
+    const token = context.matchBefore(
+      new RegExp(robotName + '\\.[a-zA-Z_0-9äöüÄÜÖß]*$')
+    )
+    if (token) {
+      matchedToken = token
+      matchedRobot = robotName
+      break
+    }
+  }
+
+  if (!matchedToken || !matchedRobot) return null
 
   const doc = context.state.doc
   const line = doc.lineAt(context.pos)
@@ -289,7 +309,7 @@ const myAutocomplete: CompletionSource = (context) => {
   const options = (conditionMode ? conditions : commands).slice()
 
   return {
-    from: token.from + robotName.length + 1,
+    from: matchedToken.from + matchedRobot.length + 1,
     options,
   }
 }
