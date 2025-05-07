@@ -74,7 +74,10 @@ export function View({
   const animatedRobotData = useRef({
     x: world.karol[i].x,
     y: world.karol[i].y,
-    z: world.bricks[world.karol[i].y][world.karol[i].x],
+    z:
+      world.karol[i].y >= 0 && world.karol[i].x >= 0
+        ? world.bricks[world.karol[i].y][world.karol[i].x]
+        : 0,
     i,
   })
 
@@ -102,11 +105,13 @@ export function View({
 
     const currentX = world.karol[i].x
     const currentY = world.karol[i].y
-    const currentZ = world.bricks[currentY][currentX]
+    const currentZ =
+      currentX >= 0 && currentY >= 0 ? world.bricks[currentY][currentX] : 0
 
     const prevX = prevWorld.current.karol[i].x
     const prevY = prevWorld.current.karol[i].y
-    const prevZ = prevWorld.current.bricks[prevY][prevX]
+    const prevZ =
+      prevY >= 0 && prevX >= 0 ? prevWorld.current.bricks[prevY][prevX] : 0
 
     const dx = currentX - prevX
     const dy = currentY - prevY
