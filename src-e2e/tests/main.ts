@@ -206,3 +206,18 @@ Scenario('Toggles in output', ({ I }) => {
   I.see('2D-Ansicht')
   I.dontSee('Auftragsvorschau')
 })
+
+Scenario('Dangling keywords should not break compiler', ({ I }) => {
+  I.amOnPage(
+    '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0A*Anweisung'
+  )
+  I.dontSee('internal error')
+  I.amOnPage(
+    '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0Aendewiederhole'
+  )
+  I.dontSee('internal error')
+  I.amOnPage(
+    '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0Amal'
+  )
+  I.dontSee('internal error')
+})

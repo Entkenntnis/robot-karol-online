@@ -177,13 +177,13 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
       }
       if (cursor.name == 'RepeatStart') {
         const st = parseStack[parseStack.length - 1]
-        if (st.type == 'repeat' && st.stage == 0) {
+        if (st && st.type == 'repeat' && st.stage == 0) {
           st.stage = 1
         }
       }
       if (cursor.name == 'RepeatAlwaysKey') {
         const st = parseStack[parseStack.length - 1]
-        if (st.type == 'repeat' && st.stage == 1) {
+        if (st && st.type == 'repeat' && st.stage == 1) {
           const op: Op = { type: 'jump', target: -1 }
           output.push(op)
           st.op = op
@@ -193,7 +193,7 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
       }
       if (cursor.name == 'RepeatWhileKey') {
         const st = parseStack[parseStack.length - 1]
-        if (st.type == 'repeat' && st.stage == 1) {
+        if (st && st.type == 'repeat' && st.stage == 1) {
           st.stage = 10
           const op: Op = { type: 'jump', target: -1 }
           output.push(op)
@@ -201,7 +201,6 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
         }
       }
       if (cursor.name == 'Condition') {
-        const st = parseStack[parseStack.length - 1]
         let cond: Condition = {} as Condition
 
         const repeat =
@@ -260,6 +259,8 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
         } else if (preparedCode == keywords.nichtistziegel && repeat !== null) {
           cond = { type: 'brick_count', negated: true, count: parseInt(repeat) }
         }
+
+        const st = parseStack[parseStack.length - 1]
         if (st && st.type == 'repeat' && st.stage == 10) {
           st.stage = 11
           st.start = output.length
@@ -274,31 +275,33 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
       }
       if (cursor.name == 'IfKey') {
         const st = parseStack[parseStack.length - 1]
-        if (st.type == 'if' && st.stage == 0) {
+        if (st && st.type == 'if' && st.stage == 0) {
           st.stage = 1
         }
       }
       if (cursor.name == 'ThenKey') {
         const st = parseStack[parseStack.length - 1]
-        const line = doc.lineAt(st.from).number
-        if (st.type == 'if' && st.stage == 2) {
-          st.stage = 3
-          const hasArg = st.condition!.count !== undefined
-          if (hasArg) {
-            output.push({ type: 'constant', value: st.condition!.count! })
+        if (st) {
+          const line = doc.lineAt(st.from).number
+          if (st.type == 'if' && st.stage == 2) {
+            st.stage = 3
+            const hasArg = st.condition!.count !== undefined
+            if (hasArg) {
+              output.push({ type: 'constant', value: st.condition!.count! })
+            }
+            output.push({
+              type: 'sense',
+              condition: st.condition!,
+            })
+            const op: Op = {
+              type: 'branch',
+              targetT: output.length + 1,
+              targetF: -1,
+              line,
+            }
+            output.push(op)
+            st.op = op
           }
-          output.push({
-            type: 'sense',
-            condition: st.condition!,
-          })
-          const op: Op = {
-            type: 'branch',
-            targetT: output.length + 1,
-            targetF: -1,
-            line,
-          }
-          output.push(op)
-          st.op = op
         }
       }
       if (cursor.name == 'ElseKey') {
@@ -324,7 +327,7 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
       }
       if (cursor.name == 'Times') {
         const st = parseStack[parseStack.length - 1]
-        if (st.type == 'repeat' && st.stage == 1) {
+        if (st && st.type == 'repeat' && st.stage == 1) {
           st.stage++
           st.times = parseInt(code)
           if (!code || isNaN(st.times) || st.times < 0) {
@@ -350,55 +353,57 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
       }
       if (cursor.name == 'RepeatTimesKey') {
         const st = parseStack[parseStack.length - 1]
-        if (st.type == 'repeat' && st.stage == 2) {
+        if (st && st.type == 'repeat' && st.stage == 2) {
           st.stage++
           st.start = output.length
         }
       }
       if (cursor.name == 'RepeatEnd') {
         const st = parseStack[parseStack.length - 1]
-        const line = doc.lineAt(st.from).number
-        if (st.type == 'repeat' && st.stage == 3) {
-          st.op!.target = output.length
-          output.push({ type: 'load', variable: st.loopVar! })
-          output.push({ type: 'constant', value: 1 })
-          output.push({ type: 'operation', kind: 'sub' })
-          output.push({ type: 'store', variable: st.loopVar! })
-          output.push({ type: 'load', variable: st.loopVar! })
-          output.push({
-            type: 'branch',
-            targetT: st.start!,
-            targetF: output.length + 1,
-            line,
-          })
-          parseStack.pop()
-        } else if (st.type == 'repeat' && st.stage == 11) {
-          st.op!.target = output.length
+        if (st) {
           const line = doc.lineAt(st.from).number
-          const hasArg = st.condition!.count !== undefined
-          if (hasArg) {
-            output.push({ type: 'constant', value: st.condition!.count! })
+          if (st.type == 'repeat' && st.stage == 3) {
+            st.op!.target = output.length
+            output.push({ type: 'load', variable: st.loopVar! })
+            output.push({ type: 'constant', value: 1 })
+            output.push({ type: 'operation', kind: 'sub' })
+            output.push({ type: 'store', variable: st.loopVar! })
+            output.push({ type: 'load', variable: st.loopVar! })
+            output.push({
+              type: 'branch',
+              targetT: st.start!,
+              targetF: output.length + 1,
+              line,
+            })
+            parseStack.pop()
+          } else if (st.type == 'repeat' && st.stage == 11) {
+            st.op!.target = output.length
+            const line = doc.lineAt(st.from).number
+            const hasArg = st.condition!.count !== undefined
+            if (hasArg) {
+              output.push({ type: 'constant', value: st.condition!.count! })
+            }
+            output.push({
+              type: 'sense',
+              condition: st.condition!,
+            })
+            output.push({
+              type: 'branch',
+              targetT: st.start!,
+              targetF: output.length + 1,
+              line,
+            })
+            parseStack.pop()
+          } else if (st.type == 'repeat' && st.stage == 20) {
+            st.op!.target = output.length
+            const line = doc.lineAt(st.from).number
+            output.push({
+              type: 'jump',
+              target: st.start!,
+              line,
+            })
+            parseStack.pop()
           }
-          output.push({
-            type: 'sense',
-            condition: st.condition!,
-          })
-          output.push({
-            type: 'branch',
-            targetT: st.start!,
-            targetF: output.length + 1,
-            line,
-          })
-          parseStack.pop()
-        } else if (st.type == 'repeat' && st.stage == 20) {
-          st.op!.target = output.length
-          const line = doc.lineAt(st.from).number
-          output.push({
-            type: 'jump',
-            target: st.start!,
-            line,
-          })
-          parseStack.pop()
         }
       }
       if (cursor.name == 'Cmd') {
@@ -415,13 +420,13 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
           useMethodeInsteadOfAnweisung = true
         }
         const st = parseStack[parseStack.length - 1]
-        if (st.type == 'function' && st.stage == 0) {
+        if (st && st.type == 'function' && st.stage == 0) {
           st.stage = 1
         }
       }
       if (cursor.name == 'CmdName') {
         const st = parseStack[parseStack.length - 1]
-        if (st.type == 'function' && st.stage == 1) {
+        if (st && st.type == 'function' && st.stage == 1) {
           if (declarations[code]) {
             // additional compiler check
             warnings.push({
@@ -446,7 +451,7 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
       }
       if (cursor.name == 'CmdEnd') {
         const st = parseStack[parseStack.length - 1]
-        if (st.type == 'function' && st.stage == 2) {
+        if (st && st.type == 'function' && st.stage == 2) {
           declarations[st.name!] = { target: st.target! }
           output.push({ type: 'return' })
           st.skipper!.target = output.length
