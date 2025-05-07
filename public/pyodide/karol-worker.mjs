@@ -613,7 +613,6 @@ json.dumps(get_class_info())
         })
       }
       if (request == 'object-info') {
-        console.log('get class info')
         const payload = pyodide.runPython(
           `
 import types

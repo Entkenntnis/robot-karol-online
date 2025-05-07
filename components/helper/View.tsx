@@ -10,6 +10,7 @@ import {
   ziegelBild,
   ziegelWeg,
 } from '../../lib/data/images'
+import { twoWorldsEqual } from '../../lib/commands/world'
 
 interface ViewProps {
   world: World
@@ -63,28 +64,45 @@ export function View({
 
   const i = activeRobot ?? 0
 
-  const [robotPos, setRobotPos] = useState({
-    x: world.karol[i].x,
-    y: world.karol[i].y,
-    z: world.bricks[world.karol[i].y][world.karol[i].x],
-  })
   const prevWorld = useRef(world)
   const animationFrameRef = useRef<number | null>(null)
 
-  useEffect(() => {
-    const currentX = world.karol[i].x
-    const currentY = world.karol[i].y
-    const currentZ = world.bricks[currentY][currentX]
+  // there are 2 - 3 frames where the robot is just not in the right place
+  // update robot position immediately, maybe rerender if there are further changes
+  // this approach is avoiding a flickering effect
+  const [renderCounter, setRenderCounter] = useState(0)
+  const animatedRobotData = useRef({
+    x: world.karol[i].x,
+    y: world.karol[i].y,
+    z: world.bricks[world.karol[i].y][world.karol[i].x],
+    i,
+  })
 
-    if (prevWorld.current.karol.length !== world.karol.length) {
-      setRobotPos({ x: currentX, y: currentY, z: currentZ })
+  useEffect(() => {
+    if (
+      !twoWorldsEqual(prevWorld.current, world) ||
+      prevWorld.current.karol.length !== world.karol.length ||
+      prevWorld.current.karol[i].dir !== world.karol[i].dir ||
+      !animationDuration
+    ) {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
         animationFrameRef.current = null
       }
       prevWorld.current = world
+      animatedRobotData.current = {
+        x: -1,
+        y: -1,
+        z: -1,
+        i: -1,
+      }
+      setRenderCounter((c) => c + 1)
       return
     }
+
+    const currentX = world.karol[i].x
+    const currentY = world.karol[i].y
+    const currentZ = world.bricks[currentY][currentX]
 
     const prevX = prevWorld.current.karol[i].x
     const prevY = prevWorld.current.karol[i].y
@@ -94,24 +112,11 @@ export function View({
     const dy = currentY - prevY
     const distance = Math.sqrt(dx * dx + dy * dy)
 
-    if (
-      distance > 1 ||
-      !animationDuration ||
-      // be a bit defensive
-      world.blocks !== prevWorld.current.blocks ||
-      world.bricks !== prevWorld.current.bricks ||
-      world.marks !== prevWorld.current.marks ||
-      world.dimX !== prevWorld.current.dimX ||
-      world.dimY !== prevWorld.current.dimY ||
-      world.height !== prevWorld.current.height ||
-      world.karol[i].dir !== prevWorld.current.karol[i].dir
-    ) {
-      setRobotPos({ x: currentX, y: currentY, z: currentZ })
+    if (Math.round(distance) == 1 && (dx == 0 || dy == 0)) {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
-        animationFrameRef.current = null
       }
-    } else if (dx !== 0 || dy !== 0) {
+      // the robot is in an new position that is not yet updated, so start animation
       const startTime = Date.now()
       const duration = animationDuration
 
@@ -127,27 +132,40 @@ export function View({
           (currentZ - prevZ) * progress +
           Math.sin(progress * Math.PI) * (currentZ == prevZ ? 0.25 : 0.5)
 
-        setRobotPos({ x: newX, y: newY, z: newZ })
+        animatedRobotData.current = { x: newX, y: newY, z: newZ, i }
+        setRenderCounter((c) => c + 1)
 
         if (progress < 1) {
           animationFrameRef.current = requestAnimationFrame(animate)
         } else {
-          setRobotPos({ x: currentX, y: currentY, z: currentZ })
+          animatedRobotData.current = { x: -1, y: -1, z: -1, i: -1 }
+          setRenderCounter((c) => c + 1)
+          animationFrameRef.current = null
         }
       }
 
-      animationFrameRef.current = requestAnimationFrame(animate)
+      animate()
+
+      prevWorld.current = world
+    } else {
+      // and here, yeah, probably cancel as well
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+      animatedRobotData.current = { x: -1, y: -1, z: -1, i: -1 }
+      setRenderCounter((c) => c + 1)
     }
+    // only care for world changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [world])
 
-    prevWorld.current = world
-
+  useEffect(() => {
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
-        animationFrameRef.current = null
       }
     }
-  }, [world, animationDuration, i])
+  }, [])
 
   useEffect(() => {
     async function render() {
@@ -250,6 +268,37 @@ export function View({
         )
       }
 
+      const drawKarol = (x: number, y: number, z: number, i: number) => {
+        const point = to2d(x, y, z)
+        const dir = world.karol[i].dir
+        const sx = {
+          north: 40,
+          east: 0,
+          south: 120,
+          west: 80,
+        }[dir]
+
+        const dx =
+          point.x - 13 - (dir === 'south' ? 3 : dir === 'north' ? -2 : 0)
+        const dy = point.y - 60
+
+        ctx.drawImage(
+          robot,
+          sx,
+          0,
+          40,
+          71,
+          Math.round(dx),
+          Math.round(dy),
+          40,
+          71
+        )
+        if (world.karol.length > 1) {
+          ctx.font = '22px sans-serif'
+          ctx.fillText((i + 1).toString(), Math.round(dx), Math.round(dy) + 10)
+        }
+      }
+
       for (let x = 0; x < world.dimX; x++) {
         for (let y = 0; y < world.dimY; y++) {
           // Start Brick/Mark-Section
@@ -348,83 +397,21 @@ export function View({
             const p = to2d(x, y, 0)
             ctx.drawImage(quader, p.x - 15, p.y - 30)
           }
-          if (
-            Math.round(robotPos.x) == x &&
-            Math.round(robotPos.y) == y &&
-            !hideKarol
-          ) {
-            const { x: animX, y: animY, z: animZ } = robotPos
-            const dir = world.karol[i].dir
-            const point = to2d(animX, animY, animZ)
-            const sx = {
-              north: 40,
-              east: 0,
-              south: 120,
-              west: 80,
-            }[dir]
-
-            const dx =
-              point.x - 13 - (dir === 'south' ? 3 : dir === 'north' ? -2 : 0)
-            const dy = point.y - 60
-
-            ctx.drawImage(
-              robot,
-              sx,
-              0,
-              40,
-              71,
-              Math.round(dx),
-              Math.round(dy),
-              40,
-              71
-            )
-            if (world.karol.length > 1) {
-              ctx.font = '22px sans-serif'
-              ctx.fillText(
-                (i + 1).toString(),
-                Math.round(dx),
-                Math.round(dy) + 10
-              )
-            }
-          } else if (!hideKarol) {
-            for (let k = 0; k < world.karol.length; k++) {
-              if (i == k) continue
-              if (x == world.karol[k].x && y == world.karol[k].y) {
-                const { x, y } = world.karol[k]
-                const z = world.bricks[y][x]
-                const point = to2d(x, y, z)
-                const dir = world.karol[k].dir
-                const sx = {
-                  north: 40,
-                  east: 0,
-                  south: 120,
-                  west: 80,
-                }[dir]
-
-                const dx =
-                  point.x -
-                  13 -
-                  (dir === 'south' ? 3 : dir === 'north' ? -2 : 0)
-                const dy = point.y - 60
-
-                ctx.drawImage(
-                  robot,
-                  sx,
-                  0,
-                  40,
-                  71,
-                  Math.round(dx),
-                  Math.round(dy),
-                  40,
-                  71
-                )
-                if (world.karol.length > 1) {
-                  ctx.font = '22px sans-serif'
-                  ctx.fillText(
-                    (k + 1).toString(),
-                    Math.round(dx),
-                    Math.round(dy) + 10
-                  )
+          if (!hideKarol) {
+            if (
+              Math.round(animatedRobotData.current.x) == x &&
+              Math.round(animatedRobotData.current.y) == y &&
+              animatedRobotData.current.i == i
+            ) {
+              const { x: animX, y: animY, z: animZ } = animatedRobotData.current
+              drawKarol(animX, animY, animZ, i)
+            } else {
+              for (let k = 0; k < world.karol.length; k++) {
+                if (k == animatedRobotData.current.i) continue
+                if (x == world.karol[k].x && y == world.karol[k].y) {
+                  const { x, y } = world.karol[k]
+                  const z = world.bricks[y][x]
+                  drawKarol(x, y, z, k)
                 }
               }
             }
@@ -437,7 +424,7 @@ export function View({
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world, wireframe, preview, hideKarol, robotPos])
+  }, [resources, world, wireframe, preview, hideKarol, renderCounter])
 
   return (
     <canvas
