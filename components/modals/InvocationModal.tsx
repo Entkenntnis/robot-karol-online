@@ -26,6 +26,8 @@ export function InvocationModal() {
     let baseName: string
     if (!className) {
       baseName = 'obj'
+    } else if (className == 'Robot') {
+      baseName = 'karol'
     } else {
       baseName = className.charAt(0).toLowerCase() + className.slice(1)
     }
