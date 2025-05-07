@@ -375,6 +375,17 @@ export function setupWorker(core: Core) {
         ws.__activeRobot = event.data.id
       })
     }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'hide-robot'
+    ) {
+      core.mutateWs((ws) => {
+        ws.world.karol[event.data.id].x = -1
+        ws.world.karol[event.data.id].y = -1
+      })
+    }
   }
 
   function messageHandlerBackup(event: MessageEvent) {

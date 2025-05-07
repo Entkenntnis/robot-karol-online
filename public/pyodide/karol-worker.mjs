@@ -200,6 +200,9 @@ export function buildRobot(highlightCurrentLine = () => {}) {
         self.postMessage({ type: 'set-active-robot', id })
         self.postMessage({ type: 'action', action: 'beenden' })
       },
+      _verstecken: () => {
+        self.postMessage({ type: 'hide-robot', id })
+      },
     }
   }
 }
@@ -492,6 +495,10 @@ class Robot:
 
   def __init__(self):
     self._internal_Robot = _internal_Robot()
+
+  def __del__(self):
+    self._internal_Robot._verstecken()
+    del self._internal_Robot
 `,
         { globals: benchGlobals }
       )
@@ -558,7 +565,7 @@ def get_class_info():
             # Process methods (excluding __init__)
             methods = {}
             for attr_name, attr_value in obj.__dict__.items():
-                if attr_name == '__init__':
+                if attr_name.startswith('__') and attr_name.endswith('__'):
                     continue
 
                 func = None
