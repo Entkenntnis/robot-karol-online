@@ -212,12 +212,21 @@ Scenario('Dangling keywords should not break compiler', ({ I }) => {
     '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0A*Anweisung'
   )
   I.dontSee('internal error')
+  I.see('Start')
   I.amOnPage(
     '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0Aendewiederhole'
   )
   I.dontSee('internal error')
+  I.see('Start')
   I.amOnPage(
     '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0Amal'
   )
   I.dontSee('internal error')
+  I.see('Start')
+})
+
+Scenario('Legacy links should work', ({ I }) => {
+  I.amOnPage('/?id=lwl8yufk4')
+  I.dontSee('internal error')
+  I.see('Start')
 })

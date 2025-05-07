@@ -101,6 +101,8 @@ export function deserialize(core: Core, file?: string) {
         }
       }
     }
+    // @ts-ignore Compatibility with old worlds
+    world.karol = [world.karol]
     endExecution(core)
     core.mutateWs((state) => {
       state.code = code ?? ''
