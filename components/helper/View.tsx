@@ -10,6 +10,7 @@ import {
   ziegelBild,
   ziegelWeg,
 } from '../../lib/data/images'
+import { twoWorldsEqual } from '../../lib/commands/world'
 
 interface ViewProps {
   world: World
@@ -67,24 +68,48 @@ export function View({
     x: world.karol[i].x,
     y: world.karol[i].y,
     z: world.bricks[world.karol[i].y][world.karol[i].x],
+    i,
   })
   const prevWorld = useRef(world)
   const animationFrameRef = useRef<number | null>(null)
+  const prevActiveRobot = useRef(i)
 
+  // so, what is this code doing **conceptually**?
+
+  // switching active robot is a bit tricky
+
+  // the failure here is that sometimes changes are batched and I can't
+  // differenciate between a batched change
   useEffect(() => {
-    const currentX = world.karol[i].x
-    const currentY = world.karol[i].y
-    const currentZ = world.bricks[currentY][currentX]
+    // the LOGIC here is killing me, like what the hell am I supposed to do here?
+    // reactive programming and well and so on
 
-    if (prevWorld.current.karol.length !== world.karol.length) {
-      setRobotPos({ x: currentX, y: currentY, z: currentZ })
+    // ok, another approach, treat reason as a black box and be defensive here
+
+    // let's find out if I need to abort the animation or not
+
+    // so first thing is to check if I need to abort the animation
+    if (
+      !prevWorld.current ||
+      !twoWorldsEqual(prevWorld.current, world) ||
+      prevWorld.current.karol.length !== world.karol.length ||
+      prevWorld.current.karol[i].dir !== world.karol[i].dir ||
+      !animationDuration
+    ) {
+      console.log('cancel animation')
+      // these are hard no-no changes and abort animation asap
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
         animationFrameRef.current = null
       }
       prevWorld.current = world
+      setRobotPos({ x: -1, y: -1, z: -1, i: -1 })
       return
     }
+
+    const currentX = world.karol[i].x
+    const currentY = world.karol[i].y
+    const currentZ = world.bricks[currentY][currentX]
 
     const prevX = prevWorld.current.karol[i].x
     const prevY = prevWorld.current.karol[i].y
@@ -95,23 +120,15 @@ export function View({
     const distance = Math.sqrt(dx * dx + dy * dy)
 
     if (
-      distance > 1 ||
-      !animationDuration ||
-      // be a bit defensive
-      world.blocks !== prevWorld.current.blocks ||
-      world.bricks !== prevWorld.current.bricks ||
-      world.marks !== prevWorld.current.marks ||
-      world.dimX !== prevWorld.current.dimX ||
-      world.dimY !== prevWorld.current.dimY ||
-      world.height !== prevWorld.current.height ||
-      world.karol[i].dir !== prevWorld.current.karol[i].dir
+      Math.round(distance) == 1 &&
+      animationDuration &&
+      (dx == 0 || dy == 0)
     ) {
-      setRobotPos({ x: currentX, y: currentY, z: currentZ })
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
-        animationFrameRef.current = null
       }
-    } else if (dx !== 0 || dy !== 0) {
+      console.log('start animation', prevX, prevY, currentX, currentY)
+      // the robot is in an new position that is not yet updated, so start animation
       const startTime = Date.now()
       const duration = animationDuration
 
@@ -127,27 +144,33 @@ export function View({
           (currentZ - prevZ) * progress +
           Math.sin(progress * Math.PI) * (currentZ == prevZ ? 0.25 : 0.5)
 
-        setRobotPos({ x: newX, y: newY, z: newZ })
+        setRobotPos({ x: newX, y: newY, z: newZ, i })
 
         if (progress < 1) {
           animationFrameRef.current = requestAnimationFrame(animate)
         } else {
-          setRobotPos({ x: currentX, y: currentY, z: currentZ })
+          console.log('animation done')
+          setRobotPos({ x: -1, y: -1, z: -1, i: -1 })
+          animationFrameRef.current = null
         }
       }
 
       animationFrameRef.current = requestAnimationFrame(animate)
+
+      prevWorld.current = world
     }
+    // only care for world changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [world])
 
-    prevWorld.current = world
-
+  useEffect(() => {
     return () => {
       if (animationFrameRef.current) {
+        console.log('cancel animation on unmount')
         cancelAnimationFrame(animationFrameRef.current)
-        animationFrameRef.current = null
       }
     }
-  }, [world, animationDuration, i])
+  }, [])
 
   useEffect(() => {
     async function render() {
@@ -250,6 +273,37 @@ export function View({
         )
       }
 
+      const drawKarol = (x: number, y: number, z: number, i: number) => {
+        const point = to2d(x, y, z)
+        const dir = world.karol[i].dir
+        const sx = {
+          north: 40,
+          east: 0,
+          south: 120,
+          west: 80,
+        }[dir]
+
+        const dx =
+          point.x - 13 - (dir === 'south' ? 3 : dir === 'north' ? -2 : 0)
+        const dy = point.y - 60
+
+        ctx.drawImage(
+          robot,
+          sx,
+          0,
+          40,
+          71,
+          Math.round(dx),
+          Math.round(dy),
+          40,
+          71
+        )
+        if (world.karol.length > 1) {
+          ctx.font = '22px sans-serif'
+          ctx.fillText((i + 1).toString(), Math.round(dx), Math.round(dy) + 10)
+        }
+      }
+
       for (let x = 0; x < world.dimX; x++) {
         for (let y = 0; y < world.dimY; y++) {
           // Start Brick/Mark-Section
@@ -348,83 +402,21 @@ export function View({
             const p = to2d(x, y, 0)
             ctx.drawImage(quader, p.x - 15, p.y - 30)
           }
-          if (
-            Math.round(robotPos.x) == x &&
-            Math.round(robotPos.y) == y &&
-            !hideKarol
-          ) {
-            const { x: animX, y: animY, z: animZ } = robotPos
-            const dir = world.karol[i].dir
-            const point = to2d(animX, animY, animZ)
-            const sx = {
-              north: 40,
-              east: 0,
-              south: 120,
-              west: 80,
-            }[dir]
-
-            const dx =
-              point.x - 13 - (dir === 'south' ? 3 : dir === 'north' ? -2 : 0)
-            const dy = point.y - 60
-
-            ctx.drawImage(
-              robot,
-              sx,
-              0,
-              40,
-              71,
-              Math.round(dx),
-              Math.round(dy),
-              40,
-              71
-            )
-            if (world.karol.length > 1) {
-              ctx.font = '22px sans-serif'
-              ctx.fillText(
-                (i + 1).toString(),
-                Math.round(dx),
-                Math.round(dy) + 10
-              )
-            }
-          } else if (!hideKarol) {
-            for (let k = 0; k < world.karol.length; k++) {
-              if (i == k) continue
-              if (x == world.karol[k].x && y == world.karol[k].y) {
-                const { x, y } = world.karol[k]
-                const z = world.bricks[y][x]
-                const point = to2d(x, y, z)
-                const dir = world.karol[k].dir
-                const sx = {
-                  north: 40,
-                  east: 0,
-                  south: 120,
-                  west: 80,
-                }[dir]
-
-                const dx =
-                  point.x -
-                  13 -
-                  (dir === 'south' ? 3 : dir === 'north' ? -2 : 0)
-                const dy = point.y - 60
-
-                ctx.drawImage(
-                  robot,
-                  sx,
-                  0,
-                  40,
-                  71,
-                  Math.round(dx),
-                  Math.round(dy),
-                  40,
-                  71
-                )
-                if (world.karol.length > 1) {
-                  ctx.font = '22px sans-serif'
-                  ctx.fillText(
-                    (k + 1).toString(),
-                    Math.round(dx),
-                    Math.round(dy) + 10
-                  )
+          if (!hideKarol) {
+            if (
+              Math.round(robotPos.x) == x &&
+              Math.round(robotPos.y) == y &&
+              robotPos.i == i
+            ) {
+              const { x: animX, y: animY, z: animZ } = robotPos
+              drawKarol(animX, animY, animZ, i)
+            } else {
+              for (let k = 0; k < world.karol.length; k++) {
+                if (k == robotPos.i) continue
+                if (x == world.karol[k].x && y == world.karol[k].y) {
+                  const { x, y } = world.karol[k]
+                  const z = world.bricks[y][x]
+                  drawKarol(x, y, z, k)
                 }
               }
             }
