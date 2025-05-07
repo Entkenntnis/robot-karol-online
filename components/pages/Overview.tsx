@@ -252,7 +252,7 @@ export function Overview() {
                     {core.strings.overview.profile}
                   </a>
                 </li>
-                <li>
+                <li className="hidden">
                   <a
                     href="/#HIGHSCORE"
                     onClick={() => {
