@@ -64,46 +64,39 @@ export function View({
 
   const i = activeRobot ?? 0
 
-  const [robotPos, setRobotPos] = useState({
+  const prevWorld = useRef(world)
+  const animationFrameRef = useRef<number | null>(null)
+
+  // there are 2 - 3 frames where the robot is just not in the right place
+  // update robot position immediately, maybe rerender if there are further changes
+  // this approach is avoiding a flickering effect
+  const [renderCounter, setRenderCounter] = useState(0)
+  const animatedRobotData = useRef({
     x: world.karol[i].x,
     y: world.karol[i].y,
     z: world.bricks[world.karol[i].y][world.karol[i].x],
     i,
   })
-  const prevWorld = useRef(world)
-  const animationFrameRef = useRef<number | null>(null)
-  const prevActiveRobot = useRef(i)
 
-  // so, what is this code doing **conceptually**?
-
-  // switching active robot is a bit tricky
-
-  // the failure here is that sometimes changes are batched and I can't
-  // differenciate between a batched change
   useEffect(() => {
-    // the LOGIC here is killing me, like what the hell am I supposed to do here?
-    // reactive programming and well and so on
-
-    // ok, another approach, treat reason as a black box and be defensive here
-
-    // let's find out if I need to abort the animation or not
-
-    // so first thing is to check if I need to abort the animation
     if (
-      !prevWorld.current ||
       !twoWorldsEqual(prevWorld.current, world) ||
       prevWorld.current.karol.length !== world.karol.length ||
       prevWorld.current.karol[i].dir !== world.karol[i].dir ||
       !animationDuration
     ) {
-      console.log('cancel animation')
-      // these are hard no-no changes and abort animation asap
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
         animationFrameRef.current = null
       }
       prevWorld.current = world
-      setRobotPos({ x: -1, y: -1, z: -1, i: -1 })
+      animatedRobotData.current = {
+        x: -1,
+        y: -1,
+        z: -1,
+        i: -1,
+      }
+      setRenderCounter((c) => c + 1)
       return
     }
 
@@ -119,15 +112,10 @@ export function View({
     const dy = currentY - prevY
     const distance = Math.sqrt(dx * dx + dy * dy)
 
-    if (
-      Math.round(distance) == 1 &&
-      animationDuration &&
-      (dx == 0 || dy == 0)
-    ) {
+    if (Math.round(distance) == 1 && (dx == 0 || dy == 0)) {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
-      console.log('start animation', prevX, prevY, currentX, currentY)
       // the robot is in an new position that is not yet updated, so start animation
       const startTime = Date.now()
       const duration = animationDuration
@@ -144,20 +132,28 @@ export function View({
           (currentZ - prevZ) * progress +
           Math.sin(progress * Math.PI) * (currentZ == prevZ ? 0.25 : 0.5)
 
-        setRobotPos({ x: newX, y: newY, z: newZ, i })
+        animatedRobotData.current = { x: newX, y: newY, z: newZ, i }
+        setRenderCounter((c) => c + 1)
 
         if (progress < 1) {
           animationFrameRef.current = requestAnimationFrame(animate)
         } else {
-          console.log('animation done')
-          setRobotPos({ x: -1, y: -1, z: -1, i: -1 })
+          animatedRobotData.current = { x: -1, y: -1, z: -1, i: -1 }
+          setRenderCounter((c) => c + 1)
           animationFrameRef.current = null
         }
       }
 
-      animationFrameRef.current = requestAnimationFrame(animate)
+      animate()
 
       prevWorld.current = world
+    } else {
+      // and here, yeah, probably cancel as well
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+      animatedRobotData.current = { x: -1, y: -1, z: -1, i: -1 }
+      setRenderCounter((c) => c + 1)
     }
     // only care for world changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -166,7 +162,6 @@ export function View({
   useEffect(() => {
     return () => {
       if (animationFrameRef.current) {
-        console.log('cancel animation on unmount')
         cancelAnimationFrame(animationFrameRef.current)
       }
     }
@@ -404,15 +399,15 @@ export function View({
           }
           if (!hideKarol) {
             if (
-              Math.round(robotPos.x) == x &&
-              Math.round(robotPos.y) == y &&
-              robotPos.i == i
+              Math.round(animatedRobotData.current.x) == x &&
+              Math.round(animatedRobotData.current.y) == y &&
+              animatedRobotData.current.i == i
             ) {
-              const { x: animX, y: animY, z: animZ } = robotPos
+              const { x: animX, y: animY, z: animZ } = animatedRobotData.current
               drawKarol(animX, animY, animZ, i)
             } else {
               for (let k = 0; k < world.karol.length; k++) {
-                if (k == robotPos.i) continue
+                if (k == animatedRobotData.current.i) continue
                 if (x == world.karol[k].x && y == world.karol[k].y) {
                   const { x, y } = world.karol[k]
                   const z = world.bricks[y][x]
@@ -429,7 +424,7 @@ export function View({
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world, wireframe, preview, hideKarol, robotPos])
+  }, [resources, world, wireframe, preview, hideKarol, renderCounter])
 
   return (
     <canvas
