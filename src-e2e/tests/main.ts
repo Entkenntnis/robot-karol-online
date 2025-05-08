@@ -230,3 +230,10 @@ Scenario('Legacy links should work', ({ I }) => {
   I.dontSee('internal error')
   I.see('Start')
 })
+
+Scenario("Don't use testing mode for single tasks", ({ I }) => {
+  I.amOnPage('/#QUEST-47')
+  I.click('div .fixed')
+  I.click('Start')
+  I.see('2D-Ansicht')
+})

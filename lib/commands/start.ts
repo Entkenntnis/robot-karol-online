@@ -39,7 +39,8 @@ export function startButtonClicked(core: Core) {
       core.ws.ui.isPlayground ||
       core.ws.quest.tasks.every(
         (t) => !t.target || twoWorldsEqual(t.start, t.target)
-      )
+      ) ||
+      core.ws.quest.tasks.length == 1
     ) {
       openTask(core, 0)
       runTask(core, 0)
