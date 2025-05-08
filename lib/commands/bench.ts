@@ -41,27 +41,51 @@ function filterCodeForHistory(code: string): string {
   const filteredLines: string[] = []
   let skipBlock = false
   let indentLevel = 0
+  let inTripleQuoteString = false
+  let tripleQuoteType = ''
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
     const trimmedLine = line.trim()
-    
+
+    // Check for triple quotes
+    if (!inTripleQuoteString) {
+      if (trimmedLine.includes('"""') || trimmedLine.includes("'''")) {
+        tripleQuoteType = trimmedLine.includes('"""') ? '"""' : "'''"
+        // Check if triple quotes open and close on same line
+        const firstIndex = trimmedLine.indexOf(tripleQuoteType)
+        const lastIndex = trimmedLine.lastIndexOf(tripleQuoteType)
+        if (firstIndex !== lastIndex) {
+          continue // Triple quote opens and closes on same line, skip it entirely
+        } else {
+          inTripleQuoteString = true
+          continue
+        }
+      }
+    } else {
+      // If we're in a triple quoted string, check if it ends on this line
+      if (trimmedLine.includes(tripleQuoteType)) {
+        inTripleQuoteString = false
+      }
+      continue // Skip all lines within triple quotes
+    }
+
     // Skip empty lines and comments regardless
     if (trimmedLine === '' || trimmedLine.startsWith('#')) {
       continue
     }
-    
+
     // Calculate indent level based on leading spaces (assuming 2 or 4 spaces per indent)
     const leadingSpaces = line.length - line.trimStart().length
     const currentIndent = Math.floor(leadingSpaces / 2)
-    
+
     // If we're at a new definition (class or function)
     if (trimmedLine.startsWith('class ') || trimmedLine.startsWith('def ')) {
       skipBlock = true
       indentLevel = currentIndent
       continue
     }
-    
+
     // If we're still in a block that should be skipped
     if (skipBlock) {
       // If this line has less indentation than the block start, we've exited the block
@@ -71,9 +95,9 @@ function filterCodeForHistory(code: string): string {
         continue
       }
     }
-    
+
     // If we reach here, the line should be included
-    if (!skipBlock) {
+    if (!skipBlock && !inTripleQuoteString) {
       filteredLines.push(line)
     }
   }

@@ -18,6 +18,9 @@ import { loadLegacyProject, loadQuest } from './load'
 import { setLng, setMode } from './mode'
 import { startQuest } from './quest'
 
+const bluejPlaygroundHash =
+  '#SPIELWIESE-PYTHON:%23 Spielwiese%3A 15%2C 10%2C 6%0A%0A%23 Hallo! Die Spielwiese hat einen neuen Modus. Sobald du Python aktivierst%2C%0A%23 kannst du auf das interaktive Klassendiagramm zugreifen.%0A%0A%23 Dort kannst du Objekte erzeugen und Methoden aufrufen wie in BlueJ.%0A%0A%23 Probiere es jetzt aus! Klicke jetzt auf interaktives Klassendiagramm%2C%0A%23 erzeuge einen Robot und steuere Karol direkt über die Objektkarte.%0A%0A%0A%0A%23 Das Ganze funktioniert auch mit eigenen Klassen%3A%0A%23 (zum Testen auskommentieren)%0A%0A"""%0Aclass MeineKlasse%3A%0A%20%20%20 def hallo(self)%3A%0A%20%20%20%20%20%20%20 "Das ist ein Docstring für die Methode hallo"%0A%20%20%20%20%20%20%20 print("Hallo %3A)")%0A"""'
+
 export async function navigate(core: Core, hash: string) {
   history.pushState(null, '', '/' + hash)
 
@@ -27,7 +30,14 @@ export async function navigate(core: Core, hash: string) {
 
 // Assume that all relevant data is in the hash
 export async function hydrateFromHash(core: Core) {
-  const hash = window.location.hash.replace(/^#/, '')
+  let raw_hash = window.location.hash
+
+  // internal rewrites
+  if (raw_hash.toLocaleUpperCase() == '#BLUEJ-PLAYGROUND') {
+    raw_hash = bluejPlaygroundHash
+  }
+
+  const hash = raw_hash.replace(/^#/, '')
   const page = hash.split(':')[0].toUpperCase()
   const colonIndex = hash.indexOf(':')
   const data = colonIndex !== -1 ? hash.substring(colonIndex + 1) : ''
