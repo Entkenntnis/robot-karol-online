@@ -79,12 +79,20 @@ export function InvocationModal() {
     executeInBench(core, codePreview).then((res: any) => {
       if (res.result !== undefined) {
         if (typeof res.result === 'boolean') {
-          alert('Rückgabewert: ' + capitalize(res.result.toString()))
+          core.mutateWs((ws) => {
+            ws.bench.history += `\n# Rückgabewert: ${capitalize(
+              res.result.toString()
+            )}`
+          })
         } else if (
           typeof res.result === 'string' ||
           typeof res.result === 'number'
         ) {
-          alert('Rückgabewert: ' + JSON.stringify(res.result))
+          core.mutateWs((ws) => {
+            ws.bench.history += `\n# Rückgabewert: ${JSON.stringify(
+              res.result
+            )}`
+          })
         }
       }
     })

@@ -92,7 +92,7 @@ export function InteractiveClassDiagram() {
               )
             })}
           </div>
-          <div className="border-l-2 px-2 flex-1">
+          <div className="border-l-2 px-2 flex-1 overflow-auto">
             <p className="mb-2">Verlauf:</p>
             <div className="bg-gray-100 rounded [&_.cm-line]:my-1">
               <CodeBox
