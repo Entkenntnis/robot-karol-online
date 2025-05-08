@@ -71,6 +71,12 @@ export function InvocationModal() {
   const handleSubmit = (e: React.FormEvent) => {
     submitAnalyzeEvent(core, 'ev_click_bench_invocationExecute')
     e.preventDefault()
+    core.mutateWs(({ bench }) => {
+      if (bench.history) {
+        bench.history += '\n'
+      }
+      bench.history += `${codePreview}`
+    })
     executeInBench(core, codePreview).then((res: any) => {
       if (res.result !== undefined) {
         if (typeof res.result === 'boolean') {

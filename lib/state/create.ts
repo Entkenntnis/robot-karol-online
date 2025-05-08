@@ -102,6 +102,7 @@ export function createWorkspaceState(): WorkspaceState {
       invocationMethod: '',
       invocationObject: '',
       locked: false,
+      history: '',
     },
     analyze: {
       published: [],
