@@ -1,5 +1,6 @@
 import {
   faCheck,
+  faCircle,
   faExclamationTriangle,
   faPersonWalking,
   faStop,
@@ -24,16 +25,14 @@ export function TaskRunnerOverview() {
   }, [currentIndex])
 
   return (
-    <div className="px-5 mb-2 pt-2 bg-gray-100">
-      <div className="ml-9 mb-3">{core.strings.ide.assignments}:</div>
+    <div className="h-[42px] bg-gray-100 flex-row flex items-center gap-2">
       {core.ws.quest.tasks.map((task, index) => {
         return (
           <div
             key={index}
-            className="my-1.5"
             ref={index == currentIndex ? currentTask : undefined}
           >
-            <span className="w-9 inline-block pl-2">
+            <span className="w-9 inline-block">
               {(() => {
                 if (
                   index < currentIndex ||
@@ -62,21 +61,12 @@ export function TaskRunnerOverview() {
                         <FaIcon icon={faCheck} className="text-green-500" />
                       )
                     } else {
-                      return <FaIcon icon={faTimes} />
+                      return <FaIcon icon={faTimes} className="text-red-500" />
                     }
                   }
                 }
-                return null
+                return <FaIcon icon={faCircle} className="text-gray-300" />
               })()}
-            </span>
-            <span
-              className={clsx(
-                index == currentIndex &&
-                  !core.ws.ui.controlBarShowFinishQuest &&
-                  'font-bold'
-              )}
-            >
-              {task.title}
             </span>
           </div>
         )
