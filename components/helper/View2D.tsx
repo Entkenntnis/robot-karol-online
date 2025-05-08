@@ -121,11 +121,13 @@ export function View2D({ world, preview, className }: View2DProps) {
         const cy = y * cellSize + cellSize / 2
         drawKarol(ctx, cx, cy, dir, cellSize)
 
-        ctx.font = '12px sans-serif'
-        ctx.fillStyle = 'black'
-        ctx.textAlign = 'right'
-        ctx.textBaseline = 'top'
-        ctx.fillText((i + 1).toString(), cx + 10, cy + 3)
+        if (world.karol.length > 1) {
+          ctx.font = '12px sans-serif'
+          ctx.fillStyle = 'black'
+          ctx.textAlign = 'right'
+          ctx.textBaseline = 'top'
+          ctx.fillText((i + 1).toString(), cx + 10, cy + 3)
+        }
       }
     }
   }, [world, preview, width, height, cellSize])
