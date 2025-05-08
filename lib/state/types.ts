@@ -213,6 +213,7 @@ export interface Bench {
   invocationMethod: string
 
   locked: boolean
+  history: string
 }
 
 export interface ObjectInfo {

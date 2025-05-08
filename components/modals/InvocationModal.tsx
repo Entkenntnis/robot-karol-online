@@ -52,8 +52,7 @@ export function InvocationModal() {
 
   const codeParams = invocationParameters
     .map((param, index) => {
-      const value = parameters[index]
-      return value ? `${param.name}=${value}` : ''
+      return parameters[index]
     })
     .filter(Boolean)
     .join(', ')
@@ -71,15 +70,29 @@ export function InvocationModal() {
   const handleSubmit = (e: React.FormEvent) => {
     submitAnalyzeEvent(core, 'ev_click_bench_invocationExecute')
     e.preventDefault()
+    core.mutateWs(({ bench }) => {
+      if (bench.history) {
+        bench.history += '\n'
+      }
+      bench.history += `${codePreview}`
+    })
     executeInBench(core, codePreview).then((res: any) => {
       if (res.result !== undefined) {
         if (typeof res.result === 'boolean') {
-          alert('Rückgabewert: ' + capitalize(res.result.toString()))
+          core.mutateWs((ws) => {
+            ws.bench.history += `\n# Rückgabewert: ${capitalize(
+              res.result.toString()
+            )}`
+          })
         } else if (
           typeof res.result === 'string' ||
           typeof res.result === 'number'
         ) {
-          alert('Rückgabewert: ' + JSON.stringify(res.result))
+          core.mutateWs((ws) => {
+            ws.bench.history += `\n# Rückgabewert: ${JSON.stringify(
+              res.result
+            )}`
+          })
         }
       }
     })

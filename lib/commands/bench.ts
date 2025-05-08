@@ -22,6 +22,7 @@ export async function startBench(core: Core) {
     ws.ui.state = 'running'
     ws.bench.objects = []
     ws.bench.locked = false
+    ws.bench.history = filterCodeForHistory(core.ws.pythonCode)
     ws.ui.karolCrashMessage = undefined
     ws.ui.isEndOfRun = false
     ws.ui.isManualAbort = false
@@ -30,6 +31,54 @@ export async function startBench(core: Core) {
   await executeInBench(core, core.ws.pythonCode)
   await updateBenchClasses(core)
   await updateBenchObjects(core)
+}
+
+// Function to filter out comments, empty lines, and definitions
+function filterCodeForHistory(code: string): string {
+  if (!code) return ''
+
+  const lines = code.split('\n')
+  const filteredLines: string[] = []
+  let skipBlock = false
+  let indentLevel = 0
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+    const trimmedLine = line.trim()
+    
+    // Skip empty lines and comments regardless
+    if (trimmedLine === '' || trimmedLine.startsWith('#')) {
+      continue
+    }
+    
+    // Calculate indent level based on leading spaces (assuming 2 or 4 spaces per indent)
+    const leadingSpaces = line.length - line.trimStart().length
+    const currentIndent = Math.floor(leadingSpaces / 2)
+    
+    // If we're at a new definition (class or function)
+    if (trimmedLine.startsWith('class ') || trimmedLine.startsWith('def ')) {
+      skipBlock = true
+      indentLevel = currentIndent
+      continue
+    }
+    
+    // If we're still in a block that should be skipped
+    if (skipBlock) {
+      // If this line has less indentation than the block start, we've exited the block
+      if (currentIndent <= indentLevel && trimmedLine !== '') {
+        skipBlock = false
+      } else {
+        continue
+      }
+    }
+    
+    // If we reach here, the line should be included
+    if (!skipBlock) {
+      filteredLines.push(line)
+    }
+  }
+
+  return filteredLines.join('\n').trim()
 }
 
 export async function executeInBench(core: Core, code: string) {

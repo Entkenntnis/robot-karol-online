@@ -7,6 +7,7 @@ import { FaIcon } from '../helper/FaIcon'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { showModal } from '../../lib/commands/modal'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { CodeBox } from '../helper/Cheatsheet'
 
 export function InteractiveClassDiagram() {
   const core = useCore()
@@ -45,50 +46,62 @@ export function InteractiveClassDiagram() {
         />
       </div>
       <div className="flex-grow bg-gray-200 relative" ref={containerRef}>
-        <div className="inset-2 rounded bg-gray-50 absolute flex flex-wrap gap-4 items-start p-2">
-          {core.ws.bench.objects.map((obj, i) => {
-            return (
-              <div
-                key={i}
-                className={clsx(
-                  'bg-red-500 rounded-lg p-4 font-bold text-white text-center cursor-pointer',
-                  core.ws.bench.locked && 'cursor-wait'
-                )}
-                onContextMenu={(e) => {
-                  if (core.ws.bench.locked) return
-                  e.preventDefault()
-                  const containerRect =
-                    containerRef.current?.getBoundingClientRect()
-                  if (!containerRect) return
+        <div className="inset-2 rounded bg-gray-50 absolute p-2 flex">
+          <div className="flex flex-wrap gap-4 items-start flex-1">
+            {core.ws.bench.objects.map((obj, i) => {
+              return (
+                <div
+                  key={i}
+                  className={clsx(
+                    'bg-red-500 rounded-lg p-4 font-bold text-white text-center cursor-pointer',
+                    core.ws.bench.locked && 'cursor-wait'
+                  )}
+                  onContextMenu={(e) => {
+                    if (core.ws.bench.locked) return
+                    e.preventDefault()
+                    const containerRect =
+                      containerRef.current?.getBoundingClientRect()
+                    if (!containerRect) return
 
-                  setContextMenu({
-                    visible: true,
-                    x: e.clientX - containerRect.left,
-                    y: e.clientY - containerRect.top,
-                    selectedIndex: i,
-                  })
-                }}
-                onClickCapture={(e) => {
-                  if (core.ws.bench.locked) return
-                  e.preventDefault()
-                  e.stopPropagation()
-                  const containerRect =
-                    containerRef.current?.getBoundingClientRect()
-                  if (!containerRect) return
+                    setContextMenu({
+                      visible: true,
+                      x: e.clientX - containerRect.left,
+                      y: e.clientY - containerRect.top,
+                      selectedIndex: i,
+                    })
+                  }}
+                  onClickCapture={(e) => {
+                    if (core.ws.bench.locked) return
+                    e.preventDefault()
+                    e.stopPropagation()
+                    const containerRect =
+                      containerRef.current?.getBoundingClientRect()
+                    if (!containerRect) return
 
-                  setContextMenu({
-                    visible: true,
-                    x: e.clientX - containerRect.left,
-                    y: e.clientY - containerRect.top,
-                    selectedIndex: i,
-                  })
-                }}
-              >
-                {obj.name} :<br />
-                {obj.className}
-              </div>
-            )
-          })}
+                    setContextMenu({
+                      visible: true,
+                      x: e.clientX - containerRect.left,
+                      y: e.clientY - containerRect.top,
+                      selectedIndex: i,
+                    })
+                  }}
+                >
+                  {obj.name} :<br />
+                  {obj.className}
+                </div>
+              )
+            })}
+          </div>
+          <div className="border-l-2 px-2 flex-1 overflow-auto">
+            <p className="mb-2">Verlauf:</p>
+            <div className="bg-gray-100 rounded [&_.cm-line]:my-1">
+              <CodeBox
+                language="python-pro"
+                doc={core.ws.bench.history}
+                key={core.ws.bench.history}
+              />
+            </div>
+          </div>
         </div>
 
         {contextMenu.visible &&
