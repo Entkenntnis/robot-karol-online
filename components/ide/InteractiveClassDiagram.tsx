@@ -47,7 +47,7 @@ export function InteractiveClassDiagram() {
       </div>
       <div className="flex-grow bg-gray-200 relative" ref={containerRef}>
         <div className="inset-2 rounded bg-gray-50 absolute p-2 flex">
-          <div className="flex flex-wrap gap-4 items-start flex-shrink flex-grow">
+          <div className="flex flex-wrap gap-4 items-start flex-1">
             {core.ws.bench.objects.map((obj, i) => {
               return (
                 <div
@@ -92,9 +92,9 @@ export function InteractiveClassDiagram() {
               )
             })}
           </div>
-          <div className="w-[230px] border-l-2 px-2">
+          <div className="border-l-2 px-2 flex-1">
             <p className="mb-2">Verlauf:</p>
-            <div className="bg-gray-100 rounded">
+            <div className="bg-gray-100 rounded [&_.cm-line]:my-1">
               <CodeBox
                 language="python-pro"
                 doc={core.ws.bench.history}

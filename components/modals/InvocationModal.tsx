@@ -52,8 +52,7 @@ export function InvocationModal() {
 
   const codeParams = invocationParameters
     .map((param, index) => {
-      const value = parameters[index]
-      return value ? `${param.name}=${value}` : ''
+      return parameters[index]
     })
     .filter(Boolean)
     .join(', ')
