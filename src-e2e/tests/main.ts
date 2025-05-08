@@ -232,7 +232,7 @@ Scenario('Legacy links should work', ({ I }) => {
 })
 
 Scenario("Don't use testing mode for single tasks", ({ I }) => {
-  I.amOnPage('/#QUEST-47')
+  I.amOnPage('/#QUEST-23')
   I.click('div .fixed')
   I.click('Start')
   I.see('2D-Ansicht')
