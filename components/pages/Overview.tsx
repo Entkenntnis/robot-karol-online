@@ -382,8 +382,8 @@ export function Overview() {
                         <div className="relative">
                           <div className="bg-yellow-100/80 rounded-lg p-3 w-[270px] shadow-lg transform rotate-6 border-2 border-yellow-300">
                             <p className="text-lg font-bold">
-                              Hey 👋 Klick auf „Start“ und entdecke die Welt des
-                              Programmierens!
+                              Hey 👋 Klicke auf „Start“ und entdecke die Welt
+                              des Programmierens!
                             </p>
                           </div>
                           <svg
