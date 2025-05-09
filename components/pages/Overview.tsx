@@ -377,27 +377,31 @@ export function Overview() {
                   numberOfSolvedQuests == 0 &&
                   core.ws.page !== 'demo' &&
                   core.ws.page !== 'analyze' && (
-                    <div className="absolute top-72 left-12 ">
+                    <div className="absolute top-[160px] left-[270px] z-10">
                       <AnimateInView>
-                        <div className="bg-white/50 rounded-lg p-2 w-[550px] shadow-lg">
-                          <p>
-                            Diese Online-Programmierumgebung führt dich in die
-                            Grundlagen von Algorithmen ein: Sequenz,
-                            Wiederholung (mit fester Anzahl, kopfgesteuert),
-                            bedingte Anweisungen und eigene Methoden.
-                            Programmiere mit Blöcken, Karol Code, Python oder
-                            Java.
-                          </p>
-                          <p className="mt-2">
-                            Klicke auf „Start“ für den Selbst-Lern-Pfad.
-                            Entdecke dort auf eigene Faust die Welt von Robot
-                            Karol und löse Aufgaben.
-                          </p>
-                          <p className="mt-2">
-                            Lehrkräfte können mit dem Editor eigene Aufgaben
-                            anlegen und mit der Klasse teilen oder sich von der
-                            Galerie inspirieren lassen.
-                          </p>
+                        <div className="relative">
+                          <div className="bg-yellow-100/80 rounded-lg p-3 w-[270px] shadow-lg transform rotate-6 border-2 border-yellow-300">
+                            <p className="text-lg font-bold">
+                              Hey 👋 Klick auf „Start“ und entdecke die Welt des
+                              Programmierens!
+                            </p>
+                          </div>
+                          <svg
+                            className="absolute -left-24 -top-10"
+                            width="120"
+                            height="130"
+                            viewBox="0 0 120 130"
+                          >
+                            <path
+                              d="M 20,10 C 40,40 90,0 100,20"
+                              fill="none"
+                              stroke="#eab308"
+                              strokeWidth="6"
+                              strokeLinecap="round"
+                              className="animate-pulse"
+                            />
+                            <polygon points="15,22 30,5 7,0" fill="#eab308" />
+                          </svg>
                         </div>
                       </AnimateInView>
                     </div>
@@ -453,8 +457,7 @@ export function Overview() {
                     />
                   </a>
                 )}
-
-                <div className="absolute left-[100px] top-[1470px] z-10">
+                <div className="absolute left-[4px] top-[750px] z-10">
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <ul
                       tabIndex={0}
@@ -546,7 +549,6 @@ export function Overview() {
                     </ul>
                   </AnimateInView>
                 </div>
-
                 {core.ws.settings.lng === 'de' &&
                   !isQuestDone(10001) &&
                   core.ws.page !== 'demo' &&
@@ -557,9 +559,9 @@ export function Overview() {
                           <p>
                             Programmierung beschränkt sich nicht auf Blöcke oder
                             Karol Code. Lerne hier eine „große“
-                            Programmiersprache mit Variablen, Ein-/Ausgabe,
-                            mathematischen Operatoren, Kontrollstrukturen und
-                            mehr kennen!
+                            Programmiersprache (Python) mit Variablen,
+                            Ein-/Ausgabe, mathematischen Operatoren,
+                            Kontrollstrukturen und mehr kennen!
                           </p>
                           <p className="mt-2">
                             Das Ganze ist eingebettet in eine kleine Geschichte.
@@ -577,7 +579,6 @@ export function Overview() {
                       </AnimateInView>
                     </div>
                   )}
-
                 <div
                   className="absolute left-[101px]  z-10"
                   style={{ top: `${maxMapY + 840}px` }}
@@ -588,7 +589,6 @@ export function Overview() {
                     </h2>
                   </AnimateInView>
                 </div>
-
                 <div
                   className="absolute left-[478px]  z-10"
                   style={{ top: `${maxMapY + 870}px` }}
@@ -623,7 +623,6 @@ export function Overview() {
                     </a>
                   </AnimateInView>
                 </div>
-
                 {core.ws.ui.newRobotImage && (
                   <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
                     <p className="mb-2">Neue Figur verfügbar:</p>
@@ -809,7 +808,7 @@ export function Overview() {
                     strokeDasharray="20 28"
                     style={{ transition: 'all 0.3s ease' }}
                   />
-                </svg>
+                </svg>{' '}
                 {Object.entries(mapData).map((entry) => {
                   const id = parseInt(entry[0])
                   if (!isQuestVisible(id)) return null

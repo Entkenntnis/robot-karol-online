@@ -11,14 +11,16 @@ export function NameModal() {
   const [name, setName] = useState('')
   return (
     <div className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]">
+      {' '}
       <div
-        className="h-[280px] sm:w-[500px] w-full mx-3 bg-white z-[200] rounded-xl relative mb-[30vh] sm:mb-[10vh]"
+        className="sm:w-[500px] w-full mx-3 bg-gradient-to-br from-yellow-50 to-yellow-100 z-[200] rounded-xl relative mb-[30vh] sm:mb-[10vh] border-2 border-yellow-300 shadow-lg overflow-hidden p-4"
         onClick={(e) => {
           e.stopPropagation()
         }}
       >
+        <div className="absolute top-0 left-0 w-full h-1 bg-yellow-400"></div>
         <button
-          className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300"
+          className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-yellow-200 hover:bg-yellow-300 transition-colors duration-200"
           onClick={() => {
             closeModal(core)
             navigate(core, '')
@@ -26,11 +28,13 @@ export function NameModal() {
         >
           <FaIcon icon={faTimes} />
         </button>
-        <div>
-          <p className="ml-4 font-bold text-lg mt-6 mb-4 text-center">
-            {core.strings.nameModal.title}
+        <div className="py-3">
+          <p className="font-bold text-2xl mt-3 mb-4 text-center text-yellow-800">
+            👋 {core.strings.nameModal.title}
           </p>
-          <p className="text-center mt-6">{core.strings.nameModal.invite}</p>
+          <p className="text-center mt-4 text-yellow-900">
+            {core.strings.nameModal.invite}
+          </p>
           <form
             onSubmit={(e) => {
               e.preventDefault()
@@ -38,22 +42,24 @@ export function NameModal() {
                 submit()
               }
             }}
+            className="mt-4"
           >
-            <p className="text-center">
+            <div className="text-center">
               <input
                 autoFocus
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value)
                 }}
-                className="mt-4 text-3xl border-blue-500 border-2 rounded text-center"
+                className="mt-3 text-3xl border-yellow-400 border-2 rounded-lg text-center py-1 px-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white/80"
                 maxLength={30}
+                placeholder="Dein Name..."
               />
-            </p>
-            <p className="text-center mt-3 text-sm text-gray-500 italic">
+            </div>
+            <div className="text-center mt-3 text-sm text-yellow-700 italic">
               <button
                 type="button"
-                className="underline"
+                className="underline hover:text-yellow-600 transition-colors"
                 onClick={() => {
                   const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
                   let n = ''
@@ -65,16 +71,16 @@ export function NameModal() {
               >
                 {core.strings.nameModal.random}
               </button>
-            </p>
-            <p className="text-center mb-5 px-4 sm:mt-8 mt-3">
+            </div>
+            <div className="text-center mb-5 px-4 sm:mt-8 mt-5">
               <button
                 type="submit"
-                className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded disabled:bg-gray-200 disabled:text-gray-700"
+                className="px-5 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-lg disabled:bg-gray-200 disabled:text-gray-700 text-yellow-900 font-medium transform transition-all duration-200 hover:scale-105 shadow-md disabled:cursor-not-allowed"
                 disabled={!name.trim()}
               >
-                {core.strings.nameModal.start}
+                ✨ {core.strings.nameModal.start} ✨
               </button>
-            </p>
+            </div>
           </form>
         </div>
       </div>
@@ -83,6 +89,9 @@ export function NameModal() {
 
   function submit() {
     setUserName(core, name.trim())
+    core.mutateWs((ws) => {
+      ws.ui.tourModePage = 1
+    })
     closeModal(core)
   }
 }

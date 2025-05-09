@@ -4,6 +4,7 @@ import {
   faCode,
   faExclamationTriangle,
   faPlayCircle,
+  faHand,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
@@ -27,6 +28,7 @@ import { is } from 'date-fns/locale'
 import { exitQuest } from '../../lib/commands/quest'
 import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
+import { AnimateInView } from '../helper/AnimateIntoView'
 
 export function IdeMain() {
   const core = useCore()
@@ -195,6 +197,56 @@ export function IdeMain() {
             }
           }}
         >
+          {/* Sliding hand and instruction text */}
+          {core.ws.ui.tourModePage === 1 && (
+            <div className="fixed left-24 top-16 z-[350] pointer-events-none">
+              <AnimateInView>
+                <div className="relative bg-yellow-100/90 p-4 mx-auto max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg">
+                  <div className="text-center text-2xl font-bold text-yellow-800 mb-2">
+                    Ziehe den Befehl „Schritt“ auf die Arbeitsfläche
+                  </div>
+
+                  <div className="relative h-16 w-full overflow-hidden">
+                    {/* Hand Icon sliding from left to right */}
+                    <div className="absolute animate-slideLeftRight">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        className="h-16 w-16 text-yellow-800 transform -rotate-45"
+                        fill="currentColor"
+                      >
+                        <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32 14.3-32 32V336c0 1.5 0 3.1 .1 4.6L67.6 283c-16-15.2-41.3-14.6-56.6 1.4s-14.6 41.3 1.4 56.6L124.8 448c43.1 41.1 100.4 64 160 64H304c97.2 0 176-78.8 176-176V128c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V32z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </AnimateInView>
+            </div>
+          )}
+          {core.ws.ui.tourModePage === 3 && (
+            <div className="absolute left-4 bottom-4 z-[350]">
+              <AnimateInView>
+                <div className="relative bg-yellow-100/90 p-6 mx-auto max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg">
+                  <div className="text-center text-xl font-bold text-yellow-800 mb-4">
+                    Schreibe ein Programm, das zwei Schritte geht und einen
+                    Ziegel hinlegt.
+                  </div>
+                  <div className="flex justify-center mt-4">
+                    <button
+                      className="px-6 py-2 bg-green-400 hover:bg-green-500 rounded-lg font-semibold text-lg transition-colors shadow-md"
+                      onClick={() => {
+                        core.mutateWs((ws) => {
+                          ws.ui.tourModePage = undefined
+                        })
+                      }}
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              </AnimateInView>
+            </div>
+          )}
           {core.ws.ui.isHighlightDescription && (
             <div
               className="fixed inset-0 bg-black/30 z-[200]"

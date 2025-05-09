@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Start",
-  "description": "<Tutorial />",
+  "description": "Herzlich Willkommen! Schreibe dein erstes Programm:\n\n- Mit `Schritt` geht Karol einen Schritt nach vorne\n- Mit `Hinlegen` legt Karol vor sich einen Ziegel (sie kann Ziegel hervorzaubern)\n- Löse die Aufgabe und schalte weitere Aufgaben frei",
   "tasks": [
     {
       "title": "Lege einen Ziegel",

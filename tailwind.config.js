@@ -24,6 +24,28 @@ module.exports = {
             transform: 'translateY(0)',
           },
         },
+        // Sliding hand animation
+        slideLeftRight: {
+          '0%': {
+            transform: 'translateX(-100%)',
+            opacity: '0',
+          },
+          '10%': {
+            transform: 'translateX(-50%)',
+            opacity: '1',
+          },
+          '45%': {
+            transform: 'translateX(50%)',
+          },
+          '90%': {
+            transform: 'translateX(150%)',
+            opacity: '1',
+          },
+          '100%': {
+            transform: 'translateX(200%)',
+            opacity: '0',
+          },
+        },
         // New bubble animation keyframes
         bubble: {
           '0%': {
@@ -52,6 +74,7 @@ module.exports = {
         'spin-slow': 'spin 2s linear infinite',
         'pastel-fade': 'pastel-fade 10s ease-in-out infinite',
         fadeInUp: 'fadeInUp 0.8s ease-out forwards',
+        slideLeftRight: 'slideLeftRight 3s ease-in-out infinite',
         bubble: 'bubble 8s ease-in-out infinite',
         float: 'float 3s ease-in-out infinite',
       },

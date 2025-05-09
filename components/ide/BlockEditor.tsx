@@ -263,6 +263,14 @@ export function BlockEditor() {
       })
       saveCodeToLocalStorage(core)
 
+      if (core.ws.ui.tourModePage === 1 && newCode.includes('Schritt')) {
+        setTimeout(() => {
+          core.mutateWs((ws) => {
+            ws.ui.tourModePage = 2
+          })
+        })
+      }
+
       if (core.ws.ui.state == 'running') {
         return // don't patch while running of code hasn't changed
       }

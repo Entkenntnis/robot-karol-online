@@ -457,6 +457,11 @@ export function endExecution(core: Core) {
   if (!core.ws.ui.karolCrashMessage) {
     setExecutionMarker(core, 0)
   }
+  if (core.ws.ui.tourModePage == -1 && !core.ws.quest.progress) {
+    core.mutateWs((ws) => {
+      ws.ui.tourModePage = 3
+    })
+  }
 
   /*if (
     core.ws.quest.id > 0 &&

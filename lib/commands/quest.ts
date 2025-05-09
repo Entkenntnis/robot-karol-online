@@ -1,6 +1,7 @@
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { questData } from '../data/quests'
 import { questDataEn } from '../data/questsEn'
+import { isQuestDone } from '../helper/session'
 import { submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
@@ -215,6 +216,11 @@ export function startQuest(core: Core, id: number) {
     core.mutateWs(({ ui }) => {
       ui.isHighlightDescription = false
     })
+    if (!isQuestDone(1) && core.ws.modal !== 'name') {
+      core.mutateWs((ws) => {
+        ws.ui.tourModePage = 1
+      })
+    }
   }
   // submit_event(`start_quest_${id}`, core)
   const sessionData = getQuestData(id)

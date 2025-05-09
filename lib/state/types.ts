@@ -74,6 +74,7 @@ export interface Ui {
   isBench?: boolean
   karolmaniaLevelId?: number
   karolmaniaCarouselIndex?: number
+  tourModePage?: number
 }
 
 export interface Vm {

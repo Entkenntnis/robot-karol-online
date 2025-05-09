@@ -16,6 +16,11 @@ export function startButtonClicked(core: Core) {
     exitBench(core)
     return
   }
+  if (core.ws.ui.tourModePage == 2) {
+    core.mutateWs((ws) => {
+      ws.ui.tourModePage = -1
+    })
+  }
 
   if (core.ws.editor.editWorld !== null && core.ws.ui.state == 'ready') {
     if (core.ws.editor.showWorldPreview) {

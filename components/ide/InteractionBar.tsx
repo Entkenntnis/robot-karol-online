@@ -1,5 +1,7 @@
 import {
+  faArrowDown,
   faArrowLeft,
+  faArrowUp,
   faBars,
   faPause,
   faPlay,
@@ -19,6 +21,7 @@ import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { exitQuest } from '../../lib/commands/quest'
 import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
+import { AnimateInView } from '../helper/AnimateIntoView'
 
 export function InteractionBar() {
   const core = useCore()
@@ -156,6 +159,25 @@ export function InteractionBar() {
       )}
       <div className="w-[111px]"></div>
       <div className="flex gap-1 sm:w-[111px] z-[100] absolute right-1 top-0.5">
+        {core.ws.ui.tourModePage === 2 && (
+          <div className="absolute right-0 w-[160px] top-14 z-[350] pointer-events-none">
+            <AnimateInView>
+              <div className="relative bg-yellow-100/90 p-4 mx-auto max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg">
+                <div className="flex justify-center">
+                  <div className="relative animate-bounce">
+                    <FaIcon
+                      icon={faArrowUp}
+                      className="text-4xl text-yellow-600"
+                    />
+                  </div>
+                </div>
+                <div className="text-center text-2xl font-bold text-yellow-800 mt-2">
+                  Klicke auf Start!
+                </div>
+              </div>
+            </AnimateInView>
+          </div>
+        )}
         {core.ws.vm.isDebugging && (
           <button
             className="absolute -bottom-[38px] -left-[52px] px-3 py-1 bg-purple-300 hover:bg-purple-400 transition-colors rounded active:bg-purple-500 "
