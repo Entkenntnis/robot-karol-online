@@ -226,7 +226,7 @@ export function IdeMain() {
           {core.ws.ui.tourModePage === 3 && (
             <div className="absolute left-0 right-0 bottom-4 z-[350]">
               <AnimateInView>
-                <div className="relative bg-yellow-100/90 p-6 mx-auto max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg mx-auto">
+                <div className="relative bg-yellow-100/90 p-6 max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg mx-auto">
                   <div className="text-center text-xl font-bold text-yellow-800 mb-4">
                     Schreibe ein Programm, das zwei Schritte geht und einen
                     Ziegel hinlegt.
