@@ -13,7 +13,7 @@ let debug = new Int32Array(129)
 
 let outputs = []
 let inputs = []
-let robotIndex = 0
+let robotIndex = { current: 0 }
 
 const compileScript = (code) => `
 def check_syntax(code):
@@ -37,9 +37,9 @@ const throwFauxTypeError = (cls, member, expected_args, rest) => {
 
 let benchGlobals = null
 
-export function buildRobot(highlightCurrentLine = () => {}) {
+export function buildInternalRobot(highlightCurrentLine = () => {}) {
   return () => {
-    const id = robotIndex++
+    const id = robotIndex.current++
     if (id > 0) {
       self.postMessage({ type: 'spawn-robot' })
     }
@@ -207,7 +207,7 @@ export function buildRobot(highlightCurrentLine = () => {}) {
   }
 }
 
-const pythonRobotWrapper = `
+const rkoModule = `
 class Robot:
   """Steuere einen Roboter. Wenn bereits ein Roboter vorhanden, dann wird ein neuer Roboter platziert."""
   def schritt(self, n=1):
@@ -277,6 +277,7 @@ class Robot:
     return self._internal_Robot.nichtIstWesten()
 
   def __init__(self):
+    from _rko_internal import _internal_Robot
     self._internal_Robot = _internal_Robot()
 
   def __del__(self):
@@ -294,6 +295,38 @@ self.onmessage = async (event) => {
       initStarted = true
       pyodide = await loadPyodide()
       pyodide.runPython(`import sys; sys.version`)
+
+      // should be moved to a class interface
+      pyodide.registerJsModule('RobotKarolOnline', {
+        tasteRegistrieren: (key, title) => {
+          postMessage({
+            type: 'register_key',
+            key,
+            title,
+          })
+        },
+        tasteGedrückt: (key) => {
+          const sharedBuffer = new SharedArrayBuffer(
+            Int32Array.BYTES_PER_ELEMENT
+          )
+          const sharedArray = new Int32Array(sharedBuffer)
+          Atomics.store(sharedArray, 0, 42) // no data yet
+          self.postMessage({
+            type: 'check-key',
+            sharedBuffer,
+            key,
+          })
+          Atomics.wait(sharedArray, 0, 42)
+          lastStepTs = performance.now() * 1000
+          return sharedArray[0] === 1
+        },
+      })
+      pyodide.registerJsModule('_rko_internal', {
+        _internal_Robot: buildInternalRobot(),
+      })
+      pyodide.FS.writeFile('rko.py', rkoModule, {
+        encoding: 'utf8',
+      })
       pyodide.setStdout({
         write: (buf) => {
           const written_string = decoder.decode(buf)
@@ -323,30 +356,6 @@ self.onmessage = async (event) => {
           return inputBytes
         },
       })
-      pyodide.registerJsModule('RobotKarolOnline', {
-        tasteRegistrieren: (key, title) => {
-          postMessage({
-            type: 'register_key',
-            key,
-            title,
-          })
-        },
-        tasteGedrückt: (key) => {
-          const sharedBuffer = new SharedArrayBuffer(
-            Int32Array.BYTES_PER_ELEMENT
-          )
-          const sharedArray = new Int32Array(sharedBuffer)
-          Atomics.store(sharedArray, 0, 42) // no data yet
-          self.postMessage({
-            type: 'check-key',
-            sharedBuffer,
-            key,
-          })
-          Atomics.wait(sharedArray, 0, 42)
-          lastStepTs = performance.now() * 1000
-          return sharedArray[0] === 1
-        },
-      })
       self.postMessage('ready')
     }
   }
@@ -362,7 +371,7 @@ self.onmessage = async (event) => {
   if (event.data.type === 'run') {
     delay = new Int32Array(event.data.delayBuffer)
     debug = new Int32Array(event.data.debugInterfaceBuffer, 0, 129)
-    robotIndex = 0
+    robotIndex.current = 0
     const debugRef = { current: debug }
     const traceback = pyodide.pyimport('traceback')
     const enableHighlight = { current: true }
@@ -387,18 +396,18 @@ self.onmessage = async (event) => {
     }
     // ONLY FOR QUESTSCRIPT
     const globals = pyodide.toPy({
-      _internal_Robot: buildRobot(highlightCurrentLine),
+      _internal_Robot: buildInternalRobot(highlightCurrentLine),
       __ide_run_client: (args) => {
         enableHighlight.current = true
         const tGlobals = pyodide.toPy({
-          Robot: buildRobot(highlightCurrentLine),
+          _internal_Robot: buildInternalRobot(highlightCurrentLine),
         })
         if (args && args.globals) {
           for (const key of args.globals) {
             tGlobals.set(key, globals.get(key))
           }
         }
-        pyodide.runPython(pythonRobotWrapper, {
+        pyodide.runPython('from rko import Robot', {
           globals: tGlobals,
         })
         pyodide.runPython(event.data.code, {
@@ -474,7 +483,7 @@ self.onmessage = async (event) => {
         enableHighlight.current = false
         inputs = []
         outputs = []
-        pyodide.runPython(pythonRobotWrapper, {
+        pyodide.runPython('from rko import Robot', {
           globals,
         })
         await pyodide.runPythonAsync(event.data.questScript, {
@@ -485,9 +494,9 @@ self.onmessage = async (event) => {
       } else {
         sleep(150)
         const globals = pyodide.toPy({
-          _internal_Robot: buildRobot(highlightCurrentLine),
+          _internal_Robot: buildInternalRobot(highlightCurrentLine),
         })
-        pyodide.runPython(pythonRobotWrapper, {
+        pyodide.runPython('from rko import Robot', {
           globals,
         })
         await pyodide.runPythonAsync(event.data.code, {
@@ -508,12 +517,12 @@ self.onmessage = async (event) => {
 
     if (command == 'prepare') {
       benchGlobals = pyodide.toPy({
-        _internal_Robot: buildRobot(),
+        _internal_Robot: buildInternalRobot(),
       })
       delay = new Int32Array(event.data.delayBuffer)
       debug[0] = 0
-      robotIndex = 0
-      pyodide.runPython(pythonRobotWrapper, { globals: benchGlobals })
+      robotIndex.current = 0
+      pyodide.runPython('from rko import Robot', { globals: benchGlobals })
       const version = pyodide.runPython(`import sys; sys.version;\n`)
       self.postMessage({ type: 'bench', id, payload: { version } })
     }
