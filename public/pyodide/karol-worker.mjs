@@ -207,6 +207,83 @@ export function buildRobot(highlightCurrentLine = () => {}) {
   }
 }
 
+const pythonRobotWrapper = `
+class Robot:
+  """Steuere einen Roboter. Wenn bereits ein Roboter vorhanden, dann wird ein neuer Roboter platziert."""
+  def schritt(self, n=1):
+    self._internal_Robot.schritt(n)
+    
+  def hinlegen(self, n=1):
+    self._internal_Robot.hinlegen(n)
+
+  def aufheben(self, n=1):
+    self._internal_Robot.aufheben(n)
+
+  def markseSetzen(self):
+    self._internal_Robot.markeSetzen()
+
+  def markeLöschen(self):
+    self._internal_Robot.markeLöschen()
+
+  def linksDrehen(self, n=1):
+    self._internal_Robot.linksDrehen(n)
+
+  def rechtsDrehen(self, n=1):
+    self._internal_Robot.rechtsDrehen(n)
+
+  def beenden(self):
+    self._internal_Robot.beenden()
+
+  def istWand(self):
+    return self._internal_Robot.istWand()
+
+  def nichtIstWand(self):
+    return self._internal_Robot.nichtIstWand()
+
+  def istMarke(self):
+    return self._internal_Robot.istMarke()
+
+  def nichtIstMarke(self):
+    return self._internal_Robot.nichtIstMarke()
+
+  def istZiegel(self, anzahl=None):
+    return self._internal_Robot.istZiegel(anzahl)
+
+  def nichtIstZiegel(self, anzahl=None):
+    return self._internal_Robot.nichtIstZiegel(anzahl)
+
+  def istNorden(self):
+    return self._internal_Robot.istNorden()
+
+  def nichtIstNorden(self):
+    return self._internal_Robot.nichtIstNorden()
+
+  def istOsten(self):
+    return self._internal_Robot.istOsten()
+
+  def nichtIstOsten(self):
+    return self._internal_Robot.nichtIstOsten()
+
+  def istSüden(self):
+    return self._internal_Robot.istSüden()
+
+  def nichtIstSüden(self):
+    return self._internal_Robot.nichtIstSüden()
+
+  def istWesten(self):
+    return self._internal_Robot.istWesten()
+
+  def nichtIstWesten(self):
+    return self._internal_Robot.nichtIstWesten()
+
+  def __init__(self):
+    self._internal_Robot = _internal_Robot()
+
+  def __del__(self):
+    self._internal_Robot._verstecken()
+    del self._internal_Robot
+`
+
 self.onmessage = async (event) => {
   if (event.data == 'init') {
     if (pyodide) {
@@ -308,8 +385,9 @@ self.onmessage = async (event) => {
         })
       }
     }
+    // ONLY FOR QUESTSCRIPT
     const globals = pyodide.toPy({
-      Robot: buildRobot(highlightCurrentLine),
+      _internal_Robot: buildRobot(highlightCurrentLine),
       __ide_run_client: (args) => {
         enableHighlight.current = true
         const tGlobals = pyodide.toPy({
@@ -320,6 +398,9 @@ self.onmessage = async (event) => {
             tGlobals.set(key, globals.get(key))
           }
         }
+        pyodide.runPython(pythonRobotWrapper, {
+          globals: tGlobals,
+        })
         pyodide.runPython(event.data.code, {
           globals: tGlobals,
           filename: 'Programm.py',
@@ -387,19 +468,28 @@ self.onmessage = async (event) => {
         })
       },
     })
-    sleep(150)
     try {
       lastStepTs = performance.now() * 1000
       if (event.data.questScript) {
         enableHighlight.current = false
         inputs = []
         outputs = []
+        pyodide.runPython(pythonRobotWrapper, {
+          globals,
+        })
         await pyodide.runPythonAsync(event.data.questScript, {
           globals,
           filename: 'QuestScript.py',
         })
         self.postMessage('done')
       } else {
+        sleep(150)
+        const globals = pyodide.toPy({
+          _internal_Robot: buildRobot(highlightCurrentLine),
+        })
+        pyodide.runPython(pythonRobotWrapper, {
+          globals,
+        })
         await pyodide.runPythonAsync(event.data.code, {
           globals,
           filename: 'Programm.py',
@@ -423,85 +513,7 @@ self.onmessage = async (event) => {
       delay = new Int32Array(event.data.delayBuffer)
       debug[0] = 0
       robotIndex = 0
-      pyodide.runPython(
-        `
-class Robot:
-  """Steuere einen Roboter. Wenn bereits ein Roboter vorhanden, dann wird ein neuer Roboter platziert."""
-  def schritt(self, n=1):
-    self._internal_Robot.schritt(n)
-    
-  def hinlegen(self, n=1):
-    self._internal_Robot.hinlegen(n)
-
-  def aufheben(self, n=1):
-    self._internal_Robot.aufheben(n)
-
-  def markseSetzen(self):
-    self._internal_Robot.markeSetzen()
-
-  def markeLöschen(self):
-    self._internal_Robot.markeLöschen()
-
-  def linksDrehen(self, n=1):
-    self._internal_Robot.linksDrehen(n)
-
-  def rechtsDrehen(self, n=1):
-    self._internal_Robot.rechtsDrehen(n)
-
-  def beenden(self):
-    self._internal_Robot.beenden()
-
-  def istWand(self):
-    return self._internal_Robot.istWand()
-
-  def nichtIstWand(self):
-    return self._internal_Robot.nichtIstWand()
-
-  def istMarke(self):
-    return self._internal_Robot.istMarke()
-
-  def nichtIstMarke(self):
-    return self._internal_Robot.nichtIstMarke()
-
-  def istZiegel(self, anzahl=None):
-    return self._internal_Robot.istZiegel(anzahl)
-
-  def nichtIstZiegel(self, anzahl=None):
-    return self._internal_Robot.nichtIstZiegel(anzahl)
-
-  def istNorden(self):
-    return self._internal_Robot.istNorden()
-
-  def nichtIstNorden(self):
-    return self._internal_Robot.nichtIstNorden()
-
-  def istOsten(self):
-    return self._internal_Robot.istOsten()
-
-  def nichtIstOsten(self):
-    return self._internal_Robot.nichtIstOsten()
-
-  def istSüden(self):
-    return self._internal_Robot.istSüden()
-
-  def nichtIstSüden(self):
-    return self._internal_Robot.nichtIstSüden()
-
-  def istWesten(self):
-    return self._internal_Robot.istWesten()
-
-  def nichtIstWesten(self):
-    return self._internal_Robot.nichtIstWesten()
-
-  def __init__(self):
-    self._internal_Robot = _internal_Robot()
-
-  def __del__(self):
-    self._internal_Robot._verstecken()
-    del self._internal_Robot
-`,
-        { globals: benchGlobals }
-      )
+      pyodide.runPython(pythonRobotWrapper, { globals: benchGlobals })
       const version = pyodide.runPython(`import sys; sys.version;\n`)
       self.postMessage({ type: 'bench', id, payload: { version } })
     }
