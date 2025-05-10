@@ -19,6 +19,7 @@ export const robotImageDictionary: { [key: string]: string } = {
   "vN6mDcLAKQ6cDamAObHPgPIrjbRTBSZEAAAAAASUVORK5CYII=": "BastiGHG 1",
   "gfCJpVBEQM6BpFYBUC/wMaM/y8hipucQAAAABJRU5ErkJggg==": "BastiGHG 2",
   "sZwxZ+bwS4lMI5zmUS+AtVqVV/T01B1wAAAABJRU5ErkJggg==": "I ... am Steve",
+  "tojBgYw4DHLhqDS+/8Jwz8BTOzLaAeCwGXAAAAAElFTkSuQmCC": "Trymacs (Fisch)",
   "tu8z7qOwNoMaDROVkf/wVm8FLFWxvQ4AAAAABJRU5ErkJggg==": "Schrottplatz RK4",
   "T1hY640JPEjbMrdf7n+g0rjQgPT4S1nAAAAABJRU5ErkJggg==": "Annabeth Case (aus Percy Jackson)",
   "0QzU7CPKszePbtH42B/wAX2pGT5+UAIQAAAABJRU5ErkJggg==": "Arda Guler",
@@ -32,6 +33,7 @@ export const robotImageDictionary: { [key: string]: string } = {
   "0BP2MQOwlzLyPeNfxnZ+A/lG3povHPcUMAAAAASUVORK5CYII=": "Birnen Karol",
   "WX6G+nx9sVPNhvK33BwC8QdxJ1bhVEDgAAAABJRU5ErkJggg==": "Böse Banana",
   "Yd+z0L8k7ieZblhHH9OkPgPxBw9cCgZSadAAAAAElFTkSuQmCC": "Kaputter Karol",
+  "tUFMgCqMyL7FtZoRK9D5j7H9r8zWAWeUFlAAAAAElFTkSuQmCC": "Entity 202",
   "HaMBf3KK1lVA05Xd35/wNy98yTFjK79gAAAABJRU5ErkJggg==": "Aubergine",
   "tH1a933A8HYG8B435tCvwEJJYg/BqPMi8AAAAASUVORK5CYII=": "TungTungTungTungTungTungTung Sahur",
   "K0AvATUk48YwGYOJxPkPYfkcI3V5w2oOQAAAAASUVORK5CYII=": "Strich Strich",
@@ -45,6 +47,7 @@ export const robotImageDictionary: { [key: string]: string } = {
   "74EYMsgDQA6/PFwI6BfwE4B3miMlSH6gAAAABJRU5ErkJggg==": "Eli",
   "31i9k7duybfUaAh8xlBP4HmL1Nk+vMgswAAAAASUVORK5CYII=": "Ulala",
   "hzRYIldpFLBI2Avw/ZMgP/AyLAf5OemgdAAAAAAElFTkSuQmCC": "Amogus Karol",
+  "KPGIROgjwLl8AYeSsY+A/V/WWibruI6gAAAABJRU5ErkJggg==": "Bob",
   "drEbWDr+SI2jXEdTdW4D92aiaZ69hojAAAAABJRU5ErkJggg==": "Noobie",
   "dhjjVeYuiZHHEJwcLIvgr8B7hxYplcpBL7AAAAAElFTkSuQmCC": "Noob",
   "sLkCGanYR5VwRB+x0/iIHfM+lzoryjxugAAAAASUVORK5CYII=": "Rosa Karol",
@@ -52,5 +55,6 @@ export const robotImageDictionary: { [key: string]: string } = {
   "ZtS93S/1lhxwlB6BUV+AdPoHNmdHvhKAAAAABJRU5ErkJggg==": "Axolot",
   "xyZz/jEDsJcy+jvXP4x67Af9HnYKI9KWLZAAAAAElFTkSuQmCC": "Maila",
   "hesLo9AFRvyFwfAJoXrG7vH21+C1eHG1GrAAAAAElFTkSuQmCC": "Blume",
-  "vmKiXXLhqAgE8uVCGR/wMWxctm3z42WQAAAABJRU5ErkJggg==": "Gucci Men"
+  "vmKiXXLhqAgE8uVCGR/wMWxctm3z42WQAAAABJRU5ErkJggg==": "Gucci Men",
+  "Xdmo2D0TYeQObq0kYUiFXgf26VP8tvMDFVAAAAAElFTkSuQmCC": "LukeUCRaft noch nicht fertig"
 };
