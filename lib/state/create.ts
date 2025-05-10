@@ -104,6 +104,9 @@ export function createWorkspaceState(): WorkspaceState {
       locked: false,
       history: '',
     },
+    canvas: {
+      objects: [],
+    },
     analyze: {
       published: [],
       cutoff: '',

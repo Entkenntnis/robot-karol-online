@@ -145,6 +145,7 @@ export function resetOutput(core: Core) {
       ws.ui.isEndOfRun = false
       ws.ui.karolCrashMessage = undefined
       ws.ui.gutter = 0
+      ws.canvas.objects = []
     })
     setExecutionMarker(core, 0)
   }

@@ -148,6 +148,9 @@ export interface WorkspaceState {
   editor: Editor
   bench: Bench
 
+  // canvas
+  canvas: Canvas
+
   // Overview
   analyze: Analyze
   overview: Overview
@@ -238,6 +241,21 @@ export interface FunctionInfo {
 export interface ParameterInfo {
   name: string
   default?: any
+}
+
+export interface Canvas {
+  objects: CanvasObject[]
+}
+
+type CanvasObject = CanvasRectangle
+
+export interface CanvasRectangle {
+  type: 'rectangle'
+  x: number
+  y: number
+  width: number
+  height: number
+  fillColor: string
 }
 
 export interface QuestTask {
