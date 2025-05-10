@@ -4,7 +4,7 @@
   "description": "Sicherheit geht vor! Auf dieser Straße fehlt die Fahrbahn-Markierung. Lege mit Karol den Mittelstreifen.\n\nHinweis: Der Block `wiederhole 3 mal` hilft dir, dein Programm kürzer zu schreiben.",
   "tasks": [
     {
-      "title": "Setze 6 Marken",
+      "title": "Setze 3 Marken",
       "start": {
         "dimX": 7,
         "dimY": 5,

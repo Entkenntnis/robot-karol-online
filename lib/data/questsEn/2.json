@@ -4,7 +4,7 @@
   "description": "Safety first! The road is missing lane markings. Use Karol to create the centerline.\n\nNote: The `repeat 3 times` block helps you make your program shorter.",
   "tasks": [
     {
-      "title": "Mark 6 fields",
+      "title": "Mark 3 fields",
       "start": {
         "dimX": 7,
         "dimY": 5,
