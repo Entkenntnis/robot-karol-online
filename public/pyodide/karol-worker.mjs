@@ -290,7 +290,7 @@ class Robot:
     del self._internal_Robot
 
 import json
-from _rko_internal import _set_canvas
+from _rko_internal import _set_canvas, _sleep
 
 _objects = []
 
@@ -301,6 +301,24 @@ def reset():
 def _transmit():
   _set_canvas(json.dumps(list(map(lambda x: x.toJSON(), _objects))))
 
+import time
+_last_tick = 0
+
+def tick(fps = 20):
+  # wait for the next frame
+  global _last_tick
+  now = time.time()
+  if _last_tick == 0:
+    _last_tick = now
+  else:
+    elapsed = now - _last_tick
+    if elapsed < 1 / fps:
+      time.sleep(1 / fps - elapsed)
+  _last_tick = now
+  # return delta
+  return now - _last_tick
+
+
 class Rectangle:
   def __init__(self, x, y, width, height, fill="rebeccapurple"):
     self.x = x
@@ -309,6 +327,11 @@ class Rectangle:
     self.height = height
     self.fill = fill
     _objects.append(self)
+    _transmit()
+  
+  def move(self, dx, dy):
+    self.x += dx
+    self.y += dy
     _transmit()
         
   def toJSON(self):
@@ -367,6 +390,9 @@ self.onmessage = async (event) => {
             type: 'set-canvas',
             canvas,
           })
+        },
+        _sleep: (s) => {
+          sleep(s * 1000)
         },
       })
       pyodide.FS.writeFile('rko.py', rkoModule, {

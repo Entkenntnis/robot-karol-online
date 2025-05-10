@@ -287,16 +287,7 @@ export function View({
         ctx.beginPath()
         ctx.rect(0, 0, world.dimX, world.dimY)
         ctx.clip()
-        for (const obj of canvas.objects) {
-          if (obj.type == 'rectangle') {
-            ctx.fillStyle = obj.fillColor
-
-            // Draw a normal rectangle in transformed space
-            ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
-
-            // Restore the original transformation
-          }
-        }
+        drawCanvasObject(canvas, ctx)
         ctx.restore()
       }
 
@@ -511,4 +502,20 @@ async function loadImage(src: string) {
     image.src = src
   })
   return image
+}
+
+export function drawCanvasObject(
+  canvas: Canvas,
+  ctx: CanvasRenderingContext2D
+) {
+  for (const obj of canvas.objects) {
+    if (obj.type == 'rectangle') {
+      ctx.fillStyle = obj.fillColor
+
+      // Draw a normal rectangle in transformed space
+      ctx.fillRect(obj.x / 10, obj.y / 10, obj.width / 10, obj.height / 10)
+
+      // Restore the original transformation
+    }
+  }
 }

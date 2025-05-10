@@ -128,6 +128,7 @@ export function Output() {
                       'p-6',
                       core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
                     )}
+                    canvas={core.ws.canvas}
                   />
                 ) : (
                   <View

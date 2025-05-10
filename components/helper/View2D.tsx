@@ -1,26 +1,50 @@
 import React, { useEffect, useRef } from 'react'
-import { World, Preview } from '../../lib/state/types'
+import { World, Preview, Canvas } from '../../lib/state/types'
+import { drawCanvasObject } from './View'
 
 interface View2DProps {
   world: World
   preview?: Preview
   className?: string
+  canvas?: Canvas
 }
 
-export function View2D({ world, preview, className }: View2DProps) {
+export function View2D({ world, preview, className, canvas }: View2DProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const cellSize = world.dimX > 9 || world.dimY > 9 ? 34 : 50
   const width = world.dimX * cellSize
   const height = world.dimY * cellSize
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
+    const canvasElement = canvasRef.current
+    if (!canvasElement) return
+    const ctx = canvasElement.getContext('2d')
     if (!ctx) return
 
     // Canvas leeren
     ctx.clearRect(0, 0, width, height)
+
+    for (let y = 0; y < world.dimY; y++) {
+      for (let x = 0; x < world.dimX; x++) {
+        const cellX = x * cellSize
+        const cellY = y * cellSize
+
+        // Gitterlinien in blau zeichnen
+        ctx.strokeStyle = 'blue'
+        ctx.lineWidth = 1
+        ctx.strokeRect(cellX, cellY, cellSize, cellSize)
+      }
+    }
+
+    if (canvas) {
+      ctx.save()
+      ctx.setTransform(cellSize, 0, 0, cellSize, 0, 0)
+      ctx.beginPath()
+      ctx.rect(0, 0, width, height)
+      ctx.clip()
+      drawCanvasObject(canvas, ctx)
+      ctx.restore()
+    }
 
     for (let y = 0; y < world.dimY; y++) {
       for (let x = 0; x < world.dimX; x++) {
@@ -33,7 +57,7 @@ export function View2D({ world, preview, className }: View2DProps) {
         // - Liegt eine Marke (world.marks) vor: gelb
         // - Sonst, wenn Ziegel (brickCount > 0) vorhanden sind: leicht rotes Overlay (transparent)
         // - Andernfalls: weiß.
-        let backgroundColor = 'white'
+        let backgroundColor = 'transparent'
         if (world.blocks?.[y]?.[x]) {
           backgroundColor = 'grey'
         } else if (world.marks?.[y]?.[x]) {
@@ -43,11 +67,6 @@ export function View2D({ world, preview, className }: View2DProps) {
         }
         ctx.fillStyle = backgroundColor
         ctx.fillRect(cellX, cellY, cellSize, cellSize)
-
-        // Gitterlinien in blau zeichnen
-        ctx.strokeStyle = 'blue'
-        ctx.lineWidth = 1
-        ctx.strokeRect(cellX, cellY, cellSize, cellSize)
 
         // Falls in der Vorschau an dieser Stelle eine Marke hinzugefügt werden soll,
         // aber aktuell noch keine Marke vorliegt, zeichne als Platzhalter ein großes "X"
@@ -130,7 +149,7 @@ export function View2D({ world, preview, className }: View2DProps) {
         }
       }
     }
-  }, [world, preview, width, height, cellSize])
+  }, [world, preview, width, height, cellSize, canvas])
 
   return (
     <canvas
