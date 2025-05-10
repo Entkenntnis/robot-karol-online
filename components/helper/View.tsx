@@ -10,7 +10,7 @@ import {
   ziegelBild,
   ziegelWeg,
 } from '../../lib/data/images'
-import { twoWorldsEqual } from '../../lib/commands/world'
+import { moveRaw, twoWorldsEqual } from '../../lib/commands/world'
 
 interface ViewProps {
   world: World
@@ -113,11 +113,14 @@ export function View({
     const prevZ =
       prevY >= 0 && prevX >= 0 ? prevWorld.current.bricks[prevY][prevX] : 0
 
-    const dx = currentX - prevX
-    const dy = currentY - prevY
-    const distance = Math.sqrt(dx * dx + dy * dy)
+    const step = moveRaw(
+      prevX,
+      prevY,
+      prevWorld.current.karol[i].dir,
+      prevWorld.current
+    )
 
-    if (Math.round(distance) == 1 && (dx == 0 || dy == 0)) {
+    if (step && step.x == currentX && step.y == currentY) {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
@@ -130,6 +133,8 @@ export function View({
         const rawProgress = Math.min((now - startTime) / duration, 1)
         const progress = easeInOutCubic(rawProgress)
 
+        const dx = currentX - prevX
+        const dy = currentY - prevY
         const newX = prevX + dx * progress
         const newY = prevY + dy * progress
         const newZ =
@@ -158,6 +163,7 @@ export function View({
         cancelAnimationFrame(animationFrameRef.current)
       }
       animatedRobotData.current = { x: -1, y: -1, z: -1, i: -1 }
+      prevWorld.current = world
       setRenderCounter((c) => c + 1)
     }
     // only care for world changes
