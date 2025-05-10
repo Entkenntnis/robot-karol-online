@@ -13,7 +13,9 @@ let debug = new Int32Array(129)
 
 let outputs = []
 let inputs = []
-let robotIndex = 0
+let robotIndex = { current: 0 }
+let highlight = { current: null }
+let runId = { current: 1 }
 
 const compileScript = (code) => `
 def check_syntax(code):
@@ -37,9 +39,11 @@ const throwFauxTypeError = (cls, member, expected_args, rest) => {
 
 let benchGlobals = null
 
-export function buildRobot(highlightCurrentLine = () => {}) {
+export function buildInternalRobot() {
+  const highlightCurrentLine = highlight.current || (() => {})
   return () => {
-    const id = robotIndex++
+    const id = robotIndex.current++
+    const myRunId = runId.current
     if (id > 0) {
       self.postMessage({ type: 'spawn-robot' })
     }
@@ -201,11 +205,90 @@ export function buildRobot(highlightCurrentLine = () => {}) {
         self.postMessage({ type: 'action', action: 'beenden' })
       },
       _verstecken: () => {
-        self.postMessage({ type: 'hide-robot', id })
+        if (runId.current == myRunId)
+          self.postMessage({ type: 'hide-robot', id })
       },
     }
   }
 }
+
+const rkoModule = `
+class Robot:
+  """Steuere einen Roboter. Wenn bereits ein Roboter vorhanden, dann wird ein neuer Roboter platziert."""
+  def schritt(self, n=1):
+    self._internal_Robot.schritt(n)
+    
+  def hinlegen(self, n=1):
+    self._internal_Robot.hinlegen(n)
+
+  def aufheben(self, n=1):
+    self._internal_Robot.aufheben(n)
+
+  def markeSetzen(self):
+    self._internal_Robot.markeSetzen()
+
+  def markeLöschen(self):
+    self._internal_Robot.markeLöschen()
+
+  def linksDrehen(self, n=1):
+    self._internal_Robot.linksDrehen(n)
+
+  def rechtsDrehen(self, n=1):
+    self._internal_Robot.rechtsDrehen(n)
+
+  def beenden(self):
+    self._internal_Robot.beenden()
+
+  def istWand(self):
+    return self._internal_Robot.istWand()
+
+  def nichtIstWand(self):
+    return self._internal_Robot.nichtIstWand()
+
+  def istMarke(self):
+    return self._internal_Robot.istMarke()
+
+  def nichtIstMarke(self):
+    return self._internal_Robot.nichtIstMarke()
+
+  def istZiegel(self, anzahl=None):
+    return self._internal_Robot.istZiegel(anzahl)
+
+  def nichtIstZiegel(self, anzahl=None):
+    return self._internal_Robot.nichtIstZiegel(anzahl)
+
+  def istNorden(self):
+    return self._internal_Robot.istNorden()
+
+  def nichtIstNorden(self):
+    return self._internal_Robot.nichtIstNorden()
+
+  def istOsten(self):
+    return self._internal_Robot.istOsten()
+
+  def nichtIstOsten(self):
+    return self._internal_Robot.nichtIstOsten()
+
+  def istSüden(self):
+    return self._internal_Robot.istSüden()
+
+  def nichtIstSüden(self):
+    return self._internal_Robot.nichtIstSüden()
+
+  def istWesten(self):
+    return self._internal_Robot.istWesten()
+
+  def nichtIstWesten(self):
+    return self._internal_Robot.nichtIstWesten()
+
+  def __init__(self):
+    from _rko_internal import _internal_Robot
+    self._internal_Robot = _internal_Robot()
+
+  def __del__(self):
+    self._internal_Robot._verstecken()
+    del self._internal_Robot
+`
 
 self.onmessage = async (event) => {
   if (event.data == 'init') {
@@ -217,6 +300,40 @@ self.onmessage = async (event) => {
       initStarted = true
       pyodide = await loadPyodide()
       pyodide.runPython(`import sys; sys.version`)
+
+      // should be moved to a class interface
+      pyodide.registerJsModule('RobotKarolOnline', {
+        tasteRegistrieren: (key, title) => {
+          postMessage({
+            type: 'register_key',
+            key,
+            title,
+          })
+        },
+        tasteGedrückt: (key) => {
+          const sharedBuffer = new SharedArrayBuffer(
+            Int32Array.BYTES_PER_ELEMENT
+          )
+          const sharedArray = new Int32Array(sharedBuffer)
+          Atomics.store(sharedArray, 0, 42) // no data yet
+          self.postMessage({
+            type: 'check-key',
+            sharedBuffer,
+            key,
+          })
+          Atomics.wait(sharedArray, 0, 42)
+          lastStepTs = performance.now() * 1000
+          return sharedArray[0] === 1
+        },
+      })
+
+      // all js modules should be registered here
+      pyodide.registerJsModule('_rko_internal', {
+        _internal_Robot: buildInternalRobot(),
+      })
+      pyodide.FS.writeFile('rko.py', rkoModule, {
+        encoding: 'utf8',
+      })
       pyodide.setStdout({
         write: (buf) => {
           const written_string = decoder.decode(buf)
@@ -246,30 +363,6 @@ self.onmessage = async (event) => {
           return inputBytes
         },
       })
-      pyodide.registerJsModule('RobotKarolOnline', {
-        tasteRegistrieren: (key, title) => {
-          postMessage({
-            type: 'register_key',
-            key,
-            title,
-          })
-        },
-        tasteGedrückt: (key) => {
-          const sharedBuffer = new SharedArrayBuffer(
-            Int32Array.BYTES_PER_ELEMENT
-          )
-          const sharedArray = new Int32Array(sharedBuffer)
-          Atomics.store(sharedArray, 0, 42) // no data yet
-          self.postMessage({
-            type: 'check-key',
-            sharedBuffer,
-            key,
-          })
-          Atomics.wait(sharedArray, 0, 42)
-          lastStepTs = performance.now() * 1000
-          return sharedArray[0] === 1
-        },
-      })
       self.postMessage('ready')
     }
   }
@@ -285,11 +378,11 @@ self.onmessage = async (event) => {
   if (event.data.type === 'run') {
     delay = new Int32Array(event.data.delayBuffer)
     debug = new Int32Array(event.data.debugInterfaceBuffer, 0, 129)
-    robotIndex = 0
+    robotIndex.current = 0
     const debugRef = { current: debug }
     const traceback = pyodide.pyimport('traceback')
     const enableHighlight = { current: true }
-    function highlightCurrentLine() {
+    highlight.current = () => {
       if (enableHighlight.current) {
         const stack = traceback.extract_stack()
         const line = stack[stack.length - 1].lineno
@@ -308,18 +401,19 @@ self.onmessage = async (event) => {
         })
       }
     }
+    // ONLY FOR QUESTSCRIPT
     const globals = pyodide.toPy({
-      Robot: buildRobot(highlightCurrentLine),
       __ide_run_client: (args) => {
         enableHighlight.current = true
-        const tGlobals = pyodide.toPy({
-          Robot: buildRobot(highlightCurrentLine),
-        })
+        const tGlobals = pyodide.toPy({})
         if (args && args.globals) {
           for (const key of args.globals) {
             tGlobals.set(key, globals.get(key))
           }
         }
+        pyodide.runPython('from rko import Robot', {
+          globals: tGlobals,
+        })
         pyodide.runPython(event.data.code, {
           globals: tGlobals,
           filename: 'Programm.py',
@@ -387,23 +481,32 @@ self.onmessage = async (event) => {
         })
       },
     })
-    sleep(150)
     try {
       lastStepTs = performance.now() * 1000
       if (event.data.questScript) {
         enableHighlight.current = false
         inputs = []
         outputs = []
+        pyodide.runPython('from rko import Robot', {
+          globals,
+        })
         await pyodide.runPythonAsync(event.data.questScript, {
           globals,
           filename: 'QuestScript.py',
         })
+        runId.current++
         self.postMessage('done')
       } else {
+        sleep(150)
+        const globals = pyodide.toPy({})
+        pyodide.runPython('from rko import Robot', {
+          globals,
+        })
         await pyodide.runPythonAsync(event.data.code, {
           globals,
           filename: 'Programm.py',
         })
+        runId.current++
         self.postMessage('done')
       }
     } catch (error) {
@@ -417,91 +520,12 @@ self.onmessage = async (event) => {
     const command = event.data.command
 
     if (command == 'prepare') {
-      benchGlobals = pyodide.toPy({
-        _internal_Robot: buildRobot(),
-      })
+      benchGlobals = pyodide.toPy({})
       delay = new Int32Array(event.data.delayBuffer)
       debug[0] = 0
-      robotIndex = 0
-      pyodide.runPython(
-        `
-class Robot:
-  """Steuere einen Roboter. Wenn bereits ein Roboter vorhanden, dann wird ein neuer Roboter platziert."""
-  def schritt(self, n=1):
-    self._internal_Robot.schritt(n)
-    
-  def hinlegen(self, n=1):
-    self._internal_Robot.hinlegen(n)
-
-  def aufheben(self, n=1):
-    self._internal_Robot.aufheben(n)
-
-  def markseSetzen(self):
-    self._internal_Robot.markeSetzen()
-
-  def markeLöschen(self):
-    self._internal_Robot.markeLöschen()
-
-  def linksDrehen(self, n=1):
-    self._internal_Robot.linksDrehen(n)
-
-  def rechtsDrehen(self, n=1):
-    self._internal_Robot.rechtsDrehen(n)
-
-  def beenden(self):
-    self._internal_Robot.beenden()
-
-  def istWand(self):
-    return self._internal_Robot.istWand()
-
-  def nichtIstWand(self):
-    return self._internal_Robot.nichtIstWand()
-
-  def istMarke(self):
-    return self._internal_Robot.istMarke()
-
-  def nichtIstMarke(self):
-    return self._internal_Robot.nichtIstMarke()
-
-  def istZiegel(self, anzahl=None):
-    return self._internal_Robot.istZiegel(anzahl)
-
-  def nichtIstZiegel(self, anzahl=None):
-    return self._internal_Robot.nichtIstZiegel(anzahl)
-
-  def istNorden(self):
-    return self._internal_Robot.istNorden()
-
-  def nichtIstNorden(self):
-    return self._internal_Robot.nichtIstNorden()
-
-  def istOsten(self):
-    return self._internal_Robot.istOsten()
-
-  def nichtIstOsten(self):
-    return self._internal_Robot.nichtIstOsten()
-
-  def istSüden(self):
-    return self._internal_Robot.istSüden()
-
-  def nichtIstSüden(self):
-    return self._internal_Robot.nichtIstSüden()
-
-  def istWesten(self):
-    return self._internal_Robot.istWesten()
-
-  def nichtIstWesten(self):
-    return self._internal_Robot.nichtIstWesten()
-
-  def __init__(self):
-    self._internal_Robot = _internal_Robot()
-
-  def __del__(self):
-    self._internal_Robot._verstecken()
-    del self._internal_Robot
-`,
-        { globals: benchGlobals }
-      )
+      robotIndex.current = 0
+      highlight.current = null
+      pyodide.runPython('from rko import Robot', { globals: benchGlobals })
       const version = pyodide.runPython(`import sys; sys.version;\n`)
       self.postMessage({ type: 'bench', id, payload: { version } })
     }

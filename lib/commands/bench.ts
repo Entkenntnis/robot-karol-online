@@ -22,7 +22,8 @@ export async function startBench(core: Core) {
     ws.ui.state = 'running'
     ws.bench.objects = []
     ws.bench.locked = false
-    ws.bench.history = filterCodeForHistory(core.ws.pythonCode)
+    ws.bench.history =
+      filterCodeForHistory(core.ws.pythonCode) + '\n# Interaktiver Modus'
     ws.ui.karolCrashMessage = undefined
     ws.ui.isEndOfRun = false
     ws.ui.isManualAbort = false
