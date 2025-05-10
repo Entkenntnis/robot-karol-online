@@ -1,7 +1,7 @@
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
-import { ActionOp, Condition, Op } from '../state/types'
+import { Condition, Op } from '../state/types'
 import {
   forward,
   left,
@@ -199,6 +199,12 @@ function* executeProgramAsGenerator(core: Core) {
     }
 
     if (op.type == 'action') {
+      const { setActiveRobot } = op
+      if (setActiveRobot !== undefined) {
+        core.mutateWs((ws) => {
+          ws.__activeRobot = setActiveRobot
+        })
+      }
       let repetitions = 1
       if (op.useParameterFromStack) {
         core.mutateWs(({ vm }) => {
@@ -259,6 +265,12 @@ function* executeProgramAsGenerator(core: Core) {
             }
             if (op.condition.type == 'brick_count') {
               condition.count = frame.opstack.pop()
+            }
+            const { setActiveRobot } = op
+            if (setActiveRobot !== undefined) {
+              core.mutateWs((ws) => {
+                ws.__activeRobot = setActiveRobot
+              })
             }
             frame.opstack.push(testCondition(core, condition) ? 1 : 0)
             vm.pc++

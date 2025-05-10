@@ -345,6 +345,7 @@ export interface ActionOp extends BaseOp {
     | 'setMark'
     | 'resetMark'
   useParameterFromStack?: boolean
+  setActiveRobot?: number
 }
 
 export interface CompareOp extends BaseOp {
@@ -361,6 +362,7 @@ export interface CompareOp extends BaseOp {
 export interface SenseOp extends BaseOp {
   type: 'sense'
   condition: Condition
+  setActiveRobot?: number
 }
 
 export interface JumpOp extends BaseOp {
