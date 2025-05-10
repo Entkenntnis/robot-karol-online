@@ -258,6 +258,16 @@ function* executeProgramAsGenerator(core: Core) {
         // console.log('step', pc, op.type, [...frame.opstack]) // DEBUG
 
         switch (op.type) {
+          case 'add-robot': {
+            core.mutateWs(({ world }) => {
+              world.karol.push({
+                x: 0,
+                y: 0,
+                dir: 'south',
+              })
+            })
+            break
+          }
           case 'sense': {
             const condition: Condition = {
               type: op.condition.type,

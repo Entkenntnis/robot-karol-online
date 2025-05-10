@@ -406,6 +406,10 @@ export interface StoreOp extends BaseOp {
   variable: string
 }
 
+export interface AddRobotOp extends BaseOp {
+  type: 'add-robot'
+}
+
 export type Op =
   | ActionOp
   | SenseOp
@@ -418,6 +422,7 @@ export type Op =
   | LoadOp
   | StoreOp
   | CompareOp
+  | AddRobotOp
 
 export interface QuestData {
   title: string
