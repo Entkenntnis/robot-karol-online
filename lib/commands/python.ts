@@ -369,6 +369,18 @@ export function setupWorker(core: Core) {
     if (
       event.data &&
       typeof event.data === 'object' &&
+      event.data.type === 'set-canvas'
+    ) {
+      // very low level implementation
+      core.mutateWs((ws) => {
+        const data = JSON.parse(event.data.canvas)
+        ws.canvas.objects = data
+      })
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
       event.data.type === 'set-active-robot'
     ) {
       core.mutateWs((ws) => {
@@ -523,7 +535,8 @@ export function setupWorker(core: Core) {
     } else {
       setExecutionMarker(core, 0)
     }
-    core.mutateWs(({ ui, vm }) => {
+    core.mutateWs(({ ui, vm, canvas }) => {
+      canvas.objects = []
       ui.isManualAbort = true
       ui.isEndOfRun = true
       ui.inputPrompt = undefined

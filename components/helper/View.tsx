@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Preview, World } from '../../lib/state/types'
+import { Canvas, Preview, World } from '../../lib/state/types'
 import {
   karolDefaultImage,
   markeBild,
@@ -22,6 +22,7 @@ interface ViewProps {
   hideWorld?: boolean
   animationDuration?: number
   activeRobot?: number
+  canvas?: Canvas
 }
 
 interface Resources {
@@ -45,8 +46,9 @@ export function View({
   hideWorld,
   animationDuration,
   activeRobot,
+  canvas,
 }: ViewProps) {
-  const canvas = useRef<HTMLCanvasElement>(null)
+  const canvasElement = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
 
   const width = 30 * world.dimX + 15 * world.dimY + 1
@@ -180,8 +182,8 @@ export function View({
 
   useEffect(() => {
     async function render() {
-      if (canvas.current) {
-        const ctx = canvas.current.getContext('2d')
+      if (canvasElement.current) {
+        const ctx = canvasElement.current.getContext('2d')
 
         if (ctx) {
           const [
@@ -219,7 +221,7 @@ export function View({
   }, [robotImageDataUrl])
 
   useEffect(() => {
-    if (resources && canvas.current) {
+    if (resources && canvasElement.current) {
       const {
         ctx,
         ziegel,
@@ -277,6 +279,25 @@ export function View({
           to2d(world.dimX, 0, world.height),
           to2d(0, 0, world.height)
         )
+      }
+
+      if (canvas) {
+        ctx.save()
+        ctx.setTransform(30, 0, -15, 15, originX, originY)
+        ctx.beginPath()
+        ctx.rect(0, 0, world.dimX, world.dimY)
+        ctx.clip()
+        for (const obj of canvas.objects) {
+          if (obj.type == 'rectangle') {
+            ctx.fillStyle = obj.fillColor
+
+            // Draw a normal rectangle in transformed space
+            ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+
+            // Restore the original transformation
+          }
+        }
+        ctx.restore()
       }
 
       const drawKarol = (x: number, y: number, z: number, i: number) => {
@@ -435,11 +456,11 @@ export function View({
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world, wireframe, preview, hideKarol, renderCounter])
+  }, [resources, world, wireframe, preview, hideKarol, renderCounter, canvas])
 
   return (
     <canvas
-      ref={canvas}
+      ref={canvasElement}
       width={width}
       height={height}
       className={className}

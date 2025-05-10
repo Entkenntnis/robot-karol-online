@@ -288,6 +288,38 @@ class Robot:
   def __del__(self):
     self._internal_Robot._verstecken()
     del self._internal_Robot
+
+import json
+from _rko_internal import _set_canvas
+
+_objects = []
+
+def reset():
+  global _objects
+  _objects = []
+
+def _transmit():
+  _set_canvas(json.dumps(list(map(lambda x: x.toJSON(), _objects))))
+
+class Rectangle:
+  def __init__(self, x, y, width, height, fill="rebeccapurple"):
+    self.x = x
+    self.y = y
+    self.width = width
+    self.height = height
+    self.fill = fill
+    _objects.append(self)
+    _transmit()
+        
+  def toJSON(self):
+    return {
+      'type': 'rectangle',
+      'x': self.x,
+      'y': self.y,
+      'width': self.width,
+      'height': self.height,
+      'fillColor': self.fill
+    }
 `
 
 self.onmessage = async (event) => {
@@ -330,6 +362,12 @@ self.onmessage = async (event) => {
       // all js modules should be registered here
       pyodide.registerJsModule('_rko_internal', {
         _internal_Robot: buildInternalRobot(),
+        _set_canvas: (canvas) => {
+          self.postMessage({
+            type: 'set-canvas',
+            canvas,
+          })
+        },
       })
       pyodide.FS.writeFile('rko.py', rkoModule, {
         encoding: 'utf8',
@@ -487,6 +525,7 @@ self.onmessage = async (event) => {
         enableHighlight.current = false
         inputs = []
         outputs = []
+        pyodide.runPython('from rko import reset\nreset()', {})
         pyodide.runPython('from rko import Robot', {
           globals,
         })
@@ -499,6 +538,7 @@ self.onmessage = async (event) => {
       } else {
         sleep(150)
         const globals = pyodide.toPy({})
+        pyodide.runPython('from rko import reset\nreset()', {})
         pyodide.runPython('from rko import Robot', {
           globals,
         })
