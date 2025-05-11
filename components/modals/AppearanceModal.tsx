@@ -266,7 +266,13 @@ export function AppearanceModal() {
       if (isDrawing) {
         previewCtx.save() // for safety
         previewCtx.fillStyle = selectedColor
-        drawLineTo(previewCtx, toolCall, lastDrawingPosition.current, { x, y }, offset)
+        drawLineTo(
+          previewCtx,
+          toolCall,
+          lastDrawingPosition.current,
+          { x, y },
+          offset
+        )
         previewCtx.restore()
       } else {
         // only store this at the start of a new line!
@@ -292,11 +298,17 @@ export function AppearanceModal() {
       if (isDrawing) {
         previewCtx.save() // for safety
         previewCtx.fillStyle = selectedColor
-        drawEllipse(previewCtx, toolCall, lastDrawingPosition.current, { x, y }, offset)
+        drawEllipse(
+          previewCtx,
+          toolCall,
+          lastDrawingPosition.current,
+          { x, y },
+          offset
+        )
         previewCtx.restore()
       } else {
         // only store this at the start of a new line!
-        lastDrawingPosition.current = {x, y}
+        lastDrawingPosition.current = { x, y }
       }
     } else {
       if (isDrawing) {
@@ -334,11 +346,23 @@ export function AppearanceModal() {
         lastDrawingPosition.current = { x, y }
       } else if (tool === 'rectangle') {
         // complete the line
-        drawRectangle(ctx, toolCall, lastDrawingPosition.current, { x, y }, offset)
-        lastDrawingPosition.current = {x, y}
+        drawRectangle(
+          ctx,
+          toolCall,
+          lastDrawingPosition.current,
+          { x, y },
+          offset
+        )
+        lastDrawingPosition.current = { x, y }
       } else if (tool === 'ellipse') {
         // complete the line
-        drawEllipse(ctx, toolCall, lastDrawingPosition.current, { x, y }, offset)
+        drawEllipse(
+          ctx,
+          toolCall,
+          lastDrawingPosition.current,
+          { x, y },
+          offset
+        )
         lastDrawingPosition.current = { x, y }
       }
     }
@@ -419,8 +443,6 @@ export function AppearanceModal() {
     if (clear) clearPreview()
     else updatePreview(e)
   }
-
-  
 
   // Pointer Events for everything
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
