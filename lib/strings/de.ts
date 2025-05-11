@@ -26,7 +26,7 @@ export const deStrings = {
   },
   nameModal: {
     title: 'Herzlich Willkommen!',
-    invite: 'Wie lautet dein Name?',
+    invite: 'Wie heißt du?',
     hint: 'Dein Name wird öffentlich angzeigt.',
     random: 'zufälliger Name',
     start: 'Loslegen!',

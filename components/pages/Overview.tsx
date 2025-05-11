@@ -380,10 +380,26 @@ export function Overview() {
                     <div className="absolute top-[160px] left-[270px] z-10">
                       <AnimateInView>
                         <div className="relative">
-                          <div className="bg-yellow-100/80 rounded-lg p-3 w-[270px] shadow-lg transform rotate-6 border-2 border-yellow-300">
-                            <p className="text-lg font-bold">
-                              Hallo 👋 Klicke auf „Start“ und entdecke die Welt
-                              des Programmierens!
+                          <div
+                            className="bg-yellow-100/80 rounded-lg p-3 w-[280px] shadow-lg transform rotate-6 border-2 border-yellow-300 cursor-pointer"
+                            onClick={() => {
+                              submitAnalyzeEvent(
+                                core,
+                                'ev_click_landing_tourStart'
+                              )
+                              setQuestReturnToMode(
+                                core.ws.page == 'demo' ? 'demo' : 'path'
+                              )
+                              setLearningPathScroll(
+                                document.getElementById('scroll-container')
+                                  ?.scrollTop ?? -1
+                              )
+                              navigate(core, '#QUEST-1')
+                            }}
+                          >
+                            <p className="text-lg">
+                              Willkommen 👋 entdecke hier die Welt der
+                              Algorithmen!
                             </p>
                           </div>
                           <svg
