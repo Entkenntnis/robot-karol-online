@@ -1,4 +1,4 @@
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faDice, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { setUserName } from '../../lib/commands/mode'
@@ -18,7 +18,6 @@ export function NameModal() {
           e.stopPropagation()
         }}
       >
-        <div className="absolute top-0 left-0 w-full h-1 bg-yellow-400"></div>
         <button
           className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-yellow-200 hover:bg-yellow-300 transition-colors duration-200"
           onClick={() => {
@@ -30,10 +29,7 @@ export function NameModal() {
         </button>
         <div className="py-3">
           <p className="font-bold text-2xl mt-3 mb-4 text-center text-yellow-800">
-            👋 {core.strings.nameModal.title}
-          </p>
-          <p className="text-center mt-4 text-yellow-900">
-            {core.strings.nameModal.invite}
+            👋 {core.strings.nameModal.invite}
           </p>
           <form
             onSubmit={(e) => {
@@ -44,22 +40,20 @@ export function NameModal() {
             }}
             className="mt-4"
           >
-            <div className="text-center">
+            <div className="text-center flex items-center justify-around">
               <input
                 autoFocus
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value)
                 }}
-                className="mt-3 text-3xl border-yellow-400 border-2 rounded-lg text-center py-1 px-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white/80"
+                className="mt-3 text-3xl border-yellow-400 border-2 rounded-lg text-center py-1 px-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white/80 max-w-[70vw] placeholder:text-gray-200 placeholder:text-xl"
                 maxLength={30}
                 placeholder="Dein Name..."
               />
-            </div>
-            <div className="text-center mt-3 text-sm text-yellow-700 italic">
               <button
                 type="button"
-                className="underline hover:text-yellow-600 transition-colors"
+                className="underline hover:text-yellow-600 transition-colors mt-3"
                 onClick={() => {
                   const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
                   let n = ''
@@ -69,10 +63,11 @@ export function NameModal() {
                   setName(n)
                 }}
               >
-                {core.strings.nameModal.random}
+                <FaIcon icon={faDice} className="text-3xl" />
               </button>
             </div>
-            <div className="text-center mb-5 px-4 sm:mt-8 mt-5">
+            <div className="text-center mt-3 text-sm text-yellow-700 italic"></div>
+            <div className="text-center mb-3 px-4 sm:mt-8 mt-5">
               <button
                 type="submit"
                 className="px-5 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-lg disabled:bg-gray-200 disabled:text-gray-700 text-yellow-900 font-medium transform transition-all duration-200 hover:scale-105 shadow-md disabled:cursor-not-allowed"

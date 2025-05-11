@@ -1,10 +1,11 @@
 import {
+  faArrowDown,
   faArrowLeft,
+  faArrowUp,
   faCaretRight,
   faCode,
   faExclamationTriangle,
   faPlayCircle,
-  faHand,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
@@ -24,7 +25,6 @@ import { JavaInfo } from './JavaInfo'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { InteractionBar } from './InteractionBar'
 import { FlyoutMenu } from './FlyoutMenu'
-import { is } from 'date-fns/locale'
 import { exitQuest } from '../../lib/commands/quest'
 import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
@@ -247,7 +247,18 @@ export function IdeMain() {
               <AnimateInView>
                 <div className="relative bg-yellow-100/90 p-4 mx-auto max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg">
                   <div className="text-center text-2xl font-bold text-yellow-800 mb-2">
-                    Ziehe den Befehl „Schritt“ auf die Arbeitsfläche
+                    Legen wir los! Ziehe den Befehl „Schritt“ auf die
+                    Arbeitsfläche
+                  </div>
+                  <div className="absolute -bottom-36 -left-12">
+                    <div className="flex justify-center">
+                      <div className="">
+                        <FaIcon
+                          icon={faArrowDown}
+                          className="text-4xl text-yellow-600 animate-bounce"
+                        />
+                      </div>
+                    </div>
                   </div>
 
                   <div className="relative h-16 w-full overflow-hidden">
@@ -272,8 +283,8 @@ export function IdeMain() {
               <AnimateInView>
                 <div className="relative bg-yellow-100/90 p-6 max-w-[560px] rounded-xl border-2 border-yellow-300 shadow-lg mx-auto">
                   <div className="text-center text-xl font-bold text-yellow-800 mb-4">
-                    Schreibe das Programm fertig. Gehe mit Karol zwei Schritte
-                    und lege einen Ziegel.
+                    Sehr gut! Schreibe das Programm fertig: Gehe mit Karol zwei
+                    Schritte und lege einen Ziegel.
                   </div>
                   <div className="flex justify-center mt-4">
                     <button
