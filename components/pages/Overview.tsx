@@ -474,96 +474,88 @@ export function Overview() {
                   </a>
                 )}
                 <div className="absolute left-[4px] top-[750px] z-10">
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content menu bg-base-100/20 rounded-box w-60 p-2 mt-1"
-                    >
-                      <li>
-                        <a
-                          href="/#INSPIRATION"
-                          onClick={() => {
-                            submitAnalyzeEvent(core, 'ev_click_landing_gallery')
-                          }}
-                        >
-                          💫 Aufgaben-Galerie
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
-                          onClick={() => {
-                            submitAnalyzeEvent(
-                              core,
-                              'ev_click_landing_robotGallery'
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content menu bg-base-100/20 rounded-box w-60 p-2 mt-1"
+                  >
+                    <li>
+                      <a
+                        href="/#INSPIRATION"
+                        onClick={() => {
+                          submitAnalyzeEvent(core, 'ev_click_landing_gallery')
+                        }}
+                      >
+                        💫 Aufgaben-Galerie
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
+                        onClick={() => {
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_click_landing_robotGallery'
+                          )
+                          setTimeout(() => {
+                            window.open(
+                              'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
+                              '_self'
                             )
-                            setTimeout(() => {
-                              window.open(
-                                'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
-                                '_self'
-                              )
-                            }, 50)
-                          }}
-                        >
-                          🤖 Figuren-Galerie
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          target="_blank"
-                          href="https://github.com/Entkenntnis/robot-karol-online#readme"
-                          onClick={() => {
-                            // open feedback form in new tab
-                            submitAnalyzeEvent(
-                              core,
-                              'ev_click_landing_material'
-                            )
-                          }}
-                        >
-                          {core.strings.overview.docs}{' '}
-                          <FaIcon
-                            icon={faExternalLink}
-                            className="text-gray-600 text-xs"
-                          />
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          target="_blank"
-                          href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
-                          onClick={() => {
-                            // open feedback form in new tab
-                            submitAnalyzeEvent(
-                              core,
-                              'ev_click_landing_material'
-                            )
-                          }}
-                        >
-                          Materialien für Lehrkräfte{' '}
-                          <FaIcon
-                            icon={faExternalLink}
-                            className="text-gray-600 text-xs"
-                          />
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          target="_blank"
-                          href="https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8"
-                          onClick={() => {
-                            // open feedback form in new tab
-                            submitAnalyzeEvent(core, 'ev_click_landing_video')
-                          }}
-                        >
-                          Video-Erklärungen{' '}
-                          <FaIcon
-                            icon={faExternalLink}
-                            className="text-gray-600 text-xs"
-                          />
-                        </a>
-                      </li>
-                    </ul>
-                  </AnimateInView>
+                          }, 50)
+                        }}
+                      >
+                        🤖 Figuren-Galerie
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        target="_blank"
+                        href="https://github.com/Entkenntnis/robot-karol-online#readme"
+                        onClick={() => {
+                          // open feedback form in new tab
+                          submitAnalyzeEvent(core, 'ev_click_landing_material')
+                        }}
+                      >
+                        {core.strings.overview.docs}{' '}
+                        <FaIcon
+                          icon={faExternalLink}
+                          className="text-gray-600 text-xs"
+                        />
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        target="_blank"
+                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
+                        onClick={() => {
+                          // open feedback form in new tab
+                          submitAnalyzeEvent(core, 'ev_click_landing_material')
+                        }}
+                      >
+                        Materialien für Lehrkräfte{' '}
+                        <FaIcon
+                          icon={faExternalLink}
+                          className="text-gray-600 text-xs"
+                        />
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        target="_blank"
+                        href="https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8"
+                        onClick={() => {
+                          // open feedback form in new tab
+                          submitAnalyzeEvent(core, 'ev_click_landing_video')
+                        }}
+                      >
+                        Video-Erklärungen{' '}
+                        <FaIcon
+                          icon={faExternalLink}
+                          className="text-gray-600 text-xs"
+                        />
+                      </a>
+                    </li>
+                  </ul>
                 </div>
                 {core.ws.settings.lng === 'de' &&
                   !isQuestDone(10001) &&
