@@ -21,7 +21,7 @@ import { karolDefaultImage } from '../../lib/data/images'
 export function AppearanceModal() {
   const [count, setCount] = useState(0)
   const [isDrawing, setIsDrawing] = useState(false)
-  const [lastDrawingPosition, setLastDrawingPosition] = useState({ x: 0, y: 0 })
+  const lastDrawingPosition = useRef({ x: 0, y: 0 })
   const [selectedColor, setSelectedColor] = useState('#000000')
   const [tool, setTool] = useState<
     'brush' | 'paintBucket' | 'eraser' | 'line' | 'rectangle' | 'ellipse'
@@ -266,11 +266,17 @@ export function AppearanceModal() {
       if (isDrawing) {
         previewCtx.save() // for safety
         previewCtx.fillStyle = selectedColor
-        drawLineTo(previewCtx, toolCall, lastDrawingPosition, { x, y }, offset)
+        drawLineTo(
+          previewCtx,
+          toolCall,
+          lastDrawingPosition.current,
+          { x, y },
+          offset
+        )
         previewCtx.restore()
       } else {
         // only store this at the start of a new line!
-        setLastDrawingPosition({ x, y })
+        lastDrawingPosition.current = { x, y }
       }
     } else if (tool === 'rectangle') {
       if (isDrawing) {
@@ -279,35 +285,41 @@ export function AppearanceModal() {
         drawRectangle(
           previewCtx,
           toolCall,
-          lastDrawingPosition,
+          lastDrawingPosition.current,
           { x, y },
           offset
         )
         previewCtx.restore()
       } else {
         // only store this at the start of a new line!
-        setLastDrawingPosition({ x, y })
+        lastDrawingPosition.current = { x, y }
       }
     } else if (tool === 'ellipse') {
       if (isDrawing) {
         previewCtx.save() // for safety
         previewCtx.fillStyle = selectedColor
-        drawEllipse(previewCtx, toolCall, lastDrawingPosition, { x, y }, offset)
+        drawEllipse(
+          previewCtx,
+          toolCall,
+          lastDrawingPosition.current,
+          { x, y },
+          offset
+        )
         previewCtx.restore()
       } else {
         // only store this at the start of a new line!
-        setLastDrawingPosition({ x, y })
+        lastDrawingPosition.current = { x, y }
       }
     } else {
       if (isDrawing) {
-        drawLineTo(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
+        drawLineTo(ctx, toolCall, lastDrawingPosition.current, { x, y }, offset)
       }
       // always draw at least one point
       ctx.save()
       toolCall(ctx, x - offset, y - offset)
       ctx.restore()
       // store the last drawing position
-      setLastDrawingPosition({ x, y }) // is that how you use React?
+      lastDrawingPosition.current = { x, y } // is that how you use React?
     }
 
     updateImageDataUrl(canvas)
@@ -330,16 +342,28 @@ export function AppearanceModal() {
     if (isDrawing) {
       if (tool === 'line') {
         // complete the line
-        drawLineTo(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
-        setLastDrawingPosition({ x, y })
+        drawLineTo(ctx, toolCall, lastDrawingPosition.current, { x, y }, offset)
+        lastDrawingPosition.current = { x, y }
       } else if (tool === 'rectangle') {
         // complete the line
-        drawRectangle(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
-        setLastDrawingPosition({ x, y })
+        drawRectangle(
+          ctx,
+          toolCall,
+          lastDrawingPosition.current,
+          { x, y },
+          offset
+        )
+        lastDrawingPosition.current = { x, y }
       } else if (tool === 'ellipse') {
         // complete the line
-        drawEllipse(ctx, toolCall, lastDrawingPosition, { x, y }, offset)
-        setLastDrawingPosition({ x, y })
+        drawEllipse(
+          ctx,
+          toolCall,
+          lastDrawingPosition.current,
+          { x, y },
+          offset
+        )
+        lastDrawingPosition.current = { x, y }
       }
     }
     ctx.restore()
