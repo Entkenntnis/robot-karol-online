@@ -11,6 +11,7 @@ import {
   faPaintBrush,
   faPencil,
   faTable,
+  faArrowDown,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -946,30 +947,50 @@ export function Overview() {
             numberOfSolvedQuests > 0 &&
             core.ws.overview.showSaveHint &&
             core.ws.page != 'analyze' && (
-              <div className="fixed left-0 right-0 bottom-0 pb-1.5 sm:pb-0 sm:h-10 bg-yellow-100 text-center pt-1.5 z-20">
-                {core.strings.overview.storeOnDevice}{' '}
-                <button
-                  className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 ml-6 rounded"
-                  onClick={() => {
-                    setPersist(core, true)
-                    hideSaveHint(core)
-                    forceRerender(core)
-                    //showModal(core, 'sync')
-                    submitAnalyzeEvent(core, 'ev_click_landing_syncProgress')
-                  }}
-                >
-                  {core.strings.overview.syncProgress}
-                </button>{' '}
-                <button
-                  className="text-gray-500 underline ml-6"
-                  onClick={() => {
-                    hideSaveHint(core)
-                    submitAnalyzeEvent(core, 'ev_click_landing_syncLater')
-                  }}
-                >
-                  {core.strings.overview.later}
-                </button>
-              </div>
+              <>
+                <div className="fixed left-0 right-0 bottom-0 pb-1.5 sm:pb-0 sm:h-10 bg-yellow-100 text-center pt-1.5 z-20">
+                  {core.strings.overview.storeOnDevice}{' '}
+                  <div className="relative inline-block">
+                    <div className="-top-[170px] -left-24 absolute bg-yellow-100/90 p-4 mx-auto w-[400px] rounded-xl border-2 border-yellow-300 shadow-lg">
+                      <div className="text-center text-2xl font-bold text-yellow-800 mb-4">
+                        Wir empfehlen dir, deinen Fortschritt zu speichern.
+                      </div>{' '}
+                      <div className="flex justify-center">
+                        <div className="relative animate-bounce">
+                          <FaIcon
+                            icon={faArrowDown}
+                            className="text-4xl text-yellow-600"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 ml-6 rounded"
+                      onClick={() => {
+                        setPersist(core, true)
+                        hideSaveHint(core)
+                        forceRerender(core)
+                        //showModal(core, 'sync')
+                        submitAnalyzeEvent(
+                          core,
+                          'ev_click_landing_syncProgress'
+                        )
+                      }}
+                    >
+                      {core.strings.overview.syncProgress}
+                    </button>
+                  </div>{' '}
+                  <button
+                    className="text-gray-500 underline ml-6"
+                    onClick={() => {
+                      hideSaveHint(core)
+                      submitAnalyzeEvent(core, 'ev_click_landing_syncLater')
+                    }}
+                  >
+                    {core.strings.overview.later}
+                  </button>
+                </div>
+              </>
             )}
         </div>
       </div>
