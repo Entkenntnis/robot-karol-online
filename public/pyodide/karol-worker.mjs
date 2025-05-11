@@ -294,7 +294,7 @@ from _rko_internal import _set_canvas, _sleep
 
 _objects = []
 
-def reset():
+def resetCanvas():
   global _objects
   _objects = []
 
