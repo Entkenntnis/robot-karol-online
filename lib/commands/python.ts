@@ -398,6 +398,16 @@ export function setupWorker(core: Core) {
         ws.world.karol[event.data.id].y = -1
       })
     }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'enable-manual-control'
+    ) {
+      core.mutateWs((ws) => {
+        ws.canvas.manualControl = true
+      })
+    }
   }
 
   function messageHandlerBackup(event: MessageEvent) {

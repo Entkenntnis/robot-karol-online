@@ -106,6 +106,7 @@ export function createWorkspaceState(): WorkspaceState {
     },
     canvas: {
       objects: [],
+      manualControl: false,
     },
     analyze: {
       published: [],
