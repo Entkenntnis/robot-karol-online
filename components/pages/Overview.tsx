@@ -57,7 +57,7 @@ import { chapterData } from '../../lib/data/chapters'
 const pythonKarolExamples = [
   {
     title: 'Meisterwerk',
-    link: '#326Y',
+    link: '#8XPD',
   },
   {
     title: 'Animation',
