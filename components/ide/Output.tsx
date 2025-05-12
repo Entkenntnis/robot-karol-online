@@ -30,7 +30,6 @@ import {
   forward,
   toggleMark,
   brick,
-  toggleBlock,
   unbrick,
 } from '../../lib/commands/world'
 import { useEffect } from 'react'
@@ -66,7 +65,6 @@ export function Output() {
   }
 
   function runAction(action: string) {
-    if (core.ws.editor.showWorldPreview) return
     if (!actions[action]()) {
       core.mutateWs((ws) => {
         ws.ui.karolCrashMessage = undefined
@@ -207,10 +205,14 @@ export function Output() {
                       core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
                     )}
                     robotImageDataUrl={core.ws.robotImageDataUrl}
-                    animationDuration={Math.min(
-                      200,
-                      sliderToDelay(core.ws.ui.speedSliderValue)
-                    )}
+                    animationDuration={
+                      core.ws.canvas.manualControl
+                        ? undefined
+                        : Math.min(
+                            200,
+                            sliderToDelay(core.ws.ui.speedSliderValue)
+                          )
+                    }
                     activeRobot={core.ws.__activeRobot}
                     canvas={core.ws.canvas}
                   />
@@ -318,7 +320,6 @@ export function Output() {
         <div className="absolute bottom-10 bg-gray-200/20 rounded right-2">
           <button
             className="mx-3 py-2 enabled:hover:text-black text-gray-700 disabled:text-gray-300"
-            disabled={core.ws.editor.showWorldPreview}
             onClick={() => {
               runAction('ArrowLeft')
             }}
@@ -328,7 +329,6 @@ export function Output() {
           </button>
           <button
             className="px-2 enabled:hover:text-black text-gray-700 disabled:text-gray-300"
-            disabled={core.ws.editor.showWorldPreview}
             onClick={() => {
               runAction('ArrowUp')
             }}
@@ -338,7 +338,6 @@ export function Output() {
           </button>
           <button
             className="mx-3 py-2 enabled:hover:text-black text-gray-700 disabled:text-gray-300"
-            disabled={core.ws.editor.showWorldPreview}
             onClick={() => {
               runAction('ArrowRight')
             }}
@@ -348,7 +347,6 @@ export function Output() {
           </button>
           <button
             className="mx-2 hover:enabled:text-black text-gray-700 disabled:text-gray-300"
-            disabled={core.ws.editor.showWorldPreview}
             onClick={() => {
               runAction('KeyH')
             }}
@@ -358,7 +356,6 @@ export function Output() {
           </button>
           <button
             className="mx-2 hover:enabled:text-black text-gray-700 disabled:text-gray-300"
-            disabled={core.ws.editor.showWorldPreview}
             onClick={() => {
               runAction('KeyA')
             }}
@@ -368,7 +365,6 @@ export function Output() {
           </button>
           <button
             className="mx-2 hover:enabled:text-black text-gray-700 disabled:text-gray-300"
-            disabled={core.ws.editor.showWorldPreview}
             onClick={() => {
               runAction('KeyM')
             }}
