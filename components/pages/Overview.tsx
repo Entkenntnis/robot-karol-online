@@ -54,18 +54,19 @@ import { twoWorldsEqual } from '../../lib/commands/world'
 import { chapterData } from '../../lib/data/chapters'
 
 // Python-Karol example data
-const pythonKarolExamples = [
+export const pythonKarolExamples = [
   {
-    title: 'Meisterwerk',
-    link: '#8XPD',
+    title: 'Composition',
+    link: '#ACAR',
   },
   {
-    title: 'Animation',
-    link: '#8HYQ',
+    title: 'Scanner',
+    link: '#2WPY',
   },
+  { title: 'Kunst-Generator', link: '#MA6F' },
   {
-    title: 'Interaktive Kunst',
-    link: '#7PJC',
+    title: 'Verfolger',
+    link: '#6MFR',
   },
 ]
 
@@ -610,9 +611,9 @@ export function Overview() {
                       <img
                         src="/python-logo-only.png"
                         alt="Python"
-                        className="w-8 h-8 mr-2"
+                        className="h-9 mr-2"
                       />
-                      <p className="font-medium mb-1">Python-Karol Beispiele</p>
+                      <p className="font-medium mb-1">Python-Karol erleben</p>
                     </div>
                     <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
                       {pythonKarolExamples.map((example, index) => (

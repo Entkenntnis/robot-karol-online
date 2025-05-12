@@ -22,6 +22,7 @@ import { exitQuest } from '../../lib/commands/quest'
 import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
 import { AnimateInView } from '../helper/AnimateIntoView'
+import { pythonKarolExamples } from '../pages/Overview'
 
 export function InteractionBar() {
   const core = useCore()
@@ -60,6 +61,9 @@ export function InteractionBar() {
       <div className="whitespace-nowrap">
         {(core.ws.page == 'quest' ||
           core.ws.ui.isPlayground ||
+          pythonKarolExamples.some(
+            (el) => el.link.substring(1) === core.ws.ui.sharedQuestId
+          ) ||
           core.ws.page == 'editor') && (
           <button
             className="px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 mr-2 hidden sm:inline-block"
@@ -67,7 +71,7 @@ export function InteractionBar() {
             onClick={() => {
               if (core.ws.page == 'quest') {
                 exitQuest(core)
-              } else if (core.ws.ui.isPlayground) {
+              } else if (core.ws.ui.isPlayground || core.ws.page == 'shared') {
                 navigate(core, '')
               } else if (core.ws.page == 'editor') {
                 const res = confirm(core.strings.editor.leaveWarning)
