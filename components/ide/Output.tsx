@@ -33,6 +33,7 @@ import {
   toggleBlock,
   unbrick,
 } from '../../lib/commands/world'
+import { useEffect } from 'react'
 
 export function Output() {
   const core = useCore()
@@ -72,6 +73,24 @@ export function Output() {
       })
     }
   }
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (core.ws.ui.state == 'running' && core.ws.canvas.manualControl) {
+        const action = e.code
+        if (actions[action]) {
+          e.preventDefault()
+          runAction(action)
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handler)
+    return () => {
+      window.removeEventListener('keydown', handler)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [core.ws.canvas.manualControl, core.ws.ui.state])
 
   const variables: { [key: string]: number } = {}
   core.ws.vm.frames.forEach((frame) => {
@@ -295,8 +314,8 @@ export function Output() {
         )}
         <PythonConsole />
       </div>
-      {core.ws.canvas.manualControl && (
-        <div className="absolute bottom-10 bg-gray-200/20 rounded left-2">
+      {core.ws.canvas.manualControl && core.ws.ui.state == 'running' && (
+        <div className="absolute bottom-10 bg-gray-200/20 rounded right-2">
           <button
             className="mx-3 py-2 enabled:hover:text-black text-gray-700 disabled:text-gray-300"
             disabled={core.ws.editor.showWorldPreview}
