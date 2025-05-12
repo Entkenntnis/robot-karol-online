@@ -310,13 +310,16 @@ def tick(fps = 20):
   now = time.time()
   if _last_tick == 0:
     _last_tick = now
+    time.sleep(1 / fps)
   else:
     elapsed = now - _last_tick
     if elapsed < 1 / fps:
       time.sleep(1 / fps - elapsed)
-  _last_tick = now
-  # return delta
-  return now - _last_tick
+    
+  old_tick = _last_tick  # Store the previous tick time
+  _last_tick = time.time()  # Update with current time after sleep
+  # return actual delta
+  return _last_tick - old_tick
 
 
 class Rectangle:
@@ -358,6 +361,23 @@ class Rectangle:
   def fill(self, value):
     self._fill = value
     _transmit()
+
+  @x.setter
+  def x(self, value):
+    self._x = value
+    _transmit()
+  @y.setter
+  def y(self, value):
+    self._y = value 
+    _transmit()
+  @width.setter
+  def width(self, value):
+    self._width = value
+    _transmit()
+  @height.setter
+  def height(self, value):
+    self._height = value
+    _transmit()
         
   def toJSON(self):
     return {
@@ -372,6 +392,11 @@ class Rectangle:
 def enableManualControl():
   from _rko_internal import _enableManualControl
   _enableManualControl()
+
+def getKarolPosition():
+  from _rko_internal import _getKarolPosition
+  pos = _getKarolPosition()
+  return pos
 `
 
 self.onmessage = async (event) => {
@@ -427,6 +452,20 @@ self.onmessage = async (event) => {
           self.postMessage({
             type: 'enable-manual-control',
           })
+        },
+        _getKarolPosition: () => {
+          const buffer = new SharedArrayBuffer(12)
+          const syncArray = new Int32Array(buffer, 0, 1)
+          const dataArray = new Uint32Array(buffer, 4)
+          syncArray[0] = 42
+          self.postMessage({
+            type: 'get-karol-position',
+            buffer,
+          })
+          Atomics.wait(syncArray, 0, 42)
+          const x = Atomics.load(dataArray, 0)
+          const y = Atomics.load(dataArray, 1)
+          return [x, y]
         },
       })
       pyodide.FS.writeFile('rko.py', rkoModule, {

@@ -15,22 +15,6 @@ import {
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
 
-// Python-Karol example data
-const pythonKarolExamples = [
-  {
-    title: 'Rechtecke',
-    link: '#U3ZD',
-  },
-  {
-    title: 'Animation',
-    link: '#8HYQ',
-  },
-  /*{
-    title: 'Interaktive Kunst',
-    link: '#8HYQ',
-  },*/
-]
-
 import {
   forceRerender,
   hideSaveHint,
@@ -68,6 +52,22 @@ import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 import { twoWorldsEqual } from '../../lib/commands/world'
 import { chapterData } from '../../lib/data/chapters'
+
+// Python-Karol example data
+const pythonKarolExamples = [
+  {
+    title: 'Rechtecke',
+    link: '#U3ZD',
+  },
+  {
+    title: 'Animation',
+    link: '#8HYQ',
+  },
+  {
+    title: 'Interaktive Kunst',
+    link: '#7PJC',
+  },
+]
 
 export function Overview() {
   const core = useCore()

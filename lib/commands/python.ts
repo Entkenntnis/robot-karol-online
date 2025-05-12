@@ -408,6 +408,23 @@ export function setupWorker(core: Core) {
         ws.canvas.manualControl = true
       })
     }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'get-karol-position'
+    ) {
+      const { buffer } = event.data
+      const syncArray = new Int32Array(buffer, 0, 1)
+      const dataArray = new Uint32Array(buffer, 4)
+      const karol = core.ws.world.karol[core.ws.__activeRobot]
+      const x = karol.x
+      const y = karol.y
+      dataArray[0] = x
+      dataArray[1] = y
+      syncArray[0] = 1
+      Atomics.notify(syncArray, 0)
+    }
   }
 
   function messageHandlerBackup(event: MessageEvent) {
