@@ -536,7 +536,6 @@ export function setupWorker(core: Core) {
       setExecutionMarker(core, 0)
     }
     core.mutateWs(({ ui, vm, canvas }) => {
-      canvas.objects = []
       ui.isManualAbort = true
       ui.isEndOfRun = true
       ui.inputPrompt = undefined
