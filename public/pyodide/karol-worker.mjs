@@ -551,7 +551,7 @@ self.onmessage = async (event) => {
         enableHighlight.current = false
         inputs = []
         outputs = []
-        pyodide.runPython('from rko import reset\nreset()', {})
+        pyodide.runPython('import rko\nrko.resetCanvas()', {})
         pyodide.runPython('from rko import Robot', {
           globals,
         })
@@ -564,7 +564,7 @@ self.onmessage = async (event) => {
       } else {
         sleep(150)
         const globals = pyodide.toPy({})
-        pyodide.runPython('from rko import reset\nreset()', {})
+        pyodide.runPython('import rko\nrko.resetCanvas()', {})
         pyodide.runPython('from rko import Robot', {
           globals,
         })
