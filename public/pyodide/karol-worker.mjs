@@ -368,6 +368,10 @@ class Rectangle:
       'height': self._height,
       'fillColor': self._fill
     }
+
+def enableManualControl():
+  from _rko_internal import _enableManualControl
+  _enableManualControl()
 `
 
 self.onmessage = async (event) => {
@@ -418,6 +422,11 @@ self.onmessage = async (event) => {
         },
         _sleep: (s) => {
           sleep(s * 1000)
+        },
+        _enableManualControl: () => {
+          self.postMessage({
+            type: 'enable-manual-control',
+          })
         },
       })
       pyodide.FS.writeFile('rko.py', rkoModule, {

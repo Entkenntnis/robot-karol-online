@@ -4,7 +4,10 @@ import {
   faCaretUp,
   faCheck,
   faComment,
+  faLeftLong,
+  faRightLong,
   faTrashCan,
+  faUpLong,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { closeOutput, resetOutput } from '../../lib/commands/quest'
@@ -21,9 +24,74 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { exitBench } from '../../lib/commands/bench'
 import { PythonConsole } from '../helper/PythonConsole'
+import {
+  left,
+  right,
+  forward,
+  toggleMark,
+  brick,
+  toggleBlock,
+  unbrick,
+} from '../../lib/commands/world'
+import { useEffect } from 'react'
 
 export function Output() {
   const core = useCore()
+
+  const actions: { [key: string]: () => boolean } = {
+    ArrowLeft: () => {
+      left(core)
+      return true
+    },
+    ArrowRight: () => {
+      right(core)
+      return true
+    },
+    ArrowUp: () => {
+      return forward(core)
+    },
+    ArrowDown: () => {
+      return forward(core, { reverse: true })
+    },
+    KeyM: () => {
+      toggleMark(core)
+      return true
+    },
+    KeyH: () => {
+      return brick(core)
+    },
+    KeyA: () => {
+      return unbrick(core)
+    },
+  }
+
+  function runAction(action: string) {
+    if (core.ws.editor.showWorldPreview) return
+    if (!actions[action]()) {
+      core.mutateWs((ws) => {
+        ws.ui.karolCrashMessage = undefined
+      })
+    }
+  }
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (core.ws.ui.state == 'running' && core.ws.canvas.manualControl) {
+        const action = e.code
+        if (actions[action]) {
+          e.preventDefault()
+          runAction(action)
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handler)
+    return () => {
+      window.removeEventListener('keydown', handler)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [core.ws.canvas.manualControl, core.ws.ui.state])
+
   const variables: { [key: string]: number } = {}
   core.ws.vm.frames.forEach((frame) => {
     for (const key in frame.variables) {
@@ -246,6 +314,70 @@ export function Output() {
         )}
         <PythonConsole />
       </div>
+      {core.ws.canvas.manualControl && core.ws.ui.state == 'running' && (
+        <div className="absolute bottom-10 bg-gray-200/20 rounded right-2">
+          <button
+            className="mx-3 py-2 enabled:hover:text-black text-gray-700 disabled:text-gray-300"
+            disabled={core.ws.editor.showWorldPreview}
+            onClick={() => {
+              runAction('ArrowLeft')
+            }}
+            title="LinksDrehen"
+          >
+            <FaIcon icon={faLeftLong} />
+          </button>
+          <button
+            className="px-2 enabled:hover:text-black text-gray-700 disabled:text-gray-300"
+            disabled={core.ws.editor.showWorldPreview}
+            onClick={() => {
+              runAction('ArrowUp')
+            }}
+            title="Schritt"
+          >
+            <FaIcon icon={faUpLong} />
+          </button>
+          <button
+            className="mx-3 py-2 enabled:hover:text-black text-gray-700 disabled:text-gray-300"
+            disabled={core.ws.editor.showWorldPreview}
+            onClick={() => {
+              runAction('ArrowRight')
+            }}
+            title="RechtsDrehen"
+          >
+            <FaIcon icon={faRightLong} />
+          </button>
+          <button
+            className="mx-2 hover:enabled:text-black text-gray-700 disabled:text-gray-300"
+            disabled={core.ws.editor.showWorldPreview}
+            onClick={() => {
+              runAction('KeyH')
+            }}
+            title="Hinlegen"
+          >
+            <u>H</u>inlegen
+          </button>
+          <button
+            className="mx-2 hover:enabled:text-black text-gray-700 disabled:text-gray-300"
+            disabled={core.ws.editor.showWorldPreview}
+            onClick={() => {
+              runAction('KeyA')
+            }}
+            title="Aufheben"
+          >
+            <u>A</u>ufheben
+          </button>
+          <button
+            className="mx-2 hover:enabled:text-black text-gray-700 disabled:text-gray-300"
+            disabled={core.ws.editor.showWorldPreview}
+            onClick={() => {
+              runAction('KeyM')
+            }}
+            title="MarkeSetzen / MarkeLöschen"
+          >
+            <u>M</u>arke setzen/löschen
+          </button>
+        </div>
+      )}
       {core.ws.quest.lastStartedTask !== undefined && (
         <div className="absolute bottom-1.5 left-2 whitespace-nowrap">
           <button
