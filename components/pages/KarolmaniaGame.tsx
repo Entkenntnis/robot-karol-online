@@ -32,7 +32,6 @@ import {
 } from '../../lib/storage/storage'
 import { levels } from '../../lib/data/karolmaniaLevels'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
-import { sub } from 'date-fns'
 
 export function KarolmaniaGame() {
   const core = useCore()
@@ -818,6 +817,22 @@ export function KarolmaniaGame() {
               </span>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Improve button that appears when game is completed */}
+      {isDone && (
+        <div className="fixed bottom-24 left-0 right-0 flex justify-center">
+          <button
+            onClick={() => {
+              submitAnalyzeEvent(core, `ev_click_karolmania_improve`)
+              resetGame()
+            }}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg text-xl transition-transform transform hover:scale-105"
+            aria-label="Ergebnis verbessern"
+          >
+            Verbessern
+          </button>
         </div>
       )}
     </>
