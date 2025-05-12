@@ -3,7 +3,6 @@ import {
   faCircleCheck,
   faExclamationTriangle,
   faGenderless,
-  faPause,
   faPersonWalking,
   faThumbsUp,
   faTimes,
@@ -13,12 +12,10 @@ import { useMemo } from 'react'
 
 import { setSpeedSliderValue } from '../../lib/commands/mode'
 import { finishQuest } from '../../lib/commands/quest'
-import { abort } from '../../lib/commands/vm'
 import { positiveText } from '../../lib/helper/positiveText'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 export function ControlBar() {
   const core = useCore()
@@ -53,11 +50,9 @@ export function ControlBar() {
       <div className="mt-3">
         <p className="ml-7 font-bold">{renderStatus()}</p>
         <div className="ml-2 mb-1">
-          {core.ws.ui.state != 'running' && (
-            <p className="ml-3 mt-2">
-              {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}
-            </p>
-          )}
+          <p className="ml-3 mt-2">
+            {core.ws.quest.tasks[core.ws.quest.lastStartedTask!].title}
+          </p>
         </div>
       </div>
 
