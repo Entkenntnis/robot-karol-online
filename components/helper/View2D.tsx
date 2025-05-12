@@ -12,8 +12,8 @@ interface View2DProps {
 export function View2D({ world, preview, className, canvas }: View2DProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const cellSize = world.dimX > 9 || world.dimY > 9 ? 34 : 50
-  const width = world.dimX * cellSize
-  const height = world.dimY * cellSize
+  const width = world.dimX * cellSize + 1
+  const height = world.dimY * cellSize + 1
 
   useEffect(() => {
     const canvasElement = canvasRef.current
@@ -32,7 +32,7 @@ export function View2D({ world, preview, className, canvas }: View2DProps) {
         // Gitterlinien in blau zeichnen
         ctx.strokeStyle = 'blue'
         ctx.lineWidth = 1
-        ctx.strokeRect(cellX, cellY, cellSize, cellSize)
+        ctx.strokeRect(cellX + 0.5, cellY + 0.5, cellSize, cellSize)
       }
     }
 
@@ -40,7 +40,7 @@ export function View2D({ world, preview, className, canvas }: View2DProps) {
       ctx.save()
       ctx.setTransform(cellSize, 0, 0, cellSize, 0, 0)
       ctx.beginPath()
-      ctx.rect(0, 0, width, height)
+      ctx.rect(0, 0, world.dimX, world.dimY)
       ctx.clip()
       drawCanvasObject(canvas, ctx)
       ctx.restore()

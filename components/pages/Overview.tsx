@@ -56,8 +56,8 @@ import { chapterData } from '../../lib/data/chapters'
 // Python-Karol example data
 const pythonKarolExamples = [
   {
-    title: 'Rechtecke',
-    link: '#U3ZD',
+    title: 'Meisterwerk',
+    link: '#326Y',
   },
   {
     title: 'Animation',
@@ -616,10 +616,11 @@ export function Overview() {
                     </div>
                     <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
                       {pythonKarolExamples.map((example, index) => (
-                        <button
+                        <a
+                          href={`/${example.link}`}
                           key={index}
                           className="bg-white/30 hover:bg-white/60 p-2.5 rounded-md transition-all hover:shadow-md w-full flex items-center cursor-pointer"
-                          onClick={() => {
+                          onClick={(e) => {
                             submitAnalyzeEvent(
                               core,
                               `ev_click__landing_pythonExample_${example.title
@@ -633,13 +634,14 @@ export function Overview() {
                               document.getElementById('scroll-container')
                                 ?.scrollTop ?? -1
                             )
+                            e.preventDefault()
                             navigate(core, example.link)
                           }}
                         >
                           <span className="font-medium text-left">
                             {example.title}
                           </span>
-                        </button>
+                        </a>
                       ))}
                     </div>
                   </div>
