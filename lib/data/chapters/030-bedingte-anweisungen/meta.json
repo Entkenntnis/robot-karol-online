@@ -6,14 +6,14 @@
     { "filename": "Wetterstation_Alarm_1.json", "x": 330, "y": 120 },
     {
       "filename": "Wetterstation_Alarm_2.json",
-      "x": 180,
-      "y": 30,
+      "x": 430,
+      "y": 250,
       "deps": ["Wetterstation_Alarm_1.json"]
     },
     {
       "filename": "Wetterstation_Alarm_3.json",
-      "x": 130,
-      "y": 200,
+      "x": 320,
+      "y": 360,
       "deps": ["Wetterstation_Alarm_2.json"]
     }
   ],

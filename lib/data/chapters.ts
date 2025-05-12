@@ -2513,8 +2513,8 @@ const chapterInfo = [
       },
       {
         "filename": "Wetterstation_Alarm_2.json",
-        "x": 180,
-        "y": 30,
+        "x": 430,
+        "y": 250,
         "deps": [
           133
         ],
@@ -2599,8 +2599,8 @@ const chapterInfo = [
       },
       {
         "filename": "Wetterstation_Alarm_3.json",
-        "x": 130,
-        "y": 200,
+        "x": 320,
+        "y": 360,
         "deps": [
           134
         ],

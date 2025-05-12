@@ -1,7 +1,6 @@
 import {
   faCaretDown,
   faCheckCircle,
-  faChevronDown,
   faExternalLink,
   faFloppyDisk,
   faFolderOpen,
@@ -15,6 +14,22 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
+
+// Python-Karol example data
+const pythonKarolExamples = [
+  {
+    title: 'Rechtecke',
+    link: '#U3ZD',
+  },
+  {
+    title: 'Animation',
+    link: '#8HYQ',
+  },
+  /*{
+    title: 'Interaktive Kunst',
+    link: '#8HYQ',
+  },*/
+]
 
 import {
   forceRerender,
@@ -588,13 +603,54 @@ export function Overview() {
                       </AnimateInView>
                     </div>
                   )}
+                <div className="absolute left-[4px] top-[2250px] z-10">
+                  <div className="bg-white/20 rounded-lg p-3 shadow-lg">
+                    {' '}
+                    <div className="flex items-center mb-4">
+                      <img
+                        src="/python-logo-only.png"
+                        alt="Python"
+                        className="w-8 h-8 mr-2"
+                      />
+                      <p className="font-medium mb-1">Python-Karol Beispiele</p>
+                    </div>
+                    <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
+                      {pythonKarolExamples.map((example, index) => (
+                        <button
+                          key={index}
+                          className="bg-white/30 hover:bg-white/60 p-2.5 rounded-md transition-all hover:shadow-md w-full flex items-center cursor-pointer"
+                          onClick={() => {
+                            submitAnalyzeEvent(
+                              core,
+                              `ev_click__landing_pythonExample_${example.title
+                                .toLowerCase()
+                                .replace(/\s+/g, '_')}`
+                            )
+                            setQuestReturnToMode(
+                              core.ws.page == 'demo' ? 'demo' : 'path'
+                            )
+                            setLearningPathScroll(
+                              document.getElementById('scroll-container')
+                                ?.scrollTop ?? -1
+                            )
+                            navigate(core, example.link)
+                          }}
+                        >
+                          <span className="font-medium text-left">
+                            {example.title}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
                 <div
                   className="absolute left-[101px]  z-10"
                   style={{ top: `${maxMapY + 840}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <h2 className="text-lg bg-white/20 pl-2 pr-4 py-0.5 rounded-lg">
-                      Entdecke weitere Inhalte:
+                      Weitere Inhalte für dich:
                     </h2>
                   </AnimateInView>
                 </div>

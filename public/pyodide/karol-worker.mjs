@@ -321,27 +321,52 @@ def tick(fps = 20):
 
 class Rectangle:
   def __init__(self, x, y, width, height, fill="rebeccapurple"):
-    self.x = x
-    self.y = y
-    self.width = width
-    self.height = height
-    self.fill = fill
+    self._x = x
+    self._y = y
+    self._width = width
+    self._height = height
+    self._fill = fill
     _objects.append(self)
     _transmit()
   
   def move(self, dx, dy):
-    self.x += dx
-    self.y += dy
+    self._x += dx
+    self._y += dy
+    _transmit()
+  
+  @property
+  def x(self):
+    return self._x
+
+  @property
+  def y(self):
+    return self._y
+
+  @property
+  def width(self):
+    return self._width
+
+  @property
+  def height(self):
+    return self._height
+
+  @property
+  def fill(self):
+    return self._fill
+    
+  @fill.setter
+  def fill(self, value):
+    self._fill = value
     _transmit()
         
   def toJSON(self):
     return {
       'type': 'rectangle',
-      'x': self.x,
-      'y': self.y,
-      'width': self.width,
-      'height': self.height,
-      'fillColor': self.fill
+      'x': self._x,
+      'y': self._y,
+      'width': self._width,
+      'height': self._height,
+      'fillColor': self._fill
     }
 `
 
