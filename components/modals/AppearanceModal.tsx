@@ -16,7 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { backend } from '../../backend'
-import { karolDefaultImage } from '../../lib/data/images'
+import { karolDefaultImage, karolOldDefaultImage } from '../../lib/data/images'
 
 export function AppearanceModal() {
   const [count, setCount] = useState(0)
@@ -27,6 +27,8 @@ export function AppearanceModal() {
     'brush' | 'paintBucket' | 'eraser' | 'line' | 'rectangle' | 'ellipse'
   >('brush')
   const [brushSize, setBrushSize] = useState(3)
+  const [baseImage, setBaseImage] = useState(karolDefaultImage)
+  const baseImageRef = useRef<string>(baseImage)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const core = useCore()
@@ -489,7 +491,7 @@ export function AppearanceModal() {
 
     pushUndoState()
     const img = new Image()
-    img.src = karolDefaultImage
+    img.src = baseImageRef.current
     img.onload = () => {
       // Leinwand leeren und Standardbild zeichnen.
       ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -837,6 +839,32 @@ export function AppearanceModal() {
               </button>
             </div>
             <div className="flex-grow flex-shrink flex justify-center items-center bg-gray-800 relative">
+              <div className="absolute top-2 left-2">
+                <label className="bg-white/70 rounded px-2 py-1 text-sm">
+                  Basisfigur:{' '}
+                  <select
+                    className="px-1 rounded"
+                    onChange={(e) => {
+                      const value = e.target.value
+                      if (value === 'old') {
+                        setBaseImage(karolOldDefaultImage)
+                        baseImageRef.current = karolOldDefaultImage
+                      } else if (value === 'emma') {
+                        setBaseImage(karolDefaultImage)
+                        baseImageRef.current = karolDefaultImage
+                      }
+                      submitAnalyzeEvent(
+                        core,
+                        'ev_click_appearance_selectBaseFigure_' + value
+                      )
+                      handleReset()
+                    }}
+                  >
+                    <option value="emma">Emma (default)</option>
+                    <option value="old">leere Vorlage</option>
+                  </select>
+                </label>
+              </div>
               <div className="absolute left-2 bottom-2">
                 <button
                   className="text-sm bg-gray-500 hover:bg-gray-400 px-1 rounded"
@@ -868,7 +896,7 @@ export function AppearanceModal() {
                 >
                   {/* Referenzbild mit geringer Deckkraft */}
                   <img
-                    src={karolDefaultImage}
+                    src={baseImage}
                     alt="Reference"
                     style={{
                       position: 'absolute',
