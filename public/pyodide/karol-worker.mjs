@@ -397,6 +397,10 @@ def getKarolPosition():
   from _rko_internal import _getKarolPosition
   pos = _getKarolPosition()
   return pos
+
+def exit():
+  from _rko_internal import _exit
+  _exit()
 `
 
 self.onmessage = async (event) => {
@@ -447,6 +451,9 @@ self.onmessage = async (event) => {
         },
         _sleep: (s) => {
           sleep(s * 1000)
+        },
+        _exit: () => {
+          self.postMessage({ type: 'action', action: 'beenden' })
         },
         _enableManualControl: () => {
           self.postMessage({
