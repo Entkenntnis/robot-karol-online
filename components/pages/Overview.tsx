@@ -72,6 +72,7 @@ export const pythonKarolExamples = [
     title: 'Der Boden ist Lava',
     link: '#VKD7',
   },
+  { title: 'Sternenstaub', link: '#3UWS' },
 ]
 
 export function Overview() {
