@@ -73,6 +73,7 @@ export const pythonKarolExamples = [
     link: '#VKD7',
   },
   { title: 'Sternenstaub', link: '#3UWS' },
+  { title: 'Fraktal', link: '#2A2K' },
 ]
 
 export function Overview() {
