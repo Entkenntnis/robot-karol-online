@@ -68,6 +68,10 @@ export const pythonKarolExamples = [
     title: 'Verfolger',
     link: '#6MFR',
   },
+  {
+    title: 'Der Boden ist Lava',
+    link: '#VKD7',
+  },
 ]
 
 export function Overview() {
