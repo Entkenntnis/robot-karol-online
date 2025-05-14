@@ -507,6 +507,7 @@ self.onmessage = async (event) => {
           return inputBytes
         },
       })
+      console.log('worker ready')
       self.postMessage('ready')
     }
   }
@@ -884,3 +885,5 @@ function checkCondition(cond) {
   Atomics.wait(sharedArray, 0, 42)
   return sharedArray[0] === 1
 }
+
+console.log('karol-worker.mjs loaded')

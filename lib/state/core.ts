@@ -93,7 +93,6 @@ export class Core {
 
   reset() {
     if (this.worker && !this.worker.isFresh) {
-      console.log('reset worker')
       this.worker.reset()
     }
     this.executionEndCallback = undefined
