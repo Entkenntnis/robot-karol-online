@@ -55,6 +55,7 @@ import { chapterData } from '../../lib/data/chapters'
 
 // Python-Karol example data
 export const pythonKarolExamples = [
+  { title: 'Sprechen mit Karol', link: '#FFSM' },
   { title: 'Creeper', link: '#AAHG' },
   {
     title: 'Composition',
@@ -611,7 +612,7 @@ export function Overview() {
                       </AnimateInView>
                     </div>
                   )}
-                <div className="absolute left-[4px] top-[2250px] z-10">
+                <div className="absolute left-[4px] top-[2150px] z-10">
                   <div className="bg-white/20 rounded-lg p-3 shadow-lg">
                     {' '}
                     <div className="flex items-center mb-4">
@@ -620,7 +621,7 @@ export function Overview() {
                         alt="Python"
                         className="h-9 mr-2"
                       />
-                      <p className="font-medium mb-1">Python-Karol erleben</p>
+                      <p className="font-bold mb-1">Highlights</p>
                     </div>
                     <div className="space-y-2 pr-1">
                       {pythonKarolExamples.map((example, index) => (
