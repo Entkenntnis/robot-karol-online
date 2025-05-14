@@ -647,6 +647,20 @@ export function Overview() {
                         >
                           <span className="font-medium text-left">
                             {example.title}
+                            {core.ws.page == 'analyze' && (
+                              <span>
+                                {' '}
+                                [
+                                {
+                                  core.ws.analyze.pythonKarol[
+                                    example.title
+                                      .toLowerCase()
+                                      .replace(/\s+/g, '_')
+                                  ]?.count
+                                }
+                                ]
+                              </span>
+                            )}
                           </span>
                         </a>
                       ))}

@@ -97,6 +97,7 @@ export async function analyze(core: Core) {
       'ev_select_chapter_',
       'ev_click_landing_explanation_chapter_',
       'ev_click_explanation_continue_',
+      'ev_click__landing_pythonExample_',
     ]
 
     for (const prefix of eventPrefixes) {
@@ -340,6 +341,19 @@ export async function analyze(core: Core) {
             ws.analyze.loadedRobotImages[id] = { count: 0 }
           }
           ws.analyze.loadedRobotImages[id].count++
+          continue
+        }
+
+        const pythonKarol = /^ev_click__landing_pythonExample_(.+)/.exec(
+          entry.event
+        )
+
+        if (pythonKarol) {
+          const id = pythonKarol[1]
+          if (!ws.analyze.pythonKarol[id]) {
+            ws.analyze.pythonKarol[id] = { count: 0 }
+          }
+          ws.analyze.pythonKarol[id].count++
           continue
         }
 

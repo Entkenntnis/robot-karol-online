@@ -324,6 +324,9 @@ export interface Analyze {
   chapters: {
     [key: number]: { selected: number; explanation: number }
   }
+  pythonKarol: {
+    [key: string]: { count: number }
+  }
 }
 
 export interface CoreState {

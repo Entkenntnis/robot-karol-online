@@ -144,6 +144,7 @@ export function createWorkspaceState(): WorkspaceState {
       brushColors: {},
       loadedRobotImages: {},
       chapters: {},
+      pythonKarol: {},
     },
     overview: {
       overviewScroll: 0,
