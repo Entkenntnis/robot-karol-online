@@ -123,7 +123,7 @@ export function Output() {
   return (
     <div className="flex flex-col h-full relative">
       <div className="border-b-2 border-gray-200">
-        <div className="p-4 px-7 bg-yellow-100 relative">
+        <div className="pt-4 pb-1 px-7 bg-yellow-100 relative">
           <button
             className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
             onClick={() => {

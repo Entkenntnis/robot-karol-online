@@ -55,6 +55,7 @@ import { chapterData } from '../../lib/data/chapters'
 
 // Python-Karol example data
 export const pythonKarolExamples = [
+  { title: 'Creeper', link: '#AAHG' },
   {
     title: 'Composition',
     link: '#ACAR',
@@ -621,7 +622,7 @@ export function Overview() {
                       />
                       <p className="font-medium mb-1">Python-Karol erleben</p>
                     </div>
-                    <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
+                    <div className="space-y-2 pr-1">
                       {pythonKarolExamples.map((example, index) => (
                         <a
                           href={`/${example.link}`}
