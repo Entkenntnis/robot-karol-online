@@ -167,6 +167,9 @@ export function EditArea() {
                 <div
                   className="select-none text-purple-400 ml-2"
                   title="Diese Aufgabe wird über ein QuestScript gesteuert"
+                  onClick={() => {
+                    console.log(core.ws.editor.questScript)
+                  }}
                 >
                   QuestScript
                 </div>
