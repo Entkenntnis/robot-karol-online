@@ -581,6 +581,18 @@ self.onmessage = async (event) => {
           progress,
         })
       },
+      __ide_get_progress: () => {
+        const buffer = new SharedArrayBuffer(8)
+        const syncArray = new Int32Array(buffer, 0, 1)
+        const dataArray = new Int32Array(buffer, 4)
+        syncArray[0] = 42
+        self.postMessage({
+          type: 'get-progress',
+          buffer,
+        })
+        Atomics.wait(syncArray, 0, 42)
+        return Atomics.load(dataArray, 0) == 1
+      },
       __ide_prompt: (message, confirm) => {
         const confirmBuffer = new SharedArrayBuffer(
           Int32Array.BYTES_PER_ELEMENT

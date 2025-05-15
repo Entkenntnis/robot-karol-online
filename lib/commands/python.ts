@@ -425,6 +425,19 @@ export function setupWorker(core: Core) {
       syncArray[0] = 1
       Atomics.notify(syncArray, 0)
     }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'get-progress'
+    ) {
+      const { buffer } = event.data
+      const syncArray = new Int32Array(buffer, 0, 1)
+      const dataArray = new Int32Array(buffer, 4)
+      dataArray[0] = core.ws.quest.progress ? 1 : 0
+      syncArray[0] = 1
+      Atomics.notify(syncArray, 0)
+    }
   }
 
   function messageHandlerBackup(event: MessageEvent) {
