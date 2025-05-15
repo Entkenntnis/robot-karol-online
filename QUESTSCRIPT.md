@@ -55,6 +55,10 @@ Markiert die Aufgabe als abgeschlossen oder nicht, überschreibt den bisherigen 
 ___ide_set_progress(True)
 ```
 
+### `__ide_get_progress() -> bool`
+
+Gibt zurück, ob die Aufgabe aktuell abgeschlossen ist oder nicht - nutzt die Standard-Logik für Start- und Zielwelt.
+
 ### `__ide_exit() -> None`
 
 Beendet das QuestScript sofort.
