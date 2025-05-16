@@ -76,6 +76,7 @@ export const pythonKarolExamples = [
   },
   { title: 'Sternenstaub', link: '#3UWS' },
   { title: 'Fraktal', link: '#GNTB' },
+  { title: 'BetterRobot', link: '#TA4U' },
 ]
 
 export function Overview() {
@@ -628,7 +629,7 @@ export function Overview() {
                         <a
                           href={`/${example.link}`}
                           key={index}
-                          className="bg-white/30 hover:bg-white/60 p-2.5 rounded-md transition-all hover:shadow-md w-full flex items-center cursor-pointer"
+                          className="bg-white/30 hover:bg-white/60 p-2.5 rounded-md transition-all hover:shadow-md w-full block cursor-pointer"
                           onClick={(e) => {
                             submitAnalyzeEvent(
                               core,
