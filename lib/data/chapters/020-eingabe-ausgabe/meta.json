@@ -1,9 +1,9 @@
 {
   "title": "Interaktionen",
   "quests": [
-    { "filename": "Begrüßung.json", "x": 560, "y": 57 },
-    { "filename": "Harry_Potter_Fan.json", "x": 330, "y": 158 },
-    { "filename": "Explosion.json", "x": 190, "y": 170 },
+    { "filename": "Begrüßung.json", "x": 560, "y": 37 },
+    { "filename": "Harry_Potter_Fan.json", "x": 360, "y": 158 },
+    { "filename": "Explosion.json", "x": 550, "y": 170 },
     { "filename": "Runen.json", "x": 110, "y": 50 },
     { "filename": "Systemstatus.json", "x": 160, "y": -70 }
   ],

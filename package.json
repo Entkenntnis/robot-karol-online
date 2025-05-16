@@ -30,6 +30,7 @@
     "clsx": "^2.0.0",
     "daisyui": "^4.12.10",
     "date-fns": "^2.29.3",
+    "fastest-levenshtein": "^1.0.16",
     "immer": "^10.0.0",
     "markdown-to-jsx": "^7.7.6",
     "next": "^14.0.1",
