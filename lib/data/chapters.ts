@@ -1016,7 +1016,7 @@ const chapterInfo = [
       {
         "filename": "Begrüßung.json",
         "x": 560,
-        "y": 57,
+        "y": 37,
         "id": 121,
         "content": {
           "version": "v1",
@@ -1183,7 +1183,7 @@ const chapterInfo = [
       },
       {
         "filename": "Harry_Potter_Fan.json",
-        "x": 330,
+        "x": 360,
         "y": 158,
         "id": 122,
         "content": {
@@ -1525,7 +1525,7 @@ const chapterInfo = [
       },
       {
         "filename": "Explosion.json",
-        "x": 190,
+        "x": 550,
         "y": 170,
         "id": 145,
         "content": {
@@ -2155,7 +2155,7 @@ const chapterInfo = [
     "quests": [
       {
         "filename": "Zaubertrankprüfung.json",
-        "x": 570,
+        "x": 620,
         "y": 130,
         "id": 132,
         "content": {
@@ -2291,7 +2291,7 @@ const chapterInfo = [
       },
       {
         "filename": "Weltraum_Navigation.json",
-        "x": 630,
+        "x": 730,
         "y": -60,
         "id": 131,
         "content": {
@@ -2427,8 +2427,8 @@ const chapterInfo = [
       },
       {
         "filename": "Wetterstation_Alarm_1.json",
-        "x": 330,
-        "y": 120,
+        "x": 430,
+        "y": 100,
         "id": 133,
         "content": {
           "version": "v1",
@@ -2513,7 +2513,7 @@ const chapterInfo = [
       },
       {
         "filename": "Wetterstation_Alarm_2.json",
-        "x": 430,
+        "x": 530,
         "y": 250,
         "deps": [
           133
@@ -2599,8 +2599,8 @@ const chapterInfo = [
       },
       {
         "filename": "Wetterstation_Alarm_3.json",
-        "x": 320,
-        "y": 360,
+        "x": 490,
+        "y": 420,
         "deps": [
           134
         ],
@@ -2684,7 +2684,7 @@ const chapterInfo = [
         }
       }
     ],
-    "x": 430,
+    "x": 530,
     "y": 2240
   },
   {

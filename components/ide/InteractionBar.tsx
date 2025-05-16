@@ -22,7 +22,12 @@ import { exitQuest } from '../../lib/commands/quest'
 import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
 import { AnimateInView } from '../helper/AnimateIntoView'
-import { pythonKarolExamples } from '../pages/Overview'
+import {
+  getExampleId,
+  pythonKarolExamples,
+} from '../../lib/data/pythonExamples'
+import { sub } from 'date-fns'
+import { distance } from 'fastest-levenshtein'
 
 export function InteractionBar() {
   const core = useCore()
@@ -246,6 +251,27 @@ export function InteractionBar() {
           onClick={() => {
             if (core.ws.ui.state == 'running') {
               submitAnalyzeEvent(core, 'ev_click_ide_stop')
+            }
+            if (
+              core.ws.ui.state == 'ready' &&
+              core.ws.ui.sharedQuestId &&
+              pythonKarolExamples.some(
+                (example) =>
+                  example.link.substring(1) === core.ws.ui.sharedQuestId
+              )
+            ) {
+              const d = distance(
+                core.ws.ui.resetCode[core.ws.ui.sharedQuestId][1],
+                core.ws.pythonCode
+              )
+              submitAnalyzeEvent(
+                core,
+                `ev_click_ide_pythonExampleStart_${d}_${getExampleId(
+                  pythonKarolExamples.find(
+                    (el) => el.link.substring(1) === core.ws.ui.sharedQuestId
+                  )?.title!
+                )}`
+              )
             }
             startButtonClicked(core)
           }}

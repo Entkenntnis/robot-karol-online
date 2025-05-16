@@ -52,32 +52,10 @@ import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 import { twoWorldsEqual } from '../../lib/commands/world'
 import { chapterData } from '../../lib/data/chapters'
-
-// Python-Karol example data
-export const pythonKarolExamples = [
-  { title: 'Sprechen mit Karol', link: '#FFSM' },
-  { title: 'Creeper', link: '#AAHG' },
-  {
-    title: 'Composition',
-    link: '#ACAR',
-  },
-  {
-    title: 'Scanner',
-    link: '#2WPY',
-  },
-  { title: 'Kunst-Generator', link: '#MA6F' },
-  {
-    title: 'Verfolger',
-    link: '#6MFR',
-  },
-  {
-    title: 'Der Boden ist Lava',
-    link: '#VKD7',
-  },
-  { title: 'Sternenstaub', link: '#3UWS' },
-  { title: 'Fraktal', link: '#GNTB' },
-  { title: 'BetterRobot', link: '#TA4U' },
-]
+import {
+  getExampleId,
+  pythonKarolExamples,
+} from '../../lib/data/pythonExamples'
 
 export function Overview() {
   const core = useCore()
@@ -614,28 +592,27 @@ export function Overview() {
                     </div>
                   )}
                 <div className="absolute left-[4px] top-[2150px] z-10">
-                  <div className="bg-white/20 rounded-lg p-3 shadow-lg">
-                    {' '}
+                  <div className="bg-white/20 rounded-lg p-3 shadow-lg w-[356px]">
                     <div className="flex items-center mb-4">
                       <img
                         src="/python-logo-only.png"
                         alt="Python"
                         className="h-9 mr-2"
                       />
-                      <p className="font-bold mb-1">Highlights</p>
+                      <p className="font-bold mb-1">Python zum Mitmachen</p>
                     </div>
-                    <div className="space-y-2 pr-1">
+                    <div className="gap-2 pr-1 flex flex-wrap">
                       {pythonKarolExamples.map((example, index) => (
                         <a
                           href={`/${example.link}`}
                           key={index}
-                          className="bg-white/30 hover:bg-white/60 p-2.5 rounded-md transition-all hover:shadow-md w-full block cursor-pointer"
+                          className="bg-white/30 hover:bg-white/60 p-2.5 rounded-md transition-all hover:shadow-md w-[160px] block cursor-pointer"
                           onClick={(e) => {
                             submitAnalyzeEvent(
                               core,
-                              `ev_click__landing_pythonExample_${example.title
-                                .toLowerCase()
-                                .replace(/\s+/g, '_')}`
+                              `ev_click__landing_pythonExample_${getExampleId(
+                                example.title
+                              )}`
                             )
                             setQuestReturnToMode(
                               core.ws.page == 'demo' ? 'demo' : 'path'
@@ -656,9 +633,7 @@ export function Overview() {
                                 [
                                 {
                                   core.ws.analyze.pythonKarol[
-                                    example.title
-                                      .toLowerCase()
-                                      .replace(/\s+/g, '_')
+                                    getExampleId(example.title)
                                   ]?.count
                                 }
                                 ]
