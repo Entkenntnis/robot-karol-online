@@ -416,6 +416,20 @@ def setKarolHeading(heading):
 def exit():
   from _rko_internal import _exit
   _exit()
+
+class Synth:
+  def __init__(self):
+    from _rko_internal import _createNewSynth
+    self._synthId = _createNewSynth()
+
+  def play(self, frequency, duration):
+    from _rko_internal import _playSynth
+    seconds = _playSynth(self._synthId, frequency, duration)
+    _sleep(seconds)
+
+def sleep(s):
+  from _rko_internal import _sleep
+  _sleep(s)
 `
 
 self.onmessage = async (event) => {
@@ -514,6 +528,33 @@ self.onmessage = async (event) => {
             type: 'set-karol-heading',
             heading,
           })
+        },
+        _createNewSynth: () => {
+          const buffer = new SharedArrayBuffer(8)
+          const syncArray = new Int32Array(buffer, 0, 1)
+          const dataArray = new Uint32Array(buffer, 4)
+          syncArray[0] = 42
+          self.postMessage({
+            type: 'create-new-synth',
+            buffer,
+          })
+          Atomics.wait(syncArray, 0, 42)
+          return Atomics.load(dataArray, 0)
+        },
+        _playSynth: (synthId, frequency, duration) => {
+          const buffer = new SharedArrayBuffer(8)
+          const syncArray = new Int32Array(buffer, 0, 1)
+          const dataArray = new Float32Array(buffer, 4)
+          syncArray[0] = 42
+          self.postMessage({
+            type: 'play-synth',
+            id: synthId,
+            frequency,
+            duration,
+            buffer,
+          })
+          Atomics.wait(syncArray, 0, 42)
+          return dataArray[0]
         },
       })
       pyodide.FS.writeFile('rko.py', rkoModule, {
