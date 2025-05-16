@@ -398,6 +398,21 @@ def getKarolPosition():
   pos = _getKarolPosition()
   return pos
 
+def getKarolHeading():
+  from _rko_internal import _getKarolHeading
+  heading = _getKarolHeading()
+  return heading
+
+def setKarolPosition(x, y):
+  from _rko_internal import _setKarolPosition
+  _setKarolPosition(x, y)
+
+def setKarolHeading(heading):
+  if heading not in ['north', 'east', 'south', 'west']:
+    raise ValueError('Invalid heading. Must be one of: north, east, south, west')
+  from _rko_internal import _setKarolHeading
+  _setKarolHeading(heading)
+
 def exit():
   from _rko_internal import _exit
   _exit()
@@ -473,6 +488,32 @@ self.onmessage = async (event) => {
           const x = Atomics.load(dataArray, 0)
           const y = Atomics.load(dataArray, 1)
           return [x, y]
+        },
+        _getKarolHeading: () => {
+          const buffer = new SharedArrayBuffer(8)
+          const syncArray = new Int32Array(buffer, 0, 1)
+          const dataArray = new Uint32Array(buffer, 4)
+          syncArray[0] = 42
+          self.postMessage({
+            type: 'get-karol-heading',
+            buffer,
+          })
+          Atomics.wait(syncArray, 0, 42)
+          const dir = Atomics.load(dataArray, 0)
+          return ['north', 'east', 'south', 'west'][dir]
+        },
+        _setKarolPosition: (x, y) => {
+          self.postMessage({
+            type: 'set-karol-position',
+            x,
+            y,
+          })
+        },
+        _setKarolHeading: (heading) => {
+          self.postMessage({
+            type: 'set-karol-heading',
+            heading,
+          })
         },
       })
       pyodide.FS.writeFile('rko.py', rkoModule, {

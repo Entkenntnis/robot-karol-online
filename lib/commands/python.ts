@@ -429,6 +429,43 @@ export function setupWorker(core: Core) {
     if (
       event.data &&
       typeof event.data === 'object' &&
+      event.data.type == 'get-karol-heading'
+    ) {
+      const { buffer } = event.data
+      const syncArray = new Int32Array(buffer, 0, 1)
+      const dataArray = new Uint32Array(buffer, 4)
+      const dir = core.ws.world.karol[core.ws.__activeRobot].dir
+      dataArray[0] = ['north', 'east', 'south', 'west'].indexOf(dir)
+      syncArray[0] = 1
+      Atomics.notify(syncArray, 0)
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'set-karol-position'
+    ) {
+      const { x, y } = event.data
+      core.mutateWs((ws) => {
+        ws.world.karol[ws.__activeRobot].x = x
+        ws.world.karol[ws.__activeRobot].y = y
+      })
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'set-karol-heading'
+    ) {
+      const { heading } = event.data
+      core.mutateWs((ws) => {
+        ws.world.karol[ws.__activeRobot].dir = heading
+      })
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
       event.data.type == 'get-progress'
     ) {
       const { buffer } = event.data
