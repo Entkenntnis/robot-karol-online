@@ -1,5 +1,3 @@
-// 5ZEE
-
 // Python-Karol example data
 export const pythonKarolExamples = [
   { title: 'Creeper', link: '#5ZEE' },
@@ -24,6 +22,7 @@ export const pythonKarolExamples = [
   { title: 'Sternenstaub', link: '#3UWS' },
   { title: 'Fraktal', link: '#GNTB' },
   { title: 'BetterRobot Klasse', link: '#GCPB' },
+  { title: 'Himmel und Hölle', link: '#5THY' },
 ]
 
 export function getExampleId(title: string) {
