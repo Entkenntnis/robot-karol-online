@@ -1,5 +1,4 @@
 import {
-  faArrowDown,
   faArrowLeft,
   faArrowUp,
   faBars,
@@ -26,7 +25,6 @@ import {
   getExampleId,
   pythonKarolExamples,
 } from '../../lib/data/pythonExamples'
-import { sub } from 'date-fns'
 import { distance } from 'fastest-levenshtein'
 
 export function InteractionBar() {
