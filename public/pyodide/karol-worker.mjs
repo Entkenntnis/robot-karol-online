@@ -310,11 +310,11 @@ def tick(fps = 20):
   now = time.time()
   if _last_tick == 0:
     _last_tick = now
-    time.sleep(1 / fps)
+    _sleep(1 / fps)
   else:
     elapsed = now - _last_tick
     if elapsed < 1 / fps:
-      time.sleep(1 / fps - elapsed)
+      _sleep(1 / fps - elapsed)
     
   old_tick = _last_tick  # Store the previous tick time
   _last_tick = time.time()  # Update with current time after sleep
