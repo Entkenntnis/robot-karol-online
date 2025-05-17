@@ -484,6 +484,10 @@ export function endExecution(core: Core) {
       ws.ui.tourModePage = 3
     })
   }
+  core.synths.forEach((synth) => {
+    synth.dispose()
+  })
+  core.synths.clear()
 
   /*if (
     core.ws.quest.id > 0 &&

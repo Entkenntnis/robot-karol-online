@@ -14,6 +14,7 @@ import {
   setMark,
   resetMark,
 } from './world'
+import { getTransport, PolySynth, start, Synth } from 'tone'
 
 export function setupWorker(core: Core) {
   if (core.worker) {
@@ -472,6 +473,62 @@ export function setupWorker(core: Core) {
       const syncArray = new Int32Array(buffer, 0, 1)
       const dataArray = new Int32Array(buffer, 4)
       dataArray[0] = core.ws.quest.progress ? 1 : 0
+      syncArray[0] = 1
+      Atomics.notify(syncArray, 0)
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'create-new-synth'
+    ) {
+      const { buffer } = event.data
+      const syncArray = new Int32Array(buffer, 0, 1)
+      const dataArray = new Int32Array(buffer, 4)
+      const synthId = core.ws.canvas.synthIdCounter
+      core.mutateWs((ws) => {
+        ws.canvas.synthIdCounter++
+      })
+      const newSynth = new PolySynth(Synth).toDestination()
+      start().then(() => {
+        core.synths.set(synthId, newSynth)
+        dataArray[0] = synthId
+        syncArray[0] = 1
+        Atomics.notify(syncArray, 0)
+      })
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'play-synth'
+    ) {
+      const { id, frequency, duration } = event.data
+      const synth = core.synths.get(parseInt(id))
+      if (synth) {
+        synth.triggerAttackRelease(JSON.parse(frequency), duration)
+      }
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'set-bpm'
+    ) {
+      const { bpm } = event.data
+      getTransport().bpm.value = parseInt(bpm)
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'convert-time-to-seconds'
+    ) {
+      const { buffer } = event.data
+      const syncArray = new Int32Array(buffer, 0, 1)
+      const dataArray = new Float32Array(buffer, 4)
+      const { time } = event.data
+      dataArray[0] = getTransport().toSeconds(time)
       syncArray[0] = 1
       Atomics.notify(syncArray, 0)
     }

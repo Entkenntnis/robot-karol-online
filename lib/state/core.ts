@@ -11,16 +11,11 @@ import {
 import { produce, Draft } from 'immer'
 import { EditorView } from '@codemirror/view'
 
-import {
-  CoreRefs,
-  CoreState,
-  PyodideWorker,
-  WorkspaceState,
-  World,
-} from './types'
+import { CoreRefs, CoreState, PyodideWorker, WorkspaceState } from './types'
 import { createDefaultCoreState } from './create'
 import { deStrings } from '../strings/de'
 import { enStrings } from '../strings/en'
+import { PolySynth } from 'tone'
 
 // set up core within app
 export function useCreateCore() {
@@ -55,6 +50,8 @@ export class Core {
   // these two are managed by react lifecycles and should be always up to date
   blockyResize?: () => void
   view?: MutableRefObject<EditorView | undefined>
+
+  synths: Map<number, PolySynth> = new Map()
 
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,
@@ -100,5 +97,9 @@ export class Core {
     const cleanState = createDefaultCoreState()
     this._coreRef.current.state = cleanState
     this._setCoreState(cleanState)
+    this.synths.forEach((synth) => {
+      synth.dispose()
+    })
+    this.synths.clear()
   }
 }
