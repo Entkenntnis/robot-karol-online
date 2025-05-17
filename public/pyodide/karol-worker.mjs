@@ -294,17 +294,30 @@ import json
 
 _objects = []
 
+_batch_to_tick = False
+_batch_dirty = False
+
 def resetCanvas():
   global _objects
   _objects = []
 
 def _transmit():
+  if _batch_to_tick:
+    global _batch_dirty
+    _batch_dirty = True
+    return
   _set_canvas(json.dumps(list(map(lambda x: x.toJSON(), _objects))))
 
 import time
 _last_tick = 0
 
 def tick(fps = 20):
+  global _batch_to_tick
+  global _batch_dirty
+  _batch_to_tick = True
+  if _batch_dirty:
+    _set_canvas(json.dumps(list(map(lambda x: x.toJSON(), _objects))))
+    _batch_dirty = False
   # wait for the next frame
   global _last_tick
   now = time.time()

@@ -7,15 +7,16 @@ console.log('  > Warning about headers is expected.')
 module.exports = withBundleAnalyzer({
   output: 'export',
   experimental: {
+    // reduce memory usage during build
     webpackBuildWorker: true,
   },
+  // reduce memory usage during build
   webpack: (config, { dev }) => {
     if (config.cache && !dev) {
       config.cache = Object.freeze({
         type: 'memory',
       })
     }
-    // Important: return the modified config
     return config
   },
   // necessary for pyodide to work in a webworker, for dev
