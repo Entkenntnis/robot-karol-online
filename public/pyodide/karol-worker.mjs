@@ -311,13 +311,16 @@ def _transmit():
 import time
 _last_tick = 0
 
-def tick(fps = 20):
+def _flushBatch():
   global _batch_to_tick
   global _batch_dirty
   _batch_to_tick = True
   if _batch_dirty:
     _set_canvas(json.dumps(list(map(lambda x: x.toJSON(), _objects))))
     _batch_dirty = False
+
+def tick(fps = 20):
+  _flushBatch()
   # wait for the next frame
   global _last_tick
   now = time.time()
@@ -427,6 +430,7 @@ def setKarolHeading(heading):
   _setKarolHeading(heading)
 
 def exit():
+  _flushBatch()
   _exit()
 
 class Synth:
