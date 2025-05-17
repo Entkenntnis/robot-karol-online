@@ -401,6 +401,11 @@ class Rectangle:
       'height': self._height,
       'fillColor': self._fill
     }
+  
+  def destroy(self):
+    global _objects
+    _objects.remove(self)
+    _transmit()
 
 def enableManualControl():
   _enableManualControl()
