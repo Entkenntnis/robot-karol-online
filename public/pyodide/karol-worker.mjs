@@ -213,6 +213,8 @@ export function buildInternalRobot() {
 }
 
 const rkoModule = `
+from _rko_internal import _internal_Robot, _set_canvas, _sleep, _exit, _enableManualControl, _getKarolPosition, _getKarolHeading, _setKarolPosition, _setKarolHeading, _createNewSynth, _playSynth, _setBpm, _convertTimeToSeconds
+
 class Robot:
   """Steuere einen Roboter. Wenn bereits ein Roboter vorhanden, dann wird ein neuer Roboter platziert."""
   def schritt(self, n=1):
@@ -282,7 +284,6 @@ class Robot:
     return self._internal_Robot.nichtIstWesten()
 
   def __init__(self):
-    from _rko_internal import _internal_Robot
     self._internal_Robot = _internal_Robot()
 
   def __del__(self):
@@ -290,7 +291,6 @@ class Robot:
     del self._internal_Robot
 
 import json
-from _rko_internal import _set_canvas, _sleep
 
 _objects = []
 
@@ -390,45 +390,106 @@ class Rectangle:
     }
 
 def enableManualControl():
-  from _rko_internal import _enableManualControl
   _enableManualControl()
 
 def getKarolPosition():
-  from _rko_internal import _getKarolPosition
   pos = _getKarolPosition()
   return pos
 
 def getKarolHeading():
-  from _rko_internal import _getKarolHeading
   heading = _getKarolHeading()
   return heading
 
 def setKarolPosition(x, y):
-  from _rko_internal import _setKarolPosition
   _setKarolPosition(x, y)
 
 def setKarolHeading(heading):
   if heading not in ['north', 'east', 'south', 'west']:
     raise ValueError('Invalid heading. Must be one of: north, east, south, west')
-  from _rko_internal import _setKarolHeading
   _setKarolHeading(heading)
 
 def exit():
-  from _rko_internal import _exit
   _exit()
 
 class Synth:
   def __init__(self):
-    from _rko_internal import _createNewSynth
     self._synthId = _createNewSynth()
 
-  def play(self, frequency, duration):
-    from _rko_internal import _playSynth
-    seconds = _playSynth(self._synthId, frequency, duration)
-    _sleep(seconds)
+  def play(self, frequency, duration, immediate=False):
+    _playSynth(self._synthId, frequency, duration)
+
+  def pause(self, duration, immediate=False):
+    _playSynth(self._synthId, 0, duration)
+
+def setBpm(bmp):
+  if not isinstance(bmp, int):
+    raise TypeError('BPM must be an integer')
+  if bmp < 0:
+    raise ValueError('BPM must be greater than 0')
+  _setBpm(bmp)
+
+def convertTimeToSeconds(time):
+  return _convertTimeToSeconds(time)
+
+class Track:
+  def __init__(self):
+    self._notes = []
+    self._startTime = -1
+    self._playBackIndex = -1
+    self._waitUntil = -1
+    self.synth = Synth()
+
+  def add(self, f, t):
+    self._notes.append((f, t))
+
+  def start(self):
+    self._startTime = time.time()
+    self._playBackIndex = -1
+    self._waitUntil = self._startTime
+    self.tick()
+
+  def skip(self, duration):
+    s = convertTimeToSeconds(duration)
+    while s > 0 and self._playBackIndex + 1 < len(self._notes):
+      self._playBackIndex += 1
+      s -= convertTimeToSeconds(self._notes[self._playBackIndex][1])
+    self._waitUntil = time.time() - s
+
+  def tick(self):
+    now = time.time()
+    if now > self._waitUntil:
+      self._playBackIndex += 1
+      if self._playBackIndex >= len(self._notes):
+        return False
+      f, t = self._notes[self._playBackIndex]
+      self.synth.play(f, t)
+      s = convertTimeToSeconds(t)
+      self._waitUntil += s
+    return True
+
+class Song:
+  def __init__(self):
+    self._tracks = []
+
+  def add(self, track):
+    self._tracks.append(track)
+
+  def start(self):
+    for t in self._tracks:
+      t.start()
+
+  def skip(self, duration):
+    for t in self._tracks:
+      t.skip(duration)
+
+  def tick(self):
+    r = False
+    for t in self._tracks:
+      if t.tick():
+        r = True
+    return r
 
 def sleep(s):
-  from _rko_internal import _sleep
   _sleep(s)
 `
 
@@ -542,15 +603,27 @@ self.onmessage = async (event) => {
           return Atomics.load(dataArray, 0)
         },
         _playSynth: (synthId, frequency, duration) => {
+          self.postMessage({
+            type: 'play-synth',
+            id: synthId,
+            frequency: JSON.stringify(frequency),
+            duration,
+          })
+        },
+        _setBpm: (bpm) => {
+          self.postMessage({
+            type: 'set-bpm',
+            bpm,
+          })
+        },
+        _convertTimeToSeconds: (time) => {
           const buffer = new SharedArrayBuffer(8)
           const syncArray = new Int32Array(buffer, 0, 1)
           const dataArray = new Float32Array(buffer, 4)
           syncArray[0] = 42
           self.postMessage({
-            type: 'play-synth',
-            id: synthId,
-            frequency,
-            duration,
+            type: 'convert-time-to-seconds',
+            time,
             buffer,
           })
           Atomics.wait(syncArray, 0, 42)
