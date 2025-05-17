@@ -6,6 +6,18 @@ console.log('  > Warning about headers is expected.')
 
 module.exports = withBundleAnalyzer({
   output: 'export',
+  experimental: {
+    webpackBuildWorker: true,
+  },
+  webpack: (config, { dev }) => {
+    if (config.cache && !dev) {
+      config.cache = Object.freeze({
+        type: 'memory',
+      })
+    }
+    // Important: return the modified config
+    return config
+  },
   // necessary for pyodide to work in a webworker, for dev
   // set proper headers in production
   async headers() {
