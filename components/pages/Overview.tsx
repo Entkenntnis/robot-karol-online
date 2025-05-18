@@ -565,7 +565,7 @@ export function Overview() {
                   !isQuestDone(10001) &&
                   core.ws.page !== 'demo' &&
                   core.ws.page !== 'analyze' && (
-                    <div className="absolute top-[1690px] left-[620px] ">
+                    <div className="absolute top-[1690px] left-[620px] z-10">
                       <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                         <div className="bg-white/50 rounded-lg p-2 w-[560px] shadow-lg">
                           <p>
@@ -576,16 +576,18 @@ export function Overview() {
                             Kontrollstrukturen und mehr kennen!
                           </p>
                           <p className="mt-2">
-                            Das Ganze ist eingebettet in eine kleine Geschichte.
-                            Falls du ein bestimmtes Thema suchst, findest du in
-                            der Liste der Aufgaben eine Übersicht.
-                            <br />
-                            Viel Spaß beim Lernen!
-                          </p>
-                          <p className="mt-2">
-                            🚧 Die ersten Kapitel sind bereits verfügbar, an den
-                            restlichen Kapiteln wird gerade fleißig gearbeitet.
-                            🚧
+                            Fülle diese{' '}
+                            <a
+                              href="https://docs.google.com/forms/d/e/1FAIpQLScLvOw2ZD2_DGeiWPFNXxHR0DjlBHSIxAU5b72su_zPXyoVTg/viewform?usp=preview"
+                              target="_blank"
+                              rel="noreferrer"
+                              className="link text-pink-500 font-bold"
+                            >
+                              Umfrage zum Python-Lernpfad
+                            </a>{' '}
+                            aus und hilf so bei der Gestaltung des Lernpfads
+                            mit! Eine erste Version kann bereits ausprobiert
+                            werden, weitere Inhalte sind in Planung 🚧.
                           </p>
                         </div>
                       </AnimateInView>
@@ -593,14 +595,17 @@ export function Overview() {
                   )}
                 <div className="absolute left-[4px] top-[2150px] z-10">
                   <div className="bg-white/20 rounded-lg p-3 shadow-lg w-[356px]">
-                    <div className="flex items-center mb-4">
+                    <div className="flex items-center">
                       <img
                         src="/python-logo-only.png"
                         alt="Python"
                         className="h-9 mr-2"
                       />
-                      <p className="font-bold mb-1">Python zum Mitmachen</p>
+                      <p className="font-bold mb-1">Beispiel-Projekte</p>
                     </div>
+                    <p className="mb-4 ml-6 text-gray-500">
+                      Das ist möglich mit Python und Karol.
+                    </p>
                     <div className="gap-2 pr-1 flex flex-wrap">
                       {pythonKarolExamples.map((example, index) => (
                         <a
