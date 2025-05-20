@@ -302,6 +302,9 @@ Diese Werke sind nicht ganz fertig geworfen. Sie warten auf eine Person, die sie
 
 ![Unbenannt](https://github.com/user-attachments/assets/bb38c04f-a563-43c0-995b-77e64f148e69)
 
+### Invisible [LADEN](https://karol.arrrg.de/#ROBOT:data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABHCAYAAACAjkwXAAAAAXNSR0IArs4c6QAAAVlJREFUeF7t0sENgEAMA0Ff/0WDqIHH3mPSgKPVnDkFwgIn3DatwACEIC0AYJrfOIAMpAUATPMbB5CBtACAaX7jADKQFgAwzW8cQAbSAgCm+Y0DyEBaAMA0v3EAGUgLAJjmNw4gA2kBANP8xgFkIC0AYJrfOIAMpAUATPMbB5CBtACAaX7jADKQFgAwzW8cQAbSAgCm+Y0DyEBaAMA0v3EAGUgLAJjmNw4gA2kBANP8xgFkIC0AYJrfOIAMpAUATPMbB5CBtACAaX7jADKQFgAwzW8cQAbSAgCm+Y0DyEBaAMA0v3EAGUgLAJjmNw4gA2kBANP8xgFkIC0AYJrfOIAMpAUATPMbB5CBtACAaX7jADKQFgAwzW8cQAbSAgCm+Y0DyEBaAMA0v3EAGUgLAJjmNw4gA2kBANP8xgFkIC0AYJrfOIAMpAUATPMb/wA+226G6L9/Tq/u9wLnhARInkOFpAAAAABJRU5ErkJggg==)
+
+![Unbenannt](https://github.com/user-attachments/assets/931eaba5-c734-481d-be1c-50870c839bc1)
 
 
 
