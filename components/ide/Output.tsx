@@ -308,10 +308,10 @@ export function Output() {
         <PythonConsole />
       </div>
       {core.ws.canvas.manualControl && core.ws.ui.state == 'running' && (
-        <div className="absolute bottom-6 right-2 bg-gray-200/60 rounded-lg flex flex-col items-center shadow-lg select-none w-[130px] h-[120px] justify-between">
+        <div className="absolute bottom-6 right-2 bg-gray-200/30 rounded-[50px] flex flex-col items-center select-none w-[130px] h-[120px] justify-between">
           <div className="flex justify-center h-[30px]">
             <button
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all mt-1"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all mt-1"
               onClick={() => {
                 runAction('ArrowUp')
               }}
@@ -322,7 +322,7 @@ export function Output() {
           </div>
           <div className="flex flex-row justify-center items-center mt-2">
             <button
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all mr-2"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all mr-2"
               onClick={() => {
                 runAction('ArrowLeft')
               }}
@@ -332,7 +332,7 @@ export function Output() {
             </button>
             <div style={{ width: '20px' }}></div>
             <button
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all ml-2"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all ml-2"
               onClick={() => {
                 runAction('ArrowRight')
               }}
@@ -343,7 +343,7 @@ export function Output() {
           </div>
           <div className="flex justify-center -mt-1 mb-1">
             <button
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all"
               onClick={() => {
                 runAction('ArrowDown')
               }}
