@@ -45,6 +45,7 @@ export async function hydrateFromHash(core: Core) {
   submitAnalyzeEvent(core, 'ev_show_hash_' + page.slice(0, 100))
 
   // PHASE 0: reset
+  const previousWs = core.ws
   core.reset()
 
   // PHASE 1: common
@@ -63,6 +64,12 @@ export async function hydrateFromHash(core: Core) {
     ws.overview.learningPathScroll = getLearningPathScroll()
     ws.quest.lockToKarolCode = getLockToKarolCode()
   })
+
+  if (previousWs.ui.tourModePage == 4) {
+    core.mutateWs((ws) => {
+      ws.ui.tourModePage = 4
+    })
+  }
 
   // PHASE 2: hydrate page
   if (page == '') {

@@ -1,4 +1,5 @@
 import { setExecutionMarker } from '../codemirror/basicSetup'
+import { mapData } from '../data/map'
 import { questData } from '../data/quests'
 import { questDataEn } from '../data/questsEn'
 import { isQuestDone } from '../helper/session'
@@ -15,6 +16,7 @@ import {
   setPreferredQuestSettings,
   setQuestData,
 } from '../storage/storage'
+import { submitAnalyzeEvent } from './analyze'
 import { closeModal, showModal } from './modal'
 import { runPythonCode } from './python'
 import { navigate } from './router'
@@ -388,13 +390,17 @@ export function finishQuest(core: Core, stay: boolean = false) {
     return
   }
 
-  /*if (!getQuestData(core.ws.quest.id)) {
-    submitSolution(
-      core,
-      core.ws.quest.id,
-      (core.ws.settings.mode == 'code' ? '//code-tab\n' : '') + core.ws.code
-    )
-  }*/
+  const numberOfSolvedQuests = Object.keys(mapData).filter(
+    (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id))
+  ).length
+
+  if (numberOfSolvedQuests == 6) {
+    submitAnalyzeEvent(core, 'ev_quest_showTour4')
+    core.mutateWs((ws) => {
+      ws.ui.tourModePage = 4
+    })
+  }
+
   storeQuestToSession(core)
   setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
   submit_event(`quest_complete_${core.ws.quest.id}`, core)
