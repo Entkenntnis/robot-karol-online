@@ -61,6 +61,35 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.refreshPage()
   I.dontSee('Fortschritt speichern')
   I.see('Spiegelei')
+
+  I.click('Treppe')
+  I.wait(1)
+  I.click('div .fixed')
+  I.click('div .cm-activeLine')
+  I.type('Hinlegen Schritt Hinlegen(2) Schritt Hinlegen(3)')
+  I.click('Start')
+  I.waitForText('weiter', 10)
+  I.click('weiter')
+
+  I.click('Spiegelei')
+  I.wait(1)
+  I.click('div .fixed')
+  I.click('div .cm-activeLine')
+  I.type('Schritt RechtsDrehen Schritt MarkeSetzen')
+  I.click('Start')
+  I.waitForText('weiter', 10)
+  I.click('weiter')
+
+  I.click('Parkour')
+  I.wait(1)
+  I.click('div .fixed')
+  I.click('div .cm-activeLine')
+  I.type('wiederhole 3 mal Hinlegen Schritt endewiederhole')
+  I.click('Start')
+  I.waitForText('weiter', 10)
+  I.click('weiter')
+
+  I.see('Tellerrand')
 })
 
 Scenario('See if playground works fine', ({ I }) => {
