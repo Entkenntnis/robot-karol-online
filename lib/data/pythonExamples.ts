@@ -6,7 +6,6 @@ export const pythonKarolExamples = [
     link: '#VKD7',
   },
   { title: 'Sprechen mit Karol', link: '#FFSM' },
-  { title: 'Dance, Dance', link: '#JDPS' },
   {
     title: 'Composition',
     link: '#ACAR',
@@ -24,6 +23,7 @@ export const pythonKarolExamples = [
   { title: 'Fraktal', link: '#GNTB' },
   { title: 'BetterRobot Klasse', link: '#GCPB' },
   { title: 'Himmel und Hölle', link: '#5THY' },
+  { title: '💃 Dance, Dance', link: '#JDPS' },
 ]
 
 export function getExampleId(title: string) {
