@@ -452,9 +452,7 @@ export function Overview() {
                     </button>
                   </AnimateInView>
                 </div>
-                {(numberOfSolvedQuests >= 5 ||
-                  core.ws.page == 'analyze' ||
-                  core.ws.page == 'demo') && (
+                {false && (
                   <a
                     href="/#KAROLMANIA"
                     className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
