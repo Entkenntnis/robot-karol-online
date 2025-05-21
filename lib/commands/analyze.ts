@@ -98,6 +98,7 @@ export async function analyze(core: Core) {
       'ev_click_landing_explanation_chapter_',
       'ev_click_explanation_continue_',
       'ev_click__landing_pythonExample_',
+      'ev_click_ide_pythonExampleStart_',
     ]
 
     for (const prefix of eventPrefixes) {
@@ -367,22 +368,21 @@ export async function analyze(core: Core) {
           continue
         }
 
-        const rating = /^rate_quest_([\d]+)_(.+)/.exec(entry.event)
-
-        if (rating) {
-          const id = parseInt(rating[1])
-          const value = parseInt(rating[2])
-
-          const entry = (ws.analyze.ratings[id] = ws.analyze.ratings[id] ?? {
-            average: 0,
-            count: 0,
-            values: [],
-          })
-          const previousSum = entry.average * entry.count
-          entry.average =
-            (entry.average * entry.count + value) / (entry.count + 1)
-          entry.count++
-          entry.values.push(value)
+        // New: pythonExampleLevenshtein event parsing
+        const pythonExampleLevenshtein =
+          /^ev_click_ide_pythonExampleStart_(\d+)_(.*)$/i.exec(entry.event)
+        if (pythonExampleLevenshtein) {
+          const distance = parseInt(pythonExampleLevenshtein[1])
+          const name = pythonExampleLevenshtein[2]
+          if (!ws.analyze.pythonExampleLevenshtein[name]) {
+            ws.analyze.pythonExampleLevenshtein[name] = {
+              distances: [],
+              count: 0,
+            }
+          }
+          ws.analyze.pythonExampleLevenshtein[name].distances.push(distance)
+          ws.analyze.pythonExampleLevenshtein[name].count++
+          continue
         }
       }
     }

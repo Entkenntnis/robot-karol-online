@@ -328,6 +328,12 @@ export interface Analyze {
   pythonKarol: {
     [key: string]: { count: number }
   }
+  pythonExampleLevenshtein: {
+    [name: string]: {
+      distances: number[]
+      count: number
+    }
+  }
 }
 
 export interface CoreState {

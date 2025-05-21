@@ -9,6 +9,11 @@ const App = dynamic(() => import('../components/App').then((mod) => mod.App), {
   loading: () => <LoadingScreen />,
 })
 
+if (typeof window !== 'undefined') {
+  // @ts-ignore
+  window.TONE_SILENCE_LOGGING = true
+}
+
 // Monkey patching console.warn to suppress specific warnings
 ;(function () {
   const originalWarn = console.warn
