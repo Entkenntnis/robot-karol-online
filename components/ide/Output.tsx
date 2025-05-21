@@ -4,6 +4,7 @@ import {
   faCaretUp,
   faCheck,
   faComment,
+  faDownLong,
   faLeftLong,
   faRightLong,
   faTrashCan,
@@ -51,16 +52,6 @@ export function Output() {
     },
     ArrowDown: () => {
       return forward(core, { reverse: true })
-    },
-    KeyM: () => {
-      toggleMark(core)
-      return true
-    },
-    KeyH: () => {
-      return brick(core)
-    },
-    KeyA: () => {
-      return unbrick(core)
     },
   }
 
@@ -317,61 +308,51 @@ export function Output() {
         <PythonConsole />
       </div>
       {core.ws.canvas.manualControl && core.ws.ui.state == 'running' && (
-        <div className="absolute bottom-10 bg-gray-200/20 rounded right-2">
-          <button
-            className="mx-3 py-2 enabled:hover:text-black text-gray-700 disabled:text-gray-300"
-            onClick={() => {
-              runAction('ArrowLeft')
-            }}
-            title="LinksDrehen"
-          >
-            <FaIcon icon={faLeftLong} />
-          </button>
-          <button
-            className="px-2 enabled:hover:text-black text-gray-700 disabled:text-gray-300"
-            onClick={() => {
-              runAction('ArrowUp')
-            }}
-            title="Schritt"
-          >
-            <FaIcon icon={faUpLong} />
-          </button>
-          <button
-            className="mx-3 py-2 enabled:hover:text-black text-gray-700 disabled:text-gray-300"
-            onClick={() => {
-              runAction('ArrowRight')
-            }}
-            title="RechtsDrehen"
-          >
-            <FaIcon icon={faRightLong} />
-          </button>
-          <button
-            className="mx-2 hover:enabled:text-black text-gray-700 disabled:text-gray-300"
-            onClick={() => {
-              runAction('KeyH')
-            }}
-            title="Hinlegen"
-          >
-            <u>H</u>inlegen
-          </button>
-          <button
-            className="mx-2 hover:enabled:text-black text-gray-700 disabled:text-gray-300"
-            onClick={() => {
-              runAction('KeyA')
-            }}
-            title="Aufheben"
-          >
-            <u>A</u>ufheben
-          </button>
-          <button
-            className="mx-2 hover:enabled:text-black text-gray-700 disabled:text-gray-300"
-            onClick={() => {
-              runAction('KeyM')
-            }}
-            title="MarkeSetzen / MarkeLöschen"
-          >
-            <u>M</u>arke setzen/löschen
-          </button>
+        <div className="absolute bottom-6 right-2 bg-gray-200/60 rounded-lg flex flex-col items-center shadow-lg select-none w-[130px] h-[120px] justify-between">
+          <div className="flex justify-center h-[30px]">
+            <button
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all mt-1"
+              onClick={() => {
+                runAction('ArrowUp')
+              }}
+              title="Schritt"
+            >
+              <FaIcon icon={faUpLong} />
+            </button>
+          </div>
+          <div className="flex flex-row justify-center items-center mt-2">
+            <button
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all mr-2"
+              onClick={() => {
+                runAction('ArrowLeft')
+              }}
+              title="LinksDrehen"
+            >
+              <FaIcon icon={faLeftLong} />
+            </button>
+            <div style={{ width: '20px' }}></div>
+            <button
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all ml-2"
+              onClick={() => {
+                runAction('ArrowRight')
+              }}
+              title="RechtsDrehen"
+            >
+              <FaIcon icon={faRightLong} />
+            </button>
+          </div>
+          <div className="flex justify-center -mt-1 mb-1">
+            <button
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all"
+              onClick={() => {
+                runAction('ArrowDown')
+              }}
+              title="Zurück"
+              style={{ marginTop: 0 }}
+            >
+              <FaIcon icon={faDownLong} />
+            </button>
+          </div>
         </div>
       )}
       {core.ws.quest.lastStartedTask !== undefined && (
