@@ -66,7 +66,8 @@ export function View2D({ world, preview, className, canvas }: View2DProps) {
           backgroundColor = 'rgba(255, 0, 0, 0.2)'
         }
         ctx.fillStyle = backgroundColor
-        ctx.fillRect(cellX, cellY, cellSize, cellSize)
+        const diff = backgroundColor == 'yellow' ? 1.5 : 1
+        ctx.fillRect(cellX + 1, cellY + 1, cellSize - diff, cellSize - diff)
 
         // Falls in der Vorschau an dieser Stelle eine Marke hinzugefügt werden soll,
         // aber aktuell noch keine Marke vorliegt, zeichne als Platzhalter ein großes "X"
