@@ -89,7 +89,7 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.waitForText('weiter', 10)
   I.click('weiter')
 
-  I.see('Tellerrand')
+  I.see('Dance, Dance')
 })
 
 Scenario('See if playground works fine', ({ I }) => {
