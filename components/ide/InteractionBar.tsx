@@ -2,6 +2,7 @@ import {
   faArrowLeft,
   faArrowUp,
   faBars,
+  faHome,
   faPause,
   faPlay,
   faSpinner,
@@ -62,6 +63,18 @@ export function InteractionBar() {
       )}
     >
       <div className="whitespace-nowrap">
+        <button
+          className="whitespace-nowrap px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
+          onClick={() => {
+            submitAnalyzeEvent(core, 'ev_click_ide_menu')
+            core.mutateWs(({ ui }) => {
+              ui.showFlyoutMenu = true
+            })
+          }}
+        >
+          <FaIcon icon={faBars} className="sm:mr-2" />
+          <span className="hidden sm:inline"> {core.strings.ide.menu}</span>
+        </button>
         {(core.ws.page == 'quest' ||
           core.ws.ui.isPlayground ||
           pythonKarolExamples.some(
@@ -69,7 +82,7 @@ export function InteractionBar() {
           ) ||
           core.ws.page == 'editor') && (
           <button
-            className="px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 mr-2 hidden sm:inline-block"
+            className="px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 ml-2 hidden sm:inline-block"
             id="ide-back-button"
             onClick={() => {
               if (core.ws.page == 'quest') {
@@ -85,21 +98,9 @@ export function InteractionBar() {
               }
             }}
           >
-            <FaIcon icon={faArrowLeft} />
+            <FaIcon icon={faHome} className="text-fuchsia-900" />
           </button>
         )}
-        <button
-          className="whitespace-nowrap px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
-          onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_ide_menu')
-            core.mutateWs(({ ui }) => {
-              ui.showFlyoutMenu = true
-            })
-          }}
-        >
-          <FaIcon icon={faBars} className="sm:mr-2" />
-          <span className="hidden sm:inline"> {core.strings.ide.menu}</span>
-        </button>
       </div>
       {core.ws.ui.lockLanguage ? (
         <div className="whitespace-nowrap font-semibold text-gray-600 select-none border-[#770088] px-2 py-0.5 border rounded-lg">

@@ -452,12 +452,19 @@ export function Overview() {
                     </button>
                   </AnimateInView>
                 </div>
-                {false && (
+                {(numberOfSolvedQuests >= 5 ||
+                  core.ws.page == 'analyze' ||
+                  core.ws.page == 'demo') && (
                   <a
-                    href="/#KAROLMANIA"
+                    href={
+                      '/' +
+                      pythonKarolExamples.find(
+                        (el) => el.title == 'Dance, Dance'
+                      )?.link
+                    }
                     className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
                     onClick={(e) => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_karolmania')
+                      submitAnalyzeEvent(core, 'ev_click_landing_dancedance')
                       setQuestReturnToMode(
                         core.ws.page == 'demo' ? 'demo' : 'path'
                       )
@@ -465,14 +472,20 @@ export function Overview() {
                         document.getElementById('scroll-container')
                           ?.scrollTop ?? -1
                       )
-                      navigate(core, '#KAROLMANIA')
+                      navigate(
+                        core,
+                        pythonKarolExamples.find(
+                          (el) => el.title == 'Dance, Dance'
+                        )?.link ?? ''
+                      )
                       e.preventDefault()
                     }}
                   >
-                    <p className="text-center">Karolmania</p>
-                    <FaIcon
-                      icon={faMedal}
-                      className="text-4xl text-teal-800 inline-block mt-2 pb-2"
+                    <p className="text-center">Dance, Dance</p>
+                    <img
+                      src="/dance.png"
+                      alt=""
+                      className="w-[50px] mx-auto mt-2"
                     />
                   </a>
                 )}
@@ -635,55 +648,54 @@ export function Overview() {
                       />
                       <p className="font-bold mb-1">Beispiel-Projekte</p>
                     </div>
-                    <p className="mb-4 ml-6 text-gray-500">
-                      Das ist möglich mit Python und Karol.
-                    </p>
                     <div className="gap-2 pr-1 flex flex-wrap">
-                      {pythonKarolExamples.map((example, index) => (
-                        <a
-                          href={`/${example.link}`}
-                          key={index}
-                          className="bg-white/30 hover:bg-white/60 p-2.5 rounded-md transition-all hover:shadow-md w-[160px] block cursor-pointer"
-                          onClick={(e) => {
-                            submitAnalyzeEvent(
-                              core,
-                              `ev_click__landing_pythonExample_${getExampleId(
-                                example.title
-                              )}`
-                            )
-                            if (core.ws.ui.tourModePage == 4) {
-                              core.mutateWs((ws) => {
-                                ws.ui.tourModePage = undefined
-                              })
-                            }
-                            setQuestReturnToMode(
-                              core.ws.page == 'demo' ? 'demo' : 'path'
-                            )
-                            setLearningPathScroll(
-                              document.getElementById('scroll-container')
-                                ?.scrollTop ?? -1
-                            )
-                            e.preventDefault()
-                            navigate(core, example.link)
-                          }}
-                        >
-                          <span className="font-medium text-left">
-                            {example.title}
-                            {core.ws.page == 'analyze' && (
-                              <span>
-                                {' '}
-                                [
-                                {
-                                  core.ws.analyze.pythonKarol[
-                                    getExampleId(example.title)
-                                  ]?.count
-                                }
-                                ]
-                              </span>
-                            )}
-                          </span>
-                        </a>
-                      ))}
+                      {pythonKarolExamples
+                        .filter((e) => !e.hidden)
+                        .map((example, index) => (
+                          <a
+                            href={`/${example.link}`}
+                            key={index}
+                            className="bg-white/30 hover:bg-white/60 p-2.5 rounded-md transition-all hover:shadow-md w-[160px] block cursor-pointer"
+                            onClick={(e) => {
+                              submitAnalyzeEvent(
+                                core,
+                                `ev_click__landing_pythonExample_${getExampleId(
+                                  example.title
+                                )}`
+                              )
+                              if (core.ws.ui.tourModePage == 4) {
+                                core.mutateWs((ws) => {
+                                  ws.ui.tourModePage = undefined
+                                })
+                              }
+                              setQuestReturnToMode(
+                                core.ws.page == 'demo' ? 'demo' : 'path'
+                              )
+                              setLearningPathScroll(
+                                document.getElementById('scroll-container')
+                                  ?.scrollTop ?? -1
+                              )
+                              e.preventDefault()
+                              navigate(core, example.link)
+                            }}
+                          >
+                            <span className="font-medium text-left">
+                              {example.title}
+                              {core.ws.page == 'analyze' && (
+                                <span>
+                                  {' '}
+                                  [
+                                  {
+                                    core.ws.analyze.pythonKarol[
+                                      getExampleId(example.title)
+                                    ]?.count
+                                  }
+                                  ]
+                                </span>
+                              )}
+                            </span>
+                          </a>
+                        ))}
                     </div>
                   </div>
                 </div>
