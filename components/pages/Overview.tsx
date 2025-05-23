@@ -702,6 +702,12 @@ export function Overview() {
                         className="link"
                         href="https://github.com/Entkenntnis/robot-karol-online/blob/main/RKO-MODULE.md"
                         target="_blank"
+                        onClick={() => {
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_click_landing_moduleDocs'
+                          )
+                        }}
                       >
                         Modul-Dokumentation{' '}
                         <FaIcon
