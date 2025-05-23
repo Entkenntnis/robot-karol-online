@@ -697,6 +697,19 @@ export function Overview() {
                           </a>
                         ))}
                     </div>
+                    <p className="mt-4 text-sm ml-2">
+                      <a
+                        className="link"
+                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/RKO-MODULE.md"
+                        target="_blank"
+                      >
+                        Modul-Dokumentation{' '}
+                        <FaIcon
+                          icon={faExternalLink}
+                          className="text-xs text-gray-700"
+                        />
+                      </a>
+                    </p>
                   </div>
                 </div>
                 <div

@@ -83,4 +83,171 @@ while time.time() - start_time < 3:
     rechteck.move(1, 0)  # Bewege das Rechteck nach rechts
 ```
 
-Glitch-Art Demo: https://karol.arrrg.de/#G9JX
+## Audio und Musik
+
+### `rko.Synth`
+
+Die `Synth` Klasse ermöglicht das Abspielen von Tönen und Melodien.
+
+#### Konstruktor
+
+```python
+Synth()
+```
+
+Erstellt einen neuen Synthesizer.
+
+#### Methoden
+
+##### `play(frequency, duration, immediate=False)`
+
+Spielt einen Ton mit der angegebenen Frequenz und Dauer.
+
+| Parameter | Typ     | Beschreibung                       |
+| --------- | ------- | ---------------------------------- |
+| frequency | Zahl    | Die Frequenz des Tons in Hertz     |
+| duration  | Zahl    | Die Dauer des Tons in Sekunden     |
+| immediate | Boolean | Sofort abspielen (Standard: False) |
+
+##### `pause(duration, immediate=False)`
+
+Fügt eine Pause ein.
+
+| Parameter | Typ     | Beschreibung                       |
+| --------- | ------- | ---------------------------------- |
+| duration  | Zahl    | Die Dauer der Pause in Sekunden    |
+| immediate | Boolean | Sofort pausieren (Standard: False) |
+
+### `rko.Track`
+
+Die `Track` Klasse ermöglicht das Erstellen von Musikspuren.
+
+#### Konstruktor
+
+```python
+Track()
+```
+
+Erstellt eine neue Musikspur.
+
+#### Methoden
+
+##### `add(frequency, time)`
+
+Fügt einen Ton zur Spur hinzu.
+
+| Parameter | Typ  | Beschreibung                   |
+| --------- | ---- | ------------------------------ |
+| frequency | Zahl | Die Frequenz des Tons in Hertz |
+| time      | Zahl | Die Zeit des Tons in Sekunden  |
+
+##### `start()`
+
+Startet die Wiedergabe der Spur.
+
+##### `skip(duration)`
+
+Überspringt einen Teil der Spur.
+
+| Parameter | Typ  | Beschreibung                           |
+| --------- | ---- | -------------------------------------- |
+| duration  | Zahl | Die zu überspringende Zeit in Sekunden |
+
+##### `tick()`
+
+Aktualisiert die Wiedergabe der Spur.
+
+### `rko.Song`
+
+Die `Song` Klasse ermöglicht das Kombinieren mehrerer Musikspuren.
+
+#### Konstruktor
+
+```python
+Song()
+```
+
+Erstellt einen neuen Song.
+
+#### Methoden
+
+##### `add(track)`
+
+Fügt eine Spur zum Song hinzu.
+
+| Parameter | Typ       | Beschreibung            |
+| --------- | --------- | ----------------------- |
+| track     | rko.Track | Die hinzuzufügende Spur |
+
+##### `start()`
+
+Startet die Wiedergabe des Songs.
+
+##### `skip(duration)`
+
+Überspringt einen Teil des Songs.
+
+| Parameter | Typ  | Beschreibung                           |
+| --------- | ---- | -------------------------------------- |
+| duration  | Zahl | Die zu überspringende Zeit in Sekunden |
+
+##### `tick()`
+
+Aktualisiert die Wiedergabe des Songs.
+
+### `rko.setBpm(bpm)`
+
+Setzt das Tempo für die Musikwiedergabe.
+
+| Parameter | Typ  | Beschreibung                  |
+| --------- | ---- | ----------------------------- |
+| bpm       | Zahl | Das Tempo in Beats pro Minute |
+
+## Roboter-Steuerung
+
+### `rko.enableManualControl()`
+
+Aktiviert die manuelle Steuerung des Roboters.
+
+### `rko.getKarolPosition()`
+
+Gibt die aktuelle Position des Roboters zurück.
+
+Rückgabewert: Ein Array mit [x, y] Koordinaten.
+
+### `rko.getKarolHeading()`
+
+Gibt die aktuelle Blickrichtung des Roboters zurück.
+
+Rückgabewert: Ein String ('north', 'east', 'south', oder 'west').
+
+### `rko.setKarolPosition(x, y)`
+
+Setzt die Position des Roboters.
+
+| Parameter | Typ  | Beschreibung     |
+| --------- | ---- | ---------------- |
+| x         | Zahl | Die X-Koordinate |
+| y         | Zahl | Die Y-Koordinate |
+
+### `rko.setKarolHeading(heading)`
+
+Setzt die Blickrichtung des Roboters.
+
+| Parameter | Typ    | Beschreibung                                    |
+| --------- | ------ | ----------------------------------------------- |
+| heading   | String | Die Richtung ('north', 'east', 'south', 'west') |
+
+## Sonstiges
+
+### `rko.exit()`
+
+Beendet das Programm.
+
+### `rko.sleep(seconds)`
+
+Pausiert die Ausführung für die angegebene Zeit.
+
+| Parameter | Typ  | Beschreibung                |
+| --------- | ---- | --------------------------- |
+| seconds   | Zahl | Die Pausendauer in Sekunden |
