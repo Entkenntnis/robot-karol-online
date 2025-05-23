@@ -351,7 +351,22 @@ export function Tasks() {
           ) : core.ws.page == 'quest' ? null : core.ws.page == 'shared' ||
             core.ws.page == 'imported' ? (
             <p className="z-10 w-full ml-3 overflow">
-              {core.ws.ui.isPlayground ? null : (
+              {core.ws.ui.isPlayground ? (
+                <button
+                  className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 rounded"
+                  onClick={() => {
+                    showModal(core, 'share')
+
+                    // for debugging
+                    //const obj = serializeQuest(core)
+                    //const json = JSON.stringify(obj)
+                    // console.log('output size', json.length, json)
+                  }}
+                >
+                  <FaIcon icon={faShareNodes} className="mr-2" />
+                  Spielwiese freigeben
+                </button>
+              ) : (
                 <a
                   href="/#"
                   onClick={(e) => {

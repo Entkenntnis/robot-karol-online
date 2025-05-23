@@ -11,6 +11,7 @@ import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { replaceWithJSX } from '../../lib/helper/replaceWithJSX'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import clsx from 'clsx'
 
 export function ShareModal() {
   const core = useCore()
@@ -38,7 +39,14 @@ export function ShareModal() {
         </h1>
         <p className="m-3 -mt-6">
           {replaceWithJSX(
-            [core.strings.editor.shareDescription],
+            [
+              core.ws.ui.isPlayground
+                ? core.strings.editor.shareDescription.replace(
+                    /Aufgabe/g,
+                    'Spielwiese'
+                  )
+                : core.strings.editor.shareDescription,
+            ],
             /(\{\{CC0\}\})/,
             () => (
               <a
@@ -96,7 +104,10 @@ export function ShareModal() {
             </button>
             <span>
               <button
-                className="mr-3 text-sm text-gray-700 underline"
+                className={clsx(
+                  core.ws.ui.isPlayground && 'invisible',
+                  'mr-3 text-sm text-gray-700 underline'
+                )}
                 onClick={() => {
                   submitAnalyzeEvent(core, 'ev_click_editor_downloadJson')
                   // offer download
