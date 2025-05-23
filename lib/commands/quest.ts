@@ -390,7 +390,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
     return
   }
 
-  const numberOfSolvedQuests = Object.keys(mapData).filter(
+  /*const numberOfSolvedQuests = Object.keys(mapData).filter(
     (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id))
   ).length
 
@@ -399,7 +399,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
     core.mutateWs((ws) => {
       ws.ui.tourModePage = 4
     })
-  }
+  }*/
 
   storeQuestToSession(core)
   setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
