@@ -613,7 +613,7 @@ export function setupWorker(core: Core) {
     core.mutateWs((ws) => {
       ws.__activeRobot = 0
     })
-    core.mutateWs(({ ui, vm }) => {
+    core.mutateWs(({ ui, vm, canvas }) => {
       ui.state = 'running'
       ui.showJavaInfo = false
       ui.isManualAbort = false
@@ -625,6 +625,8 @@ export function setupWorker(core: Core) {
       ui.inputPrompt = undefined
       ui.errorMessages = []
       ui.keybindings = []
+      canvas.manualControl = false
+      canvas.objects = []
     })
 
     core.worker.mainWorker.postMessage({
@@ -676,6 +678,7 @@ export function setupWorker(core: Core) {
       ui.keybindings = []
       ui.questPrompt = undefined
       vm.isDebugging = false
+      canvas.manualControl = false
     })
     core.worker.isFresh = true
   }

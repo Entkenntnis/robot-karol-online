@@ -29,6 +29,7 @@ export function PyodideWorker() {
         const binding = ui.keybindings.find((el) => el.key === event.key)
         if (binding) {
           binding.pressed = false
+          event.preventDefault()
         }
       })
     }
@@ -38,6 +39,7 @@ export function PyodideWorker() {
         const binding = ui.keybindings.find((el) => el.key === event.key)
         if (binding) {
           binding.pressed = true
+          event.preventDefault()
         }
       })
     }

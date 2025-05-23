@@ -257,13 +257,16 @@ export function Output() {
             <div className="flex gap-4 mt-2">
               {core.ws.ui.keybindings.map((el, i) => {
                 return (
-                  <div
+                  <button
                     key={i}
                     className={clsx(
-                      'px-5 py-3 border-2 cursor-pointer select-none hover:bg-lime-50 rounded-lg active:bg-lime-200 active:scale-95 transition-all',
+                      'px-5 py-3 border-2 cursor-pointer select-none rounded-lg transition-all',
                       el.pressed && 'bg-lime-200'
                     )}
                     title={el.title}
+                    onContextMenu={(e) => {
+                      e.preventDefault()
+                    }}
                     onPointerDown={(e) => {
                       // set pressed to true
                       core.mutateWs((ws) => {
@@ -272,6 +275,7 @@ export function Output() {
                         )
                         if (binding) {
                           binding.pressed = true
+                          e.preventDefault()
                         }
                       })
                     }}
@@ -283,6 +287,7 @@ export function Output() {
                         )
                         if (binding) {
                           binding.pressed = false
+                          e.preventDefault()
                         }
                       })
                     }}
@@ -299,7 +304,7 @@ export function Output() {
                     }}
                   >
                     {el.key}
-                  </div>
+                  </button>
                 )
               })}
             </div>
@@ -315,6 +320,9 @@ export function Output() {
               onClick={() => {
                 runAction('ArrowUp')
               }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+              }}
               title="Schritt"
             >
               <FaIcon icon={faUpLong} />
@@ -326,6 +334,9 @@ export function Output() {
               onClick={() => {
                 runAction('ArrowLeft')
               }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+              }}
               title="LinksDrehen"
             >
               <FaIcon icon={faLeftLong} />
@@ -335,6 +346,9 @@ export function Output() {
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all ml-2"
               onClick={() => {
                 runAction('ArrowRight')
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault()
               }}
               title="RechtsDrehen"
             >
@@ -346,6 +360,9 @@ export function Output() {
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all"
               onClick={() => {
                 runAction('ArrowDown')
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault()
               }}
               title="Zurück"
               style={{ marginTop: 0 }}

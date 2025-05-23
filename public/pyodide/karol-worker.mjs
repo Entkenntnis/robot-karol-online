@@ -214,6 +214,7 @@ export function buildInternalRobot() {
 
 const rkoModule = `
 from _rko_internal import _internal_Robot, _set_canvas, _sleep, _exit, _enableManualControl, _getKarolPosition, _getKarolHeading, _setKarolPosition, _setKarolHeading, _createNewSynth, _playSynth, _setBpm, _convertTimeToSeconds
+from RobotKarolOnline import tasteRegistrieren, tasteGedrückt
 
 class Robot:
   """Steuere einen Roboter. Wenn bereits ein Roboter vorhanden, dann wird ein neuer Roboter platziert."""
@@ -513,6 +514,31 @@ class Song:
 
 def sleep(s):
   _sleep(s)
+
+_arrowKeysEnabled = False
+def enableArrowKeys():
+  global _arrowKeysEnabled
+  if _arrowKeysEnabled:
+    return
+  _arrowKeysEnabled = True
+  tasteRegistrieren('ArrowLeft', '')
+  tasteRegistrieren('ArrowDown', '')
+  tasteRegistrieren('ArrowUp', '')
+  tasteRegistrieren('ArrowRight', '')
+
+def isPressed(key):
+  if not _arrowKeysEnabled:
+    raise RuntimeError('Arrow keys are not enabled. Call enableArrowKeys() first.')
+  if key == 'up':
+    return tasteGedrückt('ArrowUp')
+  elif key == 'down':
+    return tasteGedrückt('ArrowDown')
+  elif key == 'left':
+    return tasteGedrückt('ArrowLeft')
+  elif key == 'right':
+    return tasteGedrückt('ArrowRight')
+  else:
+    raise ValueError(f'Invalid key: {key}')
 `
 
 self.onmessage = async (event) => {
