@@ -124,6 +124,7 @@ export function closeOutput(core: Core) {
     ws.quest.progress = false
     ws.ui.messages = []
     ws.canvas.objects = []
+    ws.canvas.manualControl = false
   })
 }
 
@@ -149,6 +150,7 @@ export function resetOutput(core: Core) {
       ws.ui.karolCrashMessage = undefined
       ws.ui.gutter = 0
       ws.canvas.objects = []
+      ws.canvas.manualControl = false
     })
     setExecutionMarker(core, 0)
   }
