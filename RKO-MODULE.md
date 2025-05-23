@@ -28,6 +28,14 @@ Erstellt ein neues Rechteck an der angegebenen Position.
 | height    | Zahl   | Die Höhe des Rechtecks                                  |
 | fill      | String | Die Füllfarbe des Rechtecks (Standard: "rebeccapurple") |
 
+### Eigenschaften
+
+| Name | Typ    | Beschreibung                                      |
+| ---- | ------ | ------------------------------------------------- |
+| x    | Zahl   | Die X-Koordinate (lesbar und schreibbar)          |
+| y    | Zahl   | Die Y-Koordinate (lesbar und schreibbar)          |
+| fill | String | Die Füllfarbe (lesbar und schreibbar)            |
+
 ### Methoden
 
 #### `move(dx, dy)`
@@ -38,6 +46,10 @@ Bewegt das Rechteck um die angegebenen Abstände.
 | --------- | ---- | ---------------------------- |
 | dx        | Zahl | Die horizontale Verschiebung |
 | dy        | Zahl | Die vertikale Verschiebung   |
+
+#### `destroy()`
+
+Entfernt das Rechteck von der Zeichenfläche.
 
 ### Beispiel
 
@@ -92,7 +104,7 @@ Die `Synth` Klasse ermöglicht das Abspielen von Tönen und Melodien.
 #### Konstruktor
 
 ```python
-Synth()
+rko.Synth()
 ```
 
 Erstellt einen neuen Synthesizer.
@@ -138,8 +150,8 @@ Fügt einen Ton zur Spur hinzu.
 
 | Parameter | Typ  | Beschreibung                   |
 | --------- | ---- | ------------------------------ |
-| frequency | Zahl | Die Frequenz des Tons in Hertz |
-| time      | Zahl | Die Zeit des Tons in Sekunden  |
+| frequency | Zahl oder String oder Array | Die Frequenz des Tons in Hertz, oder ein Notenname (z.B. 'C4', 'D#4'), oder ein Array von Noten für Akkorde. Eine 0 bedeutet eine Pause. |
+| time      | String oder Zahl | Die Zeit des Tons als Notenwert ('4n' für Viertelnote, '8n' für Achtelnote, '16n' für Sechzehntelnote, '8t' für Achteltriole, '4n.' für punktierte Viertelnote) oder in Sekunden |
 
 ##### `start()`
 
@@ -183,17 +195,27 @@ Fügt eine Spur zum Song hinzu.
 
 Startet die Wiedergabe des Songs.
 
-##### `skip(duration)`
+##### `skip(time)`
 
 Überspringt einen Teil des Songs.
 
-| Parameter | Typ  | Beschreibung                           |
-| --------- | ---- | -------------------------------------- |
-| duration  | Zahl | Die zu überspringende Zeit in Sekunden |
+| Parameter | Typ          | Beschreibung                                                |
+| --------- | ------------ | ----------------------------------------------------------- |
+| time      | String/Zahl  | Die zu überspringende Zeit als Notenwert (z.B. '4m') oder in Sekunden |
 
 ##### `tick()`
 
 Aktualisiert die Wiedergabe des Songs.
+
+### `rko.convertTimeToSeconds(time)`
+
+Konvertiert eine Zeitangabe in Sekunden.
+
+| Parameter | Typ    | Beschreibung                                              |
+| --------- | ------ | --------------------------------------------------------- |
+| time      | String | Die Zeitangabe (z.B. '4m' für 4 Takte, '8n' für eine Achtelnote) |
+
+Rückgabewert: Die Zeit in Sekunden.
 
 ### `rko.setBpm(bpm)`
 
