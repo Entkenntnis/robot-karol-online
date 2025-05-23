@@ -12,6 +12,7 @@ import {
   faTable,
   faArrowDown,
   faTimes,
+  faPlay,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -638,6 +639,31 @@ export function Overview() {
                     </div>
                   </div>
                 )}
+                <div className="absolute left-[4px] top-[1850px] z-10">
+                  <div className="bg-white/20 w-[250px] rounded-lg p-4 shadow-lg">
+                    <h2 className="text-2xl font-bold mb-4">
+                      Python Crash-Kurs
+                    </h2>
+                    <button className="bg-orange-500 text-white px-4 py-1 rounded hover:bg-orange-600 mb-4">
+                      <FaIcon icon={faPlay} /> Lernen
+                    </button>
+                    <div className="mb-3">
+                      <div className="h-3 w-full bg-gray-300 rounded-full">
+                        <div
+                          className="h-3 bg-green-400 rounded-full"
+                          style={{ width: '0%' }}
+                        ></div>
+                      </div>
+                      <span className="text-xs text-gray-700">
+                        0% abgeschlossen
+                      </span>
+                    </div>
+                    <p className="text-xs">
+                      Themen: Variablen, Operatoren, Vergleiche,
+                      Kontrollstrukturen, Methoden, Klassen, Objekte, Listen
+                    </p>
+                  </div>
+                </div>
                 <div className="absolute left-[4px] top-[2150px] z-10">
                   <div className="bg-white/20 rounded-lg p-3 shadow-lg w-[356px]">
                     <div className="flex items-center">

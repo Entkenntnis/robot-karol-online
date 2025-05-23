@@ -1771,7 +1771,7 @@ const chapterInfo = [
       },
       {
         "filename": "Runen.json",
-        "x": 110,
+        "x": 280,
         "y": 50,
         "id": 120,
         "content": {
@@ -1973,8 +1973,8 @@ const chapterInfo = [
       },
       {
         "filename": "Systemstatus.json",
-        "x": 160,
-        "y": -70,
+        "x": 300,
+        "y": -120,
         "id": 119,
         "content": {
           "version": "v1",
