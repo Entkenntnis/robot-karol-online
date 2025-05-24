@@ -172,6 +172,7 @@ export interface WorkspaceState {
     | 'karolmania'
     | 'karolmania-game'
     | 'donate'
+    | 'flashcards'
 
   modal:
     | 'name'

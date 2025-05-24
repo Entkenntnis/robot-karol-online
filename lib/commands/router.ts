@@ -256,6 +256,13 @@ export async function hydrateFromHash(core: Core) {
     document.title = 'Demo | Robot Karol Online'
     return
   }
+  if (page == 'FLASHCARDS') {
+    core.mutateWs((ws) => {
+      ws.page = 'flashcards'
+    })
+    document.title = 'Python Crash-Kurs'
+    return
+  }
 
   if (page == 'KAROLMANIA') {
     core.mutateWs((ws) => {

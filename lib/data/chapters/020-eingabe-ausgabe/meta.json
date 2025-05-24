@@ -4,8 +4,8 @@
     { "filename": "Begrüßung.json", "x": 560, "y": 37 },
     { "filename": "Harry_Potter_Fan.json", "x": 360, "y": 158 },
     { "filename": "Explosion.json", "x": 550, "y": 170 },
-    { "filename": "Runen.json", "x": 110, "y": 50 },
-    { "filename": "Systemstatus.json", "x": 160, "y": -70 }
+    { "filename": "Runen.json", "x": 280, "y": 50 },
+    { "filename": "Systemstatus.json", "x": 300, "y": -120 }
   ],
   "x": 380,
   "y": 1930,

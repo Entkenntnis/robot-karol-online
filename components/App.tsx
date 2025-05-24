@@ -34,6 +34,7 @@ import { KarolmaniaGame } from './pages/KarolmaniaGame'
 import { Donate } from './pages/Donate'
 import { InvocationModal } from './modals/InvocationModal'
 import { ExplanationModal } from './modals/ExplanationModal'
+import { Flashcards } from './pages/Flashcards'
 
 export function App() {
   const core = useCore()
@@ -123,6 +124,8 @@ export function App() {
       return <KarolmaniaGame />
     } else if (core.ws.page == 'donate') {
       return <Donate />
+    } else if (core.ws.page == 'flashcards') {
+      return <Flashcards />
     } else {
       return null
     }

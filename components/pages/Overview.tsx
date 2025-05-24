@@ -12,6 +12,7 @@ import {
   faTable,
   faArrowDown,
   faTimes,
+  faPlay,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -638,6 +639,44 @@ export function Overview() {
                     </div>
                   </div>
                 )}
+                <div className="absolute left-[4px] top-[1850px] z-10 hidden">
+                  <div className="bg-white/20 w-[250px] rounded-lg p-4 shadow-lg">
+                    <h2 className="text-2xl font-bold mb-4">
+                      Python Crash-Kurs
+                    </h2>
+                    <button
+                      className="bg-pink-500 text-white px-4 py-1 rounded hover:bg-pink-600 mb-4 font-semibold"
+                      onClick={() => {
+                        submitAnalyzeEvent(core, 'ev_click_landing_flashcards')
+                        setQuestReturnToMode(
+                          core.ws.page == 'demo' ? 'demo' : 'path'
+                        )
+                        setLearningPathScroll(
+                          document.getElementById('scroll-container')
+                            ?.scrollTop ?? -1
+                        )
+                        navigate(core, '#FLASHCARDS')
+                      }}
+                    >
+                      <FaIcon icon={faPlay} className="mr-2" /> Lernen
+                    </button>
+                    <div className="mb-3">
+                      <div className="h-3 w-full bg-gray-300 rounded-full">
+                        <div
+                          className="h-3 bg-green-400 rounded-full"
+                          style={{ width: '0%' }}
+                        ></div>
+                      </div>
+                      <span className="text-xs text-gray-700">
+                        0% abgeschlossen
+                      </span>
+                    </div>
+                    <p className="text-xs">
+                      Themen: Variablen, Operatoren, Vergleiche,
+                      Kontrollstrukturen, Methoden, Klassen, Objekte, Listen
+                    </p>
+                  </div>
+                </div>
                 <div className="absolute left-[4px] top-[2150px] z-10">
                   <div className="bg-white/20 rounded-lg p-3 shadow-lg w-[356px]">
                     <div className="flex items-center">
@@ -699,7 +738,7 @@ export function Overview() {
                     </div>
                     <p className="mt-4 text-sm ml-2">
                       <a
-                        className="link"
+                        className="link text-pink-600"
                         href="https://github.com/Entkenntnis/robot-karol-online/blob/main/RKO-MODULE.md"
                         target="_blank"
                         onClick={() => {
@@ -712,7 +751,7 @@ export function Overview() {
                         Modul-Dokumentation{' '}
                         <FaIcon
                           icon={faExternalLink}
-                          className="text-xs text-gray-700"
+                          className="text-xs text-pink-600"
                         />
                       </a>
                     </p>
