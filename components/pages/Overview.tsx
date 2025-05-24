@@ -639,7 +639,7 @@ export function Overview() {
                     </div>
                   </div>
                 )}
-                <div className="absolute left-[4px] top-[1850px] z-10">
+                <div className="absolute left-[4px] top-[1850px] z-10 hidden">
                   <div className="bg-white/20 w-[250px] rounded-lg p-4 shadow-lg">
                     <h2 className="text-2xl font-bold mb-4">
                       Python Crash-Kurs
