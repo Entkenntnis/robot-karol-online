@@ -644,8 +644,21 @@ export function Overview() {
                     <h2 className="text-2xl font-bold mb-4">
                       Python Crash-Kurs
                     </h2>
-                    <button className="bg-orange-500 text-white px-4 py-1 rounded hover:bg-orange-600 mb-4">
-                      <FaIcon icon={faPlay} /> Lernen
+                    <button
+                      className="bg-pink-500 text-white px-4 py-1 rounded hover:bg-pink-600 mb-4 font-semibold"
+                      onClick={() => {
+                        submitAnalyzeEvent(core, 'ev_click_landing_flashcards')
+                        setQuestReturnToMode(
+                          core.ws.page == 'demo' ? 'demo' : 'path'
+                        )
+                        setLearningPathScroll(
+                          document.getElementById('scroll-container')
+                            ?.scrollTop ?? -1
+                        )
+                        navigate(core, '#FLASHCARDS')
+                      }}
+                    >
+                      <FaIcon icon={faPlay} className="mr-2" /> Lernen
                     </button>
                     <div className="mb-3">
                       <div className="h-3 w-full bg-gray-300 rounded-full">
@@ -725,7 +738,7 @@ export function Overview() {
                     </div>
                     <p className="mt-4 text-sm ml-2">
                       <a
-                        className="link"
+                        className="link text-pink-600"
                         href="https://github.com/Entkenntnis/robot-karol-online/blob/main/RKO-MODULE.md"
                         target="_blank"
                         onClick={() => {
@@ -738,7 +751,7 @@ export function Overview() {
                         Modul-Dokumentation{' '}
                         <FaIcon
                           icon={faExternalLink}
-                          className="text-xs text-gray-700"
+                          className="text-xs text-pink-600"
                         />
                       </a>
                     </p>
