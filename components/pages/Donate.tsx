@@ -18,7 +18,6 @@ export function Donate() {
   >('east')
 
   useEffect(() => {
-    // Set up rotation interval - every 2 seconds
     const rotationInterval = setInterval(() => {
       setRobotDirection((prevDir) => {
         switch (prevDir) {
@@ -34,9 +33,8 @@ export function Donate() {
             return 'east'
         }
       })
-    }, 2000)
+    }, 1000)
 
-    // Clean up interval on component unmount
     return () => clearInterval(rotationInterval)
   }, [])
 
@@ -56,8 +54,7 @@ export function Donate() {
             )}
           >
             <h1 className="whitespace-nowrap text-lg md:text-2xl">
-              <FaIcon icon={faHeartCirclePlus} className="text-rose-500 mr-3" />
-              Robot Karol Online - Spenden
+              ❤️ Robot Karol Online ❤️
             </h1>
           </div>
         </div>
@@ -84,34 +81,45 @@ export function Donate() {
             className="pl-2 pb-3"
           />
           <h2 className="text-xl font-bold mb-6">
-            Unterstütze Robot Karol Online
+            Hallo liebe Coding-Community! 🤖
           </h2>
 
           <p className="mb-4">
-            Vielen Dank für dein Interesse, Robot Karol Online zu unterstützen!
-            Diese Plattform wird als freies Bildungsangebot entwickelt und steht
-            allen kostenlos zur Verfügung.
+            Robot Karol Online war von Anfang an ein Herzensprojekt - entwickelt
+            mit Leidenschaft für alle, die spielerisch Programmieren lernen
+            wollen. Siehst du, wie Karol fröhlich im Kreis tanzt? Genau diese
+            Freude möchte ich mit dir teilen!
           </p>
 
           <p className="mb-4">
-            Kostenlos heißt aber nicht, dass es nichts kostet! Ich habe in den
-            letzten Jahren ca. über 50.000 Euro an umgerechneter Arbeitszeit in
-            dieses Projekt investiert - ehrenamtlich.
+            Über 1.000 Stunden Herzblut stecken in diesem Projekt. Jedes
+            Lächeln, wenn ein Konzept &quot;klick&quot; macht, jede gelöste
+            Aufgabe, jede begeisterte Rückmeldung - das ist für mich
+            unbezahlbar.
           </p>
+
           <p className="mb-8">
-            Das ist viel Zeit und Energie. Ich freue mich über jede
-            Unterstützung, die mir hilft, Robot Karol Online auch in Zukunft
-            weiterzuentwickeln und zu betreiben. Du kannst das auf verschiedene
-            Arten tun:
+            <span className="bg-yellow-100 px-1 py-1 rounded">
+              Wenn dir Karol etwas bedeutet
+            </span>
+            , freue ich mich riesig, wenn du ...
+            <ul className="list-disc pl-5 mt-2">
+              <li>... weiter mit Karol arbeitest,</li>
+              <li>... das Projekt weiterempfiehlst,</li>
+              <li>... dich mit einer Spende bedankst 💝</li>
+              <li>... alle drei Dinge tust 😍</li>
+            </ul>
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
             <div className="p-4 bg-yellow-100/70 rounded-lg border border-yellow-200">
-              <h3 className="font-bold mb-2">Einmalige Spende</h3>
+              <h3 className="font-bold mb-2">🍀 Einmalige Wertschätzung</h3>
               <p className="mb-4">
-                Unterstütze mit einem Betrag deiner Wahl:
+                &quot;Danke für deine Arbeit!&quot; sagen mit...
                 <br />
-                &nbsp;
+                <span className="text-2xl">🎁 5€</span>,
+                <span className="text-2xl mx-2">💐 10€</span> oder
+                <span className="text-2xl ml-2">🌻 20€</span>
               </p>
               <button
                 className="px-4 py-2 bg-yellow-300 hover:bg-yellow-400 transition-colors rounded-md w-full"
@@ -122,7 +130,7 @@ export function Donate() {
                   )
                 }
               >
-                Jetzt spenden{' '}
+                Dankeschön senden{' '}
                 <FaIcon icon={faExternalLink} className="text-xs ml-1" />
               </button>
             </div>
@@ -153,28 +161,35 @@ export function Donate() {
           </p>
 
           <div className="p-4 bg-green-100/70 rounded-lg border border-green-200 mb-8">
-            <h3 className="font-bold mb-3">Warum spenden?</h3>
+            <h3 className="font-bold mb-3">Was bewirkst du? 🌈</h3>
             <ul className="list-disc pl-5 space-y-2">
-              <li>Beitrag für eine offene Bildungslandschaft</li>
-              <li>Wartung und Verbesserung der Plattform</li>
-              <li>Erstellung neuer Aufgaben und Tutorials</li>
-              <li>Hosting- und Serverkosten</li>
+              <li>Hältst Karols Räder am Laufen (Serverkosten)</li>
+              <li>Machst neue Unterrichtsideen möglich</li>
+              <li>Zeigst: &quot;Diese Arbeit ist wertvoll!&quot;</li>
+              <li>Ermöglichst mir, Zeit in Updates zu investieren</li>
             </ul>
           </div>
 
           <p className="text-sm text-gray-600 mb-4">
-            Robot Karol Online ist ein Bildungsprojekt, das ohne kommerzielle
-            Absichten betrieben wird. Alle Spenden fließen direkt in die
-            Weiterentwicklung und den Betrieb der Plattform.
+            P.S.: Kein Druck! Karol bleibt immer kostenlos. Aber wenn du kannst:
+            Jeder Beitrag hilft, diese Liebeserklärung an den
+            Programmiernachwuchs lebendig zu halten. 💌
           </p>
 
-          <div className="text-center mt-8">
-            <button
-              className="px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded"
-              onClick={() => navigate(core, '')}
-            >
-              Zurück zur Startseite
-            </button>
+          <div className="text-center mt-8 space-y-4">
+            <div className="text-center mt-8">
+              <button
+                className="px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded"
+                onClick={() => navigate(core, '')}
+              >
+                Zurück zur Startseite
+              </button>
+            </div>
+            <p className="text-xs text-gray-500 mt-4">
+              Mit herzlichem Dank und einem virtuellen High-Five 👋
+              <br />
+              Deine Karol-Entwicklerin
+            </p>
           </div>
         </div>
       </div>
