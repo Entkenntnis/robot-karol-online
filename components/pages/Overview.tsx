@@ -58,6 +58,7 @@ import {
   getExampleId,
   pythonKarolExamples,
 } from '../../lib/data/pythonExamples'
+import { Reactions } from '../helper/Reactions'
 
 export function Overview() {
   const core = useCore()
@@ -116,7 +117,7 @@ export function Overview() {
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
           </div>
-          <div className="absolute top-2 right-32">
+          <div className="absolute top-2 right-24">
             <label>
               <span className="hidden">Sprache</span>
               <FaIcon icon={faGlobe} />
@@ -149,7 +150,7 @@ export function Overview() {
                 navigate(core, '#SPENDEN')
               }}
             >
-              <FaIcon icon={faHeart} className="text-rose-400" /> Spenden
+              Spenden
             </button>
           </div>
           <div className="mx-8 md:mx-auto mt-6">
@@ -452,6 +453,9 @@ export function Overview() {
                       />
                     </button>
                   </AnimateInView>
+                </div>
+                <div className="absolute left-[35px] top-[530px] z-10 pointer-events-none">
+                  <Reactions />
                 </div>
                 {(numberOfSolvedQuests >= 5 ||
                   core.ws.page == 'analyze' ||
