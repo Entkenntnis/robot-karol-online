@@ -40,6 +40,7 @@
     "react-reflex": "^4.0.9",
     "react-render-if-visible": "^2.1.1",
     "react-simple-star-rating": "^5.1.7",
+    "socket.io-client": "^4.8.1",
     "timeago-react": "^3.0.5",
     "tone": "^15.1.22"
   },

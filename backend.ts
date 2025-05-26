@@ -2,6 +2,7 @@
 const host = 'https://karol.arrrg.de/backend'
 
 export const backend = {
+  host,
   // statistics endpoint for logging events
   // events are used to generate highscore
   statsEndpoint: host + '/submit',
