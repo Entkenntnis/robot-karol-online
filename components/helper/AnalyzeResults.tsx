@@ -133,21 +133,40 @@ export function AnalyzeResults() {
           </p>
         ))}
       </div>
-      <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
-      {customQuests.map((entry, i) => (
-        <span key={i} className="inline-block mr-6">
-          <a
-            href={`/#${entry[0]}`}
-            target="_blank"
-            rel="noreferrer"
-            className="text-blue-500 hover:underline"
-          >
-            {entry[0]}
-          </a>{' '}
-          - {entry[1].start} mal gestartet, {entry[1].complete} mal
-          abgeschlossen
-        </span>
-      ))}
+      <h2 className="mt-6 mb-4 text-lg">Python Example Levenshtein</h2>
+      <table className="w-full my-4 border-collapse">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="p-2 text-left border border-gray-300">Name</th>
+            <th className="p-2 text-left border border-gray-300">Count</th>
+            <th className="p-2 text-left border border-gray-300">
+              Distances (distance×count)
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(core.ws.analyze.pythonExampleLevenshtein)
+            .sort((a, b) => b[1].count - a[1].count)
+            .map(([name, data]) => {
+              // Group and count distances
+              const freqMap = new Map<number, number>()
+              for (const d of data.distances) {
+                freqMap.set(d, (freqMap.get(d) || 0) + 1)
+              }
+              const grouped = Array.from(freqMap.entries())
+                .sort((a, b) => a[0] - b[0])
+                .map(([distance, count]) => `${distance} (×${count})`)
+                .join(', ')
+              return (
+                <tr key={name} className="hover:bg-gray-50">
+                  <td className="p-2 border border-gray-300">{name}</td>
+                  <td className="p-2 border border-gray-300">{data.count}</td>
+                  <td className="p-2 border border-gray-300">{grouped}</td>
+                </tr>
+              )
+            })}
+        </tbody>
+      </table>
       <h2 className="mt-6 mb-4 text-lg">Geladene Figur</h2>
       <p>
         {(() => {
@@ -164,7 +183,22 @@ export function AnalyzeResults() {
           ))
         })()}
       </p>
-      {/* Abschnitt für Karolmania */}
+      <h2 className="mt-6 mb-4 text-lg">Bearbeitungen</h2>
+      {customQuests.map((entry, i) => (
+        <span key={i} className="inline-block mr-6">
+          <a
+            href={`/#${entry[0]}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            {entry[0]}
+          </a>{' '}
+          - {entry[1].start} mal gestartet, {entry[1].complete} mal
+          abgeschlossen
+        </span>
+      ))}
+      {/* Abschnitt für Karolmania 
       <h2 className="mt-6 mb-4 text-lg">Karolmania Results</h2>
       {karolmaniaData.length > 0 ? (
         <table className="w-full my-4 border-collapse">
@@ -227,41 +261,7 @@ export function AnalyzeResults() {
         </table>
       ) : (
         <p>No Karolmania data available.</p>
-      )}
-      <h2 className="mt-6 mb-4 text-lg">Python Example Levenshtein</h2>
-      <table className="w-full my-4 border-collapse">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="p-2 text-left border border-gray-300">Name</th>
-            <th className="p-2 text-left border border-gray-300">Count</th>
-            <th className="p-2 text-left border border-gray-300">
-              Distances (distance×count)
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.entries(core.ws.analyze.pythonExampleLevenshtein)
-            .sort((a, b) => b[1].count - a[1].count)
-            .map(([name, data]) => {
-              // Group and count distances
-              const freqMap = new Map<number, number>()
-              for (const d of data.distances) {
-                freqMap.set(d, (freqMap.get(d) || 0) + 1)
-              }
-              const grouped = Array.from(freqMap.entries())
-                .sort((a, b) => a[0] - b[0])
-                .map(([distance, count]) => `${distance} (×${count})`)
-                .join(', ')
-              return (
-                <tr key={name} className="hover:bg-gray-50">
-                  <td className="p-2 border border-gray-300">{name}</td>
-                  <td className="p-2 border border-gray-300">{data.count}</td>
-                  <td className="p-2 border border-gray-300">{grouped}</td>
-                </tr>
-              )
-            })}
-        </tbody>
-      </table>
+      )}*/}
       <h2 className="mt-6 mb-4 text-lg">Legacy</h2>{' '}
       {Object.entries(core.ws.analyze.legacy).map((entry, i) => (
         <span key={i} className="inline-block mr-6">

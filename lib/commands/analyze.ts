@@ -146,14 +146,32 @@ export async function analyze(core: Core) {
     for (const entry of data) {
       if (isAfter(new Date(entry.createdAt), cutoff)) {
         const ts = new Date(entry.createdAt).getTime()
+
+        ws.analyze.count++
+
+        // New: pythonExampleLevenshtein event parsing
+        const pythonExampleLevenshtein =
+          /^ev_click_ide_pythonExampleStart_(\d+)_(.*)$/i.exec(entry.event)
+        if (pythonExampleLevenshtein) {
+          const distance = parseInt(pythonExampleLevenshtein[1])
+          const name = pythonExampleLevenshtein[2]
+          if (!ws.analyze.pythonExampleLevenshtein[name]) {
+            ws.analyze.pythonExampleLevenshtein[name] = {
+              distances: [],
+              count: 0,
+            }
+          }
+          ws.analyze.pythonExampleLevenshtein[name].distances.push(distance)
+          ws.analyze.pythonExampleLevenshtein[name].count++
+          continue
+        }
+
         const key = entry.userId + entry.event
         if (dedup[key]) {
           continue
         } else {
           dedup[key] = true
         }
-
-        ws.analyze.count++
 
         if (entry.event == 'show_editor') {
           ws.analyze.showEditor++
@@ -365,23 +383,6 @@ export async function analyze(core: Core) {
           const id = parseInt(karolmania[1])
           const value = parseFloat(karolmania[2])
           ws.analyze.karolmania[id].times.push(value)
-          continue
-        }
-
-        // New: pythonExampleLevenshtein event parsing
-        const pythonExampleLevenshtein =
-          /^ev_click_ide_pythonExampleStart_(\d+)_(.*)$/i.exec(entry.event)
-        if (pythonExampleLevenshtein) {
-          const distance = parseInt(pythonExampleLevenshtein[1])
-          const name = pythonExampleLevenshtein[2]
-          if (!ws.analyze.pythonExampleLevenshtein[name]) {
-            ws.analyze.pythonExampleLevenshtein[name] = {
-              distances: [],
-              count: 0,
-            }
-          }
-          ws.analyze.pythonExampleLevenshtein[name].distances.push(distance)
-          ws.analyze.pythonExampleLevenshtein[name].count++
           continue
         }
       }
