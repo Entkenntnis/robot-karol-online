@@ -43,11 +43,10 @@ export function SurveyModal() {
                 className="w-full flex flex-col items-center"
                 onSubmit={(e) => {
                   e.preventDefault()
-                  const ev = JSON.stringify(
-                    `ev_question_${core.ws.quest.id}_${
-                      (e.currentTarget[0] as any).value
-                    }`
-                  )
+                  const ev = `ev_question_${core.ws.quest.id}_${JSON.stringify(
+                    (e.currentTarget[0] as any).value
+                  )}`
+
                   submitAnalyzeEvent(core, ev)
                   setSubmitted(true)
                 }}
