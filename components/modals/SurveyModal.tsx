@@ -44,7 +44,9 @@ export function SurveyModal() {
                 onSubmit={(e) => {
                   e.preventDefault()
                   const ev = JSON.stringify(
-                    `ev_question_${(e.currentTarget[0] as any).value}`
+                    `ev_question_${core.ws.quest.id}_${
+                      (e.currentTarget[0] as any).value
+                    }`
                   )
                   submitAnalyzeEvent(core, ev)
                   setSubmitted(true)
