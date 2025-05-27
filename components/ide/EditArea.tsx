@@ -28,7 +28,7 @@ import { setQuestPreview } from '../../lib/commands/editor'
 export function EditArea() {
   const core = useCore()
 
-  const view = useRef<EditorView>()
+  const view = useRef<EditorView>(undefined)
 
   const [showCheatSheet, setShowCheatSheet] = useState(false)
 

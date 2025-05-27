@@ -4,7 +4,6 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { View } from './View'
 import { useCore } from '../../lib/state/core'
 import { Heading } from '../../lib/state/types'
-import { Rating } from 'react-simple-star-rating'
 import { AnimateInView } from './AnimateIntoView'
 import { getUserName } from '../../lib/storage/storage'
 

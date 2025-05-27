@@ -21,7 +21,7 @@ export function Reactions() {
   const heartsRef = useRef(hearts)
   const containerRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const animationFrameRef = useRef<number>()
+  const animationFrameRef = useRef<number>(0)
   const [numberOnline, setNumberOnline] = useState(0)
 
   const socket = useRef<ReturnType<typeof io> | null>(null)
