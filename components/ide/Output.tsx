@@ -34,6 +34,7 @@ import {
   unbrick,
 } from '../../lib/commands/world'
 import { useEffect } from 'react'
+import { showModal } from '../../lib/commands/modal'
 
 export function Output() {
   const core = useCore()
@@ -121,6 +122,7 @@ export function Output() {
               title="Hier kannst du eine Frage stellen!"
               onClick={() => {
                 submitAnalyzeEvent(core, 'ev_click_ide_askQuestion')
+                showModal(core, 'survey')
               }}
             >
               <FaIcon icon={faComment} className="mr-2" />
