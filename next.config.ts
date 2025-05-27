@@ -9,7 +9,6 @@ console.log('  > Warning about headers is expected.')
 const nextConfig: NextConfig = {
   output: 'export',
   devIndicators: false,
-  productionBrowserSourceMaps: true,
   experimental: {
     // disabled because I'm debugging memory usage
     webpackBuildWorker: false,
