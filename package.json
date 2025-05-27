@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build --experimental-debug-memory-usage",
+    "build": "next build",
     "start": "npx serve ./out -c ../serve.json",
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
