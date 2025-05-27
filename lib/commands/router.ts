@@ -1,4 +1,5 @@
 import { levels } from '../data/karolmaniaLevels'
+import { pythonKarolExamples } from '../data/pythonExamples'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
@@ -31,10 +32,17 @@ export async function navigate(core: Core, hash: string) {
 // Assume that all relevant data is in the hash
 export async function hydrateFromHash(core: Core) {
   let raw_hash = window.location.hash
+  let rewrite = ''
 
   // internal rewrites
   if (raw_hash.toLocaleUpperCase() == '#BLUEJ-PLAYGROUND') {
     raw_hash = bluejPlaygroundHash
+    rewrite = 'BLUEJ-PLAYGROUND'
+  }
+  if (raw_hash.toLocaleUpperCase() == '#DANCE') {
+    raw_hash =
+      pythonKarolExamples.find((el) => el.title == 'Dance, Dance')?.link || ''
+    rewrite = 'DANCE'
   }
 
   const hash = raw_hash.replace(/^#/, '')
@@ -42,7 +50,10 @@ export async function hydrateFromHash(core: Core) {
   const colonIndex = hash.indexOf(':')
   const data = colonIndex !== -1 ? hash.substring(colonIndex + 1) : ''
 
-  submitAnalyzeEvent(core, 'ev_show_hash_' + page.slice(0, 100))
+  submitAnalyzeEvent(
+    core,
+    'ev_show_hash_' + (rewrite ? rewrite : page.slice(0, 100))
+  )
 
   // PHASE 0: reset
   // const previousWs = core.ws
@@ -171,7 +182,9 @@ export async function hydrateFromHash(core: Core) {
         }
         check()
       }
-      submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
+      if (rewrite != 'BLUEJ-PLAYGROUND') {
+        submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
+      }
     }
     return
   }

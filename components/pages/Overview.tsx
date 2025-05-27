@@ -461,12 +461,7 @@ export function Overview() {
                   core.ws.page == 'analyze' ||
                   core.ws.page == 'demo') && (
                   <a
-                    href={
-                      '/' +
-                      pythonKarolExamples.find(
-                        (el) => el.title == 'Dance, Dance'
-                      )?.link
-                    }
+                    href={'/#DANCE'}
                     className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
                     onClick={(e) => {
                       submitAnalyzeEvent(core, 'ev_click_landing_dancedance')
@@ -477,12 +472,7 @@ export function Overview() {
                         document.getElementById('scroll-container')
                           ?.scrollTop ?? -1
                       )
-                      navigate(
-                        core,
-                        pythonKarolExamples.find(
-                          (el) => el.title == 'Dance, Dance'
-                        )?.link ?? ''
-                      )
+                      navigate(core, '#DANCE')
                       e.preventDefault()
                     }}
                   >

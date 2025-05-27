@@ -66,7 +66,7 @@ export function EditArea() {
       <div className="h-full flex flex-col overflow-y-auto relative">
         {core.ws.settings.language === 'python-pro' && (
           <>
-            <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between">
+            <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between whitespace-nowrap">
               <div>
                 {core.ws.ui.editQuestScript ? (
                   <a
