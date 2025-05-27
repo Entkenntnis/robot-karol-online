@@ -6,6 +6,7 @@ console.log('  > Warning about headers is expected.')
 
 module.exports = withBundleAnalyzer({
   output: 'export',
+  devIndicators: false,
   experimental: {
     // reduce memory usage during build
     webpackBuildWorker: true,
