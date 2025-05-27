@@ -3,11 +3,13 @@ import { useState, useEffect, useRef } from 'react'
 interface AnimateInViewProps {
   children: React.ReactNode
   dontFade?: boolean
+  dontRenderHidden?: boolean
 }
 
 export function AnimateInView({
   children,
   dontFade = false,
+  dontRenderHidden = false,
 }: AnimateInViewProps) {
   const [isInView, setIsInView] = useState(false)
   const ref = useRef(null)
@@ -40,7 +42,7 @@ export function AnimateInView({
         isInView ? 'animate-fadeInUp' : 'opacity-0 translate-y-1'
       }`}
     >
-      {children}
+      {dontRenderHidden ? null : children}
     </div>
   )
 }

@@ -13,12 +13,12 @@ import {
   QuestSerialFormat_MUST_STAY_COMPATIBLE,
 } from '../../lib/state/types'
 import { useCore } from '../../lib/state/core'
-import RenderIfVisible from 'react-render-if-visible'
 import { View } from '../helper/View'
 import { deserializeWorld } from '../../lib/commands/json'
 import { tagsById } from '../../lib/data/tagsById'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
+import RenderIfVisible from '../helper/RenderIfVisible'
 
 const tagTitles: { [key: string]: string } = {}
 

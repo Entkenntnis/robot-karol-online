@@ -1,15 +1,20 @@
+import type { NextConfig } from 'next'
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
 console.log('  > Warning about headers is expected.')
 
-module.exports = withBundleAnalyzer({
+const nextConfig: NextConfig = {
   output: 'export',
   devIndicators: false,
+  productionBrowserSourceMaps: true,
   experimental: {
+    // disabled because I'm debugging memory usage
+    webpackBuildWorker: false,
     // reduce memory usage during build
-    webpackBuildWorker: true,
+    webpackMemoryOptimizations: true,
   },
   // reduce memory usage during build
   webpack: (config, { dev }) => {
@@ -33,4 +38,6 @@ module.exports = withBundleAnalyzer({
       },
     ]
   },
-})
+}
+
+module.exports = withBundleAnalyzer(nextConfig)
