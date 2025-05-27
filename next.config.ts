@@ -10,10 +10,9 @@ const nextConfig: NextConfig = {
   output: 'export',
   devIndicators: false,
   experimental: {
-    // disabled because I'm debugging memory usage
-    webpackBuildWorker: false,
     // reduce memory usage during build
     webpackMemoryOptimizations: true,
+    webpackBuildWorker: true,
   },
   // reduce memory usage during build
   webpack: (config, { dev }) => {
