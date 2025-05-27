@@ -118,6 +118,9 @@ export function Output() {
           <button
             className="absolute top-2 right-16 px-3 py-0.5 rounded-full bg-white border-2 border-blue-500 hover:bg-blue-50 text-blue-500 font-semibold shadow transition-colors duration-150 focus:outline-none"
             title="Hier kannst du eine Frage stellen!"
+            onClick={() => {
+              submitAnalyzeEvent(core, 'ev_click_ide_askQuestion')
+            }}
           >
             <FaIcon icon={faComment} className="mr-2" />
             Frage stellen
