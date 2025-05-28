@@ -2,9 +2,17 @@
 
 import { CmdBlocksStore } from '../state/cmd-blocks-store'
 import blocks from './KarolBlocks.json'
-import Blockly, { Block, MenuOption } from 'blockly'
+import {
+  Block,
+  MenuOption,
+  Blocks,
+  Extensions,
+  FieldDropdown,
+  Generator,
+} from 'blockly'
+import '@blockly/field-slider'
 
-let karolGenerator: any
+const karolGenerator = new Generator('karol')
 
 const blockToCode: [string, (x: Block) => string | [string, number]][] = [
   [
@@ -155,16 +163,15 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
 
 export function initCustomBlocks() {
   blocks.forEach((block) => {
-    Blockly.Blocks[block.type] = {
+    Blocks[block.type] = {
       init: function () {
         this.jsonInit(block)
       },
     }
   })
-  karolGenerator = new Blockly.Generator('karol')
-  karolGenerator.PRECEDENCE = 0
+  // karolGenerator. PRECEDENCE = 0
   blockToCode.forEach(([blockName, codeGenFct]) => {
-    karolGenerator[blockName] = codeGenFct
+    karolGenerator.forBlock[blockName] = codeGenFct
   })
   karolGenerator.scrub_ = function (block: Block, code: string) {
     const nextBlock = block.nextConnection && block.nextConnection.targetBlock()
@@ -174,13 +181,12 @@ export function initCustomBlocks() {
     }
     return code + nextCode
   }
-  ;(Blockly as any)['karol'] = karolGenerator // strange monkey patch
+  return karolGenerator
 }
 
-Blockly.Extensions.register('custom_cmds_extension', function () {
-  //@ts-expect-error Difficult for ts to parse
-  this.getInput('COMMAND').appendField(
-    new Blockly.FieldDropdown(function () {
+Extensions.register('custom_cmds_extension', function () {
+  this.getInput('COMMAND')?.appendField(
+    new FieldDropdown(function () {
       var options: MenuOption[] = []
       for (const name of CmdBlocksStore.getRawState().names) {
         options.push([name, name])

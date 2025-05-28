@@ -1,8 +1,8 @@
-import Blockly, { WorkspaceSvg } from 'blockly'
+import { WorkspaceSvg, setLocale, inject, Xml, utils, svgResize } from 'blockly'
 import { useRef, useState, useEffect } from 'react'
 import { Text } from '@codemirror/state'
-import De from 'blockly/msg/de'
-import En from 'blockly/msg/en'
+import * as De from 'blockly/msg/de'
+import * as En from 'blockly/msg/en'
 
 import '../../lib/blockly/FieldNumberSlider'
 import { codeToXml } from '../../lib/blockly/codeToXml'
@@ -23,14 +23,10 @@ export function BlockEditor() {
   const blocklyWorkspaceSvg = useRef<WorkspaceSvg | null>(null)
   const core = useCore()
   const code = useRef('')
-  Blockly.setLocale(core.ws.settings.lng == 'de' ? De : En)
-  if (core.ws.settings.lng == 'de') {
-    initCustomBlocks()
-  } else {
-    initCustomBlocksEn()
-  }
-
-  // console.log('render component')
+  // @ts-ignore don't know why the type is not recognized
+  setLocale(core.ws.settings.lng == 'de' ? De : En)
+  const generator =
+    core.ws.settings.lng == 'de' ? initCustomBlocks() : initCustomBlocksEn()
 
   if (
     blocklyWorkspaceSvg.current &&
@@ -70,7 +66,7 @@ export function BlockEditor() {
 
     //console.log('initial', initialXml)
 
-    const blocklyWorkspace = Blockly.inject(editorDiv.current, {
+    const blocklyWorkspace = inject(editorDiv.current, {
       toolbox: KAROL_TOOLBOX,
       grid: {
         spacing: 20,
@@ -88,10 +84,7 @@ export function BlockEditor() {
 
     blocklyWorkspaceSvg.current = blocklyWorkspace
 
-    Blockly.Xml.domToWorkspace(
-      Blockly.utils.xml.textToDom(initialXml),
-      blocklyWorkspace
-    )
+    Xml.domToWorkspace(utils.xml.textToDom(initialXml), blocklyWorkspace)
 
     const blocklyArea = document.getElementById('blocklyArea')!
     const blocklyDiv = document.getElementById('blocklyDiv')!
@@ -113,7 +106,7 @@ export function BlockEditor() {
       blocklyDiv.style.width = blocklyArea.offsetWidth + 'px'
       blocklyDiv.style.height = blocklyArea.offsetHeight + 'px'
       // console.log('resize')
-      Blockly.svgResize(blocklyWorkspace)
+      svgResize(blocklyWorkspace)
     }
     window.addEventListener('resize', onresize, false)
     onresize()
@@ -139,7 +132,7 @@ export function BlockEditor() {
               if (bl.getFieldValue('COMMAND') == event.oldValue) {
                 // we are accessing internal field to bybass validator
                 // options are re-generated anyways
-                ;(bl.getField('COMMAND') as any).generatedOptions_.push([
+                ;(bl.getField('COMMAND') as any).generatedOptions.push([
                   event.newValue,
                   event.newValue,
                 ])
@@ -207,10 +200,10 @@ export function BlockEditor() {
 
       const newCode =
         mainBlocks.length == 1
-          ? (Blockly as any).karol.blockToCode(mainBlocks[0]) +
+          ? generator.blockToCode(mainBlocks[0]) +
             '\n' +
             cmdBlocks
-              .map((bl) => (Blockly as any).karol.blockToCode(bl) as string)
+              .map((bl) => generator.blockToCode(bl) as string)
               .join('\n') +
             '\n' +
             topBlocks
@@ -218,21 +211,18 @@ export function BlockEditor() {
               .map((bl) => {
                 core.mutateWs((ws) => {
                   ws.ui.snippets.push(
-                    (Blockly.Xml.blockToDomWithXY(bl) as HTMLElement).outerHTML
+                    (Xml.blockToDomWithXY(bl) as HTMLElement).outerHTML
                   )
                 })
                 return `// Schnipsel ${counter++}\n${(
-                  (Blockly as any).karol.blockToCode(bl).toString() as string
+                  generator.blockToCode(bl).toString() as string
                 )
                   .split('\n')
                   .map((x) => `// ${x}`)
                   .join('\n')}\n// endeSchnipsel\n`
               })
               .join('\n')
-          : ((Blockly as any).karol.workspaceToCode(
-              // strange monkey patch
-              blocklyWorkspace
-            ) as string)
+          : (generator.workspaceToCode(blocklyWorkspace) as string)
 
       setBlockIds(
         newCode.split('\n').map((line) => {
@@ -302,9 +292,11 @@ export function BlockEditor() {
 
       setTimeout(onresize, 0)
     }
+    // @ts-ignore Don't know why the type is not recognized
     blocklyWorkspace.addChangeListener(myUpdateFunction)
 
     return () => {
+      // @ts-ignore Don't know why the type is not recognized
       blocklyWorkspace.removeChangeListener(myUpdateFunction)
       blocklyWorkspace.dispose()
       // console.log('dispose')
