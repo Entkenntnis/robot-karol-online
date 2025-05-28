@@ -4,7 +4,7 @@
     "message0": "Schritt %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_number",
         "name": "COUNT",
         "value": 1,
         "min": 1,
@@ -22,7 +22,7 @@
     "message0": "LinksDrehen %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 1,
         "min": 1,
@@ -41,7 +41,7 @@
     "message0": "RechtsDrehen %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 1,
         "min": 1,
@@ -60,7 +60,7 @@
     "message0": "Hinlegen %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 1,
         "min": 1,
@@ -103,7 +103,7 @@
     "message0": "Aufheben %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 1,
         "min": 1,
@@ -175,7 +175,7 @@
     "message0": "wiederhole %1 mal %2 %3",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_number",
         "name": "COUNT",
         "value": 10,
         "min": 0,
@@ -363,7 +363,7 @@
     "message0": "IstZiegel %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 2,
         "min": 0,
@@ -410,7 +410,7 @@
     "message0": "NichtIstZiegel %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 2,
         "min": 0,

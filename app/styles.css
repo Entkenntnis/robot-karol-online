@@ -2,8 +2,8 @@
   background-image: url('/canvas_background.jpg'); /* Fallback */
 }
 
-/* Text shadow for countdown numbers */
-.shadow-text {
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5),
-    2px 2px 4px rgba(0, 0, 0, 0.5);
+/* temporary, should be fixed in upstream soon */
+#blocklyArea path,
+#blocklyArea g {
+  outline: none !important; /* Prevent outline on focus */
 }

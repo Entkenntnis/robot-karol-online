@@ -4,7 +4,7 @@
     "message0": "step %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_number",
         "name": "COUNT",
         "value": 1,
         "min": 1,
@@ -22,7 +22,7 @@
     "message0": "turn_left %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 1,
         "min": 1,
@@ -41,7 +41,7 @@
     "message0": "turn_right %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 1,
         "min": 1,
@@ -60,7 +60,7 @@
     "message0": "set_down %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 1,
         "min": 1,
@@ -79,7 +79,7 @@
     "message0": "pick_up %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 1,
         "min": 1,
@@ -125,7 +125,7 @@
     "message0": "repeat %1 times %2 %3",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_number",
         "name": "COUNT",
         "value": 10,
         "min": 0,
@@ -267,7 +267,7 @@
     "message0": "is_brick %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 2,
         "min": 0,
@@ -293,7 +293,7 @@
     "message0": "not_is_brick %1",
     "args0": [
       {
-        "type": "field_number_slider",
+        "type": "field_slider",
         "name": "COUNT",
         "value": 2,
         "min": 0,

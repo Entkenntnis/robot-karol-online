@@ -20,7 +20,9 @@ if (typeof window !== 'undefined') {
   console.warn = function (...args) {
     if (
       typeof args[0] === 'string' &&
-      args[0].startsWith('No message string for')
+      args[0].startsWith(
+        'Blockly.Workspace.getAllVariables was deprecated in v12'
+      )
     ) {
       return
     }
