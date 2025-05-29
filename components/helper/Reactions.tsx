@@ -11,7 +11,7 @@ import { useCore } from '../../lib/state/core'
 export function Reactions() {
   const [hearts, setHearts] = useState<
     Array<{
-      id: number
+      id: string
       x: number
       y: number
       velocityX: number
@@ -94,9 +94,9 @@ export function Reactions() {
 
     // Add new heart to state
     setHearts((prev) => [
-      ...prev,
+      ...(prev.length < 50 ? prev : prev.slice(1)), // Limit to 50 hearts
       {
-        id: Date.now() + Math.random(),
+        id: Date.now() + '-' + Math.random(),
         x,
         y,
         velocityX,
@@ -131,6 +131,7 @@ export function Reactions() {
       if (hasChanged) setHearts(newHearts)
     }
 
+    heartsRef.current = newHearts
     animationFrameRef.current = requestAnimationFrame(animate)
   }
 
