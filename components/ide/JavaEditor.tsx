@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from 'react'
+import { RefObject, useEffect, useRef, useState } from 'react'
 import { EditorState } from '@codemirror/state'
 import {
   Command,
@@ -49,7 +49,7 @@ import { Cheatsheet } from '../helper/Cheatsheet'
 import clsx from 'clsx'
 
 interface EditorProps {
-  innerRef: MutableRefObject<EditorView | undefined>
+  innerRef: RefObject<EditorView | undefined>
 }
 
 export const JavaEditor = ({ innerRef }: EditorProps) => {

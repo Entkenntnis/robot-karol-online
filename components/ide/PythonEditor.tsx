@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef } from 'react'
+import { RefObject, useEffect, useRef } from 'react'
 import { EditorState, Range } from '@codemirror/state'
 import {
   Command,
@@ -55,7 +55,7 @@ import { cursorToAstNode } from '../../lib/language/helper/astNode'
 import { saveCodeToLocalStorage } from '../../lib/commands/save'
 
 interface EditorProps {
-  innerRef: MutableRefObject<EditorView | undefined>
+  innerRef: RefObject<EditorView | undefined>
 }
 
 export const PythonEditor = ({ innerRef }: EditorProps) => {

@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef } from 'react'
+import { RefObject, useEffect, useRef } from 'react'
 import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 
@@ -10,7 +10,7 @@ import { lint, setLoading } from '../../lib/commands/editing'
 // text-[#9a4603]
 
 interface EditorProps {
-  innerRef: MutableRefObject<EditorView | undefined>
+  innerRef: RefObject<EditorView | undefined>
 }
 
 export const Editor = ({ innerRef }: EditorProps) => {

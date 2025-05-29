@@ -97,21 +97,22 @@ export function EditArea() {
                     Spickzettel
                   </button>
                 )}
-                {core.ws.ui.isPlayground && (
-                  <button
-                    className={clsx(
-                      'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed'
-                    )}
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_ide_bench')
-                      startBench(core)
-                    }}
-                    disabled={core.ws.ui.state != 'ready'}
-                  >
-                    <FaIcon icon={faPlay} className="text-xs" /> Interaktives
-                    Klassendiagramm
-                  </button>
-                )}
+                {core.ws.ui.isPlayground &&
+                  core.ws.pythonCode.includes('class') && (
+                    <button
+                      className={clsx(
+                        'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed'
+                      )}
+                      onClick={() => {
+                        submitAnalyzeEvent(core, 'ev_click_ide_bench')
+                        startBench(core)
+                      }}
+                      disabled={core.ws.ui.state != 'ready'}
+                    >
+                      <FaIcon icon={faPlay} className="text-xs" /> Interaktives
+                      Klassendiagramm
+                    </button>
+                  )}
               </div>
 
               {core.ws.page == 'editor' &&
