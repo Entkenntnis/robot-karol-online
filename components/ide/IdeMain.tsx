@@ -220,34 +220,6 @@ export function IdeMain() {
             ></div>
           )}
           <div className={clsx('flex flex-col h-full')}>
-            {!(
-              core.ws.ui.isTesting &&
-              core.ws.ui.state == 'ready' &&
-              core.ws.quest.testerHandler
-            ) &&
-              !(
-                core.ws.ui.isEndOfRun && core.ws.ui.controlBarShowFinishQuest
-              ) &&
-              !core.ws.ui.isHighlightDescription &&
-              core.ws.modal !== 'name' && (
-                <div className="absolute top-16 right-2 z-[101]">
-                  {core.ws.ui.state == 'error' &&
-                    core.ws.settings.mode == 'blocks' && (
-                      <button
-                        className="mr-3 bg-red-300 px-1.5 py-0.5 rounded"
-                        onClick={() => {
-                          submitAnalyzeEvent(core, 'ev_click_ide_errorMessages')
-                          showModal(core, 'error')
-                        }}
-                      >
-                        <FaIcon icon={faExclamationTriangle} />
-                        <span className="inline-block rounded-full bg-red-500 text-white w-6 ml-2 my-1">
-                          {core.ws.ui.errorMessages.length}
-                        </span>
-                      </button>
-                    )}
-                </div>
-              )}
             <InteractionBar />
             <EditArea />
           </div>
