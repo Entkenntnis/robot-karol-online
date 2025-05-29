@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 
 import 'tailwindcss/tailwind.css'
 import '../public/fonts/hack.css'
-import 'react-reflex/styles.css'
 import './styles.css'
 
 export const metadata: Metadata = {

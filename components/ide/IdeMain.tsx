@@ -8,7 +8,11 @@ import {
   faPlayCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex'
+import {
+  ReflexContainer,
+  ReflexElement,
+  ReflexSplitter,
+} from '../helper/reflex'
 
 import { closeHighlightDescription } from '../../lib/commands/mode'
 import { useCore } from '../../lib/state/core'
