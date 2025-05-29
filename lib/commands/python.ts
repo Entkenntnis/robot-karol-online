@@ -532,6 +532,16 @@ export function setupWorker(core: Core) {
       syncArray[0] = 1
       Atomics.notify(syncArray, 0)
     }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'clear-output'
+    ) {
+      core.mutateWs(({ ui }) => {
+        ui.messages = []
+      })
+    }
   }
 
   function messageHandlerBackup(event: MessageEvent) {

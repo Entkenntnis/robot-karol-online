@@ -30,11 +30,11 @@ Erstellt ein neues Rechteck an der angegebenen Position.
 
 ### Eigenschaften
 
-| Name | Typ    | Beschreibung                                      |
-| ---- | ------ | ------------------------------------------------- |
-| x    | Zahl   | Die X-Koordinate (lesbar und schreibbar)          |
-| y    | Zahl   | Die Y-Koordinate (lesbar und schreibbar)          |
-| fill | String | Die Füllfarbe (lesbar und schreibbar)            |
+| Name | Typ    | Beschreibung                             |
+| ---- | ------ | ---------------------------------------- |
+| x    | Zahl   | Die X-Koordinate (lesbar und schreibbar) |
+| y    | Zahl   | Die Y-Koordinate (lesbar und schreibbar) |
+| fill | String | Die Füllfarbe (lesbar und schreibbar)    |
 
 ### Methoden
 
@@ -148,10 +148,10 @@ Erstellt eine neue Musikspur.
 
 Fügt einen Ton zur Spur hinzu.
 
-| Parameter | Typ  | Beschreibung                   |
-| --------- | ---- | ------------------------------ |
-| frequency | Zahl oder String oder Array | Die Frequenz des Tons in Hertz, oder ein Notenname (z.B. 'C4', 'D#4'), oder ein Array von Noten für Akkorde. Eine 0 bedeutet eine Pause. |
-| time      | String oder Zahl | Die Zeit des Tons als Notenwert ('4n' für Viertelnote, '8n' für Achtelnote, '16n' für Sechzehntelnote, '8t' für Achteltriole, '4n.' für punktierte Viertelnote) oder in Sekunden |
+| Parameter | Typ                         | Beschreibung                                                                                                                                                                     |
+| --------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| frequency | Zahl oder String oder Array | Die Frequenz des Tons in Hertz, oder ein Notenname (z.B. 'C4', 'D#4'), oder ein Array von Noten für Akkorde. Eine 0 bedeutet eine Pause.                                         |
+| time      | String oder Zahl            | Die Zeit des Tons als Notenwert ('4n' für Viertelnote, '8n' für Achtelnote, '16n' für Sechzehntelnote, '8t' für Achteltriole, '4n.' für punktierte Viertelnote) oder in Sekunden |
 
 ##### `start()`
 
@@ -199,9 +199,9 @@ Startet die Wiedergabe des Songs.
 
 Überspringt einen Teil des Songs.
 
-| Parameter | Typ          | Beschreibung                                                |
-| --------- | ------------ | ----------------------------------------------------------- |
-| time      | String/Zahl  | Die zu überspringende Zeit als Notenwert (z.B. '4m') oder in Sekunden |
+| Parameter | Typ         | Beschreibung                                                          |
+| --------- | ----------- | --------------------------------------------------------------------- |
+| time      | String/Zahl | Die zu überspringende Zeit als Notenwert (z.B. '4m') oder in Sekunden |
 
 ##### `tick()`
 
@@ -211,8 +211,8 @@ Aktualisiert die Wiedergabe des Songs.
 
 Konvertiert eine Zeitangabe in Sekunden.
 
-| Parameter | Typ    | Beschreibung                                              |
-| --------- | ------ | --------------------------------------------------------- |
+| Parameter | Typ    | Beschreibung                                                     |
+| --------- | ------ | ---------------------------------------------------------------- |
 | time      | String | Die Zeitangabe (z.B. '4m' für 4 Takte, '8n' für eine Achtelnote) |
 
 Rückgabewert: Die Zeit in Sekunden.
@@ -265,6 +265,10 @@ Setzt die Blickrichtung des Roboters.
 ### `rko.exit()`
 
 Beendet das Programm.
+
+### `rko.clearOuput()`
+
+Löscht die Ausgabe.
 
 ### `rko.sleep(seconds)`
 
