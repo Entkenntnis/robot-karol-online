@@ -126,7 +126,25 @@ export async function updateBenchClasses(core: Core) {
     request: 'class-info',
   })) as any
   core.mutateWs((ws) => {
-    ws.bench.classInfo = JSON.parse(result.classInfo)
+    const classInfo = JSON.parse(result.classInfo)
+    // For each class, sort its methods
+    for (const className in classInfo) {
+      if (classInfo[className].methods) {
+        classInfo[className].methods = Object.fromEntries(
+          Object.entries(classInfo[className].methods).sort(
+            ([, a]: any, [, b]: any) => {
+              // If a's origin matches className and b's doesn't, a comes first
+              if (a.origin === className && b.origin !== className) return -1
+              // If b's origin matches className and a's doesn't, b comes first
+              if (b.origin === className && a.origin !== className) return 1
+              // Otherwise keep original order
+              return 0
+            }
+          )
+        )
+      }
+    }
+    ws.bench.classInfo = classInfo
   })
 }
 
