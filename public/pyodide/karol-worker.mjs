@@ -213,7 +213,7 @@ export function buildInternalRobot() {
 }
 
 const rkoModule = `
-from _rko_internal import _internal_Robot, _set_canvas, _sleep, _exit, _enableManualControl, _getKarolPosition, _getKarolHeading, _setKarolPosition, _setKarolHeading, _createNewSynth, _playSynth, _setBpm, _convertTimeToSeconds
+from _rko_internal import _internal_Robot, _set_canvas, _sleep, _exit, _enableManualControl, _getKarolPosition, _getKarolHeading, _setKarolPosition, _setKarolHeading, _createNewSynth, _playSynth, _setBpm, _convertTimeToSeconds, _clearOutput
 from RobotKarolOnline import tasteRegistrieren, tasteGedrückt
 
 class Robot:
@@ -539,6 +539,10 @@ def isPressed(key):
     return tasteGedrückt('ArrowRight')
   else:
     raise ValueError(f'Invalid key: {key}')
+
+
+def clearOutput():
+  _clearOutput()
 `
 
 self.onmessage = async (event) => {
@@ -676,6 +680,11 @@ self.onmessage = async (event) => {
           })
           Atomics.wait(syncArray, 0, 42)
           return dataArray[0]
+        },
+        _clearOutput: () => {
+          self.postMessage({
+            type: 'clear-output',
+          })
         },
       })
       pyodide.FS.writeFile('rko.py', rkoModule, {
