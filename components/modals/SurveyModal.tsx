@@ -1,5 +1,6 @@
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { closeModal } from '../../lib/commands/modal'
+import { getProgram } from '../../lib/commands/save'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -43,8 +44,13 @@ export function SurveyModal() {
                 className="w-full flex flex-col items-center"
                 onSubmit={(e) => {
                   e.preventDefault()
+                  let q = (e.currentTarget[0] as any).value
+                  const { program, language } = getProgram(core)
+                  if (program) {
+                    q = `${q} (Sprache: ${language}, Programm: ${program})`
+                  }
                   const ev = `ev_question_${core.ws.quest.id}_${JSON.stringify(
-                    (e.currentTarget[0] as any).value
+                    q.length < 900 ? q : q.slice(0, 900)
                   )}`
 
                   submitAnalyzeEvent(core, ev)
