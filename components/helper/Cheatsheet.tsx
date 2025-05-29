@@ -237,22 +237,6 @@ export function Cheatsheet({ language }: CheatsheetProps) {
         </div>
       ))}
 
-      {language == 'python-pro' && (
-        <p>
-          <a
-            href="https://github.com/Entkenntnis/robot-karol-online/blob/main/KAROL-X-PYTHON.md#karol-x-python"
-            target="_blank"
-            className="link"
-            onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_ide_pythonMoreExamples')
-            }}
-          >
-            weitere Beispiele{' '}
-            <FaIcon icon={faExternalLink} className="text-xs" />
-          </a>
-        </p>
-      )}
-
       {copied && (
         <div className="fixed bottom-4 left-4 bg-green-100 text-green-700 px-4 py-2 rounded-md text-sm">
           In Zwischenablage kopiert!
