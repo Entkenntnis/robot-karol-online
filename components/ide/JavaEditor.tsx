@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef } from 'react'
+import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { EditorState } from '@codemirror/state'
 import {
   Command,
@@ -44,9 +44,9 @@ import {
   autocompletion,
   completionKeymap,
 } from '@codemirror/autocomplete'
-import { submit_event } from '../../lib/helper/submit'
-import { save } from 'blockly/core/serialization/blocks'
 import { saveCodeToLocalStorage } from '../../lib/commands/save'
+import { Cheatsheet } from '../helper/Cheatsheet'
+import clsx from 'clsx'
 
 interface EditorProps {
   innerRef: MutableRefObject<EditorView | undefined>
@@ -55,6 +55,11 @@ interface EditorProps {
 export const JavaEditor = ({ innerRef }: EditorProps) => {
   const editorDiv = useRef(null)
   const core = useCore()
+  const [showCheatSheet, setShowCheatSheet] = useState(false)
+
+  useEffect(() => {
+    setShowCheatSheet(false)
+  }, [core.ws.settings.language, core.ws.settings.mode])
 
   useEffect(() => {
     const currentEditor = editorDiv.current
@@ -121,7 +126,28 @@ export const JavaEditor = ({ innerRef }: EditorProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editorDiv])
 
-  return <div ref={editorDiv} className="h-full" />
+  return (
+    <div className="h-full flex flex-col">
+      <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between whitespace-nowrap">
+        <div>
+          <button
+            className={clsx('link', showCheatSheet && 'text-purple-600')}
+            onClick={() => {
+              setShowCheatSheet((prev) => !prev)
+            }}
+          >
+            Spickzettel
+          </button>
+        </div>
+      </div>
+      <div className="flex h-full overflow-y-auto flex-shrink">
+        <div className="w-full overflow-auto h-full flex">
+          {showCheatSheet && <Cheatsheet language="java" />}
+          <div ref={editorDiv} className="h-full w-full" />
+        </div>
+      </div>
+    </div>
+  )
 }
 export function lint(core: Core, view: EditorView) {
   if (core.ws.ui.state == 'running' || !view) {
