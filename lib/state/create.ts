@@ -147,6 +147,7 @@ export function createWorkspaceState(): WorkspaceState {
       chapters: {},
       pythonKarol: {},
       pythonExampleLevenshtein: {},
+      questions: {},
     },
     overview: {
       overviewScroll: 0,

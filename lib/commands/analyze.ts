@@ -99,6 +99,7 @@ export async function analyze(core: Core) {
       'ev_click_explanation_continue_',
       'ev_click__landing_pythonExample_',
       'ev_click_ide_pythonExampleStart_',
+      'ev_question_',
     ]
 
     for (const prefix of eventPrefixes) {
@@ -149,7 +150,7 @@ export async function analyze(core: Core) {
 
         ws.analyze.count++
 
-        // New: pythonExampleLevenshtein event parsing
+        // parse events before deduplication
         const pythonExampleLevenshtein =
           /^ev_click_ide_pythonExampleStart_(\d+)_(.*)$/i.exec(entry.event)
         if (pythonExampleLevenshtein) {
@@ -163,6 +164,23 @@ export async function analyze(core: Core) {
           }
           ws.analyze.pythonExampleLevenshtein[name].distances.push(distance)
           ws.analyze.pythonExampleLevenshtein[name].count++
+          continue
+        }
+
+        const question = /^ev_question_(\d+)_(.*)$/i.exec(entry.event)
+        if (question) {
+          const id = parseInt(question[1])
+          const text = question[2]
+          if (!ws.analyze.questions[id]) {
+            ws.analyze.questions[id] = {
+              questions: [],
+            }
+          }
+          ws.analyze.questions[id].questions.push({
+            text,
+            ts,
+          })
+
           continue
         }
 

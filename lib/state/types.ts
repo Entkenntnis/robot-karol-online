@@ -329,6 +329,9 @@ export interface Analyze {
   pythonKarol: {
     [key: string]: { count: number }
   }
+  questions: {
+    [key: number]: { questions: { text: string; ts: number }[] }
+  }
   pythonExampleLevenshtein: {
     [name: string]: {
       distances: number[]
