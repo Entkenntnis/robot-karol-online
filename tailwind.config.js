@@ -83,10 +83,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('daisyui'), require('@tailwindcss/typography')],
-  daisyui: {
-    logs: false,
-    base: false,
-    themes: ['light'],
-  },
+  plugins: [require('@tailwindcss/typography')],
 }

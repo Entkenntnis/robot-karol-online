@@ -366,7 +366,7 @@ function Entry({ entry }: { entry: EntryType }) {
           ))}
         </p>
       )}
-      <div className="card-actions justify-center mt-2">
+      <div className="flex justify-center mt-2">
         <button
           className="btn btn-sm my-3"
           onClick={() => {

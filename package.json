@@ -29,7 +29,6 @@
     "blockly": "^12.0.0",
     "canvas-confetti": "^1.6.0",
     "clsx": "^2.0.0",
-    "daisyui": "^4.12.10",
     "date-fns": "^4.0.0",
     "fastest-levenshtein": "^1.0.16",
     "immer": "^10.0.0",
