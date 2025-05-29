@@ -190,7 +190,7 @@ export function Overview() {
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu bg-base-100 rounded-box z-[11] w-56 p-2 shadow mt-1"
+                className="dropdown-content bg-white rounded-lg z-[11] w-56 p-2 shadow mt-1 [&>li]:px-4 [&>li]:py-2 [&>li]:cursor-pointer hover:[&>li]:bg-gray-200/50 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50  [&_a]:block [&_button]:block [&_button]:w-full [&_button]:text-left"
               >
                 <li>
                   <a
@@ -204,7 +204,7 @@ export function Overview() {
                       } catch (e) {}
                     }}
                   >
-                    <FaIcon icon={faTable} className="text-gray-600" />
+                    <FaIcon icon={faTable} className="text-gray-600 mr-1" />{' '}
                     {core.strings.overview.showAll}
                   </a>
                 </li>
@@ -219,7 +219,10 @@ export function Overview() {
                       saveToJSON(core)
                     }}
                   >
-                    <FaIcon icon={faFloppyDisk} className="text-green-600" />{' '}
+                    <FaIcon
+                      icon={faFloppyDisk}
+                      className="text-green-600 mr-1"
+                    />{' '}
                     {core.strings.overview.save}
                   </button>
                 </li>
@@ -242,7 +245,10 @@ export function Overview() {
                       forceRerender(core)
                     }}
                   >
-                    <FaIcon icon={faFolderOpen} className="text-yellow-500" />{' '}
+                    <FaIcon
+                      icon={faFolderOpen}
+                      className="text-yellow-500 mr-1"
+                    />{' '}
                     {core.strings.overview.load}
                   </button>
                 </li>
@@ -491,13 +497,17 @@ export function Overview() {
                 <div className="absolute left-[4px] top-[750px] z-10">
                   <ul
                     tabIndex={0}
-                    className="dropdown-content menu bg-base-100/20 rounded-box w-60 p-2 mt-1"
+                    className="bg-white/20 rounded-lg w-60 p-2 mt-1 [&>li]:px-4 [&>li]:py-2 [&>li]:cursor-pointer hover:[&>li]:bg-gray-300/20 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50 [&_a]:block"
                   >
                     <li>
                       <a
                         href="/#INSPIRATION"
                         onClick={() => {
                           submitAnalyzeEvent(core, 'ev_click_landing_gallery')
+                          setLearningPathScroll(
+                            document.getElementById('scroll-container')
+                              ?.scrollTop ?? -1
+                          )
                         }}
                       >
                         💫 Aufgaben-Galerie
