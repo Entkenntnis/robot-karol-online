@@ -181,7 +181,8 @@ export function startQuest(core: Core, id: number) {
     ws.ui.audioStarted = false
     ui.speedSliderValue = 7
     ui.showPreview = true
-    ui.collapseDescription = false
+    // automatically collapse if window is small
+    ui.collapseDescription = window.innerHeight < 660
     ui.show2D = false
     ui.lockLanguage = undefined
     ui.pythonProCanSwitch = true
