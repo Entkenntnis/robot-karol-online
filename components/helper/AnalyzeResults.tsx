@@ -1,4 +1,5 @@
 import { useCore } from '../../lib/state/core'
+import { questData } from '../../lib/data/quests'
 import { levels as karolmaniaLevels } from '../../lib/data/karolmaniaLevels' // Import level data
 
 // Helper function to format time in seconds to MM:SS:hh
@@ -133,6 +134,32 @@ export function AnalyzeResults() {
           </p>
         ))}
       </div>
+      <h2 className="mt-6 mb-4 text-lg">Fragen</h2>
+      {Object.entries(core.ws.analyze.questions)
+        .sort((a, b) => b[1].questions.length - a[1].questions.length)
+        .map(([id, data]) => {
+          const questTitle = questData[parseInt(id)]?.title || id
+          return (
+            <div key={id} className="mb-4">
+              <h3 className="font-medium">
+                {questTitle} ({data.questions.length} Fragen)
+              </h3>
+              <div className="pl-4">
+                {data.questions
+                  .slice(0)
+                  .sort((a, b) => b.ts - a.ts)
+                  .map((q, i) => (
+                    <p key={i} className="text-sm text-gray-600 mb-1">
+                      <span className="text-gray-400 mr-3">
+                        {new Date(q.ts).toLocaleString('de-DE')}
+                      </span>
+                      {JSON.parse(q.text)}
+                    </p>
+                  ))}
+              </div>
+            </div>
+          )
+        })}
       <h2 className="mt-6 mb-4 text-lg">Python Example Levenshtein</h2>
       <table className="w-full my-4 border-collapse">
         <thead>

@@ -103,7 +103,11 @@ export function Overview() {
   return (
     <>
       <div
-        className="h-full overflow-auto overscroll-none"
+        className={clsx(
+          'h-full overflow-auto',
+          // this fixes a bug where scrolling is not possible on big content
+          core.ws.page !== 'analyze' && 'overscroll-none'
+        )}
         id="scroll-container"
       >
         <div className="flex flex-col relative min-h-full min-w-fit background-element">
