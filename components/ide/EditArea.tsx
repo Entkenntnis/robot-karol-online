@@ -255,7 +255,36 @@ export function EditArea() {
     )
   }
 
-  return <BlockEditor />
+  return (
+    <>
+      <BlockEditor />
+      {core.ws.ui.state == 'error' && (
+        <div
+          className={clsx(
+            'absolute right-4 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50 z-[100]',
+            'left-60'
+          )}
+        >
+          <div className="flex justify-between mt-[9px] relative">
+            <div className="px-3 pb-1 pt-0">
+              <p className="mb-2">
+                <FaIcon
+                  icon={faCircleExclamation}
+                  className="text-red-600 mr-2"
+                />
+                {core.strings.ide.problems}:
+              </p>
+              {core.ws.ui.errorMessages.map((err, i) => (
+                <p className="mb-2" key={err + i.toString()}>
+                  {err}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
 
   function renderEditor() {
     return (
