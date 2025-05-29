@@ -15,12 +15,13 @@ import {
   exampleLanguage,
 } from '../../lib/codemirror/basicSetup'
 import { pythonLanguage } from '../../lib/codemirror/pythonParser/pythonLanguage'
+import { javaLanguage } from '../../lib/codemirror/javaParser/javaLanguage'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { useCore } from '../../lib/state/core'
 import clsx from 'clsx'
 
 interface CheatsheetProps {
-  language: 'python-pro' | 'robot karol'
+  language: 'python-pro' | 'robot karol' | 'java'
 }
 
 export function Cheatsheet({ language }: CheatsheetProps) {
@@ -83,6 +84,56 @@ export function Cheatsheet({ language }: CheatsheetProps) {
           {
             category: 'Kommentar',
             items: ['# Das ist ein Kommentar'],
+          },
+        ]
+      : language == 'java'
+      ? [
+          {
+            category: 'Befehle',
+            items: [
+              'karol.schritt();\nkarol.schritt(3);\nkarol.linksDrehen();\nkarol.linksDrehen(2);\nkarol.rechtsDrehen();\nkarol.rechtsDrehen(2);',
+              'karol.hinlegen();\nkarol.hinlegen(5);\nkarol.aufheben();\nkarol.aufheben(3);\nkarol.markeSetzen();\nkarol.markeLöschen();\nkarol.beenden();',
+            ],
+          },
+          {
+            category: 'Schleifen',
+            items: [
+              'for (int i = 0; i < 4; i++) {\n    karol.schritt();\n}',
+              'while (karol.istZiegel()) {\n    karol.aufheben();\n}',
+            ],
+          },
+          {
+            category: 'Bedingte Anweisungen',
+            items: [
+              'if (karol.nichtIstMarke()) {\n    karol.markeSetzen();\n}',
+              'if (karol.istZiegel()) {\n    karol.hinlegen();\n} else {\n    karol.schritt();\n}',
+            ],
+          },
+          {
+            category: 'Bedingungen',
+            items: [
+              'karol.istWand()\nkarol.nichtIstWand()\nkarol.istMarke()\nkarol.nichtIstMarke()\nkarol.istZiegel()\nkarol.nichtIstZiegel()\nkarol.istZiegel(2)\nkarol.nichtIstZiegel(2)',
+              'karol.istNorden()\nkarol.nichtIstNorden()\nkarol.istOsten()\nkarol.nichtIstOsten()\nkarol.istSüden()\nkarol.nichtIstSüden()\nkarol.istWesten()\nkarol.nichtIstWesten()',
+            ],
+          },
+          {
+            category: 'Methoden',
+            items: [
+              'void umdrehen() {\n    karol.linksDrehen(2);\n}\n\nkarol.schritt();\numdrehen();',
+            ],
+          },
+          {
+            category: 'Variablen',
+            items: [
+              'int schritte = 0;\nwhile (!karol.istWand()) {\n    karol.schritt();\n    schritte++;\n}',
+            ],
+          },
+          {
+            category: 'Kommentare',
+            items: [
+              '// einzeiliger Kommentar',
+              '/* Das ist ein\n   mehrzeiliger Kommentar */',
+            ],
           },
         ]
       : [
@@ -151,7 +202,11 @@ export function Cheatsheet({ language }: CheatsheetProps) {
       <div className="flex items-center gap-2 mb-6">
         <FaIcon icon={faBook} className="text-purple-600" />
         <h1 className="text-xl font-bold text-gray-800">
-          {core.ws.settings.language == 'python-pro' ? 'Python' : 'Karol Code'}{' '}
+          {language == 'python-pro'
+            ? 'Python'
+            : language == 'java'
+            ? 'Karol Java'
+            : 'Karol Code'}{' '}
           Spickzettel
         </h1>
       </div>
@@ -227,7 +282,11 @@ export function CodeBox({
             syntaxHighlighting(defaultHighlightStyle),
             indentUnit.of(language == 'python-pro' ? '    ' : '  '),
             editable.of(EditorView.editable.of(false)),
-            language == 'python-pro' ? pythonLanguage : exampleLanguage('de'),
+            language == 'python-pro'
+              ? pythonLanguage
+              : language == 'java'
+              ? javaLanguage
+              : exampleLanguage('de'),
             EditorView.theme({
               '&': {
                 outline: 'none !important',
@@ -246,5 +305,6 @@ export function CodeBox({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editorDiv])
+
   return <div ref={editorDiv} className="text-sm" />
 }
