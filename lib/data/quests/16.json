@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Taschenrechner (+Anleitung)",
-  "description": "Besuche https://karol.arrrg.de/anleitungen/taschenrechner.pdf für eine ausführliche Anleitung.",
+  "description": "Besuche [https://karol.arrrg.de/anleitungen/taschenrechner.pdf](https://karol.arrrg.de/anleitungen/taschenrechner.pdf) für eine ausführliche Anleitung.",
   "tasks": [
     {
       "title": "2 + 4 = 6",
