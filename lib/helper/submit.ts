@@ -12,7 +12,7 @@ export function submit_event(event: string, core: Core) {
       window.location.host !== 'karol-neu.arrrg.de' &&
       !backend.statsEndpoint.includes('localhost')
     ) {
-      // console.log('debug:submit_event', event)
+      console.log('debug:submit_event', event)
       return
     }
 
