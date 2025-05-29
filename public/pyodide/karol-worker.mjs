@@ -930,6 +930,13 @@ def get_class_info():
     processed_classes = set()
     class_info = {}
 
+    def get_method_origin(cls, method_name):
+        # Walk through MRO to find which class defined this method
+        for parent in cls.__mro__:
+            if method_name in parent.__dict__:
+                return parent.__name__
+        return None
+
     for obj in globals().values():
         if isinstance(obj, type):
             class_name = obj.__name__
@@ -959,8 +966,14 @@ def get_class_info():
 
             # Process methods (excluding __init__)
             methods = {}
-            for attr_name, attr_value in obj.__dict__.items():
+            # Get all attributes including inherited ones
+            for attr_name in dir(obj):
                 if attr_name.startswith('__') and attr_name.endswith('__'):
+                    continue
+                
+                try:
+                    attr_value = getattr(obj, attr_name)
+                except Exception:
                     continue
 
                 func = None
@@ -968,7 +981,7 @@ def get_class_info():
                     func = attr_value.__func__
                 elif isinstance(attr_value, classmethod):
                     func = attr_value.__func__
-                elif inspect.isfunction(attr_value):
+                elif inspect.isfunction(attr_value) or inspect.ismethod(attr_value):
                     func = attr_value
                 else:
                     continue
@@ -985,12 +998,14 @@ def get_class_info():
                         param_info = {'name': param.name}
                         if param.default is not inspect.Parameter.empty:
                             param_info['default'] = param.default
-                        func_params.append(param_info)
-
+                        func_params.append(param_info)                # Find which class this method comes from
+                origin_class = get_method_origin(obj, attr_name)
+                
                 method_info = {
                     'name': func.__name__,
                     'doc': func.__doc__,
-                    'parameters': func_params
+                    'parameters': func_params,
+                    'origin': origin_class
                 }
                 methods[attr_name] = method_info
 
