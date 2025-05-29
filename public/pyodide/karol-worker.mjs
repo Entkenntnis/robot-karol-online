@@ -873,6 +873,7 @@ self.onmessage = async (event) => {
         pyodide.runPython('from rko import Robot', {
           globals,
         })
+        lastStepTs = performance.now() * 1000
         await pyodide.runPythonAsync(event.data.code, {
           globals,
           filename: 'Programm.py',
