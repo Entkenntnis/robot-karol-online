@@ -720,7 +720,7 @@ export function Overview() {
                           <a
                             href={`/${example.link}`}
                             key={index}
-                            className="bg-white/30 hover:bg-white/60 p-2.5 rounded-md transition-all hover:shadow-md w-[160px] block cursor-pointer"
+                            className="bg-white/50 hover:bg-white/70 p-2.5 rounded-md transition-all hover:shadow-md w-[160px] block cursor-pointer"
                             onClick={(e) => {
                               submitAnalyzeEvent(
                                 core,
