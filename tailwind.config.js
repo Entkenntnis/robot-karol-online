@@ -4,6 +4,7 @@ module.exports = {
     './app/**/*.tsx',
     './lib/**/*.tsx',
     './lib/codemirror/basicSetup.ts',
+    './lib/data/chapters/000-intro/info.md',
   ],
   theme: {
     extend: {

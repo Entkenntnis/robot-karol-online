@@ -585,7 +585,8 @@ export function Overview() {
                 {core.ws.settings.lng === 'de' &&
                   !isQuestDone(10001) &&
                   core.ws.page !== 'demo' &&
-                  core.ws.page !== 'analyze' && (
+                  core.ws.page !== 'analyze' &&
+                  false && (
                     <div className="absolute top-[1690px] left-[620px] z-10">
                       <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                         <div className="bg-white/50 rounded-lg p-2 w-[560px] shadow-lg">
@@ -685,7 +686,7 @@ export function Overview() {
                     </p>
                   </div>
                 </div>
-                <div className="absolute left-[4px] top-[2150px] z-10">
+                <div className="absolute left-[4px] top-[1790px] z-10">
                   <div className="bg-white/20 rounded-lg p-3 shadow-lg w-[356px]">
                     <div className="flex items-center">
                       <img
@@ -693,8 +694,25 @@ export function Overview() {
                         alt="Python"
                         className="h-9 mr-2"
                       />
-                      <p className="font-bold mb-1">Beispiel-Projekte</p>
+                      <p className="font-bold mb-1">Python Beispiel-Projekte</p>
                     </div>
+                    <p className="mb-3 mt-1 text-right">
+                      <a
+                        href="https://docs.google.com/document/d/1PGIgwPTwNUNy2wEcGSh2oLR3a30tnmMq8-BegAkEnsk/edit?tab=t.0"
+                        target="_blank"
+                        className="link text-gray-600"
+                        onClick={() => {
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_click_landing_pythonGuideForTeachers'
+                          )
+                        }}
+                      >
+                        Leitfaden für Lehrkräfte{' '}
+                        <FaIcon icon={faExternalLink} className="text-xs" />
+                      </a>
+                      <br />
+                    </p>
                     <div className="gap-2 pr-1 flex flex-wrap">
                       {pythonKarolExamples
                         .filter((e) => !e.hidden)
@@ -756,7 +774,7 @@ export function Overview() {
                           )
                         }}
                       >
-                        Modul-Dokumentation{' '}
+                        <code>rko</code> Modul Dokumentation{' '}
                         <FaIcon
                           icon={faExternalLink}
                           className="text-xs text-pink-600"

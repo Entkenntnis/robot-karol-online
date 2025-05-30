@@ -7,9 +7,9 @@ const chapterInfo = [
   {
     "id": 10001,
     "dirName": "000-intro",
-    "title": "0. Einleitung",
-    "originalTitle": "Einleitung",
-    "description": "# Einleitung\r\n\r\nDu hättest deinen Eltern nicht sagen sollen, dass dir langweilig sei. Was für ein Anfänger-Fehler. Jetzt stehst du an einem Montag in den Ferien um 9 Uhr vor dem Haus der alten Künstlerin und schaust dich vorsichtig um.\r\n\r\nDie alte Dame hat sich in den Kopf gesetzt, Programmieren zu lernen und damit sie nicht ganz alleine ist, bietet sie einen offenen Workshop an, bei dem alle vorbeikommen und mitlernen können. Deine Eltern haben den Aushang gesehen, denn Karol, die Künstlerin, wohnt gleich um die Ecke und haben dich gleich da hingeschickt (\"dir ist ja sonst langweilig, mein Schatz\").\r\n\r\nDie Tür zum Haus steht offen. Als du eintrittst, begrüßt dich Karol (\"Schön dass du hier bist, deine Eltern haben mir schon von dir erzählt\") und du siehst neben ihr ein Mädchen, ungefähr in deinem Alter. Sie ist sicherlich auch hier für den Workshop, puh, immerhin bist du nicht alleine.\r\n\r\n\"Darf ich dir vorstellen, das ist Emi, meine Nichte.\" Du streckst deine Hand aus, aber sie schaut dich nur mit forschen Augen an. \"Ok, dann halt nicht\", antwortest du kleinlaut. Na toll, das kann ja was werden.\r\n\r\n\"Kennen wir uns?\", fragt Emi. Karol stellt dich hastig vor und ergänzt: \"Bitte entschuldige ihr verhalten. Sie kommt manchmal etwas kühl rüber, aber sie hat ein gutes Herz. Sie ist übrigends unsere Dozentin für den Tag.\"\r\n\r\nOhje! Wo bist du hier nur reingeraten. Aber für einen Rückzieher ist es jetzt zu spät. Karol ist unbesorgt: \"Kommt mit ins Atelier und lasst uns beginnen!\"\r\n",
+    "title": "0. Python Lernpfad (Entwurf)",
+    "originalTitle": "Python Lernpfad (Entwurf)",
+    "description": "# Einleitung\r\n\r\n<div class=\"bg-yellow-300 rounded p-2\">\r\nDieser Lernpfad ist ein erster Entwurf. Du kannst aktiv bei der Gestaltung mithelfen, das geht in weniger als 2 Minuten!\r\n\r\nFülle dazu [diese Umfrage](https://docs.google.com/forms/d/e/1FAIpQLScLvOw2ZD2_DGeiWPFNXxHR0DjlBHSIxAU5b72su_zPXyoVTg/viewform?usp=preview) aus. Danke!\r\n\r\n</div>\r\n\r\nDu hättest deinen Eltern nicht sagen sollen, dass dir langweilig sei. Was für ein Anfänger-Fehler. Jetzt stehst du an einem Montag in den Ferien um 9 Uhr vor dem Haus der alten Künstlerin und schaust dich vorsichtig um.\r\n\r\nDie alte Dame hat sich in den Kopf gesetzt, Programmieren zu lernen und damit sie nicht ganz alleine ist, bietet sie einen offenen Workshop an, bei dem alle vorbeikommen und mitlernen können. Deine Eltern haben den Aushang gesehen, denn Karol, die Künstlerin, wohnt gleich um die Ecke und haben dich gleich da hingeschickt (\"dir ist ja sonst langweilig, mein Schatz\").\r\n\r\nDie Tür zum Haus steht offen. Als du eintrittst, begrüßt dich Karol (\"Schön dass du hier bist, deine Eltern haben mir schon von dir erzählt\") und du siehst neben ihr ein Mädchen, ungefähr in deinem Alter. Sie ist sicherlich auch hier für den Workshop, puh, immerhin bist du nicht alleine.\r\n\r\n\"Darf ich dir vorstellen, das ist Emi, meine Nichte.\" Du streckst deine Hand aus, aber sie schaut dich nur mit forschen Augen an. \"Ok, dann halt nicht\", antwortest du kleinlaut. Na toll, das kann ja was werden.\r\n\r\n\"Kennen wir uns?\", fragt Emi. Karol stellt dich hastig vor und ergänzt: \"Bitte entschuldige ihr verhalten. Sie kommt manchmal etwas kühl rüber, aber sie hat ein gutes Herz. Sie ist übrigends unsere Dozentin für den Tag.\"\r\n\r\nOhje! Wo bist du hier nur reingeraten. Aber für einen Rückzieher ist es jetzt zu spät. Karol ist unbesorgt: \"Kommt mit ins Atelier und lasst uns beginnen!\"\r\n",
     "image": "/story/0.jpg",
     "quests": [],
     "x": 930,
@@ -1015,7 +1015,7 @@ const chapterInfo = [
     "quests": [
       {
         "filename": "Begrüßung.json",
-        "x": 560,
+        "x": 660,
         "y": 37,
         "id": 121,
         "content": {
@@ -1183,8 +1183,8 @@ const chapterInfo = [
       },
       {
         "filename": "Harry_Potter_Fan.json",
-        "x": 360,
-        "y": 158,
+        "x": 500,
+        "y": 188,
         "id": 122,
         "content": {
           "version": "v1",
@@ -1525,7 +1525,7 @@ const chapterInfo = [
       },
       {
         "filename": "Explosion.json",
-        "x": 550,
+        "x": 650,
         "y": 170,
         "id": 145,
         "content": {
@@ -1771,8 +1771,8 @@ const chapterInfo = [
       },
       {
         "filename": "Runen.json",
-        "x": 280,
-        "y": 50,
+        "x": 400,
+        "y": 100,
         "id": 120,
         "content": {
           "version": "v1",
@@ -1973,8 +1973,8 @@ const chapterInfo = [
       },
       {
         "filename": "Systemstatus.json",
-        "x": 300,
-        "y": -120,
+        "x": 420,
+        "y": -20,
         "id": 119,
         "content": {
           "version": "v1",
@@ -2142,7 +2142,7 @@ const chapterInfo = [
         ]
       }
     ],
-    "x": 380,
+    "x": 520,
     "y": 1930
   },
   {
@@ -2291,7 +2291,7 @@ const chapterInfo = [
       },
       {
         "filename": "Weltraum_Navigation.json",
-        "x": 730,
+        "x": 770,
         "y": -60,
         "id": 131,
         "content": {
@@ -2684,7 +2684,7 @@ const chapterInfo = [
         }
       }
     ],
-    "x": 530,
+    "x": 560,
     "y": 2240
   },
   {
