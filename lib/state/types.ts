@@ -338,6 +338,11 @@ export interface Analyze {
       count: number
     }
   }
+  danceScores: {
+    [key: string]: {
+      scores: number[]
+    }
+  }
 }
 
 export interface CoreState {

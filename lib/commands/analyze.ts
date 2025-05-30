@@ -100,6 +100,7 @@ export async function analyze(core: Core) {
       'ev_click__landing_pythonExample_',
       'ev_click_ide_pythonExampleStart_',
       'ev_question_',
+      'ev_dance_score_',
     ]
 
     for (const prefix of eventPrefixes) {
@@ -180,6 +181,20 @@ export async function analyze(core: Core) {
             text,
             ts,
           })
+
+          continue
+        }
+
+        const danceScore = /^ev_dance_score_(\d+)_(.*)$/i.exec(entry.event)
+        if (danceScore) {
+          const score = parseInt(danceScore[1])
+          const song = danceScore[2]
+          if (!ws.analyze.danceScores[song]) {
+            ws.analyze.danceScores[song] = {
+              scores: [],
+            }
+          }
+          ws.analyze.danceScores[song].scores.push(score)
 
           continue
         }

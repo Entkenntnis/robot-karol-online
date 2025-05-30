@@ -303,6 +303,31 @@ export function AnalyzeResults() {
           - {entry[1].count} mal gestartet
         </span>
       ))}
+      <table className="w-full my-4 border-collapse">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="p-2 text-left border border-gray-300">Song</th>
+            <th className="p-2 text-left border border-gray-300">Scores</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(core.ws.analyze.danceScores)
+            .sort((a, b) => b[1].scores.length - a[1].scores.length)
+            .map(([songName, data]) => {
+              const scores = data.scores.slice(0)
+              scores.sort((a, b) => b - a) // Sort scores descending
+
+              return (
+                <tr key={songName} className="hover:bg-gray-50">
+                  <td className="p-2 border border-gray-300">{songName}</td>
+                  <td className="p-2 border border-gray-300">
+                    {scores.join(', ')}
+                  </td>
+                </tr>
+              )
+            })}
+        </tbody>
+      </table>
       <h2 className="mt-6 mb-4 text-lg">Zeiten</h2>
       <p className="mb-2">
         Median: {format(median(core.ws.analyze.userTimes))}
