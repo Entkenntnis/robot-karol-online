@@ -1,6 +1,6 @@
 // Python-Karol example data
 export const pythonKarolExamples = [
-  { title: 'Creeper', link: '#5ZEE' },
+  { title: 'Creeper', link: '#NWGX' },
   {
     title: 'Der Boden ist Lava',
     link: '#VKD7',
