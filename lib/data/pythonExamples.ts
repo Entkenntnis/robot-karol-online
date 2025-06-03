@@ -7,12 +7,12 @@ export const pythonKarolExamples = [
   },
   { title: 'Sprechen mit Karol', link: '#FFSM' },
   {
-    title: 'Composition',
-    link: '#ACAR',
+    title: 'Scanner',
+    link: '#XGCF',
   },
   {
-    title: 'Scanner',
-    link: '#2WPY',
+    title: 'Composition',
+    link: '#ACAR',
   },
   { title: 'Kunst-Generator', link: '#MA6F' },
   {
