@@ -35,6 +35,7 @@ import {
 } from '../../lib/commands/world'
 import { useEffect } from 'react'
 import { showModal } from '../../lib/commands/modal'
+import { pythonKarolExamples } from '../../lib/data/pythonExamples'
 
 export function Output() {
   const core = useCore()
@@ -116,19 +117,22 @@ export function Output() {
     <div className="flex flex-col h-full relative">
       <div className="border-b-2 border-gray-200">
         <div className="pt-4 pb-1 px-7 bg-yellow-100 relative">
-          {core.ws.quest.id > 0 && (
-            <button
-              className="absolute top-2 right-16 px-3 py-0.5 rounded-full bg-white border-2 border-blue-500 hover:bg-blue-50 text-blue-500 font-semibold shadow transition-colors duration-150 focus:outline-none"
-              title="Hier kannst du eine Frage stellen!"
-              onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_ide_askQuestion')
-                showModal(core, 'survey')
-              }}
-            >
-              <FaIcon icon={faComment} className="mr-2" />
-              Frage stellen
-            </button>
-          )}
+          {core.ws.quest.id > 0 ||
+            (pythonKarolExamples.some(
+              (e) => e.link === '#' + core.ws.ui.sharedQuestId
+            ) && (
+              <button
+                className="absolute top-2 right-16 px-3 py-0.5 rounded-full bg-white border-2 border-blue-500 hover:bg-blue-50 text-blue-500 font-semibold shadow transition-colors duration-150 focus:outline-none"
+                title="Hier kannst du eine Frage stellen!"
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_ide_askQuestion')
+                  showModal(core, 'survey')
+                }}
+              >
+                <FaIcon icon={faComment} className="mr-2" />
+                Frage stellen
+              </button>
+            ))}
           <button
             className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
             onClick={() => {
