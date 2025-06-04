@@ -16,6 +16,7 @@ export function Reactions() {
       y: number
       velocityX: number
       velocityY: number
+      ts: number
     }>
   >([])
   const heartsRef = useRef(hearts)
@@ -101,6 +102,7 @@ export function Reactions() {
         y,
         velocityX,
         velocityY,
+        ts: Date.now(),
       },
     ])
   }
@@ -117,7 +119,12 @@ export function Reactions() {
           ...heart,
           x: newX,
           y: newY,
-          shouldRemove: newX < 100 || newY < 100 || newX > 300 || newY > 300,
+          shouldRemove:
+            newX < 100 ||
+            newY < 100 ||
+            newX > 300 ||
+            newY > 300 ||
+            Date.now() - heart.ts > 2000, // Remove if outside bounds or too old
         }
       })
       .filter((heart) => !heart.shouldRemove)
