@@ -8,6 +8,7 @@ export const pythonKarolExamples = [
   { title: 'Verfolger', link: '#U2CR' },
   { title: 'Explosion', link: '#SW6Y' },
   { title: 'Twitch Alerts', link: '#SBEU' },
+  { title: 'Begrüßung', link: '#C8PU' },
   { title: 'Sternenstaub', link: '#3UWS' },
   { title: 'Fraktal', link: '#GNTB' },
   { title: 'BetterRobot Klasse', link: '#GCPB' },
