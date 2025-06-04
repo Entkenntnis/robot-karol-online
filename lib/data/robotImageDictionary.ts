@@ -22,6 +22,7 @@ export const robotImageDictionary: { [key: string]: string } = {
   "vN6mDcLAKQ6cDamAObHPgPIrjbRTBSZEAAAAAASUVORK5CYII=": "BastiGHG 1",
   "gfCJpVBEQM6BpFYBUC/wMaM/y8hipucQAAAABJRU5ErkJggg==": "BastiGHG 2",
   "6kO+BJbBGA856uGt2iFfgfWeEG2pAnTOAAAAAASUVORK5CYII=": "BastiGHG",
+  "xujeJAyEoSINIBY8jALAb+A47LOKTXUu9kAAAAAElFTkSuQmCC": "BastiGHG Golden",
   "sZwxZ+bwS4lMI5zmUS+AtVqVV/T01B1wAAAABJRU5ErkJggg==": "I ... am Steve",
   "59dfdGSL4R8I1Q4+s7if8CjwptsaggrAYAAAAASUVORK5CYII=": "Villager (von Theo)",
   "tojBgYw4DHLhqDS+/8Jwz8BTOzLaAeCwGXAAAAAElFTkSuQmCC": "Trymacs (Fisch)",
@@ -63,6 +64,7 @@ export const robotImageDictionary: { [key: string]: string } = {
   "wn/EhA6CLIs8D8r8vehYH/AEipc6LpLwjMAAAAAElFTkSuQmCC": "I'm purple",
   "ADfiQgdBHkWka86/BvnYH/Aejkc6KmZOrmAAAAAElFTkSuQmCC": "I'm green",
   "AjC0InQcYKaGE/8jkz8B9MdNei0NL9GQAAAABJRU5ErkJggg==": "Gangsta",
+  "ySQSiYqH5Pqf85/G4M/AvuFO+EaIy2kQAAAABJRU5ErkJggg==": "LCLC (Pay to win cringe time)",
   "kFP7IgdBJkLCPedfm3zsB/YEpOkyed/5EAAAAASUVORK5CYII=": "Karol mit anderer Kleidung",
   "74EYMsgDQA6/PFwI6BfwE4B3miMlSH6gAAAABJRU5ErkJggg==": "Eli",
   "31i9k7duybfUaAh8xlBP4HmL1Nk+vMgswAAAAASUVORK5CYII=": "Ulala",
@@ -92,5 +94,6 @@ export const robotImageDictionary: { [key: string]: string } = {
   "UAYKaa6CusAAAMSwaDTAX+B9BOP/qeUFLzAAAAAElFTkSuQmCC": "Unvollendete Blume",
   "CAmeoSW1QAAEWJWJCpwC/DI45IwHcrWAAAAABJRU5ErkJggg==": "SMILE",
   "sBWyaByK31jjCy5KG+rn7+DwsC9oQfwh0dAAAAAElFTkSuQmCC": "Orange",
-  "CJGnuPALC3u4nNAZyosfeId9reXEh2ZAwlAAAAAElFTkSuQmCC": "SChläger"
+  "CJGnuPALC3u4nNAZyosfeId9reXEh2ZAwlAAAAAElFTkSuQmCC": "SChläger",
+  "G1Dnj/ugKzA9g6ZEp/nuIv7Yw5kw0GpvYAAAAASUVORK5CYII=": "BRR BRR PATAPIM!"
 };

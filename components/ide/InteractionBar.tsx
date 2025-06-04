@@ -81,10 +81,12 @@ export function InteractionBar() {
             (el) => el.link.substring(1) === core.ws.ui.sharedQuestId
           ) ||
           core.ws.page == 'editor') && (
-          <button
-            className="px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 ml-2 hidden sm:inline-block"
+          <a
+            className="px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 ml-2 hidden sm:inline-block cursor-pointer"
             id="ide-back-button"
-            onClick={() => {
+            href="#"
+            onClick={(e) => {
+              e.preventDefault()
               if (core.ws.page == 'quest') {
                 exitQuest(core)
               } else if (core.ws.ui.isPlayground || core.ws.page == 'shared') {
@@ -99,7 +101,7 @@ export function InteractionBar() {
             }}
           >
             <FaIcon icon={faHome} className="text-fuchsia-900" />
-          </button>
+          </a>
         )}
       </div>
       {core.ws.ui.lockLanguage ? (

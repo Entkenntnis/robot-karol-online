@@ -6,7 +6,7 @@ export const pythonKarolExamples = [
   { title: 'Scanner', link: '#XGCF' },
   { title: 'Kunst-Generator', link: '#DASK' },
   { title: 'Verfolger', link: '#U2CR' },
-  { title: 'Composition', link: '#ACAR' },
+  { title: 'Explosion', link: '#SW6Y' },
   { title: 'Sternenstaub', link: '#3UWS' },
   { title: 'Fraktal', link: '#GNTB' },
   { title: 'BetterRobot Klasse', link: '#GCPB' },
