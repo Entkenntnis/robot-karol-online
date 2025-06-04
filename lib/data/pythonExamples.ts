@@ -1,24 +1,12 @@
 // Python-Karol example data
 export const pythonKarolExamples = [
   { title: 'Creeper', link: '#2VH3' },
-  {
-    title: 'Der Boden ist Lava',
-    link: '#BYCE',
-  },
+  { title: 'Der Boden ist Lava', link: '#BYCE' },
   { title: 'Sprechen mit Karol', link: '#FFSM' },
-  {
-    title: 'Scanner',
-    link: '#XGCF',
-  },
-  {
-    title: 'Composition',
-    link: '#ACAR',
-  },
-  { title: 'Kunst-Generator', link: '#MA6F' },
-  {
-    title: 'Verfolger',
-    link: '#6MFR',
-  },
+  { title: 'Scanner', link: '#XGCF' },
+  { title: 'Kunst-Generator', link: '#DASK' },
+  { title: 'Composition', link: '#ACAR' },
+  { title: 'Verfolger', link: '#6MFR' },
   { title: 'Sternenstaub', link: '#3UWS' },
   { title: 'Fraktal', link: '#GNTB' },
   { title: 'BetterRobot Klasse', link: '#GCPB' },
