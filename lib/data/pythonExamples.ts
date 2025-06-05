@@ -10,6 +10,7 @@ export const pythonKarolExamples = [
   { title: 'Twitch Alerts', link: '#SBEU' },
   { title: 'Begrüßung', link: '#C8PU' },
   { title: 'Mitternachtsformel', link: '#VHMG' },
+  { title: 'Glider', link: '#WK3C' },
   { title: 'Sternenstaub', link: '#3UWS' },
   { title: 'Fraktal', link: '#GNTB' },
   { title: 'BetterRobot Klasse', link: '#GCPB' },
