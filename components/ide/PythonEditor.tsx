@@ -90,7 +90,7 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
               indentWithTab,
               {
                 key: 'Ctrl-s',
-                run: autoFormat,
+                run: () => true, // disable autoformatter (not working reliably)
               },
               { key: 'Ctrl-#', run: toggleComment },
             ]),
