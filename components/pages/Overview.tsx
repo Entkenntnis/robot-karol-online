@@ -467,9 +467,7 @@ export function Overview() {
                 <div className="absolute left-[35px] top-[530px] z-10 pointer-events-none">
                   <Reactions />
                 </div>
-                {(numberOfSolvedQuests >= 5 ||
-                  core.ws.page == 'analyze' ||
-                  core.ws.page == 'demo') && (
+                {
                   <a
                     href={'/#DANCE'}
                     className="absolute top-[720px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
@@ -493,7 +491,7 @@ export function Overview() {
                       className="w-[50px] mx-auto mt-2"
                     />
                   </a>
-                )}
+                }
                 <div className="absolute left-[4px] top-[750px] z-10">
                   <ul
                     tabIndex={0}

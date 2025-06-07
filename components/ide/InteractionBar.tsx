@@ -258,7 +258,8 @@ export function InteractionBar() {
               core.ws.ui.sharedQuestId &&
               pythonKarolExamples.some(
                 (example) =>
-                  example.link.substring(1) === core.ws.ui.sharedQuestId
+                  example.link.substring(1) === core.ws.ui.sharedQuestId &&
+                  !example.hidden
               )
             ) {
               const d = distance(

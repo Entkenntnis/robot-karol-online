@@ -16,7 +16,7 @@ export const pythonKarolExamples = [
   { title: 'BetterRobot Klasse', link: '#GCPB' },
   { title: 'Himmel und Hölle', link: '#5THY' },
   { title: 'Karol Kart', link: '#DS9C' },
-  { title: 'Dance, Dance', link: '#KT3E', hidden: true },
+  { title: 'Dance, Dance', link: '#G27J', hidden: true },
 ]
 
 export function getExampleId(title: string) {
