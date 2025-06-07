@@ -36,6 +36,7 @@ import {
 import { useEffect } from 'react'
 import { showModal } from '../../lib/commands/modal'
 import { pythonKarolExamples } from '../../lib/data/pythonExamples'
+import { CanvasWrapper } from './CanvasWrapper'
 
 export function Output() {
   const core = useCore()
@@ -195,37 +196,7 @@ export function Output() {
                   !core.ws.ui.show2D && 'mb-32'
                 )}
               >
-                {core.ws.ui.show2D ? (
-                  <View2D
-                    world={core.ws.world}
-                    preview={preview}
-                    className={clsx(
-                      'p-6',
-                      core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
-                    )}
-                    canvas={core.ws.canvas}
-                  />
-                ) : (
-                  <View
-                    world={core.ws.world}
-                    preview={preview}
-                    className={clsx(
-                      'p-6',
-                      core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
-                    )}
-                    robotImageDataUrl={core.ws.robotImageDataUrl}
-                    animationDuration={
-                      core.ws.canvas.manualControl
-                        ? undefined
-                        : Math.min(
-                            200,
-                            sliderToDelay(core.ws.ui.speedSliderValue)
-                          )
-                    }
-                    activeRobot={core.ws.__activeRobot}
-                    canvas={core.ws.canvas}
-                  />
-                )}
+                <CanvasWrapper preview={preview} />
               </div>
             </div>
           </div>

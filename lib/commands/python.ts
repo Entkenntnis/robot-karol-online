@@ -15,6 +15,7 @@ import {
   resetMark,
 } from './world'
 import { getTransport, PolySynth, start, Synth } from 'tone'
+import { CanvasObjects } from '../state/canvas-objects'
 
 export function setupWorker(core: Core) {
   if (core.worker) {
@@ -373,9 +374,8 @@ export function setupWorker(core: Core) {
       event.data.type === 'set-canvas'
     ) {
       // very low level implementation
-      core.mutateWs((ws) => {
-        const data = JSON.parse(event.data.canvas)
-        ws.canvas.objects = data
+      CanvasObjects.update((s) => {
+        s.objects = JSON.parse(event.data.canvas)
       })
     }
 
@@ -636,7 +636,9 @@ export function setupWorker(core: Core) {
       ui.errorMessages = []
       ui.keybindings = []
       canvas.manualControl = false
-      canvas.objects = []
+    })
+    CanvasObjects.update((s) => {
+      s.objects = []
     })
 
     core.worker.mainWorker.postMessage({

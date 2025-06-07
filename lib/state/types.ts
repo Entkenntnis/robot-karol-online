@@ -245,9 +245,12 @@ export interface ParameterInfo {
 }
 
 export interface Canvas {
-  objects: CanvasObject[]
   manualControl: boolean
   synthIdCounter: number
+}
+
+export interface ICanvsObjects {
+  objects: CanvasObject[]
 }
 
 type CanvasObject = CanvasRectangle

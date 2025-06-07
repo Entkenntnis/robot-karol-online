@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Canvas, Preview, World } from '../../lib/state/types'
+import { Canvas, ICanvsObjects, Preview, World } from '../../lib/state/types'
 import {
   karolDefaultImage,
   markeBild,
@@ -23,6 +23,7 @@ interface ViewProps {
   animationDuration?: number
   activeRobot?: number
   canvas?: Canvas
+  co?: ICanvsObjects
 }
 
 interface Resources {
@@ -36,6 +37,8 @@ interface Resources {
   ctx: CanvasRenderingContext2D
 }
 
+let lastFrameTimes: number[] = []
+
 export function View({
   world,
   wireframe,
@@ -47,6 +50,7 @@ export function View({
   animationDuration,
   activeRobot,
   canvas,
+  co,
 }: ViewProps) {
   const canvasElement = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
@@ -281,15 +285,29 @@ export function View({
         )
       }
 
-      if (canvas) {
+      if (co) {
         ctx.save()
         ctx.setTransform(30, 0, -15, 15, originX, originY)
         ctx.beginPath()
         ctx.rect(0, 0, world.dimX, world.dimY)
         ctx.clip()
-        drawCanvasObject(canvas, ctx)
+        drawCanvasObject(co, ctx)
         ctx.restore()
       }
+
+      // FPS counter
+      // ============== DEBUGGING ==============
+      const now = performance.now()
+      lastFrameTimes.push(now)
+      // Keep only the last 60 frames (1 second window)
+      lastFrameTimes = lastFrameTimes.filter((t) => now - t < 1000)
+      const fps = lastFrameTimes.length
+      ctx.save()
+      ctx.font = '16px monospace'
+      ctx.fillStyle = 'black'
+      ctx.fillText(`FPS: ${fps}`, 10, 20)
+      ctx.restore()
+      // ============== DEBUGGING ==============
 
       const drawKarol = (x: number, y: number, z: number, i: number) => {
         const point = to2d(x, y, z)
@@ -447,7 +465,16 @@ export function View({
       ctx.restore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources, world, wireframe, preview, hideKarol, renderCounter, canvas])
+  }, [
+    resources,
+    world,
+    wireframe,
+    preview,
+    hideKarol,
+    renderCounter,
+    canvas,
+    co,
+  ])
 
   return (
     <canvas
@@ -505,10 +532,10 @@ async function loadImage(src: string) {
 }
 
 export function drawCanvasObject(
-  canvas: Canvas,
+  co: ICanvsObjects,
   ctx: CanvasRenderingContext2D
 ) {
-  for (const obj of canvas.objects) {
+  for (const obj of co.objects) {
     if (obj.type == 'rectangle') {
       ctx.fillStyle = obj.fillColor
 

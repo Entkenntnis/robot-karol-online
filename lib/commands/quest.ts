@@ -6,6 +6,7 @@ import { isQuestDone } from '../helper/session'
 import { submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
+import { CanvasObjects } from '../state/canvas-objects'
 import { Core } from '../state/core'
 import { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
 import {
@@ -123,8 +124,10 @@ export function closeOutput(core: Core) {
     ws.ui.karolCrashMessage = undefined
     ws.quest.progress = false
     ws.ui.messages = []
-    ws.canvas.objects = []
     ws.canvas.manualControl = false
+  })
+  CanvasObjects.update((s) => {
+    s.objects = []
   })
 }
 
@@ -149,8 +152,10 @@ export function resetOutput(core: Core) {
       ws.ui.isEndOfRun = false
       ws.ui.karolCrashMessage = undefined
       ws.ui.gutter = 0
-      ws.canvas.objects = []
       ws.canvas.manualControl = false
+    })
+    CanvasObjects.update((s) => {
+      s.objects = []
     })
     setExecutionMarker(core, 0)
   }
