@@ -11,6 +11,7 @@ import {
   ziegelWeg,
 } from '../../lib/data/images'
 import { moveRaw, twoWorldsEqual } from '../../lib/commands/world'
+import { CanvasObjects } from '../../lib/state/canvas-objects'
 
 interface ViewProps {
   world: World
@@ -23,7 +24,6 @@ interface ViewProps {
   animationDuration?: number
   activeRobot?: number
   canvas?: Canvas
-  co?: ICanvsObjects
 }
 
 interface Resources {
@@ -50,10 +50,10 @@ export function View({
   animationDuration,
   activeRobot,
   canvas,
-  co,
 }: ViewProps) {
   const canvasElement = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
+  const co = CanvasObjects.useState()
 
   const width = 30 * world.dimX + 15 * world.dimY + 1
   const height = 15 * world.dimY + 15 * world.height + 1 + 61

@@ -25,18 +25,10 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { exitBench } from '../../lib/commands/bench'
 import { PythonConsole } from '../helper/PythonConsole'
-import {
-  left,
-  right,
-  forward,
-  toggleMark,
-  brick,
-  unbrick,
-} from '../../lib/commands/world'
+import { left, right, forward } from '../../lib/commands/world'
 import { useEffect } from 'react'
 import { showModal } from '../../lib/commands/modal'
 import { pythonKarolExamples } from '../../lib/data/pythonExamples'
-import { CanvasWrapper } from './CanvasWrapper'
 
 export function Output() {
   const core = useCore()
@@ -196,7 +188,37 @@ export function Output() {
                   !core.ws.ui.show2D && 'mb-32'
                 )}
               >
-                <CanvasWrapper preview={preview} />
+                {core.ws.ui.show2D ? (
+                  <View2D
+                    world={core.ws.world}
+                    preview={preview}
+                    className={clsx(
+                      'p-6',
+                      core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
+                    )}
+                    canvas={core.ws.canvas}
+                  />
+                ) : (
+                  <View
+                    world={core.ws.world}
+                    preview={preview}
+                    className={clsx(
+                      'p-6',
+                      core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
+                    )}
+                    robotImageDataUrl={core.ws.robotImageDataUrl}
+                    animationDuration={
+                      core.ws.canvas.manualControl
+                        ? undefined
+                        : Math.min(
+                            200,
+                            sliderToDelay(core.ws.ui.speedSliderValue)
+                          )
+                    }
+                    activeRobot={core.ws.__activeRobot}
+                    canvas={core.ws.canvas}
+                  />
+                )}
               </div>
             </div>
           </div>
