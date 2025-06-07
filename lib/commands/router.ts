@@ -1,5 +1,6 @@
 import { levels } from '../data/karolmaniaLevels'
 import { pythonKarolExamples } from '../data/pythonExamples'
+import { CanvasObjects } from '../state/canvas-objects'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
@@ -58,6 +59,9 @@ export async function hydrateFromHash(core: Core) {
   // PHASE 0: reset
   // const previousWs = core.ws
   core.reset()
+  CanvasObjects.update((s) => {
+    s.objects = []
+  })
 
   // PHASE 1: common
   setLng(core, getLng())

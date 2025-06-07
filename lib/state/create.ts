@@ -105,7 +105,6 @@ export function createWorkspaceState(): WorkspaceState {
       history: '',
     },
     canvas: {
-      objects: [],
       manualControl: false,
       synthIdCounter: 1,
     },
