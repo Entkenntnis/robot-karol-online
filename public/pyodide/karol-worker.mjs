@@ -313,7 +313,7 @@ import time
 import collections
 import statistics
 _last_tick = 0
-_jitter_history = collections.deque([0], maxlen=10)
+_jitter_history = collections.deque([0], maxlen=30)
 
 def _flushBatch():
   global _batch_to_tick
@@ -334,7 +334,6 @@ def tick(fps = 20):
   else:
     elapsed = now - _last_tick
     jitter_correction = statistics.mean(_jitter_history)
-    print(f"Jitter correction: {jitter_correction:.6f} seconds")
     time_to_wait = 1 / fps - elapsed - max(0, jitter_correction)
     if time_to_wait > 0:
       if time_to_wait <0.001:
