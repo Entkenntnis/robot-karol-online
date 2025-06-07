@@ -336,14 +336,11 @@ def tick(fps = 20):
     jitter_correction = statistics.mean(_jitter_history)
     time_to_wait = 1 / fps - elapsed - max(0, jitter_correction)
     if time_to_wait > 0:
-      if time_to_wait <0.001:
-        time.sleep(time_to_wait) # this is more precise
-      else:
-        time_pre_sleep = time.time()
-        _sleep(time_to_wait)
-        time_post_sleep = time.time()
-        jitter = time_post_sleep - time_pre_sleep - time_to_wait
-        _jitter_history.append(jitter)
+      time_pre_sleep = time.time()
+      _sleep(time_to_wait)
+      time_post_sleep = time.time()
+      jitter = time_post_sleep - time_pre_sleep - time_to_wait
+      _jitter_history.append(jitter)
     
   old_tick = _last_tick  # Store the previous tick time
   _last_tick = time.time()  # Update with current time after sleep
