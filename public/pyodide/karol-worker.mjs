@@ -310,7 +310,10 @@ def _transmit():
   _set_canvas(json.dumps(list(map(lambda x: x.toJSON(), _objects))))
 
 import time
+import collections
+import statistics
 _last_tick = 0
+_jitter_history = collections.deque([0], maxlen=10)
 
 def _flushBatch():
   global _batch_to_tick
@@ -330,8 +333,18 @@ def tick(fps = 20):
     _sleep(1 / fps)
   else:
     elapsed = now - _last_tick
-    if elapsed < 1 / fps:
-      _sleep(1 / fps - elapsed)
+    jitter_correction = statistics.mean(_jitter_history)
+    print(f"Jitter correction: {jitter_correction:.6f} seconds")
+    time_to_wait = 1 / fps - elapsed - max(0, jitter_correction)
+    if time_to_wait > 0:
+      if time_to_wait <0.001:
+        time.sleep(time_to_wait) # this is more precise
+      else:
+        time_pre_sleep = time.time()
+        _sleep(time_to_wait)
+        time_post_sleep = time.time()
+        jitter = time_post_sleep - time_pre_sleep - time_to_wait
+        _jitter_history.append(jitter)
     
   old_tick = _last_tick  # Store the previous tick time
   _last_tick = time.time()  # Update with current time after sleep
