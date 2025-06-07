@@ -297,7 +297,7 @@ export function View({
 
       // FPS counter
       // ============== DEBUGGING ==============
-      const now = performance.now()
+      /*const now = performance.now()
       lastFrameTimes.push(now)
       // Keep only the last 60 frames (1 second window)
       lastFrameTimes = lastFrameTimes.filter((t) => now - t < 1000)
@@ -306,7 +306,7 @@ export function View({
       ctx.font = '16px monospace'
       ctx.fillStyle = 'black'
       ctx.fillText(`FPS: ${fps}`, 10, 20)
-      ctx.restore()
+      ctx.restore()*/
       // ============== DEBUGGING ==============
 
       const drawKarol = (x: number, y: number, z: number, i: number) => {

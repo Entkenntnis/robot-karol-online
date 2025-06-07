@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { World, Preview, Canvas } from '../../lib/state/types'
 import { drawCanvasObject } from './View'
+import { CanvasObjects } from '../../lib/state/canvas-objects'
 
 interface View2DProps {
   world: World
@@ -10,6 +11,7 @@ interface View2DProps {
 }
 
 export function View2D({ world, preview, className, canvas }: View2DProps) {
+  const co = CanvasObjects.useState()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const cellSize = world.dimX > 9 || world.dimY > 9 ? 34 : 50
   const width = world.dimX * cellSize + 1
@@ -36,13 +38,13 @@ export function View2D({ world, preview, className, canvas }: View2DProps) {
       }
     }
 
-    if (canvas) {
+    if (co) {
       ctx.save()
       ctx.setTransform(cellSize, 0, 0, cellSize, 0, 0)
       ctx.beginPath()
       ctx.rect(0, 0, world.dimX, world.dimY)
       ctx.clip()
-      drawCanvasObject(canvas, ctx)
+      drawCanvasObject(co, ctx)
       ctx.restore()
     }
 
@@ -150,7 +152,7 @@ export function View2D({ world, preview, className, canvas }: View2DProps) {
         }
       }
     }
-  }, [world, preview, width, height, cellSize, canvas])
+  }, [world, preview, width, height, cellSize, canvas, co])
 
   return (
     <canvas
