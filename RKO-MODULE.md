@@ -63,6 +63,41 @@ rechteck = rko.Rectangle(10, 10, 50, 30, "red")
 rechteck.move(20, 0)
 ```
 
+## Roboter-Steuerung
+
+### `rko.enableManualControl()`
+
+Aktiviert die manuelle Steuerung des Roboters.
+
+### `rko.getKarolPosition()`
+
+Gibt die aktuelle Position des Roboters zurück.
+
+Rückgabewert: Ein Array mit [x, y] Koordinaten.
+
+### `rko.getKarolHeading()`
+
+Gibt die aktuelle Blickrichtung des Roboters zurück.
+
+Rückgabewert: Ein String ('north', 'east', 'south', oder 'west').
+
+### `rko.setKarolPosition(x, y)`
+
+Setzt die Position des Roboters.
+
+| Parameter | Typ  | Beschreibung     |
+| --------- | ---- | ---------------- |
+| x         | Zahl | Die X-Koordinate |
+| y         | Zahl | Die Y-Koordinate |
+
+### `rko.setKarolHeading(heading)`
+
+Setzt die Blickrichtung des Roboters.
+
+| Parameter | Typ    | Beschreibung                                    |
+| --------- | ------ | ----------------------------------------------- |
+| heading   | String | Die Richtung ('north', 'east', 'south', 'west') |
+
 ## Weitere Funktionen
 
 ### `rko.resetCanvas()`
@@ -94,6 +129,23 @@ while time.time() - start_time < 3:
     rko.tick(60)  # 60 FPS
     rechteck.move(1, 0)  # Bewege das Rechteck nach rechts
 ```
+
+
+### `rko.exit()`
+
+Beendet das Programm.
+
+### `rko.clearOuput()`
+
+Löscht die Ausgabe.
+
+### `rko.sleep(seconds)`
+
+Pausiert die Ausführung für die angegebene Zeit.
+
+| Parameter | Typ  | Beschreibung                |
+| --------- | ---- | --------------------------- |
+| seconds   | Zahl | Die Pausendauer in Sekunden |
 
 ## Audio und Musik
 
@@ -232,56 +284,3 @@ Setzt die Ausgabelautstärke für die Musikwiedergabe. 0 = keine Änderung, 12 =
 | Parameter | Typ  | Beschreibung                   |
 | --------- | ---- | ------------------------------ |
 | db        | Zahl | Lautstärkenänderung in Dezibel |
-
-## Roboter-Steuerung
-
-### `rko.enableManualControl()`
-
-Aktiviert die manuelle Steuerung des Roboters.
-
-### `rko.getKarolPosition()`
-
-Gibt die aktuelle Position des Roboters zurück.
-
-Rückgabewert: Ein Array mit [x, y] Koordinaten.
-
-### `rko.getKarolHeading()`
-
-Gibt die aktuelle Blickrichtung des Roboters zurück.
-
-Rückgabewert: Ein String ('north', 'east', 'south', oder 'west').
-
-### `rko.setKarolPosition(x, y)`
-
-Setzt die Position des Roboters.
-
-| Parameter | Typ  | Beschreibung     |
-| --------- | ---- | ---------------- |
-| x         | Zahl | Die X-Koordinate |
-| y         | Zahl | Die Y-Koordinate |
-
-### `rko.setKarolHeading(heading)`
-
-Setzt die Blickrichtung des Roboters.
-
-| Parameter | Typ    | Beschreibung                                    |
-| --------- | ------ | ----------------------------------------------- |
-| heading   | String | Die Richtung ('north', 'east', 'south', 'west') |
-
-## Sonstiges
-
-### `rko.exit()`
-
-Beendet das Programm.
-
-### `rko.clearOuput()`
-
-Löscht die Ausgabe.
-
-### `rko.sleep(seconds)`
-
-Pausiert die Ausführung für die angegebene Zeit.
-
-| Parameter | Typ  | Beschreibung                |
-| --------- | ---- | --------------------------- |
-| seconds   | Zahl | Die Pausendauer in Sekunden |
