@@ -45,13 +45,20 @@ export function SurveyModal() {
                 onSubmit={(e) => {
                   e.preventDefault()
                   let q = (e.currentTarget[0] as any).value
-                  const { program, language } = getProgram(core)
-                  if (program) {
-                    q = `${q} (Sprache: ${language}, Programm: ${program})`
+                  let ev = ''
+                  if (core.ws.quest.id > 0) {
+                    const { program, language } = getProgram(core)
+                    if (program) {
+                      q = `${q} (Sprache: ${language}, Programm: ${program})`
+                    }
+                    ev = `ev_question_${core.ws.quest.id}_${JSON.stringify(
+                      q.length < 900 ? q : q.slice(0, 900)
+                    )}`
+                  } else {
+                    ev = `ev_questionPyEx_${
+                      core.ws.ui.sharedQuestId
+                    }_${JSON.stringify(q.length < 900 ? q : q.slice(0, 900))}`
                   }
-                  const ev = `ev_question_${core.ws.quest.id}_${JSON.stringify(
-                    q.length < 900 ? q : q.slice(0, 900)
-                  )}`
 
                   submitAnalyzeEvent(core, ev)
                   setSubmitted(true)
