@@ -30,11 +30,13 @@ Erstellt ein neues Rechteck an der angegebenen Position.
 
 ### Eigenschaften
 
-| Name | Typ    | Beschreibung                             |
-| ---- | ------ | ---------------------------------------- |
-| x    | Zahl   | Die X-Koordinate (lesbar und schreibbar) |
-| y    | Zahl   | Die Y-Koordinate (lesbar und schreibbar) |
-| fill | String | Die Füllfarbe (lesbar und schreibbar)    |
+| Name   | Typ    | Beschreibung                             |
+| ------ | ------ | ---------------------------------------- |
+| x      | Zahl   | Die X-Koordinate (lesbar und schreibbar) |
+| y      | Zahl   | Die Y-Koordinate (lesbar und schreibbar) |
+| width  | Zahl   | Die Breite (lesbar und schreibbar)       |
+| height | Zahl   | Die Höhe (lesbar und schreibbar)         |
+| fill   | String | Die Füllfarbe (lesbar und schreibbar)    |
 
 ### Methoden
 
@@ -130,12 +132,11 @@ while time.time() - start_time < 3:
     rechteck.move(1, 0)  # Bewege das Rechteck nach rechts
 ```
 
-
 ### `rko.exit()`
 
 Beendet das Programm.
 
-### `rko.clearOuput()`
+### `rko.clearOutput()`
 
 Löscht die Ausgabe.
 
@@ -146,6 +147,22 @@ Pausiert die Ausführung für die angegebene Zeit.
 | Parameter | Typ  | Beschreibung                |
 | --------- | ---- | --------------------------- |
 | seconds   | Zahl | Die Pausendauer in Sekunden |
+
+### `rko.enableArrowKeys()`
+
+Aktiviert die Verwendung der Pfeiltasten für die Eingabe. Diese Funktion muss vor der Verwendung von `isPressed()` aufgerufen werden.
+
+### `rko.isPressed(key)`
+
+Überprüft, ob eine bestimmte Pfeiltaste gedrückt ist.
+
+| Parameter | Typ    | Beschreibung                                                   |
+| --------- | ------ | -------------------------------------------------------------- |
+| key       | String | Die zu überprüfende Taste ('up', 'down', 'left', oder 'right') |
+
+Rückgabewert: `True` wenn die Taste gedrückt ist, `False` wenn nicht.
+
+**Hinweis:** `enableArrowKeys()` muss vor der ersten Verwendung von `isPressed()` aufgerufen werden.
 
 ## Audio und Musik
 
@@ -189,7 +206,7 @@ Die `Track` Klasse ermöglicht das Erstellen von Musikspuren.
 #### Konstruktor
 
 ```python
-Track()
+rko.Track()
 ```
 
 Erstellt eine neue Musikspur.
@@ -273,14 +290,14 @@ Rückgabewert: Die Zeit in Sekunden.
 
 Setzt das Tempo für die Musikwiedergabe.
 
-| Parameter | Typ  | Beschreibung                  |
-| --------- | ---- | ----------------------------- |
-| bpm       | Zahl | Das Tempo in Beats pro Minute |
+| Parameter | Typ  | Beschreibung                                                     |
+| --------- | ---- | ---------------------------------------------------------------- |
+| bpm       | Zahl | Das Tempo in Beats pro Minute (muss eine positive Ganzzahl sein) |
 
-### `rko.Volume(db)`
+### `rko.setVolume(volume)`
 
 Setzt die Ausgabelautstärke für die Musikwiedergabe. 0 = keine Änderung, 12 = doppelt so laut, -12 = halb so laut.
 
-| Parameter | Typ  | Beschreibung                   |
-| --------- | ---- | ------------------------------ |
-| db        | Zahl | Lautstärkenänderung in Dezibel |
+| Parameter | Typ  | Beschreibung                                                                  |
+| --------- | ---- | ----------------------------------------------------------------------------- |
+| volume    | Zahl | Lautstärkenänderung in Dezibel (muss eine Ganzzahl zwischen -100 und 12 sein) |
