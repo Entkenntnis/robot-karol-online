@@ -48,7 +48,10 @@ export function addConsoleMessage(core: Core, text: string) {
     //if (lastIndex >= 0 && ui.messages[lastIndex].text == text) {
     // ui.messages[lastIndex].count++
     // } else {
-    ui.messages.push({ text, ts, count: 1 })
+    const lines = text.split('\n')
+    for (const line of lines) {
+      ui.messages.push({ text: line, ts: Math.random(), count: 1 })
+    }
     // }
   })
   /*setTimeout(() => {

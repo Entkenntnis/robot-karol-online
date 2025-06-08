@@ -35,12 +35,9 @@ export function PythonConsole() {
             }
           }}
         >
-          {messages.map((m) => (
+          {messages.map((m, i, arr) => (
             <div key={`${m.ts}-${m.text}`} className="">
-              <span className="rounded">
-                {m.text}
-                {m.count > 1 && <span> (x{m.count})</span>}
-              </span>
+              <span className="rounded">{m.text}</span>
             </div>
           ))}
         </div>
