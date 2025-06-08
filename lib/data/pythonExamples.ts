@@ -15,7 +15,7 @@ export const pythonKarolExamples = [
   { title: 'Fraktal', link: '#GNTB' },
   { title: 'BetterRobot Klasse', link: '#GCPB' },
   { title: 'Himmel und Hölle', link: '#5THY' },
-  { title: 'Karol Kart', link: '#DS9C' },
+  { title: 'Karol Kart', link: '#CXTJ' },
   { title: 'Dance, Dance', link: '#8AFF', hidden: true },
 ]
 

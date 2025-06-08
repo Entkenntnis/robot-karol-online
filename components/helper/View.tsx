@@ -37,6 +37,7 @@ interface Resources {
   ctx: CanvasRenderingContext2D
 }
 
+const showFps = false
 let lastFrameTimes: number[] = []
 
 export function View({
@@ -297,16 +298,18 @@ export function View({
 
       // FPS counter
       // ============== DEBUGGING ==============
-      /*const now = performance.now()
-      lastFrameTimes.push(now)
-      // Keep only the last 60 frames (1 second window)
-      lastFrameTimes = lastFrameTimes.filter((t) => now - t < 1000)
-      const fps = lastFrameTimes.length
-      ctx.save()
-      ctx.font = '16px monospace'
-      ctx.fillStyle = 'black'
-      ctx.fillText(`FPS: ${fps}`, 10, 20)
-      ctx.restore()*/
+      if (showFps) {
+        const now = performance.now()
+        lastFrameTimes.push(now)
+        // Keep only the last 60 frames (1 second window)
+        lastFrameTimes = lastFrameTimes.filter((t) => now - t < 1000)
+        const fps = lastFrameTimes.length
+        ctx.save()
+        ctx.font = '16px monospace'
+        ctx.fillStyle = 'black'
+        ctx.fillText(`FPS: ${fps}`, 10, 20)
+        ctx.restore()
+      }
       // ============== DEBUGGING ==============
 
       const drawKarol = (x: number, y: number, z: number, i: number) => {
