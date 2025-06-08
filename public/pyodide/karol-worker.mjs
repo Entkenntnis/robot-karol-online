@@ -213,7 +213,7 @@ export function buildInternalRobot() {
 }
 
 const rkoModule = `
-from _rko_internal import _internal_Robot, _set_canvas, _sleep, _exit, _enableManualControl, _getKarolPosition, _getKarolHeading, _setKarolPosition, _setKarolHeading, _createNewSynth, _playSynth, _setBpm, _convertTimeToSeconds, _clearOutput
+from _rko_internal import _internal_Robot, _set_canvas, _sleep, _exit, _enableManualControl, _getKarolPosition, _getKarolHeading, _setKarolPosition, _setKarolHeading, _createNewSynth, _playSynth, _setBpm, _convertTimeToSeconds, _clearOutput, _setVolume
 from RobotKarolOnline import tasteRegistrieren, tasteGedrückt
 
 class Robot:
@@ -460,6 +460,13 @@ def setBpm(bmp):
     raise ValueError('BPM must be greater than 0')
   _setBpm(bmp)
 
+def setVolume(volume):
+  if not isinstance(volume, int):
+    raise TypeError('Volume must be an integer')
+  if volume < -100 or volume > 12:
+    raise ValueError('Volume must be between -100 and 12 db')
+  _setVolume(volume)
+
 def convertTimeToSeconds(time):
   return _convertTimeToSeconds(time)
 
@@ -675,6 +682,12 @@ self.onmessage = async (event) => {
           self.postMessage({
             type: 'set-bpm',
             bpm,
+          })
+        },
+        _setVolume: (volume) => {
+          self.postMessage({
+            type: 'set-volume',
+            volume,
           })
         },
         _convertTimeToSeconds: (time) => {

@@ -14,7 +14,7 @@ import {
   setMark,
   resetMark,
 } from './world'
-import { getTransport, PolySynth, start, Synth } from 'tone'
+import { getDestination, getTransport, PolySynth, start, Synth } from 'tone'
 import { CanvasObjects } from '../state/canvas-objects'
 
 export function setupWorker(core: Core) {
@@ -517,6 +517,15 @@ export function setupWorker(core: Core) {
     ) {
       const { bpm } = event.data
       getTransport().bpm.value = parseInt(bpm)
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'set-volume'
+    ) {
+      const { volume } = event.data
+      getDestination().volume.value = Math.min(12, parseInt(volume))
     }
 
     if (

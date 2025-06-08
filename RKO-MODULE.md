@@ -225,6 +225,14 @@ Setzt das Tempo für die Musikwiedergabe.
 | --------- | ---- | ----------------------------- |
 | bpm       | Zahl | Das Tempo in Beats pro Minute |
 
+### `rko.Volume(db)`
+
+Setzt die Ausgabelautstärke für die Musikwiedergabe. 0 = keine Änderung, 12 = doppelt so laut, -12 = halb so laut.
+
+| Parameter | Typ  | Beschreibung                   |
+| --------- | ---- | ------------------------------ |
+| db        | Zahl | Lautstärkenänderung in Dezibel |
+
 ## Roboter-Steuerung
 
 ### `rko.enableManualControl()`
