@@ -18,9 +18,10 @@ let highlight = { current: null }
 let runId = { current: 1 }
 
 const compileScript = (code) => `
+import ast
 def check_syntax(code):
     try:
-        compile(code, "<string>", "exec")
+        compile(code, "<string>", "exec", ast.PyCF_ALLOW_TOP_LEVEL_AWAIT)
         return "ok"
     except SyntaxError as e:
         return f"[{e.lineno}, {e.offset}, {e.end_lineno}, {e.end_offset}, \\"{e.msg}\\"]"
