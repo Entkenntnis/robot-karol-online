@@ -471,64 +471,6 @@ def setVolume(volume):
 def convertTimeToSeconds(time):
   return _convertTimeToSeconds(time)
 
-class Track:
-  def __init__(self):
-    self._notes = []
-    self._startTime = -1
-    self._playBackIndex = -1
-    self._waitUntil = -1
-    self.synth = Synth()
-
-  def add(self, f, t):
-    self._notes.append((f, t))
-
-  def start(self):
-    self._startTime = time.time()
-    self._playBackIndex = -1
-    self._waitUntil = self._startTime
-    self.tick()
-
-  def skip(self, duration):
-    s = convertTimeToSeconds(duration)
-    while s > 0 and self._playBackIndex + 1 < len(self._notes):
-      self._playBackIndex += 1
-      s -= convertTimeToSeconds(self._notes[self._playBackIndex][1])
-    self._waitUntil = time.time() - s
-
-  def tick(self):
-    now = time.time()
-    if now > self._waitUntil:
-      self._playBackIndex += 1
-      if self._playBackIndex >= len(self._notes):
-        return False
-      f, t = self._notes[self._playBackIndex]
-      self.synth.play(f, t)
-      s = convertTimeToSeconds(t)
-      self._waitUntil += s
-    return True
-
-class Song:
-  def __init__(self):
-    self._tracks = []
-
-  def add(self, track):
-    self._tracks.append(track)
-
-  def start(self):
-    for t in self._tracks:
-      t.start()
-
-  def skip(self, duration):
-    for t in self._tracks:
-      t.skip(duration)
-
-  def tick(self):
-    r = False
-    for t in self._tracks:
-      if t.tick():
-        r = True
-    return r
-
 def sleep(s):
   _sleep(s)
 
