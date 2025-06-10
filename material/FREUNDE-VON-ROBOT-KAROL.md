@@ -75,3 +75,23 @@ In Fabriken oder an unzugänglichen und gefährlichen Orten arbeiten hauptsächl
 Ich ähnele einem Menschen – zwar in Blechkästen gekleidet, aber dadurch ist jedem umso klarer, wer ich bin. Ich kann alles Mögliche tun: gehen, mich drehen, Treppen steigen, Gegenstände in meinem "Haus", das viele Räume hat, erkennen und transportieren.
 
 Ich mache jedoch nichts von selbst. Alles müsst ihr, Freunde und Freundinnen, mir befehlen. Wie das geht, erfahren Sie in diesem Buch.
+
+## Karol und die beiden
+
+*Jožo*: Das ist zwar kein schlechter Anfang, aber Karol kann nicht sprechen. Im besten Fall schreibt sie ab und zu etwas auf den Bildschirm oder piept. Ansonsten ist sie die ganze Zeit still und macht gehorsam, was wir ihr befehlen.
+
+*Ľuba*: Sie muss sich allein fühlen. Wie wäre es, wenn wir einen Jungen und ein Mädchen erfinden würden, die mit ihr am Computer spielen?
+
+*Jožo*: Ein Junge und ein Mädchen! Das ist abgedroschen.
+
+*Ľuba*: Es müssen ja keine Kinder sein. Wie wäre es mit Computer-Kobolden – einer Roboterin und einem Roboterjungen?
+
+*Jožo*: Das ist besser. Sie könnten Ka und Rol heißen – du verstehst sicher, warum...
+
+*Ľuba*: Klar.
+
+*Jožo*: Sie könnten in verschiedenen Computern wohnen, damit sie den Kindern auch etwas über sich erzählen können. Einer im PC, der andere im PMD. Robot Karol wohnt ja genau in ihnen.
+
+*Ľuba*: Sprich verständlich. PMD, das ist ein Mikrocomputer PMD-85. Oder auch ein anderer, auf dem die gleichen Programme wie auf dem PMD-85 ausgeführt werden können. Klug ausgedrückt, ein Computer, der mit dem PMD-85 kompatibel ist. Zum Beispiel Didaktik Alfa. Darin wird Rol wohnen.
+
+*Jožo*: PC, das ist ein 16-Bit-Mikrocomputer, kompatibel mit IBM PC. Die Buchstaben PC bedeuten "Personal Computer", also Personalcomputer. Darin wird Ka wohnen.
