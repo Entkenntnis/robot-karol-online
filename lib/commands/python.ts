@@ -23,6 +23,7 @@ import {
   Synth,
 } from 'tone'
 import { CanvasObjects } from '../state/canvas-objects'
+import { Instrument } from 'tone/build/esm/instrument/Instrument'
 
 export function setupWorker(core: Core) {
   if (core.worker) {
@@ -489,32 +490,43 @@ export function setupWorker(core: Core) {
       typeof event.data === 'object' &&
       event.data.type == 'create-new-synth'
     ) {
-      const { buffer, type } = event.data
+      const { buffer, instrument } = event.data
       const syncArray = new Int32Array(buffer, 0, 1)
       const dataArray = new Int32Array(buffer, 4)
       const instrumentId = core.ws.canvas.instrumentIdCounter
       core.mutateWs((ws) => {
         ws.canvas.instrumentIdCounter++
       })
-      const newInstrument =
-        type == 'drumkit'
-          ? new Sampler({
-              urls: {
-                A1: 'kick.mp3',
-                B2: 'snare.mp3',
-              },
-              baseUrl: '/audio/drumkit/',
-              onload: () => {
-                console.log('Drumkit loaded')
-              },
-            }).toDestination()
-          : new PolySynth(Synth).toDestination()
+      const instrumentPromise = new Promise<Instrument<any>>((resolve) => {
+        if (instrument == 'drumkit') {
+          const value = new Sampler({
+            urls: {
+              C1: 'kick.mp3',
+              D1: 'snare.mp3',
+              E1: 'hihat.mp3',
+              F1: 'tom1.mp3',
+              G1: 'tom2.mp3',
+              A1: 'tom3.mp3',
+            },
+            baseUrl: '/audio/drumkit/',
+            onload: () => {
+              console.log('Drumkit loaded')
+              resolve(value)
+            },
+          }).toDestination()
+        } else {
+          resolve(new PolySynth(Synth).toDestination())
+        }
+      })
 
       start().then(() => {
-        core.instruments.set(instrumentId, newInstrument)
-        dataArray[0] = instrumentId
-        syncArray[0] = 1
-        Atomics.notify(syncArray, 0)
+        instrumentPromise.then((newInstrument) => {
+          console.log('New instrument created:', instrumentId, newInstrument)
+          core.instruments.set(instrumentId, newInstrument)
+          dataArray[0] = instrumentId
+          syncArray[0] = 1
+          Atomics.notify(syncArray, 0)
+        })
       })
     }
 

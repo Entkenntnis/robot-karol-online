@@ -451,19 +451,21 @@ class Synth:
   def play(self, frequency, duration):
     _playSynth(self._synthId, frequency, duration)
 
-  def pause(self, duration):
-    _playSynth(self._synthId, 0, duration)
-
     
 class Drumkit:
   def __init__(self):
     self._synthId = _createNewInstrument("drumkit")
 
-  def play(self, frequency, duration):
-    _playSynth(self._synthId, frequency, duration)
-
-  def pause(self, duration):
-    _playSynth(self._synthId, 0, duration)
+  def play(self, note, duration):
+    drum_map = {
+      'bd': 'C1',
+      'sd': 'D1',
+      'hh': 'E1',
+      'lt': 'F1',
+      'mt': 'G1',
+      'ht': 'A1',
+    }
+    _playSynth(self._synthId, drum_map.get(note, 'C1'), duration)
 
 def setBpm(bmp):
   if not isinstance(bmp, int):
