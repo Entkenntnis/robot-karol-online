@@ -180,24 +180,14 @@ Erstellt einen neuen Synthesizer.
 
 #### Methoden
 
-##### `play(frequency, duration, immediate=False)`
+##### `play(frequency, duration)`
 
 Spielt einen Ton mit der angegebenen Frequenz und Dauer.
 
-| Parameter | Typ     | Beschreibung                       |
-| --------- | ------- | ---------------------------------- |
-| frequency | Zahl    | Die Frequenz des Tons in Hertz     |
-| duration  | Zahl    | Die Dauer des Tons in Sekunden     |
-| immediate | Boolean | Sofort abspielen (Standard: False) |
-
-##### `pause(duration, immediate=False)`
-
-Fügt eine Pause ein.
-
-| Parameter | Typ     | Beschreibung                       |
-| --------- | ------- | ---------------------------------- |
-| duration  | Zahl    | Die Dauer der Pause in Sekunden    |
-| immediate | Boolean | Sofort pausieren (Standard: False) |
+| Parameter | Typ  | Beschreibung                                                                       |
+| --------- | ---- | ---------------------------------------------------------------------------------- |
+| frequency | Zahl | Die Frequenz des Tons in Hertz                                                     |
+| duration  | Zahl | Die Dauer des Tons in Zeitangabe (z.B. '4m' für 4 Takte, '8n' für eine Achtelnote) |
 
 ### `rko.convertTimeToSeconds(time)`
 

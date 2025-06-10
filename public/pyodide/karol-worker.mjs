@@ -214,7 +214,7 @@ export function buildInternalRobot() {
 }
 
 const rkoModule = `
-from _rko_internal import _internal_Robot, _set_canvas, _sleep, _exit, _enableManualControl, _getKarolPosition, _getKarolHeading, _setKarolPosition, _setKarolHeading, _createNewSynth, _playSynth, _setBpm, _convertTimeToSeconds, _clearOutput, _setVolume
+from _rko_internal import _internal_Robot, _set_canvas, _sleep, _exit, _enableManualControl, _getKarolPosition, _getKarolHeading, _setKarolPosition, _setKarolHeading, _createNewInstrument, _playSynth, _setBpm, _convertTimeToSeconds, _clearOutput, _setVolume
 from RobotKarolOnline import tasteRegistrieren, tasteGedrückt
 
 class Robot:
@@ -446,13 +446,26 @@ def exit():
 
 class Synth:
   def __init__(self):
-    self._synthId = _createNewSynth()
+    self._synthId = _createNewInstrument()
 
-  def play(self, frequency, duration, immediate=False):
+  def play(self, frequency, duration):
     _playSynth(self._synthId, frequency, duration)
 
-  def pause(self, duration, immediate=False):
-    _playSynth(self._synthId, 0, duration)
+    
+class Drumkit:
+  def __init__(self):
+    self._synthId = _createNewInstrument("drumkit")
+
+  def play(self, note, duration):
+    drum_map = {
+      'bd': 'C1',
+      'sd': 'D1',
+      'hh': 'E1',
+      'lt': 'F1',
+      'mt': 'G1',
+      'ht': 'A1',
+    }
+    _playSynth(self._synthId, drum_map.get(note, 'C1'), duration)
 
 def setBpm(bmp):
   if not isinstance(bmp, int):
@@ -601,7 +614,7 @@ self.onmessage = async (event) => {
             heading,
           })
         },
-        _createNewSynth: () => {
+        _createNewInstrument: (instrument) => {
           const buffer = new SharedArrayBuffer(8)
           const syncArray = new Int32Array(buffer, 0, 1)
           const dataArray = new Uint32Array(buffer, 4)
@@ -609,6 +622,7 @@ self.onmessage = async (event) => {
           self.postMessage({
             type: 'create-new-synth',
             buffer,
+            instrument,
           })
           Atomics.wait(syncArray, 0, 42)
           return Atomics.load(dataArray, 0)

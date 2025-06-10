@@ -246,7 +246,7 @@ export interface ParameterInfo {
 
 export interface Canvas {
   manualControl: boolean
-  synthIdCounter: number
+  instrumentIdCounter: number
 }
 
 export interface ICanvsObjects {

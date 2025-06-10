@@ -14,8 +14,16 @@ import {
   setMark,
   resetMark,
 } from './world'
-import { getDestination, getTransport, PolySynth, start, Synth } from 'tone'
+import {
+  getDestination,
+  getTransport,
+  PolySynth,
+  Sampler,
+  start,
+  Synth,
+} from 'tone'
 import { CanvasObjects } from '../state/canvas-objects'
+import { Instrument } from 'tone/build/esm/instrument/Instrument'
 
 export function setupWorker(core: Core) {
   if (core.worker) {
@@ -482,19 +490,41 @@ export function setupWorker(core: Core) {
       typeof event.data === 'object' &&
       event.data.type == 'create-new-synth'
     ) {
-      const { buffer } = event.data
+      const { buffer, instrument } = event.data
       const syncArray = new Int32Array(buffer, 0, 1)
       const dataArray = new Int32Array(buffer, 4)
-      const synthId = core.ws.canvas.synthIdCounter
+      const instrumentId = core.ws.canvas.instrumentIdCounter
       core.mutateWs((ws) => {
-        ws.canvas.synthIdCounter++
+        ws.canvas.instrumentIdCounter++
       })
-      const newSynth = new PolySynth(Synth).toDestination()
+      const instrumentPromise = new Promise<Instrument<any>>((resolve) => {
+        if (instrument == 'drumkit') {
+          const value = new Sampler({
+            urls: {
+              C1: 'kick.mp3',
+              D1: 'snare.mp3',
+              E1: 'hihat.mp3',
+              F1: 'tom3.mp3',
+              G1: 'tom2.mp3',
+              A1: 'tom1.mp3',
+            },
+            baseUrl: '/audio/drumkit/',
+            onload: () => {
+              resolve(value)
+            },
+          }).toDestination()
+        } else {
+          resolve(new PolySynth(Synth).toDestination())
+        }
+      })
+
       start().then(() => {
-        core.synths.set(synthId, newSynth)
-        dataArray[0] = synthId
-        syncArray[0] = 1
-        Atomics.notify(syncArray, 0)
+        instrumentPromise.then((newInstrument) => {
+          core.instruments.set(instrumentId, newInstrument)
+          dataArray[0] = instrumentId
+          syncArray[0] = 1
+          Atomics.notify(syncArray, 0)
+        })
       })
     }
 
@@ -504,9 +534,9 @@ export function setupWorker(core: Core) {
       event.data.type == 'play-synth'
     ) {
       const { id, frequency, duration } = event.data
-      const synth = core.synths.get(parseInt(id))
-      if (synth) {
-        synth.triggerAttackRelease(JSON.parse(frequency), duration)
+      const instrument = core.instruments.get(parseInt(id))
+      if (instrument) {
+        instrument.triggerAttackRelease(JSON.parse(frequency), duration)
       }
     }
 
@@ -702,6 +732,11 @@ export function setupWorker(core: Core) {
       canvas.manualControl = false
     })
     core.worker.isFresh = true
+
+    core.instruments.forEach((instrument) => {
+      instrument.dispose()
+    })
+    core.instruments.clear()
   }
 
   core.worker.lint = (code: string) => {

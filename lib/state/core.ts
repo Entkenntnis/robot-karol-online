@@ -1,7 +1,7 @@
 import {
   createContext,
   Dispatch,
-  MutableRefObject,
+  RefObject,
   SetStateAction,
   useContext,
   useMemo,
@@ -15,7 +15,7 @@ import { CoreRefs, CoreState, PyodideWorker, WorkspaceState } from './types'
 import { createDefaultCoreState } from './create'
 import { deStrings } from '../strings/de'
 import { enStrings } from '../strings/en'
-import { PolySynth } from 'tone'
+import { Instrument } from 'tone/build/esm/instrument/Instrument'
 
 // set up core within app
 export function useCreateCore() {
@@ -42,20 +42,20 @@ export const CoreProvider = CoreContext.Provider
 
 export class Core {
   _setCoreState: Dispatch<SetStateAction<CoreState>>
-  _coreRef: MutableRefObject<CoreRefs>
+  _coreRef: RefObject<CoreRefs>
 
   worker?: PyodideWorker
   executionEndCallback?: () => void
 
   // these two are managed by react lifecycles and should be always up to date
   blockyResize?: () => void
-  view?: MutableRefObject<EditorView | undefined>
+  view?: RefObject<EditorView | undefined>
 
-  synths: Map<number, PolySynth> = new Map()
+  instruments: Map<number, Instrument<any>> = new Map()
 
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,
-    coreRef: MutableRefObject<CoreRefs>
+    coreRef: RefObject<CoreRefs>
   ) {
     this._setCoreState = setCoreState
     this._coreRef = coreRef
@@ -97,9 +97,9 @@ export class Core {
     const cleanState = createDefaultCoreState()
     this._coreRef.current.state = cleanState
     this._setCoreState(cleanState)
-    this.synths.forEach((synth) => {
-      synth.dispose()
+    this.instruments.forEach((instrument) => {
+      instrument.dispose()
     })
-    this.synths.clear()
+    this.instruments.clear()
   }
 }
