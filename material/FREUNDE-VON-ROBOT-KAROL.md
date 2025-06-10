@@ -30,7 +30,7 @@ Jeder Roboter hat auch einen zweiten Vater – einen Menschen, der ihn erfunden 
 
 Richard bemerkte, dass einige seiner Kommilitonen nicht lernten, wie man am Computer programmiert. Das kam ihm seltsam vor, denn er selbst programmierte gut – und gerne. Er fragte sie also, was ihnen am Programmieren nicht gefiel. Schließlich erfuhr er von ihnen, dass es ihnen nicht einmal so sehr schwierig, sondern langweilig vorkam: lauter Zahlen, Formeln und Berechnungen...
 
-So überlegte Richard, wie er das Leben am Computer interessanter gestalten könnte. Und er erfand den Robot Karol.
+So überlegte Richard, wie er das Leben am Computer interessanter gestalten könnte. Und er erfand Robot Karol.
 
 Kinder werden im Kreißsaal geboren, Robot Karol erblickte zum ersten Mal das Licht der Welt in einer Druckerei. Richard veröffentlichte nämlich 1981 das Buch "Karel the Robot". Auch jemand, der kein Englisch kann, verstand aus dem Titel sicherlich, worum es darin ging. Weil
 Richard wusste, wie das Wort Robot entstand, nannte er seinen Roboter "Karel". So heißt Robot Karol in Amerika Karel – obwohl die Karels dort Charles (tscharles) oder Charlie (tscharli) genannt werden.
