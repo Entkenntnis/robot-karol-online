@@ -68,7 +68,7 @@ Schon so ein Fahrkartenautomat ist etwas klüger. Sie werfen eine Ein-Kronen-, Z
 
 Die klügsten unter allen Maschinen sind wir – Roboter. Wir können uns nämlich viel mehr merken als andere Maschinen. Deshalb sagen die Leute manchmal, dass wir wie lebendig sind.
 
-Nicht alle Roboter ähneln im Aussehen einem Menschen – solche gibt es wenige.
+Nicht alle Roboter ähneln im Aussehen einem Menschen – solche gibt es nur selten.
 
 In Fabriken oder an unzugänglichen und gefährlichen Orten arbeiten hauptsächlich Roboter, die auf bestimmte Arten von Tätigkeiten spezialisiert sind. Dementsprechend sehen sie auch aus: manche ähneln einem Kran, andere einem Arm mit einer Spritzpistole, wieder andere einem Raumfahrzeug.
 
