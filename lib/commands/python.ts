@@ -504,9 +504,9 @@ export function setupWorker(core: Core) {
               C1: 'kick.mp3',
               D1: 'snare.mp3',
               E1: 'hihat.mp3',
-              F1: 'tom1.mp3',
+              F1: 'tom3.mp3',
               G1: 'tom2.mp3',
-              A1: 'tom3.mp3',
+              A1: 'tom1.mp3',
             },
             baseUrl: '/audio/drumkit/',
             onload: () => {
