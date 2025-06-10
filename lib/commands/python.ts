@@ -723,10 +723,10 @@ export function setupWorker(core: Core) {
     })
     core.worker.isFresh = true
 
-    /*core.instruments.forEach((instrument) => {
+    core.instruments.forEach((instrument) => {
       instrument.dispose()
     })
-    core.instruments.clear()*/
+    core.instruments.clear()
   }
 
   core.worker.lint = (code: string) => {

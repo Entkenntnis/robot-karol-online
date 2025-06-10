@@ -214,7 +214,7 @@ export function buildInternalRobot() {
 }
 
 const rkoModule = `
-from _rko_internal import _internal_Robot, _set_canvas, _sleep, _exit, _enableManualControl, _getKarolPosition, _getKarolHeading, _setKarolPosition, _setKarolHeading, _createNewSynth, _playSynth, _setBpm, _convertTimeToSeconds, _clearOutput, _setVolume
+from _rko_internal import _internal_Robot, _set_canvas, _sleep, _exit, _enableManualControl, _getKarolPosition, _getKarolHeading, _setKarolPosition, _setKarolHeading, _createNewInstrument, _playSynth, _setBpm, _convertTimeToSeconds, _clearOutput, _setVolume
 from RobotKarolOnline import tasteRegistrieren, tasteGedrückt
 
 class Robot:
@@ -446,7 +446,7 @@ def exit():
 
 class Synth:
   def __init__(self):
-    self._synthId = _createNewSynth()
+    self._synthId = _createNewInstrument()
 
   def play(self, frequency, duration):
     _playSynth(self._synthId, frequency, duration)
@@ -457,7 +457,7 @@ class Synth:
     
 class Drumkit:
   def __init__(self):
-    self._synthId = _createNewSynth("drumkit")
+    self._synthId = _createNewInstrument("drumkit")
 
   def play(self, frequency, duration):
     _playSynth(self._synthId, frequency, duration)
@@ -612,7 +612,7 @@ self.onmessage = async (event) => {
             heading,
           })
         },
-        _createNewSynth: (type) => {
+        _createNewInstrument: (instrument) => {
           const buffer = new SharedArrayBuffer(8)
           const syncArray = new Int32Array(buffer, 0, 1)
           const dataArray = new Uint32Array(buffer, 4)
@@ -620,7 +620,7 @@ self.onmessage = async (event) => {
           self.postMessage({
             type: 'create-new-synth',
             buffer,
-            type,
+            instrument,
           })
           Atomics.wait(syncArray, 0, 42)
           return Atomics.load(dataArray, 0)
