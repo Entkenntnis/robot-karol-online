@@ -35,7 +35,7 @@ So überlegte Richard, wie er das Leben am Computer interessanter gestalten kön
 Kinder werden im Kreißsaal geboren, Robot Karol erblickte zum ersten Mal das Licht der Welt in einer Druckerei. Richard veröffentlichte nämlich 1981 das Buch "Karel the Robot". Auch jemand, der kein Englisch kann, verstand aus dem Titel sicherlich, worum es darin ging. Weil
 Richard wusste, wie das Wort Robot entstand, nannte er seinen Roboter "Karel". So heißt Robot Karol in Amerika Karel – obwohl die Karels dort Charles (tscharles) oder Charlie (tscharli) genannt werden.
 
-Nun, und ich war kurz danach in Amerika. Ich habe Richard sogar getroffen, und er hat mir sein Buch geschenkt. So kam sie wieder in die Tschechoslowakei. Robot Karol ist eigentlich wieder zu Hause – wenn auch mit einem kleinen Umweg...
+Nun, und ich war kurz danach in Amerika. Ich habe Richard sogar getroffen, und er hat mir sein Buch geschenkt. So kam Robot Karol wieder in die Tschechoslowakei. Sie ist eigentlich wieder zu Hause – wenn auch mit einem kleinen Umweg...
 
 ## Schreiben wir ein Buch mit Ľuba?
 
