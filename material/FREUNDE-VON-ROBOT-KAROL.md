@@ -8,7 +8,7 @@
 
 *Ľuba*: Hallo, Jožo! Ich bin wieder bei der Arbeit...
 
-*Jožo*: Hallo, Ľuba! Wie war es im Lager? Haben dich die Kinder nicht geplagt?
+*Jožo*: Hallo, Ľuba! Wie war es im Ferienlager? Haben dich die Kinder nicht geplagt?
 
 *Ľuba*: Überraschenderweise waren sie in Ordnung. Ich konnte sie nur nicht von den Computern wegbekommen. Sie hätten mit Robot Karol von morgens bis abends gespielt. So sind mir natürlich zum Schluss alle Spielideen ausgegangen – und dabei hatte ich mir schon so viele vorbereitet. Ich sage dir, sich auf die Schnelle etwas Lustiges auszudenken, ist überhaupt kein Spaß. Wenn es doch nur ein Buch mit Aufgaben gäbe, die die Kinder lösen könnten...
 
