@@ -96,5 +96,6 @@ Ich mache jedoch nichts von selbst. Alles müsst ihr, Freunde und Freundinnen, m
 
 *Jožo*: PC, das ist ein 16-Bit-Mikrocomputer, kompatibel mit IBM PC. Die Buchstaben PC bedeuten "Personal Computer", also Personalcomputer. Darin wird Ka wohnen.
 
-![grafik](https://github.com/user-attachments/assets/369f2396-517b-47f2-be6d-c34298fe2ecb)
+![grafik](https://github.com/user-attachments/assets/278d4808-d2f1-4237-8b55-12f85bc54c5d)
+
 
