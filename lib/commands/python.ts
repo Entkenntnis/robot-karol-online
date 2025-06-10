@@ -14,7 +14,14 @@ import {
   setMark,
   resetMark,
 } from './world'
-import { getDestination, getTransport, PolySynth, start, Synth } from 'tone'
+import {
+  getDestination,
+  getTransport,
+  PolySynth,
+  Sampler,
+  start,
+  Synth,
+} from 'tone'
 import { CanvasObjects } from '../state/canvas-objects'
 
 export function setupWorker(core: Core) {
@@ -482,17 +489,30 @@ export function setupWorker(core: Core) {
       typeof event.data === 'object' &&
       event.data.type == 'create-new-synth'
     ) {
-      const { buffer } = event.data
+      const { buffer, type } = event.data
       const syncArray = new Int32Array(buffer, 0, 1)
       const dataArray = new Int32Array(buffer, 4)
-      const synthId = core.ws.canvas.synthIdCounter
+      const instrumentId = core.ws.canvas.instrumentIdCounter
       core.mutateWs((ws) => {
-        ws.canvas.synthIdCounter++
+        ws.canvas.instrumentIdCounter++
       })
-      const newSynth = new PolySynth(Synth).toDestination()
+      const newInstrument =
+        type == 'drumkit'
+          ? new Sampler({
+              urls: {
+                A1: 'kick.mp3',
+                B2: 'snare.mp3',
+              },
+              baseUrl: '/audio/drumkit/',
+              onload: () => {
+                console.log('Drumkit loaded')
+              },
+            }).toDestination()
+          : new PolySynth(Synth).toDestination()
+
       start().then(() => {
-        core.synths.set(synthId, newSynth)
-        dataArray[0] = synthId
+        core.instruments.set(instrumentId, newInstrument)
+        dataArray[0] = instrumentId
         syncArray[0] = 1
         Atomics.notify(syncArray, 0)
       })
@@ -504,9 +524,9 @@ export function setupWorker(core: Core) {
       event.data.type == 'play-synth'
     ) {
       const { id, frequency, duration } = event.data
-      const synth = core.synths.get(parseInt(id))
-      if (synth) {
-        synth.triggerAttackRelease(JSON.parse(frequency), duration)
+      const instrument = core.instruments.get(parseInt(id))
+      if (instrument) {
+        instrument.triggerAttackRelease(JSON.parse(frequency), duration)
       }
     }
 
@@ -702,6 +722,11 @@ export function setupWorker(core: Core) {
       canvas.manualControl = false
     })
     core.worker.isFresh = true
+
+    /*core.instruments.forEach((instrument) => {
+      instrument.dispose()
+    })
+    core.instruments.clear()*/
   }
 
   core.worker.lint = (code: string) => {
