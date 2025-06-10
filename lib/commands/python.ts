@@ -510,7 +510,6 @@ export function setupWorker(core: Core) {
             },
             baseUrl: '/audio/drumkit/',
             onload: () => {
-              console.log('Drumkit loaded')
               resolve(value)
             },
           }).toDestination()
@@ -521,7 +520,6 @@ export function setupWorker(core: Core) {
 
       start().then(() => {
         instrumentPromise.then((newInstrument) => {
-          console.log('New instrument created:', instrumentId, newInstrument)
           core.instruments.set(instrumentId, newInstrument)
           dataArray[0] = instrumentId
           syncArray[0] = 1
