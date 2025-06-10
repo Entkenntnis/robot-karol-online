@@ -26,7 +26,7 @@ Robot Karol ist eine etwas merkwürdige Kreatur. Sie hat keine Mutter, aber daf�
 
 Der erste ist der tschechische Schriftsteller Karel Čapek, der als der "Vater" aller Roboter gilt. In seinem Theaterstück namens R.U.R. erfand er künstliche Menschen, die in Fabriken arbeiteten. Weil sie die ganze schwere "Robota" (Arbeit) verrichteten, schlug sein Bruder Josef vor, sie "Robotnik" (Arbeiter, im Sinne von "Roboter") zu nennen. Dieses neue Wort wurde zusammen mit dem Stück auf der ganzen Welt berühmt. Heute erinnern sich nur noch wenige daran, welches Wort mit ihm verwandt ist und aus welchem Land es stammt.
 
-Jeder Roboter hat auch einen zweiten Vater – einen Menschen, der ihn erfunden oder konstruiert hat. Der zweite Vater der Robot Karol ist Richard Pattis. Er lebt in den USA und erfand Karol noch als Student der Stanford University in Kalifornien.
+Jeder Roboter hat auch einen zweiten Vater – einen Menschen, der ihn erfunden oder konstruiert hat. Der zweite Vater von Robot Karol ist Richard Pattis. Er lebt in den USA und erfand Karol noch als Student der Stanford University in Kalifornien.
 
 Richard bemerkte, dass einige seiner Kommilitonen nicht lernten, wie man am Computer programmiert. Das kam ihm seltsam vor, denn er selbst programmierte gut – und gerne. Er fragte sie also, was ihnen am Programmieren nicht gefiel. Schließlich erfuhr er von ihnen, dass es ihnen nicht einmal so sehr schwierig, sondern langweilig vorkam: lauter Zahlen, Formeln und Berechnungen...
 
