@@ -98,4 +98,22 @@ Ich mache jedoch nichts von selbst. Alles müsst ihr, Freunde und Freundinnen, m
 
 ![grafik](https://github.com/user-attachments/assets/278d4808-d2f1-4237-8b55-12f85bc54c5d)
 
+## Dritter und letzter Anfang des Buches
 
+**1. Kapitel: Ka und Rel und Karel**
+
+*Ka*: Also, Rol, sag, worum es in diesem Buch geht.
+
+*Rol*: Lieber Leser! ... Ähm... Nun... Liebe Leser! ... Mhhhm... Nun... äh... Ka, ich weiß nicht, was ich sagen soll...
+
+*Ka*: ...dass ich dich immer dirigieren muss! Das ist doch klar! So etwas, du Würfelkopf!
+
+„Liebe Kinder! Ich heiße Rol und meine Freundin heißt Ka. Ihr habt gerade ein Buch über Computer, über Robot Karol und über uns beide geöffnet. Ihr werdet darin alles Mögliche erfahren, aber vor allem, wer Robot Karol ist, wie sie aussieht, wo sie wohnt, was sie kann und wie man mit ihr spielen kann. Ka und ich sind hier, um euch von ihr zu erzählen und euch alles Mögliche zu zeigen.“
+
+*Rol*: Liebe Leser! Ich kann ruhig mit Karol spielen und muss nichts sagen, Ka hat ja schon alles für mich gesagt!
+
+*Ka*: Dann zeig den Kindern Karol wenigstens!
+
+*Rol*: Nichts leichter als das. Karol könnt ihr entweder auf dem Computerbildschirm oder in unserem Buch sehen. Sie sieht immer ungefähr so ​​aus:
+
+![grafik](https://github.com/user-attachments/assets/085653d9-5de7-431b-a495-4a04e9be8608)
