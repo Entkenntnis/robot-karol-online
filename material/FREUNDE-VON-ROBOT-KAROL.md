@@ -95,3 +95,6 @@ Ich mache jedoch nichts von selbst. Alles müsst ihr, Freunde und Freundinnen, m
 *Ľuba*: Sprich verständlich. PMD, das ist ein Mikrocomputer PMD-85. Oder auch ein anderer, auf dem die gleichen Programme wie auf dem PMD-85 ausgeführt werden können. Klug ausgedrückt, ein Computer, der mit dem PMD-85 kompatibel ist. Zum Beispiel Didaktik Alfa. Darin wird Rol wohnen.
 
 *Jožo*: PC, das ist ein 16-Bit-Mikrocomputer, kompatibel mit IBM PC. Die Buchstaben PC bedeuten "Personal Computer", also Personalcomputer. Darin wird Ka wohnen.
+
+![grafik](https://github.com/user-attachments/assets/369f2396-517b-47f2-be6d-c34298fe2ecb)
+
