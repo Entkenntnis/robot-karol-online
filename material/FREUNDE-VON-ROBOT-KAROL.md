@@ -61,4 +61,17 @@ Ich bin Robot Karol. Karol ist mein Name und Roboter mein Beruf. Wir Roboter sin
 
 Zum Beispiel so ein Auto hat nicht einmal einen Funken Verstand... Damit Sie mich verstehen. Ein Auto ist eine ausgezeichnete und nützliche Maschine, aber weil es nicht das kleinste Hirnchen hat, ist es ohne Fahrer völlig hilflos. Es weiß nicht, wie es auch nur von Trenčín nach Náchod fahren soll; ohne Fahrer bewegt es sich nicht einmal (es sei denn, es ist schlecht gebremst). Und wenn der Fahrer auch nur für einen Moment vergisst, zu fahren – sagen wir, wenn er ein Nickerchen macht – stürzt das Auto ins Verderben.
 
-Schon so ein Fahrkartenautomat ist etwas klüger. Sie werfen eine Ein-Kronen-, Zwei-Kronen- oder Fünf-Kronen-Münze hinein, und er gibt Ihnen die gewünschte Anzahl von Fahrkarten aus: genau entsprechend dem Wert der Münze. Warum? Weil er sich erinnert, wie
+![grafik](https://github.com/user-attachments/assets/04782a7c-90bc-45e8-a72a-b87d664ddefb)
+
+
+Schon so ein Fahrkartenautomat ist etwas klüger. Sie werfen eine Ein-Kronen-, Zwei-Kronen- oder Fünf-Kronen-Münze hinein, und er gibt Ihnen die gewünschte Anzahl von Fahrkarten aus: genau entsprechend dem Wert der Münze. Warum? Weil er sich erinnert, wie eine Münze aussieht und erkennt, wenn Sie sie hineinwerfen.
+
+Die klügsten unter allen Maschinen sind wir – Roboter. Wir können uns nämlich viel mehr merken als andere Maschinen. Deshalb sagen die Leute manchmal, dass wir wie lebendig sind.
+
+Nicht alle Roboter ähneln im Aussehen einem Menschen – solche gibt es wenige.
+
+In Fabriken oder an unzugänglichen und gefährlichen Orten arbeiten hauptsächlich Roboter, die auf bestimmte Arten von Tätigkeiten spezialisiert sind. Dementsprechend sehen sie auch aus: manche ähneln einem Kran, andere einem Arm mit einer Spritzpistole, wieder andere einem Raumfahrzeug.
+
+Ich ähnele einem Menschen – zwar in Blechkästen gekleidet, aber dadurch ist jedem umso klarer, wer ich bin. Ich kann alles Mögliche tun: gehen, mich drehen, Treppen steigen, Gegenstände in meinem "Haus", das viele Räume hat, erkennen und transportieren.
+
+Ich mache jedoch nichts von selbst. Alles müsst ihr, Freunde und Freundinnen, mir befehlen. Wie das geht, erfahren Sie in diesem Buch.
