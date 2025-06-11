@@ -189,6 +189,38 @@ Spielt einen Ton mit der angegebenen Frequenz und Dauer.
 | frequency | Zahl | Die Frequenz des Tons in Hertz                                                     |
 | duration  | Zahl | Die Dauer des Tons in Zeitangabe (z.B. '4m' für 4 Takte, '8n' für eine Achtelnote) |
 
+### `rko.Drumkit`
+
+Die `Drumkit` Klasse ermöglicht das Abspielen von Schlagzeug-Sounds.
+
+#### Konstruktor
+
+```python
+rko.Drumkit()
+```
+
+Erstellt ein neues Drumkit.
+
+#### Methoden
+
+##### `play(note, duration)`
+
+Spielt einen Schlagzeug-Sound mit der angegebenen Note und Dauer.
+
+| Parameter | Typ    | Beschreibung                                                                         |
+| --------- | ------ | ------------------------------------------------------------------------------------ |
+| note      | String | Der zu spielende Schlagzeug-Sound ('bd', 'sd', 'hh', 'lt', 'mt', 'ht')               |
+| duration  | Zahl   | Die Dauer des Sounds in Zeitangabe (z.B. '4m' für 4 Takte, '8n' für eine Achtelnote) |
+
+**Verfügbare Schlagzeug-Sounds:**
+
+- 'bd': Bass Drum
+- 'sd': Snare Drum
+- 'hh': Hi-Hat
+- 'lt': Low Tom
+- 'mt': Mid Tom
+- 'ht': High Tom
+
 ### `rko.convertTimeToSeconds(time)`
 
 Konvertiert eine Zeitangabe in Sekunden.
