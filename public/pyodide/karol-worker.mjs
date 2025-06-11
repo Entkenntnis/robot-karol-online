@@ -472,6 +472,7 @@ def setBpm(bmp):
     raise TypeError('BPM must be an integer')
   if bmp < 0:
     raise ValueError('BPM must be greater than 0')
+  _time_cache.clear()
   _setBpm(bmp)
 
 def setVolume(volume):
@@ -481,8 +482,14 @@ def setVolume(volume):
     raise ValueError('Volume must be between -100 and 12 db')
   _setVolume(volume)
 
+_time_cache = {}
+
 def convertTimeToSeconds(time):
-  return _convertTimeToSeconds(time)
+  if time in _time_cache:
+    return _time_cache[time]
+  result = _convertTimeToSeconds(time)
+  _time_cache[time] = result
+  return result
 
 def sleep(s):
   _sleep(s)
