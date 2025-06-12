@@ -24,7 +24,7 @@ export const pythonKarolExamples = [
   { title: 'Himmel und Hölle', link: '#5THY' },
   { title: 'Programmier-Witze', link: '#4NR3' },
   { title: 'Karol Kart', link: '#CXTJ' },
-  { title: 'Dance, Dance', link: '#CCP8', hidden: true },
+  { title: 'Dance, Dance', link: '#TH6H', hidden: true },
 ]
 
 export function getExampleId(title: string) {
