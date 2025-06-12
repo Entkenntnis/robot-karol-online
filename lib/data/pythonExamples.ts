@@ -6,6 +6,7 @@ export const pythonKarolExamples = [
   { title: 'Twitch Alerts', link: '#SBEU' },
   { title: 'Passwort-Check', link: '#C2ZW' },
   { title: 'Zahlenraten', link: '#M464' },
+  { title: 'Tresor-Code', link: '#GDWS' },
   { title: 'Trommelwirbel', link: '#YS36' },
   { title: 'Raketenstart', link: '#YSBE' },
   { title: 'To-Do-Liste', link: '#5RU5' },

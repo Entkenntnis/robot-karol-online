@@ -692,7 +692,7 @@ export function Overview() {
                         alt="Python"
                         className="h-9 mr-2"
                       />
-                      <p className="font-bold mb-1">Python Beispiel-Projekte</p>
+                      <p className="font-bold mb-1">Python Mini-Projekte</p>
                     </div>
                     <p className="mb-3 mt-1 text-right">
                       <a
