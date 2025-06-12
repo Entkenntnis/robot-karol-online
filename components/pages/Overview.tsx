@@ -694,7 +694,7 @@ export function Overview() {
                       />
                       <p className="font-bold mb-1">Python Mini-Projekte</p>
                     </div>
-                    <p className="mb-3 mt-1 text-right">
+                    <p className="mb-3 mt-1 text-right hidden">
                       <a
                         href="https://docs.google.com/document/d/1PGIgwPTwNUNy2wEcGSh2oLR3a30tnmMq8-BegAkEnsk/edit?tab=t.0"
                         target="_blank"
@@ -714,51 +714,63 @@ export function Overview() {
                     <div className="gap-2 pr-1 flex flex-wrap">
                       {pythonKarolExamples
                         .filter((e) => !e.hidden)
-                        .map((example, index) => (
-                          <a
-                            href={`/${example.link}`}
-                            key={index}
-                            className="bg-white/50 hover:bg-white/70 p-2.5 rounded-md transition-all hover:shadow-md w-[160px] block cursor-pointer"
-                            onClick={(e) => {
-                              submitAnalyzeEvent(
-                                core,
-                                `ev_click__landing_pythonExample_${getExampleId(
-                                  example.title
-                                )}`
-                              )
-                              if (core.ws.ui.tourModePage == 4) {
-                                core.mutateWs((ws) => {
-                                  ws.ui.tourModePage = undefined
-                                })
-                              }
-                              setQuestReturnToMode(
-                                core.ws.page == 'demo' ? 'demo' : 'path'
-                              )
-                              setLearningPathScroll(
-                                document.getElementById('scroll-container')
-                                  ?.scrollTop ?? -1
-                              )
-                              e.preventDefault()
-                              navigate(core, example.link)
-                            }}
-                          >
-                            <span className="font-medium text-left">
-                              {example.title}
-                              {core.ws.page == 'analyze' && (
-                                <span>
-                                  {' '}
-                                  [
-                                  {
-                                    core.ws.analyze.pythonKarol[
-                                      getExampleId(example.title)
-                                    ]?.count
-                                  }
-                                  ]
-                                </span>
-                              )}
-                            </span>
-                          </a>
-                        ))}
+                        .map((example, index) => {
+                          if (example.link == 'spacer') {
+                            return (
+                              <div
+                                className="w-full mt-3 pl-3 font-semibold text-gray-700"
+                                key={index}
+                              >
+                                {example.title}
+                              </div>
+                            )
+                          }
+                          return (
+                            <a
+                              href={`/${example.link}`}
+                              key={index}
+                              className="bg-white/50 hover:bg-white/70 p-2.5 rounded-md transition-all hover:shadow-md w-[160px] block cursor-pointer"
+                              onClick={(e) => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  `ev_click__landing_pythonExample_${getExampleId(
+                                    example.title
+                                  )}`
+                                )
+                                if (core.ws.ui.tourModePage == 4) {
+                                  core.mutateWs((ws) => {
+                                    ws.ui.tourModePage = undefined
+                                  })
+                                }
+                                setQuestReturnToMode(
+                                  core.ws.page == 'demo' ? 'demo' : 'path'
+                                )
+                                setLearningPathScroll(
+                                  document.getElementById('scroll-container')
+                                    ?.scrollTop ?? -1
+                                )
+                                e.preventDefault()
+                                navigate(core, example.link)
+                              }}
+                            >
+                              <span className="font-medium text-left">
+                                {example.title}
+                                {core.ws.page == 'analyze' && (
+                                  <span>
+                                    {' '}
+                                    [
+                                    {
+                                      core.ws.analyze.pythonKarol[
+                                        getExampleId(example.title)
+                                      ]?.count
+                                    }
+                                    ]
+                                  </span>
+                                )}
+                              </span>
+                            </a>
+                          )
+                        })}
                     </div>
                     <p className="mt-4 text-sm ml-2">
                       <a
@@ -782,7 +794,7 @@ export function Overview() {
                   </div>
                 </div>
                 <div
-                  className="absolute left-[101px]  z-10"
+                  className="absolute left-[401px]  z-10"
                   style={{ top: `${maxMapY + 840}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
@@ -792,8 +804,8 @@ export function Overview() {
                   </AnimateInView>
                 </div>
                 <div
-                  className="absolute left-[478px]  z-10"
-                  style={{ top: `${maxMapY + 870}px` }}
+                  className="absolute left-[598px]  z-10"
+                  style={{ top: `${maxMapY + 890}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <a
@@ -893,7 +905,7 @@ export function Overview() {
                   </div>
                 )}
                 <div
-                  className="absolute left-[160px] z-10"
+                  className="absolute left-[400px] z-10"
                   style={{ top: `${maxMapY + 930}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
