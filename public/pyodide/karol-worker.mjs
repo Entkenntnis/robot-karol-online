@@ -456,7 +456,7 @@ class Drumkit:
   def __init__(self):
     self._synthId = _createNewInstrument("drumkit")
 
-  def play(self, note, duration):
+  def play(self, note, duration='2m'):
     drum_map = {
       'bd': 'C1',
       'sd': 'D1',

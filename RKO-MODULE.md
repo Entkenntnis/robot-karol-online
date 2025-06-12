@@ -203,14 +203,14 @@ Erstellt ein neues Drumkit.
 
 #### Methoden
 
-##### `play(note, duration)`
+##### `play(note, duration='2m')`
 
 Spielt einen Schlagzeug-Sound mit der angegebenen Note und Dauer.
 
 | Parameter | Typ    | Beschreibung                                                                         |
 | --------- | ------ | ------------------------------------------------------------------------------------ |
 | note      | String | Der zu spielende Schlagzeug-Sound ('bd', 'sd', 'hh', 'lt', 'mt', 'ht')               |
-| duration  | Zahl   | Die Dauer des Sounds in Zeitangabe (z.B. '4m' für 4 Takte, '8n' für eine Achtelnote) |
+| duration  | String | Die Dauer des Sounds in Zeitangabe (z.B. '4m' für 4 Takte, '8n' für eine Achtelnote) |
 
 **Verfügbare Schlagzeug-Sounds:**
 
