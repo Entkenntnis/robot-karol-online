@@ -1,6 +1,6 @@
 // Python-Karol example data
 export const pythonKarolExamples = [
-  { title: 'Grundlagen, Ein-/Ausgabe, Syntax', link: 'spacer' },
+  { title: 'Grundlagen, Ein-/Ausgabe, Strings', link: 'spacer' },
   { title: 'Creeper', link: '#2VH3' },
   { title: 'Begrüßung', link: '#PC7P' },
   { title: 'Explosion', link: '#SW6Y' },

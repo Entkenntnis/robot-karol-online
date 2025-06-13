@@ -1,14 +1,14 @@
 {
   "title": "Weitere Themen",
   "quests": [
-    { "filename": "63.json", "x": 300, "y": 200 },
-    { "filename": "62.json", "x": 100, "y": 200 },
+    { "filename": "63.json", "x": 900, "y": 20 },
+    { "filename": "62.json", "x": 700, "y": -20 },
     { "filename": "65.json", "x": 500, "y": 200 },
     { "filename": "66.json", "x": 700, "y": 200 },
     { "filename": "67.json", "x": 900, "y": 200 },
     { "filename": "68.json", "x": 500, "y": 340 },
     { "filename": "69.json", "x": 650, "y": 340 }
   ],
-  "x": 380,
+  "x": 480,
   "y": 2850
 }

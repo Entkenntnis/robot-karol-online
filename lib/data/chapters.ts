@@ -2996,8 +2996,8 @@ const chapterInfo = [
     "quests": [
       {
         "filename": "63.json",
-        "x": 300,
-        "y": 200,
+        "x": 900,
+        "y": 20,
         "id": 103,
         "content": {
           "version": "v1",
@@ -3100,8 +3100,8 @@ const chapterInfo = [
       },
       {
         "filename": "62.json",
-        "x": 100,
-        "y": 200,
+        "x": 700,
+        "y": -20,
         "id": 102,
         "content": {
           "version": "v1",
@@ -4341,7 +4341,7 @@ const chapterInfo = [
         ]
       }
     ],
-    "x": 380,
+    "x": 480,
     "y": 2850
   }
 ]
