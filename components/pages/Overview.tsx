@@ -692,7 +692,9 @@ export function Overview() {
                         alt="Python"
                         className="h-9 mr-2"
                       />
-                      <p className="font-bold mb-1">Python Mini-Projekte</p>
+                      <p className="font-bold mb-1 text-gray-500 text-lg">
+                        Python Mini-Projekte
+                      </p>
                     </div>
                     <p className="mb-3 mt-1 text-right hidden">
                       <a
@@ -718,7 +720,10 @@ export function Overview() {
                           if (example.link == 'spacer') {
                             return (
                               <div
-                                className="w-full mt-3 pl-3 font-semibold text-gray-700"
+                                className={clsx(
+                                  'w-full mt-3 pl-3 font-semibold',
+                                  example.color || 'text-gray-700'
+                                )}
                                 key={index}
                               >
                                 {example.title}
