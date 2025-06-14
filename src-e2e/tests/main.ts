@@ -273,7 +273,7 @@ Scenario('Ask question in tasks', ({ I }) => {
   I.see('Frage stellen')
 })
 
-Scenario.only('Reset code should not break lock language', ({ I }) => {
+Scenario('Reset code should not break lock language', ({ I }) => {
   I.amOnPage('/#VWDA')
   I.see('Karol Code')
   I.click('Menü')
