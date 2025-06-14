@@ -339,6 +339,7 @@ export interface Analyze {
     [name: string]: {
       distances: number[]
       count: number
+      sessions: string[]
     }
   }
   danceScores: {

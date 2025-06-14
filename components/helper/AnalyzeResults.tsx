@@ -165,7 +165,9 @@ export function AnalyzeResults() {
         <thead>
           <tr className="bg-gray-100">
             <th className="p-2 text-left border border-gray-300">Name</th>
-            <th className="p-2 text-left border border-gray-300">Count</th>
+            <th className="p-2 text-left border border-gray-300">
+              Count / Sessions
+            </th>
             <th className="p-2 text-left border border-gray-300">
               Distances (distance×count)
             </th>
@@ -187,7 +189,9 @@ export function AnalyzeResults() {
               return (
                 <tr key={name} className="hover:bg-gray-50">
                   <td className="p-2 border border-gray-300">{name}</td>
-                  <td className="p-2 border border-gray-300">{data.count}</td>
+                  <td className="p-2 border border-gray-300">
+                    {data.count} / {data.sessions.length}
+                  </td>
                   <td className="p-2 border border-gray-300">{grouped}</td>
                 </tr>
               )

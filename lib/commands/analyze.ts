@@ -161,10 +161,20 @@ export async function analyze(core: Core) {
             ws.analyze.pythonExampleLevenshtein[name] = {
               distances: [],
               count: 0,
+              sessions: [],
             }
           }
           ws.analyze.pythonExampleLevenshtein[name].distances.push(distance)
           ws.analyze.pythonExampleLevenshtein[name].count++
+          if (
+            !ws.analyze.pythonExampleLevenshtein[name].sessions.includes(
+              entry.userId
+            )
+          ) {
+            ws.analyze.pythonExampleLevenshtein[name].sessions.push(
+              entry.userId
+            )
+          }
           continue
         }
 
