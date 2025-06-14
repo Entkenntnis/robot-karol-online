@@ -16,7 +16,11 @@ export const pythonKarolExamples = [
   { title: 'Schleifen', link: 'spacer', color: 'text-yellow-500' },
   { title: 'Trommelwirbel', link: '#YS36' },
   { title: 'Raketenstart', link: '#YSBE' },
-  { title: 'Listen', link: 'spacer', color: 'text-lime-600' },
+  {
+    title: 'Liste, (Tuple, Dictionary)',
+    link: 'spacer',
+    color: 'text-lime-600',
+  },
   { title: 'To-Do-Liste', link: '#5RU5' },
   { title: 'Der Boden ist Lava', link: '#BYCE' },
   { title: 'Funktionen', link: 'spacer', color: 'text-emerald-600' },

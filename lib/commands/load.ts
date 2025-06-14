@@ -28,7 +28,18 @@ export async function loadQuest(core: Core, id: string) {
       if (obj.language && obj.program) {
         ui.resetCode[id] = [obj.language, obj.program]
       } else {
-        ui.resetCode[id] = ['blocks', '']
+        if (obj.editOptions == 'java-only') {
+          ui.resetCode[id] = ['java', '']
+        } else if (
+          obj.editOptions == 'python-only' ||
+          obj.editOptions == 'python-pro-only'
+        ) {
+          ui.resetCode[id] = ['python', '']
+        } else if (obj.editOptions == 'karol-only') {
+          ui.resetCode[id] = ['karol', '']
+        } else {
+          ui.resetCode[id] = ['blocks', '']
+        }
       }
     })
     deserializeQuest(core, obj)

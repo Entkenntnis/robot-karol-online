@@ -272,3 +272,12 @@ Scenario('Ask question in tasks', ({ I }) => {
   I.click('Start')
   I.see('Frage stellen')
 })
+
+Scenario.only('Reset code should not break lock language', ({ I }) => {
+  I.amOnPage('/#VWDA')
+  I.see('Karol Code')
+  I.click('Menü')
+  I.click('Code zurücksetzen')
+  I.wait(1)
+  I.dontSee('Hauptprogramm')
+})
