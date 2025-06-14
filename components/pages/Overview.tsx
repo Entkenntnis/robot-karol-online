@@ -190,7 +190,7 @@ export function Overview() {
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content bg-white rounded-lg z-[11] w-56 p-2 shadow mt-1 [&>li]:px-4 [&>li]:py-2 [&>li]:cursor-pointer hover:[&>li]:bg-gray-200/50 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50  [&_a]:block [&_button]:block [&_button]:w-full [&_button]:text-left"
+                className="dropdown-content bg-white rounded-lg z-[11] w-56 p-2 shadow mt-1 [&>li>a]:px-4 [&>li>*]:py-2 [&>li>*]:cursor-pointer hover:[&>li]:bg-gray-200/50 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50  [&_a]:block [&_button]:block [&_button]:w-full [&_button]:text-left [&_button]:pl-4"
               >
                 <li>
                   <a
