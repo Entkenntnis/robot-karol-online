@@ -71,10 +71,10 @@ export function brick(core: Core) {
     return false
   }
 
-  if (bricks[pos.y][pos.x] >= height) {
+  /*if (bricks[pos.y][pos.x] >= height) {
     karolCrashed(core, core.strings.crash.maxHeight)
     return false
-  }
+  }*/
 
   if (isReadOnly(core, pos.x, pos.y)) {
     karolCrashed(core, readOnlyMessage)
