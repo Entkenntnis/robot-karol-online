@@ -265,3 +265,10 @@ Scenario("Don't use testing mode for single tasks", ({ I }) => {
   I.click('Start')
   I.see('2D-Ansicht')
 })
+
+Scenario('Ask question in tasks', ({ I }) => {
+  I.amOnPage('/#QUEST-41')
+  I.click('div .fixed')
+  I.click('Start')
+  I.see('Frage stellen')
+})
