@@ -685,7 +685,7 @@ export function Overview() {
                   </div>
                 </div>
                 <div className="absolute left-[4px] top-[1790px] z-10">
-                  <div className="bg-white/20 rounded-lg p-3 shadow-lg w-[356px]">
+                  <div className="bg-white/20 rounded-lg p-3 shadow-lg w-[360px]">
                     <div className="flex items-center">
                       <img
                         src="/python-logo-only.png"
@@ -730,11 +730,31 @@ export function Overview() {
                               </div>
                             )
                           }
+                          let testIndex = index - 1
+                          let previousSpacer = pythonKarolExamples[testIndex]
+                          while (
+                            testIndex >= 0 &&
+                            previousSpacer &&
+                            previousSpacer.link != 'spacer'
+                          ) {
+                            testIndex-- // skip over spacers
+                            previousSpacer = pythonKarolExamples[testIndex]
+                          }
+
                           return (
                             <a
                               href={`/${example.link}`}
                               key={index}
-                              className="bg-white/50 hover:bg-white/70 p-2.5 rounded-md transition-all hover:shadow-md w-[160px] block cursor-pointer"
+                              className={clsx(
+                                'p-2.5 rounded-md transition-all hover:shadow-md w-[162px] block cursor-pointer bg-white/50 hover:bg-white/70 border',
+                                localStorage.getItem(
+                                  `robot_karol_online_shared_quest_${example.link
+                                    .substring(1)
+                                    .toLowerCase()}_program`
+                                )
+                                  ? previousSpacer.highlightColor
+                                  : 'border-transparent'
+                              )}
                               onClick={(e) => {
                                 submitAnalyzeEvent(
                                   core,

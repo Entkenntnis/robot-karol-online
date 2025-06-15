@@ -72,8 +72,11 @@ export function Cheatsheet({ language }: CheatsheetProps) {
             category: 'Variablen',
             items: [
               'summe = 0\nwhile not karol.istWand():\n    karol.schritt\n    summe += 1\nprint(summe)',
-              'name = input("Dein Name?")\nprint("Hallo " + name)',
             ],
+          },
+          {
+            category: 'Ein-/Ausgabe',
+            items: ['name = input("Dein Name?")\nprint(f"Hallo {name}")'],
           },
           {
             category: 'Zufall',
