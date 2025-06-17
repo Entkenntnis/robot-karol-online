@@ -462,6 +462,18 @@ Diese Werke sind nicht ganz fertig geworfen. Sie warten auf eine Person, die sie
 
 ![Unbenannt](https://github.com/user-attachments/assets/563ea12b-f5d1-4e9d-89c9-653912f0c07d)
 
+### Olivien [LADEN](https://karol.arrrg.de/#ROBOT:data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABHCAYAAACAjkwXAAAAAXNSR0IArs4c6QAAAsZJREFUeF7tnOFuwyAMBtP3f+hNmcSEGAFjYF+Lrz9XguPzyYQk3eviAwEhgZcwNqEhcCEgEkgJIKAUP8EREAekBBBQip/gCIgDUgIIKMVPcATEASkBBJTiJzgC4oCUAAJK8RMcAXFASgABpfgJjoA4ICWAgFL8BEdAHJASQEApfoIjIA5ICSCgFD/BERAHpAQQUIqf4AiIA1ICCCjFT3AExAEpAQSU4ic4AuKAlAACSvETHAFxQEoAAaX4CY6AOCAlgIBS/ATfIeDXdfFft1DLRmC1gEk+JLTxDz9qlYC3cOlzz4mA4dWyAZgRsJQuj5i+m5nflgGjPpqAVxBLh7OM+Wh4nPw8AY+AI90NCedrdPQMIwKOiJegIeDR+swnZxXQIx8Sztfn+BksAs7IdwOkCx6vkT/BnoA1+SxC5WNmBfZnx5FvT8AiYG+MJUmLtJZ5GHMYgZ5cq8RZNc9h+EkHAXFASuC/BGQzIi3z+wbPBawtkyuXznKulXO/L2HOrEmg7IA7JcnflLlPqtd9KV0AAjUJylsoq0RpvbwQADUp1gg8ybVDFpZcHPxDoNXdVt9ARkAEXCKgVyTvcZTtYAK967vRnXG+0ehtcA7GSmpWAisFzK8ba7tcOqC1KoHGeQW0bGh23tIJVKKzU/UK6Nm80AHPdsmV3Q4Ba4/dkM9VnvMPWi3g060bBDzfJVeGMwLWXjpNJ8EO2FWOeAd5BExLbNrp9m5Y976PR52MfwnMCvjU8dLfWXqRrUmgJ2BtQ1GbsLwH2BOTskDgh4BVwFKoJ+EQD7GGCFgFvMe1HrPlnZJld6gEsQePCtjqmjte4YpdnQDZWwXMUfSOoQMGEGdVij2Z8jgWsbjlsqoyQebZIeDInEEwk+YTActLBSy/+LONQO83Ib2fbZZLdHmidMNtpTtj4paAo89zy+s/yzXjGRTJwk3gG4dRb0j+pmC9AAAAAElFTkSuQmCC)
+
+![Unbenannt](https://github.com/user-attachments/assets/6fdafc4f-c405-4c89-ab95-35a9c24899cc)
+
+
+
+
+
+
+
+
+
 
 
 
