@@ -555,7 +555,7 @@ export function Overview() {
                           submitAnalyzeEvent(core, 'ev_click_landing_material')
                         }}
                       >
-                        Materialien für Lehrkräfte{' '}
+                        Materiali für Lehrkräfte{' '}
                         <FaIcon
                           icon={faExternalLink}
                           className="text-gray-600 text-xs"
@@ -576,6 +576,24 @@ export function Overview() {
                           icon={faExternalLink}
                           className="text-gray-600 text-xs"
                         />
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/#KAROLMANIA"
+                        onClick={() => {
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_click_landing_karolmania'
+                          )
+                          setLearningPathScroll(
+                            document.getElementById('scroll-container')
+                              ?.scrollTop ?? -1
+                          )
+                        }}
+                      >
+                        <FaIcon icon={faMedal} className="mr-2 text-teal-600" />
+                        Karolmania
                       </a>
                     </li>
                   </ul>

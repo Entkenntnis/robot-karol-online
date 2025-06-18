@@ -698,9 +698,7 @@ export function KarolmaniaGame() {
       {/* Countdown animation */}
       {countdown > 0 && (
         <div className="fixed inset-0 flex items-center justify-center z-10 pointer-events-none">
-          <div className="text-9xl font-bold text-white shadow-text">
-            {countdown}
-          </div>
+          <div className="text-9xl font-bold text-yellow-500">{countdown}</div>
         </div>
       )}
 
