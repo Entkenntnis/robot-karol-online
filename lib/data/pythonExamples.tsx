@@ -33,7 +33,7 @@ export const pythonKarolExamples = [
     color: 'text-lime-600',
     highlightColor: 'border-lime-600',
   },
-  { title: 'To-Do-Liste', link: '#5RU5' },
+  { title: 'To-Do-Liste', link: '#ERJN' },
   { title: 'Der Boden ist Lava', link: '#BYCE' },
   {
     title: 'Funktionen',
