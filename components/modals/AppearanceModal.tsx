@@ -839,7 +839,7 @@ export function AppearanceModal() {
               </button>
             </div>
             <div className="flex-grow flex-shrink flex justify-center items-center bg-gray-800 relative">
-              <div className="absolute top-2 left-2">
+              <div className="absolute top-2 left-2 hidden">
                 <label className="bg-white/70 rounded px-2 py-1 text-sm">
                   Basisfigur:{' '}
                   <select

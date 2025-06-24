@@ -1,6 +1,6 @@
 import { faDice, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
-import { closeModal } from '../../lib/commands/modal'
+import { closeModal, showModal } from '../../lib/commands/modal'
 import { setUserName } from '../../lib/commands/mode'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
@@ -84,9 +84,9 @@ export function NameModal() {
 
   function submit() {
     setUserName(core, name.trim())
-    core.mutateWs((ws) => {
+    /*core.mutateWs((ws) => {
       ws.ui.tourModePage = 1
-    })
-    closeModal(core)
+    })*/
+    showModal(core, 'character')
   }
 }

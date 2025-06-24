@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { Canvas, ICanvsObjects, Preview, World } from '../../lib/state/types'
 import {
-  karolDefaultImage,
+  karolOldDefaultImage,
   markeBild,
   markeVorschau,
   markeWeg,
@@ -24,6 +24,7 @@ interface ViewProps {
   animationDuration?: number
   activeRobot?: number
   canvas?: Canvas
+  onClick?: () => void
 }
 
 interface Resources {
@@ -41,6 +42,7 @@ const showFps = false
 let lastFrameTimes: number[] = []
 
 export function View({
+  onClick,
   world,
   wireframe,
   hideKarol,
@@ -201,7 +203,7 @@ export function View({
             markeKlein,
           ] = await Promise.all([
             loadImage(ziegelBild),
-            loadImage(robotImageDataUrl ?? karolDefaultImage),
+            loadImage(robotImageDataUrl ?? karolOldDefaultImage),
             loadImage(markeBild),
             loadImage(quaderBild),
             loadImage(markeWeg),
@@ -485,6 +487,7 @@ export function View({
       width={width}
       height={height}
       className={className}
+      onClick={onClick}
     ></canvas>
   )
 }
