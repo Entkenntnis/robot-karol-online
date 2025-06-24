@@ -24,6 +24,7 @@ interface ViewProps {
   animationDuration?: number
   activeRobot?: number
   canvas?: Canvas
+  onClick?: () => void
 }
 
 interface Resources {
@@ -41,6 +42,7 @@ const showFps = false
 let lastFrameTimes: number[] = []
 
 export function View({
+  onClick,
   world,
   wireframe,
   hideKarol,
@@ -485,6 +487,7 @@ export function View({
       width={width}
       height={height}
       className={className}
+      onClick={onClick}
     ></canvas>
   )
 }

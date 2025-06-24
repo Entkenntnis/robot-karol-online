@@ -35,6 +35,7 @@ import { Donate } from './pages/Donate'
 import { InvocationModal } from './modals/InvocationModal'
 import { ExplanationModal } from './modals/ExplanationModal'
 import { Flashcards } from './pages/Flashcards'
+import { CharacterModal } from './modals/CharacterModal'
 
 export function App() {
   const core = useCore()
@@ -162,6 +163,8 @@ export function App() {
       return <InvocationModal />
     } else if (core.ws.modal == 'explanation') {
       return <ExplanationModal />
+    } else if (core.ws.modal == 'character') {
+      return <CharacterModal />
     } else {
       return null
     }

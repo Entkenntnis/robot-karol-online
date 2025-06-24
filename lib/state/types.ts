@@ -190,6 +190,7 @@ export interface WorkspaceState {
     | 'survey'
     | 'invocation'
     | 'explanation'
+    | 'character'
     | null
 
   renderCounter: number // e.g. if storage is updated

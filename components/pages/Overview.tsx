@@ -470,7 +470,7 @@ export function Overview() {
                 {
                   <a
                     href={'/#DANCE'}
-                    className="absolute top-[733px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+                    className="absolute top-[743px] left-[350px] w-[100px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
                     onClick={(e) => {
                       submitAnalyzeEvent(core, 'ev_click_landing_dancedance')
                       setQuestReturnToMode(
@@ -488,7 +488,7 @@ export function Overview() {
                     <img
                       src="/dance.png"
                       alt=""
-                      className="w-[50px] mx-auto mt-2"
+                      className="w-[40px] mx-auto mt-2"
                     />
                   </a>
                 }
