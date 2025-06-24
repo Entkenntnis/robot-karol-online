@@ -68,7 +68,7 @@ export function CharacterModal() {
                 height: 1,
               }}
               hideWorld
-              className="border-2 border-gray-800 rounded px-3 pb-2 bg-white hover:border-yellow-500 cursor-pointer hover:bg-yellow-200"
+              className="amongay border-2 border-gray-800 rounded px-3 pb-2 bg-white hover:border-yellow-500 cursor-pointer hover:bg-yellow-200"
             />
             <View
               onClick={() => {

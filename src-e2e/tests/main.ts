@@ -11,6 +11,7 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.click('Start')
   I.type('anna')
   I.type(['Enter'])
+  I.click({ css: '.amongay' })
   I.seeTitleEquals('Start | Robot Karol Online')
   I.forceClick('#toggleSwitch')
   I.wait(1)

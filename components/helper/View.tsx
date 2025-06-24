@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { Canvas, ICanvsObjects, Preview, World } from '../../lib/state/types'
 import {
-  karolOldDefaultImage,
+  karolDefaultImage,
   markeBild,
   markeVorschau,
   markeWeg,
@@ -203,7 +203,7 @@ export function View({
             markeKlein,
           ] = await Promise.all([
             loadImage(ziegelBild),
-            loadImage(robotImageDataUrl ?? karolOldDefaultImage),
+            loadImage(robotImageDataUrl ?? karolDefaultImage),
             loadImage(markeBild),
             loadImage(quaderBild),
             loadImage(markeWeg),
