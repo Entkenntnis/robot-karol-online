@@ -229,7 +229,6 @@ export function AnalyzeResults() {
           abgeschlossen
         </span>
       ))}
-      {/* Abschnitt für Karolmania 
       <h2 className="mt-6 mb-4 text-lg">Karolmania Results</h2>
       {karolmaniaData.length > 0 ? (
         <table className="w-full my-4 border-collapse">
@@ -292,7 +291,7 @@ export function AnalyzeResults() {
         </table>
       ) : (
         <p>No Karolmania data available.</p>
-      )}*/}
+      )}
       <h2 className="mt-6 mb-4 text-lg">Legacy</h2>{' '}
       {Object.entries(core.ws.analyze.legacy).map((entry, i) => (
         <span key={i} className="inline-block mr-6">

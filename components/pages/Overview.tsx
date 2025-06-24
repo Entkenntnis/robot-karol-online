@@ -1278,6 +1278,7 @@ export function Overview() {
   }
 
   function renderQuestCategory(cat: (typeof questListByCategory)[number]) {
+    if (cat.title.includes('.')) return null // skip python quests
     return (
       <div key={cat.title} className="mb-6">
         <h2 className="text-xl ml-6 my-4">
