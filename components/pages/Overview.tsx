@@ -555,7 +555,6 @@ export function Overview() {
                           submitAnalyzeEvent(core, 'ev_click_landing_material')
                         }}
                       >
-                        Materiali für Lehrkräfte{' '}
                         Material für Lehrkräfte{' '}
                         <FaIcon
                           icon={faExternalLink}
