@@ -556,6 +556,7 @@ export function Overview() {
                         }}
                       >
                         Materiali für Lehrkräfte{' '}
+                        Material für Lehrkräfte{' '}
                         <FaIcon
                           icon={faExternalLink}
                           className="text-gray-600 text-xs"
