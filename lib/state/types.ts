@@ -608,6 +608,7 @@ export interface EditorSessionSnapshot {
   code: string
   javaCode: string
   pythonCode: string
+  isChatMode: boolean
 }
 
 export interface KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT {

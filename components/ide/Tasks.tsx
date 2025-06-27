@@ -9,9 +9,10 @@ import {
   faPlus,
   faShareNodes,
   faTrashCan,
+  faUndo,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { createRef, useEffect, useState } from 'react'
+import { createRef, useEffect, useRef, useState } from 'react'
 
 import {
   addNewTask,
@@ -181,11 +182,11 @@ export function Tasks() {
               {core.ws.ui.isChatMode
                 ? core.ws.quest.chats.map((chat, index) => (
                     <div key={index} className="m-3 rounded-xl bg-white flex">
-                      <div className="border-r-2 p-3 pb-1 min-w-[150px] flex-col min-h-[100px] justify-between flex">
+                      <div className="border-r-2 p-3 pb-1 min-w-[150px] flex-col min-h-[130px] justify-between flex">
                         <div className="font-bold">
                           {editChat ? (
                             <input
-                              className="bg-gray-100 border-2"
+                              className="bg-gray-100 border-2 max-w-full"
                               value={chat.title}
                               onChange={(e) => {
                                 core.mutateWs(({ quest }) => {
@@ -267,8 +268,8 @@ export function Tasks() {
                           </button>
                         </div>
                       </div>
-                      <div className="flex-grow">
-                        <div className="my-3">
+                      <div className="flex-grow flex flex-col">
+                        <div className="my-3 flex-grow">
                           {chat.messages.map((message, msgIndex) => (
                             <div
                               key={msgIndex}
@@ -617,8 +618,9 @@ function AddMessageBar({ index }: { index: number }) {
   return (
     <div className="flex justify-between mt-2 mb-2 border-t pt-2 border-t-gray-400 px-2">
       <button
-        className="bg-cyan-200 px-2 py-0.5 rounded text-sm"
+        className="border-cyan-200 border-2 hover:bg-cyan-50 px-2 py-0.5 rounded text-sm whitespace-nowrap"
         onClick={() => {
+          if (text.trim() == '') return
           core.mutateWs(({ quest }) => {
             quest.chats[index].messages.push({
               role: 'out',
@@ -640,8 +642,9 @@ function AddMessageBar({ index }: { index: number }) {
         ></input>
       </div>
       <button
-        className="bg-orange-200 px-2 py-0.5 rounded text-sm"
+        className="border-orange-200 border-2 hover:bg-orange-50 px-2 py-0.5 rounded text-sm whitespace-nowrap"
         onClick={() => {
+          if (text.trim() == '') return
           core.mutateWs(({ quest }) => {
             quest.chats[index].messages.push({
               role: 'in',
@@ -652,6 +655,18 @@ function AddMessageBar({ index }: { index: number }) {
         }}
       >
         + input
+      </button>
+      <button
+        onClick={() => {
+          if (core.ws.quest.chats[index].messages.length > 0) {
+            core.mutateWs(({ quest }) => {
+              const msg = quest.chats[index].messages.pop()
+              setText(msg?.text ?? '')
+            })
+          }
+        }}
+      >
+        <FaIcon icon={faUndo} className="text-gray-400 ml-2" />
       </button>
     </div>
   )

@@ -176,6 +176,7 @@ export function deserializeQuest(
     if (quest.chats) {
       ws.ui.isChatMode = true
       ws.quest.chats = quest.chats
+      ws.ui.lockLanguage = 'python-pro'
     }
   })
 
