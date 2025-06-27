@@ -139,7 +139,8 @@ export function EditArea() {
                   <label
                     className={clsx(
                       'ml-8 text-gray-500 cursor-pointer select-none',
-                      core.ws.editor.questScript && 'font-semibold'
+                      core.ws.editor.questScript && 'font-semibold',
+                      core.ws.ui.isChatMode && 'hidden'
                     )}
                   >
                     <input
