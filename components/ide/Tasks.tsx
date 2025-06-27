@@ -594,17 +594,18 @@ export function Tasks() {
             )}
           {(core.ws.page === 'shared' ||
             core.ws.page === 'imported' ||
-            core.ws.page === 'quest') && (
-            <button
-              className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"
-              onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_ide_appearance')
-                showModal(core, 'appearance')
-              }}
-            >
-              <FaIcon icon={faPaintBrush} />
-            </button>
-          )}
+            core.ws.page === 'quest') &&
+            !core.ws.ui.isChatMode && (
+              <button
+                className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_ide_appearance')
+                  showModal(core, 'appearance')
+                }}
+              >
+                <FaIcon icon={faPaintBrush} />
+              </button>
+            )}
         </div>
       </div>
     </div>
