@@ -572,24 +572,25 @@ export function Tasks() {
         </div>
         <div className={clsx('flex-grow-0 flex-shrink-0')}>
           {(core.ws.page == 'editor' ||
-            (!core.ws.ui.proMode && core.ws.ui.pythonProCanSwitch)) && (
-            <button
-              className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
-              onClick={() => {
-                if (core.ws.page == 'editor') {
-                  submitAnalyzeEvent(core, 'ev_click_ide_remix')
-                  showModal(core, 'remix')
-                } else {
-                  setShowStructogram(core, true)
-                  submitAnalyzeEvent(core, 'ev_click_ide_structogram')
-                }
-              }}
-            >
-              {core.ws.page == 'editor'
-                ? core.strings.editor.loadFrom
-                : core.strings.ide.structogram}
-            </button>
-          )}
+            (!core.ws.ui.proMode && core.ws.ui.pythonProCanSwitch)) &&
+            !core.ws.ui.isChatMode && (
+              <button
+                className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
+                onClick={() => {
+                  if (core.ws.page == 'editor') {
+                    submitAnalyzeEvent(core, 'ev_click_ide_remix')
+                    showModal(core, 'remix')
+                  } else {
+                    setShowStructogram(core, true)
+                    submitAnalyzeEvent(core, 'ev_click_ide_structogram')
+                  }
+                }}
+              >
+                {core.ws.page == 'editor'
+                  ? core.strings.editor.loadFrom
+                  : core.strings.ide.structogram}
+              </button>
+            )}
           {(core.ws.page === 'shared' ||
             core.ws.page === 'imported' ||
             core.ws.page === 'quest') && (

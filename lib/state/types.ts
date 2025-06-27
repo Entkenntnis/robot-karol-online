@@ -516,6 +516,7 @@ export interface QuestSerialFormat_MUST_STAY_COMPATIBLE {
   program?: string
   language?: 'blocks' | 'karol' | 'python' | 'java' | 'python-pro'
   questScript?: string
+  chats?: { title: string; messages: { text: string; role: 'out' | 'in' }[] }[]
 }
 
 export interface SerialWorld_MUST_STAY_COMPATIBLE {
