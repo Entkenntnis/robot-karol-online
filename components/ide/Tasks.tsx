@@ -11,7 +11,7 @@ import {
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { createRef, useEffect } from 'react'
+import { createRef, useEffect, useState } from 'react'
 
 import {
   addNewTask,
@@ -268,56 +268,29 @@ export function Tasks() {
                         </div>
                       </div>
                       <div className="flex-grow">
-                        {chat.messages.map((message, msgIndex) => (
-                          <div
-                            key={msgIndex}
-                            className={clsx(
-                              'flex my-1 mx-2',
-                              message.role == 'in' && 'justify-end'
-                            )}
-                          >
+                        <div className="my-3">
+                          {chat.messages.map((message, msgIndex) => (
                             <div
+                              key={msgIndex}
                               className={clsx(
-                                'rounded-lg px-2 py-0.5',
-                                message.role == 'out'
-                                  ? 'bg-cyan-100 rounded-bl-none'
-                                  : 'bg-orange-100 rounded-br-none'
+                                'flex my-1 mx-2',
+                                message.role == 'in' && 'justify-end'
                               )}
                             >
-                              {message.text}
+                              <div
+                                className={clsx(
+                                  'rounded-lg px-3 py-0.5',
+                                  message.role == 'out'
+                                    ? 'bg-cyan-100 rounded-bl-none'
+                                    : 'bg-orange-100 rounded-br-none'
+                                )}
+                              >
+                                {message.text}
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                        {editChat && (
-                          <div className="flex justify-around mt-2 mb-2 border-t pt-1 border-t-gray-400">
-                            <button
-                              className="bg-cyan-200 px-2 py-0.5 rounded text-sm"
-                              onClick={() => {
-                                core.mutateWs(({ quest }) => {
-                                  quest.chats[index].messages.push({
-                                    role: 'out',
-                                    text: 'jlk',
-                                  })
-                                })
-                              }}
-                            >
-                              + output
-                            </button>
-                            <button
-                              className="bg-orange-200 px-2 py-0.5 rounded text-sm"
-                              onClick={() => {
-                                core.mutateWs(({ quest }) => {
-                                  quest.chats[index].messages.push({
-                                    role: 'in',
-                                    text: 'sdfs',
-                                  })
-                                })
-                              }}
-                            >
-                              + input
-                            </button>
-                          </div>
-                        )}
+                          ))}
+                        </div>
+                        {editChat && <AddMessageBar index={index} />}
                       </div>
                     </div>
                   ))
@@ -632,6 +605,53 @@ export function Tasks() {
           )}
         </div>
       </div>
+    </div>
+  )
+}
+
+function AddMessageBar({ index }: { index: number }) {
+  const core = useCore()
+  const [text, setText] = useState('')
+
+  return (
+    <div className="flex justify-between mt-2 mb-2 border-t pt-2 border-t-gray-400 px-2">
+      <button
+        className="bg-cyan-200 px-2 py-0.5 rounded text-sm"
+        onClick={() => {
+          core.mutateWs(({ quest }) => {
+            quest.chats[index].messages.push({
+              role: 'out',
+              text,
+            })
+            setText('')
+          })
+        }}
+      >
+        + output
+      </button>
+      <div className="flex-grow mx-2">
+        <input
+          className="w-full border-2 px-1"
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value)
+          }}
+        ></input>
+      </div>
+      <button
+        className="bg-orange-200 px-2 py-0.5 rounded text-sm"
+        onClick={() => {
+          core.mutateWs(({ quest }) => {
+            quest.chats[index].messages.push({
+              role: 'in',
+              text,
+            })
+          })
+          setText('')
+        }}
+      >
+        + input
+      </button>
     </div>
   )
 }
