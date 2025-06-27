@@ -9,6 +9,7 @@ import {
   World,
 } from '../state/types'
 import { setLanguage } from './language'
+import { setMode } from './mode'
 import {
   attemptToLoadProgramFromLocalStorage,
   getProgram,
@@ -141,6 +142,8 @@ export function deserializeQuest(
   core.mutateWs((ws) => {
     ws.quest.title = quest.title
     ws.quest.description = quest.description
+    ws.ui.isChatMode = false // adapt if chat mode quests are coming in
+    ws.ui.lockLanguage = undefined
 
     ws.quest.tasks = quest.tasks.map((task) => {
       const start = deserializeWorld(task.start)
