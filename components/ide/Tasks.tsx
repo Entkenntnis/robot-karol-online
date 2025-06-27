@@ -36,10 +36,13 @@ import { navigate } from '../../lib/commands/router'
 export function Tasks() {
   const core = useCore()
 
-  const audioRef = createRef<HTMLAudioElement>()
-
   const taskContainer = createRef<HTMLDivElement>()
   const skipWait = core.ws.quest.description.length < 100
+
+  const editChat =
+    core.ws.ui.isChatMode &&
+    core.ws.page === 'editor' &&
+    !core.ws.editor.showQuestPreview
 
   useEffect(() => {
     if (taskContainer.current && core.ws.ui.taskScroll > 0) {
@@ -180,8 +183,7 @@ export function Tasks() {
                     <div key={index} className="m-3 rounded-xl bg-white flex">
                       <div className="border-r-2 p-3 pb-1 min-w-[150px] flex-col min-h-[100px] justify-between flex">
                         <div className="font-bold">
-                          {core.ws.page == 'editor' &&
-                          !core.ws.editor.showQuestPreview ? (
+                          {editChat ? (
                             <input
                               className="bg-gray-100 border-2"
                               value={chat.title}
@@ -195,31 +197,72 @@ export function Tasks() {
                             <>{chat.title}</>
                           )}
                         </div>
-                        <div
-                          className={clsx(
-                            core.ws.page != 'editor' ||
-                              (core.ws.editor.showQuestPreview && 'hidden')
-                          )}
-                        >
-                          <button>
+                        <div className={clsx(!editChat && 'hidden')}>
+                          <button
+                            onClick={() => {
+                              if (index > 0) {
+                                core.mutateWs(({ quest }) => {
+                                  const element = quest.chats.splice(
+                                    index,
+                                    1
+                                  )[0]
+                                  quest.chats.splice(index - 1, 0, element)
+                                })
+                              }
+                            }}
+                          >
                             <FaIcon
                               icon={faArrowUp}
                               className="text-gray-600"
                             />
                           </button>
-                          <button className="ml-3">
+                          <button
+                            className="ml-3"
+                            onClick={() => {
+                              if (index + 1 < core.ws.quest.chats.length) {
+                                core.mutateWs(({ quest }) => {
+                                  const element = quest.chats.splice(
+                                    index,
+                                    1
+                                  )[0]
+                                  quest.chats.splice(index + 1, 0, element)
+                                })
+                              }
+                            }}
+                          >
                             <FaIcon
                               icon={faArrowDown}
                               className="text-gray-600"
                             />
                           </button>
-                          <button className="ml-3">
+                          <button
+                            className="ml-3"
+                            onClick={() => {
+                              core.mutateWs(({ quest }) => {
+                                quest.chats.splice(index, 0, {
+                                  ...quest.chats[index],
+                                })
+                              })
+                            }}
+                          >
                             <FaIcon icon={faClone} className="text-gray-400" />
                           </button>
-                          <button className="ml-3">
+                          <button
+                            className="ml-3"
+                            onClick={() => {
+                              const result = confirm(
+                                'Willst du diesen Chat wirklich löschen?'
+                              )
+                              if (result) {
+                                core.mutateWs(({ quest }) => {
+                                  quest.chats.splice(index, 1)
+                                })
+                              }
+                            }}
+                          >
                             <FaIcon
                               icon={faTrashCan}
-                              className="text-red-200"
+                              className="text-red-200 hover:text-red-300"
                             />
                           </button>
                         </div>
@@ -429,9 +472,17 @@ export function Tasks() {
                 className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-4"
                 onClick={() => {
                   if (core.ws.ui.isChatMode) {
+                    let counter = core.ws.quest.chats.length + 1
+                    while (
+                      core.ws.quest.chats.some(
+                        (x) => x.title === `Chat ${counter}`
+                      )
+                    ) {
+                      counter++
+                    }
                     core.mutateWs((ws) => {
                       ws.quest.chats.push({
-                        title: `Chat ${ws.quest.chats.length + 1}`,
+                        title: `Chat ${counter}`,
                         messages: [],
                       })
                     })
