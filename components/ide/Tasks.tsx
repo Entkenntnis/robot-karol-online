@@ -267,6 +267,58 @@ export function Tasks() {
                           </button>
                         </div>
                       </div>
+                      <div className="flex-grow">
+                        {chat.messages.map((message, msgIndex) => (
+                          <div
+                            key={msgIndex}
+                            className={clsx(
+                              'flex my-1 mx-2',
+                              message.role == 'in' && 'justify-end'
+                            )}
+                          >
+                            <div
+                              className={clsx(
+                                'rounded-lg px-2 py-0.5',
+                                message.role == 'out'
+                                  ? 'bg-cyan-100 rounded-bl-none'
+                                  : 'bg-orange-100 rounded-br-none'
+                              )}
+                            >
+                              {message.text}
+                            </div>
+                          </div>
+                        ))}
+                        {editChat && (
+                          <div className="flex justify-around mt-2 mb-2 border-t pt-1 border-t-gray-400">
+                            <button
+                              className="bg-cyan-200 px-2 py-0.5 rounded text-sm"
+                              onClick={() => {
+                                core.mutateWs(({ quest }) => {
+                                  quest.chats[index].messages.push({
+                                    role: 'out',
+                                    text: 'jlk',
+                                  })
+                                })
+                              }}
+                            >
+                              + output
+                            </button>
+                            <button
+                              className="bg-orange-200 px-2 py-0.5 rounded text-sm"
+                              onClick={() => {
+                                core.mutateWs(({ quest }) => {
+                                  quest.chats[index].messages.push({
+                                    role: 'in',
+                                    text: 'sdfs',
+                                  })
+                                })
+                              }}
+                            >
+                              + input
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))
                 : core.ws.quest.tasks.map((task, index) => (
