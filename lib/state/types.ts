@@ -75,6 +75,7 @@ export interface Ui {
   karolmaniaLevelId?: number
   karolmaniaCarouselIndex?: number
   tourModePage?: number
+  isChatMode: boolean
 }
 
 export interface Vm {
@@ -121,6 +122,7 @@ export interface Quest {
   audioSrc?: string
   thisTaskIsAlreadyCompleted?: number
   lockToKarolCode?: boolean
+  chats: ChatTask[]
 }
 
 export interface Overview {
@@ -269,6 +271,16 @@ export interface QuestTask {
   title: string
   start: World
   target: World | null
+}
+
+export interface ChatTask {
+  title: string
+  messages: ChatMessage[]
+}
+
+export interface ChatMessage {
+  text: string
+  role: 'out' | 'in'
 }
 
 export interface Analyze {
