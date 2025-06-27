@@ -3,6 +3,7 @@ import {
   faArrowUp,
   faCheck,
   faClone,
+  faInfoCircle,
   faPaintBrush,
   faPencil,
   faPlay,
@@ -606,6 +607,16 @@ export function Tasks() {
                 <FaIcon icon={faPaintBrush} />
               </button>
             )}
+          {core.ws.ui.isChatMode && core.ws.page != 'editor' && (
+            <button
+              className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"
+              onClick={() => {
+                // TODO
+              }}
+            >
+              <FaIcon icon={faInfoCircle} className="text-gray-500" /> Anleitung
+            </button>
+          )}
         </div>
       </div>
     </div>
