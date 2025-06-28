@@ -81,7 +81,7 @@ export function ChatGuide() {
               15
             </span>
           </p>
-          <p>Alle weiteren Funktionen findest du im Spickzettel</p>
+          <p>Alle weiteren Funktionen findest du im Spickzettel.</p>
         </div>
         <p className="text-center mb-5 px-4 mt-8"></p>
       </div>
