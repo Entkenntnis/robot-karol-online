@@ -60,6 +60,7 @@ export function createWorkspaceState(): WorkspaceState {
       resetCode: {},
       returnToDemoPage: false,
       editQuestScript: false,
+      isChatMode: false,
     },
     vm: {
       pc: 0,
@@ -82,6 +83,7 @@ export function createWorkspaceState(): WorkspaceState {
       tasks: [],
       id: -1,
       completedOnce: false,
+      chats: [],
     },
     editor: {
       showQuestPreview: false,

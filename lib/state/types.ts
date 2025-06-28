@@ -75,6 +75,7 @@ export interface Ui {
   karolmaniaLevelId?: number
   karolmaniaCarouselIndex?: number
   tourModePage?: number
+  isChatMode: boolean
 }
 
 export interface Vm {
@@ -121,6 +122,7 @@ export interface Quest {
   audioSrc?: string
   thisTaskIsAlreadyCompleted?: number
   lockToKarolCode?: boolean
+  chats: ChatTask[]
 }
 
 export interface Overview {
@@ -191,6 +193,7 @@ export interface WorkspaceState {
     | 'invocation'
     | 'explanation'
     | 'character'
+    | 'chat-guide'
     | null
 
   renderCounter: number // e.g. if storage is updated
@@ -269,6 +272,16 @@ export interface QuestTask {
   title: string
   start: World
   target: World | null
+}
+
+export interface ChatTask {
+  title: string
+  messages: ChatMessage[]
+}
+
+export interface ChatMessage {
+  text: string
+  role: 'out' | 'in'
 }
 
 export interface Analyze {
@@ -504,6 +517,7 @@ export interface QuestSerialFormat_MUST_STAY_COMPATIBLE {
   program?: string
   language?: 'blocks' | 'karol' | 'python' | 'java' | 'python-pro'
   questScript?: string
+  chats?: { title: string; messages: { text: string; role: 'out' | 'in' }[] }[]
 }
 
 export interface SerialWorld_MUST_STAY_COMPATIBLE {
@@ -595,6 +609,7 @@ export interface EditorSessionSnapshot {
   code: string
   javaCode: string
   pythonCode: string
+  isChatMode: boolean
 }
 
 export interface KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT {

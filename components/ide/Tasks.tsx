@@ -3,15 +3,17 @@ import {
   faArrowUp,
   faCheck,
   faClone,
+  faInfoCircle,
   faPaintBrush,
   faPencil,
   faPlay,
   faPlus,
   faShareNodes,
   faTrashCan,
+  faUndo,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { createRef, useEffect } from 'react'
+import { createRef, useEffect, useRef, useState } from 'react'
 
 import {
   addNewTask,
@@ -23,7 +25,7 @@ import {
   setTaskTitle,
 } from '../../lib/commands/editor'
 import { showModal } from '../../lib/commands/modal'
-import { setShowStructogram } from '../../lib/commands/mode'
+import { setMode, setShowStructogram } from '../../lib/commands/mode'
 import { openTask, setTaskScroll } from '../../lib/commands/quest'
 import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
@@ -32,14 +34,18 @@ import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
+import { sub } from 'date-fns'
 
 export function Tasks() {
   const core = useCore()
 
-  const audioRef = createRef<HTMLAudioElement>()
-
   const taskContainer = createRef<HTMLDivElement>()
   const skipWait = core.ws.quest.description.length < 100
+
+  const editChat =
+    core.ws.ui.isChatMode &&
+    core.ws.page === 'editor' &&
+    !core.ws.editor.showQuestPreview
 
   useEffect(() => {
     if (taskContainer.current && core.ws.ui.taskScroll > 0) {
@@ -93,218 +99,385 @@ export function Tasks() {
             </div>
 
             {core.ws.page === 'editor' && !core.ws.editor.showQuestPreview && (
-              <div className="ml-3 mt-3">
-                {core.strings.editor.editOptions}:
-                <select
-                  className="p-2 ml-3"
-                  value={core.ws.editor.editOptions}
-                  onChange={(e) => {
-                    core.mutateWs(({ editor }) => {
-                      editor.editOptions = e.target.value as any
-                    })
-                  }}
-                >
-                  <option value="all">{core.strings.editor.all}</option>
-                  <option value="karol-only">
-                    {core.strings.editor.karolOnly}
-                  </option>
-                  <option value="java-only">
-                    {core.strings.editor.javaOnly}
-                  </option>
-                  <option value="python-pro-only">
-                    {core.strings.editor.pythonProOnly}
-                  </option>
-                </select>
-                <span className="ml-14 hidden">
-                  <label className="select-none">
-                    <input
-                      type="checkbox"
-                      checked={core.ws.editor.saveProgram}
+              <div className="mx-3 mt-3 justify-between flex text-sm text-gray-700 items-baseline">
+                {core.ws.ui.isChatMode ? (
+                  <div className="italic text-gray-500">{/* hm ?*/} &nbsp;</div>
+                ) : (
+                  <div>
+                    {core.strings.editor.editOptions}:
+                    <select
+                      className={clsx(
+                        'p-1 rounded ml-3',
+
+                        core.ws.ui.isChatMode &&
+                          'disabled opacity-50 pointer-events-none'
+                      )}
+                      value={core.ws.editor.editOptions}
                       onChange={(e) => {
                         core.mutateWs(({ editor }) => {
-                          editor.saveProgram = e.target.checked
+                          editor.editOptions = e.target.value as any
                         })
                       }}
-                    />{' '}
-                    {core.strings.editor.includeProgram}
+                    >
+                      <option value="all">{core.strings.editor.all}</option>
+                      <option value="karol-only">
+                        {core.strings.editor.karolOnly}
+                      </option>
+                      <option value="java-only">
+                        {core.strings.editor.javaOnly}
+                      </option>
+                      <option value="python-pro-only">
+                        {core.strings.editor.pythonProOnly}
+                      </option>
+                    </select>
+                  </div>
+                )}
+                <div>
+                  <label>
+                    Auftragstyp:{' '}
+                    <select
+                      className="p-1 rounded ml-1"
+                      value={core.ws.ui.isChatMode ? 'chat' : 'world'}
+                      onChange={(e) => {
+                        const isChatMode = e.target.value === 'chat'
+                        if (isChatMode) {
+                          submitAnalyzeEvent(core, 'ev_click_ide_chatMode')
+                        }
+                        core.mutateWs((ws) => {
+                          const { ui, quest, editor, settings } = ws
+                          ui.isChatMode = isChatMode
+                          if (quest.chats.length === 0) {
+                            quest.chats = [
+                              {
+                                title: 'Chat 1',
+                                messages: [],
+                              },
+                            ]
+                          }
+                          if (isChatMode) {
+                            editor.editOptions = 'python-pro-only'
+                            ui.lockLanguage = 'python-pro'
+                            settings.language = 'python-pro'
+                          } else {
+                            ui.lockLanguage = undefined
+                            editor.editOptions = 'all'
+                          }
+                        })
+                        if (isChatMode) {
+                          setMode(core, 'code')
+                          core.mutateWs((ws) => {
+                            if (ws.pythonCode == 'karol = Robot()\n\n') {
+                              ws.pythonCode = '\n\n'
+                            }
+                          })
+                        }
+                      }}
+                    >
+                      <option value="world">Welt</option>
+                      <option value="chat">Chat</option>
+                    </select>
                   </label>
-                </span>
+                </div>
               </div>
             )}
             <div className="flex-grow flex-shrink overflow-y-auto pb-12">
-              {core.ws.quest.tasks.map((task, index) => (
-                <div
-                  className={clsx(
-                    'm-3 rounded-xl bg-white flex justify-start',
-                    core.ws.page != 'editor' &&
-                      (core.ws.ui.isHighlightDescription
-                        ? 'relative z-[300]'
-                        : 'cursor-pointer hover:bg-gray-50'),
-                    core.ws.page != 'editor' &&
-                      core.ws.ui.isHighlightDescription &&
-                      core.ws.ui.showOk &&
-                      'cursor-pointer hover:bg-gray-50',
-                    core.ws.page == 'editor' &&
-                      core.ws.editor.showQuestPreview &&
-                      'cursor-pointer'
-                  )}
-                  key={index}
-                  tabIndex={0}
-                  onClick={() => {
-                    setTaskScroll(core, taskContainer.current?.scrollTop ?? -1)
-                    if (core.ws.page == 'editor') {
-                      if (core.ws.editor.showQuestPreview) {
-                        openTask(core, index)
-                      }
-                      return
-                    }
-                    if (core.ws.ui.isHighlightDescription && !core.ws.ui.showOk)
-                      return
-                    if (core.ws.ui.isHighlightDescription) {
-                      core.mutateWs((ws) => {
-                        ws.ui.isHighlightDescription = false
-                      })
-                    }
-                    openTask(core, index)
-                  }}
-                >
-                  <div
-                    className={clsx(
-                      'h-48 mb-6 mx-8',
-                      !core.ws.ui.isHighlightDescription && 'cursor-pointer'
-                    )}
-                    onClick={() => {
-                      if (
+              {core.ws.ui.isChatMode
+                ? core.ws.quest.chats.map((chat, index) => (
+                    <div key={index} className="m-3 rounded-xl bg-white flex">
+                      <div className="border-r-2 p-3 pb-1 min-w-[150px] flex-col min-h-[130px] justify-between flex">
+                        <div className="font-bold">
+                          {editChat ? (
+                            <input
+                              className="bg-gray-100 border-2 max-w-full"
+                              value={chat.title}
+                              onChange={(e) => {
+                                core.mutateWs(({ quest }) => {
+                                  quest.chats[index].title = e.target.value
+                                })
+                              }}
+                            ></input>
+                          ) : (
+                            <>{chat.title}</>
+                          )}
+                        </div>
+                        <div className={clsx(!editChat && 'hidden')}>
+                          <button
+                            onClick={() => {
+                              if (index > 0) {
+                                core.mutateWs(({ quest }) => {
+                                  const element = quest.chats.splice(
+                                    index,
+                                    1
+                                  )[0]
+                                  quest.chats.splice(index - 1, 0, element)
+                                })
+                              }
+                            }}
+                          >
+                            <FaIcon
+                              icon={faArrowUp}
+                              className="text-gray-600"
+                            />
+                          </button>
+                          <button
+                            className="ml-3"
+                            onClick={() => {
+                              if (index + 1 < core.ws.quest.chats.length) {
+                                core.mutateWs(({ quest }) => {
+                                  const element = quest.chats.splice(
+                                    index,
+                                    1
+                                  )[0]
+                                  quest.chats.splice(index + 1, 0, element)
+                                })
+                              }
+                            }}
+                          >
+                            <FaIcon
+                              icon={faArrowDown}
+                              className="text-gray-600"
+                            />
+                          </button>
+                          <button
+                            className="ml-3"
+                            onClick={() => {
+                              core.mutateWs(({ quest }) => {
+                                quest.chats.splice(index, 0, {
+                                  ...quest.chats[index],
+                                })
+                              })
+                            }}
+                          >
+                            <FaIcon icon={faClone} className="text-gray-400" />
+                          </button>
+                          <button
+                            className="ml-3"
+                            onClick={() => {
+                              const result = confirm(
+                                'Willst du diesen Chat wirklich löschen?'
+                              )
+                              if (result) {
+                                core.mutateWs(({ quest }) => {
+                                  quest.chats.splice(index, 1)
+                                })
+                              }
+                            }}
+                          >
+                            <FaIcon
+                              icon={faTrashCan}
+                              className="text-red-200 hover:text-red-300"
+                            />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="flex-grow flex flex-col">
+                        <div className="my-3 flex-grow">
+                          {chat.messages.map((message, msgIndex) => (
+                            <div
+                              key={msgIndex}
+                              className={clsx(
+                                'flex my-1 mx-2',
+                                message.role == 'in' && 'justify-end'
+                              )}
+                            >
+                              <div
+                                className={clsx(
+                                  'rounded-lg px-3 py-0.5',
+                                  message.role == 'out'
+                                    ? 'bg-cyan-100 rounded-bl-none'
+                                    : 'bg-orange-100 rounded-br-none'
+                                )}
+                              >
+                                {message.text}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        {editChat && <AddMessageBar index={index} />}
+                      </div>
+                    </div>
+                  ))
+                : core.ws.quest.tasks.map((task, index) => (
+                    <div
+                      className={clsx(
+                        'm-3 rounded-xl bg-white flex justify-start',
+                        core.ws.page != 'editor' &&
+                          (core.ws.ui.isHighlightDescription
+                            ? 'relative z-[300]'
+                            : 'cursor-pointer hover:bg-gray-50'),
+                        core.ws.page != 'editor' &&
+                          core.ws.ui.isHighlightDescription &&
+                          core.ws.ui.showOk &&
+                          'cursor-pointer hover:bg-gray-50',
                         core.ws.page == 'editor' &&
-                        !core.ws.editor.showQuestPreview
-                      ) {
-                        editWorld(core, index)
-                      }
-                    }}
-                  >
-                    <View
-                      world={task.start}
-                      preview={
-                        task.target === null
-                          ? undefined
-                          : { world: task.target }
-                      }
-                      hideKarol={false}
-                      wireframe={false}
-                      className="h-full w-full object-contain"
-                      robotImageDataUrl={core.ws.robotImageDataUrl}
-                    />
-                  </div>
-                  <div className="ml-4 mt-6">
-                    <h2 className="text-lg font-bold">
-                      {core.ws.page == 'editor' &&
-                      !core.ws.editor.showQuestPreview ? (
-                        <input
-                          value={task.title}
-                          className="bg-gray-100"
-                          onChange={(e) => {
-                            setTaskTitle(core, index, e.target.value)
-                          }}
+                          core.ws.editor.showQuestPreview &&
+                          'cursor-pointer'
+                      )}
+                      key={index}
+                      tabIndex={0}
+                      onClick={() => {
+                        setTaskScroll(
+                          core,
+                          taskContainer.current?.scrollTop ?? -1
+                        )
+                        if (core.ws.page == 'editor') {
+                          if (core.ws.editor.showQuestPreview) {
+                            openTask(core, index)
+                          }
+                          return
+                        }
+                        if (
+                          core.ws.ui.isHighlightDescription &&
+                          !core.ws.ui.showOk
+                        )
+                          return
+                        if (core.ws.ui.isHighlightDescription) {
+                          core.mutateWs((ws) => {
+                            ws.ui.isHighlightDescription = false
+                          })
+                        }
+                        openTask(core, index)
+                      }}
+                    >
+                      <div
+                        className={clsx(
+                          'h-48 mb-6 mx-8',
+                          !core.ws.ui.isHighlightDescription && 'cursor-pointer'
+                        )}
+                        onClick={() => {
+                          if (
+                            core.ws.page == 'editor' &&
+                            !core.ws.editor.showQuestPreview
+                          ) {
+                            editWorld(core, index)
+                          }
+                        }}
+                      >
+                        <View
+                          world={task.start}
+                          preview={
+                            task.target === null
+                              ? undefined
+                              : { world: task.target }
+                          }
+                          hideKarol={false}
+                          wireframe={false}
+                          className="h-full w-full object-contain"
+                          robotImageDataUrl={core.ws.robotImageDataUrl}
                         />
-                      ) : (
-                        task.title
-                      )}
-                    </h2>
-                    {core.ws.page == 'editor' &&
-                      !core.ws.editor.showQuestPreview && (
-                        <>
-                          <p className="mt-4">
-                            <button
-                              className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
-                              onClick={() => {
-                                submitAnalyzeEvent(
-                                  core,
-                                  'ev_click_editor_testWorld'
-                                )
-                                openTask(core, index)
+                      </div>
+                      <div className="ml-4 mt-6">
+                        <h2 className="text-lg font-bold">
+                          {core.ws.page == 'editor' &&
+                          !core.ws.editor.showQuestPreview ? (
+                            <input
+                              value={task.title}
+                              className="bg-gray-100"
+                              onChange={(e) => {
+                                setTaskTitle(core, index, e.target.value)
                               }}
-                            >
-                              <FaIcon icon={faPlay} className="mr-2" />
-                              {core.strings.editor.test}
-                            </button>
-                            <button
-                              className="ml-3 rounded px-2 py-0.5 bg-blue-100 hover:bg-blue-200"
-                              onClick={() => {
-                                submitAnalyzeEvent(
-                                  core,
-                                  'ev_click_editor_editWorld'
-                                )
-                                editWorld(core, index)
-                              }}
-                            >
-                              <FaIcon icon={faPencil} className="mr-2" />
-                              {core.strings.editor.editWorld}
-                            </button>
-                          </p>
-                          <p className="mt-20 text-sm text-gray-700">
-                            <button
-                              className="hover:text-black disabled:text-gray-200"
-                              disabled={index == 0}
-                              onClick={() => {
-                                submitAnalyzeEvent(
-                                  core,
-                                  'ev_click_editor_moveUp'
-                                )
-                                moveTaskUp(core, index)
-                              }}
-                            >
-                              <FaIcon icon={faArrowUp} />{' '}
-                              {core.strings.editor.up}
-                            </button>
-                            <button
-                              className="hover:text-black disabled:text-gray-200 ml-5"
-                              disabled={index + 1 == core.ws.quest.tasks.length}
-                              onClick={() => {
-                                submitAnalyzeEvent(
-                                  core,
-                                  'ev_click_editor_moveDown'
-                                )
-                                moveTaskDown(core, index)
-                              }}
-                            >
-                              <FaIcon icon={faArrowDown} />{' '}
-                              {core.strings.editor.down}
-                            </button>
-                            <button
-                              className="hover:text-black ml-5"
-                              onClick={() => {
-                                submitAnalyzeEvent(
-                                  core,
-                                  'ev_click_editor_cloneTask'
-                                )
-                                cloneTask(core, index)
-                              }}
-                            >
-                              <FaIcon icon={faClone} className="mr-0.5" />{' '}
-                              {core.strings.editor.duplicate}
-                            </button>
-                            <button
-                              className="hover:text-red-600 ml-5"
-                              onClick={() => {
-                                submitAnalyzeEvent(
-                                  core,
-                                  'ev_click_editor_deleteTask'
-                                )
-                                deleteTask(core, index)
-                              }}
-                            >
-                              <FaIcon
-                                icon={faTrashCan}
-                                className="text-gray-500 mr-0.5"
-                              />{' '}
-                              {core.strings.editor.delete}
-                            </button>
-                          </p>
-                        </>
-                      )}
-                  </div>
-                </div>
-              ))}
+                            />
+                          ) : (
+                            task.title
+                          )}
+                        </h2>
+                        {core.ws.page == 'editor' &&
+                          !core.ws.editor.showQuestPreview && (
+                            <>
+                              <p className="mt-4">
+                                <button
+                                  className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
+                                  onClick={() => {
+                                    submitAnalyzeEvent(
+                                      core,
+                                      'ev_click_editor_testWorld'
+                                    )
+                                    openTask(core, index)
+                                  }}
+                                >
+                                  <FaIcon icon={faPlay} className="mr-2" />
+                                  {core.strings.editor.test}
+                                </button>
+                                <button
+                                  className="ml-3 rounded px-2 py-0.5 bg-blue-100 hover:bg-blue-200"
+                                  onClick={() => {
+                                    submitAnalyzeEvent(
+                                      core,
+                                      'ev_click_editor_editWorld'
+                                    )
+                                    editWorld(core, index)
+                                  }}
+                                >
+                                  <FaIcon icon={faPencil} className="mr-2" />
+                                  {core.strings.editor.editWorld}
+                                </button>
+                              </p>
+                              <p className="mt-20 text-sm text-gray-700">
+                                <button
+                                  className="hover:text-black disabled:text-gray-200"
+                                  disabled={index == 0}
+                                  onClick={() => {
+                                    submitAnalyzeEvent(
+                                      core,
+                                      'ev_click_editor_moveUp'
+                                    )
+                                    moveTaskUp(core, index)
+                                  }}
+                                >
+                                  <FaIcon icon={faArrowUp} />{' '}
+                                  {core.strings.editor.up}
+                                </button>
+                                <button
+                                  className="hover:text-black disabled:text-gray-200 ml-5"
+                                  disabled={
+                                    index + 1 == core.ws.quest.tasks.length
+                                  }
+                                  onClick={() => {
+                                    submitAnalyzeEvent(
+                                      core,
+                                      'ev_click_editor_moveDown'
+                                    )
+                                    moveTaskDown(core, index)
+                                  }}
+                                >
+                                  <FaIcon icon={faArrowDown} />{' '}
+                                  {core.strings.editor.down}
+                                </button>
+                                <button
+                                  className="hover:text-black ml-5"
+                                  onClick={() => {
+                                    submitAnalyzeEvent(
+                                      core,
+                                      'ev_click_editor_cloneTask'
+                                    )
+                                    cloneTask(core, index)
+                                  }}
+                                >
+                                  <FaIcon icon={faClone} className="mr-0.5" />{' '}
+                                  {core.strings.editor.duplicate}
+                                </button>
+                                <button
+                                  className="hover:text-red-600 ml-5"
+                                  onClick={() => {
+                                    submitAnalyzeEvent(
+                                      core,
+                                      'ev_click_editor_deleteTask'
+                                    )
+                                    deleteTask(core, index)
+                                  }}
+                                >
+                                  <FaIcon
+                                    icon={faTrashCan}
+                                    className="text-gray-500 mr-0.5"
+                                  />{' '}
+                                  {core.strings.editor.delete}
+                                </button>
+                              </p>
+                            </>
+                          )}
+                      </div>
+                    </div>
+                  ))}
             </div>
           </div>
         </div>
@@ -326,11 +499,30 @@ export function Tasks() {
               <button
                 className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-4"
                 onClick={() => {
-                  addNewTask(core)
+                  if (core.ws.ui.isChatMode) {
+                    let counter = core.ws.quest.chats.length + 1
+                    while (
+                      core.ws.quest.chats.some(
+                        (x) => x.title === `Chat ${counter}`
+                      )
+                    ) {
+                      counter++
+                    }
+                    core.mutateWs((ws) => {
+                      ws.quest.chats.push({
+                        title: `Chat ${counter}`,
+                        messages: [],
+                      })
+                    })
+                  } else {
+                    addNewTask(core)
+                  }
                 }}
               >
                 <FaIcon icon={faPlus} className="mr-2" />
-                {core.strings.editor.addTask}
+                {core.ws.ui.isChatMode
+                  ? 'Chat hinzufügen'
+                  : core.strings.editor.addTask}
               </button>
 
               <button
@@ -383,39 +575,113 @@ export function Tasks() {
         </div>
         <div className={clsx('flex-grow-0 flex-shrink-0')}>
           {(core.ws.page == 'editor' ||
-            (!core.ws.ui.proMode && core.ws.ui.pythonProCanSwitch)) && (
-            <button
-              className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
-              onClick={() => {
-                if (core.ws.page == 'editor') {
-                  submitAnalyzeEvent(core, 'ev_click_ide_remix')
-                  showModal(core, 'remix')
-                } else {
-                  setShowStructogram(core, true)
-                  submitAnalyzeEvent(core, 'ev_click_ide_structogram')
-                }
-              }}
-            >
-              {core.ws.page == 'editor'
-                ? core.strings.editor.loadFrom
-                : core.strings.ide.structogram}
-            </button>
-          )}
+            (!core.ws.ui.proMode && core.ws.ui.pythonProCanSwitch)) &&
+            !core.ws.ui.isChatMode && (
+              <button
+                className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
+                onClick={() => {
+                  if (core.ws.page == 'editor') {
+                    submitAnalyzeEvent(core, 'ev_click_ide_remix')
+                    showModal(core, 'remix')
+                  } else {
+                    setShowStructogram(core, true)
+                    submitAnalyzeEvent(core, 'ev_click_ide_structogram')
+                  }
+                }}
+              >
+                {core.ws.page == 'editor'
+                  ? core.strings.editor.loadFrom
+                  : core.strings.ide.structogram}
+              </button>
+            )}
           {(core.ws.page === 'shared' ||
             core.ws.page === 'imported' ||
-            core.ws.page === 'quest') && (
+            core.ws.page === 'quest') &&
+            !core.ws.ui.isChatMode && (
+              <button
+                className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_ide_appearance')
+                  showModal(core, 'appearance')
+                }}
+              >
+                <FaIcon icon={faPaintBrush} />
+              </button>
+            )}
+          {core.ws.ui.isChatMode && core.ws.page != 'editor' && (
             <button
               className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"
               onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_ide_appearance')
-                showModal(core, 'appearance')
+                submitAnalyzeEvent(core, 'ev_click_ide_chatGuide')
+                showModal(core, 'chat-guide')
               }}
             >
-              <FaIcon icon={faPaintBrush} />
+              <FaIcon icon={faInfoCircle} className="text-gray-500" /> Anleitung
             </button>
           )}
         </div>
       </div>
+    </div>
+  )
+}
+
+function AddMessageBar({ index }: { index: number }) {
+  const core = useCore()
+  const [text, setText] = useState('')
+
+  return (
+    <div className="flex justify-between mt-2 mb-2 border-t pt-2 border-t-gray-400 px-2">
+      <button
+        className="border-cyan-200 border-2 hover:bg-cyan-50 px-2 py-0.5 rounded text-sm whitespace-nowrap"
+        onClick={() => {
+          if (text.trim() == '') return
+          core.mutateWs(({ quest }) => {
+            quest.chats[index].messages.push({
+              role: 'out',
+              text,
+            })
+            setText('')
+          })
+        }}
+      >
+        + output
+      </button>
+      <div className="flex-grow mx-2">
+        <input
+          className="w-full border-2 px-1"
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value)
+          }}
+        ></input>
+      </div>
+      <button
+        className="border-orange-200 border-2 hover:bg-orange-50 px-2 py-0.5 rounded text-sm whitespace-nowrap"
+        onClick={() => {
+          if (text.trim() == '') return
+          core.mutateWs(({ quest }) => {
+            quest.chats[index].messages.push({
+              role: 'in',
+              text,
+            })
+          })
+          setText('')
+        }}
+      >
+        + input
+      </button>
+      <button
+        onClick={() => {
+          if (core.ws.quest.chats[index].messages.length > 0) {
+            core.mutateWs(({ quest }) => {
+              const msg = quest.chats[index].messages.pop()
+              setText(msg?.text ?? '')
+            })
+          }
+        }}
+      >
+        <FaIcon icon={faUndo} className="text-gray-400 ml-2" />
+      </button>
     </div>
   )
 }

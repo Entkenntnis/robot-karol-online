@@ -139,7 +139,8 @@ export function EditArea() {
                   <label
                     className={clsx(
                       'ml-8 text-gray-500 cursor-pointer select-none',
-                      core.ws.editor.questScript && 'font-semibold'
+                      core.ws.editor.questScript && 'font-semibold',
+                      core.ws.ui.isChatMode && 'hidden'
                     )}
                   >
                     <input
@@ -293,7 +294,13 @@ export function EditArea() {
           {(core.ws.settings.language == 'python-pro' ||
             core.ws.settings.language == 'robot karol') &&
             showCheatSheet && (
-              <Cheatsheet language={core.ws.settings.language} />
+              <Cheatsheet
+                language={
+                  core.ws.ui.isChatMode
+                    ? 'python-chat'
+                    : core.ws.settings.language
+                }
+              />
             )}
           <div
             className={clsx(
