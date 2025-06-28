@@ -294,7 +294,13 @@ export function EditArea() {
           {(core.ws.settings.language == 'python-pro' ||
             core.ws.settings.language == 'robot karol') &&
             showCheatSheet && (
-              <Cheatsheet language={core.ws.settings.language} />
+              <Cheatsheet
+                language={
+                  core.ws.ui.isChatMode
+                    ? 'python-chat'
+                    : core.ws.settings.language
+                }
+              />
             )}
           <div
             className={clsx(

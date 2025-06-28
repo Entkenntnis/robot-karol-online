@@ -193,6 +193,7 @@ export interface WorkspaceState {
     | 'invocation'
     | 'explanation'
     | 'character'
+    | 'chat-guide'
     | null
 
   renderCounter: number // e.g. if storage is updated

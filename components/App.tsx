@@ -36,6 +36,7 @@ import { InvocationModal } from './modals/InvocationModal'
 import { ExplanationModal } from './modals/ExplanationModal'
 import { Flashcards } from './pages/Flashcards'
 import { CharacterModal } from './modals/CharacterModal'
+import { ChatGuide } from './modals/ChatGuide'
 
 export function App() {
   const core = useCore()
@@ -165,6 +166,8 @@ export function App() {
       return <ExplanationModal />
     } else if (core.ws.modal == 'character') {
       return <CharacterModal />
+    } else if (core.ws.modal == 'chat-guide') {
+      return <ChatGuide />
     } else {
       return null
     }

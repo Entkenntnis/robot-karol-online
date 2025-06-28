@@ -34,6 +34,7 @@ import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
+import { sub } from 'date-fns'
 
 export function Tasks() {
   const core = useCore()
@@ -611,7 +612,8 @@ export function Tasks() {
             <button
               className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"
               onClick={() => {
-                // TODO
+                submitAnalyzeEvent(core, 'ev_click_ide_chatGuide')
+                showModal(core, 'chat-guide')
               }}
             >
               <FaIcon icon={faInfoCircle} className="text-gray-500" /> Anleitung
