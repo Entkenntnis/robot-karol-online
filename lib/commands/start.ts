@@ -1,6 +1,7 @@
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import { exitBench } from './bench'
+import { startChatRunner, stopChatRunner } from './chat'
 import {
   runTask,
   closeOutput,
@@ -16,6 +17,16 @@ export function startButtonClicked(core: Core) {
     exitBench(core)
     return
   }
+
+  if (core.ws.ui.isChatMode) {
+    if (core.ws.ui.state == 'ready') {
+      startChatRunner(core)
+    } else if (core.ws.ui.state == 'running') {
+      stopChatRunner(core)
+    }
+    return
+  }
+
   if (core.ws.ui.tourModePage == 2) {
     core.mutateWs((ws) => {
       ws.ui.tourModePage = -1
