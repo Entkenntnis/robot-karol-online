@@ -875,6 +875,48 @@ self.onmessage = async (event) => {
     }
   }
 
+  if (event.data.type == 'run-chat') {
+    const { code } = event.data
+    pyodide.setStdout({
+      write: (buf) => {
+        const written_string = decoder.decode(buf)
+        self.postMessage({ type: 'chat-output', text: written_string })
+        return buf.length
+      },
+    })
+    pyodide.setStdin({
+      stdin() {
+        /*const buffer = new SharedArrayBuffer(1024)
+        const syncArray = new Int32Array(buffer, 0, 2)
+        const dataArray = new Uint8Array(buffer, 8)
+
+        self.postMessage({
+          type: 'chat-input',
+          buffer,
+        })
+
+        Atomics.wait(syncArray, 0, 0)
+
+        const length = Atomics.load(syncArray, 1)
+        // Read the input bytes.
+        const inputBytes = dataArray.slice(0, length)
+        lastStepTs = performance.now() * 1000
+        inputs.push(decoder.decode(inputBytes))
+        return inputBytes*/
+
+        // TODO!!!!
+
+        throw new Error('Chat input is not supported yet')
+      },
+    })
+    try {
+      pyodide.runPython(code, {})
+    } catch (error) {
+      self.postMessage({ type: 'chat-error', error: error.message })
+      return
+    }
+  }
+
   if (event.data.type === 'bench') {
     const id = event.data.id
     const command = event.data.command

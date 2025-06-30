@@ -25,7 +25,30 @@ export function stopChatRunner(core: Core) {
   })
 }
 
+export function chatOutput(core: Core, text: string) {
+  console.log('Chat output:', text)
+}
+
+export function chatError(core: Core, message: string) {
+  alert(message)
+}
+
 function* runnerGenerator(core: Core) {
+  if (
+    !core.worker ||
+    !core.worker.mainWorker ||
+    !core.worker.backupWorker ||
+    !core.worker.mainWorkerReady
+  )
+    throw new Error('Worker not ready')
+
+  core.worker.isFresh = false
+
+  core.worker.mainWorker.postMessage({
+    type: 'run-chat',
+    code: core.ws.pythonCode,
+  })
+
   console.log('Chat runner started')
   core.mutateWs((ws) => {
     ws.ui.state = 'running'

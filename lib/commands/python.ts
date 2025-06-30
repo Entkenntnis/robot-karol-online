@@ -24,6 +24,7 @@ import {
 } from 'tone'
 import { CanvasObjects } from '../state/canvas-objects'
 import { Instrument } from 'tone/build/esm/instrument/Instrument'
+import { chatError, chatOutput } from './chat'
 
 export function setupWorker(core: Core) {
   if (core.worker) {
@@ -581,6 +582,25 @@ export function setupWorker(core: Core) {
         ui.messages = []
       })
     }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'chat-output'
+    ) {
+      chatOutput(core, event.data.text)
+      // TODO block interpreter for fixed time
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'chat-error'
+    ) {
+      chatError(core, event.data.error)
+    }
+
+    // TODO handle chat-input
   }
 
   function messageHandlerBackup(event: MessageEvent) {
