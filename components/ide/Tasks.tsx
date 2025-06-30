@@ -13,7 +13,7 @@ import {
   faUndo,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { createRef, useEffect, useRef, useState } from 'react'
+import { createRef, Fragment, useEffect, useRef, useState } from 'react'
 
 import {
   addNewTask,
@@ -272,27 +272,48 @@ export function Tasks() {
                       </div>
                       <div className="flex-grow flex flex-col">
                         <div className="my-3 flex-grow">
-                          {chat.messages.map((message, msgIndex) => (
-                            <div
-                              key={msgIndex}
-                              className={clsx(
-                                'flex my-1 mx-2',
-                                message.role == 'in' && 'justify-end'
-                              )}
-                            >
-                              <div
-                                className={clsx(
-                                  'rounded-lg px-3 py-0.5',
-                                  message.role == 'out'
-                                    ? 'bg-cyan-100 rounded-bl-none'
-                                    : 'bg-orange-100 rounded-br-none'
-                                )}
-                              >
-                                {message.text}
-                              </div>
-                            </div>
-                          ))}
+                          {chat.messages.map((message, msgIndex) => {
+                            const showCursor =
+                              core.ws.vm.chatCursor &&
+                              core.ws.vm.chatCursor.chatIndex === index &&
+                              core.ws.vm.chatCursor.msgIndex === msgIndex
+
+                            const isAboveCursor =
+                              !core.ws.vm.chatCursor ||
+                              core.ws.vm.chatCursor.chatIndex > index ||
+                              (core.ws.vm.chatCursor.chatIndex === index &&
+                                core.ws.vm.chatCursor.msgIndex > msgIndex)
+                            return (
+                              <Fragment key={msgIndex}>
+                                {showCursor && renderChatCursor()}
+                                <div
+                                  className={clsx(
+                                    'flex my-1 mx-2',
+                                    message.role == 'in' && 'justify-end'
+                                  )}
+                                >
+                                  <div
+                                    className={clsx(
+                                      'rounded-lg px-3 py-0.5',
+                                      message.role == 'out'
+                                        ? 'bg-cyan-100 rounded-bl-none'
+                                        : 'bg-orange-100 rounded-br-none',
+                                      isAboveCursor ? '' : 'opacity-30'
+                                    )}
+                                  >
+                                    {message.text}
+                                  </div>
+                                </div>
+                              </Fragment>
+                            )
+                          })}
+                          {core.ws.vm.chatCursor &&
+                            core.ws.vm.chatCursor.chatIndex === index &&
+                            core.ws.vm.chatCursor.msgIndex ==
+                              chat.messages.length &&
+                            renderChatCursor()}
                         </div>
+
                         {editChat && <AddMessageBar index={index} />}
                       </div>
                     </div>
@@ -623,6 +644,19 @@ export function Tasks() {
       </div>
     </div>
   )
+
+  function renderChatCursor() {
+    return (
+      <div className="w-full relative" id="chat-cursor">
+        <div className="absolute -top-3 left-0 right-0 text-center">
+          <span className="inline-block px-2 rounded bg-white text-green-400">
+            <FaIcon icon={faPlay} />
+          </span>
+        </div>
+        <div className="h-1 w-full bg-green-300 my-2"></div>
+      </div>
+    )
+  }
 }
 
 function AddMessageBar({ index }: { index: number }) {

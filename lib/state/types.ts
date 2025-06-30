@@ -90,6 +90,7 @@ export interface Vm {
   steps: number
   isDebugging: boolean
   debuggerRequestNextStep: boolean
+  chatCursor?: { chatIndex: number; msgIndex: number }
 }
 
 export interface Settings {
