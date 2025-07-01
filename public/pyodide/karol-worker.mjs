@@ -899,24 +899,34 @@ self.onmessage = async (event) => {
         },
         __internal_input: () => {
           console.log(`python internal input`)
-          // TODO: adapt this code to match the logic
           const buffer = new SharedArrayBuffer(1024)
-          const syncArray = new Int32Array(buffer, 0, 2)
-          const dataArray = new Uint8Array(buffer, 8)
+          const syncArray = new Int32Array(buffer, 0, 1)
+          const metaArray = new Int32Array(buffer, 4, 2)
+          const dataArray = new Uint8Array(buffer, 12)
+
+          const stack = traceback.extract_stack()
+          const line = stack[stack.length - 2].lineno
 
           self.postMessage({
-            type: 'stdin',
+            type: 'chat-input',
             buffer,
+            line,
           })
 
           Atomics.wait(syncArray, 0, 0)
 
-          const length = Atomics.load(syncArray, 1)
+          const status = Atomics.load(metaArray, 0)
+
+          // TODO: if status is 1, we should throw an error
+          if (status == 1) {
+            throw new Error('No chat input available here')
+          }
+
+          const length = Atomics.load(metaArray, 1)
           // Read the input bytes.
           const inputBytes = dataArray.slice(0, length)
-          lastStepTs = performance.now() * 1000
-          inputs.push(decoder.decode(inputBytes))
-          return inputBytes
+          const data = decoder.decode(inputBytes)
+          return data
         },
       })
       pyodide.runPython(

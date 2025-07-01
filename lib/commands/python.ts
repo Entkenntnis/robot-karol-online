@@ -24,7 +24,7 @@ import {
 } from 'tone'
 import { CanvasObjects } from '../state/canvas-objects'
 import { Instrument } from 'tone/build/esm/instrument/Instrument'
-import { chatError, chatOutput } from './chat'
+import { chatError, chatInput, chatOutput } from './chat'
 
 export function setupWorker(core: Core) {
   if (core.worker) {
@@ -600,7 +600,17 @@ export function setupWorker(core: Core) {
       chatError(core, event.data.error)
     }
 
-    // TODO handle chat-input
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'chat-input'
+    ) {
+      const { buffer, line } = event.data
+      const syncArray = new Int32Array(buffer, 0, 1)
+      const metaArray = new Int32Array(buffer, 4, 2)
+      const dataArray = new Uint8Array(buffer, 12)
+      chatInput(core, syncArray, metaArray, dataArray, line)
+    }
   }
 
   function messageHandlerBackup(event: MessageEvent) {

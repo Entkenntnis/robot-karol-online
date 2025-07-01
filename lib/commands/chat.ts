@@ -1,3 +1,4 @@
+import next from 'next'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { Core } from '../state/core'
 
@@ -42,6 +43,36 @@ export function chatOutput(
     line,
     core.ws.vm.isDebugging ? 'debugging' : 'normal'
   )
+}
+
+export function chatInput(
+  core: Core,
+  sync: Int32Array,
+  meta: Int32Array,
+  data: Uint8Array,
+  line: number
+) {
+  // highlight line, update meta data, store input and set sync
+  if (!nextInput) {
+    meta[0] = 1
+    sync[0] = 1
+    Atomics.notify(sync, 0) // notify worker
+  } else {
+    const encoded = new TextEncoder().encode(nextInput)
+    if (encoded.length > data.length) {
+      alert('Input too long')
+      return
+    }
+    data.set(encoded)
+    meta[1] = encoded.length
+    sync[0] = 1
+  }
+  setExecutionMarker(
+    core,
+    line,
+    core.ws.vm.isDebugging ? 'debugging' : 'normal'
+  )
+  syncArray = sync // store syncArray for later use
 }
 
 export function chatError(core: Core, message: string) {
@@ -116,6 +147,7 @@ function* runnerGenerator(core: Core) {
         ws.vm.chatCursor!.msgIndex++
       })
       scrollChatCursorIntoView()
+      yield wait(500)
     }
   }
 
