@@ -876,45 +876,63 @@ self.onmessage = async (event) => {
   }
 
   if (event.data.type == 'run-chat') {
+    const traceback = pyodide.pyimport('traceback')
     const { code } = event.data
-    pyodide.setStdout({
-      write: (buf) => {
-        const written_string = decoder.decode(buf)
-        const buffer = new SharedArrayBuffer(4)
-        const syncArray = new Int32Array(buffer, 0, 1)
-        syncArray[0] = 42
-        self.postMessage({ type: 'chat-output', text: written_string, buffer })
-        Atomics.wait(syncArray, 0, 42)
-        return buf.length
-      },
-    })
-    pyodide.setStdin({
-      stdin() {
-        /*const buffer = new SharedArrayBuffer(1024)
-        const syncArray = new Int32Array(buffer, 0, 2)
-        const dataArray = new Uint8Array(buffer, 8)
-
-        self.postMessage({
-          type: 'chat-input',
-          buffer,
-        })
-
-        Atomics.wait(syncArray, 0, 0)
-
-        const length = Atomics.load(syncArray, 1)
-        // Read the input bytes.
-        const inputBytes = dataArray.slice(0, length)
-        lastStepTs = performance.now() * 1000
-        inputs.push(decoder.decode(inputBytes))
-        return inputBytes*/
-
-        // TODO!!!!
-
-        throw new Error('Chat input is not supported yet')
-      },
-    })
     try {
-      pyodide.runPython(code, {})
+      const globals = pyodide.toPy({
+        __internal_print: (text) => {
+          console.log(`python internal print: ${text} `)
+          const buffer = new SharedArrayBuffer(4)
+          const syncArray = new Int32Array(buffer, 0, 1)
+          syncArray[0] = 42
+
+          const stack = traceback.extract_stack()
+          const line = stack[stack.length - 2].lineno
+
+          self.postMessage({
+            type: 'chat-output',
+            text,
+            buffer,
+            line,
+          })
+          Atomics.wait(syncArray, 0, 42)
+        },
+        __internal_input: () => {
+          console.log(`python internal input`)
+          // TODO: adapt this code to match the logic
+          const buffer = new SharedArrayBuffer(1024)
+          const syncArray = new Int32Array(buffer, 0, 2)
+          const dataArray = new Uint8Array(buffer, 8)
+
+          self.postMessage({
+            type: 'stdin',
+            buffer,
+          })
+
+          Atomics.wait(syncArray, 0, 0)
+
+          const length = Atomics.load(syncArray, 1)
+          // Read the input bytes.
+          const inputBytes = dataArray.slice(0, length)
+          lastStepTs = performance.now() * 1000
+          inputs.push(decoder.decode(inputBytes))
+          return inputBytes
+        },
+      })
+      pyodide.runPython(
+        `
+def print(*args):
+  text = ' '.join(map(str, args))
+  __internal_print(text)
+
+def input(prompt=''):
+  if prompt:
+    print(prompt)
+  return __internal_input()
+        `,
+        { globals }
+      )
+      pyodide.runPython(code, { globals })
     } catch (error) {
       self.postMessage({ type: 'chat-error', error: error.message })
       return

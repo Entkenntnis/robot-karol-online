@@ -589,7 +589,7 @@ export function setupWorker(core: Core) {
       event.data.type == 'chat-output'
     ) {
       const syncArray = new Int32Array(event.data.buffer, 0, 1)
-      chatOutput(core, event.data.text, syncArray)
+      chatOutput(core, event.data.text, syncArray, event.data.line)
     }
 
     if (

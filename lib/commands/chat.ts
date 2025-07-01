@@ -1,3 +1,4 @@
+import { setExecutionMarker } from '../codemirror/basicSetup'
 import { Core } from '../state/core'
 
 let nounce = 42
@@ -28,9 +29,19 @@ let lastOutput = ''
 let nextInput = ''
 let syncArray: Int32Array | null = null
 
-export function chatOutput(core: Core, text: string, sync: Int32Array) {
+export function chatOutput(
+  core: Core,
+  text: string,
+  sync: Int32Array,
+  line: number
+) {
   lastOutput = text
   syncArray = sync
+  setExecutionMarker(
+    core,
+    line,
+    core.ws.vm.isDebugging ? 'debugging' : 'normal'
+  )
 }
 
 export function chatError(core: Core, message: string) {
