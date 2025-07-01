@@ -296,7 +296,7 @@ const highlightExecutedLineField = StateField.define<DecorationSet>({
 const highlightMark = Decoration.line({ class: '!bg-yellow-100' })
 const debuggingHighlightMark = Decoration.line({ class: '!bg-yellow-300' })
 const errorHighlightMark = Decoration.line({ class: '!bg-red-200' })
-const chatHighlightMark = Decoration.line({ class: '!bg-green-200' })
+const chatHighlightMark = Decoration.line({ class: '!bg-green-100' })
 
 const breakpointEffect = StateEffect.define<{ pos: number; on: boolean }>({
   map: (val, mapping) => ({ pos: mapping.mapPos(val.pos), on: val.on }),

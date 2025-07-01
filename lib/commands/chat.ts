@@ -41,6 +41,7 @@ export function chatOutput(
   sync: Int32Array,
   line: number
 ) {
+  console.log('Chat output:', text)
   lastOutput = text
   syncArray = sync
   setExecutionMarker(core, line, 'chat')
@@ -100,7 +101,6 @@ function* runnerGenerator(core: Core) {
   for (let chat = 0; chat < core.ws.quest.chats.length; chat++) {
     endOfExecution = false
     core.mutateWs((ws) => {
-      ws.ui.state = 'running'
       ws.vm.chatCursor = { chatIndex: chat, msgIndex: 0 }
     })
     scrollChatCursorIntoView()
@@ -116,15 +116,15 @@ function* runnerGenerator(core: Core) {
       if (expectedMessage.role == 'in') {
         nextInput = expectedMessage.text
       }
-      // wait for stdout message
-      // it's actually stupid to execute the code so early, we only need to execute code in this place
+
+      yield wait(500)
+
       if (core.ws.vm.chatCursor!.msgIndex == 0) {
         // run the code only once at the start of the chat
         core.worker.mainWorker.postMessage({
           type: 'run-chat',
           code: core.ws.pythonCode,
         })
-        yield wait(500)
       } else {
         if (syncArray) {
           Atomics.store(syncArray, 0, 1) // unblock worker
@@ -137,6 +137,7 @@ function* runnerGenerator(core: Core) {
           // wait for output
           yield wait(20)
         }
+        console.log('input captured')
         if (lastOutput.trim() == expectedMessage.text.trim()) {
           lastOutput = '' // reset output
         } else {
@@ -151,14 +152,17 @@ function* runnerGenerator(core: Core) {
         ws.vm.chatCursor!.msgIndex++
       })
       scrollChatCursorIntoView()
-      yield wait(500)
     }
     if (syncArray) {
       Atomics.store(syncArray, 0, 1) // unblock worker
       Atomics.notify(syncArray, 0) // notify worker
       syncArray = null // reset syncArray
     }
+    yield wait(500)
+    setExecutionMarker(core, -1) // reset execution marker
   }
+
+  yield wait(500)
 
   while (!endOfExecution) {
     // wait for end of execution
