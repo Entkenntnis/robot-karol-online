@@ -180,8 +180,8 @@ export function deserializeQuest(
     }
   })
 
-  if (quest.program && quest.language) {
-    loadProgram(core, quest.program, quest.language)
+  if ((quest.program || quest.chats) && quest.language) {
+    loadProgram(core, quest.program || '', quest.language)
   }
   attemptToLoadProgramFromLocalStorage(core)
   if (core.ws.page === 'editor') {

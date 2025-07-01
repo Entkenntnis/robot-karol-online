@@ -1,9 +1,8 @@
-import { set } from 'date-fns'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { Core } from '../state/core'
 import { showModal } from './modal'
 
-let nounce = 77
+let nonce = 77
 
 let lastOutput = ''
 let nextInput = ''
@@ -13,7 +12,7 @@ let lastMarkedLine = -1
 
 export async function startChatRunner(core: Core) {
   console.log('startChatRunner called')
-  const myNounce = nounce
+  const myNonce = nonce
   lastOutput = ''
   nextInput = ''
   lastMarkedLine = -1
@@ -22,8 +21,8 @@ export async function startChatRunner(core: Core) {
   let n = generator.next()
   while (n.done === false) {
     await n.value
-    console.log('check for nounce', nounce, myNounce)
-    if (nounce !== myNounce) {
+    console.log('check for nounce', nonce, myNonce)
+    if (nonce !== myNonce) {
       console.log('Chat runner stopped due to new start request')
       return
     }
@@ -32,7 +31,7 @@ export async function startChatRunner(core: Core) {
 }
 
 export function stopChatRunner(core: Core) {
-  nounce++
+  nonce++
   core.mutateWs((ws) => {
     ws.ui.state = 'ready'
     ws.vm.chatCursor = undefined
@@ -92,7 +91,7 @@ export function chatError(core: Core, message: string) {
     const line = parseInt(match[1])
     setExecutionMarker(core, line, 'error')
   }
-  nounce++
+  nonce++
 }
 
 export function chatDone(core: Core) {

@@ -36,7 +36,6 @@ import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
-import { sub } from 'date-fns'
 
 export function Tasks() {
   const core = useCore()
@@ -169,7 +168,7 @@ export function Tasks() {
                           setMode(core, 'code')
                           core.mutateWs((ws) => {
                             if (ws.pythonCode == 'karol = Robot()\n\n') {
-                              ws.pythonCode = '\n\n'
+                              ws.pythonCode = '\n'
                             }
                           })
                         }
