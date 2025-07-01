@@ -943,6 +943,7 @@ def input(prompt=''):
         { globals }
       )
       pyodide.runPython(code, { globals })
+      self.postMessage({ type: 'chat-done' })
     } catch (error) {
       self.postMessage({ type: 'chat-error', error: error.message })
       return

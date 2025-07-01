@@ -1,11 +1,16 @@
 import next from 'next'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { Core } from '../state/core'
+import { show } from 'blockly/core/contextmenu'
+import { showModal } from './modal'
 
 let nounce = 42
 
 export async function startChatRunner(core: Core) {
   const myNounce = nounce
+  lastOutput = ''
+  nextInput = ''
+  syncArray = null
   const generator = runnerGenerator(core)
   let n = generator.next()
   while (n.done === false) {
@@ -24,11 +29,13 @@ export function stopChatRunner(core: Core) {
     ws.ui.state = 'ready'
     ws.vm.chatCursor = undefined
   })
+  setExecutionMarker(core, -1)
 }
 
 let lastOutput = ''
 let nextInput = ''
 let syncArray: Int32Array | null = null
+let endOfExecution = false
 
 export function chatOutput(
   core: Core,
@@ -76,7 +83,14 @@ export function chatInput(
 }
 
 export function chatError(core: Core, message: string) {
-  alert(message)
+  core.mutateWs((ws) => {
+    ws.ui.errorMessages = [message]
+    ws.ui.state = 'ready'
+  })
+}
+
+export function chatDone(core: Core) {
+  endOfExecution = true
 }
 
 function* runnerGenerator(core: Core) {
@@ -94,6 +108,7 @@ function* runnerGenerator(core: Core) {
   })
 
   for (let chat = 0; chat < core.ws.quest.chats.length; chat++) {
+    endOfExecution = false
     core.mutateWs((ws) => {
       ws.ui.state = 'running'
       ws.vm.chatCursor = { chatIndex: chat, msgIndex: 0 }
@@ -120,8 +135,6 @@ function* runnerGenerator(core: Core) {
           code: core.ws.pythonCode,
         })
       } else {
-        // unblock worker TODO setup buffer for it
-        // TODO TODO TODO
         if (syncArray) {
           Atomics.store(syncArray, 0, 1) // unblock worker
           Atomics.notify(syncArray, 0) // notify worker
@@ -149,7 +162,20 @@ function* runnerGenerator(core: Core) {
       scrollChatCursorIntoView()
       yield wait(500)
     }
+    if (syncArray) {
+      Atomics.store(syncArray, 0, 1) // unblock worker
+      Atomics.notify(syncArray, 0) // notify worker
+      syncArray = null // reset syncArray
+    }
   }
+
+  while (!endOfExecution) {
+    // wait for end of execution
+    yield wait(20)
+  }
+
+  showModal(core, 'success')
+  stopChatRunner(core)
 
   /*for (let j = 0; j < core.ws.quest.chats.length; j++) {
     core.mutateWs((ws) => {
