@@ -7,6 +7,7 @@ import { questData as QuestDataDe } from '../../lib/data/quests'
 import { useCore } from '../../lib/state/core'
 import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
 import { questDataEn } from '../../lib/data/questsEn'
+import { setMode } from '../../lib/commands/mode'
 
 export function RemixModal() {
   const [selected, setSelected] = useState(-1)
@@ -101,7 +102,13 @@ export function RemixModal() {
             onClick={() => {
               const obj = questData[selected]
               if (obj) {
+                // This block of code is kinda sad to look at
+                setMode(core, 'blocks')
                 core.mutateWs((ws) => {
+                  ws.ui.isChatMode = false // adapt if chat mode quests are coming in
+                  ws.ui.lockLanguage = undefined
+                  ws.editor.editOptions = 'all'
+
                   ws.quest.title = obj.title
                   ws.quest.description = obj.description
                   ws.quest.tasks = obj.tasks

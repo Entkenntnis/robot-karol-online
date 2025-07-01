@@ -48,7 +48,8 @@ export function InteractionBar() {
   const debuggable =
     core.ws.ui.state == 'running' &&
     !core.ws.editor.questScript &&
-    !core.ws.ui.isBench
+    !core.ws.ui.isBench &&
+    !core.ws.ui.isChatMode
 
   const debugPython =
     core.ws.settings.language == 'python-pro' &&

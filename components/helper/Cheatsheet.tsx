@@ -21,7 +21,7 @@ import { useCore } from '../../lib/state/core'
 import clsx from 'clsx'
 
 interface CheatsheetProps {
-  language: 'python-pro' | 'robot karol' | 'java'
+  language: 'python-pro' | 'robot karol' | 'java' | 'python-chat'
 }
 
 export function Cheatsheet({ language }: CheatsheetProps) {
@@ -36,7 +36,58 @@ export function Cheatsheet({ language }: CheatsheetProps) {
   }
 
   const commands =
-    language == 'python-pro'
+    language == 'python-chat'
+      ? [
+          {
+            category: 'Ein-/Ausgabe',
+            items: [
+              'print("Wie heißt du?")\nname = input()\nprint(f"Hallo, {name}!")',
+              'print("Wie alt bist du?")\nage = int(input())',
+            ],
+          },
+          {
+            category: 'Zahlen',
+            items: ['a = 4\nb = 2\nc = 3\naverage = (a + b + c) / 3'],
+          },
+          {
+            category: 'Kommentare',
+            items: ['# Das ist ein Kommentar\n# Nützlich für Erklärungen'],
+          },
+          {
+            category: 'Bedingte Logik',
+            items: [
+              'if a > b:\n    print("a größer b")\nelse:\n    print("a nicht größer b")',
+              'if a == 0:\n    print("a ist Null")\nelif a > 0:\n    print("a ist positiv")\nelse:\n    print("a ist negativ")',
+              // and or not
+              'if a > 0 and b > 0:\n    print("a und b positiv")\nif not a == 0:\n    print("a ist nicht Null")',
+            ],
+          },
+          {
+            category: 'Schleifen',
+            items: [
+              'for i in range(5):\n    print(i)\n# Ausgabe: 0, 1, 2, 3, 4',
+              'a = 0\nwhile a < 10:\n    a += 2\n    print(a)\n# Ausgabe: 2, 4, 6, 8, 10',
+              // break continue
+              'for i in range(10):\n    if i == 3:\n        break\n    print(i)\n# Ausgabe: 0, 1, 2',
+            ],
+          },
+          {
+            category: 'Listen',
+            items: [
+              'zahlen = [1, 2, 3, 4, 5]\nprint(zahlen[0])\n# Ausgabe: 1\nzahlen.append(6)\nprint(zahlen)\n# Ausgabe: [1, 2, 3, 4, 5, 6]',
+              'for zahl in zahlen:\n    print(zahl)\n# Ausgabe: 1, 2, 3, 4, 5, 6',
+              'if 3 in zahlen:\n    print("3 ist in Liste")\nelse:\n    print("3 nicht in Liste")',
+            ],
+          },
+          {
+            category: 'Funktionen',
+            items: [
+              'def begruessung(name):\n    print(f"Hallo, {name}!")\n\nbegruessung("Karol")\n# Ausgabe: Hallo, Karol!',
+              'def addiere(a, b):\n    return a + b\n\nresultat = addiere(3, 4)\nprint(resultat)\n# Ausgabe: 7',
+            ],
+          },
+        ]
+      : language == 'python-pro'
       ? [
           {
             category: 'Initialisierung',
@@ -205,7 +256,9 @@ export function Cheatsheet({ language }: CheatsheetProps) {
       <div className="flex items-center gap-2 mb-6">
         <FaIcon icon={faBook} className="text-purple-600" />
         <h1 className="text-xl font-bold text-gray-800">
-          {language == 'python-pro'
+          {language == 'python-chat'
+            ? 'Python'
+            : language == 'python-pro'
             ? 'Python'
             : language == 'java'
             ? 'Karol Java'
@@ -269,7 +322,7 @@ export function CodeBox({
             syntaxHighlighting(defaultHighlightStyle),
             indentUnit.of(language == 'python-pro' ? '    ' : '  '),
             editable.of(EditorView.editable.of(false)),
-            language == 'python-pro'
+            language.startsWith('python-')
               ? pythonLanguage
               : language == 'java'
               ? javaLanguage

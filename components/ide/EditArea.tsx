@@ -139,7 +139,8 @@ export function EditArea() {
                   <label
                     className={clsx(
                       'ml-8 text-gray-500 cursor-pointer select-none',
-                      core.ws.editor.questScript && 'font-semibold'
+                      core.ws.editor.questScript && 'font-semibold',
+                      core.ws.ui.isChatMode && 'hidden'
                     )}
                   >
                     <input
@@ -218,9 +219,10 @@ export function EditArea() {
                     <button
                       className="absolute -top-1 right-2"
                       onClick={() => {
-                        core.mutateWs(({ ui }) => {
+                        core.mutateWs(({ ui, vm }) => {
                           ui.state = 'ready'
                           ui.errorMessages = []
+                          vm.chatCursor = undefined
                         })
                         setExecutionMarker(core, 0)
                       }}
@@ -293,7 +295,13 @@ export function EditArea() {
           {(core.ws.settings.language == 'python-pro' ||
             core.ws.settings.language == 'robot karol') &&
             showCheatSheet && (
-              <Cheatsheet language={core.ws.settings.language} />
+              <Cheatsheet
+                language={
+                  core.ws.ui.isChatMode
+                    ? 'python-chat'
+                    : core.ws.settings.language
+                }
+              />
             )}
           <div
             className={clsx(

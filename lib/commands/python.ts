@@ -24,6 +24,7 @@ import {
 } from 'tone'
 import { CanvasObjects } from '../state/canvas-objects'
 import { Instrument } from 'tone/build/esm/instrument/Instrument'
+import { chatDone, chatError, chatInput, chatOutput } from './chat'
 
 export function setupWorker(core: Core) {
   if (core.worker) {
@@ -580,6 +581,43 @@ export function setupWorker(core: Core) {
       core.mutateWs(({ ui }) => {
         ui.messages = []
       })
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'chat-output'
+    ) {
+      const syncArray = new Int32Array(event.data.buffer, 0, 1)
+      chatOutput(core, event.data.text, syncArray, event.data.line)
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'chat-error'
+    ) {
+      chatError(core, filterTraceback(event.data.error))
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'chat-input'
+    ) {
+      const { buffer, line } = event.data
+      const syncArray = new Int32Array(buffer, 0, 1)
+      const metaArray = new Int32Array(buffer, 4, 2)
+      const dataArray = new Uint8Array(buffer, 12)
+      chatInput(core, syncArray, metaArray, dataArray, line)
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type == 'chat-done'
+    ) {
+      chatDone(core)
     }
   }
 

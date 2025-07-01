@@ -9,6 +9,7 @@ import {
   World,
 } from '../state/types'
 import { setLanguage } from './language'
+import { setMode } from './mode'
 import {
   attemptToLoadProgramFromLocalStorage,
   getProgram,
@@ -24,19 +25,22 @@ export function serializeQuest(
     version: 'v1',
     title: core.ws.quest.title,
     description: core.ws.quest.description,
-    tasks: core.ws.quest.tasks.map((task) => {
-      return {
-        title: task.title,
-        start: serializeWorld(task.start),
-        target: serializeWorld(task.target ?? task.start),
-      }
-    }),
+    tasks: core.ws.ui.isChatMode
+      ? []
+      : core.ws.quest.tasks.map((task) => {
+          return {
+            title: task.title,
+            start: serializeWorld(task.start),
+            target: serializeWorld(task.target ?? task.start),
+          }
+        }),
     lng: core.ws.settings.lng,
     editOptions:
       core.ws.editor.editOptions === 'all'
         ? undefined
         : core.ws.editor.editOptions,
     questScript: core.ws.editor.questScript,
+    chats: core.ws.ui.isChatMode ? core.ws.quest.chats : undefined,
   }
 
   if (core.ws.editor.saveProgram) {
@@ -141,6 +145,8 @@ export function deserializeQuest(
   core.mutateWs((ws) => {
     ws.quest.title = quest.title
     ws.quest.description = quest.description
+    ws.ui.isChatMode = false // adapt if chat mode quests are coming in
+    ws.ui.lockLanguage = undefined
 
     ws.quest.tasks = quest.tasks.map((task) => {
       const start = deserializeWorld(task.start)
@@ -166,10 +172,16 @@ export function deserializeQuest(
     if (quest.questScript) {
       ws.editor.questScript = quest.questScript
     }
+
+    if (quest.chats) {
+      ws.ui.isChatMode = true
+      ws.quest.chats = quest.chats
+      ws.ui.lockLanguage = 'python-pro'
+    }
   })
 
-  if (quest.program && quest.language) {
-    loadProgram(core, quest.program, quest.language)
+  if ((quest.program || quest.chats) && quest.language) {
+    loadProgram(core, quest.program || '', quest.language)
   }
   attemptToLoadProgramFromLocalStorage(core)
   if (core.ws.page === 'editor') {

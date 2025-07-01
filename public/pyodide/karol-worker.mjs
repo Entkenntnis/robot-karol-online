@@ -875,6 +875,81 @@ self.onmessage = async (event) => {
     }
   }
 
+  if (event.data.type == 'run-chat') {
+    const traceback = pyodide.pyimport('traceback')
+    const { code } = event.data
+    try {
+      const globals = pyodide.toPy({
+        __internal_print: (text) => {
+          console.log(`python internal print: ${text} `)
+          const buffer = new SharedArrayBuffer(4)
+          const syncArray = new Int32Array(buffer, 0, 1)
+          syncArray[0] = 42
+
+          const stack = traceback.extract_stack()
+          const line = stack[stack.length - 2].lineno
+
+          self.postMessage({
+            type: 'chat-output',
+            text,
+            buffer,
+            line,
+          })
+          Atomics.wait(syncArray, 0, 42)
+        },
+        __internal_input: () => {
+          console.log(`python internal input`)
+          const buffer = new SharedArrayBuffer(1024)
+          const syncArray = new Int32Array(buffer, 0, 1)
+          const metaArray = new Int32Array(buffer, 4, 2)
+          const dataArray = new Uint8Array(buffer, 12)
+
+          const stack = traceback.extract_stack()
+          const line = stack[stack.length - 2].lineno
+
+          self.postMessage({
+            type: 'chat-input',
+            buffer,
+            line,
+          })
+
+          Atomics.wait(syncArray, 0, 0)
+
+          const status = Atomics.load(metaArray, 0)
+
+          // TODO: if status is 1, we should throw an error
+          if (status == 1) {
+            throw new Error('Keine Eingabe an dieser Stelle.')
+          }
+
+          const length = Atomics.load(metaArray, 1)
+          // Read the input bytes.
+          const inputBytes = dataArray.slice(0, length)
+          const data = decoder.decode(inputBytes)
+          return data
+        },
+      })
+      pyodide.runPython(
+        `
+def print(*args):
+  text = ' '.join(map(str, args))
+  __internal_print(text)
+
+def input(prompt=''):
+  if prompt:
+    print(prompt)
+  return __internal_input()
+        `,
+        { globals }
+      )
+      pyodide.runPython(code, { globals })
+      self.postMessage({ type: 'chat-done' })
+    } catch (error) {
+      self.postMessage({ type: 'chat-error', error: error.message })
+      return
+    }
+  }
+
   if (event.data.type === 'bench') {
     const id = event.data.id
     const command = event.data.command

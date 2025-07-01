@@ -226,6 +226,7 @@ export function saveEditorSnapshot(core: Core) {
     code: core.ws.code,
     javaCode: core.ws.javaCode,
     pythonCode: core.ws.pythonCode,
+    isChatMode: core.ws.ui.isChatMode,
   }
   sessionStorage.setItem(
     'robot_karol_online_session_snapshot',
@@ -248,6 +249,10 @@ export function restoreEditorSnapshot(core: Core) {
         ws.javaCode = snapshot.javaCode
         ws.pythonCode = snapshot.pythonCode
         ws.ui.needsTextRefresh = true
+        ws.ui.isChatMode = snapshot.isChatMode
+        if (snapshot.isChatMode) {
+          ws.ui.lockLanguage = 'python-pro'
+        }
       })
     }
   } catch (e) {}
