@@ -1,7 +1,5 @@
-import next from 'next'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { Core } from '../state/core'
-import { show } from 'blockly/core/contextmenu'
 import { showModal } from './modal'
 
 let nounce = 42
@@ -45,11 +43,7 @@ export function chatOutput(
 ) {
   lastOutput = text
   syncArray = sync
-  setExecutionMarker(
-    core,
-    line,
-    core.ws.vm.isDebugging ? 'debugging' : 'normal'
-  )
+  setExecutionMarker(core, line, 'chat')
 }
 
 export function chatInput(
@@ -74,11 +68,7 @@ export function chatInput(
     meta[1] = encoded.length
     sync[0] = 1
   }
-  setExecutionMarker(
-    core,
-    line,
-    core.ws.vm.isDebugging ? 'debugging' : 'normal'
-  )
+  setExecutionMarker(core, line, 'chat')
   syncArray = sync // store syncArray for later use
 }
 
@@ -134,6 +124,7 @@ function* runnerGenerator(core: Core) {
           type: 'run-chat',
           code: core.ws.pythonCode,
         })
+        yield wait(500)
       } else {
         if (syncArray) {
           Atomics.store(syncArray, 0, 1) // unblock worker

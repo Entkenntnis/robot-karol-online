@@ -236,7 +236,7 @@ export const germanPhrases = {
 export function setExecutionMarker(
   core: Core,
   line: number,
-  type: 'normal' | 'debugging' | 'error' = 'normal'
+  type: 'normal' | 'debugging' | 'error' | 'chat' = 'normal'
 ) {
   if (core.view && core.view.current && core.ws.settings.mode == 'code') {
     if (line > 0) {
@@ -263,7 +263,7 @@ export function setExecutionMarker(
 
 const highlightExecutedLineEffect = StateEffect.define<{
   from: number
-  type: 'normal' | 'debugging' | 'error'
+  type: 'normal' | 'debugging' | 'error' | 'chat'
 }>()
 
 const highlightExecutedLineField = StateField.define<DecorationSet>({
@@ -281,6 +281,8 @@ const highlightExecutedLineField = StateField.define<DecorationSet>({
                 ? errorHighlightMark.range(e.value.from)
                 : e.value.type == 'debugging'
                 ? debuggingHighlightMark.range(e.value.from)
+                : e.value.type == 'chat'
+                ? chatHighlightMark.range(e.value.from)
                 : highlightMark.range(e.value.from),
             ],
           })
@@ -294,6 +296,7 @@ const highlightExecutedLineField = StateField.define<DecorationSet>({
 const highlightMark = Decoration.line({ class: '!bg-yellow-100' })
 const debuggingHighlightMark = Decoration.line({ class: '!bg-yellow-300' })
 const errorHighlightMark = Decoration.line({ class: '!bg-red-200' })
+const chatHighlightMark = Decoration.line({ class: '!bg-green-200' })
 
 const breakpointEffect = StateEffect.define<{ pos: number; on: boolean }>({
   map: (val, mapping) => ({ pos: mapping.mapPos(val.pos), on: val.on }),
