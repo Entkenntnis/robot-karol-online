@@ -19,7 +19,6 @@ import { javaLanguage } from '../../lib/codemirror/javaParser/javaLanguage'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { useCore } from '../../lib/state/core'
 import clsx from 'clsx'
-import { it } from 'node:test'
 
 interface CheatsheetProps {
   language: 'python-pro' | 'robot karol' | 'java' | 'python-chat'
