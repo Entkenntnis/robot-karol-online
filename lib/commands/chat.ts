@@ -1,18 +1,28 @@
+import { set } from 'date-fns'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { Core } from '../state/core'
 import { showModal } from './modal'
 
-let nounce = 42
+let nounce = 77
+
+let lastOutput = ''
+let nextInput = ''
+let syncArray: Int32Array | null = null
+let endOfExecution = false
+let lastMarkedLine = -1
 
 export async function startChatRunner(core: Core) {
+  console.log('startChatRunner called')
   const myNounce = nounce
   lastOutput = ''
   nextInput = ''
+  lastMarkedLine = -1
   syncArray = null
   const generator = runnerGenerator(core)
   let n = generator.next()
   while (n.done === false) {
     await n.value
+    console.log('check for nounce', nounce, myNounce)
     if (nounce !== myNounce) {
       console.log('Chat runner stopped due to new start request')
       return
@@ -28,12 +38,8 @@ export function stopChatRunner(core: Core) {
     ws.vm.chatCursor = undefined
   })
   setExecutionMarker(core, -1)
+  lastMarkedLine = -1
 }
-
-let lastOutput = ''
-let nextInput = ''
-let syncArray: Int32Array | null = null
-let endOfExecution = false
 
 export function chatOutput(
   core: Core,
@@ -45,6 +51,7 @@ export function chatOutput(
   lastOutput = text
   syncArray = sync
   setExecutionMarker(core, line, 'chat')
+  lastMarkedLine = line
 }
 
 export function chatInput(
@@ -70,7 +77,9 @@ export function chatInput(
     sync[0] = 1
   }
   setExecutionMarker(core, line, 'chat')
-  syncArray = sync // store syncArray for later use
+  lastMarkedLine = line
+  syncArray = sync
+  nextInput = ''
 }
 
 export function chatError(core: Core, message: string) {
@@ -78,6 +87,12 @@ export function chatError(core: Core, message: string) {
     ws.ui.errorMessages = [message]
     ws.ui.state = 'ready'
   })
+  const match = message.match(/File "<exec>", line (\d+), in <module>/)
+  if (match) {
+    const line = parseInt(match[1])
+    setExecutionMarker(core, line, 'error')
+  }
+  nounce++
 }
 
 export function chatDone(core: Core) {
@@ -96,6 +111,8 @@ function* runnerGenerator(core: Core) {
   core.mutateWs((ws) => {
     ws.ui.state = 'running'
     ws.vm.chatCursor = { chatIndex: 0, msgIndex: 0 }
+    ws.vm.chatCursorMode = 'play'
+    ws.vm.chatSpill = []
   })
 
   for (let chat = 0; chat < core.ws.quest.chats.length; chat++) {
@@ -134,18 +151,50 @@ function* runnerGenerator(core: Core) {
       }
       if (expectedMessage.role == 'out') {
         while (lastOutput === '') {
+          console.log('Waiting for output... ', lastOutput)
           // wait for output
           yield wait(20)
+          if (endOfExecution) {
+            // unexpected end of execution
+            core.mutateWs((ws) => {
+              ws.ui.state = 'ready'
+              ws.vm.chatCursorMode = 'warn'
+            })
+            setExecutionMarker(core, -1)
+            return
+          }
         }
-        console.log('input captured')
+        console.log('output captured')
         if (lastOutput.trim() == expectedMessage.text.trim()) {
           lastOutput = '' // reset output
         } else {
           // input
-          alert(
-            'mismatch not implemented yet' + lastOutput + expectedMessage.text
-          )
+          core.mutateWs((ws) => {
+            ws.vm.chatCursorMode = 'warn'
+            ws.vm.chatSpill.push(lastOutput)
+          })
+          core.worker.reset()
+          core.mutateWs((ws) => {
+            ws.ui.state = 'ready'
+          })
+          setExecutionMarker(core, lastMarkedLine, 'debugging')
           return
+        }
+      }
+      if (expectedMessage.role == 'in') {
+        while (nextInput !== '') {
+          console.log('Waiting for input to be process')
+          // wait for input
+          yield wait(20)
+          if (endOfExecution) {
+            // unexpected end of execution
+            core.mutateWs((ws) => {
+              ws.ui.state = 'ready'
+              ws.vm.chatCursorMode = 'warn'
+            })
+            setExecutionMarker(core, -1)
+            return
+          }
         }
       }
       core.mutateWs((ws) => {
@@ -159,7 +208,8 @@ function* runnerGenerator(core: Core) {
       syncArray = null // reset syncArray
     }
     yield wait(500)
-    setExecutionMarker(core, -1) // reset execution marker
+    setExecutionMarker(core, -1)
+    lastMarkedLine = -1
   }
 
   yield wait(500)
@@ -171,27 +221,6 @@ function* runnerGenerator(core: Core) {
 
   showModal(core, 'success')
   stopChatRunner(core)
-
-  /*for (let j = 0; j < core.ws.quest.chats.length; j++) {
-    core.mutateWs((ws) => {
-      ws.vm.chatCursor!.chatIndex = j
-      ws.vm.chatCursor!.msgIndex = 0
-    })
-    scrollChatCursorIntoView()
-    for (let i = 0; i < core.ws.quest.chats[j].messages.length + 1; i++) {
-      console.log(`Chat runner message ${i + 1}`)
-      yield wait(500) // Simulate some processing time
-
-      core.mutateWs((ws) => {
-        ws.vm.chatCursor!.msgIndex++
-      })
-      scrollChatCursorIntoView()
-    }
-  }
-
-  yield wait(1000)*/
-
-  // stopChatRunner(core)
 }
 
 async function wait(ms: number): Promise<void> {

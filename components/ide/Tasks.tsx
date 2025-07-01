@@ -9,8 +9,10 @@ import {
   faPlay,
   faPlus,
   faShareNodes,
+  faTimes,
   faTrashCan,
   faUndo,
+  faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { createRef, Fragment, useEffect, useRef, useState } from 'react'
@@ -283,6 +285,13 @@ export function Tasks() {
                               core.ws.vm.chatCursor.chatIndex > index ||
                               (core.ws.vm.chatCursor.chatIndex === index &&
                                 core.ws.vm.chatCursor.msgIndex > msgIndex)
+
+                            const nextOnFail =
+                              core.ws.vm.chatCursorMode == 'warn' &&
+                              core.ws.vm.chatCursor &&
+                              core.ws.vm.chatCursor.chatIndex == index &&
+                              core.ws.vm.chatCursor.msgIndex == msgIndex
+
                             return (
                               <Fragment key={msgIndex}>
                                 {showCursor && renderChatCursor()}
@@ -298,7 +307,11 @@ export function Tasks() {
                                       message.role == 'out'
                                         ? 'bg-cyan-100 rounded-bl-none'
                                         : 'bg-orange-100 rounded-br-none',
-                                      isAboveCursor ? '' : 'opacity-30'
+                                      isAboveCursor
+                                        ? ''
+                                        : nextOnFail
+                                        ? 'opacity-60'
+                                        : 'opacity-30'
                                     )}
                                   >
                                     {message.text}
@@ -647,14 +660,104 @@ export function Tasks() {
 
   function renderChatCursor() {
     return (
-      <div className="w-full relative" id="chat-cursor">
-        <div className="absolute -top-3 left-0 right-0 text-center">
-          <span className="inline-block px-2 rounded bg-white text-green-400">
-            <FaIcon icon={faPlay} />
-          </span>
+      <>
+        {core.ws.vm.chatSpill.length > 0 && (
+          <div className="relative">
+            <div className="absolute right-2 top-2">
+              <button
+                className="rounded-full flex w-6 h-6 items-center justify-center bg-gray-200 hover:bg-gray-300"
+                onClick={() => {
+                  core.mutateWs(({ vm }) => {
+                    vm.chatCursor = undefined
+                    vm.chatSpill = []
+                  })
+                }}
+              >
+                <FaIcon icon={faTimes} className="text-gray-500" />
+              </button>
+            </div>
+            <div
+              className={clsx(
+                'h-1 w-full my-2',
+                core.ws.vm.chatCursorMode == 'play'
+                  ? 'bg-green-300'
+                  : 'bg-yellow-200'
+              )}
+            ></div>
+            <div className="my-1 mx-2 flex">
+              <div className="rounded-lg bg-gray-200 rounded-bl-none px-3 py-0.5">
+                {core.ws.vm.chatSpill[0]}
+              </div>
+            </div>
+            <div className="text-sm mx-2 mt-4 mb-2 italic">
+              <span className="text-gray-500">Deine Ausgabe</span> stimmt nicht
+              mit der <span className="text-cyan-500">erwarteten Ausgabe</span>{' '}
+              überein.
+            </div>
+          </div>
+        )}
+        {core.ws.vm.chatCursorMode == 'warn' &&
+          core.ws.vm.chatSpill.length == 0 && (
+            <div className="relative">
+              <div className="absolute right-2 top-3">
+                <button
+                  className="rounded-full flex w-6 h-6 items-center justify-center bg-gray-200 hover:bg-gray-300"
+                  onClick={() => {
+                    core.mutateWs(({ vm }) => {
+                      vm.chatCursor = undefined
+                      vm.chatSpill = []
+                    })
+                  }}
+                >
+                  <FaIcon icon={faTimes} className="text-gray-500" />
+                </button>
+              </div>
+              <div className={clsx('h-1 w-full my-2 bg-yellow-200')}></div>
+              <div className="text-sm mx-2 mt-4 mb-3 italic mr-7">
+                {core.ws.quest.chats[core.ws.vm.chatCursor!.chatIndex].messages[
+                  core.ws.vm.chatCursor!.msgIndex
+                ].role == 'out' ? (
+                  <>
+                    Dein Programm ist frühzeitig beendet, erwarte{' '}
+                    <span className="text-cyan-500">weitere Ausgaben:</span>
+                  </>
+                ) : (
+                  <>
+                    Bitte frage{' '}
+                    <span className="text-orange-500">die nächste Eingabe</span>{' '}
+                    mit{' '}
+                    <code className="not-italic font-bold mx-1">input()</code>{' '}
+                    ab.
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+        <div className="w-full relative" id="chat-cursor">
+          <div className="absolute -top-3 left-0 right-0 text-center">
+            <span
+              className={clsx(
+                'inline-block px-2 rounded bg-white',
+                core.ws.vm.chatCursorMode == 'play'
+                  ? 'text-green-400'
+                  : 'text-yellow-300'
+              )}
+            >
+              <FaIcon
+                icon={core.ws.vm.chatCursorMode == 'play' ? faPlay : faWarning}
+              />
+            </span>
+          </div>
+          <div
+            className={clsx(
+              'h-1 w-full my-2',
+              core.ws.vm.chatCursorMode == 'play'
+                ? 'bg-green-300'
+                : 'bg-yellow-200'
+            )}
+          ></div>
         </div>
-        <div className="h-1 w-full bg-green-300 my-2"></div>
-      </div>
+      </>
     )
   }
 }

@@ -919,7 +919,7 @@ self.onmessage = async (event) => {
 
           // TODO: if status is 1, we should throw an error
           if (status == 1) {
-            throw new Error('No chat input available here')
+            throw new Error('Keine Eingabe an dieser Stelle.')
           }
 
           const length = Atomics.load(metaArray, 1)

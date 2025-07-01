@@ -91,6 +91,8 @@ export interface Vm {
   isDebugging: boolean
   debuggerRequestNextStep: boolean
   chatCursor?: { chatIndex: number; msgIndex: number }
+  chatCursorMode: 'play' | 'warn'
+  chatSpill: string[]
 }
 
 export interface Settings {

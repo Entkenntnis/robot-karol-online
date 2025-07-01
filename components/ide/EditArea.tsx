@@ -219,9 +219,10 @@ export function EditArea() {
                     <button
                       className="absolute -top-1 right-2"
                       onClick={() => {
-                        core.mutateWs(({ ui }) => {
+                        core.mutateWs(({ ui, vm }) => {
                           ui.state = 'ready'
                           ui.errorMessages = []
+                          vm.chatCursor = undefined
                         })
                         setExecutionMarker(core, 0)
                       }}
