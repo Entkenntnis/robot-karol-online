@@ -212,6 +212,10 @@ function* runnerGenerator(core: Core) {
     lastMarkedLine = -1
   }
 
+  core.mutateWs((ws) => {
+    ws.vm.chatCursor!.chatIndex++
+  })
+
   yield wait(500)
 
   while (!endOfExecution) {

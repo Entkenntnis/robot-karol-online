@@ -201,6 +201,15 @@ export function Tasks() {
                           ) : (
                             <>{chat.title}</>
                           )}
+                          {core.ws.vm.chatCursor &&
+                            core.ws.vm.chatCursor.chatIndex > index && (
+                              <div>
+                                <FaIcon
+                                  icon={faCheck}
+                                  className="text-green-300 text-3xl ml-3 mt-3"
+                                />
+                              </div>
+                            )}
                         </div>
                         <div className={clsx(!editChat && 'hidden')}>
                           <button
