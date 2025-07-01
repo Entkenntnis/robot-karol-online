@@ -588,8 +588,8 @@ export function setupWorker(core: Core) {
       typeof event.data === 'object' &&
       event.data.type == 'chat-output'
     ) {
-      chatOutput(core, event.data.text)
-      // TODO block interpreter for fixed time
+      const syncArray = new Int32Array(event.data.buffer, 0, 1)
+      chatOutput(core, event.data.text, syncArray)
     }
 
     if (

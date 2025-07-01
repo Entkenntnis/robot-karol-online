@@ -880,7 +880,11 @@ self.onmessage = async (event) => {
     pyodide.setStdout({
       write: (buf) => {
         const written_string = decoder.decode(buf)
-        self.postMessage({ type: 'chat-output', text: written_string })
+        const buffer = new SharedArrayBuffer(4)
+        const syncArray = new Int32Array(buffer, 0, 1)
+        syncArray[0] = 42
+        self.postMessage({ type: 'chat-output', text: written_string, buffer })
+        Atomics.wait(syncArray, 0, 42)
         return buf.length
       },
     })

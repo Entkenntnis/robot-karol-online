@@ -18,15 +18,19 @@ export async function startChatRunner(core: Core) {
 
 export function stopChatRunner(core: Core) {
   nounce++
-  console.log('Chat runner stopped')
   core.mutateWs((ws) => {
     ws.ui.state = 'ready'
     ws.vm.chatCursor = undefined
   })
 }
 
-export function chatOutput(core: Core, text: string) {
-  console.log('Chat output:', text)
+let lastOutput = ''
+let nextInput = ''
+let syncArray: Int32Array | null = null
+
+export function chatOutput(core: Core, text: string, sync: Int32Array) {
+  lastOutput = text
+  syncArray = sync
 }
 
 export function chatError(core: Core, message: string) {
@@ -41,22 +45,70 @@ function* runnerGenerator(core: Core) {
     !core.worker.mainWorkerReady
   )
     throw new Error('Worker not ready')
-
   core.worker.isFresh = false
-
-  core.worker.mainWorker.postMessage({
-    type: 'run-chat',
-    code: core.ws.pythonCode,
-  })
-
-  console.log('Chat runner started')
   core.mutateWs((ws) => {
     ws.ui.state = 'running'
     ws.vm.chatCursor = { chatIndex: 0, msgIndex: 0 }
   })
-  scrollChatCursorIntoView()
 
-  for (let j = 0; j < core.ws.quest.chats.length; j++) {
+  for (let chat = 0; chat < core.ws.quest.chats.length; chat++) {
+    core.mutateWs((ws) => {
+      ws.ui.state = 'running'
+      ws.vm.chatCursor = { chatIndex: chat, msgIndex: 0 }
+    })
+    scrollChatCursorIntoView()
+    const messages = core.ws.quest.chats[chat].messages
+
+    while (core.ws.vm.chatCursor!.msgIndex < messages.length) {
+      const expectedMessage = messages[core.ws.vm.chatCursor!.msgIndex]
+      console.log(
+        `Chat runner message ${core.ws.vm.chatCursor!.msgIndex + 1} of ${
+          messages.length
+        }: ${expectedMessage.text}`
+      )
+      if (expectedMessage.role == 'in') {
+        nextInput = expectedMessage.text
+      }
+      // wait for stdout message
+      // it's actually stupid to execute the code so early, we only need to execute code in this place
+      if (core.ws.vm.chatCursor!.msgIndex == 0) {
+        // run the code only once at the start of the chat
+        core.worker.mainWorker.postMessage({
+          type: 'run-chat',
+          code: core.ws.pythonCode,
+        })
+      } else {
+        // unblock worker TODO setup buffer for it
+        // TODO TODO TODO
+        if (syncArray) {
+          Atomics.store(syncArray, 0, 1) // unblock worker
+          Atomics.notify(syncArray, 0) // notify worker
+          syncArray = null // reset syncArray
+        }
+      }
+      if (expectedMessage.role == 'out') {
+        while (lastOutput === '') {
+          // wait for output
+          yield wait(20)
+        }
+        if (lastOutput.trim() == expectedMessage.text.trim()) {
+          lastOutput = '' // reset output
+        } else {
+          // input
+          alert(
+            'mismatch not implemented yet' + lastOutput + expectedMessage.text
+          )
+          return
+        }
+      }
+      core.mutateWs((ws) => {
+        ws.vm.chatCursor!.msgIndex++
+      })
+      scrollChatCursorIntoView()
+    }
+  }
+
+  /*for (let j = 0; j < core.ws.quest.chats.length; j++) {
     core.mutateWs((ws) => {
       ws.vm.chatCursor!.chatIndex = j
       ws.vm.chatCursor!.msgIndex = 0
@@ -73,9 +125,9 @@ function* runnerGenerator(core: Core) {
     }
   }
 
-  yield wait(1000)
+  yield wait(1000)*/
 
-  stopChatRunner(core)
+  // stopChatRunner(core)
 }
 
 async function wait(ms: number): Promise<void> {

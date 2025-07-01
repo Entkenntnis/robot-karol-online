@@ -23,6 +23,7 @@ export function startButtonClicked(core: Core) {
       startChatRunner(core)
     } else if (core.ws.ui.state == 'running') {
       stopChatRunner(core)
+      core.worker?.reset()
     }
     return
   }
