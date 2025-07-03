@@ -4,10 +4,7 @@ import { EditorView } from '@codemirror/view'
 import { compile } from '../language/robot karol/compiler'
 import { Core } from '../state/core'
 import { abort, patch } from './vm'
-import {
-  removeAllBreakpoints,
-  setExecutionMarker,
-} from '../codemirror/basicSetup'
+import { setExecutionMarker } from '../codemirror/basicSetup'
 import { saveCodeToLocalStorage } from './save'
 
 export function resetUIAfterChange(core: Core) {
@@ -16,7 +13,6 @@ export function resetUIAfterChange(core: Core) {
     // state.ui.isEndOfRun = false
     state.ui.breakpoints = []
   })
-  removeAllBreakpoints(core)
   setExecutionMarker(core, 0)
 }
 

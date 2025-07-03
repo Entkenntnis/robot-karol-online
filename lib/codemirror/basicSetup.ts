@@ -271,7 +271,11 @@ const highlightExecutedLineField = StateField.define<DecorationSet>({
     return Decoration.none
   },
   update(highlighted, tr) {
-    for (let e of tr.effects)
+    for (let e of tr.effects) {
+      // if doc has changes, remove all highlights
+      if (tr.docChanged) {
+        return highlighted.update({ filter: () => false })
+      }
       if (e.is(highlightExecutedLineEffect)) {
         highlighted = Decoration.none
         if (e.value.from >= 0) {
@@ -288,6 +292,7 @@ const highlightExecutedLineField = StateField.define<DecorationSet>({
           })
         }
       }
+    }
     return highlighted
   },
   provide: (f) => EditorView.decorations.from(f),
@@ -309,6 +314,9 @@ const breakpointState = StateField.define<RangeSet<GutterMarker>>({
     return RangeSet.empty
   },
   update(set, transaction) {
+    if (transaction.docChanged) {
+      return RangeSet.empty
+    }
     set = set.map(transaction.changes)
     for (let e of transaction.effects) {
       if (e.is(breakpointEffect)) {
@@ -323,12 +331,6 @@ const breakpointState = StateField.define<RangeSet<GutterMarker>>({
     return set
   },
 })
-
-export function removeAllBreakpoints(core: Core) {
-  if (core.view && core.view.current) {
-    core.view.current.dispatch({ effects: removeAllBreakpointsEffect.of(null) })
-  }
-}
 
 const breakpointMarkerPlaceholder = new (class extends GutterMarker {
   toDOM() {

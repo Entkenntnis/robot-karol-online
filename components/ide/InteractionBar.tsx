@@ -240,7 +240,7 @@ export function InteractionBar() {
         )}
         <button
           className={clsx(
-            'rounded pt-1 pb-2 transition whitespace-nowrap enabled:active:scale-[0.98] text-center flex-grow',
+            'rounded pt-1 pb-2 transition duration-300 whitespace-nowrap enabled:active:scale-[0.98] text-center flex-grow',
             core.ws.ui.state == 'error' || core.ws.ui.state == 'loading'
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
               : clsx(
