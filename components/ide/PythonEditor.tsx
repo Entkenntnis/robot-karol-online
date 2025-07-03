@@ -148,8 +148,8 @@ export function lint(core: Core, view: EditorView) {
     }
   })
 
-  if (core.ws.ui.state == 'running' || !view) {
-    return [] // auto formatting, ignore
+  if (!view) {
+    return []
   }
   saveCodeToLocalStorage(core)
   resetUIAfterChange(core)
