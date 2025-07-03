@@ -319,7 +319,8 @@ export function Tasks() {
                                       isAboveCursor
                                         ? core.ws.vm.chatCursor
                                           ? ''
-                                          : index > 0
+                                          : index > 0 &&
+                                            core.ws.page != 'editor'
                                           ? 'opacity-50'
                                           : ''
                                         : nextOnFail
