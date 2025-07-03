@@ -126,7 +126,7 @@ export function AnalyzeResults() {
       <h2 className="mt-6 mb-4 text-lg">Umfrage</h2>
       <div>
         {survey.map((entry, i) => (
-          <p key={i} className="mb-1">
+          <p key={i} className="mb-1 break-all">
             <span className="text-gray-400 mr-3">
               {new Date(entry.ts).toLocaleString('de-DE')}
             </span>{' '}
