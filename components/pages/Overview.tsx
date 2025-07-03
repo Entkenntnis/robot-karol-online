@@ -151,7 +151,7 @@ export function Overview() {
               className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
               onClick={() => {
                 submitAnalyzeEvent(core, 'ev_click_landing_donate')
-                navigate(core, '#SPENDEN')
+                window.open('https://paypal.me/Dav1dL1', '_blank')
               }}
             >
               Spenden
