@@ -36,6 +36,7 @@ import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
+import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
 
 export function Tasks() {
   const core = useCore()
@@ -683,6 +684,7 @@ export function Tasks() {
                     vm.chatCursor = undefined
                     vm.chatSpill = []
                   })
+                  setExecutionMarker(core, -1)
                 }}
               >
                 <FaIcon icon={faTimes} className="text-gray-500" />
@@ -719,6 +721,7 @@ export function Tasks() {
                       vm.chatCursor = undefined
                       vm.chatSpill = []
                     })
+                    setExecutionMarker(core, -1)
                   }}
                 >
                   <FaIcon icon={faTimes} className="text-gray-500" />

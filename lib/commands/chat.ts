@@ -162,6 +162,7 @@ function* runnerGenerator(core: Core) {
             setExecutionMarker(core, -1)
             return
           }
+          // input here is impossible, because we will through exception instead
         }
         console.log('output captured')
         if (lastOutput.trim() == expectedMessage.text.trim()) {
@@ -192,6 +193,14 @@ function* runnerGenerator(core: Core) {
               ws.vm.chatCursorMode = 'warn'
             })
             setExecutionMarker(core, -1)
+            return
+          }
+          if (lastOutput !== '') {
+            core.mutateWs((ws) => {
+              ws.ui.state = 'ready'
+              ws.vm.chatCursorMode = 'warn'
+            })
+            setExecutionMarker(core, lastMarkedLine, 'debugging')
             return
           }
         }
