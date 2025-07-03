@@ -316,7 +316,11 @@ export function Tasks() {
                                         ? 'bg-cyan-100 rounded-bl-none'
                                         : 'bg-orange-100 rounded-br-none',
                                       isAboveCursor
-                                        ? ''
+                                        ? core.ws.vm.chatCursor
+                                          ? ''
+                                          : index > 0
+                                          ? 'opacity-50'
+                                          : ''
                                         : nextOnFail
                                         ? 'opacity-60'
                                         : 'opacity-30'
