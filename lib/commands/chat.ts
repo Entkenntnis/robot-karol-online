@@ -200,6 +200,7 @@ function* runnerGenerator(core: Core) {
               ws.ui.state = 'ready'
               ws.vm.chatCursorMode = 'warn'
             })
+            core.worker.reset()
             setExecutionMarker(core, lastMarkedLine, 'debugging')
             return
           }
