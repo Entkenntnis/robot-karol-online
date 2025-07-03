@@ -84,9 +84,13 @@ export function NameModal() {
 
   function submit() {
     setUserName(core, name.trim())
-    /*core.mutateWs((ws) => {
-      ws.ui.tourModePage = 1
-    })*/
-    showModal(core, 'character')
+    if (!core.ws.robotImageDataUrl) {
+      showModal(core, 'character')
+    } else {
+      core.mutateWs((ws) => {
+        ws.ui.tourModePage = 1
+      })
+      closeModal(core)
+    }
   }
 }
