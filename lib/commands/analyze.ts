@@ -101,6 +101,7 @@ export async function analyze(core: Core) {
       'ev_click_ide_pythonExampleStart_',
       'ev_question_',
       'ev_dance_score_',
+      'ev_markQuestion_',
     ]
 
     for (const prefix of eventPrefixes) {
