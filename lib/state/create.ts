@@ -151,6 +151,7 @@ export function createWorkspaceState(): WorkspaceState {
       pythonKarol: {},
       pythonExampleLevenshtein: {},
       questions: {},
+      markedQuestions: [],
       danceScores: {},
     },
     overview: {
