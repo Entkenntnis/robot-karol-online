@@ -352,6 +352,7 @@ export interface Analyze {
   questions: {
     [key: number]: { questions: { text: string; ts: number }[] }
   }
+  markedQuestions: string[]
   pythonExampleLevenshtein: {
     [name: string]: {
       distances: number[]

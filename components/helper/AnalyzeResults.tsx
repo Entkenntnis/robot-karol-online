@@ -1,6 +1,8 @@
 import { useCore } from '../../lib/state/core'
 import { questData } from '../../lib/data/quests'
 import { levels as karolmaniaLevels } from '../../lib/data/karolmaniaLevels' // Import level data
+import clsx from 'clsx'
+import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 
 // Helper function to format time in seconds to MM:SS:hh
 function formatTime(seconds: number) {
@@ -149,7 +151,35 @@ export function AnalyzeResults() {
                   .slice(0)
                   .sort((a, b) => b.ts - a.ts)
                   .map((q, i) => (
-                    <p key={i} className="text-sm text-gray-600 mb-1">
+                    <p
+                      key={i}
+                      className={clsx(
+                        'text-sm text-gray-600 mb-1',
+                        core.ws.analyze.markedQuestions.includes(
+                          `${id}-${q.ts}`
+                        ) && 'line-through opacity-40'
+                      )}
+                    >
+                      <input
+                        type="checkbox"
+                        className={clsx(
+                          'mr-3',
+                          core.ws.analyze.markedQuestions.includes(
+                            `${id}-${q.ts}`
+                          ) && 'hidden'
+                        )}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            core.mutateWs((ws) => {
+                              ws.analyze.markedQuestions.push(`${id}-${q.ts}`)
+                            })
+                            submitAnalyzeEvent(
+                              core,
+                              `ev_markQuestion_${id}-${q.ts}`
+                            )
+                          }
+                        }}
+                      />
                       <span className="text-gray-400 mr-3">
                         {new Date(q.ts).toLocaleString('de-DE')}
                       </span>

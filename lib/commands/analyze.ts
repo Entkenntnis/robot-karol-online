@@ -195,6 +195,13 @@ export async function analyze(core: Core) {
           continue
         }
 
+        const markQuestion = /^ev_markQuestion_(.*)$/i.exec(entry.event)
+        if (markQuestion) {
+          ws.analyze.markedQuestions.push(markQuestion[1])
+
+          continue
+        }
+
         const danceScore = /^ev_dance_score_(\d+)_(.*)$/i.exec(entry.event)
         if (danceScore) {
           const score = parseInt(danceScore[1])
