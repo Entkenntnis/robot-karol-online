@@ -94,7 +94,11 @@ export interface Vm {
 
   chatVisualText: string
   chatVisualRole: 'out' | 'in' | 'spill'
-  chatvisualWarning?: 'output-mismatch' | 'missing-output' | 'missing-input'
+  chatvisualWarning?:
+    | 'output-mismatch'
+    | 'missing-output'
+    | 'missing-input'
+    | 'no-input-here'
 }
 
 export interface Settings {

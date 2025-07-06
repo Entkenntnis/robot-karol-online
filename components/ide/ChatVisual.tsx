@@ -37,11 +37,11 @@ export function ChatVisual() {
           </button>
         </div>
       )}
-      <div className="flex justify-between items-top px-8 pt-10">
+      <div className="flex justify-between items-center px-8 pt-10">
         <div className="flex-shrink-0">
           <img src="/program-icon.png" className="w-20 mt-4 select-none" />
         </div>
-        <div className="flex-grow-1 w-full mx-6">
+        <div className="flex-grow w-full mx-6 flex-shrink">
           {core.ws.vm.chatVisualText && (
             <div
               className={clsx(
@@ -51,12 +51,35 @@ export function ChatVisual() {
             >
               <div
                 className={clsx(
-                  'rounded-lg px-3 py-0.5 text-xl',
-                  core.ws.vm.chatVisualRole == 'in'
-                    ? 'bg-orange-100 rounded-br-none'
-                    : core.ws.vm.chatVisualRole == 'spill'
-                    ? 'bg-gray-100 rounded-bl-none'
-                    : 'bg-cyan-100 rounded-bl-none'
+                  // Base styles for all bubbles
+                  'relative rounded-xl px-4 py-2 text-xl shadow-md',
+
+                  // Styles for "in" bubble (user input, on the right)
+                  core.ws.vm.chatVisualRole == 'in' && [
+                    'bg-orange-200 rounded-br-none',
+                    // The tail using the ::after pseudo-element
+                    "after:content-[''] after:absolute after:bottom-0 after:right-[-8px]",
+                    'after:w-0 after:h-0 after:border-solid after:border-[8px]',
+                    'after:border-transparent after:border-b-orange-200',
+                  ],
+
+                  // Styles for "out" bubble (program output, on the left)
+                  core.ws.vm.chatVisualRole == 'out' && [
+                    'bg-cyan-200 rounded-bl-none',
+                    // The tail using the ::after pseudo-element
+                    "after:content-[''] after:absolute after:bottom-0 after:left-[-8px]",
+                    'after:w-0 after:h-0 after:border-solid after:border-[8px]',
+                    'after:border-transparent after:border-b-cyan-200',
+                  ],
+
+                  // Styles for "spill" bubble (also on the left)
+                  core.ws.vm.chatVisualRole == 'spill' && [
+                    'bg-gray-200 rounded-bl-none',
+                    // The tail using the ::after pseudo-element
+                    "after:content-[''] after:absolute after:bottom-0 after:left-[-8px]",
+                    'after:w-0 after:h-0 after:border-solid after:border-[8px]',
+                    'after:border-transparent after:border-b-gray-200',
+                  ]
                 )}
               >
                 {core.ws.vm.chatVisualText}
@@ -64,7 +87,7 @@ export function ChatVisual() {
             </div>
           )}
           {core.ws.vm.chatvisualWarning && (
-            <div className="flex mt-8 items-center">
+            <div className="flex mt-8 items-center bg-yellow-50 text-yellow-900 p-3 rounded-lg border border-yellow-200">
               <div>
                 <FaIcon
                   icon={faWarning}
@@ -93,6 +116,12 @@ export function ChatVisual() {
                   <span className="text-cyan-500">weitere Ausgaben.</span>
                 </div>
               )}
+              {core.ws.vm.chatvisualWarning == 'no-input-here' && (
+                <div>
+                  Keine Eingabe verfügbar, erwarte{' '}
+                  <span className="text-cyan-500">weitere Ausgaben.</span>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -114,6 +143,7 @@ export function ChatVisual() {
             height: 1,
           }}
           hideWorld
+          className="flex-shrink-0 h-fit"
         />
       </div>
       <div className="h-6" />
