@@ -83,7 +83,11 @@ export function chatInput(
 
 export function chatError(core: Core, message: string) {
   core.mutateWs((ws) => {
-    ws.ui.errorMessages = [message]
+    ws.ui.errorMessages = [
+      message.includes('<-- marker:no-input -->')
+        ? 'Keine Eingabe an dieser Stelle,\nerwarte print().'
+        : message,
+    ]
     ws.ui.state = 'ready'
   })
   const match = message.match(/File "<exec>", line (\d+), in <module>/)
@@ -113,6 +117,7 @@ function* runnerGenerator(core: Core) {
     ws.vm.chatCursorMode = 'play'
     ws.vm.chatSpill = []
   })
+  setExecutionMarker(core, -1)
 
   for (let chat = 0; chat < core.ws.quest.chats.length; chat++) {
     endOfExecution = false
@@ -120,6 +125,9 @@ function* runnerGenerator(core: Core) {
       ws.vm.chatCursor = { chatIndex: chat, msgIndex: 0 }
     })
     scrollChatCursorIntoView()
+    setTimeout(() => {
+      scrollChatCursorIntoView()
+    }, 100)
     const messages = core.ws.quest.chats[chat].messages
 
     while (core.ws.vm.chatCursor!.msgIndex < messages.length) {
