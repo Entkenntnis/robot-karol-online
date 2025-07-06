@@ -887,7 +887,12 @@ self.onmessage = async (event) => {
           syncArray[0] = 42
 
           const stack = traceback.extract_stack()
-          const line = stack[stack.length - 2].lineno
+
+          let offset = 2
+          while (stack[stack.length - offset].name != '<module>') {
+            offset++
+          }
+          const line = stack[stack.length - offset].lineno
 
           self.postMessage({
             type: 'chat-output',
@@ -919,7 +924,7 @@ self.onmessage = async (event) => {
 
           // TODO: if status is 1, we should throw an error
           if (status == 1) {
-            throw new Error('Keine Eingabe an dieser Stelle.')
+            throw new Error('<-- marker:no-input -->')
           }
 
           const length = Atomics.load(metaArray, 1)

@@ -90,9 +90,11 @@ export interface Vm {
   steps: number
   isDebugging: boolean
   debuggerRequestNextStep: boolean
-  chatCursor?: { chatIndex: number; msgIndex: number }
-  chatCursorMode: 'play' | 'warn'
-  chatSpill: string[]
+  chatCursor?: { chatIndex: number; msgIndex: number; mode: 'play' | 'warn' }
+
+  chatVisualText: string
+  chatVisualRole: 'out' | 'in' | 'spill'
+  chatvisualWarning?: 'output-mismatch' | 'missing-output' | 'missing-input'
 }
 
 export interface Settings {
