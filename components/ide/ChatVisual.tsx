@@ -68,7 +68,7 @@ export function ChatVisual() {
           hideWorld
         />
       </div>
-      <div className="h-10" />
+      <div className="h-6" />
     </div>
   )
 }

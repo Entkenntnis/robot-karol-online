@@ -919,7 +919,7 @@ self.onmessage = async (event) => {
 
           // TODO: if status is 1, we should throw an error
           if (status == 1) {
-            throw new Error('Keine Eingabe an dieser Stelle.')
+            throw new Error('Keine Eingabe an dieser Stelle, erwarte print()')
           }
 
           const length = Atomics.load(metaArray, 1)

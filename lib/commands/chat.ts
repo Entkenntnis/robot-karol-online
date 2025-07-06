@@ -209,6 +209,9 @@ function* runnerGenerator(core: Core) {
       core.mutateWs((ws) => {
         ws.vm.chatCursor!.msgIndex++
       })
+      if (expectedMessage.role == 'in') {
+        yield wait(500) // additional wait for input
+      }
       scrollChatCursorIntoView()
     }
     if (syncArray) {
