@@ -82,27 +82,35 @@ export function InteractionBar() {
             (el) => el.link.substring(1) === core.ws.ui.sharedQuestId
           ) ||
           core.ws.page == 'editor') && (
-          <a
-            className="px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 ml-2 hidden sm:inline-block cursor-pointer"
-            id="ide-back-button"
-            href="#"
-            onClick={(e) => {
-              e.preventDefault()
-              if (core.ws.page == 'quest') {
-                exitQuest(core)
-              } else if (core.ws.ui.isPlayground || core.ws.page == 'shared') {
-                navigate(core, '')
-              } else if (core.ws.page == 'editor') {
-                const res = confirm(core.strings.editor.leaveWarning)
-                if (res) {
-                  deleteEditorSnapshot()
+          <div className="hidden sm:inline-block relative h-[24px] w-[18px] flex-shrink-0">
+            <a
+              className={clsx(
+                'absolute top-0 left-0 px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 ml-2 cursor-pointer',
+                core.ws.ui.isHighlightDescription && 'z-[1000]'
+              )}
+              id="ide-back-button"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                if (core.ws.page == 'quest') {
+                  exitQuest(core)
+                } else if (
+                  core.ws.ui.isPlayground ||
+                  core.ws.page == 'shared'
+                ) {
                   navigate(core, '')
+                } else if (core.ws.page == 'editor') {
+                  const res = confirm(core.strings.editor.leaveWarning)
+                  if (res) {
+                    deleteEditorSnapshot()
+                    navigate(core, '')
+                  }
                 }
-              }
-            }}
-          >
-            <FaIcon icon={faHome} className="text-fuchsia-900" />
-          </a>
+              }}
+            >
+              <FaIcon icon={faHome} className="text-fuchsia-900" />
+            </a>
+          </div>
         )}
       </div>
       {core.ws.ui.lockLanguage ? (
