@@ -1,4 +1,5 @@
 import { setExecutionMarker } from '../codemirror/basicSetup'
+import { is } from '../codemirror/pythonParser/parser.terms'
 import { Core } from '../state/core'
 import { showModal } from './modal'
 
@@ -82,13 +83,15 @@ export function chatInput(
 }
 
 export function chatError(core: Core, message: string) {
+  const isMissingInput = message.includes('<-- marker:no-input -->')
   core.mutateWs((ws) => {
     ws.ui.errorMessages = [
-      message.includes('<-- marker:no-input -->')
+      isMissingInput
         ? 'Keine Eingabe an dieser Stelle,\nerwarte print().'
         : message,
     ]
     ws.ui.state = 'ready'
+    ws.vm.chatCursor!.mode = 'warn'
   })
   const match = message.match(/File "<exec>", line (\d+), in <module>/)
   if (match) {
@@ -116,6 +119,7 @@ function* runnerGenerator(core: Core) {
     ws.vm.chatCursor = { chatIndex: 0, msgIndex: 0, mode: 'play' }
     ws.vm.chatVisualRole = 'out'
     ws.vm.chatVisualText = ''
+    ws.vm.chatvisualWarning = undefined
   })
   setExecutionMarker(core, -1)
 
@@ -131,14 +135,14 @@ function* runnerGenerator(core: Core) {
     const messages = core.ws.quest.chats[chat].messages
 
     while (core.ws.vm.chatCursor!.msgIndex < messages.length) {
-      const expectedMessage = messages[core.ws.vm.chatCursor!.msgIndex]
+      const s = messages[core.ws.vm.chatCursor!.msgIndex]
       console.log(
         `Chat runner message ${core.ws.vm.chatCursor!.msgIndex + 1} of ${
           messages.length
-        }: ${expectedMessage.text}`
+        }: ${s.text}`
       )
-      if (expectedMessage.role == 'in') {
-        nextInput = expectedMessage.text
+      if (s.role == 'in') {
+        nextInput = s.text
       }
 
       // yield wait(500)
@@ -157,7 +161,7 @@ function* runnerGenerator(core: Core) {
           syncArray = null // reset syncArray
         }
       }
-      if (expectedMessage.role == 'out') {
+      if (s.role == 'out') {
         while (lastOutput === '') {
           console.log('Waiting for output... ', lastOutput)
           // wait for output
@@ -169,6 +173,7 @@ function* runnerGenerator(core: Core) {
             core.mutateWs((ws) => {
               ws.ui.state = 'ready'
               ws.vm.chatCursor!.mode = 'warn'
+              ws.vm.chatvisualWarning = 'missing-output'
             })
             setExecutionMarker(core, -1)
             return
@@ -177,17 +182,17 @@ function* runnerGenerator(core: Core) {
           // input here is impossible, because we will through exception instead
         }
         console.log('output captured')
-        if (lastOutput.trim() == expectedMessage.text.trim()) {
+        if (lastOutput.trim() == s.text.trim()) {
           lastOutput = '' // reset output
           core.mutateWs((ws) => {
             ws.vm.chatCursor!.msgIndex++
           })
           scrollChatCursorIntoView()
-          const text = expectedMessage.text.trim()
+          const text = s.text.trim()
           for (let i = 0; i < text.length; i++) {
             core.mutateWs((ws) => {
               ws.vm.chatVisualText += text[i]
-              ws.vm.chatVisualRole = expectedMessage.role
+              ws.vm.chatVisualRole = s.role
             })
             yield wait(20) // simulate typing effect
           }
@@ -200,10 +205,13 @@ function* runnerGenerator(core: Core) {
           // input
           // TODO: mismatch
           console.warn(
-            `Output mismatch: expected "${expectedMessage.text}", got "${lastOutput}"`
+            `Output mismatch: expected "${s.text}", got "${lastOutput}"`
           )
           core.mutateWs((ws) => {
             ws.vm.chatCursor!.mode = 'warn'
+            ws.vm.chatvisualWarning = 'output-mismatch'
+            ws.vm.chatVisualText = lastOutput
+            ws.vm.chatVisualRole = 'spill'
             // ws.vm.chatSpill_obsolete_on_the_way_out.push(lastOutput)
           })
           core.worker.reset()
@@ -215,11 +223,11 @@ function* runnerGenerator(core: Core) {
           // END TODO
         }
       }
-      if (expectedMessage.role == 'in') {
-        const text = expectedMessage.text.trim()
+      if (s.role == 'in') {
+        const text = s.text.trim()
         core.mutateWs((ws) => {
           ws.vm.chatCursor!.msgIndex++
-          ws.vm.chatVisualRole = expectedMessage.role
+          ws.vm.chatVisualRole = s.role
         })
         scrollChatCursorIntoView()
         for (let i = 0; i < text.length; i++) {
@@ -238,8 +246,13 @@ function* runnerGenerator(core: Core) {
             core.mutateWs((ws) => {
               ws.ui.state = 'ready'
               ws.vm.chatCursor!.mode = 'warn'
+              ws.vm.chatvisualWarning = 'missing-input'
             })
             setExecutionMarker(core, -1)
+
+            core.mutateWs((ws) => {
+              ws.vm.chatCursor!.msgIndex--
+            })
             return
           }
           if (lastOutput !== '') {
