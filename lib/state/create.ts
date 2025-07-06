@@ -70,9 +70,8 @@ export function createWorkspaceState(): WorkspaceState {
       startTime: 0,
       isDebugging: false,
       debuggerRequestNextStep: false,
-      chatCursorMode: 'play',
-      chatSpill: [],
-      chatVisualIndex: 0,
+      chatVisualRole: 'out',
+      chatVisualText: '',
     },
     settings: {
       mode: 'blocks',

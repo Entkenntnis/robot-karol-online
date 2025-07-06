@@ -316,10 +316,10 @@ export function Tasks() {
                                 core.ws.vm.chatCursor.msgIndex > msgIndex)
 
                             const nextOnFail =
-                              core.ws.vm.chatCursorMode == 'warn' &&
                               core.ws.vm.chatCursor &&
                               core.ws.vm.chatCursor.chatIndex == index &&
-                              core.ws.vm.chatCursor.msgIndex == msgIndex
+                              core.ws.vm.chatCursor.msgIndex == msgIndex &&
+                              core.ws.vm.chatCursor.mode == 'warn'
 
                             return (
                               <Fragment key={msgIndex}>
@@ -695,7 +695,7 @@ export function Tasks() {
   function renderChatCursor() {
     return (
       <>
-        {core.ws.vm.chatSpill.length > 0 && (
+        {/*core.ws.vm.chatSpill_obsolete_on_the_way_out.length > 0 && (
           <div className="relative">
             <div className="absolute right-2 top-2">
               <button
@@ -703,7 +703,7 @@ export function Tasks() {
                 onClick={() => {
                   core.mutateWs(({ vm }) => {
                     vm.chatCursor = undefined
-                    vm.chatSpill = []
+                    vm.chatSpill_obsolete_on_the_way_out = []
                   })
                   setExecutionMarker(core, -1)
                 }}
@@ -714,14 +714,14 @@ export function Tasks() {
             <div
               className={clsx(
                 'h-1 w-full my-2',
-                core.ws.vm.chatCursorMode == 'play'
+                core.ws.vm.chatCursorMode_obsolete_on_the_way_out == 'play'
                   ? 'bg-green-300'
                   : 'bg-yellow-200'
               )}
             ></div>
             <div className="my-1 mx-2 flex">
               <div className="rounded-lg bg-gray-200 rounded-bl-none px-3 py-0.5">
-                {core.ws.vm.chatSpill[0]}
+                {core.ws.vm.chatSpill_obsolete_on_the_way_out[0]}
               </div>
             </div>
             <div className="text-sm mx-2 mt-4 mb-2 italic">
@@ -730,9 +730,9 @@ export function Tasks() {
               überein.
             </div>
           </div>
-        )}
-        {core.ws.vm.chatCursorMode == 'warn' &&
-          core.ws.vm.chatSpill.length == 0 && (
+        )*/}
+        {/*core.ws.vm.chatCursorMode_obsolete_on_the_way_out == 'warn' &&
+          core.ws.vm.chatSpill_obsolete_on_the_way_out.length == 0 && (
             <div className="relative">
               <div className="absolute right-2 top-3">
                 <button
@@ -740,7 +740,7 @@ export function Tasks() {
                   onClick={() => {
                     core.mutateWs(({ vm }) => {
                       vm.chatCursor = undefined
-                      vm.chatSpill = []
+                      vm.chatSpill_obsolete_on_the_way_out = []
                     })
                     setExecutionMarker(core, -1)
                   }}
@@ -768,26 +768,28 @@ export function Tasks() {
                 )}
               </div>
             </div>
-          )}
+          )*/}
         <div className="w-full relative" id="chat-cursor">
           <div className="absolute -top-3 left-0 right-0 text-center">
             <span
               className={clsx(
                 'inline-block px-2 rounded bg-white',
-                core.ws.vm.chatCursorMode == 'play'
+                core.ws.vm.chatCursor!.mode == 'play'
                   ? 'text-green-400'
                   : 'text-yellow-300'
               )}
             >
               <FaIcon
-                icon={core.ws.vm.chatCursorMode == 'play' ? faPlay : faWarning}
+                icon={
+                  core.ws.vm.chatCursor!.mode == 'play' ? faPlay : faWarning
+                }
               />
             </span>
           </div>
           <div
             className={clsx(
               'h-1 w-full my-2',
-              core.ws.vm.chatCursorMode == 'play'
+              core.ws.vm.chatCursor!.mode == 'play'
                 ? 'bg-green-300'
                 : 'bg-yellow-200'
             )}
