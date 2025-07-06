@@ -72,6 +72,7 @@ export function createWorkspaceState(): WorkspaceState {
       debuggerRequestNextStep: false,
       chatCursorMode: 'play',
       chatSpill: [],
+      chatVisualIndex: 0,
     },
     settings: {
       mode: 'blocks',

@@ -37,6 +37,7 @@ import { View } from '../helper/View'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
 import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
+import { ChatVisual } from './ChatVisual'
 
 export function Tasks() {
   const core = useCore()
@@ -48,6 +49,10 @@ export function Tasks() {
     core.ws.ui.isChatMode &&
     core.ws.page === 'editor' &&
     !core.ws.editor.showQuestPreview
+
+  const showChatVisual =
+    core.ws.ui.isChatMode &&
+    (core.ws.ui.state == 'running' || core.ws.vm.chatCursor)
 
   useEffect(() => {
     if (taskContainer.current && core.ws.ui.taskScroll > 0) {
@@ -68,120 +73,135 @@ export function Tasks() {
         <div className="overflow-y-auto bg-gray-100 h-full" ref={taskContainer}>
           <div className="h-20 from-gray-100 bg-gradient-to-t left-0 right-0 bottom-0 absolute pointer-events-none"></div>
           <div>
-            <div
-              className={clsx(
-                'pt-4 pb-1 px-7 bg-yellow-100',
-                core.ws.ui.isHighlightDescription && 'z-[300] relative'
-              )}
-            >
-              {core.ws.page == 'editor' ? (
-                <QuestEditor />
-              ) : (
-                <>
-                  <h1 className="mb-4 text-xl font-bold mt-1">
-                    {core.ws.quest.title}
-                    {core.ws.ui.isAlreadyCompleted && (
-                      <span className="text-base font-normal text-green-600 ml-4">
-                        <FaIcon icon={faCheck} />{' '}
-                        {core.strings.ide.taskCompleted}
-                      </span>
-                    )}
-                  </h1>
-                  <div>{processMarkdown(core.ws.quest.description)}</div>
-                  {!skipWait && core.ws.ui.isHighlightDescription && (
-                    <div className="absolute left-0 right-0 top-0 h-1 w-full flex justify-end">
-                      <div
-                        className="transition-width w-full h-1 bg-yellow-500 duration-[5000ms] ease-linear"
-                        id="progress-bar"
-                      ></div>
+            {showChatVisual ? (
+              <ChatVisual />
+            ) : (
+              <>
+                <div
+                  className={clsx(
+                    'pt-4 pb-1 px-7 bg-yellow-100',
+                    core.ws.ui.isHighlightDescription && 'z-[300] relative'
+                  )}
+                >
+                  {core.ws.page == 'editor' ? (
+                    <QuestEditor />
+                  ) : (
+                    <>
+                      <h1 className="mb-4 text-xl font-bold mt-1">
+                        {core.ws.quest.title}
+                        {core.ws.ui.isAlreadyCompleted && (
+                          <span className="text-base font-normal text-green-600 ml-4">
+                            <FaIcon icon={faCheck} />{' '}
+                            {core.strings.ide.taskCompleted}
+                          </span>
+                        )}
+                      </h1>
+                      <div>{processMarkdown(core.ws.quest.description)}</div>
+                      {!skipWait && core.ws.ui.isHighlightDescription && (
+                        <div className="absolute left-0 right-0 top-0 h-1 w-full flex justify-end">
+                          <div
+                            className="transition-width w-full h-1 bg-yellow-500 duration-[5000ms] ease-linear"
+                            id="progress-bar"
+                          ></div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+
+                {core.ws.page === 'editor' &&
+                  !core.ws.editor.showQuestPreview && (
+                    <div className="mx-3 mt-3 justify-between flex text-sm text-gray-700 items-baseline">
+                      {core.ws.ui.isChatMode ? (
+                        <div className="italic text-gray-500">
+                          {/* hm ?*/} &nbsp;
+                        </div>
+                      ) : (
+                        <div>
+                          {core.strings.editor.editOptions}:
+                          <select
+                            className={clsx(
+                              'p-1 rounded ml-3',
+
+                              core.ws.ui.isChatMode &&
+                                'disabled opacity-50 pointer-events-none'
+                            )}
+                            value={core.ws.editor.editOptions}
+                            onChange={(e) => {
+                              core.mutateWs(({ editor }) => {
+                                editor.editOptions = e.target.value as any
+                              })
+                            }}
+                          >
+                            <option value="all">
+                              {core.strings.editor.all}
+                            </option>
+                            <option value="karol-only">
+                              {core.strings.editor.karolOnly}
+                            </option>
+                            <option value="java-only">
+                              {core.strings.editor.javaOnly}
+                            </option>
+                            <option value="python-pro-only">
+                              {core.strings.editor.pythonProOnly}
+                            </option>
+                          </select>
+                        </div>
+                      )}
+                      <div>
+                        <label>
+                          Auftragstyp:{' '}
+                          <select
+                            className="p-1 rounded ml-1"
+                            value={core.ws.ui.isChatMode ? 'chat' : 'world'}
+                            onChange={(e) => {
+                              const isChatMode = e.target.value === 'chat'
+                              if (isChatMode) {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_ide_chatMode'
+                                )
+                              }
+                              core.mutateWs((ws) => {
+                                const { ui, quest, editor, settings } = ws
+                                ui.isChatMode = isChatMode
+                                if (quest.chats.length === 0) {
+                                  quest.chats = [
+                                    {
+                                      title: 'Chat 1',
+                                      messages: [],
+                                    },
+                                  ]
+                                }
+                                if (isChatMode) {
+                                  editor.editOptions = 'python-pro-only'
+                                  ui.lockLanguage = 'python-pro'
+                                  settings.language = 'python-pro'
+                                } else {
+                                  ui.lockLanguage = undefined
+                                  editor.editOptions = 'all'
+                                }
+                              })
+                              if (isChatMode) {
+                                setMode(core, 'code')
+                                core.mutateWs((ws) => {
+                                  if (ws.pythonCode == 'karol = Robot()\n\n') {
+                                    ws.pythonCode = '\n'
+                                  }
+                                })
+                              }
+                            }}
+                          >
+                            <option value="world">Welt</option>
+                            <option value="chat">Chat</option>
+                          </select>
+                        </label>
+                      </div>
                     </div>
                   )}
-                </>
-              )}
-            </div>
-
-            {core.ws.page === 'editor' && !core.ws.editor.showQuestPreview && (
-              <div className="mx-3 mt-3 justify-between flex text-sm text-gray-700 items-baseline">
-                {core.ws.ui.isChatMode ? (
-                  <div className="italic text-gray-500">{/* hm ?*/} &nbsp;</div>
-                ) : (
-                  <div>
-                    {core.strings.editor.editOptions}:
-                    <select
-                      className={clsx(
-                        'p-1 rounded ml-3',
-
-                        core.ws.ui.isChatMode &&
-                          'disabled opacity-50 pointer-events-none'
-                      )}
-                      value={core.ws.editor.editOptions}
-                      onChange={(e) => {
-                        core.mutateWs(({ editor }) => {
-                          editor.editOptions = e.target.value as any
-                        })
-                      }}
-                    >
-                      <option value="all">{core.strings.editor.all}</option>
-                      <option value="karol-only">
-                        {core.strings.editor.karolOnly}
-                      </option>
-                      <option value="java-only">
-                        {core.strings.editor.javaOnly}
-                      </option>
-                      <option value="python-pro-only">
-                        {core.strings.editor.pythonProOnly}
-                      </option>
-                    </select>
-                  </div>
-                )}
-                <div>
-                  <label>
-                    Auftragstyp:{' '}
-                    <select
-                      className="p-1 rounded ml-1"
-                      value={core.ws.ui.isChatMode ? 'chat' : 'world'}
-                      onChange={(e) => {
-                        const isChatMode = e.target.value === 'chat'
-                        if (isChatMode) {
-                          submitAnalyzeEvent(core, 'ev_click_ide_chatMode')
-                        }
-                        core.mutateWs((ws) => {
-                          const { ui, quest, editor, settings } = ws
-                          ui.isChatMode = isChatMode
-                          if (quest.chats.length === 0) {
-                            quest.chats = [
-                              {
-                                title: 'Chat 1',
-                                messages: [],
-                              },
-                            ]
-                          }
-                          if (isChatMode) {
-                            editor.editOptions = 'python-pro-only'
-                            ui.lockLanguage = 'python-pro'
-                            settings.language = 'python-pro'
-                          } else {
-                            ui.lockLanguage = undefined
-                            editor.editOptions = 'all'
-                          }
-                        })
-                        if (isChatMode) {
-                          setMode(core, 'code')
-                          core.mutateWs((ws) => {
-                            if (ws.pythonCode == 'karol = Robot()\n\n') {
-                              ws.pythonCode = '\n'
-                            }
-                          })
-                        }
-                      }}
-                    >
-                      <option value="world">Welt</option>
-                      <option value="chat">Chat</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
+              </>
             )}
+
             <div className="flex-grow flex-shrink overflow-y-auto pb-12">
               {core.ws.ui.isChatMode
                 ? core.ws.quest.chats.map((chat, index) => (

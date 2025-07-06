@@ -93,6 +93,7 @@ export interface Vm {
   chatCursor?: { chatIndex: number; msgIndex: number }
   chatCursorMode: 'play' | 'warn'
   chatSpill: string[]
+  chatVisualIndex: number
 }
 
 export interface Settings {
