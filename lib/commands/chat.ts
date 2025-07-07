@@ -88,7 +88,15 @@ export function chatError(core: Core, message: string) {
     if (!isMissingInput) {
       ws.ui.errorMessages = [message]
     } else {
-      ws.vm.chatvisualWarning = 'no-input-here'
+      const cursor = core.ws.vm.chatCursor
+      if (
+        cursor &&
+        core.ws.quest.chats[cursor.chatIndex].messages.length == cursor.msgIndex
+      ) {
+        ws.vm.chatvisualWarning = 'no-input-here-at-end'
+      } else {
+        ws.vm.chatvisualWarning = 'no-input-here'
+      }
     }
     ws.ui.state = 'ready'
     ws.vm.chatCursor!.mode = 'warn'
@@ -282,6 +290,19 @@ function* runnerGenerator(core: Core) {
     while (!endOfExecution) {
       // wait for end of execution
       yield wait(20)
+      if (lastOutput !== '') {
+        // unexpected output at the end of chat
+        core.worker.reset()
+        setExecutionMarker(core, lastMarkedLine, 'debugging')
+        core.mutateWs((ws) => {
+          ws.ui.state = 'ready'
+          ws.vm.chatCursor!.mode = 'warn'
+          ws.vm.chatvisualWarning = 'no-output-here-at-end'
+          ws.vm.chatVisualText = lastOutput
+          ws.vm.chatVisualRole = 'spill'
+        })
+        return
+      }
     }
     console.log('Chat run finished')
     setExecutionMarker(core, -1)
