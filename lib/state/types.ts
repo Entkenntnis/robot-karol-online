@@ -99,6 +99,8 @@ export interface Vm {
     | 'missing-output'
     | 'missing-input'
     | 'no-input-here'
+    | 'no-input-here-at-end'
+    | 'no-output-here-at-end'
 }
 
 export interface Settings {

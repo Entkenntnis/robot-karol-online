@@ -122,6 +122,14 @@ export function ChatVisual() {
                   <span className="text-cyan-500">weitere Ausgaben.</span>
                 </div>
               )}
+              {core.ws.vm.chatvisualWarning == 'no-input-here-at-end' && (
+                <div>Keine Eingabe verfügbar.</div>
+              )}
+              {core.ws.vm.chatvisualWarning == 'no-output-here-at-end' && (
+                <div>
+                  Du hast etwas ausgegeben, aber keine weitere Ausgabe erwartet.
+                </div>
+              )}
             </div>
           )}
         </div>
