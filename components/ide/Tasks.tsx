@@ -340,7 +340,8 @@ export function Tasks() {
                                         ? core.ws.vm.chatCursor
                                           ? ''
                                           : index > 0 &&
-                                            core.ws.page != 'editor'
+                                            core.ws.page != 'editor' &&
+                                            !core.ws.ui.isAlreadyCompleted
                                           ? 'opacity-50'
                                           : ''
                                         : nextOnFail
