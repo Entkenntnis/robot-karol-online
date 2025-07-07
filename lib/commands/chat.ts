@@ -257,6 +257,7 @@ function* runnerGenerator(core: Core) {
           ws.vm.chatVisualRole = expected.role
         })
         scrollChatCursorIntoView()
+        yield wait(250) // let Karol turn
         for (let i = 0; i < text.length; i++) {
           core.mutateWs((ws) => {
             ws.vm.chatVisualText += text[i]
