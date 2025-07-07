@@ -36,7 +36,6 @@ import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
-import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
 import { ChatVisual } from './ChatVisual'
 
 export function Tasks() {
@@ -186,7 +185,7 @@ export function Tasks() {
                                 setMode(core, 'code')
                                 core.mutateWs((ws) => {
                                   if (ws.pythonCode == 'karol = Robot()\n\n') {
-                                    ws.pythonCode = '\n'
+                                    ws.pythonCode = ''
                                   }
                                 })
                               }
