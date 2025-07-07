@@ -773,7 +773,17 @@ export function Tasks() {
           <div className="absolute -top-3 left-0 right-0 text-center">
             <span
               className={clsx(
-                'inline-block px-2 rounded bg-white',
+                'inline-block px-2 h-2 bg-white w-[32px]',
+                core.ws.vm.chatCursor!.mode == 'play'
+                  ? 'text-green-400'
+                  : 'text-yellow-300'
+              )}
+            ></span>
+          </div>
+          <div className="absolute -top-3 left-0 right-0 text-center">
+            <span
+              className={clsx(
+                'inline-block px-2 bg-transparent',
                 core.ws.vm.chatCursor!.mode == 'play'
                   ? 'text-green-400'
                   : 'text-yellow-300'
