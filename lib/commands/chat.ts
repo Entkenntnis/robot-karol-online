@@ -5,7 +5,7 @@ import { showModal } from './modal'
 
 let nonce = 77
 
-let lastOutput = ''
+let lastOutput: string | null = null
 let nextInput = ''
 let syncArray: Int32Array | null = null
 let endOfExecution = false
@@ -14,7 +14,7 @@ let lastMarkedLine = -1
 export async function startChatRunner(core: Core) {
   console.log('startChatRunner called')
   const myNonce = nonce
-  lastOutput = ''
+  lastOutput = null
   nextInput = ''
   lastMarkedLine = -1
   syncArray = null
@@ -170,7 +170,7 @@ function* runnerGenerator(core: Core) {
         }
       }
       if (expected.role == 'out') {
-        while (lastOutput === '') {
+        while (lastOutput === null) {
           console.log('Waiting for output... ', lastOutput)
           // wait for output
           yield wait(20)
@@ -191,7 +191,7 @@ function* runnerGenerator(core: Core) {
         }
         console.log('output captured')
         if (lastOutput.trim() == expected.text.trim()) {
-          lastOutput = '' // reset output
+          lastOutput = null // reset output
           core.mutateWs((ws) => {
             ws.vm.chatCursor!.msgIndex++
           })
@@ -218,9 +218,8 @@ function* runnerGenerator(core: Core) {
           core.mutateWs((ws) => {
             ws.vm.chatCursor!.mode = 'warn'
             ws.vm.chatvisualWarning = 'output-mismatch'
-            ws.vm.chatVisualText = lastOutput
+            ws.vm.chatVisualText = lastOutput!
             ws.vm.chatVisualRole = 'spill'
-            // ws.vm.chatSpill_obsolete_on_the_way_out.push(lastOutput)
           })
           core.worker.reset()
           core.mutateWs((ws) => {
@@ -236,7 +235,7 @@ function* runnerGenerator(core: Core) {
           console.log('Waiting for input to be process')
           // wait for input
           yield wait(20)
-          if (endOfExecution || lastOutput !== '') {
+          if (endOfExecution || lastOutput !== null) {
             // unexpected end of execution
             console.warn('End of execution reached, but input expected')
             core.mutateWs((ws) => {
@@ -249,7 +248,7 @@ function* runnerGenerator(core: Core) {
             console.log(
               `set execution marker for line ${lastMarkedLine} ${lastOutput}`
             )
-            if (lastOutput !== '') {
+            if (lastOutput !== null) {
               core.worker.reset()
               setExecutionMarker(core, lastMarkedLine, 'debugging')
             } else {
@@ -290,7 +289,7 @@ function* runnerGenerator(core: Core) {
     while (!endOfExecution) {
       // wait for end of execution
       yield wait(20)
-      if (lastOutput !== '') {
+      if (lastOutput !== null) {
         // unexpected output at the end of chat
         core.worker.reset()
         setExecutionMarker(core, lastMarkedLine, 'debugging')
@@ -298,7 +297,7 @@ function* runnerGenerator(core: Core) {
           ws.ui.state = 'ready'
           ws.vm.chatCursor!.mode = 'warn'
           ws.vm.chatvisualWarning = 'no-output-here-at-end'
-          ws.vm.chatVisualText = lastOutput
+          ws.vm.chatVisualText = lastOutput!
           ws.vm.chatVisualRole = 'spill'
         })
         return
