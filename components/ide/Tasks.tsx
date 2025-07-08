@@ -1,17 +1,19 @@
 import {
   faArrowDown,
+  faArrowRight,
   faArrowUp,
   faCheck,
   faClone,
+  faFlagCheckered,
   faInfoCircle,
   faPaintBrush,
   faPencil,
   faPlay,
   faPlus,
   faShareNodes,
-  faTimes,
   faTrashCan,
   faUndo,
+  faUndoAlt,
   faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
@@ -86,7 +88,10 @@ export function Tasks() {
                     <QuestEditor />
                   ) : (
                     <>
-                      <h1 className="mb-4 text-xl font-bold mt-1">
+                      <h1
+                        className="mb-4 text-xl font-bold mt-1"
+                        id="quest-title-h1"
+                      >
                         {core.ws.quest.title}
                         {core.ws.ui.isAlreadyCompleted && (
                           <span className="text-base font-normal text-green-600 ml-4">
@@ -204,167 +209,225 @@ export function Tasks() {
             <div className="flex-grow flex-shrink overflow-y-auto pb-12">
               {core.ws.ui.isChatMode ? (
                 <>
-                  {core.ws.quest.chats.map((chat, index) => (
-                    <div key={index} className="m-3 rounded-xl bg-white flex">
-                      <div className="border-r-2 p-3 pb-1 min-w-[150px] flex-col min-h-[130px] justify-between flex">
-                        <div className="font-bold">
-                          {editChat ? (
-                            <input
-                              className="bg-gray-100 border-2 max-w-full"
-                              value={chat.title}
-                              onChange={(e) => {
+                  {core.ws.quest.chats.map((chat, index, arr) => (
+                    <Fragment key={index}>
+                      {arr.length > 0 && (
+                        <div
+                          className={clsx(
+                            'flex justify-center relative pt-4 pb-3'
+                          )}
+                        >
+                          <div
+                            className={clsx(
+                              'absolute inset-0 flex justify-center',
+                              index == 0 && 'top-5'
+                            )}
+                          >
+                            <div className="h-full w-3 bg-gray-300"></div>
+                          </div>
+                          <div className="bg-gray-400 rounded-full px-2 py-0.5 text-white text-sm z-10">
+                            {index == 0 ? (
+                              <>
+                                <FaIcon
+                                  icon={faArrowRight}
+                                  className="mr-1.5"
+                                />{' '}
+                                Programm-Start
+                                {arr.length > 1 && <> für 1. Durchlauf</>}
+                              </>
+                            ) : (
+                              <>
+                                <FaIcon icon={faUndoAlt} className="mr-1.5" />{' '}
+                                Neustart für {index + 1}. Durchlauf
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="mx-3 rounded-xl bg-white flex">
+                        <div className="border-r-2 p-3 pb-1 min-w-[150px] flex-col min-h-[130px] justify-between flex">
+                          <div className="font-bold">
+                            {editChat ? (
+                              <input
+                                className="bg-gray-100 border-2 max-w-full"
+                                value={chat.title}
+                                onChange={(e) => {
+                                  core.mutateWs(({ quest }) => {
+                                    quest.chats[index].title = e.target.value
+                                  })
+                                }}
+                              ></input>
+                            ) : (
+                              <>{chat.title}</>
+                            )}
+                            {core.ws.vm.chatCursor &&
+                              core.ws.vm.chatCursor.chatIndex > index && (
+                                <div>
+                                  <FaIcon
+                                    icon={faCheck}
+                                    className="text-green-300 text-3xl ml-3 mt-3"
+                                  />
+                                </div>
+                              )}
+                          </div>
+                          <div className={clsx(!editChat && 'hidden')}>
+                            <button
+                              onClick={() => {
+                                if (index > 0) {
+                                  core.mutateWs(({ quest }) => {
+                                    const element = quest.chats.splice(
+                                      index,
+                                      1
+                                    )[0]
+                                    quest.chats.splice(index - 1, 0, element)
+                                  })
+                                }
+                              }}
+                            >
+                              <FaIcon
+                                icon={faArrowUp}
+                                className="text-gray-600"
+                              />
+                            </button>
+                            <button
+                              className="ml-3"
+                              onClick={() => {
+                                if (index + 1 < core.ws.quest.chats.length) {
+                                  core.mutateWs(({ quest }) => {
+                                    const element = quest.chats.splice(
+                                      index,
+                                      1
+                                    )[0]
+                                    quest.chats.splice(index + 1, 0, element)
+                                  })
+                                }
+                              }}
+                            >
+                              <FaIcon
+                                icon={faArrowDown}
+                                className="text-gray-600"
+                              />
+                            </button>
+                            <button
+                              className="ml-3"
+                              onClick={() => {
                                 core.mutateWs(({ quest }) => {
-                                  quest.chats[index].title = e.target.value
+                                  quest.chats.splice(index, 0, {
+                                    ...quest.chats[index],
+                                  })
                                 })
                               }}
-                            ></input>
-                          ) : (
-                            <>{chat.title}</>
-                          )}
-                          {core.ws.vm.chatCursor &&
-                            core.ws.vm.chatCursor.chatIndex > index && (
-                              <div>
-                                <FaIcon
-                                  icon={faCheck}
-                                  className="text-green-300 text-3xl ml-3 mt-3"
-                                />
-                              </div>
-                            )}
+                            >
+                              <FaIcon
+                                icon={faClone}
+                                className="text-gray-400"
+                              />
+                            </button>
+                            <button
+                              className="ml-3"
+                              onClick={() => {
+                                const result = confirm(
+                                  'Willst du diesen Chat wirklich löschen?'
+                                )
+                                if (result) {
+                                  core.mutateWs(({ quest }) => {
+                                    quest.chats.splice(index, 1)
+                                  })
+                                }
+                              }}
+                            >
+                              <FaIcon
+                                icon={faTrashCan}
+                                className="text-red-200 hover:text-red-300"
+                              />
+                            </button>
+                          </div>
                         </div>
-                        <div className={clsx(!editChat && 'hidden')}>
-                          <button
-                            onClick={() => {
-                              if (index > 0) {
-                                core.mutateWs(({ quest }) => {
-                                  const element = quest.chats.splice(
-                                    index,
-                                    1
-                                  )[0]
-                                  quest.chats.splice(index - 1, 0, element)
-                                })
-                              }
-                            }}
-                          >
-                            <FaIcon
-                              icon={faArrowUp}
-                              className="text-gray-600"
-                            />
-                          </button>
-                          <button
-                            className="ml-3"
-                            onClick={() => {
-                              if (index + 1 < core.ws.quest.chats.length) {
-                                core.mutateWs(({ quest }) => {
-                                  const element = quest.chats.splice(
-                                    index,
-                                    1
-                                  )[0]
-                                  quest.chats.splice(index + 1, 0, element)
-                                })
-                              }
-                            }}
-                          >
-                            <FaIcon
-                              icon={faArrowDown}
-                              className="text-gray-600"
-                            />
-                          </button>
-                          <button
-                            className="ml-3"
-                            onClick={() => {
-                              core.mutateWs(({ quest }) => {
-                                quest.chats.splice(index, 0, {
-                                  ...quest.chats[index],
-                                })
-                              })
-                            }}
-                          >
-                            <FaIcon icon={faClone} className="text-gray-400" />
-                          </button>
-                          <button
-                            className="ml-3"
-                            onClick={() => {
-                              const result = confirm(
-                                'Willst du diesen Chat wirklich löschen?'
-                              )
-                              if (result) {
-                                core.mutateWs(({ quest }) => {
-                                  quest.chats.splice(index, 1)
-                                })
-                              }
-                            }}
-                          >
-                            <FaIcon
-                              icon={faTrashCan}
-                              className="text-red-200 hover:text-red-300"
-                            />
-                          </button>
-                        </div>
-                      </div>
-                      <div className="flex-grow flex flex-col">
-                        <div className="my-3 flex-grow">
-                          {chat.messages.map((message, msgIndex) => {
-                            const showCursor =
-                              core.ws.vm.chatCursor &&
-                              core.ws.vm.chatCursor.chatIndex === index &&
-                              core.ws.vm.chatCursor.msgIndex === msgIndex
+                        <div className="flex-grow flex flex-col">
+                          <div className="my-3 flex-grow">
+                            {chat.messages.map((message, msgIndex) => {
+                              const showCursor =
+                                core.ws.vm.chatCursor &&
+                                core.ws.vm.chatCursor.chatIndex === index &&
+                                core.ws.vm.chatCursor.msgIndex === msgIndex
 
-                            const isAboveCursor =
-                              !core.ws.vm.chatCursor ||
-                              core.ws.vm.chatCursor.chatIndex > index ||
-                              (core.ws.vm.chatCursor.chatIndex === index &&
-                                core.ws.vm.chatCursor.msgIndex > msgIndex)
+                              const isAboveCursor =
+                                !core.ws.vm.chatCursor ||
+                                core.ws.vm.chatCursor.chatIndex > index ||
+                                (core.ws.vm.chatCursor.chatIndex === index &&
+                                  core.ws.vm.chatCursor.msgIndex > msgIndex)
 
-                            const nextOnFail =
-                              core.ws.vm.chatCursor &&
-                              core.ws.vm.chatCursor.chatIndex == index &&
-                              core.ws.vm.chatCursor.msgIndex == msgIndex &&
-                              core.ws.vm.chatCursor.mode == 'warn'
+                              const nextOnFail =
+                                core.ws.vm.chatCursor &&
+                                core.ws.vm.chatCursor.chatIndex == index &&
+                                core.ws.vm.chatCursor.msgIndex == msgIndex &&
+                                core.ws.vm.chatCursor.mode == 'warn'
 
-                            return (
-                              <Fragment key={msgIndex}>
-                                {showCursor && renderChatCursor()}
-                                <div
-                                  className={clsx(
-                                    'flex my-1 mx-2',
-                                    message.role == 'in' && 'justify-end'
-                                  )}
-                                >
+                              return (
+                                <Fragment key={msgIndex}>
+                                  {showCursor && renderChatCursor()}
                                   <div
                                     className={clsx(
-                                      'rounded-lg px-3 py-0.5',
-                                      message.role == 'out'
-                                        ? 'bg-cyan-100 rounded-bl-none'
-                                        : 'bg-orange-100 rounded-br-none',
-                                      isAboveCursor
-                                        ? core.ws.vm.chatCursor
-                                          ? ''
-                                          : index > 0 &&
-                                            core.ws.page != 'editor' &&
-                                            !core.ws.ui.isAlreadyCompleted
-                                          ? 'opacity-50'
-                                          : ''
-                                        : nextOnFail
-                                        ? 'opacity-60'
-                                        : 'opacity-30'
+                                      'flex my-1 mx-2',
+                                      message.role == 'in' && 'justify-end'
                                     )}
                                   >
-                                    {message.text}
+                                    <div
+                                      className={clsx(
+                                        'rounded-lg px-3 py-0.5',
+                                        message.role == 'out'
+                                          ? 'bg-cyan-100 rounded-bl-none'
+                                          : 'bg-orange-100 rounded-br-none',
+                                        isAboveCursor
+                                          ? core.ws.vm.chatCursor
+                                            ? ''
+                                            : index > 0 &&
+                                              core.ws.page != 'editor' &&
+                                              !core.ws.ui.isAlreadyCompleted
+                                            ? 'opacity-50'
+                                            : ''
+                                          : nextOnFail
+                                          ? 'opacity-60'
+                                          : 'opacity-30'
+                                      )}
+                                    >
+                                      {message.text}
+                                    </div>
                                   </div>
-                                </div>
-                              </Fragment>
-                            )
-                          })}
-                          {core.ws.vm.chatCursor &&
-                            core.ws.vm.chatCursor.chatIndex === index &&
-                            core.ws.vm.chatCursor.msgIndex ==
-                              chat.messages.length &&
-                            renderChatCursor()}
-                        </div>
+                                </Fragment>
+                              )
+                            })}
+                            {core.ws.vm.chatCursor &&
+                              core.ws.vm.chatCursor.chatIndex === index &&
+                              core.ws.vm.chatCursor.msgIndex ==
+                                chat.messages.length &&
+                              renderChatCursor()}
+                          </div>
 
-                        {editChat && <AddMessageBar index={index} />}
+                          {editChat && <AddMessageBar index={index} />}
+                        </div>
                       </div>
-                    </div>
+                      {index + 1 == arr.length && (
+                        <div
+                          className={clsx(
+                            'flex justify-center relative pt-4 pb-3'
+                          )}
+                        >
+                          <div
+                            className={clsx(
+                              'absolute inset-0 flex justify-center bottom-5'
+                            )}
+                          >
+                            <div className="h-full w-3 bg-gray-300"></div>
+                          </div>
+                          <div className="bg-gray-400 rounded-full px-2 py-0.5 text-white text-sm z-10">
+                            <FaIcon icon={faFlagCheckered} className="mr-1.5" />{' '}
+                            Ziel
+                          </div>
+                        </div>
+                      )}
+                    </Fragment>
                   ))}
                   <div className="h-32" />
                 </>

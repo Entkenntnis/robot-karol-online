@@ -161,7 +161,7 @@ function* runnerGenerator(core: Core) {
           type: 'run-chat',
           code: core.ws.pythonCode,
         })
-        yield wait(250) // wait for worker to start
+        yield wait(500) // wait for worker to start
       } else {
         if (syncArray) {
           Atomics.store(syncArray, 0, 1) // unblock worker
@@ -318,9 +318,15 @@ function* runnerGenerator(core: Core) {
     // wait for end of execution
     yield wait(20)
   }
+  stopChatRunner(core)
+
+  setTimeout(() => {
+    document
+      .getElementById('quest-title-h1')
+      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, 100)
 
   showModal(core, 'success')
-  stopChatRunner(core)
 }
 
 async function wait(ms: number): Promise<void> {

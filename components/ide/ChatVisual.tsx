@@ -5,6 +5,7 @@ import { View } from '../helper/View'
 import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
 import { faTimes, faWarning } from '@fortawesome/free-solid-svg-icons'
 import { FaIcon } from '../helper/FaIcon'
+import { stopChatRunner } from '../../lib/commands/chat'
 
 export function ChatVisual() {
   const core = useCore()
@@ -21,22 +22,26 @@ export function ChatVisual() {
       className="bg-slate-100 top-0 sticky z-[100] border-b-2 border-gray-300"
       style={{ backgroundImage: 'url("/bright-squares.png")' }}
     >
-      {core.ws.ui.state != 'running' && (
-        <div className="absolute right-4 top-2">
-          <button
-            className="rounded-full flex w-6 h-6 items-center justify-center bg-gray-100 hover:bg-gray-300"
-            onClick={() => {
+      <div className="absolute right-4 top-2">
+        <button
+          className="rounded-full flex w-6 h-6 items-center justify-center bg-gray-100 hover:bg-gray-300"
+          onClick={() => {
+            if (core.ws.ui.state == 'running') {
+              stopChatRunner(core)
+              core.worker?.reset()
+            } else {
               core.mutateWs(({ vm, ui }) => {
                 vm.chatCursor = undefined
                 ui.errorMessages = []
               })
               setExecutionMarker(core, -1)
-            }}
-          >
-            <FaIcon icon={faTimes} className="text-gray-500" />
-          </button>
-        </div>
-      )}
+            }
+          }}
+        >
+          <FaIcon icon={faTimes} className="text-gray-500" />
+        </button>
+      </div>
+
       <div className="flex justify-between items-center px-8 pt-10">
         <div className="flex-shrink-0">
           <img src="/program-icon.png" className="w-20 mt-4 select-none" />
