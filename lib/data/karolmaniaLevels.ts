@@ -58,10 +58,10 @@ export const levels: Level[] = [
   },
   {
     id: 2,
-    at: 2.65,
-    gold: 4,
-    silver: 7,
-    bronze: 14,
+    at: 4.65,
+    gold: 6.7,
+    silver: 14,
+    bronze: 20,
     quest: {
       version: 'v1',
       title: 'Zickzack ',
@@ -108,12 +108,13 @@ export const levels: Level[] = [
       program: '',
     },
   },
+  // TODO id 5, 6, 7, 8
   {
     id: 3,
-    at: 3.67,
-    gold: 5.3,
-    silver: 9,
-    bronze: 17,
+    at: 4.44,
+    gold: 7.3,
+    silver: 13,
+    bronze: 21,
     quest: {
       version: 'v1',
       title: 'Pyramide',
@@ -159,10 +160,10 @@ export const levels: Level[] = [
   },
   {
     id: 4,
-    at: 7.72,
-    gold: 9.5,
-    silver: 12,
-    bronze: 19,
+    at: 9.72,
+    gold: 13.3,
+    silver: 22,
+    bronze: 35,
     quest: {
       version: 'v1',
       title: 'Schachbrett-Muster',
