@@ -429,7 +429,7 @@ export function Tasks() {
                       )}
                     </Fragment>
                   ))}
-                  <div className="h-32" />
+                  {core.ws.page == 'editor' && <div className="h-32" />}
                 </>
               ) : (
                 core.ws.quest.tasks.map((task, index) => (

@@ -24,7 +24,7 @@ export function ChatVisual() {
     >
       <div className="absolute right-4 top-2">
         <button
-          className="rounded-full flex w-6 h-6 items-center justify-center bg-gray-100 hover:bg-gray-300"
+          className="text-gray-500 underline"
           onClick={() => {
             if (core.ws.ui.state == 'running') {
               stopChatRunner(core)
@@ -38,7 +38,7 @@ export function ChatVisual() {
             }
           }}
         >
-          <FaIcon icon={faTimes} className="text-gray-500" />
+          Ausgabe schließen
         </button>
       </div>
 
