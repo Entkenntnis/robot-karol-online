@@ -3,6 +3,8 @@ import { questData } from '../../lib/data/quests'
 import { levels as karolmaniaLevels } from '../../lib/data/karolmaniaLevels' // Import level data
 import clsx from 'clsx'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { FaIcon } from './FaIcon'
+import { faCopy } from '@fortawesome/free-solid-svg-icons'
 
 // Helper function to format time in seconds to MM:SS:hh
 function formatTime(seconds: number) {
@@ -183,7 +185,29 @@ export function AnalyzeResults() {
                       <span className="text-gray-400 mr-3">
                         {new Date(q.ts).toLocaleString('de-DE')}
                       </span>
-                      {JSON.parse(q.text)}
+                      {JSON.parse(q.text)}{' '}
+                      {(() => {
+                        const input = JSON.parse(q.text)
+                        // (Sprache: blocks, Programm: ... )
+                        // use regex to extract the program
+                        const match = input.match(
+                          /\(Sprache: .+?, Programm: ([\s\S]+)\)$/
+                        )
+
+                        if (match && match[1]) {
+                          return (
+                            <button
+                              className="text-gray-300"
+                              onClick={() => {
+                                // Copy the program to clipboard
+                                navigator.clipboard.writeText(match[1])
+                              }}
+                            >
+                              <FaIcon icon={faCopy} />
+                            </button>
+                          )
+                        }
+                      })()}
                     </p>
                   ))}
               </div>
