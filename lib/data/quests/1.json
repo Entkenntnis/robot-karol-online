@@ -1,1 +1,68 @@
-{"version":"v1","title":"Start","description":"Herzlich Willkommen! Schreibe dein erstes Programm:\n\n- Mit `Schritt` geht Karol einen Schritt nach vorne.\n- Mit `Hinlegen` legt Karol vor sich einen Ziegel.\n- Siehst du den transparenten Ziegel? Dieser zeigt dir, wo Karol den Ziegel legen soll.\n- Löse die Aufgabe und schalte weitere Aufgaben frei.","tasks":[{"title":"Lege einen Ziegel","start":{"dimX":6,"dimY":3,"height":6,"karol":{"x":1,"y":1,"dir":"east"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":6,"dimY":3,"height":6,"karol":{"x":3,"y":1,"dir":"east"},"bricks":{"dimX":1,"dimY":1,"offsetX":4,"offsetY":1,"data":[[1]]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}}],"lng":"de","questScript":"","language":"blocks","program":""}
+{
+  "version": "v1",
+  "title": "Start",
+  "description": "Herzlich Willkommen! Schreibe dein erstes Programm:\n\n- Mit `Schritt` geht Karol einen Schritt nach vorne.\n- Mit `Hinlegen` legt Karol vor sich einen Ziegel.\n- Siehst du den transparenten Ziegel? Dieser zeigt dir, wo Karol den Ziegel legen soll.\n- Löse die Aufgabe und schalte weitere Aufgaben frei. Nutze für eine größere Welt die [Spielwiese](/#SPIELWIESE).",
+  "tasks": [
+    {
+      "title": "Lege einen Ziegel",
+      "start": {
+        "dimX": 6,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 1, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 3, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 1,
+          "data": [[1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "questScript": "",
+  "language": "blocks",
+  "program": ""
+}
