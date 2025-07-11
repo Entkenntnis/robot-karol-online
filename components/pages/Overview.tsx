@@ -499,20 +499,6 @@ export function Overview() {
                   >
                     <li>
                       <a
-                        href="/#INSPIRATION"
-                        onClick={() => {
-                          submitAnalyzeEvent(core, 'ev_click_landing_gallery')
-                          setLearningPathScroll(
-                            document.getElementById('scroll-container')
-                              ?.scrollTop ?? -1
-                          )
-                        }}
-                      >
-                        💫 Aufgaben-Galerie
-                      </a>
-                    </li>
-                    <li>
-                      <a
                         href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
                         onClick={() => {
                           submitAnalyzeEvent(
@@ -532,18 +518,34 @@ export function Overview() {
                     </li>
                     <li>
                       <a
-                        target="_blank"
-                        href="https://github.com/Entkenntnis/robot-karol-online#readme"
+                        href="/#INSPIRATION"
                         onClick={() => {
-                          // open feedback form in new tab
-                          submitAnalyzeEvent(core, 'ev_click_landing_material')
+                          submitAnalyzeEvent(core, 'ev_click_landing_gallery')
+                          setLearningPathScroll(
+                            document.getElementById('scroll-container')
+                              ?.scrollTop ?? -1
+                          )
                         }}
                       >
-                        {core.strings.overview.docs}{' '}
-                        <FaIcon
-                          icon={faExternalLink}
-                          className="text-gray-600 text-xs"
-                        />
+                        💫 Aufgaben-Galerie
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/#KAROLMANIA"
+                        onClick={() => {
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_click_landing_karolmania'
+                          )
+                          setLearningPathScroll(
+                            document.getElementById('scroll-container')
+                              ?.scrollTop ?? -1
+                          )
+                        }}
+                      >
+                        <FaIcon icon={faMedal} className="mr-2 text-teal-600" />
+                        Karolmania
                       </a>
                     </li>
                     <li>
@@ -580,20 +582,18 @@ export function Overview() {
                     </li>
                     <li>
                       <a
-                        href="/#KAROLMANIA"
+                        target="_blank"
+                        href="https://github.com/Entkenntnis/robot-karol-online#readme"
                         onClick={() => {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_karolmania'
-                          )
-                          setLearningPathScroll(
-                            document.getElementById('scroll-container')
-                              ?.scrollTop ?? -1
-                          )
+                          // open feedback form in new tab
+                          submitAnalyzeEvent(core, 'ev_click_landing_material')
                         }}
                       >
-                        <FaIcon icon={faMedal} className="mr-2 text-teal-600" />
-                        Karolmania
+                        {core.strings.overview.docs}{' '}
+                        <FaIcon
+                          icon={faExternalLink}
+                          className="text-gray-600 text-xs"
+                        />
                       </a>
                     </li>
                   </ul>
