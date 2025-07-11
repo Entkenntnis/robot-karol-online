@@ -152,7 +152,8 @@ export function ControlBar() {
             />{' '}
             {core.strings.ide.assignment}{' '}
             {core.ws.quest.progress ? '' : core.strings.ide.not}{' '}
-            {core.strings.ide.completed}{' '}
+            {core.strings.ide.completed}
+            {core.ws.ui.notCompletedReason}{' '}
             {core.ws.ui.isManualAbort ? ' (abgebrochen)' : ''}
           </span>
         )

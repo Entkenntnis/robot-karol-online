@@ -42,6 +42,7 @@ export function run(core: Core) {
     vm.steps = 0
     ui.gutter = 0
     vm.isDebugging = false
+    ui.notCompletedReason = ''
   })
   setExecutionMarker(core, 0)
 
@@ -489,19 +490,107 @@ export function endExecution(core: Core) {
   })
   core.instruments.clear()
 
-  /*if (
-    core.ws.quest.id > 0 &&
-    !core.ws.ui.isManualAbort &&
-    !core.ws.quest.progress
-  ) {
-    submitSolution(
-      core,
-      core.ws.quest.id,
-      (core.ws.settings.mode == 'code' ? '//code-tab\n' : '') +
-        core.ws.code +
-        '\n// attempt //'
-    )
-  }*/
+  if (!core.ws.quest.progress && core.ws.quest.lastStartedTask !== undefined) {
+    const task = core.ws.quest.tasks[core.ws.quest.lastStartedTask]
+    if (task.target) {
+      const traget = task.target
+      // sum all bricks in world
+      const bricksWorld = core.ws.world.bricks
+        .flat()
+        .reduce((acc, val) => acc + val, 0)
+      const bricksTarget = traget.bricks
+        .flat()
+        .reduce((acc, val) => acc + val, 0)
+      const marksWorld = core.ws.world.marks.flat().filter((v) => v).length
+      const marksTarget = traget.marks.flat().filter((v) => v).length
+
+      const brickDiff = bricksWorld - bricksTarget
+      const markDiff = marksWorld - marksTarget
+
+      // also take the sum of the absolute difference between world and target calculated for each cell
+      const bricksDelta = core.ws.world.bricks.reduce(
+        (acc, row, y) =>
+          acc +
+          row.reduce(
+            (rowAcc, cell, x) => rowAcc + Math.abs(cell - traget.bricks[y][x]),
+            0
+          ),
+        0
+      )
+      const marksDelta = core.ws.world.marks.reduce(
+        (acc, row, y) =>
+          acc +
+          row.reduce(
+            (rowAcc, cell, x) => rowAcc + (cell !== traget.marks[y][x] ? 1 : 0),
+            0
+          ),
+        0
+      )
+
+      // AI GENERATED =====================
+
+      const problemClauses = []
+
+      // 1. Systematically check for brick-related problems (with singular/plural handling)
+      if (brickDiff !== 0) {
+        const diff = Math.abs(brickDiff)
+        if (brickDiff > 0) {
+          // Too many bricks
+          const clause =
+            diff === 1
+              ? '1 Ziegel zu viel vorhanden ist'
+              : `${diff} Ziegel zu viel vorhanden sind`
+          problemClauses.push(clause)
+        } else {
+          // Too few bricks
+          const clause = diff === 1 ? '1 Ziegel fehlt' : `${diff} Ziegel fehlen`
+          problemClauses.push(clause)
+        }
+      } else if (bricksDelta > 0) {
+        // Correct quantity, but wrong placement
+        problemClauses.push('die Ziegel an der falschen Stelle liegen')
+      }
+
+      // 2. Systematically check for mark-related problems (with singular/plural handling)
+      if (markDiff !== 0) {
+        const diff = Math.abs(markDiff)
+        if (markDiff > 0) {
+          // Too many marks
+          const clause =
+            diff === 1
+              ? '1 Marke zu viel gesetzt ist'
+              : `${diff} Marken zu viel gesetzt sind`
+          problemClauses.push(clause)
+        } else {
+          // Too few marks
+          const clause = diff === 1 ? '1 Marke fehlt' : `${diff} Marken fehlen`
+          problemClauses.push(clause)
+        }
+      } else if (marksDelta > 0) {
+        // Correct quantity, but wrong placement
+        problemClauses.push('die Marken an der falschen Stelle sind')
+      }
+
+      if (problemClauses.length > 0) {
+        // 3. Assemble the final, user-friendly sentence
+        let finalMessage = ', '
+
+        if (problemClauses.length === 1) {
+          // e.g., "..., weil 1 Ziegel fehlt."
+          finalMessage += `weil ${problemClauses[0]}.`
+        } else {
+          // e.g., "..., weil 1 Ziegel fehlt und 3 Marken zu viel gesetzt sind."
+          const lastClause = problemClauses.pop()
+          finalMessage += `weil ${problemClauses.join(', ')} und ${lastClause}.`
+        }
+
+        core.mutateWs(({ ui }) => {
+          ui.notCompletedReason = finalMessage
+        })
+      }
+      // END AI GENERATED =====================
+    }
+  }
 
   if (core.executionEndCallback) {
     const cb = core.executionEndCallback
