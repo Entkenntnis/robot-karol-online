@@ -141,6 +141,9 @@ export async function loadFromJSON() {
     reader.addEventListener('load', (e) => {
       if (e.target != null && typeof e.target.result === 'string') {
         const data = JSON.parse(e.target.result)
+        if (data[persistKey]) {
+          localStorage.setItem(persistKey, '1')
+        }
         setUserName(data[userNameKey])
         //setAppearance(data[appearanceKey])
         for (const id of questList) {
