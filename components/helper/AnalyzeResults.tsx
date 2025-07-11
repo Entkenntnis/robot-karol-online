@@ -170,6 +170,7 @@ export function AnalyzeResults() {
                             `${id}-${q.ts}`
                           ) && 'hidden'
                         )}
+                        disabled={window.location.host !== 'karol.arrrg.de'}
                         onChange={(e) => {
                           if (e.target.checked) {
                             core.mutateWs((ws) => {
