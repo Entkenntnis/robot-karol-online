@@ -76,6 +76,7 @@ export interface Ui {
   karolmaniaCarouselIndex?: number
   tourModePage?: number
   isChatMode: boolean
+  notCompletedReason: string
 }
 
 export interface Vm {

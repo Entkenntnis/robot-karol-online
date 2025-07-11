@@ -61,6 +61,7 @@ export function createWorkspaceState(): WorkspaceState {
       returnToDemoPage: false,
       editQuestScript: false,
       isChatMode: false,
+      notCompletedReason: '',
     },
     vm: {
       pc: 0,

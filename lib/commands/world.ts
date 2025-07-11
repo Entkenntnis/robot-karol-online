@@ -388,18 +388,6 @@ export function onWorldChange(core: Core) {
   core.mutateWs((ws) => {
     ws.quest.progress = progress == 100
   })
-
-  /*const id = core.ws.id
-  if (progress == 100 && !core.state.done.includes(id)) {
-    core.mutateCore((state) => {
-      state.done.push(id)
-    })
-    submit_event(`${id}_done`, core)
-  }
-
-  if (progress == 100) {
-    core.deleteWsFromStorage(id)
-  }*/
 }
 
 export function twoWorldsEqual(world1: World, world2: World): boolean {
