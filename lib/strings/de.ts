@@ -118,7 +118,7 @@ export const deStrings = {
     close: 'Schließen',
   },
   crash: {
-    invalidMove: 'Karol kann sich nicht in diese Richtung bewegen.',
+    invalidMove: 'Aua! Karol ist gegen eine Wand gelaufen.',
     invalidHeight: 'Karol kann diese Höhe nicht überwinden.',
     invalidBrick: 'Karol kann hier keinen Ziegel aufstellen.',
     maxHeight: 'Maximale Stapelhöhe erreicht.',
