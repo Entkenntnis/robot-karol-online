@@ -105,6 +105,36 @@ export function Overview() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const groupedExamples = useMemo(() => {
+    interface Group {
+      title: string
+      color?: string
+      highlightColor?: string
+      tasks: (typeof pythonKarolExamples)[number][]
+    }
+    const groups: Group[] = []
+    let currentGroup: Group | null = null
+
+    pythonKarolExamples
+      .filter((e) => !e.hidden)
+      .forEach((example) => {
+        // A "spacer" item marks the beginning of a new category
+        if (example.link === 'spacer') {
+          currentGroup = {
+            title: example.title,
+            color: example.color,
+            highlightColor: example.highlightColor,
+            tasks: [],
+          }
+          groups.push(currentGroup)
+        } else if (currentGroup) {
+          // Add the task to the currently active group
+          currentGroup.tasks.push(example)
+        }
+      })
+    return groups
+  }, [pythonKarolExamples]) // Re-calculates only if data changes
+
   return (
     <>
       <div
@@ -673,35 +703,6 @@ export function Overview() {
                   // =================== AI-GENERATED LAYOUT ===================
                   // 1. Process the flat data into groups.
                   // This logic should be inside your component, before the return statement.
-                  const groupedExamples = useMemo(() => {
-                    interface Group {
-                      title: string
-                      color?: string
-                      highlightColor?: string
-                      tasks: (typeof pythonKarolExamples)[number][]
-                    }
-                    const groups: Group[] = []
-                    let currentGroup: Group | null = null
-
-                    pythonKarolExamples
-                      .filter((e) => !e.hidden)
-                      .forEach((example) => {
-                        // A "spacer" item marks the beginning of a new category
-                        if (example.link === 'spacer') {
-                          currentGroup = {
-                            title: example.title,
-                            color: example.color,
-                            highlightColor: example.highlightColor,
-                            tasks: [],
-                          }
-                          groups.push(currentGroup)
-                        } else if (currentGroup) {
-                          // Add the task to the currently active group
-                          currentGroup.tasks.push(example)
-                        }
-                      })
-                    return groups
-                  }, [pythonKarolExamples]) // Re-calculates only if data changes
 
                   // 2. Render the new two-column layout
                   return (
