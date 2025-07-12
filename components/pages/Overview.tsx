@@ -81,7 +81,7 @@ export function Overview() {
       ? 100
       : !isQuestDone(10001)
       ? 600
-      : 300)
+      : 400)
 
   useEffect(() => {
     if (
