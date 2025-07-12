@@ -80,8 +80,9 @@ export function Overview() {
     (core.ws.page == 'demo' || core.ws.page == 'analyze'
       ? 100
       : !isQuestDone(10001)
-      ? 600
-      : 400)
+      ? 800
+      : 600)
+  // todo: if all quests are unlocked, I can reduce the spacing a bit, but I'm not at that point yet
 
   useEffect(() => {
     if (
@@ -653,39 +654,22 @@ export function Overview() {
                       </AnimateInView>
                     </div>
                   )}
-                {core.ws.ui.tourModePage == 4 && core.ws.page != 'analyze' && (
-                  <div className="absolute left-1 top-0 h-[2150px] pointer-events-none z-10">
-                    <div className="h-[2000px]"></div>
-                    <div className="bg-yellow-100/90 p-4 mx-auto w-[380px] rounded-xl border-2 border-yellow-300 shadow-lg sticky bottom-2">
-                      <div
-                        className="absolute -top-2 -right-3 text-gray-500 text-lg font-bold cursor-pointer select-none pointer-events-auto bg-white/50 rounded-full p-1 w-6 h-6 flex items-center justify-center"
-                        onClick={() => {
-                          core.mutateWs((ws) => {
-                            ws.ui.tourModePage = undefined
-                          })
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_tour4Close'
-                          )
-                        }}
-                      >
-                        <FaIcon icon={faTimes} />
-                      </div>
-                      <div className="text-center text-lg font-bold text-yellow-800 mb-4 pointer-events-auto">
-                        Lust auf einen Blick über den Tellerrand? Entdecke die
-                        Beispiel-Projekte.
-                      </div>
-                      <div className="flex justify-center">
-                        <div className="relative animate-bounce">
-                          <FaIcon
-                            icon={faArrowDown}
-                            className="text-4xl text-yellow-600"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <div className="absolute top-[1730px] left-[90px] z-10">
+                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                    <button
+                      className="px-2 py-0.5 bg-white/30 rounded hover:bg-white/50"
+                      onClick={() => {
+                        submitAnalyzeEvent(
+                          core,
+                          'ev_click_landing_pythonListing'
+                        )
+                        showModal(core, 'python-listing')
+                      }}
+                    >
+                      Liste aller Python-Aufgaben
+                    </button>
+                  </AnimateInView>
+                </div>
                 {(() => {
                   // =================== AI-GENERATED LAYOUT ===================
                   // 1. Process the flat data into groups.
@@ -818,12 +802,12 @@ export function Overview() {
                   )
                 })()}
                 <div
-                  className="absolute left-[301px]  z-10"
+                  className="absolute left-[301px] z-10"
                   style={{ top: `${maxMapY + 1140}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <h2 className="text-lg bg-white/20 pl-2 pr-4 py-0.5 rounded-lg">
-                      Weitere Inhalte für dich:
+                      Entdecke auch:
                     </h2>
                   </AnimateInView>
                 </div>
