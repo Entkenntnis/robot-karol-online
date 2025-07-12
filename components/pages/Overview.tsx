@@ -15,7 +15,7 @@ import {
   faPlay,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useMemo } from 'react'
 
 import {
   forceRerender,
@@ -76,7 +76,12 @@ export function Overview() {
       ...Object.entries(mapData)
         .filter(([id]) => isQuestVisible(parseInt(id)))
         .map(([, quest]) => quest.y)
-    ) + (core.ws.page == 'demo' ? -530 : !isQuestDone(10001) ? 500 : 0)
+    ) +
+    (core.ws.page == 'demo' || core.ws.page == 'analyze'
+      ? 100
+      : !isQuestDone(10001)
+      ? 600
+      : 300)
 
   useEffect(() => {
     if (
@@ -373,7 +378,7 @@ export function Overview() {
             !core.ws.overview.showProfile && (
               <div
                 className="w-[1240px] mx-auto relative mt-6"
-                style={{ height: `${maxMapY + 1000}px` }}
+                style={{ height: `${maxMapY + 1300}px` }}
               >
                 <img
                   src="klecks1.png"
@@ -664,181 +669,169 @@ export function Overview() {
                     </div>
                   </div>
                 )}
-                <div className="absolute left-[4px] top-[1850px] z-10 hidden">
-                  <div className="bg-white/20 w-[250px] rounded-lg p-4 shadow-lg">
-                    <h2 className="text-2xl font-bold mb-4">
-                      Python Crash-Kurs
-                    </h2>
-                    <button
-                      className="bg-pink-500 text-white px-4 py-1 rounded hover:bg-pink-600 mb-4 font-semibold"
-                      onClick={() => {
-                        submitAnalyzeEvent(core, 'ev_click_landing_flashcards')
-                        setQuestReturnToMode(
-                          core.ws.page == 'demo' ? 'demo' : 'path'
-                        )
-                        setLearningPathScroll(
-                          document.getElementById('scroll-container')
-                            ?.scrollTop ?? -1
-                        )
-                        navigate(core, '#FLASHCARDS')
-                      }}
-                    >
-                      <FaIcon icon={faPlay} className="mr-2" /> Lernen
-                    </button>
-                    <div className="mb-3">
-                      <div className="h-3 w-full bg-gray-300 rounded-full">
-                        <div
-                          className="h-3 bg-green-400 rounded-full"
-                          style={{ width: '0%' }}
-                        ></div>
-                      </div>
-                      <span className="text-xs text-gray-700">
-                        0% abgeschlossen
-                      </span>
-                    </div>
-                    <p className="text-xs">
-                      Themen: Variablen, Operatoren, Vergleiche,
-                      Kontrollstrukturen, Methoden, Klassen, Objekte, Listen
-                    </p>
-                  </div>
-                </div>
-                <div className="absolute left-[4px] top-[1790px] z-10">
-                  <div className="bg-white/20 rounded-lg p-3 shadow-lg w-[360px]">
-                    <div className="flex items-center">
-                      <img
-                        src="/python-logo-only.png"
-                        alt="Python"
-                        className="h-9 mr-2"
-                      />
-                      <p className="font-bold mb-1 text-gray-500 text-lg">
-                        Python Mini-Projekte
-                      </p>
-                    </div>
-                    <p className="mb-3 mt-1 text-right hidden">
-                      <a
-                        href="https://docs.google.com/document/d/1PGIgwPTwNUNy2wEcGSh2oLR3a30tnmMq8-BegAkEnsk/edit?tab=t.0"
-                        target="_blank"
-                        className="link text-gray-600"
-                        onClick={() => {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_pythonGuideForTeachers'
-                          )
-                        }}
-                      >
-                        Leitfaden für Lehrkräfte{' '}
-                        <FaIcon icon={faExternalLink} className="text-xs" />
-                      </a>
-                      <br />
-                    </p>
-                    <div className="gap-2 pr-1 flex flex-wrap">
-                      {pythonKarolExamples
-                        .filter((e) => !e.hidden)
-                        .map((example, index) => {
-                          if (example.link == 'spacer') {
-                            return (
-                              <div
-                                className={clsx(
-                                  'w-full mt-3 pl-3 font-semibold',
-                                  example.color || 'text-gray-700'
-                                )}
-                                key={index}
-                              >
-                                {example.title}
-                              </div>
-                            )
-                          }
-                          let testIndex = index - 1
-                          let previousSpacer = pythonKarolExamples[testIndex]
-                          while (
-                            testIndex >= 0 &&
-                            previousSpacer &&
-                            previousSpacer.link != 'spacer'
-                          ) {
-                            testIndex-- // skip over spacers
-                            previousSpacer = pythonKarolExamples[testIndex]
-                          }
+                {(() => {
+                  // =================== AI-GENERATED LAYOUT ===================
+                  // 1. Process the flat data into groups.
+                  // This logic should be inside your component, before the return statement.
+                  const groupedExamples = useMemo(() => {
+                    interface Group {
+                      title: string
+                      color?: string
+                      highlightColor?: string
+                      tasks: (typeof pythonKarolExamples)[number][]
+                    }
+                    const groups: Group[] = []
+                    let currentGroup: Group | null = null
 
-                          return (
-                            <a
-                              href={`/${example.link}`}
-                              key={index}
-                              className={clsx(
-                                'p-2.5 rounded-md transition-all hover:shadow-md w-[162px] block cursor-pointer bg-white/50 hover:bg-white/70 border',
-                                localStorage.getItem(
-                                  `robot_karol_online_shared_quest_${example.link
-                                    .substring(1)
-                                    .toLowerCase()}_program`
-                                )
-                                  ? previousSpacer.highlightColor
-                                  : 'border-transparent'
-                              )}
-                              onClick={(e) => {
-                                submitAnalyzeEvent(
-                                  core,
-                                  `ev_click__landing_pythonExample_${getExampleId(
-                                    example.title
-                                  )}`
-                                )
-                                if (core.ws.ui.tourModePage == 4) {
-                                  core.mutateWs((ws) => {
-                                    ws.ui.tourModePage = undefined
-                                  })
-                                }
-                                setQuestReturnToMode(
-                                  core.ws.page == 'demo' ? 'demo' : 'path'
-                                )
-                                setLearningPathScroll(
-                                  document.getElementById('scroll-container')
-                                    ?.scrollTop ?? -1
-                                )
-                                e.preventDefault()
-                                navigate(core, example.link)
-                              }}
+                    pythonKarolExamples
+                      .filter((e) => !e.hidden)
+                      .forEach((example) => {
+                        // A "spacer" item marks the beginning of a new category
+                        if (example.link === 'spacer') {
+                          currentGroup = {
+                            title: example.title,
+                            color: example.color,
+                            highlightColor: example.highlightColor,
+                            tasks: [],
+                          }
+                          groups.push(currentGroup)
+                        } else if (currentGroup) {
+                          // Add the task to the currently active group
+                          currentGroup.tasks.push(example)
+                        }
+                      })
+                    return groups
+                  }, [pythonKarolExamples]) // Re-calculates only if data changes
+
+                  // 2. Render the new two-column layout
+                  return (
+                    <div
+                      className="absolute left-[200px] z-10"
+                      style={{ top: `${maxMapY + 100}px` }}
+                    >
+                      <div className="bg-white/20 rounded-lg p-4 shadow-lg w-[880px]">
+                        {/* Header remains the same */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <img
+                              src="/python-logo-only.png"
+                              alt="Python"
+                              className="h-9 mr-2"
+                            />
+                            <p className="font-bold mb-1 text-gray-500 text-lg">
+                              Python Mini-Projekte
+                            </p>
+                          </div>
+                          <a
+                            className="link text-gray-600 text-sm"
+                            href="https://github.com/Entkenntnis/robot-karol-online/blob/main/RKO-MODULE.md"
+                            target="_blank"
+                            onClick={() => {
+                              submitAnalyzeEvent(
+                                core,
+                                'ev_click_landing_moduleDocs'
+                              )
+                            }}
+                          >
+                            <code>rko</code> Modul Dokumentation{' '}
+                            <FaIcon
+                              icon={faExternalLink}
+                              className="text-xs text-gray-600"
+                            />
+                          </a>
+                        </div>
+                        <p className="mb-3 mt-1 text-right hidden">
+                          {/* ... hidden link for teachers ... */}
+                        </p>
+
+                        {/* --- NEW TWO-COLUMN LAYOUT --- */}
+                        <div className="flex flex-col gap-y-3 mt-3">
+                          {groupedExamples.map((group) => (
+                            <div
+                              key={group.title}
+                              className="flex gap-x-6 items-start border-t border-gray-300/80 pt-3"
                             >
-                              <span className="font-medium text-left">
-                                {example.title}
-                                {core.ws.page == 'analyze' && (
-                                  <span>
-                                    {' '}
-                                    [
-                                    {
-                                      core.ws.analyze.pythonKarol[
-                                        getExampleId(example.title)
-                                      ]?.count
-                                    }
-                                    ]
-                                  </span>
-                                )}
-                              </span>
-                            </a>
-                          )
-                        })}
+                              {/* Left Column: Category Title */}
+                              <div className="w-1/3 shrink-0 pt-2.5 pl-2">
+                                <h3
+                                  className={clsx(
+                                    'font-semibold text-left',
+                                    group.color
+                                  )}
+                                >
+                                  {group.title}
+                                </h3>
+                              </div>
+
+                              {/* Right Column: Task Buttons */}
+                              <div className="w-2/3 flex flex-wrap gap-2">
+                                {group.tasks.map((example) => (
+                                  <a
+                                    href={`/${example.link}`}
+                                    key={example.link} // Use a unique key like the link
+                                    className={clsx(
+                                      'p-2.5 rounded-md transition-all hover:shadow-md w-[162px] block cursor-pointer bg-white/50 hover:bg-white/70 border',
+                                      localStorage.getItem(
+                                        `robot_karol_online_shared_quest_${example.link
+                                          .substring(1)
+                                          .toLowerCase()}_program`
+                                      )
+                                        ? group.highlightColor // Simplified: Get color from the group
+                                        : 'border-transparent'
+                                    )}
+                                    onClick={(e) => {
+                                      submitAnalyzeEvent(
+                                        core,
+                                        `ev_click__landing_pythonExample_${getExampleId(
+                                          example.title
+                                        )}`
+                                      )
+                                      if (core.ws.ui.tourModePage == 4) {
+                                        core.mutateWs((ws) => {
+                                          ws.ui.tourModePage = undefined
+                                        })
+                                      }
+                                      setQuestReturnToMode(
+                                        core.ws.page == 'demo' ? 'demo' : 'path'
+                                      )
+                                      setLearningPathScroll(
+                                        document.getElementById(
+                                          'scroll-container'
+                                        )?.scrollTop ?? -1
+                                      )
+                                      e.preventDefault()
+                                      navigate(core, example.link)
+                                    }}
+                                  >
+                                    <span className="font-medium text-left">
+                                      {example.title}
+                                      {core.ws.page == 'analyze' && (
+                                        <span>
+                                          {' '}
+                                          [
+                                          {
+                                            core.ws.analyze.pythonKarol[
+                                              getExampleId(example.title)
+                                            ]?.count
+                                          }
+                                          ]
+                                        </span>
+                                      )}
+                                    </span>
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        {/* --- END OF NEW LAYOUT --- */}
+                      </div>
                     </div>
-                    <p className="mt-4 text-sm ml-2">
-                      <a
-                        className="link text-pink-600"
-                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/RKO-MODULE.md"
-                        target="_blank"
-                        onClick={() => {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_moduleDocs'
-                          )
-                        }}
-                      >
-                        <code>rko</code> Modul Dokumentation{' '}
-                        <FaIcon
-                          icon={faExternalLink}
-                          className="text-xs text-pink-600"
-                        />
-                      </a>
-                    </p>
-                  </div>
-                </div>
+                  )
+                })()}
                 <div
-                  className="absolute left-[401px]  z-10"
-                  style={{ top: `${maxMapY + 840}px` }}
+                  className="absolute left-[301px]  z-10"
+                  style={{ top: `${maxMapY + 1140}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <h2 className="text-lg bg-white/20 pl-2 pr-4 py-0.5 rounded-lg">
@@ -848,7 +841,7 @@ export function Overview() {
                 </div>
                 <div
                   className="absolute left-[598px]  z-10"
-                  style={{ top: `${maxMapY + 890}px` }}
+                  style={{ top: `${maxMapY + 1190}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <a
@@ -925,7 +918,7 @@ export function Overview() {
                 {core.ws.settings.lng == 'de' && (
                   <div
                     className="absolute left-[760px] z-10"
-                    style={{ top: `${maxMapY + 900}px` }}
+                    style={{ top: `${maxMapY + 1200}px` }}
                   >
                     <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                       <button
@@ -949,7 +942,7 @@ export function Overview() {
                 )}
                 <div
                   className="absolute left-[400px] z-10"
-                  style={{ top: `${maxMapY + 930}px` }}
+                  style={{ top: `${maxMapY + 1230}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <button
