@@ -48,7 +48,7 @@ export function PythonListing() {
         </button>
         <div className="p-6">
           <h1 className="font-bold text-2xl mt-4 mb-6 text-center">
-            Liste aller Python-Aufgaben
+            Übersicht Python-Lernpfad
           </h1>
           {/* AI-generated listing */}
           <div className="space-y-6">

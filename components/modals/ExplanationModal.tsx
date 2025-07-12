@@ -41,7 +41,7 @@ export function ExplanationModal() {
         {/* `h-screen` wurde entfernt. `w-full` stellt sicher, dass es die Breite ausfüllt. */}
         {/* `my-8` gibt oben und unten etwas Platz. `rounded-lg` und `shadow-xl` für die Optik. */}
         {/* `items-start` oben und `my-auto` hier sorgen für eine gute Zentrierung, die auch bei Überlänge funktioniert. */}
-        <div className="w-full max-w-[720px] bg-white/90 backdrop-blur-lg rounded-lg shadow-xl relative flex flex-col my-auto animate-fadeInUp">
+        <div className="w-full max-w-[720px] bg-white/90 backdrop-blur-lg rounded-lg shadow-xl relative flex flex-col my-auto animate-fadeInUp mt-24 mb-24">
           {/* 3. DER INNERE SCROLL-CONTAINER WURDE VEREINFACHT */}
           {/* `flex-grow` und `overflow-auto` sind nicht mehr nötig. Dies ist jetzt ein einfacher Wrapper. */}
           <div>

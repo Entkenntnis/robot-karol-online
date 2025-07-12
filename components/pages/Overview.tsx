@@ -81,7 +81,7 @@ export function Overview() {
       ? 100
       : !isQuestDone(10001)
       ? 800
-      : 600)
+      : 800)
   // todo: if all quests are unlocked, I can reduce the spacing a bit, but I'm not at that point yet
 
   useEffect(() => {
@@ -666,7 +666,7 @@ export function Overview() {
                         showModal(core, 'python-listing')
                       }}
                     >
-                      Liste aller Python-Aufgaben
+                      Übersicht Python-Lernpfad
                     </button>
                   </AnimateInView>
                 </div>
