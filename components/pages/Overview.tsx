@@ -1070,7 +1070,7 @@ export function Overview() {
                         key={id}
                         style={{
                           left: `${entry[1].x - 22}px`,
-                          top: `${entry[1].y}px`,
+                          top: `${entry[1].y + 20}px`,
                         }}
                       >
                         <AnimateInView
@@ -1102,11 +1102,11 @@ export function Overview() {
                             <img
                               src={
                                 isQuestDone(id)
-                                  ? '/gluehbirne.png'
-                                  : '/gluehbirne_aus.png'
+                                  ? '/motte_farbig.png'
+                                  : '/motte.png'
                               }
                               alt=""
-                              className="w-[60px] mx-auto inline-block mt-2 mb-2"
+                              className="w-[80px] mx-auto inline-block mb-2"
                             />
                           </button>
                         </AnimateInView>
