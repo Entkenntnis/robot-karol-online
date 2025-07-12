@@ -1,13 +1,26 @@
-# Ein regnerischer Tag
+# Alles ist scheiße
 
-_Es klopft an der Tür zu Ellies Garage_
+_Es klopft an der Tür zu Ellies Garage._
 
-Ellie: Ja?  
-Joel: Kann ich reinkommen?  
-Ellie: Ausnahmsweise.  
-Joel: Hey Kiddo, das Abendessen ist bereit, ich hab dich mehrmals gerufen, aber du bist nicht gekommen.  
-Ellie: Sehr fürsorglich von dir. Aber du weißt schon, dass du nicht main Dad bist und ich auch für mich selbst kochen kann.  
-Joel: Da ist jemand ja sehr gut drauf. Darf ich dich daran, was bei deinem letzten Kochversuch ...  
-Ellie: Stopp!! Darüber reden wir nicht. Egal, ich komme, ist eh alles scheiße!  
-Joel: Hey, hey. Was ist los? Und was ist dieses Buch ...  
-Ellie: EGAL! IST EGAL! Was gibt es zum Abendessen?
+**Ellie**: Ja?  
+**Joel**: Kann ich reinkommen?  
+**Ellie**: Ausnahmsweise.
+
+_Joel mustert Ellie, wie sie mit gerunzelter Stirn über ein aufgeschlagenes Buch gebeugt sitzt, neben ihr ein alter Laptop._
+
+**Joel**: Hey Kiddo, das Abendessen ist fertig. Was machst du da so verbissen?
+
+_Ellie stößt ein frustriertes Geräusch aus und schiebt das Buch von sich._
+
+**Ellie**: Ich versuche, nicht dumm zu sein.  
+**Joel** (tritt näher und seine Augen überfliegen den Titel): "Python für Einsteiger" ... seit wann interessierst du dich dafür?  
+**Ellie** (verschränkt die Arme): Ich dachte, es wäre vielleicht ... nützlich. Stell dir vor, wir könnten Programme schreiben, um die Patrouillen zu planen. Oder das verdammte Inventar zu verwalten, damit wir wissen, wie viele Konservern noch da sind. Aber ich scheitere schon an der allerersten Übung. Es ist alles scheiße!
+**Joel**: Hey, hey. Rom wurde auch nicht an einem Tag erbaut. Und dein letzter Kochversuch hat auch nicht auf Anhieb...  
+**Ellie**: Stopp!! Darüber reden wir nicht!  
+**Joel**: Okay, okay. Dir scheint das wichtig zu sein. Wie wäre es damit: Nach dem Abendessen setze ich mich einfach zu dir. Du versuchst es nochmal in Ruhe, und ich sorge dafür, dass du das blöde Buch nicht aus dem Fenster wirfst. Manchmal braucht man nur ein zweites Paar Augen daneben. Deal?  
+**Ellie** (schaut Joel forsch an): Du bist immer noch nicht mein Dad ... aber du hilfst mir, versprochen?  
+**Joel**: Hab ich dich je in Stich gelassen?
+
+_Ellie schaut ihn einen Moment lang an. Ein kaum merkliches Lächeln umspielt ihre Lippen. Sie steht auf und streckt sich._
+
+**Ellie**: Dann zeig mal, ob sich deine Kochkünste verbessert haben. Ich habe plötzlich richtig Hunger.
