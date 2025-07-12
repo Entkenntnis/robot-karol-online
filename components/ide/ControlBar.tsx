@@ -95,7 +95,13 @@ export function ControlBar() {
         <span className="text-red-600">
           {' '}
           <FaIcon icon={faExclamationTriangle} className="mr-1" />{' '}
-          {core.strings.ide.error}: {core.ws.ui.karolCrashMessage}
+          {core.ws.ui.karolCrashMessage.includes('Aua') ? (
+            core.ws.ui.karolCrashMessage
+          ) : (
+            <>
+              {core.strings.ide.error}: {core.ws.ui.karolCrashMessage}
+            </>
+          )}
         </span>
       )
     }
