@@ -206,6 +206,7 @@ export interface WorkspaceState {
     | 'explanation'
     | 'character'
     | 'chat-guide'
+    | 'python-listing'
     | null
 
   renderCounter: number // e.g. if storage is updated

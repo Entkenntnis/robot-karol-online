@@ -1,9 +1,7 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
-import clsx from 'clsx'
 
 export function ChatGuide() {
   const core = useCore()
