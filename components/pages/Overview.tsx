@@ -636,31 +636,18 @@ export function Overview() {
                 {core.ws.settings.lng === 'de' &&
                   !isQuestDone(10001) &&
                   core.ws.page !== 'demo' &&
-                  core.ws.page !== 'analyze' &&
-                  false && (
-                    <div className="absolute top-[1690px] left-[620px] z-10">
+                  core.ws.page !== 'analyze' && (
+                    <div className="absolute top-[1670px] left-[690px] z-10">
                       <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                        <div className="bg-white/50 rounded-lg p-2 w-[560px] shadow-lg">
+                        <div className="bg-white/50 rounded-lg p-2 w-[410px] shadow-lg">
                           <p>
-                            Programmierung beschränkt sich nicht auf Blöcke oder
-                            Karol Code. Lerne hier eine „große“
-                            Programmiersprache (Python) mit Variablen,
-                            Ein-/Ausgabe, mathematischen Operatoren,
-                            Kontrollstrukturen und mehr kennen!
-                          </p>
-                          <p className="mt-2">
-                            Fülle diese{' '}
-                            <a
-                              href="https://docs.google.com/forms/d/e/1FAIpQLScLvOw2ZD2_DGeiWPFNXxHR0DjlBHSIxAU5b72su_zPXyoVTg/viewform?usp=preview"
-                              target="_blank"
-                              rel="noreferrer"
-                              className="link text-pink-500 font-bold"
-                            >
-                              Umfrage zum Python-Lernpfad
-                            </a>{' '}
-                            aus und hilf so bei der Gestaltung des Lernpfads
-                            mit! Eine erste Version kann bereits ausprobiert
-                            werden, weitere Inhalte sind in Planung 🚧.
+                            In den ruhigen Jahren in Jackson beschließt Ellie,
+                            sich das Programmieren beizubringen. Keine einfache
+                            Sache! Zum Glück steht ihr Joel immer treu zur
+                            Seite. Begleite Ellie, wie sie die Grundlagen von
+                            Python lernt, von Ein-/Ausgabe über Variablen und
+                            Schleifen bis hin zu dem Moment, wo sie bereit ist
+                            für ihr großes Projekt.
                           </p>
                         </div>
                       </AnimateInView>
@@ -720,7 +707,7 @@ export function Overview() {
                               className="h-9 mr-2"
                             />
                             <p className="font-bold mb-1 text-gray-500 text-lg">
-                              Python Mini-Projekte
+                              Bonus: Python Mini-Projekte
                             </p>
                           </div>
                           <a
