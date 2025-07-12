@@ -18,7 +18,7 @@ _Ellie stößt ein frustriertes Geräusch aus und schiebt das Buch von sich._
 **Joel**: Hey, hey. Rom wurde auch nicht an einem Tag erbaut. Und dein letzter Kochversuch hat auch nicht auf Anhieb...  
 **Ellie**: Stopp!! Darüber reden wir nicht!  
 **Joel**: Okay, okay. Dir scheint das wichtig zu sein. Wie wäre es damit: Nach dem Abendessen setze ich mich einfach zu dir. Du versuchst es nochmal in Ruhe, und ich sorge dafür, dass du das blöde Buch nicht aus dem Fenster wirfst. Manchmal braucht man nur ein zweites Paar Augen daneben. Deal?  
-**Ellie** (schaut Joel forsch an): Du bist immer noch nicht mein Dad ... aber du hilfst mir, versprochen?  
+**Ellie** (mit forschen Blick): Du bist immer noch nicht mein Dad ... aber du hilfst mir, versprochen?  
 **Joel**: Hab ich dich je in Stich gelassen?
 
 _Ellie schaut ihn einen Moment lang an. Ein kaum merkliches Lächeln umspielt ihre Lippen. Sie steht auf und streckt sich._
