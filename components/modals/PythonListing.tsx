@@ -50,6 +50,7 @@ export function PythonListing() {
           <h1 className="font-bold text-2xl mt-4 mb-6 text-center">
             Liste aller Python-Aufgaben
           </h1>
+          {/* AI-generated listing */}
           <div className="space-y-6">
             {pythonCategories.map((category) => (
               <div key={category.title} className="p-4 border rounded-lg">

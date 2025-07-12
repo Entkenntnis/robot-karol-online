@@ -1049,7 +1049,7 @@ export function Overview() {
                           dontFade={numberOfSolvedQuests > 0 || id != 10001}
                         >
                           <button
-                            className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+                            className="w-[100px] block hover:bg-white/20 rounded-xl cursor-pointer text-center"
                             onClick={(e) => {
                               submitAnalyzeEvent(
                                 core,
