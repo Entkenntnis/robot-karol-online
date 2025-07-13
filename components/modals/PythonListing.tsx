@@ -54,9 +54,14 @@ export function PythonListing() {
           </h1>
           {/* AI-generated listing */}
           <div className="space-y-6">
-            {pythonCategories.map((category) => (
+            {pythonCategories.map((category, i) => (
               <div key={category.title} className="p-4 border rounded-lg">
-                <h2 className="font-bold text-lg mb-3 text-gray-800">
+                <h2
+                  className={clsx(
+                    'font-bold text-lg mb-3',
+                    isQuestDone(10001 + i) ? 'text-gray-800' : 'text-gray-400'
+                  )}
+                >
                   {category.title}
                 </h2>
                 {category.quests.length > 0 ? (
@@ -65,8 +70,10 @@ export function PythonListing() {
                       <li
                         key={quest.id}
                         className={clsx(
-                          'p-2 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors cursor-pointer',
+                          'p-2 rounded-md transition-colors cursor-pointer',
                           isQuestDone(quest.id)
+                            ? 'bg-green-100 hover:bg-green-200'
+                            : 'bg-gray-50 hover:bg-gray-100'
                         )}
                         onClick={() => {
                           setQuestReturnToMode('path')
