@@ -1,5 +1,5 @@
 {
-  "title": "Variablen",
+  "title": "Glückbringer",
   "quests": [
     { "filename": "Lieblinge.json", "x": 540, "y": 30 },
     { "filename": "Korrekturen.json", "x": 620, "y": 184 },
@@ -11,7 +11,7 @@
     { "filename": "Quiz.json", "x": 777, "y": 210 },
     { "filename": "Hin_und_her.json", "x": 850, "y": 90 }
   ],
-  "x": 710,
+  "x": 640,
   "y": 1640,
   "image": "/story/1_v2.jpg"
 }

@@ -252,6 +252,7 @@ export function deserializeQuestToData(
           questScript: '',
         }
       : undefined,
+    chats: quest.chats,
   }
 }
 

@@ -1,5 +1,6 @@
 {
   "keys": {
+    "000-intro/Begrüßung.json": 147,
     "010-variablen/Lieblinge.json": 138,
     "010-variablen/Korrekturen.json": 143,
     "010-variablen/Drei_Wünsche.json": 144,
@@ -25,5 +26,5 @@
     "999-fundgrube/68.json": 107,
     "999-fundgrube/69.json": 108
   },
-  "counter": 147
+  "counter": 148
 }

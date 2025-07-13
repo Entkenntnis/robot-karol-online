@@ -11,15 +11,51 @@ const chapterInfo = [
     "originalTitle": "Alles ist scheiße",
     "description": "# Alles ist scheiße\r\n\r\n_Es klopft an der Tür zu Ellies Garage._\r\n\r\n**Ellie**: Ja?  \r\n**Joel**: Kann ich reinkommen?  \r\n**Ellie**: Ausnahmsweise.\r\n\r\n_Joel mustert Ellie, wie sie mit gerunzelter Stirn über ein aufgeschlagenes Buch gebeugt sitzt, neben ihr ein alter Laptop._\r\n\r\n**Joel**: Hey Kiddo, das Abendessen ist fertig. Was machst du da so verbissen?\r\n\r\n_Ellie stößt ein frustriertes Geräusch aus und schiebt das Buch von sich._\r\n\r\n**Ellie**: Ich versuche, nicht dumm zu sein.  \r\n**Joel** (tritt näher, seine Augen überfliegen den Titel): \"Python für Einsteiger\" ... seit wann interessierst du dich dafür?  \r\n**Ellie** (verschränkt die Arme): Ich dachte, es wäre vielleicht ... nützlich. Stell dir vor, wir könnten Programme schreiben, um die Patrouillen zu planen. Oder das verdammte Inventar zu verwalten, damit wir wissen, wie viele Konservern noch da sind. Aber ich scheitere schon an der allerersten Übung. Es ist alles scheiße!\r\n**Joel**: Hey, hey. Rom wurde auch nicht an einem Tag erbaut. Und dein letzter Kochversuch hat auch nicht auf Anhieb ...  \r\n**Ellie**: Stopp!! Darüber reden wir nicht!  \r\n**Joel**: Okay, okay. Dir scheint das wichtig zu sein. Wie wäre es damit: Nach dem Abendessen setze ich mich einfach zu dir. Du versuchst es nochmal in Ruhe, und ich sorge dafür, dass du das blöde Buch nicht aus dem Fenster wirfst. Manchmal braucht man nur ein zweites Paar Augen daneben. Deal?  \r\n**Ellie** (mit forschen Blick): Du bist immer noch nicht mein Dad ... aber du hilfst mir, versprochen?  \r\n**Joel**: Hab ich dich je in Stich gelassen?\r\n\r\n_Ellie schaut ihn einen Moment lang an. Ein kaum merkliches Lächeln umspielt ihre Lippen. Sie steht auf und streckt sich._\r\n\r\n**Ellie**: Dann zeig mal, ob sich deine Kochkünste verbessert haben. Ich habe plötzlich richtig Hunger.\r\n",
     "image": "/story/ellie0.jpg",
-    "quests": [],
+    "quests": [
+      {
+        "filename": "Begrüßung.json",
+        "x": 870,
+        "y": 170,
+        "id": 147,
+        "content": {
+          "version": "v1",
+          "title": "Begrüßung",
+          "description": "*Nach dem Abendessen in Ellies Garage*\n\n**Joel**: Los geht's.  \n**Ellie**: Die erste Übung ist eigentlich nicht kompliziert. Mit `print()` kann mein Programm sprechen und ich möchte zwei Sachen sagen, das siehst du an den zwei hellblauen Sprechblasen unten. Wenn ich Texte schreiben will, müssen sie mit Anführungszeichen beginnen und enden. Links ist mein Programm, aber es enthält einen Fehler, den ich nicht finde.  \n**Joel**: Was schaust du mich so an? Du bist die Expertin, na los! Finde den Fehler und bringe das Programm zum Laufen.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Hallo, Jackson!"
+                },
+                {
+                  "role": "out",
+                  "text": "Ich lerne jetzt Programmieren!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": "print(\"Hallo, Jackson!\")\nprint(\"Ich lerne jetzt Programmieren!)"
+        },
+        "deps": [
+          10001
+        ]
+      }
+    ],
     "x": 930,
     "y": 1520
   },
   {
     "id": 10002,
     "dirName": "010-variablen",
-    "title": "1. Variablen",
-    "originalTitle": "Variablen",
+    "title": "1. Glückbringer",
+    "originalTitle": "Glückbringer",
     "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nIm Karols Atelier sind einige Laptops aufgestellt, an der einzig freien Wand projeziert ein Beamer, den man aber im hellen Licht kaum lesen kann. \"Den werden wir erstmal nicht brauchen, solange ihr zu zweit seid\", bemerkt Emi.\r\n\r\nDu traust dich dann doch zu fragen: \"Kommen noch weitere Leute?\" Karol nickt: \"Ein paar weitere Gäste haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen.\" Karol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.\r\n\r\n\"Ich möchte mit Variablen anfangen. Diese sind sind ein entspannter Einstieg. Stellt es euch so vor: Der Computer muss sich ja viele Dinge merken. Und jede Information speichert dein Programm in einer solchen Variable.\" Emi fängt an zu tippen:\r\n\r\n```py\r\nfarbe = \"blasslila\"\r\npinsel_größe = 13\r\nbild_breite_cm = 27.8\r\nist_inspiriert = True\r\n```\r\n\r\n\"So kannst du, meine Tante, dir die wichtigsten Dinge notieren, falls du sie mal wieder vergisst.\"\r\n\r\n\"Hey, so alt bin ich auch wieder nicht\", beschwert sich Karol. Gut zu wissen, dass Emi nicht nur dir gegenüber etwas schnippisch ist.\r\n\r\n\"Sind das alle Arten von Informationen, die man speichern kann?\", fragt Karol zurück. \"Ich würde erstmal mit diesen anfangen\", erklärte Emi. \"Später kannst du aus diesen grundlegenden Datentypen größere Objekte bauen oder eine Liste anlegen. Ah, ich sollte vielleicht noch ein paar Details ergänzen.\r\n\r\nDieses Gleichheitszeichen (`=`) ist eine Wertzuweisung:\r\n\r\n```\r\n<Name der Variable> = <Wert>\r\n```\r\n\r\nDabei wird der alte Wert der Variable weggeschmissen und der neue Wert geschrieben. Der Name ist wichtig, denn nur mit diesem kannst du auf die Information zugreifen. Du kannst einer Variable jederzeit einen neuen Wert zuweisen:\r\n\r\n```py\r\nfarbe = \"grün\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"grün\"\r\n\r\nfarbe = \"rot\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"rot\"\r\n\r\nfarbe = \"dunkelviolett\"\r\n```\r\n\r\nJede Variable hat außerdem einen Typ. Nicht wie die Typen auf der Straße, sondern im Sinne von Kategorie. Ihr habt die vier wichtigsten Typen jetzt gesehen, ich fasse sie für euch nochmal zusammen.\r\n\r\n## Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 📝 Kommentare\r\n\r\n```py\r\n# die Lieblingsfarbe meiner Tante\r\nfarbe = \"?\" # bitte noch ausfüllen\r\n```\r\n\r\nDie grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und werden vom Computer ignoriert.\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nIhr dürft die Variablenamen fast beliebig wählen. Ein paar wenige Sachen sind nicht erlaubt:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang geht nicht\r\nmein-name = \"Emi\" # Bindestrich nicht erlaubt\r\nclass = 8         # Schlüsselwörter verboten\r\n```\r\n\r\nAchte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen Unterschied und `alter` ist eine andere Variable als `ALTER`.\r\n\r\n## 🏋️ Übungen\r\n\r\nBis hierher alles klar?\", Emi blickt uns beide an. Du nickst brav, Karol ist voller Tatendrang und bittet Emi, uns ein paar Übungsaufgaben zu stellen, damit wir die Theorie etwas üben können. Sie antwortet nur: \"Ich wäre doch eine schlechte Dozentin wenn ich keine Übungsaufgaben vorbereitet hätte.\"\r\n",
     "image": "/story/1_v2.jpg",
     "quests": [
@@ -1002,7 +1038,7 @@ const chapterInfo = [
         ]
       }
     ],
-    "x": 710,
+    "x": 640,
     "y": 1640
   },
   {

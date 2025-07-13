@@ -326,6 +326,11 @@ function* runnerGenerator(core: Core) {
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }, 100)
 
+  // this will be persisted
+  core.mutateWs((ws) => {
+    ws.quest.completedOnce = true
+  })
+
   showModal(core, 'success')
 }
 

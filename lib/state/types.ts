@@ -498,6 +498,7 @@ export interface QuestData {
   title: string
   description: string
   tasks: QuestTask[]
+  chats?: ChatTask[]
   difficulty: string
   audioSrc?: string
   script?: {

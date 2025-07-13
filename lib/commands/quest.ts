@@ -215,6 +215,11 @@ export function startQuest(core: Core, id: number) {
       ws.settings.mode = 'code'
       ws.ui.lockLanguage = 'karol'
     }
+
+    if (data.chats) {
+      quest.chats = data.chats
+      ui.isChatMode = true
+    }
     ws.page = 'quest'
   })
   // switchToPage(core, 'quest')

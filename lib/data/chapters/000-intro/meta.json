@@ -1,6 +1,6 @@
 {
   "title": "Alles ist scheiße",
-  "quests": [],
+  "quests": [{ "filename": "Begrüßung.json", "x": 870, "y": 170 }],
   "image": "/story/ellie0.jpg",
   "x": 930,
   "y": 1520

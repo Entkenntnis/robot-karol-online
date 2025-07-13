@@ -9,6 +9,8 @@ import {
   setLearningPathScroll,
   setQuestReturnToMode,
 } from '../../lib/storage/storage'
+import clsx from 'clsx'
+import { isQuestDone } from '../../lib/helper/session'
 
 export function PythonListing() {
   const core = useCore()
@@ -62,7 +64,10 @@ export function PythonListing() {
                     {category.quests.map((quest) => (
                       <li
                         key={quest.id}
-                        className="p-2 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
+                        className={clsx(
+                          'p-2 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors cursor-pointer',
+                          isQuestDone(quest.id)
+                        )}
                         onClick={() => {
                           setQuestReturnToMode('path')
                           const scroll =
