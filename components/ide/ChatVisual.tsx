@@ -22,9 +22,9 @@ export function ChatVisual() {
       className="bg-slate-100 top-0 sticky z-[100] border-b-2 border-gray-300"
       style={{ backgroundImage: 'url("/bright-squares.png")' }}
     >
-      <div className="absolute right-4 top-2">
+      <div className="absolute left-4 top-2">
         <button
-          className="text-gray-500 underline"
+          className="text-gray-600 underline"
           onClick={() => {
             if (core.ws.ui.state == 'running') {
               stopChatRunner(core)
