@@ -19,7 +19,7 @@ const chapterInfo = [
         "id": 147,
         "content": {
           "version": "v1",
-          "title": "Hallo!",
+          "title": "Fehlersuche",
           "description": "*Nach dem Abendessen in Ellies Garage*\n\n**Joel**: Los geht's.  \n**Ellie**: Die erste Übung ist eigentlich nicht kompliziert. Mit `print()` kann mein Programm sprechen und ich möchte zwei Sachen sagen, das siehst du an den zwei hellblauen Sprechblasen unten. Wenn ich Texte schreiben will, müssen sie mit Anführungszeichen beginnen und enden. Links ist mein Programm, aber es enthält einen Fehler, den ich nicht finde.  \n**Joel**: Was schaust du mich so an? Du bist die Expertin, na los! Finde den Fehler und bringe das Programm zum Laufen.",
           "tasks": [],
           "lng": "de",
