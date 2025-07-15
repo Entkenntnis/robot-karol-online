@@ -713,6 +713,9 @@ Diese Werke sind nicht ganz fertig geworfen. Sie warten auf eine Person, die sie
 
 <img width="160" height="71" alt="Unbenannt" src="https://github.com/user-attachments/assets/cc23befe-f79a-4853-abb8-3614d91b4603" />
 
+### Tür [LADEN](https://karol.arrrg.de/#ROBOT:data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABHCAYAAACAjkwXAAAAAXNSR0IArs4c6QAAAdlJREFUeF7t1kFKA2EQhFFzr5wka4+VtSfxXoquREmgoKB+4bnv7vHNN+Llfrt+vPghMBK4CHAk7+y3gACFMBUQ4JTfcQFqYCogwCm/4wLUwFRAgFN+xwWogamAAKf8jgtQA1MBAU75HRegBqYCApzyOy5ADUwFBDjld1yAGpgKCHDK77gANTAVEOCU33EBamAqIMApv+MC1MBUQIBTfscFqIGpgACn/I4LUANTAQFO+R0XoAamAgKc8jsuQA1MBQQ45XdcgBqYCghwyu+4ADUwFfgT4Ovb+8MHut+u04c9+dmmMP/4uACLL88HkmM+DXD9F+/3r/PzBZ/2bF/PenKApz6b/wHzj/bhxMkfiACLL9qqXODUj8NfwPxdmigKCLCIaVUuIMDczERRQIBFTKtyAQHmZiaKAgIsYlqVCwgwNzNRFBBgEdOqXECAuZmJooAAi5hW5QICzM1MFAUEWMS0KhcQYG5moiggwCKmVbmAAHMzE0UBARYxrcoFBJibmSgKCLCIaVUuIMDczERRQIBFTKtyAQHmZiaKAgIsYlqVCwgwNzNRFBBgEdOqXECAuZmJooAAi5hW5QICzM1MFAUEWMS0KhcQYG5moiggwCKmVbmAAHMzE0WBTz0Av9/5JXHhAAAAAElFTkSuQmCC)
+
+<img width="160" height="71" alt="Unbenannt" src="https://github.com/user-attachments/assets/6a98ec8c-b4bb-4f68-8218-e5b41247d943" />
 
 
 
