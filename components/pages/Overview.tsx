@@ -1060,6 +1060,7 @@ export function Overview() {
                               })
                               showModal(core, 'explanation')
                             }}
+                            id={`explanation-icon-${id}`}
                           >
                             <p className="text-center whitespace-nowrap flex justify-center ">
                               <span className="bg-white/50 px-2 rounded">
