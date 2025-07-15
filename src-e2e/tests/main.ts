@@ -283,7 +283,7 @@ Scenario('Reset code should not break lock language', ({ I }) => {
   I.dontSee('Hauptprogramm')
 })
 
-Scenario('Ellie, some testing', ({ I }) => {
+Scenario('Ellie, some testing', async ({ I }) => {
   I.amOnPage('/')
   I.dontSee('1. Glücksbringer')
   I.click('0. Alles ist scheiße')
@@ -297,7 +297,12 @@ Scenario('Ellie, some testing', ({ I }) => {
   I.click('Start')
   I.waitForText('weiter', 10)
   I.click('weiter')
-  I.click('Fortschritt speichern')
+  const saveProgress = await I.grabNumberOfVisibleElements(
+    'Fortschritt speichern'
+  )
+  if (saveProgress > 0) {
+    I.click('Fortschritt speichern')
+  }
   I.click('#explanation-icon-10002')
   I.scrollPageToBottom()
   I.click('Weiter')
