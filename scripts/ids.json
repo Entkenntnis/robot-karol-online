@@ -1,11 +1,9 @@
 {
   "keys": {
     "000-intro/Begrüßung.json": 147,
-    "010-variablen/Lieblinge.json": 138,
-    "010-variablen/Korrekturen.json": 143,
-    "010-variablen/Drei_Wünsche.json": 144,
-    "010-variablen/Quiz.json": 141,
-    "010-variablen/Hin_und_her.json": 142,
+    "010-variablen/a__Flachwitz.json": 149,
+    "010-variablen/b__Papagei.json": 150,
+    "010-variablen/c__Echo.json": 151,
     "020-eingabe-ausgabe/Begrüßung.json": 121,
     "020-eingabe-ausgabe/Harry_Potter_Fan.json": 122,
     "020-eingabe-ausgabe/Explosion.json": 145,
@@ -26,5 +24,5 @@
     "999-fundgrube/68.json": 107,
     "999-fundgrube/69.json": 108
   },
-  "counter": 148
+  "counter": 152
 }

@@ -1,15 +1,9 @@
 {
   "title": "Glückbringer",
   "quests": [
-    { "filename": "Lieblinge.json", "x": 540, "y": 30 },
-    { "filename": "Korrekturen.json", "x": 620, "y": 184 },
-    {
-      "filename": "Drei_Wünsche.json",
-      "x": 428,
-      "y": 144
-    },
-    { "filename": "Quiz.json", "x": 777, "y": 210 },
-    { "filename": "Hin_und_her.json", "x": 850, "y": 90 }
+    { "filename": "a__Flachwitz.json", "x": 740, "y": 130 },
+    { "filename": "b__Papagei.json", "x": 610, "y": 160 },
+    { "filename": "c__Echo.json", "x": 450, "y": 50 }
   ],
   "x": 640,
   "y": 1640,

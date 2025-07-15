@@ -60,978 +60,201 @@ const chapterInfo = [
     "image": "/story/joel1.jpg",
     "quests": [
       {
-        "filename": "Lieblinge.json",
-        "x": 540,
-        "y": 30,
-        "id": 138,
+        "filename": "a__Flachwitz.json",
+        "x": 740,
+        "y": 130,
+        "id": 149,
         "content": {
           "version": "v1",
-          "title": "Lieblinge",
-          "description": "Emi und ich kennen uns ja schon ganz gut, aber magst du vielleicht ein paar Sachen über dich mitteilen?\n\nNutze für die Variablen einen passenden Datentyp und setze sie auf die Werte, die für dich passen.",
-          "tasks": [
-            {
-              "title": "Herz",
-              "start": {
-                "dimX": 7,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 7,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      1,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 7,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 7,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      1,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
+          "title": "a) Flachwitz",
+          "description": "**Ellie:** Karol, mache dich bereit für den besten Witz der Welt!\n\n---\n\nSchreibe ein Programm, dass Karol einen Witz erzählt, gehe so vor:\n\n1. Stelle die Frage mit `print()`.\n2. Schreibe `input()` und lasse Karol sprechen.\n3. Nutze wieder `print()` für die Pointe.\n4. Und nochmal für das Lachen.",
+          "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Bereit, deine Vorlieben zu teilen?\", \"Los geht's\")\n\n__ide_run_client()\n\n# Prüfen, ob alle Variablen definiert sind\nvariablen = [\"lieblingsfarbe\", \"lieblingszahl\", \"mag_winter\", \"mag_frühling\", \"mag_sommer\", \"mag_herbst\"]\n\nfor var in variablen:\n    if var not in globals() or globals()[var] is None:\n        __ide_prompt(f'Variable `{var}` fehlt oder ist None!', 'Beenden')\n        __ide_exit()\n\n# Typprüfungen\nif not isinstance(lieblingsfarbe, str):\n    __ide_prompt('Die Lieblingsfarbe sollte ein Text sein (str).', 'Korrigieren')\n    __ide_exit()\n\nif not isinstance(lieblingszahl, (int, float)):\n    __ide_prompt('Die Lieblingszahl sollte eine Zahl sein (int oder float).', 'Korrigieren')\n    __ide_exit()\n\n# Prüfen der Jahreszeiten-Vorlieben\njahreszeiten = [mag_winter, mag_frühling, mag_sommer, mag_herbst]\nfor i, jahreszeit in enumerate(jahreszeiten):\n    if not isinstance(jahreszeit, bool):\n        jahreszeit_name = variablen[i+2]\n        __ide_prompt(f'`{jahreszeit_name}` sollte ein Wahrheitswert sein (bool).', 'Korrigieren')\n        __ide_exit()\n\n# Ausgabe der Lieblingswerte\nprint(f\"Deine Lieblingsfarbe ist: {lieblingsfarbe}\")\nprint(f\"Deine Lieblingszahl ist: {lieblingszahl}\")\nprint(f\"Du magst den Winter: {mag_winter}\")\nprint(f\"Du magst den Frühling: {mag_frühling}\")\nprint(f\"Du magst den Sommer: {mag_sommer}\")\nprint(f\"Du magst den Herbst: {mag_herbst}\")\n\n__ide_set_progress(True)\n__ide_prompt('Danke für deine Eingaben! Das Quantensystem hat deine Vorlieben registriert. 🚀', 'Weiter')",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie nennt man einen Bumerang, der nicht zurückkommt?"
+                },
+                {
+                  "role": "in",
+                  "text": "Weiß ich nicht"
+                },
+                {
+                  "role": "out",
+                  "text": "Stock"
+                },
+                {
+                  "role": "out",
+                  "text": "Hahahahaha"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
-          "program": "# Setze deine persönlichen Vorlieben\n\n# Lieblingsfarbe als Text (String)\nlieblingsfarbe = None\n\n# Lieblingszahl als Ganzzahl (int) oder Kommazahl (float)\nlieblingszahl = None\n\n# Jahreszeiten-Vorlieben als Wahrheitswerte (bool: True/False)\nmag_winter = None\nmag_frühling = None\nmag_sommer = None\nmag_herbst = None"
+          "program": ""
         },
         "deps": [
           10002
         ]
       },
       {
-        "filename": "Korrekturen.json",
-        "x": 620,
-        "y": 184,
-        "id": 143,
+        "filename": "b__Papagei.json",
+        "x": 610,
+        "y": 160,
+        "id": 150,
         "content": {
           "version": "v1",
-          "title": "Korrekturen",
-          "description": "Emi hat ein paar Übungsaufgaben für dich und Karol vorbereitet. In diesem Code sind einige Variablen falsch definiert. Bitte korrigiere sie.\n\nHinweise:\n- Beim Namen fehlen die Anführungszeichen\n- Die Note soll eine Kommazahl sein\n- Setze Pinselgröße auf die positive Zahl 34\n- Setze ist_inspiriert auf den Wahrheitswert True",
-          "tasks": [
-            {
-              "title": "Bug",
-              "start": {
-                "dimX": 5,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 5,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
+          "title": "b) Papagei",
+          "description": "Dein Programm soll die Eingabe von Karol speichern und wieder ausgeben, wie ein Papagei. Dafür benötigst du eine Variable, diese kannst du so anlegen:\n\n```py\nwort = input()\n```\n\nWenn Karol was sagt, ist ihre Antwort jetzt in der Variable `wort` gespeichert.\n\nDu kannst diese Variable wieder ausgeben:\n\n```py\nprint(wort)\n```",
+          "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Emi's Workshop: Variablen korrigieren\", \"Übung starten\")\n\n__ide_run_client()\n\nsystem_checks = [\n    ('farbe', str, \"blasslila\", \"Text in Anführungszeichen\"),\n    ('note', float, 2.3, \"Kommazahl\"),\n    ('pinsel_größe', int, 34, \"positive Zahl\"),\n    ('ist_inspiriert', bool, True, \"Wahrheitswert\")\n]\n\nfor var, typ, wert, hinweis in system_checks:\n    if var not in globals():\n        __ide_prompt(f'Fehler: `{var}` nicht gefunden!', 'Korrigieren')\n        __ide_exit()\n    \n    if not isinstance(globals()[var], typ):\n        __ide_prompt(f'Datentypfehler: `{var}` muss {hinweis} sein', 'Korrigieren')\n        __ide_exit()\n    \n    if globals()[var] != wert:\n        __ide_prompt(f'`{var}` zeigt {globals()[var]} statt {wert}!', 'Wert korrigieren')\n        __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Sehr gut! Emi nickt anerkennend: \"Das habt ihr richtig gemacht!\"', 'Weiter')",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Ich bin ein Papagei."
+                },
+                {
+                  "role": "in",
+                  "text": "Marmelade"
+                },
+                {
+                  "role": "out",
+                  "text": "Marmelade"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Ich bin ein Papagei."
+                },
+                {
+                  "role": "in",
+                  "text": "Clicker"
+                },
+                {
+                  "role": "out",
+                  "text": "Clicker"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Ich bin ein Papagei."
+                },
+                {
+                  "role": "in",
+                  "text": "Cordyceps"
+                },
+                {
+                  "role": "out",
+                  "text": "Cordyceps"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
-          "program": "# Korrigiere die Variablen nach Emis Anweisungen\n\nfarbe = blasslila\n\nnote = \"2.3\"\npinsel_größe = -34\n\nist_inspiriert = None"
+          "program": ""
         },
         "deps": [
           10002
         ]
       },
       {
-        "filename": "Drei_Wünsche.json",
-        "x": 428,
-        "y": 144,
-        "id": 144,
+        "filename": "c__Echo.json",
+        "x": 450,
+        "y": 50,
+        "id": 151,
         "content": {
           "version": "v1",
-          "title": "Drei Wünsche",
-          "description": "Jetzt ist eure Kreativität gefordert. Wenn ihr drei Wünsche hättet, wie würden sie lauten? Achtet auf diese Bedingungen:\n\n- Es müssen genau drei Wünsche sein, nicht mehr und nicht weniger.\n- Jeder Wunsch ist eine Wertzuweisung auf eine Variable wie `kontostand_in_euro = 1000000`.\n- Jeder Wunsch nutzt einen anderen Datentyp.",
-          "tasks": [
-            {
-              "title": "Sternschnuppe",
-              "start": {
-                "dimX": 8,
-                "dimY": 8,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 3,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      0,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 8,
-                "dimY": 8,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 3,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      0,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
+          "title": "c) Echo",
+          "description": "Speichere das Wort von Karol in einer Variable und gib es dreimal als Echo aus:\n\n```py\nwort = input()\nprint(wort)\n...\n```",
+          "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Das sind also unsere Wünsche!\", \"Simsalabim\")\n\n__ide_run_client()\n\n# Variablen sammeln (ohne Systemvariablen)\nuser_vars = [v for v in globals() if not v.startswith('__ide_') and v != '__builtins__' and v != 'Robot']\n\ntypen = [type(globals()[v]).__name__ for v in user_vars]\n\nerforderliche_typen = {'int', 'float', 'str', 'bool'}\n\nif len(user_vars) != 3:\n    __ide_prompt(f'❌ Falsche Anzahl Wünsche: {len(user_vars)} statt 3', 'Nochmal versuchen')\n    __ide_exit()\n\nif len(set(typen)) < 3:\n    doppelte = [t for t in ['int','float','str', 'bool'] if typen.count(t) > 1]\n    __ide_prompt(f'❌ Doppelte Datentypen: {\", \".join(doppelte)}', 'Typen prüfen')\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Das klingt wunderbar ٩(^‿^)۶')",
-          "language": "python-pro",
-          "program": "# Notiere deine drei Wünsche:\n\n"
-        },
-        "deps": [
-          10002
-        ]
-      },
-      {
-        "filename": "Quiz.json",
-        "x": 777,
-        "y": 210,
-        "id": 141,
-        "content": {
-          "version": "v1",
-          "title": "Quiz",
-          "description": "Meine Tante mag Quiz-Fragen, deshalb gibt es hier ein Quiz für euch.\n\nWeise den drei Variablen den richtigen Wert zu. Wähle jeweils einen passenden Datentyp. Achte auf Groß-/Kleinschreibung.",
-          "tasks": [
+          "questScript": "",
+          "chats": [
             {
-              "title": "Quiz",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Hallooooooooooo"
                 },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                {
+                  "role": "out",
+                  "text": "Hallooooooooooo"
                 },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true
-                    ]
-                  ]
+                {
+                  "role": "out",
+                  "text": "Hallooooooooooo"
                 },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                {
+                  "role": "out",
+                  "text": "Hallooooooooooo"
                 }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Buuuuuuuuuh!"
                 },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                {
+                  "role": "out",
+                  "text": "Buuuuuuuuuh!"
                 },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true
-                    ]
-                  ]
+                {
+                  "role": "out",
+                  "text": "Buuuuuuuuuh!"
                 },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                {
+                  "role": "out",
+                  "text": "Buuuuuuuuuh!"
                 }
-              }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Na naaa Na na na"
+                },
+                {
+                  "role": "out",
+                  "text": "Na naaa Na na na"
+                },
+                {
+                  "role": "out",
+                  "text": "Na naaa Na na na"
+                },
+                {
+                  "role": "out",
+                  "text": "Na naaa Na na na"
+                }
+              ]
             }
           ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Bereit für das Quiz?\", \"Quiz starten\")\n\n__ide_run_client()\n\nquiz_checks = [\n    ('hauptstadt_deutschland', str, \"Berlin\", \"Text in Anführungszeichen\"),\n    ('ende_des_zweiten_weltkriegs', int, 1945, \"Ganzzahl\"),\n    ('ein_viertel_als_dezimalzahl', float, 0.25, \"Kommazahl\")\n]\n\nfehler = 0\nresultate = []\n\nfor var, typ, wert, hinweis in quiz_checks:\n    if var not in globals():\n        resultate.append(f'❌ Variable `{var}` fehlt!\\n\\n')\n        fehler += 1\n        continue\n    \n    if not isinstance(globals()[var], typ):\n        resultate.append(f'❌ `{var}` hat nicht den richtigen Datentyp\\n\\n')\n        fehler += 1\n        continue\n    \n    if globals()[var] != wert:\n        resultate.append(f'❌ `{var}` hat den falschen Wert: {globals()[var]}\\n\\n')\n        fehler += 1\n        continue\n        \n    resultate.append(f'✅ `{var}` ist korrekt!\\n\\n')\n\nif fehler > 0:\n    message = \"\\n\".join(resultate)\n    __ide_prompt(f'Es gibt noch {fehler} Fehler:\\n\\n{message}', 'Nochmal versuchen')\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Super! 🎉 Alle Fragen wurden richtig beantwortet!', 'Fertig')",
           "language": "python-pro",
-          "program": "# Schreibe hier deine Antworten auf\n\nhauptstadt_deutschland = None\nende_des_zweiten_weltkriegs = None\nein_viertel_als_dezimalzahl = None"
-        },
-        "deps": [
-          10002
-        ]
-      },
-      {
-        "filename": "Hin_und_her.json",
-        "x": 850,
-        "y": 90,
-        "id": 142,
-        "content": {
-          "version": "v1",
-          "title": "Hin und her",
-          "description": "Zeigt mal, ihr beiden, ob ihr auch mit etwas Chaos klarkommt. Die Variablen wurden ohne erkennbares Muster hin und her gesetzt.\n\nSchaut euch das Script an und findet heraus, welchen Wert die Variable `erde` am Ende des Programms hat. Wenn du die Antwort weißt, dann klicke auf Start.",
-          "tasks": [
-            {
-              "title": "Ein Durcheinander",
-              "start": {
-                "dimX": 5,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      1
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      0,
-                      3,
-                      0
-                    ],
-                    [
-                      2,
-                      0,
-                      0,
-                      1,
-                      3
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 5,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      1
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      0,
-                      3,
-                      0
-                    ],
-                    [
-                      2,
-                      0,
-                      0,
-                      1,
-                      3
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Haha, von dem bisschen Chaos werden wir uns nicht verwirren lassen!\", \"Natürlich nicht!\")\n\nergebnis = input(\"Welchen Wert hat am Ende des Programms die Variable Erde?\")\n\nif ergebnis != \"hase\":\n    __ide_prompt(\"Das ist leider nicht die richtige Antwort.\", \"Nochmal\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"erde = himmel, himmel = blau, blau = a, a = \\\"hase\\\" - so behälten wir den Überblick :)\")",
-          "language": "python-pro",
-          "program": "a = \"hase\"\nb = \"fuchs\"\nc = \"eule\"\n\nrot = c\ngrün = b\nblau = a\n\nhimmel = a\nerde = rot\nhimmel = blau\nerde = himmel\n\n# Welchen Wert hat `erde` hier?"
+          "program": ""
         },
         "deps": [
           10002
@@ -1044,8 +267,8 @@ const chapterInfo = [
   {
     "id": 10003,
     "dirName": "020-eingabe-ausgabe",
-    "title": "2. Interaktionen",
-    "originalTitle": "Interaktionen",
+    "title": "2. TODO",
+    "originalTitle": "TODO",
     "description": "# 💬 Kapitel 2: Interaktionen\r\n\r\n\"Wir kommen voran!\", feiert Karol mit einem strahlenden Lächeln. \"Mal sehen, was uns als Nächstes erwartet. Davor muss ich mal kurz.\" Sie verschwindet für ein paar Minuten und du bist mit Emi alleine. Du nutzt die Zeit, dich ein wenig im Atelier umzusehen. Die Wände sind übersät mit bunten Bildern, und du bist überrascht, dass viele von Karols Kunstwerken fast kindlich anmuten – farbenfroh, fantasievoll und voller Lebensfreude.\r\n\r\nEmi tippt währenddessen konzentriert auf ihrem Laptop. \"Willst du auch einen Blick darauf werfen?\", fragt sie plötzlich, etwas weniger schroff als zuvor. Du nickst und siehst Codezeilen über ihren Bildschirm flimmern. Aber sobald Karol wieder da ist, klappt sie den Laptop wieder zu und ist wieder ganz ernst.\r\n\r\n\"Was für Kunst machst du eigentlich?\", fragst du, als Karol wieder erscheint. Die alte Dame antwortet mit einem verschmitzten Grinsen: \"Haha, das ist eine komplizierte Sache. Früher habe ich mich mit abstrakter Kunst beschäftigt, aber heute male ich hauptsächlich Bilder, die ich an Schulen verschenke, um die Kinder dort ein wenig zu inspirieren...\"\r\n\r\nKarol schaut für einen kurzen Moment verträumt in die Ferne, dann findet sie sich wieder: \"Kunst und Programmieren haben übrigens mehr gemeinsam, als man denkt – bei beiden geht es um Kreativität und Kommunikation!\"\r\n\r\nEmi übernimmt wieder: \"Kommunikation ist das perfekte Stichwort. Jetzt zeige ich euch, wie man dem Computer das Sprechen beibringt und er euch fragen stellen kann.\"\r\n\r\n## 1. Die `print()`-Funktion – sprich mit der Welt!\r\n\r\n\"Mit `print()` kannst du alles ausgeben – Texte, Zahlen oder Variablen\", erklärt Emi und tippt ein paar Beispiele:\r\n\r\n```python\r\nprint(\"Hallo Welt! 🌍\")\r\n\r\nprint(42)\r\n\r\nalter = 17\r\nprint(alter)\r\n```\r\n\r\n\"So einfach ist das?\", fragt Karol erstaunt. \"Ja, so einfach\", bestätigt Emi, \"du kannst alles, was du zeigen möchtest, zwischen die Klammern schreiben.\"\r\n\r\n## 2. Mit `f-Strings` Texte bauen\r\n\r\n\"Jetzt wird's interessant\", fährt Emi fort. \"Stell dir vor, du willst nicht nur einzelne Informationen ausgeben, sondern sie in einen schönen Satz packen.\"\r\n\r\n\"Wie bei einer Bildunterschrift in einer Ausstellung?\", fragt Karol.\r\n\r\n\"Genau! Dafür sind _f-Strings_ super praktisch\", erklärt Emi. \"Du kannst damit Text mit Variablen mischen. Schau mal:\"\r\n\r\n```python\r\nbildart = \"Ölgemälde\"\r\njahr = 1995\r\n\r\nprint(f\"Ein {bildart} aus dem Jahr {jahr}.\")\r\n\r\n# -> Ein Ölgemälde aus dem Jahr 1995.\r\n```\r\n\r\n\"Das f am Anfang des Textes ist wichtig\", betont Emi. \"Es bedeutet 'formatierter String'. Und in die geschweiften Klammern schreibst du die Variablen, deren Werte du einfügen möchtest.\"\r\n\r\n## 3. Die `input()`-Funktion – stelle Fragen!\r\n\r\nDu meintest, der Computer kan auch Fragen stellen?\", hakt Karol nach. \"Dafür haben wir die `input()`-Funktion\", antwortet Emi und tippt weiter:\r\n\r\n```python\r\n# Einfache Eingabe\r\nname = input(\"Wie heißt du? \")\r\n\r\nprint(f\"Hallo, {name}! 😊\")\r\n```\r\n\r\n\"Probier's aus\", fordert sie dich auf. Du tippst deinen Namen ein und das Programm begrüßt dich persönlich. Karol ist begeistert und klatscht in die Hände.\r\n\r\n\"Die Zeichenkette in den Klammern ist die Frage, die angezeigt wird\", erklärt Emi. \"Und was der Benutzer eingibt, wird in der Variable gespeichert.\r\n\r\n## 4. Typumwandlung – mach aus Text eine Zahl\r\n\r\nEs gibt aber einen kleinen Haken, `input` gibt immer nur einen Text zurück. Wenn ihr eine Zahl abfragen wollt, muss dieser noch in eine Zahl umwandelt werden. So, jetzt wisst ihr Bescheid, wenn euer Programm später einen Fehler wirft, dann beschwert euch nicht, ich hätte es euch nicht erklärt!\"\r\n\r\n```python\r\n# String zu Integer\r\ngeburtsjahr = int(input(\"Geburtsjahr: \"))\r\n\r\naktuelles_jahr = 2025\r\nalter = aktuelles_jahr - geburtsjahr\r\nprint(f\"Du bist etwa {alter} Jahre jung! 🎂\")\r\n```\r\n\r\n\"Die `int()`-Funktion wandelt den Text in eine ganze Zahl um\", erklärt Emi. \"Für Kommazahlen würden wir `float()` verwenden.\"\r\n\r\n## 💡 Wichtigste Erkenntnisse\r\n\r\nKarol bittet dich, einen Blick über ihre Notizen zu werfen und diese zu überprüfen:\r\n\r\n- `print()` gibt Informationen aus – deine Botschaft an die Welt\r\n- `input()` nimmt Eingaben entgegen – immer als Text (String)\r\n- `f-Strings` mit `{variable}` sind perfekt, um Texte mit Daten zu mischen\r\n- Mit `int()` und `float()` wandelst du Text in Zahlen um\r\n\r\n\"Und, passt alles?\". Du sieht keine Probleme und nickst. Du sprichst Emi an: \"Lass mal raten, Dozentin, jetzt ist wieder Zeit für Übungsaufgaben?\"\r\n\r\nEmi lächelt – zum ersten Mal, seit du hier bist. \"Genau. Ab an die Aufgaben ihr beiden! Hop, hop, worauf wartet ihr noch? 🎮💬\"\r\n",
     "image": "/story/2.jpg",
     "quests": [
@@ -2178,8 +1401,8 @@ const chapterInfo = [
         ]
       }
     ],
-    "x": 520,
-    "y": 1930
+    "x": 410,
+    "y": 1830
   },
   {
     "id": 10004,

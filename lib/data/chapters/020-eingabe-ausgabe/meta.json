@@ -1,5 +1,5 @@
 {
-  "title": "Interaktionen",
+  "title": "TODO",
   "quests": [
     { "filename": "Begrüßung.json", "x": 660, "y": 37 },
     { "filename": "Harry_Potter_Fan.json", "x": 500, "y": 188 },
@@ -7,7 +7,7 @@
     { "filename": "Runen.json", "x": 400, "y": 100 },
     { "filename": "Systemstatus.json", "x": 420, "y": -20 }
   ],
-  "x": 520,
-  "y": 1930,
+  "x": 410,
+  "y": 1830,
   "image": "/story/2.jpg"
 }
