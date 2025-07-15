@@ -283,7 +283,7 @@ Scenario('Reset code should not break lock language', ({ I }) => {
   I.dontSee('Hauptprogramm')
 })
 
-Scenario.only('Ellie, some testing', ({ I }) => {
+Scenario('Ellie, some testing', ({ I }) => {
   I.amOnPage('/')
   I.dontSee('1. Glücksbringer')
   I.click('0. Alles ist scheiße')
