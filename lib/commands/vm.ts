@@ -546,9 +546,15 @@ export function endExecution(core: Core) {
           const clause = diff === 1 ? '1 Ziegel fehlt' : `${diff} Ziegel fehlen`
           problemClauses.push(clause)
         }
-      } else if (bricksDelta > 0) {
+      }
+      const misplacedBricks = (bricksDelta - Math.abs(brickDiff)) / 2
+      if (misplacedBricks > 0) {
         // Correct quantity, but wrong placement
-        problemClauses.push('die Ziegel an der falschen Stelle liegen')
+        const clause =
+          misplacedBricks === 1
+            ? '1 Ziegel an der falschen Stelle liegt'
+            : `${misplacedBricks} Ziegel an der falschen Stelle liegen`
+        problemClauses.push(clause)
       }
 
       // 2. Systematically check for mark-related problems (with singular/plural handling)
@@ -566,9 +572,15 @@ export function endExecution(core: Core) {
           const clause = diff === 1 ? '1 Marke fehlt' : `${diff} Marken fehlen`
           problemClauses.push(clause)
         }
-      } else if (marksDelta > 0) {
+      }
+      const misplacedMarks = (marksDelta - Math.abs(markDiff)) / 2
+      if (misplacedMarks > 0) {
         // Correct quantity, but wrong placement
-        problemClauses.push('die Marken an der falschen Stelle sind')
+        const clause =
+          misplacedMarks === 1
+            ? '1 Marke an der falschen Stelle ist'
+            : `${misplacedMarks} Marken an der falschen Stelle sind`
+        problemClauses.push(clause)
       }
 
       if (problemClauses.length > 0) {
