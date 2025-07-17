@@ -100,6 +100,7 @@ export function chatError(core: Core, message: string) {
     }
     ws.ui.state = 'ready'
     ws.vm.chatCursor!.mode = 'warn'
+    ws.vm.inspector = ''
   })
   const match = message.match(/File "<exec>", line (\d+), in <module>/)
   if (match) {
@@ -128,6 +129,7 @@ function* runnerGenerator(core: Core) {
     ws.vm.chatVisualRole = 'out'
     ws.vm.chatVisualText = ''
     ws.vm.chatvisualWarning = undefined
+    ws.vm.inspector = ''
   })
   setExecutionMarker(core, -1)
 
@@ -135,6 +137,7 @@ function* runnerGenerator(core: Core) {
     endOfExecution = false
     core.mutateWs((ws) => {
       ws.vm.chatCursor = { chatIndex: chat, msgIndex: 0, mode: 'play' }
+      ws.vm.inspector = ''
     })
     scrollChatCursorIntoView()
     setTimeout(() => {

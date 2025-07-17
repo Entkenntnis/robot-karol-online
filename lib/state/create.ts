@@ -73,6 +73,7 @@ export function createWorkspaceState(): WorkspaceState {
       debuggerRequestNextStep: false,
       chatVisualRole: 'out',
       chatVisualText: '',
+      inspector: '',
     },
     settings: {
       mode: 'blocks',

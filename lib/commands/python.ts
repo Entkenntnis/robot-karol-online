@@ -595,6 +595,16 @@ export function setupWorker(core: Core) {
     if (
       event.data &&
       typeof event.data === 'object' &&
+      event.data.type == 'chat-inspector'
+    ) {
+      core.mutateWs(({ vm }) => {
+        vm.inspector = event.data.inspector || ''
+      })
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
       event.data.type == 'chat-error'
     ) {
       chatError(core, filterTraceback(event.data.error))
