@@ -253,6 +253,13 @@ export function EditArea() {
         {core.ws.ui.errorMessages.length == 0 && core.ws.ui.questPrompt && (
           <QuestPrompt key={core.ws.ui.questPrompt} />
         )}
+        {core.ws.vm.chatCursor && core.ws.vm.inspector && (
+          <div className="absolute right-3 left-3 bottom-3">
+            <div className="rounded bg-gray-200 p-2 text-sm overflow-scroll">
+              Variablen: {core.ws.vm.inspector}
+            </div>
+          </div>
+        )}
       </div>
     )
   }

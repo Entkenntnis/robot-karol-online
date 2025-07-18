@@ -1,100 +1,26 @@
-# 🎓 Kapitel 1: Variablen
+# Glücksbringer
 
-Im Karols Atelier sind einige Laptops aufgestellt, an der einzig freien Wand projeziert ein Beamer, den man aber im hellen Licht kaum lesen kann. "Den werden wir erstmal nicht brauchen, solange ihr zu zweit seid", bemerkt Emi.
+_Es ist ein sonniger Nachmittag. Joel schnitzt in seiner Werkstatt an einer kleinen Holzfigur. Die Tür knarrt, Ellie lehnt im Rahmen und wirkt unmotiviert._
 
-Du traust dich dann doch zu fragen: "Kommen noch weitere Leute?" Karol nickt: "Ein paar weitere Gäste haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen." Karol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.
+**Joel**: Langer Gesichtsausdruck für einen freien Tag.  
+**Ellie**: Dieses Programmier-Ding, es ist so langweilig.  
+**Joel**: Langweilig? Dachte, du wärst voll dabei. Hast doch gestern Abend die erste Aufgabe gelöst.  
+**Ellie**: Ja schon, aber ... ich verstehe ja, was das Programm tut. Mit `print()` kann ich meinem Programm Dinge sagen lassen. Und mit `input()` kann mein Programm eine Frage stelle und auf die Antwort warten. Es ist wie eine Unterhaltung ... aber mit niemanden. Ich starre auf den Laptop, tippe was ein, und es erscheint wieder Text. Das fühlt sich so leer an!
 
-"Ich möchte mit Variablen anfangen. Diese sind sind ein entspannter Einstieg. Stellt es euch so vor: Der Computer muss sich ja viele Dinge merken. Und jede Information speichert dein Programm in einer solchen Variable." Emi fängt an zu tippen:
+_Ellie lässt das Buch achtlos auf den Boden fallen. Joel hört auf zu schnitzen. Er blickt von der halbfertigen Figur in seiner Hand zu Ellie._
 
-```py
-farbe = "blasslila"
-pinsel_größe = 13
-bild_breite_cm = 27.8
-ist_inspiriert = True
-```
+**Joel**: Eine Unterhaltung mit niemanden, sagst du?  
+**Ellie**: Soll ich es nochmal lauter für den alten Herrn wiederholen?  
+**Joel**: Und was sagt dein Buch dazu? Das lässt dich doch nicht alleine im Regen stehen, oder?  
+**Ellie**: Da ist so eine dämliche Zeichnung von einem Roboter drin, nennen sie Karol. Als ob eine Zeichnung ein echter Gesprächspartner wäre.  
+**Joel**: Hm, eine Zeichnung. Was, wenn sie nicht nur eine Zeichnung wäre?  
+**Ellie**: Wie meinst du das?  
+**Joel** (hält den Holzblock hoch): Du hast doch gesagt, du brauchst ein Gegenüber, einen Gesprächspartner. Vielleicht ... schnitze ich dir einen.
 
-"So kannst du, meine Tante, dir die wichtigsten Dinge notieren, falls du sie mal wieder vergisst."
+_Ellie ist für einen Moment still. Ihre Augen weiten sich, als der Gedanke bei ihr ankommt._
 
-"Hey, so alt bin ich auch wieder nicht", beschwert sich Karol. Gut zu wissen, dass Emi nicht nur dir gegenüber etwas schnippisch ist.
+**Ellie**: Du ... du würdest mir diese Karol schnitzen?  
+**Joel**: Ich versteh das. Es ist schwer, sich für etwas zu begeistern, das man nicht sehen oder anfassen kann. Also machen wir sie echt. Eine Partnerin, die dir zuhört. Und ein kleiner Glücksbringer ... (er lächelt leicht) ... damit du bei der Sache bleibst.  
+**Ellie**: In den Comics ... das ist der Moment. Die Origin-Story ... (sie blickt den Holzblock an, als würde sie eine Person ansehen.) ... Du und ich, Kleine. Wir werden Abenteuer erleben.
 
-"Sind das alle Arten von Informationen, die man speichern kann?", fragt Karol zurück. "Ich würde erstmal mit diesen anfangen", erklärte Emi. "Später kannst du aus diesen grundlegenden Datentypen größere Objekte bauen oder eine Liste anlegen. Ah, ich sollte vielleicht noch ein paar Details ergänzen.
-
-Dieses Gleichheitszeichen (`=`) ist eine Wertzuweisung:
-
-```
-<Name der Variable> = <Wert>
-```
-
-Dabei wird der alte Wert der Variable weggeschmissen und der neue Wert geschrieben. Der Name ist wichtig, denn nur mit diesem kannst du auf die Information zugreifen. Du kannst einer Variable jederzeit einen neuen Wert zuweisen:
-
-```py
-farbe = "grün"
-
-# Wert von Variable farbe ist in diesem Bereich "grün"
-
-farbe = "rot"
-
-# Wert von Variable farbe ist in diesem Bereich "rot"
-
-farbe = "dunkelviolett"
-```
-
-Jede Variable hat außerdem einen Typ. Nicht wie die Typen auf der Straße, sondern im Sinne von Kategorie. Ihr habt die vier wichtigsten Typen jetzt gesehen, ich fasse sie für euch nochmal zusammen.
-
-## Datentypen im Überblick
-
-### 1. Strings - Für Text
-
-Nutze doppelte Anführungszeichen.
-
-```python
-name = "Max"
-```
-
-### 2. Integer - Ganze Zahlen
-
-```python
-alter = 12
-klassenstufe = 7
-```
-
-### 3. Float - Kommazahlen
-
-Verwende als Dezimaltrenner einen Punkt.
-
-```python
-note = 2.3
-pi = 3.14159
-```
-
-### 4. Boolean - Wahrheitswerte
-
-```python
-hat_geübt = True
-ist_ferien = False
-```
-
-## 📝 Kommentare
-
-```py
-# die Lieblingsfarbe meiner Tante
-farbe = "?" # bitte noch ausfüllen
-```
-
-Die grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und werden vom Computer ignoriert.
-
-## 🚫 Verbotene Namen
-
-Ihr dürft die Variablenamen fast beliebig wählen. Ein paar wenige Sachen sind nicht erlaubt:
-
-```python
-2pac = "Rapper"    # Zahl am Anfang geht nicht
-mein-name = "Emi" # Bindestrich nicht erlaubt
-class = 8         # Schlüsselwörter verboten
-```
-
-Achte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen Unterschied und `alter` ist eine andere Variable als `ALTER`.
-
-## 🏋️ Übungen
-
-Bis hierher alles klar?", Emi blickt uns beide an. Du nickst brav, Karol ist voller Tatendrang und bittet Emi, uns ein paar Übungsaufgaben zu stellen, damit wir die Theorie etwas üben können. Sie antwortet nur: "Ich wäre doch eine schlechte Dozentin wenn ich keine Übungsaufgaben vorbereitet hätte."
+_Joel sagt nichts. Er lächelt nur leise in sich hinein, nimmt sein Messer und macht sich wieder an das Schnitzen._
