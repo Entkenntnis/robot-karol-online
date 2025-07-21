@@ -641,7 +641,19 @@ export function Overview() {
                   core.ws.page !== 'analyze' && (
                     <div className="absolute top-[1670px] left-[690px] z-10">
                       <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                        <div className="bg-white/50 rounded-lg p-2 w-[410px] shadow-lg">
+                        <div
+                          className="bg-white/50 rounded-lg p-2 w-[410px] shadow-lg rainbow ranbow-always cursor-pointer"
+                          onClick={() => {
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_pythonIntro'
+                            )
+                            core.mutateWs((ws) => {
+                              ws.overview.explanationId = 10001
+                            })
+                            showModal(core, 'explanation')
+                          }}
+                        >
                           <p>
                             In den ruhigen Jahren in Jackson beschließt Ellie,
                             sich das Programmieren beizubringen. Keine einfache
@@ -813,7 +825,7 @@ export function Overview() {
                   </AnimateInView>
                 </div>
                 <div
-                  className="absolute left-[598px]  z-10"
+                  className="absolute left-[598px] z-10 hidden"
                   style={{ top: `${maxMapY + 1190}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
@@ -890,7 +902,7 @@ export function Overview() {
                 )}
                 {core.ws.settings.lng == 'de' && (
                   <div
-                    className="absolute left-[760px] z-10"
+                    className="absolute left-[660px] z-10"
                     style={{ top: `${maxMapY + 1200}px` }}
                   >
                     <AnimateInView dontFade={numberOfSolvedQuests > 0}>
