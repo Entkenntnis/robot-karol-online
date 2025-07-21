@@ -434,7 +434,7 @@ export function Overview() {
                       <AnimateInView>
                         <div className="relative">
                           <div
-                            className="bg-yellow-100/80 rounded-lg p-3 w-[280px] shadow-lg transform rotate-6 border-2 border-yellow-300 cursor-pointer"
+                            className="bg-yellow-100/80 rounded-lg p-3 w-[288px] shadow-lg transform rotate-6 border-2 border-yellow-300 cursor-pointer"
                             onClick={() => {
                               submitAnalyzeEvent(
                                 core,
@@ -451,8 +451,9 @@ export function Overview() {
                             }}
                           >
                             <p className="text-lg">
-                              Willkommen 👋 entdecke hier die Welt der
-                              Algorithmen!
+                              Willkommen 👋 entdecke hier
+                              <br />
+                              die Welt der Algorithmen!
                             </p>
                           </div>
                           <svg
