@@ -51,7 +51,12 @@ export function QuestIcon({
         }
       >
         <div className="flex items-center flex-col w-[64px] cursor-pointer group pointer-events-none">
-          <button className="text-lg bg-gray-100/70 px-1 py-0.5 rounded group-hover:bg-white/80 pointer-events-auto whitespace-nowrap -ml-2">
+          <button
+            className={clsx(
+              id < 100 && 'text-lg',
+              'bg-gray-100/70 px-1 py-0.5 rounded group-hover:bg-white/80 pointer-events-auto whitespace-nowrap -ml-2'
+            )}
+          >
             {title == 'Start' && getUserName()
               ? 'Hallo, ' + getUserName() + '!'
               : title}

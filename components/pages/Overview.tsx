@@ -78,7 +78,7 @@ export function Overview() {
         .map(([, quest]) => quest.y)
     ) +
     (core.ws.page == 'demo' || core.ws.page == 'analyze'
-      ? 100
+      ? 250
       : !isQuestDone(10001)
       ? 800
       : 800)
@@ -1075,7 +1075,7 @@ export function Overview() {
                             }}
                             id={`explanation-icon-${id}`}
                           >
-                            <p className="text-center whitespace-nowrap flex justify-center ">
+                            <p className="text-center whitespace-nowrap flex justify-center">
                               <span className="bg-white/50 px-2 rounded">
                                 {chapterData[id].title}
                               </span>
