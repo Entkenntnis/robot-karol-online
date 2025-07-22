@@ -300,8 +300,8 @@ const chapterInfo = [
   {
     "id": 10006,
     "dirName": "050-schleifen",
-    "title": "5. TODO",
-    "originalTitle": "TODO",
+    "title": "5. Streng geheim",
+    "originalTitle": "Streng geheim",
     "description": "# 🎯 Kapitel 5: Die Kunst der Wiederholung mit for & while\r\n\r\nHeute lernst du, wie man Code wiederholt – wie ein DJ, der den perfekten Beat loopt! 🎧\r\n\r\n## 🧩 Listen – Deine Daten-Sammelbox\r\n\r\nStell dir eine Einkaufsliste vor, aber für Computer:\r\n\r\n```python\r\n# So erstellst du eine Liste\r\nspielkarten = [\"Herz Ass\", \"Karo König\", \"Pik Dame\", \"Kreuz Bube\"]\r\nprimzahlen = [2, 3, 5, 7, 11]\r\nmixed_list = [42, \"Antwort\", True] # Alles mögliche drin!\r\n```\r\n\r\n## 🔄 Die for-Schleife – Dein Wiederholungs-Profi\r\n\r\n**\"Für jedes Element in der Liste: Mach was damit!\"**\r\n\r\n```python\r\n# Einkaufsliste abarbeiten\r\neinkaufsliste = [\"Äpfel\", \"Banane\", \"Milch\"]\r\n\r\nfor produkt in einkaufsliste:\r\n    print(f\"✏️ Brauche noch: {produkt}\")\r\n    print(\"...auf zum nächsten Produkt!\\n\")\r\n```\r\n\r\n_Ausgabe:_\r\n\r\n```\r\n✏️ Brauche noch: Äpfel\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Banane\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Milch\r\n...auf zum nächsten Produkt!\r\n```\r\n\r\n**Mit Zahlen arbeiten? Klar mit range():**\r\n\r\n```python\r\n# Countdown mit Style 🚀\r\nfor sekunde in range(5, 0, -1):\r\n    print(f\"{sekunde... Abflug!\")\r\nprint(\"🔥 Liftoff!\")\r\n```\r\n\r\n## ⏳ Die while-Schleife – Der Hartnäckige\r\n\r\n**\"Mach weiter, solange die Bedingung stimmt!\"**\r\n\r\n```python\r\n# Pizza-Back-Simulator 🍕\r\ntemperatur = 20\r\nziel_temp = 220\r\n\r\nwhile temperatur < ziel_temp:\r\n    temperatur += 20\r\n    print(f\"°C: {temperatur}°C | Heizt auf...\")\r\n\r\nprint(\"🔔 Pizza ist fertig! Buon appetito!\")\r\n```\r\n\r\n_Vorsicht:_ Vergiss nicht die Temperatur zu erhöhen, sonst brennt der Ofen durch! 🔥\r\n\r\n## 🥊 for vs. while – Wer wann?\r\n\r\n- **FOR:** Wenn du weißt, wie oft's laufen soll (z.B. Liste durchgehen)\r\n- **WHILE:** Wenn es auf eine Bedingung ankommt (z.B. Spiel läuft, bis Game Over)\r\n\r\n## 🎯 Challenge:\r\n\r\nErrate die geheime Zahl mit nur 3 Versuchen!\r\n\r\n```python\r\ngeheimzahl = 7\r\nversuche = 3\r\n\r\nwhile versuche > 0:\r\n    raten = int(input(\"🎯 Dein Tipp (1-10): \"))\r\n    if raten == geheimzahl:\r\n        print(\"🎉 Treffer! Gewonnen!\")\r\n        break\r\n    versuche -= 1\r\n    print(f\"❌ Daneben! Noch {versuche} Versuche\")\r\nelse:\r\n    print(\"😢 Game Over! Keine Versuche mehr\")\r\n```\r\n\r\n## 💡 Pro-Tipps:\r\n\r\n- `range()` kann auch so: `range(start, ende, schritt)`\r\n- Benenne Schleifen-Variablen sinnvoll:\r\n  - `for schüler in klasse:` statt `for x in y:`\r\n- Breakpoint setzen? Einfach `break` schreiben!\r\n\r\nJetzt du: Erfinde deine eigenen Schleifen-Experimente! 🔄 Wie wär's mit einem Roboter-Tanz per Code? 🤖💃🕺\r\n",
     "image": "",
     "quests": [],
@@ -311,8 +311,8 @@ const chapterInfo = [
   {
     "id": 10007,
     "dirName": "060-while",
-    "title": "6. TODO",
-    "originalTitle": "TODO",
+    "title": "6. Morgenappell",
+    "originalTitle": "Morgenappell",
     "description": "Hier findest du weitere Bonus-Aufgaben.\r\n",
     "image": "",
     "quests": [],
@@ -322,8 +322,8 @@ const chapterInfo = [
   {
     "id": 10008,
     "dirName": "070-def",
-    "title": "7. TODO",
-    "originalTitle": "TODO",
+    "title": "7. Superhelden",
+    "originalTitle": "Superhelden",
     "description": "",
     "image": "",
     "quests": [],
@@ -333,8 +333,8 @@ const chapterInfo = [
   {
     "id": 10009,
     "dirName": "080-logik",
-    "title": "8. TODO",
-    "originalTitle": "TODO",
+    "title": "8. Unwetter",
+    "originalTitle": "Unwetter",
     "description": "",
     "image": "",
     "quests": [],

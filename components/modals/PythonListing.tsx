@@ -35,23 +35,25 @@ export function PythonListing() {
       onClick={() => closeModal(core)}
     >
       <div
-        className="max-h-[90%] w-[630px] bg-white z-[400] rounded-xl overflow-auto relative"
+        className="max-h-[90%] w-[630px] bg-white z-[400] rounded-xl flex flex-col relative"
         onClick={(e) => {
           e.stopPropagation()
         }}
       >
-        <button
-          className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300"
-          onClick={() => {
-            closeModal(core)
-          }}
-        >
-          <FaIcon icon={faTimes} />
-        </button>
-        <div className="p-6">
-          <h1 className="font-bold text-2xl mt-4 mb-6 text-center">
+        <div className="p-4 border-b sticky top-0 bg-white rounded-t-xl">
+          <button
+            className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300"
+            onClick={() => {
+              closeModal(core)
+            }}
+          >
+            <FaIcon icon={faTimes} />
+          </button>
+          <h1 className="font-bold text-2xl text-center">
             Übersicht Python-Lernpfad
           </h1>
+        </div>
+        <div id="scroll-container" className="overflow-auto p-6">
           {/* AI-generated listing */}
           <div className="space-y-6">
             {pythonCategories.map((category, i) => (
