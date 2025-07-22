@@ -3,8 +3,8 @@
   "quests": [
     { "filename": "a__Schleife.json", "x": 250, "y": -35 },
     { "filename": "b__Aufrufer.json", "x": 330, "y": 130 },
-    { "filename": "c__Beatbox.json", "x": 480, "y": 130 },
-    { "filename": "d__Countdown.json", "x": 620, "y": 130 }
+    { "filename": "c__Beatbox.json", "x": 480, "y": 160 },
+    { "filename": "d__Countdown.json", "x": 610, "y": 120 }
   ],
   "x": 410,
   "y": 1830,

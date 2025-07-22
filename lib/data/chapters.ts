@@ -317,7 +317,7 @@ const chapterInfo = [
       {
         "filename": "c__Beatbox.json",
         "x": 480,
-        "y": 130,
+        "y": 160,
         "id": 154,
         "content": {
           "version": "v1",
@@ -337,8 +337,8 @@ const chapterInfo = [
       },
       {
         "filename": "d__Countdown.json",
-        "x": 620,
-        "y": 130,
+        "x": 610,
+        "y": 120,
         "id": 155,
         "content": {
           "version": "v1",
