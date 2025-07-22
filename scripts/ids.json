@@ -3,7 +3,11 @@
     "000-intro/Begrüßung.json": 147,
     "010-variablen/a__Flachwitz.json": 149,
     "010-variablen/b__Papagei.json": 150,
-    "010-variablen/c__Echo.json": 151
+    "010-variablen/c__Echo.json": 151,
+    "020-eingabe-ausgabe/a__Schleife.json": 152,
+    "020-eingabe-ausgabe/b__Aufrufer.json": 153,
+    "020-eingabe-ausgabe/c__Beatbox.json": 154,
+    "020-eingabe-ausgabe/d__Countdown.json": 155
   },
-  "counter": 152
+  "counter": 156
 }

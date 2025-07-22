@@ -61,8 +61,8 @@ const chapterInfo = [
     "quests": [
       {
         "filename": "a__Flachwitz.json",
-        "x": 740,
-        "y": 130,
+        "x": 450,
+        "y": 50,
         "id": 149,
         "content": {
           "version": "v1",
@@ -177,8 +177,8 @@ const chapterInfo = [
       },
       {
         "filename": "c__Echo.json",
-        "x": 450,
-        "y": 50,
+        "x": 740,
+        "y": 130,
         "id": 151,
         "content": {
           "version": "v1",
@@ -269,9 +269,94 @@ const chapterInfo = [
     "dirName": "020-eingabe-ausgabe",
     "title": "2. Maria",
     "originalTitle": "Maria",
-    "description": "# 💬 Kapitel 2: Interaktionen\r\n\r\n\"Wir kommen voran!\", feiert Karol mit einem strahlenden Lächeln. \"Mal sehen, was uns als Nächstes erwartet. Davor muss ich mal kurz.\" Sie verschwindet für ein paar Minuten und du bist mit Emi alleine. Du nutzt die Zeit, dich ein wenig im Atelier umzusehen. Die Wände sind übersät mit bunten Bildern, und du bist überrascht, dass viele von Karols Kunstwerken fast kindlich anmuten – farbenfroh, fantasievoll und voller Lebensfreude.\r\n\r\nEmi tippt währenddessen konzentriert auf ihrem Laptop. \"Willst du auch einen Blick darauf werfen?\", fragt sie plötzlich, etwas weniger schroff als zuvor. Du nickst und siehst Codezeilen über ihren Bildschirm flimmern. Aber sobald Karol wieder da ist, klappt sie den Laptop wieder zu und ist wieder ganz ernst.\r\n\r\n\"Was für Kunst machst du eigentlich?\", fragst du, als Karol wieder erscheint. Die alte Dame antwortet mit einem verschmitzten Grinsen: \"Haha, das ist eine komplizierte Sache. Früher habe ich mich mit abstrakter Kunst beschäftigt, aber heute male ich hauptsächlich Bilder, die ich an Schulen verschenke, um die Kinder dort ein wenig zu inspirieren...\"\r\n\r\nKarol schaut für einen kurzen Moment verträumt in die Ferne, dann findet sie sich wieder: \"Kunst und Programmieren haben übrigens mehr gemeinsam, als man denkt – bei beiden geht es um Kreativität und Kommunikation!\"\r\n\r\nEmi übernimmt wieder: \"Kommunikation ist das perfekte Stichwort. Jetzt zeige ich euch, wie man dem Computer das Sprechen beibringt und er euch fragen stellen kann.\"\r\n\r\n## 1. Die `print()`-Funktion – sprich mit der Welt!\r\n\r\n\"Mit `print()` kannst du alles ausgeben – Texte, Zahlen oder Variablen\", erklärt Emi und tippt ein paar Beispiele:\r\n\r\n```python\r\nprint(\"Hallo Welt! 🌍\")\r\n\r\nprint(42)\r\n\r\nalter = 17\r\nprint(alter)\r\n```\r\n\r\n\"So einfach ist das?\", fragt Karol erstaunt. \"Ja, so einfach\", bestätigt Emi, \"du kannst alles, was du zeigen möchtest, zwischen die Klammern schreiben.\"\r\n\r\n## 2. Mit `f-Strings` Texte bauen\r\n\r\n\"Jetzt wird's interessant\", fährt Emi fort. \"Stell dir vor, du willst nicht nur einzelne Informationen ausgeben, sondern sie in einen schönen Satz packen.\"\r\n\r\n\"Wie bei einer Bildunterschrift in einer Ausstellung?\", fragt Karol.\r\n\r\n\"Genau! Dafür sind _f-Strings_ super praktisch\", erklärt Emi. \"Du kannst damit Text mit Variablen mischen. Schau mal:\"\r\n\r\n```python\r\nbildart = \"Ölgemälde\"\r\njahr = 1995\r\n\r\nprint(f\"Ein {bildart} aus dem Jahr {jahr}.\")\r\n\r\n# -> Ein Ölgemälde aus dem Jahr 1995.\r\n```\r\n\r\n\"Das f am Anfang des Textes ist wichtig\", betont Emi. \"Es bedeutet 'formatierter String'. Und in die geschweiften Klammern schreibst du die Variablen, deren Werte du einfügen möchtest.\"\r\n\r\n## 3. Die `input()`-Funktion – stelle Fragen!\r\n\r\nDu meintest, der Computer kan auch Fragen stellen?\", hakt Karol nach. \"Dafür haben wir die `input()`-Funktion\", antwortet Emi und tippt weiter:\r\n\r\n```python\r\n# Einfache Eingabe\r\nname = input(\"Wie heißt du? \")\r\n\r\nprint(f\"Hallo, {name}! 😊\")\r\n```\r\n\r\n\"Probier's aus\", fordert sie dich auf. Du tippst deinen Namen ein und das Programm begrüßt dich persönlich. Karol ist begeistert und klatscht in die Hände.\r\n\r\n\"Die Zeichenkette in den Klammern ist die Frage, die angezeigt wird\", erklärt Emi. \"Und was der Benutzer eingibt, wird in der Variable gespeichert.\r\n\r\n## 4. Typumwandlung – mach aus Text eine Zahl\r\n\r\nEs gibt aber einen kleinen Haken, `input` gibt immer nur einen Text zurück. Wenn ihr eine Zahl abfragen wollt, muss dieser noch in eine Zahl umwandelt werden. So, jetzt wisst ihr Bescheid, wenn euer Programm später einen Fehler wirft, dann beschwert euch nicht, ich hätte es euch nicht erklärt!\"\r\n\r\n```python\r\n# String zu Integer\r\ngeburtsjahr = int(input(\"Geburtsjahr: \"))\r\n\r\naktuelles_jahr = 2025\r\nalter = aktuelles_jahr - geburtsjahr\r\nprint(f\"Du bist etwa {alter} Jahre jung! 🎂\")\r\n```\r\n\r\n\"Die `int()`-Funktion wandelt den Text in eine ganze Zahl um\", erklärt Emi. \"Für Kommazahlen würden wir `float()` verwenden.\"\r\n\r\n## 💡 Wichtigste Erkenntnisse\r\n\r\nKarol bittet dich, einen Blick über ihre Notizen zu werfen und diese zu überprüfen:\r\n\r\n- `print()` gibt Informationen aus – deine Botschaft an die Welt\r\n- `input()` nimmt Eingaben entgegen – immer als Text (String)\r\n- `f-Strings` mit `{variable}` sind perfekt, um Texte mit Daten zu mischen\r\n- Mit `int()` und `float()` wandelst du Text in Zahlen um\r\n\r\n\"Und, passt alles?\". Du sieht keine Probleme und nickst. Du sprichst Emi an: \"Lass mal raten, Dozentin, jetzt ist wieder Zeit für Übungsaufgaben?\"\r\n\r\nEmi lächelt – zum ersten Mal, seit du hier bist. \"Genau. Ab an die Aufgaben ihr beiden! Hop, hop, worauf wartet ihr noch? 🎮💬\"\r\n",
+    "description": "# Maria\r\n\r\nTODO\r\n",
     "image": "/story/2.jpg",
-    "quests": [],
+    "quests": [
+      {
+        "filename": "a__Schleife.json",
+        "x": 250,
+        "y": -35,
+        "id": 152,
+        "content": {
+          "version": "v1",
+          "title": "a) Schleife",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "b__Aufrufer.json",
+        "x": 330,
+        "y": 130,
+        "id": 153,
+        "content": {
+          "version": "v1",
+          "title": "b) Aufrufer",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "c__Beatbox.json",
+        "x": 480,
+        "y": 130,
+        "id": 154,
+        "content": {
+          "version": "v1",
+          "title": "c) Beatbox",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "d__Countdown.json",
+        "x": 620,
+        "y": 130,
+        "id": 155,
+        "content": {
+          "version": "v1",
+          "title": "d) Countdown",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10003
+        ]
+      }
+    ],
     "x": 410,
     "y": 1830
   },
@@ -284,7 +369,7 @@ const chapterInfo = [
     "image": "/story/3.jpg",
     "quests": [],
     "x": 100,
-    "y": 1920
+    "y": 1980
   },
   {
     "id": 10005,
