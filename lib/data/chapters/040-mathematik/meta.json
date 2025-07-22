@@ -1,10 +1,7 @@
 {
-  "title": "Mathematik 🚧",
-  "quests": [
-    { "filename": "intro2.json", "x": 1080, "y": -140 },
-    { "filename": "math_module_quest.json", "x": 900, "y": -180 }
-  ],
-  "x": 920,
-  "y": 2400,
+  "title": "Schulbesuch",
+  "quests": [],
+  "x": 420,
+  "y": 2200,
   "image": "/story/4.jpg"
 }

@@ -1,12 +1,6 @@
 {
-  "title": "TODO",
-  "quests": [
-    { "filename": "Begrüßung.json", "x": 660, "y": 37 },
-    { "filename": "Harry_Potter_Fan.json", "x": 500, "y": 188 },
-    { "filename": "Explosion.json", "x": 650, "y": 170 },
-    { "filename": "Runen.json", "x": 400, "y": 100 },
-    { "filename": "Systemstatus.json", "x": 420, "y": -20 }
-  ],
+  "title": "Maria",
+  "quests": [],
   "x": 410,
   "y": 1830,
   "image": "/story/2.jpg"
