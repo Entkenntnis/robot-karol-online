@@ -1,3 +1,4 @@
+import { set } from 'date-fns'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
@@ -160,8 +161,12 @@ function* executeProgramAsGenerator(core: Core) {
 
   for (;;) {
     const pc = core.ws.vm.pc
-    if (stepCounter++ >= 100) {
+    if (stepCounter++ >= 1000) {
       console.log('possible dead loop')
+      core.mutateWs((ws) => {
+        ws.ui.karolCrashMessage =
+          'Hilfe, Karol ist in einer Endlosschleife gefangen!'
+      })
       yield 'interrupt'
       stepCounter = 0
     }
@@ -478,6 +483,12 @@ export function endExecution(core: Core) {
     ws.__activeRobot = 0
   })
   if (!core.ws.ui.karolCrashMessage) {
+    setExecutionMarker(core, 0)
+  }
+  if (core.ws.ui.karolCrashMessage?.includes('Endlos')) {
+    core.mutateWs((ws) => {
+      ws.ui.karolCrashMessage = undefined
+    })
     setExecutionMarker(core, 0)
   }
   if (core.ws.ui.tourModePage == -1 && !core.ws.quest.progress) {

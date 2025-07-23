@@ -286,6 +286,9 @@ export function InteractionBar() {
             }
             startButtonClicked(core)
           }}
+          title={
+            core.ws.ui.state == 'error' ? 'Bitte behebe zuerst Probleme!' : ''
+          }
           disabled={
             core.ws.ui.state == 'error' || core.ws.ui.state == 'loading'
           }

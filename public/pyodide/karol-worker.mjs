@@ -41,7 +41,9 @@ const throwFauxTypeError = (cls, member, expected_args, rest) => {
 let benchGlobals = null
 
 export function buildInternalRobot() {
-  const highlightCurrentLine = highlight.current || (() => {})
+  const highlightCurrentLine = () => {
+    ;(highlight.current || (() => {}))()
+  }
   return () => {
     const id = robotIndex.current++
     const myRunId = runId.current
@@ -728,7 +730,7 @@ self.onmessage = async (event) => {
     highlight.current = () => {
       if (enableHighlight.current) {
         const stack = traceback.extract_stack()
-        const line = stack[stack.length - 1].lineno
+        const line = stack[stack.length - 2].lineno
         if (debugRef.current[0] == 0) {
           // check if we are in a breakpoint
           for (let i = 1; i < debugRef.current.length; i++) {
