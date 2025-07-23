@@ -59,6 +59,7 @@ import {
   pythonKarolExamples,
 } from '../../lib/data/pythonExamples'
 import { Reactions } from '../helper/Reactions'
+import { SpinningRobot } from '../helper/SpinningRobot'
 
 export function Overview() {
   const core = useCore()
@@ -497,7 +498,7 @@ export function Overview() {
                     tabIndex={0}
                     className="bg-white/20 rounded-lg w-60 p-2 mt-1 [&>li]:px-4 [&>li]:py-2 [&>li]:cursor-pointer hover:[&>li]:bg-gray-300/20 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50 [&_a]:block"
                   >
-                    <li>
+                    <li className="!pb-0">
                       <a
                         href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
                         onClick={() => {
@@ -513,7 +514,7 @@ export function Overview() {
                           }, 50)
                         }}
                       >
-                        🤖 Figuren-Galerie
+                        <SpinningRobot /> Figuren-Galerie
                       </a>
                     </li>
                     <li>
