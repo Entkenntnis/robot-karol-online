@@ -215,6 +215,10 @@ export const questData: { [key: number]: QuestData } = {
     ...deserializeQuestToData(require('./quests/64.json')),
   },
 
+  65: {
+    ...deserializeQuestToData(require('./quests/65.json')),
+  },
+
   // python
 
   61: {
