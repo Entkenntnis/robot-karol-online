@@ -368,7 +368,7 @@ function Entry({ entry }: { entry: EntryType }) {
       )}
       <div className="flex justify-center mt-2">
         <button
-          className="btn btn-sm my-3"
+          className="px-2 py-0.5 bg-pink-100 hover:bg-pink-200 rounded my-3"
           onClick={() => {
             submitAnalyzeEvent(core, 'ev_click_inspiration_openQuest')
             window.open(
