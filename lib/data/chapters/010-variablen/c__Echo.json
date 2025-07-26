@@ -1,0 +1,40 @@
+{
+  "version": "v1",
+  "title": "c) Echo",
+  "description": "Speichere das Wort von Karol in einer Variable und gib es dreimal als Echo aus:\n\n```py\nwort = input()\nprint(wort)\n...\n```",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "in", "text": "Hallooooooooooo" },
+        { "role": "out", "text": "Hallooooooooooo" },
+        { "role": "out", "text": "Hallooooooooooo" },
+        { "role": "out", "text": "Hallooooooooooo" }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "in", "text": "Buuuuuuuuuh!" },
+        { "role": "out", "text": "Buuuuuuuuuh!" },
+        { "role": "out", "text": "Buuuuuuuuuh!" },
+        { "role": "out", "text": "Buuuuuuuuuh!" }
+      ]
+    },
+    {
+      "title": "Chat 3",
+      "messages": [
+        { "role": "in", "text": "Na naaa Na na na" },
+        { "role": "out", "text": "Na naaa Na na na" },
+        { "role": "out", "text": "Na naaa Na na na" },
+        { "role": "out", "text": "Na naaa Na na na" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}

@@ -1,20 +1,26 @@
-# Einleitung
+# Alles ist scheiße
 
-<div class="bg-yellow-300 rounded p-2">
-Dieser Lernpfad ist ein erster Entwurf. Du kannst aktiv bei der Gestaltung mithelfen, das geht in weniger als 2 Minuten!
+_Es klopft an der Tür zu Ellies Garage._
 
-Fülle dazu [diese Umfrage](https://docs.google.com/forms/d/e/1FAIpQLScLvOw2ZD2_DGeiWPFNXxHR0DjlBHSIxAU5b72su_zPXyoVTg/viewform?usp=preview) aus. Danke!
+**Ellie**: Ja?  
+**Joel**: Kann ich reinkommen?  
+**Ellie**: Ausnahmsweise.
 
-</div>
+_Joel mustert Ellie, wie sie mit gerunzelter Stirn über ein aufgeschlagenes Buch gebeugt sitzt, neben ihr ein alter Laptop._
 
-Du hättest deinen Eltern nicht sagen sollen, dass dir langweilig sei. Was für ein Anfänger-Fehler. Jetzt stehst du an einem Montag in den Ferien um 9 Uhr vor dem Haus der alten Künstlerin und schaust dich vorsichtig um.
+**Joel**: Hey Kiddo, das Abendessen ist fertig. Was machst du da so verbissen?
 
-Die alte Dame hat sich in den Kopf gesetzt, Programmieren zu lernen und damit sie nicht ganz alleine ist, bietet sie einen offenen Workshop an, bei dem alle vorbeikommen und mitlernen können. Deine Eltern haben den Aushang gesehen, denn Karol, die Künstlerin, wohnt gleich um die Ecke und haben dich gleich da hingeschickt ("dir ist ja sonst langweilig, mein Schatz").
+_Ellie stößt ein frustriertes Geräusch aus und schiebt das Buch von sich._
 
-Die Tür zum Haus steht offen. Als du eintrittst, begrüßt dich Karol ("Schön dass du hier bist, deine Eltern haben mir schon von dir erzählt") und du siehst neben ihr ein Mädchen, ungefähr in deinem Alter. Sie ist sicherlich auch hier für den Workshop, puh, immerhin bist du nicht alleine.
+**Ellie**: Ich versuche, nicht dumm zu sein.  
+**Joel** (tritt näher, seine Augen überfliegen den Titel): "Python für Einsteiger" ... seit wann interessierst du dich dafür?  
+**Ellie** (verschränkt die Arme): Ich dachte, es wäre vielleicht ... nützlich. Stell dir vor, wir könnten Programme schreiben, um die Patrouillen zu planen. Oder das verdammte Inventar zu verwalten, damit wir wissen, wie viele Konservern noch da sind. Aber ich scheitere schon an der allerersten Übung. Es ist alles scheiße!
+**Joel**: Hey, hey. Rom wurde auch nicht an einem Tag erbaut. Und dein letzter Kochversuch hat auch nicht auf Anhieb ...  
+**Ellie**: Stopp!! Darüber reden wir nicht!  
+**Joel**: Okay, okay. Dir scheint das wichtig zu sein. Wie wäre es damit: Nach dem Abendessen setze ich mich einfach zu dir. Du versuchst es nochmal in Ruhe, und ich sorge dafür, dass du das blöde Buch nicht aus dem Fenster wirfst. Manchmal braucht man nur ein zweites Paar Augen daneben. Deal?  
+**Ellie** (mit forschen Blick): Du bist immer noch nicht mein Dad ... aber du hilfst mir, versprochen?  
+**Joel**: Hab ich dich je in Stich gelassen?
 
-"Darf ich dir vorstellen, das ist Emi, meine Nichte." Du streckst deine Hand aus, aber sie schaut dich nur mit forschen Augen an. "Ok, dann halt nicht", antwortest du kleinlaut. Na toll, das kann ja was werden.
+_Ellie schaut ihn einen Moment lang an. Ein kaum merkliches Lächeln umspielt ihre Lippen. Sie steht auf und streckt sich._
 
-"Kennen wir uns?", fragt Emi. Karol stellt dich hastig vor und ergänzt: "Bitte entschuldige ihr verhalten. Sie kommt manchmal etwas kühl rüber, aber sie hat ein gutes Herz. Sie ist übrigends unsere Dozentin für den Tag."
-
-Ohje! Wo bist du hier nur reingeraten. Aber für einen Rückzieher ist es jetzt zu spät. Karol ist unbesorgt: "Kommt mit ins Atelier und lasst uns beginnen!"
+**Ellie**: Dann zeig mal, ob sich deine Kochkünste verbessert haben. Ich habe plötzlich richtig Hunger.

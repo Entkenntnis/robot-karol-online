@@ -121,6 +121,11 @@ export function RemixModal() {
                     ws.ui.editQuestScript = false
                     ws.editor.editOptions = 'python-pro-only'
                   }
+                  if (obj.chats) {
+                    ws.ui.isChatMode = true
+                    ws.quest.chats = obj.chats
+                    ws.ui.lockLanguage = 'python-pro'
+                  }
                 })
               }
               closeModal(core)
