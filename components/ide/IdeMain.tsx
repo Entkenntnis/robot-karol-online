@@ -225,42 +225,43 @@ export function IdeMain() {
           </div>
 
           {/* Sliding hand and instruction text */}
-          {core.ws.ui.tourModePage === 1 && (
-            <div className="fixed left-24 top-16 z-[350] pointer-events-none">
-              <AnimateInView>
-                <div className="relative bg-yellow-100/90 p-4 mx-auto max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg">
-                  <div className="text-center text-2xl font-bold text-yellow-800 mb-2">
-                    Legen wir los! Ziehe den Befehl „Schritt“ auf die
-                    Arbeitsfläche
-                  </div>
-                  <div className="absolute -bottom-36 -left-12">
-                    <div className="flex justify-center">
-                      <div className="">
-                        <FaIcon
-                          icon={faArrowDown}
-                          className="text-4xl text-yellow-600 animate-bounce"
-                        />
+          {core.ws.ui.tourModePage === 1 &&
+            core.ws.settings.mode == 'blocks' && (
+              <div className="fixed left-24 top-16 z-[350] pointer-events-none">
+                <AnimateInView>
+                  <div className="relative bg-yellow-100/90 p-4 mx-auto max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg">
+                    <div className="text-center text-2xl font-bold text-yellow-800 mb-2">
+                      Legen wir los! Ziehe den Befehl „Schritt“ auf die
+                      Arbeitsfläche
+                    </div>
+                    <div className="absolute -bottom-36 -left-12">
+                      <div className="flex justify-center">
+                        <div className="">
+                          <FaIcon
+                            icon={faArrowDown}
+                            className="text-4xl text-yellow-600 animate-bounce"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="relative h-16 w-full overflow-hidden">
+                      {/* Hand Icon sliding from left to right */}
+                      <div className="absolute animate-slideLeftRight">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                          className="h-16 w-16 text-yellow-800 transform -rotate-45"
+                          fill="currentColor"
+                        >
+                          <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32 14.3-32 32V336c0 1.5 0 3.1 .1 4.6L67.6 283c-16-15.2-41.3-14.6-56.6 1.4s-14.6 41.3 1.4 56.6L124.8 448c43.1 41.1 100.4 64 160 64H304c97.2 0 176-78.8 176-176V128c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V32z" />
+                        </svg>
                       </div>
                     </div>
                   </div>
-
-                  <div className="relative h-16 w-full overflow-hidden">
-                    {/* Hand Icon sliding from left to right */}
-                    <div className="absolute animate-slideLeftRight">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        className="h-16 w-16 text-yellow-800 transform -rotate-45"
-                        fill="currentColor"
-                      >
-                        <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32 14.3-32 32V336c0 1.5 0 3.1 .1 4.6L67.6 283c-16-15.2-41.3-14.6-56.6 1.4s-14.6 41.3 1.4 56.6L124.8 448c43.1 41.1 100.4 64 160 64H304c97.2 0 176-78.8 176-176V128c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32 14.3-32 32V240c0 8.8-7.2 16-16 16s-16-7.2-16-16V32z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </AnimateInView>
-            </div>
-          )}
+                </AnimateInView>
+              </div>
+            )}
           {core.ws.ui.tourModePage === 3 && (
             <div className="absolute left-0 right-0 bottom-4 z-[350]">
               <AnimateInView>
