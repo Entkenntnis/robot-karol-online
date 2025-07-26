@@ -50,7 +50,12 @@ export function QuestIcon({
           dontFade || core.ws.page == 'analyze' || core.ws.page == 'demo'
         }
       >
-        <div className="flex items-center flex-col w-[64px] cursor-pointer group pointer-events-none">
+        <div
+          className={clsx(
+            'flex items-center flex-col w-[64px] cursor-pointer group pointer-events-none',
+            id >= 100 && 'mt-0.5'
+          )}
+        >
           <button
             className={clsx(
               id < 100 && 'text-lg',

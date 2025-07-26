@@ -1,12 +1,1 @@
-{
-  "version": "v1",
-  "title": "d) Countdown",
-  "description": "TODO",
-  "tasks": [],
-  "lng": "de",
-  "editOptions": "python-pro-only",
-  "questScript": "",
-  "chats": [],
-  "language": "python-pro",
-  "program": ""
-}
+{"version":"v1","title":"d) Countdown","description":"Es gibt so viele kleine Tricks. Karol sagt dir eine Zahl, zähle von dieser Zahl runter:\n\n```py\nfor i in range(n):\n    print(n - i)\n```\n\n- Trick 1: Die Variable `i` zählt von 0, 1, 2, ... bis n-1.\n- Trick 2: Mit der Subtraktion `n - 1` wandelst du den Zähler in einen Countdown.","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"in","text":"3"},{"role":"out","text":"3"},{"role":"out","text":"2"},{"role":"out","text":"1"},{"role":"out","text":"Fertig!"}]},{"title":"Chat 2","messages":[{"role":"in","text":"10"},{"role":"out","text":"10"},{"role":"out","text":"9"},{"role":"out","text":"8"},{"role":"out","text":"7"},{"role":"out","text":"6"},{"role":"out","text":"5"},{"role":"out","text":"4"},{"role":"out","text":"3"},{"role":"out","text":"2"},{"role":"out","text":"1"},{"role":"out","text":"Fertig!"}]}],"language":"python-pro","program":""}

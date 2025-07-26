@@ -280,12 +280,58 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "a) Schleife",
-          "description": "TODO",
+          "description": "Sage 10 Mal \"Buh!\". Nutze eine Schleife:\n\n```py\nfor i in range(...):\n    ...\n```",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -301,12 +347,71 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "b) Aufrufer",
-          "description": "TODO",
+          "description": "Frage nach der Anzahl der Personen und gib für jede Person eine Nachricht aus.\n\nNutze für die Eingabe `input` und `int`.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Personen?"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Personen?"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -322,12 +427,124 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "c) Beatbox",
-          "description": "TODO",
+          "description": "Na Karol, mit einer Schleife sollte man doch auch etwas Musik machen können, oder?",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Welcher Beat?"
+                },
+                {
+                  "role": "in",
+                  "text": "Ba dam"
+                },
+                {
+                  "role": "out",
+                  "text": "Wie oft?"
+                },
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "out",
+                  "text": "Ba dam"
+                },
+                {
+                  "role": "out",
+                  "text": "Ba dam"
+                },
+                {
+                  "role": "out",
+                  "text": "Ba dam"
+                },
+                {
+                  "role": "out",
+                  "text": "Ba dam"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Welcher Beat?"
+                },
+                {
+                  "role": "in",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "Wie oft?"
+                },
+                {
+                  "role": "in",
+                  "text": "6"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Welcher Beat?"
+                },
+                {
+                  "role": "in",
+                  "text": "ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts"
+                },
+                {
+                  "role": "out",
+                  "text": "Wie oft?"
+                },
+                {
+                  "role": "in",
+                  "text": "2"
+                },
+                {
+                  "role": "out",
+                  "text": "ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts"
+                },
+                {
+                  "role": "out",
+                  "text": "ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -343,12 +560,91 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "d) Countdown",
-          "description": "TODO",
+          "description": "Es gibt so viele kleine Tricks. Karol sagt dir eine Zahl, zähle von dieser Zahl runter:\n\n```py\nfor i in range(n):\n    print(n - i)\n```\n\n- Trick 1: Die Variable `i` zählt von 0, 1, 2, ... bis n-1.\n- Trick 2: Mit der Subtraktion `n - 1` wandelst du den Zähler in einen Countdown.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "2"
+                },
+                {
+                  "role": "out",
+                  "text": "1"
+                },
+                {
+                  "role": "out",
+                  "text": "Fertig!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "9"
+                },
+                {
+                  "role": "out",
+                  "text": "8"
+                },
+                {
+                  "role": "out",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "6"
+                },
+                {
+                  "role": "out",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "4"
+                },
+                {
+                  "role": "out",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "2"
+                },
+                {
+                  "role": "out",
+                  "text": "1"
+                },
+                {
+                  "role": "out",
+                  "text": "Fertig!"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -365,7 +661,7 @@ const chapterInfo = [
     "dirName": "030-bedingte-anweisungen",
     "title": "3. Inventur",
     "originalTitle": "Inventur",
-    "description": "# 🧠 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\nPlötzlich klingelt es an der Tür. \"Ah, das müssen unsere anderen Gäste sein\", sagt Karol und huscht zur Tür. Kurz darauf kommt sie mit zwei Jungs zurück, die etwa in deinem Alter sind. \"Das sind Max und Tim, sie sind extra angereist\", stellt sie die beiden vor. \"Ihre Mutter ist Informatikerin und hat ihnen schon ein bisschen das Programmieren beigebracht.\"\r\n\r\nMax, der Größere der beiden mit einem grünen T-Shirt und zerzausten blonden Haaren, nickt dir freundlich zu. Tim, sein kleinerer Bruder mit einer auffälligen roten Brille, strahlt und fragt sofort: \"Habt ihr schon mit Schleifen angefangen? Oder Funktionen?\"\r\n\r\nEmi verdreht leicht die Augen. \"Wir sind gerade bei Bedingten Anweisungen. Die beiden haben schon Variablen und Ein-/Ausgabe geschafft.\"\r\n\r\n\"Cool, dann sind wir ja genau richtig\", sagt Max und setzt sich neben dich. \"Bedingte Anweisungen sind super wichtig. Damit wird der Code erst richtig interessant!\"\r\n\r\nEmi fährt fort: \"In der Programmierung ist das ein entscheidender Schritt: eurem Code beizubringen, verschiedene Situationen zu erkennen und entsprechend zu handeln. Genau wie eine Wetterstation erkennen muss, wann ein Sturm aufzieht.\"\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nEmi zeigt ein einfaches Beispiel am Computer:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n\"Das ist wie eine Verzweigung auf deinem Weg\", erklärt sie. \"Der Code fragt: 'Ist die Ampel grün?' Wenn ja, dann fahre los. Wenn nicht, dann mache... nichts in diesem Beispiel.\"\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\" oder \"wenn\"\r\n- `==` prüft auf Gleichheit (Achtung: nicht verwechseln mit `=`, das ist für Zuweisungen!)\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Die Einrückungen (4 Leerzeichen) sind in Python Pflicht – sie zeigen, welcher Code zur Bedingung gehört\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\n\"Aber was, wenn die Ampel **nicht** grün ist?\", fragt Emi. Sie passt den Code an:\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    # Wird ausgeführt, weil 15 < 18\r\n    print(\"Noch etwas Geduld... 🕒\")\r\n```\r\n\r\n\"Mit `else` hast du einen Plan B! Wenn die Bedingung nicht zutrifft, wird stattdessen der Code im `else`-Block ausgeführt. So hat dein Programm für jede Situation eine Antwort.\"\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\n\"Manchmal gibt es mehr als nur zwei Möglichkeiten\", sagt Emi und zaubert ein neues Beispiel hervor:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    # Wird ausgeführt, weil 2.3 <= 3.0\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n\"Mit `elif` (kurz für 'else if') kannst du mehrere Bedingungen nacheinander prüfen. Sobald eine davon zutrifft, wird der zugehörige Code ausgeführt und die restlichen Bedingungen werden übersprungen.\"\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n\"Um Entscheidungen zu treffen, brauchst du die richtigen Werkzeuge\", erklärt Emi und lässt eine Tabelle erscheinen:\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n\"Diese Operatoren sind wie deine Sinne – sie helfen dir, die Welt um dich herum zu verstehen und zu bewerten.\"\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n\"Manchmal müssen mehrere Bedingungen gleichzeitig erfüllt sein\", fährt Emi fort:\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    # Wird ausgeführt, weil wetter == \"sonnig\"\r\n    print(\"Eiszeit! 🍦\")\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    # Wird ausgeführt, weil login_erfolgreich False ist\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n\"Mit diesen drei Operatoren – `and`, `or` und `not` – kannst du komplexe Entscheidungen programmieren, genau wie das menschliche Gehirn.\"\r\n\r\n## 🏆 Jetzt bist du dran!\r\n\r\n\"Mit diesem Wissen kannst du jetzt richtig mächtige Programme schreiben\", sagt Emi begeistert. \"Du kannst deinem Code beibringen, intelligente Entscheidungen zu treffen – wie ein Mensch. Jetzt los, probiert euch an den Übungsaufgaben aus. Und seid nicht überrascht: diesmal habe ich mir ein paar kreative Sachen ausgedacht!\"\r\n",
+    "description": "# Inventur\r\n\r\nTODO\r\n",
     "image": "/story/3.jpg",
     "quests": [],
     "x": 100,

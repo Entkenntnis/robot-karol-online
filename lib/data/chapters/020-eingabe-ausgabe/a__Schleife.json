@@ -1,12 +1,1 @@
-{
-  "version": "v1",
-  "title": "a) Schleife",
-  "description": "TODO",
-  "tasks": [],
-  "lng": "de",
-  "editOptions": "python-pro-only",
-  "questScript": "",
-  "chats": [],
-  "language": "python-pro",
-  "program": ""
-}
+{"version":"v1","title":"a) Schleife","description":"Sage 10 Mal \"Buh!\". Nutze eine Schleife:\n\n```py\nfor i in range(...):\n    ...\n```","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Buh!"},{"role":"out","text":"Buh!"},{"role":"out","text":"Buh!"},{"role":"out","text":"Buh!"},{"role":"out","text":"Buh!"},{"role":"out","text":"Buh!"},{"role":"out","text":"Buh!"},{"role":"out","text":"Buh!"},{"role":"out","text":"Buh!"},{"role":"out","text":"Buh!"}]}],"language":"python-pro","program":""}

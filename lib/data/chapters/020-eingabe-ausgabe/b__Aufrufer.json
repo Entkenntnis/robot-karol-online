@@ -1,12 +1,1 @@
-{
-  "version": "v1",
-  "title": "b) Aufrufer",
-  "description": "TODO",
-  "tasks": [],
-  "lng": "de",
-  "editOptions": "python-pro-only",
-  "questScript": "",
-  "chats": [],
-  "language": "python-pro",
-  "program": ""
-}
+{"version":"v1","title":"b) Aufrufer","description":"Frage nach der Anzahl der Personen und gib für jede Person eine Nachricht aus.\n\nNutze für die Eingabe `input` und `int`.","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Wie viele Personen?"},{"role":"in","text":"3"},{"role":"out","text":"Nächste Person bitte!"},{"role":"out","text":"Nächste Person bitte!"},{"role":"out","text":"Nächste Person bitte!"}]},{"title":"Chat 2","messages":[{"role":"out","text":"Wie viele Personen?"},{"role":"in","text":"5"},{"role":"out","text":"Nächste Person bitte!"},{"role":"out","text":"Nächste Person bitte!"},{"role":"out","text":"Nächste Person bitte!"},{"role":"out","text":"Nächste Person bitte!"},{"role":"out","text":"Nächste Person bitte!"}]}],"language":"python-pro","program":""}
