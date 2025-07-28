@@ -1,8 +1,8 @@
 # Dart
 
-_Abends in der Bar. Es ist der einzige Ort im Dorf, an dem nach Einbruch der Dunkelheit noch ein Generator für Strom sorgt. Ellie sitzt in einer Ecke an ihrem Laptop, die kleine Karol-Figur baumelt am Netzkabel. Tommy und seine Freunde spielen lautstark Dart. Zwischen zwei Runden setzt Tommy sich zu Ellie._
+_Abends in der Bar. Es ist der einzige Ort im Dorf, an dem nach Einbruch der Dunkelheit noch ein Generator für Strom sorgt. Ellie sitzt in einer Ecke an ihrem Laptop, die kleine Karol-Figur baumelt am Netzkabel. Tommy und seine Freunde spielen lautstark Dart. Zwischen zwei Runden setzt sich Tommy zu Ellie._
 
-**Tommy**: Na Ellie, so spät nach am Lernen?  
+**Tommy**: Na Ellie, so spät noch am Lernen?  
 **Ellie**: (blickt müde auf) Ich wäre gern schon fertig, aber die Sonderschicht wegen der Infizierten hat meinen Zeitplan durcheinandergebracht. Danke nochmal, dass ihr auf uns gewartet habt.  
 **Tommy**: Kein Ding, Jackson bleibt standhaft. Wir passen aufeinander auf. (er nickt Richtung Laptop) Apropos, Maria meinte, du bringst der Kiste da Rechnen bei.  
 **Ellie**: Sozusagen. Ist aber langweiliger, als es klingt.  

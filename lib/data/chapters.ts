@@ -661,7 +661,7 @@ const chapterInfo = [
     "dirName": "030-bedingte-anweisungen",
     "title": "3. Dart",
     "originalTitle": "Dart",
-    "description": "# Dart\r\n\r\n_Abends in der Bar. Es ist der einzige Ort im Dorf, an dem nach Einbruch der Dunkelheit noch ein Generator für Strom sorgt. Ellie sitzt in einer Ecke an ihrem Laptop, die kleine Karol-Figur baumelt am Netzkabel. Tommy und seine Freunde spielen lautstark Dart. Zwischen zwei Runden setzt Tommy sich zu Ellie._\r\n\r\n**Tommy**: Na Ellie, so spät nach am Lernen?  \r\n**Ellie**: (blickt müde auf) Ich wäre gern schon fertig, aber die Sonderschicht wegen der Infizierten hat meinen Zeitplan durcheinandergebracht. Danke nochmal, dass ihr auf uns gewartet habt.  \r\n**Tommy**: Kein Ding, Jackson bleibt standhaft. Wir passen aufeinander auf. (er nickt Richtung Laptop) Apropos, Maria meinte, du bringst der Kiste da Rechnen bei.  \r\n**Ellie**: Sozusagen. Ist aber langweiliger, als es klingt.  \r\n**Tommy**: Langweilig? Ich könnte gerade jemanden gebrauchen, der für uns rechnet. Jim vergisst nach zwei Bier immer die Hälfte der Punkte ...\r\n\r\n_Ellie zuckt mit den Schultern, aber in ihrem Kopf beginnt es zu ratten. Beim Dart fängt man mit 501 Punkten an. Ein fester Startwert. Eine Variable, Punkte abziehen. Eine Subtraktion. Immer und immer wieder ... wie die Schleife, die sie Maria gezeigt hat. Ein Gedanke formt sich._\r\n\r\n**Ellie**: Warte mal ... wie viele Würfe braucht ihr so für ein Spiel?  \r\n**Tommy**: Puh, wenn wir gut sind, vielleicht zwanzig. Wenn wir schlecht sind ... oder viel getrunken haben ... auch mal dreißig oder vierzig.  \r\n**Ellie**: Okay ... okay, ich glaube, ich hab was. (sie beugt sich über die Tastatur und fängt an zu tippen, dabei murmelt sie zu sich) Also, zuerst der Startwert:\r\n\r\n```py\r\npunktzahl = 501\r\nprint(\"Neues Spiel! Start bei 501 Punkten.\")\r\n```\r\n\r\nUnd dann wiederholen wir das Abziehen einfach ... sagen wir, 50 Mal. Das sollte reichen. Das ist diese `for`-Schleife:\r\n\r\n```py\r\nfor i in range(50):\r\n    wurf = int(input())\r\n    punktzahl = punktzahl - wurf\r\n\r\n    print(\"Neue Punktzahl:\")\r\n    print(punktzahl)\r\n```\r\n\r\nDas Programm fragt jetzt immer wieder nach einem Wurf und zieht die Punkte ab. Es merkt sich den aktuellen Stand in der `punktzahl`-Variable. Das ist ... das ist nicht mehr ein dämlicher Trick. Das ist ein Punktezähler! Schau her Tommy, ich habe einen Punktezähler gebaut!  \r\n**Tommy**: (blinzelt, dann bricht ein Lächeln auf seinem Gesicht durch) Wow. Okay, Kiddo. Endlich ein Punktezähler, der mal nicht betrunken oder müde ist.  \r\n**Jim**: Hey Tommy, ich kann euch beide hören!  \r\n**Ellie**: (lehnt sich stolz zurück) Komm, lass mich mal eine Runde mitspielen. Ich will sehen, ob mein Programm funktioniert.\r\n",
+    "description": "# Dart\r\n\r\n_Abends in der Bar. Es ist der einzige Ort im Dorf, an dem nach Einbruch der Dunkelheit noch ein Generator für Strom sorgt. Ellie sitzt in einer Ecke an ihrem Laptop, die kleine Karol-Figur baumelt am Netzkabel. Tommy und seine Freunde spielen lautstark Dart. Zwischen zwei Runden setzt sich Tommy zu Ellie._\r\n\r\n**Tommy**: Na Ellie, so spät noch am Lernen?  \r\n**Ellie**: (blickt müde auf) Ich wäre gern schon fertig, aber die Sonderschicht wegen der Infizierten hat meinen Zeitplan durcheinandergebracht. Danke nochmal, dass ihr auf uns gewartet habt.  \r\n**Tommy**: Kein Ding, Jackson bleibt standhaft. Wir passen aufeinander auf. (er nickt Richtung Laptop) Apropos, Maria meinte, du bringst der Kiste da Rechnen bei.  \r\n**Ellie**: Sozusagen. Ist aber langweiliger, als es klingt.  \r\n**Tommy**: Langweilig? Ich könnte gerade jemanden gebrauchen, der für uns rechnet. Jim vergisst nach zwei Bier immer die Hälfte der Punkte ...\r\n\r\n_Ellie zuckt mit den Schultern, aber in ihrem Kopf beginnt es zu ratten. Beim Dart fängt man mit 501 Punkten an. Ein fester Startwert. Eine Variable, Punkte abziehen. Eine Subtraktion. Immer und immer wieder ... wie die Schleife, die sie Maria gezeigt hat. Ein Gedanke formt sich._\r\n\r\n**Ellie**: Warte mal ... wie viele Würfe braucht ihr so für ein Spiel?  \r\n**Tommy**: Puh, wenn wir gut sind, vielleicht zwanzig. Wenn wir schlecht sind ... oder viel getrunken haben ... auch mal dreißig oder vierzig.  \r\n**Ellie**: Okay ... okay, ich glaube, ich hab was. (sie beugt sich über die Tastatur und fängt an zu tippen, dabei murmelt sie zu sich) Also, zuerst der Startwert:\r\n\r\n```py\r\npunktzahl = 501\r\nprint(\"Neues Spiel! Start bei 501 Punkten.\")\r\n```\r\n\r\nUnd dann wiederholen wir das Abziehen einfach ... sagen wir, 50 Mal. Das sollte reichen. Das ist diese `for`-Schleife:\r\n\r\n```py\r\nfor i in range(50):\r\n    wurf = int(input())\r\n    punktzahl = punktzahl - wurf\r\n\r\n    print(\"Neue Punktzahl:\")\r\n    print(punktzahl)\r\n```\r\n\r\nDas Programm fragt jetzt immer wieder nach einem Wurf und zieht die Punkte ab. Es merkt sich den aktuellen Stand in der `punktzahl`-Variable. Das ist ... das ist nicht mehr ein dämlicher Trick. Das ist ein Punktezähler! Schau her Tommy, ich habe einen Punktezähler gebaut!  \r\n**Tommy**: (blinzelt, dann bricht ein Lächeln auf seinem Gesicht durch) Wow. Okay, Kiddo. Endlich ein Punktezähler, der mal nicht betrunken oder müde ist.  \r\n**Jim**: Hey Tommy, ich kann euch beide hören!  \r\n**Ellie**: (lehnt sich stolz zurück) Komm, lass mich mal eine Runde mitspielen. Ich will sehen, ob mein Programm funktioniert.\r\n",
     "image": "/story/dart.jpg",
     "quests": [
       {
@@ -687,8 +687,8 @@ const chapterInfo = [
       },
       {
         "filename": "b__Dart_2.json",
-        "x": 70,
-        "y": 170,
+        "x": 260,
+        "y": 50,
         "id": 157,
         "content": {
           "version": "v1",
@@ -729,8 +729,8 @@ const chapterInfo = [
       },
       {
         "filename": "d__Summe.json",
-        "x": 260,
-        "y": 50,
+        "x": 70,
+        "y": 170,
         "id": 159,
         "content": {
           "version": "v1",

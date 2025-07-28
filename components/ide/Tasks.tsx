@@ -725,7 +725,9 @@ export function Tasks() {
         </div>
         <div className={clsx('flex-grow-0 flex-shrink-0')}>
           {(core.ws.page == 'editor' ||
-            (!core.ws.ui.proMode && core.ws.ui.pythonProCanSwitch)) && (
+            (!core.ws.ui.proMode &&
+              core.ws.ui.pythonProCanSwitch &&
+              !core.ws.ui.isChatMode)) && (
             <button
               className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
               onClick={() => {
