@@ -1,49 +1,36 @@
 # Dart
 
-_Abends in der Bar, Ellie sitzt in der Ecke mit ihrem Laptop; Tommy und einige seiner Kumpels spielen Dart._
+_Abends in der Bar. Es ist der einzige Ort im Dorf, an dem nach Einbruch der Dunkelheit noch ein Generator für Strom sorgt. Ellie sitzt in einer Ecke an ihrem Laptop, die kleine Karol-Figur baumelt am Netzkabel. Tommy und seine Freunde spielen lautstark Dart. Zwischen zwei Runden setzt Tommy sich zu Ellie._
 
-**Tommy**: Na Ellie, wie läuft es mit den Programmieren?  
-**Ellie**: (schaut auf, ihr Blick wird wütend) Man ey, warum interessiert sich das ganze Dorf für mich? Ich bin nur hier, weil es abends nur hier Strom gibt.  
-**Tommy**: Hey, ich habs ja nur gut gemeint. Und naja, Maria hat mir davon erzählt. Und das du auf der Suche nach was nützlichen bist. Weißt du was: beim Dartspielen könnten wir sehr gut Hilfe brauchen. Wenn Jim hier ein paar Bier getrunken hat, ist er nicht mehr in der Lage, die Punkte richtig zu rechnen.  
-**Ellie**: Und was geht mich das an?  
-**Tommy**: Dein "Python" kann doch sicherlich mit Zahlen rechnen, oder?
+**Tommy**: Na Ellie, so spät nach am Lernen?  
+**Ellie**: (blickt müde auf) Ich wäre gern schon fertig, aber die Sonderschicht wegen der Infizierten hat meinen Zeitplan durcheinandergebracht. Danke nochmal, dass ihr auf uns gewartet habt.  
+**Tommy**: Kein Ding, Jackson bleibt standhaft. Wir passen aufeinander auf. (er nickt Richtung Laptop) Apropos, Maria meinte, du bringst der Kiste da Rechnen bei.  
+**Ellie**: Sozusagen. Ist aber langweiliger, als es klingt.  
+**Tommy**: Langweilig? Ich könnte gerade jemanden gebrauchen, der für uns rechnet. Jim vergisst nach zwei Bier immer die Hälfte der Punkte ...
 
-_Tommy geht zu Ellie rüber und schaut auf ihren Bildschirm_
+_Ellie zuckt mit den Schultern, aber in ihrem Kopf beginnt es zu ratten. Beim Dart fängt man mit 501 Punkten an. Ein fester Startwert. Eine Variable, Punkte abziehen. Eine Subtraktion. Immer und immer wieder ... wie die Schleife, die sie Maria gezeigt hat. Ein Gedanke formt sich._
 
-**Tommy**: Also, wie rechnet man mit diesem Ding?  
-**Ellie**: (seufzt) Na gut, also. Erstmal musst du die Zahlen Einlesen und in Variablen speichern. Ich mache es meist so:
-
-```py
-a = int(input())
-b = int(input())
-```
-
-Schau. Hier habe ich zwei Zahlen, die ich dem Programm sagen kann. Und dann kann ich mit `+`, `-`, `*` und `/` die vier Grundrechenarten ausführen:
+**Ellie**: Warte mal ... wie viele Würfe braucht ihr so für ein Spiel?  
+**Tommy**: Puh, wenn wir gut sind, vielleicht zwanzig. Wenn wir schlecht sind ... oder viel getrunken haben ... auch mal dreißig oder vierzig.  
+**Ellie**: Okay ... okay, ich glaube, ich hab was. (sie beugt sich über die Tastatur und fängt an zu tippen, dabei murmelt sie zu sich) Also, zuerst der Startwert:
 
 ```py
-print(a + b)
-print(a - b)
-print(a * b)
-print(a / b)
+punktzahl = 501
+print("Neues Spiel! Start bei 501 Punkten.")
 ```
 
-Wenn ich also 10 und 5 eingebe, erhalte ich die Ergebnisse 15, 5, 50 und 2.
-
-**Tommy**: Und kann ich auch sowas wie einen Punktestand zählen?  
-**Ellie**: Du meinst wie eine Variable? Das könnte so gehen. Lebe zuerst einen Punktestand an:
+Und dann wiederholen wir das Abziehen einfach ... sagen wir, 50 Mal. Das sollte reichen. Das ist diese `for`-Schleife:
 
 ```py
-punktzahl = 0
+for i in range(50):
+    wurf = int(input())
+    punktzahl = punktzahl - wurf
+
+    print("Neue Punktzahl:")
+    print(punktzahl)
 ```
 
-Und dann kannst du diese Zahl immer wieder erhöhen:
-
-```py
-runde = int(input())
-punktzahl = puntzahl + runde
-print("Deine neue Punktzahl:")
-print(punktzahl)
-```
-
-Ziemlich cool, oder? Warte mal, das ist echt cool, mit diesen einfachen Mitteln kann ich wirklich viel machen. Karol, ich bin ein richtiger Superheld!  
-**Tommy**: Ähm, ich kann dir nicht ganz folgen ...
+Das Programm fragt jetzt immer wieder nach einem Wurf und zieht die Punkte ab. Es merkt sich den aktuellen Stand in der `punktzahl`-Variable. Das ist ... das ist nicht mehr ein dämlicher Trick. Das ist ein Punktezähler! Schau her Tommy, ich habe einen Punktezähler gebaut!  
+**Tommy**: (blinzelt, dann bricht ein Lächeln auf seinem Gesicht durch) Wow. Okay, Kiddo. Endlich ein Punktezähler, der mal nicht betrunken oder müde ist.  
+**Jim**: Hey Tommy, ich kann euch beide hören!  
+**Ellie**: (lehnt sich stolz zurück) Komm, lass mich mal eine Runde mitspielen. Ich will sehen, ob mein Programm funktioniert.
