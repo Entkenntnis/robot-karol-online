@@ -7,7 +7,11 @@
     "020-eingabe-ausgabe/a__Schleife.json": 152,
     "020-eingabe-ausgabe/b__Aufrufer.json": 153,
     "020-eingabe-ausgabe/c__Beatbox.json": 154,
-    "020-eingabe-ausgabe/d__Countdown.json": 155
+    "020-eingabe-ausgabe/d__Countdown.json": 155,
+    "030-bedingte-anweisungen/a__Dart_1.json": 156,
+    "030-bedingte-anweisungen/b__Dart_2.json": 157,
+    "030-bedingte-anweisungen/c__Dart_3.json": 158,
+    "030-bedingte-anweisungen/d__Summe.json": 159
   },
-  "counter": 156
+  "counter": 160
 }

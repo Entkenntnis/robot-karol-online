@@ -659,11 +659,96 @@ const chapterInfo = [
   {
     "id": 10004,
     "dirName": "030-bedingte-anweisungen",
-    "title": "3. Inventur",
-    "originalTitle": "Inventur",
-    "description": "# Inventur\r\n\r\nTODO\r\n",
-    "image": "/story/3.jpg",
-    "quests": [],
+    "title": "3. Dart",
+    "originalTitle": "Dart",
+    "description": "# Dart\r\n\r\n_Abends in der Bar, Ellie sitzt in der Ecke mit ihrem Laptop; Tommy und einige seiner Kumpels spielen Dart._\r\n\r\n**Tommy**: Na Ellie, wie läuft es mit den Programmieren?  \r\n**Ellie**: (schaut auf, ihr Blick wird wütend) Man ey, warum interessiert sich das ganze Dorf für mich? Ich bin nur hier, weil es abends nur hier Strom gibt.  \r\n**Tommy**: Hey, ich habs ja nur gut gemeint. Und naja, Maria hat mir davon erzählt. Und das du auf der Suche nach was nützlichen bist. Weißt du was: beim Dartspielen könnten wir sehr gut Hilfe brauchen. Wenn Jim hier ein paar Bier getrunken hat, ist er nicht mehr in der Lage, die Punkte richtig zu rechnen.  \r\n**Ellie**: Und was geht mich das an?  \r\n**Tommy**: Dein \"Python\" kann doch sicherlich mit Zahlen rechnen, oder?\r\n\r\n_Tommy geht zu Ellie rüber und schaut auf ihren Bildschirm_\r\n\r\n**Tommy**: Also, wie rechnet man mit diesem Ding?  \r\n**Ellie**: (seufzt) Na gut, also. Erstmal musst du die Zahlen Einlesen und in Variablen speichern. Ich mache es meist so:\r\n\r\n```py\r\na = int(input())\r\nb = int(input())\r\n```\r\n\r\nSchau. Hier habe ich zwei Zahlen, die ich dem Programm sagen kann. Und dann kann ich mit `+`, `-`, `*` und `/` die vier Grundrechenarten ausführen:\r\n\r\n```py\r\nprint(a + b)\r\nprint(a - b)\r\nprint(a * b)\r\nprint(a / b)\r\n```\r\n\r\nWenn ich also 10 und 5 eingebe, erhalte ich die Ergebnisse 15, 5, 50 und 2.\r\n\r\n**Tommy**: Und kann ich auch sowas wie einen Punktestand zählen?  \r\n**Ellie**: Du meinst wie eine Variable? Das könnte so gehen. Lebe zuerst einen Punktestand an:\r\n\r\n```py\r\npunktzahl = 0\r\n```\r\n\r\nUnd dann kannst du diese Zahl immer wieder erhöhen:\r\n\r\n```py\r\nrunde = int(input())\r\npunktzahl = puntzahl + runde\r\nprint(\"Deine neue Punktzahl:\")\r\nprint(punktzahl)\r\n```\r\n\r\nZiemlich cool, oder? Warte mal, das ist echt cool, mit diesen einfachen Mitteln kann ich wirklich viel machen. Karol, ich bin ein richtiger Superheld!  \r\n**Tommy**: Ähm, ich kann dir nicht ganz folgen ...\r\n",
+    "image": "/story/dart.jpg",
+    "quests": [
+      {
+        "filename": "a__Dart_1.json",
+        "x": 80,
+        "y": -120,
+        "id": 156,
+        "content": {
+          "version": "v1",
+          "title": "a) Dart 1",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "b__Dart_2.json",
+        "x": 70,
+        "y": 170,
+        "id": 157,
+        "content": {
+          "version": "v1",
+          "title": "b) Dart 2",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "c__Dart_3.json",
+        "x": 190,
+        "y": 150,
+        "id": 158,
+        "content": {
+          "version": "v1",
+          "title": "c) Dart 3",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "d__Summe.json",
+        "x": 260,
+        "y": 50,
+        "id": 159,
+        "content": {
+          "version": "v1",
+          "title": "d) Summe",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10004
+        ]
+      }
+    ],
     "x": 100,
     "y": 1980
   },
