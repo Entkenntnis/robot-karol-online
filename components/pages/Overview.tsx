@@ -1063,12 +1063,6 @@ export function Overview() {
                         ((idsInThisChapter.filter(isQuestDone).length + 1) /
                           (chapterData[id].requiredCount + 1))
 
-                      console.log(
-                        `Chapter ${id} progress: ${percentage}% (${
-                          idsInThisChapter.filter(isQuestDone).length
-                        } of ${chapterData[id].requiredCount})`
-                      )
-
                       colorHeight = Math.max(
                         14,
                         Math.min(
