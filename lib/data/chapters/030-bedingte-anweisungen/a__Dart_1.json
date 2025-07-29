@@ -1,12 +1,1 @@
-{
-  "version": "v1",
-  "title": "a) Dart 1",
-  "description": "TODO",
-  "tasks": [],
-  "lng": "de",
-  "editOptions": "python-pro-only",
-  "questScript": "",
-  "chats": [],
-  "language": "python-pro",
-  "program": ""
-}
+{"version":"v1","title":"a) Dart 1","description":"Bringe die Zeilen in die richtige Reihenfolge:\n\n- `print(punktzahl)`\n- `punktzahl = 501`\n- `wurf = int(input())`\n- `print(\"Neue Runde\")`\n- `punktzahl = punktzahl - wurf`\n","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Neue Runde"},{"role":"in","text":"17"},{"role":"out","text":"484"}]},{"title":"Chat 2","messages":[{"role":"out","text":"Neue Runde"},{"role":"in","text":"50"},{"role":"out","text":"451"}]},{"title":"Chat 3","messages":[{"role":"out","text":"Neue Runde"},{"role":"in","text":"1"},{"role":"out","text":"500"}]}],"language":"python-pro","program":""}

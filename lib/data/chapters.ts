@@ -670,18 +670,70 @@ const chapterInfo = [
     "quests": [
       {
         "filename": "a__Dart_1.json",
-        "x": 80,
-        "y": -120,
+        "x": 180,
+        "y": -100,
         "id": 156,
         "content": {
           "version": "v1",
           "title": "a) Dart 1",
-          "description": "TODO",
+          "description": "Bringe die Zeilen in die richtige Reihenfolge:\n\n- `print(punktzahl)`\n- `punktzahl = 501`\n- `wurf = int(input())`\n- `print(\"Neue Runde\")`\n- `punktzahl = punktzahl - wurf`\n",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Neue Runde"
+                },
+                {
+                  "role": "in",
+                  "text": "17"
+                },
+                {
+                  "role": "out",
+                  "text": "484"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Neue Runde"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "out",
+                  "text": "451"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Neue Runde"
+                },
+                {
+                  "role": "in",
+                  "text": "1"
+                },
+                {
+                  "role": "out",
+                  "text": "500"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -697,12 +749,79 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "b) Dart 2",
-          "description": "TODO",
+          "description": "Erweitere das Programm von Dart 1 für **drei** Würfe. Nutze `for i in range(...)`.\n\n<details>\n<summary>Vorlage zum Kopieren</summary>\n```py\npunktzahl = 501\nprint(\"Neue Runde\")\nwurf = int(input())\npunktzahl = punktzahl - wurf\nprint(punktzahl)\n```\n</details>",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Neue Runde"
+                },
+                {
+                  "role": "in",
+                  "text": "16"
+                },
+                {
+                  "role": "out",
+                  "text": "485"
+                },
+                {
+                  "role": "in",
+                  "text": "25"
+                },
+                {
+                  "role": "out",
+                  "text": "460"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "457"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Neue Runde"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "out",
+                  "text": "451"
+                },
+                {
+                  "role": "in",
+                  "text": "25"
+                },
+                {
+                  "role": "out",
+                  "text": "426"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "out",
+                  "text": "376"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -718,12 +837,88 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "c) Dart 3",
-          "description": "TODO",
+          "description": "Es ist gar nicht so einfach, die Zahlen schnell zu multiplizieren. Python kann mit dem `*`-Operator genau das übernehmen. Frage Zahl und Faktor ab und gib das Produkt aus.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Zahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "17"
+                },
+                {
+                  "role": "out",
+                  "text": "Faktor:"
+                },
+                {
+                  "role": "in",
+                  "text": "2"
+                },
+                {
+                  "role": "out",
+                  "text": "34"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Zahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "Faktor:"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "9"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Zahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "13"
+                },
+                {
+                  "role": "out",
+                  "text": "Faktor:"
+                },
+                {
+                  "role": "in",
+                  "text": "1"
+                },
+                {
+                  "role": "out",
+                  "text": "13"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -739,12 +934,124 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "d) Summe",
-          "description": "TODO",
+          "description": "Eine Variable kann für viele Dinge verwendet werden, z.B. auch um die Summe einiger Zahlen zu berechnen.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Anzahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "Zahlen:"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "in",
+                  "text": "44"
+                },
+                {
+                  "role": "in",
+                  "text": "12"
+                },
+                {
+                  "role": "out",
+                  "text": "106"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Anzahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "Zahlen:"
+                },
+                {
+                  "role": "in",
+                  "text": "1"
+                },
+                {
+                  "role": "in",
+                  "text": "2"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "15"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Anzahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "out",
+                  "text": "Zahlen:"
+                },
+                {
+                  "role": "in",
+                  "text": "11111"
+                },
+                {
+                  "role": "in",
+                  "text": "22222"
+                },
+                {
+                  "role": "in",
+                  "text": "33333"
+                },
+                {
+                  "role": "in",
+                  "text": "22222"
+                },
+                {
+                  "role": "out",
+                  "text": "88888"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },

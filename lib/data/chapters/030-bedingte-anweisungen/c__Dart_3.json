@@ -1,12 +1,1 @@
-{
-  "version": "v1",
-  "title": "c) Dart 3",
-  "description": "TODO",
-  "tasks": [],
-  "lng": "de",
-  "editOptions": "python-pro-only",
-  "questScript": "",
-  "chats": [],
-  "language": "python-pro",
-  "program": ""
-}
+{"version":"v1","title":"c) Dart 3","description":"Es ist gar nicht so einfach, die Zahlen schnell zu multiplizieren. Python kann mit dem `*`-Operator genau das übernehmen. Frage Zahl und Faktor ab und gib das Produkt aus.","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Zahl:"},{"role":"in","text":"17"},{"role":"out","text":"Faktor:"},{"role":"in","text":"2"},{"role":"out","text":"34"}]},{"title":"Chat 2","messages":[{"role":"out","text":"Zahl:"},{"role":"in","text":"3"},{"role":"out","text":"Faktor:"},{"role":"in","text":"3"},{"role":"out","text":"9"}]},{"title":"Chat 3","messages":[{"role":"out","text":"Zahl:"},{"role":"in","text":"13"},{"role":"out","text":"Faktor:"},{"role":"in","text":"1"},{"role":"out","text":"13"}]}],"language":"python-pro","program":""}
