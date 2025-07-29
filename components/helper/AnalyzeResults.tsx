@@ -128,6 +128,13 @@ export function AnalyzeResults() {
         </span>
       ))}
       <h2 className="mt-6 mb-4 text-lg">Umfrage</h2>
+      <div className="text-xs text-gray-500 mb-4">
+        Das Ziel jeder Aufgabe war für mich klar verständlich._Es war einfach,
+        Fehler in meinem Code zu finden._Ich würde Robot Karol einer FreundIn
+        empfehlen._Was würdest du an Robot Karol verbessern?_Welche
+        Aufgabe/Feature hat dir am meisten Spaß gemacht – und warum?_Dürfen wir
+        deine Antworten in einer öffentlichen Statistik zeigen?
+      </div>
       <div>
         {survey.map((entry, i) => (
           <p key={i} className="mb-1 break-all">
