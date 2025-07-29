@@ -215,11 +215,11 @@ export function Overview() {
             >
               {core.strings.overview.editor}
             </a>
-            <div className="dropdown">
+            <div className="dropdown dropdown-hover">
               <div
                 tabIndex={0}
                 role="button"
-                className="hover:underline cursor-pointer ml-6 mr-2 select-none"
+                className="hover:underline cursor-pointer ml-6 mr-2 select-none pb-1"
                 id="overview-self-learning-path"
               >
                 {core.strings.overview.path}{' '}
@@ -227,7 +227,7 @@ export function Overview() {
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content bg-white rounded-lg z-[11] w-56 p-2 shadow mt-1 [&>li>a]:px-4 [&>li>*]:py-2 [&>li>*]:cursor-pointer hover:[&>li]:bg-gray-200/50 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50  [&_a]:block [&_button]:block [&_button]:w-full [&_button]:text-left [&_button]:pl-4"
+                className="dropdown-content bg-white rounded-lg z-[11] w-56 p-2 shadow [&>li>a]:px-4 [&>li>*]:py-2 [&>li>*]:cursor-pointer hover:[&>li]:bg-gray-200/50 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50  [&_a]:block [&_button]:block [&_button]:w-full [&_button]:text-left [&_button]:pl-4"
               >
                 <li>
                   <a
@@ -238,6 +238,13 @@ export function Overview() {
                       try {
                         // @ts-ignore
                         document.activeElement?.blur()
+                        const dropdown = document.querySelector(
+                          '.dropdown.dropdown-hover'
+                        ) as HTMLDivElement
+                        dropdown.classList.remove('dropdown-hover')
+                        setTimeout(() => {
+                          dropdown.classList.add('dropdown-hover')
+                        }, 50)
                       } catch (e) {}
                     }}
                   >
@@ -297,6 +304,13 @@ export function Overview() {
                       try {
                         // @ts-ignore
                         document.activeElement?.blur()
+                        const dropdown = document.querySelector(
+                          '.dropdown.dropdown-hover'
+                        ) as HTMLDivElement
+                        dropdown.classList.remove('dropdown-hover')
+                        setTimeout(() => {
+                          dropdown.classList.add('dropdown-hover')
+                        }, 50)
                       } catch (e) {}
                     }}
                   >
@@ -409,7 +423,7 @@ export function Overview() {
           {!core.ws.overview.showOverviewList &&
             !core.ws.overview.showProfile && (
               <div
-                className="w-[1240px] mx-auto relative mt-6"
+                className="w-[1240px] mx-auto relative mt-5"
                 style={{ height: `${maxMapY + 1300}px` }}
               >
                 <img
