@@ -1058,9 +1058,16 @@ export function Overview() {
                       const idsInThisChapter = Object.entries(mapData)
                         .filter(([, data]) => data.chapter === id)
                         .map(([i]) => parseInt(i))
-                      const percentage = idsInThisChapter.some(isQuestDone)
-                        ? 100
-                        : 50
+                      const percentage =
+                        100 *
+                        ((idsInThisChapter.filter(isQuestDone).length + 1) /
+                          (chapterData[id].requiredCount + 1))
+
+                      console.log(
+                        `Chapter ${id} progress: ${percentage}% (${
+                          idsInThisChapter.filter(isQuestDone).length
+                        } of ${chapterData[id].requiredCount})`
+                      )
 
                       colorHeight = Math.max(
                         14,
@@ -1282,7 +1289,8 @@ export function Overview() {
       isQuestDone(id) ||
       (id < 10000
         ? mapData[id]?.deps.some(isQuestDone)
-        : questsInPreviousChapter.filter(isQuestDone).length > 0 ||
+        : questsInPreviousChapter.filter(isQuestDone).length >
+            chapterData[id - 1]?.requiredCount - 1 ||
           (questsInPreviousChapter.length == 0 && isQuestDone(id - 1)))
     )
   }

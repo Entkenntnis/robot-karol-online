@@ -9,6 +9,7 @@ const chapterInfo = [
     "dirName": "000-intro",
     "title": "0. Alles ist scheiße",
     "originalTitle": "Alles ist scheiße",
+    "requiredCount": 1,
     "description": "# Alles ist scheiße\r\n\r\n_Es klopft an der Tür zu Ellies Garage._\r\n\r\n**Ellie**: Ja?  \r\n**Joel**: Kann ich reinkommen?  \r\n**Ellie**: Ausnahmsweise.\r\n\r\n_Joel mustert Ellie, wie sie mit gerunzelter Stirn über ein aufgeschlagenes Buch gebeugt sitzt, neben ihr ein alter Laptop._\r\n\r\n**Joel**: Hey Kiddo, das Abendessen ist fertig. Was machst du da so verbissen?\r\n\r\n_Ellie stößt ein frustriertes Geräusch aus und schiebt das Buch von sich._\r\n\r\n**Ellie**: Ich versuche, nicht dumm zu sein.  \r\n**Joel** (tritt näher, seine Augen überfliegen den Titel): \"Python für Einsteiger\" ... seit wann interessierst du dich dafür?  \r\n**Ellie** (verschränkt die Arme): Ich dachte, es wäre vielleicht ... nützlich. Stell dir vor, wir könnten Programme schreiben, um die Patrouillen zu planen. Oder das verdammte Inventar zu verwalten, damit wir wissen, wie viele Konservern noch da sind. Aber ich scheitere schon an der allerersten Übung. Es ist alles scheiße!\r\n**Joel**: Hey, hey. Rom wurde auch nicht an einem Tag erbaut. Und dein letzter Kochversuch hat auch nicht auf Anhieb ...  \r\n**Ellie**: Stopp!! Darüber reden wir nicht!  \r\n**Joel**: Okay, okay. Dir scheint das wichtig zu sein. Wie wäre es damit: Nach dem Abendessen setze ich mich einfach zu dir. Du versuchst es nochmal in Ruhe, und ich sorge dafür, dass du das blöde Buch nicht aus dem Fenster wirfst. Manchmal braucht man nur ein zweites Paar Augen daneben. Deal?  \r\n**Ellie** (mit forschen Blick): Du bist immer noch nicht mein Dad ... aber du hilfst mir, versprochen?  \r\n**Joel**: Hab ich dich je in Stich gelassen?\r\n\r\n_Ellie schaut ihn einen Moment lang an. Ein kaum merkliches Lächeln umspielt ihre Lippen. Sie steht auf und streckt sich._\r\n\r\n**Ellie**: Dann zeig mal, ob sich deine Kochkünste verbessert haben. Ich habe plötzlich richtig Hunger.\r\n",
     "image": "/story/ellie0.jpg",
     "quests": [
@@ -56,6 +57,7 @@ const chapterInfo = [
     "dirName": "010-variablen",
     "title": "1. Glückbringer",
     "originalTitle": "Glückbringer",
+    "requiredCount": 2,
     "description": "# Glücksbringer\r\n\r\n_Es ist ein sonniger Nachmittag. Joel schnitzt in seiner Werkstatt an einer kleinen Holzfigur. Die Tür knarrt, Ellie lehnt im Rahmen und wirkt unmotiviert._\r\n\r\n**Joel**: Langer Gesichtsausdruck für einen freien Tag.  \r\n**Ellie**: Dieses Programmier-Ding, es ist so langweilig.  \r\n**Joel**: Langweilig? Dachte, du wärst voll dabei. Hast doch gestern Abend die erste Aufgabe gelöst.  \r\n**Ellie**: Ja schon, aber ... ich verstehe ja, was das Programm tut. Mit `print()` kann ich meinem Programm Dinge sagen lassen. Und mit `input()` kann mein Programm eine Frage stelle und auf die Antwort warten. Es ist wie eine Unterhaltung ... aber mit niemanden. Ich starre auf den Laptop, tippe was ein, und es erscheint wieder Text. Das fühlt sich so leer an!\r\n\r\n_Ellie lässt das Buch achtlos auf den Boden fallen. Joel hört auf zu schnitzen. Er blickt von der halbfertigen Figur in seiner Hand zu Ellie._\r\n\r\n**Joel**: Eine Unterhaltung mit niemanden, sagst du?  \r\n**Ellie**: Soll ich es nochmal lauter für den alten Herrn wiederholen?  \r\n**Joel**: Und was sagt dein Buch dazu? Das lässt dich doch nicht alleine im Regen stehen, oder?  \r\n**Ellie**: Da ist so eine dämliche Zeichnung von einem Roboter drin, nennen sie Karol. Als ob eine Zeichnung ein echter Gesprächspartner wäre.  \r\n**Joel**: Hm, eine Zeichnung. Was, wenn sie nicht nur eine Zeichnung wäre?  \r\n**Ellie**: Wie meinst du das?  \r\n**Joel** (hält den Holzblock hoch): Du hast doch gesagt, du brauchst ein Gegenüber, einen Gesprächspartner. Vielleicht ... schnitze ich dir einen.\r\n\r\n_Ellie ist für einen Moment still. Ihre Augen weiten sich, als der Gedanke bei ihr ankommt._\r\n\r\n**Ellie**: Du ... du würdest mir diese Karol schnitzen?  \r\n**Joel**: Ich versteh das. Es ist schwer, sich für etwas zu begeistern, das man nicht sehen oder anfassen kann. Also machen wir sie echt. Eine Partnerin, die dir zuhört. Und ein kleiner Glücksbringer ... (er lächelt leicht) ... damit du bei der Sache bleibst.  \r\n**Ellie**: In den Comics ... das ist der Moment. Die Origin-Story ... (sie blickt den Holzblock an, als würde sie eine Person ansehen.) ... Du und ich, Kleine. Wir werden Abenteuer erleben.\r\n\r\n_Joel sagt nichts. Er lächelt nur leise in sich hinein, nimmt sein Messer und macht sich wieder an das Schnitzen._\r\n",
     "image": "/story/joel1.jpg",
     "quests": [
@@ -269,6 +271,7 @@ const chapterInfo = [
     "dirName": "020-eingabe-ausgabe",
     "title": "2. Maria",
     "originalTitle": "Maria",
+    "requiredCount": 2,
     "description": "# Maria\r\n\r\n_Ein paar Tage später, nach dem Ende der Dorfversammlung._\r\n\r\n**Maria**: Na, du fleißige Biene? Schon die Welt gerettet? (sie lehnt sich grinsend über Ellies Schulter)  \r\n**Ellie**: (starrt weiter auf ihren Bildschirm) Sehr witzig.  \r\n**Maria**: Uff, das Gesicht kenne ich. Das ist der 'Ich-werfe-diesen-Computer-gleich-aus-dem-Fenster'-Blick. Komm, ich geb dir einen aus. Limo wie immer?  \r\n**Ellie**: (seufzt, aber ein kleines Lächeln huscht über ihr Gesicht) Ja, bitte.\r\n\r\n_Maria holt sich einen Kaffee und Ellie eine Limonade, sie setzt sich zu Ellie an den Tisch._\r\n\r\n**Maria**: Also, sprich mit mir. Nach deiner großen Ankündigung letztens dachte ich, du wärst nicht mehr zu bremsen.  \r\n**Ellie**: Welche Ankündigung? Die, bei der ich großspurig meinte, ich würde die Probleme des Dorfes mit Code lösen? Ich komme voran, aber es ist so ... langsam. Ich lerne lauter kleine, nutzlose Tricks, aber ich habe keine Ahnung, wie daraus jemals was Nützliches werden soll.  \r\n**Maria**: Nichts ist am Anfang nützlich. Zeig mal her, was ist denn der neuste nutzlose Trick?  \r\n**Ellie**: (dreht den Laptop leicht zu Maria) Schleifen. Damit kann man dem Ding sagen, dass es etwas immer und immer wieder tun soll:\r\n\r\n```py\r\nfor i in range(100):\r\n    print(\"Buh!\")\r\n```\r\n\r\nSiehst du? Hundermal \"Buh!\". Als ob das irgendwem im Lager helfen würde (sie rollt die Augen).  \r\n**Maria**: Okay, verstehe. Und könntest du ihm auch sagen, er soll es nur fünfmal machen, wenn ich das will?  \r\n**Ellie**: Ja klar. Dafür gibt's diesen `input()`-Befehl. Aber das ist auch wieder so eine Sache ... du gibst eine Zahl ein und das ganze Ding stürzt ab, nur weil man diesen dämlichen `int()`-Befehle drumherum packen muss. Ich habe Stunden gebraucht, um das zu kapieren!\r\n\r\n```py\r\nn = int(input())\r\nfor i in range(n):\r\n    print(\"Ha!\")\r\n```\r\n\r\n**Maria**: Und ist es Absicht, dass dieses `print()` da so eingerückt ist?  \r\n**Ellie**: Oh ja, das auch! Das hat auch ewig gedauert. Alle Befehle, die wiederholt werden sollen, müssen eingerückt sein. Dafür gibt es die Tab-Taste. Der Computer ist total stur. Wenn du es vergisst, funktioniert einfach gar nichts mehr.  \r\n**Maria**: Weißt du was? Du findest das vielleicht nutzlos, aber für mich klingt das schon ziemlich mächtig. Du sagst einer Maschine, was sie tun soll, wie oft sie es tun soll und welche Befehle dazugehören.  \r\n**Ellie**: Es fühlt sich aber nicht mächtig an.  \r\n**Maria**: Kopf hoch. Du lernst gerade das Fundament. Gib nicht auf, du bist näher dran, als du denkst!\r\n",
     "image": "/story/maria.jpg",
     "quests": [
@@ -661,6 +664,7 @@ const chapterInfo = [
     "dirName": "030-bedingte-anweisungen",
     "title": "3. Dart",
     "originalTitle": "Dart",
+    "requiredCount": 2,
     "description": "# Dart\r\n\r\n_Abends in der Bar. Es ist der einzige Ort im Dorf, an dem nach Einbruch der Dunkelheit noch ein Generator für Strom sorgt. Ellie sitzt in einer Ecke an ihrem Laptop, die kleine Karol-Figur baumelt am Netzkabel. Tommy und seine Freunde spielen lautstark Dart. Zwischen zwei Runden setzt sich Tommy zu Ellie._\r\n\r\n**Tommy**: Na Ellie, so spät noch am Lernen?  \r\n**Ellie**: (blickt müde auf) Ich wäre gern schon fertig, aber die Sonderschicht wegen der Infizierten hat meinen Zeitplan durcheinandergebracht. Danke nochmal, dass ihr auf uns gewartet habt.  \r\n**Tommy**: Kein Ding, Jackson bleibt standhaft. Wir passen aufeinander auf. (er nickt Richtung Laptop) Apropos, Maria meinte, du bringst der Kiste da Rechnen bei.  \r\n**Ellie**: Sozusagen. Ist aber langweiliger, als es klingt.  \r\n**Tommy**: Langweilig? Ich könnte gerade jemanden gebrauchen, der für uns rechnet. Jim vergisst nach zwei Bier immer die Hälfte der Punkte ...\r\n\r\n_Ellie zuckt mit den Schultern, aber in ihrem Kopf beginnt es zu ratten. Beim Dart fängt man mit 501 Punkten an. Ein fester Startwert. Eine Variable, Punkte abziehen. Eine Subtraktion. Immer und immer wieder ... wie die Schleife, die sie Maria gezeigt hat. Ein Gedanke formt sich._\r\n\r\n**Ellie**: Warte mal ... wie viele Würfe braucht ihr so für ein Spiel?  \r\n**Tommy**: Puh, wenn wir gut sind, vielleicht zwanzig. Wenn wir schlecht sind ... oder viel getrunken haben ... auch mal dreißig oder vierzig.  \r\n**Ellie**: Okay ... okay, ich glaube, ich hab was. (sie beugt sich über die Tastatur und fängt an zu tippen, dabei murmelt sie zu sich) Also, zuerst der Startwert:\r\n\r\n```py\r\npunktzahl = 501\r\nprint(\"Neues Spiel! Start bei 501 Punkten.\")\r\n```\r\n\r\nUnd dann wiederholen wir das Abziehen einfach ... sagen wir, 50 Mal. Das sollte reichen. Das ist diese `for`-Schleife:\r\n\r\n```py\r\nfor i in range(50):\r\n    wurf = int(input())\r\n    punktzahl = punktzahl - wurf\r\n\r\n    print(\"Neue Punktzahl:\")\r\n    print(punktzahl)\r\n```\r\n\r\nDas Programm fragt jetzt immer wieder nach einem Wurf und zieht die Punkte ab. Es merkt sich den aktuellen Stand in der `punktzahl`-Variable. Das ist ... das ist nicht mehr ein dämlicher Trick. Das ist ein Punktezähler! Schau her Tommy, ich habe einen Punktezähler gebaut!  \r\n**Tommy**: (blinzelt, dann bricht ein Lächeln auf seinem Gesicht durch) Wow. Okay, Kiddo. Endlich ein Punktezähler, der mal nicht betrunken oder müde ist.  \r\n**Jim**: Hey Tommy, ich kann euch beide hören!  \r\n**Ellie**: (lehnt sich stolz zurück) Komm, lass mich mal eine Runde mitspielen. Ich will sehen, ob mein Programm funktioniert.\r\n",
     "image": "/story/dart.jpg",
     "quests": [
@@ -687,7 +691,7 @@ const chapterInfo = [
       },
       {
         "filename": "b__Dart_2.json",
-        "x": 260,
+        "x": 240,
         "y": 50,
         "id": 157,
         "content": {
@@ -708,8 +712,8 @@ const chapterInfo = [
       },
       {
         "filename": "c__Dart_3.json",
-        "x": 190,
-        "y": 150,
+        "x": 180,
+        "y": 130,
         "id": 158,
         "content": {
           "version": "v1",
@@ -757,6 +761,7 @@ const chapterInfo = [
     "dirName": "040-mathematik",
     "title": "4. Schulbesuch",
     "originalTitle": "Schulbesuch",
+    "requiredCount": 1,
     "description": "# 🧮 Kapitel 4: Mathe-Genie – Rechnen wie ein Profi!\r\n\r\n\"Ich glaube, wir können jetzt etwas anspruchsvoller werden\", sagt Emi mit einem Blick zu Karol. Du bemerkst ihr kurzes Zögern. \"In echten Programmen dreht sich vieles um Zahlen und Berechnungen.\"\r\n\r\nKarol streicht sich eine graue Haarsträhne aus dem Gesicht. \"Tatsächlich habe ich mich kürzlich mit dem goldenen Schnitt beschäftigt.\" Ihre Hände zittern leicht. \"Zu schade, dass meine Lehrer früher nie den Zusammenhang zwischen Kunst und Zahlen erklärt haben.\"\r\n\r\nMax lehnt sich vor, die Müdigkeit in seinen Augen erkennbar. \"Meine Mutter sagt immer, dass Mathe das Herz der Programmierung ist. Letzte Woche hat sie mich beim Abendessen mit Binärzahlen gelöchert.\" Tim wirft ihm einen besorgten Blick zu.\r\n\r\n## 1. Arithmetische Grundoperationen\r\n\r\n\"Python versteht alle Grundrechenarten:\", erklärt Emi, ihre Stimme sanfter als sonst.\r\n\r\n```python\r\nprint(5 + 3)   # Addition: 8\r\nprint(10 - 4)  # Subtraktion: 6\r\nprint(2 * 6)   # Multiplikation: 12\r\nprint(8 / 2)   # Division: 4.0 (Achtung, Ergebnis ist float!)\r\n```\r\n\r\n\"Was bedeutet diese Anmerkung mit dem 'float'?\", fragst du, trotz deiner Angst, dumm zu wirken.\r\n\r\n\"Gute Frage! Bei der Division gibt Python immer eine Dezimalzahl zurück, auch wenn das Ergebnis eine ganze Zahl ist.\"\r\n\r\n## 2. Punkt-vor-Strich & Klammern\r\n\r\n\"Karol, erinnerst du dich an die Regel 'Punkt vor Strich' aus der Schule?\", fragt Emi.\r\n\r\nKarol verzieht kurz das Gesicht. \"Meine Mathelehrerin war... nicht gerade ermutigend.\" Ein Schatten huscht über ihr Gesicht.\r\n\r\n```python\r\nprint(3 + 4 * 2)   # 11 (nicht 14!)\r\nprint((3 + 4) * 2) # 14 – Klammern ändern alles!\r\n```\r\n\r\nTim erklärt leise: \"Mit Klammern kannst du die Reihenfolge ändern.\" Du hörst den Hauch von Stolz in seiner Stimme.\r\n\r\n## 3. Turbo-Zuweisungen 🚀\r\n\r\n```python\r\npunkte = 10\r\npunkte += 5  # Äquivalent zu: punkte = punkte + 5\r\nprint(punkte) # 15\r\n\r\n# Funktioniert auch mit -=, *=, /=\r\n```\r\n\r\n\"Das ist wie im Spiel!\", ruft Tim begeistert. Seine plötzliche Begeisterung lässt sein schüchternes Wesen kurz in den Hintergrund treten.\r\n\r\n## 4. Power mit \\*\\*\r\n\r\n```python\r\nprint(2 ** 3)  # 8 (2³)\r\nprint(5 ** 0.5) # Wurzel aus 5 ≈ 2.236\r\n```\r\n\r\n\"Mit 5 hoch 0.5 kann ich Wurzeln ziehen?\", fragt Karol überrascht.\r\n\r\nMax erklärt: \"Die Wurzel ist dasselbe wie Potenzieren mit 1/2.\" Seine Wangen färben sich leicht rot, als Emi ihm anerkennend zunickt.\r\n\r\n## 5. Mathe-Modul für Profis\r\n\r\n\"Für komplexere Berechnungen brauchen wir das 'math'-Modul:\", erklärt Emi, während ihre Hände nervös über die Tastatur huschen.\r\n\r\n```python\r\nimport math\r\n\r\n# Wurzel ziehen\r\nprint(math.sqrt(25))  # 5.0\r\n\r\n# Mit Pi rechnen\r\nradius = 3\r\numfang = 2 * math.pi * radius\r\nprint(f\"Umfang: {umfang:.2f} cm\")  # Formatierung auf 2 Nachkommastellen\r\n```\r\n\r\n\"Was bedeutet dieser Teil mit '{umfang:.2f}'?\", fragst du mit klopfendem Herzen.\r\n\r\n\"Das ist eine erweiterte Form der f-Strings. Der Teil ':.2f' bedeutet, dass wir die Zahl auf zwei Dezimalstellen formatieren.\"\r\n\r\nKarol murmelt: \"Ich habe immer auf ganze Euro-Beträge gerundet, weil mir die Berechnung zu kompliziert war.\"\r\n\r\n## 6. Variablen im Einsatz\r\n\r\n\"Lass uns das Ganze praktisch anwenden\", sagt Emi.\r\n\r\n```python\r\n# Fläche berechnen\r\nlänge = 8\r\nbreite = 5\r\nfläche = länge * breite\r\nprint(f\"Die Fläche beträgt {fläche} m²\")  # 40 m²\r\n\r\n# Der goldene Schnitt\r\nphi = (1 + math.sqrt(5)) / 2\r\nprint(f\"Der goldene Schnitt beträgt etwa: {phi:.3f}\")  # ungefähr 1.618\r\n```\r\n\r\n\"Fantastisch!\", ruft Karol. \"Wenn ich damals in der Schule gewusst hätte, wozu all diese abstrakten Zahlen gut sind...\"\r\n\r\n\"Ihr müsst nicht alles auswendig lernen\", beruhigt Emi euch, während sie nervös mit ihrem Armband spielt. \"Die meisten Programmierer schlagen regelmäßig in der Dokumentation nach.\"\r\n\r\n\"Zeit für eine Pause\", schlägt Karol vor und massiert ihre Schläfen. \"Mein alter Kopf braucht etwas Zeit zum Verarbeiten.\"\r\n\r\nDu bemerkst, wie Tim dir immer wieder nervöse Blicke zuwirft, und fragst dich, ob deine Abneigung gegen Mathe vielleicht gar nicht so stark ist, wie du immer gedacht hast – ein Gedanke, der dich gleichzeitig befreit und beunruhigt.\r\n",
     "image": "/story/4.jpg",
     "quests": [],
@@ -768,6 +773,7 @@ const chapterInfo = [
     "dirName": "050-schleifen",
     "title": "5. Streng geheim",
     "originalTitle": "Streng geheim",
+    "requiredCount": 1,
     "description": "# 🎯 Kapitel 5: Die Kunst der Wiederholung mit for & while\r\n\r\nHeute lernst du, wie man Code wiederholt – wie ein DJ, der den perfekten Beat loopt! 🎧\r\n\r\n## 🧩 Listen – Deine Daten-Sammelbox\r\n\r\nStell dir eine Einkaufsliste vor, aber für Computer:\r\n\r\n```python\r\n# So erstellst du eine Liste\r\nspielkarten = [\"Herz Ass\", \"Karo König\", \"Pik Dame\", \"Kreuz Bube\"]\r\nprimzahlen = [2, 3, 5, 7, 11]\r\nmixed_list = [42, \"Antwort\", True] # Alles mögliche drin!\r\n```\r\n\r\n## 🔄 Die for-Schleife – Dein Wiederholungs-Profi\r\n\r\n**\"Für jedes Element in der Liste: Mach was damit!\"**\r\n\r\n```python\r\n# Einkaufsliste abarbeiten\r\neinkaufsliste = [\"Äpfel\", \"Banane\", \"Milch\"]\r\n\r\nfor produkt in einkaufsliste:\r\n    print(f\"✏️ Brauche noch: {produkt}\")\r\n    print(\"...auf zum nächsten Produkt!\\n\")\r\n```\r\n\r\n_Ausgabe:_\r\n\r\n```\r\n✏️ Brauche noch: Äpfel\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Banane\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Milch\r\n...auf zum nächsten Produkt!\r\n```\r\n\r\n**Mit Zahlen arbeiten? Klar mit range():**\r\n\r\n```python\r\n# Countdown mit Style 🚀\r\nfor sekunde in range(5, 0, -1):\r\n    print(f\"{sekunde... Abflug!\")\r\nprint(\"🔥 Liftoff!\")\r\n```\r\n\r\n## ⏳ Die while-Schleife – Der Hartnäckige\r\n\r\n**\"Mach weiter, solange die Bedingung stimmt!\"**\r\n\r\n```python\r\n# Pizza-Back-Simulator 🍕\r\ntemperatur = 20\r\nziel_temp = 220\r\n\r\nwhile temperatur < ziel_temp:\r\n    temperatur += 20\r\n    print(f\"°C: {temperatur}°C | Heizt auf...\")\r\n\r\nprint(\"🔔 Pizza ist fertig! Buon appetito!\")\r\n```\r\n\r\n_Vorsicht:_ Vergiss nicht die Temperatur zu erhöhen, sonst brennt der Ofen durch! 🔥\r\n\r\n## 🥊 for vs. while – Wer wann?\r\n\r\n- **FOR:** Wenn du weißt, wie oft's laufen soll (z.B. Liste durchgehen)\r\n- **WHILE:** Wenn es auf eine Bedingung ankommt (z.B. Spiel läuft, bis Game Over)\r\n\r\n## 🎯 Challenge:\r\n\r\nErrate die geheime Zahl mit nur 3 Versuchen!\r\n\r\n```python\r\ngeheimzahl = 7\r\nversuche = 3\r\n\r\nwhile versuche > 0:\r\n    raten = int(input(\"🎯 Dein Tipp (1-10): \"))\r\n    if raten == geheimzahl:\r\n        print(\"🎉 Treffer! Gewonnen!\")\r\n        break\r\n    versuche -= 1\r\n    print(f\"❌ Daneben! Noch {versuche} Versuche\")\r\nelse:\r\n    print(\"😢 Game Over! Keine Versuche mehr\")\r\n```\r\n\r\n## 💡 Pro-Tipps:\r\n\r\n- `range()` kann auch so: `range(start, ende, schritt)`\r\n- Benenne Schleifen-Variablen sinnvoll:\r\n  - `for schüler in klasse:` statt `for x in y:`\r\n- Breakpoint setzen? Einfach `break` schreiben!\r\n\r\nJetzt du: Erfinde deine eigenen Schleifen-Experimente! 🔄 Wie wär's mit einem Roboter-Tanz per Code? 🤖💃🕺\r\n",
     "image": "",
     "quests": [],
@@ -779,6 +785,7 @@ const chapterInfo = [
     "dirName": "060-while",
     "title": "6. Morgenappell",
     "originalTitle": "Morgenappell",
+    "requiredCount": 1,
     "description": "Hier findest du weitere Bonus-Aufgaben.\r\n",
     "image": "",
     "quests": [],
@@ -790,6 +797,7 @@ const chapterInfo = [
     "dirName": "070-def",
     "title": "7. Superhelden",
     "originalTitle": "Superhelden",
+    "requiredCount": 1,
     "description": "",
     "image": "",
     "quests": [],
@@ -801,6 +809,7 @@ const chapterInfo = [
     "dirName": "080-logik",
     "title": "8. Unwetter",
     "originalTitle": "Unwetter",
+    "requiredCount": 1,
     "description": "",
     "image": "",
     "quests": [],
@@ -812,6 +821,7 @@ const chapterInfo = [
     "dirName": "999-bonus",
     "title": "9. Neue Wege",
     "originalTitle": "Neue Wege",
+    "requiredCount": 1,
     "description": "",
     "image": "",
     "quests": [],
@@ -835,7 +845,7 @@ export const chapterOverviewData: {
 export const chapterQuests: { [key: number]: QuestData } = {}
 
 // Generate chapterData based on chapter information
-export const chapterData: { [key: number]: { title: string, description: string, image: string } } = {}
+export const chapterData: { [key: number]: { title: string, description: string, image: string, requiredCount: number } } = {}
 
 // Populate the exported objects
 chapterInfo.forEach((chapter) => {
@@ -844,6 +854,7 @@ chapterInfo.forEach((chapter) => {
     title: chapter.title,
     description: chapter.description,
     image: chapter.image,
+    requiredCount: chapter.requiredCount,
   }
 
   // Default chapter position and dependencies
