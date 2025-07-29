@@ -1050,6 +1050,29 @@ export function Overview() {
                   if (!isQuestVisible(id)) return null
                   if (id >= 10000) {
                     // chapter marker
+                    // lower bound 48 = 0%, 14 = 100%
+                    let colorHeight = isQuestDone(id) ? 14 : 48
+                    // check if this chapter is the latest one, e.g. the next id is not done
+                    const isLatestChapter = !isQuestDone(id + 1)
+                    if (isLatestChapter && isQuestDone(id)) {
+                      const idsInThisChapter = Object.entries(mapData)
+                        .filter(([, data]) => data.chapter === id)
+                        .map(([i]) => parseInt(i))
+                      const percentage = idsInThisChapter.some(isQuestDone)
+                        ? 100
+                        : 50
+
+                      colorHeight = Math.max(
+                        14,
+                        Math.min(
+                          48,
+                          Math.round(
+                            ((100 - percentage) / 100) * (48 - 14) + 14
+                          )
+                        )
+                      )
+                    }
+
                     return (
                       <div
                         className="absolute z-10"
@@ -1086,15 +1109,22 @@ export function Overview() {
                                 </span>
                               )}
                             </p>
-                            <img
-                              src={
-                                isQuestDone(id)
-                                  ? '/motte_farbig.png'
-                                  : '/motte.png'
-                              }
-                              alt=""
-                              className="w-[80px] mx-auto inline-block mb-2"
-                            />
+                            <div className="w-[80px] h-[60px] relative mx-auto mb-2 isolate">
+                              <img
+                                src={'/motte.png'}
+                                alt=""
+                                className="w-[80px] inset-0 absolute z-10"
+                              />
+                              <img
+                                src={'/motte_farbe.png'}
+                                alt=""
+                                className="w-[80px] inset-0 absolute z-20 object-cover object-bottom"
+                                style={{
+                                  top: `${colorHeight}px`,
+                                  height: `${60 - colorHeight}px`,
+                                }}
+                              />
+                            </div>
                           </button>
                         </AnimateInView>
                       </div>
