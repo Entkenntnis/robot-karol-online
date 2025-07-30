@@ -1069,9 +1069,168 @@ const chapterInfo = [
     "title": "4. Schulbesuch",
     "originalTitle": "Schulbesuch",
     "requiredCount": 1,
-    "description": "# 🧮 Kapitel 4: Mathe-Genie – Rechnen wie ein Profi!\r\n\r\n\"Ich glaube, wir können jetzt etwas anspruchsvoller werden\", sagt Emi mit einem Blick zu Karol. Du bemerkst ihr kurzes Zögern. \"In echten Programmen dreht sich vieles um Zahlen und Berechnungen.\"\r\n\r\nKarol streicht sich eine graue Haarsträhne aus dem Gesicht. \"Tatsächlich habe ich mich kürzlich mit dem goldenen Schnitt beschäftigt.\" Ihre Hände zittern leicht. \"Zu schade, dass meine Lehrer früher nie den Zusammenhang zwischen Kunst und Zahlen erklärt haben.\"\r\n\r\nMax lehnt sich vor, die Müdigkeit in seinen Augen erkennbar. \"Meine Mutter sagt immer, dass Mathe das Herz der Programmierung ist. Letzte Woche hat sie mich beim Abendessen mit Binärzahlen gelöchert.\" Tim wirft ihm einen besorgten Blick zu.\r\n\r\n## 1. Arithmetische Grundoperationen\r\n\r\n\"Python versteht alle Grundrechenarten:\", erklärt Emi, ihre Stimme sanfter als sonst.\r\n\r\n```python\r\nprint(5 + 3)   # Addition: 8\r\nprint(10 - 4)  # Subtraktion: 6\r\nprint(2 * 6)   # Multiplikation: 12\r\nprint(8 / 2)   # Division: 4.0 (Achtung, Ergebnis ist float!)\r\n```\r\n\r\n\"Was bedeutet diese Anmerkung mit dem 'float'?\", fragst du, trotz deiner Angst, dumm zu wirken.\r\n\r\n\"Gute Frage! Bei der Division gibt Python immer eine Dezimalzahl zurück, auch wenn das Ergebnis eine ganze Zahl ist.\"\r\n\r\n## 2. Punkt-vor-Strich & Klammern\r\n\r\n\"Karol, erinnerst du dich an die Regel 'Punkt vor Strich' aus der Schule?\", fragt Emi.\r\n\r\nKarol verzieht kurz das Gesicht. \"Meine Mathelehrerin war... nicht gerade ermutigend.\" Ein Schatten huscht über ihr Gesicht.\r\n\r\n```python\r\nprint(3 + 4 * 2)   # 11 (nicht 14!)\r\nprint((3 + 4) * 2) # 14 – Klammern ändern alles!\r\n```\r\n\r\nTim erklärt leise: \"Mit Klammern kannst du die Reihenfolge ändern.\" Du hörst den Hauch von Stolz in seiner Stimme.\r\n\r\n## 3. Turbo-Zuweisungen 🚀\r\n\r\n```python\r\npunkte = 10\r\npunkte += 5  # Äquivalent zu: punkte = punkte + 5\r\nprint(punkte) # 15\r\n\r\n# Funktioniert auch mit -=, *=, /=\r\n```\r\n\r\n\"Das ist wie im Spiel!\", ruft Tim begeistert. Seine plötzliche Begeisterung lässt sein schüchternes Wesen kurz in den Hintergrund treten.\r\n\r\n## 4. Power mit \\*\\*\r\n\r\n```python\r\nprint(2 ** 3)  # 8 (2³)\r\nprint(5 ** 0.5) # Wurzel aus 5 ≈ 2.236\r\n```\r\n\r\n\"Mit 5 hoch 0.5 kann ich Wurzeln ziehen?\", fragt Karol überrascht.\r\n\r\nMax erklärt: \"Die Wurzel ist dasselbe wie Potenzieren mit 1/2.\" Seine Wangen färben sich leicht rot, als Emi ihm anerkennend zunickt.\r\n\r\n## 5. Mathe-Modul für Profis\r\n\r\n\"Für komplexere Berechnungen brauchen wir das 'math'-Modul:\", erklärt Emi, während ihre Hände nervös über die Tastatur huschen.\r\n\r\n```python\r\nimport math\r\n\r\n# Wurzel ziehen\r\nprint(math.sqrt(25))  # 5.0\r\n\r\n# Mit Pi rechnen\r\nradius = 3\r\numfang = 2 * math.pi * radius\r\nprint(f\"Umfang: {umfang:.2f} cm\")  # Formatierung auf 2 Nachkommastellen\r\n```\r\n\r\n\"Was bedeutet dieser Teil mit '{umfang:.2f}'?\", fragst du mit klopfendem Herzen.\r\n\r\n\"Das ist eine erweiterte Form der f-Strings. Der Teil ':.2f' bedeutet, dass wir die Zahl auf zwei Dezimalstellen formatieren.\"\r\n\r\nKarol murmelt: \"Ich habe immer auf ganze Euro-Beträge gerundet, weil mir die Berechnung zu kompliziert war.\"\r\n\r\n## 6. Variablen im Einsatz\r\n\r\n\"Lass uns das Ganze praktisch anwenden\", sagt Emi.\r\n\r\n```python\r\n# Fläche berechnen\r\nlänge = 8\r\nbreite = 5\r\nfläche = länge * breite\r\nprint(f\"Die Fläche beträgt {fläche} m²\")  # 40 m²\r\n\r\n# Der goldene Schnitt\r\nphi = (1 + math.sqrt(5)) / 2\r\nprint(f\"Der goldene Schnitt beträgt etwa: {phi:.3f}\")  # ungefähr 1.618\r\n```\r\n\r\n\"Fantastisch!\", ruft Karol. \"Wenn ich damals in der Schule gewusst hätte, wozu all diese abstrakten Zahlen gut sind...\"\r\n\r\n\"Ihr müsst nicht alles auswendig lernen\", beruhigt Emi euch, während sie nervös mit ihrem Armband spielt. \"Die meisten Programmierer schlagen regelmäßig in der Dokumentation nach.\"\r\n\r\n\"Zeit für eine Pause\", schlägt Karol vor und massiert ihre Schläfen. \"Mein alter Kopf braucht etwas Zeit zum Verarbeiten.\"\r\n\r\nDu bemerkst, wie Tim dir immer wieder nervöse Blicke zuwirft, und fragst dich, ob deine Abneigung gegen Mathe vielleicht gar nicht so stark ist, wie du immer gedacht hast – ein Gedanke, der dich gleichzeitig befreit und beunruhigt.\r\n",
-    "image": "/story/4.jpg",
-    "quests": [],
+    "description": "# Schulbesuch\r\n\r\nTODO\r\n",
+    "image": "/story/daycare.jpg",
+    "quests": [
+      {
+        "filename": "UMFRAGE.json",
+        "x": 410,
+        "y": -115,
+        "id": 160,
+        "content": {
+          "version": "v1",
+          "title": "UMFRAGE",
+          "description": "Bei dieser Aufgabe geht es weniger um Karol und mehr um dich. Wie geht es dir beim Lernen? Wie kann ich dir helfen, das Lernen noch besser zu gestalten?\n\nFülle die Umfrage aus, indem du die Variablen auf den passenden Wert setzt. Wenn du fertig bist, klicke auf `Start` und deine Antworten werden eingesendet.\n\nEtwas kaputt gemacht? Im Menü kannst du deinen Code zurücksetzen.",
+          "tasks": [
+            {
+              "title": "Einsenden",
+              "start": {
+                "dimX": 5,
+                "dimY": 5,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 5,
+                "dimY": 5,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_run_client()\n__karol = Robot()\n\nif not isinstance(verbessern, str):\n    __ide_prompt(\"Freitext 1: Erwarte einen Text.\", \"OK\")\n    __karol.beenden()\n\nif len(verbessern) == 0:\n    __ide_prompt(\"Bitte trage etwas in Freitext 1 ein.\", \"OK\")\n    __ide_exit()\n\n    \nif not isinstance(spaß, str):\n    __ide_prompt(\"Freitext 2: Erwarte einen Text.\", \"OK\")\n    __karol.beenden()\n    \nif len(spaß) == 0:\n    __ide_prompt(\"Bitte trage etwas in Freitext 2 ein.\", \"OK\")\n    __ide_exit()\n\n\nevent_str = f\"ev_submit_survey_{verbessern.replace('_', '-')}_{spaß.replace('_', '-')}\"\n\nif len(event_str) >= 999:\n    __ide_prompt(f\"Maximale Länge um {len(event_str) - 998} Zeichen überschritten. Bitte kürze deine Antwort oder sende sie direkt an karol@arrrg.de, danke!\")\n    __karol.beenden()\n\n__ide_submit(event_str)\n\n__karol.schritt(2)\n__karol.linksDrehen()\n\n__ide_prompt(\"Danke für die Teilnahme an der Umfrage!\", \"schließen\")\n__ide_set_progress(True)\n",
+          "language": "python-pro",
+          "program": "# Frage 1: Würdest du etwas am Python-Lernpfad verbessern?\n# verbessern = \"Schreibe deine Antwort zwischen die Anführungszeichen\"\nverbessern = \"\"\n\n\n# Frage 2: Was gefällt dir am Python-Lernpfad besonders?\n# spaß = \"Schreibe deine Antwort zwischen die Anführungszeichen\"\nspaß = \"\""
+        },
+        "deps": [
+          10005
+        ]
+      }
+    ],
     "x": 420,
     "y": 2200
   },
