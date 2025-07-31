@@ -12,7 +12,11 @@
     "030-bedingte-anweisungen/b__Dart_2.json": 157,
     "030-bedingte-anweisungen/c__Dart_3.json": 158,
     "030-bedingte-anweisungen/d__Summe.json": 159,
-    "040-mathematik/UMFRAGE.json": 160
+    "040-mathematik/UMFRAGE.json": 160,
+    "040-mathematik/a__Geschichte.json": 161,
+    "040-mathematik/b__Einmaleins.json": 162,
+    "040-mathematik/c__Bierflaschen_1.json": 163,
+    "040-mathematik/d__Bierflaschen_2.json": 164
   },
-  "counter": 161
+  "counter": 165
 }

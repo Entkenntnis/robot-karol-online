@@ -1115,7 +1115,7 @@ export function Overview() {
                             id={`explanation-icon-${id}`}
                           >
                             <p className="text-center whitespace-nowrap flex justify-center">
-                              <span className="bg-white/50 px-2 rounded">
+                              <span className="bg-white/85 px-2 rounded">
                                 {chapterData[id].title}
                               </span>
                               {core.ws.page == 'analyze' && (

@@ -1066,10 +1066,10 @@ const chapterInfo = [
   {
     "id": 10005,
     "dirName": "040-mathematik",
-    "title": "4. Schulbesuch",
-    "originalTitle": "Schulbesuch",
-    "requiredCount": 1,
-    "description": "# Schulbesuch\r\n\r\nTODO\r\n",
+    "title": "4. Kindergarten",
+    "originalTitle": "Kindergarten",
+    "requiredCount": 2,
+    "description": "# Kindergarten\r\n\r\n_Maria braucht Hilfe im Kindergarten, weil einige Leute krank sind und Ellie hat sich bereit erklärt, auszuhelfen._\r\n\r\n**Ellie**: Benji, Vanessa, hört auf euch zu streiten! Jeder darf mal mit dem Holz-Dino spielen! (zu Maria gewandt) Wie hältst du das jeden Tag aus?  \r\n**Maria**: Na, Geduld war nie deine Stärke, Ellie, nicht wahr? Manchmal muss man sie einfach machen lassen. Ihre Welt ist zum Glück noch so klein.  \r\n**Vanessa**: Ellie, kannst du mir eine Geschichte erzählen?  \r\n**Ellie**: Ähm (schaut Maria fragend an, sie nickt ihr ermutigend zu) ... ja, klar. Also, es war einmal ein mutiges Mädchen namens ... wie ist dein Name?  \r\n**Vanessa**: Ich heiße Vanessa!  \r\n**Ellie**: Also, es war einmal ein mutiges Mädchen names Vanessa, sie wohnte in einem Schloss aus ...  \r\n**Vanessa**: Zuckerwatte!  \r\n**Ellie**: (amüsiert) Ok, ok. Zuckerwatte! Ein riesiges Schloss aus Zuckerwatte.  \r\n**Maria**: Ich hole für die Kinder schnell was zu trinken, du machst das super!\r\n\r\n_Als Maria nach wenigen Minuten zurückkommt, sitzen die Kinder gespannt um Ellie herum und hören ihrer Geschichte zu. Ellie ist voll in ihrem Element._\r\n\r\n**Ellie**: Und wenn sie nicht gestorben ist, dann lebt das mutige Mädchen bis heute in ihrem Schloss aus Zuckerwatte! Ende.  \r\n**Benji**: Nein, erzähl weiter!  \r\n**Maria**: Kinder, macht mal einen Applaus für Ellie, sie hat das sehr schön erzählt.  \r\n**Ellie**: (die Kinder applaudieren, Ellie wird etwas rot) Nein, nein, das war nichts besonders ...  \r\n**Maria**: Und jetzt holt sich bitte jeder etwas zu trinken!\r\n\r\n_Später am Nachmittag, als die Kinder alle abgeholt sind._\r\n\r\n**Maria**: Danke, das du heute ausgeholfen hast, die Kinder fanden deine Geschichte super. Ich hoffe, ich habe dich nicht zu sehr vom Programmieren abgehalten.  \r\n**Ellie**: Es ist witzig, denn als ich die Geschichte erzählt habe, musste ich tatsächlich an Python denken.  \r\n**Maria**: Wie das?  \r\n**Ellie**: Ich lerne gerade `f-Strings` ...  \r\n**Maria**: f\\* wie dein Lieblingswort?  \r\n**Ellie**: (empört) Hey, nein! `f` wie Format. Damit kann man Vorlagen bauen und in die Lücken Sachen einsetzen. Wie bei der Geschichte für die Kinder. Da hatte ich mir diese Vorlage im Kopf überlegt und die Ideen der Kinder in die Platzhalter eingefügt. Schau mal her, ich habe das mal aufgeschrieben (sie zeigt Maria einen Zettel):\r\n\r\n```py\r\nname = \"Vanessa\"\r\nmaterial = \"Zuckerwatte\"\r\n\r\n# Das f macht aus dem Text eine Vorlage\r\nprint(f\"Vor langer Zeit lebte {name} in einem fernen Land.\")\r\nprint(f\"{name} wohnte in einem Schloss aus {material}.\")\r\n```\r\n\r\n**Maria**: Das ist ja richtig genial! Und wenn Benji morgen eine Geschichte hören will ...  \r\n**Ellie**: Dann kannst du einfach die Variablen anpassen, hehe. Und siehst du den Hashtag dort? Der ist auch praktisch, damit kann ich im Code kleine Notizen an mich selbst schreiben.  \r\n**Maria**: Du machst wahnsinnige Fortschritte! Also, ich möchte dich nicht länger vom Programmieren fernhalten, den Rest schaff ich alleine, für dich ist jetzt Feierabend!\r\n",
     "image": "/story/daycare.jpg",
     "quests": [
       {
@@ -1229,6 +1229,90 @@ const chapterInfo = [
         "deps": [
           10005
         ]
+      },
+      {
+        "filename": "a__Geschichte.json",
+        "x": 190,
+        "y": 65,
+        "id": 161,
+        "content": {
+          "version": "v1",
+          "title": "a) Geschichte",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10005
+        ]
+      },
+      {
+        "filename": "b__Einmaleins.json",
+        "x": 310,
+        "y": 131,
+        "id": 162,
+        "content": {
+          "version": "v1",
+          "title": "b) Einmaleins",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10005
+        ]
+      },
+      {
+        "filename": "c__Bierflaschen_1.json",
+        "x": 450,
+        "y": 141,
+        "id": 163,
+        "content": {
+          "version": "v1",
+          "title": "c) Bierflaschen 1",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10005
+        ]
+      },
+      {
+        "filename": "d__Bierflaschen_2.json",
+        "x": 580,
+        "y": 201,
+        "deps": [
+          163
+        ],
+        "id": 164,
+        "content": {
+          "version": "v1",
+          "title": "d) Bierflaschen 2",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        }
       }
     ],
     "x": 420,
