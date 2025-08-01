@@ -1066,16 +1066,22 @@ export function Overview() {
                     // chapter marker
                     // lower bound 48 = 0%, 14 = 100%
                     let colorHeight = isQuestDone(id) ? 14 : 48
+                    let isPerfect = false
                     // check if this chapter is the latest one, e.g. the next id is not done
                     const isLatestChapter = !isQuestDone(id + 1)
+                    const idsInThisChapter = Object.entries(mapData)
+                      .filter(([, data]) => data.chapter === id)
+                      .map(([i]) => parseInt(i))
+                    const doneCount =
+                      idsInThisChapter.filter(isQuestDone).length
+
+                    isPerfect =
+                      doneCount == idsInThisChapter.length &&
+                      doneCount > chapterData[id].requiredCount
                     if (isLatestChapter && isQuestDone(id)) {
-                      const idsInThisChapter = Object.entries(mapData)
-                        .filter(([, data]) => data.chapter === id)
-                        .map(([i]) => parseInt(i))
                       const percentage =
                         100 *
-                        ((idsInThisChapter.filter(isQuestDone).length + 1) /
-                          (chapterData[id].requiredCount + 1))
+                        ((doneCount + 1) / (chapterData[id].requiredCount + 1))
 
                       colorHeight = Math.max(
                         14,
@@ -1139,6 +1145,16 @@ export function Overview() {
                                   height: `${60 - colorHeight}px`,
                                 }}
                               />
+                              {isPerfect && (
+                                <img
+                                  className="absolute bottom-1.5 right-3 w-[22px] z-30 
+                                    [--tw-drop-shadow:drop-shadow(0_0_8px_rgba(255,215,0,0.8))] 
+                                    hover:[--tw-drop-shadow:drop-shadow(0_0_12px_rgba(255,215,0,1))]
+                                    filter transition-all duration-300"
+                                  src="/stern.png"
+                                  alt="Perfect Score Star"
+                                />
+                              )}
                             </div>
                           </button>
                         </AnimateInView>
