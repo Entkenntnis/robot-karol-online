@@ -1,8 +1,8 @@
 # Kindergarten
 
-_Maria braucht Hilfe im Kindergarten, weil einige Leute krank sind und Ellie hat sich bereit erklärt, auszuhelfen._
+_Einige Erzieher haben sich erkältet, so dass Maria und Ellie sich bereit erklären, im Kindergarten auszuhelfen._
 
-**Ellie**: Benji, Vanessa, hört auf euch zu streiten! Jeder darf mal mit dem Holz-Dino spielen! (zu Maria gewandt) Wie hältst du das jeden Tag aus?  
+**Ellie**: Benji, Vanessa, hört auf euch zu streiten! Jeder darf mal mit dem Holz-Dino spielen! (zu Maria gewandt) Wie kannst du so ruhig bleiben?  
 **Maria**: Na, Geduld war nie deine Stärke, Ellie, nicht wahr? Manchmal muss man sie einfach machen lassen. Ihre Welt ist zum Glück noch so klein.  
 **Vanessa**: Ellie, kannst du mir eine Geschichte erzählen?  
 **Ellie**: Ähm (schaut Maria fragend an, sie nickt ihr ermutigend zu) ... ja, klar. Also, es war einmal ein mutiges Mädchen namens ... wie ist dein Name?  

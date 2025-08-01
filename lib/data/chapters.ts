@@ -1069,7 +1069,7 @@ const chapterInfo = [
     "title": "4. Kindergarten",
     "originalTitle": "Kindergarten",
     "requiredCount": 2,
-    "description": "# Kindergarten\r\n\r\n_Maria braucht Hilfe im Kindergarten, weil einige Leute krank sind und Ellie hat sich bereit erklärt, auszuhelfen._\r\n\r\n**Ellie**: Benji, Vanessa, hört auf euch zu streiten! Jeder darf mal mit dem Holz-Dino spielen! (zu Maria gewandt) Wie hältst du das jeden Tag aus?  \r\n**Maria**: Na, Geduld war nie deine Stärke, Ellie, nicht wahr? Manchmal muss man sie einfach machen lassen. Ihre Welt ist zum Glück noch so klein.  \r\n**Vanessa**: Ellie, kannst du mir eine Geschichte erzählen?  \r\n**Ellie**: Ähm (schaut Maria fragend an, sie nickt ihr ermutigend zu) ... ja, klar. Also, es war einmal ein mutiges Mädchen namens ... wie ist dein Name?  \r\n**Vanessa**: Ich heiße Vanessa!  \r\n**Ellie**: Also, es war einmal ein mutiges Mädchen names Vanessa, sie wohnte in einem Schloss aus ...  \r\n**Vanessa**: Zuckerwatte!  \r\n**Ellie**: (amüsiert) Ok, ok. Zuckerwatte! Ein riesiges Schloss aus Zuckerwatte.  \r\n**Maria**: Ich hole für die Kinder schnell was zu trinken, du machst das super!\r\n\r\n_Als Maria nach wenigen Minuten zurückkommt, sitzen die Kinder gespannt um Ellie herum und hören ihrer Geschichte zu. Ellie ist voll in ihrem Element._\r\n\r\n**Ellie**: Und wenn sie nicht gestorben ist, dann lebt das mutige Mädchen bis heute in ihrem Schloss aus Zuckerwatte! Ende.  \r\n**Benji**: Nein, erzähl weiter!  \r\n**Maria**: Kinder, macht mal einen Applaus für Ellie, sie hat das sehr schön erzählt.  \r\n**Ellie**: (die Kinder applaudieren, Ellie wird etwas rot) Nein, nein, das war nichts besonders ...  \r\n**Maria**: Und jetzt holt sich bitte jeder etwas zu trinken!\r\n\r\n_Später am Nachmittag, als die Kinder alle abgeholt sind._\r\n\r\n**Maria**: Danke, das du heute ausgeholfen hast, die Kinder fanden deine Geschichte super. Ich hoffe, ich habe dich nicht zu sehr vom Programmieren abgehalten.  \r\n**Ellie**: Es ist witzig, denn als ich die Geschichte erzählt habe, musste ich tatsächlich an Python denken.  \r\n**Maria**: Wie das?  \r\n**Ellie**: Ich lerne gerade `f-Strings` ...  \r\n**Maria**: f\\* wie dein Lieblingswort?  \r\n**Ellie**: (empört) Hey, nein! `f` wie Format. Damit kann man Vorlagen bauen und in die Lücken Sachen einsetzen. Wie bei der Geschichte für die Kinder. Da hatte ich mir diese Vorlage im Kopf überlegt und die Ideen der Kinder in die Platzhalter eingefügt. Schau mal her, ich habe das mal aufgeschrieben (sie zeigt Maria einen Zettel):\r\n\r\n```py\r\nname = \"Vanessa\"\r\nmaterial = \"Zuckerwatte\"\r\n\r\n# Das f macht aus dem Text eine Vorlage\r\nprint(f\"Vor langer Zeit lebte {name} in einem fernen Land.\")\r\nprint(f\"{name} wohnte in einem Schloss aus {material}.\")\r\n```\r\n\r\n**Maria**: Das ist ja richtig genial! Und wenn Benji morgen eine Geschichte hören will ...  \r\n**Ellie**: Dann kannst du einfach die Variablen anpassen, hehe. Und siehst du den Hashtag dort? Der ist auch praktisch, damit kann ich im Code kleine Notizen an mich selbst schreiben.  \r\n**Maria**: Du machst wahnsinnige Fortschritte! Also, ich möchte dich nicht länger vom Programmieren fernhalten, den Rest schaff ich alleine, für dich ist jetzt Feierabend!\r\n",
+    "description": "# Kindergarten\r\n\r\n_Einige Erzieher haben sich erkältet, so dass Maria und Ellie sich bereit erklären, im Kindergarten auszuhelfen._\r\n\r\n**Ellie**: Benji, Vanessa, hört auf euch zu streiten! Jeder darf mal mit dem Holz-Dino spielen! (zu Maria gewandt) Wie kannst du so ruhig bleiben?  \r\n**Maria**: Na, Geduld war nie deine Stärke, Ellie, nicht wahr? Manchmal muss man sie einfach machen lassen. Ihre Welt ist zum Glück noch so klein.  \r\n**Vanessa**: Ellie, kannst du mir eine Geschichte erzählen?  \r\n**Ellie**: Ähm (schaut Maria fragend an, sie nickt ihr ermutigend zu) ... ja, klar. Also, es war einmal ein mutiges Mädchen namens ... wie ist dein Name?  \r\n**Vanessa**: Ich heiße Vanessa!  \r\n**Ellie**: Also, es war einmal ein mutiges Mädchen names Vanessa, sie wohnte in einem Schloss aus ...  \r\n**Vanessa**: Zuckerwatte!  \r\n**Ellie**: (amüsiert) Ok, ok. Zuckerwatte! Ein riesiges Schloss aus Zuckerwatte.  \r\n**Maria**: Ich hole für die Kinder schnell was zu trinken, du machst das super!\r\n\r\n_Als Maria nach wenigen Minuten zurückkommt, sitzen die Kinder gespannt um Ellie herum und hören ihrer Geschichte zu. Ellie ist voll in ihrem Element._\r\n\r\n**Ellie**: Und wenn sie nicht gestorben ist, dann lebt das mutige Mädchen bis heute in ihrem Schloss aus Zuckerwatte! Ende.  \r\n**Benji**: Nein, erzähl weiter!  \r\n**Maria**: Kinder, macht mal einen Applaus für Ellie, sie hat das sehr schön erzählt.  \r\n**Ellie**: (die Kinder applaudieren, Ellie wird etwas rot) Nein, nein, das war nichts besonders ...  \r\n**Maria**: Und jetzt holt sich bitte jeder etwas zu trinken!\r\n\r\n_Später am Nachmittag, als die Kinder alle abgeholt sind._\r\n\r\n**Maria**: Danke, das du heute ausgeholfen hast, die Kinder fanden deine Geschichte super. Ich hoffe, ich habe dich nicht zu sehr vom Programmieren abgehalten.  \r\n**Ellie**: Es ist witzig, denn als ich die Geschichte erzählt habe, musste ich tatsächlich an Python denken.  \r\n**Maria**: Wie das?  \r\n**Ellie**: Ich lerne gerade `f-Strings` ...  \r\n**Maria**: f\\* wie dein Lieblingswort?  \r\n**Ellie**: (empört) Hey, nein! `f` wie Format. Damit kann man Vorlagen bauen und in die Lücken Sachen einsetzen. Wie bei der Geschichte für die Kinder. Da hatte ich mir diese Vorlage im Kopf überlegt und die Ideen der Kinder in die Platzhalter eingefügt. Schau mal her, ich habe das mal aufgeschrieben (sie zeigt Maria einen Zettel):\r\n\r\n```py\r\nname = \"Vanessa\"\r\nmaterial = \"Zuckerwatte\"\r\n\r\n# Das f macht aus dem Text eine Vorlage\r\nprint(f\"Vor langer Zeit lebte {name} in einem fernen Land.\")\r\nprint(f\"{name} wohnte in einem Schloss aus {material}.\")\r\n```\r\n\r\n**Maria**: Das ist ja richtig genial! Und wenn Benji morgen eine Geschichte hören will ...  \r\n**Ellie**: Dann kannst du einfach die Variablen anpassen, hehe. Und siehst du den Hashtag dort? Der ist auch praktisch, damit kann ich im Code kleine Notizen an mich selbst schreiben.  \r\n**Maria**: Du machst wahnsinnige Fortschritte! Also, ich möchte dich nicht länger vom Programmieren fernhalten, den Rest schaff ich alleine, für dich ist jetzt Feierabend!\r\n",
     "image": "/story/daycare.jpg",
     "quests": [
       {
@@ -1238,12 +1238,64 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "a) Geschichte",
-          "description": "TODO",
+          "description": "Nutze einen f-String als Vorlage, um unterschiedliche Geschichten zu erzählen:\n\n```py\nprint(f\"Das ist eine Vorlage und {variable} das ist ein Platzhalter\")\n```",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Bella"
+                },
+                {
+                  "role": "in",
+                  "text": "Frankreich"
+                },
+                {
+                  "role": "out",
+                  "text": "Bella lebte vor langer Zeit in Frankreich."
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Quinn"
+                },
+                {
+                  "role": "in",
+                  "text": "Ägypten"
+                },
+                {
+                  "role": "out",
+                  "text": "Quinn lebte vor langer Zeit in Ägypten."
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Karol"
+                },
+                {
+                  "role": "in",
+                  "text": "Karoland"
+                },
+                {
+                  "role": "out",
+                  "text": "Karol lebte vor langer Zeit in Karoland."
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -1259,12 +1311,81 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "b) Einmaleins",
-          "description": "TODO",
+          "description": "Hilf den Kindern beim Einmaleins. Nutze f-Strings und für die Multiplikation das Stern Zeichen: \n\n`ergebnis = a * b`",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "3 mal 5 ist 15"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "in",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "4 mal 7 ist 28"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "8"
+                },
+                {
+                  "role": "in",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "8 mal 7 ist 56"
+                }
+              ]
+            },
+            {
+              "title": "Chat 4",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "10 mal 10 ist 100"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -1280,12 +1401,71 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "c) Bierflaschen 1",
-          "description": "TODO",
+          "description": "Eine Strophe aus einem bekannten Kinderlied, natürlich nur mit alkoholfreiem Bier. ",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Flaschen?"
+                },
+                {
+                  "role": "in",
+                  "text": "99"
+                },
+                {
+                  "role": "out",
+                  "text": "99 Flaschen Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "99 Flaschen Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "98 Flaschen Bier an der Wand."
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Flaschen?"
+                },
+                {
+                  "role": "in",
+                  "text": "42"
+                },
+                {
+                  "role": "out",
+                  "text": "42 Flaschen Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "42 Flaschen Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "41 Flaschen Bier an der Wand."
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -1304,12 +1484,130 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "d) Bierflaschen 2",
-          "description": "TODO",
+          "description": "Spiel den Song nun für 7 Strophen. Bringe dafür diese Code-Schnipsel in die richtige Reihenfolge, achte auf eine passende Einrückung:\n\n`print(f\"{i - 1} Flasche(n) Bier an der Wand.\")`\n\n`for i in range(7, 0, -1):`\n\n`print(f\"{i} Flasche(n) Bier an der Wand,\")`\n\n`print(\"Nimm eine runter, reich sie herum,\")`\n\n`    print(\"{i} Flasche(n) Bier.\")`\n\n*Hinweis: range(7, 0, -1) generiert die Zahlenfolge 7, 6, 5, 4, 3, 2, 1.*",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "7 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "7 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "6 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "6 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "6 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "5 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "5 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "5 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "4 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "4 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "4 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "3 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "3 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "3 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "2 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "2 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "2 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "1 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "1 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "1 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "0 Flasche(n) Bier an der Wand."
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         }

@@ -1,12 +1,1 @@
-{
-  "version": "v1",
-  "title": "d) Bierflaschen 2",
-  "description": "TODO",
-  "tasks": [],
-  "lng": "de",
-  "editOptions": "python-pro-only",
-  "questScript": "",
-  "chats": [],
-  "language": "python-pro",
-  "program": ""
-}
+{"version":"v1","title":"d) Bierflaschen 2","description":"Spiel den Song nun für 7 Strophen. Bringe dafür diese Code-Schnipsel in die richtige Reihenfolge, achte auf eine passende Einrückung:\n\n`print(f\"{i - 1} Flasche(n) Bier an der Wand.\")`\n\n`for i in range(7, 0, -1):`\n\n`print(f\"{i} Flasche(n) Bier an der Wand,\")`\n\n`print(\"Nimm eine runter, reich sie herum,\")`\n\n`    print(\"{i} Flasche(n) Bier.\")`\n\n*Hinweis: range(7, 0, -1) generiert die Zahlenfolge 7, 6, 5, 4, 3, 2, 1.*","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"7 Flasche(n) Bier an der Wand,"},{"role":"out","text":"7 Flasche(n) Bier."},{"role":"out","text":"Nimm eine runter, reich sie herum,"},{"role":"out","text":"6 Flasche(n) Bier an der Wand."},{"role":"out","text":"6 Flasche(n) Bier an der Wand,"},{"role":"out","text":"6 Flasche(n) Bier."},{"role":"out","text":"Nimm eine runter, reich sie herum,"},{"role":"out","text":"5 Flasche(n) Bier an der Wand."},{"role":"out","text":"5 Flasche(n) Bier an der Wand,"},{"role":"out","text":"5 Flasche(n) Bier."},{"role":"out","text":"Nimm eine runter, reich sie herum,"},{"role":"out","text":"4 Flasche(n) Bier an der Wand."},{"role":"out","text":"4 Flasche(n) Bier an der Wand,"},{"role":"out","text":"4 Flasche(n) Bier."},{"role":"out","text":"Nimm eine runter, reich sie herum,"},{"role":"out","text":"3 Flasche(n) Bier an der Wand."},{"role":"out","text":"3 Flasche(n) Bier an der Wand,"},{"role":"out","text":"3 Flasche(n) Bier."},{"role":"out","text":"Nimm eine runter, reich sie herum,"},{"role":"out","text":"2 Flasche(n) Bier an der Wand."},{"role":"out","text":"2 Flasche(n) Bier an der Wand,"},{"role":"out","text":"2 Flasche(n) Bier."},{"role":"out","text":"Nimm eine runter, reich sie herum,"},{"role":"out","text":"1 Flasche(n) Bier an der Wand."},{"role":"out","text":"1 Flasche(n) Bier an der Wand,"},{"role":"out","text":"1 Flasche(n) Bier."},{"role":"out","text":"Nimm eine runter, reich sie herum,"},{"role":"out","text":"0 Flasche(n) Bier an der Wand."}]}],"language":"python-pro","program":""}
