@@ -1,6 +1,6 @@
 # Kindergarten
 
-_Einige Erzieher haben sich erkältet, so dass Maria und Ellie sich bereit erklären, im Kindergarten auszuhelfen._
+_Einige Erzieher sich erkältet, so dass Maria und Ellie heute im Kindergarten aushelfen._
 
 **Ellie**: Benji, Vanessa, hört auf euch zu streiten! Jeder darf mal mit dem Holz-Dino spielen! (zu Maria gewandt) Wie kannst du so ruhig bleiben?  
 **Maria**: Na, Geduld war nie deine Stärke, Ellie, nicht wahr? Manchmal muss man sie einfach machen lassen. Ihre Welt ist zum Glück noch so klein.  
@@ -37,6 +37,8 @@ material = "Zuckerwatte"
 print(f"Vor langer Zeit lebte {name} in einem fernen Land.")
 print(f"{name} wohnte in einem Schloss aus {material}.")
 ```
+
+Das `f` macht aus den Anführungszeichen eine Vorlage. Mit den geschweiften Klammern kann ich Variable an die passende Stelle einfügen.
 
 **Maria**: Das ist ja richtig genial! Und wenn Benji morgen eine Geschichte hören will ...  
 **Ellie**: Dann kannst du einfach die Variablen anpassen, hehe. Und siehst du den Hashtag dort? Der ist auch praktisch, damit kann ich im Code kleine Notizen an mich selbst schreiben.  

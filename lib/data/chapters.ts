@@ -47,6 +47,49 @@ const chapterInfo = [
         "deps": [
           10001
         ]
+      },
+      {
+        "filename": "Vorgeschichte.json",
+        "deps": [
+          147
+        ],
+        "x": 940,
+        "y": 300,
+        "id": 165,
+        "content": {
+          "version": "v1",
+          "title": "Vorgeschichte",
+          "description": "Das ist eine Bonusaufgabe. Löse sie, um einen Stern zu erhalten.\n\nFinde die drei Fehler im Code und bringe das Programm zum Laufen.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Vorgeschichte: Eine Infektion breitet sich über die Welt aus und lässt Menschen zu Zombies mutieren."
+                },
+                {
+                  "role": "out",
+                  "text": "Große Teile der Zivilisation gehen unter, die wenigen Menschen kämpfen hart um ihr Überleben."
+                },
+                {
+                  "role": "out",
+                  "text": "Jackson ist eine kleine Oase in dieser chaotischen Welt, wo eine Gemeinschaft sich ein Zuhause gebaut hat."
+                },
+                {
+                  "role": "out",
+                  "text": "Ellie und Joel (nicht verwandt) kehren nach ihrer großen Reise nach Jackson zurück. Joels Bruder Tommy wohnt hier mit seiner Frau Maria."
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": "print(\"Vorgeschichte: Eine Infektion breitet sich über die Welt aus und lässt Menschen zu Zombies mutieren.\"\n\nprint\"Große Teile der Zivilisation gehen unter, die wenigen Menschen kämpfen hart um ihr Überleben.\")\n\npint(\"Jackson ist eine kleine Oase in dieser chaotischen Welt, wo eine Gemeinschaft sich ein Zuhause gebaut hat.\")\n\nprint(\"Ellie und Joel (nicht verwandt) kehren nach ihrer großen Reise nach Jackson zurück. Joels Bruder Tommy wohnt hier mit seiner Frau Maria.\")"
+        }
       }
     ],
     "x": 930,
@@ -1069,7 +1112,7 @@ const chapterInfo = [
     "title": "4. Kindergarten",
     "originalTitle": "Kindergarten",
     "requiredCount": 2,
-    "description": "# Kindergarten\r\n\r\n_Einige Erzieher haben sich erkältet, so dass Maria und Ellie sich bereit erklären, im Kindergarten auszuhelfen._\r\n\r\n**Ellie**: Benji, Vanessa, hört auf euch zu streiten! Jeder darf mal mit dem Holz-Dino spielen! (zu Maria gewandt) Wie kannst du so ruhig bleiben?  \r\n**Maria**: Na, Geduld war nie deine Stärke, Ellie, nicht wahr? Manchmal muss man sie einfach machen lassen. Ihre Welt ist zum Glück noch so klein.  \r\n**Vanessa**: Ellie, kannst du mir eine Geschichte erzählen?  \r\n**Ellie**: Ähm (schaut Maria fragend an, sie nickt ihr ermutigend zu) ... ja, klar. Also, es war einmal ein mutiges Mädchen namens ... wie ist dein Name?  \r\n**Vanessa**: Ich heiße Vanessa!  \r\n**Ellie**: Also, es war einmal ein mutiges Mädchen names Vanessa, sie wohnte in einem Schloss aus ...  \r\n**Vanessa**: Zuckerwatte!  \r\n**Ellie**: (amüsiert) Ok, ok. Zuckerwatte! Ein riesiges Schloss aus Zuckerwatte.  \r\n**Maria**: Ich hole für die Kinder schnell was zu trinken, du machst das super!\r\n\r\n_Als Maria nach wenigen Minuten zurückkommt, sitzen die Kinder gespannt um Ellie herum und hören ihrer Geschichte zu. Ellie ist voll in ihrem Element._\r\n\r\n**Ellie**: Und wenn sie nicht gestorben ist, dann lebt das mutige Mädchen bis heute in ihrem Schloss aus Zuckerwatte! Ende.  \r\n**Benji**: Nein, erzähl weiter!  \r\n**Maria**: Kinder, macht mal einen Applaus für Ellie, sie hat das sehr schön erzählt.  \r\n**Ellie**: (die Kinder applaudieren, Ellie wird etwas rot) Nein, nein, das war nichts besonders ...  \r\n**Maria**: Und jetzt holt sich bitte jeder etwas zu trinken!\r\n\r\n_Später am Nachmittag, als die Kinder alle abgeholt sind._\r\n\r\n**Maria**: Danke, das du heute ausgeholfen hast, die Kinder fanden deine Geschichte super. Ich hoffe, ich habe dich nicht zu sehr vom Programmieren abgehalten.  \r\n**Ellie**: Es ist witzig, denn als ich die Geschichte erzählt habe, musste ich tatsächlich an Python denken.  \r\n**Maria**: Wie das?  \r\n**Ellie**: Ich lerne gerade `f-Strings` ...  \r\n**Maria**: f\\* wie dein Lieblingswort?  \r\n**Ellie**: (empört) Hey, nein! `f` wie Format. Damit kann man Vorlagen bauen und in die Lücken Sachen einsetzen. Wie bei der Geschichte für die Kinder. Da hatte ich mir diese Vorlage im Kopf überlegt und die Ideen der Kinder in die Platzhalter eingefügt. Schau mal her, ich habe das mal aufgeschrieben (sie zeigt Maria einen Zettel):\r\n\r\n```py\r\nname = \"Vanessa\"\r\nmaterial = \"Zuckerwatte\"\r\n\r\n# Das f macht aus dem Text eine Vorlage\r\nprint(f\"Vor langer Zeit lebte {name} in einem fernen Land.\")\r\nprint(f\"{name} wohnte in einem Schloss aus {material}.\")\r\n```\r\n\r\n**Maria**: Das ist ja richtig genial! Und wenn Benji morgen eine Geschichte hören will ...  \r\n**Ellie**: Dann kannst du einfach die Variablen anpassen, hehe. Und siehst du den Hashtag dort? Der ist auch praktisch, damit kann ich im Code kleine Notizen an mich selbst schreiben.  \r\n**Maria**: Du machst wahnsinnige Fortschritte! Also, ich möchte dich nicht länger vom Programmieren fernhalten, den Rest schaff ich alleine, für dich ist jetzt Feierabend!\r\n",
+    "description": "# Kindergarten\r\n\r\n_Einige Erzieher sich erkältet, so dass Maria und Ellie heute im Kindergarten aushelfen._\r\n\r\n**Ellie**: Benji, Vanessa, hört auf euch zu streiten! Jeder darf mal mit dem Holz-Dino spielen! (zu Maria gewandt) Wie kannst du so ruhig bleiben?  \r\n**Maria**: Na, Geduld war nie deine Stärke, Ellie, nicht wahr? Manchmal muss man sie einfach machen lassen. Ihre Welt ist zum Glück noch so klein.  \r\n**Vanessa**: Ellie, kannst du mir eine Geschichte erzählen?  \r\n**Ellie**: Ähm (schaut Maria fragend an, sie nickt ihr ermutigend zu) ... ja, klar. Also, es war einmal ein mutiges Mädchen namens ... wie ist dein Name?  \r\n**Vanessa**: Ich heiße Vanessa!  \r\n**Ellie**: Also, es war einmal ein mutiges Mädchen names Vanessa, sie wohnte in einem Schloss aus ...  \r\n**Vanessa**: Zuckerwatte!  \r\n**Ellie**: (amüsiert) Ok, ok. Zuckerwatte! Ein riesiges Schloss aus Zuckerwatte.  \r\n**Maria**: Ich hole für die Kinder schnell was zu trinken, du machst das super!\r\n\r\n_Als Maria nach wenigen Minuten zurückkommt, sitzen die Kinder gespannt um Ellie herum und hören ihrer Geschichte zu. Ellie ist voll in ihrem Element._\r\n\r\n**Ellie**: Und wenn sie nicht gestorben ist, dann lebt das mutige Mädchen bis heute in ihrem Schloss aus Zuckerwatte! Ende.  \r\n**Benji**: Nein, erzähl weiter!  \r\n**Maria**: Kinder, macht mal einen Applaus für Ellie, sie hat das sehr schön erzählt.  \r\n**Ellie**: (die Kinder applaudieren, Ellie wird etwas rot) Nein, nein, das war nichts besonders ...  \r\n**Maria**: Und jetzt holt sich bitte jeder etwas zu trinken!\r\n\r\n_Später am Nachmittag, als die Kinder alle abgeholt sind._\r\n\r\n**Maria**: Danke, das du heute ausgeholfen hast, die Kinder fanden deine Geschichte super. Ich hoffe, ich habe dich nicht zu sehr vom Programmieren abgehalten.  \r\n**Ellie**: Es ist witzig, denn als ich die Geschichte erzählt habe, musste ich tatsächlich an Python denken.  \r\n**Maria**: Wie das?  \r\n**Ellie**: Ich lerne gerade `f-Strings` ...  \r\n**Maria**: f\\* wie dein Lieblingswort?  \r\n**Ellie**: (empört) Hey, nein! `f` wie Format. Damit kann man Vorlagen bauen und in die Lücken Sachen einsetzen. Wie bei der Geschichte für die Kinder. Da hatte ich mir diese Vorlage im Kopf überlegt und die Ideen der Kinder in die Platzhalter eingefügt. Schau mal her, ich habe das mal aufgeschrieben (sie zeigt Maria einen Zettel):\r\n\r\n```py\r\nname = \"Vanessa\"\r\nmaterial = \"Zuckerwatte\"\r\n\r\n# Das f macht aus dem Text eine Vorlage\r\nprint(f\"Vor langer Zeit lebte {name} in einem fernen Land.\")\r\nprint(f\"{name} wohnte in einem Schloss aus {material}.\")\r\n```\r\n\r\nDas `f` macht aus den Anführungszeichen eine Vorlage. Mit den geschweiften Klammern kann ich Variable an die passende Stelle einfügen.\r\n\r\n**Maria**: Das ist ja richtig genial! Und wenn Benji morgen eine Geschichte hören will ...  \r\n**Ellie**: Dann kannst du einfach die Variablen anpassen, hehe. Und siehst du den Hashtag dort? Der ist auch praktisch, damit kann ich im Code kleine Notizen an mich selbst schreiben.  \r\n**Maria**: Du machst wahnsinnige Fortschritte! Also, ich möchte dich nicht länger vom Programmieren fernhalten, den Rest schaff ich alleine, für dich ist jetzt Feierabend!\r\n",
     "image": "/story/sam.jpg",
     "quests": [
       {
@@ -1622,8 +1665,8 @@ const chapterInfo = [
     "title": "5. Streng geheim",
     "originalTitle": "Streng geheim",
     "requiredCount": 1,
-    "description": "# 🎯 Kapitel 5: Die Kunst der Wiederholung mit for & while\r\n\r\nHeute lernst du, wie man Code wiederholt – wie ein DJ, der den perfekten Beat loopt! 🎧\r\n\r\n## 🧩 Listen – Deine Daten-Sammelbox\r\n\r\nStell dir eine Einkaufsliste vor, aber für Computer:\r\n\r\n```python\r\n# So erstellst du eine Liste\r\nspielkarten = [\"Herz Ass\", \"Karo König\", \"Pik Dame\", \"Kreuz Bube\"]\r\nprimzahlen = [2, 3, 5, 7, 11]\r\nmixed_list = [42, \"Antwort\", True] # Alles mögliche drin!\r\n```\r\n\r\n## 🔄 Die for-Schleife – Dein Wiederholungs-Profi\r\n\r\n**\"Für jedes Element in der Liste: Mach was damit!\"**\r\n\r\n```python\r\n# Einkaufsliste abarbeiten\r\neinkaufsliste = [\"Äpfel\", \"Banane\", \"Milch\"]\r\n\r\nfor produkt in einkaufsliste:\r\n    print(f\"✏️ Brauche noch: {produkt}\")\r\n    print(\"...auf zum nächsten Produkt!\\n\")\r\n```\r\n\r\n_Ausgabe:_\r\n\r\n```\r\n✏️ Brauche noch: Äpfel\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Banane\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Milch\r\n...auf zum nächsten Produkt!\r\n```\r\n\r\n**Mit Zahlen arbeiten? Klar mit range():**\r\n\r\n```python\r\n# Countdown mit Style 🚀\r\nfor sekunde in range(5, 0, -1):\r\n    print(f\"{sekunde... Abflug!\")\r\nprint(\"🔥 Liftoff!\")\r\n```\r\n\r\n## ⏳ Die while-Schleife – Der Hartnäckige\r\n\r\n**\"Mach weiter, solange die Bedingung stimmt!\"**\r\n\r\n```python\r\n# Pizza-Back-Simulator 🍕\r\ntemperatur = 20\r\nziel_temp = 220\r\n\r\nwhile temperatur < ziel_temp:\r\n    temperatur += 20\r\n    print(f\"°C: {temperatur}°C | Heizt auf...\")\r\n\r\nprint(\"🔔 Pizza ist fertig! Buon appetito!\")\r\n```\r\n\r\n_Vorsicht:_ Vergiss nicht die Temperatur zu erhöhen, sonst brennt der Ofen durch! 🔥\r\n\r\n## 🥊 for vs. while – Wer wann?\r\n\r\n- **FOR:** Wenn du weißt, wie oft's laufen soll (z.B. Liste durchgehen)\r\n- **WHILE:** Wenn es auf eine Bedingung ankommt (z.B. Spiel läuft, bis Game Over)\r\n\r\n## 🎯 Challenge:\r\n\r\nErrate die geheime Zahl mit nur 3 Versuchen!\r\n\r\n```python\r\ngeheimzahl = 7\r\nversuche = 3\r\n\r\nwhile versuche > 0:\r\n    raten = int(input(\"🎯 Dein Tipp (1-10): \"))\r\n    if raten == geheimzahl:\r\n        print(\"🎉 Treffer! Gewonnen!\")\r\n        break\r\n    versuche -= 1\r\n    print(f\"❌ Daneben! Noch {versuche} Versuche\")\r\nelse:\r\n    print(\"😢 Game Over! Keine Versuche mehr\")\r\n```\r\n\r\n## 💡 Pro-Tipps:\r\n\r\n- `range()` kann auch so: `range(start, ende, schritt)`\r\n- Benenne Schleifen-Variablen sinnvoll:\r\n  - `for schüler in klasse:` statt `for x in y:`\r\n- Breakpoint setzen? Einfach `break` schreiben!\r\n\r\nJetzt du: Erfinde deine eigenen Schleifen-Experimente! 🔄 Wie wär's mit einem Roboter-Tanz per Code? 🤖💃🕺\r\n",
-    "image": "",
+    "description": "# Streng geheim\r\n",
+    "image": "/story/journal.jpg",
     "quests": [],
     "x": 770,
     "y": 2150

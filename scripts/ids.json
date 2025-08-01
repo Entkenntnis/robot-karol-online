@@ -1,6 +1,7 @@
 {
   "keys": {
     "000-intro/Begrüßung.json": 147,
+    "000-intro/Vorgeschichte.json": 165,
     "010-variablen/a__Flachwitz.json": 149,
     "010-variablen/b__Papagei.json": 150,
     "010-variablen/c__Echo.json": 151,
@@ -18,5 +19,5 @@
     "040-mathematik/c__Bierflaschen_1.json": 163,
     "040-mathematik/d__Bierflaschen_2.json": 164
   },
-  "counter": 165
+  "counter": 166
 }
