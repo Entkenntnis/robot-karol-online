@@ -332,6 +332,7 @@ function* runnerGenerator(core: Core) {
   // this will be persisted
   core.mutateWs((ws) => {
     ws.quest.completedOnce = true
+    ws.ui.isAlreadyCompleted = true
   })
 
   showModal(core, 'success')

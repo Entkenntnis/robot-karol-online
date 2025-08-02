@@ -1676,12 +1676,64 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "a) Passwort",
-          "description": "TODO",
+          "description": "Schreibe ein Python-Programm, dass nach einem Passwort fragt und es überprüft. Nutze `if/else`.\n\nDas korrekte Passwort lautet **trowssaP**.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Passwort?"
+                },
+                {
+                  "role": "in",
+                  "text": "Banane"
+                },
+                {
+                  "role": "out",
+                  "text": "falsch"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Passwort?"
+                },
+                {
+                  "role": "in",
+                  "text": "123"
+                },
+                {
+                  "role": "out",
+                  "text": "falsch"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Passwort?"
+                },
+                {
+                  "role": "in",
+                  "text": "trowssaP"
+                },
+                {
+                  "role": "out",
+                  "text": "Zugriff gewährt"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
