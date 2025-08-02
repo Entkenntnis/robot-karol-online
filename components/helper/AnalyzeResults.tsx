@@ -131,9 +131,9 @@ export function AnalyzeResults() {
       <div className="text-xs text-gray-500 mb-4">
         Das Ziel jeder Aufgabe war für mich klar verständlich._Es war einfach,
         Fehler in meinem Code zu finden._Ich würde Robot Karol einer FreundIn
-        empfehlen._Was würdest du an Robot Karol verbessern?_Welche
-        Aufgabe/Feature hat dir am meisten Spaß gemacht – und warum?_Dürfen wir
-        deine Antworten in einer öffentlichen Statistik zeigen?
+        empfehlen._Dürfen wir deine Antworten in einer öffentlichen Statistik
+        zeigen?_Was würdest du an Robot Karol verbessern?_Welche Aufgabe/Feature
+        hat dir am meisten Spaß gemacht – und warum?
       </div>
       <div>
         {survey.map((entry, i) => (
