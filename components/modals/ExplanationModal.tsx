@@ -53,26 +53,32 @@ export function ExplanationModal() {
             </div>
 
             <div className="flex justify-center mb-8 font-semibold">
-              <button
-                className="px-4 py-2 bg-green-200 hover:bg-green-300 rounded-lg"
-                onClick={() => {
-                  setQuestData({
-                    id: core.ws.overview.explanationId,
-                    completed: true,
-                    code: '',
-                    mode: 'blocks',
-                    completedOnce: true,
-                  })
-                  submitAnalyzeEvent(
-                    core,
-                    'ev_click_explanation_continue_' +
-                      core.ws.overview.explanationId
-                  )
-                  closeModal(core)
-                }}
-              >
-                Weiter
-              </button>
+              {!chapterData[
+                core.ws.overview.explanationId
+              ].description.includes(
+                'Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.'
+              ) && (
+                <button
+                  className="px-4 py-2 bg-green-200 hover:bg-green-300 rounded-lg"
+                  onClick={() => {
+                    setQuestData({
+                      id: core.ws.overview.explanationId,
+                      completed: true,
+                      code: '',
+                      mode: 'blocks',
+                      completedOnce: true,
+                    })
+                    submitAnalyzeEvent(
+                      core,
+                      'ev_click_explanation_continue_' +
+                        core.ws.overview.explanationId
+                    )
+                    closeModal(core)
+                  }}
+                >
+                  Weiter
+                </button>
+              )}
             </div>
           </div>
         </div>

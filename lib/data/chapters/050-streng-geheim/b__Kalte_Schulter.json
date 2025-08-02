@@ -1,12 +1,46 @@
 {
   "version": "v1",
   "title": "b) Kalte Schulter",
-  "description": "TODO",
+  "description": "Frage nach dem Namen der Person. Bei Joel antwortet das Programm: \"Verrate mir endlich deinen Plan für meinen Geburtstag.\", bei Maria: \"Ich möchte endlich mit auf Patrouille.\"\n\nBei allen anderen Personen sagt das Programm nichts. Nutze zweimal `if`. Lasse das `else` aus.",
   "tasks": [],
   "lng": "de",
   "editOptions": "python-pro-only",
   "questScript": "",
-  "chats": [],
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Wer ist da?" },
+        { "role": "in", "text": "Joel" },
+        {
+          "role": "out",
+          "text": "Verrate mir endlich deinen Plan für meinen Geburtstag."
+        }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Wer ist da?" },
+        { "role": "in", "text": "Maria" },
+        { "role": "out", "text": "Ich möchte endlich mit auf Patrouille." }
+      ]
+    },
+    {
+      "title": "Chat 3",
+      "messages": [
+        { "role": "out", "text": "Wer ist da?" },
+        { "role": "in", "text": "Albert" }
+      ]
+    },
+    {
+      "title": "Chat 4",
+      "messages": [
+        { "role": "out", "text": "Wer ist da?" },
+        { "role": "in", "text": "Nina" }
+      ]
+    }
+  ],
   "language": "python-pro",
   "program": ""
 }

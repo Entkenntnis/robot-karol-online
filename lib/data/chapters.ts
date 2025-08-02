@@ -1749,12 +1749,73 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "b) Kalte Schulter",
-          "description": "TODO",
+          "description": "Frage nach dem Namen der Person. Bei Joel antwortet das Programm: \"Verrate mir endlich deinen Plan für meinen Geburtstag.\", bei Maria: \"Ich möchte endlich mit auf Patrouille.\"\n\nBei allen anderen Personen sagt das Programm nichts. Nutze zweimal `if`. Lasse das `else` aus.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wer ist da?"
+                },
+                {
+                  "role": "in",
+                  "text": "Joel"
+                },
+                {
+                  "role": "out",
+                  "text": "Verrate mir endlich deinen Plan für meinen Geburtstag."
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wer ist da?"
+                },
+                {
+                  "role": "in",
+                  "text": "Maria"
+                },
+                {
+                  "role": "out",
+                  "text": "Ich möchte endlich mit auf Patrouille."
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wer ist da?"
+                },
+                {
+                  "role": "in",
+                  "text": "Albert"
+                }
+              ]
+            },
+            {
+              "title": "Chat 4",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wer ist da?"
+                },
+                {
+                  "role": "in",
+                  "text": "Nina"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -1770,12 +1831,81 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "c) Zahlenraten 1",
-          "description": "TODO",
+          "description": "Dein Programm enthält eine geheime Zahl (psst, sie lautet 7). Karol soll diese Zahl raten und du sagst, ob die Zahl zu hoch oder zu niedrig ist. Bringe diese Code-Zeilen in die richtige Reihenfolge:\n\n`geheim = 7`\n\n`if n < geheim:`\n\n`if n > geheim:`\n\n`n = int(input())`\n\n`print(\"Rate meine Zahl\")`\n\n`print(\"zu niedrig\")`\n\n`print(\"zu hoch\")`",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "6"
+                },
+                {
+                  "role": "out",
+                  "text": "zu niedrig"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "100"
+                },
+                {
+                  "role": "out",
+                  "text": "zu hoch"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "1"
+                },
+                {
+                  "role": "out",
+                  "text": "zu niedrig"
+                }
+              ]
+            },
+            {
+              "title": "Chat 4",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "8"
+                },
+                {
+                  "role": "out",
+                  "text": "zu hoch"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -1791,12 +1921,64 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "d) Zahlenraten 2",
-          "description": "TODO",
+          "description": "Wenn du mehrere Sachen prüfen und nur einen der Fälle ausführen willst, gibt es noch `elif`:\n\n```py\nif ...:\n    ...\nelif ...:\n    ...\nelse:\n    ...\n```\n\nDamit kannst du das Zahlenraten vervollständigen: Wenn die Zahl zu hoch oder zu niedrig ist, gib eine Nachricht aus. Wenn die Zahl aber stimmt, dann sage etwas Nettes. Die geheime Zahl ist wieder 7.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "zu niedrig"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "zu hoch"
+                }
+              ]
+            },
+            {
+              "title": "Chat 5",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "WOW! MEGA!"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
@@ -1812,12 +1994,81 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "e) Infizierte",
-          "description": "TODO",
+          "description": "Je nach Dauer durchlaufen die Infizierten verschiedene Phasen:\n\n- 0 - 2 Monate: Runner\n- 3 - 12 Monate: Stalker\n- 13 - 60 Monate: Clicker\n- 60+ Monate: Bloater\n\nFrage die Monate ab und gib eine passende Antwort:",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
-          "chats": [],
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Monate infiziert?"
+                },
+                {
+                  "role": "in",
+                  "text": "0"
+                },
+                {
+                  "role": "out",
+                  "text": "Das ist ein Runner."
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Monate infiziert?"
+                },
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "out",
+                  "text": "Das ist ein Stalker."
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Monate infiziert?"
+                },
+                {
+                  "role": "in",
+                  "text": "32"
+                },
+                {
+                  "role": "out",
+                  "text": "Das ist ein Clicker."
+                }
+              ]
+            },
+            {
+              "title": "Chat 4",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Monate infiziert?"
+                },
+                {
+                  "role": "in",
+                  "text": "240"
+                },
+                {
+                  "role": "out",
+                  "text": "Verstecke dich sofort und bete, dass der Bloater dir einen schnellen Tod bereitet."
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
           "program": ""
         },
