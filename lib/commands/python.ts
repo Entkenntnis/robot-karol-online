@@ -280,30 +280,34 @@ export function setupWorker(core: Core) {
             ws.ui.errorMessages = []
           })
         } else {
-          const [lineno, offset, end_lineno, end_offset, msg] =
-            JSON.parse(diagnostics)
-          const from =
-            core.view.current.state.doc.line(lineno).from +
-            Math.max(offset - 1, 0)
-          const to = Math.max(
-            from + 1,
-            core.view.current.state.doc.line(end_lineno).from + end_offset
-          )
-          core.view.current.dispatch(
-            setDiagnostics(core.view.current.state, [
-              {
-                from: Math.max(0, from),
-                to: Math.min(to, core.view.current.state.doc.length),
-                severity: 'error',
-                message: msg,
-              },
-            ])
-          )
-          core.mutateWs(({ ui }) => {
-            ui.state = 'error'
-            ui.errorMessages = [`Line ${lineno}: ${msg}`]
-            //ui.preview = undefined
-          })
+          try {
+            const [lineno, offset, end_lineno, end_offset, msg] =
+              JSON.parse(diagnostics)
+            const from =
+              core.view.current.state.doc.line(lineno).from +
+              Math.max(offset - 1, 0)
+            const to = Math.max(
+              from + 1,
+              core.view.current.state.doc.line(end_lineno).from + end_offset
+            )
+            core.view.current.dispatch(
+              setDiagnostics(core.view.current.state, [
+                {
+                  from: Math.max(0, from),
+                  to: Math.min(to, core.view.current.state.doc.length),
+                  severity: 'error',
+                  message: msg,
+                },
+              ])
+            )
+            core.mutateWs(({ ui }) => {
+              ui.state = 'error'
+              ui.errorMessages = [`Line ${lineno}: ${msg}`]
+              //ui.preview = undefined
+            })
+          } catch (e) {
+            // ignore errors here, because sometimes, diagnostics are not perfect or stale or whatever ...
+          }
         }
       }
     }

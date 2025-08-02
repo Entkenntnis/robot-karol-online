@@ -1,1 +1,25 @@
-{"version":"v1","title":"a) Flachwitz","description":"**Ellie:** Karol, mache dich bereit für den besten Witz der Welt!\n\n---\n\nSchreibe ein Programm, dass Karol einen Witz erzählt, gehe so vor:\n\n1. Stelle die Frage mit `print()`.\n2. Schreibe `input()` und lasse Karol sprechen.\n3. Nutze wieder `print()` für die Pointe.\n4. Und nochmal für das Lachen.","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Wie nennt man einen Bumerang, der nicht zurückkommt?"},{"role":"in","text":"Weiß ich nicht"},{"role":"out","text":"Stock"},{"role":"out","text":"Hahahahaha"}]}],"language":"python-pro","program":""}
+{
+  "version": "v1",
+  "title": "a) Flachwitz",
+  "description": "**Ellie:** Karol, mache dich bereit für den besten Witz der Welt!\n\n---\n\nSchreibe ein Programm, dass Karol einen Witz erzählt, gehe so vor:\n\n1. Stelle die Frage mit `print()`.\n2. Schreibe `input()` und lasse Karol sprechen.\n3. Nutze wieder `print()` für die Pointe.\n4. Und nochmal für das Lachen.",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        {
+          "role": "out",
+          "text": "Wie nennt man einen Bumerang, der nicht zurückkommt?"
+        },
+        { "role": "in", "text": "Weiß ich nicht" },
+        { "role": "out", "text": "Stock" },
+        { "role": "out", "text": "Haha" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}

@@ -135,7 +135,7 @@ const chapterInfo = [
                 },
                 {
                   "role": "out",
-                  "text": "Hahahahaha"
+                  "text": "Haha"
                 }
               ]
             }
@@ -1664,10 +1664,116 @@ const chapterInfo = [
     "dirName": "050-schleifen",
     "title": "5. Streng geheim",
     "originalTitle": "Streng geheim",
-    "requiredCount": 1,
-    "description": "# Streng geheim\r\n\r\n_Ellie schreibt in ihr Tagebuch._\r\n\r\nIch mache gute Fortschritte beim Programmieren, es ist viel Arbeit, aber es macht Spaß, wenn man es verstanden hat. Manchmal träume ich auch in der Nacht von Python.\r\n\r\nWeißt du, was praktisch wäre? Ein Passwort für das Tagebuch. Ich könnte sowas jetzt programmieren. Dazu gibt es dieses `if/else`. Komme, ich zeige dir, wie das aussieht:\r\n\r\n```py\r\nprint(\"Streng geheim! Passwort:\")\r\npasswort = input()\r\n\r\nif passwort == \"Riley\":\r\n    print(\"Zugang erlaubt\")\r\nelse:\r\n    print(\"Geh weg!\")\r\n```\r\n\r\nAm Anfang war das verwirrend, aber mittlerweile habe ich es besser verstanden. Hinter dem `if` kann ich etwas überprüfen, zum Beispiel ob das Passwort korrekt ist. Ich muss zwei Gleichheitszeichen verwenden, weil es sonst mit den Variablen Verwirrung gibt. Wenn die Prüfung passt, wird der Code direkt danach ausgeführt (immer schön mit Tab einrücken, sonst geht alles kaputt).\r\n\r\nWenn die Prüfung nicht klappt, dann wird der Code im `else`-Block ausgeführt.\r\n\r\nIm Buch steht, das ich dadurch sehr intelligente Programme schreiben kann. Na, das werden wir noch sehen. So intelligent sieht das für mich noch nicht aus, aber ich wurde ja schon öfters überrascht.\r\n\r\nRiley, ich vermisse dich.\r\n",
+    "requiredCount": 3,
+    "description": "# Streng geheim\r\n\r\n_Ellie schreibt in ihr Tagebuch._\r\n\r\nIch mache gute Fortschritte beim Programmieren, es ist viel Arbeit, aber es macht Spaß - wenn man es verstanden hat. Manchmal träume ich auch in der Nacht von Python.\r\n\r\nWeißt du, was praktisch wäre? Ein Passwort für das Tagebuch. Ich könnte sowas jetzt programmieren. Dazu gibt es dieses `if/else`. Komm, ich zeige dir, wie das aussieht:\r\n\r\n```py\r\nprint(\"Streng geheim! Passwort:\")\r\npasswort = input()\r\n\r\nif passwort == \"Riley\":\r\n    print(\"Zugang gewährt ✌(-‿-)✌\")\r\nelse:\r\n    print(\"Geh weg! ┌П┐(ಠ_ಠ)\")\r\n```\r\n\r\nAm Anfang war das verwirrend, aber mittlerweile habe ich es besser verstanden. Hinter dem `if` kann ich etwas überprüfen, zum Beispiel ob das Passwort korrekt ist. Ich muss zwei Gleichheitszeichen verwenden, weil es sonst mit der Variable-Zuweisung Verwirrung gibt. Je nach dem, wie die Prüfung läuft, wird entweder der `if`- oder der `else`-Block ausgeführt:\r\n\r\nWenn die <span class=\"text-green-600\">Prüfung bestanden ist</span>, wird der Code direkt nach dem `if` ausgeführt (immer schön mit Tab einrücken, sonst geht alles kaputt).\r\n\r\nWenn die <span class=\"text-red-500\">Prüfung nicht klappt</span>, dann wird nur der Code im `else`-Block ausgeführt.\r\n\r\nIm Buch steht, das ich dadurch sehr intelligente Programme schreiben kann. Na, das werden wir noch sehen. So intelligent sieht das für mich noch nicht aus, aber ich wurde ja schon öfters überrascht.\r\n\r\nRiley, ich vermisse dich.\r\n",
     "image": "/story/journal.jpg",
-    "quests": [],
+    "quests": [
+      {
+        "filename": "a__Passwort.json",
+        "x": 620,
+        "y": -50,
+        "id": 166,
+        "content": {
+          "version": "v1",
+          "title": "a) Passwort",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10006
+        ]
+      },
+      {
+        "filename": "b__Kalte_Schulter.json",
+        "x": 730,
+        "y": -140,
+        "id": 167,
+        "content": {
+          "version": "v1",
+          "title": "b) Kalte Schulter",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10006
+        ]
+      },
+      {
+        "filename": "c__Zahlenraten_1.json",
+        "x": 900,
+        "y": -100,
+        "id": 170,
+        "content": {
+          "version": "v1",
+          "title": "c) Zahlenraten 1",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10006
+        ]
+      },
+      {
+        "filename": "d__Zahlenraten_2.json",
+        "x": 1000,
+        "y": 50,
+        "id": 171,
+        "content": {
+          "version": "v1",
+          "title": "d) Zahlenraten 2",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10006
+        ]
+      },
+      {
+        "filename": "e__Infizierte.json",
+        "x": 670,
+        "y": 120,
+        "id": 172,
+        "content": {
+          "version": "v1",
+          "title": "e) Infizierte",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10006
+        ]
+      }
+    ],
     "x": 770,
     "y": 2150
   },

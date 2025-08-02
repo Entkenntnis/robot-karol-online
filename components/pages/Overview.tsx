@@ -72,6 +72,15 @@ export function Overview() {
     (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id))
   ).length
 
+  const numberOfSolvedQuestsRKO = Object.keys(mapData).filter(
+    (id) => parseInt(id) < 100 && isQuestDone(parseInt(id))
+  ).length
+
+  const numberOfSolvedQuestsPython = Object.keys(mapData).filter(
+    (id) =>
+      parseInt(id) >= 100 && parseInt(id) < 10000 && isQuestDone(parseInt(id))
+  ).length
+
   const maxMapY =
     Math.max(
       ...Object.entries(mapData)
@@ -442,7 +451,7 @@ export function Overview() {
                   alt="Farbklecks 3"
                 />
                 {core.ws.settings.lng === 'de' &&
-                  numberOfSolvedQuests == 0 &&
+                  numberOfSolvedQuestsRKO == 0 &&
                   core.ws.page !== 'demo' &&
                   core.ws.page !== 'analyze' && (
                     <div className="absolute top-[160px] left-[270px] z-10">
@@ -492,7 +501,7 @@ export function Overview() {
                     </div>
                   )}
                 <div className="absolute top-[200px] left-[1000px] z-10">
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                  <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
                     <button
                       className={clsx(
                         'hover:bg-gray-100/60 rounded-xl',
@@ -652,10 +661,11 @@ export function Overview() {
                 </div>
                 {core.ws.settings.lng === 'de' &&
                   !isQuestDone(10001) &&
+                  numberOfSolvedQuestsPython == 0 &&
                   core.ws.page !== 'demo' &&
                   core.ws.page !== 'analyze' && (
                     <div className="absolute top-[1670px] left-[690px] z-10">
-                      <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                      <AnimateInView dontFade={numberOfSolvedQuestsPython > 0}>
                         <div
                           className="bg-white/50 rounded-lg p-2 w-[410px] shadow-lg rainbow ranbow-always cursor-pointer"
                           onClick={() => {

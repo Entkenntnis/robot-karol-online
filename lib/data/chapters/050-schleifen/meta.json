@@ -1,6 +1,18 @@
 {
   "title": "Streng geheim",
-  "quests": [],
+  "requiredCount": 3,
+  "quests": [
+    { "filename": "a__Passwort.json", "x": 620, "y": -50 },
+
+    { "filename": "b__Kalte_Schulter.json", "x": 730, "y": -140 },
+    { "filename": "c__Zahlenraten_1.json", "x": 900, "y": -100 },
+    {
+      "filename": "d__Zahlenraten_2.json",
+      "x": 1000,
+      "y": 50
+    },
+    { "filename": "e__Infizierte.json", "x": 670, "y": 120 }
+  ],
   "x": 770,
   "y": 2150,
   "image": "/story/journal.jpg"

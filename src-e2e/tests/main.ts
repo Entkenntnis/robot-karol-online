@@ -310,7 +310,7 @@ Scenario('Ellie, some testing', async ({ I }) => {
   I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.type(
-    'print("Wie nennt man einen Bumerang, der nicht zur\\u00fcckkommt?");input();print("Stock");print("Hahahahaha")'
+    'print("Wie nennt man einen Bumerang, der nicht zur\\u00fcckkommt?");input();print("Stock");print("Haha")'
   )
   I.wait(5)
   I.click('Start')
