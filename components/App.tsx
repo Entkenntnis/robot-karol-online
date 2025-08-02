@@ -37,6 +37,7 @@ import { ExplanationModal } from './modals/ExplanationModal'
 import { Flashcards } from './pages/Flashcards'
 import { CharacterModal } from './modals/CharacterModal'
 import { ChatGuide } from './modals/ChatGuide'
+import { PythonListing } from './modals/PythonListing'
 
 export function App() {
   const core = useCore()
@@ -168,6 +169,8 @@ export function App() {
       return <CharacterModal />
     } else if (core.ws.modal == 'chat-guide') {
       return <ChatGuide />
+    } else if (core.ws.modal == 'python-listing') {
+      return <PythonListing />
     } else {
       return null
     }

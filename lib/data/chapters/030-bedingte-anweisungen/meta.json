@@ -1,23 +1,13 @@
 {
-  "title": "Bedingte Anweisungen",
+  "title": "Dart",
+  "requiredCount": 2,
   "quests": [
-    { "filename": "Zaubertrankprüfung.json", "x": 620, "y": 130 },
-    { "filename": "Weltraum_Navigation.json", "x": 770, "y": -60 },
-    { "filename": "Wetterstation_Alarm_1.json", "x": 430, "y": 100 },
-    {
-      "filename": "Wetterstation_Alarm_2.json",
-      "x": 530,
-      "y": 250,
-      "deps": ["Wetterstation_Alarm_1.json"]
-    },
-    {
-      "filename": "Wetterstation_Alarm_3.json",
-      "x": 490,
-      "y": 420,
-      "deps": ["Wetterstation_Alarm_2.json"]
-    }
+    { "filename": "a__Dart_1.json", "x": 180, "y": -100 },
+    { "filename": "b__Dart_2.json", "x": 240, "y": 50 },
+    { "filename": "c__Dart_3.json", "x": 180, "y": 130 },
+    { "filename": "d__Summe.json", "x": 70, "y": 170 }
   ],
-  "x": 560,
-  "y": 2240,
-  "image": "/story/3.jpg"
+  "x": 100,
+  "y": 1980,
+  "image": "/story/dart.jpg"
 }

@@ -282,3 +282,41 @@ Scenario('Reset code should not break lock language', ({ I }) => {
   I.wait(1)
   I.dontSee('Hauptprogramm')
 })
+
+Scenario('Ellie, some testing', async ({ I }) => {
+  I.amOnPage('/')
+  I.dontSee('1. Glücksbringer')
+  I.click('0. Alles ist scheiße')
+  I.scrollPageToBottom()
+  I.click('Weiter')
+  I.click('Fehlersuche')
+  I.click('div .fixed')
+  I.click('div .cm-activeLine')
+  I.pressKey(['Control', 'a'])
+  I.type('print("Hallo, Jackson!");print("Ich lerne jetzt Programmieren!")')
+  I.click('Start')
+  I.waitForText('weiter', 10)
+  I.click('weiter')
+  const saveProgress = await I.grabNumberOfVisibleElements(
+    'Fortschritt speichern'
+  )
+  if (saveProgress > 0) {
+    I.click('Fortschritt speichern')
+  }
+  I.click('#explanation-icon-10002')
+  I.scrollPageToBottom()
+  I.click('Weiter')
+  I.click('a) Flachwitz')
+  I.click('div .fixed')
+  I.click('div .cm-activeLine')
+  I.type(
+    'print("Wie nennt man einen Bumerang, der nicht zur\\u00fcckkommt?");input();print("Stock");print("Haha")'
+  )
+  I.wait(5)
+  I.click('Start')
+  I.waitForText('weiter', 10)
+  I.click('weiter')
+  I.see('b) Papagei')
+  I.see('c) Echo')
+  // TODO: add last few tests regarding chapter 2
+})

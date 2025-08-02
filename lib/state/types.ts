@@ -91,8 +91,8 @@ export interface Vm {
   steps: number
   isDebugging: boolean
   debuggerRequestNextStep: boolean
-  chatCursor?: { chatIndex: number; msgIndex: number; mode: 'play' | 'warn' }
 
+  chatCursor?: { chatIndex: number; msgIndex: number; mode: 'play' | 'warn' }
   chatVisualText: string
   chatVisualRole: 'out' | 'in' | 'spill'
   chatvisualWarning?:
@@ -102,6 +102,7 @@ export interface Vm {
     | 'no-input-here'
     | 'no-input-here-at-end'
     | 'no-output-here-at-end'
+  inspector: string
 }
 
 export interface Settings {
@@ -206,6 +207,7 @@ export interface WorkspaceState {
     | 'explanation'
     | 'character'
     | 'chat-guide'
+    | 'python-listing'
     | null
 
   renderCounter: number // e.g. if storage is updated
@@ -497,6 +499,7 @@ export interface QuestData {
   title: string
   description: string
   tasks: QuestTask[]
+  chats?: ChatTask[]
   difficulty: string
   audioSrc?: string
   script?: {
