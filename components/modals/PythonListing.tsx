@@ -1,0 +1,107 @@
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { closeModal } from '../../lib/commands/modal'
+import { useCore } from '../../lib/state/core'
+import { FaIcon } from '../helper/FaIcon'
+import { questListByCategory } from '../../lib/data/overview'
+import { questData } from '../../lib/data/quests'
+import { navigate } from '../../lib/commands/router'
+import {
+  setLearningPathScroll,
+  setQuestReturnToMode,
+} from '../../lib/storage/storage'
+import clsx from 'clsx'
+import { isQuestDone } from '../../lib/helper/session'
+
+export function PythonListing() {
+  const core = useCore()
+  // load all python examples from questList
+  const pythonCategories = questListByCategory
+    .filter((category) => category.title.includes('.'))
+    .map((category) => {
+      return {
+        ...category,
+        quests: category.quests.map((questId) => {
+          const quest = questData[questId]
+          return {
+            id: questId,
+            title: quest.title,
+          }
+        }),
+      }
+    })
+  return (
+    <div
+      className="bg-black/20 fixed inset-0 flex justify-center items-center z-[350]"
+      onClick={() => closeModal(core)}
+    >
+      <div
+        className="max-h-[90%] w-[630px] bg-white z-[400] rounded-xl flex flex-col relative"
+        onClick={(e) => {
+          e.stopPropagation()
+        }}
+      >
+        <div className="p-4 border-b sticky top-0 bg-white rounded-t-xl">
+          <button
+            className="absolute top-3 right-3 h-8 w-8 flex justify-center items-center rounded-full bg-gray-200 hover:bg-gray-300"
+            onClick={() => {
+              closeModal(core)
+            }}
+          >
+            <FaIcon icon={faTimes} />
+          </button>
+          <h1 className="font-bold text-2xl text-center">
+            Übersicht Python-Lernpfad
+          </h1>
+        </div>
+        <div id="scroll-container" className="overflow-auto p-6">
+          {/* AI-generated listing */}
+          <div className="space-y-6">
+            {pythonCategories.map((category, i) => (
+              <div key={category.title} className="p-4 border rounded-lg">
+                <h2
+                  className={clsx(
+                    'font-bold text-lg mb-3',
+                    isQuestDone(10001 + i) ? 'text-gray-800' : 'text-gray-400'
+                  )}
+                >
+                  {category.title}
+                </h2>
+                {category.quests.length > 0 ? (
+                  <ul className="space-y-2">
+                    {category.quests.map((quest) => (
+                      <li
+                        key={quest.id}
+                        className={clsx(
+                          'p-2 rounded-md transition-colors cursor-pointer',
+                          isQuestDone(quest.id)
+                            ? 'bg-green-100 hover:bg-green-200'
+                            : 'bg-gray-50 hover:bg-gray-100'
+                        )}
+                        onClick={() => {
+                          setQuestReturnToMode('path')
+                          const scroll =
+                            document.getElementById('scroll-container')
+                              ?.scrollTop ?? -1
+                          setLearningPathScroll(scroll)
+                          navigate(core, `#QUEST-${quest.id}`)
+                        }}
+                      >
+                        {quest.title}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-500 italic">
+                    Dieses Kapitel befindet sich im Aufbau und ist demnächst
+                    verfügbar.
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+        <p className="text-center mb-5 px-4 mt-8"></p>
+      </div>
+    </div>
+  )
+}

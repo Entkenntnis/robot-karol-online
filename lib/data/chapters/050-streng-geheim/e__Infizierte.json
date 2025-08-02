@@ -1,0 +1,48 @@
+{
+  "version": "v1",
+  "title": "e) Infizierte",
+  "description": "Je nach Dauer durchlaufen die Infizierten verschiedene Phasen:\n\n- 0 - 2 Monate: Runner\n- 3 - 12 Monate: Stalker\n- 13 - 60 Monate: Clicker\n- 60+ Monate: Bloater\n\nFrage die Monate ab und gib eine passende Antwort:",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Wie viele Monate infiziert?" },
+        { "role": "in", "text": "0" },
+        { "role": "out", "text": "Das ist ein Runner." }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Wie viele Monate infiziert?" },
+        { "role": "in", "text": "4" },
+        { "role": "out", "text": "Das ist ein Stalker." }
+      ]
+    },
+    {
+      "title": "Chat 3",
+      "messages": [
+        { "role": "out", "text": "Wie viele Monate infiziert?" },
+        { "role": "in", "text": "32" },
+        { "role": "out", "text": "Das ist ein Clicker." }
+      ]
+    },
+    {
+      "title": "Chat 4",
+      "messages": [
+        { "role": "out", "text": "Wie viele Monate infiziert?" },
+        { "role": "in", "text": "240" },
+        {
+          "role": "out",
+          "text": "Verstecke dich sofort und bete, dass der Bloater dir einen schnellen Tod bereitet."
+        }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}

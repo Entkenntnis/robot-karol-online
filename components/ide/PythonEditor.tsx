@@ -53,6 +53,7 @@ import { pythonLanguage } from '../../lib/codemirror/pythonParser/pythonLanguage
 import { compilePython } from '../../lib/language/python/compilePython'
 import { cursorToAstNode } from '../../lib/language/helper/astNode'
 import { saveCodeToLocalStorage } from '../../lib/commands/save'
+import { stopChatRunner } from '../../lib/commands/chat'
 
 interface EditorProps {
   innerRef: RefObject<EditorView | undefined>
@@ -137,6 +138,10 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
   return <div ref={editorDiv} className="h-full" />
 }
 export function lint(core: Core, view: EditorView) {
+  if (core.ws.ui.state == 'running' || !view) {
+    stopChatRunner(core) // stop program
+    core.worker?.reset()
+  }
   // good place to sync code with state
   const code = view.state.doc.sliceString(0)
   // console.log(code)

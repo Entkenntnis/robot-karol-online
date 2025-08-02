@@ -880,6 +880,14 @@ self.onmessage = async (event) => {
   if (event.data.type == 'run-chat') {
     const traceback = pyodide.pyimport('traceback')
     const { code } = event.data
+    const extractGlobalsPy = `
+__g = globals()
+__filter = ['print', 'input']
+# filter out internal variables
+__g = {k: v for k, v in __g.items() if not k.startswith('_') and k not in __filter}
+
+__g
+          `
     try {
       const globals = pyodide.toPy({
         __internal_print: (text) => {
@@ -896,11 +904,21 @@ self.onmessage = async (event) => {
           }
           const line = stack[stack.length - offset].lineno
 
+          // extract global variables
+          const inspector = pyodide
+            .runPython(extractGlobalsPy, { globals })
+            .toString()
+          self.postMessage({
+            type: 'chat-inspector',
+            inspector,
+          })
+
           self.postMessage({
             type: 'chat-output',
             text,
             buffer,
             line,
+            inspector,
           })
           Atomics.wait(syncArray, 0, 42)
         },
@@ -913,6 +931,15 @@ self.onmessage = async (event) => {
 
           const stack = traceback.extract_stack()
           const line = stack[stack.length - 2].lineno
+
+          // extract global variables
+          const inspector = pyodide
+            .runPython(extractGlobalsPy, { globals })
+            .toString()
+          self.postMessage({
+            type: 'chat-inspector',
+            inspector,
+          })
 
           self.postMessage({
             type: 'chat-input',
@@ -950,6 +977,14 @@ def input(prompt=''):
         { globals }
       )
       pyodide.runPython(code, { globals })
+      // extract global variables
+      const inspector = pyodide
+        .runPython(extractGlobalsPy, { globals })
+        .toString()
+      self.postMessage({
+        type: 'chat-inspector',
+        inspector,
+      })
       self.postMessage({ type: 'chat-done' })
     } catch (error) {
       self.postMessage({ type: 'chat-error', error: error.message })

@@ -1,0 +1,15 @@
+{
+  "title": "Alles ist scheiße",
+  "quests": [
+    { "filename": "Begrüßung.json", "x": 870, "y": 170 },
+    {
+      "filename": "Vorgeschichte.json",
+      "deps": ["Begrüßung.json"],
+      "x": 940,
+      "y": 300
+    }
+  ],
+  "image": "/story/ellie0.jpg",
+  "x": 930,
+  "y": 1520
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Glückbringer",
+  "requiredCount": 2,
+  "quests": [
+    { "filename": "a__Flachwitz.json", "x": 450, "y": 50 },
+    { "filename": "b__Papagei.json", "x": 610, "y": 160 },
+    { "filename": "c__Echo.json", "x": 740, "y": 130 }
+  ],
+  "x": 640,
+  "y": 1640,
+  "image": "/story/joel1.jpg"
+}

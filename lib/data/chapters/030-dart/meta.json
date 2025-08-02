@@ -1,0 +1,13 @@
+{
+  "title": "Dart",
+  "requiredCount": 2,
+  "quests": [
+    { "filename": "a__Dart_1.json", "x": 180, "y": -100 },
+    { "filename": "b__Dart_2.json", "x": 240, "y": 50 },
+    { "filename": "c__Dart_3.json", "x": 180, "y": 130 },
+    { "filename": "d__Summe.json", "x": 70, "y": 170 }
+  ],
+  "x": 100,
+  "y": 1980,
+  "image": "/story/dart.jpg"
+}

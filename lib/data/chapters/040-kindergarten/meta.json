@@ -1,0 +1,19 @@
+{
+  "title": "Kindergarten",
+  "requiredCount": 2,
+  "quests": [
+    { "filename": "UMFRAGE.json", "x": 410, "y": -115 },
+    { "filename": "a__Geschichte.json", "x": 190, "y": 65 },
+    { "filename": "b__Einmaleins.json", "x": 310, "y": 131 },
+    { "filename": "c__Bierflaschen_1.json", "x": 450, "y": 141 },
+    {
+      "filename": "d__Bierflaschen_2.json",
+      "x": 580,
+      "y": 201,
+      "deps": ["c__Bierflaschen_1.json"]
+    }
+  ],
+  "x": 420,
+  "y": 2200,
+  "image": "/story/sam.jpg"
+}

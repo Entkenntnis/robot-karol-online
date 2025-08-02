@@ -6,4342 +6,2126 @@ import { deserializeQuestToData } from '../commands/json'
 const chapterInfo = [
   {
     "id": 10001,
-    "dirName": "000-intro",
-    "title": "0. Python Lernpfad (Entwurf)",
-    "originalTitle": "Python Lernpfad (Entwurf)",
-    "description": "# Einleitung\r\n\r\n<div class=\"bg-yellow-300 rounded p-2\">\r\nDieser Lernpfad ist ein erster Entwurf. Du kannst aktiv bei der Gestaltung mithelfen, das geht in weniger als 2 Minuten!\r\n\r\nFülle dazu [diese Umfrage](https://docs.google.com/forms/d/e/1FAIpQLScLvOw2ZD2_DGeiWPFNXxHR0DjlBHSIxAU5b72su_zPXyoVTg/viewform?usp=preview) aus. Danke!\r\n\r\n</div>\r\n\r\nDu hättest deinen Eltern nicht sagen sollen, dass dir langweilig sei. Was für ein Anfänger-Fehler. Jetzt stehst du an einem Montag in den Ferien um 9 Uhr vor dem Haus der alten Künstlerin und schaust dich vorsichtig um.\r\n\r\nDie alte Dame hat sich in den Kopf gesetzt, Programmieren zu lernen und damit sie nicht ganz alleine ist, bietet sie einen offenen Workshop an, bei dem alle vorbeikommen und mitlernen können. Deine Eltern haben den Aushang gesehen, denn Karol, die Künstlerin, wohnt gleich um die Ecke und haben dich gleich da hingeschickt (\"dir ist ja sonst langweilig, mein Schatz\").\r\n\r\nDie Tür zum Haus steht offen. Als du eintrittst, begrüßt dich Karol (\"Schön dass du hier bist, deine Eltern haben mir schon von dir erzählt\") und du siehst neben ihr ein Mädchen, ungefähr in deinem Alter. Sie ist sicherlich auch hier für den Workshop, puh, immerhin bist du nicht alleine.\r\n\r\n\"Darf ich dir vorstellen, das ist Emi, meine Nichte.\" Du streckst deine Hand aus, aber sie schaut dich nur mit forschen Augen an. \"Ok, dann halt nicht\", antwortest du kleinlaut. Na toll, das kann ja was werden.\r\n\r\n\"Kennen wir uns?\", fragt Emi. Karol stellt dich hastig vor und ergänzt: \"Bitte entschuldige ihr verhalten. Sie kommt manchmal etwas kühl rüber, aber sie hat ein gutes Herz. Sie ist übrigends unsere Dozentin für den Tag.\"\r\n\r\nOhje! Wo bist du hier nur reingeraten. Aber für einen Rückzieher ist es jetzt zu spät. Karol ist unbesorgt: \"Kommt mit ins Atelier und lasst uns beginnen!\"\r\n",
-    "image": "/story/0.jpg",
-    "quests": [],
+    "dirName": "000-alles-ist-scheiße",
+    "title": "0. Alles ist scheiße",
+    "originalTitle": "Alles ist scheiße",
+    "requiredCount": 1,
+    "description": "# Alles ist scheiße\r\n\r\n_Es klopft an der Tür zu Ellies Garage._\r\n\r\n**Ellie**: Ja?  \r\n**Joel**: Kann ich reinkommen?  \r\n**Ellie**: Ausnahmsweise.\r\n\r\n_Joel mustert Ellie, wie sie mit gerunzelter Stirn über ein aufgeschlagenes Buch gebeugt sitzt, neben ihr ein alter Laptop._\r\n\r\n**Joel**: Hey Kiddo, das Abendessen ist fertig. Was machst du da so verbissen?\r\n\r\n_Ellie stößt ein frustriertes Geräusch aus und schiebt das Buch von sich._\r\n\r\n**Ellie**: Ich versuche, nicht dumm zu sein.  \r\n**Joel** (tritt näher, seine Augen überfliegen den Titel): \"Python für Einsteiger\" ... seit wann interessierst du dich dafür?  \r\n**Ellie** (verschränkt die Arme): Ich dachte, es wäre vielleicht ... nützlich. Stell dir vor, wir könnten Programme schreiben, um die Patrouillen zu planen. Oder das verdammte Inventar zu verwalten, damit wir wissen, wie viele Konservern noch da sind. Aber ich scheitere schon an der allerersten Übung. Es ist alles scheiße!\r\n**Joel**: Hey, hey. Rom wurde auch nicht an einem Tag erbaut. Und dein letzter Kochversuch hat auch nicht auf Anhieb ...  \r\n**Ellie**: Stopp!! Darüber reden wir nicht!  \r\n**Joel**: Okay, okay. Dir scheint das wichtig zu sein. Wie wäre es damit: Nach dem Abendessen setze ich mich einfach zu dir. Du versuchst es nochmal in Ruhe, und ich sorge dafür, dass du das blöde Buch nicht aus dem Fenster wirfst. Manchmal braucht man nur ein zweites Paar Augen daneben. Deal?  \r\n**Ellie** (mit forschen Blick): Du bist immer noch nicht mein Dad ... aber du hilfst mir, versprochen?  \r\n**Joel**: Hab ich dich je in Stich gelassen?\r\n\r\n_Ellie schaut ihn einen Moment lang an. Ein kaum merkliches Lächeln umspielt ihre Lippen. Sie steht auf und streckt sich._\r\n\r\n**Ellie**: Dann zeig mal, ob sich deine Kochkünste verbessert haben. Ich habe plötzlich richtig Hunger.\r\n",
+    "image": "/story/ellie0.jpg",
+    "quests": [
+      {
+        "filename": "Begrüßung.json",
+        "x": 870,
+        "y": 170,
+        "id": 100,
+        "content": {
+          "version": "v1",
+          "title": "Fehlersuche",
+          "description": "*Nach dem Abendessen in Ellies Garage*\n\n**Joel**: Los geht's.  \n**Ellie**: Die erste Übung ist eigentlich nicht kompliziert. Mit `print()` kann mein Programm sprechen und ich möchte zwei Sachen sagen, das siehst du an den zwei hellblauen Sprechblasen unten. Wenn ich Texte schreiben will, müssen sie mit Anführungszeichen beginnen und enden. Links ist mein Programm, aber es enthält einen Fehler, den ich nicht finde.  \n**Joel**: Was schaust du mich so an? Du bist die Expertin, na los! Finde den Fehler und bringe das Programm zum Laufen.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Hallo, Jackson!"
+                },
+                {
+                  "role": "out",
+                  "text": "Ich lerne jetzt Programmieren!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": "print(\"Hallo, Jackson!\")\nprint(\"Ich lerne jetzt Programmieren!)"
+        },
+        "deps": [
+          10001
+        ]
+      },
+      {
+        "filename": "Vorgeschichte.json",
+        "deps": [
+          100
+        ],
+        "x": 940,
+        "y": 300,
+        "id": 101,
+        "content": {
+          "version": "v1",
+          "title": "Vorgeschichte",
+          "description": "Das ist eine Bonusaufgabe. Löse sie, um einen Stern zu erhalten.\n\nFinde die drei Fehler im Code und bringe das Programm zum Laufen.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Vorgeschichte: Eine Infektion breitet sich über die Welt aus und lässt Menschen zu Zombies mutieren."
+                },
+                {
+                  "role": "out",
+                  "text": "Große Teile der Zivilisation gehen unter, die wenigen Menschen kämpfen hart um ihr Überleben."
+                },
+                {
+                  "role": "out",
+                  "text": "Jackson ist eine kleine Oase in dieser chaotischen Welt, wo eine Gemeinschaft sich ein Zuhause gebaut hat."
+                },
+                {
+                  "role": "out",
+                  "text": "Ellie und Joel (nicht verwandt) kehren nach ihrer großen Reise nach Jackson zurück. Joels Bruder Tommy wohnt hier mit seiner Frau Maria."
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": "print(\"Vorgeschichte: Eine Infektion breitet sich über die Welt aus und lässt Menschen zu Zombies mutieren.\"\n\nprint\"Große Teile der Zivilisation gehen unter, die wenigen Menschen kämpfen hart um ihr Überleben.\")\n\npint(\"Jackson ist eine kleine Oase in dieser chaotischen Welt, wo eine Gemeinschaft sich ein Zuhause gebaut hat.\")\n\nprint(\"Ellie und Joel (nicht verwandt) kehren nach ihrer großen Reise nach Jackson zurück. Joels Bruder Tommy wohnt hier mit seiner Frau Maria.\")"
+        }
+      }
+    ],
     "x": 930,
     "y": 1520
   },
   {
     "id": 10002,
-    "dirName": "010-variablen",
-    "title": "1. Variablen",
-    "originalTitle": "Variablen",
-    "description": "# 🎓 Kapitel 1: Variablen\r\n\r\nIm Karols Atelier sind einige Laptops aufgestellt, an der einzig freien Wand projeziert ein Beamer, den man aber im hellen Licht kaum lesen kann. \"Den werden wir erstmal nicht brauchen, solange ihr zu zweit seid\", bemerkt Emi.\r\n\r\nDu traust dich dann doch zu fragen: \"Kommen noch weitere Leute?\" Karol nickt: \"Ein paar weitere Gäste haben sich angemeldet, sie kommen etwas später. Wir sollen ruhig schon mal mit den ersten Themen anfangen. Ich brauche ja eh etwas mehr Zeit als die anderen.\" Karol gibt Emi ein Zeichen, sie räuspert sich ganz professionell und der Workshop beginnt.\r\n\r\n\"Ich möchte mit Variablen anfangen. Diese sind sind ein entspannter Einstieg. Stellt es euch so vor: Der Computer muss sich ja viele Dinge merken. Und jede Information speichert dein Programm in einer solchen Variable.\" Emi fängt an zu tippen:\r\n\r\n```py\r\nfarbe = \"blasslila\"\r\npinsel_größe = 13\r\nbild_breite_cm = 27.8\r\nist_inspiriert = True\r\n```\r\n\r\n\"So kannst du, meine Tante, dir die wichtigsten Dinge notieren, falls du sie mal wieder vergisst.\"\r\n\r\n\"Hey, so alt bin ich auch wieder nicht\", beschwert sich Karol. Gut zu wissen, dass Emi nicht nur dir gegenüber etwas schnippisch ist.\r\n\r\n\"Sind das alle Arten von Informationen, die man speichern kann?\", fragt Karol zurück. \"Ich würde erstmal mit diesen anfangen\", erklärte Emi. \"Später kannst du aus diesen grundlegenden Datentypen größere Objekte bauen oder eine Liste anlegen. Ah, ich sollte vielleicht noch ein paar Details ergänzen.\r\n\r\nDieses Gleichheitszeichen (`=`) ist eine Wertzuweisung:\r\n\r\n```\r\n<Name der Variable> = <Wert>\r\n```\r\n\r\nDabei wird der alte Wert der Variable weggeschmissen und der neue Wert geschrieben. Der Name ist wichtig, denn nur mit diesem kannst du auf die Information zugreifen. Du kannst einer Variable jederzeit einen neuen Wert zuweisen:\r\n\r\n```py\r\nfarbe = \"grün\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"grün\"\r\n\r\nfarbe = \"rot\"\r\n\r\n# Wert von Variable farbe ist in diesem Bereich \"rot\"\r\n\r\nfarbe = \"dunkelviolett\"\r\n```\r\n\r\nJede Variable hat außerdem einen Typ. Nicht wie die Typen auf der Straße, sondern im Sinne von Kategorie. Ihr habt die vier wichtigsten Typen jetzt gesehen, ich fasse sie für euch nochmal zusammen.\r\n\r\n## Datentypen im Überblick\r\n\r\n### 1. Strings - Für Text\r\n\r\nNutze doppelte Anführungszeichen.\r\n\r\n```python\r\nname = \"Max\"\r\n```\r\n\r\n### 2. Integer - Ganze Zahlen\r\n\r\n```python\r\nalter = 12\r\nklassenstufe = 7\r\n```\r\n\r\n### 3. Float - Kommazahlen\r\n\r\nVerwende als Dezimaltrenner einen Punkt.\r\n\r\n```python\r\nnote = 2.3\r\npi = 3.14159\r\n```\r\n\r\n### 4. Boolean - Wahrheitswerte\r\n\r\n```python\r\nhat_geübt = True\r\nist_ferien = False\r\n```\r\n\r\n## 📝 Kommentare\r\n\r\n```py\r\n# die Lieblingsfarbe meiner Tante\r\nfarbe = \"?\" # bitte noch ausfüllen\r\n```\r\n\r\nDie grauen Text hinter dem `#` (Hashtag) sind _Kommentare_. Sie erklären den Code und werden vom Computer ignoriert.\r\n\r\n## 🚫 Verbotene Namen\r\n\r\nIhr dürft die Variablenamen fast beliebig wählen. Ein paar wenige Sachen sind nicht erlaubt:\r\n\r\n```python\r\n2pac = \"Rapper\"    # Zahl am Anfang geht nicht\r\nmein-name = \"Emi\" # Bindestrich nicht erlaubt\r\nclass = 8         # Schlüsselwörter verboten\r\n```\r\n\r\nAchte bei den Variablenamen auf Groß- und Kleinschreibung! Diese machen einen Unterschied und `alter` ist eine andere Variable als `ALTER`.\r\n\r\n## 🏋️ Übungen\r\n\r\nBis hierher alles klar?\", Emi blickt uns beide an. Du nickst brav, Karol ist voller Tatendrang und bittet Emi, uns ein paar Übungsaufgaben zu stellen, damit wir die Theorie etwas üben können. Sie antwortet nur: \"Ich wäre doch eine schlechte Dozentin wenn ich keine Übungsaufgaben vorbereitet hätte.\"\r\n",
-    "image": "/story/1_v2.jpg",
+    "dirName": "010-glücksbringer",
+    "title": "1. Glückbringer",
+    "originalTitle": "Glückbringer",
+    "requiredCount": 2,
+    "description": "# Glücksbringer\r\n\r\n_Es ist ein sonniger Nachmittag. Joel schnitzt in seiner Werkstatt an einer kleinen Holzfigur. Die Tür knarrt, Ellie lehnt im Rahmen und wirkt unmotiviert._\r\n\r\n**Joel**: Langer Gesichtsausdruck für einen freien Tag.  \r\n**Ellie**: Dieses Programmier-Ding, es ist so langweilig.  \r\n**Joel**: Langweilig? Dachte, du wärst voll dabei. Hast doch gestern Abend die erste Aufgabe gelöst.  \r\n**Ellie**: Ja schon, aber ... ich verstehe ja, was das Programm tut. Mit `print()` kann ich meinem Programm Dinge sagen lassen. Und mit `input()` kann mein Programm eine Frage stelle und auf die Antwort warten. Es ist wie eine Unterhaltung ... aber mit niemanden. Ich starre auf den Laptop, tippe was ein, und es erscheint wieder Text. Das fühlt sich so leer an!\r\n\r\n_Ellie lässt das Buch achtlos auf den Boden fallen. Joel hört auf zu schnitzen. Er blickt von der halbfertigen Figur in seiner Hand zu Ellie._\r\n\r\n**Joel**: Eine Unterhaltung mit niemanden, sagst du?  \r\n**Ellie**: Soll ich es nochmal lauter für den alten Herrn wiederholen?  \r\n**Joel**: Und was sagt dein Buch dazu? Das lässt dich doch nicht alleine im Regen stehen, oder?  \r\n**Ellie**: Da ist so eine dämliche Zeichnung von einem Roboter drin, nennen sie Karol. Als ob eine Zeichnung ein echter Gesprächspartner wäre.  \r\n**Joel**: Hm, eine Zeichnung. Was, wenn sie nicht nur eine Zeichnung wäre?  \r\n**Ellie**: Wie meinst du das?  \r\n**Joel** (hält den Holzblock hoch): Du hast doch gesagt, du brauchst ein Gegenüber, einen Gesprächspartner. Vielleicht ... schnitze ich dir einen.\r\n\r\n_Ellie ist für einen Moment still. Ihre Augen weiten sich, als der Gedanke bei ihr ankommt._\r\n\r\n**Ellie**: Du ... du würdest mir diese Karol schnitzen?  \r\n**Joel**: Ich versteh das. Es ist schwer, sich für etwas zu begeistern, das man nicht sehen oder anfassen kann. Also machen wir sie echt. Eine Partnerin, die dir zuhört. Und ein kleiner Glücksbringer ... (er lächelt leicht) ... damit du bei der Sache bleibst.  \r\n**Ellie**: In den Comics ... das ist der Moment. Die Origin-Story ... (sie blickt den Holzblock an, als würde sie eine Person ansehen.) ... Du und ich, Kleine. Wir werden Abenteuer erleben.\r\n\r\n_Joel sagt nichts. Er lächelt nur leise in sich hinein, nimmt sein Messer und macht sich wieder an das Schnitzen._\r\n",
+    "image": "/story/joel1.jpg",
     "quests": [
       {
-        "filename": "Lieblinge.json",
-        "x": 540,
-        "y": 30,
-        "id": 138,
+        "filename": "a__Flachwitz.json",
+        "x": 450,
+        "y": 50,
+        "id": 102,
         "content": {
           "version": "v1",
-          "title": "Lieblinge",
-          "description": "Emi und ich kennen uns ja schon ganz gut, aber magst du vielleicht ein paar Sachen über dich mitteilen?\n\nNutze für die Variablen einen passenden Datentyp und setze sie auf die Werte, die für dich passen.",
-          "tasks": [
-            {
-              "title": "Herz",
-              "start": {
-                "dimX": 7,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 7,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      1,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 7,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 7,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      1,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
+          "title": "a) Flachwitz",
+          "description": "**Ellie:** Karol, mache dich bereit für den besten Witz der Welt!\n\n---\n\nSchreibe ein Programm, dass Karol einen Witz erzählt, gehe so vor:\n\n1. Stelle die Frage mit `print()`.\n2. Schreibe `input()` und lasse Karol sprechen.\n3. Nutze wieder `print()` für die Pointe.\n4. Und nochmal für das Lachen.",
+          "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Bereit, deine Vorlieben zu teilen?\", \"Los geht's\")\n\n__ide_run_client()\n\n# Prüfen, ob alle Variablen definiert sind\nvariablen = [\"lieblingsfarbe\", \"lieblingszahl\", \"mag_winter\", \"mag_frühling\", \"mag_sommer\", \"mag_herbst\"]\n\nfor var in variablen:\n    if var not in globals() or globals()[var] is None:\n        __ide_prompt(f'Variable `{var}` fehlt oder ist None!', 'Beenden')\n        __ide_exit()\n\n# Typprüfungen\nif not isinstance(lieblingsfarbe, str):\n    __ide_prompt('Die Lieblingsfarbe sollte ein Text sein (str).', 'Korrigieren')\n    __ide_exit()\n\nif not isinstance(lieblingszahl, (int, float)):\n    __ide_prompt('Die Lieblingszahl sollte eine Zahl sein (int oder float).', 'Korrigieren')\n    __ide_exit()\n\n# Prüfen der Jahreszeiten-Vorlieben\njahreszeiten = [mag_winter, mag_frühling, mag_sommer, mag_herbst]\nfor i, jahreszeit in enumerate(jahreszeiten):\n    if not isinstance(jahreszeit, bool):\n        jahreszeit_name = variablen[i+2]\n        __ide_prompt(f'`{jahreszeit_name}` sollte ein Wahrheitswert sein (bool).', 'Korrigieren')\n        __ide_exit()\n\n# Ausgabe der Lieblingswerte\nprint(f\"Deine Lieblingsfarbe ist: {lieblingsfarbe}\")\nprint(f\"Deine Lieblingszahl ist: {lieblingszahl}\")\nprint(f\"Du magst den Winter: {mag_winter}\")\nprint(f\"Du magst den Frühling: {mag_frühling}\")\nprint(f\"Du magst den Sommer: {mag_sommer}\")\nprint(f\"Du magst den Herbst: {mag_herbst}\")\n\n__ide_set_progress(True)\n__ide_prompt('Danke für deine Eingaben! Das Quantensystem hat deine Vorlieben registriert. 🚀', 'Weiter')",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie nennt man einen Bumerang, der nicht zurückkommt?"
+                },
+                {
+                  "role": "in",
+                  "text": "Weiß ich nicht"
+                },
+                {
+                  "role": "out",
+                  "text": "Stock"
+                },
+                {
+                  "role": "out",
+                  "text": "Haha"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
-          "program": "# Setze deine persönlichen Vorlieben\n\n# Lieblingsfarbe als Text (String)\nlieblingsfarbe = None\n\n# Lieblingszahl als Ganzzahl (int) oder Kommazahl (float)\nlieblingszahl = None\n\n# Jahreszeiten-Vorlieben als Wahrheitswerte (bool: True/False)\nmag_winter = None\nmag_frühling = None\nmag_sommer = None\nmag_herbst = None"
+          "program": ""
         },
         "deps": [
           10002
         ]
       },
       {
-        "filename": "Korrekturen.json",
-        "x": 620,
-        "y": 184,
-        "id": 143,
+        "filename": "b__Papagei.json",
+        "x": 610,
+        "y": 160,
+        "id": 103,
         "content": {
           "version": "v1",
-          "title": "Korrekturen",
-          "description": "Emi hat ein paar Übungsaufgaben für dich und Karol vorbereitet. In diesem Code sind einige Variablen falsch definiert. Bitte korrigiere sie.\n\nHinweise:\n- Beim Namen fehlen die Anführungszeichen\n- Die Note soll eine Kommazahl sein\n- Setze Pinselgröße auf die positive Zahl 34\n- Setze ist_inspiriert auf den Wahrheitswert True",
-          "tasks": [
-            {
-              "title": "Bug",
-              "start": {
-                "dimX": 5,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 5,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
+          "title": "b) Papagei",
+          "description": "Dein Programm soll die Eingabe von Karol speichern und wieder ausgeben, wie ein Papagei. Dafür benötigst du eine Variable, diese kannst du so anlegen:\n\n```py\nwort = input()\n```\n\nWenn Karol was sagt, ist ihre Antwort jetzt in der Variable `wort` gespeichert.\n\nDu kannst diese Variable wieder ausgeben:\n\n```py\nprint(wort)\n```",
+          "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Emi's Workshop: Variablen korrigieren\", \"Übung starten\")\n\n__ide_run_client()\n\nsystem_checks = [\n    ('farbe', str, \"blasslila\", \"Text in Anführungszeichen\"),\n    ('note', float, 2.3, \"Kommazahl\"),\n    ('pinsel_größe', int, 34, \"positive Zahl\"),\n    ('ist_inspiriert', bool, True, \"Wahrheitswert\")\n]\n\nfor var, typ, wert, hinweis in system_checks:\n    if var not in globals():\n        __ide_prompt(f'Fehler: `{var}` nicht gefunden!', 'Korrigieren')\n        __ide_exit()\n    \n    if not isinstance(globals()[var], typ):\n        __ide_prompt(f'Datentypfehler: `{var}` muss {hinweis} sein', 'Korrigieren')\n        __ide_exit()\n    \n    if globals()[var] != wert:\n        __ide_prompt(f'`{var}` zeigt {globals()[var]} statt {wert}!', 'Wert korrigieren')\n        __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Sehr gut! Emi nickt anerkennend: \"Das habt ihr richtig gemacht!\"', 'Weiter')",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Ich bin ein Papagei."
+                },
+                {
+                  "role": "in",
+                  "text": "Marmelade"
+                },
+                {
+                  "role": "out",
+                  "text": "Marmelade"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Ich bin ein Papagei."
+                },
+                {
+                  "role": "in",
+                  "text": "Clicker"
+                },
+                {
+                  "role": "out",
+                  "text": "Clicker"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Ich bin ein Papagei."
+                },
+                {
+                  "role": "in",
+                  "text": "Cordyceps"
+                },
+                {
+                  "role": "out",
+                  "text": "Cordyceps"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
-          "program": "# Korrigiere die Variablen nach Emis Anweisungen\n\nfarbe = blasslila\n\nnote = \"2.3\"\npinsel_größe = -34\n\nist_inspiriert = None"
+          "program": ""
         },
         "deps": [
           10002
         ]
       },
       {
-        "filename": "Drei_Wünsche.json",
-        "x": 428,
-        "y": 144,
-        "id": 144,
+        "filename": "c__Echo.json",
+        "x": 740,
+        "y": 130,
+        "id": 104,
         "content": {
           "version": "v1",
-          "title": "Drei Wünsche",
-          "description": "Jetzt ist eure Kreativität gefordert. Wenn ihr drei Wünsche hättet, wie würden sie lauten? Achtet auf diese Bedingungen:\n\n- Es müssen genau drei Wünsche sein, nicht mehr und nicht weniger.\n- Jeder Wunsch ist eine Wertzuweisung auf eine Variable wie `kontostand_in_euro = 1000000`.\n- Jeder Wunsch nutzt einen anderen Datentyp.",
-          "tasks": [
-            {
-              "title": "Sternschnuppe",
-              "start": {
-                "dimX": 8,
-                "dimY": 8,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 3,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      0,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 8,
-                "dimY": 8,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 3,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      0,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
+          "title": "c) Echo",
+          "description": "Speichere das Wort von Karol in einer Variable und gib es dreimal als Echo aus:\n\n```py\nwort = input()\nprint(wort)\n...\n```",
+          "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Das sind also unsere Wünsche!\", \"Simsalabim\")\n\n__ide_run_client()\n\n# Variablen sammeln (ohne Systemvariablen)\nuser_vars = [v for v in globals() if not v.startswith('__ide_') and v != '__builtins__' and v != 'Robot']\n\ntypen = [type(globals()[v]).__name__ for v in user_vars]\n\nerforderliche_typen = {'int', 'float', 'str', 'bool'}\n\nif len(user_vars) != 3:\n    __ide_prompt(f'❌ Falsche Anzahl Wünsche: {len(user_vars)} statt 3', 'Nochmal versuchen')\n    __ide_exit()\n\nif len(set(typen)) < 3:\n    doppelte = [t for t in ['int','float','str', 'bool'] if typen.count(t) > 1]\n    __ide_prompt(f'❌ Doppelte Datentypen: {\", \".join(doppelte)}', 'Typen prüfen')\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Das klingt wunderbar ٩(^‿^)۶')",
-          "language": "python-pro",
-          "program": "# Notiere deine drei Wünsche:\n\n"
-        },
-        "deps": [
-          10002
-        ]
-      },
-      {
-        "filename": "Quiz.json",
-        "x": 777,
-        "y": 210,
-        "id": 141,
-        "content": {
-          "version": "v1",
-          "title": "Quiz",
-          "description": "Meine Tante mag Quiz-Fragen, deshalb gibt es hier ein Quiz für euch.\n\nWeise den drei Variablen den richtigen Wert zu. Wähle jeweils einen passenden Datentyp. Achte auf Groß-/Kleinschreibung.",
-          "tasks": [
+          "questScript": "",
+          "chats": [
             {
-              "title": "Quiz",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Hallooooooooooo"
                 },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                {
+                  "role": "out",
+                  "text": "Hallooooooooooo"
                 },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true
-                    ]
-                  ]
+                {
+                  "role": "out",
+                  "text": "Hallooooooooooo"
                 },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                {
+                  "role": "out",
+                  "text": "Hallooooooooooo"
                 }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Buuuuuuuuuh!"
                 },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                {
+                  "role": "out",
+                  "text": "Buuuuuuuuuh!"
                 },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true
-                    ]
-                  ]
+                {
+                  "role": "out",
+                  "text": "Buuuuuuuuuh!"
                 },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
+                {
+                  "role": "out",
+                  "text": "Buuuuuuuuuh!"
                 }
-              }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Na naaa Na na na"
+                },
+                {
+                  "role": "out",
+                  "text": "Na naaa Na na na"
+                },
+                {
+                  "role": "out",
+                  "text": "Na naaa Na na na"
+                },
+                {
+                  "role": "out",
+                  "text": "Na naaa Na na na"
+                }
+              ]
             }
           ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Bereit für das Quiz?\", \"Quiz starten\")\n\n__ide_run_client()\n\nquiz_checks = [\n    ('hauptstadt_deutschland', str, \"Berlin\", \"Text in Anführungszeichen\"),\n    ('ende_des_zweiten_weltkriegs', int, 1945, \"Ganzzahl\"),\n    ('ein_viertel_als_dezimalzahl', float, 0.25, \"Kommazahl\")\n]\n\nfehler = 0\nresultate = []\n\nfor var, typ, wert, hinweis in quiz_checks:\n    if var not in globals():\n        resultate.append(f'❌ Variable `{var}` fehlt!\\n\\n')\n        fehler += 1\n        continue\n    \n    if not isinstance(globals()[var], typ):\n        resultate.append(f'❌ `{var}` hat nicht den richtigen Datentyp\\n\\n')\n        fehler += 1\n        continue\n    \n    if globals()[var] != wert:\n        resultate.append(f'❌ `{var}` hat den falschen Wert: {globals()[var]}\\n\\n')\n        fehler += 1\n        continue\n        \n    resultate.append(f'✅ `{var}` ist korrekt!\\n\\n')\n\nif fehler > 0:\n    message = \"\\n\".join(resultate)\n    __ide_prompt(f'Es gibt noch {fehler} Fehler:\\n\\n{message}', 'Nochmal versuchen')\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt('Super! 🎉 Alle Fragen wurden richtig beantwortet!', 'Fertig')",
           "language": "python-pro",
-          "program": "# Schreibe hier deine Antworten auf\n\nhauptstadt_deutschland = None\nende_des_zweiten_weltkriegs = None\nein_viertel_als_dezimalzahl = None"
-        },
-        "deps": [
-          10002
-        ]
-      },
-      {
-        "filename": "Hin_und_her.json",
-        "x": 850,
-        "y": 90,
-        "id": 142,
-        "content": {
-          "version": "v1",
-          "title": "Hin und her",
-          "description": "Zeigt mal, ihr beiden, ob ihr auch mit etwas Chaos klarkommt. Die Variablen wurden ohne erkennbares Muster hin und her gesetzt.\n\nSchaut euch das Script an und findet heraus, welchen Wert die Variable `erde` am Ende des Programms hat. Wenn du die Antwort weißt, dann klicke auf Start.",
-          "tasks": [
-            {
-              "title": "Ein Durcheinander",
-              "start": {
-                "dimX": 5,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      1
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      0,
-                      3,
-                      0
-                    ],
-                    [
-                      2,
-                      0,
-                      0,
-                      1,
-                      3
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 5,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      1
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      0,
-                      3,
-                      0
-                    ],
-                    [
-                      2,
-                      0,
-                      0,
-                      1,
-                      3
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Haha, von dem bisschen Chaos werden wir uns nicht verwirren lassen!\", \"Natürlich nicht!\")\n\nergebnis = input(\"Welchen Wert hat am Ende des Programms die Variable Erde?\")\n\nif ergebnis != \"hase\":\n    __ide_prompt(\"Das ist leider nicht die richtige Antwort.\", \"Nochmal\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"erde = himmel, himmel = blau, blau = a, a = \\\"hase\\\" - so behälten wir den Überblick :)\")",
-          "language": "python-pro",
-          "program": "a = \"hase\"\nb = \"fuchs\"\nc = \"eule\"\n\nrot = c\ngrün = b\nblau = a\n\nhimmel = a\nerde = rot\nhimmel = blau\nerde = himmel\n\n# Welchen Wert hat `erde` hier?"
+          "program": ""
         },
         "deps": [
           10002
         ]
       }
     ],
-    "x": 710,
+    "x": 640,
     "y": 1640
   },
   {
     "id": 10003,
-    "dirName": "020-eingabe-ausgabe",
-    "title": "2. Interaktionen",
-    "originalTitle": "Interaktionen",
-    "description": "# 💬 Kapitel 2: Interaktionen\r\n\r\n\"Wir kommen voran!\", feiert Karol mit einem strahlenden Lächeln. \"Mal sehen, was uns als Nächstes erwartet. Davor muss ich mal kurz.\" Sie verschwindet für ein paar Minuten und du bist mit Emi alleine. Du nutzt die Zeit, dich ein wenig im Atelier umzusehen. Die Wände sind übersät mit bunten Bildern, und du bist überrascht, dass viele von Karols Kunstwerken fast kindlich anmuten – farbenfroh, fantasievoll und voller Lebensfreude.\r\n\r\nEmi tippt währenddessen konzentriert auf ihrem Laptop. \"Willst du auch einen Blick darauf werfen?\", fragt sie plötzlich, etwas weniger schroff als zuvor. Du nickst und siehst Codezeilen über ihren Bildschirm flimmern. Aber sobald Karol wieder da ist, klappt sie den Laptop wieder zu und ist wieder ganz ernst.\r\n\r\n\"Was für Kunst machst du eigentlich?\", fragst du, als Karol wieder erscheint. Die alte Dame antwortet mit einem verschmitzten Grinsen: \"Haha, das ist eine komplizierte Sache. Früher habe ich mich mit abstrakter Kunst beschäftigt, aber heute male ich hauptsächlich Bilder, die ich an Schulen verschenke, um die Kinder dort ein wenig zu inspirieren...\"\r\n\r\nKarol schaut für einen kurzen Moment verträumt in die Ferne, dann findet sie sich wieder: \"Kunst und Programmieren haben übrigens mehr gemeinsam, als man denkt – bei beiden geht es um Kreativität und Kommunikation!\"\r\n\r\nEmi übernimmt wieder: \"Kommunikation ist das perfekte Stichwort. Jetzt zeige ich euch, wie man dem Computer das Sprechen beibringt und er euch fragen stellen kann.\"\r\n\r\n## 1. Die `print()`-Funktion – sprich mit der Welt!\r\n\r\n\"Mit `print()` kannst du alles ausgeben – Texte, Zahlen oder Variablen\", erklärt Emi und tippt ein paar Beispiele:\r\n\r\n```python\r\nprint(\"Hallo Welt! 🌍\")\r\n\r\nprint(42)\r\n\r\nalter = 17\r\nprint(alter)\r\n```\r\n\r\n\"So einfach ist das?\", fragt Karol erstaunt. \"Ja, so einfach\", bestätigt Emi, \"du kannst alles, was du zeigen möchtest, zwischen die Klammern schreiben.\"\r\n\r\n## 2. Mit `f-Strings` Texte bauen\r\n\r\n\"Jetzt wird's interessant\", fährt Emi fort. \"Stell dir vor, du willst nicht nur einzelne Informationen ausgeben, sondern sie in einen schönen Satz packen.\"\r\n\r\n\"Wie bei einer Bildunterschrift in einer Ausstellung?\", fragt Karol.\r\n\r\n\"Genau! Dafür sind _f-Strings_ super praktisch\", erklärt Emi. \"Du kannst damit Text mit Variablen mischen. Schau mal:\"\r\n\r\n```python\r\nbildart = \"Ölgemälde\"\r\njahr = 1995\r\n\r\nprint(f\"Ein {bildart} aus dem Jahr {jahr}.\")\r\n\r\n# -> Ein Ölgemälde aus dem Jahr 1995.\r\n```\r\n\r\n\"Das f am Anfang des Textes ist wichtig\", betont Emi. \"Es bedeutet 'formatierter String'. Und in die geschweiften Klammern schreibst du die Variablen, deren Werte du einfügen möchtest.\"\r\n\r\n## 3. Die `input()`-Funktion – stelle Fragen!\r\n\r\nDu meintest, der Computer kan auch Fragen stellen?\", hakt Karol nach. \"Dafür haben wir die `input()`-Funktion\", antwortet Emi und tippt weiter:\r\n\r\n```python\r\n# Einfache Eingabe\r\nname = input(\"Wie heißt du? \")\r\n\r\nprint(f\"Hallo, {name}! 😊\")\r\n```\r\n\r\n\"Probier's aus\", fordert sie dich auf. Du tippst deinen Namen ein und das Programm begrüßt dich persönlich. Karol ist begeistert und klatscht in die Hände.\r\n\r\n\"Die Zeichenkette in den Klammern ist die Frage, die angezeigt wird\", erklärt Emi. \"Und was der Benutzer eingibt, wird in der Variable gespeichert.\r\n\r\n## 4. Typumwandlung – mach aus Text eine Zahl\r\n\r\nEs gibt aber einen kleinen Haken, `input` gibt immer nur einen Text zurück. Wenn ihr eine Zahl abfragen wollt, muss dieser noch in eine Zahl umwandelt werden. So, jetzt wisst ihr Bescheid, wenn euer Programm später einen Fehler wirft, dann beschwert euch nicht, ich hätte es euch nicht erklärt!\"\r\n\r\n```python\r\n# String zu Integer\r\ngeburtsjahr = int(input(\"Geburtsjahr: \"))\r\n\r\naktuelles_jahr = 2025\r\nalter = aktuelles_jahr - geburtsjahr\r\nprint(f\"Du bist etwa {alter} Jahre jung! 🎂\")\r\n```\r\n\r\n\"Die `int()`-Funktion wandelt den Text in eine ganze Zahl um\", erklärt Emi. \"Für Kommazahlen würden wir `float()` verwenden.\"\r\n\r\n## 💡 Wichtigste Erkenntnisse\r\n\r\nKarol bittet dich, einen Blick über ihre Notizen zu werfen und diese zu überprüfen:\r\n\r\n- `print()` gibt Informationen aus – deine Botschaft an die Welt\r\n- `input()` nimmt Eingaben entgegen – immer als Text (String)\r\n- `f-Strings` mit `{variable}` sind perfekt, um Texte mit Daten zu mischen\r\n- Mit `int()` und `float()` wandelst du Text in Zahlen um\r\n\r\n\"Und, passt alles?\". Du sieht keine Probleme und nickst. Du sprichst Emi an: \"Lass mal raten, Dozentin, jetzt ist wieder Zeit für Übungsaufgaben?\"\r\n\r\nEmi lächelt – zum ersten Mal, seit du hier bist. \"Genau. Ab an die Aufgaben ihr beiden! Hop, hop, worauf wartet ihr noch? 🎮💬\"\r\n",
-    "image": "/story/2.jpg",
+    "dirName": "020-maria",
+    "title": "2. Maria",
+    "originalTitle": "Maria",
+    "requiredCount": 2,
+    "description": "# Maria\r\n\r\n_Ein paar Tage später, nach dem Ende der Dorfversammlung._\r\n\r\n**Maria**: Na, du fleißige Biene? Schon die Welt gerettet? (sie lehnt sich grinsend über Ellies Schulter)  \r\n**Ellie**: (starrt weiter auf ihren Bildschirm) Sehr witzig.  \r\n**Maria**: Uff, das Gesicht kenne ich. Das ist der 'Ich-werfe-diesen-Computer-gleich-aus-dem-Fenster'-Blick. Komm, ich geb dir einen aus. Limo wie immer?  \r\n**Ellie**: (seufzt, aber ein kleines Lächeln huscht über ihr Gesicht) Ja, bitte.\r\n\r\n_Maria holt sich einen Kaffee und Ellie eine Limonade, sie setzt sich zu Ellie an den Tisch._\r\n\r\n**Maria**: Also, sprich mit mir. Nach deiner großen Ankündigung letztens dachte ich, du wärst nicht mehr zu bremsen.  \r\n**Ellie**: Welche Ankündigung? Die, bei der ich großspurig meinte, ich würde die Probleme des Dorfes mit Code lösen? Ich komme voran, aber es ist so ... langsam. Ich lerne lauter kleine, nutzlose Tricks, aber ich habe keine Ahnung, wie daraus jemals was Nützliches werden soll.  \r\n**Maria**: Nichts ist am Anfang nützlich. Zeig mal her, was ist denn der neuste nutzlose Trick?  \r\n**Ellie**: (dreht den Laptop leicht zu Maria) Schleifen. Damit kann man dem Ding sagen, dass es etwas immer und immer wieder tun soll:\r\n\r\n```py\r\nfor i in range(100):\r\n    print(\"Buh!\")\r\n```\r\n\r\nSiehst du? Hundermal \"Buh!\". Als ob das irgendwem im Lager helfen würde (sie rollt die Augen).  \r\n**Maria**: Okay, verstehe. Und könntest du ihm auch sagen, er soll es nur fünfmal machen, wenn ich das will?  \r\n**Ellie**: Ja klar. Dafür gibt's diesen `input()`-Befehl. Aber das ist auch wieder so eine Sache ... du gibst eine Zahl ein und das ganze Ding stürzt ab, nur weil man diesen dämlichen `int()`-Befehle drumherum packen muss. Ich habe Stunden gebraucht, um das zu kapieren!\r\n\r\n```py\r\nn = int(input())\r\nfor i in range(n):\r\n    print(\"Ha!\")\r\n```\r\n\r\n**Maria**: Und ist es Absicht, dass dieses `print()` da so eingerückt ist?  \r\n**Ellie**: Oh ja, das auch! Das hat auch ewig gedauert. Alle Befehle, die wiederholt werden sollen, müssen eingerückt sein. Dafür gibt es die Tab-Taste. Der Computer ist total stur. Wenn du es vergisst, funktioniert einfach gar nichts mehr.  \r\n**Maria**: Weißt du was? Du findest das vielleicht nutzlos, aber für mich klingt das schon ziemlich mächtig. Du sagst einer Maschine, was sie tun soll, wie oft sie es tun soll und welche Befehle dazugehören.  \r\n**Ellie**: Es fühlt sich aber nicht mächtig an.  \r\n**Maria**: Kopf hoch. Du lernst gerade das Fundament. Gib nicht auf, du bist näher dran, als du denkst!\r\n",
+    "image": "/story/maria.jpg",
     "quests": [
       {
-        "filename": "Begrüßung.json",
-        "x": 660,
-        "y": 37,
-        "id": 121,
-        "content": {
-          "version": "v1",
-          "title": "Begrüßung",
-          "description": "Eine persönliche Begrüßung fühlt sich doch gleich viel wärmer an. Ergänze das Script:\n\n- Frage mit `input()` den Namen ab und weise den Wert einer Variable zu\n- Gib eine Begrüßung aus, nutze einen f-string.",
-          "tasks": [
-            {
-              "title": "Ein Lächeln",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 6,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 6,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Probieren wir das Script aus.\", \"Begegnung starten\")\n\n__ide_run_client()\n\n# Prüfe Eingabe über input()\ninputs = __ide_get_inputs()\nif len(inputs) == 0:\n    __ide_prompt(\"Du musst den Namen mit `input()` abfragen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Extrahiere den eingegebenen Namen\nname = inputs[0]\n\n# Prüfe Ausgabe\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Du hast keine Begrüßung ausgegeben. Nutze einen f-string mit `print()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Prüfe, ob der Name in der Ausgabe verwendet wurde\nlast_output = outputs[-1].strip()\nif name not in last_output:\n    __ide_prompt(f\"Deine Begrüßung enthält nicht den Namen '{name}'. Nutze einen f-string, der den Namen einbaut.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n\n__ide_set_progress(True)\n__ide_prompt(f\"Super! Du hast {name} erfolgreich mit einem f-string begrüßt!\", \"Weiter\")",
-          "language": "python-pro",
-          "program": "\nname = \"\" # TODO: ersetze mit input(\"Wie lautet dein Name?\")\n\nprint(f\"Hallo, X\") # TODO: ersetze X mit dem Namen\n"
-        },
-        "deps": [
-          10003
-        ]
-      },
-      {
-        "filename": "Harry_Potter_Fan.json",
-        "x": 500,
-        "y": 188,
-        "id": 122,
-        "content": {
-          "version": "v1",
-          "title": "Harry Potter Fan",
-          "description": "Meine Tante ist ein geheimer Harry Potter Fan, diese Aufgabe sollte für sie leicht zu machen sein.\n\nSchreibe ein Script, dass drei bekannte Tatsachen abfragt. Nutze für jede Tatsache einmal `input` und speichere die Informationen in den passenden Variablen.\n\nAchte bei der dritten Tatsache darauf, die Eingabe mit `int(input())` in eine Ganzzahl umzuwandeln.\n\n> 7 - ƃıʍpǝH - ɥɔʇıppınὉ :uǝʇnɐן uǝʇɹoʍʇu∀ ǝıᗡ",
-          "tasks": [
-            {
-              "title": "Initialien",
-              "start": {
-                "dimX": 8,
-                "dimY": 7,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 7,
-                  "dimY": 7,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      1,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      1,
-                      0,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      0,
-                      1,
-                      0,
-                      1
-                    ],
-                    [
-                      1,
-                      0,
-                      1,
-                      0,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 7,
-                  "dimY": 7,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 8,
-                "dimY": 7,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 7,
-                  "dimY": 7,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      1,
-                      0,
-                      1,
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      1,
-                      0,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      0,
-                      1,
-                      0,
-                      1
-                    ],
-                    [
-                      1,
-                      0,
-                      1,
-                      0,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      0,
-                      1,
-                      0,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 7,
-                  "dimY": 7,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Willkommen im Zaubererquiz!\", \"Accio Fragen!\")\n\n__ide_run_client()\n\n# Überprüfe die Anzahl der Eingaben\ninputs = __ide_get_inputs()\nif len(inputs) < 3:\n    __ide_prompt(\"Du hast nicht alle drei Fragen gestellt. Nutze dreimal `input()`.\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe die Variablen im Client-Code\nvars_to_check = ['sport', 'name_harrys_eule', 'anzahl_horkruxe']\nmissing_vars = []\n\nfor var in vars_to_check:\n    if var not in globals():\n        missing_vars.append(var)\n\nif missing_vars:\n    __ide_prompt(f\"Es fehlen folgende Variablen: {', '.join(missing_vars)}\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe die Datentypen\nif not isinstance(sport, str):\n    __ide_prompt(\"Die Variable 'sport' sollte ein String sein.\", \"Nochmal versuchen\")\n    __ide_exit()\n    \nif not isinstance(name_harrys_eule, str):\n    __ide_prompt(\"Die Variable 'name_harrys_eule' sollte ein String sein.\", \"Nochmal versuchen\")\n    __ide_exit()\n    \nif not isinstance(anzahl_horkruxe, int):\n    __ide_prompt(\"Die Variable 'anzahl_horkruxe' sollte eine Ganzzahl sein. Hast du int(input()) verwendet?\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Optionale Überprüfung der korrekten Antworten\nif sport.lower() == \"quidditch\" and name_harrys_eule.lower() == \"hedwig\" and anzahl_horkruxe == 7:\n    __ide_prompt(\"Perfekt! Du bist ein echter Harry Potter Fan! ⚡\", \"Wingardium Leviosa!\")\nelse:\n    __ide_prompt(\"Dein Code funktioniert, aber überprüfe nochmal deine Antworten. Die Hinweise stehen übrigens auf dem Kopf in der Aufgabenstellung. 😉\", \"Ok\")\n\n__ide_set_progress(True)",
-          "language": "python-pro",
-          "program": "# Beispiel\nsport = input(\"Welche Sportart ist zentral für Harry Potter?\")\n\n# TODO\n# name_harrys_eule = \n\n# anzahl_horkruxe = "
-        },
-        "deps": [
-          10003
-        ]
-      },
-      {
-        "filename": "Explosion.json",
-        "x": 650,
-        "y": 170,
-        "id": 145,
-        "content": {
-          "version": "v1",
-          "title": "Explosion",
-          "description": "Wollt ihr etwas Spaß haben? Das bleibt unter uns, ok? Mit f-Strings kann man eine Art Text-Bombe bauen, indem ihr einen Text wiederholt.\n\nJedes boom wird aus dem vorherigen boom gebaut, ergänzt noch `boom4` bis `boom6` und freut euch auf die Explosion!\n\nVergesst nicht, die letzte Zeile zu aktualisieren.",
-          "tasks": [
-            {
-              "title": "Explosion",
-              "start": {
-                "dimX": 7,
-                "dimY": 7,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 3,
-                  "dimY": 3,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 7,
-                  "dimY": 7,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 7,
-                "dimY": 7,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 3,
-                  "dimY": 3,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 7,
-                  "dimY": 7,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Emi: 'Zurücktreten! Diese Textbombe könnte größer werden als erwartet!'\", \"Explosion starten\")\n\n# Führe den Client-Code aus\n__ide_run_client()\n\n# Überprüfe, ob die Variablen korrekt definiert wurden\nvars_to_check = ['boom', 'boom2', 'boom3', 'boom4', 'boom5', 'boom6']\nmissing_vars = []\n\nfor var in vars_to_check:\n    if var not in globals() or globals()[var] is None:\n        missing_vars.append(var)\n\nif missing_vars:\n    __ide_prompt(f\"Emi: 'Du hast nicht alle boom-Variablen definiert. Es fehlen: {', '.join(missing_vars)}'\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe, ob die Variablen korrekt aufgebaut wurden\nexpected_boom = \"BOOOOM\"\nexpected_boom2 = f\"{expected_boom}-{expected_boom}-{expected_boom}\"\nexpected_boom3 = f\"{expected_boom2}-{expected_boom2}-{expected_boom2}\"\nexpected_boom4 = f\"{expected_boom3}-{expected_boom3}-{expected_boom3}\"\nexpected_boom5 = f\"{expected_boom4}-{expected_boom4}-{expected_boom4}\"\nexpected_boom6 = f\"{expected_boom5}-{expected_boom5}-{expected_boom5}\"\n\nwrong_vars = []\nif boom != expected_boom:\n    wrong_vars.append('boom')\nif boom2 != expected_boom2:\n    wrong_vars.append('boom2')\nif boom3 != expected_boom3:\n    wrong_vars.append('boom3')\nif boom4 != expected_boom4:\n    wrong_vars.append('boom4')\nif boom5 != expected_boom5:\n    wrong_vars.append('boom5')\nif boom6 != expected_boom6:\n    wrong_vars.append('boom6')\n\nif wrong_vars:\n    __ide_prompt(f\"Emi: 'Die folgenden boom-Variablen sind nicht korrekt definiert: {', '.join(wrong_vars)}. Achte darauf, das f-String-Muster fortzusetzen.'\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Überprüfe, ob boom6 ausgegeben wurde\noutputs = __ide_get_outputs()\nif len(outputs) == 0:\n    __ide_prompt(\"Emi: 'Du hast nichts ausgegeben! Vergiss nicht, print() zu verwenden.'\", \"Nochmal versuchen\")\n    __ide_exit()\n\nlast_output = outputs[-1].strip()\nif last_output != expected_boom6:\n    __ide_prompt(\"Emi: 'Du musst boom6 ausgeben, nicht irgendeine andere Variable.'\", \"Nochmal versuchen\")\n    __ide_exit()\n\n# Alles korrekt\n__ide_set_progress(True)\n__ide_prompt(\"Karol klatscht begeistert: 'WOW! Diese Textketten-Explosion ist fantastisch! Das erinnert mich an meine Feuerwerk-Kunstinstallation von 1987!'\", \"Weiter\")",
-          "language": "python-pro",
-          "program": "boom = \"BOOOOM\"\n\nboom2 = f\"{boom}-{boom}-{boom}\"\n\nboom3 = f\"{boom2}-{boom2}-{boom2}\"\n\nboom4 = None\n\nboom5 = None\n\nboom6 = None\n\nprint(boom3)"
-        },
-        "deps": [
-          10003
-        ]
-      },
-      {
-        "filename": "Runen.json",
-        "x": 400,
-        "y": 100,
-        "id": 120,
-        "content": {
-          "version": "v1",
-          "title": "Runen",
-          "description": "\"Weißt du was, Emi? Diese f-Strings erinnern mich an meine magische Runen-Sammlung!\", ruft Karol aufgeregt und kramt in einer Schublade. Emi stöhnt: \"Tante, nicht schon wieder deine Fantasie-Geschichten...\"\n\nKarol lächelt verschmitzt: \"Aber diese Runen sind echt magisch! Mit f-Strings werden sie zum Leben erweckt.\"\n\nIn der magischen Beschwörung müssen alle `X` mit dem Wert der Variable `rune` ersetzt werden. Nutze f-Strings! Sei vorsichtig und lösche keine der Tilden (`~`).",
-          "tasks": [
-            {
-              "title": "magische Rune",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 6,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 6,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      true,
-                      true,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "runes = [' ✿ڿڰۣ— ', '(=^･ｪ･^=))ﾉ彡☆', '\tヽ(｀Д´)⊃━☆ﾟ. * ･ ｡ﾟ,']\n\n__ide_prompt(\"Karol breitet ihre Hände aus: 'Die große Beschwörung steht bevor! Konzentriere dich auf die Runen!'\", \"Runen aktivieren\")\n\n\nfor rune in runes:\n    def ladeRune():\n        return rune\n    __ide_run_client(globals=[\"ladeRune\"])\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"~~~~~~~{rune}~~~~~{rune}~~~~~{rune}~~~~\"\n    if lastOutput != expected:\n        __ide_prompt(\"Emi schüttelt den Kopf: 'Die Beschwörung ist fehlgeschlagen. Du musst alle X durch die Variable rune ersetzen - mit f-Strings!'💥\", \"Korrigieren\")\n        __ide_exit()\n    __ide_sleep(0.8)\n\n__ide_set_progress(True)\n__ide_prompt(\"'Fantastisch!' Karol tanzt begeistert durch den Raum. 'Siehst du, Emi? Ich hab's dir doch gesagt - Programmieren ist auch eine Art Magie!' Emi verdreht die Augen, kann sich aber ein kleines Lächeln nicht verkneifen.\", \"Weiter\")",
-          "language": "python-pro",
-          "program": "rune = ladeRune()\n\nprint(f\"~~~~~~~X~~~~~X~~~~~X~~~~\")"
-        },
-        "deps": [
-          10003
-        ]
-      },
-      {
-        "filename": "Systemstatus.json",
-        "x": 420,
-        "y": -20,
-        "id": 119,
-        "content": {
-          "version": "v1",
-          "title": "Systemstatus",
-          "description": "\"Das mit den f-Strings muss ich unbedingt für meine Weltraum-Kunstserie nutzen!\", ruft Karol begeistert. Emi verdreht die Augen: \"Hab ich ja gesagt, dass das nützlich ist.\"\n\nIn diesem Programm für die Raketensteuerung müssen Temperatur und Geschwindigkeit überwacht werden.\n\nErsetze `X` und `Y` mit geschweiften Klammern `{}` und setze die passenden Variablen ein. So soll die Ausgabe aussehen:\n\n**Triebwerkstemperatur: 555 °C, Geschwindigkeit: 423 km/h**",
-          "tasks": [
-            {
-              "title": "Instrumentenanzeige",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 6,
-                  "dimY": 3,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 2,
-                  "dimY": 4,
-                  "offsetX": 3,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 6,
-                  "dimY": 3,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      0,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 2,
-                  "dimY": 4,
-                  "offsetX": 3,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false
-                    ],
-                    [
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "import random\n\n__ide_prompt(\"Emi: 'Achtet auf die Messwerte! T minus 3, 2, 1, ...'.\", \"Start\")\n\nts = [0, 500, 800, 1100, 1300, 1500, 1665, 1780, 1990, 2102]\n\nvs = [0, 10, 26, 45, 56, 78, 98, 135, 180, 240]\n\nfor i in range(10):\n    t = ts[i]\n    v = vs[i]\n    def ladeTemperatur():\n        return t\n\n    def ladeGeschwindigkeit():\n        return v\n\n    __ide_run_client(globals=[\"ladeTemperatur\", \"ladeGeschwindigkeit\"])\n\n    lastOutput = __ide_get_outputs()[-1].strip()\n    expected = f\"Triebwerkstemperatur: {t} °C, Geschwindigkeit: {v} km/h\"\n    if lastOutput != expected:\n        __ide_prompt(\"Karol: 'Statusanzeige fehlerhaft! Die Messwerte werden nicht richtig dargestellt. Hast du die f-Strings richtig verwendet?'\", \"Korrigieren\")\n        __ide_exit()\n\n    __ide_sleep(0.3)\n\n__ide_set_progress(True)\n__ide_prompt(\"Karol jubelt: 'Start erfolgreich! 🚀 Das könnte ich in meinem nächsten Bild umsetzen!'\")",
-          "language": "python-pro",
-          "program": "# Diese Funktionen holen aktuelle Messwerte\ntemperatur = ladeTemperatur()\ngeschwindigkeit = ladeGeschwindigkeit()\n\n# Gib die Messwerte mit f-Strings aus\nprint(f\"Triebwerkstemperatur: X °C, Geschwindigkeit: Y km/h\")"
-        },
-        "deps": [
-          10003
-        ]
-      }
-    ],
-    "x": 520,
-    "y": 1930
-  },
-  {
-    "id": 10004,
-    "dirName": "030-bedingte-anweisungen",
-    "title": "3. Bedingte Anweisungen",
-    "originalTitle": "Bedingte Anweisungen",
-    "description": "# 🧠 Kapitel 3: Dein Code wird schlau! Mit Bedingungen entscheiden lernen\r\n\r\nPlötzlich klingelt es an der Tür. \"Ah, das müssen unsere anderen Gäste sein\", sagt Karol und huscht zur Tür. Kurz darauf kommt sie mit zwei Jungs zurück, die etwa in deinem Alter sind. \"Das sind Max und Tim, sie sind extra angereist\", stellt sie die beiden vor. \"Ihre Mutter ist Informatikerin und hat ihnen schon ein bisschen das Programmieren beigebracht.\"\r\n\r\nMax, der Größere der beiden mit einem grünen T-Shirt und zerzausten blonden Haaren, nickt dir freundlich zu. Tim, sein kleinerer Bruder mit einer auffälligen roten Brille, strahlt und fragt sofort: \"Habt ihr schon mit Schleifen angefangen? Oder Funktionen?\"\r\n\r\nEmi verdreht leicht die Augen. \"Wir sind gerade bei Bedingten Anweisungen. Die beiden haben schon Variablen und Ein-/Ausgabe geschafft.\"\r\n\r\n\"Cool, dann sind wir ja genau richtig\", sagt Max und setzt sich neben dich. \"Bedingte Anweisungen sind super wichtig. Damit wird der Code erst richtig interessant!\"\r\n\r\nEmi fährt fort: \"In der Programmierung ist das ein entscheidender Schritt: eurem Code beizubringen, verschiedene Situationen zu erkennen und entsprechend zu handeln. Genau wie eine Wetterstation erkennen muss, wann ein Sturm aufzieht.\"\r\n\r\n## 🚦 If-Statement: Die Grundlage aller Entscheidungen\r\n\r\nEmi zeigt ein einfaches Beispiel am Computer:\r\n\r\n```python\r\nampelfarbe = \"grün\"\r\n\r\nif ampelfarbe == \"grün\":\r\n    print(\"Losfahren! 🚗\")\r\n```\r\n\r\n\"Das ist wie eine Verzweigung auf deinem Weg\", erklärt sie. \"Der Code fragt: 'Ist die Ampel grün?' Wenn ja, dann fahre los. Wenn nicht, dann mache... nichts in diesem Beispiel.\"\r\n\r\n👉 **So funktioniert's:**\r\n\r\n- `if` = \"falls\" oder \"wenn\"\r\n- `==` prüft auf Gleichheit (Achtung: nicht verwechseln mit `=`, das ist für Zuweisungen!)\r\n- Der eingerückte Code wird **nur** ausgeführt, wenn die Bedingung wahr ist\r\n- Die Einrückungen (4 Leerzeichen) sind in Python Pflicht – sie zeigen, welcher Code zur Bedingung gehört\r\n\r\n## 🚧 Else: Der \"Alles andere\"-Fall\r\n\r\n\"Aber was, wenn die Ampel **nicht** grün ist?\", fragt Emi. Sie passt den Code an:\r\n\r\n```python\r\nalter = 15\r\n\r\nif alter >= 18:\r\n    print(\"Du darfst wählen! 🗳️\")\r\nelse:\r\n    # Wird ausgeführt, weil 15 < 18\r\n    print(\"Noch etwas Geduld... 🕒\")\r\n```\r\n\r\n\"Mit `else` hast du einen Plan B! Wenn die Bedingung nicht zutrifft, wird stattdessen der Code im `else`-Block ausgeführt. So hat dein Programm für jede Situation eine Antwort.\"\r\n\r\n## 🔄 Elif: Für komplexe Entscheidungen\r\n\r\n\"Manchmal gibt es mehr als nur zwei Möglichkeiten\", sagt Emi und zaubert ein neues Beispiel hervor:\r\n\r\n```python\r\nnote = 2.3\r\n\r\nif note == 1.0:\r\n    print(\"Traumnote! 🌟\")\r\nelif note <= 2.0:\r\n    print(\"Super gemacht! 👍\")\r\nelif note <= 3.0:\r\n    # Wird ausgeführt, weil 2.3 <= 3.0\r\n    print(\"Gut, geht besser 😊\")\r\nelse:\r\n    print(\"Da müssen wir üben! 💪\")\r\n```\r\n\r\n\"Mit `elif` (kurz für 'else if') kannst du mehrere Bedingungen nacheinander prüfen. Sobald eine davon zutrifft, wird der zugehörige Code ausgeführt und die restlichen Bedingungen werden übersprungen.\"\r\n\r\n## 🔍 Vergleichsoperatoren – Unsere Werkzeuge\r\n\r\n\"Um Entscheidungen zu treffen, brauchst du die richtigen Werkzeuge\", erklärt Emi und lässt eine Tabelle erscheinen:\r\n\r\n| Operator | Bedeutung      | Beispiel        |\r\n| -------- | -------------- | --------------- |\r\n| `==`     | gleich         | `5 == 5` → True |\r\n| `!=`     | ungleich       | `3 != 5` → True |\r\n| `>`      | größer als     | `10 > 5` → True |\r\n| `<`      | kleiner als    | `3 < 2` → False |\r\n| `>=`     | größer gleich  | `7 >= 7` → True |\r\n| `<=`     | kleiner gleich | `4 <= 5` → True |\r\n\r\n\"Diese Operatoren sind wie deine Sinne – sie helfen dir, die Welt um dich herum zu verstehen und zu bewerten.\"\r\n\r\n## 🧩 Logische Operatoren: Kombiniere Bedingungen\r\n\r\n\"Manchmal müssen mehrere Bedingungen gleichzeitig erfüllt sein\", fährt Emi fort:\r\n\r\n**AND** (beides muss stimmen):\r\n\r\n```python\r\nalter = 25\r\neinkommen = 2500\r\n\r\nif alter >= 18 and einkommen > 2000:\r\n    print(\"Kredit möglich 💰\")  # Beide Bedingungen wahr\r\n```\r\n\r\n**OR** (mindestens eins muss stimmen):\r\n\r\n```python\r\nwetter = \"sonnig\"\r\ntemperatur = 28\r\n\r\nif wetter == \"sonnig\" or temperatur > 25:\r\n    # Wird ausgeführt, weil wetter == \"sonnig\"\r\n    print(\"Eiszeit! 🍦\")\r\n```\r\n\r\n**NOT** (Umkehrung):\r\n\r\n```python\r\nlogin_erfolgreich = False\r\n\r\nif not login_erfolgreich:\r\n    # Wird ausgeführt, weil login_erfolgreich False ist\r\n    print(\"Bitte neu anmelden! 🔒\")\r\n```\r\n\r\n\"Mit diesen drei Operatoren – `and`, `or` und `not` – kannst du komplexe Entscheidungen programmieren, genau wie das menschliche Gehirn.\"\r\n\r\n## 🏆 Jetzt bist du dran!\r\n\r\n\"Mit diesem Wissen kannst du jetzt richtig mächtige Programme schreiben\", sagt Emi begeistert. \"Du kannst deinem Code beibringen, intelligente Entscheidungen zu treffen – wie ein Mensch. Jetzt los, probiert euch an den Übungsaufgaben aus. Und seid nicht überrascht: diesmal habe ich mir ein paar kreative Sachen ausgedacht!\"\r\n",
-    "image": "/story/3.jpg",
-    "quests": [
-      {
-        "filename": "Zaubertrankprüfung.json",
-        "x": 620,
-        "y": 130,
-        "id": 132,
-        "content": {
-          "version": "v1",
-          "title": "Zaubertrankprüfung",
-          "description": "Als Zauberlehrling musst du die richtigen Zutaten für deinen Zaubertrank wählen:\n\n- Frage mit `input()` nach der Temperatur des Kessels in Grad (bereits programmiert)\n- Gib \"Perfekt! Füge die Drachenblut-Essenz hinzu.\" aus, wenn die Temperatur über 90 Grad liegt\n- Gib \"Zu kalt! Erhöhe die Flammen unter dem Kessel.\" aus, wenn die Temperatur 90 Grad oder weniger ist\n\nVorlage:\n\n```py\nif temperatur > ...:\n    ...\nelse:\n    ...\n```",
-          "tasks": [
-            {
-              "title": "Zaubertrankprüfung",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 3,
-                  "y": 3,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 3,
-                  "y": 3,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Als Zauberlehrling stehst du vor einem dampfenden Kessel und musst entscheiden, ob er die richtige Temperatur für die nächste Zutat erreicht hat.\", \"Trank brauen beginnen\")\n\n# Initialisiere Tracking-Variablen für getestete Fälle\ntested_hot = False\ntested_cold = False\n\nwhile not (tested_hot and tested_cold):\n    __ide_run_client()\n\n    # Prüfe, ob eine Eingabe gemacht wurde\n    inputs = __ide_get_inputs()\n    if len(inputs) == 0:\n        __ide_prompt(\"Du musst nach der Kesseltemperatur fragen. Verwende dafür `input()`.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Prüfe, ob eine Ausgabe vorhanden ist\n    outputs = __ide_get_outputs()\n    if len(outputs) == 0:\n        __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Versuche, die eingegebene Temperatur zu ermitteln\n    valid_number = False\n    try:\n        temperatur = float(inputs[-1].replace(',', '.'))\n        valid_number = True\n    except:\n        __ide_prompt(\"Die eingegebene Temperatur konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n        continue\n\n    # Ermittle den erwarteten Temperaturzustand\n    if temperatur > 90:\n        expected_state = \"perfekt\"\n        tested_hot = True\n    else:  # temperatur <= 90\n        expected_state = \"kalt\"\n        tested_cold = True\n\n    # Überprüfe, ob die richtige Ausgabe gemacht wurde\n    last_output = outputs[-1].lower()\n    if expected_state not in last_output:\n        __ide_prompt(f\"Die Ausgabe passt nicht zur Temperatur. Bei {temperatur} Grad sollte deine Ausgabe '{expected_state}' enthalten.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Zeige an, welche Fälle bereits getestet wurden und welche noch fehlen\n    remaining_cases = []\n    if not tested_hot:\n        remaining_cases.append(\"heißer Kessel (über 90 Grad)\")\n    if not tested_cold:\n        remaining_cases.append(\"kalter Kessel (90 Grad oder weniger)\")\n    \n    if remaining_cases:\n        case_list = \", \".join(remaining_cases)\n        __ide_prompt(f\"Zauberhafte Arbeit! Du hast die {expected_state}e Temperatur richtig erkannt. Teste noch: {case_list}\", \"Weiter brauen\")\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(\"Ausgezeichnet! 🎉 Du hast alle Temperaturzustände richtig erkannt und weißt jetzt genau, wann du die Drachenblut-Essenz hinzufügen kannst. Deine Fähigkeiten als Zauberlehrling verbessern sich!\", \"Weiter\")\n",
-          "language": "python-pro",
-          "program": "# Zaubertrankprüfung: Bestimme die Kesseltemperatur\n# 1. Frage nach der Kesseltemperatur\n# 2. Bestimme, ob der Kessel heiß genug ist\n# 3. Gib die entsprechende Anweisung aus\n\n# TODO: Schreibe deinen Code hier\ntemperatur = float(input(\"Wie heiß ist der Kessel in Grad?\"))"
-        },
-        "deps": [
-          10004
-        ]
-      },
-      {
-        "filename": "Weltraum_Navigation.json",
-        "x": 770,
-        "y": -60,
-        "id": 131,
-        "content": {
-          "version": "v1",
-          "title": "Weltraum-Navigation",
-          "description": "Nach dem erfolgreichen Start deines Raumschiffs ist die Navigationseinheit für den interplanetaren Kurs bereit. Das System muss verschiedene Gravitationsfelder analysieren:\n\n- Frage mit `input()` nach einem Gravitationswert (bereits programmiert)\n- Gib \"Positives Gravitationsfeld - Antrieb verstärken!\" aus, wenn der Wert größer als 0 ist\n- Gib \"Negatives Gravitationsfeld - Bremssysteme aktivieren!\" aus, wenn der Wert kleiner als 0 ist\n- Gib \"Neutrale Zone - Schwebemodus aktivieren!\" aus, wenn der Wert gleich 0 ist\n\nVorlage:\n\n```py\nif graviation < 0:\n    print(\"Negatives Gravitationsfeld - Bremssysteme aktivieren!\")\nelif ...:\n    ...\nelse:\n    ...\n```",
-          "tasks": [
-            {
-              "title": "Gravitationsfeld analysieren",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 3,
-                  "y": 3,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 3,
-                  "y": 3,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 4,
-                  "dimY": 4,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Nach dem erfolgreichen Start deines Raumschiffs und der Systemüberprüfung navigierst du nun durch verschiedene Gravitationsfelder. Du musst alle drei Arten von Gravitationsfeldern (positiv, negativ und neutral) analysieren, um die Mission abzuschließen.\", \"Mission starten\")\n\n# Initialisiere Tracking-Variablen für getestete Fälle\ntested_positive = False\ntested_negative = False\ntested_zero = False\n\nwhile not (tested_positive and tested_negative and tested_zero):\n    __ide_run_client()\n\n    # Prüfe, ob eine Eingabe gemacht wurde\n    inputs = __ide_get_inputs()\n    if len(inputs) == 0:\n        __ide_prompt(\"Du musst nach einem Gravitationswert fragen. Verwende dafür `input()`.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Prüfe, ob eine Ausgabe vorhanden ist\n    outputs = __ide_get_outputs()\n    if len(outputs) == 0:\n        __ide_prompt(\"Du hast keine Ausgabe gemacht. Nutze `print()` für die Ausgabe.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Versuche, den eingegebenen Gravitationswert zu ermitteln\n    valid_number = False\n    try:\n        gravitation = float(inputs[-1].replace(',', '.'))\n        valid_number = True\n    except:\n        __ide_prompt(\"Der eingegebene Gravitationswert konnte nicht als Zahl erkannt werden.\", \"Nochmal versuchen\")\n        continue\n\n    # Ermittle den erwarteten Gravitationstyp\n    if gravitation > 0:\n        expected_type = \"positiv\"\n        tested_positive = True\n    elif gravitation < 0:\n        expected_type = \"negativ\"\n        tested_negative = True\n    else:  # gravitation == 0\n        expected_type = \"neutral\"\n        tested_zero = True\n\n    # Überprüfe, ob der richtige Gravitationstyp ausgegeben wurde\n    last_output = outputs[-1].lower()\n    if expected_type not in last_output:\n        __ide_prompt(f\"Die Ausgabe passt nicht zum Gravitationsfeld. Bei dem Wert {gravitation} sollte die Ausgabe '{expected_type}' enthalten.\", \"Korrigieren\")\n        __ide_exit()\n\n    # Zeige an, welche Fälle bereits getestet wurden und welche noch fehlen\n    remaining_cases = []\n    if not tested_positive:\n        remaining_cases.append(\"positives Gravitationsfeld\")\n    if not tested_negative:\n        remaining_cases.append(\"negatives Gravitationsfeld\")\n    if not tested_zero:\n        remaining_cases.append(\"neutrale Zone\")\n    \n    if remaining_cases:\n        case_list = \", \".join(remaining_cases)\n        __ide_prompt(f\"Navigationsanalyse erfolgreich! Du hast {expected_type}e Gravitationsfelder korrekt erkannt. Teste noch folgende Arten von Feldern: {case_list}\", \"Weiter navigieren\")\n\n# Wenn alle Tests bestanden wurden\n__ide_set_progress(True)\n__ide_prompt(\"Mission erfolgreich abgeschlossen! 🎉 Die Navigation deines Raumschiffs kann nun alle Gravitationsfelder korrekt identifizieren und die entsprechenden Systeme aktivieren. Dein Raumschiff ist bereit für die interplanetare Reise!\", \"Weiter\")",
-          "language": "python-pro",
-          "program": "# Weltraum-Navigation: Gravitationsfeld-Analyse\n# 1. Frage nach einem Gravitationswert\n# 2. Bestimme, ob das Feld positiv, negativ oder neutral ist\n# 3. Gib die entsprechende Systemanweisung aus\n\n# TODO: Schreibe deinen Code hier\ngravitation = float(input(\"Aktueller Graviationswert:\"))"
-        },
-        "deps": [
-          10004
-        ]
-      },
-      {
-        "filename": "Wetterstation_Alarm_1.json",
-        "x": 430,
-        "y": 100,
-        "id": 133,
-        "content": {
-          "version": "v1",
-          "title": "Wetterstation-Alarm 1",
-          "description": "Du betreust eine automatische Wetterstation in den Bergen. Bei extremen Wetterbedingungen muss ein Alarmsignal ausgelöst werden, um die Bevölkerung zu warnen.\n\n**Deine Aufgaben:**\n- Die Funktion `messeSturmgeschwindigkeit()` liefert die aktuelle Windgeschwindigkeit in km/h\n- Wenn die Windgeschwindigkeit 75 km/h oder mehr beträgt, muss eine Sturmwarnung ausgegeben werden\n- Gib \"STURMWARNUNG! Fenster und Türen sichern!\" aus, wenn die Bedingung eintritt\n\nTipp: Verwende eine bedingte Anweisung mit `if` und `print()`",
-          "tasks": [
-            {
-              "title": "Sturmwarnung",
-              "start": {
-                "dimX": 6,
-                "dimY": 4,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 4,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Willkommen zur Wetterstation-Überwachung! Du bist verantwortlich für das automatische Sturmwarnsystem.\", \"Überwachung starten\")\n\n# Tracking-Variablen für getestete Fälle\ntested_storm = False\ntested_normal = False\nwindspeed = 50\ndef messeSturmgeschwindigkeit():\n            return windspeed\n\nwhile not (tested_storm and tested_normal):\n    # Generiere verschiedene Windgeschwindigkeiten zum Testen\n    if not tested_normal:\n        # Teste normalen Fall\n        windspeed = 50\n    else:\n        # Teste Sturm-Fall\n        windspeed = 80\n        \n    __ide_run_client(globals=[\"messeSturmgeschwindigkeit\"])\n    \n    # Prüfe die Ausgaben\n    outputs = __ide_get_outputs()\n    \n    if not tested_normal:\n        # Überprüfe normale Ausgabe\n        if len(outputs) > 0:\n            __ide_prompt(f\"Bei normalen Wetterbedingungen ({windspeed} km/h) sollte keine Warnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_normal = True\n            __ide_prompt(f\"Sehr gut! Die Windgeschwindigkeit beträgt {windspeed} km/h und du hast korrekt keine Warnung ausgegeben.\", \"Weiter\")\n    elif not tested_storm:\n        # Überprüfe Sturmausgabe\n        if len(outputs) == 0:\n            __ide_prompt(\"Du hast keine Ausgabe gemacht. Bei Sturm (≥ 75 km/h) musst du eine Warnung ausgeben.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"STURMWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei starkem Wind ({windspeed} km/h) muss die Warnung \\\"STURMWARNUNG! Fenster und Türen sichern!\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_storm = True\n            __ide_prompt(f\"Gut gemacht! Die Windgeschwindigkeit beträgt {windspeed} km/h und du hast die Warnung ausgegeben.\", \"Weiter\")\n            continue\n\n__ide_set_progress(True)\n__ide_prompt(\"Herzlichen Glückwunsch! Dein Wetterstation-Alarmsystem funktioniert einwandfrei.\")",
-          "language": "python-pro",
-          "program": "wind = messeSturmgeschwindigkeit()\n\n# TODO\n"
-        },
-        "deps": [
-          10004
-        ]
-      },
-      {
-        "filename": "Wetterstation_Alarm_2.json",
-        "x": 530,
-        "y": 250,
-        "deps": [
-          133
-        ],
-        "id": 134,
-        "content": {
-          "version": "v1",
-          "title": "Wetterstation-Alarm 2",
-          "description": "Du betreust weiterhin die automatische Wetterstation in den Bergen. Nun musst du die Alarmfunktion erweitern, um mehrere Wetterfaktoren zu berücksichtigen.\n\n**Deine Aufgaben:**\n- Die Funktion `messeSturmgeschwindigkeit()` liefert die aktuelle Windgeschwindigkeit in km/h\n- Die Funktion `messeNiederschlag()` liefert die Niederschlagsmenge in mm/h\n- Ein Unwetter liegt vor, wenn **ENTWEDER**:\n  - Die Windgeschwindigkeit 75 km/h oder mehr beträgt **ODER**\n  - Die Niederschlagsmenge 30 mm/h oder mehr beträgt\n- Gib \"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\" aus, wenn eine der Bedingungen zutrifft\n\nTipp: Verwende eine bedingte Anweisung mit `if` und den logischen Operator `or` für ODER-Verknüpfungen.",
-          "tasks": [
-            {
-              "title": "Unwetterwarnung",
-              "start": {
-                "dimX": 6,
-                "dimY": 4,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 4,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Willkommen zur erweiterten Wetterstation-Überwachung! Du überwachst nun sowohl Wind als auch Niederschlag.\", \"Überwachung starten\")\n\n# Tracking-Variablen für getestete Fälle\ntested_normal = False\ntested_storm_only = False\ntested_rain_only = False\n\nwind = 50\nrain = 20\n\ndef messeSturmgeschwindigkeit():\n    return wind\n\ndef messeNiederschlag():\n    return rain\n\nwhile not (tested_normal and tested_storm_only and tested_rain_only):\n    # Generiere verschiedene Wetterbedingungen zum Testen\n    if not tested_normal:\n        # Teste normalen Fall - alles ok\n        wind = 50\n        rain = 20\n    elif not tested_storm_only:\n        # Teste nur Wind - Sturm\n        wind = 80\n        rain = 20\n    elif not tested_rain_only:\n        # Teste nur Regen - Starkregen\n        wind = 50\n        rain = 35\n        \n    __ide_run_client(globals=[\"messeSturmgeschwindigkeit\", \"messeNiederschlag\"])\n    \n    # Prüfe die Ausgaben\n    outputs = __ide_get_outputs()\n    \n    if not tested_normal:\n        # Überprüfe normale Ausgabe\n        if len(outputs) > 0:\n            __ide_prompt(f\"Bei normalen Wetterbedingungen (Wind: {wind} km/h, Regen: {rain} mm/h) sollte keine Warnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_normal = True\n            __ide_prompt(f\"Sehr gut! Bei normalen Bedingungen (Wind: {wind} km/h, Regen: {rain} mm/h) hast du korrekt keine Warnung ausgegeben.\", \"Weiter\")\n    elif not tested_storm_only:\n        # Überprüfe Sturmausgabe\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss eine Unwetterwarnung ausgegeben werden, auch wenn der Niederschlag normal ist.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_storm_only = True\n            __ide_prompt(f\"Gut gemacht! Du hast bei Sturm ({wind} km/h) korrekt eine Unwetterwarnung ausgegeben.\", \"Weiter\")\n    elif not tested_rain_only:\n        # Überprüfe Starkregenausgabe\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss eine Unwetterwarnung ausgegeben werden, auch wenn der Wind normal ist.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_rain_only = True\n            __ide_prompt(f\"Sehr gut! Du hast bei Starkregen ({rain} mm/h) korrekt eine Unwetterwarnung ausgegeben.\", \"Weiter\")\n\n__ide_set_progress(True)\n__ide_prompt(\"Herzlichen Glückwunsch! Dein erweitertes Wetterstation-Alarmsystem mit ODER-Verknüpfung funktioniert einwandfrei.\")",
-          "language": "python-pro",
-          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\n\n# TODO\nif wind > 75:\n    print(\"STURMWARNUNG!\")"
-        }
-      },
-      {
-        "filename": "Wetterstation_Alarm_3.json",
-        "x": 490,
-        "y": 420,
-        "deps": [
-          134
-        ],
-        "id": 135,
-        "content": {
-          "version": "v1",
-          "title": "Wetterstation-Alarm 3",
-          "description": "Die Wetterstation benötigt ein erweitertes Warnsystem für besondere Wetterbedingungen.\n\n**Deine Aufgaben:**\n- Die Funktion `messeSturmgeschwindigkeit()` liefert die aktuelle Windgeschwindigkeit in km/h\n- Die Funktion `messeNiederschlag()` liefert die Niederschlagsmenge in mm/h\n- Die Funktion `messeTemperatur()` liefert die aktuelle Temperatur in °C\n\n**Folgende Bedingungen müssen geprüft werden:**\n1. FROSTWARNUNG: Wenn die Temperatur unter dem Gefrierpunkt (< 0 °C) liegt **UND** Niederschlag vorhanden ist (> 0 mm/h)\n2. UNWETTERWARNUNG: Wenn Wind ≥ 75 km/h **ODER** Niederschlag ≥ 30 mm/h\n\nGib je nach Bedingung die entsprechende Warnung aus:\n- \"FROSTWARNUNG! Glättegefahr auf Straßen und Wegen!\"\n- \"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\"\n\nTipp: Verwende den logischen Operator `and` für UND-Verknüpfungen und `or` für ODER-Verknüpfungen.",
-          "tasks": [
-            {
-              "title": "Erweitertes Alarmsystem",
-              "start": {
-                "dimX": 6,
-                "dimY": 4,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 4,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Willkommen zur erweiterten Wetterstation-Überwachung! Du überwachst nun auch Temperaturbedingungen.\", \"Überwachung starten\")\n\n# Tracking-Variablen für getestete Fälle\ntested_normal = False\ntested_frost = False\ntested_storm = False\ntested_rain = False\n\nwind = 50\nrain = 5\ntemp = 15\n\ndef messeSturmgeschwindigkeit():\n    return wind\n\ndef messeNiederschlag():\n    return rain\n\ndef messeTemperatur():\n    return temp\n\nwhile not (tested_normal and tested_frost and tested_storm and tested_rain):\n    # Generiere verschiedene Wetterbedingungen zum Testen\n    if not tested_normal:\n        # Teste normalen Fall - alles ok\n        wind = 50\n        rain = 5\n        temp = 15\n    elif not tested_frost:\n        # Teste Frost mit Niederschlag\n        wind = 30\n        rain = 10\n        temp = -5\n    elif not tested_storm:\n        # Teste nur Sturm\n        wind = 80\n        rain = 5\n        temp = 15\n    elif not tested_rain:\n        # Teste nur Starkregen\n        wind = 50\n        rain = 35\n        temp = 15\n        \n    __ide_run_client(globals=[\"messeSturmgeschwindigkeit\", \"messeNiederschlag\", \"messeTemperatur\"])\n    \n    # Prüfe die Ausgaben\n    outputs = __ide_get_outputs()\n    \n    if not tested_normal:\n        # Überprüfe normale Ausgabe\n        if len(outputs) > 0:\n            __ide_prompt(f\"Bei normalen Wetterbedingungen (Wind: {wind} km/h, Regen: {rain} mm/h, Temp: {temp}°C) sollte keine Warnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_normal = True\n            __ide_prompt(f\"Sehr gut! Bei normalen Bedingungen hast du korrekt keine Warnung ausgegeben.\", \"Weiter\")\n    elif not tested_frost:\n        # Überprüfe Frostwarnung\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Frost mit Niederschlag (Temp: {temp}°C, Regen: {rain} mm/h) muss eine Frostwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"FROSTWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Frost mit Niederschlag (Temp: {temp}°C, Regen: {rain} mm/h) muss \\\"FROSTWARNUNG! Glättegefahr auf Straßen und Wegen!\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_frost = True\n            __ide_prompt(f\"Sehr gut! Du hast die Frostwarnung korrekt ausgegeben.\", \"Weiter\")\n    elif not tested_storm:\n        # Überprüfe Sturmausgabe (Unwetter)\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss eine Unwetterwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Sturm ({wind} km/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_storm = True\n            __ide_prompt(f\"Gut gemacht! Du hast die Unwetterwarnung bei Sturm korrekt ausgegeben.\", \"Weiter\")\n    elif not tested_rain:\n        # Überprüfe Starkregenausgabe (Unwetter)\n        if len(outputs) == 0:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss eine Unwetterwarnung ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        elif \"UNWETTERWARNUNG\" not in outputs[-1]:\n            __ide_prompt(f\"Bei Starkregen ({rain} mm/h) muss die Meldung \\\"UNWETTERWARNUNG! Besondere Vorsicht bei Ausflügen\\\" ausgegeben werden.\", \"Korrigieren\")\n            __ide_exit()\n        else:\n            tested_rain = True\n            __ide_prompt(f\"Sehr gut! Du hast die Unwetterwarnung bei Starkregen korrekt ausgegeben.\", \"Weiter\")\n\n__ide_set_progress(True)\n__ide_prompt(\"Herzlichen Glückwunsch! Dein erweitertes Wetterstation-Alarmsystem funktioniert einwandfrei.\")",
-          "language": "python-pro",
-          "program": "wind = messeSturmgeschwindigkeit()\nregen = messeNiederschlag()\ntemperatur = messeTemperatur()\n\n# TODO\nif wind > 75 or regen > 30:\n    print(\"UNWETTERWARNUNG!\")"
-        }
-      }
-    ],
-    "x": 560,
-    "y": 2240
-  },
-  {
-    "id": 10005,
-    "dirName": "040-mathematik",
-    "title": "4. Mathematik 🚧",
-    "originalTitle": "Mathematik 🚧",
-    "description": "# 🧮 Kapitel 4: Mathe-Genie – Rechnen wie ein Profi!\r\n\r\n\"Ich glaube, wir können jetzt etwas anspruchsvoller werden\", sagt Emi mit einem Blick zu Karol. Du bemerkst ihr kurzes Zögern. \"In echten Programmen dreht sich vieles um Zahlen und Berechnungen.\"\r\n\r\nKarol streicht sich eine graue Haarsträhne aus dem Gesicht. \"Tatsächlich habe ich mich kürzlich mit dem goldenen Schnitt beschäftigt.\" Ihre Hände zittern leicht. \"Zu schade, dass meine Lehrer früher nie den Zusammenhang zwischen Kunst und Zahlen erklärt haben.\"\r\n\r\nMax lehnt sich vor, die Müdigkeit in seinen Augen erkennbar. \"Meine Mutter sagt immer, dass Mathe das Herz der Programmierung ist. Letzte Woche hat sie mich beim Abendessen mit Binärzahlen gelöchert.\" Tim wirft ihm einen besorgten Blick zu.\r\n\r\n## 1. Arithmetische Grundoperationen\r\n\r\n\"Python versteht alle Grundrechenarten:\", erklärt Emi, ihre Stimme sanfter als sonst.\r\n\r\n```python\r\nprint(5 + 3)   # Addition: 8\r\nprint(10 - 4)  # Subtraktion: 6\r\nprint(2 * 6)   # Multiplikation: 12\r\nprint(8 / 2)   # Division: 4.0 (Achtung, Ergebnis ist float!)\r\n```\r\n\r\n\"Was bedeutet diese Anmerkung mit dem 'float'?\", fragst du, trotz deiner Angst, dumm zu wirken.\r\n\r\n\"Gute Frage! Bei der Division gibt Python immer eine Dezimalzahl zurück, auch wenn das Ergebnis eine ganze Zahl ist.\"\r\n\r\n## 2. Punkt-vor-Strich & Klammern\r\n\r\n\"Karol, erinnerst du dich an die Regel 'Punkt vor Strich' aus der Schule?\", fragt Emi.\r\n\r\nKarol verzieht kurz das Gesicht. \"Meine Mathelehrerin war... nicht gerade ermutigend.\" Ein Schatten huscht über ihr Gesicht.\r\n\r\n```python\r\nprint(3 + 4 * 2)   # 11 (nicht 14!)\r\nprint((3 + 4) * 2) # 14 – Klammern ändern alles!\r\n```\r\n\r\nTim erklärt leise: \"Mit Klammern kannst du die Reihenfolge ändern.\" Du hörst den Hauch von Stolz in seiner Stimme.\r\n\r\n## 3. Turbo-Zuweisungen 🚀\r\n\r\n```python\r\npunkte = 10\r\npunkte += 5  # Äquivalent zu: punkte = punkte + 5\r\nprint(punkte) # 15\r\n\r\n# Funktioniert auch mit -=, *=, /=\r\n```\r\n\r\n\"Das ist wie im Spiel!\", ruft Tim begeistert. Seine plötzliche Begeisterung lässt sein schüchternes Wesen kurz in den Hintergrund treten.\r\n\r\n## 4. Power mit \\*\\*\r\n\r\n```python\r\nprint(2 ** 3)  # 8 (2³)\r\nprint(5 ** 0.5) # Wurzel aus 5 ≈ 2.236\r\n```\r\n\r\n\"Mit 5 hoch 0.5 kann ich Wurzeln ziehen?\", fragt Karol überrascht.\r\n\r\nMax erklärt: \"Die Wurzel ist dasselbe wie Potenzieren mit 1/2.\" Seine Wangen färben sich leicht rot, als Emi ihm anerkennend zunickt.\r\n\r\n## 5. Mathe-Modul für Profis\r\n\r\n\"Für komplexere Berechnungen brauchen wir das 'math'-Modul:\", erklärt Emi, während ihre Hände nervös über die Tastatur huschen.\r\n\r\n```python\r\nimport math\r\n\r\n# Wurzel ziehen\r\nprint(math.sqrt(25))  # 5.0\r\n\r\n# Mit Pi rechnen\r\nradius = 3\r\numfang = 2 * math.pi * radius\r\nprint(f\"Umfang: {umfang:.2f} cm\")  # Formatierung auf 2 Nachkommastellen\r\n```\r\n\r\n\"Was bedeutet dieser Teil mit '{umfang:.2f}'?\", fragst du mit klopfendem Herzen.\r\n\r\n\"Das ist eine erweiterte Form der f-Strings. Der Teil ':.2f' bedeutet, dass wir die Zahl auf zwei Dezimalstellen formatieren.\"\r\n\r\nKarol murmelt: \"Ich habe immer auf ganze Euro-Beträge gerundet, weil mir die Berechnung zu kompliziert war.\"\r\n\r\n## 6. Variablen im Einsatz\r\n\r\n\"Lass uns das Ganze praktisch anwenden\", sagt Emi.\r\n\r\n```python\r\n# Fläche berechnen\r\nlänge = 8\r\nbreite = 5\r\nfläche = länge * breite\r\nprint(f\"Die Fläche beträgt {fläche} m²\")  # 40 m²\r\n\r\n# Der goldene Schnitt\r\nphi = (1 + math.sqrt(5)) / 2\r\nprint(f\"Der goldene Schnitt beträgt etwa: {phi:.3f}\")  # ungefähr 1.618\r\n```\r\n\r\n\"Fantastisch!\", ruft Karol. \"Wenn ich damals in der Schule gewusst hätte, wozu all diese abstrakten Zahlen gut sind...\"\r\n\r\n\"Ihr müsst nicht alles auswendig lernen\", beruhigt Emi euch, während sie nervös mit ihrem Armband spielt. \"Die meisten Programmierer schlagen regelmäßig in der Dokumentation nach.\"\r\n\r\n\"Zeit für eine Pause\", schlägt Karol vor und massiert ihre Schläfen. \"Mein alter Kopf braucht etwas Zeit zum Verarbeiten.\"\r\n\r\nDu bemerkst, wie Tim dir immer wieder nervöse Blicke zuwirft, und fragst dich, ob deine Abneigung gegen Mathe vielleicht gar nicht so stark ist, wie du immer gedacht hast – ein Gedanke, der dich gleichzeitig befreit und beunruhigt.\r\n",
-    "image": "/story/4.jpg",
-    "quests": [
-      {
-        "filename": "intro2.json",
-        "x": 1080,
-        "y": -140,
-        "id": 110,
-        "content": {
-          "version": "v1",
-          "title": "Magische Trankbrauerei",
-          "description": "Braue den perfekten Zaubertrank! Berechne die Zutatenmengen mit Variablen:\n\n1. Nutze den vorgegebenen 'schlamm'-Wert\n2. Berechne 'pilzpulver' als ein Drittel davon\n3. Bestimme 'glitzer' als doppelte Pilzpulver-Menge\n\nDas System prüft automatisch deine Rechnungen ◕‿◕",
-          "tasks": [
-            {
-              "title": "Zaubertrank-Mischung",
-              "start": {
-                "dimX": 7,
-                "dimY": 7,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 3,
-                  "dimY": 3,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      2,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      3,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      2
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 7,
-                "dimY": 7,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 3,
-                  "dimY": 3,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      2,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      3,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      2
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "import random\n\n__ide_prompt(\"Der magische Kessel ist bereit!\", \"Brauen beginnen\")\n\nschlamm = random.randint(90, 210)\nerwartet_pilz = round(schlamm / 3, 2)\nerwartet_glitzer = round(erwartet_pilz * 2, 2)\n\n__ide_run_client(globals=['schlamm'])\n\nfor var in ['pilzpulver', 'glitzer']:\n    if var not in globals():\n        __ide_prompt(f\"Variable '{var}' fehlt! Bitte berechne alle Zutaten.\", \"Beenden\")\n        __ide_exit()\n\nif not abs(pilzpulver - erwartet_pilz) < 0.01:\n    __ide_prompt(f\"Pilzpulver: {schlamm} / 3 = {erwartet_pilz}, nicht {pilzpulver}\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif not abs(glitzer - erwartet_glitzer) < 0.01:\n    __ide_prompt(f\"Glitzer: {erwartet_pilz} * 2 = {erwartet_glitzer}, nicht {glitzer}\", \"Überprüfen\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(f\"⚗️ Der Trank brodelt perfekt! ({schlamm}ml Schlamm verarbeitet)\", \"Magisch!\")",
-          "language": "python-pro",
-          "program": "# Der magische Schlamm-Wert ist vorgegeben\npilzpulver = 0  # Ersetze 0 durch schlamm / 3\nglitzer = 0     # Ersetze 0 durch pilzpulver * 2"
-        },
-        "deps": [
-          10005
-        ]
-      },
-      {
-        "filename": "math_module_quest.json",
-        "x": 900,
-        "y": -180,
-        "id": 146,
-        "content": {
-          "version": "v1",
-          "title": "Kreisberechnung",
-          "description": "Karol braucht deine Hilfe bei der Kreisberechnung für ein Kunstprojekt!\n\n1. Berechne den Umfang eines Kreises mit dem gegebenen Radius\n2. Berechne die Fläche des Kreises\n3. Formatiere beide Ergebnisse auf 2 Nachkommastellen\n\nDer Wert von Pi ist im Math-Modul verfügbar. ⭕",
-          "tasks": [
-            {
-              "title": "Kreisberechnung",
-              "start": {
-                "dimX": 7,
-                "dimY": 7,
-                "height": 6,
-                "karol": {
-                  "x": 3,
-                  "y": 3,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 7,
-                "dimY": 7,
-                "height": 6,
-                "karol": {
-                  "x": 3,
-                  "y": 3,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      0,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "import random\nimport math\n\n__ide_prompt(\"Karol möchte einen perfekten Kreis zeichnen. Hilf ihr dabei!\", \"Starten\")\n\nradius = random.randint(3, 10)\nerwarteter_umfang = round(2 * math.pi * radius, 2)\nerwartete_flaeche = round(math.pi * radius**2, 2)\n\n__ide_run_client(globals=['radius'])\n\nfor var in ['umfang', 'flaeche']:\n    if var not in globals():\n        __ide_prompt(f\"Variable '{var}' fehlt! Du musst beide Ergebnisse berechnen.\", \"Beenden\")\n        __ide_exit()\n\nif not abs(umfang - erwarteter_umfang) < 0.01:\n    __ide_prompt(f\"Der Umfang ist nicht korrekt. Bei Radius {radius} sollte er {erwarteter_umfang} betragen.\", \"Nochmal versuchen\")\n    __ide_exit()\n\nif not abs(flaeche - erwartete_flaeche) < 0.01:\n    __ide_prompt(f\"Die Fläche ist nicht korrekt. Bei Radius {radius} sollte sie {erwartete_flaeche} betragen.\", \"Überprüfen\")\n    __ide_exit()\n\noutputs = __ide_get_outputs()\nif len(outputs) < 2:\n    __ide_prompt(\"Du musst beide Ergebnisse ausgeben (mit print).\", \"Beenden\")\n    __ide_exit()\n\n# Prüfen, ob Formatierung mit 2 Nachkommastellen erfolgt ist\nif not any(f\"{erwarteter_umfang:.2f}\" in output for output in outputs) or \\\n   not any(f\"{erwartete_flaeche:.2f}\" in output for output in outputs):\n    __ide_prompt(\"Formatiere die Ausgaben auf 2 Nachkommastellen mit ':.2f' in einem f-String.\", \"Beenden\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(f\"🎯 Perfekt! Mit einem Radius von {radius} hast du korrekt berechnet:\\nUmfang: {erwarteter_umfang:.2f}\\nFläche: {erwartete_flaeche:.2f}\", \"Geschafft!\")",
-          "language": "python-pro",
-          "program": "import math\n\n# Der Radius ist bereits gegeben\n\n# 1. Berechne den Umfang (2 * pi * radius)\n# Formel: umfang = 2 * math.pi * radius\numfang = 0\n\n# 2. Berechne die Fläche (pi * radius²)\n# Formel: flaeche = math.pi * (radius ** 2)\nflaeche = 0\n\n# 3. Gib beide Ergebnisse mit 2 Nachkommastellen aus\n# Nutze f-Strings mit :.2f für 2 Nachkommastellen\nprint(f\"Umfang: {...}\")\nprint(f\"Fläche: {...}\")"
-        },
-        "deps": [
-          10005
-        ]
-      }
-    ],
-    "x": 920,
-    "y": 2400
-  },
-  {
-    "id": 10006,
-    "dirName": "050-schleifen",
-    "title": "5. Schleifen 🚧",
-    "originalTitle": "Schleifen 🚧",
-    "description": "# 🎯 Kapitel 5: Die Kunst der Wiederholung mit for & while\r\n\r\nHeute lernst du, wie man Code wiederholt – wie ein DJ, der den perfekten Beat loopt! 🎧\r\n\r\n## 🧩 Listen – Deine Daten-Sammelbox\r\n\r\nStell dir eine Einkaufsliste vor, aber für Computer:\r\n\r\n```python\r\n# So erstellst du eine Liste\r\nspielkarten = [\"Herz Ass\", \"Karo König\", \"Pik Dame\", \"Kreuz Bube\"]\r\nprimzahlen = [2, 3, 5, 7, 11]\r\nmixed_list = [42, \"Antwort\", True] # Alles mögliche drin!\r\n```\r\n\r\n## 🔄 Die for-Schleife – Dein Wiederholungs-Profi\r\n\r\n**\"Für jedes Element in der Liste: Mach was damit!\"**\r\n\r\n```python\r\n# Einkaufsliste abarbeiten\r\neinkaufsliste = [\"Äpfel\", \"Banane\", \"Milch\"]\r\n\r\nfor produkt in einkaufsliste:\r\n    print(f\"✏️ Brauche noch: {produkt}\")\r\n    print(\"...auf zum nächsten Produkt!\\n\")\r\n```\r\n\r\n_Ausgabe:_\r\n\r\n```\r\n✏️ Brauche noch: Äpfel\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Banane\r\n...auf zum nächsten Produkt!\r\n\r\n✏️ Brauche noch: Milch\r\n...auf zum nächsten Produkt!\r\n```\r\n\r\n**Mit Zahlen arbeiten? Klar mit range():**\r\n\r\n```python\r\n# Countdown mit Style 🚀\r\nfor sekunde in range(5, 0, -1):\r\n    print(f\"{sekunde... Abflug!\")\r\nprint(\"🔥 Liftoff!\")\r\n```\r\n\r\n## ⏳ Die while-Schleife – Der Hartnäckige\r\n\r\n**\"Mach weiter, solange die Bedingung stimmt!\"**\r\n\r\n```python\r\n# Pizza-Back-Simulator 🍕\r\ntemperatur = 20\r\nziel_temp = 220\r\n\r\nwhile temperatur < ziel_temp:\r\n    temperatur += 20\r\n    print(f\"°C: {temperatur}°C | Heizt auf...\")\r\n\r\nprint(\"🔔 Pizza ist fertig! Buon appetito!\")\r\n```\r\n\r\n_Vorsicht:_ Vergiss nicht die Temperatur zu erhöhen, sonst brennt der Ofen durch! 🔥\r\n\r\n## 🥊 for vs. while – Wer wann?\r\n\r\n- **FOR:** Wenn du weißt, wie oft's laufen soll (z.B. Liste durchgehen)\r\n- **WHILE:** Wenn es auf eine Bedingung ankommt (z.B. Spiel läuft, bis Game Over)\r\n\r\n## 🎯 Challenge:\r\n\r\nErrate die geheime Zahl mit nur 3 Versuchen!\r\n\r\n```python\r\ngeheimzahl = 7\r\nversuche = 3\r\n\r\nwhile versuche > 0:\r\n    raten = int(input(\"🎯 Dein Tipp (1-10): \"))\r\n    if raten == geheimzahl:\r\n        print(\"🎉 Treffer! Gewonnen!\")\r\n        break\r\n    versuche -= 1\r\n    print(f\"❌ Daneben! Noch {versuche} Versuche\")\r\nelse:\r\n    print(\"😢 Game Over! Keine Versuche mehr\")\r\n```\r\n\r\n## 💡 Pro-Tipps:\r\n\r\n- `range()` kann auch so: `range(start, ende, schritt)`\r\n- Benenne Schleifen-Variablen sinnvoll:\r\n  - `for schüler in klasse:` statt `for x in y:`\r\n- Breakpoint setzen? Einfach `break` schreiben!\r\n\r\nJetzt du: Erfinde deine eigenen Schleifen-Experimente! 🔄 Wie wär's mit einem Roboter-Tanz per Code? 🤖💃🕺\r\n",
-    "image": "",
-    "quests": [],
-    "x": 850,
-    "y": 2720
-  },
-  {
-    "id": 10007,
-    "dirName": "999-fundgrube",
-    "title": "6. Weitere Themen",
-    "originalTitle": "Weitere Themen",
-    "description": "Hier findest du weitere Bonus-Aufgaben.\r\n",
-    "image": "",
-    "quests": [
-      {
-        "filename": "63.json",
-        "x": 900,
-        "y": 20,
-        "id": 103,
-        "content": {
-          "version": "v1",
-          "title": "Würfel",
-          "description": "Mit dem Modul `random` kannst du in Python Zufallszahlen erzeugen.\n\nBeispiel: Wenn du eine Zahl zwischen 1 und 100 erzeugen willst (beide Grenzen eingeschlossen), dann schreibe\n\n`zahl = random.randint(1, 100)`\n\nNutze dieses Wissen, um einen Würfel zu programmieren und überarbeite das Script auf der linken Seite.",
-          "tasks": [
-            {
-              "title": "Neuer Auftrag",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      4,
-                      4
-                    ],
-                    [
-                      4,
-                      4
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 2,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      4,
-                      4
-                    ],
-                    [
-                      4,
-                      4
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_prompt(\"Ist dein Würfel bereit? Auf Los wird der Test gestartet.\", \"Los\")\n__ide_karol = Robot()\n\nresults = []\n\nfor i in range(100):\n    augenzahl = None\n    __ide_run_client()\n    if not augenzahl in [1, 2, 3, 4, 5, 6]:\n        __ide_prompt(f\"Augenzahl '{augenzahl}' ungültig, erwarte eine Zahl zwischen 1 und 6. Bitte überarbeite dein Programm.\", \"Beenden\")\n    print(\"Würfel zeigt: \" + str(augenzahl))\n    __ide_sleep(0.03)\n    results.append(augenzahl)\n\n__ide_prompt(\"Würfel wurde 100 Mal geworfen.\")\n\nfor i in range(1, 7):\n    if not i in results:\n        __ide_prompt(f\"Dein Würfel hat in 100 Würfen keine einzige {i} gewürfelt. Bitte überprüfe dein Programm.\", \"Beenden\")\n        __ide_karol.beenden()\n\n__ide_set_progress(True)\n__ide_prompt(\"Sehr gut! Dein Würfel funktioniert!\")",
-          "language": "python-pro",
-          "program": "# Simuliere einen Würfel. Wähle eine zufällige Zahl zwischen 1 und 6\n# und speichere sie in der Variable augenzahl.\nimport random\n\naugenzahl = 4\n"
-        },
-        "deps": [
-          10007
-        ]
-      },
-      {
-        "filename": "62.json",
-        "x": 700,
-        "y": -20,
-        "id": 102,
-        "content": {
-          "version": "v1",
-          "title": "Schere, Stein, Papier",
-          "description": "Karol möchte mit dir eine Runde Schere, Stein, Papier spielen. Leider kann Karol nur über den Code mit dir sprechen. Aber das macht nichts, du kennst dich ja mit Programmieren aus!\n\nSchaue dir das Script auf der linken Seite an und schreibe es fertig.\n\nNutze bedingte Anweisungen (`if`), um optimal zu reagieren und verwende den Vergleichsoperator `==` (zwei Gleichheitszeichen). Setze die Variable `meineWahl` so, dass du alle Runden gewinnst.\n\nKlicke `Start` um das Spiel zu starten. Viel Erfolg!",
-          "tasks": [
-            {
-              "title": "Spielen",
-              "start": {
-                "dimX": 5,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 3,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      false,
-                      false,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 5,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 2,
-                  "dimY": 2,
-                  "offsetX": 3,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      1,
-                      1
-                    ],
-                    [
-                      1,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      false,
-                      false,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "import random\n\nrounds = [\"schere\", \"stein\", \"papier\"]\nrandom.shuffle(rounds)\nkarolWahl = \"\"\nmeineWahl = \"\"\n\n__ide_karol = Robot()\n__ide_prompt(\"Bist du bereit?\", \"Ja!\")\n\n\ndef runRound(n):\n    global karolWahl\n    global meineWahl\n    karolWahl = rounds[n-1]\n    meineWahl = \"\"\n    __ide_prompt(f\"Runde {n}: Schere, Stein, Papier! Karol wählt '{karolWahl}'.\")\n    __ide_run_client(globals=['karolWahl'])\n    if not meineWahl in [\"schere\", \"stein\", \"papier\"]:\n        __ide_prompt(f\"Auf '{karolWahl}' reagierst du mit '{meineWahl}'. Das ist kein gültiges Zeichen. Bitte erweitere dein Programm 🚧\", 'Beenden')\n        __ide_karol.beenden()\n    # check\n    if karolWahl == meineWahl:\n        __ide_prompt(f\"Auf '{karolWahl}' reagierst du mit '{meineWahl}', das ist Unentschieden. Gewinne alle Runden, um die Aufgabe zu lösen.\", \"Beenden\")\n        __ide_karol.beenden()\n    if (karolWahl == 'schere' and meineWahl == 'papier' or \n        karolWahl == 'stein' and meineWahl == 'schere' or\n        karolWahl == 'papier' and meineWahl == 'stein'):\n        __ide_prompt(f\"Auf '{karolWahl}' reagierst du mit '{meineWahl}'. Du verlierst :( Gewinne alle Runden, um die Aufgabe zu lösen.\", \"Beenden\")\n        __ide_karol.beenden()\n    __ide_prompt(f\"Auf '{karolWahl}' reagierst du mit '{meineWahl}'. Du gewinnst die Runde, bravo!\", \"weiter\")\n\nrunRound(1)\nrunRound(2)\nrunRound(3)\n\n__ide_prompt(\"Glückwunsch! Du hast alle drei Runden gewonnen!\")\n__ide_set_progress(True)",
-          "language": "python-pro",
-          "program": "# Karol wählt zuerst ein Zeichen und speichert es in der Variable karolWahl\n# print(karolWahl) -> \"schere\", \"stein\" oder \"papier\"\n\n# Reagiere jetzt darauf:\n\nmeineWahl = \"nichts\"\n\nif karolWahl == \"schere\":\n    meineWahl = \"papier\"\n\n"
-        },
-        "deps": [
-          10007
-        ]
-      },
-      {
-        "filename": "65.json",
-        "x": 500,
-        "y": 200,
-        "id": 104,
-        "content": {
-          "version": "v1",
-          "title": "Rechenwettbewerb",
-          "description": "Zumindest das sollte der Computer gut können: rechnen!\n\nHinweise:\n\n- `+` und `-` sind einleuchtend\n- nutze für die Multiplikation das `*`-Sternchen (Shift-Plus) \n- und für die Division den `/`-Schrägstrich (Alt-Gr-7)",
-          "tasks": [
-            {
-              "title": "Die 4 Grundrechenarten",
-              "start": {
-                "dimX": 8,
-                "dimY": 8,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 7,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 8,
-                "dimY": 8,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 7,
-                  "dimY": 6,
-                  "offsetX": 0,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      true,
-                      true,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    [
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "import random\n\n__ide_prompt(\"Rechenwettbewerb startet in 3, 2, 1 ...\", \"Los!\")\n\nfor i in range(10):\n    b = random.randint(4, 14)\n    a = b * random.randint(0, 15)\n    print(f\"Runde {i + 1}: a = {a}, b = {b}\")\n    def ladeA():\n        return a\n    def ladeB():\n        return b\n    __ide_run_client(globals=['ladeA', 'ladeB'])\n    names = ['summe', 'differenz', 'produkt', 'quotient']\n    for name in names:\n        if not name in globals():\n            __ide_prompt(f\"`{name}` nicht gefunden. \" +\n                         \"Da scheint eine Variable verloren gegangen zu sein.\",\n                        \"Beenden\")\n            __ide_exit()\n    \n    if not summe == a + b:\n        __ide_prompt(f\"Oh no! {a} + {b} = {a + b}, aber deine Summe ist {summe}. \" +\n                     \"Damit scheidest du leider aus dem Wettbewerb aus.\",\n                    \"Beenden\")\n        __ide_exit()\n\n    if not differenz == a - b:\n        __ide_prompt(f\"Oh no! {a} - {b} = {a - b}, aber deine Differenz ist {differenz}. \" +\n                     \"Damit scheidest du leider aus dem Wettbewerb aus.\",\n                    \"Beenden\")\n        __ide_exit()\n\n    if not produkt == a * b:\n        __ide_prompt(f\"Oh no! {a} * {b} = {a * b}, aber dein Produkt ist {produkt}. \" +\n                     \"Damit scheidest du leider aus dem Wettbewerb aus.\",\n                    \"Beenden\")\n        __ide_exit()\n\n    if not quotient == a / b:\n        __ide_prompt(f\"Oh no! {a} / {b} = {a / b}, aber dein Quotient ist {quotient}. \" +\n                     \"Damit scheidest du leider aus dem Wettbewerb aus.\",\n                    \"Beenden\")\n        __ide_exit()\n        \n    print(\"✅\")\n    __ide_sleep(1)\n\n__ide_set_progress(True)\n__ide_prompt(\"Du hast den Wettbewerb gewonnen 🏆!\")",
-          "language": "python-pro",
-          "program": "# Führe mit a und b die vier Grundrechenarten aus und \n# speichere das Ergebnis in den Variablen\n\na = ladeA()\nb = ladeB()\n\n# Beispiel: a plus b\nsumme = a + b\n\n# TODO: rechne a minus b\ndifferenz = 42\n\n# TODO: rechne a mal b\nprodukt = 42\n\n# TODO: rechne a geteilt durch b\nquotient = 42\n"
-        },
-        "deps": [
-          10007
-        ]
-      },
-      {
-        "filename": "66.json",
-        "x": 700,
-        "y": 200,
+        "filename": "a__Schleife.json",
+        "x": 250,
+        "y": -35,
         "id": 105,
         "content": {
           "version": "v1",
-          "title": "Small Talk",
-          "description": "Mit Python gibt es neue Möglichkeiten der Kommunikation!\n\nHinweise:\n\n• `input(\"Frage\")` erlaubt es, eine Frage zu stellen und die Antwort zu speichern.\n\n• Mit `+` kannst du Texte und Variablen zu einem längeren Text verbinden.",
-          "tasks": [
-            {
-              "title": "Hi!",
-              "start": {
-                "dimX": 7,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 7,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 7,
-                "dimY": 5,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "marks": {
-                  "dimX": 7,
-                  "dimY": 5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    [
-                      true,
-                      false,
-                      true,
-                      false,
-                      true,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_run_client()\ninputs = __ide_get_inputs()\nif len(inputs) < 2:\n    __ide_prompt(\"Du hast nicht nach dem Hobby gefragt. Los, sei nicht schüchtern! \"+\n                 \"Nutze `input()`.\",\n                 \"Beenden\")\n    __ide_exit()\n\nhobby = inputs[1]\n\noutputs = __ide_get_outputs()\nif len(outputs) < 4:\n    __ide_prompt(\"Es fehlt deine Antwort zum Hobby.\",\n                 \"Beenden\")\n    __ide_exit()\n\nlast = outputs[-1]\n\nif not hobby in last:\n    __ide_prompt(\"Das Hobby soll als Text in deiner Antwort vorkommen!\",\n                 \"Beenden\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"Small Talk erfolgreich ausgeführt ◕ ◡ ◕\")",
-          "language": "python-pro",
-          "program": "# Führe ein kleines Gespräche und frage nach Name und Hobby.\n\n# Beispiel\nname = input(\"Wie heißt du?\")\nprint(\"Hallo, \" + name + \"!\")\n\n# eine kurze Pause\nimport time; time.sleep(1.5)\n\n# TODO: Frage nach dem Hobby der Person\nhobby = \"\"\n\n# TODO: Sage was Nettes und wiederhole dabei das Hobby\n"
-        },
-        "deps": [
-          10007
-        ]
-      },
-      {
-        "filename": "67.json",
-        "x": 900,
-        "y": 200,
-        "id": 106,
-        "content": {
-          "version": "v1",
-          "title": "MacDonald's Farm",
-          "description": "Programmiere verschiedene Tiere und ihre Laute.\n\nHinweise:\n\n- Erstelle für jedes Tier eine eigene Funktion mit `def <name>():`\n- Rücke die zweite Zeile mit der Tab-Taste ein.\n- Das `return` zeigt das Ergebnis der Funktion an, schreibe hier den Laut hin.",
-          "tasks": [
-            {
-              "title": "Katze",
-              "start": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 5,
-                  "dimY": 6,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      1,
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 3,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      true,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 6,
-                "dimY": 6,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 5,
-                  "dimY": 6,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      1,
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      1,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    [
-                      0,
-                      1,
-                      1,
-                      1,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 3,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 2,
-                  "data": [
-                    [
-                      true,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "__ide_run_client()\n\nanimals = [x for x in globals().keys() if \n           not x.startswith(\"__\") and not x == 'Robot']\n\n__ide_prompt(\"Willkommen auf MacDonald's Farm!\", \"Los\")\n\nfor animal in animals:\n    f = globals()[animal]\n    if not callable(f):\n        __ide_prompt(f\"Erwarte für '{animal}' eine Funktion. Bitte nutze `def`.\", \"Beenden\")\n        __ide_exit()\n    sound = f().title()\n    __ide_prompt(f\"Die {animal.title()} machen: {sound}, {sound}, {sound}\")\n\nif len(animals) < 4:\n    __ide_prompt(\"MacDonald fühlt sich noch einsam. Füge weitere Tiere hinzu!\", \"Beenden\")\n    __ide_exit()\n\n__ide_set_progress(True)",
-          "language": "python-pro",
-          "program": "# Das sind die Tiere auf der Farm von MacDonald.\n\ndef katzen():\n    return \"miau\"\n\n# TODO: füge 3 weitere Tiere hinzu\n"
-        },
-        "deps": [
-          10007
-        ]
-      },
-      {
-        "filename": "68.json",
-        "x": 500,
-        "y": 340,
-        "id": 107,
-        "content": {
-          "version": "v1",
-          "title": "Codes",
-          "description": "Warum es hier wohl geht? Finde es heraus!",
-          "tasks": [
-            {
-              "title": "Hm",
-              "start": {
-                "dimX": 7,
-                "dimY": 7,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 4,
-                  "dimY": 7,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      1
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      1
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              },
-              "target": {
-                "dimX": 7,
-                "dimY": 7,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 4,
-                  "dimY": 7,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      0,
-                      1,
-                      1,
-                      0
-                    ],
-                    [
-                      1,
-                      0,
-                      0,
-                      1
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      1
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    [
-                      0,
-                      0,
-                      1,
-                      0
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                }
-              }
-            }
-          ],
-          "lng": "de",
-          "editOptions": "python-pro-only",
-          "questScript": "def ladeCode(n):\n    __ide_sleep(0.2)\n    print(f\"Lade Code {n}.\")\n    __ide_sleep(0.5)\n    if n == 123:\n        __ide_prompt(\"Ein guter Anfang. Finde den nächsten Hinweis unter dem Code 765.\", \"Beenden\")\n        return\n\n    \n    if n == 765:\n        __ide_prompt(\"Dein nächster Code ist das Ergebnis von `12 * 12`.\", \"Beenden\")\n        return\n    \n    if n == 144:\n        __ide_prompt(\"Dein finaler Code ist das Ergebnis von `3 ** 5` (3 hoch 5).\", \"Beenden\")\n        return\n    \n    if n == 243:\n        __ide_set_progress(True)\n        __ide_exit()\n\n    __ide_prompt(f\"Beim Code '{n}' ist nichts zu finden.\", \"Beenden\")\n    __ide_exit()\n\n__ide_run_client(globals=['ladeCode'])",
-          "language": "python-pro",
-          "program": "# Starte mit dem Code 123\n\nladeCode(0)"
-        },
-        "deps": [
-          10007
-        ]
-      },
-      {
-        "filename": "69.json",
-        "x": 650,
-        "y": 340,
-        "id": 108,
-        "content": {
-          "version": "v1",
-          "title": "Auszählung",
-          "description": "Räume alle Ziegel und Marken auf und zähle: Jeder Ziegel zählt `plus 1`, jede Marke `minus 1`.\n\nLege am Ende einen Ziegelstapel in der passenden Höhe.",
-          "tasks": [
-            {
-              "title": "Welt 1",
-              "start": {
-                "dimX": 9,
-                "dimY": 2,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 3,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      2,
-                      0,
-                      2
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 3,
-                  "dimY": 1,
-                  "offsetX": 5,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "dimX": 7,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                }
-              },
-              "target": {
-                "dimX": 9,
-                "dimY": 2,
-                "height": 6,
-                "karol": {
-                  "x": 8,
-                  "y": 1,
-                  "dir": "north"
-                },
-                "bricks": {
-                  "dimX": 1,
-                  "dimY": 1,
-                  "offsetX": 8,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "dimX": 7,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                }
-              }
-            },
-            {
-              "title": "Welt 2",
-              "start": {
-                "dimX": 9,
-                "dimY": 2,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 6,
-                  "dimY": 1,
-                  "offsetX": 2,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      1,
-                      2,
-                      3,
-                      3,
-                      2,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 7,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "dimX": 7,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                }
-              },
-              "target": {
-                "dimX": 9,
-                "dimY": 2,
-                "height": 6,
-                "karol": {
-                  "x": 8,
-                  "y": 1,
-                  "dir": "north"
-                },
-                "bricks": {
-                  "dimX": 1,
-                  "dimY": 1,
-                  "offsetX": 8,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      5
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "dimX": 7,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                }
-              }
-            },
-            {
-              "title": "Welt 3",
-              "start": {
-                "dimX": 9,
-                "dimY": 2,
-                "height": 6,
-                "karol": {
-                  "x": 0,
-                  "y": 0,
-                  "dir": "south"
-                },
-                "bricks": {
-                  "dimX": 6,
-                  "dimY": 1,
-                  "offsetX": 2,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      3,
-                      0,
-                      1,
-                      1,
-                      2,
-                      1
-                    ]
-                  ]
-                },
-                "marks": {
-                  "dimX": 5,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 1,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      false,
-                      true
-                    ]
-                  ]
-                },
-                "blocks": {
-                  "dimX": 7,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                }
-              },
-              "target": {
-                "dimX": 9,
-                "dimY": 2,
-                "height": 6,
-                "karol": {
-                  "x": 6,
-                  "y": 1,
-                  "dir": "east"
-                },
-                "bricks": {
-                  "dimX": 1,
-                  "dimY": 1,
-                  "offsetX": 8,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      4
-                    ]
-                  ]
-                },
-                "marks": {
-                  "offsetX": -1,
-                  "offsetY": -1,
-                  "dimX": 0,
-                  "dimY": 0,
-                  "data": []
-                },
-                "blocks": {
-                  "dimX": 7,
-                  "dimY": 1,
-                  "offsetX": 1,
-                  "offsetY": 0,
-                  "data": [
-                    [
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true,
-                      true
-                    ]
-                  ]
-                }
-              }
-            }
-          ],
+          "title": "a) Schleife",
+          "description": "Sage 10 Mal \"Buh!\". Nutze eine Schleife:\n\n```py\nfor i in range(...):\n    ...\n```",
+          "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                },
+                {
+                  "role": "out",
+                  "text": "Buh!"
+                }
+              ]
+            }
+          ],
           "language": "python-pro",
-          "program": "karol = Robot()\n\n"
+          "program": ""
         },
         "deps": [
-          10007
+          10003
+        ]
+      },
+      {
+        "filename": "b__Aufrufer.json",
+        "x": 330,
+        "y": 130,
+        "id": 106,
+        "content": {
+          "version": "v1",
+          "title": "b) Aufrufer",
+          "description": "Frage nach der Anzahl der Personen und gib für jede Person eine Nachricht aus.\n\nNutze für die Eingabe `input` und `int`.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Personen?"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Personen?"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                },
+                {
+                  "role": "out",
+                  "text": "Nächste Person bitte!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "c__Beatbox.json",
+        "x": 480,
+        "y": 160,
+        "id": 107,
+        "content": {
+          "version": "v1",
+          "title": "c) Beatbox",
+          "description": "Na Karol, mit einer Schleife sollte man doch auch etwas Musik machen können, oder?",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Welcher Beat?"
+                },
+                {
+                  "role": "in",
+                  "text": "Ba dam"
+                },
+                {
+                  "role": "out",
+                  "text": "Wie oft?"
+                },
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "out",
+                  "text": "Ba dam"
+                },
+                {
+                  "role": "out",
+                  "text": "Ba dam"
+                },
+                {
+                  "role": "out",
+                  "text": "Ba dam"
+                },
+                {
+                  "role": "out",
+                  "text": "Ba dam"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Welcher Beat?"
+                },
+                {
+                  "role": "in",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "Wie oft?"
+                },
+                {
+                  "role": "in",
+                  "text": "6"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                },
+                {
+                  "role": "out",
+                  "text": "BUM - ts - KA - ts"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Welcher Beat?"
+                },
+                {
+                  "role": "in",
+                  "text": "ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts"
+                },
+                {
+                  "role": "out",
+                  "text": "Wie oft?"
+                },
+                {
+                  "role": "in",
+                  "text": "2"
+                },
+                {
+                  "role": "out",
+                  "text": "ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts"
+                },
+                {
+                  "role": "out",
+                  "text": "ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10003
+        ]
+      },
+      {
+        "filename": "d__Countdown.json",
+        "x": 610,
+        "y": 120,
+        "id": 108,
+        "content": {
+          "version": "v1",
+          "title": "d) Countdown",
+          "description": "Es gibt so viele kleine Tricks. Karol sagt dir eine Zahl, zähle von dieser Zahl runter:\n\n```py\nfor i in range(n):\n    print(n - i)\n```\n\n- Trick 1: Die Variable `i` zählt von 0, 1, 2, ... bis n-1.\n- Trick 2: Mit der Subtraktion `n - 1` wandelst du den Zähler in einen Countdown.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "2"
+                },
+                {
+                  "role": "out",
+                  "text": "1"
+                },
+                {
+                  "role": "out",
+                  "text": "Fertig!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "9"
+                },
+                {
+                  "role": "out",
+                  "text": "8"
+                },
+                {
+                  "role": "out",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "6"
+                },
+                {
+                  "role": "out",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "4"
+                },
+                {
+                  "role": "out",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "2"
+                },
+                {
+                  "role": "out",
+                  "text": "1"
+                },
+                {
+                  "role": "out",
+                  "text": "Fertig!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10003
         ]
       }
     ],
-    "x": 480,
+    "x": 410,
+    "y": 1830
+  },
+  {
+    "id": 10004,
+    "dirName": "030-dart",
+    "title": "3. Dart",
+    "originalTitle": "Dart",
+    "requiredCount": 2,
+    "description": "# Dart\r\n\r\n_Abends in der Bar. Es ist der einzige Ort im Dorf, an dem nach Einbruch der Dunkelheit noch ein Generator für Strom sorgt. Ellie sitzt in einer Ecke an ihrem Laptop, die kleine Karol-Figur baumelt am Netzkabel. Tommy und seine Freunde spielen lautstark Dart. Zwischen zwei Runden setzt sich Tommy zu Ellie._\r\n\r\n**Tommy**: Na Ellie, so spät noch am Lernen?  \r\n**Ellie**: (blickt müde auf) Ich wäre gern schon fertig, aber die Sonderschicht wegen der Infizierten hat meinen Zeitplan durcheinandergebracht. Danke nochmal, dass ihr auf uns gewartet habt.  \r\n**Tommy**: Kein Ding, Jackson bleibt standhaft. Wir passen aufeinander auf. (er nickt Richtung Laptop) Apropos, Maria meinte, du bringst der Kiste da Rechnen bei.  \r\n**Ellie**: Sozusagen. Ist aber langweiliger, als es klingt.  \r\n**Tommy**: Langweilig? Ich könnte gerade jemanden gebrauchen, der für uns rechnet. Jim vergisst nach zwei Bier immer die Hälfte der Punkte ...\r\n\r\n_Ellie zuckt mit den Schultern, aber in ihrem Kopf beginnt es zu ratten. Beim Dart fängt man mit 501 Punkten an. Ein fester Startwert. Eine Variable, Punkte abziehen. Eine Subtraktion. Immer und immer wieder ... wie die Schleife, die sie Maria gezeigt hat. Ein Gedanke formt sich._\r\n\r\n**Ellie**: Warte mal ... wie viele Würfe braucht ihr so für ein Spiel?  \r\n**Tommy**: Puh, wenn wir gut sind, vielleicht zwanzig. Wenn wir schlecht sind ... oder viel getrunken haben ... auch mal dreißig oder vierzig.  \r\n**Ellie**: Okay ... okay, ich glaube, ich hab was. (sie beugt sich über die Tastatur und fängt an zu tippen, dabei murmelt sie zu sich) Also, zuerst der Startwert:\r\n\r\n```py\r\npunktzahl = 501\r\nprint(\"Neues Spiel! Start bei 501 Punkten.\")\r\n```\r\n\r\nUnd dann wiederholen wir das Abziehen einfach ... sagen wir, 50 Mal. Das sollte reichen. Das ist diese `for`-Schleife:\r\n\r\n```py\r\nfor i in range(50):\r\n    wurf = int(input())\r\n    punktzahl = punktzahl - wurf\r\n\r\n    print(\"Neue Punktzahl:\")\r\n    print(punktzahl)\r\n```\r\n\r\nDas Programm fragt jetzt immer wieder nach einem Wurf und zieht die Punkte ab. Es merkt sich den aktuellen Stand in der `punktzahl`-Variable. Das ist ... das ist nicht mehr ein dämlicher Trick. Das ist ein Punktezähler! Schau her Tommy, ich habe einen Punktezähler gebaut!  \r\n**Tommy**: (blinzelt, dann bricht ein Lächeln auf seinem Gesicht durch) Wow. Okay, Kiddo. Endlich ein Punktezähler, der mal nicht betrunken oder müde ist.  \r\n**Jim**: Hey Tommy, ich kann euch beide hören!  \r\n**Ellie**: (lehnt sich stolz zurück) Komm, lass mich mal eine Runde mitspielen. Ich will sehen, ob mein Programm funktioniert.\r\n",
+    "image": "/story/dart.jpg",
+    "quests": [
+      {
+        "filename": "a__Dart_1.json",
+        "x": 180,
+        "y": -100,
+        "id": 109,
+        "content": {
+          "version": "v1",
+          "title": "a) Dart 1",
+          "description": "Bringe die Zeilen in die richtige Reihenfolge:\n\n- `print(punktzahl)`\n- `punktzahl = 501`\n- `wurf = int(input())`\n- `print(\"Neue Runde\")`\n- `punktzahl = punktzahl - wurf`\n",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Neue Runde"
+                },
+                {
+                  "role": "in",
+                  "text": "17"
+                },
+                {
+                  "role": "out",
+                  "text": "484"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Neue Runde"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "out",
+                  "text": "451"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Neue Runde"
+                },
+                {
+                  "role": "in",
+                  "text": "1"
+                },
+                {
+                  "role": "out",
+                  "text": "500"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "b__Dart_2.json",
+        "x": 240,
+        "y": 50,
+        "id": 110,
+        "content": {
+          "version": "v1",
+          "title": "b) Dart 2",
+          "description": "Erweitere das Programm von Dart 1 für **drei** Würfe. Nutze `for i in range(...)`.\n\n<details>\n<summary>Vorlage zum Kopieren</summary>\n```py\npunktzahl = 501\nprint(\"Neue Runde\")\nwurf = int(input())\npunktzahl = punktzahl - wurf\nprint(punktzahl)\n```\n</details>",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Neue Runde"
+                },
+                {
+                  "role": "in",
+                  "text": "16"
+                },
+                {
+                  "role": "out",
+                  "text": "485"
+                },
+                {
+                  "role": "in",
+                  "text": "25"
+                },
+                {
+                  "role": "out",
+                  "text": "460"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "457"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Neue Runde"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "out",
+                  "text": "451"
+                },
+                {
+                  "role": "in",
+                  "text": "25"
+                },
+                {
+                  "role": "out",
+                  "text": "426"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "out",
+                  "text": "376"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "c__Dart_3.json",
+        "x": 180,
+        "y": 130,
+        "id": 111,
+        "content": {
+          "version": "v1",
+          "title": "c) Dart 3",
+          "description": "Es ist gar nicht so einfach, die Zahlen schnell zu multiplizieren. Python kann mit dem `*`-Operator genau das übernehmen. Frage Zahl und Faktor ab und gib das Produkt aus.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Zahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "17"
+                },
+                {
+                  "role": "out",
+                  "text": "Faktor:"
+                },
+                {
+                  "role": "in",
+                  "text": "2"
+                },
+                {
+                  "role": "out",
+                  "text": "34"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Zahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "Faktor:"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "9"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Zahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "13"
+                },
+                {
+                  "role": "out",
+                  "text": "Faktor:"
+                },
+                {
+                  "role": "in",
+                  "text": "1"
+                },
+                {
+                  "role": "out",
+                  "text": "13"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10004
+        ]
+      },
+      {
+        "filename": "d__Summe.json",
+        "x": 70,
+        "y": 170,
+        "id": 112,
+        "content": {
+          "version": "v1",
+          "title": "d) Summe",
+          "description": "Eine Variable kann für viele Dinge verwendet werden, z.B. auch um die Summe einiger Zahlen zu berechnen.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Anzahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "Zahlen:"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "in",
+                  "text": "44"
+                },
+                {
+                  "role": "in",
+                  "text": "12"
+                },
+                {
+                  "role": "out",
+                  "text": "106"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Anzahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "Zahlen:"
+                },
+                {
+                  "role": "in",
+                  "text": "1"
+                },
+                {
+                  "role": "in",
+                  "text": "2"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "15"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Anzahl:"
+                },
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "out",
+                  "text": "Zahlen:"
+                },
+                {
+                  "role": "in",
+                  "text": "11111"
+                },
+                {
+                  "role": "in",
+                  "text": "22222"
+                },
+                {
+                  "role": "in",
+                  "text": "33333"
+                },
+                {
+                  "role": "in",
+                  "text": "22222"
+                },
+                {
+                  "role": "out",
+                  "text": "88888"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10004
+        ]
+      }
+    ],
+    "x": 100,
+    "y": 1980
+  },
+  {
+    "id": 10005,
+    "dirName": "040-kindergarten",
+    "title": "4. Kindergarten",
+    "originalTitle": "Kindergarten",
+    "requiredCount": 2,
+    "description": "# Kindergarten\r\n\r\n_Einige Erzieher sich erkältet, so dass Maria und Ellie heute im Kindergarten aushelfen._\r\n\r\n**Ellie**: Benji, Vanessa, hört auf euch zu streiten! Jeder darf mal mit dem Holz-Dino spielen! (zu Maria gewandt) Wie kannst du so ruhig bleiben?  \r\n**Maria**: Na, Geduld war nie deine Stärke, Ellie, nicht wahr? Manchmal muss man sie einfach machen lassen. Ihre Welt ist zum Glück noch so klein.  \r\n**Vanessa**: Ellie, kannst du mir eine Geschichte erzählen?  \r\n**Ellie**: Ähm (schaut Maria fragend an, sie nickt ihr ermutigend zu) ... ja, klar. Also, es war einmal ein mutiges Mädchen namens ... wie ist dein Name?  \r\n**Vanessa**: Ich heiße Vanessa!  \r\n**Ellie**: Also, es war einmal ein mutiges Mädchen names Vanessa, sie wohnte in einem Schloss aus ...  \r\n**Vanessa**: Zuckerwatte!  \r\n**Ellie**: (amüsiert) Ok, ok. Zuckerwatte! Ein riesiges Schloss aus Zuckerwatte.  \r\n**Maria**: Ich hole für die Kinder schnell was zu trinken, du machst das super!\r\n\r\n_Als Maria nach wenigen Minuten zurückkommt, sitzen die Kinder gespannt um Ellie herum und hören ihrer Geschichte zu. Ellie ist voll in ihrem Element._\r\n\r\n**Ellie**: Und wenn sie nicht gestorben ist, dann lebt das mutige Mädchen bis heute in ihrem Schloss aus Zuckerwatte! Ende.  \r\n**Benji**: Nein, erzähl weiter!  \r\n**Maria**: Kinder, macht mal einen Applaus für Ellie, sie hat das sehr schön erzählt.  \r\n**Ellie**: (die Kinder applaudieren, Ellie wird etwas rot) Nein, nein, das war nichts besonders ...  \r\n**Maria**: Und jetzt holt sich bitte jeder etwas zu trinken!\r\n\r\n_Später am Nachmittag, als die Kinder alle abgeholt sind._\r\n\r\n**Maria**: Danke, das du heute ausgeholfen hast, die Kinder fanden deine Geschichte super. Ich hoffe, ich habe dich nicht zu sehr vom Programmieren abgehalten.  \r\n**Ellie**: Es ist witzig, denn als ich die Geschichte erzählt habe, musste ich tatsächlich an Python denken.  \r\n**Maria**: Wie das?  \r\n**Ellie**: Ich lerne gerade `f-Strings` ...  \r\n**Maria**: f\\* wie dein Lieblingswort?  \r\n**Ellie**: (empört) Hey, nein! `f` wie Format. Damit kann man Vorlagen bauen und in die Lücken Sachen einsetzen. Wie bei der Geschichte für die Kinder. Da hatte ich mir diese Vorlage im Kopf überlegt und die Ideen der Kinder in die Platzhalter eingefügt. Schau mal her, ich habe das mal aufgeschrieben (sie zeigt Maria einen Zettel):\r\n\r\n```py\r\nname = \"Vanessa\"\r\nmaterial = \"Zuckerwatte\"\r\n\r\n# Das f macht aus dem Text eine Vorlage\r\nprint(f\"Vor langer Zeit lebte {name} in einem fernen Land.\")\r\nprint(f\"{name} wohnte in einem Schloss aus {material}.\")\r\n```\r\n\r\nDas `f` macht aus den Anführungszeichen eine Vorlage. Mit den geschweiften Klammern kann ich Variable an die passende Stelle einfügen.\r\n\r\n**Maria**: Das ist ja richtig genial! Und wenn Benji morgen eine Geschichte hören will ...  \r\n**Ellie**: Dann kannst du einfach die Variablen anpassen, hehe. Und siehst du den Hashtag dort? Der ist auch praktisch, damit kann ich im Code kleine Notizen an mich selbst schreiben.  \r\n**Maria**: Du machst wahnsinnige Fortschritte! Also, ich möchte dich nicht länger vom Programmieren fernhalten, den Rest schaff ich alleine, für dich ist jetzt Feierabend!\r\n",
+    "image": "/story/sam.jpg",
+    "quests": [
+      {
+        "filename": "UMFRAGE.json",
+        "x": 410,
+        "y": -115,
+        "id": 113,
+        "content": {
+          "version": "v1",
+          "title": "UMFRAGE",
+          "description": "Bei dieser Aufgabe geht es nicht um Ellie, sondern mehr um dich. Wie geht es dir beim Lernen? Wie kann ich dir helfen, das Lernen noch besser zu gestalten?\n\nFülle die Umfrage aus, indem du die Variablen auf den passenden Wert setzt. Wenn du fertig bist, klicke auf `Start` und deine Antworten werden eingesendet.",
+          "tasks": [
+            {
+              "title": "Einsenden",
+              "start": {
+                "dimX": 5,
+                "dimY": 5,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              },
+              "target": {
+                "dimX": 5,
+                "dimY": 5,
+                "height": 6,
+                "karol": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": "south"
+                },
+                "bricks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                },
+                "marks": {
+                  "dimX": 5,
+                  "dimY": 5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "data": [
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      true,
+                      true,
+                      true,
+                      true,
+                      true
+                    ],
+                    [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ]
+                  ]
+                },
+                "blocks": {
+                  "offsetX": -1,
+                  "offsetY": -1,
+                  "dimX": 0,
+                  "dimY": 0,
+                  "data": []
+                }
+              }
+            }
+          ],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "__ide_run_client()\n__karol = Robot()\n\nif not isinstance(verbessern, str):\n    __ide_prompt(\"Frage 1: Erwarte einen Text.\", \"OK\")\n    __karol.beenden()\n\nif len(verbessern) == 0:\n    __ide_prompt(\"Bitte trage etwas in Frage 1 ein.\", \"OK\")\n    __ide_exit()\n\n    \nif not isinstance(spaß, str):\n    __ide_prompt(\"Frage 2: Erwarte einen Text.\", \"OK\")\n    __karol.beenden()\n    \nif len(spaß) == 0:\n    __ide_prompt(\"Bitte trage etwas in Frage 2 ein.\", \"OK\")\n    __ide_exit()\n\n\nevent_str = f\"ev_submit_survey2_{verbessern.replace('_', '-')}_{spaß.replace('_', '-')}\"\n\nif len(event_str) >= 999:\n    __ide_prompt(f\"Maximale Länge um {len(event_str) - 998} Zeichen überschritten. Bitte kürze deine Antwort oder sende sie direkt an karol@arrrg.de, danke!\")\n    __karol.beenden()\n\n__ide_submit(event_str)\n\n__karol.schritt(2)\n__karol.linksDrehen()\n\n__ide_prompt(\"Danke für die Teilnahme an der Umfrage!\", \"schließen\")\n__ide_set_progress(True)\n",
+          "language": "python-pro",
+          "program": "# Frage 1: Würdest du etwas am Python-Lernpfad verbessern?\n# verbessern = \"Schreibe deine Antwort zwischen die Anführungszeichen\"\nverbessern = \"\"\n\n\n# Frage 2: Was gefällt dir am Python-Lernpfad besonders?\n# spaß = \"Schreibe deine Antwort zwischen die Anführungszeichen\"\nspaß = \"\""
+        },
+        "deps": [
+          10005
+        ]
+      },
+      {
+        "filename": "a__Geschichte.json",
+        "x": 190,
+        "y": 65,
+        "id": 114,
+        "content": {
+          "version": "v1",
+          "title": "a) Geschichte",
+          "description": "Nutze einen f-String als Vorlage, um unterschiedliche Geschichten zu erzählen:\n\n```py\nprint(f\"Das ist eine Vorlage und {variable} das ist ein Platzhalter\")\n```",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Bella"
+                },
+                {
+                  "role": "in",
+                  "text": "Frankreich"
+                },
+                {
+                  "role": "out",
+                  "text": "Bella lebte vor langer Zeit in Frankreich."
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Quinn"
+                },
+                {
+                  "role": "in",
+                  "text": "Ägypten"
+                },
+                {
+                  "role": "out",
+                  "text": "Quinn lebte vor langer Zeit in Ägypten."
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "Karol"
+                },
+                {
+                  "role": "in",
+                  "text": "Karoland"
+                },
+                {
+                  "role": "out",
+                  "text": "Karol lebte vor langer Zeit in Karoland."
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10005
+        ]
+      },
+      {
+        "filename": "b__Einmaleins.json",
+        "x": 310,
+        "y": 131,
+        "id": 115,
+        "content": {
+          "version": "v1",
+          "title": "b) Einmaleins",
+          "description": "Hilf den Kindern beim Einmaleins. Nutze f-Strings und für die Multiplikation das Stern Zeichen: \n\n`ergebnis = a * b`",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "3 mal 5 ist 15"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "in",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "4 mal 7 ist 28"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "8"
+                },
+                {
+                  "role": "in",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "8 mal 7 ist 56"
+                }
+              ]
+            },
+            {
+              "title": "Chat 4",
+              "messages": [
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "10 mal 10 ist 100"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10005
+        ]
+      },
+      {
+        "filename": "c__Bierflaschen_1.json",
+        "x": 450,
+        "y": 141,
+        "id": 116,
+        "content": {
+          "version": "v1",
+          "title": "c) Bierflaschen 1",
+          "description": "Eine Strophe aus einem bekannten Kinderlied, natürlich nur mit alkoholfreiem Bier. ",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Flaschen?"
+                },
+                {
+                  "role": "in",
+                  "text": "99"
+                },
+                {
+                  "role": "out",
+                  "text": "99 Flaschen Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "99 Flaschen Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "98 Flaschen Bier an der Wand."
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Flaschen?"
+                },
+                {
+                  "role": "in",
+                  "text": "42"
+                },
+                {
+                  "role": "out",
+                  "text": "42 Flaschen Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "42 Flaschen Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "41 Flaschen Bier an der Wand."
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10005
+        ]
+      },
+      {
+        "filename": "d__Bierflaschen_2.json",
+        "x": 580,
+        "y": 201,
+        "deps": [
+          116
+        ],
+        "id": 117,
+        "content": {
+          "version": "v1",
+          "title": "d) Bierflaschen 2",
+          "description": "Spiel den Song nun für 7 Strophen. Bringe dafür diese Code-Schnipsel in die richtige Reihenfolge, achte auf eine passende Einrückung:\n\n`print(f\"{i - 1} Flasche(n) Bier an der Wand.\")`\n\n`for i in range(7, 0, -1):`\n\n`print(f\"{i} Flasche(n) Bier an der Wand,\")`\n\n`print(\"Nimm eine runter, reich sie herum,\")`\n\n`    print(\"{i} Flasche(n) Bier.\")`\n\n*Hinweis: range(7, 0, -1) generiert die Zahlenfolge 7, 6, 5, 4, 3, 2, 1.*",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "7 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "7 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "6 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "6 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "6 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "5 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "5 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "5 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "4 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "4 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "4 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "3 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "3 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "3 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "2 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "2 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "2 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "1 Flasche(n) Bier an der Wand."
+                },
+                {
+                  "role": "out",
+                  "text": "1 Flasche(n) Bier an der Wand,"
+                },
+                {
+                  "role": "out",
+                  "text": "1 Flasche(n) Bier."
+                },
+                {
+                  "role": "out",
+                  "text": "Nimm eine runter, reich sie herum,"
+                },
+                {
+                  "role": "out",
+                  "text": "0 Flasche(n) Bier an der Wand."
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        }
+      }
+    ],
+    "x": 420,
+    "y": 2200
+  },
+  {
+    "id": 10006,
+    "dirName": "050-streng-geheim",
+    "title": "5. Streng geheim",
+    "originalTitle": "Streng geheim",
+    "requiredCount": 3,
+    "description": "# Streng geheim\r\n\r\n_Ellie schreibt in ihr Tagebuch._\r\n\r\nIch mache gute Fortschritte beim Programmieren, es ist viel Arbeit, aber es macht Spaß - wenn man es verstanden hat. Manchmal träume ich auch in der Nacht von Python.\r\n\r\nWeißt du, was praktisch wäre? Ein Passwort für das Tagebuch. Ich könnte sowas jetzt programmieren. Dazu gibt es dieses `if/else`. Komm, ich zeige dir, wie das aussieht:\r\n\r\n```py\r\nprint(\"Streng geheim! Passwort:\")\r\npasswort = input()\r\n\r\nif passwort == \"Riley\":\r\n    print(\"Zugang gewährt ✌(-‿-)✌\")\r\nelse:\r\n    print(\"Geh weg! ┌П┐(ಠ_ಠ)\")\r\n```\r\n\r\nAm Anfang war das verwirrend, aber mittlerweile habe ich es besser verstanden. Hinter dem `if` kann ich etwas überprüfen, zum Beispiel ob das Passwort korrekt ist. Ich muss zwei Gleichheitszeichen verwenden, weil es sonst mit der Variable-Zuweisung Verwirrung gibt. Je nach dem, wie die Prüfung läuft, wird entweder der `if`- oder der `else`-Block ausgeführt:\r\n\r\nWenn die <span class=\"text-green-600\">Prüfung bestanden ist</span>, wird der Code direkt nach dem `if` ausgeführt (immer schön mit Tab einrücken, sonst geht alles kaputt).\r\n\r\nWenn die <span class=\"text-red-500\">Prüfung nicht klappt</span>, dann wird nur der Code im `else`-Block ausgeführt.\r\n\r\nIm Buch steht, das ich dadurch sehr intelligente Programme schreiben kann. Na, das werden wir noch sehen. So intelligent sieht das für mich noch nicht aus, aber ich wurde ja schon öfters überrascht.\r\n\r\nRiley, ich vermisse dich.\r\n",
+    "image": "/story/journal.jpg",
+    "quests": [
+      {
+        "filename": "a__Passwort.json",
+        "x": 620,
+        "y": -50,
+        "id": 118,
+        "content": {
+          "version": "v1",
+          "title": "a) Passwort",
+          "description": "Schreibe ein Python-Programm, dass nach einem Passwort fragt und es überprüft. Nutze `if/else`.\n\nDas korrekte Passwort lautet **trowssaP**.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Passwort?"
+                },
+                {
+                  "role": "in",
+                  "text": "Banane"
+                },
+                {
+                  "role": "out",
+                  "text": "falsch"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Passwort?"
+                },
+                {
+                  "role": "in",
+                  "text": "123"
+                },
+                {
+                  "role": "out",
+                  "text": "falsch"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Passwort?"
+                },
+                {
+                  "role": "in",
+                  "text": "trowssaP"
+                },
+                {
+                  "role": "out",
+                  "text": "Zugriff gewährt"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10006
+        ]
+      },
+      {
+        "filename": "b__Kalte_Schulter.json",
+        "x": 730,
+        "y": -140,
+        "id": 119,
+        "content": {
+          "version": "v1",
+          "title": "b) Kalte Schulter",
+          "description": "Frage nach dem Namen der Person. Bei Joel antwortet das Programm: \"Verrate mir endlich deinen Plan für meinen Geburtstag.\", bei Maria: \"Ich möchte endlich mit auf Patrouille.\"\n\nBei allen anderen Personen sagt das Programm nichts. Nutze zweimal `if`. Lasse das `else` aus.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wer ist da?"
+                },
+                {
+                  "role": "in",
+                  "text": "Joel"
+                },
+                {
+                  "role": "out",
+                  "text": "Verrate mir endlich deinen Plan für meinen Geburtstag."
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wer ist da?"
+                },
+                {
+                  "role": "in",
+                  "text": "Maria"
+                },
+                {
+                  "role": "out",
+                  "text": "Ich möchte endlich mit auf Patrouille."
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wer ist da?"
+                },
+                {
+                  "role": "in",
+                  "text": "Albert"
+                }
+              ]
+            },
+            {
+              "title": "Chat 4",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wer ist da?"
+                },
+                {
+                  "role": "in",
+                  "text": "Nina"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10006
+        ]
+      },
+      {
+        "filename": "c__Zahlenraten_1.json",
+        "x": 900,
+        "y": -100,
+        "id": 120,
+        "content": {
+          "version": "v1",
+          "title": "c) Zahlenraten 1",
+          "description": "Dein Programm enthält eine geheime Zahl (psst, sie lautet 7). Karol soll diese Zahl raten und du sagst, ob die Zahl zu hoch oder zu niedrig ist. Bringe diese Code-Zeilen in die richtige Reihenfolge:\n\n`geheim = 7`\n\n`if n < geheim:`\n\n`if n > geheim:`\n\n`n = int(input())`\n\n`print(\"Rate meine Zahl\")`\n\n`print(\"zu niedrig\")`\n\n`print(\"zu hoch\")`",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "6"
+                },
+                {
+                  "role": "out",
+                  "text": "zu niedrig"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "100"
+                },
+                {
+                  "role": "out",
+                  "text": "zu hoch"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "1"
+                },
+                {
+                  "role": "out",
+                  "text": "zu niedrig"
+                }
+              ]
+            },
+            {
+              "title": "Chat 4",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "8"
+                },
+                {
+                  "role": "out",
+                  "text": "zu hoch"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10006
+        ]
+      },
+      {
+        "filename": "d__Zahlenraten_2.json",
+        "x": 1000,
+        "y": 50,
+        "id": 121,
+        "content": {
+          "version": "v1",
+          "title": "d) Zahlenraten 2",
+          "description": "Wenn du mehrere Sachen prüfen und nur einen der Fälle ausführen willst, gibt es noch `elif`:\n\n```py\nif ...:\n    ...\nelif ...:\n    ...\nelse:\n    ...\n```\n\nDamit kannst du das Zahlenraten vervollständigen: Wenn die Zahl zu hoch oder zu niedrig ist, gib eine Nachricht aus. Wenn die Zahl aber stimmt, dann sage etwas Nettes. Die geheime Zahl ist wieder 7.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "zu niedrig"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "zu hoch"
+                }
+              ]
+            },
+            {
+              "title": "Chat 5",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Zahl"
+                },
+                {
+                  "role": "in",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "WOW! MEGA!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10006
+        ]
+      },
+      {
+        "filename": "e__Infizierte.json",
+        "x": 670,
+        "y": 120,
+        "id": 122,
+        "content": {
+          "version": "v1",
+          "title": "e) Infizierte",
+          "description": "Je nach Dauer durchlaufen die Infizierten verschiedene Phasen:\n\n- 0 - 2 Monate: Runner\n- 3 - 12 Monate: Stalker\n- 13 - 60 Monate: Clicker\n- 60+ Monate: Bloater\n\nFrage die Monate ab und gib eine passende Antwort:",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Monate infiziert?"
+                },
+                {
+                  "role": "in",
+                  "text": "0"
+                },
+                {
+                  "role": "out",
+                  "text": "Das ist ein Runner."
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Monate infiziert?"
+                },
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "out",
+                  "text": "Das ist ein Stalker."
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Monate infiziert?"
+                },
+                {
+                  "role": "in",
+                  "text": "32"
+                },
+                {
+                  "role": "out",
+                  "text": "Das ist ein Clicker."
+                }
+              ]
+            },
+            {
+              "title": "Chat 4",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Wie viele Monate infiziert?"
+                },
+                {
+                  "role": "in",
+                  "text": "240"
+                },
+                {
+                  "role": "out",
+                  "text": "Verstecke dich sofort und bete, dass der Bloater dir einen schnellen Tod bereitet."
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10006
+        ]
+      }
+    ],
+    "x": 770,
+    "y": 2150
+  },
+  {
+    "id": 10007,
+    "dirName": "060-TODO",
+    "title": "6. Morgenappell",
+    "originalTitle": "Morgenappell",
+    "requiredCount": 2,
+    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
+    "image": "/story/jackson.jpg",
+    "quests": [],
+    "x": 880,
+    "y": 2450
+  },
+  {
+    "id": 10008,
+    "dirName": "070-TODO",
+    "title": "7. Superhelden",
+    "originalTitle": "Superhelden",
+    "requiredCount": 2,
+    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
+    "image": "/story/jackson.jpg",
+    "quests": [],
+    "x": 730,
+    "y": 2730
+  },
+  {
+    "id": 10009,
+    "dirName": "080-TODO",
+    "title": "8. Unwetter",
+    "originalTitle": "Unwetter",
+    "requiredCount": 2,
+    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
+    "image": "/story/jackson.jpg",
+    "quests": [],
+    "x": 380,
+    "y": 2570
+  },
+  {
+    "id": 10010,
+    "dirName": "090-TODO",
+    "title": "9. Neue Wege",
+    "originalTitle": "Neue Wege",
+    "requiredCount": 2,
+    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
+    "image": "/story/jackson.jpg",
+    "quests": [],
+    "x": 180,
     "y": 2850
   }
 ]
@@ -4361,7 +2145,7 @@ export const chapterOverviewData: {
 export const chapterQuests: { [key: number]: QuestData } = {}
 
 // Generate chapterData based on chapter information
-export const chapterData: { [key: number]: { title: string, description: string, image: string } } = {}
+export const chapterData: { [key: number]: { title: string, description: string, image: string, requiredCount: number } } = {}
 
 // Populate the exported objects
 chapterInfo.forEach((chapter) => {
@@ -4370,6 +2154,7 @@ chapterInfo.forEach((chapter) => {
     title: chapter.title,
     description: chapter.description,
     image: chapter.image,
+    requiredCount: chapter.requiredCount,
   }
 
   // Default chapter position and dependencies
