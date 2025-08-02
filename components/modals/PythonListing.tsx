@@ -92,7 +92,8 @@ export function PythonListing() {
                   </ul>
                 ) : (
                   <p className="text-gray-500 italic">
-                    In diesem Kapitel gibt es keine Aufgaben.
+                    Dieses Kapitel befindet sich im Aufbau und ist demnächst
+                    verfügbar.
                   </p>
                 )}
               </div>

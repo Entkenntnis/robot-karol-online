@@ -6,7 +6,7 @@ import { deserializeQuestToData } from '../commands/json'
 const chapterInfo = [
   {
     "id": 10001,
-    "dirName": "000-intro",
+    "dirName": "000-alles-ist-scheiße",
     "title": "0. Alles ist scheiße",
     "originalTitle": "Alles ist scheiße",
     "requiredCount": 1,
@@ -17,7 +17,7 @@ const chapterInfo = [
         "filename": "Begrüßung.json",
         "x": 870,
         "y": 170,
-        "id": 147,
+        "id": 100,
         "content": {
           "version": "v1",
           "title": "Fehlersuche",
@@ -51,11 +51,11 @@ const chapterInfo = [
       {
         "filename": "Vorgeschichte.json",
         "deps": [
-          147
+          100
         ],
         "x": 940,
         "y": 300,
-        "id": 165,
+        "id": 101,
         "content": {
           "version": "v1",
           "title": "Vorgeschichte",
@@ -97,7 +97,7 @@ const chapterInfo = [
   },
   {
     "id": 10002,
-    "dirName": "010-variablen",
+    "dirName": "010-glücksbringer",
     "title": "1. Glückbringer",
     "originalTitle": "Glückbringer",
     "requiredCount": 2,
@@ -108,7 +108,7 @@ const chapterInfo = [
         "filename": "a__Flachwitz.json",
         "x": 450,
         "y": 50,
-        "id": 149,
+        "id": 102,
         "content": {
           "version": "v1",
           "title": "a) Flachwitz",
@@ -151,7 +151,7 @@ const chapterInfo = [
         "filename": "b__Papagei.json",
         "x": 610,
         "y": 160,
-        "id": 150,
+        "id": 103,
         "content": {
           "version": "v1",
           "title": "b) Papagei",
@@ -224,7 +224,7 @@ const chapterInfo = [
         "filename": "c__Echo.json",
         "x": 740,
         "y": 130,
-        "id": 151,
+        "id": 104,
         "content": {
           "version": "v1",
           "title": "c) Echo",
@@ -311,7 +311,7 @@ const chapterInfo = [
   },
   {
     "id": 10003,
-    "dirName": "020-eingabe-ausgabe",
+    "dirName": "020-maria",
     "title": "2. Maria",
     "originalTitle": "Maria",
     "requiredCount": 2,
@@ -322,7 +322,7 @@ const chapterInfo = [
         "filename": "a__Schleife.json",
         "x": 250,
         "y": -35,
-        "id": 152,
+        "id": 105,
         "content": {
           "version": "v1",
           "title": "a) Schleife",
@@ -389,7 +389,7 @@ const chapterInfo = [
         "filename": "b__Aufrufer.json",
         "x": 330,
         "y": 130,
-        "id": 153,
+        "id": 106,
         "content": {
           "version": "v1",
           "title": "b) Aufrufer",
@@ -469,7 +469,7 @@ const chapterInfo = [
         "filename": "c__Beatbox.json",
         "x": 480,
         "y": 160,
-        "id": 154,
+        "id": 107,
         "content": {
           "version": "v1",
           "title": "c) Beatbox",
@@ -602,7 +602,7 @@ const chapterInfo = [
         "filename": "d__Countdown.json",
         "x": 610,
         "y": 120,
-        "id": 155,
+        "id": 108,
         "content": {
           "version": "v1",
           "title": "d) Countdown",
@@ -704,7 +704,7 @@ const chapterInfo = [
   },
   {
     "id": 10004,
-    "dirName": "030-bedingte-anweisungen",
+    "dirName": "030-dart",
     "title": "3. Dart",
     "originalTitle": "Dart",
     "requiredCount": 2,
@@ -715,7 +715,7 @@ const chapterInfo = [
         "filename": "a__Dart_1.json",
         "x": 180,
         "y": -100,
-        "id": 156,
+        "id": 109,
         "content": {
           "version": "v1",
           "title": "a) Dart 1",
@@ -788,7 +788,7 @@ const chapterInfo = [
         "filename": "b__Dart_2.json",
         "x": 240,
         "y": 50,
-        "id": 157,
+        "id": 110,
         "content": {
           "version": "v1",
           "title": "b) Dart 2",
@@ -876,7 +876,7 @@ const chapterInfo = [
         "filename": "c__Dart_3.json",
         "x": 180,
         "y": 130,
-        "id": 158,
+        "id": 111,
         "content": {
           "version": "v1",
           "title": "c) Dart 3",
@@ -973,7 +973,7 @@ const chapterInfo = [
         "filename": "d__Summe.json",
         "x": 70,
         "y": 170,
-        "id": 159,
+        "id": 112,
         "content": {
           "version": "v1",
           "title": "d) Summe",
@@ -1108,7 +1108,7 @@ const chapterInfo = [
   },
   {
     "id": 10005,
-    "dirName": "040-mathematik",
+    "dirName": "040-kindergarten",
     "title": "4. Kindergarten",
     "originalTitle": "Kindergarten",
     "requiredCount": 2,
@@ -1119,7 +1119,7 @@ const chapterInfo = [
         "filename": "UMFRAGE.json",
         "x": 410,
         "y": -115,
-        "id": 160,
+        "id": 113,
         "content": {
           "version": "v1",
           "title": "UMFRAGE",
@@ -1277,7 +1277,7 @@ const chapterInfo = [
         "filename": "a__Geschichte.json",
         "x": 190,
         "y": 65,
-        "id": 161,
+        "id": 114,
         "content": {
           "version": "v1",
           "title": "a) Geschichte",
@@ -1350,7 +1350,7 @@ const chapterInfo = [
         "filename": "b__Einmaleins.json",
         "x": 310,
         "y": 131,
-        "id": 162,
+        "id": 115,
         "content": {
           "version": "v1",
           "title": "b) Einmaleins",
@@ -1440,7 +1440,7 @@ const chapterInfo = [
         "filename": "c__Bierflaschen_1.json",
         "x": 450,
         "y": 141,
-        "id": 163,
+        "id": 116,
         "content": {
           "version": "v1",
           "title": "c) Bierflaschen 1",
@@ -1521,9 +1521,9 @@ const chapterInfo = [
         "x": 580,
         "y": 201,
         "deps": [
-          163
+          116
         ],
-        "id": 164,
+        "id": 117,
         "content": {
           "version": "v1",
           "title": "d) Bierflaschen 2",
@@ -1661,7 +1661,7 @@ const chapterInfo = [
   },
   {
     "id": 10006,
-    "dirName": "050-schleifen",
+    "dirName": "050-streng-geheim",
     "title": "5. Streng geheim",
     "originalTitle": "Streng geheim",
     "requiredCount": 3,
@@ -1672,7 +1672,7 @@ const chapterInfo = [
         "filename": "a__Passwort.json",
         "x": 620,
         "y": -50,
-        "id": 166,
+        "id": 118,
         "content": {
           "version": "v1",
           "title": "a) Passwort",
@@ -1693,7 +1693,7 @@ const chapterInfo = [
         "filename": "b__Kalte_Schulter.json",
         "x": 730,
         "y": -140,
-        "id": 167,
+        "id": 119,
         "content": {
           "version": "v1",
           "title": "b) Kalte Schulter",
@@ -1714,7 +1714,7 @@ const chapterInfo = [
         "filename": "c__Zahlenraten_1.json",
         "x": 900,
         "y": -100,
-        "id": 170,
+        "id": 120,
         "content": {
           "version": "v1",
           "title": "c) Zahlenraten 1",
@@ -1735,7 +1735,7 @@ const chapterInfo = [
         "filename": "d__Zahlenraten_2.json",
         "x": 1000,
         "y": 50,
-        "id": 171,
+        "id": 121,
         "content": {
           "version": "v1",
           "title": "d) Zahlenraten 2",
@@ -1756,7 +1756,7 @@ const chapterInfo = [
         "filename": "e__Infizierte.json",
         "x": 670,
         "y": 120,
-        "id": 172,
+        "id": 122,
         "content": {
           "version": "v1",
           "title": "e) Infizierte",
@@ -1779,48 +1779,48 @@ const chapterInfo = [
   },
   {
     "id": 10007,
-    "dirName": "060-while",
+    "dirName": "060-TODO",
     "title": "6. Morgenappell",
     "originalTitle": "Morgenappell",
-    "requiredCount": 1,
-    "description": "Hier findest du weitere Bonus-Aufgaben.\r\n",
-    "image": "",
+    "requiredCount": 2,
+    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
+    "image": "/story/jackson.jpg",
     "quests": [],
     "x": 880,
     "y": 2450
   },
   {
     "id": 10008,
-    "dirName": "070-def",
+    "dirName": "070-TODO",
     "title": "7. Superhelden",
     "originalTitle": "Superhelden",
-    "requiredCount": 1,
-    "description": "",
-    "image": "",
+    "requiredCount": 2,
+    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
+    "image": "/story/jackson.jpg",
     "quests": [],
     "x": 730,
     "y": 2730
   },
   {
     "id": 10009,
-    "dirName": "080-logik",
+    "dirName": "080-TODO",
     "title": "8. Unwetter",
     "originalTitle": "Unwetter",
-    "requiredCount": 1,
-    "description": "",
-    "image": "",
+    "requiredCount": 2,
+    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
+    "image": "/story/jackson.jpg",
     "quests": [],
     "x": 380,
     "y": 2570
   },
   {
     "id": 10010,
-    "dirName": "999-bonus",
+    "dirName": "090-TODO",
     "title": "9. Neue Wege",
     "originalTitle": "Neue Wege",
-    "requiredCount": 1,
-    "description": "",
-    "image": "",
+    "requiredCount": 2,
+    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
+    "image": "/story/jackson.jpg",
     "quests": [],
     "x": 180,
     "y": 2850

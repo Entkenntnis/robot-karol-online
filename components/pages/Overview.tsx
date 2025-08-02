@@ -682,11 +682,11 @@ export function Overview() {
                           <p>
                             In den ruhigen Jahren in Jackson beschließt Ellie,
                             sich das Programmieren beizubringen. Keine einfache
-                            Sache! Zum Glück steht ihr Joel immer treu zur
-                            Seite. Begleite Ellie, wie sie die Grundlagen von
-                            Python lernt, von Ein-/Ausgabe über Variablen und
-                            Schleifen bis hin zu dem Moment, wo sie bereit ist
-                            für ihr großes Projekt.
+                            Sache! Zum Glück steht ihr Joel und das Dorf immer
+                            treu zur Seite. Begleite Ellie, wie sie die
+                            Grundlagen von Python lernt, von Ein-/Ausgabe über
+                            Variablen und Schleifen bis hin zu ihrem großen
+                            Projekt.
                           </p>
                         </div>
                       </AnimateInView>
