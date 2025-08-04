@@ -2088,7 +2088,158 @@ const chapterInfo = [
     "requiredCount": 2,
     "description": "# Arcade\r\n\r\n_Auszug aus dem Buch \"Python für Einsteiger\"_\r\n\r\nDu brennst darauf, dein erstes eigenes Spiel zu programmieren? Super! Lass uns direkt mit dem Herzstück eines jeden Spiels weitermachen: der **Spiel-Schleife**. Sie sorgt dafür, dass dein Spiel läuft und auf Eingaben reagiert.\r\n\r\nDafür nutzen wir in Python die `while`-Schleife. Sie ist ähnlich aufgebaut wie eine `if`-Abfrage mit einem kleinen Twist: Du gibst ihr eine Bedingung und _solange diese erfüllt ist_, wiederholt sie den Code darin. Zeit für ein kleines Ratespiel!\r\n\r\n```py\r\nprint(\"In welchem Monat habe ich Geburtstag?\")\r\nmonat = \"\"\r\nwhile monat != \"Dezember\":\r\n    monat = input(\"Dein Tipp: \")\r\n\r\nprint(\"Wow, richtig geraten!\")\r\n```\r\n\r\nWenn du das Programm ausführst, könnte es so aussehen:\r\n\r\n```\r\nIn welchem Monat habe ich Geburtstag?\r\nDein Tipp: Januar\r\nDein Tipp: März\r\nDein Tipp: September\r\nDein Tipp: Dezember\r\nWow, richtig geraten!\r\n```\r\n\r\nDie Zeile `monat != \"Dezember\"` ist der Schlüssel. Das `!=` bedeutet \"ungleich\". Die Schleife läuft also, solange die Antwort _falsch_ ist. Ein simpler, aber cleverer Trick! Anders als bei einer `for`-Schleife wissen wir hier nicht, wie viele Runden das Spiel dauern wird.\r\n\r\nFür komplexere Spiele gibt es eine noch flexiblere Methode: die Endlos-Schleife mit `break`.\r\n\r\nKeine Sorge, \"endlos\" klingt, dramatischer, als es ist. Wir bauen einfach einen Notausgang ein. Mit `while True:` erstellen wir eine Schleife, die von sich aus nie endet. Das Kommando `break` dient uns als Schlüssel, um sie an der richtigen Stelle gezielt zu verlassen.\r\n\r\nSo sieht unser Spiel damit aus:\r\n\r\n```py\r\nprint(\"In welchem Monat habe ich Geburtstag?\")\r\nwhile True:\r\n    monat = input(\"Dein Tipp: \")\r\n    if monat == \"Dezember\":\r\n        print(\"Wow, richtig geraten!\")\r\n        break\r\n```\r\n\r\nBisschen einfacher zu lesen, nicht wahr? Und dazu können wir den Code auch leichter erweitern, zum Beispiel mit einem `else`-Block für direktes Feedback:\r\n\r\n```py\r\nprint(\"In welchem Monat habe ich Geburtstag?\")\r\nwhile True:\r\n    monat = input(\"Dein Tipp: \")\r\n    if monat == \"Dezember\":\r\n        print(\"Wow, richtig geraten!\")\r\n        break\r\n    else:\r\n        print(\"Leider falsch, versuch es noch einmal!\")\r\n```\r\n\r\nUnd schon sieht die Ausgabe viel interaktiver aus:\r\n\r\n```\r\nIn welchem Monat habe ich Geburtstag?\r\nDein Tipp: April\r\nLeider falsch, versuch es noch einmal!\r\nDein Tipp: Mai\r\nLeider falsch, versuch es noch einmal!\r\nDein Tipp: Dezember\r\nWow, richtig geraten!\r\n```\r\n\r\nGlückwunsch! Mit diesen wenigen Zeilen hast du bereits eine voll funktionsfähige Spiel-Logik erstellt. Willkommen in der Welt der Spieleentwicklung 🎮 es gibt noch viel zu entdecken!\r\n",
     "image": "/story/arcade.jpg",
-    "quests": [],
+    "quests": [
+      {
+        "filename": "a__Regenbogen_1.json",
+        "x": 780,
+        "y": -90,
+        "id": 123,
+        "content": {
+          "version": "v1",
+          "title": "a) Regenbogen 1",
+          "description": "Eine Farbe des Regenbogen ist meine Lieblingsfarbe. Rate sie! Nutze für dein Programm diese Schnipsel:\n\n`print(\"Rate meine Lieblingsfarbe!\")`\n\n`print(\"Richtig!\")`\n\n`while True:`\n\n`break`\n\n`farbe = input()`\n\n`if farbe == \"gelb\":`\n\n",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Lieblingsfarbe!"
+                },
+                {
+                  "role": "in",
+                  "text": "türkis"
+                },
+                {
+                  "role": "in",
+                  "text": "gelb"
+                },
+                {
+                  "role": "out",
+                  "text": "Richtig!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Lieblingsfarbe!"
+                },
+                {
+                  "role": "in",
+                  "text": "grün"
+                },
+                {
+                  "role": "in",
+                  "text": "pink"
+                },
+                {
+                  "role": "in",
+                  "text": "blau"
+                },
+                {
+                  "role": "in",
+                  "text": "gelb"
+                },
+                {
+                  "role": "out",
+                  "text": "Richtig!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10007
+        ]
+      },
+      {
+        "filename": "b__Regenbogen_2.json",
+        "x": 1000,
+        "y": -60,
+        "id": 124,
+        "content": {
+          "version": "v1",
+          "title": "b) Regenbogen 2",
+          "description": "Beschreibe, um was es bei der Aufgabe geht ...",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": []
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10007
+        ]
+      },
+      {
+        "filename": "c__Spaßvogel.json",
+        "x": 750,
+        "y": 90,
+        "id": 125,
+        "content": {
+          "version": "v1",
+          "title": "c) Spaßvogel",
+          "description": "Beschreibe, um was es bei der Aufgabe geht ...",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": []
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10007
+        ]
+      },
+      {
+        "filename": "d__Dart__reloaded_.json",
+        "x": 970,
+        "y": 110,
+        "id": 126,
+        "content": {
+          "version": "v1",
+          "title": "d) Dart (reloaded)",
+          "description": "Beschreibe, um was es bei der Aufgabe geht ...",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": []
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10007
+        ]
+      }
+    ],
     "x": 880,
     "y": 2450
   },

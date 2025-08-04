@@ -22,7 +22,11 @@
     "050-streng-geheim/b__Kalte_Schulter.json": 119,
     "050-streng-geheim/c__Zahlenraten_1.json": 120,
     "050-streng-geheim/d__Zahlenraten_2.json": 121,
-    "050-streng-geheim/e__Infizierte.json": 122
+    "050-streng-geheim/e__Infizierte.json": 122,
+    "060-arcade/a__Regenbogen_1.json": 123,
+    "060-arcade/b__Regenbogen_2.json": 124,
+    "060-arcade/c__Spaßvogel.json": 125,
+    "060-arcade/d__Dart__reloaded_.json": 126
   },
-  "counter": 123
+  "counter": 127
 }
