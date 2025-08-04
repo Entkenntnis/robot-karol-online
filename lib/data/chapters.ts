@@ -1527,7 +1527,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "d) Bierflaschen 2",
-          "description": "Spiel den Song nun für 7 Strophen. Bringe dafür diese Code-Schnipsel in die richtige Reihenfolge, achte auf eine passende Einrückung:\n\n`print(f\"{i - 1} Flasche(n) Bier an der Wand.\")`\n\n`for i in range(7, 0, -1):`\n\n`print(f\"{i} Flasche(n) Bier an der Wand,\")`\n\n`print(\"Nimm eine runter, reich sie herum,\")`\n\n`    print(\"{i} Flasche(n) Bier.\")`\n\n*Hinweis: range(7, 0, -1) generiert die Zahlenfolge 7, 6, 5, 4, 3, 2, 1.*",
+          "description": "Spiel den Song nun für 7 Strophen. Bringe dafür diese Code-Schnipsel in die richtige Reihenfolge, achte auf eine passende Einrückung:\n\n`print(f\"{i - 1} Flasche(n) Bier an der Wand.\")`\n\n`for i in range(7, 0, -1):`\n\n`print(f\"{i} Flasche(n) Bier an der Wand,\")`\n\n`print(\"Nimm eine runter, reich sie herum,\")`\n\n`    print(f\"{i} Flasche(n) Bier.\")`\n\n*Hinweis: range(7, 0, -1) generiert die Zahlenfolge 7, 6, 5, 4, 3, 2, 1.*",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
