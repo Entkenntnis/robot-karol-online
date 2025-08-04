@@ -2082,13 +2082,455 @@ const chapterInfo = [
   },
   {
     "id": 10007,
-    "dirName": "060-TODO",
-    "title": "6. Morgenappell",
-    "originalTitle": "Morgenappell",
+    "dirName": "060-arcade",
+    "title": "6. Arcade",
+    "originalTitle": "Arcade",
     "requiredCount": 2,
-    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
-    "image": "/story/jackson.jpg",
-    "quests": [],
+    "description": "# Arcade\r\n\r\n_Auszug aus dem Buch \"Python für Einsteiger\"_\r\n\r\nDu brennst darauf, dein erstes eigenes Spiel zu programmieren? Super! Lass uns direkt mit dem Herzstück eines jeden Spiels weitermachen: der **Spiel-Schleife**. Sie sorgt dafür, dass dein Spiel läuft und auf Eingaben reagiert.\r\n\r\nDafür nutzen wir in Python die `while`-Schleife. Sie ist ähnlich aufgebaut wie eine `if`-Abfrage mit einem kleinen Twist: Du gibst ihr eine Bedingung und _solange diese erfüllt ist_, wiederholt sie den Code darin. Zeit für ein kleines Ratespiel!\r\n\r\n```py\r\nprint(\"In welchem Monat habe ich Geburtstag?\")\r\nmonat = \"\"\r\nwhile monat != \"Dezember\":\r\n    monat = input(\"Dein Tipp: \")\r\n\r\nprint(\"Wow, richtig geraten!\")\r\n```\r\n\r\nWenn du das Programm ausführst, könnte es so aussehen:\r\n\r\n```\r\nIn welchem Monat habe ich Geburtstag?\r\nDein Tipp: Januar\r\nDein Tipp: März\r\nDein Tipp: September\r\nDein Tipp: Dezember\r\nWow, richtig geraten!\r\n```\r\n\r\nDie Zeile `monat != \"Dezember\"` ist der Schlüssel. Das `!=` bedeutet \"ungleich\". Die Schleife läuft also, solange die Antwort _falsch_ ist. Ein simpler, aber cleverer Trick! Anders als bei einer `for`-Schleife wissen wir hier nicht, wie viele Runden das Spiel dauern wird.\r\n\r\nFür komplexere Spiele gibt es eine noch flexiblere Methode: die Endlos-Schleife mit `break`.\r\n\r\nKeine Sorge, \"endlos\" klingt, dramatischer, als es ist. Wir bauen einfach einen Notausgang ein. Mit `while True:` erstellen wir eine Schleife, die von sich aus nie endet. Das Kommando `break` dient uns als Schlüssel, um sie an der richtigen Stelle gezielt zu verlassen.\r\n\r\nSo sieht unser Spiel damit aus:\r\n\r\n```py\r\nprint(\"In welchem Monat habe ich Geburtstag?\")\r\nwhile True:\r\n    monat = input(\"Dein Tipp: \")\r\n    if monat == \"Dezember\":\r\n        print(\"Wow, richtig geraten!\")\r\n        break\r\n```\r\n\r\nBisschen einfacher zu lesen, nicht wahr? Und dazu können wir den Code auch leichter erweitern, zum Beispiel mit einem `else`-Block für direktes Feedback:\r\n\r\n```py\r\nprint(\"In welchem Monat habe ich Geburtstag?\")\r\nwhile True:\r\n    monat = input(\"Dein Tipp: \")\r\n    if monat == \"Dezember\":\r\n        print(\"Wow, richtig geraten!\")\r\n        break\r\n    else:\r\n        print(\"Leider falsch, versuch es noch einmal!\")\r\n```\r\n\r\nUnd schon sieht die Ausgabe viel interaktiver aus:\r\n\r\n```\r\nIn welchem Monat habe ich Geburtstag?\r\nDein Tipp: April\r\nLeider falsch, versuch es noch einmal!\r\nDein Tipp: Mai\r\nLeider falsch, versuch es noch einmal!\r\nDein Tipp: Dezember\r\nWow, richtig geraten!\r\n```\r\n\r\nGlückwunsch! Mit diesen wenigen Zeilen hast du bereits eine voll funktionsfähige Spiel-Logik erstellt. Willkommen in der Welt der Spieleentwicklung 🎮 es gibt noch viel zu entdecken!\r\n",
+    "image": "/story/arcade.jpg",
+    "quests": [
+      {
+        "filename": "a__Regenbogen_1.json",
+        "x": 780,
+        "y": -90,
+        "id": 123,
+        "content": {
+          "version": "v1",
+          "title": "a) Regenbogen 1",
+          "description": "Eine Farbe des Regenbogen ist meine Lieblingsfarbe. Rate sie! Nutze für dein Programm diese Schnipsel:\n\n`print(\"Rate meine Lieblingsfarbe!\")`\n\n`print(\"Richtig!\")`\n\n`while True:`\n\n`break`\n\n`farbe = input()`\n\n`if farbe == \"gelb\":`\n\n",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Lieblingsfarbe!"
+                },
+                {
+                  "role": "in",
+                  "text": "türkis"
+                },
+                {
+                  "role": "in",
+                  "text": "gelb"
+                },
+                {
+                  "role": "out",
+                  "text": "Richtig!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Lieblingsfarbe!"
+                },
+                {
+                  "role": "in",
+                  "text": "grün"
+                },
+                {
+                  "role": "in",
+                  "text": "pink"
+                },
+                {
+                  "role": "in",
+                  "text": "blau"
+                },
+                {
+                  "role": "in",
+                  "text": "gelb"
+                },
+                {
+                  "role": "out",
+                  "text": "Richtig!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10007
+        ]
+      },
+      {
+        "filename": "b__Regenbogen_2.json",
+        "x": 1000,
+        "y": -60,
+        "id": 124,
+        "content": {
+          "version": "v1",
+          "title": "b) Regenbogen 2",
+          "description": "Erweitere das Programm von Regenbogen 1 so, dass bei falschen Eingaben jeweils ein Feedback kommt.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Lieblingsfarbe!"
+                },
+                {
+                  "role": "in",
+                  "text": "rot"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "orange"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "gelb"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "grün"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "blau"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "violett"
+                },
+                {
+                  "role": "out",
+                  "text": "Richtig!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Lieblingsfarbe!"
+                },
+                {
+                  "role": "in",
+                  "text": "gelb"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "violett"
+                },
+                {
+                  "role": "out",
+                  "text": "Richtig!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10007
+        ]
+      },
+      {
+        "filename": "c__Spaßvogel.json",
+        "x": 750,
+        "y": 90,
+        "id": 125,
+        "content": {
+          "version": "v1",
+          "title": "c) Spaßvogel",
+          "description": "Wer hat nicht Spaß an ein paar Flachwitzen? Dein Programm ist eine Witzmaschine und sie antwortet auf die Eingaben \"A\", \"B\" und \"C\" mit je einem Witz. Die Eingabe \"x\" beendet dein Programm.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "A, B, C für Witze, x zum Beenden"
+                },
+                {
+                  "role": "in",
+                  "text": "A"
+                },
+                {
+                  "role": "out",
+                  "text": "Kommt ein Einarmiger in einen Secondhandladen."
+                },
+                {
+                  "role": "in",
+                  "text": "x"
+                },
+                {
+                  "role": "out",
+                  "text": "Tschüss"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "A, B, C für Witze, x zum Beenden"
+                },
+                {
+                  "role": "in",
+                  "text": "B"
+                },
+                {
+                  "role": "out",
+                  "text": "Kriegen sich zwei Glatzen in die Haare."
+                },
+                {
+                  "role": "in",
+                  "text": "C"
+                },
+                {
+                  "role": "out",
+                  "text": "Warum können Skelette schlecht lügen? Weil sie leicht zu durchschauen sind."
+                },
+                {
+                  "role": "in",
+                  "text": "x"
+                },
+                {
+                  "role": "out",
+                  "text": "Tschüss"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "A, B, C für Witze, x zum Beenden"
+                },
+                {
+                  "role": "in",
+                  "text": "B"
+                },
+                {
+                  "role": "out",
+                  "text": "Kriegen sich zwei Glatzen in die Haare."
+                },
+                {
+                  "role": "in",
+                  "text": "B"
+                },
+                {
+                  "role": "out",
+                  "text": "Kriegen sich zwei Glatzen in die Haare."
+                },
+                {
+                  "role": "in",
+                  "text": "B"
+                },
+                {
+                  "role": "out",
+                  "text": "Kriegen sich zwei Glatzen in die Haare."
+                },
+                {
+                  "role": "in",
+                  "text": "x"
+                },
+                {
+                  "role": "out",
+                  "text": "Tschüss"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10007
+        ]
+      },
+      {
+        "filename": "d__Dart__reloaded_.json",
+        "x": 970,
+        "y": 110,
+        "id": 126,
+        "content": {
+          "version": "v1",
+          "title": "d) Dart (reloaded)",
+          "description": "Programmiere einen vollständigen Dart-Punktezähler. Zur Einfachheit startet der Zähler bei 201. Das Spiel muss exakt bei Null enden (siehe Chat 2)",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Spielstart bei 201 Punkten"
+                },
+                {
+                  "role": "in",
+                  "text": "40"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 161"
+                },
+                {
+                  "role": "in",
+                  "text": "30"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 131"
+                },
+                {
+                  "role": "in",
+                  "text": "57"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 74"
+                },
+                {
+                  "role": "in",
+                  "text": "25"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 49"
+                },
+                {
+                  "role": "in",
+                  "text": "42"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 7"
+                },
+                {
+                  "role": "in",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "Spiel beendet!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Spielstart bei 201 Punkten"
+                },
+                {
+                  "role": "in",
+                  "text": "60"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 141"
+                },
+                {
+                  "role": "in",
+                  "text": "60"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 81"
+                },
+                {
+                  "role": "in",
+                  "text": "60"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 21"
+                },
+                {
+                  "role": "in",
+                  "text": "60"
+                },
+                {
+                  "role": "out",
+                  "text": "Überworfen!"
+                },
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 11"
+                },
+                {
+                  "role": "in",
+                  "text": "15"
+                },
+                {
+                  "role": "out",
+                  "text": "Überworfen!"
+                },
+                {
+                  "role": "in",
+                  "text": "11"
+                },
+                {
+                  "role": "out",
+                  "text": "Spiel beendet!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10007
+        ]
+      }
+    ],
     "x": 880,
     "y": 2450
   },

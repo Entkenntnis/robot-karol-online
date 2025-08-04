@@ -1,0 +1,13 @@
+{
+  "title": "Arcade",
+  "requiredCount": 2,
+  "quests": [
+    { "filename": "a__Regenbogen_1.json", "x": 780, "y": -90 },
+    { "filename": "b__Regenbogen_2.json", "x": 1000, "y": -60 },
+    { "filename": "c__Spaßvogel.json", "x": 750, "y": 90 },
+    { "filename": "d__Dart__reloaded_.json", "x": 970, "y": 110 }
+  ],
+  "x": 880,
+  "y": 2450,
+  "image": "/story/arcade.jpg"
+}
