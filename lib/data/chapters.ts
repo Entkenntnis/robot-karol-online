@@ -2169,7 +2169,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "b) Regenbogen 2",
-          "description": "Beschreibe, um was es bei der Aufgabe geht ...",
+          "description": "Erweitere das Programm von Regenbogen 1 so, dass bei falschen Eingaben jeweils ein Feedback kommt.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
@@ -2177,7 +2177,85 @@ const chapterInfo = [
           "chats": [
             {
               "title": "Chat 1",
-              "messages": []
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Lieblingsfarbe!"
+                },
+                {
+                  "role": "in",
+                  "text": "rot"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "orange"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "gelb"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "grün"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "blau"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "violett"
+                },
+                {
+                  "role": "out",
+                  "text": "Richtig!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Rate meine Lieblingsfarbe!"
+                },
+                {
+                  "role": "in",
+                  "text": "gelb"
+                },
+                {
+                  "role": "out",
+                  "text": "Nein"
+                },
+                {
+                  "role": "in",
+                  "text": "violett"
+                },
+                {
+                  "role": "out",
+                  "text": "Richtig!"
+                }
+              ]
             }
           ],
           "language": "python-pro",
@@ -2195,7 +2273,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "c) Spaßvogel",
-          "description": "Beschreibe, um was es bei der Aufgabe geht ...",
+          "description": "Wer hat nicht Spaß an ein paar Flachwitzen? Dein Programm ist eine Witzmaschine und sie antwortet auf die Eingaben \"A\", \"B\" und \"C\" mit je einem Witz. Die Eingabe \"x\" beendet dein Programm.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
@@ -2203,7 +2281,102 @@ const chapterInfo = [
           "chats": [
             {
               "title": "Chat 1",
-              "messages": []
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "A, B, C für Witze, x zum Beenden"
+                },
+                {
+                  "role": "in",
+                  "text": "A"
+                },
+                {
+                  "role": "out",
+                  "text": "Kommt ein Einarmiger in einen Secondhandladen."
+                },
+                {
+                  "role": "in",
+                  "text": "x"
+                },
+                {
+                  "role": "out",
+                  "text": "Tschüss"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "A, B, C für Witze, x zum Beenden"
+                },
+                {
+                  "role": "in",
+                  "text": "B"
+                },
+                {
+                  "role": "out",
+                  "text": "Kriegen sich zwei Glatzen in die Haare."
+                },
+                {
+                  "role": "in",
+                  "text": "C"
+                },
+                {
+                  "role": "out",
+                  "text": "Warum können Skelette schlecht lügen? Weil sie leicht zu durchschauen sind."
+                },
+                {
+                  "role": "in",
+                  "text": "x"
+                },
+                {
+                  "role": "out",
+                  "text": "Tschüss"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "A, B, C für Witze, x zum Beenden"
+                },
+                {
+                  "role": "in",
+                  "text": "B"
+                },
+                {
+                  "role": "out",
+                  "text": "Kriegen sich zwei Glatzen in die Haare."
+                },
+                {
+                  "role": "in",
+                  "text": "B"
+                },
+                {
+                  "role": "out",
+                  "text": "Kriegen sich zwei Glatzen in die Haare."
+                },
+                {
+                  "role": "in",
+                  "text": "B"
+                },
+                {
+                  "role": "out",
+                  "text": "Kriegen sich zwei Glatzen in die Haare."
+                },
+                {
+                  "role": "in",
+                  "text": "x"
+                },
+                {
+                  "role": "out",
+                  "text": "Tschüss"
+                }
+              ]
             }
           ],
           "language": "python-pro",
@@ -2221,7 +2394,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "d) Dart (reloaded)",
-          "description": "Beschreibe, um was es bei der Aufgabe geht ...",
+          "description": "Programmiere einen vollständigen Dart-Punktezähler. Zur Einfachheit startet der Zähler bei 201. Das Spiel muss exakt bei Null enden (siehe Chat 2)",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
@@ -2229,7 +2402,125 @@ const chapterInfo = [
           "chats": [
             {
               "title": "Chat 1",
-              "messages": []
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Spielstart bei 201 Punkten"
+                },
+                {
+                  "role": "in",
+                  "text": "40"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 161"
+                },
+                {
+                  "role": "in",
+                  "text": "30"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 131"
+                },
+                {
+                  "role": "in",
+                  "text": "57"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 74"
+                },
+                {
+                  "role": "in",
+                  "text": "25"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 49"
+                },
+                {
+                  "role": "in",
+                  "text": "42"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 7"
+                },
+                {
+                  "role": "in",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "Spiel beendet!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Spielstart bei 201 Punkten"
+                },
+                {
+                  "role": "in",
+                  "text": "60"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 141"
+                },
+                {
+                  "role": "in",
+                  "text": "60"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 81"
+                },
+                {
+                  "role": "in",
+                  "text": "60"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 21"
+                },
+                {
+                  "role": "in",
+                  "text": "60"
+                },
+                {
+                  "role": "out",
+                  "text": "Überworfen!"
+                },
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "Noch 11"
+                },
+                {
+                  "role": "in",
+                  "text": "15"
+                },
+                {
+                  "role": "out",
+                  "text": "Überworfen!"
+                },
+                {
+                  "role": "in",
+                  "text": "11"
+                },
+                {
+                  "role": "out",
+                  "text": "Spiel beendet!"
+                }
+              ]
             }
           ],
           "language": "python-pro",
