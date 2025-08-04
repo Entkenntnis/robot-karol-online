@@ -2082,12 +2082,12 @@ const chapterInfo = [
   },
   {
     "id": 10007,
-    "dirName": "060-TODO",
-    "title": "6. Morgenappell",
-    "originalTitle": "Morgenappell",
+    "dirName": "060-arcade",
+    "title": "6. Arcade",
+    "originalTitle": "Arcade",
     "requiredCount": 2,
-    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
-    "image": "/story/jackson.jpg",
+    "description": "# Arcade\r\n\r\n_Auszug aus dem Buch \"Python für Einsteiger\"_\r\n\r\nDu brennst darauf, dein erstes eigenes Spiel zu programmieren? Super! Lass uns direkt mit dem Herzstück eines jeden Spiels weitermachen: der **Spiel-Schleife**. Sie sorgt dafür, dass dein Spiel läuft und auf Eingaben reagiert.\r\n\r\nDafür nutzen wir in Python die `while`-Schleife. Sie ist ähnlich aufgebaut wie eine `if`-Abfrage mit einem kleinen Twist: Du gibst ihr eine Bedingung und _solange diese erfüllt ist_, wiederholt sie den Code darin. Zeit für ein kleines Ratespiel!\r\n\r\n```py\r\nprint(\"In welchem Monat habe ich Geburtstag?\")\r\nmonat = \"\"\r\nwhile monat != \"Dezember\":\r\n    monat = input(\"Dein Tipp: \")\r\n\r\nprint(\"Wow, richtig geraten!\")\r\n```\r\n\r\nWenn du das Programm ausführst, könnte es so aussehen:\r\n\r\n```\r\nIn welchem Monat habe ich Geburtstag?\r\nDein Tipp: Januar\r\nDein Tipp: März\r\nDein Tipp: September\r\nDein Tipp: Dezember\r\nWow, richtig geraten!\r\n```\r\n\r\nDie Zeile `monat != \"Dezember\"` ist der Schlüssel. Das `!=` bedeutet \"ungleich\". Die Schleife läuft also, solange die Antwort _falsch_ ist. Ein simpler, aber cleverer Trick! Anders als bei einer `for`-Schleife wissen wir hier nicht, wie viele Runden das Spiel dauern wird.\r\n\r\nFür komplexere Spiele gibt es eine noch flexiblere Methode: die Endlos-Schleife mit `break`.\r\n\r\nKeine Sorge, \"endlos\" klingt, dramatischer, als es ist. Wir bauen einfach einen Notausgang ein. Mit `while True:` erstellen wir eine Schleife, die von sich aus nie endet. Das Kommando `break` dient uns als Schlüssel, um sie an der richtigen Stelle gezielt zu verlassen.\r\n\r\nSo sieht unser Spiel damit aus:\r\n\r\n```py\r\nprint(\"In welchem Monat habe ich Geburtstag?\")\r\nwhile True:\r\n    monat = input(\"Dein Tipp: \")\r\n    if monat == \"Dezember\":\r\n        print(\"Wow, richtig geraten!\")\r\n        break\r\n```\r\n\r\nBisschen einfacher zu lesen, nicht wahr? Und dazu können wir den Code auch leichter erweitern, zum Beispiel mit einem `else`-Block für direktes Feedback:\r\n\r\n```py\r\nprint(\"In welchem Monat habe ich Geburtstag?\")\r\nwhile True:\r\n    monat = input(\"Dein Tipp: \")\r\n    if monat == \"Dezember\":\r\n        print(\"Wow, richtig geraten!\")\r\n        break\r\n    else:\r\n        print(\"Leider falsch, versuch es noch einmal!\")\r\n```\r\n\r\nUnd schon sieht die Ausgabe viel interaktiver aus:\r\n\r\n```\r\nIn welchem Monat habe ich Geburtstag?\r\nDein Tipp: April\r\nLeider falsch, versuch es noch einmal!\r\nDein Tipp: Mai\r\nLeider falsch, versuch es noch einmal!\r\nDein Tipp: Dezember\r\nWow, richtig geraten!\r\n```\r\n\r\nGlückwunsch! Mit diesen wenigen Zeilen hast du bereits eine voll funktionsfähige Spiel-Logik erstellt. Willkommen in der Welt der Spieleentwicklung 🎮 es gibt noch viel zu entdecken!\r\n",
+    "image": "/story/arcade.jpg",
     "quests": [],
     "x": 880,
     "y": 2450
