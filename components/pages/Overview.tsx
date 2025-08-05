@@ -667,7 +667,7 @@ export function Overview() {
                     <div className="absolute top-[1670px] left-[690px] z-10">
                       <AnimateInView dontFade={numberOfSolvedQuestsPython > 0}>
                         <div
-                          className="bg-white/50 rounded-lg p-2 w-[410px] shadow-lg rainbow ranbow-always cursor-pointer"
+                          className="bg-white/50 rounded-lg p-2 w-[410px] shadow-lg rainbow ranbow-always cursor-pointer relative"
                           onClick={() => {
                             submitAnalyzeEvent(
                               core,
@@ -682,12 +682,15 @@ export function Overview() {
                           <p>
                             In den ruhigen Jahren in Jackson beschließt Ellie,
                             sich das Programmieren beizubringen. Keine einfache
-                            Sache! Zum Glück steht ihr Joel und das Dorf immer
+                            Sache! Zum Glück stehen ihr Joel und das Dorf immer
                             treu zur Seite. Begleite Ellie, wie sie die
                             Grundlagen von Python lernt, von Ein-/Ausgabe über
                             Variablen und Schleifen bis hin zu ihrem großen
                             Projekt.
                           </p>
+                          <div className="absolute -top-3 -right-3 bg-rose-500 text-white font-bold rounded-full px-2 text-sm">
+                            NEU
+                          </div>
                         </div>
                       </AnimateInView>
                     </div>
