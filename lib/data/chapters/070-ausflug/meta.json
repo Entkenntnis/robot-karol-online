@@ -1,8 +1,8 @@
 {
-  "title": "Ausflug",
+  "title": "Hörzu",
   "requiredCount": 2,
   "quests": [],
   "x": 730,
   "y": 2730,
-  "image": "/story/jackson.jpg"
+  "image": "/story/ausflug.jpg"
 }
