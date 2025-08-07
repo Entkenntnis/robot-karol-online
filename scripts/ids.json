@@ -26,7 +26,11 @@
     "060-arcade/a__Regenbogen_1.json": 123,
     "060-arcade/b__Regenbogen_2.json": 124,
     "060-arcade/c__Spaßvogel.json": 125,
-    "060-arcade/d__Dart__reloaded_.json": 126
+    "060-arcade/d__Dart__reloaded_.json": 126,
+    "070-ausflug/a__Meine_Sprache_1.json": 127,
+    "070-ausflug/b__Meine_Sprache_2.json": 128,
+    "070-ausflug/c__Schreiender_Papagei.json": 129,
+    "070-ausflug/d__Geometrie.json": 130
   },
-  "counter": 127
+  "counter": 131
 }

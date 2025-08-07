@@ -2536,21 +2536,261 @@ const chapterInfo = [
   },
   {
     "id": 10008,
-    "dirName": "070-TODO",
-    "title": "7. Superhelden",
-    "originalTitle": "Superhelden",
+    "dirName": "070-ausflug",
+    "title": "7. Hörzu",
+    "originalTitle": "Hörzu",
     "requiredCount": 2,
-    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
-    "image": "/story/jackson.jpg",
-    "quests": [],
+    "description": "# Hörzu\r\n\r\n_Joel und Ellie machen einen Ausflug, auf einer Lichtung im Wald machen sie Pause, in der Böschung sind Rehe zu sehen._\r\n\r\n**Joel**: Es ist schön, wieder rauszukommen.  \r\n**Ellie**: Was du nicht sagst. Jackson ist schön, aber manchmal auch etwas eng.  \r\n**Joel**: Hast du deswegen mit dem Programmieren angefangen?  \r\n**Ellie**: Es ist ... ein guter Zeitvertreib und ich kann mich bisschen nützlich machen. Man muss halt die Sprache lernen, ist wie ein Rätsel.  \r\n**Joel**: Die Sprache ... ach, ich weiß nicht. Da bin ich raus. Ich bleibe lieber bei meiner Sprache, der, die ich verstehe. Beim Bauen von Häusern, das ist mein Element. Bei mir heißt ein Hammer Hammer und ein Nagel Nagel.  \r\n**Ellie**: Ach was, du kannst mit `print` und `input` nicht so viel anfangen?  \r\n**Joel**: Nein, nicht wirklich. Warum heißen die Befehle auch so? Warum nicht `Hörzu` oder `Sprich`? Darunter kann ich mir mehr vorstellen.\r\n\r\n_Ein Reh ist mit ihrer Jungen unterwegs, sie grasen ganz friedlich und lassen sich von Joel und Ellie nicht stören._\r\n\r\n**Ellie**: Weißt du was? Du hast recht. Gute Namen sind wichtig. Das ist beim Programmieren sogar eine total große Sache. Du findest `print` also blöd?  \r\n**Joel**: Ja. Es klingt nicht nach dem, was es tut.  \r\n**Ellie**: Dann ändern wir das eben. Lass mich dir was zeigen, das wird dir gefallen. Und außerdem hilft es mir selbst, das besser zu verstehen.\r\n\r\n_Ellie holt ihr Notizbuch und einen Stift aus ihrem Rucksack._\r\n\r\n**Ellie**: Du kannst in Python deine eigenen Befehle bauen. Man nennt sie Funktionen. Stell es dir wie einen Bauplan vor. Du schreibst den Plan einmal auf und gibst ihm einen Namen, den du gut findest:\r\n\r\n```py\r\ndef Hörzu(sache):\r\n    print(sache)\r\n```\r\n\r\nDas `def` ist wie die Überschrift auf dem Bauplan. Es sagt Python: \"Achtung, hier kommt ein neuer Befehl.\" Und das in der Klammer, die `sache`, ist das Material, das der Bauplan braucht. Wenn jemand zuhören soll, musst du ja auch was sagen. Und dann kommt der Inhalt des Bauplans, in diesem Fall der `print`-Befehl.\r\n\r\nDas Ganze kann ich auch für `Sprich` machen:\r\n\r\n```py\r\ndef Sprich():\r\n    return input()\r\n```\r\n\r\n**Joel**: Das ist schon kompliziert, dieses `def` und `return` und die ganzen Klammern ...  \r\n**Ellie**: Nur beim ersten Mal, beim Erstellen des Bauplans! Aber sobald der Plan fertig ist, musst du ihn nie wieder ansehen. Danach kannst du so programmieren, wie du es für dich besser findest:\r\n\r\n```py\r\nHörzu(\"Kennst du schon den Konstrukto-Meter?\")\r\nSprich()\r\nHörzu(\"Ich erzähle es dir trotzdem! Also, ...\")\r\n```\r\n\r\n**Ellie**: Na, besser?  \r\n**Joel**: Wow, meine eigene Programmiersprache - das ist ziemlich mächtig.  \r\n**Ellie**: Was du nicht sagst!\r\n\r\n_Die Sonne geht am Horizont unter und taucht den Himmel in Abendrot._\r\n\r\n**Joel**: (beiläufig) Nur am Rande, aber wann habe ich dir denn vom Konstrukto-Meter erzählt?  \r\n**Ellie**: JEDER im Dorf kennt das mittlerweile, Joel!  \r\n**Joel**: (lacht leise) Haha, auch wahr.\r\n",
+    "image": "/story/ausflug.jpg",
+    "quests": [
+      {
+        "filename": "a__Meine_Sprache_1.json",
+        "x": 570,
+        "y": 40,
+        "id": 127,
+        "content": {
+          "version": "v1",
+          "title": "a) Meine Sprache 1",
+          "description": "Schreibe dein Programm, aber anstatt `print` und `input` , nutze meine eigene Sprache mit `blub` und `blab`.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Hallo!"
+                },
+                {
+                  "role": "in",
+                  "text": "Hi"
+                },
+                {
+                  "role": "out",
+                  "text": "Schön hier"
+                },
+                {
+                  "role": "out",
+                  "text": "Wirklich schön"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": "def blub(text):\n    print(text)\n\n\ndef blab():\n    return input()\n\n\n# TODO: nutze blub und blab\n"
+        },
+        "deps": [
+          10008
+        ]
+      },
+      {
+        "filename": "b__Meine_Sprache_2.json",
+        "x": 630,
+        "y": 180,
+        "id": 128,
+        "content": {
+          "version": "v1",
+          "title": "b) Meine Sprache 2",
+          "description": "Definiere jetzt eine Sprache mit push und pull. Nutze diese Zeilen:\n\n`def push(text):`\n\n`def pull():`\n\n`return input()`\n\n`print(text)`",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Lalala"
+                },
+                {
+                  "role": "out",
+                  "text": "Es ist ein sonniger Tag"
+                },
+                {
+                  "role": "in",
+                  "text": "Ja"
+                },
+                {
+                  "role": "out",
+                  "text": "Ich mag die Sonne, aber Regen ist auch toll."
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": "# TODO: definiere push und pull\n\n\n\n\n\n\n# Dieses Programm soll dann funktionieren:\npush(\"Lalala\")\npush(\"Es ist ein sonniger Tag\")\npull()\npush(\"Ich mag die Sonne, aber Regen ist auch toll.\")"
+        },
+        "deps": [
+          10008
+        ]
+      },
+      {
+        "filename": "c__Schreiender_Papagei.json",
+        "x": 810,
+        "y": 130,
+        "id": 129,
+        "content": {
+          "version": "v1",
+          "title": "c) Schreiender Papagei",
+          "description": "Programmiere nochmal den Papagei, nutze dafür die gegebene Funktion `schreien`.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sprich mit dem schreienden Papagei"
+                },
+                {
+                  "role": "in",
+                  "text": "Hallo"
+                },
+                {
+                  "role": "out",
+                  "text": "GR HALLO GR GR"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sprich mit dem schreienden Papagei"
+                },
+                {
+                  "role": "in",
+                  "text": "komm her"
+                },
+                {
+                  "role": "out",
+                  "text": "GR KOMM HER GR GR"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": "def schreien(text):\n    upper = text.upper()\n    print(f\"GR {upper} GR GR\")\n\n# TODO: Programmiere den Papagei"
+        },
+        "deps": [
+          10008
+        ]
+      },
+      {
+        "filename": "d__Geometrie.json",
+        "x": 930,
+        "y": 30,
+        "id": 130,
+        "content": {
+          "version": "v1",
+          "title": "d) Geometrie",
+          "description": "Implementiere die beiden Funktionen `umfang` und `fläche`.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Seite a:"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "Seite b:"
+                },
+                {
+                  "role": "in",
+                  "text": "8"
+                },
+                {
+                  "role": "out",
+                  "text": "Das Rechteck mit a=5 und b=8 hat Umfang 26 und Fläche 40."
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Seite a:"
+                },
+                {
+                  "role": "in",
+                  "text": "2"
+                },
+                {
+                  "role": "out",
+                  "text": "Seite b:"
+                },
+                {
+                  "role": "in",
+                  "text": "100"
+                },
+                {
+                  "role": "out",
+                  "text": "Das Rechteck mit a=2 und b=100 hat Umfang 204 und Fläche 200."
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Seite a:"
+                },
+                {
+                  "role": "in",
+                  "text": "7"
+                },
+                {
+                  "role": "out",
+                  "text": "Seite b:"
+                },
+                {
+                  "role": "in",
+                  "text": "6"
+                },
+                {
+                  "role": "out",
+                  "text": "Das Rechteck mit a=7 und b=6 hat Umfang 26 und Fläche 42."
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": "def umfang(a, b):\n    # TODO\n    return ...\n\ndef fläche(a, b):\n    # TODO\n    return ...\n\n# Dieser Code ist bereits fertig:\na = int(input(\"Seite a:\"))\nb = int(input(\"Seite b:\"))\nU = umfang(a, b)\nA = fläche(a, b)\nprint(f\"Das Rechteck mit a={a} und b={b} hat Umfang {U} und Fläche {A}.\")"
+        },
+        "deps": [
+          10008
+        ]
+      }
+    ],
     "x": 730,
     "y": 2730
   },
   {
     "id": 10009,
-    "dirName": "080-TODO",
-    "title": "8. Unwetter",
-    "originalTitle": "Unwetter",
+    "dirName": "080-patroullie",
+    "title": "8. Patroullie",
+    "originalTitle": "Patroullie",
     "requiredCount": 2,
     "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
     "image": "/story/jackson.jpg",
@@ -2560,9 +2800,9 @@ const chapterInfo = [
   },
   {
     "id": 10010,
-    "dirName": "090-TODO",
-    "title": "9. Neue Wege",
-    "originalTitle": "Neue Wege",
+    "dirName": "090-epilog",
+    "title": "9. Epilog",
+    "originalTitle": "Epilog",
     "requiredCount": 2,
     "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
     "image": "/story/jackson.jpg",

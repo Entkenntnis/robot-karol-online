@@ -1,0 +1,13 @@
+{
+  "title": "Hörzu",
+  "requiredCount": 2,
+  "quests": [
+    { "filename": "a__Meine_Sprache_1.json", "x": 570, "y": 40 },
+    { "filename": "b__Meine_Sprache_2.json", "x": 630, "y": 180 },
+    { "filename": "c__Schreiender_Papagei.json", "x": 810, "y": 130 },
+    { "filename": "d__Geometrie.json", "x": 930, "y": 30 }
+  ],
+  "x": 730,
+  "y": 2730,
+  "image": "/story/ausflug.jpg"
+}
