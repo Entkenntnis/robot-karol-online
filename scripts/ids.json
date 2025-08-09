@@ -30,7 +30,11 @@
     "070-ausflug/a__Meine_Sprache_1.json": 127,
     "070-ausflug/b__Meine_Sprache_2.json": 128,
     "070-ausflug/c__Schreiender_Papagei.json": 129,
-    "070-ausflug/d__Geometrie.json": 130
+    "070-ausflug/d__Geometrie.json": 130,
+    "080-neue-wege/a__Patroullie_1.json": 131,
+    "080-neue-wege/b__Patroullie_2.json": 132,
+    "080-neue-wege/c__Patroullie_3.json": 133,
+    "080-neue-wege/d__Fight_or_Flight.json": 134
   },
-  "counter": 131
+  "counter": 135
 }

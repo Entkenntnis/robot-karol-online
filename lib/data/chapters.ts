@@ -2794,7 +2794,279 @@ const chapterInfo = [
     "requiredCount": 2,
     "description": "# Neue Wege\r\n\r\n_Maria und Ellie entwickeln gemeinsam ein Programm zur Überwachung der Patroullie, Maria beschreibt die Regeln und Ellie übersetzt sie in Code._\r\n\r\n**Ellie**: Kannst du bitte nochmal die Regeln wiederholen? Wir fragen also `temperatur` und `windstärke` ab, und dann?  \r\n**Maria**: Die Temperatur darf nicht zu sehr sinken. Wenn die Temperatur unter -15°C fällt, müssen wir die Patroullie abbrechen. Aber auch wenn der Wind stärker ist als 40 km/h, müssen alle zurückkommen. Kriegst du das hin?  \r\n**Ellie**: Natürlich, einfach wieder ein `or`:\r\n\r\n```py\r\ntemperatur = int(input(\"Temperatur(°C): \"))\r\nwindstärke = int(input(\"Windstärke(km/h): \"))\r\n\r\nif temperatur < -15 or windstärke > 40:\r\n    print(\"Wetterwarnung, Patroullie sofort abbrechen!\")\r\nelse:\r\n    print(\"Alles in Ordnung\")\r\n```\r\n\r\n**Ellie**: Und Voila. Wenn eine der Bedingungen - oder beide - erfüllt sind, dann bricht die Patroullie ab.  \r\n**Maria**: Lass mich mal testen:\r\n\r\n```\r\nTemperatur(°C): -10\r\nWindstärke(km/h): 45\r\nWetterwarnung, Patroullie sofort abbrechen!\r\n```\r\n\r\n**Ellie**: Siehst du, genauso wie du es willst.  \r\n**Maria**: Hm, aber das reicht nicht ... kannst du bitte noch eine Bedingung einfügen? Wenn die Temperatur unter -5°C **und** die Windstärke größer als 20 km/h ist, dann ist es schon gefährlich da draußen - dann kürzen wir die Patroullie ab.  \r\n**Ellie**: Okay, aber das ist dann hoffentlich die letzte Änderung für heute. `elif` und `and`, kein Problem:\r\n\r\n```py\r\ntemperatur = int(input(\"Temperatur(°C): \"))\r\nwindstärke = int(input(\"Windstärke(km/h): \"))\r\n\r\nif temperatur < -15 or windstärke > 40:\r\n    print(\"Wetterwarnung, Patroullie sofort abbrechen!\")\r\nelif temperatur < -5 and windstärke > 20:\r\n    print(\"Schlecht Wetter, Patroullie abkürzen!\")\r\nelse:\r\n    print(\"Alles in Ordnung\")\r\n```\r\n\r\n**Ellie**: Zufrieden?  \r\n**Maria**: Hm, ja ... fast. Mir ist gerade noch was eingefallen. Wir müssen noch den Nebel berücksichtigen ...  \r\n**Ellie**: (seufzt und fährt sich durch die Haare) Nicht schon wieder, Maria. Immer wenn ich denke, es ist fertig, kommt noch etwas dazu! Fuck, scheiße - wir sitzen hier seit zwei Stunden! Kannst du dir nicht VORHER die beschissenen Regeln überlegen!?\r\n\r\n_Maria schaut verdutzt, und als Ellie ihre Worte realisiert, läuft sie rot an. Sie steht auf und verlässt die Zentrale ohne Maria anzuschauen. Maria folgt ihr auf den Balkon, wo sie mit verschränkten Armen in die Ferne starrt._\r\n\r\n**Maria**: (lehnt sich neben sie ans Geländer) Hey, der Code funktioniert übrigends super. Wirklich.  \r\n**Ellie**: (leise, ohne sie anzusehen) Sorry für vorhin. Das war ... übertrieben.  \r\n**Maria**: Es ist nicht der Nebel, oder? Irgendwas beschäftigt dich schon länger.  \r\n**Ellie**: (zögert) Es ist halt ... ich sitze da drin und du diktierst mir Regeln. Es fühlt sich an, als wäre ich nur eine Übersetzungsmaschine. Als hätte das alles nichts mit mir zu tun. (sie macht eine kurze Pause) Ach, vergiss es. Ist kompliziert.  \r\n**Maria**: Nein, ich glaube, ich weiß, was du meinst. Manchmal, wenn ich die Dienstpläne mache, geht es mir ähnlich. Dann vergesse ich für einen Moment, dass ich da gerade meine Freunde in die Kälte schicke. Man verliert sich in der Organisation und spürt nichts mehr dabei.\r\n\r\n_Ellie wendet zum ersten Mal den Kopf und sieht Maria direkt an. Ihr harter Blick wird weicher._\r\n\r\n**Ellie**: Vielleicht. Ich habe nachgedacht ... ich will etwas Eigenes anfangen. Ein Projekt.  \r\n**Maria**: (lächelt vorsichtig) Fürs Dorf?  \r\n**Ellie**: Nein. (schüttelt den Kopf) Nur für mich. Ich ... ich kann noch nicht darüber reden. Aber es ist wichtig für mich. Und dafür bräuchte ich den Laptop für mich alleine.  \r\n**Maria**: Aber, Ellie .. das Programm für die Patroullie ist überlebenswichtig. Einen zweiten Laptop finden wir schon, aber wer programmiert ihn?  \r\n**Ellie**: Ich weiß. Deshalb dachte ich ... ich kann dir zeigen, wie du selbst die Nebel-Abfrage einbaust. Es ist nicht schwer und du verstehst das sicher schnell. Dann kannst du deine Regeln so oft ändern, wie du Lust drauf hast.\r\n\r\n_Maria blickt überrascht, sie denkt einen Moment nach, dann hellt sich ihr Gesicht auf._\r\n\r\n**Maria**: Haha, dann wären wir schon zu zweit?  \r\n**Ellie**: Zwei Programmiererinnen ...  \r\n**Maria**: ... retten die Welt!  \r\n**Ellie**: Huray!\r\n\r\n_Die beiden verbringen noch eine Weile auf dem Balkon und genießen die Aussicht auf die Berge, bevor sie sich wieder mit Python beschäftigen._\r\n",
     "image": "/story/patrol.jpg",
-    "quests": [],
+    "quests": [
+      {
+        "filename": "a__Patroullie_1.json",
+        "x": 200,
+        "y": -40,
+        "id": 131,
+        "content": {
+          "version": "v1",
+          "title": "a) Patroullie 1",
+          "description": "Die neue Version der Wetterwarnung fragt nach der Sichtweite und der Windstärke. Wenn die Sicht geringer ist als 100 Meter **oder** der Wind stärker als 35 km/h, dann gib eine Wetterwarnung aus.\n\nFülle Zeile 4 mit der Bedingung aus.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "1000"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "Alles gut"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "Wetterwarnung! Alle Teams zurück!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "500"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "out",
+                  "text": "Wetterwarnung! Alle Teams zurück!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 4",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "60"
+                },
+                {
+                  "role": "out",
+                  "text": "Wetterwarnung! Alle Teams zurück!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": "sicht = int(input(\"Sicht (m):\"))\nwind = int(input(\"Wind (km/h):\"))\n\nif ...:\n    print(\"Wetterwarnung! Alle Teams zurück!\")\nelse:\n    print(\"Alles gut\")"
+        },
+        "deps": [
+          10009
+        ]
+      },
+      {
+        "filename": "b__Patroullie_2.json",
+        "x": 360,
+        "y": -115,
+        "id": 132,
+        "content": {
+          "version": "v1",
+          "title": "b) Patroullie 2",
+          "description": "Wenn die Sicht geringer ist als 500 Meter **und** der Wind stärker ist als 25 km/h, dann werden die Routen verkürzt.\n\nErgänze Zeile 6 mit einer passenden Bedingung.",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "400"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "30"
+                },
+                {
+                  "role": "out",
+                  "text": "Gefahr! Heute nur kurze Route!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "5000"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "0"
+                },
+                {
+                  "role": "out",
+                  "text": "Alles gut"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "0"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "50"
+                },
+                {
+                  "role": "out",
+                  "text": "Wetterwarnung! Alle Teams zurück!"
+                }
+              ]
+            }
+          ],
+          "language": "python-pro",
+          "program": "sicht = int(input(\"Sicht (m):\"))\nwind = int(input(\"Wind (km/h):\"))\n\nif sicht < 100 or wind > 35:\n    print(\"Wetterwarnung! Alle Teams zurück!\")\nelif ...: \n    print(\"Gefahr! Heute nur kurze Route!\")\nelse:\n    print(\"Alles gut\")"
+        },
+        "deps": [
+          10009
+        ]
+      },
+      {
+        "filename": "c__Patroullie_3.json",
+        "x": 530,
+        "y": -40,
+        "id": 133,
+        "content": {
+          "version": "v1",
+          "title": "c) Patroullie 3",
+          "description": "TODO",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": []
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10009
+        ]
+      },
+      {
+        "filename": "d__Fight_or_Flight.json",
+        "x": 420,
+        "y": 134,
+        "id": 134,
+        "content": {
+          "version": "v1",
+          "title": "d) Fight or Flight",
+          "description": "",
+          "tasks": [],
+          "lng": "de",
+          "editOptions": "python-pro-only",
+          "questScript": "",
+          "chats": [
+            {
+              "title": "Chat 1",
+              "messages": []
+            }
+          ],
+          "language": "python-pro",
+          "program": ""
+        },
+        "deps": [
+          10009
+        ]
+      }
+    ],
     "x": 380,
     "y": 2570
   },

@@ -1,0 +1,12 @@
+{
+  "version": "v1",
+  "title": "c) Patroullie 3",
+  "description": "TODO",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [{ "title": "Chat 1", "messages": [] }],
+  "language": "python-pro",
+  "program": ""
+}
