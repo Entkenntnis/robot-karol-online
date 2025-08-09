@@ -243,7 +243,10 @@ export function FlyoutMenu() {
               </button>
             </p>
           )}
-        {core.ws.quest.id > 0 && core.ws.editor.questScript && (
+        {((core.ws.quest.id > 0 && core.ws.editor.questScript) ||
+          (core.ws.quest.id > 100 &&
+            questData[core.ws.quest.id].script &&
+            questData[core.ws.quest.id].script!.program.length > 0)) && (
           <p className="px-2 pt-4">
             <button
               className="px-2 py-0.5 hover:bg-red-100 rounded"
