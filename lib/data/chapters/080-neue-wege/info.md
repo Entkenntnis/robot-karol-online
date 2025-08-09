@@ -49,19 +49,19 @@ _Maria schaut verdutzt, und als Ellie ihre Worte realisiert, läuft sie rot an. 
 
 **Maria**: (lehnt sich neben sie ans Geländer) Hey, der Code funktioniert übrigends super. Wirklich.  
 **Ellie**: (leise, ohne sie anzusehen) Sorry für vorhin. Das war ... übertrieben.  
-**Maria**: Es ist nicht nur der Nebel, oder? Irgendwas beschäftigt schon länger.  
-**Ellie**: (zögert) Es ist nur ... ich sitze da drin und du diktierst mir Regeln. Es fühlt sich an, als wäre ich nur eine Übersetzungsmaschine. Als hätte das alles nichts mit mir zu tun. (sie macht eine kurze Pause) Ach, vergiss es. Ist kompliziert.  
+**Maria**: Es ist nicht der Nebel, oder? Irgendwas beschäftigt dich schon länger.  
+**Ellie**: (zögert) Es ist halt ... ich sitze da drin und du diktierst mir Regeln. Es fühlt sich an, als wäre ich nur eine Übersetzungsmaschine. Als hätte das alles nichts mit mir zu tun. (sie macht eine kurze Pause) Ach, vergiss es. Ist kompliziert.  
 **Maria**: Nein, ich glaube, ich weiß, was du meinst. Manchmal, wenn ich die Dienstpläne mache, geht es mir ähnlich. Dann vergesse ich für einen Moment, dass ich da gerade meine Freunde in die Kälte schicke. Man verliert sich in der Organisation und spürt nichts mehr dabei.
 
 _Ellie wendet zum ersten Mal den Kopf und sieht Maria direkt an. Ihr harter Blick wird weicher._
 
-**Ellie**: Vielleicht. Ich habe nachgedacht .. ich will etwas Eigenes anfangen. Ein Projekt.  
+**Ellie**: Vielleicht. Ich habe nachgedacht ... ich will etwas Eigenes anfangen. Ein Projekt.  
 **Maria**: (lächelt vorsichtig) Fürs Dorf?  
 **Ellie**: Nein. (schüttelt den Kopf) Nur für mich. Ich ... ich kann noch nicht darüber reden. Aber es ist wichtig für mich. Und dafür bräuchte ich den Laptop für mich alleine.  
 **Maria**: Aber, Ellie .. das Programm für die Patroullie ist überlebenswichtig. Einen zweiten Laptop finden wir schon, aber wer programmiert ihn?  
 **Ellie**: Ich weiß. Deshalb dachte ich ... ich kann dir zeigen, wie du selbst die Nebel-Abfrage einbaust. Es ist nicht schwer und du verstehst das sicher schnell. Dann kannst du deine Regeln so oft ändern, wie du Lust drauf hast.
 
-_Maria blickt überrascht, Sie denkt einen Moment nach, dann hellt sich ihr Gesicht auf._
+_Maria blickt überrascht, sie denkt einen Moment nach, dann hellt sich ihr Gesicht auf._
 
 **Maria**: Haha, dann wären wir schon zu zweit?  
 **Ellie**: Zwei Programmiererinnen ...  
