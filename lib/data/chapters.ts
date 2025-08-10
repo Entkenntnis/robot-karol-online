@@ -3022,7 +3022,7 @@ const chapterInfo = [
         "content": {
           "version": "v1",
           "title": "c) Patroullie 3",
-          "description": "TODO",
+          "description": "Und jetzt alles zusammen!\n\n- Die Wetterwarnung gilt auch, wenn die Temperatur unter -20°C fällt (unabhängig von den anderen Werten)\n- Eine kurze Route gilt auch, wenn die Temperatur unter -10°C fällt und der Wind stärker ist als 20 km/h. Nutze eine neue `elif` oder mische `and` und `or`.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
@@ -3030,33 +3030,257 @@ const chapterInfo = [
           "chats": [
             {
               "title": "Chat 1",
-              "messages": []
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "1000"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "15"
+                },
+                {
+                  "role": "out",
+                  "text": "Temperatur (°C):"
+                },
+                {
+                  "role": "in",
+                  "text": "-25"
+                },
+                {
+                  "role": "out",
+                  "text": "Wetterwarnung! Alle Teams zurück!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "2000"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "22"
+                },
+                {
+                  "role": "out",
+                  "text": "Temperatur (°C):"
+                },
+                {
+                  "role": "in",
+                  "text": "-13"
+                },
+                {
+                  "role": "out",
+                  "text": "Gefahr! Heute nur kurze Route!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "400"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "30"
+                },
+                {
+                  "role": "out",
+                  "text": "Temperatur (°C):"
+                },
+                {
+                  "role": "in",
+                  "text": "0"
+                },
+                {
+                  "role": "out",
+                  "text": "Gefahr! Heute nur kurze Route!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 4",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Sicht (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "2000"
+                },
+                {
+                  "role": "out",
+                  "text": "Wind (km/h):"
+                },
+                {
+                  "role": "in",
+                  "text": "4"
+                },
+                {
+                  "role": "out",
+                  "text": "Temperatur (°C):"
+                },
+                {
+                  "role": "in",
+                  "text": "13"
+                },
+                {
+                  "role": "out",
+                  "text": "Alles gut"
+                }
+              ]
             }
           ],
           "language": "python-pro",
-          "program": ""
+          "program": "sicht = int(input(\"Sicht (m):\"))\nwind = int(input(\"Wind (km/h):\"))\ntemperatur = int(input(\"Temperatur (°C):\"))\n\nif sicht < 100 or wind > 35:\n    print(\"Wetterwarnung! Alle Teams zurück!\")\nelif sicht < 500 and wind > 25: \n    print(\"Gefahr! Heute nur kurze Route!\")\nelse:\n    print(\"Alles gut\")"
         },
         "deps": [
           10009
         ]
       },
       {
-        "filename": "d__Fight_or_Flight.json",
+        "filename": "d__Begegnung.json",
         "x": 420,
         "y": 134,
         "id": 134,
         "content": {
           "version": "v1",
-          "title": "d) Fight or Flight",
-          "description": "",
+          "title": "d) Begegnung",
+          "description": "Für Begegnungen mit Infizierten gibt es klare Regeln. Deine Reaktion hängt von der Anzahl der Gegner und ihrer Entfernung ab.\n\n**Regel:** Wenn mehr als 5 Infizierte da sind **oder** die Gruppe näher als 10 Meter ist, musst du fliehen. Ansonsten stellst du dich dem Kampf.\n\nFrage die Werte ab und schreibe eine `if`-Abfrage.",
           "tasks": [],
           "lng": "de",
           "editOptions": "python-pro-only",
           "questScript": "",
           "chats": [
             {
-              "title": "Chat 1",
-              "messages": []
+              "title": "Chat 1: Zu viele",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Anzahl Infizierte:"
+                },
+                {
+                  "role": "in",
+                  "text": "8"
+                },
+                {
+                  "role": "out",
+                  "text": "Entfernung (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "20"
+                },
+                {
+                  "role": "out",
+                  "text": "Rennen!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 2: Zu nah",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Anzahl Infizierte:"
+                },
+                {
+                  "role": "in",
+                  "text": "2"
+                },
+                {
+                  "role": "out",
+                  "text": "Entfernung (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "Rennen!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 3: Kampf",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Anzahl Infizierte:"
+                },
+                {
+                  "role": "in",
+                  "text": "3"
+                },
+                {
+                  "role": "out",
+                  "text": "Entfernung (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "15"
+                },
+                {
+                  "role": "out",
+                  "text": "Kämpfen!"
+                }
+              ]
+            },
+            {
+              "title": "Chat 4: Grenzfall",
+              "messages": [
+                {
+                  "role": "out",
+                  "text": "Anzahl Infizierte:"
+                },
+                {
+                  "role": "in",
+                  "text": "5"
+                },
+                {
+                  "role": "out",
+                  "text": "Entfernung (m):"
+                },
+                {
+                  "role": "in",
+                  "text": "10"
+                },
+                {
+                  "role": "out",
+                  "text": "Kämpfen!"
+                }
+              ]
             }
           ],
           "language": "python-pro",

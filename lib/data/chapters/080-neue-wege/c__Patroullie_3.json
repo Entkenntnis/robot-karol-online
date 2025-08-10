@@ -1,12 +1,61 @@
 {
   "version": "v1",
   "title": "c) Patroullie 3",
-  "description": "TODO",
+  "description": "Und jetzt alles zusammen!\n\n- Die Wetterwarnung gilt auch, wenn die Temperatur unter -20°C fällt (unabhängig von den anderen Werten)\n- Eine kurze Route gilt auch, wenn die Temperatur unter -10°C fällt und der Wind stärker ist als 20 km/h. Nutze eine neue `elif` oder mische `and` und `or`.",
   "tasks": [],
   "lng": "de",
   "editOptions": "python-pro-only",
   "questScript": "",
-  "chats": [{ "title": "Chat 1", "messages": [] }],
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Sicht (m):" },
+        { "role": "in", "text": "1000" },
+        { "role": "out", "text": "Wind (km/h):" },
+        { "role": "in", "text": "15" },
+        { "role": "out", "text": "Temperatur (°C):" },
+        { "role": "in", "text": "-25" },
+        { "role": "out", "text": "Wetterwarnung! Alle Teams zurück!" }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Sicht (m):" },
+        { "role": "in", "text": "2000" },
+        { "role": "out", "text": "Wind (km/h):" },
+        { "role": "in", "text": "22" },
+        { "role": "out", "text": "Temperatur (°C):" },
+        { "role": "in", "text": "-13" },
+        { "role": "out", "text": "Gefahr! Heute nur kurze Route!" }
+      ]
+    },
+    {
+      "title": "Chat 3",
+      "messages": [
+        { "role": "out", "text": "Sicht (m):" },
+        { "role": "in", "text": "400" },
+        { "role": "out", "text": "Wind (km/h):" },
+        { "role": "in", "text": "30" },
+        { "role": "out", "text": "Temperatur (°C):" },
+        { "role": "in", "text": "0" },
+        { "role": "out", "text": "Gefahr! Heute nur kurze Route!" }
+      ]
+    },
+    {
+      "title": "Chat 4",
+      "messages": [
+        { "role": "out", "text": "Sicht (m):" },
+        { "role": "in", "text": "2000" },
+        { "role": "out", "text": "Wind (km/h):" },
+        { "role": "in", "text": "4" },
+        { "role": "out", "text": "Temperatur (°C):" },
+        { "role": "in", "text": "13" },
+        { "role": "out", "text": "Alles gut" }
+      ]
+    }
+  ],
   "language": "python-pro",
-  "program": ""
+  "program": "sicht = int(input(\"Sicht (m):\"))\nwind = int(input(\"Wind (km/h):\"))\ntemperatur = int(input(\"Temperatur (°C):\"))\n\nif sicht < 100 or wind > 35:\n    print(\"Wetterwarnung! Alle Teams zurück!\")\nelif sicht < 500 and wind > 25: \n    print(\"Gefahr! Heute nur kurze Route!\")\nelse:\n    print(\"Alles gut\")"
 }

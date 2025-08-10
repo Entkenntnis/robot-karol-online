@@ -1,0 +1,53 @@
+{
+  "version": "v1",
+  "title": "d) Begegnung",
+  "description": "Für Begegnungen mit Infizierten gibt es klare Regeln. Deine Reaktion hängt von der Anzahl der Gegner und ihrer Entfernung ab.\n\n**Regel:** Wenn mehr als 5 Infizierte da sind **oder** die Gruppe näher als 10 Meter ist, musst du fliehen. Ansonsten stellst du dich dem Kampf.\n\nFrage die Werte ab und schreibe eine `if`-Abfrage.",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1: Zu viele",
+      "messages": [
+        { "role": "out", "text": "Anzahl Infizierte:" },
+        { "role": "in", "text": "8" },
+        { "role": "out", "text": "Entfernung (m):" },
+        { "role": "in", "text": "20" },
+        { "role": "out", "text": "Rennen!" }
+      ]
+    },
+    {
+      "title": "Chat 2: Zu nah",
+      "messages": [
+        { "role": "out", "text": "Anzahl Infizierte:" },
+        { "role": "in", "text": "2" },
+        { "role": "out", "text": "Entfernung (m):" },
+        { "role": "in", "text": "5" },
+        { "role": "out", "text": "Rennen!" }
+      ]
+    },
+    {
+      "title": "Chat 3: Kampf",
+      "messages": [
+        { "role": "out", "text": "Anzahl Infizierte:" },
+        { "role": "in", "text": "3" },
+        { "role": "out", "text": "Entfernung (m):" },
+        { "role": "in", "text": "15" },
+        { "role": "out", "text": "Kämpfen!" }
+      ]
+    },
+    {
+      "title": "Chat 4: Grenzfall",
+      "messages": [
+        { "role": "out", "text": "Anzahl Infizierte:" },
+        { "role": "in", "text": "5" },
+        { "role": "out", "text": "Entfernung (m):" },
+        { "role": "in", "text": "10" },
+        { "role": "out", "text": "Kämpfen!" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}
