@@ -79,11 +79,11 @@ export function ChatVisual() {
 
                   // Styles for "spill" bubble (also on the left)
                   core.ws.vm.chatVisualRole == 'spill' && [
-                    'bg-gray-200 rounded-bl-none',
+                    'bg-red-200 rounded-bl-none',
                     // The tail using the ::after pseudo-element
                     "after:content-[''] after:absolute after:bottom-0 after:left-[-8px]",
                     'after:w-0 after:h-0 after:border-solid after:border-[8px]',
-                    'after:border-transparent after:border-b-gray-200',
+                    'after:border-transparent after:border-b-red-200',
                   ]
                 )}
               >
@@ -101,10 +101,20 @@ export function ChatVisual() {
               </div>
               {core.ws.vm.chatvisualWarning == 'output-mismatch' && (
                 <div>
-                  <span className="text-gray-500">Deine Ausgabe</span> stimmt
-                  nicht mit der{' '}
-                  <span className="text-cyan-500">erwarteten Ausgabe</span>{' '}
-                  überein.
+                  <div>
+                    Deine Ausgabe stimmt nicht mit der erwarteten Ausgabe{' '}
+                    überein:
+                  </div>
+                  <div className="font-bold text-red-500 font-mono mt-2">
+                    - {core.ws.vm.chatVisualText}
+                  </div>
+                  <div className="font-bold text-green-500 font-mono">
+                    +{' '}
+                    {
+                      core.ws.quest.chats[core.ws.vm.chatCursor!.chatIndex]
+                        .messages[core.ws.vm.chatCursor!.msgIndex].text
+                    }
+                  </div>
                 </div>
               )}
               {core.ws.vm.chatvisualWarning == 'missing-input' && (

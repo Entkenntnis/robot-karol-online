@@ -1,0 +1,13 @@
+{
+  "title": "Neue Wege",
+  "requiredCount": 2,
+  "quests": [
+    { "filename": "a__Patroullie_1.json", "x": 200, "y": -40 },
+    { "filename": "b__Patroullie_2.json", "x": 360, "y": -115 },
+    { "filename": "c__Patroullie_3.json", "x": 530, "y": -40 },
+    { "filename": "d__Begegnung.json", "x": 420, "y": 134 }
+  ],
+  "x": 380,
+  "y": 2570,
+  "image": "/story/patrol.jpg"
+}
