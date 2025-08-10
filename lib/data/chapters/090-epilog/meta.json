@@ -1,8 +1,8 @@
 {
   "title": "Epilog",
-  "requiredCount": 2,
+  "requiredCount": -1,
   "quests": [],
   "x": 180,
   "y": 2850,
-  "image": "/story/jackson.jpg"
+  "image": "/story/stage.jpg"
 }

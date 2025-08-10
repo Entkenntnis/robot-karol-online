@@ -1090,7 +1090,8 @@ export function Overview() {
 
                     isPerfect =
                       doneCount == idsInThisChapter.length &&
-                      doneCount > chapterData[id].requiredCount
+                      doneCount > chapterData[id].requiredCount &&
+                      doneCount > 0
                     if (isLatestChapter && isQuestDone(id)) {
                       const percentage =
                         100 *

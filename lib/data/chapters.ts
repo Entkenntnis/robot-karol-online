@@ -3299,9 +3299,9 @@ const chapterInfo = [
     "dirName": "090-epilog",
     "title": "9. Epilog",
     "originalTitle": "Epilog",
-    "requiredCount": 2,
-    "description": "Dieses Kapitel befindet sich im Aufbau und ist demnächst verfügbar.\r\n",
-    "image": "/story/jackson.jpg",
+    "requiredCount": -1,
+    "description": "# Epilog\r\n\r\nTODO\r\n\r\n~ ENDE ~\r\n",
+    "image": "/story/stage.jpg",
     "quests": [],
     "x": 180,
     "y": 2850
