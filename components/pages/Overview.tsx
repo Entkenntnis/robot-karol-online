@@ -304,6 +304,27 @@ export function Overview() {
                     />{' '}
                     {core.strings.overview.load}
                   </button>
+                </li>{' '}
+                <li>
+                  <button
+                    onClick={() => {
+                      submitAnalyzeEvent(core, 'ev_click_landing_promotePython')
+                      try {
+                        document
+                          .getElementById('python-listing-button')
+                          ?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                          })
+                      } catch (e) {}
+                    }}
+                  >
+                    <img
+                      src={'/python-logo-only.png'}
+                      className="w-4 inline-block mr-1"
+                    />{' '}
+                    Python-Lernpfad
+                  </button>
                 </li>
                 <li>
                   <a
@@ -698,6 +719,7 @@ export function Overview() {
                 <div className="absolute top-[1730px] left-[90px] z-10">
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <button
+                      id="python-listing-button"
                       className="px-2 py-0.5 bg-white/30 rounded hover:bg-white/50"
                       onClick={() => {
                         submitAnalyzeEvent(

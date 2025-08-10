@@ -1,6 +1,6 @@
 # Kindergarten
 
-_Einige Erzieher sich erkältet, so dass Maria und Ellie heute im Kindergarten aushelfen._
+_Einige Erzieher haben sich erkältet, so dass Maria und Ellie heute im Kindergarten aushelfen._
 
 **Ellie**: Benji, Vanessa, hört auf euch zu streiten! Jeder darf mal mit dem Holz-Dino spielen! (zu Maria gewandt) Wie kannst du so ruhig bleiben?  
 **Maria**: Na, Geduld war nie deine Stärke, Ellie, nicht wahr? Manchmal muss man sie einfach machen lassen. Ihre Welt ist zum Glück noch so klein.  
