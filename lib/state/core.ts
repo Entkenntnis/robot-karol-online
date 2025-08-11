@@ -11,7 +11,13 @@ import {
 import { produce, Draft } from 'immer'
 import { EditorView } from '@codemirror/view'
 
-import { CoreRefs, CoreState, PyodideWorker, WorkspaceState } from './types'
+import {
+  ChatVm,
+  CoreRefs,
+  CoreState,
+  PyodideWorker,
+  WorkspaceState,
+} from './types'
 import { createDefaultCoreState } from './create'
 import { deStrings } from '../strings/de'
 import { enStrings } from '../strings/en'
@@ -52,6 +58,15 @@ export class Core {
   view?: RefObject<EditorView | undefined>
 
   instruments: Map<number, Instrument<any>> = new Map()
+
+  chatVm: ChatVm = {
+    nonce: 77,
+    lastOutput: null,
+    nextInput: '',
+    syncArray: null,
+    endOfExecution: false,
+    lastMarkedLine: -1,
+  }
 
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,

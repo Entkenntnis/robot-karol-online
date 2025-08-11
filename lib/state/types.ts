@@ -105,6 +105,17 @@ export interface Vm {
   inspector: string
 }
 
+export interface ChatVm {
+  // Mirrors module-level state in lib/commands/chat.ts
+  // Used to type internal chat runner state if/when stored in VM
+  nonce: number
+  lastOutput: string | null
+  nextInput: string
+  syncArray: Int32Array | null
+  endOfExecution: boolean
+  lastMarkedLine: number
+}
+
 export interface Settings {
   mode: 'code' | 'blocks'
   language: 'robot karol' | 'java' | 'python-pro'

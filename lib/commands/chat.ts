@@ -1,29 +1,20 @@
 import { setExecutionMarker } from '../codemirror/basicSetup'
-import { is } from '../codemirror/pythonParser/parser.terms'
 import { Core } from '../state/core'
 import { showModal } from './modal'
 
-let nonce = 77
-
-let lastOutput: string | null = null
-let nextInput = ''
-let syncArray: Int32Array | null = null
-let endOfExecution = false
-let lastMarkedLine = -1
-
 export async function startChatRunner(core: Core) {
   console.log('startChatRunner called')
-  const myNonce = nonce
-  lastOutput = null
-  nextInput = ''
-  lastMarkedLine = -1
-  syncArray = null
+  const myNonce = core.chatVm.nonce
+  core.chatVm.lastOutput = null
+  core.chatVm.nextInput = ''
+  core.chatVm.lastMarkedLine = -1
+  core.chatVm.syncArray = null
   const generator = runnerGenerator(core)
   let n = generator.next()
   while (n.done === false) {
     await n.value
-    console.log('check for nounce', nonce, myNonce)
-    if (nonce !== myNonce) {
+    console.log('check for nounce', core.chatVm.nonce, myNonce)
+    if (core.chatVm.nonce !== myNonce) {
       console.log('Chat runner stopped due to new start request')
       return
     }
@@ -32,13 +23,13 @@ export async function startChatRunner(core: Core) {
 }
 
 export function stopChatRunner(core: Core) {
-  nonce++
+  core.chatVm.nonce++
   core.mutateWs((ws) => {
     ws.ui.state = 'ready'
     ws.vm.chatCursor = undefined
   })
   setExecutionMarker(core, -1)
-  lastMarkedLine = -1
+  core.chatVm.lastMarkedLine = -1
 }
 
 export function chatOutput(
@@ -48,10 +39,10 @@ export function chatOutput(
   line: number
 ) {
   console.log('Chat output:', text)
-  lastOutput = text
-  syncArray = sync
+  core.chatVm.lastOutput = text
+  core.chatVm.syncArray = sync
   setExecutionMarker(core, line, 'chat')
-  lastMarkedLine = line
+  core.chatVm.lastMarkedLine = line
 }
 
 export function chatInput(
@@ -62,12 +53,12 @@ export function chatInput(
   line: number
 ) {
   // highlight line, update meta data, store input and set sync
-  if (!nextInput) {
+  if (!core.chatVm.nextInput) {
     meta[0] = 1
     sync[0] = 1
     Atomics.notify(sync, 0) // notify worker
   } else {
-    const encoded = new TextEncoder().encode(nextInput)
+    const encoded = new TextEncoder().encode(core.chatVm.nextInput)
     if (encoded.length > data.length) {
       alert('Input too long')
       return
@@ -77,9 +68,9 @@ export function chatInput(
     sync[0] = 1
   }
   setExecutionMarker(core, line, 'chat')
-  lastMarkedLine = line
-  syncArray = sync
-  nextInput = ''
+  core.chatVm.lastMarkedLine = line
+  core.chatVm.syncArray = sync
+  core.chatVm.nextInput = ''
 }
 
 export function chatError(core: Core, message: string) {
@@ -107,11 +98,11 @@ export function chatError(core: Core, message: string) {
     const line = parseInt(match[1])
     setExecutionMarker(core, line, isMissingInput ? 'debugging' : 'error')
   }
-  nonce++
+  core.chatVm.nonce++
 }
 
 export function chatDone(core: Core) {
-  endOfExecution = true
+  core.chatVm.endOfExecution = true
 }
 
 function* runnerGenerator(core: Core) {
@@ -134,7 +125,7 @@ function* runnerGenerator(core: Core) {
   setExecutionMarker(core, -1)
 
   for (let chat = 0; chat < core.ws.quest.chats.length; chat++) {
-    endOfExecution = false
+    core.chatVm.endOfExecution = false
     core.mutateWs((ws) => {
       ws.vm.chatCursor = { chatIndex: chat, msgIndex: 0, mode: 'play' }
       ws.vm.inspector = ''
@@ -153,7 +144,7 @@ function* runnerGenerator(core: Core) {
         }: ${expected.text}`
       )
       if (expected.role == 'in') {
-        nextInput = expected.text
+        core.chatVm.nextInput = expected.text
       }
 
       // yield wait(500)
@@ -166,18 +157,18 @@ function* runnerGenerator(core: Core) {
         })
         yield wait(500) // wait for worker to start
       } else {
-        if (syncArray) {
-          Atomics.store(syncArray, 0, 1) // unblock worker
-          Atomics.notify(syncArray, 0) // notify worker
-          syncArray = null // reset syncArray
+        if (core.chatVm.syncArray) {
+          Atomics.store(core.chatVm.syncArray, 0, 1) // unblock worker
+          Atomics.notify(core.chatVm.syncArray, 0) // notify worker
+          core.chatVm.syncArray = null // reset syncArray
         }
       }
       if (expected.role == 'out') {
-        while (lastOutput === null) {
-          console.log('Waiting for output... ', lastOutput)
+        while (core.chatVm.lastOutput === null) {
+          console.log('Waiting for output... ', core.chatVm.lastOutput)
           // wait for output
           yield wait(20)
-          if (endOfExecution) {
+          if (core.chatVm.endOfExecution) {
             // TODO: end of execution, waiting for output
             // unexpected end of execution
             console.warn('End of execution reached, but output expected')
@@ -193,8 +184,8 @@ function* runnerGenerator(core: Core) {
           // input here is impossible, because we will through exception instead
         }
         console.log('output captured')
-        if (lastOutput.trim() == expected.text.trim()) {
-          lastOutput = null // reset output
+        if (core.chatVm.lastOutput.trim() == expected.text.trim()) {
+          core.chatVm.lastOutput = null // reset output
           core.mutateWs((ws) => {
             ws.vm.chatCursor!.msgIndex++
           })
@@ -216,29 +207,29 @@ function* runnerGenerator(core: Core) {
           // input
           // TODO: mismatch
           console.warn(
-            `Output mismatch: expected "${expected.text}", got "${lastOutput}"`
+            `Output mismatch: expected "${expected.text}", got "${core.chatVm.lastOutput}"`
           )
           core.mutateWs((ws) => {
             ws.vm.chatCursor!.mode = 'warn'
             ws.vm.chatvisualWarning = 'output-mismatch'
-            ws.vm.chatVisualText = lastOutput!
+            ws.vm.chatVisualText = core.chatVm.lastOutput!
             ws.vm.chatVisualRole = 'spill'
           })
           core.worker.reset()
           core.mutateWs((ws) => {
             ws.ui.state = 'ready'
           })
-          setExecutionMarker(core, lastMarkedLine, 'debugging')
+          setExecutionMarker(core, core.chatVm.lastMarkedLine, 'debugging')
           return
           // END TODO
         }
       }
       if (expected.role == 'in') {
-        while (nextInput !== '') {
+        while (core.chatVm.nextInput !== '') {
           console.log('Waiting for input to be process')
           // wait for input
           yield wait(20)
-          if (endOfExecution || lastOutput !== null) {
+          if (core.chatVm.endOfExecution || core.chatVm.lastOutput !== null) {
             // unexpected end of execution
             console.warn('End of execution reached, but input expected')
             core.mutateWs((ws) => {
@@ -249,11 +240,11 @@ function* runnerGenerator(core: Core) {
             })
 
             console.log(
-              `set execution marker for line ${lastMarkedLine} ${lastOutput}`
+              `set execution marker for line ${core.chatVm.lastMarkedLine} ${core.chatVm.lastOutput}`
             )
-            if (lastOutput !== null) {
+            if (core.chatVm.lastOutput !== null) {
               core.worker.reset()
-              setExecutionMarker(core, lastMarkedLine, 'debugging')
+              setExecutionMarker(core, core.chatVm.lastMarkedLine, 'debugging')
             } else {
               setExecutionMarker(core, -1)
             }
@@ -284,23 +275,23 @@ function* runnerGenerator(core: Core) {
       }
     }
     // end of chat run, reset everything
-    if (syncArray) {
-      Atomics.store(syncArray, 0, 1) // unblock worker
-      Atomics.notify(syncArray, 0) // notify worker
-      syncArray = null // reset syncArray
+    if (core.chatVm.syncArray) {
+      Atomics.store(core.chatVm.syncArray, 0, 1) // unblock worker
+      Atomics.notify(core.chatVm.syncArray, 0) // notify worker
+      core.chatVm.syncArray = null // reset syncArray
     }
-    while (!endOfExecution) {
+    while (!core.chatVm.endOfExecution) {
       // wait for end of execution
       yield wait(20)
-      if (lastOutput !== null) {
+      if (core.chatVm.lastOutput !== null) {
         // unexpected output at the end of chat
         core.worker.reset()
-        setExecutionMarker(core, lastMarkedLine, 'debugging')
+        setExecutionMarker(core, core.chatVm.lastMarkedLine, 'debugging')
         core.mutateWs((ws) => {
           ws.ui.state = 'ready'
           ws.vm.chatCursor!.mode = 'warn'
           ws.vm.chatvisualWarning = 'no-output-here-at-end'
-          ws.vm.chatVisualText = lastOutput!
+          ws.vm.chatVisualText = core.chatVm.lastOutput!
           ws.vm.chatVisualRole = 'spill'
         })
         return
@@ -308,7 +299,7 @@ function* runnerGenerator(core: Core) {
     }
     console.log('Chat run finished')
     setExecutionMarker(core, -1)
-    lastMarkedLine = -1
+    core.chatVm.lastMarkedLine = -1
   }
 
   core.mutateWs((ws) => {
@@ -317,7 +308,7 @@ function* runnerGenerator(core: Core) {
 
   yield wait(500)
 
-  while (!endOfExecution) {
+  while (!core.chatVm.endOfExecution) {
     // wait for end of execution
     yield wait(20)
   }
