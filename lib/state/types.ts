@@ -1,3 +1,5 @@
+import type { pythonKarolExamples } from '../data/pythonExamples'
+
 export type Heading = 'north' | 'east' | 'south' | 'west'
 
 export interface World {
@@ -77,6 +79,7 @@ export interface Ui {
   tourModePage?: number
   isChatMode: boolean
   notCompletedReason: string
+  miniProjectsOpen: boolean
 }
 
 export interface Vm {
@@ -653,4 +656,11 @@ export interface OverviewMapData {
   deps: number[]
   dir?: Heading
   chapter?: number
+}
+
+export interface PythonProjectGroup {
+  title: string
+  color?: string
+  highlightColor?: string
+  tasks: (typeof pythonKarolExamples)[number][]
 }

@@ -62,6 +62,7 @@ export function createWorkspaceState(): WorkspaceState {
       editQuestScript: false,
       isChatMode: false,
       notCompletedReason: '',
+      miniProjectsOpen: false,
     },
     vm: {
       pc: 0,

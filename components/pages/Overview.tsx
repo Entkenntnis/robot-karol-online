@@ -6,13 +6,10 @@ import {
   faFolderOpen,
   faGlobe,
   faMedal,
-  faHeart,
   faPaintBrush,
   faPencil,
   faTable,
-  faArrowDown,
-  faTimes,
-  faPlay,
+  faUserCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect, useMemo } from 'react'
@@ -61,6 +58,8 @@ import {
 import { Reactions } from '../helper/Reactions'
 import { SpinningRobot } from '../helper/SpinningRobot'
 import { PersistNotice } from '../helper/PersistNotice'
+import { PythonMiniProjects } from '../helper/PythonMiniProjects'
+import { PythonProjectGroup } from '../../lib/state/types'
 
 export function Overview() {
   const core = useCore()
@@ -91,9 +90,14 @@ export function Overview() {
     (core.ws.page == 'demo' || core.ws.page == 'analyze'
       ? 250
       : !isQuestDone(10001)
-      ? 800
-      : 800)
+      ? 1000
+      : isQuestDone(10010)
+      ? 250
+      : 1000)
   // todo: if all quests are unlocked, I can reduce the spacing a bit, but I'm not at that point yet
+
+  const mapYAfterMiniProjects =
+    maxMapY + (core.ws.ui.miniProjectsOpen ? 880 : 200)
 
   useEffect(() => {
     if (
@@ -118,14 +122,8 @@ export function Overview() {
   }, [])
 
   const groupedExamples = useMemo(() => {
-    interface Group {
-      title: string
-      color?: string
-      highlightColor?: string
-      tasks: (typeof pythonKarolExamples)[number][]
-    }
-    const groups: Group[] = []
-    let currentGroup: Group | null = null
+    const groups: PythonProjectGroup[] = []
+    let currentGroup: PythonProjectGroup | null = null
 
     pythonKarolExamples
       .filter((e) => !e.hidden)
@@ -464,7 +462,9 @@ export function Overview() {
             !core.ws.overview.showProfile && (
               <div
                 className="w-[1240px] mx-auto relative mt-5"
-                style={{ height: `${maxMapY + 1300}px` }}
+                style={{
+                  height: `${mapYAfterMiniProjects + 300}px`,
+                }}
               >
                 <img
                   src="klecks1.png"
@@ -531,12 +531,12 @@ export function Overview() {
                       </AnimateInView>
                     </div>
                   )}
-                <div className="absolute top-[200px] left-[1000px] z-10">
+                <div className="absolute top-[200px] left-[1010px] z-10">
                   <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
                     <button
                       className={clsx(
                         'hover:bg-gray-100/60 rounded-xl',
-                        'w-[120px] cursor-pointer'
+                        'w-[100px] cursor-pointer'
                       )}
                       onClick={() => {
                         // open feedback form in new tab
@@ -552,6 +552,29 @@ export function Overview() {
                       <FaIcon
                         icon={faPaintBrush}
                         className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
+                      />
+                    </button>
+                  </AnimateInView>
+                </div>
+                <div className="absolute top-[300px] left-[1020px] z-10">
+                  <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
+                    <button
+                      className={clsx(
+                        'hover:bg-gray-100/60 rounded-xl',
+                        'w-[80px] cursor-pointer text-gray-700'
+                      )}
+                      onClick={() => {
+                        // open feedback form in new tab
+                        submitAnalyzeEvent(core, 'ev_click_landing_login')
+                        alert(
+                          'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.'
+                        )
+                      }}
+                    >
+                      <p className="text-center">(Login)</p>
+                      <FaIcon
+                        icon={faUserCircle}
+                        className="text-3xl text-gray-400 inline-block mt-2 pb-2"
                       />
                     </button>
                   </AnimateInView>
@@ -743,140 +766,13 @@ export function Overview() {
                     </button>
                   </AnimateInView>
                 </div>
-                {(() => {
-                  // =================== AI-GENERATED LAYOUT ===================
-                  // 1. Process the flat data into groups.
-                  // This logic should be inside your component, before the return statement.
-
-                  // 2. Render the new two-column layout
-                  return (
-                    <div
-                      className="absolute left-[200px] z-10"
-                      style={{ top: `${maxMapY + 100}px` }}
-                    >
-                      <div className="bg-white/20 rounded-lg p-4 shadow-lg w-[880px]">
-                        {/* Header remains the same */}
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <img
-                              src="/python-logo-only.png"
-                              alt="Python"
-                              className="h-9 mr-2"
-                            />
-                            <p className="font-bold mb-1 text-gray-500 text-lg">
-                              Bonus: Python Mini-Projekte
-                            </p>
-                          </div>
-                          <a
-                            className="link text-gray-600 text-sm"
-                            href="https://github.com/Entkenntnis/robot-karol-online/blob/main/RKO-MODULE.md"
-                            target="_blank"
-                            onClick={() => {
-                              submitAnalyzeEvent(
-                                core,
-                                'ev_click_landing_moduleDocs'
-                              )
-                            }}
-                          >
-                            <code>rko</code> Modul Dokumentation{' '}
-                            <FaIcon
-                              icon={faExternalLink}
-                              className="text-xs text-gray-600"
-                            />
-                          </a>
-                        </div>
-                        <p className="mb-3 mt-1 text-right hidden">
-                          {/* ... hidden link for teachers ... */}
-                        </p>
-
-                        {/* --- NEW TWO-COLUMN LAYOUT --- */}
-                        <div className="flex flex-col gap-y-3 mt-3">
-                          {groupedExamples.map((group) => (
-                            <div
-                              key={group.title}
-                              className="flex gap-x-6 items-start border-t border-gray-300/80 pt-3"
-                            >
-                              {/* Left Column: Category Title */}
-                              <div className="w-1/3 shrink-0 pt-2.5 pl-2">
-                                <h3
-                                  className={clsx(
-                                    'font-semibold text-left',
-                                    group.color
-                                  )}
-                                >
-                                  {group.title}
-                                </h3>
-                              </div>
-
-                              {/* Right Column: Task Buttons */}
-                              <div className="w-2/3 flex flex-wrap gap-2">
-                                {group.tasks.map((example) => (
-                                  <a
-                                    href={`/${example.link}`}
-                                    key={example.link} // Use a unique key like the link
-                                    className={clsx(
-                                      'p-2.5 rounded-md transition-all hover:shadow-md w-[162px] block cursor-pointer bg-white/50 hover:bg-white/70 border',
-                                      localStorage.getItem(
-                                        `robot_karol_online_shared_quest_${example.link
-                                          .substring(1)
-                                          .toLowerCase()}_program`
-                                      )
-                                        ? group.highlightColor // Simplified: Get color from the group
-                                        : 'border-transparent'
-                                    )}
-                                    onClick={(e) => {
-                                      submitAnalyzeEvent(
-                                        core,
-                                        `ev_click__landing_pythonExample_${getExampleId(
-                                          example.title
-                                        )}`
-                                      )
-                                      if (core.ws.ui.tourModePage == 4) {
-                                        core.mutateWs((ws) => {
-                                          ws.ui.tourModePage = undefined
-                                        })
-                                      }
-                                      setQuestReturnToMode(
-                                        core.ws.page == 'demo' ? 'demo' : 'path'
-                                      )
-                                      setLearningPathScroll(
-                                        document.getElementById(
-                                          'scroll-container'
-                                        )?.scrollTop ?? -1
-                                      )
-                                      e.preventDefault()
-                                      navigate(core, example.link)
-                                    }}
-                                  >
-                                    <span className="font-medium text-left">
-                                      {example.title}
-                                      {core.ws.page == 'analyze' && (
-                                        <span>
-                                          {' '}
-                                          [
-                                          {
-                                            core.ws.analyze.pythonKarol[
-                                              getExampleId(example.title)
-                                            ]?.count
-                                          }
-                                          ]
-                                        </span>
-                                      )}
-                                    </span>
-                                  </a>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        {/* --- END OF NEW LAYOUT --- */}
-                      </div>
-                    </div>
-                  )
-                })()}
+                <PythonMiniProjects
+                  maxMapY={maxMapY}
+                  groups={groupedExamples}
+                />
                 <div
                   className="absolute left-[301px] z-10"
-                  style={{ top: `${maxMapY + 1140}px` }}
+                  style={{ top: `${mapYAfterMiniProjects + 140}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <h2 className="text-lg bg-white/20 pl-2 pr-4 py-0.5 rounded-lg">
@@ -886,7 +782,7 @@ export function Overview() {
                 </div>
                 <div
                   className="absolute left-[598px] z-10 hidden"
-                  style={{ top: `${maxMapY + 1190}px` }}
+                  style={{ top: `${mapYAfterMiniProjects + 190}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <a
@@ -963,7 +859,7 @@ export function Overview() {
                 {core.ws.settings.lng == 'de' && (
                   <div
                     className="absolute left-[660px] z-10"
-                    style={{ top: `${maxMapY + 1200}px` }}
+                    style={{ top: `${mapYAfterMiniProjects + 200}px` }}
                   >
                     <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                       <button
@@ -987,7 +883,7 @@ export function Overview() {
                 )}
                 <div
                   className="absolute left-[400px] z-10"
-                  style={{ top: `${maxMapY + 1230}px` }}
+                  style={{ top: `${mapYAfterMiniProjects + 230}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                     <button
@@ -1012,7 +908,7 @@ export function Overview() {
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox={`0 0 1240 ${maxMapY + 1000}`}
+                  viewBox={`0 0 1240 ${mapYAfterMiniProjects + 300}`}
                   className="relative"
                 >
                   <defs>
