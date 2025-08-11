@@ -80,6 +80,21 @@ export function AnalyzeResults() {
     })
     .sort((a, b) => b.count - a.count) // Sort by play count descending
 
+  function ppStat(name: string) {
+    const data = core.ws.analyze.newEventStats.stats[name]
+    if (!data) return <>--</>
+    return (
+      <>
+        <strong>{data.sessions}</strong> (x
+        {data.average.toLocaleString('de-DE', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+        )
+      </>
+    )
+  }
+
   return (
     <div className="bg-white px-16 pb-8 mt-4">
       <p className="my-6">
@@ -113,6 +128,53 @@ export function AnalyzeResults() {
           ))}
         </tbody>
       </table>
+      <h2 className="mt-6 mb-4 text-lg">Landing-Page Heatmap</h2>
+      <p>Aufrufe: {ppStat('ev_show_hash_')}</p>
+      <p className="mt-2">Deutsch: {ppStat('ev_click_landing_german')}</p>
+      <p>Englisch: {ppStat('ev_click_landing_english')}</p>
+      <p>Spenden: {ppStat('ev_click_landing_donate')}</p>
+      <p className="mt-2">
+        Spielwiese: {ppStat('ev_click_landing_playground')}
+      </p>
+      <p>Editor: {ppStat('ev_click_landing_editor')}</p>
+      <p>-- Liste aller Aufgaben: {ppStat('ev_click_landing_listOfAll')}</p>
+      <p>
+        -- Fortschritt speichern: {ppStat('ev_click_landing_exportProgress')}
+      </p>
+      <p>-- Fortschritt laden: {ppStat('ev_click_landing_importProgress')}</p>
+      <p>-- Python-Lernpfad: {ppStat('ev_click_landing_promotePython')}</p>
+      <p>-- Profil: {ppStat('ev_click_landing_profile')}</p>
+      <p className="mt-2">Name gesetzt: {ppStat('set_name_*')}</p>
+      <p>^---- Schild: {ppStat('ev_click_landing_tourStart')}</p>
+      <p>Figur zeichnen: {ppStat('ev_click_landing_appearance')}</p>
+      <p>(Login): {ppStat('ev_click_landing_login')}</p>
+      <p className="mt-2">
+        Figuren-Galerie: {ppStat('ev_click_landing_robotGallery')}
+      </p>
+      <p>Aufgaben-Galerie: {ppStat('ev_click_landing_gallery')}</p>
+      <p>Karolmania: {ppStat('ev_click_landing_karolmania')}</p>
+      <p>Material für Lehrkräfte: {ppStat('ev_click_landing_material')}</p>
+      <p>Video-Erklärungen: {ppStat('ev_click_landing_video')}</p>
+      <p>Dokumentation: {ppStat('ev_click_landing_docs')}</p>
+      <p>Herz: {ppStat('ev_click_landing_spawnHeart')}</p>
+      <p>Dance, Dance: {ppStat('ev_click_landing_dancedance')}</p>
+      <p className="mt-2">
+        Alles ist scheiße:{' '}
+        <strong>{core.ws.analyze.chapters[10001].explanation}</strong>
+      </p>
+      <p>Python-Teaser: {ppStat('ev_click_landing_pythonIntro')}</p>
+      <p>Python-Übersicht: {ppStat('ev_click_landing_pythonListing')}</p>
+      <p className="mt-2">
+        Toggle Mini-Projekte: {ppStat('ev_click_landing_toggleMiniProjects')}
+      </p>
+      <p>rko-Dokumentation: {ppStat('ev_click_landing_moduleDocs')}</p>
+      <p className="mt-2">
+        Hack The Web: {ppStat('ev_click_landing_hacktheweb')}
+      </p>
+      <p>Einhorn der Mathematik: {ppStat('ev_click_landing_einhorn')}</p>
+      <p>Impressum: {ppStat('ev_click_landing_impressum')}</p>
+      <p>Datenschutz: {ppStat('ev_click_landing_privacy')}</p>
+      <p>Blog: {ppStat('ev_click_landing_blog')}</p>
       <h2 className="mt-6 mb-4 text-lg">Freigegebene Aufgaben</h2>
       {core.ws.analyze.published.map((entry, i) => (
         <span key={i} className="inline-block mr-6">

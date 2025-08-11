@@ -701,7 +701,7 @@ export function Overview() {
                         href="https://github.com/Entkenntnis/robot-karol-online#readme"
                         onClick={() => {
                           // open feedback form in new tab
-                          submitAnalyzeEvent(core, 'ev_click_landing_material')
+                          submitAnalyzeEvent(core, 'ev_click_landing_docs')
                         }}
                       >
                         {core.strings.overview.docs}{' '}

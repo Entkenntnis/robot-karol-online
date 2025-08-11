@@ -73,8 +73,9 @@ export function PersistNotice() {
             <FaIcon icon={faInfoCircle} className="text-gray-500 text-[20px]" />
           </div>
           <div className="text-sm leading-5 pr-8">
-            Wir speichern deinen Fortschritt automatisch auf diesem Gerät. Passe
-            die Einstellungen unter Selbst-Lern-Pfad &gt; Profil an.
+            Wir speichern deinen Fortschritt automatisch auf diesem Gerät.
+            <br />
+            Verwalte deine Daten unter Selbst-Lern-Pfad &gt; Profil.
           </div>
           <button
             type="button"
