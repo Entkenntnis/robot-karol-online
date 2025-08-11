@@ -12,6 +12,7 @@ import {
   getRobotImage,
   getKarolmaniaCarouselIndex,
   restoreEditorSnapshot,
+  getMiniProjectCollapsed,
 } from '../storage/storage'
 import { analyze, submitAnalyzeEvent } from './analyze'
 import { addNewTask } from './editor'
@@ -78,6 +79,7 @@ export async function hydrateFromHash(core: Core) {
     ws.overview.overviewScroll = getOverviewScroll()
     ws.overview.learningPathScroll = getLearningPathScroll()
     ws.quest.lockToKarolCode = getLockToKarolCode()
+    ws.ui.miniProjectsOpen = !getMiniProjectCollapsed()
   })
 
   /*if (previousWs.ui.tourModePage == 4) {

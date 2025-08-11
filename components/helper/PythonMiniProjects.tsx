@@ -10,6 +10,7 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { navigate } from '../../lib/commands/router'
 import {
   setLearningPathScroll,
+  setMiniProjectCollapsed,
   setQuestReturnToMode,
 } from '../../lib/storage/storage'
 import { getExampleId } from '../../lib/data/pythonExamples'
@@ -42,6 +43,11 @@ export function PythonMiniProjects({
               submitAnalyzeEvent(core, 'ev_click_landing_toggleMiniProjects')
               core.mutateWs((ws) => {
                 ws.ui.miniProjectsOpen = !ws.ui.miniProjectsOpen
+                if (ws.ui.miniProjectsOpen) {
+                  setMiniProjectCollapsed(false)
+                } else {
+                  setMiniProjectCollapsed(true)
+                }
               })
             }}
           >
