@@ -60,6 +60,7 @@ import {
 } from '../../lib/data/pythonExamples'
 import { Reactions } from '../helper/Reactions'
 import { SpinningRobot } from '../helper/SpinningRobot'
+import { PersistNotice } from '../helper/PersistNotice'
 
 export function Overview() {
   const core = useCore()
@@ -316,6 +317,15 @@ export function Overview() {
                             behavior: 'smooth',
                             block: 'center',
                           })
+                        // @ts-ignore
+                        document.activeElement?.blur()
+                        const dropdown = document.querySelector(
+                          '.dropdown.dropdown-hover'
+                        ) as HTMLDivElement
+                        dropdown.classList.remove('dropdown-hover')
+                        setTimeout(() => {
+                          dropdown.classList.add('dropdown-hover')
+                        }, 50)
                       } catch (e) {}
                     }}
                   >
@@ -1260,7 +1270,8 @@ export function Overview() {
             </button>
             {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
           </div>
-          {!isPersisted() &&
+          <PersistNotice />
+          {/*!isPersisted() &&
             numberOfSolvedQuests > 0 &&
             core.ws.overview.showSaveHint &&
             core.ws.page != 'analyze' && (
@@ -1308,7 +1319,7 @@ export function Overview() {
                   </button>
                 </div>
               </>
-            )}
+            )*/}
         </div>
       </div>
       {(core.ws.page == 'overview' || core.ws.page == 'demo') && (
