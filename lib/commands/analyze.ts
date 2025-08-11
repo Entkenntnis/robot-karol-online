@@ -50,6 +50,7 @@ export async function analyze(core: Core) {
 
   core.mutateWs((ws) => {
     ws.analyze.cutoff = cutoff.toLocaleString()
+    ws.ui.miniProjectsOpen = true
   })
 
   // pass 1: collect some basic information and build user data
