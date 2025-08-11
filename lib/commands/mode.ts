@@ -111,7 +111,7 @@ export function forceRerender(core: Core) {
 
 export function setPersist(core: Core, val: boolean) {
   if (val) {
-    submit_event('persist_progress', core)
+    //submit_event('persist_progress', core)
   }
   if (val) {
     copySessionToLocal()
