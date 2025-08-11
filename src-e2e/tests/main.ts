@@ -57,10 +57,6 @@ Scenario("Let's solve the first quests", ({ I }) => {
 
   I.wait(1)
 
-  I.click('Fortschritt speichern')
-  //I.click('OK')
-  I.refreshPage()
-  I.dontSee('Fortschritt speichern')
   I.see('Spiegelei')
 
   I.click('Treppe')
@@ -297,12 +293,6 @@ Scenario('Ellie, some testing', async ({ I }) => {
   I.click('Start')
   I.waitForText('weiter', 10)
   I.click('weiter')
-  const saveProgress = await I.grabNumberOfVisibleElements(
-    'Fortschritt speichern'
-  )
-  if (saveProgress > 0) {
-    I.click('Fortschritt speichern')
-  }
   I.click('#explanation-icon-10002')
   I.scrollPageToBottom()
   I.click('Weiter')
