@@ -1,5 +1,5 @@
 {
-  "title": "Glückbringer",
+  "title": "Glücksbringer",
   "requiredCount": 2,
   "quests": [
     { "filename": "a__Flachwitz.json", "x": 450, "y": 50 },
