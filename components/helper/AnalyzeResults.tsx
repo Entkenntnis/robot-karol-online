@@ -130,8 +130,7 @@ export function AnalyzeResults() {
       </table>
       <h2 className="mt-6 mb-4 text-lg">Landing-Page Heatmap</h2>
       <p>Aufrufe: {ppStat('ev_show_hash_')}</p>
-      <p className="mt-2">Deutsch: {ppStat('ev_click_landing_german')}</p>
-      <p>Englisch: {ppStat('ev_click_landing_english')}</p>
+      <p className="mt-2">(Login): {ppStat('ev_click_landing_login')}</p>
       <p>Spenden: {ppStat('ev_click_landing_donate')}</p>
       <p className="mt-2">
         Spielwiese: {ppStat('ev_click_landing_playground')}
@@ -147,7 +146,6 @@ export function AnalyzeResults() {
       <p className="mt-2">Name gesetzt: {ppStat('set_name_*')}</p>
       <p>^---- Schild: {ppStat('ev_click_landing_tourStart')}</p>
       <p>Figur zeichnen: {ppStat('ev_click_landing_appearance')}</p>
-      <p>(Login): {ppStat('ev_click_landing_login')}</p>
       <p className="mt-2">
         Figuren-Galerie: {ppStat('ev_click_landing_robotGallery')}
       </p>
@@ -156,6 +154,8 @@ export function AnalyzeResults() {
       <p>Material für Lehrkräfte: {ppStat('ev_click_landing_material')}</p>
       <p>Video-Erklärungen: {ppStat('ev_click_landing_video')}</p>
       <p>Dokumentation: {ppStat('ev_click_landing_docs')}</p>
+      <p>Englisch: {ppStat('ev_click_landing_english')}</p>
+      <p>Deutsch: {ppStat('ev_click_landing_german')}</p>
       <p>Herz: {ppStat('ev_click_landing_spawnHeart')}</p>
       <p>Dance, Dance: {ppStat('ev_click_landing_dancedance')}</p>
       <p className="mt-2">

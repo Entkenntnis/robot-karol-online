@@ -5,7 +5,7 @@ _Es ist ein sonniger Nachmittag. Joel schnitzt in seiner Werkstatt an einer klei
 **Joel**: Langer Gesichtsausdruck für einen freien Tag.  
 **Ellie**: Dieses Programmier-Ding, es ist so langweilig.  
 **Joel**: Langweilig? Dachte, du wärst voll dabei. Hast doch gestern Abend die erste Aufgabe gelöst.  
-**Ellie**: Ja schon, aber ... ich verstehe ja, was das Programm tut. Mit `print()` kann ich meinem Programm Dinge sagen lassen. Und mit `input()` kann mein Programm eine Frage stelle und auf die Antwort warten. Es ist wie eine Unterhaltung ... aber mit niemanden. Ich starre auf den Laptop, tippe was ein, und es erscheint wieder Text. Das fühlt sich so leer an!
+**Ellie**: Ja schon, aber ... ich verstehe ja, was das Programm tut. Mit `print("Text ...")` kann ich meinem Programm Dinge sagen lassen. Und mit `input()` kann mein Programm eine Frage stelle und auf die Antwort warten. Es ist wie eine Unterhaltung ... aber mit niemanden. Ich starre auf den Laptop, tippe was ein, und es erscheint wieder Text. Das fühlt sich so leer an!
 
 _Ellie lässt das Buch achtlos auf den Boden fallen. Joel hört auf zu schnitzen. Er blickt von der halbfertigen Figur in seiner Hand zu Ellie._
 

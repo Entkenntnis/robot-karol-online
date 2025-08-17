@@ -166,7 +166,7 @@ export function Overview() {
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
           </div>
-          <div className="absolute top-2 right-24">
+          <div className="absolute top-2 right-24 hidden">
             <label>
               <span className="hidden">Sprache</span>
               <FaIcon icon={faGlobe} />
@@ -190,6 +190,24 @@ export function Overview() {
                 <option value="en">English</option>
               </select>
             </label>
+          </div>
+          <div className="fixed top-1.5 right-24 z-[1000]">
+            <button
+              className={clsx('hover:bg-gray-100/60 rounded-xl px-2 py-0.5')}
+              onClick={() => {
+                // open feedback form in new tab
+                submitAnalyzeEvent(core, 'ev_click_landing_login')
+                alert(
+                  'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.'
+                )
+              }}
+            >
+              <FaIcon
+                icon={faUserCircle}
+                className="text-2xl text-gray-400 inline-block mr-2 pt-2"
+              />
+              (Login)
+            </button>
           </div>
           <div className="fixed top-2 right-2 z-[1000]">
             <button
@@ -556,7 +574,7 @@ export function Overview() {
                     </button>
                   </AnimateInView>
                 </div>
-                <div className="absolute top-[300px] left-[1020px] z-10">
+                <div className="absolute top-[300px] left-[1020px] z-10 hidden">
                   <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
                     <button
                       className={clsx(
@@ -711,6 +729,35 @@ export function Overview() {
                         />
                       </a>
                     </li>
+                    {core.ws.settings.lng == 'de' ? (
+                      <li
+                        onClick={() => {
+                          setLng(core, 'en')
+                          setLngStorage('en')
+                          submitAnalyzeEvent(core, 'ev_click_landing_english')
+                          // scroll to top
+                          document.getElementById(
+                            'scroll-container'
+                          )!.scrollTop = 0
+                        }}
+                      >
+                        <button>Switch to English Version</button>
+                      </li>
+                    ) : (
+                      <li
+                        onClick={() => {
+                          setLng(core, 'de')
+                          setLngStorage('de')
+                          submitAnalyzeEvent(core, 'ev_click_landing_german')
+                          // scroll to top
+                          document.getElementById(
+                            'scroll-container'
+                          )!.scrollTop = 0
+                        }}
+                      >
+                        <button>Zur deutsche Version</button>
+                      </li>
+                    )}
                   </ul>
                 </div>
                 {core.ws.settings.lng === 'de' &&
