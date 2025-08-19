@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Start",
-  "description": "Herzlich Willkommen! Schreibe dein erstes Programm:\n\n- Mit `Schritt` geht Karol einen Schritt nach vorne.\n- Mit `Hinlegen` legt Karol vor sich einen Ziegel.\n- Siehst du den transparenten Ziegel? Dieser zeigt dir, wo Karol den Ziegel legen soll.\n- Löse die Aufgabe und schalte weitere Aufgaben frei. Nutze für eine größere Welt die [Spielwiese](/#SPIELWIESE).",
+  "description": "Herzlich Willkommen! Schreibe dein erstes Programm:\n\n- Mit `Schritt` geht Karol einen Schritt nach vorne.\n- Mit `Hinlegen` legt Karol vor sich einen Ziegel. Sie hat einen unendlichen Vorrat in ihrem Rucksack.\n- Siehst du den transparenten Ziegel? Dieser zeigt dir, wo Karol den Ziegel legen soll.\n- Löse die Aufgabe und schalte weitere Aufgaben frei. Nutze für eine größere Welt die [Spielwiese](/#SPIELWIESE).",
   "tasks": [
     {
       "title": "Lege einen Ziegel",
