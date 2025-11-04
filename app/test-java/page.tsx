@@ -1390,7 +1390,7 @@ const compilerTestCases: CompilerTestCase[] = [
     ],
   },
   {
-    title: 'Methode mit Parameter',
+    title: 'Inkrement und Dekrement',
     source: `class Programm {
   Robot karol = new Robot();
 
@@ -1475,6 +1475,37 @@ const compilerTestCases: CompilerTestCase[] = [
       {
         type: 'store',
         variable: 'x',
+      },
+    ],
+  },
+  {
+    title: 'Modulo',
+    source: `class Programm {
+  Robot karol = new Robot();
+
+  void main() {
+    karol.linksDrehen(3 % 2);
+  }
+}`,
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 3,
+      },
+      {
+        type: 'constant',
+        value: 2,
+      },
+      {
+        type: 'operation',
+        kind: 'mod',
+      },
+      {
+        type: 'action',
+        command: 'left',
+        line: 5,
+        useParameterFromStack: true,
       },
     ],
   },

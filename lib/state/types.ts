@@ -473,7 +473,7 @@ export interface ReturnOp extends BaseOp {
 
 export interface OperationOp extends BaseOp {
   type: 'operation'
-  kind: 'add' | 'mult' | 'sub' | 'div'
+  kind: 'add' | 'mult' | 'sub' | 'div' | 'mod'
 }
 
 export interface ConstantOp extends BaseOp {

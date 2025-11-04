@@ -41,7 +41,7 @@ export function parseExpression(
       )
     ) {
       const op = node.children[1].text()
-      if (!['+', '-', '*', '/'].includes(op)) {
+      if (!['+', '-', '*', '/', '%'].includes(op)) {
         co.warn(node.children[1], `Die Rechenart ${op} wird nicht unterstützt`)
       }
 
@@ -52,7 +52,15 @@ export function parseExpression(
       co.appendOutput({
         type: 'operation',
         kind:
-          op === '+' ? 'add' : op === '-' ? 'sub' : op === '*' ? 'mult' : 'div',
+          op === '+'
+            ? 'add'
+            : op === '-'
+            ? 'sub'
+            : op === '*'
+            ? 'mult'
+            : op === '/'
+            ? 'div'
+            : 'mod',
       })
       return
     }

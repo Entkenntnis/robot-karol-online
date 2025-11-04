@@ -346,6 +346,10 @@ function* executeProgramAsGenerator(core: Core) {
                 frame.opstack.push(Math.trunc(a / b))
                 break
               }
+              case 'mod': {
+                frame.opstack.push(a % b)
+                break
+              }
             }
             vm.pc++
             break
