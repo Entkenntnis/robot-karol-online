@@ -1509,6 +1509,74 @@ const compilerTestCases: CompilerTestCase[] = [
       },
     ],
   },
+  {
+    title: 'IstZiegel mit Variable in Bedingung',
+    source: `class Programm {
+  Robot karol = new Robot();
+
+  void main() {
+    karol.hinlegen(4);
+    int n = 3;
+    if (karol.istZiegel(n)) {
+      karol.linksDrehen();
+      karol.schritt(4);
+    }
+  }
+}`,
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'action',
+        command: 'brick',
+        line: 5,
+        useParameterFromStack: true,
+      },
+      {
+        type: 'constant',
+        value: 3,
+      },
+      {
+        type: 'store',
+        variable: 'n',
+      },
+      {
+        type: 'load',
+        variable: 'n',
+      },
+      {
+        type: 'sense',
+        condition: {
+          type: 'brick_count',
+          negated: false,
+        },
+      },
+      {
+        type: 'branch',
+        targetF: 10,
+        targetT: 7,
+        line: 7,
+      },
+      {
+        type: 'action',
+        command: 'left',
+        line: 8,
+      },
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 9,
+        useParameterFromStack: true,
+      },
+    ],
+  },
   /*{
     title: 'Playground',
     source: 'class Programm {\n  Robot x;\n\n  void main() {\n\n  }\n}',

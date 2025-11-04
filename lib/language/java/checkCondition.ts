@@ -46,8 +46,8 @@ export function checkCondition(
     context.expectCondition = undefined
     const condition = context.condition
     if (condition) {
-      if (condition.type == 'brick_count') {
-        co.appendOutput({ type: 'constant', value: condition.count! })
+      if (condition.type == 'brick_count' && condition.count !== undefined) {
+        co.appendOutput({ type: 'constant', value: condition.count })
       }
       co.appendOutput({
         type: 'sense',
