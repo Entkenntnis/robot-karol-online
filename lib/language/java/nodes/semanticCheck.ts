@@ -18,6 +18,8 @@ interface Parameter {
   name: string
 }
 
+type ValueType = 'boolean' | 'int'
+
 interface MethodContext {
   parameters: Parameter[]
 }
@@ -32,6 +34,8 @@ export interface SemantikCheckContext {
   availableMethods: Map<string, string[]>
   methodContexts: MethodContexts
   callOps: [string, CallOp][]
+  valueType?: ValueType
+  expectVoid?: boolean
 }
 
 export function semanticCheck(
