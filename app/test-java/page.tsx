@@ -761,6 +761,24 @@ const compilerTestCases: CompilerTestCase[] = [
     ],
   },
   {
+    title: 'Uninitialisierte Variable lesen',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int j;\n    karol.schritt(j);\n  }\n}`,
+    warnings: [
+      {
+        from: 67,
+        to: 73,
+        severity: 'error',
+        message: 'Erwarte Zuweisung',
+      },
+      {
+        from: 92,
+        to: 93,
+        severity: 'error',
+        message: 'Variable j nicht bekannt',
+      },
+    ],
+  },
+  {
     title: 'Lokale Variable darf nicht mehrfach belegt werden',
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 1;\n    int i = 2;\n  }\n}',
@@ -1104,6 +1122,72 @@ const compilerTestCases: CompilerTestCase[] = [
     ],
   },
   {
+    title: 'Vergleichsoperator ungleich in if',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 4;\n    if (i != 4) { karol.schritt(); }\n  }\n}',
+    proMode: true,
+    output: [
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'store',
+        variable: 'i',
+      },
+      {
+        type: 'load',
+        variable: 'i',
+      },
+      {
+        type: 'constant',
+        value: 4,
+      },
+      {
+        type: 'compare',
+        kind: 'unequal',
+      },
+      {
+        type: 'branch',
+        targetF: 7,
+        targetT: 6,
+        line: 6,
+      },
+      {
+        type: 'action',
+        command: 'forward',
+        line: 6,
+      },
+    ],
+  },
+  {
+    title: 'Weitere Vergleichsoperatoren in if',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int a = 1; int b = 2;\n    if (a > b) { karol.linksDrehen(); }\n    if (a >= b) { karol.schritt(); }\n    if (a <= b) { karol.linksDrehen(2); }\n  }\n}`,
+    proMode: true,
+    output: [
+      { type: 'constant', value: 1 },
+      { type: 'store', variable: 'a' },
+      { type: 'constant', value: 2 },
+      { type: 'store', variable: 'b' },
+      { type: 'load', variable: 'a' },
+      { type: 'load', variable: 'b' },
+      { type: 'compare', kind: 'greater-than' },
+      { type: 'branch', targetF: 9, targetT: 8, line: 6 },
+      { type: 'action', command: 'left', line: 6 },
+      { type: 'load', variable: 'a' },
+      { type: 'load', variable: 'b' },
+      { type: 'compare', kind: 'greater-equal' },
+      { type: 'branch', targetF: 14, targetT: 13, line: 7 },
+      { type: 'action', command: 'forward', line: 7 },
+      { type: 'load', variable: 'a' },
+      { type: 'load', variable: 'b' },
+      { type: 'compare', kind: 'less-equal' },
+      { type: 'branch', targetF: 20, targetT: 18, line: 8 },
+      { type: 'constant', value: 2 },
+      { type: 'action', command: 'left', line: 8, useParameterFromStack: true },
+    ],
+  },
+  {
     title: 'Schleife mit while',
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 0;\n    while (i < 4) {\n      karol.linksDrehen();\n      i = i + 1;\n    }\n  }\n}',
@@ -1145,6 +1229,18 @@ const compilerTestCases: CompilerTestCase[] = [
       { type: 'load', variable: 'a' },
       { type: 'action', command: 'left', line: 9, useParameterFromStack: true },
       { type: 'return' },
+    ],
+  },
+  {
+    title: 'Shadowing von Parameter',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    test(1);\n  }\n\n  void test(int a) {\n    int a = 2;\n  }\n}`,
+    warnings: [
+      {
+        from: 110,
+        to: 111,
+        severity: 'error',
+        message: 'Variablename bereits belegt',
+      },
     ],
   },
   {
