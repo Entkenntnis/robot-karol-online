@@ -511,10 +511,7 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(2);\n  }\n}',
     output: [
-      {
-        type: 'constant',
-        value: 2,
-      },
+      { type: 'constant', value: 2 },
       {
         type: 'action',
         command: 'forward',
@@ -530,18 +527,9 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(-2);\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 2,
-      },
-      {
-        type: 'constant',
-        value: -1,
-      },
-      {
-        type: 'operation',
-        kind: 'mult',
-      },
+      { type: 'constant', value: 2 },
+      { type: 'constant', value: -1 },
+      { type: 'operation', kind: 'mult' },
       {
         type: 'action',
         command: 'forward',
@@ -567,38 +555,21 @@ const compilerTestCases: CompilerTestCase[] = [
     title: 'Befehl Beenden',
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.beenden();\n  }\n}',
-    output: [
-      {
-        type: 'jump',
-        target: Infinity,
-      },
-    ],
+    output: [{ type: 'jump', target: Infinity }],
     rkCode: 'Beenden',
   },
   {
     title: 'Kommentare bleiben erhalten',
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    // Test\n    karol.schritt();\n    // Test 2\n  }\n}',
-    output: [
-      {
-        type: 'action',
-        command: 'forward',
-        line: 6,
-      },
-    ],
+    output: [{ type: 'action', command: 'forward', line: 6 }],
     rkCode: '// Test\nSchritt\n// Test 2',
   },
   {
     title: 'Inline-Kommentare werden rausgeholt',
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.schritt(/*123*/);\n  }\n}',
-    output: [
-      {
-        type: 'action',
-        command: 'forward',
-        line: 5,
-      },
-    ],
+    output: [{ type: 'action', command: 'forward', line: 5 }],
     rkCode: 'Schritt\n/*123*/',
   },
   {
@@ -736,14 +707,8 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 4;\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 4,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
+      { type: 'constant', value: 4 },
+      { type: 'store', variable: 'i' },
     ],
   },
   {
@@ -813,18 +778,9 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 4;\n    karol.schritt(i);\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 4,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
+      { type: 'constant', value: 4 },
+      { type: 'store', variable: 'i' },
+      { type: 'load', variable: 'i' },
       {
         type: 'action',
         command: 'forward',
@@ -839,65 +795,20 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int loops = 3;\n    for (int i = 0; i < loops; i++) {\n      karol.schritt();\n    }\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 3,
-      },
-      {
-        type: 'store',
-        variable: 'loops',
-      },
-      {
-        type: 'constant',
-        value: 0,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'load',
-        variable: 'loops',
-      },
-      {
-        type: 'compare',
-        kind: 'less-than',
-      },
-      {
-        type: 'branch',
-        targetF: 14,
-        targetT: 8,
-        line: 6,
-      },
-      {
-        type: 'action',
-        command: 'forward',
-        line: 7,
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'jump',
-        target: 4,
-      },
+      { type: 'constant', value: 3 },
+      { type: 'store', variable: 'loops' },
+      { type: 'constant', value: 0 },
+      { type: 'store', variable: 'i' },
+      { type: 'load', variable: 'i' },
+      { type: 'load', variable: 'loops' },
+      { type: 'compare', kind: 'less-than' },
+      { type: 'branch', targetF: 14, targetT: 8, line: 6 },
+      { type: 'action', command: 'forward', line: 7 },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'store', variable: 'i' },
+      { type: 'jump', target: 4 },
     ],
   },
   {
@@ -906,78 +817,24 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int a = 1; int b = -2;\n    int i = a + b + (a*a) - b/1;\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'store',
-        variable: 'a',
-      },
-      {
-        type: 'constant',
-        value: 2,
-      },
-      {
-        type: 'constant',
-        value: -1,
-      },
-      {
-        type: 'operation',
-        kind: 'mult',
-      },
-      {
-        type: 'store',
-        variable: 'b',
-      },
-      {
-        type: 'load',
-        variable: 'a',
-      },
-      {
-        type: 'load',
-        variable: 'b',
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'load',
-        variable: 'a',
-      },
-      {
-        type: 'load',
-        variable: 'a',
-      },
-      {
-        type: 'operation',
-        kind: 'mult',
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'load',
-        variable: 'b',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'div',
-      },
-      {
-        type: 'operation',
-        kind: 'sub',
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
+      { type: 'constant', value: 1 },
+      { type: 'store', variable: 'a' },
+      { type: 'constant', value: 2 },
+      { type: 'constant', value: -1 },
+      { type: 'operation', kind: 'mult' },
+      { type: 'store', variable: 'b' },
+      { type: 'load', variable: 'a' },
+      { type: 'load', variable: 'b' },
+      { type: 'operation', kind: 'add' },
+      { type: 'load', variable: 'a' },
+      { type: 'load', variable: 'a' },
+      { type: 'operation', kind: 'mult' },
+      { type: 'operation', kind: 'add' },
+      { type: 'load', variable: 'b' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'div' },
+      { type: 'operation', kind: 'sub' },
+      { type: 'store', variable: 'i' },
     ],
   },
   {
@@ -986,22 +843,10 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int a = 1; a = 2;\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'store',
-        variable: 'a',
-      },
-      {
-        type: 'constant',
-        value: 2,
-      },
-      {
-        type: 'store',
-        variable: 'a',
-      },
+      { type: 'constant', value: 1 },
+      { type: 'store', variable: 'a' },
+      { type: 'constant', value: 2 },
+      { type: 'store', variable: 'a' },
     ],
   },
   {
@@ -1010,76 +855,23 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int a = 1;\n    for (int i = 0; i < a * 2 + 3; i++) {}\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'store',
-        variable: 'a',
-      },
-      {
-        type: 'constant',
-        value: 0,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'load',
-        variable: 'a',
-      },
-      {
-        type: 'constant',
-        value: 2,
-      },
-      {
-        type: 'operation',
-        kind: 'mult',
-      },
-      {
-        type: 'constant',
-        value: 3,
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'compare',
-        kind: 'less-than',
-      },
-      {
-        type: 'branch',
-        targetF: 17,
-        targetT: 12,
-        line: 6,
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'jump',
-        target: 4,
-      },
+      { type: 'constant', value: 1 },
+      { type: 'store', variable: 'a' },
+      { type: 'constant', value: 0 },
+      { type: 'store', variable: 'i' },
+      { type: 'load', variable: 'i' },
+      { type: 'load', variable: 'a' },
+      { type: 'constant', value: 2 },
+      { type: 'operation', kind: 'mult' },
+      { type: 'constant', value: 3 },
+      { type: 'operation', kind: 'add' },
+      { type: 'compare', kind: 'less-than' },
+      { type: 'branch', targetF: 17, targetT: 12, line: 6 },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'store', variable: 'i' },
+      { type: 'jump', target: 4 },
     ],
   },
   {
@@ -1088,37 +880,13 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 4;\n    if (4 == i) { karol.schritt(); }\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 4,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'constant',
-        value: 4,
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'compare',
-        kind: 'equal',
-      },
-      {
-        type: 'branch',
-        targetF: 7,
-        targetT: 6,
-        line: 6,
-      },
-      {
-        type: 'action',
-        command: 'forward',
-        line: 6,
-      },
+      { type: 'constant', value: 4 },
+      { type: 'store', variable: 'i' },
+      { type: 'constant', value: 4 },
+      { type: 'load', variable: 'i' },
+      { type: 'compare', kind: 'equal' },
+      { type: 'branch', targetF: 7, targetT: 6, line: 6 },
+      { type: 'action', command: 'forward', line: 6 },
     ],
   },
   {
@@ -1127,37 +895,13 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 4;\n    if (i != 4) { karol.schritt(); }\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 4,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'constant',
-        value: 4,
-      },
-      {
-        type: 'compare',
-        kind: 'unequal',
-      },
-      {
-        type: 'branch',
-        targetF: 7,
-        targetT: 6,
-        line: 6,
-      },
-      {
-        type: 'action',
-        command: 'forward',
-        line: 6,
-      },
+      { type: 'constant', value: 4 },
+      { type: 'store', variable: 'i' },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 4 },
+      { type: 'compare', kind: 'unequal' },
+      { type: 'branch', targetF: 7, targetT: 6, line: 6 },
+      { type: 'action', command: 'forward', line: 6 },
     ],
   },
   {
