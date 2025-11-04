@@ -606,57 +606,18 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    for (int i = 0; i < 2; i++) {\n      karol.schritt();\n    }\n  }\n}',
     output: [
-      {
-        type: 'constant',
-        value: 0,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'constant',
-        value: 2,
-      },
-      {
-        type: 'compare',
-        kind: 'less-than',
-      },
-      {
-        type: 'branch',
-        targetF: 12,
-        targetT: 6,
-        line: 5,
-      },
-      {
-        type: 'action',
-        command: 'forward',
-        line: 6,
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'jump',
-        target: 2,
-      },
+      { type: 'constant', value: 0 },
+      { type: 'store', variable: 'i' },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 2 },
+      { type: 'compare', kind: 'less-than' },
+      { type: 'branch', targetF: 12, targetT: 6, line: 5 },
+      { type: 'action', command: 'forward', line: 6 },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'store', variable: 'i' },
+      { type: 'jump', target: 2 },
     ],
     rkCode: 'wiederhole 2 mal\n  Schritt\nendewiederhole',
   },
@@ -665,103 +626,29 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    for (int i = 0; i < 2; i++) {\n      for (int j = 0; j < 2; j++) {\n        karol.schritt();\n      }\n    }\n  }\n}',
     output: [
-      {
-        type: 'constant',
-        value: 0,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'constant',
-        value: 2,
-      },
-      {
-        type: 'compare',
-        kind: 'less-than',
-      },
-      {
-        type: 'branch',
-        targetF: 23,
-        targetT: 6,
-        line: 5,
-      },
-      {
-        type: 'constant',
-        value: 0,
-      },
-      {
-        type: 'store',
-        variable: 'j',
-      },
-      {
-        type: 'load',
-        variable: 'j',
-      },
-      {
-        type: 'constant',
-        value: 2,
-      },
-      {
-        type: 'compare',
-        kind: 'less-than',
-      },
-      {
-        type: 'branch',
-        targetF: 18,
-        targetT: 12,
-        line: 6,
-      },
-      {
-        type: 'action',
-        command: 'forward',
-        line: 7,
-      },
-      {
-        type: 'load',
-        variable: 'j',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'store',
-        variable: 'j',
-      },
-      {
-        type: 'jump',
-        target: 8,
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'jump',
-        target: 2,
-      },
+      { type: 'constant', value: 0 },
+      { type: 'store', variable: 'i' },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 2 },
+      { type: 'compare', kind: 'less-than' },
+      { type: 'branch', targetF: 23, targetT: 6, line: 5 },
+      { type: 'constant', value: 0 },
+      { type: 'store', variable: 'j' },
+      { type: 'load', variable: 'j' },
+      { type: 'constant', value: 2 },
+      { type: 'compare', kind: 'less-than' },
+      { type: 'branch', targetF: 18, targetT: 12, line: 6 },
+      { type: 'action', command: 'forward', line: 7 },
+      { type: 'load', variable: 'j' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'store', variable: 'j' },
+      { type: 'jump', target: 8 },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'store', variable: 'i' },
+      { type: 'jump', target: 2 },
     ],
     rkCode:
       'wiederhole 2 mal\n  wiederhole 2 mal\n    Schritt\n  endewiederhole\nendewiederhole',
@@ -794,28 +681,10 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (karol.nichtIstWand()) {\n      karol.schritt();\n    }\n  }\n}',
     output: [
-      {
-        type: 'sense',
-        condition: {
-          type: 'wall',
-          negated: true,
-        },
-      },
-      {
-        type: 'branch',
-        targetF: 4,
-        targetT: 2,
-        line: 5,
-      },
-      {
-        type: 'action',
-        command: 'forward',
-        line: 6,
-      },
-      {
-        type: 'jump',
-        target: 0,
-      },
+      { type: 'sense', condition: { type: 'wall', negated: true } },
+      { type: 'branch', targetF: 4, targetT: 2, line: 5 },
+      { type: 'action', command: 'forward', line: 6 },
+      { type: 'jump', target: 0 },
     ],
     rkCode: 'wiederhole solange NichtIstWand\n  Schritt\nendewiederhole',
   },
@@ -824,33 +693,14 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (karol.istZiegel(2)) {\n      karol.aufheben();\n    }\n  }\n}',
     output: [
-      {
-        type: 'constant',
-        value: 2,
-      },
+      { type: 'constant', value: 2 },
       {
         type: 'sense',
-        condition: {
-          type: 'brick_count',
-          negated: false,
-          count: 2,
-        },
+        condition: { type: 'brick_count', negated: false, count: 2 },
       },
-      {
-        type: 'branch',
-        targetF: 5,
-        targetT: 3,
-        line: 5,
-      },
-      {
-        type: 'action',
-        command: 'unbrick',
-        line: 6,
-      },
-      {
-        type: 'jump',
-        target: 0,
-      },
+      { type: 'branch', targetF: 5, targetT: 3, line: 5 },
+      { type: 'action', command: 'unbrick', line: 6 },
+      { type: 'jump', target: 0 },
     ],
     rkCode: 'wiederhole solange IstZiegel(2)\n  Aufheben\nendewiederhole',
   },
@@ -872,10 +722,7 @@ const compilerTestCases: CompilerTestCase[] = [
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    if (karol.nichtIstWand()) {\n        karol.linksDrehen();\n      } else {\n        karol.schritt();\n      }\n  }\n}',
     output: [
-      {
-        type: 'sense',
-        condition: { type: 'wall', negated: true },
-      },
+      { type: 'sense', condition: { type: 'wall', negated: true } },
       { type: 'branch', targetF: 4, targetT: 2, line: 5 },
       { type: 'action', command: 'left', line: 6 },
       { type: 'jump', target: 5 },
@@ -933,39 +780,13 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    if (karol.istWand()) {\n      int i = 1;\n    } else {\n      int i = 2;\n    }\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'sense',
-        condition: {
-          type: 'wall',
-          negated: false,
-        },
-      },
-      {
-        type: 'branch',
-        targetF: 5,
-        targetT: 2,
-        line: 5,
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'jump',
-        target: 7,
-      },
-      {
-        type: 'constant',
-        value: 2,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
+      { type: 'sense', condition: { type: 'wall', negated: false } },
+      { type: 'branch', targetF: 5, targetT: 2, line: 5 },
+      { type: 'constant', value: 1 },
+      { type: 'store', variable: 'i' },
+      { type: 'jump', target: 7 },
+      { type: 'constant', value: 2 },
+      { type: 'store', variable: 'i' },
     ],
   },
   {
@@ -1288,57 +1109,18 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 0;\n    while (i < 4) {\n      karol.linksDrehen();\n      i = i + 1;\n    }\n  }\n}',
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 0,
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'constant',
-        value: 4,
-      },
-      {
-        type: 'compare',
-        kind: 'less-than',
-      },
-      {
-        type: 'branch',
-        targetF: 12,
-        targetT: 6,
-        line: 6,
-      },
-      {
-        type: 'action',
-        command: 'left',
-        line: 7,
-      },
-      {
-        type: 'load',
-        variable: 'i',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'store',
-        variable: 'i',
-      },
-      {
-        type: 'jump',
-        target: 2,
-      },
+      { type: 'constant', value: 0 },
+      { type: 'store', variable: 'i' },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 4 },
+      { type: 'compare', kind: 'less-than' },
+      { type: 'branch', targetF: 12, targetT: 6, line: 6 },
+      { type: 'action', command: 'left', line: 7 },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'store', variable: 'i' },
+      { type: 'jump', target: 2 },
     ],
   },
   {
@@ -1356,37 +1138,13 @@ const compilerTestCases: CompilerTestCase[] = [
 }`,
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 10,
-      },
-      {
-        type: 'call',
-        target: 3,
-        line: 5,
-        arguments: 1,
-      },
-      {
-        type: 'jump',
-        target: Infinity,
-      },
-      {
-        type: 'store',
-        variable: 'a',
-      },
-      {
-        type: 'load',
-        variable: 'a',
-      },
-      {
-        type: 'action',
-        command: 'left',
-        line: 9,
-        useParameterFromStack: true,
-      },
-      {
-        type: 'return',
-      },
+      { type: 'constant', value: 10 },
+      { type: 'call', target: 3, line: 5, arguments: 1 },
+      { type: 'jump', target: Infinity },
+      { type: 'store', variable: 'a' },
+      { type: 'load', variable: 'a' },
+      { type: 'action', command: 'left', line: 9, useParameterFromStack: true },
+      { type: 'return' },
     ],
   },
   {
@@ -1404,78 +1162,24 @@ const compilerTestCases: CompilerTestCase[] = [
 }`,
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 42,
-      },
-      {
-        type: 'store',
-        variable: 'x',
-      },
-      {
-        type: 'load',
-        variable: 'x',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'store',
-        variable: 'x',
-      },
-      {
-        type: 'load',
-        variable: 'x',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'add',
-      },
-      {
-        type: 'store',
-        variable: 'x',
-      },
-      {
-        type: 'load',
-        variable: 'x',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'sub',
-      },
-      {
-        type: 'store',
-        variable: 'x',
-      },
-      {
-        type: 'load',
-        variable: 'x',
-      },
-      {
-        type: 'constant',
-        value: 1,
-      },
-      {
-        type: 'operation',
-        kind: 'sub',
-      },
-      {
-        type: 'store',
-        variable: 'x',
-      },
+      { type: 'constant', value: 42 },
+      { type: 'store', variable: 'x' },
+      { type: 'load', variable: 'x' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'store', variable: 'x' },
+      { type: 'load', variable: 'x' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'store', variable: 'x' },
+      { type: 'load', variable: 'x' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'sub' },
+      { type: 'store', variable: 'x' },
+      { type: 'load', variable: 'x' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'sub' },
+      { type: 'store', variable: 'x' },
     ],
   },
   {
@@ -1489,24 +1193,10 @@ const compilerTestCases: CompilerTestCase[] = [
 }`,
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 3,
-      },
-      {
-        type: 'constant',
-        value: 2,
-      },
-      {
-        type: 'operation',
-        kind: 'mod',
-      },
-      {
-        type: 'action',
-        command: 'left',
-        line: 5,
-        useParameterFromStack: true,
-      },
+      { type: 'constant', value: 3 },
+      { type: 'constant', value: 2 },
+      { type: 'operation', kind: 'mod' },
+      { type: 'action', command: 'left', line: 5, useParameterFromStack: true },
     ],
   },
   {
@@ -1525,50 +1215,20 @@ const compilerTestCases: CompilerTestCase[] = [
 }`,
     proMode: true,
     output: [
-      {
-        type: 'constant',
-        value: 4,
-      },
+      { type: 'constant', value: 4 },
       {
         type: 'action',
         command: 'brick',
         line: 5,
         useParameterFromStack: true,
       },
-      {
-        type: 'constant',
-        value: 3,
-      },
-      {
-        type: 'store',
-        variable: 'n',
-      },
-      {
-        type: 'load',
-        variable: 'n',
-      },
-      {
-        type: 'sense',
-        condition: {
-          type: 'brick_count',
-          negated: false,
-        },
-      },
-      {
-        type: 'branch',
-        targetF: 10,
-        targetT: 7,
-        line: 7,
-      },
-      {
-        type: 'action',
-        command: 'left',
-        line: 8,
-      },
-      {
-        type: 'constant',
-        value: 4,
-      },
+      { type: 'constant', value: 3 },
+      { type: 'store', variable: 'n' },
+      { type: 'load', variable: 'n' },
+      { type: 'sense', condition: { type: 'brick_count', negated: false } },
+      { type: 'branch', targetF: 10, targetT: 7, line: 7 },
+      { type: 'action', command: 'left', line: 8 },
+      { type: 'constant', value: 4 },
       {
         type: 'action',
         command: 'forward',

@@ -101,7 +101,7 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
               <div>
                 <p className="text-red-600">Fehler!</p>
                 <pre className="mt-3 border bg-red-300 max-h-64 overflow-auto text-sm">
-                  {outputJSON +
+                  {JSON.stringify(JSON.parse(outputJSON)) +
                     '\n' +
                     warningsJSON +
                     '\n' +
