@@ -108,7 +108,10 @@ export function checkMethodInvocation(
       } else if (methodName == 'istWand') {
         cond = { type: 'wall', negated: false }
       } else if (methodName == 'nichtIstZiegel') {
-        if (isNaN(integerArgument)) {
+        if (variableParameter) {
+          // expression arg already on stack -> let VM pop it for brick_count
+          cond = { type: 'brick_count', negated: true }
+        } else if (isNaN(integerArgument)) {
           cond = { type: 'brick', negated: true }
         } else {
           cond = {
@@ -118,7 +121,10 @@ export function checkMethodInvocation(
           }
         }
       } else if (methodName == 'istZiegel') {
-        if (isNaN(integerArgument)) {
+        if (variableParameter) {
+          // expression arg already on stack -> let VM pop it for brick_count
+          cond = { type: 'brick_count', negated: false }
+        } else if (isNaN(integerArgument)) {
           cond = { type: 'brick', negated: false }
         } else {
           cond = {
