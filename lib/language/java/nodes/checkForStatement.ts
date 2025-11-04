@@ -135,8 +135,12 @@ export function checkForStatement(
         if (id != loopVarName) {
           co.warn(loopCond.children[0], `Erwarte Variable '${loopVarName}'`)
         }
-        if (loopCond.children[1].text() != '<') {
-          co.warn(loopCond.children[1], `Erwarte Vergleichsoperator '<'`)
+        const compareOp = loopCond.children[1].text()
+        if (compareOp != '<' && compareOp != '<=') {
+          co.warn(
+            loopCond.children[1],
+            `Erwarte Vergleichsoperator '<' oder '<='`
+          )
         }
         const isLiteral = loopCond.children[2].name === 'IntegerLiteral'
         let count = -1
@@ -159,7 +163,10 @@ export function checkForStatement(
         } else {
           parseExpression(co, loopCond.children[2], context)
         }
-        co.appendOutput({ type: 'compare', kind: 'less-than' })
+        co.appendOutput({
+          type: 'compare',
+          kind: compareOp == '<' ? 'less-than' : 'less-equal',
+        })
 
         // branch
         co.appendOutput(branch)
