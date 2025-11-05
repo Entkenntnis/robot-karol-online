@@ -2,17 +2,12 @@ import { Condition, CallOp, Op } from '../../../state/types'
 import { CompilerOutput } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
 import { checkSemikolon } from '../checkSemikolon'
-import { parseExpression } from '../parseExpression'
-import { checkAssignmentExpression } from './checkAssignmentExpression'
+import { compileExpression } from './compileExpression'
 import { checkBlock } from './checkBlock'
-import { checkExpressionStatement } from './checkExpressionStatement'
 import { checkForStatement } from './checkForStatement'
 import { checkIfStatement } from './checkIfStatement'
 import { checkLocalVariableDeclaration } from './checkLocalVariableDeclaration'
 import { checkMethodDeclaration } from './checkMethodDeclaration'
-import { checkMethodInvocation } from './checkMethodInvocation_messy'
-import { checkParenthesizedExpression } from './checkParenthesizedExpression'
-import { checkUpdateExpression } from './checkUpdateExpression'
 import { checkWhileStatement } from './checkWhileStatement'
 
 interface Parameter {
@@ -49,7 +44,7 @@ export interface MethodSignature {
 
 // rename to something other, like
 // parseDeclarationsAndStatements
-export function semanticCheck(
+export function compileDeclarationAndStatements(
   co: CompilerOutput,
   node: AstNode,
   context: SemantikCheckContext
@@ -65,21 +60,11 @@ export function semanticCheck(
     }
     case 'ExpressionStatement': {
       context.expectVoid = true
-      parseExpression(co, node.children[0], context)
+      compileExpression(co, node.children[0], context)
       if (context.valueType != 'void') {
         co.appendOutput({ type: 'pop' })
       }
       checkSemikolon(co, node)
-      return
-    }
-    case ';': {
-      // ????
-      co.warn(node, 'Erwarte Methodenaufruf')
-      return
-    }
-    case 'MethodInvocation': {
-      // TODO: MOVE OUT!!
-      checkMethodInvocation(co, node, context)
       return
     }
     case 'ForStatement': {
@@ -90,27 +75,12 @@ export function semanticCheck(
       checkWhileStatement(co, node, context)
       return
     }
-    case 'ParenthesizedExpression': {
-      // TODO: MOVE OUT!!!
-      checkParenthesizedExpression(co, node, context)
-      return
-    }
     case 'IfStatement': {
       checkIfStatement(co, node, context)
       return
     }
     case 'LocalVariableDeclaration': {
       checkLocalVariableDeclaration(co, node, context)
-      return
-    }
-    case 'AssignmentExpression': {
-      // moved to expression
-      checkAssignmentExpression(co, node, context)
-      return
-    }
-    case 'UpdateExpression': {
-      // moved to expression
-      checkUpdateExpression(co, node, context)
       return
     }
   }

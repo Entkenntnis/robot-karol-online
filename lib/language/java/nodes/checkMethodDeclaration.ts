@@ -1,6 +1,9 @@
 import { CompilerOutput } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
-import { SemantikCheckContext, semanticCheck } from './semanticCheck'
+import {
+  SemantikCheckContext,
+  compileDeclarationAndStatements,
+} from './compileDeclarationAndStatements'
 
 export function checkMethodDeclaration(
   co: CompilerOutput,
@@ -10,5 +13,5 @@ export function checkMethodDeclaration(
   // already checked by toplevel
   node.children
     .filter((child) => child.name == 'Block')
-    .map((child) => semanticCheck(co, child, context))
+    .map((child) => compileDeclarationAndStatements(co, child, context))
 }

@@ -2,8 +2,8 @@ import { CompilerOutput } from '../../helper/CompilerOutput'
 import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { checkSemikolon } from '../checkSemikolon'
-import { expressionNodes, parseExpression } from '../parseExpression'
-import { SemantikCheckContext } from './semanticCheck'
+import { expressionNodes, compileExpression } from './compileExpression'
+import { SemantikCheckContext } from './compileDeclarationAndStatements'
 
 export function checkLocalVariableDeclaration(
   co: CompilerOutput,
@@ -46,7 +46,7 @@ export function checkLocalVariableDeclaration(
   co.activateProMode()
 
   // console.log(prettyPrintAstNode(node))
-  parseExpression(co, declarator.children[2], context)
+  compileExpression(co, declarator.children[2], context)
 
   co.appendOutput({
     type: 'store',

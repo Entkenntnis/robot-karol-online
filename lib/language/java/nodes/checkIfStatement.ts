@@ -3,8 +3,11 @@ import { CompilerOutput, AnchorOp } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
 import { conditionToRK } from '../../helper/conditionToRk'
 import { matchChildren } from '../../helper/matchChildren'
-import { parseExpression } from '../parseExpression'
-import { SemantikCheckContext, semanticCheck } from './semanticCheck'
+import { compileExpression } from './compileExpression'
+import {
+  SemantikCheckContext,
+  compileDeclarationAndStatements,
+} from './compileDeclarationAndStatements'
 
 export function checkIfStatement(
   co: CompilerOutput,
@@ -16,7 +19,7 @@ export function checkIfStatement(
   ) {
     // new logic
     context.expectVoid = false
-    parseExpression(co, node.children[1], context)
+    compileExpression(co, node.children[1], context)
     if (context.valueType != 'boolean') {
       if (co.noWarningsInRange(node.from, node.to)) {
         co.warn(node.children[1], 'Erwarte Bedingung')
@@ -55,7 +58,7 @@ export function checkIfStatement(
     co.appendOutput(anchorBlock)
 
     co.increaseIndent()
-    semanticCheck(co, node.children[2], context)
+    compileDeclarationAndStatements(co, node.children[2], context)
     co.decreaseIndent()
     co.appendRkCode('endewenn', node.to)
 
@@ -68,7 +71,7 @@ export function checkIfStatement(
   ) {
     // new logic
     context.expectVoid = false
-    parseExpression(co, node.children[1], context)
+    compileExpression(co, node.children[1], context)
     if (context.valueType != 'boolean') {
       if (co.noWarningsInRange(node.from, node.to)) {
         co.warn(node.children[1], 'Erwarte Bedingung')
@@ -116,7 +119,7 @@ export function checkIfStatement(
     co.appendOutput(anchorBlock)
 
     co.increaseIndent()
-    semanticCheck(co, node.children[2], context)
+    compileDeclarationAndStatements(co, node.children[2], context)
     co.decreaseIndent()
 
     co.appendOutput(jump)
@@ -124,7 +127,7 @@ export function checkIfStatement(
     co.appendOutput(anchorElse)
 
     co.increaseIndent()
-    semanticCheck(co, node.children[4], context)
+    compileDeclarationAndStatements(co, node.children[4], context)
     co.decreaseIndent()
     co.appendRkCode('endewenn', node.to)
 

@@ -2,9 +2,12 @@ import { CallOp, Op } from '../../../state/types'
 import { AstNode } from '../../helper/astNode'
 import { CompilerOutput } from '../../helper/CompilerOutput'
 import { matchChildren } from '../../helper/matchChildren'
-import { compileValExpression } from '../compileValExpression'
-import { expressionNodes, parseExpression } from '../parseExpression'
-import { MethodSignature, SemantikCheckContext } from './semanticCheck'
+import { compileValExpression } from './compileValExpression'
+import { expressionNodes, compileExpression } from './compileExpression'
+import {
+  MethodSignature,
+  SemantikCheckContext,
+} from './compileDeclarationAndStatements'
 
 export function checkMethodInvocation(
   co: CompilerOutput,

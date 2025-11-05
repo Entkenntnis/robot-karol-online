@@ -1,7 +1,10 @@
-import { AstNode } from '../helper/astNode'
-import { CompilerOutput } from '../helper/CompilerOutput'
-import { SemantikCheckContext, ValueType } from './nodes/semanticCheck'
-import { parseExpression } from './parseExpression'
+import { AstNode } from '../../helper/astNode'
+import { CompilerOutput } from '../../helper/CompilerOutput'
+import {
+  SemantikCheckContext,
+  ValueType,
+} from './compileDeclarationAndStatements'
+import { compileExpression } from './compileExpression'
 
 export function compileValExpression(
   expectedType: ValueType,
@@ -10,7 +13,7 @@ export function compileValExpression(
   context: SemantikCheckContext
 ) {
   context.expectVoid = false
-  parseExpression(co, node, context)
+  compileExpression(co, node, context)
   if (context.valueType != expectedType) {
     if (co.noWarningsInRange(node.from, node.to)) {
       co.warn(

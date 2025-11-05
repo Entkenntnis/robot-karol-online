@@ -4,7 +4,10 @@ import { AstNode } from '../../helper/astNode'
 import { conditionToRK } from '../../helper/conditionToRk'
 import { matchChildren } from '../../helper/matchChildren'
 import { checkCondition } from '../checkCondition'
-import { SemantikCheckContext, semanticCheck } from './semanticCheck'
+import {
+  SemantikCheckContext,
+  compileDeclarationAndStatements,
+} from './compileDeclarationAndStatements'
 
 export function checkWhileStatement(
   co: CompilerOutput,
@@ -29,7 +32,7 @@ export function checkWhileStatement(
       })
       co.appendRkCode('wiederhole immer', node.from)
       co.increaseIndent()
-      semanticCheck(co, node.children[2], context)
+      compileDeclarationAndStatements(co, node.children[2], context)
       co.appendOutput(jump)
       co.decreaseIndent()
       co.appendRkCode('endewiederhole', node.to)
@@ -76,7 +79,7 @@ export function checkWhileStatement(
 
       co.appendOutput(anchorTop)
       co.increaseIndent()
-      semanticCheck(co, node.children[2], context)
+      compileDeclarationAndStatements(co, node.children[2], context)
       co.decreaseIndent()
 
       co.appendRkCode('endewiederhole', node.to)

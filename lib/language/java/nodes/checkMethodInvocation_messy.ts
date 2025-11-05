@@ -4,8 +4,8 @@ import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { methodName2action } from '../../helper/methodName2action'
 import { methodsWithoutArgs } from '../../helper/methodsWithoutArgs'
-import { expressionNodes, parseExpression } from '../parseExpression'
-import { SemantikCheckContext } from './semanticCheck'
+import { expressionNodes, compileExpression } from './compileExpression'
+import { SemantikCheckContext } from './compileDeclarationAndStatements'
 
 export function checkMethodInvocation(
   co: CompilerOutput,
@@ -22,7 +22,7 @@ export function checkMethodInvocation(
           continue
         }
         if (expressionNodes.includes(paramEl.name)) {
-          parseExpression(co, paramEl, context)
+          compileExpression(co, paramEl, context)
           numOfParams++
         }
       }
@@ -89,7 +89,7 @@ export function checkMethodInvocation(
       !methodsWithoutArgs.includes(methodName)
     ) {
       co.activateProMode()
-      parseExpression(co, argumentList.children[1], context)
+      compileExpression(co, argumentList.children[1], context)
 
       variableParameter = true
     } else if (!matchChildren(['(', ')'], argumentList.children)) {

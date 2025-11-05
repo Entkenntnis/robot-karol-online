@@ -9,7 +9,10 @@ import { ensureBlock } from './ensureBlock'
 import { ensureExactlyOneChild } from '../helper/ensureExactlyOneChild'
 import { checkMainMethod } from './checkMainMethod'
 import { checkRobotField } from './checkRobotField'
-import { MethodContexts, semanticCheck } from './nodes/semanticCheck'
+import {
+  MethodContexts,
+  compileDeclarationAndStatements,
+} from './nodes/compileDeclarationAndStatements'
 
 export function compileJava(tree: Tree, doc: Text): CompilerResult {
   const comments: AstNode[] = []
@@ -218,7 +221,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
 
   const callOps: [string, CallOp][] = []
 
-  semanticCheck(co, mainMethod, {
+  compileDeclarationAndStatements(co, mainMethod, {
     robotName: robotInstanceName,
     variablesInScope: new Set(),
     availableMethods,
@@ -250,7 +253,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         variablesInScope.add(v)
         co.appendOutput({ type: 'store', variable: v })
       }
-      semanticCheck(co, method, {
+      compileDeclarationAndStatements(co, method, {
         robotName: robotInstanceName,
         variablesInScope,
         availableMethods,

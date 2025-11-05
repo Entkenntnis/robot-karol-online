@@ -2,8 +2,11 @@ import { JumpOp, BranchOp, Op } from '../../../state/types'
 import { CompilerOutput, AnchorOp } from '../../helper/CompilerOutput'
 import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
-import { expressionNodes, parseExpression } from '../parseExpression'
-import { SemantikCheckContext, semanticCheck } from './semanticCheck'
+import { expressionNodes, compileExpression } from './compileExpression'
+import {
+  SemantikCheckContext,
+  compileDeclarationAndStatements,
+} from './compileDeclarationAndStatements'
 
 export function checkForStatement(
   co: CompilerOutput,
@@ -13,7 +16,7 @@ export function checkForStatement(
   if (matchChildren(['for', 'ForSpec', 'Block'], node.children)) {
     const { toRemove, branch, anchor } = checkForSpec(node.children[1])
     const position = co.getPosition()
-    semanticCheck(co, node.children[2], context)
+    compileDeclarationAndStatements(co, node.children[2], context)
     if (toRemove && position >= 2) {
       co.decreaseIndent()
       co.appendRkCode('endewiederhole', node.to)
@@ -44,7 +47,7 @@ export function checkForStatement(
     }
   } else {
     if (matchChildren(['for', 'ForSpec', '⚠'], node.children)) {
-      semanticCheck(co, node.children[1], context)
+      compileDeclarationAndStatements(co, node.children[1], context)
     }
     co.warn(node, 'Erwarte Schleife mit Rumpf')
   }
@@ -161,7 +164,7 @@ export function checkForStatement(
         if (isLiteral) {
           co.appendOutput({ type: 'constant', value: count })
         } else {
-          parseExpression(co, loopCond.children[2], context)
+          compileExpression(co, loopCond.children[2], context)
         }
         co.appendOutput({
           type: 'compare',

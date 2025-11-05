@@ -2,8 +2,11 @@ import { CompilerOutput } from '../helper/CompilerOutput'
 import { AstNode, prettyPrintAstNode } from '../helper/astNode'
 import { conditionToRK } from '../helper/conditionToRk'
 import { matchChildren } from '../helper/matchChildren'
-import { SemantikCheckContext, semanticCheck } from './nodes/semanticCheck'
-import { expressionNodes, parseExpression } from './parseExpression'
+import {
+  SemantikCheckContext,
+  compileDeclarationAndStatements,
+} from './nodes/compileDeclarationAndStatements'
+import { expressionNodes, compileExpression } from './nodes/compileExpression'
 
 const compareOps = {
   '==': 'equal',
@@ -34,15 +37,15 @@ export function checkCondition(
         co.warn(comparison.children[1], `Unbekannter Vergleichsoperator`)
         return false
       }
-      parseExpression(co, comparison.children[0], context)
-      parseExpression(co, comparison.children[2], context)
+      compileExpression(co, comparison.children[0], context)
+      compileExpression(co, comparison.children[2], context)
       co.appendOutput({ type: 'compare', kind })
       co.activateProMode()
       return true
     }
   } else {
     context.expectCondition = true
-    semanticCheck(co, node, context)
+    compileDeclarationAndStatements(co, node, context)
     context.expectCondition = undefined
     const condition = context.condition
     if (condition) {

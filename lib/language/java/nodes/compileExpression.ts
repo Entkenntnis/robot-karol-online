@@ -1,9 +1,9 @@
-import { CompilerOutput } from '../helper/CompilerOutput'
-import { AstNode, prettyPrintAstNode } from '../helper/astNode'
-import { matchChildren } from '../helper/matchChildren'
+import { CompilerOutput } from '../../helper/CompilerOutput'
+import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
+import { matchChildren } from '../../helper/matchChildren'
 import { compileValExpression } from './compileValExpression'
-import { checkMethodInvocation } from './nodes/checkMethodInvocation'
-import { SemantikCheckContext } from './nodes/semanticCheck'
+import { checkMethodInvocation } from './checkMethodInvocation'
+import { SemantikCheckContext } from './compileDeclarationAndStatements'
 
 export const expressionNodes = [
   'IntegerLiteral',
@@ -16,7 +16,7 @@ export const expressionNodes = [
   'MethodInvocation',
 ]
 
-export function parseExpression(
+export function compileExpression(
   co: CompilerOutput,
   node: AstNode,
   context: SemantikCheckContext
@@ -93,7 +93,7 @@ export function parseExpression(
 
   if (node.name === 'ParenthesizedExpression') {
     if (matchChildren(['(', expressionNodes, ')'], node.children)) {
-      parseExpression(co, node.children[1], context)
+      compileExpression(co, node.children[1], context)
       // don't change context and pass through transparently
       return
     }

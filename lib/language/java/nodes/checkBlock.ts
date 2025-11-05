@@ -1,7 +1,10 @@
 import { CompilerOutput } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
 import { ensureBlock } from '../ensureBlock'
-import { SemantikCheckContext, semanticCheck } from './semanticCheck'
+import {
+  SemantikCheckContext,
+  compileDeclarationAndStatements,
+} from './compileDeclarationAndStatements'
 
 export function checkBlock(
   co: CompilerOutput,
@@ -12,7 +15,7 @@ export function checkBlock(
   const previousVariables = new Set(context.variablesInScope)
   node.children
     .filter((child) => child.name !== '{' && child.name !== '}')
-    .map((child) => semanticCheck(co, child, context))
+    .map((child) => compileDeclarationAndStatements(co, child, context))
 
   // closing scope and remove all additional variables
   const keys = Array.from(context.variablesInScope.keys())
