@@ -8,11 +8,15 @@ export function checkSemikolon(co: CompilerOutput, nodeToCheck: AstNode) {
       children.pop()
     }
     const line = co.lineAt(nodeToCheck.from)
-    co.warn__internal({
-      from: Math.max(nodeToCheck.from, line.to - 1),
-      to: line.to,
-      message: "Erwarte Semikolon ';'",
-    })
+    const from = Math.max(nodeToCheck.from, line.to - 1)
+    const to = line.to
+    if (co.noWarningsInRange(from, to)) {
+      co.warn__internal({
+        from,
+        to,
+        message: "Erwarte Semikolon ';'",
+      })
+    }
     return false
   }
 }

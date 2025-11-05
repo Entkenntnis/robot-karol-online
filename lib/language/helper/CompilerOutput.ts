@@ -86,6 +86,10 @@ export class CompilerOutput {
     return this.warnings.length > 0
   }
 
+  noWarningsInRange(from: number, to: number) {
+    return this.warnings.every((el) => el.to < from || to < el.from)
+  }
+
   fatalResult() {
     return { output: [], warnings: this.warnings }
   }

@@ -473,10 +473,10 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.\n  }\n}',
     warnings: [
       {
-        from: 74,
+        from: 68,
         to: 74,
         severity: 'error',
-        message: 'Erwarte Methodenaufruf',
+        message: "Erwarte Methodenaufruf nach 'karol.'",
       },
     ],
   },
@@ -490,12 +490,6 @@ const compilerTestCases: CompilerTestCase[] = [
         to: 82,
         severity: 'error',
         message: 'Bitte runde Klammer schließen',
-      },
-      {
-        from: 81,
-        to: 82,
-        severity: 'error',
-        message: "Erwarte Semikolon ';'",
       },
     ],
   },
@@ -544,10 +538,10 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.markeSetzen(2);\n  }\n}',
     warnings: [
       {
-        from: 85,
+        from: 68,
         to: 88,
         severity: 'error',
-        message: 'Erwarte leere Parameterliste',
+        message: 'Keine passende Methode gefunden, prüfe Name und Argumente',
       },
     ],
   },
@@ -555,7 +549,7 @@ const compilerTestCases: CompilerTestCase[] = [
     title: 'Befehl Beenden',
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.beenden();\n  }\n}',
-    output: [{ type: 'jump', target: Infinity }],
+    output: [{ type: 'jump', target: Infinity, line: 5 }],
     rkCode: 'Beenden',
   },
   {

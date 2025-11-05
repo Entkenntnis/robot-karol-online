@@ -1,6 +1,7 @@
 import { CompilerOutput } from '../helper/CompilerOutput'
 import { AstNode, prettyPrintAstNode } from '../helper/astNode'
 import { matchChildren } from '../helper/matchChildren'
+import { compileValExpression } from './compileValExpression'
 import { checkMethodInvocation } from './nodes/checkMethodInvocation'
 import { SemantikCheckContext } from './nodes/semanticCheck'
 
@@ -56,15 +57,8 @@ export function parseExpression(
 
       const expr1 = node.children[0]
       const expr2 = node.children[2]
-      context.expectVoid = false
-      parseExpression(co, expr1, context)
-      if (context.valueType != 'int') {
-        co.warn(expr1, 'Erwarte int-Wert')
-      }
-      parseExpression(co, expr2, context)
-      if (context.valueType != 'int') {
-        co.warn(expr2, 'Erwarte int-Wert')
-      }
+      compileValExpression('int', co, expr1, context)
+      compileValExpression('int', co, expr2, context)
       co.appendOutput({
         type: 'operation',
         kind:
@@ -89,11 +83,7 @@ export function parseExpression(
       if (node.children[0].text() !== '-') {
         co.warn(node.children[0], `Es wird nur Negation unterstützt`)
       }
-      context.expectVoid = false
-      parseExpression(co, node.children[1], context)
-      if (context.valueType != 'int') {
-        co.warn(node.children[1], 'Erwarte int-Wert')
-      }
+      compileValExpression('int', co, node.children[1], context)
       co.appendOutput({ type: 'constant', value: -1 })
       co.appendOutput({ type: 'operation', kind: 'mult' })
       context.valueType = 'int'
@@ -105,7 +95,7 @@ export function parseExpression(
     co.activateProMode()
     if (matchChildren(['(', expressionNodes, ')'], node.children)) {
       parseExpression(co, node.children[1], context)
-      // don't change value type
+      // don't change context and pass through transparently
       return
     }
   }
@@ -127,7 +117,6 @@ export function parseExpression(
       co.warn(node, 'Fehler in UpdateExpression')
     }
 
-    co.activateProMode()
     if (!context.variablesInScope.has(varName)) {
       co.warn(node, `Variable ${varName} nicht bekannt`)
     }
@@ -179,11 +168,7 @@ export function parseExpression(
     }
 
     const myExpectVoid = context.expectVoid
-    context.expectVoid = false
-    parseExpression(co, node.children[2], context)
-    if (context.valueType != 'int') {
-      co.warn(node.children[1], 'Erwarte int-Wert')
-    }
+    compileValExpression('int', co, node.children[2], context)
     co.appendOutput({ type: 'store', variable })
     if (!myExpectVoid) {
       co.appendOutput({ type: 'load', variable })
@@ -197,5 +182,14 @@ export function parseExpression(
     return
   }
 
-  co.warn(node, `Ausdruck ${node.name} konnte nicht eingelesen werden`)
+  if (node.text().trim() == `${context.robotName}.`) {
+    co.warn__internal({
+      from: node.from,
+      to: Math.min(node.to, co.lineAt(node.from).to), // cap error at end of line
+      message: `Erwarte Methodenaufruf nach '${context.robotName}.'`,
+    })
+    return
+  }
+
+  co.warn(node, `Ausdruck ${node.name} konnte nicht eingelesen werden.`)
 }

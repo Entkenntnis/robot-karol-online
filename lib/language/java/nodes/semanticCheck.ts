@@ -20,7 +20,7 @@ interface Parameter {
   name: string
 }
 
-type ValueType = 'boolean' | 'int' | 'void'
+export type ValueType = 'boolean' | 'int' | 'void'
 
 interface MethodContext {
   parameters: Parameter[]
@@ -64,12 +64,12 @@ export function semanticCheck(
       return
     }
     case 'ExpressionStatement': {
-      checkSemikolon(co, node)
       context.expectVoid = true
       parseExpression(co, node.children[0], context)
       if (context.valueType != 'void') {
         co.appendOutput({ type: 'pop' })
       }
+      checkSemikolon(co, node)
       return
     }
     case ';': {

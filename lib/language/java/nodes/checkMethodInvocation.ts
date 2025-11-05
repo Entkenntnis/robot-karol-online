@@ -2,6 +2,7 @@ import { CallOp, Op } from '../../../state/types'
 import { AstNode } from '../../helper/astNode'
 import { CompilerOutput } from '../../helper/CompilerOutput'
 import { matchChildren } from '../../helper/matchChildren'
+import { compileValExpression } from '../compileValExpression'
 import { expressionNodes, parseExpression } from '../parseExpression'
 import { MethodSignature, SemantikCheckContext } from './semanticCheck'
 
@@ -83,6 +84,14 @@ export function checkMethodInvocation(
       }) ?? null
   }
 
+  if (argList && argList.children.some((child) => child.isError)) {
+    co.warn__internal({
+      from: argList.from,
+      to: Math.min(argList.to, co.lineAt(argList.from).to),
+      message: `Bitte runde Klammer schließen`,
+    })
+  }
+
   if (!sig || !argList) {
     co.warn(node, `Keine passende Methode gefunden, prüfe Name und Argumente`)
     return
@@ -96,11 +105,7 @@ export function checkMethodInvocation(
         continue
       }
       if (expressionNodes.includes(paramEl.name)) {
-        context.expectVoid = undefined
-        parseExpression(co, paramEl, context)
-        if (context.valueType != 'int') {
-          co.warn(paramEl, 'Erwarte int-Wert')
-        }
+        compileValExpression('int', co, paramEl, context) // <-- TODO: adjust types
       }
     }
   }
@@ -109,12 +114,8 @@ export function checkMethodInvocation(
   // Step 3: invocation!!
   if (sig.karolBuiltInOps) {
     const newOp: Op = JSON.parse(JSON.stringify(sig.karolBuiltInOps[0]))
-    if (newOp.type == 'action') {
+    if (sig.returnType == 'void') {
       newOp.line = co.lineAt(node.from).number
-    }
-    co.appendOutput(newOp)
-    // also append rk code for actions
-    if (newOp.type == 'action') {
       co.appendRkCode(
         sig.name.charAt(0).toUpperCase() +
           sig.name.slice(1) +
@@ -124,6 +125,7 @@ export function checkMethodInvocation(
         node.from
       )
     }
+    co.appendOutput(newOp)
     // BEWARE: rkcode generation for conditions have to be handled downstream
   } else {
     // call into custom method
