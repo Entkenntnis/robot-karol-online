@@ -1,3 +1,4 @@
+import { lint } from '../../components/ide/JavaEditor'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { mapData } from '../data/map'
 import { questData } from '../data/quests'
@@ -93,6 +94,22 @@ export function runTask(core: Core, index: number) {
     ) {
       runPythonCode(core)
     } else {
+      if (
+        core.ws.settings.mode == 'code' &&
+        core.ws.settings.language == 'java'
+      ) {
+        // sanity check: make sure code is synced
+        if (core.view?.current) {
+          // check if doc state == core state
+          const editorCode = core.view.current.state.doc.toString()
+          if (editorCode != core.ws.javaCode) {
+            console.log(
+              'Warning: JAVA code was out of sync! Syncing now. (this should really not happen)'
+            )
+            lint(core, core.view.current)
+          }
+        }
+      }
       run(core)
     }
   }
