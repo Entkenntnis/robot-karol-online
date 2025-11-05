@@ -120,7 +120,7 @@ export function checkMethodInvocation(
         sig.name.charAt(0).toUpperCase() +
           sig.name.slice(1) +
           (sig.parameters.length > 0
-            ? `(${parseInt(argList.children[0].text())})`
+            ? `(${parseInt(argList.children[1].text())})`
             : ''),
         node.from
       )
