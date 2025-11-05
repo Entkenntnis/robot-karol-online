@@ -9,7 +9,11 @@ import { ensureBlock } from './ensureBlock'
 import { ensureExactlyOneChild } from '../helper/ensureExactlyOneChild'
 import { checkMainMethod } from './checkMainMethod'
 import { checkRobotField } from './checkRobotField'
-import { MethodContexts, semanticCheck } from './nodes/semanticCheck'
+import {
+  MethodContexts,
+  compileDeclarationAndStatements,
+  ValueType,
+} from './nodes/compileDeclarationAndStatements'
 
 export function compileJava(tree: Tree, doc: Text): CompilerResult {
   const comments: AstNode[] = []
@@ -24,7 +28,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   const co = new CompilerOutput(doc, comments)
 
   // debug
-  //console.log(prettyPrintAstNode(ast))
+  // console.log(prettyPrintAstNode(ast))
 
   if (ast.children.length == 0) {
     // empty program
@@ -180,36 +184,66 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   const methodContexts: MethodContexts = {}
   for (const method of methods) {
     if (method != mainMethod) {
+      let returnType: ValueType | null = null
+      let name: string | null = null
+      let formalParameters: AstNode | null = null
+
       if (
         matchChildren(
           ['void', 'Definition', 'FormalParameters', 'Block'],
           method.children
         )
       ) {
-        const formalParameters = method.children[2]
-        const name = method.children[1].text()
+        returnType = 'void'
+        name = method.children[1].text()
+        formalParameters = method.children[2]
+      } else if (
+        matchChildren(
+          ['PrimitiveType', 'Definition', 'FormalParameters', 'Block'],
+          method.children
+        )
+      ) {
+        co.activateProMode()
+        const prim = method.children[0].text()
+        if (prim === 'int' || prim === 'boolean') {
+          returnType = prim
+        } else {
+          co.warn(
+            method.children[0],
+            'Nur Rückgabetyp int oder boolean unterstützt'
+          )
+          returnType = 'void'
+        }
+        name = method.children[1].text()
+        formalParameters = method.children[2]
+      }
 
+      if (name && returnType !== null && formalParameters) {
         const params: string[] = []
         for (const param of formalParameters.children) {
           if (param.name == '(' || param.name == ')' || param.name == ',') {
             continue
           }
           if (matchChildren(['PrimitiveType', 'Definition'], param.children)) {
+            co.activateProMode()
             const type = param.children[0].text()
             if (type !== 'int') {
               co.warn(param, 'Nur Typ int unterstützt')
             } else {
               const def = param.children[1].text()
               params.push(def)
-              co.activateProMode()
             }
           } else {
             co.warn(param, 'Ungültiger Parameter, erwarte Typ int')
           }
         }
         availableMethods.set(name, params)
+        methodContexts[name] = {
+          parameters: params.map((p) => ({ name: p, type: 'int' })),
+          returnType,
+        }
       } else {
-        co.warn(method, 'Erwarte eigene Methode ohne Rückgabewert mit Rumpf')
+        co.warn(method, 'Erwarte gültige Methodendeklaration mit Rumpf')
       }
     }
   }
@@ -218,12 +252,13 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
 
   const callOps: [string, CallOp][] = []
 
-  semanticCheck(co, mainMethod, {
+  compileDeclarationAndStatements(co, mainMethod, {
     robotName: robotInstanceName,
-    variablesInScope: new Set(),
+    variablesInScope: new Map(),
     availableMethods,
     methodContexts,
     callOps,
+    currentMethodReturnType: 'void',
   })
 
   if (availableMethods.size > 0) {
@@ -245,23 +280,85 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       })
       co.appendRkCode('\nAnweisung ' + name, method.from)
       co.increaseIndent()
-      const variablesInScope = new Set<string>()
+      const variablesInScope = new Map<string, 'int' | 'boolean' | 'void'>()
       for (const v of availableMethods.get(name)?.slice().reverse() ?? []) {
-        variablesInScope.add(v)
+        variablesInScope.set(v, 'int')
         co.appendOutput({ type: 'store', variable: v })
       }
-      semanticCheck(co, method, {
+      compileDeclarationAndStatements(co, method, {
         robotName: robotInstanceName,
         variablesInScope,
         availableMethods,
         methodContexts,
         callOps,
+        currentMethodReturnType: methodContexts[name]?.returnType ?? 'void',
       })
-      co.appendOutput({ type: 'return' })
+      // Determine if we need to append a default return
+      const declaredReturn: ValueType =
+        methodContexts[name]?.returnType ?? 'void'
+      if (declaredReturn === 'void') {
+        co.appendOutput({ type: 'return' })
+      } else {
+        // simple check whether all paths return; if not, synthesize default
+        const block = method.children.find((c) => c.name === 'Block')
+        const allReturn = block ? ensuresReturn(block) : false
+        if (!allReturn) {
+          co.warn(
+            method.children[1],
+            'Nicht alle Pfade geben einen Wert zurück'
+          )
+        }
+      }
       co.decreaseIndent()
       co.appendRkCode('endeAnweisung', method.to)
     }
   }
 
   return co.getResult()
+}
+
+// Simple, conservative checker: true if this subtree guarantees a return
+function ensuresReturn(node: AstNode): boolean {
+  switch (node.name) {
+    case 'ReturnStatement':
+      return true
+    case 'Block': {
+      // if any statement ensures return and execution cannot continue beyond it,
+      // we can consider the block as ensuring return only if control cannot fall through
+      // Here: return true if there's a statement that ensures return and there's no path after it.
+      // Conservative simplification: if any child ensures return and it's not followed by other children that might execute, we'll still accept true.
+      // Implementation: if any child ensures return, return true.
+      for (const child of node.children) {
+        if (child.name === '{' || child.name === '}') continue
+        if (ensuresReturn(child)) return true
+      }
+      return false
+    }
+    case 'IfStatement': {
+      // requires if-else and both branches ensure return
+      const children = node.children
+      // Patterns: if (cond) Block [else Block]
+      const hasElse = children.some((c) => c.name === 'else')
+      if (!hasElse) return false
+      // find then and else blocks
+      let thenBlock: AstNode | undefined
+      let elseBlock: AstNode | undefined
+      for (let i = 0; i < children.length; i++) {
+        if (children[i].name === 'Block') {
+          if (!thenBlock) thenBlock = children[i]
+          else {
+            elseBlock = children[i]
+            break
+          }
+        }
+      }
+      if (!thenBlock || !elseBlock) return false
+      return ensuresReturn(thenBlock) && ensuresReturn(elseBlock)
+    }
+    case 'WhileStatement':
+    case 'ForStatement':
+      return false
+    default:
+      return false
+  }
 }

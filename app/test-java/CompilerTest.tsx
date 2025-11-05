@@ -10,6 +10,10 @@ import { compileJava } from '../../lib/language/java/compileJava'
 import { CompilerTestCase } from './page'
 import { parser } from '../../lib/codemirror/javaParser/parser'
 import { useSearchParams } from 'next/navigation'
+import {
+  cursorToAstNode,
+  prettyPrintAstNode,
+} from '../../lib/language/helper/astNode'
 
 export function CompilerTest({ test }: { test: CompilerTestCase }) {
   const searchParams = useSearchParams()
@@ -17,13 +21,19 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
   const [output, setOutput] = useState<Op[] | undefined>(undefined)
   const [warnings, setWarnings] = useState<Diagnostic[] | undefined>(undefined)
   const [rkCode, setRkCode] = useState<string | undefined>(undefined)
+  const [pp, setPp] = useState<string | undefined>(undefined)
   const [proMode, setProMode] = useState(false)
   useEffect(() => {
     if (!run) {
       const tree = parser.parse(test.source)
       const doc = Text.of(test.source.split('\n'))
       const result = compileJava(tree, doc)
-      console.log(result)
+      const ast = cursorToAstNode(tree.cursor(), doc, [
+        'LineComment',
+        'BlockComment',
+      ])
+      const pp = prettyPrintAstNode(ast)
+      setPp(pp)
       if (result.warnings.length > 0) {
         setWarnings(result.warnings)
       } else {
@@ -60,6 +70,10 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
             <pre className="mt-3 border min-h-12 text-sm max-h-64 overflow-auto">
               {test.source ? test.source : <>&nbsp;</>}
             </pre>
+            <textarea
+              className="h-3 w-12 border-gray-100 border-2 mt-2 resize"
+              defaultValue={pp}
+            ></textarea>
           </div>
           <div className="m-3 w-1/3">
             <h3>{test.output ? 'Erwarteter Output' : 'Erwartete Warnungen'}</h3>

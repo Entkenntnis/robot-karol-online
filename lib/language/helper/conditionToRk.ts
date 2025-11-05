@@ -14,5 +14,8 @@ export function conditionToRK(condition: Condition) {
   })(condition.type)
   const part3 = condition.type == 'brick_count' ? `(${condition.count})` : ''
 
+  // this was only for me
+  condition.count = undefined
+
   return `${part1}${part2}${part3}`
 }

@@ -3,8 +3,11 @@ import { CompilerOutput, AnchorOp } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
 import { conditionToRK } from '../../helper/conditionToRk'
 import { matchChildren } from '../../helper/matchChildren'
-import { checkCondition } from '../checkCondition'
-import { SemantikCheckContext, semanticCheck } from './semanticCheck'
+import {
+  SemantikCheckContext,
+  compileDeclarationAndStatements,
+} from './compileDeclarationAndStatements'
+import { compileExpression } from './compileExpression'
 
 export function checkWhileStatement(
   co: CompilerOutput,
@@ -29,7 +32,7 @@ export function checkWhileStatement(
       })
       co.appendRkCode('wiederhole immer', node.from)
       co.increaseIndent()
-      semanticCheck(co, node.children[2], context)
+      compileDeclarationAndStatements(co, node.children[2], context)
       co.appendOutput(jump)
       co.decreaseIndent()
       co.appendRkCode('endewiederhole', node.to)
@@ -61,22 +64,31 @@ export function checkWhileStatement(
       }
       co.appendOutput(anchorCond)
 
-      if (
-        !checkCondition(
-          co,
-          node.children[1],
-          context,
-          (condition) => `wiederhole solange ${condition}`
+      context.expectVoid = false
+      const t = compileExpression(co, node.children[1], context)
+      if (t != 'boolean') {
+        if (co.noWarningsInRange(node.from, node.to)) {
+          co.warn(node.children[1], 'Erwarte Bedingung')
+        }
+        return
+      }
+
+      const last = co.peek()
+      if (last.type == 'sense') {
+        // I can convert
+        co.appendRkCode(
+          `wiederhole solange ${conditionToRK(last.condition)}`,
+          node.from
         )
-      ) {
-        co.warn(node.children[1], 'Erwarte Bedingung')
+      } else {
+        co.activateProMode()
       }
 
       co.appendOutput(branch)
 
       co.appendOutput(anchorTop)
       co.increaseIndent()
-      semanticCheck(co, node.children[2], context)
+      compileDeclarationAndStatements(co, node.children[2], context)
       co.decreaseIndent()
 
       co.appendRkCode('endewiederhole', node.to)

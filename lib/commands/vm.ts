@@ -272,6 +272,7 @@ function* executeProgramAsGenerator(core: Core) {
                 dir: 'south',
               })
             })
+            // why am I not updating pc here?
             break
           }
           case 'sense': {
@@ -321,9 +322,18 @@ function* executeProgramAsGenerator(core: Core) {
           }
           case 'return': {
             const target = vm.callstack.pop()
-            vm.frames.pop()
+            const lastFrame = vm.frames.pop()
+            if (op.withValue) {
+              const topValue = lastFrame?.opstack.pop()
+              vm.frames[vm.frames.length - 1].opstack.push(topValue ?? -1)
+            }
             vm.pc = target ?? Infinity
             lastScannedLine = -1
+            break
+          }
+          case 'pop': {
+            frame.opstack.pop()
+            vm.pc++
             break
           }
           case 'operation': {
