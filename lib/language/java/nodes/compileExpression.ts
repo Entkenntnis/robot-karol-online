@@ -166,13 +166,13 @@ export function compileExpression(
     co.activateProMode()
     let varName = ''
     let isIncr = true
-    let prefix = false
+    let postfix = false
 
     if (matchChildren(['UpdateOp', 'Identifier'], node.children)) {
       varName = node.children[1].text()
       isIncr = node.children[0].text() == '++'
     } else if (matchChildren(['Identifier', 'UpdateOp'], node.children)) {
-      prefix = true
+      postfix = true
       varName = node.children[0].text()
       isIncr = node.children[1].text() == '++'
     } else {
@@ -193,14 +193,14 @@ export function compileExpression(
       putDataOnStack = true
     }
 
-    if (putDataOnStack && prefix) {
+    if (putDataOnStack && postfix) {
       co.appendOutput({ type: 'load', variable: varName })
     }
     co.appendOutput({ type: 'load', variable: varName })
     co.appendOutput({ type: 'constant', value: 1 })
     co.appendOutput({ type: 'operation', kind: isIncr ? 'add' : 'sub' })
     co.appendOutput({ type: 'store', variable: varName })
-    if (putDataOnStack && !prefix) {
+    if (putDataOnStack && !postfix) {
       co.appendOutput({ type: 'load', variable: varName })
     }
     if (putDataOnStack) {

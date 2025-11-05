@@ -134,7 +134,7 @@ export function checkForStatement(
     } else {
       co.warn(
         spec,
-        'Erwarte gültigen for-Schleifen-Kopf (z.B. i = 0; i < 10; i++)'
+        'Erwarte gültigen for-Schleifen-Kopf (z.B. int i = 0; i < 10; i++)'
       )
       return
     }
@@ -191,7 +191,11 @@ export function checkForStatement(
     }
   } else {
     if (matchChildren(['for', 'ForSpec', '⚠'], node.children)) {
-      compileDeclarationAndStatements(co, node.children[1], context)
+      co.warn(
+        node.children[1],
+        'Erwarte gültigen for-Schleifen-Kopf (z.B. int i = 0; i < 10; i++)'
+      )
+      return
     }
     co.warn(node, 'Erwarte Schleife mit Rumpf')
   }
