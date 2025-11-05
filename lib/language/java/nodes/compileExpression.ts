@@ -1,9 +1,10 @@
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
+import { AstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { compileValExpression } from './compileValExpression'
 import { checkMethodInvocation } from './checkMethodInvocation'
 import { SemantikCheckContext } from './compileDeclarationAndStatements'
+import { BranchOp, JumpOp } from '../../../state/types'
 
 export const expressionNodes = [
   'IntegerLiteral',
@@ -105,6 +106,104 @@ export function compileExpression(
             : 'mod',
       })
       context.valueType = 'int'
+      return
+    }
+    // Logical operators (&&, ||) with short-circuiting
+    if (
+      matchChildren(
+        [expressionNodes, 'LogicOp', expressionNodes],
+        node.children
+      )
+    ) {
+      const op = node.children[1].text()
+      const left = node.children[0]
+      const right = node.children[2]
+
+      if (op !== '&&' && op !== '||') {
+        co.warn(node.children[1], `Unbekannter logischer Operator`)
+        // best effort: do not emit broken stack ops
+        context.valueType = 'void'
+        return
+      }
+
+      // Evaluate left side as boolean
+      compileValExpression('boolean', co, left, context)
+
+      const line = co.lineAt(node.from).number
+
+      // First branch depending on left
+      const b1: BranchOp = { type: 'branch', targetT: -1, targetF: -1, line }
+
+      // Anchors that we will use to wire control flow
+      const anchorRight: any = {
+        type: 'anchor',
+        callback: (target: number) => {
+          // where to continue to evaluate right side
+          if (op === '||') b1.targetF = target
+          else b1.targetT = target // '&&'
+        },
+      }
+
+      // Second branch after evaluating right
+      const b2: BranchOp = { type: 'branch', targetT: -1, targetF: -1, line }
+
+      const anchorTrue: any = {
+        type: 'anchor',
+        callback: (target: number) => {
+          // both branches true-target should jump here
+          if (op === '||') {
+            b1.targetT = target
+            b2.targetT = target
+          } else {
+            // '&&'
+            b2.targetT = target
+          }
+        },
+      }
+      const anchorFalse: any = {
+        type: 'anchor',
+        callback: (target: number) => {
+          // false target (only used where needed)
+          if (op === '||') {
+            b2.targetF = target
+          } else {
+            // '&&'
+            b1.targetF = target
+            b2.targetF = target
+          }
+        },
+      }
+      const jEnd: JumpOp = { type: 'jump', target: -1, line }
+      const anchorEnd: any = {
+        type: 'anchor',
+        callback: (target: number) => {
+          jEnd.target = target
+        },
+      }
+
+      // Emit first branch and wire right-side start
+      co.appendOutput(b1)
+      co.appendOutput(anchorRight)
+
+      // Right side
+      compileValExpression('boolean', co, right, context)
+
+      // Decide final result based on right side
+      co.appendOutput(b2)
+
+      // True path: push 1 and jump to end
+      co.appendOutput(anchorTrue)
+      co.appendOutput({ type: 'constant', value: 1 })
+      co.appendOutput(jEnd)
+
+      // False path: push 0
+      co.appendOutput(anchorFalse)
+      co.appendOutput({ type: 'constant', value: 0 })
+
+      // End anchor
+      co.appendOutput(anchorEnd)
+
+      context.valueType = 'boolean'
       return
     }
     if (
