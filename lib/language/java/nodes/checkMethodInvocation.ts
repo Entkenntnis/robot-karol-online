@@ -108,9 +108,7 @@ export function checkMethodInvocation(
       if (paramEl.name == '(' || paramEl.name == ')' || paramEl.name == ',') {
         continue
       }
-      if (expressionNodes.includes(paramEl.name)) {
-        compileValExpression('int', co, paramEl, context) // <-- TODO: adjust types
-      }
+      compileValExpression('int', co, paramEl, context) // <-- TODO: adjust types
     }
   }
   // parameters are all parsed on the stack

@@ -14,6 +14,7 @@ export const expressionNodes = [
   'BooleanLiteral',
   'Identifier',
   'BinaryExpression',
+  'TernaryExpression',
   'UnaryExpression',
   'ParenthesizedExpression',
   'UpdateExpression',
@@ -41,6 +42,96 @@ export function compileExpression(
     }
     co.appendOutput({ type: 'constant', value: parseInt(node.text()) })
     return 'int'
+  }
+
+  if (node.name === 'TernaryExpression') {
+    // Pattern: <cond> ? <then> : <else>
+    co.activateProMode()
+    if (
+      !matchChildren(
+        [expressionNodes, 'LogicOp', expressionNodes, ':', expressionNodes],
+        node.children
+      )
+    ) {
+      co.warn(node, 'Fehler im ternären Operator')
+      return 'void'
+    }
+
+    const qmark = node.children[1]
+    if (qmark.text() !== '?') {
+      co.warn(qmark, 'Erwarte ? im ternären Operator')
+      return 'void'
+    }
+
+    const cond = node.children[0]
+    const thenExpr = node.children[2]
+    const elseExpr = node.children[4]
+
+    // Evaluate condition
+    compileValExpression('boolean', co, cond, context)
+
+    const line = co.lineAt(node.from).number
+    const b: BranchOp = { type: 'branch', targetT: -1, targetF: -1, line }
+
+    const anchorThenStart: any = {
+      type: 'anchor',
+      callback: (target: number) => {
+        b.targetT = target
+      },
+    }
+    const anchorElseStart: any = {
+      type: 'anchor',
+      callback: (target: number) => {
+        b.targetF = target
+      },
+    }
+    const jEnd: JumpOp = { type: 'jump', target: -1, line }
+    const anchorEnd: any = {
+      type: 'anchor',
+      callback: (target: number) => {
+        jEnd.target = target
+      },
+    }
+
+    // Branch on condition
+    co.appendOutput(b)
+
+    // THEN branch
+    co.appendOutput(anchorThenStart)
+    const thenType = compileExpression(co, thenExpr, context)
+    let resultType: ValueType = thenType
+    if (thenType === 'void') {
+      // Keep stack balanced; push default 0
+      if (co.noWarningsInRange(thenExpr.from, thenExpr.to)) {
+        co.warn(thenExpr, 'Erwarte Wert im ternären Operator')
+      }
+      return 'void'
+    }
+    // Jump over ELSE after THEN branch
+    co.appendOutput(jEnd)
+
+    // ELSE branch
+    co.appendOutput(anchorElseStart)
+    if (resultType !== 'void') {
+      // Enforce same type as THEN branch (after possible defaulting)
+      compileValExpression(resultType, co, elseExpr, context)
+    } else {
+      // Fallback, but should not happen as we default to int on void
+      const elseType = compileExpression(co, elseExpr, context)
+      if (elseType === 'void') {
+        if (co.noWarningsInRange(elseExpr.from, elseExpr.to)) {
+          co.warn(elseExpr, 'Erwarte Wert im ternären Operator')
+        }
+        return 'void'
+      } else {
+        resultType = elseType
+      }
+    }
+
+    // End anchor
+    co.appendOutput(anchorEnd)
+
+    return resultType
   }
 
   if (node.name === 'BooleanLiteral') {
@@ -330,13 +421,46 @@ export function compileExpression(
     }
 
     const op = node.children[1].text()
-    if (op != '=') {
+    const myExpectVoid = context.expectVoid
+
+    if (op === '=') {
+      // Simple assignment
+      compileValExpression(varType, co, node.children[2], context)
+      co.appendOutput({ type: 'store', variable })
+      if (!myExpectVoid) {
+        co.appendOutput({ type: 'load', variable })
+      }
+      return myExpectVoid ? 'void' : varType
+    }
+
+    // Compound assignments for integers: +=, -=, *=, /=, %=
+    const compoundOps: Record<string, 'add' | 'sub' | 'mult' | 'div' | 'mod'> =
+      {
+        '+=': 'add',
+        '-=': 'sub',
+        '*=': 'mult',
+        '/=': 'div',
+        '%=': 'mod',
+      }
+
+    const opKind = compoundOps[op as keyof typeof compoundOps]
+    if (!opKind) {
       co.warn(node.children[1], `Zuweisung ${op} nicht unterstützt`)
       return 'void'
     }
 
-    const myExpectVoid = context.expectVoid
-    compileValExpression(varType, co, node.children[2], context)
+    if (varType !== 'int') {
+      co.warn(
+        node.children[0],
+        'Erwarte int für zusammengesetzten Zuweisungsoperator'
+      )
+      return 'void'
+    }
+
+    // Load current value, evaluate RHS as int, apply operation, store back
+    co.appendOutput({ type: 'load', variable })
+    compileValExpression('int', co, node.children[2], context)
+    co.appendOutput({ type: 'operation', kind: opKind })
     co.appendOutput({ type: 'store', variable })
     if (!myExpectVoid) {
       co.appendOutput({ type: 'load', variable })
