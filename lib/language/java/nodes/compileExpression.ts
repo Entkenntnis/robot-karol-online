@@ -63,6 +63,7 @@ export function compileExpression(
     const variable = node.text()
     if (!context.variablesInScope.has(variable)) {
       co.warn(node, `Variable ${variable} nicht bekannt`)
+      context.valueType = 'void'
       return
     }
     co.appendOutput({ type: 'load', variable })
@@ -82,6 +83,8 @@ export function compileExpression(
       const op = node.children[1].text()
       if (!['+', '-', '*', '/', '%'].includes(op)) {
         co.warn(node.children[1], `Die Rechenart ${op} wird nicht unterstützt`)
+        context.valueType = 'void'
+        return
       }
 
       const expr1 = node.children[0]
@@ -174,10 +177,14 @@ export function compileExpression(
       isIncr = node.children[1].text() == '++'
     } else {
       co.warn(node, 'Fehler in UpdateExpression')
+      context.valueType = 'void'
+      return
     }
 
     if (!context.variablesInScope.has(varName)) {
       co.warn(node, `Variable ${varName} nicht bekannt`)
+      context.valueType = 'void'
+      return
     }
 
     let putDataOnStack = false
