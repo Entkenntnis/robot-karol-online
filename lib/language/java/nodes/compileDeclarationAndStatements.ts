@@ -44,8 +44,6 @@ export interface MethodSignature {
   karolBuiltInOps?: Op[]
 }
 
-// rename to something other, like
-// parseDeclarationsAndStatements
 export function compileDeclarationAndStatements(
   co: CompilerOutput,
   node: AstNode,
