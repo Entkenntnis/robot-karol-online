@@ -29,7 +29,7 @@ export function checkCondition(
     ) {
       // @ts-ignore We check it later
       const kind = compareOps[comparison.children[1].text()]
-      console.log(comparison.children[1].text(), kind)
+      // console.log(comparison.children[1].text(), kind)
       if (!kind) {
         co.warn(comparison.children[1], `Unbekannter Vergleichsoperator`)
         return false
