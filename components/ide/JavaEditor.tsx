@@ -171,6 +171,7 @@ export function lint(core: Core, view: EditorView) {
   warnings.sort((a, b) => a.from - b.from)
 
   if (warnings.length == 0) {
+    console.log(output)
     patch(core, output)
     if (proMode) {
       core.mutateWs((ws) => {

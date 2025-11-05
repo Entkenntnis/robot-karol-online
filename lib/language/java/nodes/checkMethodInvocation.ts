@@ -113,9 +113,15 @@ export function checkMethodInvocation(
 
   // Step 3: invocation!!
   if (sig.karolBuiltInOps) {
+    // This will destroy Infinity, uff!!
     const newOp: Op = JSON.parse(JSON.stringify(sig.karolBuiltInOps[0]))
     if (sig.returnType == 'void') {
-      newOp.line = co.lineAt(node.from).number
+      // all except beenden (<-- VM would crash if target = null)
+      if (sig.name != 'beenden') {
+        newOp.line = co.lineAt(node.from).number
+      } else if (newOp.type == 'jump') {
+        newOp.target = Infinity
+      }
       co.appendRkCode(
         sig.name.charAt(0).toUpperCase() +
           sig.name.slice(1) +
