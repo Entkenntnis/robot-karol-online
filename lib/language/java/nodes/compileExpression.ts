@@ -204,15 +204,31 @@ export function compileExpression(
         node.children
       )
     ) {
+      const opText = node.children[1].text()
       // @ts-ignore We check it in next line
-      const kind = compareOps[node.children[1].text()]
+      const kind = compareOps[opText]
       // console.log(comparison.children[1].text(), kind)
       if (!kind) {
         co.warn(node.children[1], `Unbekannter Vergleichsoperator`)
         return 'void'
       }
-      compileValExpression('int', co, node.children[0], context)
-      compileValExpression('int', co, node.children[2], context)
+      if (kind === 'equal' || kind === 'unequal') {
+        // Allow equality on booleans as well as ints, as long as both sides have the same type
+        // Compile left without enforcing a specific type
+        const leftType = compileExpression(co, node.children[0], context)
+        if (leftType === 'void') {
+          if (co.noWarningsInRange(node.from, node.to)) {
+            co.warn(node.children[0], 'Erwarte Wert für Vergleich')
+          }
+          return 'void'
+        }
+        // Enforce right side to match left side type
+        compileValExpression(leftType, co, node.children[2], context)
+      } else {
+        // For relational comparisons, require integers
+        compileValExpression('int', co, node.children[0], context)
+        compileValExpression('int', co, node.children[2], context)
+      }
       co.appendOutput({ type: 'compare', kind })
       return 'boolean'
     }
