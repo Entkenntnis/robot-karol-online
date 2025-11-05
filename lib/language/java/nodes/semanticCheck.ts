@@ -8,7 +8,7 @@ import { checkForStatement } from './checkForStatement'
 import { checkIfStatement } from './checkIfStatement'
 import { checkLocalVariableDeclaration } from './checkLocalVariableDeclaration'
 import { checkMethodDeclaration } from './checkMethodDeclaration'
-import { checkMethodInvocation } from './checkMethodInvocation'
+import { checkMethodInvocation } from './checkMethodInvocation_messy'
 import { checkParenthesizedExpression } from './checkParenthesizedExpression'
 import { checkUpdateExpression } from './checkUpdateExpression'
 import { checkWhileStatement } from './checkWhileStatement'
@@ -18,7 +18,7 @@ interface Parameter {
   name: string
 }
 
-type ValueType = 'boolean' | 'int'
+type ValueType = 'boolean' | 'int' | 'void'
 
 interface MethodContext {
   parameters: Parameter[]
@@ -38,6 +38,8 @@ export interface SemantikCheckContext {
   expectVoid?: boolean
 }
 
+// rename to something other, like
+// parseDeclarationsAndStatements
 export function semanticCheck(
   co: CompilerOutput,
   node: AstNode,
@@ -57,10 +59,12 @@ export function semanticCheck(
       return
     }
     case ';': {
+      // ????
       co.warn(node, 'Erwarte Methodenaufruf')
       return
     }
     case 'MethodInvocation': {
+      // TODO: MOVE OUT!!
       checkMethodInvocation(co, node, context)
       return
     }
@@ -73,6 +77,7 @@ export function semanticCheck(
       return
     }
     case 'ParenthesizedExpression': {
+      // TODO: MOVE OUT!!!
       checkParenthesizedExpression(co, node, context)
       return
     }
@@ -85,10 +90,12 @@ export function semanticCheck(
       return
     }
     case 'AssignmentExpression': {
+      // moved to expression
       checkAssignmentExpression(co, node, context)
       return
     }
     case 'UpdateExpression': {
+      // moved to expression
       checkUpdateExpression(co, node, context)
       return
     }

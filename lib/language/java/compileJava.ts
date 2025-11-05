@@ -24,7 +24,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   const co = new CompilerOutput(doc, comments)
 
   // debug
-  //console.log(prettyPrintAstNode(ast))
+  console.log(prettyPrintAstNode(ast))
 
   if (ast.children.length == 0) {
     // empty program

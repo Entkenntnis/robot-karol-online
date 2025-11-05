@@ -4,6 +4,7 @@ import { matchChildren } from '../../helper/matchChildren'
 import { ensureBlock } from '../ensureBlock'
 import { SemantikCheckContext, semanticCheck } from './semanticCheck'
 
+// !!!! THIS FILE WILL BE REPLACED
 export function checkUpdateExpression(
   co: CompilerOutput,
   node: AstNode,

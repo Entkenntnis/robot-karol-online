@@ -6,6 +6,7 @@ import { expressionNodes } from '../parseExpression'
 import { checkUpdateExpression } from './checkUpdateExpression'
 import { SemantikCheckContext, semanticCheck } from './semanticCheck'
 
+// !!! THIS FILE WILL BE REPLACED
 export function checkExpressionStatement(
   co: CompilerOutput,
   node: AstNode,
@@ -16,6 +17,7 @@ export function checkExpressionStatement(
     return
   }
   if (matchChildren(['AssignmentExpression', ';'], node.children)) {
+    // moved
     semanticCheck(co, node.children[0], context)
     return
   }
@@ -29,6 +31,7 @@ export function checkExpressionStatement(
     return
   }
   if (matchChildren(['UpdateExpression', ';'], node.children)) {
+    // moved
     checkUpdateExpression(co, node.children[0], context)
     return
   }

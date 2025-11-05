@@ -1,6 +1,7 @@
 import { CompilerOutput } from '../helper/CompilerOutput'
 import { AstNode, prettyPrintAstNode } from '../helper/astNode'
 import { matchChildren } from '../helper/matchChildren'
+import { checkMethodInvocation } from './nodes/checkMethodInvocation'
 import { SemantikCheckContext } from './nodes/semanticCheck'
 
 export const expressionNodes = [
@@ -9,6 +10,9 @@ export const expressionNodes = [
   'BinaryExpression',
   'UnaryExpression',
   'ParenthesizedExpression',
+  'UpdateExpression',
+  'AssignmentExpression',
+  'MethodInvocation',
 ]
 
 export function parseExpression(
@@ -33,6 +37,7 @@ export function parseExpression(
       return
     }
     co.appendOutput({ type: 'load', variable })
+    // HARDCODED: all variables are int
     context.valueType = 'int'
     return
   }
@@ -73,6 +78,7 @@ export function parseExpression(
             ? 'div'
             : 'mod',
       })
+      context.valueType = 'int'
       return
     }
   }
@@ -89,6 +95,7 @@ export function parseExpression(
       }
       co.appendOutput({ type: 'constant', value: -1 })
       co.appendOutput({ type: 'operation', kind: 'mult' })
+      context.valueType = 'int'
       return
     }
   }
@@ -101,12 +108,91 @@ export function parseExpression(
     }
   }
 
+  if (node.name == 'UpdateExpression') {
+    let varName = ''
+    let isIncr = true
+    let prefix = false
+
+    if (matchChildren(['UpdateOp', 'Identifier'], node.children)) {
+      varName = node.children[1].text()
+      isIncr = node.children[0].text() == '++'
+    } else if (matchChildren(['Identifier', 'UpdateOp'], node.children)) {
+      prefix = true
+      varName = node.children[0].text()
+      isIncr = node.children[1].text() == '++'
+    } else {
+      co.warn(node, 'Fehler in UpdateExpression')
+    }
+
+    co.activateProMode()
+    if (!context.variablesInScope.has(varName)) {
+      co.warn(node, `Variable ${varName} nicht bekannt`)
+    }
+
+    let putDataOnStack = false
+    if (!context.expectVoid) {
+      context.valueType = 'int'
+      putDataOnStack = true
+    }
+
+    if (putDataOnStack && prefix) {
+      co.appendOutput({ type: 'load', variable: varName })
+    }
+    co.appendOutput({ type: 'load', variable: varName })
+    co.appendOutput({ type: 'constant', value: 1 })
+    co.appendOutput({ type: 'operation', kind: isIncr ? 'add' : 'sub' })
+    co.appendOutput({ type: 'store', variable: varName })
+    if (putDataOnStack && !prefix) {
+      co.appendOutput({ type: 'load', variable: varName })
+    }
+    if (putDataOnStack) {
+      context.valueType = 'int'
+    } else {
+      context.valueType = 'void'
+    }
+    return
+  }
+
+  if (node.name == 'AssignmentExpression') {
+    if (
+      !matchChildren(['Identifier', 'AssignOp', expressionNodes], node.children)
+    ) {
+      co.warn(node, 'Fehler beim Parser der Zuweisung')
+      return
+    }
+
+    const variable = node.children[0].text()
+
+    if (!context.variablesInScope.has(variable)) {
+      co.warn(node, `Variable ${variable} nicht bekannt`)
+      return
+    }
+
+    const op = node.children[1].text()
+    if (op != '=') {
+      co.warn(node.children[1], `Zuweisung ${op} nicht unterstützt`)
+      return
+    }
+
+    co.activateProMode()
+    const myExpectVoid = context.expectVoid
+    context.expectVoid = false
+    parseExpression(co, node.children[2], context)
+    if (context.valueType != 'int') {
+      co.warn(node.children[1], 'Erwarte int-Wert')
+    }
+    co.appendOutput({ type: 'store', variable })
+    if (!myExpectVoid) {
+      co.appendOutput({ type: 'load', variable })
+    }
+    context.valueType = myExpectVoid ? 'void' : 'int'
+    return
+  }
+
+  if (node.name == 'MethodInvocation') {
+    checkMethodInvocation(co, node, context)
+    return
+  }
+
   co.warn(node, `Ausdruck ${node.name} konnte nicht eingelesen werden`)
 }
-
-// Move more and more features into this function - and then switch them over
-
-// Integrate boolean literals
-// Integrate method invokations for conditions (a big chunk of duplicated code, unfortunately)
-
-// logical operators should be simple
