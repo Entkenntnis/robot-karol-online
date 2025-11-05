@@ -83,6 +83,11 @@ export function compileDeclarationAndStatements(
       checkLocalVariableDeclaration(co, node, context)
       return
     }
+    case ';': {
+      // friendly message if there is empty statement
+      co.warn(node, 'Erwarte Methodenaufruf')
+      return
+    }
   }
 
   if (node.isError) {
