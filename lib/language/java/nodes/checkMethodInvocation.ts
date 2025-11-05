@@ -94,6 +94,7 @@ export function checkMethodInvocation(
       to: Math.min(argList.to, co.lineAt(argList.from).to),
       message: `Bitte runde Klammer schließen`,
     })
+    return 'void'
   }
 
   if (!sig || !argList) {
