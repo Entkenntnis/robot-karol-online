@@ -624,8 +624,8 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    for (int i = 0; i < 2; i++) {\n      for (int i = 0; i < 2; i++) {\n        karol.schritt();\n      }\n    }\n  }\n}',
     warnings: [
       {
-        from: 113,
-        to: 114,
+        from: 108,
+        to: 131,
         severity: 'error',
         message: "Variable 'i' existiert bereits, erwarte anderen Namen",
       },
