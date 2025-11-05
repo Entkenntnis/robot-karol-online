@@ -1,6 +1,8 @@
-import { Condition, CallOp } from '../../../state/types'
+import { Condition, CallOp, Op } from '../../../state/types'
 import { CompilerOutput } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
+import { checkSemikolon } from '../checkSemikolon'
+import { parseExpression } from '../parseExpression'
 import { checkAssignmentExpression } from './checkAssignmentExpression'
 import { checkBlock } from './checkBlock'
 import { checkExpressionStatement } from './checkExpressionStatement'
@@ -38,6 +40,13 @@ export interface SemantikCheckContext {
   expectVoid?: boolean
 }
 
+export interface MethodSignature {
+  name: string
+  parameters: Parameter[]
+  returnType: ValueType
+  karolBuiltInOps?: Op[]
+}
+
 // rename to something other, like
 // parseDeclarationsAndStatements
 export function semanticCheck(
@@ -55,7 +64,12 @@ export function semanticCheck(
       return
     }
     case 'ExpressionStatement': {
-      checkExpressionStatement(co, node, context)
+      checkSemikolon(co, node)
+      context.expectVoid = true
+      parseExpression(co, node.children[0], context)
+      if (context.valueType != 'void') {
+        co.appendOutput({ type: 'pop' })
+      }
       return
     }
     case ';': {

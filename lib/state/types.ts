@@ -469,6 +469,7 @@ export interface CallOp extends BaseOp {
 
 export interface ReturnOp extends BaseOp {
   type: 'return'
+  withValue?: boolean
 }
 
 export interface OperationOp extends BaseOp {
@@ -495,6 +496,10 @@ export interface AddRobotOp extends BaseOp {
   type: 'add-robot'
 }
 
+export interface PopOp extends BaseOp {
+  type: 'pop'
+}
+
 export type Op =
   | ActionOp
   | SenseOp
@@ -508,6 +513,7 @@ export type Op =
   | StoreOp
   | CompareOp
   | AddRobotOp
+  | PopOp
 
 export interface QuestData {
   title: string

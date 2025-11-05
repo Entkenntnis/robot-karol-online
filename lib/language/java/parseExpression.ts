@@ -20,8 +20,6 @@ export function parseExpression(
   node: AstNode,
   context: SemantikCheckContext
 ) {
-  co.activateProMode()
-
   if (node.name === 'IntegerLiteral') {
     if (context.expectVoid) return
     co.appendOutput({ type: 'constant', value: parseInt(node.text()) })
@@ -30,6 +28,7 @@ export function parseExpression(
   }
 
   if (node.name === 'Identifier') {
+    co.activateProMode()
     if (context.expectVoid) return
     const variable = node.text()
     if (!context.variablesInScope.has(variable)) {
@@ -43,6 +42,7 @@ export function parseExpression(
   }
 
   if (node.name === 'BinaryExpression') {
+    co.activateProMode()
     if (
       matchChildren(
         [expressionNodes, 'ArithOp', expressionNodes],
@@ -84,6 +84,7 @@ export function parseExpression(
   }
 
   if (node.name === 'UnaryExpression') {
+    co.activateProMode()
     if (matchChildren(['ArithOp', expressionNodes], node.children)) {
       if (node.children[0].text() !== '-') {
         co.warn(node.children[0], `Es wird nur Negation unterstützt`)
@@ -101,6 +102,7 @@ export function parseExpression(
   }
 
   if (node.name === 'ParenthesizedExpression') {
+    co.activateProMode()
     if (matchChildren(['(', expressionNodes, ')'], node.children)) {
       parseExpression(co, node.children[1], context)
       // don't change value type
@@ -109,6 +111,7 @@ export function parseExpression(
   }
 
   if (node.name == 'UpdateExpression') {
+    co.activateProMode()
     let varName = ''
     let isIncr = true
     let prefix = false
@@ -154,6 +157,7 @@ export function parseExpression(
   }
 
   if (node.name == 'AssignmentExpression') {
+    co.activateProMode()
     if (
       !matchChildren(['Identifier', 'AssignOp', expressionNodes], node.children)
     ) {
@@ -174,7 +178,6 @@ export function parseExpression(
       return
     }
 
-    co.activateProMode()
     const myExpectVoid = context.expectVoid
     context.expectVoid = false
     parseExpression(co, node.children[2], context)

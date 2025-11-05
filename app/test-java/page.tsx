@@ -447,10 +447,10 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.st();\n  }\n}',
     warnings: [
       {
-        from: 74,
-        to: 76,
+        from: 68,
+        to: 78,
         severity: 'error',
-        message: "Unbekannte Methode 'st'",
+        message: 'Keine passende Methode gefunden, prüfe Name und Argumente',
       },
     ],
   },
@@ -460,10 +460,10 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    karol.markeSetzen(4);\n  }\n}',
     warnings: [
       {
-        from: 85,
+        from: 68,
         to: 88,
         severity: 'error',
-        message: 'Erwarte leere Parameterliste',
+        message: 'Keine passende Methode gefunden, prüfe Name und Argumente',
       },
     ],
   },
@@ -515,8 +515,8 @@ const compilerTestCases: CompilerTestCase[] = [
       {
         type: 'action',
         command: 'forward',
-        line: 5,
         useParameterFromStack: true,
+        line: 5,
       },
     ],
     rkCode: 'Schritt(2)',
@@ -533,8 +533,8 @@ const compilerTestCases: CompilerTestCase[] = [
       {
         type: 'action',
         command: 'forward',
-        line: 5,
         useParameterFromStack: true,
+        line: 5,
       },
     ],
   },
@@ -784,8 +784,8 @@ const compilerTestCases: CompilerTestCase[] = [
       {
         type: 'action',
         command: 'forward',
-        line: 6,
         useParameterFromStack: true,
+        line: 6,
       },
     ],
   },
@@ -928,7 +928,7 @@ const compilerTestCases: CompilerTestCase[] = [
       { type: 'compare', kind: 'less-equal' },
       { type: 'branch', targetF: 20, targetT: 18, line: 8 },
       { type: 'constant', value: 2 },
-      { type: 'action', command: 'left', line: 8, useParameterFromStack: true },
+      { type: 'action', command: 'left', useParameterFromStack: true, line: 8 },
     ],
   },
   {
@@ -971,7 +971,7 @@ const compilerTestCases: CompilerTestCase[] = [
       { type: 'jump', target: Infinity },
       { type: 'store', variable: 'a' },
       { type: 'load', variable: 'a' },
-      { type: 'action', command: 'left', line: 9, useParameterFromStack: true },
+      { type: 'action', command: 'left', useParameterFromStack: true, line: 9 },
       { type: 'return' },
     ],
   },
@@ -1036,7 +1036,7 @@ const compilerTestCases: CompilerTestCase[] = [
       { type: 'constant', value: 3 },
       { type: 'constant', value: 2 },
       { type: 'operation', kind: 'mod' },
-      { type: 'action', command: 'left', line: 5, useParameterFromStack: true },
+      { type: 'action', command: 'left', useParameterFromStack: true, line: 5 },
     ],
   },
   {
@@ -1059,8 +1059,8 @@ const compilerTestCases: CompilerTestCase[] = [
       {
         type: 'action',
         command: 'brick',
-        line: 5,
         useParameterFromStack: true,
+        line: 5,
       },
       { type: 'constant', value: 3 },
       { type: 'store', variable: 'n' },
@@ -1072,8 +1072,8 @@ const compilerTestCases: CompilerTestCase[] = [
       {
         type: 'action',
         command: 'forward',
-        line: 9,
         useParameterFromStack: true,
+        line: 9,
       },
     ],
   },
