@@ -25,7 +25,7 @@ export type MethodContexts = Record<string, MethodContext>
 
 export interface SemantikCheckContext {
   robotName: string
-  variablesInScope: Set<string>
+  variablesInScope: Map<string, ValueType>
   expectCondition?: boolean
   condition?: Condition
   availableMethods: Map<string, string[]>

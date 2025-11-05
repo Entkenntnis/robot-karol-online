@@ -12,7 +12,7 @@ export function checkBlock(
   context: SemantikCheckContext
 ) {
   ensureBlock(co, node.children)
-  const previousVariables = new Set(context.variablesInScope)
+  const previousVariables = new Set(context.variablesInScope.keys())
   node.children
     .filter((child) => child.name !== '{' && child.name !== '}')
     .map((child) => compileDeclarationAndStatements(co, child, context))

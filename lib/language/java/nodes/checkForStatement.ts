@@ -36,7 +36,7 @@ export function checkForStatement(
         )
         return
       }
-      context.variablesInScope.add(loopVar)
+      context.variablesInScope.set(loopVar, 'int')
 
       // init
       co.appendOutput({ type: 'constant', value: 0 })
@@ -100,7 +100,7 @@ export function checkForStatement(
     let updateNode: AstNode | null = null
 
     // manually handle block for init scope
-    const previousVariables = new Set(context.variablesInScope)
+    const previousVariables = new Set(context.variablesInScope.keys())
 
     if (
       matchChildren(

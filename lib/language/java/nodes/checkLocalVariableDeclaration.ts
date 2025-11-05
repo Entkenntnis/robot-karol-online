@@ -3,7 +3,10 @@ import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { checkSemikolon } from '../checkSemikolon'
 import { expressionNodes } from './compileExpression'
-import { SemantikCheckContext } from './compileDeclarationAndStatements'
+import {
+  SemantikCheckContext,
+  ValueType,
+} from './compileDeclarationAndStatements'
 import { compileValExpression } from './compileValExpression'
 
 export function checkLocalVariableDeclaration(
@@ -20,10 +23,12 @@ export function checkLocalVariableDeclaration(
     return
   }
 
-  if (node.children[0].text() !== 'int') {
-    co.warn(node, `Nur Datentyp int unterstützt`)
+  const declTypeText = node.children[0].text()
+  if (declTypeText !== 'int' && declTypeText !== 'boolean') {
+    co.warn(node, `Nur Datentyp int oder boolean unterstützt`)
     return
   }
+  const declType = declTypeText as ValueType
 
   const declarator = node.children[1]
 
@@ -47,12 +52,12 @@ export function checkLocalVariableDeclaration(
   co.activateProMode()
 
   // console.log(prettyPrintAstNode(node))
-  compileValExpression('int', co, declarator.children[2], context)
+  compileValExpression(declType, co, declarator.children[2], context)
 
   co.appendOutput({
     type: 'store',
     variable: name,
   })
 
-  context.variablesInScope.add(name)
+  context.variablesInScope.set(name, declType)
 }

@@ -60,13 +60,14 @@ export function compileExpression(
       return 'void'
     }
     const variable = node.text()
-    if (!context.variablesInScope.has(variable)) {
+    const t = context.variablesInScope.get(variable)
+    if (!t) {
       co.warn(node, `Variable ${variable} nicht bekannt`)
       return 'void'
     }
     co.appendOutput({ type: 'load', variable })
     // HARDCODED: all variables are int
-    return 'int'
+    return t
   }
 
   if (node.name === 'BinaryExpression') {
@@ -287,6 +288,11 @@ export function compileExpression(
       co.warn(node, `Variable ${varName} nicht bekannt`)
       return 'void'
     }
+    const varType = context.variablesInScope.get(varName)
+    if (varType !== 'int') {
+      co.warn(node, `Erwarte int für Update-Operator`)
+      return 'void'
+    }
 
     let putDataOnStack = false
     if (!context.expectVoid) {
@@ -317,7 +323,8 @@ export function compileExpression(
 
     const variable = node.children[0].text()
 
-    if (!context.variablesInScope.has(variable)) {
+    const varType = context.variablesInScope.get(variable)
+    if (!varType) {
       co.warn(node, `Variable ${variable} nicht bekannt`)
       return 'void'
     }
@@ -329,7 +336,7 @@ export function compileExpression(
     }
 
     const myExpectVoid = context.expectVoid
-    compileValExpression('int', co, node.children[2], context)
+    compileValExpression(varType, co, node.children[2], context)
     co.appendOutput({ type: 'store', variable })
     if (!myExpectVoid) {
       co.appendOutput({ type: 'load', variable })

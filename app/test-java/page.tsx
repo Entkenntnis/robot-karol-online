@@ -1053,6 +1053,126 @@ const compilerTestCases: CompilerTestCase[] = [
     ],
   },
   {
+    title: 'Boolean-Variable deklarieren und nutzen',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    boolean b = true;\n    if (b) { karol.schritt(); }\n  }\n}`,
+    proMode: true,
+    output: [
+      { type: 'constant', value: 1 },
+      { type: 'store', variable: 'b' },
+      { type: 'load', variable: 'b' },
+      { type: 'branch', targetT: 4, targetF: 5, line: 6 },
+      { type: 'action', command: 'forward', line: 6 },
+    ],
+  },
+  {
+    title: 'Boolean-Gleichheit in if (==)',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    boolean b = false;\n    if (b == false) { karol.linksDrehen(); }\n  }\n}`,
+    proMode: true,
+    output: [
+      { type: 'constant', value: 0 },
+      { type: 'store', variable: 'b' },
+      { type: 'load', variable: 'b' },
+      { type: 'constant', value: 0 },
+      { type: 'compare', kind: 'equal' },
+      { type: 'branch', targetT: 6, targetF: 7, line: 6 },
+      { type: 'action', command: 'left', line: 6 },
+    ],
+  },
+  {
+    title: 'Boolean aus Vergleich und logisches Oder',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    boolean b = (1 < 2);\n    if (!b || karol.istWand()) {\n      karol.schritt();\n    }\n  }\n}`,
+    proMode: true,
+    output: [
+      { type: 'constant', value: 1 },
+      { type: 'constant', value: 2 },
+      { type: 'compare', kind: 'less-than' },
+      { type: 'store', variable: 'b' },
+      { type: 'load', variable: 'b' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'constant', value: 2 },
+      { type: 'operation', kind: 'mod' },
+      { type: 'branch', targetT: 12, targetF: 10, line: 6 },
+      { type: 'sense', condition: { type: 'wall', negated: false } },
+      { type: 'branch', targetT: 12, targetF: 14, line: 6 },
+      { type: 'constant', value: 1 },
+      { type: 'jump', target: 15, line: 6 },
+      { type: 'constant', value: 0 },
+      { type: 'branch', targetT: 16, targetF: 17, line: 6 },
+      { type: 'action', command: 'forward', line: 7 },
+    ],
+  },
+  {
+    title: 'Boolean-Zuweisung aus Vergleich',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    int i = 3;\n    boolean b = (i == 3);\n    if (b) { karol.markeSetzen(); }\n  }\n}`,
+    proMode: true,
+    output: [
+      { type: 'constant', value: 3 },
+      { type: 'store', variable: 'i' },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 3 },
+      { type: 'compare', kind: 'equal' },
+      { type: 'store', variable: 'b' },
+      { type: 'load', variable: 'b' },
+      { type: 'branch', targetT: 8, targetF: 9, line: 7 },
+      { type: 'action', command: 'setMark', line: 7 },
+    ],
+  },
+  {
+    title: 'Boolean ohne Initialisierung (Fehler)',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    boolean b;\n  }\n}`,
+    warnings: [
+      {
+        from: 67,
+        to: 77,
+        severity: 'error',
+        message: 'Erwarte Zuweisung',
+      },
+    ],
+  },
+  {
+    title: 'Boolean mit int initialisiert (Fehler)',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    boolean b = 1;\n  }\n}`,
+    warnings: [
+      {
+        from: 79,
+        to: 80,
+        severity: 'error',
+        message: 'Erwarte boolean-Wert, aber int erhalten',
+      },
+    ],
+  },
+  {
+    title: 'Inkrement auf Boolean (Fehler)',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    boolean b = true;\n    b++;\n  }\n}`,
+    warnings: [
+      {
+        from: 89,
+        to: 92,
+        severity: 'error',
+        message: 'Erwarte int für Update-Operator',
+      },
+    ],
+  },
+  {
+    title: 'Relationaler Vergleich auf Boolean (Fehler)',
+    source: `class Programm {\n  Robot karol = new Robot();\n\n  void main() {\n    boolean b = true;\n    if (b < true) { karol.schritt(); }\n  }\n}`,
+    warnings: [
+      {
+        from: 93,
+        to: 94,
+        severity: 'error',
+        message: 'Erwarte int-Wert, aber boolean erhalten',
+      },
+      {
+        from: 97,
+        to: 101,
+        severity: 'error',
+        message: 'Erwarte int-Wert, aber boolean erhalten',
+      },
+    ],
+  },
+  {
     title: 'IstZiegel mit Variable in Bedingung',
     source: `class Programm {
   Robot karol = new Robot();

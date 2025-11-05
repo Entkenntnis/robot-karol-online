@@ -223,7 +223,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
 
   compileDeclarationAndStatements(co, mainMethod, {
     robotName: robotInstanceName,
-    variablesInScope: new Set(),
+    variablesInScope: new Map(),
     availableMethods,
     methodContexts,
     callOps,
@@ -248,9 +248,9 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       })
       co.appendRkCode('\nAnweisung ' + name, method.from)
       co.increaseIndent()
-      const variablesInScope = new Set<string>()
+      const variablesInScope = new Map<string, 'int' | 'boolean' | 'void'>()
       for (const v of availableMethods.get(name)?.slice().reverse() ?? []) {
-        variablesInScope.add(v)
+        variablesInScope.set(v, 'int')
         co.appendOutput({ type: 'store', variable: v })
       }
       compileDeclarationAndStatements(co, method, {
