@@ -2,11 +2,12 @@ import { JumpOp, BranchOp } from '../../../state/types'
 import { CompilerOutput, AnchorOp } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
-import { compileExpression } from './compileExpression'
+import { compileExpression, expressionNodes } from './compileExpression'
 import {
   SemantikCheckContext,
   compileDeclarationAndStatements,
 } from './compileDeclarationAndStatements'
+import { compileValExpression } from './compileValExpression'
 
 export function checkForStatement(
   co: CompilerOutput,
@@ -24,7 +25,6 @@ export function checkForStatement(
     )
 
     if (m) {
-      console.log('regex short path')
       const loopVar = m[1]
       const count = parseInt(m[2])
 
@@ -95,75 +95,100 @@ export function checkForStatement(
 
     // Generic fallback: reuse components in pro-mode
     co.activateProMode()
+
+    let condNode: AstNode | null = null
+    let updateNode: AstNode | null = null
+
+    // manually handle block for init scope
+    const previousVariables = new Set(context.variablesInScope)
+
     if (
       matchChildren(
         [
           '(',
           'LocalVariableDeclaration',
-          'BinaryExpression',
+          expressionNodes,
           ';',
-          'UpdateExpression',
+          expressionNodes,
           ')',
         ],
         spec.children
       )
     ) {
-      // init
       compileDeclarationAndStatements(co, spec.children[1], context)
-
-      // condition flow
-      const anchorCond: AnchorOp = { type: 'anchor', callback: () => {} }
-      const branch: BranchOp = {
-        type: 'branch',
-        targetF: -1,
-        targetT: -1,
-        line: co.lineAt(spec.from).number,
-      }
-      const anchorTop: AnchorOp = {
-        type: 'anchor',
-        callback: (target) => {
-          branch.targetT = target
-        },
-      }
-      const jumpBack: JumpOp = { type: 'jump', target: -1 }
-      const anchorEnd: AnchorOp = {
-        type: 'anchor',
-        callback: (target) => {
-          branch.targetF = target
-        },
-      }
-
-      co.appendOutput(anchorCond)
-      compileExpression(co, spec.children[2], context)
-      co.appendOutput(branch)
-      co.appendOutput(anchorTop)
-
-      // body
-      compileDeclarationAndStatements(co, block, context)
-
-      // update (void)
-      const prevExpect = context.expectVoid
+      condNode = spec.children[2]
+      updateNode = spec.children[4]
+    } else if (
+      matchChildren(
+        ['(', expressionNodes, ';', expressionNodes, ';', expressionNodes, ')'],
+        spec.children
+      )
+    ) {
       context.expectVoid = true
-      compileExpression(co, spec.children[4], context)
-      context.expectVoid = prevExpect
-
-      // loop back
-      anchorCond.callback = (target) => {
-        jumpBack.target = target
+      compileExpression(co, spec.children[1], context)
+      if (context.valueType != 'void') {
+        co.appendOutput({ type: 'pop' })
       }
-      co.appendOutput(jumpBack)
-      co.appendOutput(anchorEnd)
-
-      // best-effort: remove header-declared var from scope
-      const initText = spec.children[1].text()
-      const varMatch = initText.match(/\bint\s+([A-Za-z_]\w*)/)?.[1]
-      if (varMatch) context.variablesInScope.delete(varMatch)
+      condNode = spec.children[3]
+      updateNode = spec.children[5]
+    } else {
+      co.warn(
+        spec,
+        'Erwarte gültigen for-Schleifen-Kopf (z.B. i = 0; i < 10; i++)'
+      )
       return
     }
 
-    // Not recognizable: warn and compile body to surface errors
-    co.warn(spec, "Erwarte Schleifenkopf der Form 'int i = 0; i < 10; i++'")
+    const anchorCond: AnchorOp = { type: 'anchor', callback: () => {} }
+    const branch: BranchOp = {
+      type: 'branch',
+      targetF: -1,
+      targetT: -1,
+      line: co.lineAt(spec.from).number,
+    }
+    const anchorTop: AnchorOp = {
+      type: 'anchor',
+      callback: (target) => {
+        branch.targetT = target
+      },
+    }
+    const jumpBack: JumpOp = { type: 'jump', target: -1 }
+    const anchorEnd: AnchorOp = {
+      type: 'anchor',
+      callback: (target) => {
+        branch.targetF = target
+      },
+    }
+
+    co.appendOutput(anchorCond)
+
+    compileValExpression('boolean', co, condNode, context)
+
+    co.appendOutput(branch)
+    co.appendOutput(anchorTop)
+
     compileDeclarationAndStatements(co, block, context)
+
+    context.expectVoid = true
+    compileExpression(co, updateNode, context)
+    if (context.valueType != 'void') {
+      co.appendOutput({ type: 'pop' })
+    }
+
+    // loop back
+    anchorCond.callback = (target) => {
+      jumpBack.target = target
+    }
+    co.appendOutput(jumpBack)
+    co.appendOutput(anchorEnd)
+
+    // closing scope and remove all additional variables
+    const keys = Array.from(context.variablesInScope.keys())
+    for (const key of keys) {
+      if (!previousVariables.has(key)) {
+        context.variablesInScope.delete(key)
+      }
+    }
   } else {
     if (matchChildren(['for', 'ForSpec', '⚠'], node.children)) {
       compileDeclarationAndStatements(co, node.children[1], context)
