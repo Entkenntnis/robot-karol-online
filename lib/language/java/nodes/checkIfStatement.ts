@@ -19,8 +19,8 @@ export function checkIfStatement(
   ) {
     // new logic
     context.expectVoid = false
-    compileExpression(co, node.children[1], context)
-    if (context.valueType != 'boolean') {
+    const t = compileExpression(co, node.children[1], context)
+    if (t != 'boolean') {
       if (co.noWarningsInRange(node.from, node.to)) {
         co.warn(node.children[1], 'Erwarte Bedingung')
       }
@@ -37,8 +37,8 @@ export function checkIfStatement(
 
     const branch: BranchOp = {
       type: 'branch',
-      targetF: -1,
       targetT: -1,
+      targetF: -1,
       line: co.lineAt(node.from).number,
     }
     const anchorBlock: AnchorOp = {
@@ -71,8 +71,8 @@ export function checkIfStatement(
   ) {
     // new logic
     context.expectVoid = false
-    compileExpression(co, node.children[1], context)
-    if (context.valueType != 'boolean') {
+    const t = compileExpression(co, node.children[1], context)
+    if (t != 'boolean') {
       if (co.noWarningsInRange(node.from, node.to)) {
         co.warn(node.children[1], 'Erwarte Bedingung')
       }
@@ -89,8 +89,8 @@ export function checkIfStatement(
 
     const branch: BranchOp = {
       type: 'branch',
-      targetF: -1,
       targetT: -1,
+      targetF: -1,
       line: co.lineAt(node.from).number,
     }
     const jump: JumpOp = {

@@ -7,13 +7,14 @@ import { expressionNodes, compileExpression } from './compileExpression'
 import {
   MethodSignature,
   SemantikCheckContext,
+  ValueType,
 } from './compileDeclarationAndStatements'
 
 export function checkMethodInvocation(
   co: CompilerOutput,
   node: AstNode,
   context: SemantikCheckContext
-) {
+): ValueType {
   let sig: MethodSignature | null = null
   let argList: AstNode | null = null
 
@@ -50,16 +51,16 @@ export function checkMethodInvocation(
           node.children[1],
           `Falsche Anzahl Argumente, erwarte ${expectedArgsLength}`
         )
-        return
+        return 'void'
       }
     } else {
       // friendly error message: check for possible built-in
       if (builtins.find((el) => el.name == name)) {
         co.warn(node, `Erwarte Punktnotation 'karol.'`)
-        return
+        return 'void'
       }
       co.warn(node, `Unbekannte Methode`)
-      return
+      return 'void'
     }
   }
   if (
@@ -97,7 +98,7 @@ export function checkMethodInvocation(
 
   if (!sig || !argList) {
     co.warn(node, `Keine passende Methode gefunden, prüfe Name und Argumente`)
-    return
+    return 'void'
   }
 
   // Step 2: Ok, now we are talking.
@@ -153,8 +154,7 @@ export function checkMethodInvocation(
     context.callOps.push([sig.name, op])
   }
 
-  context.valueType = sig.returnType
-  return
+  return sig.returnType
 }
 
 const builtins: MethodSignature[] = [

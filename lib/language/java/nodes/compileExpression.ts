@@ -3,7 +3,10 @@ import { AstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { compileValExpression } from './compileValExpression'
 import { checkMethodInvocation } from './checkMethodInvocation'
-import { SemantikCheckContext } from './compileDeclarationAndStatements'
+import {
+  SemantikCheckContext,
+  ValueType,
+} from './compileDeclarationAndStatements'
 import { BranchOp, JumpOp } from '../../../state/types'
 
 export const expressionNodes = [
@@ -31,46 +34,39 @@ export function compileExpression(
   co: CompilerOutput,
   node: AstNode,
   context: SemantikCheckContext
-) {
+): ValueType {
   if (node.name === 'IntegerLiteral') {
     if (context.expectVoid) {
-      context.valueType = 'void'
-      return
+      return 'void'
     }
     co.appendOutput({ type: 'constant', value: parseInt(node.text()) })
-    context.valueType = 'int'
-    return
+    return 'int'
   }
 
   if (node.name === 'BooleanLiteral') {
     if (context.expectVoid) {
-      context.valueType = 'void'
-      return
+      return 'void'
     }
     co.appendOutput({
       type: 'constant',
       value: node.text().trim() == 'true' ? 1 : 0,
     })
-    context.valueType = 'boolean'
-    return
+    return 'boolean'
   }
 
   if (node.name === 'Identifier') {
     co.activateProMode()
     if (context.expectVoid) {
-      context.valueType = 'void'
-      return
+      return 'void'
     }
     const variable = node.text()
     if (!context.variablesInScope.has(variable)) {
       co.warn(node, `Variable ${variable} nicht bekannt`)
-      context.valueType = 'void'
-      return
+      return 'void'
     }
     co.appendOutput({ type: 'load', variable })
     // HARDCODED: all variables are int
-    context.valueType = 'int'
-    return
+    return 'int'
   }
 
   if (node.name === 'BinaryExpression') {
@@ -84,8 +80,7 @@ export function compileExpression(
       const op = node.children[1].text()
       if (!['+', '-', '*', '/', '%'].includes(op)) {
         co.warn(node.children[1], `Die Rechenart ${op} wird nicht unterstützt`)
-        context.valueType = 'void'
-        return
+        return 'void'
       }
 
       const expr1 = node.children[0]
@@ -105,8 +100,7 @@ export function compileExpression(
             ? 'div'
             : 'mod',
       })
-      context.valueType = 'int'
-      return
+      return 'int'
     }
     // Logical operators (&&, ||) with short-circuiting
     if (
@@ -122,8 +116,7 @@ export function compileExpression(
       if (op !== '&&' && op !== '||') {
         co.warn(node.children[1], `Unbekannter logischer Operator`)
         // best effort: do not emit broken stack ops
-        context.valueType = 'void'
-        return
+        return 'void'
       }
 
       // Evaluate left side as boolean
@@ -203,8 +196,7 @@ export function compileExpression(
       // End anchor
       co.appendOutput(anchorEnd)
 
-      context.valueType = 'boolean'
-      return
+      return 'boolean'
     }
     if (
       matchChildren(
@@ -217,13 +209,12 @@ export function compileExpression(
       // console.log(comparison.children[1].text(), kind)
       if (!kind) {
         co.warn(node.children[1], `Unbekannter Vergleichsoperator`)
-        return
+        return 'void'
       }
       compileValExpression('int', co, node.children[0], context)
       compileValExpression('int', co, node.children[2], context)
       co.appendOutput({ type: 'compare', kind })
-      context.valueType = 'boolean'
-      return
+      return 'boolean'
     }
   }
 
@@ -236,8 +227,7 @@ export function compileExpression(
       compileValExpression('int', co, node.children[1], context)
       co.appendOutput({ type: 'constant', value: -1 })
       co.appendOutput({ type: 'operation', kind: 'mult' })
-      context.valueType = 'int'
-      return
+      return 'int'
     }
     if (matchChildren(['LogicOp', expressionNodes], node.children)) {
       if (node.children[0].text() !== '!') {
@@ -248,16 +238,14 @@ export function compileExpression(
       co.appendOutput({ type: 'operation', kind: 'add' })
       co.appendOutput({ type: 'constant', value: 2 })
       co.appendOutput({ type: 'operation', kind: 'mod' })
-      context.valueType = 'boolean'
-      return
+      return 'boolean'
     }
   }
 
   if (node.name === 'ParenthesizedExpression') {
     if (matchChildren(['(', expressionNodes, ')'], node.children)) {
-      compileExpression(co, node.children[1], context)
       // don't change context and pass through transparently
-      return
+      return compileExpression(co, node.children[1], context)
     }
   }
 
@@ -276,19 +264,16 @@ export function compileExpression(
       isIncr = node.children[1].text() == '++'
     } else {
       co.warn(node, 'Fehler in UpdateExpression')
-      context.valueType = 'void'
-      return
+      return 'void'
     }
 
     if (!context.variablesInScope.has(varName)) {
       co.warn(node, `Variable ${varName} nicht bekannt`)
-      context.valueType = 'void'
-      return
+      return 'void'
     }
 
     let putDataOnStack = false
     if (!context.expectVoid) {
-      context.valueType = 'int'
       putDataOnStack = true
     }
 
@@ -302,12 +287,7 @@ export function compileExpression(
     if (putDataOnStack && !postfix) {
       co.appendOutput({ type: 'load', variable: varName })
     }
-    if (putDataOnStack) {
-      context.valueType = 'int'
-    } else {
-      context.valueType = 'void'
-    }
-    return
+    return putDataOnStack ? 'int' : 'void'
   }
 
   if (node.name == 'AssignmentExpression') {
@@ -316,23 +296,20 @@ export function compileExpression(
       !matchChildren(['Identifier', 'AssignOp', expressionNodes], node.children)
     ) {
       co.warn(node, 'Fehler beim Parser der Zuweisung')
-      context.valueType = 'void'
-      return
+      return 'void'
     }
 
     const variable = node.children[0].text()
 
     if (!context.variablesInScope.has(variable)) {
       co.warn(node, `Variable ${variable} nicht bekannt`)
-      context.valueType = 'void'
-      return
+      return 'void'
     }
 
     const op = node.children[1].text()
     if (op != '=') {
       co.warn(node.children[1], `Zuweisung ${op} nicht unterstützt`)
-      context.valueType = 'void'
-      return
+      return 'void'
     }
 
     const myExpectVoid = context.expectVoid
@@ -341,13 +318,11 @@ export function compileExpression(
     if (!myExpectVoid) {
       co.appendOutput({ type: 'load', variable })
     }
-    context.valueType = myExpectVoid ? 'void' : 'int'
-    return
+    return myExpectVoid ? 'void' : 'int'
   }
 
   if (node.name == 'MethodInvocation') {
-    checkMethodInvocation(co, node, context)
-    return
+    return checkMethodInvocation(co, node, context)
   }
 
   if (node.text().trim() == `${context.robotName}.`) {
@@ -356,9 +331,9 @@ export function compileExpression(
       to: Math.min(node.to, co.lineAt(node.from).to), // cap error at end of line
       message: `Erwarte Methodenaufruf nach '${context.robotName}.'`,
     })
-    context.valueType = 'void'
-    return
+    return 'void'
   }
 
   co.warn(node, `Ausdruck ${node.name} konnte nicht eingelesen werden.`)
+  return 'void'
 }

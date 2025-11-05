@@ -65,8 +65,8 @@ export function checkWhileStatement(
       co.appendOutput(anchorCond)
 
       context.expectVoid = false
-      compileExpression(co, node.children[1], context)
-      if (context.valueType != 'boolean') {
+      const t = compileExpression(co, node.children[1], context)
+      if (t != 'boolean') {
         if (co.noWarningsInRange(node.from, node.to)) {
           co.warn(node.children[1], 'Erwarte Bedingung')
         }

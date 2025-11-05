@@ -13,13 +13,10 @@ export function compileValExpression(
   context: SemantikCheckContext
 ) {
   context.expectVoid = false
-  compileExpression(co, node, context)
-  if (context.valueType != expectedType) {
+  const t = compileExpression(co, node, context)
+  if (t != expectedType) {
     if (co.noWarningsInRange(node.from, node.to)) {
-      co.warn(
-        node,
-        `Erwarte ${expectedType}-Wert, aber ${context.valueType} erhalten`
-      )
+      co.warn(node, `Erwarte ${expectedType}-Wert, aber ${t} erhalten`)
     }
   }
 }

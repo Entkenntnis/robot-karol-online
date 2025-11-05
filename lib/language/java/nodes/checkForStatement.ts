@@ -125,8 +125,8 @@ export function checkForStatement(
       )
     ) {
       context.expectVoid = true
-      compileExpression(co, spec.children[1], context)
-      if (context.valueType != 'void') {
+      const t = compileExpression(co, spec.children[1], context)
+      if (t != 'void') {
         co.appendOutput({ type: 'pop' })
       }
       condNode = spec.children[3]
@@ -170,8 +170,8 @@ export function checkForStatement(
     compileDeclarationAndStatements(co, block, context)
 
     context.expectVoid = true
-    compileExpression(co, updateNode, context)
-    if (context.valueType != 'void') {
+    const t = compileExpression(co, updateNode, context)
+    if (t != 'void') {
       co.appendOutput({ type: 'pop' })
     }
 

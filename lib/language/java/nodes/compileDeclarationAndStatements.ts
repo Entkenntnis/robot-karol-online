@@ -31,7 +31,6 @@ export interface SemantikCheckContext {
   availableMethods: Map<string, string[]>
   methodContexts: MethodContexts
   callOps: [string, CallOp][]
-  valueType?: ValueType
   expectVoid?: boolean
 }
 
@@ -60,8 +59,8 @@ export function compileDeclarationAndStatements(
     }
     case 'ExpressionStatement': {
       context.expectVoid = true
-      compileExpression(co, node.children[0], context)
-      if (context.valueType != 'void') {
+      const t = compileExpression(co, node.children[0], context)
+      if (t != 'void') {
         co.appendOutput({ type: 'pop' })
       }
       checkSemikolon(co, node)
