@@ -675,10 +675,10 @@ const compilerTestCases: CompilerTestCase[] = [
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (karol.istWand(2)) { }\n  }\n}',
     warnings: [
       {
-        from: 88,
+        from: 75,
         to: 91,
         severity: 'error',
-        message: 'Erwarte leere Parameterliste',
+        message: 'Keine passende Methode gefunden, prüfe Name und Argumente',
       },
     ],
   },

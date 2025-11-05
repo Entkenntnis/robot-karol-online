@@ -3,11 +3,11 @@ import { CompilerOutput, AnchorOp } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
 import { conditionToRK } from '../../helper/conditionToRk'
 import { matchChildren } from '../../helper/matchChildren'
-import { checkCondition } from '../checkCondition___OLD'
 import {
   SemantikCheckContext,
   compileDeclarationAndStatements,
 } from './compileDeclarationAndStatements'
+import { compileExpression } from './compileExpression'
 
 export function checkWhileStatement(
   co: CompilerOutput,
@@ -64,15 +64,24 @@ export function checkWhileStatement(
       }
       co.appendOutput(anchorCond)
 
-      if (
-        !checkCondition(
-          co,
-          node.children[1],
-          context,
-          (condition) => `wiederhole solange ${condition}`
+      context.expectVoid = false
+      compileExpression(co, node.children[1], context)
+      if (context.valueType != 'boolean') {
+        if (co.noWarningsInRange(node.from, node.to)) {
+          co.warn(node.children[1], 'Erwarte Bedingung')
+        }
+        return
+      }
+
+      const last = co.peek()
+      if (last.type == 'sense') {
+        // I can convert
+        co.appendRkCode(
+          `wiederhole solange ${conditionToRK(last.condition)}`,
+          node.from
         )
-      ) {
-        co.warn(node.children[1], 'Erwarte Bedingung')
+      } else {
+        co.activateProMode()
       }
 
       co.appendOutput(branch)
