@@ -661,7 +661,7 @@ const compilerTestCases: CompilerTestCase[] = [
       { type: 'constant', value: 2 },
       {
         type: 'sense',
-        condition: { type: 'brick_count', negated: false, count: 2 },
+        condition: { type: 'brick_count', negated: false },
       },
       { type: 'branch', targetF: 5, targetT: 3, line: 5 },
       { type: 'action', command: 'unbrick', line: 6 },

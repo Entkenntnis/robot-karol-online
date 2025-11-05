@@ -127,6 +127,10 @@ export function checkMethodInvocation(
     }
     co.appendOutput(newOp)
     // BEWARE: rkcode generation for conditions have to be handled downstream
+    // provide brick-count to help
+    if (newOp.type == 'sense' && newOp.condition.type == 'brick_count') {
+      newOp.condition.count = parseInt(argList.children[1].text())
+    }
   } else {
     // call into custom method
     const op: CallOp = {

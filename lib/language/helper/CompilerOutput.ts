@@ -102,6 +102,10 @@ export class CompilerOutput {
     return this.doc.lineAt(pos)
   }
 
+  peek() {
+    return this.output[this.output.length - 1]
+  }
+
   getResult() {
     // flush remaining comments
     this.appendRkCode('', Infinity)

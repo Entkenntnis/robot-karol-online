@@ -92,7 +92,6 @@ export function parseExpression(
   }
 
   if (node.name === 'ParenthesizedExpression') {
-    co.activateProMode()
     if (matchChildren(['(', expressionNodes, ')'], node.children)) {
       parseExpression(co, node.children[1], context)
       // don't change context and pass through transparently
