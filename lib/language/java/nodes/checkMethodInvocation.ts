@@ -44,7 +44,7 @@ export function checkMethodInvocation(
           parameters: context.availableMethods
             .get(name)!
             .map((name) => ({ name, type: 'int' })),
-          returnType: 'void', // <- change in future versions
+          returnType: context.methodContexts[name]?.returnType ?? 'void',
         }
       } else {
         co.warn(
