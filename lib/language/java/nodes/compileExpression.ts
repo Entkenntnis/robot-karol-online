@@ -7,6 +7,7 @@ import { SemantikCheckContext } from './compileDeclarationAndStatements'
 
 export const expressionNodes = [
   'IntegerLiteral',
+  'BooleanLiteral',
   'Identifier',
   'BinaryExpression',
   'UnaryExpression',
@@ -31,15 +32,34 @@ export function compileExpression(
   context: SemantikCheckContext
 ) {
   if (node.name === 'IntegerLiteral') {
-    if (context.expectVoid) return
+    if (context.expectVoid) {
+      context.valueType = 'void'
+      return
+    }
     co.appendOutput({ type: 'constant', value: parseInt(node.text()) })
     context.valueType = 'int'
     return
   }
 
+  if (node.name === 'BooleanLiteral') {
+    if (context.expectVoid) {
+      context.valueType = 'void'
+      return
+    }
+    co.appendOutput({
+      type: 'constant',
+      value: node.text().trim() == 'true' ? 1 : 0,
+    })
+    context.valueType = 'boolean'
+    return
+  }
+
   if (node.name === 'Identifier') {
     co.activateProMode()
-    if (context.expectVoid) return
+    if (context.expectVoid) {
+      context.valueType = 'void'
+      return
+    }
     const variable = node.text()
     if (!context.variablesInScope.has(variable)) {
       co.warn(node, `Variable ${variable} nicht bekannt`)
@@ -115,6 +135,18 @@ export function compileExpression(
       co.appendOutput({ type: 'constant', value: -1 })
       co.appendOutput({ type: 'operation', kind: 'mult' })
       context.valueType = 'int'
+      return
+    }
+    if (matchChildren(['LogicOp', expressionNodes], node.children)) {
+      if (node.children[0].text() !== '!') {
+        co.warn(node.children[0], `Es wird nur ! hier unterstützt`)
+      }
+      compileValExpression('boolean', co, node.children[1], context)
+      co.appendOutput({ type: 'constant', value: 1 })
+      co.appendOutput({ type: 'operation', kind: 'add' })
+      co.appendOutput({ type: 'constant', value: 2 })
+      co.appendOutput({ type: 'operation', kind: 'mod' })
+      context.valueType = 'boolean'
       return
     }
   }
