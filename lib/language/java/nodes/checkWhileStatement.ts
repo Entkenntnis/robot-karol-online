@@ -3,7 +3,7 @@ import { CompilerOutput, AnchorOp } from '../../helper/CompilerOutput'
 import { AstNode } from '../../helper/astNode'
 import { conditionToRK } from '../../helper/conditionToRk'
 import { matchChildren } from '../../helper/matchChildren'
-import { checkCondition } from '../checkCondition'
+import { checkCondition } from '../checkCondition___OLD'
 import {
   SemantikCheckContext,
   compileDeclarationAndStatements,
