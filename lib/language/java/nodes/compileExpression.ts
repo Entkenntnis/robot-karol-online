@@ -16,6 +16,15 @@ export const expressionNodes = [
   'MethodInvocation',
 ]
 
+const compareOps = {
+  '==': 'equal',
+  '<=': 'less-equal',
+  '<': 'less-than',
+  '>': 'greater-than',
+  '>=': 'greater-equal',
+  '!=': 'unequal',
+}
+
 export function compileExpression(
   co: CompilerOutput,
   node: AstNode,
@@ -73,6 +82,25 @@ export function compileExpression(
             : 'mod',
       })
       context.valueType = 'int'
+      return
+    }
+    if (
+      matchChildren(
+        [expressionNodes, 'CompareOp', expressionNodes],
+        node.children
+      )
+    ) {
+      // @ts-ignore We check it in next line
+      const kind = compareOps[node.children[1].text()]
+      // console.log(comparison.children[1].text(), kind)
+      if (!kind) {
+        co.warn(node.children[1], `Unbekannter Vergleichsoperator`)
+        return
+      }
+      compileValExpression('int', co, node.children[0], context)
+      compileValExpression('int', co, node.children[2], context)
+      co.appendOutput({ type: 'compare', kind })
+      context.valueType = 'boolean'
       return
     }
   }
@@ -150,6 +178,7 @@ export function compileExpression(
       !matchChildren(['Identifier', 'AssignOp', expressionNodes], node.children)
     ) {
       co.warn(node, 'Fehler beim Parser der Zuweisung')
+      context.valueType = 'void'
       return
     }
 
@@ -157,12 +186,14 @@ export function compileExpression(
 
     if (!context.variablesInScope.has(variable)) {
       co.warn(node, `Variable ${variable} nicht bekannt`)
+      context.valueType = 'void'
       return
     }
 
     const op = node.children[1].text()
     if (op != '=') {
       co.warn(node.children[1], `Zuweisung ${op} nicht unterstützt`)
+      context.valueType = 'void'
       return
     }
 
@@ -187,6 +218,7 @@ export function compileExpression(
       to: Math.min(node.to, co.lineAt(node.from).to), // cap error at end of line
       message: `Erwarte Methodenaufruf nach '${context.robotName}.'`,
     })
+    context.valueType = 'void'
     return
   }
 
