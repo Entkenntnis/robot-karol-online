@@ -41,6 +41,7 @@ export function run(core: Core) {
     // add a fixed 150ms delay between reset and first action, from then on the delay is defined by slider value
     vm.startTime = Date.now() - sliderToDelay(core.ws.ui.speedSliderValue) + 150
     vm.steps = 0
+    vm.functionEvaluation = 0
     ui.gutter = 0
     vm.isDebugging = false
     ui.notCompletedReason = ''
@@ -248,6 +249,9 @@ function* executeProgramAsGenerator(core: Core) {
         if (result === false) {
           return 'end' // something went wrong
         }
+        core.mutateWs(({ vm }) => {
+          vm.functionEvaluation++
+        })
         if (!core.ws.vm.isDebugging) {
           yield 'delay'
         }
@@ -290,6 +294,7 @@ function* executeProgramAsGenerator(core: Core) {
               })
             }
             frame.opstack.push(testCondition(core, condition) ? 1 : 0)
+            vm.functionEvaluation++
             vm.pc++
             break
           }

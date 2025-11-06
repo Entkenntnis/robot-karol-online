@@ -148,13 +148,19 @@ export function SuccessModal() {
             e.stopPropagation()
           }}
         >
-          <h1 className="mt-10 text-4xl mb-8">
+          <h1 className="mt-10 text-4xl mb-4">
             {core.ws.page !== 'shared' ? (
               <>🎉 {positive}</>
             ) : (
               <>🎉{positive.replace('!', '')}</>
             )}
           </h1>
+          <div className="text-sm text-gray-600">
+            Aufgabe gelöst in{' '}
+            {core.ws.vm.functionEvaluation == 1
+              ? 'einem Schritt'
+              : `${core.ws.vm.functionEvaluation} Schritten`}
+          </div>
           {
             /* (
             <>

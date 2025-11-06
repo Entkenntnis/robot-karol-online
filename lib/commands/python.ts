@@ -118,6 +118,9 @@ export function setupWorker(core: Core) {
           ui.isBench = false
         })
       }
+      core.mutateWs(({ vm }) => {
+        vm.functionEvaluation++
+      })
 
       if (event.data.sharedBuffer) {
         const sharedArray = new Int32Array(event.data.sharedBuffer)
@@ -133,6 +136,9 @@ export function setupWorker(core: Core) {
       const { sharedBuffer, condition } = event.data
       const sharedArray = new Int32Array(sharedBuffer)
       sharedArray[0] = testCondition(core, JSON.parse(condition)) ? 1 : 0
+      core.mutateWs(({ vm }) => {
+        vm.functionEvaluation++
+      })
 
       // console.log('main thread check:istWand', sharedArray[0])
 

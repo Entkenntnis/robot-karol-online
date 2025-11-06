@@ -69,6 +69,7 @@ export function createWorkspaceState(): WorkspaceState {
       frames: [],
       callstack: [],
       steps: 0,
+      functionEvaluation: 0,
       startTime: 0,
       isDebugging: false,
       debuggerRequestNextStep: false,
