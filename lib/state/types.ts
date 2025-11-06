@@ -92,6 +92,7 @@ export interface Vm {
   callstack: number[]
   startTime: number
   steps: number
+  functionEvaluation: number
   isDebugging: boolean
   debuggerRequestNextStep: boolean
 
