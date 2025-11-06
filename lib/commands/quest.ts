@@ -110,7 +110,9 @@ export function runTask(core: Core, index: number) {
           }
         }
       }
-      run(core)
+      if (core.ws.ui.state == 'ready') {
+        run(core)
+      }
     }
   }
 }
