@@ -4,6 +4,10 @@
 
 Bitte schreibe mir - Quinn Li (sie/ihr) - unter karol@arrrg.de eine kleine Nachricht um die Musterlösung zu Aufgaben im Selbst-Lern-Pfad zu erhalten.
 
+### Kurzanleitung
+
+Eine <a href="https://github.com/Entkenntnis/robot-karol-online/raw/4a912d84c726fdc5e2a0b65c4a4a8d4f2ee996da/material/Einf%C3%BChrung_neu_2025.pdf">Kurzanleitung für den schnellen Einstieg</a> in die Lernumgebung.
+
 ### Lernpfad nur mit Karol Code
 
 Mit dem Link https://karol.arrrg.de/?code=1 werden Blöcke deaktiviert.
