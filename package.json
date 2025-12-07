@@ -61,6 +61,6 @@
     "typescript": "^5.8.3"
   },
   "overrides": {
-    "jsdom": "npm:dry-uninstall"
+    "jsdom": "npm:dry-uninstall@0.3.0"
   }
 }
