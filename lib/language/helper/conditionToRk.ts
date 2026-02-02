@@ -1,4 +1,4 @@
-import { Condition } from '../../state/types'
+import type { Condition } from '../../state/types'
 
 export function conditionToRK(condition: Condition) {
   const part1 = condition.negated ? 'NichtIst' : 'Ist'

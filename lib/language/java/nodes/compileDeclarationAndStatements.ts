@@ -1,6 +1,6 @@
-import { Condition, CallOp, Op } from '../../../state/types'
+import type { Condition, CallOp, Op } from '../../../state/types'
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import type { AstNode } from '../../helper/astNode'
 import { checkSemikolon } from '../checkSemikolon'
 import { compileExpression } from './compileExpression'
 import { checkBlock } from './checkBlock'
@@ -47,7 +47,7 @@ export interface MethodSignature {
 export function compileDeclarationAndStatements(
   co: CompilerOutput,
   node: AstNode,
-  context: SemantikCheckContext
+  context: SemantikCheckContext,
 ) {
   switch (node.name) {
     case 'ReturnStatement': {
@@ -81,7 +81,7 @@ export function compileDeclarationAndStatements(
           }
           // still compile expression to keep parser progress and pop it
           context.expectVoid = false
-          const t = compileExpression(co, exprNode, context)
+          compileExpression(co, exprNode, context)
         }
         co.appendOutput({ type: 'return' })
       } else {

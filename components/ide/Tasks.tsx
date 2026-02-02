@@ -18,7 +18,7 @@ import {
   faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { createRef, Fragment, useEffect, useRef, useState } from 'react'
+import { createRef, Fragment, useEffect, useState } from 'react'
 
 import {
   addNewTask,
@@ -82,7 +82,7 @@ export function Tasks() {
                 <div
                   className={clsx(
                     'pt-4 pb-1 px-7 bg-yellow-100',
-                    core.ws.ui.isHighlightDescription && 'z-[300] relative'
+                    core.ws.ui.isHighlightDescription && 'z-[300] relative',
                   )}
                 >
                   {core.ws.page == 'editor' ? (
@@ -142,7 +142,7 @@ export function Tasks() {
                               'p-1 rounded ml-3',
 
                               core.ws.ui.isChatMode &&
-                                'disabled opacity-50 pointer-events-none'
+                                'disabled opacity-50 pointer-events-none',
                             )}
                             value={core.ws.editor.editOptions}
                             onChange={(e) => {
@@ -177,7 +177,7 @@ export function Tasks() {
                               if (isChatMode) {
                                 submitAnalyzeEvent(
                                   core,
-                                  'ev_click_ide_chatMode'
+                                  'ev_click_ide_chatMode',
                                 )
                               }
                               core.mutateWs((ws) => {
@@ -228,13 +228,13 @@ export function Tasks() {
                       {arr.length > 0 && (
                         <div
                           className={clsx(
-                            'flex justify-center relative pt-4 pb-3'
+                            'flex justify-center relative pt-4 pb-3',
                           )}
                         >
                           <div
                             className={clsx(
                               'absolute inset-0 flex justify-center',
-                              index == 0 && 'top-5'
+                              index == 0 && 'top-5',
                             )}
                           >
                             <div className="h-full w-3 bg-gray-300"></div>
@@ -292,7 +292,7 @@ export function Tasks() {
                                   core.mutateWs(({ quest }) => {
                                     const element = quest.chats.splice(
                                       index,
-                                      1
+                                      1,
                                     )[0]
                                     quest.chats.splice(index - 1, 0, element)
                                   })
@@ -311,7 +311,7 @@ export function Tasks() {
                                   core.mutateWs(({ quest }) => {
                                     const element = quest.chats.splice(
                                       index,
-                                      1
+                                      1,
                                     )[0]
                                     quest.chats.splice(index + 1, 0, element)
                                   })
@@ -342,7 +342,7 @@ export function Tasks() {
                               className="ml-3"
                               onClick={() => {
                                 const result = confirm(
-                                  'Willst du diesen Chat wirklich löschen?'
+                                  'Willst du diesen Chat wirklich löschen?',
                                 )
                                 if (result) {
                                   core.mutateWs(({ quest }) => {
@@ -384,7 +384,7 @@ export function Tasks() {
                                   <div
                                     className={clsx(
                                       'flex my-1 mx-2',
-                                      message.role == 'in' && 'justify-end'
+                                      message.role == 'in' && 'justify-end',
                                     )}
                                   >
                                     <div
@@ -397,13 +397,13 @@ export function Tasks() {
                                           ? core.ws.vm.chatCursor
                                             ? ''
                                             : index > 0 &&
-                                              core.ws.page != 'editor' &&
-                                              !core.ws.ui.isAlreadyCompleted
-                                            ? 'opacity-50'
-                                            : ''
+                                                core.ws.page != 'editor' &&
+                                                !core.ws.ui.isAlreadyCompleted
+                                              ? 'opacity-50'
+                                              : ''
                                           : nextOnFail
-                                          ? 'opacity-60'
-                                          : 'opacity-30'
+                                            ? 'opacity-60'
+                                            : 'opacity-30',
                                       )}
                                     >
                                       {message.text}
@@ -425,12 +425,12 @@ export function Tasks() {
                       {index + 1 == arr.length && (
                         <div
                           className={clsx(
-                            'flex justify-center relative pt-4 pb-3'
+                            'flex justify-center relative pt-4 pb-3',
                           )}
                         >
                           <div
                             className={clsx(
-                              'absolute inset-0 flex justify-center bottom-5'
+                              'absolute inset-0 flex justify-center bottom-5',
                             )}
                           >
                             <div className="h-full w-3 bg-gray-300"></div>
@@ -460,14 +460,14 @@ export function Tasks() {
                         'cursor-pointer hover:bg-gray-50',
                       core.ws.page == 'editor' &&
                         core.ws.editor.showQuestPreview &&
-                        'cursor-pointer'
+                        'cursor-pointer',
                     )}
                     key={index}
                     tabIndex={0}
                     onClick={() => {
                       setTaskScroll(
                         core,
-                        taskContainer.current?.scrollTop ?? -1
+                        taskContainer.current?.scrollTop ?? -1,
                       )
                       if (core.ws.page == 'editor') {
                         if (core.ws.editor.showQuestPreview) {
@@ -491,7 +491,7 @@ export function Tasks() {
                     <div
                       className={clsx(
                         'h-48 mb-6 mx-8',
-                        !core.ws.ui.isHighlightDescription && 'cursor-pointer'
+                        !core.ws.ui.isHighlightDescription && 'cursor-pointer',
                       )}
                       onClick={() => {
                         if (
@@ -539,7 +539,7 @@ export function Tasks() {
                                 onClick={() => {
                                   submitAnalyzeEvent(
                                     core,
-                                    'ev_click_editor_testWorld'
+                                    'ev_click_editor_testWorld',
                                   )
                                   openTask(core, index)
                                 }}
@@ -552,7 +552,7 @@ export function Tasks() {
                                 onClick={() => {
                                   submitAnalyzeEvent(
                                     core,
-                                    'ev_click_editor_editWorld'
+                                    'ev_click_editor_editWorld',
                                   )
                                   editWorld(core, index)
                                 }}
@@ -568,7 +568,7 @@ export function Tasks() {
                                 onClick={() => {
                                   submitAnalyzeEvent(
                                     core,
-                                    'ev_click_editor_moveUp'
+                                    'ev_click_editor_moveUp',
                                   )
                                   moveTaskUp(core, index)
                                 }}
@@ -584,7 +584,7 @@ export function Tasks() {
                                 onClick={() => {
                                   submitAnalyzeEvent(
                                     core,
-                                    'ev_click_editor_moveDown'
+                                    'ev_click_editor_moveDown',
                                   )
                                   moveTaskDown(core, index)
                                 }}
@@ -597,7 +597,7 @@ export function Tasks() {
                                 onClick={() => {
                                   submitAnalyzeEvent(
                                     core,
-                                    'ev_click_editor_cloneTask'
+                                    'ev_click_editor_cloneTask',
                                   )
                                   cloneTask(core, index)
                                 }}
@@ -610,7 +610,7 @@ export function Tasks() {
                                 onClick={() => {
                                   submitAnalyzeEvent(
                                     core,
-                                    'ev_click_editor_deleteTask'
+                                    'ev_click_editor_deleteTask',
                                   )
                                   deleteTask(core, index)
                                 }}
@@ -638,9 +638,9 @@ export function Tasks() {
           core.ws.ui.isPlayground
             ? 'sm:min-w-[400px]'
             : core.ws.page == 'editor'
-            ? 'sm:min-w-[550px]'
-            : 'sm:min-w-[380px]',
-          core.ws.editor.showQuestPreview && 'hidden'
+              ? 'sm:min-w-[550px]'
+              : 'sm:min-w-[380px]',
+          core.ws.editor.showQuestPreview && 'hidden',
         )}
       >
         <div className="flex justify-start relative items-center flex-grow">
@@ -653,7 +653,7 @@ export function Tasks() {
                     let counter = core.ws.quest.chats.length + 1
                     while (
                       core.ws.quest.chats.some(
-                        (x) => x.title === `Chat ${counter}`
+                        (x) => x.title === `Chat ${counter}`,
                       )
                     ) {
                       counter++
@@ -859,7 +859,7 @@ export function Tasks() {
                 'inline-block px-2 h-2 bg-white w-[32px]',
                 core.ws.vm.chatCursor!.mode == 'play'
                   ? 'text-green-400'
-                  : 'text-yellow-300'
+                  : 'text-yellow-300',
               )}
             ></span>
           </div>
@@ -869,7 +869,7 @@ export function Tasks() {
                 'inline-block px-2 bg-transparent',
                 core.ws.vm.chatCursor!.mode == 'play'
                   ? 'text-green-400'
-                  : 'text-yellow-300'
+                  : 'text-yellow-300',
               )}
             >
               <FaIcon
@@ -884,7 +884,7 @@ export function Tasks() {
               'h-1 w-full my-2',
               core.ws.vm.chatCursor!.mode == 'play'
                 ? 'bg-green-300'
-                : 'bg-yellow-200'
+                : 'bg-yellow-200',
             )}
           ></div>
         </div>

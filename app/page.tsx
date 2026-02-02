@@ -1,18 +1,11 @@
-'use client'
-
-import dynamic from 'next/dynamic'
 import { CoreProvider, useCreateCore } from '../lib/state/core'
+import { createRoot } from 'react-dom/client'
+import { lazy, Suspense } from 'react'
 import { LoadingScreen } from '../components/helper/LoadingScreen'
 
-const App = dynamic(() => import('../components/App').then((mod) => mod.App), {
-  ssr: false,
-  loading: () => <LoadingScreen />,
-})
-
-if (typeof window !== 'undefined') {
-  // @ts-ignore
-  window.TONE_SILENCE_LOGGING = true
-}
+const App = lazy(() =>
+  import('../components/App').then((mod) => ({ default: mod.App })),
+)
 
 // Monkey patching console.warn to suppress specific warnings
 ;(function () {
@@ -21,7 +14,7 @@ if (typeof window !== 'undefined') {
     if (
       typeof args[0] === 'string' &&
       args[0].startsWith(
-        'Blockly.Workspace.getAllVariables was deprecated in v12'
+        'Blockly.Workspace.getAllVariables was deprecated in v12',
       )
     ) {
       return
@@ -34,7 +27,11 @@ export default function Index() {
   const core = useCreateCore()
   return (
     <CoreProvider value={core}>
-      <App />
+      <Suspense fallback={<LoadingScreen />}>
+        <App />
+      </Suspense>
     </CoreProvider>
   )
 }
+
+createRoot(document.getElementById('root')!).render(<Index />)

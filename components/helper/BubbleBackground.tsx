@@ -1,15 +1,6 @@
 import { useMemo } from 'react'
 import clsx from 'clsx'
 
-interface Bubble {
-  id: number
-  size: number
-  left: number
-  top: number
-  delay: number
-  duration: number
-}
-
 interface BubbleBackgroundProps {
   bubbleCount?: number
   className?: string
@@ -35,7 +26,7 @@ export function BubbleBackground({
     <div
       className={clsx(
         'absolute inset-0 overflow-hidden pointer-events-none',
-        className
+        className,
       )}
     >
       {backgroundBubbles.map((bubble) => (

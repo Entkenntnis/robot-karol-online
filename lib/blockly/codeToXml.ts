@@ -1,5 +1,5 @@
 import { Tree, TreeCursor } from '@lezer/common'
-import { CmdBlockPositions } from '../state/types'
+import type { CmdBlockPositions } from '../state/types'
 import { deKeywords, enKeywords } from '../language/robot karol/compiler'
 import { getParserWithLng } from '../codemirror/parser/get-parser-with-lng'
 import { capitalize } from '../helper/capitalize'
@@ -9,7 +9,7 @@ export function codeToXml(
   code: string,
   cmdBlockPositions: CmdBlockPositions,
   snippets: string[],
-  systemLng: 'de' | 'en'
+  systemLng: 'de' | 'en',
 ): string {
   // blocks are always showing in the current lng, so we parse the code according to
   // detected lng and convert it if necessary
@@ -21,7 +21,7 @@ export function codeToXml(
   function parseTree(
     cursor: TreeCursor,
     code: string,
-    breaker?: (type: string) => boolean
+    breaker?: (type: string) => boolean,
   ): string {
     let callbackStack: ((val: string) => string)[] = []
 
@@ -45,7 +45,7 @@ export function codeToXml(
       if (t == 'Program') {
         callbackStack.push(
           (inner) => `<xml xmlns="https://developers.google.com/blockly/xml">
-      ${inner}${cmds.join('')}</xml>`
+      ${inner}${cmds.join('')}</xml>`,
         )
       } else if (t == 'Cmd') {
         nextIgnoreComment(cursor) // CmdStart
@@ -69,7 +69,7 @@ export function codeToXml(
             statements
               ? `<statement name="STATEMENTS">${statements}</statement>`
               : ''
-          }</block>`
+          }</block>`,
         )
       } else if (t == 'Command') {
         let count = ''
@@ -110,22 +110,22 @@ export function codeToXml(
           callbackStack.push(
             buildClosureWithoutInner(
               'stop',
-              ''
+              '',
               //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-            )
+            ),
           )
           continue
         }
         callbackStack.push(
           buildClosure(
             blockType,
-            count
+            count,
             //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-          )
+          ),
         )
       } else if (t == 'CustomRef') {
         callbackStack.push(
-          buildCustomCommand(code.substring(cursor.from, cursor.to))
+          buildCustomCommand(code.substring(cursor.from, cursor.to)),
         )
       } else if (t == 'Repeat') {
         nextIgnoreComment(cursor) // RepeatStart
@@ -136,9 +136,9 @@ export function codeToXml(
           //console.log('inner', inner)
           callbackStack.push(
             buildRepeatAlways(
-              inner
+              inner,
               //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-            )
+            ),
           )
           continue
         } else if (cursor.type.name == 'Times') {
@@ -150,9 +150,9 @@ export function codeToXml(
           callbackStack.push(
             buildRepeatTimes(
               times,
-              inner
+              inner,
               //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-            )
+            ),
           )
           continue
         } else {
@@ -164,9 +164,9 @@ export function codeToXml(
           callbackStack.push(
             buildRepeatWhile(
               buildCondition(condition),
-              inner
+              inner,
               //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-            )
+            ),
           )
           continue
         }
@@ -197,9 +197,9 @@ export function codeToXml(
           callbackStack.push(
             buildIf(
               buildCondition(condition),
-              inner
+              inner,
               //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-            )
+            ),
           )
           continue
         } else {
@@ -211,9 +211,9 @@ export function codeToXml(
             buildIfElse(
               buildCondition(condition),
               inner,
-              inner2
+              inner2,
               //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-            )
+            ),
           )
           continue
         }
@@ -241,9 +241,9 @@ export function codeToXml(
         } else {
           callbackStack.push(
             buildCommentClosure(
-              text
+              text,
               //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-            )
+            ),
           )
         }
       } else if (t == 'Comment') {
@@ -254,9 +254,9 @@ export function codeToXml(
         for (const line of lines) {
           callbackStack.push(
             buildCommentClosure(
-              line
+              line,
               //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-            )
+            ),
           )
         }
       } else if (t == 'BlockComment') {
@@ -267,9 +267,9 @@ export function codeToXml(
         for (const line of lines) {
           callbackStack.push(
             buildCommentClosure(
-              line
+              line,
               //callbackStack.length == 1 ? 'x="40" y="30"' : undefined
-            )
+            ),
           )
         }
       }
@@ -312,7 +312,7 @@ export function codeToXml(
   function buildClosureWithoutInner(
     blockType: string,
     count: string,
-    attrs?: string
+    attrs?: string,
   ) {
     return () =>
       `<block type="${blockType}" ${attrs ?? ''}>${
@@ -332,7 +332,7 @@ export function codeToXml(
   function buildRepeatWhile(
     condition: string,
     statements: string,
-    attr?: string
+    attr?: string,
   ) {
     return (inner: String) => `<block type="while_do" ${
       attr ?? ''
@@ -354,7 +354,7 @@ export function codeToXml(
     condition: string,
     statements: string,
     statements2: string,
-    attr?: string
+    attr?: string,
   ) {
     return (inner: String) => `<block type="if_then_else" ${
       attr ?? ''
@@ -362,17 +362,17 @@ export function codeToXml(
   ${
     statements ? `<statement name="STATEMENTS">${statements}</statement>` : ''
   }${
-      statements2
-        ? `<statement name="STATEMENTS_2">${statements2}</statement>`
-        : ''
-    }${inner ? `<next>${inner}</next>` : ''}</block>`
+    statements2
+      ? `<statement name="STATEMENTS_2">${statements2}</statement>`
+      : ''
+  }${inner ? `<next>${inner}</next>` : ''}</block>`
   }
 
   function buildCondition(typeRaw: string) {
     const type = typeRaw.toLowerCase()
 
     function type2dir(
-      prop: 'istnorden' | 'istsüden' | 'istosten' | 'istwesten'
+      prop: 'istnorden' | 'istsüden' | 'istosten' | 'istwesten',
     ) {
       if (systemLng === 'de') {
         return capitalize(deKeywords[prop].replace('ist', ''))
@@ -391,35 +391,35 @@ export function codeToXml(
       return `<block type="isn't_marker"></block>`
     if (type == keywords.istnorden)
       return `<block type="is_direction"><field name="DIRECTION">${type2dir(
-        'istnorden'
+        'istnorden',
       )}</field></block>`
     if (type == keywords.nichtistnorden)
       return `<block type="isn't_direction"><field name="DIRECTION">${type2dir(
-        'istnorden'
+        'istnorden',
       )}</field></block>`
     if (type == keywords.istosten)
       return `<block type="is_direction"><field name="DIRECTION">${type2dir(
-        'istosten'
+        'istosten',
       )}</field></block>`
     if (type == keywords.nichtistosten)
       return `<block type="isn't_direction"><field name="DIRECTION">${type2dir(
-        'istosten'
+        'istosten',
       )}</field></block>`
     if (type == keywords.istsüden)
       return `<block type="is_direction"><field name="DIRECTION">${type2dir(
-        'istsüden'
+        'istsüden',
       )}</field></block>`
     if (type == keywords.nichtistsüden)
       return `<block type="isn't_direction"><field name="DIRECTION">${type2dir(
-        'istsüden'
+        'istsüden',
       )}</field></block>`
     if (type == keywords.istwesten)
       return `<block type="is_direction"><field name="DIRECTION">${type2dir(
-        'istwesten'
+        'istwesten',
       )}</field></block>`
     if (type == keywords.nichtistwesten)
       return `<block type="isn't_direction"><field name="DIRECTION">${type2dir(
-        'istwesten'
+        'istwesten',
       )}</field></block>`
     if (type.startsWith(keywords.istziegel + '(')) {
       const count = type.replace(keywords.istziegel + '(', '').replace(')', '')

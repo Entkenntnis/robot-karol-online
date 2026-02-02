@@ -1,8 +1,5 @@
 import { Core } from '../state/core'
-import {
-  PlaygroundHashData,
-  QuestSerialFormat_MUST_STAY_COMPATIBLE,
-} from '../state/types'
+import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
 
 const debouncedReplaceState = (() => {
   const data = {
@@ -38,7 +35,7 @@ const debouncedReplaceState = (() => {
     window.history.replaceState(
       {},
       data.lastestTitle,
-      window.location.pathname + data.latestHash
+      window.location.pathname + data.latestHash,
     )
     window.document.title = data.lastestTitle
     data.hasTimeout = false
@@ -59,12 +56,12 @@ export function saveCodeToFile(core: Core) {
         core.ws.settings.mode == 'blocks'
           ? core.ws.code
           : core.ws.settings.language == 'python-pro'
-          ? core.ws.pythonCode
-          : core.ws.javaCode),
+            ? core.ws.pythonCode
+            : core.ws.javaCode),
     ],
     {
       type: 'text/plain',
-    }
+    },
   )
 
   // 4. Create a URL for the Blob
@@ -79,8 +76,8 @@ export function saveCodeToFile(core: Core) {
     core.ws.settings.language == 'robot karol'
       ? 'txt'
       : core.ws.settings.language == 'python-pro'
-      ? 'py'
-      : 'java.txt'
+        ? 'py'
+        : 'java.txt'
   }` // specify the filename
 
   // 6. Simulate a click on the anchor element to trigger the download
@@ -95,7 +92,7 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
     const state = getProgram(core)
     localStorage.setItem(
       `robot_karol_online_shared_quest_${core.ws.ui.sharedQuestId.toLowerCase()}_program`,
-      JSON.stringify(state)
+      JSON.stringify(state),
     )
   }
   if (core.ws.ui.isPlayground) {
@@ -106,10 +103,10 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
             core.ws.settings.language == 'robot karol'
               ? 'CODE'
               : core.ws.settings.language == 'java'
-              ? 'JAVA'
-              : core.ws.settings.language == 'python-pro'
-              ? 'PYTHON'
-              : 'PYTHON'
+                ? 'JAVA'
+                : core.ws.settings.language == 'python-pro'
+                  ? 'PYTHON'
+                  : 'PYTHON'
           }`
     }`
     const newWindowTitle =
@@ -117,12 +114,12 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
       (core.ws.settings.mode == 'blocks'
         ? ''
         : core.ws.settings.language == 'robot karol'
-        ? ''
-        : core.ws.settings.language == 'java'
-        ? ' Karol Java'
-        : core.ws.settings.language == 'python-pro'
-        ? ' Python'
-        : ' Karol Python')
+          ? ''
+          : core.ws.settings.language == 'java'
+            ? ' Karol Java'
+            : core.ws.settings.language == 'python-pro'
+              ? ' Python'
+              : ' Karol Python')
     const code =
       (core.ws.ui.isPlayground
         ? `${
@@ -135,8 +132,8 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
       core.ws.settings.mode == 'blocks'
         ? core.ws.code
         : core.ws.settings.language == 'python-pro'
-        ? core.ws.pythonCode
-        : core.ws.javaCode)
+          ? core.ws.pythonCode
+          : core.ws.javaCode)
     const hash = encodeURIComponent(code)
     let newHash = `${prefix}:${hash}`
     if (
@@ -163,8 +160,8 @@ export function attemptToLoadProgramFromLocalStorage(core: Core) {
     try {
       const state = JSON.parse(
         localStorage.getItem(
-          `robot_karol_online_shared_quest_${core.ws.ui.sharedQuestId.toLowerCase()}_program`
-        ) ?? '{}'
+          `robot_karol_online_shared_quest_${core.ws.ui.sharedQuestId.toLowerCase()}_program`,
+        ) ?? '{}',
       )
       if (
         state.language &&
@@ -181,7 +178,7 @@ export function attemptToLoadProgramFromLocalStorage(core: Core) {
 export function loadProgram(
   core: Core,
   program: string,
-  language: QuestSerialFormat_MUST_STAY_COMPATIBLE['language']
+  language: QuestSerialFormat_MUST_STAY_COMPATIBLE['language'],
 ) {
   core.mutateWs((ws) => {
     if (language == 'blocks') {

@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { TAGS } from '../../lib/data/tags'
-import {
+import type {
   EntryType,
   InspirationData,
   QuestSerialFormat_MUST_STAY_COMPATIBLE,
@@ -46,7 +46,7 @@ export function Inspiration() {
             console.error(
               'Error parsing quest content for publicId',
               item.publicId,
-              error
+              error,
             )
             // Fallback in case parsing fails:
             quest = {
@@ -106,15 +106,20 @@ export function Inspiration() {
   const toggleTag = (tag: string) => {
     submitAnalyzeEvent(core, 'ev_click_inspiration_toggleTag_' + tag)
     setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     )
   }
 
   // Group tags by category (assuming TAGS is defined and each tag has `category`, `internal` and `display` properties)
-  const tagsByCategory = TAGS.reduce((acc, tag) => {
-    acc[tag.category] = acc[tag.category] ? [...acc[tag.category], tag] : [tag]
-    return acc
-  }, {} as { [key: string]: { internal: string; display: string }[] })
+  const tagsByCategory = TAGS.reduce(
+    (acc, tag) => {
+      acc[tag.category] = acc[tag.category]
+        ? [...acc[tag.category], tag]
+        : [tag]
+      return acc
+    },
+    {} as { [key: string]: { internal: string; display: string }[] },
+  )
 
   /**
    * Checks whether an entry matches all selected tags.
@@ -122,7 +127,7 @@ export function Inspiration() {
    */
   const matchesTags = (
     entry: { title: string; tags: string[] },
-    tags: string[]
+    tags: string[],
   ) => {
     return tags.every((tag) => {
       if (tag.startsWith('not:')) {
@@ -137,7 +142,7 @@ export function Inspiration() {
     return (
       entry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       entry.quest.tasks.some((task) =>
-        task.title.toLowerCase().includes(searchTerm.toLowerCase())
+        task.title.toLowerCase().includes(searchTerm.toLowerCase()),
       ) ||
       entry.quest.description.toLowerCase().includes(searchTerm.toLowerCase())
     )
@@ -189,7 +194,7 @@ export function Inspiration() {
             onClick={resetFilters}
             className={clsx(
               'text-sm text-blue-500 hover:underline',
-              selectedTags.length === 0 && 'hidden'
+              selectedTags.length === 0 && 'hidden',
             )}
           >
             Filter zurücksetzen
@@ -199,7 +204,7 @@ export function Inspiration() {
           // Only show tags that have a count > 0 or are already selected.
           const visibleTags = tags.filter(
             ({ internal }) =>
-              getTagCount(internal) > 0 || selectedTags.includes(internal)
+              getTagCount(internal) > 0 || selectedTags.includes(internal),
           )
 
           // Hide the category if there are no visible tags.
@@ -299,7 +304,7 @@ function Entry({ entry }: { entry: EntryType }) {
     quest.description == 'Beschreibe, um was es bei der Aufgabe geht ...'
 
   const tags = entry.tags.filter(
-    (tag) => !['deutsch', 'no_restrictions', 'multiple_worlds'].includes(tag)
+    (tag) => !['deutsch', 'no_restrictions', 'multiple_worlds'].includes(tag),
   )
 
   const [selected, setSelected] = useState(0)
@@ -351,8 +356,8 @@ function Entry({ entry }: { entry: EntryType }) {
         {noDesc
           ? 'keine Beschreibung'
           : quest.description.length > 111
-          ? quest.description.slice(0, 110) + ' …'
-          : quest.description}
+            ? quest.description.slice(0, 110) + ' …'
+            : quest.description}
       </p>
       {tags.length > 0 && (
         <p className="text-sm text-gray-600 mt-4">
@@ -373,7 +378,7 @@ function Entry({ entry }: { entry: EntryType }) {
             submitAnalyzeEvent(core, 'ev_click_inspiration_openQuest')
             window.open(
               '/#' + entry.id,
-              '__TAURI_INTERNALS__' in window ? '_self' : '_blank'
+              '__TAURI_INTERNALS__' in window ? '_self' : '_blank',
             )
           }}
         >

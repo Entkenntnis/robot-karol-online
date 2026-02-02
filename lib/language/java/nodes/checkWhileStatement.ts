@@ -1,10 +1,10 @@
-import { JumpOp, BranchOp } from '../../../state/types'
-import { CompilerOutput, AnchorOp } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import type { JumpOp, BranchOp } from '../../../state/types'
+import { CompilerOutput, type AnchorOp } from '../../helper/CompilerOutput'
+import type { AstNode } from '../../helper/astNode'
 import { conditionToRK } from '../../helper/conditionToRk'
 import { matchChildren } from '../../helper/matchChildren'
 import {
-  SemantikCheckContext,
+  type SemantikCheckContext,
   compileDeclarationAndStatements,
 } from './compileDeclarationAndStatements'
 import { compileExpression } from './compileExpression'
@@ -12,7 +12,7 @@ import { compileExpression } from './compileExpression'
 export function checkWhileStatement(
   co: CompilerOutput,
   node: AstNode,
-  context: SemantikCheckContext
+  context: SemantikCheckContext,
 ) {
   if (
     matchChildren(['while', 'ParenthesizedExpression', 'Block'], node.children)
@@ -78,7 +78,7 @@ export function checkWhileStatement(
         // I can convert
         co.appendRkCode(
           `wiederhole solange ${conditionToRK(last.condition)}`,
-          node.from
+          node.from,
         )
       } else {
         co.activateProMode()

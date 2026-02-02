@@ -1,8 +1,8 @@
-import { Diagnostic } from '@codemirror/lint'
+import type { Diagnostic } from '@codemirror/lint'
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
 
-import { Op, Condition, CallOp } from '../../state/types'
+import type { Op, Condition, CallOp } from '../../state/types'
 
 export const deKeywords = {
   schritt: 'schritt',
@@ -93,8 +93,8 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
             ? parseInt(
                 doc.sliceString(
                   cursor.node.lastChild.from,
-                  cursor.node.lastChild.to
-                )
+                  cursor.node.lastChild.to,
+                ),
               )
             : 1
         const line = doc.lineAt(cursor.from).number
@@ -207,7 +207,7 @@ export function compile(tree: Tree, doc: Text, lng: 'de' | 'en') {
           cursor.node.lastChild?.name == 'Parameter'
             ? doc.sliceString(
                 cursor.node.lastChild.from,
-                cursor.node.lastChild.to
+                cursor.node.lastChild.to,
               )
             : null
 

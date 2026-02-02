@@ -1,14 +1,13 @@
-import { RefObject, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type RefObject } from 'react'
 import { EditorState } from '@codemirror/state'
 import {
-  Command,
   EditorView,
   drawSelection,
-  gutter,
   highlightActiveLine,
   highlightActiveLineGutter,
   keymap,
   lineNumbers,
+  type Command
 } from '@codemirror/view'
 
 import {
@@ -39,11 +38,7 @@ import { compileJava } from '../../lib/language/java/compileJava'
 import { patch } from '../../lib/commands/vm'
 import { resetUIAfterChange, setLoading } from '../../lib/commands/editing'
 import { javaLanguage } from '../../lib/codemirror/javaParser/javaLanguage'
-import {
-  CompletionSource,
-  autocompletion,
-  completionKeymap,
-} from '@codemirror/autocomplete'
+import { autocompletion, completionKeymap, type CompletionSource } from '@codemirror/autocomplete'
 import { saveCodeToLocalStorage } from '../../lib/commands/save'
 import { Cheatsheet } from '../helper/Cheatsheet'
 import clsx from 'clsx'
@@ -99,7 +94,7 @@ export const JavaEditor = ({ innerRef }: EditorProps) => {
               () => {
                 return lint(core, view)
               },
-              { delay: 0 }
+              { delay: 0 },
             ),
             Theme,
             EditorView.lineWrapping,
@@ -166,7 +161,7 @@ export function lint(core: Core, view: EditorView) {
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
   const { warnings, output, rkCode, proMode } = compileJava(
     tree,
-    view.state.doc
+    view.state.doc,
   )
   warnings.sort((a, b) => a.from - b.from)
 
@@ -191,7 +186,7 @@ export function lint(core: Core, view: EditorView) {
       ui.state = 'error'
       ui.errorMessages = warnings
         .map(
-          (w) => `Zeile ${view.state.doc.lineAt(w.from).number}: ${w.message}`
+          (w) => `Zeile ${view.state.doc.lineAt(w.from).number}: ${w.message}`,
         )
         .filter(function (item, i, arr) {
           return arr.indexOf(item) == i

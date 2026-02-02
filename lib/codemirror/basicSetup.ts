@@ -3,15 +3,15 @@ import {
   drawSelection,
   highlightActiveLine,
   EditorView,
-  Command,
   Decoration,
-  DecorationSet,
   ViewPlugin,
   ViewUpdate,
   lineNumbers,
   highlightActiveLineGutter,
   gutter,
   GutterMarker,
+  type Command,
+  type DecorationSet,
 } from '@codemirror/view'
 import {
   EditorState,
@@ -29,7 +29,6 @@ import {
   syntaxTree,
   syntaxHighlighting,
   HighlightStyle,
-  forceParsing,
   ensureSyntaxTree,
 } from '@codemirror/language'
 import {
@@ -45,7 +44,7 @@ import {
 import {
   autocompletion,
   completionKeymap,
-  CompletionSource,
+  type CompletionSource,
 } from '@codemirror/autocomplete'
 import { linter, lintKeymap } from '@codemirror/lint'
 import { styleTags, tags as t } from '@lezer/highlight'
@@ -236,7 +235,7 @@ export const germanPhrases = {
 export function setExecutionMarker(
   core: Core,
   line: number,
-  type: 'normal' | 'debugging' | 'error' | 'chat' = 'normal'
+  type: 'normal' | 'debugging' | 'error' | 'chat' = 'normal',
 ) {
   if (core.view && core.view.current && core.ws.settings.mode == 'code') {
     if (line > 0) {
@@ -284,10 +283,10 @@ const highlightExecutedLineField = StateField.define<DecorationSet>({
               e.value.type == 'error'
                 ? errorHighlightMark.range(e.value.from)
                 : e.value.type == 'debugging'
-                ? debuggingHighlightMark.range(e.value.from)
-                : e.value.type == 'chat'
-                ? chatHighlightMark.range(e.value.from)
-                : highlightMark.range(e.value.from),
+                  ? debuggingHighlightMark.range(e.value.from)
+                  : e.value.type == 'chat'
+                    ? chatHighlightMark.range(e.value.from)
+                    : highlightMark.range(e.value.from),
             ],
           })
         }
@@ -336,7 +335,7 @@ const breakpointMarkerPlaceholder = new (class extends GutterMarker {
   toDOM() {
     return new DOMParser().parseFromString(
       '<div class="w-[16px] ml-[10px] mt-1 rounded-full h-[16px] select-none cursor-pointer bg-transparent hover:bg-red-200">&nbsp;</div>',
-      'text/html'
+      'text/html',
     ).body.children[0]
   }
 })()
@@ -345,7 +344,7 @@ const breakpointMarker = new (class extends GutterMarker {
   toDOM() {
     return new DOMParser().parseFromString(
       '<div class="w-[16px] ml-[10px] mt-1 rounded-full h-[16px] select-none bg-red-500 ">&nbsp;</div>',
-      'text/html'
+      'text/html',
     ).body.children[0]
   }
 })()
@@ -390,7 +389,7 @@ export function buildGutterWithBreakpoints(core: Core) {
             if (core.ws.ui.breakpoints.includes(lineNumber)) {
               core.mutateWs((s) => {
                 s.ui.breakpoints = s.ui.breakpoints.filter(
-                  (x) => x !== lineNumber
+                  (x) => x !== lineNumber,
                 )
               })
               core.worker?.removeBreakpoint(lineNumber)
@@ -538,7 +537,7 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
 
     const charAfter = context.state.doc.sliceString(
       context.pos,
-      context.pos + 1
+      context.pos + 1,
     )
     if (charAfter.trim().length > 0 && !context.explicit) return null
 
@@ -581,7 +580,7 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
     if (around.name == 'CmdName' || endingHere.name == 'CmdName') return null // no completion in function name
 
     let options = (lng == 'de' ? generalOptionsDe : generalOptionsEn).map(
-      (o) => ({ ...o })
+      (o) => ({ ...o }),
     )
 
     const pendings: ('repeat' | 'if' | 'cmd')[] = []
@@ -629,7 +628,7 @@ function buildMyAutocomplete(lng: 'de' | 'en'): CompletionSource {
       options.push(
         lng == 'de'
           ? { label: 'sonst', boost: -1 }
-          : { label: 'else', boost: -1 }
+          : { label: 'else', boost: -1 },
       )
     }
 
@@ -743,7 +742,7 @@ const myHighlightPlugin = ViewPlugin.fromClass(
   },
   {
     decorations: (v) => v.decorations,
-  }
+  },
 )
 
 function buildMyTabExtension(lng: 'de' | 'en') {

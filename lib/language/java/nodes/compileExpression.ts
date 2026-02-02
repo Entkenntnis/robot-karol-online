@@ -1,13 +1,13 @@
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import type { AstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { compileValExpression } from './compileValExpression'
 import { checkMethodInvocation } from './checkMethodInvocation'
-import {
+import type {
   SemantikCheckContext,
   ValueType,
 } from './compileDeclarationAndStatements'
-import { BranchOp, JumpOp } from '../../../state/types'
+import type { BranchOp, JumpOp } from '../../../state/types'
 
 export const expressionNodes = [
   'IntegerLiteral',
@@ -34,7 +34,7 @@ const compareOps = {
 export function compileExpression(
   co: CompilerOutput,
   node: AstNode,
-  context: SemantikCheckContext
+  context: SemantikCheckContext,
 ): ValueType {
   if (node.name === 'IntegerLiteral') {
     if (context.expectVoid) {
@@ -50,7 +50,7 @@ export function compileExpression(
     if (
       !matchChildren(
         [expressionNodes, 'LogicOp', expressionNodes, ':', expressionNodes],
-        node.children
+        node.children,
       )
     ) {
       co.warn(node, 'Fehler im ternären Operator')
@@ -166,7 +166,7 @@ export function compileExpression(
     if (
       matchChildren(
         [expressionNodes, 'ArithOp', expressionNodes],
-        node.children
+        node.children,
       )
     ) {
       const op = node.children[1].text()
@@ -185,12 +185,12 @@ export function compileExpression(
           op === '+'
             ? 'add'
             : op === '-'
-            ? 'sub'
-            : op === '*'
-            ? 'mult'
-            : op === '/'
-            ? 'div'
-            : 'mod',
+              ? 'sub'
+              : op === '*'
+                ? 'mult'
+                : op === '/'
+                  ? 'div'
+                  : 'mod',
       })
       return 'int'
     }
@@ -198,7 +198,7 @@ export function compileExpression(
     if (
       matchChildren(
         [expressionNodes, 'LogicOp', expressionNodes],
-        node.children
+        node.children,
       )
     ) {
       const op = node.children[1].text()
@@ -293,7 +293,7 @@ export function compileExpression(
     if (
       matchChildren(
         [expressionNodes, 'CompareOp', expressionNodes],
-        node.children
+        node.children,
       )
     ) {
       const opText = node.children[1].text()
@@ -452,7 +452,7 @@ export function compileExpression(
     if (varType !== 'int') {
       co.warn(
         node.children[0],
-        'Erwarte int für zusammengesetzten Zuweisungsoperator'
+        'Erwarte int für zusammengesetzten Zuweisungsoperator',
       )
       return 'void'
     }

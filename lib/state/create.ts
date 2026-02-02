@@ -1,4 +1,4 @@
-import { CoreState, WorkspaceState, World } from './types'
+import type { CoreState, WorkspaceState, World } from './types'
 
 export function createDefaultCoreState(): CoreState {
   return {

@@ -4,11 +4,11 @@ import { CmdBlocksStore } from '../state/cmd-blocks-store'
 import blocks from './KarolBlocksEn.json'
 import {
   Block,
-  MenuOption,
   Generator,
   Blocks,
   FieldDropdown,
   Extensions,
+  type MenuOption,
 } from 'blockly'
 import '@blockly/field-slider'
 
@@ -120,10 +120,10 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
       karolGenerator.statementToCode(block, 'STATEMENTS_2') +
       '\nend_if',
   ],
-  ['is_wall', (block: Block) => ['is_wall', 0]],
-  ["isn't_wall", (block: Block) => ['not_is_wall', 0]],
-  ['is_brick', (block: Block) => ['is_brick', 0]],
-  ["isn't_brick", (block: Block) => ['not_is_brick', 0]],
+  ['is_wall', (_: Block) => ['is_wall', 0]],
+  ["isn't_wall", (_: Block) => ['not_is_wall', 0]],
+  ['is_brick', (_: Block) => ['is_brick', 0]],
+  ["isn't_brick", (_: Block) => ['not_is_brick', 0]],
   [
     'is_brick_count',
     (block: Block) => [`is_brick(${block.getFieldValue('COUNT')})`, 0],
@@ -132,8 +132,8 @@ const blockToCode: [string, (x: Block) => string | [string, number]][] = [
     "isn't_brick_count",
     (block: Block) => [`not_is_brick(${block.getFieldValue('COUNT')})`, 0],
   ],
-  ['is_marker', (block: Block) => ['is_mark', 0]],
-  ["isn't_marker", (block: Block) => ['not_is_mark', 0]],
+  ['is_marker', (_: Block) => ['is_mark', 0]],
+  ["isn't_marker", (_: Block) => ['not_is_mark', 0]],
   [
     'is_direction',
     (block: Block) => [`is_${block.getFieldValue('DIRECTION')}`, 0],
@@ -196,6 +196,6 @@ Extensions.register('custom_cmds_extension_en', function () {
       }
       return options
     }),
-    'COMMAND'
+    'COMMAND',
   )
 })

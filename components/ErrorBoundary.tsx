@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactNode } from 'react'
+import { Component, type ReactNode, type ErrorInfo } from 'react'
 import { CoreContext } from '../lib/state/core'
 
 interface Props {
@@ -21,7 +21,7 @@ class ErrorBoundary extends Component<Props, State> {
     return { hasError: true }
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {}
+  public componentDidCatch(_: Error, __: ErrorInfo) {}
 
   public render() {
     if (this.state.hasError) {

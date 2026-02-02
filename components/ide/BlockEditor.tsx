@@ -1,4 +1,12 @@
-import { WorkspaceSvg, setLocale, inject, Xml, utils, svgResize } from 'blockly'
+import {
+  WorkspaceSvg,
+  setLocale,
+  inject,
+  Xml,
+  utils,
+  svgResize,
+  Events,
+} from 'blockly'
 import { useRef, useState, useEffect } from 'react'
 import { Text } from '@codemirror/state'
 import * as De from 'blockly/msg/de'
@@ -14,7 +22,6 @@ import { useCore } from '../../lib/state/core'
 import { initCustomBlocksEn } from '../../lib/blockly/customBlocksEn'
 import { getParserWithLng } from '../../lib/codemirror/parser/get-parser-with-lng'
 import { CmdBlocksStore } from '../../lib/state/cmd-blocks-store'
-import { BlockChange } from 'blockly/core/events/events_block_change'
 import { saveCodeToLocalStorage } from '../../lib/commands/save'
 
 export function BlockEditor() {
@@ -35,7 +42,7 @@ export function BlockEditor() {
   ) {
     if (blockIds[core.ws.ui.gutter - 1]) {
       blocklyWorkspaceSvg.current.highlightBlock(
-        blockIds[core.ws.ui.gutter - 1] ?? ''
+        blockIds[core.ws.ui.gutter - 1] ?? '',
       )
     }
   }
@@ -61,7 +68,7 @@ export function BlockEditor() {
       core.ws.code,
       core.ws.ui.cmdBlockPositions,
       core.ws.ui.snippets,
-      core.ws.settings.lng
+      core.ws.settings.lng,
     )
 
     //console.log('initial', initialXml)
@@ -90,19 +97,8 @@ export function BlockEditor() {
     const blocklyDiv = document.getElementById('blocklyDiv')!
 
     const onresize = function () {
-      //console.log('on resize function')
-      // Compute the absolute coordinates and dimensions of blocklyArea.
-      let element = blocklyArea
-      let x = 0
-      let y = 0
-      /*do {
-        x += element.offsetLeft
-        y += element.offsetTop
-        element = element.offsetParent as HTMLElement
-      } while (element)*/
-      // Position blocklyDiv over blocklyArea.
-      blocklyDiv.style.left = x + 'px'
-      blocklyDiv.style.top = y + 'px'
+      blocklyDiv.style.left = '0px'
+      blocklyDiv.style.top = '0px'
       blocklyDiv.style.width = blocklyArea.offsetWidth + 'px'
       blocklyDiv.style.height = blocklyArea.offsetHeight + 'px'
       // console.log('resize')
@@ -120,7 +116,7 @@ export function BlockEditor() {
     core.blockyResize = onresize
     //console.log('mount', core.blockyResize)
 
-    const myUpdateFunction = (event: BlockChange) => {
+    const myUpdateFunction = (event: Events.BlockChange) => {
       if (blocklyWorkspace.isDragging()) return
 
       try {
@@ -150,7 +146,7 @@ export function BlockEditor() {
 
       //console.log(Blockly.Xml.workspaceToDom(blocklyWorkspace))
       const topBlocks = allTopBlocks.filter(
-        (bl) => bl.type !== 'define_command'
+        (bl) => bl.type !== 'define_command',
       )
 
       const cmdBlocks = allTopBlocks.filter((bl) => bl.type == 'define_command')
@@ -211,7 +207,7 @@ export function BlockEditor() {
               .map((bl) => {
                 core.mutateWs((ws) => {
                   ws.ui.snippets.push(
-                    (Xml.blockToDomWithXY(bl) as HTMLElement).outerHTML
+                    (Xml.blockToDomWithXY(bl) as HTMLElement).outerHTML,
                   )
                 })
                 return `// Schnipsel ${counter++}\n${(
@@ -231,7 +227,7 @@ export function BlockEditor() {
           } else {
             return null
           }
-        })
+        }),
       )
 
       if (core.ws.ui.state == 'running') {
@@ -282,7 +278,7 @@ export function BlockEditor() {
               (w) =>
                 `${core.strings.ide.line} ${doc.lineAt(w.from).number}: ${
                   w.message
-                }`
+                }`,
             )
             .filter(function (item, i, arr) {
               return arr.indexOf(item) == i
@@ -312,14 +308,6 @@ export function BlockEditor() {
       <div id="blocklyArea" className="w-full h-full flex-shrink relative">
         <div className="absolute" ref={editorDiv} id="blocklyDiv" />
       </div>
-      <style jsx global>{`
-        #blocklyArea svg[display='none'] {
-          display: none;
-        }
-        .blocklyMenu {
-          box-sizing: content-box;
-        }
-      `}</style>
     </>
   )
 }

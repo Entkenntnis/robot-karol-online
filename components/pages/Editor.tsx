@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { IdeMain } from '../ide/IdeMain'
-import { EditorSessionSnapshot } from '../../lib/state/types'
 import { useCore } from '../../lib/state/core'
 import { saveEditorSnapshot } from '../../lib/storage/storage'
 

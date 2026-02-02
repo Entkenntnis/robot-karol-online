@@ -1,5 +1,5 @@
 import { CompilerOutput } from '../helper/CompilerOutput'
-import { AstNode } from '../helper/astNode'
+import type { AstNode } from '../helper/astNode'
 
 export function ensureBlock(co: CompilerOutput, nodes: AstNode[]) {
   if (nodes.length == 0 || nodes[0].name !== '{') {

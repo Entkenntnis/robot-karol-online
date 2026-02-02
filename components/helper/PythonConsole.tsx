@@ -24,7 +24,7 @@ export function PythonConsole() {
           ref={containerRef}
           className={clsx(
             'absolute left-2 max-h-[300px] min-w-[300px] overflow-y-auto bg-gray-700 p-2 rounded-lg text-lime-400 max-w-[calc(100%-16px)] break-words',
-            core.ws.ui.isTesting ? 'bottom-2' : 'bottom-11'
+            core.ws.ui.isTesting ? 'bottom-2' : 'bottom-11',
           )}
           onScroll={() => {
             const container = containerRef.current
@@ -35,7 +35,7 @@ export function PythonConsole() {
             }
           }}
         >
-          {messages.map((m, i, arr) => (
+          {messages.map((m) => (
             <div key={`${m.ts}-${m.text}`} className="">
               <span className="rounded">{m.text}</span>
             </div>

@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { parser } from '../../lib/codemirror/parser/parser'
 import { setShowStructogram } from '../../lib/commands/mode'
 import { useCore } from '../../lib/state/core'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 // new approach: parse AST into nested document, which allows queries on rendering
 
@@ -186,7 +186,7 @@ export function Structogram() {
         //throw 'bad'
       } else {
         console.log(
-          `TODO: Node ${cursor.name} from ${cursor.from} to ${cursor.to}`
+          `TODO: Node ${cursor.name} from ${cursor.from} to ${cursor.to}`,
         )
       }
     } while (cursor.nextSibling())
@@ -212,7 +212,7 @@ export function Structogram() {
           Math.max(
             calculateInnerHeight(node.childrenT),
             calculateInnerHeight(node.childrenF),
-            32
+            32,
           )
       }
     })
@@ -232,7 +232,7 @@ export function Structogram() {
               nested && i == nodes.length - 1 && 'border-b-0',
               nested && 'border-r-0',
               node.type == 'comment' && 'text-gray-500',
-              node.type == 'command' && node.custom && 'italic'
+              node.type == 'command' && node.custom && 'italic',
             )}
             key={keyCounter.val++}
           >
@@ -241,7 +241,7 @@ export function Structogram() {
                 node.text.slice(1) +
                 (node.text.includes('(') ? '' : '()')
               : node.text}
-          </div>
+          </div>,
         )
       } else if (node.type == 'branch') {
         const heightT = calculateInnerHeight(node.childrenT)
@@ -252,7 +252,7 @@ export function Structogram() {
               'border border-black min-w-[190px] border-l-0',
               i > 0 && 'border-t-0',
               nested && 'border-r-0',
-              nested && i == nodes.length - 1 && 'border-b-0'
+              nested && i == nodes.length - 1 && 'border-b-0',
             )}
             key={keyCounter.val++}
           >
@@ -308,7 +308,7 @@ export function Structogram() {
                   <div
                     className={clsx(
                       'h-full border-black border-l',
-                      heightT < heightF && 'border-t'
+                      heightT < heightF && 'border-t',
                     )}
                   ></div>
                 )}
@@ -354,13 +354,13 @@ export function Structogram() {
                   <div
                     className={clsx(
                       'h-full border-black border-l',
-                      heightT > heightF && 'border-t'
+                      heightT > heightF && 'border-t',
                     )}
                   ></div>
                 )}
               </div>
             </div>
-          </div>
+          </div>,
         )
       } else {
         let heading = null
@@ -390,13 +390,13 @@ export function Structogram() {
               'border border-black min-w-[190px]',
               i > 0 && 'border-t-0',
               nested && i == nodes.length - 1 && 'border-b-0',
-              nested && 'border-r-0'
+              nested && 'border-r-0',
             )}
             key={keyCounter.val++}
           >
             <div className="p-1">{heading}</div>
             <div className="ml-8">{render(node.children, true)}</div>
-          </div>
+          </div>,
         )
       }
     }

@@ -1,18 +1,18 @@
-import { JumpOp, BranchOp } from '../../../state/types'
-import { CompilerOutput, AnchorOp } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import type { JumpOp, BranchOp } from '../../../state/types'
+import { CompilerOutput, type AnchorOp } from '../../helper/CompilerOutput'
+import type { AstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { compileExpression, expressionNodes } from './compileExpression'
 import {
-  SemantikCheckContext,
   compileDeclarationAndStatements,
+  type SemantikCheckContext,
 } from './compileDeclarationAndStatements'
 import { compileValExpression } from './compileValExpression'
 
 export function checkForStatement(
   co: CompilerOutput,
   node: AstNode,
-  context: SemantikCheckContext
+  context: SemantikCheckContext,
 ) {
   if (matchChildren(['for', 'ForSpec', 'Block'], node.children)) {
     const spec = node.children[1]
@@ -21,7 +21,7 @@ export function checkForStatement(
     // Regex preflight for counted loop: for (int i = 0; i < 10; i++)
     const specText = spec.text().replace(/\s+/g, ' ')
     const m = specText.match(
-      /^\(\s*int ([A-Za-z_]\w*)\s*=\s*0;\s*\1\s*<\s*(\d+)\s*;\s*\1\+\+\s*\)$/
+      /^\(\s*int ([A-Za-z_]\w*)\s*=\s*0;\s*\1\s*<\s*(\d+)\s*;\s*\1\+\+\s*\)$/,
     )
 
     if (m) {
@@ -32,7 +32,7 @@ export function checkForStatement(
         // In Java, redeclaring a variable in the same scope is not allowed.
         co.warn(
           spec,
-          `Variable '${loopVar}' existiert bereits, erwarte anderen Namen`
+          `Variable '${loopVar}' existiert bereits, erwarte anderen Namen`,
         )
         return
       }
@@ -112,7 +112,7 @@ export function checkForStatement(
           expressionNodes,
           ')',
         ],
-        spec.children
+        spec.children,
       )
     ) {
       compileDeclarationAndStatements(co, spec.children[1], context)
@@ -121,7 +121,7 @@ export function checkForStatement(
     } else if (
       matchChildren(
         ['(', expressionNodes, ';', expressionNodes, ';', expressionNodes, ')'],
-        spec.children
+        spec.children,
       )
     ) {
       context.expectVoid = true
@@ -134,7 +134,7 @@ export function checkForStatement(
     } else {
       co.warn(
         spec,
-        'Erwarte gültigen for-Schleifen-Kopf (z.B. int i = 0; i < 10; i++)'
+        'Erwarte gültigen for-Schleifen-Kopf (z.B. int i = 0; i < 10; i++)',
       )
       return
     }
@@ -193,7 +193,7 @@ export function checkForStatement(
     if (matchChildren(['for', 'ForSpec', '⚠'], node.children)) {
       co.warn(
         node.children[1],
-        'Erwarte gültigen for-Schleifen-Kopf (z.B. int i = 0; i < 10; i++)'
+        'Erwarte gültigen for-Schleifen-Kopf (z.B. int i = 0; i < 10; i++)',
       )
       return
     }

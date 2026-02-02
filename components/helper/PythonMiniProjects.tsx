@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import { useState } from 'react'
 import { FaIcon } from './FaIcon'
 import {
   faExternalLink,
@@ -14,7 +13,7 @@ import {
   setQuestReturnToMode,
 } from '../../lib/storage/storage'
 import { getExampleId } from '../../lib/data/pythonExamples'
-import { PythonProjectGroup } from '../../lib/state/types'
+import type { PythonProjectGroup } from '../../lib/state/types'
 
 interface PythonMiniProjectsProps {
   maxMapY: number
@@ -63,7 +62,7 @@ export function PythonMiniProjects({
               icon={faChevronDown}
               className={clsx(
                 'ml-2 text-gray-500 transition-transform transform',
-                core.ws.ui.miniProjectsOpen ? 'rotate-0' : '-rotate-90'
+                core.ws.ui.miniProjectsOpen ? 'rotate-0' : '-rotate-90',
               )}
             />
           </button>
@@ -111,17 +110,17 @@ export function PythonMiniProjects({
                             window.localStorage.getItem(
                               `robot_karol_online_shared_quest_${example.link
                                 .substring(1)
-                                .toLowerCase()}_program`
+                                .toLowerCase()}_program`,
                             )
                             ? group.highlightColor
-                            : 'border-transparent'
+                            : 'border-transparent',
                         )}
                         onClick={(e) => {
                           submitAnalyzeEvent(
                             core,
                             `ev_click__landing_pythonExample_${getExampleId(
-                              example.title
-                            )}`
+                              example.title,
+                            )}`,
                           )
                           if (core.ws.ui.tourModePage == 4) {
                             core.mutateWs((ws) => {
@@ -129,11 +128,11 @@ export function PythonMiniProjects({
                             })
                           }
                           setQuestReturnToMode(
-                            core.ws.page == 'demo' ? 'demo' : 'path'
+                            core.ws.page == 'demo' ? 'demo' : 'path',
                           )
                           setLearningPathScroll(
                             document.getElementById('scroll-container')
-                              ?.scrollTop ?? -1
+                              ?.scrollTop ?? -1,
                           )
                           e.preventDefault()
                           navigate(core, example.link)

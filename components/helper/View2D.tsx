@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import { World, Preview, Canvas } from '../../lib/state/types'
+import { useEffect, useRef } from 'react'
+import type { World, Preview, Canvas } from '../../lib/state/types'
 import { drawCanvasObject } from './View'
 import { CanvasObjects } from '../../lib/state/canvas-objects'
 
@@ -114,7 +114,7 @@ export function View2D({ world, preview, className, canvas }: View2DProps) {
           ctx.fillText(
             brickCount.toString(),
             cellX + cellSize / 2,
-            cellY + cellSize / 2
+            cellY + cellSize / 2,
           )
         }
 
@@ -184,7 +184,7 @@ function drawKarol(
   cx: number,
   cy: number,
   direction: 'north' | 'east' | 'south' | 'west',
-  cellSize: number
+  cellSize: number,
 ) {
   const size = cellSize * 0.4
   let angle = 0

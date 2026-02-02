@@ -8,7 +8,6 @@ import { positiveText, positiveTextEn } from '../../lib/helper/positiveText'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { FaIcon } from '../helper/FaIcon'
 import { saveCodeToFile } from '../../lib/commands/save'
-import { def } from '../../lib/codemirror/pythonParser/parser.terms'
 
 async function shapeFromImage(imageData: {
   x?: number
@@ -80,7 +79,7 @@ function fire(particleRatio: number, opts: any) {
   confetti(
     Object.assign({}, defaults, opts, {
       particleCount: Math.floor(count * particleRatio),
-    })
+    }),
   )
 }
 
@@ -112,7 +111,7 @@ function realisticLook() {
 export function SuccessModal() {
   const core = useCore()
   const [positive] = useState(
-    core.ws.settings.lng == 'de' ? positiveText() : positiveTextEn()
+    core.ws.settings.lng == 'de' ? positiveText() : positiveTextEn(),
   )
 
   const [firstPaint, setFirstPaint] = useState(true)
@@ -133,13 +132,13 @@ export function SuccessModal() {
       <div
         className={clsx(
           'bg-black/20 fixed inset-0 z-[150] transition-opacity duration-700 ease-out',
-          firstPaint ? 'opacity-0' : 'opacity-100'
+          firstPaint ? 'opacity-0' : 'opacity-100',
         )}
       ></div>
       <div
         className={clsx(
           'fixed inset-0 flex justify-center items-center z-[200] transition-opacity duration-700 ease-out',
-          firstPaint ? 'opacity-0' : 'opacity-100'
+          firstPaint ? 'opacity-0' : 'opacity-100',
         )}
       >
         <div
@@ -219,7 +218,7 @@ export function SuccessModal() {
                   }}
                   className={clsx(
                     'px-4 py-2 rounded hover:bg-green-300 inline-block',
-                    'bg-green-200 text-lg'
+                    'bg-green-200 text-lg',
                   )}
                 >
                   {core.strings.ide.exit}
@@ -235,7 +234,7 @@ export function SuccessModal() {
                   }}
                   className={clsx(
                     'px-4 py-2 rounded hover:bg-green-300 inline-block',
-                    'bg-green-200 text-lg'
+                    'bg-green-200 text-lg',
                   )}
                 >
                   Yay!

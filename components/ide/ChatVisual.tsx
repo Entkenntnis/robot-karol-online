@@ -3,7 +3,7 @@ import { karolDefaultImage } from '../../lib/data/images'
 import { useCore } from '../../lib/state/core'
 import { View } from '../helper/View'
 import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
-import { faTimes, faWarning } from '@fortawesome/free-solid-svg-icons'
+import { faWarning } from '@fortawesome/free-solid-svg-icons'
 import { FaIcon } from '../helper/FaIcon'
 import { stopChatRunner } from '../../lib/commands/chat'
 
@@ -51,7 +51,7 @@ export function ChatVisual() {
             <div
               className={clsx(
                 'flex my-1 mx-2',
-                core.ws.vm.chatVisualRole == 'in' && 'justify-end'
+                core.ws.vm.chatVisualRole == 'in' && 'justify-end',
               )}
             >
               <div
@@ -84,7 +84,7 @@ export function ChatVisual() {
                     "after:content-[''] after:absolute after:bottom-0 after:left-[-8px]",
                     'after:w-0 after:h-0 after:border-solid after:border-[8px]',
                     'after:border-transparent after:border-b-red-200',
-                  ]
+                  ],
                 )}
               >
                 {core.ws.vm.chatVisualText}

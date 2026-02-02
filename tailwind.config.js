@@ -6,6 +6,7 @@ module.exports = {
     './lib/codemirror/basicSetup.ts',
     './lib/data/chapters/000-intro/info.md',
     './lib/data/chapters/050-schleifen/info.md',
+    './index.html',
   ],
   theme: {
     extend: {

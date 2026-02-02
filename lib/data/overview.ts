@@ -1,5 +1,4 @@
 import { chapterData, chapterOverviewData } from './chapters'
-import { questData } from './quests'
 
 export const questListByCategory = [
   {
@@ -50,7 +49,7 @@ export const questList: number[] = []
 questListByCategory.forEach((entry) =>
   entry.quests.forEach((id) => {
     questList.push(id)
-  })
+  }),
 )
 
 Object.keys(chapterData).forEach((chapter) => {

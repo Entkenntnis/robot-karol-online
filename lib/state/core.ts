@@ -1,17 +1,17 @@
 import {
   createContext,
-  Dispatch,
-  RefObject,
-  SetStateAction,
+  type Dispatch,
+  type RefObject,
+  type SetStateAction,
   useContext,
   useMemo,
   useRef,
   useState,
 } from 'react'
-import { produce, Draft } from 'immer'
+import { produce, type Draft } from 'immer'
 import { EditorView } from '@codemirror/view'
 
-import {
+import type {
   ChatVm,
   CoreRefs,
   CoreState,
@@ -26,7 +26,7 @@ import { Instrument } from 'tone/build/esm/instrument/Instrument'
 // set up core within app
 export function useCreateCore() {
   const [coreState, setCoreState] = useState<CoreState>(() =>
-    createDefaultCoreState()
+    createDefaultCoreState(),
   )
   const coreRef = useRef<CoreRefs>({ state: coreState })
   return useMemo(() => new Core(setCoreState, coreRef), [])
@@ -70,7 +70,7 @@ export class Core {
 
   constructor(
     setCoreState: Dispatch<SetStateAction<CoreState>>,
-    coreRef: RefObject<CoreRefs>
+    coreRef: RefObject<CoreRefs>,
   ) {
     this._setCoreState = setCoreState
     this._coreRef = coreRef

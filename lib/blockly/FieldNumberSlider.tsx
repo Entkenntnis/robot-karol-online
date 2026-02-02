@@ -10,10 +10,7 @@
  */
 
 import * as Blockly from 'blockly/core'
-import {
-  FieldNumberConfig,
-  FieldNumberValidator,
-} from 'blockly/core/field_number'
+import type { FieldNumberConfig, FieldNumberValidator } from 'blockly'
 
 /**
  * A config object for defining a field slider.
@@ -71,7 +68,7 @@ export class FieldSlider extends Blockly.FieldNumber {
     max?: string | number,
     precision?: string | number,
     validator?: FieldSliderValidator,
-    config?: FieldSliderConfig
+    config?: FieldSliderConfig,
   ) {
     super(value, min, max, precision, validator, config)
   }
@@ -91,7 +88,7 @@ export class FieldSlider extends Blockly.FieldNumber {
       undefined,
       undefined,
       undefined,
-      options
+      options,
     )
   }
 
@@ -102,7 +99,7 @@ export class FieldSlider extends Blockly.FieldNumber {
    *     open, or undefined if triggered programmatically.
    * @param quietInput Quiet input (prevent focusing on the editor).
    */
-  protected showEditor_(e?: Event, quietInput?: boolean) {
+  protected showEditor_(e?: Event, _?: boolean) {
     // Always quiet the input for the super constructor, as we don't want to
     // focus on the text field, and we don't want to display the modal
     // editor on mobile devices.
@@ -130,7 +127,7 @@ export class FieldSlider extends Blockly.FieldNumber {
 
     Blockly.DropDownDiv.showPositionedByField(
       this,
-      this.dropdownDispose_.bind(this)
+      this.dropdownDispose_.bind(this),
     )
 
     // Focus on the slider field, unless quietInput is passed.
@@ -176,8 +173,8 @@ export class FieldSlider extends Blockly.FieldNumber {
         sliderInput,
         'input',
         this,
-        this.onSliderChange_
-      )
+        this.onSliderChange_,
+      ),
     )
 
     if (this.max_ == Infinity) {
@@ -265,7 +262,7 @@ export class FieldSlider extends Blockly.FieldNumber {
     }
     this.sliderInput.setAttribute(
       'value',
-      `${parseInt(this.getValue()?.toString() ?? '0') - this.offset}`
+      `${parseInt(this.getValue()?.toString() ?? '0') - this.offset}`,
     )
     this.displaySpan.innerHTML = `${this.offset + 1} - ${this.offset + 10}`
   }

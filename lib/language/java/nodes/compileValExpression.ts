@@ -1,6 +1,6 @@
-import { AstNode } from '../../helper/astNode'
+import type { AstNode } from '../../helper/astNode'
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import {
+import type {
   SemantikCheckContext,
   ValueType,
 } from './compileDeclarationAndStatements'
@@ -10,7 +10,7 @@ export function compileValExpression(
   expectedType: ValueType,
   co: CompilerOutput,
   node: AstNode,
-  context: SemantikCheckContext
+  context: SemantikCheckContext,
 ) {
   context.expectVoid = false
   const t = compileExpression(co, node, context)

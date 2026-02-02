@@ -1,5 +1,5 @@
 import { Core } from '../state/core'
-import { ObjectInfo } from '../state/types'
+import type { ObjectInfo } from '../state/types'
 
 export function exitBench(core: Core) {
   core.mutateWs((ws) => {
@@ -139,8 +139,8 @@ export async function updateBenchClasses(core: Core) {
               if (b.origin === className && a.origin !== className) return 1
               // Otherwise keep original order
               return 0
-            }
-          )
+            },
+          ),
         )
       }
     }

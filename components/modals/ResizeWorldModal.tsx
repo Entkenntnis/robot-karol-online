@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState, type Dispatch, type SetStateAction } from 'react'
 import {
   showPreview,
   switchCurrentlyEditedWorld,
@@ -70,7 +70,7 @@ export function ResizeWorldModal() {
           <button
             className={clsx(
               'ml-4 rounded px-2 py-0.5',
-              canCreate ? 'bg-green-300' : 'bg-gray-50'
+              canCreate ? 'bg-green-300' : 'bg-gray-50',
             )}
             disabled={canCreate ? undefined : true}
             onClick={() => {
@@ -95,7 +95,7 @@ export function ResizeWorldModal() {
   function buildInput(
     val: number,
     setter: Dispatch<SetStateAction<number>>,
-    max: number
+    max: number,
   ) {
     return (
       <input

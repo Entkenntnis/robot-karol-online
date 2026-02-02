@@ -1,12 +1,11 @@
-import { Diagnostic } from '@codemirror/lint'
-import { Op } from '../../lib/state/types'
-import { Metadata } from 'next'
+import type { Diagnostic } from '@codemirror/lint'
+import type { Op } from '../../lib/state/types'
 import { CompilerTest } from './CompilerTest'
 import { Suspense } from 'react'
 
-export const metadata: Metadata = {
-  title: 'Test Java',
-}
+// export const metadata: Metadata = {
+//   title: 'Test Java',
+// }
 
 export interface CompilerTestCase {
   title: string

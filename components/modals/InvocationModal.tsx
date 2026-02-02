@@ -16,10 +16,10 @@ export function InvocationModal() {
   } = core.ws.bench
 
   const [variableName, setVariableName] = useState(
-    getDefaultVariableName(invocationClass)
+    getDefaultVariableName(invocationClass),
   )
   const [parameters, setParameters] = useState(
-    invocationParameters.map((p) => p.default || '')
+    invocationParameters.map((p) => p.default || ''),
   )
 
   function getDefaultVariableName(className: string) {
@@ -51,7 +51,7 @@ export function InvocationModal() {
   }
 
   const codeParams = invocationParameters
-    .map((param, index) => {
+    .map((_, index) => {
       return parameters[index]
     })
     .filter(Boolean)
@@ -81,7 +81,7 @@ export function InvocationModal() {
         if (typeof res.result === 'boolean') {
           core.mutateWs((ws) => {
             ws.bench.history += `\n# Rückgabewert: ${capitalize(
-              res.result.toString()
+              res.result.toString(),
             )}`
           })
         } else if (
@@ -90,7 +90,7 @@ export function InvocationModal() {
         ) {
           core.mutateWs((ws) => {
             ws.bench.history += `\n# Rückgabewert: ${JSON.stringify(
-              res.result
+              res.result,
             )}`
           })
         }

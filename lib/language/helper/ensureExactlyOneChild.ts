@@ -1,5 +1,5 @@
 import { CompilerOutput } from './CompilerOutput'
-import { AstNode } from './astNode'
+import type { AstNode } from './astNode'
 
 export function ensureExactlyOneChild(
   co: CompilerOutput,
@@ -7,7 +7,7 @@ export function ensureExactlyOneChild(
   pred: (node: AstNode) => boolean,
   placeMessageOnNode: AstNode,
   message0: string,
-  messageMany: string
+  messageMany: string,
 ) {
   const matching = nodes.filter(pred)
   if (matching.length !== 1) {

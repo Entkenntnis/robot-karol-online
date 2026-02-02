@@ -1,15 +1,15 @@
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import type { AstNode } from '../../helper/astNode'
 import { ensureBlock } from '../ensureBlock'
 import {
-  SemantikCheckContext,
   compileDeclarationAndStatements,
+  type SemantikCheckContext,
 } from './compileDeclarationAndStatements'
 
 export function checkBlock(
   co: CompilerOutput,
   node: AstNode,
-  context: SemantikCheckContext
+  context: SemantikCheckContext,
 ) {
   ensureBlock(co, node.children)
   const previousVariables = new Set(context.variablesInScope.keys())

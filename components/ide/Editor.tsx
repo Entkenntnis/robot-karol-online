@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef } from 'react'
+import { useEffect, useRef, type RefObject } from 'react'
 import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 

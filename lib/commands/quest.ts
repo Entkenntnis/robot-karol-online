@@ -1,6 +1,5 @@
 import { lint } from '../../components/ide/JavaEditor'
 import { setExecutionMarker } from '../codemirror/basicSetup'
-import { mapData } from '../data/map'
 import { questData } from '../data/quests'
 import { questDataEn } from '../data/questsEn'
 import { isQuestDone } from '../helper/session'
@@ -9,7 +8,7 @@ import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { CanvasObjects } from '../state/canvas-objects'
 import { Core } from '../state/core'
-import { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
+import type { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
 import {
   getQuestData,
   getQuestReturnToMode,
@@ -18,7 +17,6 @@ import {
   setPreferredQuestSettings,
   setQuestData,
 } from '../storage/storage'
-import { submitAnalyzeEvent } from './analyze'
 import { closeModal, showModal } from './modal'
 import { runPythonCode } from './python'
 import { navigate } from './router'
@@ -48,7 +46,7 @@ export function runTask(core: Core, index: number) {
       !core.ws.ui.isTesting &&
       core.ws.page != 'editor' &&
       !core.ws.quest.tasks.every(
-        (t) => !t.target || twoWorldsEqual(t.start, t.target)
+        (t) => !t.target || twoWorldsEqual(t.start, t.target),
       )
     ) {
       core.executionEndCallback = () => {
@@ -104,7 +102,7 @@ export function runTask(core: Core, index: number) {
           const editorCode = core.view.current.state.doc.toString()
           if (editorCode != core.ws.javaCode) {
             console.log(
-              'Warning: JAVA code was out of sync! Syncing now. (this should really not happen)'
+              'Warning: JAVA code was out of sync! Syncing now. (this should really not happen)',
             )
             lint(core, core.view.current)
           }
@@ -293,14 +291,14 @@ export function exitQuest(core: Core) {
     getQuestReturnToMode() == 'path'
       ? ''
       : getQuestReturnToMode() == 'demo'
-      ? '#DEMO'
-      : '#OVERVIEW'
+        ? '#DEMO'
+        : '#OVERVIEW',
   )
 }
 
 export function restoreQuestFromSessionData(
   core: Core,
-  data: QuestSessionData_MUST_STAY_COMPATIBLE
+  data: QuestSessionData_MUST_STAY_COMPATIBLE,
 ) {
   core.mutateWs((ws) => {
     ws.code = data.code
@@ -409,7 +407,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
     if (core.ws.page != 'editor') {
       submit_event(
         `custom_quest_complete_${window.location.hash.substring(1)}`,
-        core
+        core,
       )
     }
     core.mutateWs((ws) => {
@@ -442,8 +440,8 @@ export function finishQuest(core: Core, stay: boolean = false) {
       getQuestReturnToMode() == 'path'
         ? ''
         : getQuestReturnToMode() == 'demo'
-        ? '#DEMO'
-        : '#OVERVIEW'
+          ? '#DEMO'
+          : '#OVERVIEW',
     )
   } else {
     core.mutateWs((ws) => {
