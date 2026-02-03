@@ -2,6 +2,7 @@ import type { Diagnostic } from '@codemirror/lint'
 import type { Op } from '../../lib/state/types'
 import { CompilerTest } from './CompilerTest'
 import { Suspense } from 'react'
+import { createRoot } from 'react-dom/client'
 
 // export const metadata: Metadata = {
 //   title: 'Test Java',
@@ -586,6 +587,46 @@ const compilerTestCases: CompilerTestCase[] = [
     rkCode: 'wiederhole 2 mal\n  Schritt\nendewiederhole',
   },
   {
+    title: 'for-Schleife mit continue',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    for (int i = 0; i < 2; i++) {\n      continue;\n    }\n  }\n}',
+    proMode: true,
+    output: [
+      { type: 'constant', value: 0 },
+      { type: 'store', variable: 'i' },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 2 },
+      { type: 'compare', kind: 'less-than' },
+      { type: 'branch', targetF: 12, targetT: 6, line: 5 },
+      { type: 'jump', target: 7 },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'store', variable: 'i' },
+      { type: 'jump', target: 2 },
+    ],
+  },
+  {
+    title: 'for-Schleife mit break',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    for (int i = 0; i < 2; i++) {\n      break;\n    }\n  }\n}',
+    proMode: true,
+    output: [
+      { type: 'constant', value: 0 },
+      { type: 'store', variable: 'i' },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 2 },
+      { type: 'compare', kind: 'less-than' },
+      { type: 'branch', targetF: 12, targetT: 6, line: 5 },
+      { type: 'jump', target: 12 },
+      { type: 'load', variable: 'i' },
+      { type: 'constant', value: 1 },
+      { type: 'operation', kind: 'add' },
+      { type: 'store', variable: 'i' },
+      { type: 'jump', target: 2 },
+    ],
+  },
+  {
     title: 'Verschachtelte Schleie',
     source:
       'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    for (int i = 0; i < 2; i++) {\n      for (int j = 0; j < 2; j++) {\n        karol.schritt();\n      }\n    }\n  }\n}',
@@ -639,6 +680,26 @@ const compilerTestCases: CompilerTestCase[] = [
       { type: 'jump', target: 0 },
     ],
     rkCode: 'wiederhole immer\n  LinksDrehen\nendewiederhole',
+  },
+  {
+    title: 'Endlosschleife mit break',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (true) {\n      break;\n    }\n  }\n}',
+    proMode: true,
+    output: [
+      { type: 'jump', target: 2 },
+      { type: 'jump', target: 0 },
+    ],
+  },
+  {
+    title: 'Endlosschleife mit continue',
+    source:
+      'class Programm {\n  Robot karol = new Robot();\n\n  void  main() {\n    while (true) {\n      continue;\n    }\n  }\n}',
+    proMode: true,
+    output: [
+      { type: 'jump', target: 0 },
+      { type: 'jump', target: 0 },
+    ],
   },
   {
     title: 'Bedingte Wiederholung',
@@ -1288,3 +1349,5 @@ export default function TestJava() {
     </div>
   )
 }
+
+createRoot(document.getElementById('root')!).render(<TestJava />)

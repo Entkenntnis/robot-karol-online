@@ -10,6 +10,8 @@ import { checkLocalVariableDeclaration } from './checkLocalVariableDeclaration'
 import { checkMethodDeclaration } from './checkMethodDeclaration'
 import { checkWhileStatement } from './checkWhileStatement'
 import { compileValExpression } from './compileValExpression'
+import { checkBreakStatement } from './checkBreakStatement'
+import { checkContinueStatement } from './checkContinueStatement'
 
 interface Parameter {
   type: 'int'
@@ -25,9 +27,15 @@ interface MethodContext {
 
 export type MethodContexts = Record<string, MethodContext>
 
+export interface LoopControlContext {
+  breakJumps: { type: 'jump'; target: number }[]
+  continueJumps: { type: 'jump'; target: number }[]
+}
+
 export interface SemantikCheckContext {
   robotName: string
   variablesInScope: Map<string, ValueType>
+  loopStack: LoopControlContext[]
   expectCondition?: boolean
   condition?: Condition
   availableMethods: Map<string, string[]>
@@ -129,6 +137,16 @@ export function compileDeclarationAndStatements(
     }
     case 'LocalVariableDeclaration': {
       checkLocalVariableDeclaration(co, node, context)
+      return
+    }
+    case 'BreakStatement': {
+      checkBreakStatement(co, node, context)
+      checkSemikolon(co, node)
+      return
+    }
+    case 'ContinueStatement': {
+      checkContinueStatement(co, node, context)
+      checkSemikolon(co, node)
       return
     }
     case ';': {
