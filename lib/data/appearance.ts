@@ -1,4 +1,4 @@
-import { AppearanceData } from '../state/types'
+import type { AppearanceData } from '../state/types'
 
 export const appearanceRegistry: { [key: number]: AppearanceData } = {
   0: {

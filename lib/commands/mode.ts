@@ -84,7 +84,7 @@ export function setSpeedSliderValue(core: Core, val: number) {
     Atomics.store(
       core.worker.sharedArrayDelay,
       0,
-      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000)
+      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000),
     )
   }
 }
@@ -109,7 +109,7 @@ export function forceRerender(core: Core) {
   })
 }
 
-export function setPersist(core: Core, val: boolean) {
+export function setPersist(_: Core, val: boolean) {
   if (val) {
     //submit_event('persist_progress', core)
   }

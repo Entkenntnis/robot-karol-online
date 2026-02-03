@@ -1,18 +1,18 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { CallOp } from '../../state/types'
-import { AstNode, cursorToAstNode, prettyPrintAstNode } from '../helper/astNode'
+import type { CallOp } from '../../state/types'
+import { type AstNode, cursorToAstNode } from '../helper/astNode'
 import { matchChildren } from '../helper/matchChildren'
-import { CompilerOutput, CompilerResult } from '../helper/CompilerOutput'
+import { CompilerOutput, type CompilerResult } from '../helper/CompilerOutput'
 import { warnForUnexpectedNodes } from '../helper/warnForUnexpectedNodes'
 import { ensureBlock } from './ensureBlock'
 import { ensureExactlyOneChild } from '../helper/ensureExactlyOneChild'
 import { checkMainMethod } from './checkMainMethod'
 import { checkRobotField } from './checkRobotField'
 import {
-  MethodContexts,
+  type MethodContexts,
   compileDeclarationAndStatements,
-  ValueType,
+  type ValueType,
 } from './nodes/compileDeclarationAndStatements'
 
 export function compileJava(tree: Tree, doc: Text): CompilerResult {
@@ -22,7 +22,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
     tree.cursor(),
     doc,
     ['LineComment', 'BlockComment'],
-    comments
+    comments,
   )
 
   const co = new CompilerOutput(doc, comments)
@@ -36,10 +36,10 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   }
 
   const notClassOnTopLevel = ast.children.filter(
-    (child) => child.name !== 'ClassDeclaration'
+    (child) => child.name !== 'ClassDeclaration',
   )
   const classDeclOnToplevel = ast.children.filter(
-    (child) => child.name == 'ClassDeclaration'
+    (child) => child.name == 'ClassDeclaration',
   )
 
   if (classDeclOnToplevel.length !== 1) {
@@ -47,7 +47,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       ast,
       classDeclOnToplevel.length > 1
         ? 'Erwarte genau eine Klasse'
-        : 'Erwarte eine Klassendefinition'
+        : 'Erwarte eine Klassendefinition',
     )
     // can't continue
     return co.fatalResult()
@@ -59,7 +59,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   const classDeclaration = classDeclOnToplevel[0]
 
   const classDefinition = classDeclaration.children.find(
-    (child) => child.name == 'Definition'
+    (child) => child.name == 'Definition',
   )
 
   if (!classDefinition) {
@@ -69,7 +69,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   }
 
   const classBody = classDeclaration.children.find(
-    (child) => child.name == 'ClassBody'
+    (child) => child.name == 'ClassBody',
   )
 
   if (!classBody) {
@@ -84,7 +84,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         child.name == 'ClassBody' ||
         child.name == 'class' ||
         child.name == 'Definition'
-      )
+      ),
   )
 
   warnForUnexpectedNodes(co, unwantedInClass)
@@ -100,14 +100,14 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
 
   // collect fields and methods
   const fields = classBodyChildren.filter(
-    (child) => child.name == 'FieldDeclaration'
+    (child) => child.name == 'FieldDeclaration',
   )
   const methods = classBodyChildren.filter(
-    (child) => child.name == 'MethodDeclaration'
+    (child) => child.name == 'MethodDeclaration',
   )
   const unwantedInClassBody = classBodyChildren.filter(
     (child) =>
-      !(child.name == 'FieldDeclaration' || child.name == 'MethodDeclaration')
+      !(child.name == 'FieldDeclaration' || child.name == 'MethodDeclaration'),
   )
 
   const robotFields = fields.filter((field) => {
@@ -122,7 +122,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
 
   const mainMethods = methods.filter((methods) => {
     const definition = methods.children.filter(
-      (child) => child.name == 'Definition'
+      (child) => child.name == 'Definition',
     )
     if (definition.length == 1) {
       if (definition[0].text() == 'main') {
@@ -136,10 +136,10 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
     ensureExactlyOneChild(
       co,
       robotFields,
-      (x) => true,
+      () => true,
       classDefinition,
       `Erwarte ein Attribut vom Typ 'Robot' in Klasse '${classDefinition.text()}'`,
-      `Erwarte genau ein Attribut vom Typ 'Robot' in Klasse '${classDefinition.text()}'`
+      `Erwarte genau ein Attribut vom Typ 'Robot' in Klasse '${classDefinition.text()}'`,
     ) === false
   ) {
     return co.fatalResult()
@@ -156,10 +156,10 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
     ensureExactlyOneChild(
       co,
       mainMethods,
-      (x) => true,
+      () => true,
       classDefinition,
       `Erwarte eine Methode 'void main()' in Klasse '${classDefinition.text()}'`,
-      `Erwarte genau eine Methode 'main' in Klasse '${classDefinition.text()}'`
+      `Erwarte genau eine Methode 'main' in Klasse '${classDefinition.text()}'`,
     ) === false
   ) {
     return co.fatalResult()
@@ -191,7 +191,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       if (
         matchChildren(
           ['void', 'Definition', 'FormalParameters', 'Block'],
-          method.children
+          method.children,
         )
       ) {
         returnType = 'void'
@@ -200,7 +200,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       } else if (
         matchChildren(
           ['PrimitiveType', 'Definition', 'FormalParameters', 'Block'],
-          method.children
+          method.children,
         )
       ) {
         co.activateProMode()
@@ -210,7 +210,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         } else {
           co.warn(
             method.children[0],
-            'Nur Rückgabetyp int oder boolean unterstützt'
+            'Nur Rückgabetyp int oder boolean unterstützt',
           )
           returnType = 'void'
         }
@@ -255,6 +255,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   compileDeclarationAndStatements(co, mainMethod, {
     robotName: robotInstanceName,
     variablesInScope: new Map(),
+    loopStack: [],
     availableMethods,
     methodContexts,
     callOps,
@@ -288,6 +289,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       compileDeclarationAndStatements(co, method, {
         robotName: robotInstanceName,
         variablesInScope,
+        loopStack: [],
         availableMethods,
         methodContexts,
         callOps,
@@ -305,7 +307,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
         if (!allReturn) {
           co.warn(
             method.children[1],
-            'Nicht alle Pfade geben einen Wert zurück'
+            'Nicht alle Pfade geben einen Wert zurück',
           )
         }
       }

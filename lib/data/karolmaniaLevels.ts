@@ -1,4 +1,4 @@
-import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
+import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
 
 export interface Level {
   id: number

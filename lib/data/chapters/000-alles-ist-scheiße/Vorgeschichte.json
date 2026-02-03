@@ -1,1 +1,34 @@
-{"version":"v1","title":"Vorgeschichte","description":"Das ist eine Bonusaufgabe. Löse sie, um einen Stern zu erhalten.\n\nFinde die drei Fehler im Code und bringe das Programm zum Laufen.","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Vorgeschichte: Eine Infektion breitet sich über die Welt aus und lässt Menschen zu Zombies mutieren."},{"role":"out","text":"Große Teile der Zivilisation gehen unter, die wenigen Menschen kämpfen hart um ihr Überleben."},{"role":"out","text":"Jackson ist eine kleine Oase in dieser chaotischen Welt, wo eine Gemeinschaft sich ein Zuhause gebaut hat."},{"role":"out","text":"Ellie und Joel (nicht verwandt) kehren nach ihrer großen Reise nach Jackson zurück. Joels Bruder Tommy wohnt hier mit seiner Frau Maria."}]}],"language":"python-pro","program":"print(\"Vorgeschichte: Eine Infektion breitet sich über die Welt aus und lässt Menschen zu Zombies mutieren.\"\n\nprint\"Große Teile der Zivilisation gehen unter, die wenigen Menschen kämpfen hart um ihr Überleben.\")\n\npint(\"Jackson ist eine kleine Oase in dieser chaotischen Welt, wo eine Gemeinschaft sich ein Zuhause gebaut hat.\")\n\nprint(\"Ellie und Joel (nicht verwandt) kehren nach ihrer großen Reise nach Jackson zurück. Joels Bruder Tommy wohnt hier mit seiner Frau Maria.\")"}
+{
+  "version": "v1",
+  "title": "Vorgeschichte",
+  "description": "Das ist eine Bonusaufgabe. Löse sie, um einen Stern zu erhalten.\n\nFinde die drei Fehler im Code und bringe das Programm zum Laufen.",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        {
+          "role": "out",
+          "text": "Vorgeschichte: Eine Infektion breitet sich über die Welt aus und lässt Menschen zu Zombies mutieren."
+        },
+        {
+          "role": "out",
+          "text": "Große Teile der Zivilisation gehen unter, die wenigen Menschen kämpfen hart um ihr Überleben."
+        },
+        {
+          "role": "out",
+          "text": "Jackson ist eine kleine Oase in dieser chaotischen Welt, wo eine Gemeinschaft sich ein Zuhause gebaut hat."
+        },
+        {
+          "role": "out",
+          "text": "Ellie und Joel (nicht verwandt) kehren nach ihrer großen Reise nach Jackson zurück. Joels Bruder Tommy wohnt hier mit seiner Frau Maria."
+        }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": "print(\"Vorgeschichte: Eine Infektion breitet sich über die Welt aus und lässt Menschen zu Zombies mutieren.\"\n\nprint\"Große Teile der Zivilisation gehen unter, die wenigen Menschen kämpfen hart um ihr Überleben.\")\n\npint(\"Jackson ist eine kleine Oase in dieser chaotischen Welt, wo eine Gemeinschaft sich ein Zuhause gebaut hat.\")\n\nprint(\"Ellie und Joel (nicht verwandt) kehren nach ihrer großen Reise nach Jackson zurück. Joels Bruder Tommy wohnt hier mit seiner Frau Maria.\")"
+}

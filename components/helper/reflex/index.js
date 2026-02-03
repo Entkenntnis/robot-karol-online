@@ -3,9 +3,4 @@ import ReflexSplitter from './ReflexSplitter'
 import ReflexElement from './ReflexElement'
 import ReflexHandle from './ReflexHandle'
 
-export {
-  ReflexContainer,
-  ReflexSplitter,
-  ReflexElement,
-  ReflexHandle
-}
+export { ReflexContainer, ReflexSplitter, ReflexElement, ReflexHandle }

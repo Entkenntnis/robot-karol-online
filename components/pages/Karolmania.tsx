@@ -33,14 +33,14 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 export function Karolmania() {
   const core = useCore()
   const [carouselIndex, setCarouselIndex] = useState(
-    core.ws.ui.karolmaniaCarouselIndex || 0
+    core.ws.ui.karolmaniaCarouselIndex || 0,
   )
   const carouselRef = useRef<HTMLDivElement>(null)
   const wheelDebounce = useRef(false)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
   const isFirstScroll = useRef(true) // Track if this is the first scroll
   const [bestTimes, setBestTimes] = useState<{ [key: number]: number | null }>(
-    {}
+    {},
   )
   const [earnedMedals, setEarnedMedals] = useState<{
     [key: number]: {
@@ -98,7 +98,7 @@ export function Karolmania() {
 
     return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(
       2,
-      '0'
+      '0',
     )}:${String(hundredths).padStart(2, '0')}`
   }
 
@@ -107,10 +107,10 @@ export function Karolmania() {
   const clickSoundRef = useRef<HTMLAudioElement | null>(null)
   const silentContextRef = useRef<AudioContext | null>(null) // Keep a reference to the audio context
   const [isMusicPlaying, setIsMusicPlaying] = useState(
-    getKarolmaniaMusicEnabled()
+    getKarolmaniaMusicEnabled(),
   )
   const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(
-    getKarolmaniaSoundEffectsEnabled()
+    getKarolmaniaSoundEffectsEnabled(),
   )
   const hasPlayedInitialSound = useRef(false)
   const prevCarouselIndexRef = useRef(carouselIndex)
@@ -121,8 +121,9 @@ export function Karolmania() {
     // This silent context is necessary to keep the audio system "warm"
     // Without it, the audio context would be suspended and reactivated with each sound,
     // causing audible popping/clicking artifacts when sounds are played
-    const silentContext = new (window.AudioContext ||
-      (window as any).webkitAudioContext)()
+    const silentContext = new (
+      window.AudioContext || (window as any).webkitAudioContext
+    )()
     silentContextRef.current = silentContext
 
     // Play a silent sound to initialize audio context
@@ -252,7 +253,7 @@ export function Karolmania() {
         isFirstScroll.current = false
       }
     },
-    [calculateScrollPosition]
+    [calculateScrollPosition],
   )
 
   // Store carousel index to session storage whenever it changes
@@ -325,8 +326,8 @@ export function Karolmania() {
               getQuestReturnToMode() == 'path'
                 ? ''
                 : getQuestReturnToMode() == 'demo'
-                ? '#DEMO'
-                : '#OVERVIEW'
+                  ? '#DEMO'
+                  : '#OVERVIEW',
             )
           }}
           className="absolute top-4 left-4 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
@@ -420,7 +421,7 @@ export function Karolmania() {
                 setTimeout(
                   () =>
                     carouselRef.current?.removeAttribute('data-touch-scroll'),
-                  100
+                  100,
                 )
               }}
               onScroll={() => {
@@ -444,7 +445,7 @@ export function Karolmania() {
 
                       // Calculate the closest index based on scroll position
                       const newIndex = Math.round(
-                        (scrollPosition + paddingWidth) / CARD_WIDTH
+                        (scrollPosition + paddingWidth) / CARD_WIDTH,
                       )
 
                       // Update the active index if needed
@@ -464,7 +465,7 @@ export function Karolmania() {
                       }
                     }
                   },
-                  isTouchScroll ? 0 : 500
+                  isTouchScroll ? 0 : 500,
                 ) // Use 0ms delay for touch scrolling, 500ms for other scrolling
               }}
             >
@@ -476,7 +477,7 @@ export function Karolmania() {
                     'flex-none w-96 px-5 py-3 snap-center transition-all duration-300 pointer-events-auto',
                     carouselIndex === index
                       ? 'scale-110 z-10'
-                      : 'scale-100 opacity-80'
+                      : 'scale-100 opacity-80',
                   )}
                   onClick={() => {
                     setCarouselIndex(index)
@@ -486,7 +487,7 @@ export function Karolmania() {
                   <div
                     className={clsx(
                       'bg-white rounded-lg shadow-xl overflow-hidden transition-all transform cursor-pointer hover:scale-105 h-72 flex flex-col',
-                      carouselIndex === index && 'ring-4 ring-teal-300'
+                      carouselIndex === index && 'ring-4 ring-teal-300',
                     )}
                     style={{
                       transformOrigin: 'center center',

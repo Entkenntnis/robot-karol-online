@@ -1,6 +1,6 @@
 import type { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
 
 interface FaIconProps {
   icon: IconDefinition
@@ -25,14 +25,6 @@ export function FaIcon({ icon, className, style }: FaIconProps) {
           d={Array.isArray(icon.icon[4]) ? icon.icon[4][0] : icon.icon[4]}
         ></path>
       </svg>
-      <style jsx global>{`
-        .fa-icon {
-          display: inline-block;
-          overflow: visible;
-          height: 1em;
-          vertical-align: -0.125em;
-        }
-      `}</style>
     </>
   )
 }

@@ -1,3 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button {
+  background-color: transparent;
+}
+
 .background-element {
   background-image: url('/canvas_background.jpg');
 }
@@ -91,29 +99,22 @@
   display: inline-block;
 }
 
-.dropdown > *:not(summary):focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
 .dropdown .dropdown-content {
   position: absolute;
 }
 
-.dropdown:is(:not(details)) .dropdown-content {
+.dropdown-content {
   visibility: hidden;
   opacity: 0;
   transform-origin: top;
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
-    backdrop-filter;
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   transition-duration: 200ms;
 }
 
-.dropdown.dropdown-open .dropdown-content,
-.dropdown:not(.dropdown-hover):focus .dropdown-content,
 .dropdown:focus-within .dropdown-content {
   visibility: visible;
   opacity: 1;
@@ -240,4 +241,83 @@ body.reflex-row-resize {
 .reflex-container.vertical > .reflex-splitter.active {
   border-right: 1px solid #eeeeee;
   border-left: 1px solid #eeeeee;
+}
+
+.fa-icon {
+  display: inline-block;
+  overflow: visible;
+  height: 1em;
+  vertical-align: -0.125em;
+}
+
+body,
+html,
+#root {
+  height: 100%;
+}
+
+#blocklyArea svg[display='none'] {
+  display: none;
+}
+.blocklyMenu {
+  box-sizing: content-box;
+}
+
+.rainbow:before {
+  content: '';
+  background: linear-gradient(
+    46deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000,
+    #ff7300,
+    #fffb00
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 60s linear infinite;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+  border-radius: 8px;
+}
+
+.rainbow:active {
+  color: #000;
+}
+
+.rainbow:hover:before {
+  opacity: 1;
+}
+
+.rainbow:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 8px;
+  left: 0;
+  top: 0;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 2400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }

@@ -1,23 +1,21 @@
-import { RefObject, useEffect, useRef } from 'react'
+import { useEffect, useRef, type RefObject } from 'react'
 import { EditorState, Range } from '@codemirror/state'
 import {
-  Command,
   Decoration,
-  DecorationSet,
   EditorView,
   ViewPlugin,
   ViewUpdate,
   drawSelection,
-  gutter,
   highlightActiveLine,
   highlightActiveLineGutter,
   keymap,
   lineNumbers,
+  type Command,
+  type DecorationSet,
 } from '@codemirror/view'
 
 import {
   Theme,
-  autoFormat,
   buildGutterWithBreakpoints,
   defaultHighlightStyle,
   editable,
@@ -45,9 +43,9 @@ import { searchKeymap } from '@codemirror/search'
 import { patch } from '../../lib/commands/vm'
 import { resetUIAfterChange, setLoading } from '../../lib/commands/editing'
 import {
-  CompletionSource,
   autocompletion,
   completionKeymap,
+  type CompletionSource,
 } from '@codemirror/autocomplete'
 import { pythonLanguage } from '../../lib/codemirror/pythonParser/pythonLanguage'
 import { compilePython } from '../../lib/language/python/compilePython'
@@ -87,7 +85,7 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
               ...lintKeymap,
               ...completionKeymap,
               ...searchKeymap,
-              { key: 'Tab', run: myTabExtension(core) },
+              { key: 'Tab', run: myTabExtension() },
               indentWithTab,
               {
                 key: 'Ctrl-s',
@@ -104,7 +102,7 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
               () => {
                 return lint(core, view)
               },
-              { delay: 0 }
+              { delay: 0 },
             ),
             Theme,
             myHighlightPlugin,
@@ -196,7 +194,7 @@ export function lint(core: Core, view: EditorView) {
       ui.state = 'error'
       ui.errorMessages = warnings
         .map(
-          (w) => `Zeile ${view.state.doc.lineAt(w.from).number}: ${w.message}`
+          (w) => `Zeile ${view.state.doc.lineAt(w.from).number}: ${w.message}`,
         )
         .filter(function (item, i, arr) {
           return arr.indexOf(item) == i
@@ -207,7 +205,7 @@ export function lint(core: Core, view: EditorView) {
   return warnings
 }
 
-function myTabExtension(core: Core): Command {
+function myTabExtension(): Command {
   return (target: EditorView) => {
     if (target.state.selection.ranges.length == 1) {
       if (target.state.selection.main.empty) {
@@ -284,7 +282,7 @@ const myAutocomplete: CompletionSource = (context) => {
 
   for (const robotName of robotNames) {
     const token = context.matchBefore(
-      new RegExp(robotName + '\\.[a-zA-Z_0-9äöüÄÜÖß]*$')
+      new RegExp(robotName + '\\.[a-zA-Z_0-9äöüÄÜÖß]*$'),
     )
     if (token) {
       matchedToken = token
@@ -352,7 +350,7 @@ const myHighlightPlugin = ViewPlugin.fromClass(
               const varName = ast.children[0].text()
               if (availableCommands.includes(varName)) {
                 ranges.push(
-                  colorMark.range(ast.children[0].from, ast.children[0].to)
+                  colorMark.range(ast.children[0].from, ast.children[0].to),
                 )
               }
             }
@@ -381,5 +379,5 @@ const myHighlightPlugin = ViewPlugin.fromClass(
   },
   {
     decorations: (v) => v.decorations,
-  }
+  },
 )

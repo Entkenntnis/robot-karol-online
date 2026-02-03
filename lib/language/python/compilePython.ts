@@ -1,12 +1,12 @@
 import { Text } from '@codemirror/state'
 import { Tree } from '@lezer/common'
-import { BranchOp, CallOp, Condition, JumpOp, Op } from '../../state/types'
-import { Diagnostic } from '@codemirror/lint'
-import { AstNode, cursorToAstNode, prettyPrintAstNode } from '../helper/astNode'
+import type { BranchOp, CallOp, Condition, JumpOp, Op } from '../../state/types'
+import type { Diagnostic } from '@codemirror/lint'
+import { type AstNode, cursorToAstNode } from '../helper/astNode'
 import { matchChildren } from '../helper/matchChildren'
 import { methodName2action } from '../helper/methodName2action'
 import { methodsWithoutArgs } from '../helper/methodsWithoutArgs'
-import { AnchorOp } from '../helper/CompilerOutput'
+import type { AnchorOp } from '../helper/CompilerOutput'
 import { conditionToRK } from '../helper/conditionToRk'
 
 interface SemantikCheckContext {
@@ -20,7 +20,7 @@ interface SemantikCheckContext {
 
 export function compilePython(
   tree: Tree,
-  doc: Text
+  doc: Text,
 ): { output: Op[]; warnings: Diagnostic[]; rkCode?: string } {
   const warnings: Diagnostic[] = []
   const output: (Op | AnchorOp)[] = []
@@ -90,14 +90,14 @@ export function compilePython(
 
   const availableMethods: Set<string> = new Set()
   const functions = ast.children.filter(
-    (child) => child.name == 'FunctionDefinition'
+    (child) => child.name == 'FunctionDefinition',
   )
 
   for (const method of functions) {
     if (
       matchChildren(
         ['def', 'VariableName', 'ParamList', 'Body'],
-        method.children
+        method.children,
       )
     ) {
       const formalParameters = method.children[2]
@@ -122,7 +122,7 @@ export function compilePython(
   }
 
   const script = ast.children.filter(
-    (child) => child.name != 'FunctionDefinition'
+    (child) => child.name != 'FunctionDefinition',
   )
 
   let robotKarolVar = ''
@@ -130,7 +130,7 @@ export function compilePython(
     if (
       matchChildren(
         ['VariableName', 'AssignOp', 'CallExpression'],
-        script[0].children
+        script[0].children,
       )
     ) {
       const callExp = script[0].children[2]
@@ -235,7 +235,7 @@ export function compilePython(
           if (
             !matchChildren(
               ['VariableName', '.', 'PropertyName'],
-              memberExpr.children
+              memberExpr.children,
             )
           ) {
             warnings.push({
@@ -401,7 +401,7 @@ export function compilePython(
                       '(' +
                       integerArgument.toString() +
                       ')',
-                    node.from
+                    node.from,
                   )
                 } else {
                   output.push({
@@ -411,7 +411,7 @@ export function compilePython(
                   })
                   appendRkCode(
                     methodName.charAt(0).toUpperCase() + methodName.slice(1),
-                    node.from
+                    node.from,
                   )
                 }
               }
@@ -519,7 +519,7 @@ export function compilePython(
 
             appendRkCode(
               `wiederhole solange ${conditionToRK(condition)}`,
-              node.from
+              node.from,
             )
             rkCodeIndent++
             semanticCheck(node.children[2], context)
@@ -578,7 +578,7 @@ export function compilePython(
         if (
           matchChildren(
             ['for', 'VariableName', 'in', 'CallExpression', 'Body'],
-            node.children
+            node.children,
           )
         ) {
           const loopVar = node.children[1].text()
@@ -593,7 +593,7 @@ export function compilePython(
           if (
             !matchChildren(
               ['VariableName', 'ArgList'],
-              node.children[3].children
+              node.children[3].children,
             ) ||
             node.children[3].children[0].text() != 'range'
           ) {
@@ -739,7 +739,7 @@ export function compilePython(
         } else if (
           matchChildren(
             ['if', 'CallExpression', 'Body', 'else', 'Body'],
-            node.children
+            node.children,
           )
         ) {
           context.expectCondition = true

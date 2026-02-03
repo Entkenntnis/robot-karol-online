@@ -1,4 +1,4 @@
-import { OverviewMapData } from '../state/types'
+import type { OverviewMapData } from '../state/types'
 import { chaptersMap } from './chapters'
 
 export const mapData: {

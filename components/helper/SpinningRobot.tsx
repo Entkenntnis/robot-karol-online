@@ -10,7 +10,7 @@ export function SpinningRobot() {
 
   // Use state to hold the current direction, starting with the first in the sequence
   const [currentDir, setCurrentDir] = useState<(typeof directions)[number]>(
-    directions[0]
+    directions[0],
   )
   // Add a new state to control the opacity for the fade effect
   const [isFading, setIsFading] = useState(false)

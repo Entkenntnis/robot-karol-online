@@ -1,4 +1,3 @@
-import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import { exitBench } from './bench'
 import { startChatRunner, stopChatRunner } from './chat'
@@ -55,7 +54,7 @@ export function startButtonClicked(core: Core) {
     if (
       core.ws.ui.isPlayground ||
       core.ws.quest.tasks.every(
-        (t) => !t.target || twoWorldsEqual(t.start, t.target)
+        (t) => !t.target || twoWorldsEqual(t.start, t.target),
       ) ||
       core.ws.quest.tasks.length == 1
     ) {

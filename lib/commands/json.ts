@@ -1,15 +1,13 @@
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
-import {
+import type {
   Compressed2D_MUST_STAY_COMPATIBLE,
-  Quest,
   QuestData,
   QuestSerialFormat_MUST_STAY_COMPATIBLE,
   SerialWorld_MUST_STAY_COMPATIBLE,
   World,
 } from '../state/types'
 import { setLanguage } from './language'
-import { setMode } from './mode'
 import {
   attemptToLoadProgramFromLocalStorage,
   getProgram,
@@ -19,7 +17,7 @@ import { endExecution } from './vm'
 import { twoWorldsEqual } from './world'
 
 export function serializeQuest(
-  core: Core
+  core: Core,
 ): QuestSerialFormat_MUST_STAY_COMPATIBLE {
   const output: QuestSerialFormat_MUST_STAY_COMPATIBLE = {
     version: 'v1',
@@ -137,7 +135,7 @@ export function textRefreshDone(core: Core) {
 export function deserializeQuest(
   core: Core,
   quest: QuestSerialFormat_MUST_STAY_COMPATIBLE,
-  updateLng: boolean = true
+  updateLng: boolean = true,
 ) {
   // set title of window to quest title
   document.title = quest.title
@@ -190,8 +188,8 @@ export function deserializeQuest(
         quest.editOptions == 'python-only'
           ? 'python-pro-only'
           : quest.editOptions
-          ? quest.editOptions
-          : 'all'
+            ? quest.editOptions
+            : 'all'
       ws.editor.saveProgram = !!(quest.program && quest.language)
     })
   } else if (quest.editOptions) {
@@ -227,7 +225,7 @@ export function deserializeQuest(
 }
 
 export function deserializeQuestToData(
-  quest: QuestSerialFormat_MUST_STAY_COMPATIBLE
+  quest: QuestSerialFormat_MUST_STAY_COMPATIBLE,
 ): QuestData {
   return {
     title: quest.title,
@@ -246,18 +244,18 @@ export function deserializeQuestToData(
           questScript: quest.questScript,
         }
       : quest.editOptions == 'python-pro-only' ||
-        quest.editOptions == 'python-only'
-      ? {
-          program: quest.program ?? robotKarol2Python(''),
-          questScript: '',
-        }
-      : undefined,
+          quest.editOptions == 'python-only'
+        ? {
+            program: quest.program ?? robotKarol2Python(''),
+            questScript: '',
+          }
+        : undefined,
     chats: quest.chats,
   }
 }
 
 export function deserializeWorld(
-  world: SerialWorld_MUST_STAY_COMPATIBLE
+  world: SerialWorld_MUST_STAY_COMPATIBLE,
 ): World {
   const { dimX, dimY, height, blocks, bricks, karol, marks } = world
 
@@ -274,17 +272,21 @@ export function deserializeWorld(
 
 function compress2dArray<T>(
   input: T[][],
-  defaultVal: T
+  defaultVal: T,
 ): Compressed2D_MUST_STAY_COMPATIBLE<T> {
   const dimX = input[0].length
   const dimY = input.length
 
   const colStatus = Array.from(Array(dimX), (_, i) => i).map((x) =>
-    Array.from(Array(dimY), (_, i) => i).some((y) => input[y][x] !== defaultVal)
+    Array.from(Array(dimY), (_, i) => i).some(
+      (y) => input[y][x] !== defaultVal,
+    ),
   )
 
   const rowStatus = Array.from(Array(dimY), (_, i) => i).map((y) =>
-    Array.from(Array(dimX), (_, i) => i).some((x) => input[y][x] !== defaultVal)
+    Array.from(Array(dimX), (_, i) => i).some(
+      (x) => input[y][x] !== defaultVal,
+    ),
   )
 
   let offsetX = -1
@@ -338,7 +340,7 @@ function decompress2dArray<T>(
   input: Compressed2D_MUST_STAY_COMPATIBLE<T>,
   dimX: number,
   dimY: number,
-  defaultVal: T
+  defaultVal: T,
 ): T[][] {
   const data = Array(dimY)
     .fill(defaultVal)

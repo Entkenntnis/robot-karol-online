@@ -1,10 +1,8 @@
 import {
   faArrowDown,
   faArrowLeft,
-  faArrowUp,
   faCaretRight,
   faCode,
-  faExclamationTriangle,
   faPlayCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
@@ -23,7 +21,6 @@ import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
 import { WorldEditor } from './WorldEditor'
 import { HFullStyles } from '../helper/HFullStyles'
-import { showModal } from '../../lib/commands/modal'
 import { useEffect, useState } from 'react'
 import { JavaInfo } from './JavaInfo'
 import { submitAnalyzeEvent } from '../../lib/commands/analyze'
@@ -101,8 +98,8 @@ export function IdeMain() {
                 ws.ui.showOk = true
               })
             },
-            skipWait ? 0 : 5000
-          )
+            skipWait ? 0 : 5000,
+          ),
         )
       } else {
         setTimeout(test, 10)
@@ -121,7 +118,7 @@ export function IdeMain() {
           {(core.ws.page == 'quest' ||
             core.ws.ui.isPlayground ||
             pythonKarolExamples.some(
-              (el) => el.link.substring(1) === core.ws.ui.sharedQuestId
+              (el) => el.link.substring(1) === core.ws.ui.sharedQuestId,
             ) ||
             core.ws.page == 'editor') && (
             <button
@@ -152,7 +149,7 @@ export function IdeMain() {
             'flex-1 py-2 px-4 text-center font-medium pl-10',
             activeTab === 'program'
               ? 'bg-white text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600'
+              : 'text-gray-600',
           )}
           onClick={() => {
             submitAnalyzeEvent(core, 'ev_click_ide_mobileTabProgram')
@@ -180,7 +177,7 @@ export function IdeMain() {
             'flex-1 py-2 px-4 text-center font-medium',
             activeTab === 'output'
               ? 'bg-white text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600'
+              : 'text-gray-600',
           )}
           onClick={() => {
             submitAnalyzeEvent(core, 'ev_click_ide_mobileTabOutput')
@@ -198,7 +195,7 @@ export function IdeMain() {
         <ReflexElement
           className={clsx(
             'h-full !overflow-hidden relative',
-            isMobileView && (activeTab == 'program' ? '!flex-1' : 'hidden')
+            isMobileView && (activeTab == 'program' ? '!flex-1' : 'hidden'),
           )}
           minSize={0}
           size={isMobileView ? (activeTab == 'program' ? 640 : 0) : undefined}
@@ -290,7 +287,7 @@ export function IdeMain() {
             <span>
               <div
                 className={clsx(
-                  'absolute right-4 top-10 p-2 bg-white z-[300] rounded'
+                  'absolute right-4 top-10 p-2 bg-white z-[300] rounded',
                 )}
               >
                 <p>{core.strings.ide.read}</p>
@@ -300,7 +297,7 @@ export function IdeMain() {
                       closeHighlightDescription(core)
                     }}
                     className={clsx(
-                      'px-2 py-0.5 rounded bg-green-200 hover:bg-green-300 transition-colors disabled:bg-gray-200'
+                      'px-2 py-0.5 rounded bg-green-200 hover:bg-green-300 transition-colors disabled:bg-gray-200',
                     )}
                     disabled={!core.ws.ui.showOk}
                   >
@@ -310,7 +307,7 @@ export function IdeMain() {
               </div>
               <div
                 className={clsx(
-                  'absolute right-0.5 top-10 text-white text-3xl z-[300]'
+                  'absolute right-0.5 top-10 text-white text-3xl z-[300]',
                 )}
               >
                 <FaIcon icon={faCaretRight} />
@@ -328,7 +325,7 @@ export function IdeMain() {
           minSize={0}
           size={isMobileView ? (activeTab == 'output' ? 640 : 0) : undefined}
           className={clsx(
-            isMobileView && (activeTab == 'output' ? '!flex-1' : 'hidden')
+            isMobileView && (activeTab == 'output' ? '!flex-1' : 'hidden'),
           )}
         >
           {core.ws.ui.showJavaInfo ? (

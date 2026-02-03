@@ -1,5 +1,5 @@
 import { Core } from '../state/core'
-import { CoreState } from '../state/types'
+import type { CoreState } from '../state/types'
 
 type Modal = CoreState['workspace']['modal']
 

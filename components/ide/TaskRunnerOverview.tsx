@@ -6,7 +6,6 @@ import {
   faStop,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
-import clsx from 'clsx'
 import { createRef, useEffect } from 'react'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
@@ -26,7 +25,7 @@ export function TaskRunnerOverview() {
 
   return (
     <div className="h-[42px] bg-gray-100 flex-row flex items-center gap-2">
-      {core.ws.quest.tasks.map((task, index) => {
+      {core.ws.quest.tasks.map((_, index) => {
         return (
           <div
             key={index}

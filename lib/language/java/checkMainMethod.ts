@@ -1,5 +1,5 @@
 import { CompilerOutput } from '../helper/CompilerOutput'
-import { AstNode } from '../helper/astNode'
+import type { AstNode } from '../helper/astNode'
 import { warnForUnexpectedNodes } from '../helper/warnForUnexpectedNodes'
 
 export function checkMainMethod(co: CompilerOutput, main: AstNode) {
@@ -10,13 +10,13 @@ export function checkMainMethod(co: CompilerOutput, main: AstNode) {
   }
 
   const formalParameters = main.children.find(
-    (child) => child.name == 'FormalParameters'
+    (child) => child.name == 'FormalParameters',
   )! // parser will allways emit formal parameters
 
   warnForUnexpectedNodes(
     co,
     formalParameters.children.filter((child) => child.isError),
-    formalParameters
+    formalParameters,
   )
 
   if (
@@ -43,7 +43,7 @@ export function checkMainMethod(co: CompilerOutput, main: AstNode) {
         'Definition',
         'FormalParameters',
         'Block',
-      ].includes(child.name)
+      ].includes(child.name),
   )
 
   warnForUnexpectedNodes(co, unwanted, main)

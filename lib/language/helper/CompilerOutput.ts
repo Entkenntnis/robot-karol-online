@@ -1,6 +1,6 @@
-import { Diagnostic } from '@codemirror/lint'
-import { Op } from '../../state/types'
-import { AstNode } from './astNode'
+import type { Diagnostic } from '@codemirror/lint'
+import type { Op } from '../../state/types'
+import type { AstNode } from './astNode'
 import { Text } from '@codemirror/state'
 
 export interface AnchorOp {
@@ -31,8 +31,13 @@ export class CompilerOutput {
     }
     return line
   }
+  private doc: Text
+  private comments: AstNode[]
 
-  constructor(private doc: Text, private comments: AstNode[]) {}
+  constructor(doc: Text, comments: AstNode[]) {
+    this.doc = doc
+    this.comments = comments
+  }
 
   appendRkCode(code: string, pos: number) {
     const commentsToAdd = this.comments.filter((node) => node.from < pos)

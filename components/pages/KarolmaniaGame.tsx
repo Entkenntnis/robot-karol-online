@@ -58,7 +58,7 @@ export function KarolmaniaGame() {
       bronze: currentLevel?.bronze || 0,
       at: currentLevel?.at || 0,
     }),
-    [currentLevel]
+    [currentLevel],
   )
 
   // Create sorted medals array including personal best if available
@@ -124,10 +124,10 @@ export function KarolmaniaGame() {
   const successSoundRef = useRef<HTMLAudioElement | null>(null)
   const silentContextRef = useRef<AudioContext | null>(null)
   const [isMusicPlaying, setIsMusicPlaying] = useState(
-    getKarolmaniaMusicEnabled()
+    getKarolmaniaMusicEnabled(),
   )
   const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(
-    getKarolmaniaSoundEffectsEnabled()
+    getKarolmaniaSoundEffectsEnabled(),
   )
   const [shouldPlayMusic, setShouldPlayMusic] = useState(false)
 
@@ -233,8 +233,9 @@ export function KarolmaniaGame() {
   // Initialize audio system
   useEffect(() => {
     // Create an audio context first to ensure it's properly initialized
-    const silentContext = new (window.AudioContext ||
-      (window as any).webkitAudioContext)()
+    const silentContext = new (
+      window.AudioContext || (window as any).webkitAudioContext
+    )()
     silentContextRef.current = silentContext
 
     // Play a silent sound to initialize audio context
@@ -453,7 +454,7 @@ export function KarolmaniaGame() {
 
       submitAnalyzeEvent(
         core,
-        `ev_submit_karolmania_pb_${levelId}_${timeInSeconds}`
+        `ev_submit_karolmania_pb_${levelId}_${timeInSeconds}`,
       )
     }
   }, [
@@ -483,7 +484,7 @@ export function KarolmaniaGame() {
 
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(
       2,
-      '0'
+      '0',
     )}:${String(hundredths).padStart(2, '0')}`
   }
 
@@ -539,7 +540,7 @@ export function KarolmaniaGame() {
       isSoundEffectsEnabled,
       playClickSound,
       resetGame,
-    ]
+    ],
   )
 
   // Set up keyboard event listeners when component mounts
@@ -667,7 +668,7 @@ export function KarolmaniaGame() {
                 key={index}
                 className={clsx(
                   'flex items-center',
-                  medal.type == 'pb' && 'text-sky-800'
+                  medal.type == 'pb' && 'text-sky-800',
                 )}
               >
                 <FaIcon icon={medal.icon} className={`${medal.color} mr-2`} />
@@ -726,7 +727,7 @@ export function KarolmaniaGame() {
                 ? isNewPersonalBest
                   ? 'text-green-600 text-3xl'
                   : 'text-3xl text-gray-700'
-                : 'text-gray-800 text-lg'
+                : 'text-gray-800 text-lg',
             )}
           >
             {formatTime(timerMs)}
@@ -749,7 +750,7 @@ export function KarolmaniaGame() {
           <div
             className={clsx(
               'bg-yellow-100 p-3 rounded-lg shadow-lg border-2 border-yellow-400',
-              !newMedal && 'animate-bounce'
+              !newMedal && 'animate-bounce',
             )}
           >
             <div className="text-center flex items-center">
@@ -772,10 +773,10 @@ export function KarolmaniaGame() {
               newMedal === 'at'
                 ? 'bg-teal-100 border-teal-400'
                 : newMedal === 'gold'
-                ? 'bg-yellow-100 border-yellow-400'
-                : newMedal === 'silver'
-                ? 'bg-gray-100 border-gray-400'
-                : 'bg-amber-100 border-amber-700'
+                  ? 'bg-yellow-100 border-yellow-400'
+                  : newMedal === 'silver'
+                    ? 'bg-gray-100 border-gray-400'
+                    : 'bg-amber-100 border-amber-700',
             )}
           >
             <div className="text-center flex items-center">
@@ -786,10 +787,10 @@ export function KarolmaniaGame() {
                   newMedal === 'at'
                     ? 'text-teal-800'
                     : newMedal === 'gold'
-                    ? 'text-yellow-500'
-                    : newMedal === 'silver'
-                    ? 'text-gray-400'
-                    : 'text-amber-700'
+                      ? 'text-yellow-500'
+                      : newMedal === 'silver'
+                        ? 'text-gray-400'
+                        : 'text-amber-700',
                 )}
               />
               <span
@@ -798,20 +799,20 @@ export function KarolmaniaGame() {
                   newMedal === 'at'
                     ? 'text-teal-800'
                     : newMedal === 'gold'
-                    ? 'text-yellow-700'
-                    : newMedal === 'silver'
-                    ? 'text-gray-700'
-                    : 'text-amber-900'
+                      ? 'text-yellow-700'
+                      : newMedal === 'silver'
+                        ? 'text-gray-700'
+                        : 'text-amber-900',
                 )}
               >
                 Neue Medaille:{' '}
                 {newMedal === 'at'
                   ? 'AutorIn'
                   : newMedal === 'gold'
-                  ? 'Gold'
-                  : newMedal === 'silver'
-                  ? 'Silber'
-                  : 'Bronze'}
+                    ? 'Gold'
+                    : newMedal === 'silver'
+                      ? 'Silber'
+                      : 'Bronze'}
               </span>
             </div>
           </div>

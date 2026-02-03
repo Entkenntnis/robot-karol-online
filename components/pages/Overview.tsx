@@ -51,15 +51,12 @@ import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 import { twoWorldsEqual } from '../../lib/commands/world'
 import { chapterData } from '../../lib/data/chapters'
-import {
-  getExampleId,
-  pythonKarolExamples,
-} from '../../lib/data/pythonExamples'
+import { pythonKarolExamples } from '../../lib/data/pythonExamples'
 import { Reactions } from '../helper/Reactions'
 import { SpinningRobot } from '../helper/SpinningRobot'
 import { PersistNotice } from '../helper/PersistNotice'
 import { PythonMiniProjects } from '../helper/PythonMiniProjects'
-import { PythonProjectGroup } from '../../lib/state/types'
+import type { PythonProjectGroup } from '../../lib/state/types'
 
 export function Overview() {
   const core = useCore()
@@ -69,31 +66,31 @@ export function Overview() {
   const questData = core.ws.settings.lng == 'de' ? questDataDe : questDataEn
 
   const numberOfSolvedQuests = Object.keys(mapData).filter(
-    (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id))
+    (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id)),
   ).length
 
   const numberOfSolvedQuestsRKO = Object.keys(mapData).filter(
-    (id) => parseInt(id) < 100 && isQuestDone(parseInt(id))
+    (id) => parseInt(id) < 100 && isQuestDone(parseInt(id)),
   ).length
 
   const numberOfSolvedQuestsPython = Object.keys(mapData).filter(
     (id) =>
-      parseInt(id) >= 100 && parseInt(id) < 10000 && isQuestDone(parseInt(id))
+      parseInt(id) >= 100 && parseInt(id) < 10000 && isQuestDone(parseInt(id)),
   ).length
 
   const maxMapY =
     Math.max(
       ...Object.entries(mapData)
         .filter(([id]) => isQuestVisible(parseInt(id)))
-        .map(([, quest]) => quest.y)
+        .map(([, quest]) => quest.y),
     ) +
     (core.ws.page == 'demo' || core.ws.page == 'analyze'
       ? 250
       : !isQuestDone(10001)
-      ? 1000
-      : isQuestDone(10010)
-      ? 250
-      : 1000)
+        ? 1000
+        : isQuestDone(10010)
+          ? 250
+          : 1000)
   // todo: if all quests are unlocked, I can reduce the spacing a bit, but I'm not at that point yet
 
   const mapYAfterMiniProjects =
@@ -151,7 +148,7 @@ export function Overview() {
         className={clsx(
           'h-full overflow-auto',
           // this fixes a bug where scrolling is not possible on big content
-          core.ws.page !== 'analyze' && 'overscroll-none'
+          core.ws.page !== 'analyze' && 'overscroll-none',
         )}
         id="scroll-container"
       >
@@ -160,7 +157,7 @@ export function Overview() {
             <div
               className={clsx(
                 'flex mt-8 items-center rounded-xl',
-                'p-2 px-6 bg-white/30'
+                'p-2 px-6 bg-white/30',
               )}
             >
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
@@ -198,7 +195,7 @@ export function Overview() {
                 // open feedback form in new tab
                 submitAnalyzeEvent(core, 'ev_click_landing_login')
                 alert(
-                  'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.'
+                  'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.',
                 )
               }}
             >
@@ -265,7 +262,7 @@ export function Overview() {
                         // @ts-ignore
                         document.activeElement?.blur()
                         const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover'
+                          '.dropdown.dropdown-hover',
                         ) as HTMLDivElement
                         dropdown.classList.remove('dropdown-hover')
                         setTimeout(() => {
@@ -284,7 +281,7 @@ export function Overview() {
                     onClick={() => {
                       submitAnalyzeEvent(
                         core,
-                        'ev_click_landing_exportProgress'
+                        'ev_click_landing_exportProgress',
                       )
                       saveToJSON(core)
                     }}
@@ -302,7 +299,7 @@ export function Overview() {
                     onClick={async () => {
                       submitAnalyzeEvent(
                         core,
-                        'ev_click_landing_importProgress'
+                        'ev_click_landing_importProgress',
                       )
                       await loadFromJSON()
                       const image = getRobotImage()
@@ -336,7 +333,7 @@ export function Overview() {
                         // @ts-ignore
                         document.activeElement?.blur()
                         const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover'
+                          '.dropdown.dropdown-hover',
                         ) as HTMLDivElement
                         dropdown.classList.remove('dropdown-hover')
                         setTimeout(() => {
@@ -361,7 +358,7 @@ export function Overview() {
                         // @ts-ignore
                         document.activeElement?.blur()
                         const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover'
+                          '.dropdown.dropdown-hover',
                         ) as HTMLDivElement
                         dropdown.classList.remove('dropdown-hover')
                         setTimeout(() => {
@@ -511,14 +508,14 @@ export function Overview() {
                             onClick={() => {
                               submitAnalyzeEvent(
                                 core,
-                                'ev_click_landing_tourStart'
+                                'ev_click_landing_tourStart',
                               )
                               setQuestReturnToMode(
-                                core.ws.page == 'demo' ? 'demo' : 'path'
+                                core.ws.page == 'demo' ? 'demo' : 'path',
                               )
                               setLearningPathScroll(
                                 document.getElementById('scroll-container')
-                                  ?.scrollTop ?? -1
+                                  ?.scrollTop ?? -1,
                               )
                               navigate(core, '#QUEST-1')
                             }}
@@ -554,7 +551,7 @@ export function Overview() {
                     <button
                       className={clsx(
                         'hover:bg-gray-100/60 rounded-xl',
-                        'w-[100px] cursor-pointer'
+                        'w-[100px] cursor-pointer',
                       )}
                       onClick={() => {
                         // open feedback form in new tab
@@ -579,13 +576,13 @@ export function Overview() {
                     <button
                       className={clsx(
                         'hover:bg-gray-100/60 rounded-xl',
-                        'w-[80px] cursor-pointer text-gray-700'
+                        'w-[80px] cursor-pointer text-gray-700',
                       )}
                       onClick={() => {
                         // open feedback form in new tab
                         submitAnalyzeEvent(core, 'ev_click_landing_login')
                         alert(
-                          'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.'
+                          'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.',
                         )
                       }}
                     >
@@ -607,11 +604,11 @@ export function Overview() {
                     onClick={(e) => {
                       submitAnalyzeEvent(core, 'ev_click_landing_dancedance')
                       setQuestReturnToMode(
-                        core.ws.page == 'demo' ? 'demo' : 'path'
+                        core.ws.page == 'demo' ? 'demo' : 'path',
                       )
                       setLearningPathScroll(
                         document.getElementById('scroll-container')
-                          ?.scrollTop ?? -1
+                          ?.scrollTop ?? -1,
                       )
                       navigate(core, '#DANCE')
                       e.preventDefault()
@@ -636,12 +633,12 @@ export function Overview() {
                         onClick={() => {
                           submitAnalyzeEvent(
                             core,
-                            'ev_click_landing_robotGallery'
+                            'ev_click_landing_robotGallery',
                           )
                           setTimeout(() => {
                             window.open(
                               'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
-                              '_self'
+                              '_self',
                             )
                           }, 50)
                         }}
@@ -656,7 +653,7 @@ export function Overview() {
                           submitAnalyzeEvent(core, 'ev_click_landing_gallery')
                           setLearningPathScroll(
                             document.getElementById('scroll-container')
-                              ?.scrollTop ?? -1
+                              ?.scrollTop ?? -1,
                           )
                         }}
                       >
@@ -669,11 +666,11 @@ export function Overview() {
                         onClick={() => {
                           submitAnalyzeEvent(
                             core,
-                            'ev_click_landing_karolmania'
+                            'ev_click_landing_karolmania',
                           )
                           setLearningPathScroll(
                             document.getElementById('scroll-container')
-                              ?.scrollTop ?? -1
+                              ?.scrollTop ?? -1,
                           )
                         }}
                       >
@@ -684,7 +681,7 @@ export function Overview() {
                     <li>
                       <a
                         target="_blank"
-                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
+                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/MATERIAL-LEHRKRAEFTE.md"
                         onClick={() => {
                           // open feedback form in new tab
                           submitAnalyzeEvent(core, 'ev_click_landing_material')
@@ -737,7 +734,7 @@ export function Overview() {
                           submitAnalyzeEvent(core, 'ev_click_landing_english')
                           // scroll to top
                           document.getElementById(
-                            'scroll-container'
+                            'scroll-container',
                           )!.scrollTop = 0
                         }}
                       >
@@ -751,7 +748,7 @@ export function Overview() {
                           submitAnalyzeEvent(core, 'ev_click_landing_german')
                           // scroll to top
                           document.getElementById(
-                            'scroll-container'
+                            'scroll-container',
                           )!.scrollTop = 0
                         }}
                       >
@@ -772,7 +769,7 @@ export function Overview() {
                           onClick={() => {
                             submitAnalyzeEvent(
                               core,
-                              'ev_click_landing_pythonIntro'
+                              'ev_click_landing_pythonIntro',
                             )
                             core.mutateWs((ws) => {
                               ws.overview.explanationId = 10001
@@ -804,7 +801,7 @@ export function Overview() {
                       onClick={() => {
                         submitAnalyzeEvent(
                           core,
-                          'ev_click_landing_pythonListing'
+                          'ev_click_landing_pythonListing',
                         )
                         showModal(core, 'python-listing')
                       }}
@@ -838,11 +835,11 @@ export function Overview() {
                       onClick={(e) => {
                         submitAnalyzeEvent(
                           core,
-                          'ev_click_landing_blueJPlayground'
+                          'ev_click_landing_blueJPlayground',
                         )
                         setLearningPathScroll(
                           document.getElementById('scroll-container')
-                            ?.scrollTop ?? -1
+                            ?.scrollTop ?? -1,
                         )
                         navigate(core, '#BLUEJ-PLAYGROUND')
                         e.preventDefault()
@@ -878,7 +875,7 @@ export function Overview() {
                           })
                           submitAnalyzeEvent(
                             core,
-                            'ev_click_landing_closeNewKarol'
+                            'ev_click_landing_closeNewKarol',
                           )
                         }}
                       >
@@ -894,7 +891,7 @@ export function Overview() {
                           setRobotImage(core.ws.robotImageDataUrl)
                           submitAnalyzeEvent(
                             core,
-                            'ev_click_landing_saveNewKarol'
+                            'ev_click_landing_saveNewKarol',
                           )
                         }}
                       >
@@ -940,7 +937,7 @@ export function Overview() {
                         window.open(
                           'https://hack.arrrg.de/' +
                             (core.ws.settings.lng === 'en' ? 'en' : ''),
-                          '_blank'
+                          '_blank',
                         )
                       }}
                     >
@@ -1077,9 +1074,9 @@ export function Overview() {
                         Math.min(
                           48,
                           Math.round(
-                            ((100 - percentage) / 100) * (48 - 14) + 14
-                          )
-                        )
+                            ((100 - percentage) / 100) * (48 - 14) + 14,
+                          ),
+                        ),
                       )
                     }
 
@@ -1097,10 +1094,10 @@ export function Overview() {
                         >
                           <button
                             className="w-[100px] block hover:bg-white/20 rounded-xl cursor-pointer text-center"
-                            onClick={(e) => {
+                            onClick={() => {
                               submitAnalyzeEvent(
                                 core,
-                                'ev_click_landing_explanation_chapter_' + id
+                                'ev_click_landing_explanation_chapter_' + id,
                               )
                               core.mutateWs((ws) => {
                                 ws.overview.explanationId = id
@@ -1163,15 +1160,15 @@ export function Overview() {
                         if (parseInt(entry[0]) == 1) {
                           submitAnalyzeEvent(
                             core,
-                            'ev_click_landing_startKarol'
+                            'ev_click_landing_startKarol',
                           )
                         }
                         setQuestReturnToMode(
-                          core.ws.page == 'demo' ? 'demo' : 'path'
+                          core.ws.page == 'demo' ? 'demo' : 'path',
                         )
                         setLearningPathScroll(
                           document.getElementById('scroll-container')
-                            ?.scrollTop ?? -1
+                            ?.scrollTop ?? -1,
                         )
                         navigate(core, '#QUEST-' + entry[0])
                       }}
@@ -1343,13 +1340,13 @@ export function Overview() {
               'w-[200px] cursor-pointer',
               !questDone && 'rainbow',
               core.ws.page == 'analyze' ? 'h-[230px]' : 'h-[210px]',
-              'block'
+              'block',
             )}
             tabIndex={0}
             onClick={(e) => {
               setQuestReturnToMode('overview')
               setOverviewScroll(
-                document.getElementById('scroll-container')?.scrollTop ?? -1
+                document.getElementById('scroll-container')?.scrollTop ?? -1,
               )
               navigate(core, '#QUEST-' + index)
               e.preventDefault()
@@ -1360,7 +1357,7 @@ export function Overview() {
                 <span
                   className={clsx(
                     'py-1 inline-block',
-                    questDone ? 'text-gray-600' : 'font-bold'
+                    questDone ? 'text-gray-600' : 'font-bold',
                   )}
                 >
                   {data.title}
@@ -1396,7 +1393,7 @@ export function Overview() {
                   wireframe={false}
                   className={clsx(
                     'block mx-auto max-h-full',
-                    questDone && 'opacity-30'
+                    questDone && 'opacity-30',
                   )}
                   robotImageDataUrl={core.ws.robotImageDataUrl}
                 />{' '}
@@ -1415,73 +1412,13 @@ export function Overview() {
                 src="/python-logo-only.png"
                 className={clsx(
                   'absolute bottom-0 right-2 h-8 bg-white/30 rounded-lg pointer-events-auto',
-                  questDone && 'opacity-30'
+                  questDone && 'opacity-30',
                 )}
                 alt=""
               />
             )}
           </a>
         </div>
-        <style jsx>{`
-          .rainbow:before {
-            content: '';
-            background: linear-gradient(
-              46deg,
-              #ff0000,
-              #ff7300,
-              #fffb00,
-              #48ff00,
-              #00ffd5,
-              #002bff,
-              #7a00ff,
-              #ff00c8,
-              #ff0000,
-              #ff7300,
-              #fffb00
-            );
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            background-size: 400%;
-            z-index: -1;
-            filter: blur(5px);
-            width: calc(100% + 4px);
-            height: calc(100% + 4px);
-            animation: glowing 60s linear infinite;
-            opacity: 0;
-            transition: opacity 0.1s ease-in-out;
-            border-radius: 8px;
-          }
-
-          .rainbow:active {
-            color: #000;
-          }
-
-          .rainbow:hover:before {
-            opacity: 1;
-          }
-
-          .rainbow:after {
-            z-index: -1;
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            border-radius: 8px;
-            left: 0;
-            top: 0;
-          }
-
-          @keyframes glowing {
-            0% {
-              background-position: 2400% 0;
-            }
-            100% {
-              background-position: 0 0;
-            }
-          }
-        `}</style>
       </Fragment>
     )
   }

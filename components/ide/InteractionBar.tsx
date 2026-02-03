@@ -1,5 +1,4 @@
 import {
-  faArrowLeft,
   faArrowUp,
   faBars,
   faHome,
@@ -15,7 +14,7 @@ import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { startButtonClicked } from '../../lib/commands/start'
 import { setMode } from '../../lib/commands/mode'
 import { setLanguage } from '../../lib/commands/language'
-import { Settings } from '../../lib/state/types'
+import type { Settings } from '../../lib/state/types'
 import { useState } from 'react'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { exitQuest } from '../../lib/commands/quest'
@@ -60,7 +59,7 @@ export function InteractionBar() {
       className={clsx(
         'flex justify-between pt-1 pb-0.5 pl-2 pr-1 border-b',
         core.ws.settings.mode == 'blocks' && 'border-r',
-        core.ws.ui.lockLanguage ? 'items-center h-12' : 'items-baseline'
+        core.ws.ui.lockLanguage ? 'items-center h-12' : 'items-baseline',
       )}
     >
       <div className="whitespace-nowrap">
@@ -79,14 +78,14 @@ export function InteractionBar() {
         {(core.ws.page == 'quest' ||
           core.ws.ui.isPlayground ||
           pythonKarolExamples.some(
-            (el) => el.link.substring(1) === core.ws.ui.sharedQuestId
+            (el) => el.link.substring(1) === core.ws.ui.sharedQuestId,
           ) ||
           core.ws.page == 'editor') && (
           <div className="hidden sm:inline-block relative h-[24px] w-[18px] flex-shrink-0">
             <a
               className={clsx(
                 'absolute top-0 left-0 px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 ml-2 cursor-pointer',
-                core.ws.ui.isHighlightDescription && 'z-[1000]'
+                core.ws.ui.isHighlightDescription && 'z-[1000]',
               )}
               id="ide-back-button"
               href="#"
@@ -118,17 +117,17 @@ export function InteractionBar() {
           {core.ws.ui.lockLanguage == 'karol'
             ? 'Karol Code'
             : core.ws.ui.lockLanguage == 'java'
-            ? 'Karol Java'
-            : core.ws.ui.lockLanguage == 'python-pro'
-            ? 'Python'
-            : ''}
+              ? 'Karol Java'
+              : core.ws.ui.lockLanguage == 'python-pro'
+                ? 'Python'
+                : ''}
         </div>
       ) : (
         <div className="pt-1 whitespace-nowrap">
           <button
             className={clsx(
               'font-semibold mr-1 select-none disabled:cursor-default ml-9',
-              core.ws.settings.mode == 'code' && 'text-gray-600'
+              core.ws.settings.mode == 'code' && 'text-gray-600',
             )}
             disabled={dontChangeLanguage}
             onClick={() => {
@@ -146,7 +145,7 @@ export function InteractionBar() {
               'relative inline-block w-12 mx-2 align-middle transition-opacity',
               dontChangeLanguage
                 ? 'opacity-30 cursor-not-allowed'
-                : 'cursor-pointer'
+                : 'cursor-pointer',
             )}
           >
             <input
@@ -167,7 +166,7 @@ export function InteractionBar() {
                 'peer appearance-none w-12 h-7 rounded-full transition-colors duration-300 focus:outline-none enabled:cursor-pointer disabled:cursor-not-allowed',
                 core.ws.settings.mode == 'blocks'
                   ? 'bg-[#5ba55b]'
-                  : 'bg-[#770088]'
+                  : 'bg-[#770088]',
               )}
               disabled={dontChangeLanguage}
             />
@@ -217,7 +216,7 @@ export function InteractionBar() {
           <button
             id="ide-toggle-debugger"
             className={clsx(
-              'py-0.5 bg-purple-100 hover:bg-purple-200 rounded absolute -left-[52px] top-0 w-12 h-10'
+              'py-0.5 bg-purple-100 hover:bg-purple-200 rounded absolute -left-[52px] top-0 w-12 h-10',
             )}
             onClick={() => {
               if (!core.ws.vm.isDebugging) {
@@ -255,8 +254,8 @@ export function InteractionBar() {
                   mainButtonState == 'start' &&
                     'bg-green-300 hover:bg-green-400',
                   mainButtonState == 'stop' &&
-                    'bg-yellow-500 hover:bg-yellow-600'
-                )
+                    'bg-yellow-500 hover:bg-yellow-600',
+                ),
           )}
           onClick={() => {
             if (core.ws.ui.state == 'running') {
@@ -268,20 +267,20 @@ export function InteractionBar() {
               pythonKarolExamples.some(
                 (example) =>
                   example.link.substring(1) === core.ws.ui.sharedQuestId &&
-                  !example.hidden
+                  !example.hidden,
               )
             ) {
               const d = distance(
                 core.ws.ui.resetCode[core.ws.ui.sharedQuestId][1],
-                core.ws.pythonCode
+                core.ws.pythonCode,
               )
               submitAnalyzeEvent(
                 core,
                 `ev_click_ide_pythonExampleStart_${d}_${getExampleId(
                   pythonKarolExamples.find(
-                    (el) => el.link.substring(1) === core.ws.ui.sharedQuestId
-                  )?.title!
-                )}`
+                    (el) => el.link.substring(1) === core.ws.ui.sharedQuestId,
+                  )?.title!,
+                )}`,
               )
             }
             startButtonClicked(core)
@@ -298,17 +297,17 @@ export function InteractionBar() {
               mainButtonState == 'stop' || core.ws.vm.isDebugging
                 ? faStop
                 : core.ws.ui.state == 'loading' &&
-                  core.ws.settings.language == 'python-pro' &&
-                  !core.worker?.mainWorkerReady
-                ? faSpinner
-                : faPlay
+                    core.ws.settings.language == 'python-pro' &&
+                    !core.worker?.mainWorkerReady
+                  ? faSpinner
+                  : faPlay
             }
             className={clsx(
               'mr-2 pl-6 pr-4 inline-block sm:p-0',
               core.ws.ui.state == 'loading' &&
                 core.ws.settings.language == 'python-pro' &&
                 !core.worker?.mainWorkerReady &&
-                'animate-spin-slow'
+                'animate-spin-slow',
             )}
           />
           <span className="text-xl sm:inline hidden">
@@ -363,7 +362,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
             core.ws.settings.mode == 'code'
               ? 'border-[#770088]'
               : 'border-gray-300 text-gray-600',
-            dontChangeLanguage ? 'cursor-not-allowed' : 'cursor-pointer'
+            dontChangeLanguage ? 'cursor-not-allowed' : 'cursor-pointer',
           )}
           onClick={() => {
             if (dontChangeLanguage) return
@@ -386,7 +385,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
               : 'border-gray-300 text-gray-400 bg-[#770088]/10',
             dontChangeLanguage
               ? 'cursor-not-allowed opacity-75'
-              : 'cursor-pointer'
+              : 'cursor-pointer',
           )}
           onKeyDown={(e) => {
             // react on esc key
@@ -409,7 +408,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
           <svg
             className={clsx(
               'h-4 w-4 transition-transform',
-              isOpen ? 'rotate-180' : ''
+              isOpen ? 'rotate-180' : '',
             )}
             fill="none"
             stroke="currentColor"
@@ -441,7 +440,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
                 'transition-colors cursor-pointer font-semibold',
                 option.value === core.ws.settings.language
                   ? 'bg-[#770088]/20'
-                  : 'hover:bg-[#770088]/5'
+                  : 'hover:bg-[#770088]/5',
               )}
               onPointerDown={(e) => {
                 // prevent on blur action to close the dropdown before click handler is called
@@ -450,7 +449,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
               onClick={() => {
                 submitAnalyzeEvent(
                   core,
-                  'ev_click_ide_language-' + option.value
+                  'ev_click_ide_language-' + option.value,
                 )
                 if (core.ws.settings.mode == 'blocks') {
                   setMode(core, 'code')

@@ -1,1 +1,182 @@
-{"version":"v1","title":"Sprint","description":"Laufe zur Marke und lösche sie. Dein Programm besteht aus zwei Teilen:\n\n1. Nutze den Sensor `NichtIstMarke` mit der Kontrollstruktur `wiederhole solange`, um zur Marke zu laufen.\n2. Du stehst auf der Marke und kannst sie jetzt löschen.\n\n\n","tasks":[{"title":"Kurz","start":{"dimX":6,"dimY":1,"height":6,"karol":{"x":0,"y":0,"dir":"east"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"dimX":1,"dimY":1,"offsetX":4,"offsetY":0,"data":[[true]]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":6,"dimY":1,"height":6,"karol":{"x":0,"y":0,"dir":"east"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}},{"title":"Mittel","start":{"dimX":11,"dimY":1,"height":6,"karol":{"x":0,"y":0,"dir":"east"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"dimX":1,"dimY":1,"offsetX":7,"offsetY":0,"data":[[true]]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":11,"dimY":1,"height":6,"karol":{"x":0,"y":0,"dir":"south"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}},{"title":"Lang","start":{"dimX":31,"dimY":1,"height":6,"karol":{"x":0,"y":0,"dir":"east"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"dimX":1,"dimY":1,"offsetX":24,"offsetY":0,"data":[[true]]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":31,"dimY":1,"height":6,"karol":{"x":0,"y":0,"dir":"south"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}}],"lng":"de","questScript":"","language":"blocks","program":""}
+{
+  "version": "v1",
+  "title": "Sprint",
+  "description": "Laufe zur Marke und lösche sie. Dein Programm besteht aus zwei Teilen:\n\n1. Nutze den Sensor `NichtIstMarke` mit der Kontrollstruktur `wiederhole solange`, um zur Marke zu laufen.\n2. Du stehst auf der Marke und kannst sie jetzt löschen.\n\n\n",
+  "tasks": [
+    {
+      "title": "Kurz",
+      "start": {
+        "dimX": 6,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 6,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Mittel",
+      "start": {
+        "dimX": 11,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 7,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 11,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Lang",
+      "start": {
+        "dimX": 31,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 24,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 31,
+        "dimY": 1,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "questScript": "",
+  "language": "blocks",
+  "program": ""
+}

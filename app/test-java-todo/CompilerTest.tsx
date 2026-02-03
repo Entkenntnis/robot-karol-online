@@ -1,22 +1,21 @@
 'use client'
 
-import { Diagnostic } from '@codemirror/lint'
-import { Op } from '../../lib/state/types'
+import type { Diagnostic } from '@codemirror/lint'
+import type { Op } from '../../lib/state/types'
 import { useEffect, useState } from 'react'
 import { FaIcon } from '../../components/helper/FaIcon'
 import { faCheckCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Text } from '@codemirror/state'
 import { compileJava } from '../../lib/language/java/compileJava'
-import { CompilerTestCase } from './page'
+import type { CompilerTestCase } from './page'
 import { parser } from '../../lib/codemirror/javaParser/parser'
-import { useSearchParams } from 'next/navigation'
 import {
   cursorToAstNode,
   prettyPrintAstNode,
 } from '../../lib/language/helper/astNode'
 
 export function CompilerTest({ test }: { test: CompilerTestCase }) {
-  const searchParams = useSearchParams()
+  const searchParams = new URLSearchParams(window.location.search)
   const [run, setRun] = useState(false)
   const [output, setOutput] = useState<Op[] | undefined>(undefined)
   const [warnings, setWarnings] = useState<Diagnostic[] | undefined>(undefined)
@@ -56,7 +55,7 @@ export function CompilerTest({ test }: { test: CompilerTestCase }) {
   const expected = JSON.stringify(
     test.output ? test.output : test.warnings,
     null,
-    2
+    2,
   )
   const outputJSON = JSON.stringify(output, null, 2)
   const warningsJSON = JSON.stringify(warnings, null, 2)

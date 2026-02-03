@@ -3,7 +3,7 @@ import { FaIcon } from './FaIcon'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { View } from './View'
 import { useCore } from '../../lib/state/core'
-import { Heading } from '../../lib/state/types'
+import type { Heading } from '../../lib/state/types'
 import { AnimateInView } from './AnimateIntoView'
 import { getUserName } from '../../lib/storage/storage'
 
@@ -35,7 +35,7 @@ export function QuestIcon({
     <a
       className={clsx(
         'absolute block',
-        (solved || core.ws.page == 'analyze') && 'pt-5'
+        (solved || core.ws.page == 'analyze') && 'pt-5',
       )}
       style={{ left: `${x}px`, top: `${y}px` }}
       onClick={(e) => {
@@ -53,13 +53,13 @@ export function QuestIcon({
         <div
           className={clsx(
             'flex items-center flex-col w-[64px] cursor-pointer group pointer-events-none',
-            id >= 100 && 'mt-0.5'
+            id >= 100 && 'mt-0.5',
           )}
         >
           <button
             className={clsx(
               id < 100 && 'text-lg',
-              'bg-gray-100/70 px-1 py-0.5 rounded group-hover:bg-white/80 pointer-events-auto whitespace-nowrap -ml-2'
+              'bg-gray-100/70 px-1 py-0.5 rounded group-hover:bg-white/80 pointer-events-auto whitespace-nowrap -ml-2',
             )}
           >
             {title == 'Start' && getUserName()
@@ -83,7 +83,7 @@ export function QuestIcon({
                     {
                       x: 0,
                       y: 0,
-                      dir: dir == 'west' ? 'east' : dir ?? 'east',
+                      dir: dir == 'west' ? 'east' : (dir ?? 'east'),
                     },
                   ],
                   blocks: [[false]],
@@ -95,7 +95,7 @@ export function QuestIcon({
                 className={clsx(
                   'pointer-events-auto -mt-2',
                   dir == 'south' && '-translate-x-3',
-                  dir == 'west' && '-scale-x-100 -translate-x-3'
+                  dir == 'west' && '-scale-x-100 -translate-x-3',
                 )}
               />
               {python && (

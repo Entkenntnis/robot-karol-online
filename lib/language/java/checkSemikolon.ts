@@ -1,5 +1,5 @@
 import { CompilerOutput } from '../helper/CompilerOutput'
-import { AstNode } from '../helper/astNode'
+import type { AstNode } from '../helper/astNode'
 
 export function checkSemikolon(co: CompilerOutput, nodeToCheck: AstNode) {
   const children = nodeToCheck.children

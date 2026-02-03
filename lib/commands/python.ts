@@ -26,25 +26,57 @@ import { CanvasObjects } from '../state/canvas-objects'
 import { Instrument } from 'tone/build/esm/instrument/Instrument'
 import { chatDone, chatError, chatInput, chatOutput } from './chat'
 
+function supportsWorkerType() {
+  let supports = false
+  const tester = {
+    get type(): 'module' {
+      supports = true
+      return 'module' // Return valid type just in case
+    },
+  }
+
+  try {
+    // We use a blob URL to avoid a network request or script error.
+    // We terminate immediately, so no resources are actually used.
+    const worker = new Worker('blob://', tester)
+    worker.terminate()
+  } catch (e) {
+    // Some older browsers might throw if they don't support the 2nd arg
+    // or if the URL is invalid for them.
+  }
+
+  return supports
+}
+
 export function setupWorker(core: Core) {
   if (core.worker) {
     return
   }
+
+  if (!supportsWorkerType()) {
+    setTimeout(() => {
+      alert(
+        'Dein Browser ist zu alt und unterstützt leider keinen Python-Modus. Bitte aktualisiere deinen Browser.',
+      )
+    }, 444)
+  }
+
+  // check for support
 
   // console.log('Starte Setup der Worker ...')
 
   // scaffolding
   core.worker = {
     init: async () => {},
-    run: async (code: string) => {},
+    run: async (_: string) => {},
     reset: () => {},
-    input: (code: string) => {},
-    lint: (code: string) => {},
+    input: (_: string) => {},
+    lint: (_: string) => {},
     pause: () => {},
     resume: () => {},
     step: () => {},
-    addBreakpoint: (line: number) => {},
-    removeBreakpoint: (line: number) => {},
+    addBreakpoint: (_: number) => {},
+    removeBreakpoint: (_: number) => {},
     prepareBench: () => new Promise(() => {}),
     messageBench: () => new Promise(() => {}),
     mainWorker: null,
@@ -179,7 +211,7 @@ export function setupWorker(core: Core) {
         ui.errorMessages = [filterTraceback(event.data.error)]
       })
       const match = event.data.error.match(
-        /File "Programm\.py", line (\d+), in <module>/
+        /File "Programm\.py", line (\d+), in <module>/,
       )
       if (match) {
         const line = parseInt(match[1])
@@ -263,7 +295,7 @@ export function setupWorker(core: Core) {
         setExecutionMarker(
           core,
           event.data.line,
-          core.ws.vm.isDebugging ? 'debugging' : 'normal'
+          core.ws.vm.isDebugging ? 'debugging' : 'normal',
         )
       } catch (e) {}
     }
@@ -278,7 +310,7 @@ export function setupWorker(core: Core) {
       if (core.view?.current) {
         if (diagnostics === 'ok') {
           core.view.current.dispatch(
-            setDiagnostics(core.view.current.state, [])
+            setDiagnostics(core.view.current.state, []),
           )
 
           core.mutateWs((ws) => {
@@ -294,7 +326,7 @@ export function setupWorker(core: Core) {
               Math.max(offset - 1, 0)
             const to = Math.max(
               from + 1,
-              core.view.current.state.doc.line(end_lineno).from + end_offset
+              core.view.current.state.doc.line(end_lineno).from + end_offset,
             )
             core.view.current.dispatch(
               setDiagnostics(core.view.current.state, [
@@ -304,7 +336,7 @@ export function setupWorker(core: Core) {
                   severity: 'error',
                   message: msg,
                 },
-              ])
+              ]),
             )
             core.mutateWs(({ ui }) => {
               ui.state = 'error'
@@ -702,11 +734,11 @@ export function setupWorker(core: Core) {
     Atomics.store(
       core.worker.sharedArrayDelay,
       0,
-      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000)
+      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000),
     )
 
     const debugInterfaceBuffer = new SharedArrayBuffer(
-      Int32Array.BYTES_PER_ELEMENT * 129
+      Int32Array.BYTES_PER_ELEMENT * 129,
     )
     core.worker.debugInterface = new Int32Array(debugInterfaceBuffer)
 
@@ -891,7 +923,7 @@ export function setupWorker(core: Core) {
     Atomics.store(
       core.worker.sharedArrayDelay,
       0,
-      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000)
+      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000),
     )
 
     core.worker.mainWorker.postMessage({

@@ -115,7 +115,7 @@ export function TutorialModal() {
             <button
               className={clsx(
                 'text-gray-700 hover:text-black hover:underline',
-                'invisible'
+                'invisible',
               )}
               onClick={() => {
                 setPage((val) => val - 1)

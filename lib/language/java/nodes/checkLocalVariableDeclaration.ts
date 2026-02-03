@@ -1,9 +1,9 @@
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import { AstNode, prettyPrintAstNode } from '../../helper/astNode'
+import type { AstNode } from '../../helper/astNode'
 import { matchChildren } from '../../helper/matchChildren'
 import { checkSemikolon } from '../checkSemikolon'
 import { expressionNodes } from './compileExpression'
-import {
+import type {
   SemantikCheckContext,
   ValueType,
 } from './compileDeclarationAndStatements'
@@ -12,7 +12,7 @@ import { compileValExpression } from './compileValExpression'
 export function checkLocalVariableDeclaration(
   co: CompilerOutput,
   node: AstNode,
-  context: SemantikCheckContext
+  context: SemantikCheckContext,
 ) {
   checkSemikolon(co, node)
 
@@ -35,7 +35,7 @@ export function checkLocalVariableDeclaration(
   if (
     !matchChildren(
       ['Definition', 'AssignOp', expressionNodes],
-      declarator.children
+      declarator.children,
     )
   ) {
     co.warn(node, `Erwarte Zuweisung`)

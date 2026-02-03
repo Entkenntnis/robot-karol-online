@@ -1,6 +1,7 @@
 // .gitignore
 # next.js build output
 .next
+dist
 
 
 # Dependency directories

@@ -3,7 +3,7 @@ import { pythonKarolExamples } from '../data/pythonExamples'
 import { CanvasObjects } from '../state/canvas-objects'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
-import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
+import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
 import {
   getLearningPathScroll,
   getLng,
@@ -54,7 +54,7 @@ export async function hydrateFromHash(core: Core) {
 
   submitAnalyzeEvent(
     core,
-    'ev_show_hash_' + (rewrite ? rewrite : page.slice(0, 100))
+    'ev_show_hash_' + (rewrite ? rewrite : page.slice(0, 100)),
   )
 
   // PHASE 0: reset
@@ -244,7 +244,7 @@ export async function hydrateFromHash(core: Core) {
     submitAnalyzeEvent(
       core,
       'ev_show_robotImage_' +
-        (decodedData.length > 50 ? decodedData.slice(-50) : decodedData)
+        (decodedData.length > 50 ? decodedData.slice(-50) : decodedData),
     )
     history.replaceState(null, '', '/')
     core.mutateWs((ws) => {
@@ -327,7 +327,7 @@ export async function hydrateFromHash(core: Core) {
       const response = await fetch(url)
       const text = await response.text()
       const obj = JSON.parse(
-        text ?? '{}'
+        text ?? '{}',
       ) as QuestSerialFormat_MUST_STAY_COMPATIBLE
       if (obj.version !== 'v1') {
         throw 'bad format'

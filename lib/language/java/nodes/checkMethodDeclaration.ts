@@ -1,14 +1,14 @@
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import type { AstNode } from '../../helper/astNode'
 import {
-  SemantikCheckContext,
+  type SemantikCheckContext,
   compileDeclarationAndStatements,
 } from './compileDeclarationAndStatements'
 
 export function checkMethodDeclaration(
   co: CompilerOutput,
   node: AstNode,
-  context: SemantikCheckContext
+  context: SemantikCheckContext,
 ) {
   // already checked by toplevel
   node.children

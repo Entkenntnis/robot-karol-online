@@ -2,7 +2,7 @@
 
 import { questList } from '../data/overview'
 import { Core } from '../state/core'
-import {
+import type {
   EditorSessionSnapshot,
   KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT,
   QuestSessionData_MUST_STAY_COMPATIBLE,
@@ -233,14 +233,14 @@ export function saveEditorSnapshot(core: Core) {
   }
   sessionStorage.setItem(
     'robot_karol_online_session_snapshot',
-    JSON.stringify(snapshot)
+    JSON.stringify(snapshot),
   )
 }
 
 export function restoreEditorSnapshot(core: Core) {
   try {
     const snapshotRaw = sessionStorage.getItem(
-      'robot_karol_online_session_snapshot'
+      'robot_karol_online_session_snapshot',
     )
     if (snapshotRaw) {
       const snapshot = JSON.parse(snapshotRaw) as EditorSessionSnapshot
@@ -268,7 +268,7 @@ export function deleteEditorSnapshot() {
 export function setOverviewScroll(scroll: number) {
   sessionStorage.setItem(
     'robot_karol_online_overview_scroll',
-    scroll.toString()
+    scroll.toString(),
   )
 }
 export function getOverviewScroll() {
@@ -282,13 +282,13 @@ export function getOverviewScroll() {
 export function setLearningPathScroll(scroll: number) {
   sessionStorage.setItem(
     'robot_karol_online_learning_path_scroll',
-    scroll.toString()
+    scroll.toString(),
   )
 }
 
 export function getLearningPathScroll() {
   const scroll = sessionStorage.getItem(
-    'robot_karol_online_learning_path_scroll'
+    'robot_karol_online_learning_path_scroll',
   )
   if (scroll) {
     return parseInt(scroll)
@@ -318,17 +318,17 @@ export function getLockToKarolCode() {
 
 export function setPreferredQuestSettings(
   mode: Settings['mode'],
-  language: Settings['language']
+  language: Settings['language'],
 ) {
   sessionStorage.setItem(
     'robot_karol_online_preferred_quest_settings',
-    JSON.stringify({ mode, language })
+    JSON.stringify({ mode, language }),
   )
 }
 
 export function restorePreferredQuestSettings(core: Core) {
   const raw = sessionStorage.getItem(
-    'robot_karol_online_preferred_quest_settings'
+    'robot_karol_online_preferred_quest_settings',
   )
   if (raw) {
     const { mode, language } = JSON.parse(raw)
@@ -384,7 +384,7 @@ export function getKarolmaniaProgress(): KarolmaniaProgress_WILL_BE_STORED_ON_CL
 
   try {
     return JSON.parse(
-      progressData
+      progressData,
     ) as KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT
   } catch (e) {
     // If there's an error parsing the data, return a new empty object
@@ -393,14 +393,14 @@ export function getKarolmaniaProgress(): KarolmaniaProgress_WILL_BE_STORED_ON_CL
 }
 
 export function setKarolmaniaProgress(
-  progress: KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT
+  progress: KarolmaniaProgress_WILL_BE_STORED_ON_CLIENT,
 ) {
   localStorage.setItem(karolmaniaProgressKey, JSON.stringify(progress))
 }
 
 export function saveKarolmaniaHighScore(
   levelId: number,
-  timeInSeconds: number
+  timeInSeconds: number,
 ): boolean {
   const progress = getKarolmaniaProgress()
 

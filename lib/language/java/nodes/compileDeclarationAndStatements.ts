@@ -1,6 +1,6 @@
-import { Condition, CallOp, Op } from '../../../state/types'
+import type { Condition, CallOp, Op } from '../../../state/types'
 import { CompilerOutput } from '../../helper/CompilerOutput'
-import { AstNode } from '../../helper/astNode'
+import type { AstNode } from '../../helper/astNode'
 import { checkSemikolon } from '../checkSemikolon'
 import { compileExpression } from './compileExpression'
 import { checkBlock } from './checkBlock'
@@ -10,6 +10,8 @@ import { checkLocalVariableDeclaration } from './checkLocalVariableDeclaration'
 import { checkMethodDeclaration } from './checkMethodDeclaration'
 import { checkWhileStatement } from './checkWhileStatement'
 import { compileValExpression } from './compileValExpression'
+import { checkBreakStatement } from './checkBreakStatement'
+import { checkContinueStatement } from './checkContinueStatement'
 
 interface Parameter {
   type: 'int'
@@ -25,9 +27,15 @@ interface MethodContext {
 
 export type MethodContexts = Record<string, MethodContext>
 
+export interface LoopControlContext {
+  breakJumps: { type: 'jump'; target: number }[]
+  continueJumps: { type: 'jump'; target: number }[]
+}
+
 export interface SemantikCheckContext {
   robotName: string
   variablesInScope: Map<string, ValueType>
+  loopStack: LoopControlContext[]
   expectCondition?: boolean
   condition?: Condition
   availableMethods: Map<string, string[]>
@@ -47,7 +55,7 @@ export interface MethodSignature {
 export function compileDeclarationAndStatements(
   co: CompilerOutput,
   node: AstNode,
-  context: SemantikCheckContext
+  context: SemantikCheckContext,
 ) {
   switch (node.name) {
     case 'ReturnStatement': {
@@ -81,7 +89,7 @@ export function compileDeclarationAndStatements(
           }
           // still compile expression to keep parser progress and pop it
           context.expectVoid = false
-          const t = compileExpression(co, exprNode, context)
+          compileExpression(co, exprNode, context)
         }
         co.appendOutput({ type: 'return' })
       } else {
@@ -129,6 +137,16 @@ export function compileDeclarationAndStatements(
     }
     case 'LocalVariableDeclaration': {
       checkLocalVariableDeclaration(co, node, context)
+      return
+    }
+    case 'BreakStatement': {
+      checkBreakStatement(co, node, context)
+      checkSemikolon(co, node)
+      return
+    }
+    case 'ContinueStatement': {
+      checkContinueStatement(co, node, context)
+      checkSemikolon(co, node)
       return
     }
     case ';': {

@@ -23,8 +23,6 @@ export function addMessage(core: Core, text: string) {
 }
 
 export function addConsoleMessage(core: Core, text: string) {
-  const ts = Date.now()
-
   // =========================================
   // special handler for dance, dance
   const sharedId =

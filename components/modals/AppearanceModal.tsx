@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
 import { View } from '../helper/View'
-import { Heading } from '../../lib/state/types'
+import type { Heading } from '../../lib/state/types'
 import { setRobotImage } from '../../lib/storage/storage'
 import { FaIcon } from '../helper/FaIcon'
 import {
@@ -68,7 +68,9 @@ export function AppearanceModal() {
 
   // Unterstützt sowohl Maus- als auch Touch-Events.
   const getCanvasCoordinates = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    e:
+      | React.MouseEvent<HTMLCanvasElement>
+      | React.TouchEvent<HTMLCanvasElement>,
   ) => {
     const canvas = canvasRef.current
     if (!canvas) return { x: -1, y: -1 }
@@ -182,7 +184,7 @@ export function AppearanceModal() {
     toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void,
     from: { x: number; y: number },
     to: { x: number; y: number },
-    offset: number
+    offset: number,
   ) => {
     ctx.save()
     const distance = Math.sqrt((to.x - from.x) ** 2 + (to.y - from.y) ** 2) // a global distance function might be useful
@@ -194,7 +196,7 @@ export function AppearanceModal() {
         // vector normalization could also be a global function
         ctx,
         Math.round(from.x + (d * (to.x - from.x)) / distance - offset),
-        Math.round(from.y + (d * (to.y - from.y)) / distance - offset)
+        Math.round(from.y + (d * (to.y - from.y)) / distance - offset),
       )
     }
     toolCall(ctx, to.x - offset, to.y - offset)
@@ -206,7 +208,7 @@ export function AppearanceModal() {
     toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void,
     from: { x: number; y: number },
     to: { x: number; y: number },
-    offset: number
+    offset: number,
   ) => {
     ctx.save()
     drawLineTo(ctx, toolCall, from, { x: from.x, y: to.y }, offset)
@@ -221,7 +223,7 @@ export function AppearanceModal() {
     toolCall: (ctx: CanvasRenderingContext2D, x: number, y: number) => void,
     from: { x: number; y: number },
     to: { x: number; y: number },
-    offset: number
+    offset: number,
   ) => {
     ctx.save()
     let a = (to.x - from.x) / 2
@@ -273,7 +275,7 @@ export function AppearanceModal() {
           toolCall,
           lastDrawingPosition.current,
           { x, y },
-          offset
+          offset,
         )
         previewCtx.restore()
       } else {
@@ -289,7 +291,7 @@ export function AppearanceModal() {
           toolCall,
           lastDrawingPosition.current,
           { x, y },
-          offset
+          offset,
         )
         previewCtx.restore()
       } else {
@@ -305,7 +307,7 @@ export function AppearanceModal() {
           toolCall,
           lastDrawingPosition.current,
           { x, y },
-          offset
+          offset,
         )
         previewCtx.restore()
       } else {
@@ -353,7 +355,7 @@ export function AppearanceModal() {
           toolCall,
           lastDrawingPosition.current,
           { x, y },
-          offset
+          offset,
         )
         lastDrawingPosition.current = { x, y }
       } else if (tool === 'ellipse') {
@@ -363,7 +365,7 @@ export function AppearanceModal() {
           toolCall,
           lastDrawingPosition.current,
           { x, y },
-          offset
+          offset,
         )
         lastDrawingPosition.current = { x, y }
       }
@@ -437,7 +439,7 @@ export function AppearanceModal() {
   // Gemeinsame Logik für das Beenden des Zeichnens.
   const handleEnd = (
     e: React.PointerEvent<HTMLCanvasElement>,
-    clear: boolean
+    clear: boolean,
   ) => {
     endDraw(e)
     setIsDrawing(false)
@@ -777,7 +779,7 @@ export function AppearanceModal() {
                   setTimeout(() => {
                     window.open(
                       'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
-                      '_self'
+                      '_self',
                     )
                   }, 100)
                 }}
@@ -796,7 +798,7 @@ export function AppearanceModal() {
                     const link = `${window.location.origin}/#ROBOT:${dataUrl}`
                     navigator.clipboard.writeText(link).then(() => {
                       alert(
-                        'Link kopiert! Öffne den Link in einem Browser, um deine Figur zu laden.'
+                        'Link kopiert! Öffne den Link in einem Browser, um deine Figur zu laden.',
                       )
                     })
                   }
@@ -822,15 +824,15 @@ export function AppearanceModal() {
                           'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({ content: link }),
-                      }
+                      },
                     )
                     const shortUrl = await rawResponse.text()
 
                     window.open(
                       `https://docs.google.com/forms/d/e/1FAIpQLSfPGqtxcktRCgOhLdvTSy-OpseGX1h7zHxrtlvj2cD3zPHMiQ/viewform?usp=pp_url&entry.898288828=${encodeURIComponent(
-                        shortUrl
+                        shortUrl,
                       )}`,
-                      '_blank'
+                      '_blank',
                     )
                   }
                 }}
@@ -855,7 +857,7 @@ export function AppearanceModal() {
                       }
                       submitAnalyzeEvent(
                         core,
-                        'ev_click_appearance_selectBaseFigure_' + value
+                        'ev_click_appearance_selectBaseFigure_' + value,
                       )
                       handleReset()
                     }}

@@ -5,7 +5,7 @@ import { closeModal } from '../../lib/commands/modal'
 import { questList } from '../../lib/data/overview'
 import { questData as QuestDataDe } from '../../lib/data/quests'
 import { useCore } from '../../lib/state/core'
-import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
+import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
 import { questDataEn } from '../../lib/data/questsEn'
 import { setMode } from '../../lib/commands/mode'
 
@@ -37,11 +37,11 @@ export function RemixModal() {
                 if (code.length == 4) {
                   try {
                     const res = await fetch(
-                      `${backend.questEndpoint}/${code.toUpperCase()}`
+                      `${backend.questEndpoint}/${code.toUpperCase()}`,
                     )
                     const text = await res.text()
                     const obj = JSON.parse(
-                      text ?? '{}'
+                      text ?? '{}',
                     ) as QuestSerialFormat_MUST_STAY_COMPATIBLE
                     if (obj.version !== 'v1') {
                       throw 'bad format'
@@ -145,7 +145,7 @@ export function RemixModal() {
                 try {
                   const text = await file.text()
                   const obj = JSON.parse(
-                    text
+                    text,
                   ) as QuestSerialFormat_MUST_STAY_COMPATIBLE
                   if (obj.version !== 'v1') {
                     throw 'bad format'

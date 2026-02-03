@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 
-import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
+import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
 import { submit_event } from '../../lib/helper/submit'
 
 interface DataEntry {
@@ -61,11 +61,10 @@ export function InspirationOld() {
 }
 
 function RandomElement({ data }: { data: DataEntry }) {
-  const core = useCore()
   const [selected, setSelected] = useState(0)
 
   const quest = JSON.parse(
-    data.content
+    data.content,
   ) as QuestSerialFormat_MUST_STAY_COMPATIBLE
   const text = data.publicId
 
@@ -138,8 +137,8 @@ function RandomElement({ data }: { data: DataEntry }) {
           {noDesc
             ? 'keine Beschreibung'
             : quest.description.length > 111
-            ? quest.description.slice(0, 110) + ' …'
-            : quest.description}
+              ? quest.description.slice(0, 110) + ' …'
+              : quest.description}
         </p>
         <div className="card-actions justify-center mt-2">
           <button

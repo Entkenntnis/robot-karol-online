@@ -1,12 +1,11 @@
 {
   "name": "robot-karol-online",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "npx serve ./out -c ../serve.json",
-    "lint": "next lint",
-    "analyze": "cross-env ANALYZE=true next build",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "start": "vite preview",
     "grammar": "lezer-generator ./lib/codemirror/parser/karol.grammar -o ./lib/codemirror/parser/parser.js",
     "grammar-java": "lezer-generator ./lib/codemirror/javaParser/java.grammar -o ./lib/codemirror/javaParser/parser.js",
     "grammar-python": "lezer-generator ./lib/codemirror/pythonParser/python.grammar -o ./lib/codemirror/pythonParser/parser.js",
@@ -34,7 +33,6 @@
     "immer": "^10.0.0",
     "lodash.throttle": "^4.1.1",
     "markdown-to-jsx": "^7.7.6",
-    "next": "^15.3.2",
     "pullstate": "^2.0.0-pre.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -45,20 +43,21 @@
   },
   "devDependencies": {
     "@lezer/generator": "^1.7.0",
-    "@next/bundle-analyzer": "^15.0.0",
     "@tailwindcss/typography": "^0.5.16",
     "@tauri-apps/cli": "^2.4.0",
     "@types/canvas-confetti": "^1.6.0",
-    "@types/node": "^18.0.0",
+    "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
     "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
-    "eslint": "^9.0.0",
-    "eslint-config-next": "^15.0.0",
     "nodemon": "^3.1.10",
     "postcss": "^8.4.49",
+    "prettier": "3.8.1",
     "tailwindcss": "^3.4.15",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vite": "^7.3.1"
   },
   "overrides": {
     "jsdom": "npm:dry-uninstall@0.3.0"

@@ -1,6 +1,6 @@
 import { Tree } from '@lezer/common'
 import { parser } from '../../codemirror/parser/parser'
-import { AstNode, cursorToAstNode } from '../helper/astNode'
+import { type AstNode, cursorToAstNode } from '../helper/astNode'
 import { Text } from '@codemirror/state'
 
 export function robotKarol2Python(code: string) {
@@ -88,13 +88,13 @@ export function robotKarol2Python(code: string) {
           moveCommentsOutOfHead(node, 3)
           const condition = node.children[1].text()
           const elseIndex = node.children.findIndex(
-            (child) => child.name == 'ElseKey'
+            (child) => child.name == 'ElseKey',
           )
           pad()
           output += `if ${toKarol(condition)}:\n`
           const innerCode1 = nodes2Code(
             node.children.slice(3, elseIndex),
-            offset + 1
+            offset + 1,
           )
           if (innerCode1) {
             output += innerCode1 + '\n'
@@ -106,7 +106,7 @@ export function robotKarol2Python(code: string) {
           output += 'else:\n'
           const innerCode2 = nodes2Code(
             node.children.slice(elseIndex + 1, -1),
-            offset + 1
+            offset + 1,
           )
           if (innerCode2) {
             output += innerCode2 + '\n'

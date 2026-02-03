@@ -1,8 +1,7 @@
-import { set } from 'date-fns'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
-import { Condition, Op } from '../state/types'
+import type { Condition, Op } from '../state/types'
 import {
   forward,
   left,
@@ -58,7 +57,7 @@ export function run(core: Core) {
 
 function pulse(
   core: Core,
-  generator: ReturnType<typeof executeProgramAsGenerator>
+  generator: ReturnType<typeof executeProgramAsGenerator>,
 ) {
   if (core.ws.ui.state !== 'running' || !core.ws.vm.startTime) {
     return // program has been terminated or aborted
@@ -126,8 +125,8 @@ function markPC(core: Core, mode: MarkerMode) {
         mode === 'lastExecuted'
           ? core.ws.vm.pc - 1
           : mode === 'currentlyExecuting'
-          ? core.ws.vm.pc
-          : core.ws.vm.callstack[core.ws.vm.callstack.length - 1] - 1
+            ? core.ws.vm.pc
+            : core.ws.vm.callstack[core.ws.vm.callstack.length - 1] - 1
       ]
     if (op?.line) {
       const line = op.line
@@ -138,7 +137,7 @@ function markPC(core: Core, mode: MarkerMode) {
       setExecutionMarker(
         core,
         line,
-        core.ws.vm.isDebugging ? 'debugging' : 'normal'
+        core.ws.vm.isDebugging ? 'debugging' : 'normal',
       )
     }
   }
@@ -543,18 +542,18 @@ export function endExecution(core: Core) {
           acc +
           row.reduce(
             (rowAcc, cell, x) => rowAcc + Math.abs(cell - traget.bricks[y][x]),
-            0
+            0,
           ),
-        0
+        0,
       )
       const marksDelta = core.ws.world.marks.reduce(
         (acc, row, y) =>
           acc +
           row.reduce(
             (rowAcc, cell, x) => rowAcc + (cell !== traget.marks[y][x] ? 1 : 0),
-            0
+            0,
           ),
-        0
+        0,
       )
 
       // AI GENERATED =====================

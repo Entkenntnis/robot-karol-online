@@ -1,11 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { FaIcon } from './FaIcon'
-import {
-  faBook,
-  faCheck,
-  faCopy,
-  faExternalLink,
-} from '@fortawesome/free-solid-svg-icons'
+import { faBook, faCheck, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { indentUnit, syntaxHighlighting } from '@codemirror/language'
@@ -88,169 +83,169 @@ export function Cheatsheet({ language }: CheatsheetProps) {
           },
         ]
       : language == 'python-pro'
-      ? [
-          {
-            category: 'Initialisierung',
-            items: ['karol = Robot()'],
-          },
-          {
-            category: 'Befehle',
-            items: ['karol.linksDrehen()', 'karol.hinlegen(4)'],
-          },
+        ? [
+            {
+              category: 'Initialisierung',
+              items: ['karol = Robot()'],
+            },
+            {
+              category: 'Befehle',
+              items: ['karol.linksDrehen()', 'karol.hinlegen(4)'],
+            },
 
-          {
-            category: 'Wiederholungen',
-            items: [
-              'for i in range(5):\n    karol.schritt()\n    karol.markeSetzen()',
-              'while karol.istZiegel():\n    karol.aufheben()',
-            ],
-          },
-          {
-            category: 'Bedingte Anweisungen',
-            items: [
-              'if karol.istMarke():\n    karol.markeLöschen()',
-              'if karol.istWand():\n    karol.linksDrehen()\nelse:\n    karol.schritt()',
-              'if karol.istZiegel(3):\n   karol.rechtsDrehen()\nelif karol.istZiegel(2):\n    karol.rechtsDrehen(2)\nelse:\n    karol.schritt()',
-            ],
-          },
-          {
-            category: 'Funktionen',
-            items: [
-              'def umdrehen():\n    karol.linksDrehen(2)\n\nkarol.schritt()\numdrehen()',
-            ],
-          },
-          {
-            category: 'Variablen',
-            items: [
-              'summe = 0\nwhile not karol.istWand():\n    karol.schritt\n    summe += 1\nprint(summe)',
-            ],
-          },
-          {
-            category: 'Ein-/Ausgabe',
-            items: ['name = input("Dein Name?")\nprint(f"Hallo {name}")'],
-          },
-          {
-            category: 'Zufall',
-            items: [
-              'import random\n\nn = random.randint(1, 4)\nkarol.hinlegen(n)',
-            ],
-          },
-          {
-            category: 'Kommentar',
-            items: ['# Das ist ein Kommentar'],
-          },
-        ]
-      : language == 'java'
-      ? [
-          {
-            category: 'Befehle',
-            items: [
-              'karol.schritt();\nkarol.schritt(3);\nkarol.linksDrehen();\nkarol.linksDrehen(2);\nkarol.rechtsDrehen();\nkarol.rechtsDrehen(2);',
-              'karol.hinlegen();\nkarol.hinlegen(5);\nkarol.aufheben();\nkarol.aufheben(3);\nkarol.markeSetzen();\nkarol.markeLöschen();\nkarol.beenden();',
-            ],
-          },
-          {
-            category: 'Schleifen',
-            items: [
-              'for (int i = 0; i < 4; i++) {\n    karol.schritt();\n}',
-              'while (karol.istZiegel()) {\n    karol.aufheben();\n}',
-            ],
-          },
-          {
-            category: 'Bedingte Anweisungen',
-            items: [
-              'if (karol.nichtIstMarke()) {\n    karol.markeSetzen();\n}',
-              'if (karol.istZiegel()) {\n    karol.hinlegen();\n} else {\n    karol.schritt();\n}',
-            ],
-          },
-          {
-            category: 'Bedingungen',
-            items: [
-              'karol.istWand()\nkarol.nichtIstWand()\nkarol.istMarke()\nkarol.nichtIstMarke()\nkarol.istZiegel()\nkarol.nichtIstZiegel()\nkarol.istZiegel(2)\nkarol.nichtIstZiegel(2)',
-              'karol.istNorden()\nkarol.nichtIstNorden()\nkarol.istOsten()\nkarol.nichtIstOsten()\nkarol.istSüden()\nkarol.nichtIstSüden()\nkarol.istWesten()\nkarol.nichtIstWesten()',
-            ],
-          },
-          {
-            category: 'Methoden',
-            items: [
-              'void umdrehen() {\n    karol.linksDrehen(2);\n}\n\nkarol.schritt();\numdrehen();',
-            ],
-          },
-          {
-            category: 'Variablen',
-            items: [
-              'int schritte = 0;\nwhile (!karol.istWand()) {\n    karol.schritt();\n    schritte++;\n}',
-            ],
-          },
-          {
-            category: 'Kommentare',
-            items: [
-              '// einzeiliger Kommentar',
-              '/* Das ist ein\n   mehrzeiliger Kommentar */',
-            ],
-          },
-        ]
-      : [
-          {
-            category: 'Befehle',
-            items: [
-              'Schritt\nSchritt(3)\nLinksDrehen\nLinksDrehen(2)\nRechtsDrehen\nRechtsDrehen(2)',
-              'Hinlegen\nHinlegen(5)\nAufheben\nAufheben(3)\nMarkeSetzen\nMarkeLöschen\nBeenden',
-            ],
-          },
+            {
+              category: 'Wiederholungen',
+              items: [
+                'for i in range(5):\n    karol.schritt()\n    karol.markeSetzen()',
+                'while karol.istZiegel():\n    karol.aufheben()',
+              ],
+            },
+            {
+              category: 'Bedingte Anweisungen',
+              items: [
+                'if karol.istMarke():\n    karol.markeLöschen()',
+                'if karol.istWand():\n    karol.linksDrehen()\nelse:\n    karol.schritt()',
+                'if karol.istZiegel(3):\n   karol.rechtsDrehen()\nelif karol.istZiegel(2):\n    karol.rechtsDrehen(2)\nelse:\n    karol.schritt()',
+              ],
+            },
+            {
+              category: 'Funktionen',
+              items: [
+                'def umdrehen():\n    karol.linksDrehen(2)\n\nkarol.schritt()\numdrehen()',
+              ],
+            },
+            {
+              category: 'Variablen',
+              items: [
+                'summe = 0\nwhile not karol.istWand():\n    karol.schritt\n    summe += 1\nprint(summe)',
+              ],
+            },
+            {
+              category: 'Ein-/Ausgabe',
+              items: ['name = input("Dein Name?")\nprint(f"Hallo {name}")'],
+            },
+            {
+              category: 'Zufall',
+              items: [
+                'import random\n\nn = random.randint(1, 4)\nkarol.hinlegen(n)',
+              ],
+            },
+            {
+              category: 'Kommentar',
+              items: ['# Das ist ein Kommentar'],
+            },
+          ]
+        : language == 'java'
+          ? [
+              {
+                category: 'Befehle',
+                items: [
+                  'karol.schritt();\nkarol.schritt(3);\nkarol.linksDrehen();\nkarol.linksDrehen(2);\nkarol.rechtsDrehen();\nkarol.rechtsDrehen(2);',
+                  'karol.hinlegen();\nkarol.hinlegen(5);\nkarol.aufheben();\nkarol.aufheben(3);\nkarol.markeSetzen();\nkarol.markeLöschen();\nkarol.beenden();',
+                ],
+              },
+              {
+                category: 'Schleifen',
+                items: [
+                  'for (int i = 0; i < 4; i++) {\n    karol.schritt();\n}',
+                  'while (karol.istZiegel()) {\n    karol.aufheben();\n}',
+                ],
+              },
+              {
+                category: 'Bedingte Anweisungen',
+                items: [
+                  'if (karol.nichtIstMarke()) {\n    karol.markeSetzen();\n}',
+                  'if (karol.istZiegel()) {\n    karol.hinlegen();\n} else {\n    karol.schritt();\n}',
+                ],
+              },
+              {
+                category: 'Bedingungen',
+                items: [
+                  'karol.istWand()\nkarol.nichtIstWand()\nkarol.istMarke()\nkarol.nichtIstMarke()\nkarol.istZiegel()\nkarol.nichtIstZiegel()\nkarol.istZiegel(2)\nkarol.nichtIstZiegel(2)',
+                  'karol.istNorden()\nkarol.nichtIstNorden()\nkarol.istOsten()\nkarol.nichtIstOsten()\nkarol.istSüden()\nkarol.nichtIstSüden()\nkarol.istWesten()\nkarol.nichtIstWesten()',
+                ],
+              },
+              {
+                category: 'Methoden',
+                items: [
+                  'void umdrehen() {\n    karol.linksDrehen(2);\n}\n\nkarol.schritt();\numdrehen();',
+                ],
+              },
+              {
+                category: 'Variablen',
+                items: [
+                  'int schritte = 0;\nwhile (!karol.istWand()) {\n    karol.schritt();\n    schritte++;\n}',
+                ],
+              },
+              {
+                category: 'Kommentare',
+                items: [
+                  '// einzeiliger Kommentar',
+                  '/* Das ist ein\n   mehrzeiliger Kommentar */',
+                ],
+              },
+            ]
+          : [
+              {
+                category: 'Befehle',
+                items: [
+                  'Schritt\nSchritt(3)\nLinksDrehen\nLinksDrehen(2)\nRechtsDrehen\nRechtsDrehen(2)',
+                  'Hinlegen\nHinlegen(5)\nAufheben\nAufheben(3)\nMarkeSetzen\nMarkeLöschen\nBeenden',
+                ],
+              },
 
-          {
-            category: 'Wiederholungen',
-            items: [
-              'wiederhole 4 mal\n  Schritt\nendewiederhole',
-              'wiederhole solange IstZiegel\n  Aufheben\nendewiederhole',
-              'wiederhole immer\n  LinksDrehen\nendewiederhole',
-            ],
-          },
-          {
-            category: 'Bedingte Anweisungen',
-            items: [
-              'wenn NichtIstMarke dann\n  MarkeSetzen\nendewenn',
-              'wenn IstZiegel dann\n  Hinlegen\nsonst\n Schritt\nendewenn',
-            ],
-          },
-          {
-            category: 'Bedingungen',
-            items: [
-              'IstWand\nNichtIstWand\nIstMarke\nNichtIstMarke\nIstZiegel\nNichtIstZiegel\nIstZiegel(2)\nNichtIstZiegel(2)',
-              'IstNorden\nNichtIstNorden\nIstOsten\nNichtIstOsten\nIstSüden\nNichtIstSüden\nIstWesten\nNichtIstWesten',
-            ],
-          },
-          {
-            category: 'Eigene Anweisungen',
-            items: [
-              'Anweisung Umdrehen\n  LinksDrehen(2)\nendeAnweisung\n\nSchritt\nUmdrehen',
-            ],
-          },
-          {
-            category: 'Kommentare',
-            items: [
-              '{ Das ist ein Kommentar }',
-              '// Das ist auch ein Kommentar',
-            ],
-          },
-          {
-            category: 'Objekt-Schreibweise (optional)',
-            items: [
-              'wenn karol.istWand() dann\n  karol.linksDrehen()\nendewenn',
-            ],
-          },
-          {
-            category: 'Sternchen-Schreibweise (optional)',
-            items: ['wiederhole 10 mal\n  Hinlegen\n*wiederhole'],
-          },
-        ]
+              {
+                category: 'Wiederholungen',
+                items: [
+                  'wiederhole 4 mal\n  Schritt\nendewiederhole',
+                  'wiederhole solange IstZiegel\n  Aufheben\nendewiederhole',
+                  'wiederhole immer\n  LinksDrehen\nendewiederhole',
+                ],
+              },
+              {
+                category: 'Bedingte Anweisungen',
+                items: [
+                  'wenn NichtIstMarke dann\n  MarkeSetzen\nendewenn',
+                  'wenn IstZiegel dann\n  Hinlegen\nsonst\n Schritt\nendewenn',
+                ],
+              },
+              {
+                category: 'Bedingungen',
+                items: [
+                  'IstWand\nNichtIstWand\nIstMarke\nNichtIstMarke\nIstZiegel\nNichtIstZiegel\nIstZiegel(2)\nNichtIstZiegel(2)',
+                  'IstNorden\nNichtIstNorden\nIstOsten\nNichtIstOsten\nIstSüden\nNichtIstSüden\nIstWesten\nNichtIstWesten',
+                ],
+              },
+              {
+                category: 'Eigene Anweisungen',
+                items: [
+                  'Anweisung Umdrehen\n  LinksDrehen(2)\nendeAnweisung\n\nSchritt\nUmdrehen',
+                ],
+              },
+              {
+                category: 'Kommentare',
+                items: [
+                  '{ Das ist ein Kommentar }',
+                  '// Das ist auch ein Kommentar',
+                ],
+              },
+              {
+                category: 'Objekt-Schreibweise (optional)',
+                items: [
+                  'wenn karol.istWand() dann\n  karol.linksDrehen()\nendewenn',
+                ],
+              },
+              {
+                category: 'Sternchen-Schreibweise (optional)',
+                items: ['wiederhole 10 mal\n  Hinlegen\n*wiederhole'],
+              },
+            ]
 
   return (
     <div
       className={clsx(
         'bg-gray-50 p-4 border-r border-gray-200  overflow-y-auto flex-shrink-0',
-        language == 'python-pro' ? 'w-[300px]' : 'w-[320px]'
+        language == 'python-pro' ? 'w-[300px]' : 'w-[320px]',
       )}
     >
       <div className="flex items-center gap-2 mb-6">
@@ -259,10 +254,10 @@ export function Cheatsheet({ language }: CheatsheetProps) {
           {language == 'python-chat'
             ? 'Python'
             : language == 'python-pro'
-            ? 'Python'
-            : language == 'java'
-            ? 'Karol Java'
-            : 'Karol Code'}{' '}
+              ? 'Python'
+              : language == 'java'
+                ? 'Karol Java'
+                : 'Karol Code'}{' '}
           Spickzettel
         </h1>
       </div>
@@ -325,8 +320,8 @@ export function CodeBox({
             language.startsWith('python-')
               ? pythonLanguage
               : language == 'java'
-              ? javaLanguage
-              : exampleLanguage('de'),
+                ? javaLanguage
+                : exampleLanguage('de'),
             EditorView.theme({
               '&': {
                 outline: 'none !important',

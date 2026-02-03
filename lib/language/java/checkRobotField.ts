@@ -1,15 +1,15 @@
 import { CompilerOutput } from '../helper/CompilerOutput'
-import { AstNode } from '../helper/astNode'
+import type { AstNode } from '../helper/astNode'
 import { checkSemikolon } from './checkSemikolon'
 import { warnForUnexpectedNodes } from '../helper/warnForUnexpectedNodes'
 
 export function checkRobotField(
   co: CompilerOutput,
-  robotField: AstNode
+  robotField: AstNode,
 ): string | null {
   // what are the most important pieces?
   const variableDeclaration = robotField.children.find(
-    (child) => child.name == 'VariableDeclarator'
+    (child) => child.name == 'VariableDeclarator',
   )
   if (!variableDeclaration) {
     co.warn(robotField, 'Erwarte Name für Attribut')
@@ -17,7 +17,7 @@ export function checkRobotField(
   }
   // extract name from definition
   const definition = variableDeclaration.children.find(
-    (child) => child.name == 'Definition'
+    (child) => child.name == 'Definition',
   )
   const name = definition?.text()
   if (!definition || !name) {
@@ -25,17 +25,17 @@ export function checkRobotField(
     return null
   }
   const assignOp = variableDeclaration.children.find(
-    (child) => child.name == 'AssignOp' && child.text() == '='
+    (child) => child.name == 'AssignOp' && child.text() == '=',
   )
   if (!assignOp) {
     co.warn(
       definition,
-      `Erwarte Initialisierung des Attributes '${definition.text()}'`
+      `Erwarte Initialisierung des Attributes '${definition.text()}'`,
     )
     return name
   }
   const objectCreationExpression = variableDeclaration.children.find(
-    (child) => child.name == 'ObjectCreationExpression'
+    (child) => child.name == 'ObjectCreationExpression',
   )
   if (
     !objectCreationExpression ||
@@ -55,7 +55,7 @@ export function checkRobotField(
     (child) =>
       child !== assignOp &&
       child !== objectCreationExpression &&
-      child !== definition
+      child !== definition,
   )
 
   warnForUnexpectedNodes(co, unwantedInVariableDeclarator)
@@ -70,8 +70,8 @@ export function checkRobotField(
       (child) =>
         child !== variableDeclaration &&
         child.name !== 'TypeName' &&
-        child.name !== ';'
-    )
+        child.name !== ';',
+    ),
   )
 
   // done

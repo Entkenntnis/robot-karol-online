@@ -99,10 +99,10 @@ export function Output() {
         }
       : undefined
     : hasPreview && core.ws.ui.showPreview
-    ? {
-        world: core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!,
-      }
-    : undefined
+      ? {
+          world: core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!,
+        }
+      : undefined
 
   const minimalModeForQuestScript = core.ws.editor.questScript && !hasPreview
 
@@ -112,7 +112,7 @@ export function Output() {
         <div className="pt-4 pb-1 px-7 bg-yellow-100 relative">
           {(core.ws.quest.id > 0 ||
             pythonKarolExamples.some(
-              (e) => e.link === '#' + core.ws.ui.sharedQuestId
+              (e) => e.link === '#' + core.ws.ui.sharedQuestId,
             )) && (
             <button
               className="absolute top-2 right-16 px-3 py-0.5 rounded-full bg-white border-2 border-blue-500 hover:bg-blue-50 text-blue-500 font-semibold shadow transition-colors duration-150 focus:outline-none"
@@ -144,7 +144,7 @@ export function Output() {
           <h1
             className={clsx(
               'text-xl font-bold mt-1',
-              core.ws.ui.collapseDescription ? 'mb-2' : 'mb-4'
+              core.ws.ui.collapseDescription ? 'mb-2' : 'mb-4',
             )}
           >
             {core.ws.quest.title}
@@ -162,7 +162,7 @@ export function Output() {
       <div
         className={clsx(
           'flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100',
-          minimalModeForQuestScript && 'hidden'
+          minimalModeForQuestScript && 'hidden',
         )}
       >
         <ControlBar />
@@ -172,20 +172,20 @@ export function Output() {
           className={clsx(
             'absolute top-0 left-0 right-0',
             'overflow-auto bg-white',
-            core.ws.ui.isTesting ? 'bottom-0' : 'bottom-10'
+            core.ws.ui.isTesting ? 'bottom-0' : 'bottom-10',
           )}
         >
           <div className="flex flex-col h-full">
             <div
               className={clsx(
                 'm-auto transition-opacity',
-                core.ws.ui.questPrompt && 'opacity-30'
+                core.ws.ui.questPrompt && 'opacity-30',
               )}
             >
               <div
                 className={clsx(
                   'w-fit h-fit mt-4 mx-4',
-                  !core.ws.ui.show2D && 'mb-32'
+                  !core.ws.ui.show2D && 'mb-32',
                 )}
               >
                 {core.ws.ui.show2D ? (
@@ -194,7 +194,7 @@ export function Output() {
                     preview={preview}
                     className={clsx(
                       'p-6',
-                      core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
+                      core.ws.ui.karolCrashMessage && 'border-4 border-red-300',
                     )}
                     canvas={core.ws.canvas}
                   />
@@ -204,7 +204,7 @@ export function Output() {
                     preview={preview}
                     className={clsx(
                       'p-6',
-                      core.ws.ui.karolCrashMessage && 'border-4 border-red-300'
+                      core.ws.ui.karolCrashMessage && 'border-4 border-red-300',
                     )}
                     robotImageDataUrl={core.ws.robotImageDataUrl}
                     animationDuration={
@@ -212,7 +212,7 @@ export function Output() {
                         ? undefined
                         : Math.min(
                             200,
-                            sliderToDelay(core.ws.ui.speedSliderValue)
+                            sliderToDelay(core.ws.ui.speedSliderValue),
                           )
                     }
                     activeRobot={core.ws.__activeRobot}
@@ -272,7 +272,7 @@ export function Output() {
                     key={i}
                     className={clsx(
                       'px-5 py-3 border-2 cursor-pointer select-none rounded-lg transition-all',
-                      el.pressed && 'bg-lime-200'
+                      el.pressed && 'bg-lime-200',
                     )}
                     title={el.title}
                     onContextMenu={(e) => {
@@ -282,7 +282,7 @@ export function Output() {
                       // set pressed to true
                       core.mutateWs((ws) => {
                         const binding = ws.ui.keybindings.find(
-                          (binding) => binding.key === el.key
+                          (binding) => binding.key === el.key,
                         )
                         if (binding) {
                           binding.pressed = true
@@ -294,7 +294,7 @@ export function Output() {
                       // set pressed to false
                       core.mutateWs((ws) => {
                         const binding = ws.ui.keybindings.find(
-                          (binding) => binding.key === el.key
+                          (binding) => binding.key === el.key,
                         )
                         if (binding) {
                           binding.pressed = false
@@ -302,11 +302,11 @@ export function Output() {
                         }
                       })
                     }}
-                    onPointerCancel={(e) => {
+                    onPointerCancel={() => {
                       // ensure pressed is false if the pointer is canceled
                       core.mutateWs((ws) => {
                         const binding = ws.ui.keybindings.find(
-                          (binding) => binding.key === el.key
+                          (binding) => binding.key === el.key,
                         )
                         if (binding) {
                           binding.pressed = false

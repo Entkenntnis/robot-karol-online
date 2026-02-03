@@ -1,10 +1,9 @@
-import { CallOp, Op } from '../../../state/types'
-import { AstNode } from '../../helper/astNode'
+import type { CallOp, Op } from '../../../state/types'
+import type { AstNode } from '../../helper/astNode'
 import { CompilerOutput } from '../../helper/CompilerOutput'
 import { matchChildren } from '../../helper/matchChildren'
 import { compileValExpression } from './compileValExpression'
-import { expressionNodes, compileExpression } from './compileExpression'
-import {
+import type {
   MethodSignature,
   SemantikCheckContext,
   ValueType,
@@ -13,7 +12,7 @@ import {
 export function checkMethodInvocation(
   co: CompilerOutput,
   node: AstNode,
-  context: SemantikCheckContext
+  context: SemantikCheckContext,
 ): ValueType {
   let sig: MethodSignature | null = null
   let argList: AstNode | null = null
@@ -49,7 +48,7 @@ export function checkMethodInvocation(
       } else {
         co.warn(
           node.children[1],
-          `Falsche Anzahl Argumente, erwarte ${expectedArgsLength}`
+          `Falsche Anzahl Argumente, erwarte ${expectedArgsLength}`,
         )
         return 'void'
       }
@@ -66,7 +65,7 @@ export function checkMethodInvocation(
   if (
     matchChildren(
       ['Identifier', '.', 'MethodName', 'ArgumentList'],
-      node.children
+      node.children,
     ) &&
     matchChildren(['Identifier'], node.children[2].children)
   ) {
@@ -131,7 +130,7 @@ export function checkMethodInvocation(
           (sig.parameters.length > 0
             ? `(${parseInt(argList.children[1].text())})`
             : ''),
-        node.from
+        node.from,
       )
     }
     co.appendOutput(newOp)

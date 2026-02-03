@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Canvas, ICanvsObjects, Preview, World } from '../../lib/state/types'
+import type {
+  Canvas,
+  ICanvsObjects,
+  Preview,
+  World,
+} from '../../lib/state/types'
 import {
   karolDefaultImage,
   markeBild,
@@ -126,7 +131,7 @@ export function View({
       prevX,
       prevY,
       prevWorld.current.karol[i].dir,
-      prevWorld.current
+      prevWorld.current,
     )
 
     if (step && step.x == currentX && step.y == currentY) {
@@ -279,12 +284,12 @@ export function View({
         renderDashed(
           ctx,
           to2d(0, world.dimY, world.height),
-          to2d(0, 0, world.height)
+          to2d(0, 0, world.height),
         )
         renderDashed(
           ctx,
           to2d(world.dimX, 0, world.height),
-          to2d(0, 0, world.height)
+          to2d(0, 0, world.height),
         )
       }
 
@@ -337,7 +342,7 @@ export function View({
           Math.round(dx),
           Math.round(dy),
           40,
-          71
+          71,
         )
         if (world.karol.length > 1) {
           ctx.font = '22px sans-serif'
@@ -407,10 +412,10 @@ export function View({
               mark == 'preview'
                 ? markeKlein
                 : mark == 'solid'
-                ? marke
-                : marke_weg,
+                  ? marke
+                  : marke_weg,
               p.x - 15,
-              p.y - 16
+              p.y - 16,
             )
             ctx.restore()
           }
@@ -428,7 +433,7 @@ export function View({
               ctx.drawImage(
                 bricks[i] == 'excess' ? ziegel_weg : ziegel,
                 p.x - 15,
-                p.y - 16
+                p.y - 16,
               )
               ctx.restore()
             }
@@ -499,7 +504,7 @@ function easeInOutCubic(t: number) {
 function renderDashed(
   ctx: CanvasRenderingContext2D,
   start: { x: number; y: number },
-  end: { x: number; y: number }
+  end: { x: number; y: number },
 ) {
   const dashArray = [10, 5, 5, 5]
   const dashCount = dashArray.length
@@ -521,7 +526,7 @@ function renderDashed(
 
     ctx[draw ? 'lineTo' : 'moveTo'](
       start.x + 0.5 + percentage * dx,
-      start.y + 0.5 + percentage * dy
+      start.y + 0.5 + percentage * dy,
     )
     draw = !draw
   }
@@ -539,7 +544,7 @@ async function loadImage(src: string) {
 
 export function drawCanvasObject(
   co: ICanvsObjects,
-  ctx: CanvasRenderingContext2D
+  ctx: CanvasRenderingContext2D,
 ) {
   for (const obj of co.objects) {
     if (obj.type == 'rectangle') {

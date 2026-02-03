@@ -41,7 +41,7 @@ export function InteractiveClassDiagram() {
       <div className="">
         <ClassDiagram
           classes={Object.values(core.ws.bench.classInfo).map(
-            (cls) => cls.name
+            (cls) => cls.name,
           )}
         />
       </div>
@@ -54,7 +54,7 @@ export function InteractiveClassDiagram() {
                   key={i}
                   className={clsx(
                     'bg-red-500 rounded-lg p-4 font-bold text-white text-center cursor-pointer',
-                    core.ws.bench.locked && 'cursor-wait'
+                    core.ws.bench.locked && 'cursor-wait',
                   )}
                   onContextMenu={(e) => {
                     if (core.ws.bench.locked) return
@@ -118,7 +118,7 @@ export function InteractiveClassDiagram() {
               {Object.entries(
                 core.ws.bench.classInfo[
                   core.ws.bench.objects[contextMenu.selectedIndex!].className
-                ].methods
+                ].methods,
               ).map(([name, val], i) => {
                 return (
                   <div
@@ -164,7 +164,7 @@ export function InteractiveClassDiagram() {
       {core.ws.ui.errorMessages.length > 0 && (
         <div
           className={clsx(
-            'absolute right-6 left-6 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50'
+            'absolute right-6 left-6 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50',
           )}
         >
           <div className="flex justify-between mt-[9px] relative">

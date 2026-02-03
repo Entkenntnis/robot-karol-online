@@ -47,7 +47,7 @@ export function Highscore() {
   const [mode, setMode] = useState<'count' | 'active'>('count')
 
   const [showAll, setShowAll] = useState(false)
-  const [showAllRecent, setShowAllRecent] = useState(false)
+  const [showAllRecent] = useState(false)
 
   const userId = getUserId()
 
@@ -59,7 +59,7 @@ export function Highscore() {
         data.sort((a, b) =>
           a.solved.length == b.solved.length
             ? b.lastActive - a.lastActive
-            : b.solved.length - a.solved.length
+            : b.solved.length - a.solved.length,
         )
       } else {
         data.sort((a, b) => b.lastActive - a.lastActive)
@@ -76,7 +76,7 @@ export function Highscore() {
           //console.log(val)
           val.forEach((entry) => {
             entry.solved = entry.solved.filter(
-              (id) => questList.includes(id) && id < 10000
+              (id) => questList.includes(id) && id < 10000,
             )
             if (entry.solved.length > 35) {
               /*console.log(
@@ -89,7 +89,7 @@ export function Highscore() {
           val.sort((a, b) =>
             a.solved.length == b.solved.length
               ? b.lastActive - a.lastActive
-              : b.solved.length - a.solved.length
+              : b.solved.length - a.solved.length,
           )
           setMode('count')
           sortData('count')
@@ -136,7 +136,7 @@ export function Highscore() {
             <>
               <p
                 className={clsx(
-                  'text-right my-4'
+                  'text-right my-4',
                   // mode == 'count' && 'invisible'
                 )}
               >
@@ -180,8 +180,8 @@ export function Highscore() {
                   (showAllRecent && mode == 'active')
                     ? data.slice(0, 100)
                     : mode == 'active'
-                    ? data.slice(0, 200)
-                    : data.slice(0, 10)
+                      ? data.slice(0, 200)
+                      : data.slice(0, 10)
                   )
                     .filter((entry) => entry.solved.length > 0)
                     .map((entry, i, arr) => (
@@ -189,7 +189,7 @@ export function Highscore() {
                         key={entry.userId}
                         className={clsx(
                           'border-t-2',
-                          entry.userId == userId && 'bg-blue-200'
+                          entry.userId == userId && 'bg-blue-200',
                         )}
                       >
                         {mode == 'count' && (
@@ -203,7 +203,7 @@ export function Highscore() {
                               core.strings.highscore.joined
                             } ${timeago.format(
                               new Date(entry.firstActive),
-                              core.ws.settings.lng
+                              core.ws.settings.lng,
                             )}`}
                           >
                             {entry.name ? entry.name : '---'}

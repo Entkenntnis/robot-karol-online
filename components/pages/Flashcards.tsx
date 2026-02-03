@@ -84,7 +84,7 @@ export function Flashcards() {
 
       goToNextCard()
     },
-    [core, goToNextCard]
+    [core, goToNextCard],
   )
 
   const revealAnswer = useCallback(() => {
@@ -184,7 +184,7 @@ export function Flashcards() {
           <div
             className={clsx(
               'h-2 rounded-full transition-all duration-300',
-              hasAgainCards ? 'bg-amber-400' : 'bg-green-400'
+              hasAgainCards ? 'bg-amber-400' : 'bg-green-400',
             )}
             style={{
               width: `${((currentIndex + 1) / currentCards.length) * 100}%`,

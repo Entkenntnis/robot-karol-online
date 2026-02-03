@@ -14,7 +14,7 @@ function formatTime(seconds: number) {
 
   return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(
     2,
-    '0'
+    '0',
   )}:${String(hundredths).padStart(2, '0')}`
 }
 
@@ -47,7 +47,7 @@ export function AnalyzeResults() {
 
   const stats = Object.entries(core.ws.analyze.newEventStats.stats)
   stats.sort(
-    (a, b) => b[1].sessions * b[1].average - a[1].sessions * a[1].average
+    (a, b) => b[1].sessions * b[1].average - a[1].sessions * a[1].average,
   )
   const survey = core.ws.analyze.survey.slice(0)
   survey.sort((a, b) => b.ts - a.ts)
@@ -227,8 +227,8 @@ export function AnalyzeResults() {
                       className={clsx(
                         'text-sm text-gray-600 mb-1',
                         core.ws.analyze.markedQuestions.includes(
-                          `${id}-${q.ts}`
-                        ) && 'line-through opacity-40'
+                          `${id}-${q.ts}`,
+                        ) && 'line-through opacity-40',
                       )}
                     >
                       <input
@@ -236,8 +236,8 @@ export function AnalyzeResults() {
                         className={clsx(
                           'mr-3',
                           core.ws.analyze.markedQuestions.includes(
-                            `${id}-${q.ts}`
-                          ) && 'hidden'
+                            `${id}-${q.ts}`,
+                          ) && 'hidden',
                         )}
                         disabled={window.location.host !== 'karol.arrrg.de'}
                         onChange={(e) => {
@@ -247,7 +247,7 @@ export function AnalyzeResults() {
                             })
                             submitAnalyzeEvent(
                               core,
-                              `ev_markQuestion_${id}-${q.ts}`
+                              `ev_markQuestion_${id}-${q.ts}`,
                             )
                           }
                         }}
@@ -261,7 +261,7 @@ export function AnalyzeResults() {
                         // (Sprache: blocks, Programm: ... )
                         // use regex to extract the program
                         const match = input.match(
-                          /\(Sprache: .+?, Programm: ([\s\S]+)\)$/
+                          /\(Sprache: .+?, Programm: ([\s\S]+)\)$/,
                         )
 
                         if (match && match[1]) {
@@ -326,7 +326,7 @@ export function AnalyzeResults() {
       <p>
         {(() => {
           const loadedRobotImages = Object.entries(
-            core.ws.analyze.loadedRobotImages
+            core.ws.analyze.loadedRobotImages,
           )
           loadedRobotImages.sort((a, b) => b[1].count - a[1].count)
 
@@ -403,9 +403,9 @@ export function AnalyzeResults() {
                 <td className="p-2 border border-gray-300">
                   {levelData.medalTimes
                     ? `${formatTime(levelData.medalTimes.at)} / ${formatTime(
-                        levelData.medalTimes.gold
+                        levelData.medalTimes.gold,
                       )} / ${formatTime(
-                        levelData.medalTimes.silver
+                        levelData.medalTimes.silver,
                       )} / ${formatTime(levelData.medalTimes.bronze)}`
                     : '-'}
                 </td>

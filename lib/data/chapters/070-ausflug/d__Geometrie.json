@@ -1,1 +1,52 @@
-{"version":"v1","title":"d) Geometrie","description":"Implementiere die beiden Funktionen `umfang` und `fläche`.","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Seite a:"},{"role":"in","text":"5"},{"role":"out","text":"Seite b:"},{"role":"in","text":"8"},{"role":"out","text":"Das Rechteck mit a=5 und b=8 hat Umfang 26 und Fläche 40."}]},{"title":"Chat 2","messages":[{"role":"out","text":"Seite a:"},{"role":"in","text":"2"},{"role":"out","text":"Seite b:"},{"role":"in","text":"100"},{"role":"out","text":"Das Rechteck mit a=2 und b=100 hat Umfang 204 und Fläche 200."}]},{"title":"Chat 3","messages":[{"role":"out","text":"Seite a:"},{"role":"in","text":"7"},{"role":"out","text":"Seite b:"},{"role":"in","text":"6"},{"role":"out","text":"Das Rechteck mit a=7 und b=6 hat Umfang 26 und Fläche 42."}]}],"language":"python-pro","program":"def umfang(a, b):\n    # TODO\n    return ...\n\ndef fläche(a, b):\n    # TODO\n    return ...\n\n# Dieser Code ist bereits fertig:\na = int(input(\"Seite a:\"))\nb = int(input(\"Seite b:\"))\nU = umfang(a, b)\nA = fläche(a, b)\nprint(f\"Das Rechteck mit a={a} und b={b} hat Umfang {U} und Fläche {A}.\")"}
+{
+  "version": "v1",
+  "title": "d) Geometrie",
+  "description": "Implementiere die beiden Funktionen `umfang` und `fläche`.",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Seite a:" },
+        { "role": "in", "text": "5" },
+        { "role": "out", "text": "Seite b:" },
+        { "role": "in", "text": "8" },
+        {
+          "role": "out",
+          "text": "Das Rechteck mit a=5 und b=8 hat Umfang 26 und Fläche 40."
+        }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Seite a:" },
+        { "role": "in", "text": "2" },
+        { "role": "out", "text": "Seite b:" },
+        { "role": "in", "text": "100" },
+        {
+          "role": "out",
+          "text": "Das Rechteck mit a=2 und b=100 hat Umfang 204 und Fläche 200."
+        }
+      ]
+    },
+    {
+      "title": "Chat 3",
+      "messages": [
+        { "role": "out", "text": "Seite a:" },
+        { "role": "in", "text": "7" },
+        { "role": "out", "text": "Seite b:" },
+        { "role": "in", "text": "6" },
+        {
+          "role": "out",
+          "text": "Das Rechteck mit a=7 und b=6 hat Umfang 26 und Fläche 42."
+        }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": "def umfang(a, b):\n    # TODO\n    return ...\n\ndef fläche(a, b):\n    # TODO\n    return ...\n\n# Dieser Code ist bereits fertig:\na = int(input(\"Seite a:\"))\nb = int(input(\"Seite b:\"))\nU = umfang(a, b)\nA = fläche(a, b)\nprint(f\"Das Rechteck mit a={a} und b={b} hat Umfang {U} und Fläche {A}.\")"
+}

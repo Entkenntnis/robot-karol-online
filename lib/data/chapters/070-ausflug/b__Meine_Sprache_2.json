@@ -1,1 +1,25 @@
-{"version":"v1","title":"b) Meine Sprache 2","description":"Definiere jetzt eine Sprache mit push und pull. Nutze diese Zeilen:\n\n`def push(text):`\n\n`def pull():`\n\n`return input()`\n\n`print(text)`","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Lalala"},{"role":"out","text":"Es ist ein sonniger Tag"},{"role":"in","text":"Ja"},{"role":"out","text":"Ich mag die Sonne, aber Regen ist auch toll."}]}],"language":"python-pro","program":"# TODO: definiere push und pull\n\n\n\n\n\n\n# Dieses Programm soll dann funktionieren:\npush(\"Lalala\")\npush(\"Es ist ein sonniger Tag\")\npull()\npush(\"Ich mag die Sonne, aber Regen ist auch toll.\")"}
+{
+  "version": "v1",
+  "title": "b) Meine Sprache 2",
+  "description": "Definiere jetzt eine Sprache mit push und pull. Nutze diese Zeilen:\n\n`def push(text):`\n\n`def pull():`\n\n`return input()`\n\n`print(text)`",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Lalala" },
+        { "role": "out", "text": "Es ist ein sonniger Tag" },
+        { "role": "in", "text": "Ja" },
+        {
+          "role": "out",
+          "text": "Ich mag die Sonne, aber Regen ist auch toll."
+        }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": "# TODO: definiere push und pull\n\n\n\n\n\n\n# Dieses Programm soll dann funktionieren:\npush(\"Lalala\")\npush(\"Es ist ein sonniger Tag\")\npull()\npush(\"Ich mag die Sonne, aber Regen ist auch toll.\")"
+}

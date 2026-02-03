@@ -1,7 +1,7 @@
 import { backend } from '../../backend'
 import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
-import { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
+import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
 import { deserialize, deserializeQuest } from './json'
 
 export async function loadLegacyProject(core: Core, id: string) {
@@ -18,7 +18,7 @@ export async function loadQuest(core: Core, id: string) {
     const res = await fetch(`${backend.questEndpoint}/${id}`)
     const text = await res.text()
     const obj = JSON.parse(
-      text ?? '{}'
+      text ?? '{}',
     ) as QuestSerialFormat_MUST_STAY_COMPATIBLE
     if (obj.version !== 'v1') {
       throw 'bad format'

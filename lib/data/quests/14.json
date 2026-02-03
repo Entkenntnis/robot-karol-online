@@ -1,1 +1,182 @@
-{"version":"v1","title":"Markensuche","description":"Irgendwo am Rand befindet sich eine Marke. Laufe dorthin und lösche sie.\n\n*Tipp: Laufe einmal um den Rand. Prüfe nach jedem Schritt, ob Karol auf einer Marke steht. Wenn ja, dann lösche die Marke und beende das Programm.*","tasks":[{"title":"Test 1","start":{"dimX":5,"dimY":5,"height":6,"karol":{"x":0,"y":0,"dir":"south"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"dimX":1,"dimY":1,"offsetX":2,"offsetY":4,"data":[[true]]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":5,"dimY":5,"height":6,"karol":{"x":0,"y":0,"dir":"south"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}},{"title":"Test 2","start":{"dimX":5,"dimY":5,"height":6,"karol":{"x":4,"y":0,"dir":"west"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"dimX":1,"dimY":1,"offsetX":4,"offsetY":2,"data":[[true]]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":5,"dimY":5,"height":6,"karol":{"x":0,"y":0,"dir":"south"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}},{"title":"Test 3","start":{"dimX":5,"dimY":5,"height":6,"karol":{"x":0,"y":4,"dir":"east"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"dimX":1,"dimY":1,"offsetX":4,"offsetY":0,"data":[[true]]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":5,"dimY":5,"height":6,"karol":{"x":0,"y":0,"dir":"south"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}}],"lng":"de","questScript":"","language":"blocks","program":""}
+{
+  "version": "v1",
+  "title": "Markensuche",
+  "description": "Irgendwo am Rand befindet sich eine Marke. Laufe dorthin und lösche sie.\n\n*Tipp: Laufe einmal um den Rand. Prüfe nach jedem Schritt, ob Karol auf einer Marke steht. Wenn ja, dann lösche die Marke und beende das Programm.*",
+  "tasks": [
+    {
+      "title": "Test 1",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 4,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test 2",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 4, "y": 0, "dir": "west" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 2,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Test 3",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 4, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 4,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "questScript": "",
+  "language": "blocks",
+  "program": ""
+}

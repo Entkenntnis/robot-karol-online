@@ -26,15 +26,15 @@ export function ImpressumModal() {
           <p className="m-3 mb-6 text-center">
             {impressum.name}
             <br />
-            {replaceWithJSX([impressum.address1], /(<br>)/, (str, i) => (
+            {replaceWithJSX([impressum.address1], /(<br>)/, (_, i) => (
               <br key={i} />
             ))}
             <br />
-            {replaceWithJSX([impressum.address2], /(<br>)/g, (str, i) => (
+            {replaceWithJSX([impressum.address2], /(<br>)/g, (_, i) => (
               <br key={i} />
             ))}
             <br />
-            {replaceWithJSX([impressum.contact], /(<br>)/g, (str, i) => (
+            {replaceWithJSX([impressum.contact], /(<br>)/g, (_, i) => (
               <br key={i} />
             ))}
           </p>

@@ -1,6 +1,6 @@
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
-import { Heading, World } from '../state/types'
+import type { Heading, World } from '../state/types'
 import { addMessage } from './messages'
 import { endExecution } from './vm'
 
@@ -16,7 +16,7 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
     karol[core.ws.__activeRobot].x,
     karol[core.ws.__activeRobot].y,
     dir,
-    world
+    world,
   )
 
   if (!target) {
@@ -43,7 +43,7 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
 export function left(core: Core) {
   core.mutateWs(({ world }) => {
     world.karol[core.ws.__activeRobot].dir = turnLeft(
-      world.karol[core.ws.__activeRobot].dir
+      world.karol[core.ws.__activeRobot].dir,
     )
   })
 }
@@ -51,19 +51,19 @@ export function left(core: Core) {
 export function right(core: Core) {
   core.mutateWs(({ world }) => {
     world.karol[core.ws.__activeRobot].dir = turnRight(
-      world.karol[core.ws.__activeRobot].dir
+      world.karol[core.ws.__activeRobot].dir,
     )
   })
 }
 
 export function brick(core: Core) {
   const { world } = core.ws
-  const { karol, bricks, height } = world
+  const { karol } = world
   const pos = move(
     karol[core.ws.__activeRobot].x,
     karol[core.ws.__activeRobot].y,
     karol[core.ws.__activeRobot].dir,
-    world
+    world,
   )
 
   if (!pos) {
@@ -95,7 +95,7 @@ export function unbrick(core: Core) {
     karol[core.ws.__activeRobot].x,
     karol[core.ws.__activeRobot].y,
     karol[core.ws.__activeRobot].dir,
-    world
+    world,
   )
 
   if (!pos) {
@@ -127,7 +127,7 @@ export function toggleMark(core: Core) {
     isReadOnly(
       core,
       karol[core.ws.__activeRobot].x,
-      karol[core.ws.__activeRobot].y
+      karol[core.ws.__activeRobot].y,
     )
   ) {
     karolCrashed(core, readOnlyMessage)
@@ -154,7 +154,7 @@ export function setMark(core: Core) {
     isReadOnly(
       core,
       karol[core.ws.__activeRobot].x,
-      karol[core.ws.__activeRobot].y
+      karol[core.ws.__activeRobot].y,
     )
   ) {
     karolCrashed(core, readOnlyMessage)
@@ -178,7 +178,7 @@ export function resetMark(core: Core) {
     isReadOnly(
       core,
       karol[core.ws.__activeRobot].x,
-      karol[core.ws.__activeRobot].y
+      karol[core.ws.__activeRobot].y,
     )
   ) {
     karolCrashed(core, readOnlyMessage)
@@ -201,7 +201,7 @@ export function toggleBlock(core: Core) {
     karol[core.ws.__activeRobot].x,
     karol[core.ws.__activeRobot].y,
     karol[core.ws.__activeRobot].dir,
-    world
+    world,
   )
 
   if (!pos) {
@@ -242,7 +242,7 @@ export function createWorldCmd(
   x: number,
   y: number,
   z: number,
-  keep?: boolean
+  keep?: boolean,
 ) {
   const previous = core.ws.world
   core.mutateWs((state) => {
@@ -317,7 +317,7 @@ export function turnRight(h: Heading) {
   }[h] as Heading
 }
 
-function isReadOnly(core: Core, x: number, y: number) {
+function isReadOnly(_: Core, __: number, ___: number) {
   return false
 }
 function karolCrashed(core: Core, error: string) {

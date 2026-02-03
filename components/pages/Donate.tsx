@@ -1,7 +1,4 @@
-import {
-  faExternalLink,
-  faHeartCirclePlus,
-} from '@fortawesome/free-solid-svg-icons'
+import { faExternalLink } from '@fortawesome/free-solid-svg-icons'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { HFullStyles } from '../helper/HFullStyles'
@@ -50,7 +47,7 @@ export function Donate() {
           <div
             className={clsx(
               'flex mt-8 items-center rounded-xl',
-              'p-2 px-6 bg-white/30'
+              'p-2 px-6 bg-white/30',
             )}
           >
             <h1 className="whitespace-nowrap text-lg md:text-2xl">
@@ -126,7 +123,7 @@ export function Donate() {
                 onClick={() =>
                   handleExternalLinkClick(
                     'onetime',
-                    'https://www.paypal.com/donate/?hosted_button_id=HTXHJ46AF2YNA&'
+                    'https://www.paypal.com/donate/?hosted_button_id=HTXHJ46AF2YNA&',
                   )
                 }
               >
@@ -146,7 +143,7 @@ export function Donate() {
                 onClick={() =>
                   handleExternalLinkClick(
                     'monthly',
-                    'https://www.paypal.com/donate/?hosted_button_id=HTXHJ46AF2YNA&'
+                    'https://www.paypal.com/donate/?hosted_button_id=HTXHJ46AF2YNA&',
                   )
                 }
               >
