@@ -42,6 +42,8 @@ import {
   autocompletion,
   completionKeymap,
   type CompletionSource,
+  closeBrackets,
+  closeBracketsKeymap,
 } from '@codemirror/autocomplete'
 import { saveCodeToLocalStorage } from '../../lib/commands/save'
 import { Cheatsheet } from '../helper/Cheatsheet'
@@ -76,12 +78,14 @@ export const JavaEditor = ({ innerRef }: EditorProps) => {
             indentOnInput(),
             syntaxHighlighting(defaultHighlightStyle),
             highlightActiveLine(),
+            closeBrackets(),
             keymap.of([
               ...defaultKeymap,
               ...historyKeymap,
               ...lintKeymap,
               ...completionKeymap,
               ...searchKeymap,
+              ...closeBracketsKeymap,
               { key: 'Tab', run: myTabExtension },
               indentWithTab,
               {

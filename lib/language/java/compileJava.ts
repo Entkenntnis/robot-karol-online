@@ -255,6 +255,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
   compileDeclarationAndStatements(co, mainMethod, {
     robotName: robotInstanceName,
     variablesInScope: new Map(),
+    loopStack: [],
     availableMethods,
     methodContexts,
     callOps,
@@ -288,6 +289,7 @@ export function compileJava(tree: Tree, doc: Text): CompilerResult {
       compileDeclarationAndStatements(co, method, {
         robotName: robotInstanceName,
         variablesInScope,
+        loopStack: [],
         availableMethods,
         methodContexts,
         callOps,
