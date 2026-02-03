@@ -24,5 +24,9 @@ export default defineConfig({
       'cross-origin-opener-policy': 'same-origin',
     },
   },
+  clearScreen: false,
   plugins: [react()],
 })
+
+// tailwindcss: stick to v3 because of css compatibility
+// markdown-to-jsx stick to version 8
