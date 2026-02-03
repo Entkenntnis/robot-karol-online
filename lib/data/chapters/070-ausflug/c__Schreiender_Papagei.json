@@ -1,1 +1,29 @@
-{"version":"v1","title":"c) Schreiender Papagei","description":"Programmiere nochmal den Papagei, nutze dafür die gegebene Funktion `schreien`.","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Sprich mit dem schreienden Papagei"},{"role":"in","text":"Hallo"},{"role":"out","text":"GR HALLO GR GR"}]},{"title":"Chat 2","messages":[{"role":"out","text":"Sprich mit dem schreienden Papagei"},{"role":"in","text":"komm her"},{"role":"out","text":"GR KOMM HER GR GR"}]}],"language":"python-pro","program":"def schreien(text):\n    upper = text.upper()\n    print(f\"GR {upper} GR GR\")\n\n# TODO: Programmiere den Papagei"}
+{
+  "version": "v1",
+  "title": "c) Schreiender Papagei",
+  "description": "Programmiere nochmal den Papagei, nutze dafür die gegebene Funktion `schreien`.",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Sprich mit dem schreienden Papagei" },
+        { "role": "in", "text": "Hallo" },
+        { "role": "out", "text": "GR HALLO GR GR" }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Sprich mit dem schreienden Papagei" },
+        { "role": "in", "text": "komm her" },
+        { "role": "out", "text": "GR KOMM HER GR GR" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": "def schreien(text):\n    upper = text.upper()\n    print(f\"GR {upper} GR GR\")\n\n# TODO: Programmiere den Papagei"
+}

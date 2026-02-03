@@ -1,1 +1,137 @@
-{"version":"v1","title":"Parkour","description":"Überwinde zusammen mit Karol das Hindernis und lege dabei jeweils die drei gezeigten Ziegel. Karol kann maximal eine Ziegelhöhe überwinden, der Parkour ist für sie also kein Problem.\n\nUnd keine Sorge, dass es zwei Parkours sind: Du musst dein Programm nur einmal schreiben, das Programm wird in beiden Welten gleich ausgeführt.","tasks":[{"title":"Parkour 1","start":{"dimX":5,"dimY":3,"height":6,"karol":{"x":0,"y":1,"dir":"east"},"bricks":{"dimX":1,"dimY":3,"offsetX":2,"offsetY":0,"data":[[1],[1],[1]]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":5,"dimY":3,"height":6,"karol":{"x":0,"y":1,"dir":"east"},"bricks":{"dimX":3,"dimY":3,"offsetX":1,"offsetY":0,"data":[[0,1,0],[1,2,1],[0,1,0]]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}},{"title":"Parkour 2","start":{"dimX":5,"dimY":5,"height":6,"karol":{"x":3,"y":0,"dir":"south"},"bricks":{"dimX":5,"dimY":3,"offsetX":0,"offsetY":1,"data":[[0,1,0,0,0],[1,2,1,1,1],[0,1,0,0,0]]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":5,"dimY":5,"height":6,"karol":{"x":3,"y":0,"dir":"south"},"bricks":{"dimX":5,"dimY":3,"offsetX":0,"offsetY":1,"data":[[0,1,0,1,0],[1,2,1,2,1],[0,1,0,1,0]]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}}],"lng":"de","questScript":"","language":"blocks","program":""}
+{
+  "version": "v1",
+  "title": "Parkour",
+  "description": "Überwinde zusammen mit Karol das Hindernis und lege dabei jeweils die drei gezeigten Ziegel. Karol kann maximal eine Ziegelhöhe überwinden, der Parkour ist für sie also kein Problem.\n\nUnd keine Sorge, dass es zwei Parkours sind: Du musst dein Programm nur einmal schreiben, das Programm wird in beiden Welten gleich ausgeführt.",
+  "tasks": [
+    {
+      "title": "Parkour 1",
+      "start": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 1,
+          "dimY": 3,
+          "offsetX": 2,
+          "offsetY": 0,
+          "data": [[1], [1], [1]]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 3,
+          "dimY": 3,
+          "offsetX": 1,
+          "offsetY": 0,
+          "data": [
+            [0, 1, 0],
+            [1, 2, 1],
+            [0, 1, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Parkour 2",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 3, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [
+            [0, 1, 0, 0, 0],
+            [1, 2, 1, 1, 1],
+            [0, 1, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 3, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 5,
+          "dimY": 3,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [
+            [0, 1, 0, 1, 0],
+            [1, 2, 1, 2, 1],
+            [0, 1, 0, 1, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "questScript": "",
+  "language": "blocks",
+  "program": ""
+}

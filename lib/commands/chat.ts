@@ -36,7 +36,7 @@ export function chatOutput(
   core: Core,
   text: string,
   sync: Int32Array,
-  line: number
+  line: number,
 ) {
   console.log('Chat output:', text)
   core.chatVm.lastOutput = text
@@ -50,7 +50,7 @@ export function chatInput(
   sync: Int32Array,
   meta: Int32Array,
   data: Uint8Array,
-  line: number
+  line: number,
 ) {
   // highlight line, update meta data, store input and set sync
   if (!core.chatVm.nextInput) {
@@ -141,7 +141,7 @@ function* runnerGenerator(core: Core) {
       console.log(
         `Chat runner message ${core.ws.vm.chatCursor!.msgIndex + 1} of ${
           messages.length
-        }: ${expected.text}`
+        }: ${expected.text}`,
       )
       if (expected.role == 'in') {
         core.chatVm.nextInput = expected.text
@@ -207,7 +207,7 @@ function* runnerGenerator(core: Core) {
           // input
           // TODO: mismatch
           console.warn(
-            `Output mismatch: expected "${expected.text}", got "${core.chatVm.lastOutput}"`
+            `Output mismatch: expected "${expected.text}", got "${core.chatVm.lastOutput}"`,
           )
           core.mutateWs((ws) => {
             ws.vm.chatCursor!.mode = 'warn'
@@ -240,7 +240,7 @@ function* runnerGenerator(core: Core) {
             })
 
             console.log(
-              `set execution marker for line ${core.chatVm.lastMarkedLine} ${core.chatVm.lastOutput}`
+              `set execution marker for line ${core.chatVm.lastMarkedLine} ${core.chatVm.lastOutput}`,
             )
             if (core.chatVm.lastOutput !== null) {
               core.worker.reset()

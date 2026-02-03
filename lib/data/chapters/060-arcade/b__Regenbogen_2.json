@@ -1,1 +1,41 @@
-{"version":"v1","title":"b) Regenbogen 2","description":"Erweitere das Programm von Regenbogen 1 so, dass bei falschen Eingaben jeweils ein Feedback kommt.","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Rate meine Lieblingsfarbe!"},{"role":"in","text":"rot"},{"role":"out","text":"Nein"},{"role":"in","text":"orange"},{"role":"out","text":"Nein"},{"role":"in","text":"gelb"},{"role":"out","text":"Nein"},{"role":"in","text":"grün"},{"role":"out","text":"Nein"},{"role":"in","text":"blau"},{"role":"out","text":"Nein"},{"role":"in","text":"violett"},{"role":"out","text":"Richtig!"}]},{"title":"Chat 2","messages":[{"role":"out","text":"Rate meine Lieblingsfarbe!"},{"role":"in","text":"gelb"},{"role":"out","text":"Nein"},{"role":"in","text":"violett"},{"role":"out","text":"Richtig!"}]}],"language":"python-pro","program":""}
+{
+  "version": "v1",
+  "title": "b) Regenbogen 2",
+  "description": "Erweitere das Programm von Regenbogen 1 so, dass bei falschen Eingaben jeweils ein Feedback kommt.",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Rate meine Lieblingsfarbe!" },
+        { "role": "in", "text": "rot" },
+        { "role": "out", "text": "Nein" },
+        { "role": "in", "text": "orange" },
+        { "role": "out", "text": "Nein" },
+        { "role": "in", "text": "gelb" },
+        { "role": "out", "text": "Nein" },
+        { "role": "in", "text": "grün" },
+        { "role": "out", "text": "Nein" },
+        { "role": "in", "text": "blau" },
+        { "role": "out", "text": "Nein" },
+        { "role": "in", "text": "violett" },
+        { "role": "out", "text": "Richtig!" }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Rate meine Lieblingsfarbe!" },
+        { "role": "in", "text": "gelb" },
+        { "role": "out", "text": "Nein" },
+        { "role": "in", "text": "violett" },
+        { "role": "out", "text": "Richtig!" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}

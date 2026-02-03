@@ -7,7 +7,7 @@ import {
   highlightActiveLineGutter,
   keymap,
   lineNumbers,
-  type Command
+  type Command,
 } from '@codemirror/view'
 
 import {
@@ -38,7 +38,11 @@ import { compileJava } from '../../lib/language/java/compileJava'
 import { patch } from '../../lib/commands/vm'
 import { resetUIAfterChange, setLoading } from '../../lib/commands/editing'
 import { javaLanguage } from '../../lib/codemirror/javaParser/javaLanguage'
-import { autocompletion, completionKeymap, type CompletionSource } from '@codemirror/autocomplete'
+import {
+  autocompletion,
+  completionKeymap,
+  type CompletionSource,
+} from '@codemirror/autocomplete'
 import { saveCodeToLocalStorage } from '../../lib/commands/save'
 import { Cheatsheet } from '../helper/Cheatsheet'
 import clsx from 'clsx'

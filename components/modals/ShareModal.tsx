@@ -43,7 +43,7 @@ export function ShareModal() {
               core.ws.ui.isPlayground
                 ? core.strings.editor.shareDescription.replace(
                     /Aufgabe/g,
-                    'Spielwiese'
+                    'Spielwiese',
                   )
                 : core.strings.editor.shareDescription,
             ],
@@ -58,7 +58,7 @@ export function ShareModal() {
               >
                 Public Domain (CC0)
               </a>
-            )
+            ),
           )}
         </p>
         {id ? (
@@ -106,14 +106,14 @@ export function ShareModal() {
               <button
                 className={clsx(
                   core.ws.ui.isPlayground && 'invisible',
-                  'mr-3 text-sm text-gray-700 underline'
+                  'mr-3 text-sm text-gray-700 underline',
                 )}
                 onClick={() => {
                   submitAnalyzeEvent(core, 'ev_click_editor_downloadJson')
                   // offer download
                   const blob = new Blob(
                     [JSON.stringify(serializeQuest(core))],
-                    { type: 'application/json' }
+                    { type: 'application/json' },
                   )
                   const url = URL.createObjectURL(blob)
                   const a = document.createElement('a')

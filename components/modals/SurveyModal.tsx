@@ -52,7 +52,7 @@ export function SurveyModal() {
                       q = `${q} (Sprache: ${language}, Programm: ${program})`
                     }
                     ev = `ev_question_${core.ws.quest.id}_${JSON.stringify(
-                      q.length < 900 ? q : q.slice(0, 900)
+                      q.length < 900 ? q : q.slice(0, 900),
                     )}`
                   } else {
                     ev = `ev_questionPyEx_${

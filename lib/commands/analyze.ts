@@ -170,11 +170,11 @@ export async function analyze(core: Core) {
           ws.analyze.pythonExampleLevenshtein[name].count++
           if (
             !ws.analyze.pythonExampleLevenshtein[name].sessions.includes(
-              entry.userId
+              entry.userId,
             )
           ) {
             ws.analyze.pythonExampleLevenshtein[name].sessions.push(
-              entry.userId
+              entry.userId,
             )
           }
           continue
@@ -367,7 +367,7 @@ export async function analyze(core: Core) {
         }
 
         const brushColor = /^ev_click_appearance_selectColor_(.+)/.exec(
-          entry.event
+          entry.event,
         )
 
         if (brushColor) {
@@ -391,7 +391,7 @@ export async function analyze(core: Core) {
         }
 
         const explantion = /^ev_click_landing_explanation_chapter_(.+)/.exec(
-          entry.event
+          entry.event,
         )
 
         if (explantion) {
@@ -416,7 +416,7 @@ export async function analyze(core: Core) {
         }
 
         const pythonKarol = /^ev_click__landing_pythonExample_(.+)/.exec(
-          entry.event
+          entry.event,
         )
 
         if (pythonKarol) {
@@ -429,7 +429,7 @@ export async function analyze(core: Core) {
         }
 
         const karolmania = /^ev_submit_karolmania_pb_([\d]+)_(.+)/.exec(
-          entry.event
+          entry.event,
         )
         if (karolmania) {
           const id = parseInt(karolmania[1])
@@ -523,7 +523,7 @@ export async function analyze(core: Core) {
           createdAt: isAttempt
             ? entry.createdAt
             : new Date(
-                new Date(entry.createdAt).getTime() - 1000
+                new Date(entry.createdAt).getTime() - 1000,
               ).toISOString(),
         })
         //}
@@ -539,12 +539,15 @@ export async function analyze(core: Core) {
   })
 
   // completely raw user-data
-  const userEvents = data.reduce((res, obj) => {
-    const key = obj.userId
-    const entry = (res[key] = res[key] || { events: [] })
-    entry.events.push(obj)
-    return res
-  }, {} as { [key: string]: { events: (typeof data)[number][] } })
+  const userEvents = data.reduce(
+    (res, obj) => {
+      const key = obj.userId
+      const entry = (res[key] = res[key] || { events: [] })
+      entry.events.push(obj)
+      return res
+    },
+    {} as { [key: string]: { events: (typeof data)[number][] } },
+  )
   core.mutateWs((ws) => {
     ws.analyze.userEvents = userEvents
     ws.page = 'analyze'

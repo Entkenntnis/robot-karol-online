@@ -1,1 +1,37 @@
-{"version":"v1","title":"b) Dart 2","description":"Erweitere das Programm von Dart 1 für **drei** Würfe. Nutze `for i in range(...)`.\n\n<details>\n<summary>Vorlage zum Kopieren</summary>\n```py\npunktzahl = 501\nprint(\"Neue Runde\")\nwurf = int(input())\npunktzahl = punktzahl - wurf\nprint(punktzahl)\n```\n</details>","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Neue Runde"},{"role":"in","text":"16"},{"role":"out","text":"485"},{"role":"in","text":"25"},{"role":"out","text":"460"},{"role":"in","text":"3"},{"role":"out","text":"457"}]},{"title":"Chat 2","messages":[{"role":"out","text":"Neue Runde"},{"role":"in","text":"50"},{"role":"out","text":"451"},{"role":"in","text":"25"},{"role":"out","text":"426"},{"role":"in","text":"50"},{"role":"out","text":"376"}]}],"language":"python-pro","program":""}
+{
+  "version": "v1",
+  "title": "b) Dart 2",
+  "description": "Erweitere das Programm von Dart 1 für **drei** Würfe. Nutze `for i in range(...)`.\n\n<details>\n<summary>Vorlage zum Kopieren</summary>\n```py\npunktzahl = 501\nprint(\"Neue Runde\")\nwurf = int(input())\npunktzahl = punktzahl - wurf\nprint(punktzahl)\n```\n</details>",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Neue Runde" },
+        { "role": "in", "text": "16" },
+        { "role": "out", "text": "485" },
+        { "role": "in", "text": "25" },
+        { "role": "out", "text": "460" },
+        { "role": "in", "text": "3" },
+        { "role": "out", "text": "457" }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Neue Runde" },
+        { "role": "in", "text": "50" },
+        { "role": "out", "text": "451" },
+        { "role": "in", "text": "25" },
+        { "role": "out", "text": "426" },
+        { "role": "in", "text": "50" },
+        { "role": "out", "text": "376" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}

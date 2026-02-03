@@ -1,1 +1,52 @@
-{"version":"v1","title":"c) Beatbox","description":"Na Karol, mit einer Schleife sollte man doch auch etwas Musik machen können, oder?","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Welcher Beat?"},{"role":"in","text":"Ba dam"},{"role":"out","text":"Wie oft?"},{"role":"in","text":"4"},{"role":"out","text":"Ba dam"},{"role":"out","text":"Ba dam"},{"role":"out","text":"Ba dam"},{"role":"out","text":"Ba dam"}]},{"title":"Chat 2","messages":[{"role":"out","text":"Welcher Beat?"},{"role":"in","text":"BUM - ts - KA - ts"},{"role":"out","text":"Wie oft?"},{"role":"in","text":"6"},{"role":"out","text":"BUM - ts - KA - ts"},{"role":"out","text":"BUM - ts - KA - ts"},{"role":"out","text":"BUM - ts - KA - ts"},{"role":"out","text":"BUM - ts - KA - ts"},{"role":"out","text":"BUM - ts - KA - ts"},{"role":"out","text":"BUM - ts - KA - ts"}]},{"title":"Chat 3","messages":[{"role":"out","text":"Welcher Beat?"},{"role":"in","text":"ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts"},{"role":"out","text":"Wie oft?"},{"role":"in","text":"2"},{"role":"out","text":"ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts"},{"role":"out","text":"ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts"}]}],"language":"python-pro","program":""}
+{
+  "version": "v1",
+  "title": "c) Beatbox",
+  "description": "Na Karol, mit einer Schleife sollte man doch auch etwas Musik machen können, oder?",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Welcher Beat?" },
+        { "role": "in", "text": "Ba dam" },
+        { "role": "out", "text": "Wie oft?" },
+        { "role": "in", "text": "4" },
+        { "role": "out", "text": "Ba dam" },
+        { "role": "out", "text": "Ba dam" },
+        { "role": "out", "text": "Ba dam" },
+        { "role": "out", "text": "Ba dam" }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Welcher Beat?" },
+        { "role": "in", "text": "BUM - ts - KA - ts" },
+        { "role": "out", "text": "Wie oft?" },
+        { "role": "in", "text": "6" },
+        { "role": "out", "text": "BUM - ts - KA - ts" },
+        { "role": "out", "text": "BUM - ts - KA - ts" },
+        { "role": "out", "text": "BUM - ts - KA - ts" },
+        { "role": "out", "text": "BUM - ts - KA - ts" },
+        { "role": "out", "text": "BUM - ts - KA - ts" },
+        { "role": "out", "text": "BUM - ts - KA - ts" }
+      ]
+    },
+    {
+      "title": "Chat 3",
+      "messages": [
+        { "role": "out", "text": "Welcher Beat?" },
+        { "role": "in", "text": "ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts" },
+        { "role": "out", "text": "Wie oft?" },
+        { "role": "in", "text": "2" },
+        { "role": "out", "text": "ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts" },
+        { "role": "out", "text": "ts-ts-ts ts-ts-ts ts-ts-ts ts-ts-ts" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}

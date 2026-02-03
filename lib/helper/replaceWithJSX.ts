@@ -1,7 +1,7 @@
 export function replaceWithJSX(
   input: (string | React.ReactElement)[],
   regex: RegExp,
-  fn: (str: string, i: number) => React.ReactElement
+  fn: (str: string, i: number) => React.ReactElement,
 ) {
   return input.flatMap((str) => {
     if (typeof str == 'string') {

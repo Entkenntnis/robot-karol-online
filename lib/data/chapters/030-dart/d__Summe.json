@@ -1,1 +1,52 @@
-{"version":"v1","title":"d) Summe","description":"Eine Variable kann für viele Dinge verwendet werden, z.B. auch um die Summe einiger Zahlen zu berechnen.","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Anzahl:"},{"role":"in","text":"3"},{"role":"out","text":"Zahlen:"},{"role":"in","text":"50"},{"role":"in","text":"44"},{"role":"in","text":"12"},{"role":"out","text":"106"}]},{"title":"Chat 2","messages":[{"role":"out","text":"Anzahl:"},{"role":"in","text":"5"},{"role":"out","text":"Zahlen:"},{"role":"in","text":"1"},{"role":"in","text":"2"},{"role":"in","text":"3"},{"role":"in","text":"4"},{"role":"in","text":"5"},{"role":"out","text":"15"}]},{"title":"Chat 3","messages":[{"role":"out","text":"Anzahl:"},{"role":"in","text":"4"},{"role":"out","text":"Zahlen:"},{"role":"in","text":"11111"},{"role":"in","text":"22222"},{"role":"in","text":"33333"},{"role":"in","text":"22222"},{"role":"out","text":"88888"}]}],"language":"python-pro","program":""}
+{
+  "version": "v1",
+  "title": "d) Summe",
+  "description": "Eine Variable kann für viele Dinge verwendet werden, z.B. auch um die Summe einiger Zahlen zu berechnen.",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Anzahl:" },
+        { "role": "in", "text": "3" },
+        { "role": "out", "text": "Zahlen:" },
+        { "role": "in", "text": "50" },
+        { "role": "in", "text": "44" },
+        { "role": "in", "text": "12" },
+        { "role": "out", "text": "106" }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Anzahl:" },
+        { "role": "in", "text": "5" },
+        { "role": "out", "text": "Zahlen:" },
+        { "role": "in", "text": "1" },
+        { "role": "in", "text": "2" },
+        { "role": "in", "text": "3" },
+        { "role": "in", "text": "4" },
+        { "role": "in", "text": "5" },
+        { "role": "out", "text": "15" }
+      ]
+    },
+    {
+      "title": "Chat 3",
+      "messages": [
+        { "role": "out", "text": "Anzahl:" },
+        { "role": "in", "text": "4" },
+        { "role": "out", "text": "Zahlen:" },
+        { "role": "in", "text": "11111" },
+        { "role": "in", "text": "22222" },
+        { "role": "in", "text": "33333" },
+        { "role": "in", "text": "22222" },
+        { "role": "out", "text": "88888" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}

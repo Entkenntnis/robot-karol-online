@@ -31,7 +31,7 @@ export function keywords(input: string) {
   if (/^(karol)$/i.test(input)) return KarolPrefix
   if (
     /^(istwand|nichtistwand|istmarke|nichtistmarke|istnorden|nichtistnorden|istsüden|nichtistsüden|istosten|nichtistosten|istwesten|nichtistwesten)$/i.test(
-      input
+      input,
     )
   )
     return ConditionWithoutParam

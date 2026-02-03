@@ -1,1 +1,33 @@
-{"version":"v1","title":"a) Regenbogen 1","description":"Eine Farbe des Regenbogen ist meine Lieblingsfarbe. Rate sie! Nutze für dein Programm diese Schnipsel:\n\n`print(\"Rate meine Lieblingsfarbe!\")`\n\n`print(\"Richtig!\")`\n\n`while True:`\n\n`break`\n\n`farbe = input()`\n\n`if farbe == \"gelb\":`\n\n","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 2","messages":[{"role":"out","text":"Rate meine Lieblingsfarbe!"},{"role":"in","text":"türkis"},{"role":"in","text":"gelb"},{"role":"out","text":"Richtig!"}]},{"title":"Chat 1","messages":[{"role":"out","text":"Rate meine Lieblingsfarbe!"},{"role":"in","text":"grün"},{"role":"in","text":"pink"},{"role":"in","text":"blau"},{"role":"in","text":"gelb"},{"role":"out","text":"Richtig!"}]}],"language":"python-pro","program":""}
+{
+  "version": "v1",
+  "title": "a) Regenbogen 1",
+  "description": "Eine Farbe des Regenbogen ist meine Lieblingsfarbe. Rate sie! Nutze für dein Programm diese Schnipsel:\n\n`print(\"Rate meine Lieblingsfarbe!\")`\n\n`print(\"Richtig!\")`\n\n`while True:`\n\n`break`\n\n`farbe = input()`\n\n`if farbe == \"gelb\":`\n\n",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Rate meine Lieblingsfarbe!" },
+        { "role": "in", "text": "türkis" },
+        { "role": "in", "text": "gelb" },
+        { "role": "out", "text": "Richtig!" }
+      ]
+    },
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Rate meine Lieblingsfarbe!" },
+        { "role": "in", "text": "grün" },
+        { "role": "in", "text": "pink" },
+        { "role": "in", "text": "blau" },
+        { "role": "in", "text": "gelb" },
+        { "role": "out", "text": "Richtig!" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}

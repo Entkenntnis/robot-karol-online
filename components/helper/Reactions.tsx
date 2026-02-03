@@ -38,7 +38,7 @@ export function Reactions() {
       {
         auth: { userId: getUserId() },
         path: backend.host.includes('localhost') ? '' : '/backend/socket.io',
-      }
+      },
     )
 
     socket.current.on('updateOnlineCount', (count: number) => {
@@ -133,7 +133,7 @@ export function Reactions() {
       setHearts(newHearts)
     } else {
       const hasChanged = newHearts.some(
-        (h, i) => h.x !== currentHearts[i].x || h.y !== currentHearts[i].y
+        (h, i) => h.x !== currentHearts[i].x || h.y !== currentHearts[i].y,
       )
       if (hasChanged) setHearts(newHearts)
     }
@@ -191,7 +191,7 @@ export function Reactions() {
         <p
           className={clsx(
             'text-sm text-gray-600',
-            numberOnline == 0 && 'invisible'
+            numberOnline == 0 && 'invisible',
           )}
         >
           {numberOnline} online

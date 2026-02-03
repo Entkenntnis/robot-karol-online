@@ -32,7 +32,7 @@ export function lint(core: Core, view: EditorView) {
   const { warnings, output } = compile(
     tree,
     view.state.doc,
-    core.ws.settings.lng
+    core.ws.settings.lng,
   )
   warnings.sort((a, b) => a.from - b.from)
 
@@ -65,7 +65,7 @@ export function lint(core: Core, view: EditorView) {
           (w) =>
             `${core.strings.ide.line} ${
               view.state.doc.lineAt(w.from).number
-            }: ${w.message}`
+            }: ${w.message}`,
         )
         .filter(function (item, i, arr) {
           return arr.indexOf(item) == i

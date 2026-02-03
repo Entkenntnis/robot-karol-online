@@ -56,7 +56,7 @@ export function FlyoutMenu() {
     <div
       className={clsx(
         'fixed inset-0 bg-gray-500/30 z-[200] w-[calc(100%+300px)] transition-all duration-300',
-        isVisible ? 'left-0' : '-left-[300px] opacity-0 pointer-events-none'
+        isVisible ? 'left-0' : '-left-[300px] opacity-0 pointer-events-none',
       )}
       onClick={() => {
         closeFlyoutMenu()
@@ -136,7 +136,7 @@ export function FlyoutMenu() {
                   if (core.ws.ui.isPlayground) {
                     // check for playground pragma and extract world size
                     const match = code.match(
-                      /(\/\/|#) Spielwiese: (\d+), (\d+), (\d+)\n\n/
+                      /(\/\/|#) Spielwiese: (\d+), (\d+), (\d+)\n\n/,
                     )
                     if (match) {
                       const dimX = parseInt(match[2])
@@ -147,7 +147,7 @@ export function FlyoutMenu() {
                         ws.quest.tasks[0].start = createWorld(
                           dimX,
                           dimY,
-                          height
+                          height,
                         )
                       })
                       code = code.replace(match[0], '')

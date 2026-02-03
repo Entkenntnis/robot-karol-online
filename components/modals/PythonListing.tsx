@@ -61,7 +61,7 @@ export function PythonListing() {
                 <h2
                   className={clsx(
                     'font-bold text-lg mb-3',
-                    isQuestDone(10001 + i) ? 'text-gray-800' : 'text-gray-400'
+                    isQuestDone(10001 + i) ? 'text-gray-800' : 'text-gray-400',
                   )}
                 >
                   {category.title}
@@ -75,7 +75,7 @@ export function PythonListing() {
                           'p-2 rounded-md transition-colors cursor-pointer',
                           isQuestDone(quest.id)
                             ? 'bg-green-100 hover:bg-green-200'
-                            : 'bg-gray-50 hover:bg-gray-100'
+                            : 'bg-gray-50 hover:bg-gray-100',
                         )}
                         onClick={() => {
                           setQuestReturnToMode('path')

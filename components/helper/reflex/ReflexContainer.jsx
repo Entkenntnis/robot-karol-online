@@ -283,7 +283,7 @@ export default class ReflexContainer extends React.Component {
           },
           () => {
             this.emitElementsEvent(this.elements, 'onResize')
-          }
+          },
         )
       }
     }
@@ -333,7 +333,7 @@ export default class ReflexContainer extends React.Component {
 
         const availableOffset = this.computeAvailableOffset(
           splitterIdx,
-          dir * offset
+          dir * offset,
         )
 
         this.elements = null
@@ -447,7 +447,7 @@ export default class ReflexContainer extends React.Component {
           availableStretch +
           this.computeAvailableStretch(
             offset < 0 ? idx + 2 : idx - 2,
-            nextOffset
+            nextOffset,
           )
         )
       }
@@ -481,7 +481,7 @@ export default class ReflexContainer extends React.Component {
           availableShrink +
           this.computeAvailableShrink(
             offset > 0 ? idx + 2 : idx - 2,
-            nextOffset
+            nextOffset,
           )
         )
       }
@@ -505,7 +505,7 @@ export default class ReflexContainer extends React.Component {
         if (this.ref.current.offsetHeight === 0.0) {
           console.warn(
             'Found ReflexContainer with height=0, ' +
-              'this will cause invalid behavior...'
+              'this will cause invalid behavior...',
           )
           console.warn(this.ref.current)
           return 0.0
@@ -518,7 +518,7 @@ export default class ReflexContainer extends React.Component {
         if (this.ref.current.offsetWidth === 0.0) {
           console.warn(
             'Found ReflexContainer with width=0, ' +
-              'this will cause invalid behavior...'
+              'this will cause invalid behavior...',
           )
           console.warn(this.ref.current)
           return 0.0
@@ -703,7 +703,7 @@ export default class ReflexContainer extends React.Component {
 
         const constrainedFlex = Math.min(
           entry.sizeFlex,
-          Math.min(entry.maxFlex, Math.max(entry.minFlex, proposedFlex))
+          Math.min(entry.maxFlex, Math.max(entry.minFlex, proposedFlex)),
         )
 
         const constrained =
@@ -779,7 +779,7 @@ export default class ReflexContainer extends React.Component {
         }
 
         return React.cloneElement(child, newProps)
-      }
+      },
     )
 
     return (

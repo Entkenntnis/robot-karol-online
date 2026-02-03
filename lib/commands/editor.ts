@@ -98,7 +98,7 @@ export function closeWorldEditor(core: Core) {
 
 export function switchCurrentlyEditedWorld(
   core: Core,
-  val: Core['ws']['editor']['currentlyEditing']
+  val: Core['ws']['editor']['currentlyEditing'],
 ) {
   if (
     val == core.ws.editor.currentlyEditing &&

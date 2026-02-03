@@ -34,7 +34,7 @@ export function ControlBar() {
             }}
             className={clsx(
               'px-2 py-0.5 rounded hover:bg-green-300',
-              'bg-green-200 ml-3 mt-3'
+              'bg-green-200 ml-3 mt-3',
             )}
           >
             <FaIcon icon={faCircleCheck} className="mr-1" />
@@ -76,7 +76,7 @@ export function ControlBar() {
         <p className="text-xs text-center mt-2">
           {(
             Math.round(
-              (1000 / sliderToDelay(core.ws.ui.speedSliderValue)) * 10
+              (1000 / sliderToDelay(core.ws.ui.speedSliderValue)) * 10,
             ) / 10
           )
             .toFixed(1)
@@ -150,7 +150,7 @@ export function ControlBar() {
         return (
           <span
             className={clsx(
-              core.ws.quest.progress ? 'text-green-600' : 'text-red-600'
+              core.ws.quest.progress ? 'text-green-600' : 'text-red-600',
             )}
           >
             <FaIcon

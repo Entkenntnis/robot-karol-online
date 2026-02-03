@@ -90,7 +90,7 @@ export function WorldEditor() {
               'mr-5 px-2 rounded-full py-0.5 m-0.5',
               core.ws.editor.currentlyEditing == 'start' &&
                 !core.ws.editor.showWorldPreview &&
-                'bg-yellow-200'
+                'bg-yellow-200',
             )}
             onClick={() => {
               switchCurrentlyEditedWorld(core, 'start')
@@ -102,7 +102,7 @@ export function WorldEditor() {
           <button
             className={clsx(
               'px-2 py-0.5 mr-5 rounded-full',
-              core.ws.editor.showWorldPreview && 'bg-yellow-200'
+              core.ws.editor.showWorldPreview && 'bg-yellow-200',
             )}
             onClick={() => {
               showPreview(core)
@@ -115,7 +115,7 @@ export function WorldEditor() {
               'px-2 rounded-full py-0.5 m-0.5',
               core.ws.editor.currentlyEditing == 'target' &&
                 !core.ws.editor.showWorldPreview &&
-                'bg-yellow-200'
+                'bg-yellow-200',
             )}
             onClick={() => {
               switchCurrentlyEditedWorld(core, 'target')
@@ -159,7 +159,7 @@ export function WorldEditor() {
                 core,
                 core.ws.world.dimX,
                 core.ws.world.dimY,
-                core.ws.world.height
+                core.ws.world.height,
               )
               handlerDiv.current?.focus()
             }}
@@ -185,7 +185,7 @@ export function WorldEditor() {
                   'border-2 border-white p-8 m-6 w-fit h-fit',
                   core.ws.editor.showWorldPreview
                     ? ''
-                    : 'focus:border-green-200 cursor-pointer'
+                    : 'focus:border-green-200 cursor-pointer',
                 )}
                 onKeyDown={(e) => {
                   if (actions[e.code]) {

@@ -1,1 +1,51 @@
-{"version":"v1","title":"d) Dart (reloaded)","description":"Programmiere einen vollständigen Dart-Punktezähler. Zur Einfachheit startet der Zähler bei 201. Das Spiel muss exakt bei Null enden (siehe Chat 2)","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Spielstart bei 201 Punkten"},{"role":"in","text":"40"},{"role":"out","text":"Noch 161"},{"role":"in","text":"30"},{"role":"out","text":"Noch 131"},{"role":"in","text":"57"},{"role":"out","text":"Noch 74"},{"role":"in","text":"25"},{"role":"out","text":"Noch 49"},{"role":"in","text":"42"},{"role":"out","text":"Noch 7"},{"role":"in","text":"7"},{"role":"out","text":"Spiel beendet!"}]},{"title":"Chat 2","messages":[{"role":"out","text":"Spielstart bei 201 Punkten"},{"role":"in","text":"60"},{"role":"out","text":"Noch 141"},{"role":"in","text":"60"},{"role":"out","text":"Noch 81"},{"role":"in","text":"60"},{"role":"out","text":"Noch 21"},{"role":"in","text":"60"},{"role":"out","text":"Überworfen!"},{"role":"in","text":"10"},{"role":"out","text":"Noch 11"},{"role":"in","text":"15"},{"role":"out","text":"Überworfen!"},{"role":"in","text":"11"},{"role":"out","text":"Spiel beendet!"}]}],"language":"python-pro","program":""}
+{
+  "version": "v1",
+  "title": "d) Dart (reloaded)",
+  "description": "Programmiere einen vollständigen Dart-Punktezähler. Zur Einfachheit startet der Zähler bei 201. Das Spiel muss exakt bei Null enden (siehe Chat 2)",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Spielstart bei 201 Punkten" },
+        { "role": "in", "text": "40" },
+        { "role": "out", "text": "Noch 161" },
+        { "role": "in", "text": "30" },
+        { "role": "out", "text": "Noch 131" },
+        { "role": "in", "text": "57" },
+        { "role": "out", "text": "Noch 74" },
+        { "role": "in", "text": "25" },
+        { "role": "out", "text": "Noch 49" },
+        { "role": "in", "text": "42" },
+        { "role": "out", "text": "Noch 7" },
+        { "role": "in", "text": "7" },
+        { "role": "out", "text": "Spiel beendet!" }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Spielstart bei 201 Punkten" },
+        { "role": "in", "text": "60" },
+        { "role": "out", "text": "Noch 141" },
+        { "role": "in", "text": "60" },
+        { "role": "out", "text": "Noch 81" },
+        { "role": "in", "text": "60" },
+        { "role": "out", "text": "Noch 21" },
+        { "role": "in", "text": "60" },
+        { "role": "out", "text": "Überworfen!" },
+        { "role": "in", "text": "10" },
+        { "role": "out", "text": "Noch 11" },
+        { "role": "in", "text": "15" },
+        { "role": "out", "text": "Überworfen!" },
+        { "role": "in", "text": "11" },
+        { "role": "out", "text": "Spiel beendet!" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}

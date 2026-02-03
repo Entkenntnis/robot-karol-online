@@ -1,1 +1,45 @@
-{"version":"v1","title":"c) Zahlenraten 1","description":"Dein Programm enthält eine geheime Zahl (psst, sie lautet 7). Karol soll diese Zahl raten und du sagst, ob die Zahl zu hoch oder zu niedrig ist. Bringe diese Code-Zeilen in die richtige Reihenfolge:\n\n`geheim = 7`\n\n`if n < geheim:`\n\n`if n > geheim:`\n\n`n = int(input())`\n\n`print(\"Rate meine Zahl\")`\n\n`print(\"zu niedrig\")`\n\n`print(\"zu hoch\")`","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Rate meine Zahl"},{"role":"in","text":"6"},{"role":"out","text":"zu niedrig"}]},{"title":"Chat 2","messages":[{"role":"out","text":"Rate meine Zahl"},{"role":"in","text":"100"},{"role":"out","text":"zu hoch"}]},{"title":"Chat 3","messages":[{"role":"out","text":"Rate meine Zahl"},{"role":"in","text":"1"},{"role":"out","text":"zu niedrig"}]},{"title":"Chat 4","messages":[{"role":"out","text":"Rate meine Zahl"},{"role":"in","text":"8"},{"role":"out","text":"zu hoch"}]}],"language":"python-pro","program":""}
+{
+  "version": "v1",
+  "title": "c) Zahlenraten 1",
+  "description": "Dein Programm enthält eine geheime Zahl (psst, sie lautet 7). Karol soll diese Zahl raten und du sagst, ob die Zahl zu hoch oder zu niedrig ist. Bringe diese Code-Zeilen in die richtige Reihenfolge:\n\n`geheim = 7`\n\n`if n < geheim:`\n\n`if n > geheim:`\n\n`n = int(input())`\n\n`print(\"Rate meine Zahl\")`\n\n`print(\"zu niedrig\")`\n\n`print(\"zu hoch\")`",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Rate meine Zahl" },
+        { "role": "in", "text": "6" },
+        { "role": "out", "text": "zu niedrig" }
+      ]
+    },
+    {
+      "title": "Chat 2",
+      "messages": [
+        { "role": "out", "text": "Rate meine Zahl" },
+        { "role": "in", "text": "100" },
+        { "role": "out", "text": "zu hoch" }
+      ]
+    },
+    {
+      "title": "Chat 3",
+      "messages": [
+        { "role": "out", "text": "Rate meine Zahl" },
+        { "role": "in", "text": "1" },
+        { "role": "out", "text": "zu niedrig" }
+      ]
+    },
+    {
+      "title": "Chat 4",
+      "messages": [
+        { "role": "out", "text": "Rate meine Zahl" },
+        { "role": "in", "text": "8" },
+        { "role": "out", "text": "zu hoch" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": ""
+}

@@ -28,7 +28,7 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
           }}
           className={clsx(
             'relative bg-white border-2 border-gray-800 rounded-sm cursor-pointer hover:shadow-lg transition-shadow',
-            core.ws.bench.locked && 'cursor-wait'
+            core.ws.bench.locked && 'cursor-wait',
           )}
         >
           <div className="px-8 py-1 border-b-2 border-gray-800">

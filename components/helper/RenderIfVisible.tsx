@@ -55,13 +55,13 @@ const RenderIfVisible = ({
               () => setIsVisible(entries[0].isIntersecting),
               {
                 timeout: 600,
-              }
+              },
             )
           } else {
             setIsVisible(entries[0].isIntersecting)
           }
         },
-        { root, rootMargin: `${visibleOffset}px 0px ${visibleOffset}px 0px` }
+        { root, rootMargin: `${visibleOffset}px 0px ${visibleOffset}px 0px` },
       )
 
       observer.observe(localRef)
@@ -84,11 +84,11 @@ const RenderIfVisible = ({
   const placeholderStyle = { height: placeholderHeight.current }
   const rootClasses = useMemo(
     () => `renderIfVisible ${rootElementClass}`,
-    [rootElementClass]
+    [rootElementClass],
   )
   const placeholderClasses = useMemo(
     () => `renderIfVisible-placeholder ${placeholderElementClass}`,
-    [placeholderElementClass]
+    [placeholderElementClass],
   )
 
   return React.createElement(
@@ -104,7 +104,7 @@ const RenderIfVisible = ({
         className: placeholderClasses,
         style: placeholderStyle,
       })
-    )
+    ),
   )
 }
 

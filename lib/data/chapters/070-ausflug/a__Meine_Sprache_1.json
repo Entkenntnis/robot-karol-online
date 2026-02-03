@@ -1,1 +1,22 @@
-{"version":"v1","title":"a) Meine Sprache 1","description":"Schreibe dein Programm, aber anstatt `print` und `input` , nutze meine eigene Sprache mit `blub` und `blab`.","tasks":[],"lng":"de","editOptions":"python-pro-only","questScript":"","chats":[{"title":"Chat 1","messages":[{"role":"out","text":"Hallo!"},{"role":"in","text":"Hi"},{"role":"out","text":"Schön hier"},{"role":"out","text":"Wirklich schön"}]}],"language":"python-pro","program":"def blub(text):\n    print(text)\n\n\ndef blab():\n    return input()\n\n\n# TODO: nutze blub und blab\n"}
+{
+  "version": "v1",
+  "title": "a) Meine Sprache 1",
+  "description": "Schreibe dein Programm, aber anstatt `print` und `input` , nutze meine eigene Sprache mit `blub` und `blab`.",
+  "tasks": [],
+  "lng": "de",
+  "editOptions": "python-pro-only",
+  "questScript": "",
+  "chats": [
+    {
+      "title": "Chat 1",
+      "messages": [
+        { "role": "out", "text": "Hallo!" },
+        { "role": "in", "text": "Hi" },
+        { "role": "out", "text": "Schön hier" },
+        { "role": "out", "text": "Wirklich schön" }
+      ]
+    }
+  ],
+  "language": "python-pro",
+  "program": "def blub(text):\n    print(text)\n\n\ndef blab():\n    return input()\n\n\n# TODO: nutze blub und blab\n"
+}

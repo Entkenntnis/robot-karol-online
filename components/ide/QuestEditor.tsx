@@ -31,7 +31,8 @@ export function QuestEditor() {
         <button
           className={clsx(
             'px-2 py-1 hover:bg-yellow-200 rounded-tl rounded-tr',
-            !core.ws.editor.showQuestPreview && 'border-b-yellow-500 border-b-2'
+            !core.ws.editor.showQuestPreview &&
+              'border-b-yellow-500 border-b-2',
           )}
           onClick={() => {
             submitAnalyzeEvent(core, 'ev_click_editor_disablePreview')
@@ -48,7 +49,7 @@ export function QuestEditor() {
           className={clsx(
             'px-2 py-1 hover:bg-yellow-200 rounded-tl rounded-tr',
             core.ws.editor.showQuestPreview && 'border-b-yellow-500 border-b-2',
-            'ml-3'
+            'ml-3',
           )}
           onClick={() => {
             submitAnalyzeEvent(core, 'ev_click_editor_enablePreview')

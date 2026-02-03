@@ -25,7 +25,7 @@ export function QuestPrompt() {
 
     const timeout = setTimeout(() => {
       setDisplayedText(
-        (prev) => prev + core.ws.ui.questPrompt?.charAt(currentIndex)
+        (prev) => prev + core.ws.ui.questPrompt?.charAt(currentIndex),
       )
       setCurrentIndex((prev) => prev + 1)
     }, 25)
@@ -67,7 +67,7 @@ export function QuestPrompt() {
           <button
             className={clsx(
               'bg-yellow-600 text-white font-semibold py-0.5 px-2 rounded shadow hover:bg-yellow-700 transition duration-200',
-              !isComplete && 'invisible'
+              !isComplete && 'invisible',
             )}
             onClick={() => {
               // remove prompt and message worker

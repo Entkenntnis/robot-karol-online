@@ -1,1 +1,79 @@
-{"version":"v1","title":"Fußballfeld ","description":"Baue ein Fußballfeld.","tasks":[{"title":"Fußball","start":{"dimX":15,"dimY":10,"height":10,"karol":{"x":0,"y":0,"dir":"south"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":15,"dimY":10,"height":10,"karol":{"x":14,"y":2,"dir":"east"},"bricks":{"dimX":15,"dimY":10,"offsetX":0,"offsetY":0,"data":[[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[1,1,1,0,0,0,0,1,0,0,0,0,1,1,1],[0,0,1,0,0,0,1,1,1,0,0,0,1,0,0],[0,0,1,0,0,1,1,1,1,1,0,0,1,0,0],[0,0,1,0,0,0,1,1,1,0,0,0,1,0,0],[0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],[1,1,1,0,0,0,0,1,0,0,0,0,1,1,1],[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}}],"lng":"de","questScript":"","language":"blocks","program":""}
+{
+  "version": "v1",
+  "title": "Fußballfeld ",
+  "description": "Baue ein Fußballfeld.",
+  "tasks": [
+    {
+      "title": "Fußball",
+      "start": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 10,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 15,
+        "dimY": 10,
+        "height": 10,
+        "karol": { "x": 14, "y": 2, "dir": "east" },
+        "bricks": {
+          "dimX": 15,
+          "dimY": 10,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
+            [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
+            [1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "questScript": "",
+  "language": "blocks",
+  "program": ""
+}

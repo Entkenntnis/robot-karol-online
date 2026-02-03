@@ -1,1 +1,198 @@
-{"version":"v1","title":"Heimweg","description":"Finde mit Karol immer in die obere linke Ecke zurück. Gehe in drei Teilen vor:\n\n1. Drehe dich nach Norden, nutze `NichtIstNorden`.\n2. Laufe bis zur Wand und drehe dich nach links.\n3. Laufe wieder zur Wand und setze die Marke.","tasks":[{"title":"Weg 1","start":{"dimX":5,"dimY":5,"height":6,"karol":{"x":2,"y":3,"dir":"east"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":5,"dimY":5,"height":6,"karol":{"x":0,"y":0,"dir":"south"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"dimX":1,"dimY":1,"offsetX":0,"offsetY":0,"data":[[true]]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}},{"title":"Weg 2","start":{"dimX":7,"dimY":3,"height":6,"karol":{"x":6,"y":1,"dir":"west"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":7,"dimY":3,"height":6,"karol":{"x":0,"y":0,"dir":"west"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"dimX":1,"dimY":1,"offsetX":0,"offsetY":0,"data":[[true]]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}},{"title":"Weg 3","start":{"dimX":7,"dimY":7,"height":6,"karol":{"x":5,"y":5,"dir":"south"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"dimX":7,"dimY":7,"offsetX":0,"offsetY":0,"data":[[false,false,false,false,false,false,true],[false,false,false,false,false,true,false],[false,false,false,false,true,false,false],[false,false,false,true,false,false,false],[false,false,true,false,false,false,false],[false,true,false,false,false,false,false],[true,false,false,false,false,false,false]]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}},"target":{"dimX":7,"dimY":7,"height":6,"karol":{"x":0,"y":0,"dir":"north"},"bricks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]},"marks":{"dimX":7,"dimY":7,"offsetX":0,"offsetY":0,"data":[[true,false,false,false,false,false,true],[false,false,false,false,false,true,false],[false,false,false,false,true,false,false],[false,false,false,true,false,false,false],[false,false,true,false,false,false,false],[false,true,false,false,false,false,false],[true,false,false,false,false,false,false]]},"blocks":{"offsetX":-1,"offsetY":-1,"dimX":0,"dimY":0,"data":[]}}}],"lng":"de","questScript":"","language":"blocks","program":""}
+{
+  "version": "v1",
+  "title": "Heimweg",
+  "description": "Finde mit Karol immer in die obere linke Ecke zurück. Gehe in drei Teilen vor:\n\n1. Drehe dich nach Norden, nutze `NichtIstNorden`.\n2. Laufe bis zur Wand und drehe dich nach links.\n3. Laufe wieder zur Wand und setze die Marke.",
+  "tasks": [
+    {
+      "title": "Weg 1",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 2, "y": 3, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Weg 2",
+      "start": {
+        "dimX": 7,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 6, "y": 1, "dir": "west" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 3,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "west" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 1,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [[true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "Weg 3",
+      "start": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 5, "y": 5, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, false, false, false, false, true],
+            [false, false, false, false, false, true, false],
+            [false, false, false, false, true, false, false],
+            [false, false, false, true, false, false, false],
+            [false, false, true, false, false, false, false],
+            [false, true, false, false, false, false, false],
+            [true, false, false, false, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 7,
+        "dimY": 7,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "north" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 7,
+          "dimY": 7,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [true, false, false, false, false, false, true],
+            [false, false, false, false, false, true, false],
+            [false, false, false, false, true, false, false],
+            [false, false, false, true, false, false, false],
+            [false, false, true, false, false, false, false],
+            [false, true, false, false, false, false, false],
+            [true, false, false, false, false, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "de",
+  "questScript": "",
+  "language": "blocks",
+  "program": ""
+}
