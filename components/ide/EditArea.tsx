@@ -47,10 +47,10 @@ export function EditArea() {
           insert: core.ws.ui.editQuestScript
             ? core.ws.editor.questScript
             : core.ws.settings.language == 'robot karol'
-            ? core.ws.code
-            : core.ws.settings.language == 'python-pro'
-            ? core.ws.pythonCode
-            : core.ws.javaCode,
+              ? core.ws.code
+              : core.ws.settings.language == 'python-pro'
+                ? core.ws.pythonCode
+                : core.ws.javaCode,
         },
       })
       forceLinting(view.current)
@@ -72,9 +72,9 @@ export function EditArea() {
                   <a
                     className={clsx(
                       'link',
-                      showCheatSheet && 'text-purple-600'
+                      showCheatSheet && 'text-purple-600',
                     )}
-                    href="https://github.com/Entkenntnis/robot-karol-online/blob/main/QUESTSCRIPT.md#questscript"
+                    href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/QUESTSCRIPT.md#questscript"
                     target="_blank"
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_ide_questscriptGuide')
@@ -87,7 +87,7 @@ export function EditArea() {
                   <button
                     className={clsx(
                       'link',
-                      showCheatSheet && 'text-purple-600'
+                      showCheatSheet && 'text-purple-600',
                     )}
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_ide_pythoncheatsheet')
@@ -101,7 +101,7 @@ export function EditArea() {
                   core.ws.pythonCode.includes('class') && (
                     <button
                       className={clsx(
-                        'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed'
+                        'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed',
                       )}
                       onClick={() => {
                         submitAnalyzeEvent(core, 'ev_click_ide_bench')
@@ -140,7 +140,7 @@ export function EditArea() {
                     className={clsx(
                       'ml-8 text-gray-500 cursor-pointer select-none',
                       core.ws.editor.questScript && 'font-semibold',
-                      core.ws.ui.isChatMode && 'hidden'
+                      core.ws.ui.isChatMode && 'hidden',
                     )}
                   >
                     <input
@@ -207,7 +207,7 @@ export function EditArea() {
                 ? showCheatSheet
                   ? 'left-[340px]'
                   : 'left-20'
-                : 'left-20'
+                : 'left-20',
             )}
           >
             <div className="flex justify-between mt-[9px] relative">
@@ -271,7 +271,7 @@ export function EditArea() {
         <div
           className={clsx(
             'absolute right-4 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50 z-[100]',
-            'left-60'
+            'left-60',
           )}
         >
           <div className="flex justify-between mt-[9px] relative">
@@ -314,7 +314,7 @@ export function EditArea() {
             className={clsx(
               'w-full h-full flex flex-col relative',
               core.ws.ui.state == 'running' &&
-                '[&_.cm-activeLine]:bg-transparent [&_.cm-activeLineGutter]:bg-transparent'
+                '[&_.cm-activeLine]:bg-transparent [&_.cm-activeLineGutter]:bg-transparent',
             )}
           >
             {core.ws.settings.language == 'robot karol' ? (

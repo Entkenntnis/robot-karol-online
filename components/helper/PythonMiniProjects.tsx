@@ -68,7 +68,7 @@ export function PythonMiniProjects({
           </button>
           <a
             className="link text-gray-600 text-sm"
-            href="https://github.com/Entkenntnis/robot-karol-online/blob/main/RKO-MODULE.md"
+            href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/RKO-MODULE.md"
             target="_blank"
             onClick={() => {
               submitAnalyzeEvent(core, 'ev_click_landing_moduleDocs')

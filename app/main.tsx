@@ -23,7 +23,7 @@ const App = lazy(() =>
   }
 })()
 
-export default function Index() {
+function Index() {
   const core = useCreateCore()
   return (
     <CoreProvider value={core}>

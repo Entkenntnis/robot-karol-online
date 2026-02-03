@@ -681,7 +681,7 @@ export function Overview() {
                     <li>
                       <a
                         target="_blank"
-                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/MATERIAL-LEHRKRAEFTE.md"
+                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/MATERIAL-LEHRKRAEFTE.md"
                         onClick={() => {
                           // open feedback form in new tab
                           submitAnalyzeEvent(core, 'ev_click_landing_material')
