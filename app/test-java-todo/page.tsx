@@ -2,6 +2,7 @@ import type { Diagnostic } from '@codemirror/lint'
 import type { Op } from '../../lib/state/types'
 import { CompilerTest } from './CompilerTest'
 import { Suspense } from 'react'
+import { createRoot } from 'react-dom/client'
 
 // export const metadata: Metadata = {
 //   title: 'Test Java',
@@ -1288,3 +1289,5 @@ export default function TestJava() {
     </div>
   )
 }
+
+createRoot(document.getElementById('root')!).render(<TestJava />)
