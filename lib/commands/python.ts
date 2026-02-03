@@ -26,10 +26,42 @@ import { CanvasObjects } from '../state/canvas-objects'
 import { Instrument } from 'tone/build/esm/instrument/Instrument'
 import { chatDone, chatError, chatInput, chatOutput } from './chat'
 
+function supportsWorkerType() {
+  let supports = false
+  const tester = {
+    get type(): 'module' {
+      supports = true
+      return 'module' // Return valid type just in case
+    },
+  }
+
+  try {
+    // We use a blob URL to avoid a network request or script error.
+    // We terminate immediately, so no resources are actually used.
+    const worker = new Worker('blob://', tester)
+    worker.terminate()
+  } catch (e) {
+    // Some older browsers might throw if they don't support the 2nd arg
+    // or if the URL is invalid for them.
+  }
+
+  return supports
+}
+
 export function setupWorker(core: Core) {
   if (core.worker) {
     return
   }
+
+  if (!supportsWorkerType()) {
+    setTimeout(() => {
+      alert(
+        'Dein Browser ist zu alt und unterstützt leider keinen Python-Modus. Bitte aktualisiere deinen Browser.',
+      )
+    }, 444)
+  }
+
+  // check for support
 
   // console.log('Starte Setup der Worker ...')
 

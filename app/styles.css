@@ -115,6 +115,11 @@ button {
   transition-duration: 200ms;
 }
 
+.dropdown:focus-within .dropdown-content {
+  visibility: visible;
+  opacity: 1;
+}
+
 @media (hover: hover) {
   .dropdown.dropdown-hover:hover .dropdown-content {
     visibility: visible;
