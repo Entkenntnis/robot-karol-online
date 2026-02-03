@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+button {
+  background-color: transparent;
+}
+
 .background-element {
   background-image: url('/canvas_background.jpg');
 }
@@ -95,16 +99,11 @@
   display: inline-block;
 }
 
-.dropdown > *:not(summary):focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
 .dropdown .dropdown-content {
   position: absolute;
 }
 
-.dropdown:is(:not(details)) .dropdown-content {
+.dropdown-content {
   visibility: hidden;
   opacity: 0;
   transform-origin: top;
@@ -114,13 +113,6 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   transition-duration: 200ms;
-}
-
-.dropdown.dropdown-open .dropdown-content,
-.dropdown:not(.dropdown-hover):focus .dropdown-content,
-.dropdown:focus-within .dropdown-content {
-  visibility: visible;
-  opacity: 1;
 }
 
 @media (hover: hover) {
