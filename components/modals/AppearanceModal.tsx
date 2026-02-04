@@ -890,10 +890,9 @@ export function AppearanceModal() {
               <div className="mt-4 flex flex-col items-center">
                 {/* Container mit verfeinertem Rautenmuster */}
                 <div
-                  className="relative"
+                  className="relative bg-contain"
                   style={{
-                    background:
-                      'repeating-conic-gradient(rgba(255, 255, 255, 0.7) 0% 25%, #e0e0e0 0% 50%) 50% / 20px 20px',
+                    backgroundImage: 'url("/appearance/editor_background.png")',
                   }}
                 >
                   {/* Referenzbild mit geringer Deckkraft */}
@@ -919,10 +918,10 @@ export function AppearanceModal() {
                     ref={canvasRef}
                     width={160}
                     height={71}
+                    className="pixelated"
                     style={{
                       width: '800px',
                       height: '355px',
-                      imageRendering: 'pixelated',
                       position: 'relative',
                       zIndex: 2,
                       touchAction: 'none',
@@ -939,10 +938,10 @@ export function AppearanceModal() {
                     ref={previewCanvasRef}
                     width={160}
                     height={71}
+                    className="pixelated"
                     style={{
                       width: '800px',
                       height: '355px',
-                      imageRendering: 'pixelated',
                       position: 'absolute',
                       top: 0,
                       left: 0,
