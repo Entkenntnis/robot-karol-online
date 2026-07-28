@@ -162,7 +162,7 @@ Farbkleckse: [Bild von starline](https://de.freepik.com/vektoren-kostenlos/isoli
 
 ## Trivia
 
-Karol verwendet sie/ihr-Pronomen.
+Karol verwendet alle Pronomen!
 
 ## Entwicklung
 
