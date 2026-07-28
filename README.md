@@ -165,7 +165,7 @@ Farbkleckse: [Bild von starline](https://de.freepik.com/vektoren-kostenlos/isoli
 
 ## Trivia
 
-Karol verwendet alle Pronomen! Sie/ihr, er/ihm, they/them, Neo-Pronomen ... wähle dir die Anrede aus, mit der du dich am meisten resonierst.
+Karol verwendet alle Pronomen! Sie/ihr, er/ihm, they/them, Neo-Pronomen ... wähle dir die Anrede aus, mit der du am meisten resonierst.
 
 ## Entwicklung
 
