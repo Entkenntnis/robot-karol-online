@@ -7,22 +7,6 @@ const App = lazy(() =>
   import('../components/App').then((mod) => ({ default: mod.App })),
 )
 
-// Monkey patching console.warn to suppress specific warnings
-;(function () {
-  const originalWarn = console.warn
-  console.warn = function (...args) {
-    if (
-      typeof args[0] === 'string' &&
-      args[0].startsWith(
-        'Blockly.Workspace.getAllVariables was deprecated in v12',
-      )
-    ) {
-      return
-    }
-    originalWarn.apply(console, args)
-  }
-})()
-
 function Index() {
   const core = useCreateCore()
   return (

@@ -182,7 +182,7 @@ Danach ist die lokale Version auf `localhost:3000` verfügbar.
 
 ## Betrieb
 
-Das Projekt kann mit `npm run build` gebaut werden, das Ergebnis ist im Ordner `out` zu finden und kann über einen Webserver bereitgestellt werden. Damit der Python-Profi-Modus funktioniert, wird Cross-Origin-Isolation benötigt. Verwende zum Beispiel diese `.htaccess`-Datei:
+Das Projekt kann mit `npm run build` gebaut werden, das Ergebnis ist im Ordner `dist` zu finden und kann über einen Webserver bereitgestellt werden. Damit der Python-Profi-Modus funktioniert, wird Cross-Origin-Isolation benötigt. Verwende zum Beispiel diese `.htaccess`-Datei:
 
 ```
 Header set Cross-Origin-Embedder-Policy "require-corp"

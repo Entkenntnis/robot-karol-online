@@ -30,3 +30,4 @@ export default defineConfig({
 
 // tailwindcss: stick to v3 because of css compatibility
 // markdown-to-jsx stick to version 8
+// blockly: stick with v12, again, keep compatibility and honestly, not really any feature missing for me, so yeah
