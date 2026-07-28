@@ -123,6 +123,7 @@ Im textbasierten Editor werden alle obigen Anweisungen und Kontrollstrukturen un
 - Außerdem können weiterhin Kommentare mit `{ Kommentar }` geschrieben werden. Alternative Syntax für mehrzeilige Kommentare ist `/* Kommentar */`.
 - Zur Abgrenzung von Befehlen kann ein Semikolon verwendet werden: `Hinlegen; Schritt; LinksDrehen`. Das Semikolon wird beim Parsen ignoriert.
 
+<!--
 ## Umfangreiche Beispiele
 
 ### Dijkstra-Algorithmus
@@ -136,6 +137,8 @@ In https://karol.arrrg.de/#U528 durchsucht Karol einen Graph aus Ziegeln nach de
 In https://karol.arrrg.de/#78T8 nutzt Karol einen Algorithmus aus der dynamischen Programmierung, um die Levenshtein-Distanz zu berechnen. Die Matrix, über die die Berechnung ausgeführt wird, lässt sich anschaulich in der Welt von Karol darstellen.
 
 ![grafik](https://github.com/user-attachments/assets/ee515981-4401-4615-8360-bca9bde2f33c)
+
+-->
 
 ## Links
 
