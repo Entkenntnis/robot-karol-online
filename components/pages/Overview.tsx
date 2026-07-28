@@ -188,7 +188,7 @@ export function Overview() {
               </select>
             </label>
           </div>
-          <div className="fixed top-1.5 right-24 z-[1000]">
+          {/*<div className="fixed top-1.5 right-24 z-[1000]">
             <button
               className={clsx('hover:bg-gray-100/60 rounded-xl px-2 py-0.5')}
               onClick={() => {
@@ -205,7 +205,7 @@ export function Overview() {
               />
               (Login)
             </button>
-          </div>
+          </div>*/}
           <div className="fixed top-2 right-2 z-[1000]">
             <button
               className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
