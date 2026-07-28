@@ -144,7 +144,7 @@ In https://karol.arrrg.de/#78T8 nutzt Karol einen Algorithmus aus der dynamische
 
 ### Robot Karol 3.0 (Java Version)
 
-Neue Technologien erlauben es, auch alte Software im Browser zu nutzen. So kannst du unter https://entkenntnis.github.io/rk3.0/ die unmodifizierte Original-Version von Robot Karol ausprobieren (ohne Garantie der Funktion). Für mich Nostalgie pur.
+Neue Technologien erlauben es, auch alte Software im Browser zu nutzen. So kannst du unter https://entkenntnis.github.io/rk3.0/ die unmodifizierte Original-Version von Robot Karol ausprobieren (ohne Garantie der Funktion). Für Nostalgie pur.
 
 ### Ähnliche Projekte
 
@@ -165,7 +165,7 @@ Farbkleckse: [Bild von starline](https://de.freepik.com/vektoren-kostenlos/isoli
 
 ## Trivia
 
-Karol verwendet alle Pronomen!
+Karol verwendet alle Pronomen! Sie/ihr, er/ihm, they/them, Neo-Pronomen ... wähle dir die Anrede aus, mit der du dich am meisten resonierst.
 
 ## Entwicklung
 
