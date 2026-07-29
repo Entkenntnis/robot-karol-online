@@ -25,7 +25,7 @@ import { SurveyModal } from './modals/SurveyModal'
 import { InspirationOld } from './pages/InspirationOld'
 import { PyodideWorker } from './ide/PyodideWorker'
 import { useEffect, useRef } from 'react'
-import { hydrateFromHash } from '../lib/commands/router'
+import { hydrate, navigate } from '../lib/commands/router'
 import { LoadingScreen } from './helper/LoadingScreen'
 import { submitAnalyzeEvent } from '../lib/commands/analyze'
 import { setLockToKarolCode } from '../lib/storage/storage'
@@ -44,12 +44,19 @@ export function App() {
 
   useEffect(() => {
     function onHashChange() {
-      hydrateFromHash(core)
+      hydrate(core)
+    }
+
+    // @ts-ignore TESTING
+    window.nav = function (url) {
+      navigate(core, url)
     }
 
     window.addEventListener('hashchange', onHashChange)
+    window.addEventListener('popstate', onHashChange)
     return () => {
       window.removeEventListener('hashchange', onHashChange)
+      window.removeEventListener('popstate', onHashChange)
     }
   }, [core])
 
@@ -57,9 +64,9 @@ export function App() {
   const currentlyHydrating = useRef<boolean>(false)
 
   useEffect(() => {
-    async function hydrate() {
+    async function hydrate_debounced() {
       currentlyHydrating.current = true
-      await hydrateFromHash(core)
+      await hydrate(core)
       currentlyHydrating.current = false
     }
 
@@ -86,7 +93,7 @@ export function App() {
       return
     }
 
-    if (!currentlyHydrating.current) hydrate()
+    if (!currentlyHydrating.current) hydrate_debounced()
   }, [core])
 
   return (

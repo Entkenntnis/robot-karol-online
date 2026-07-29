@@ -28,13 +28,21 @@ export async function navigate(core: Core, hash: string) {
   history.pushState(null, '', '/' + hash)
 
   // push state is not triggering hash change event, so hydrate manually
-  await hydrateFromHash(core)
+  await hydrate(core)
 }
 
-// Assume that all relevant data is in the hash
-export async function hydrateFromHash(core: Core) {
+// Main router entry point and fully flexible routing logic
+// Handles pathname, hash and query
+// Calling this function will fully reset the client and transition to a known state
+export async function hydrate(core: Core) {
   let raw_hash = window.location.hash
+  const path = window.location.pathname
+  const parameterList = new URLSearchParams(window.location.search)
   let rewrite = ''
+
+  console.log(
+    `-> hydrate path:${path}, hash:${raw_hash}, search:${parameterList}`,
+  )
 
   // internal rewrites
   if (raw_hash.toLocaleUpperCase() == '#BLUEJ-PLAYGROUND') {
