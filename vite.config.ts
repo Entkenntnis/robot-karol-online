@@ -1,3 +1,4 @@
+import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -10,6 +11,12 @@ export default defineConfig({
     chunkSizeWarningLimit: 3000,
     outDir: '../dist',
     emptyOutDir: true,
+    rolldownOptions: {
+      input: {
+        main: resolve(import.meta.dirname, 'app/index.html'),
+        nested: resolve(import.meta.dirname, 'app/python/index.html'),
+      },
+    },
   },
   server: {
     port: 3000,
