@@ -182,12 +182,18 @@ Danach ist die lokale Version auf `localhost:3000` verfügbar.
 
 ## Betrieb
 
-Das Projekt kann mit `npm run build` gebaut werden, das Ergebnis ist im Ordner `dist` zu finden und kann über einen Webserver bereitgestellt werden. Damit der Python-Profi-Modus funktioniert, wird Cross-Origin-Isolation benötigt. Verwende zum Beispiel diese `.htaccess`-Datei:
+Das Projekt kann mit `npm run build` gebaut werden, das Ergebnis ist im Ordner `dist` zu finden und kann über einen Webserver bereitgestellt werden. Damit der Python-Profi-Modus funktioniert, wird Cross-Origin-Isolation benötigt, außerdem ein Catch-All für Sub-Paths. Verwende zum Beispiel diese `.htaccess`-Datei:
 
 ```
 Header set Cross-Origin-Embedder-Policy "require-corp"
 Header set Cross-Origin-Opener-Policy "same-origin"
 AddType text/javascript .mjs
+
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
 ```
 
 Das Backend findet sich in https://github.com/Entkenntnis/stats-karol. Passe die Endpunkte in `backend.ts` an. Das Impressum kann in `impressum.ts` angepasst werden.
