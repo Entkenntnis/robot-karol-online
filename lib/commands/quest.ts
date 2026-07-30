@@ -199,7 +199,7 @@ export function startQuest(core: Core, id: number) {
     ws.ui.isTesting = false
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.taskScroll = 0
-    ws.ui.isHighlightDescription = true
+    ws.ui.isHighlightDescription = false
     ws.ui.audioStarted = false
     ui.speedSliderValue = 7
     ui.showPreview = true
