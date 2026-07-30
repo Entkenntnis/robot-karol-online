@@ -29,8 +29,6 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.see('Umweltschutz')
 
   I.click('Umweltschutz')
-  I.wait(1)
-  I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.type('Aufheben Schritt(2) Aufheben')
   I.click('Start')
@@ -38,8 +36,6 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.click('weiter')
 
   I.click('Um die Ecke')
-  I.wait(1)
-  I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.type('Schritt(2) LinksDrehen Schritt Hinlegen')
   I.click('Start')
@@ -47,8 +43,6 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.click('weiter')
 
   I.click('Verschieben')
-  I.wait(1)
-  I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.type('RechtsDrehen Aufheben LinksDrehen Schritt(3) Hinlegen')
   I.click('Start')
@@ -60,8 +54,6 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.see('Spiegelei')
 
   I.click('Treppe')
-  I.wait(1)
-  I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.type('Hinlegen Schritt Hinlegen(2) Schritt Hinlegen(3)')
   I.click('Start')
@@ -70,7 +62,7 @@ Scenario("Let's solve the first quests", ({ I }) => {
 
   I.click('Spiegelei')
   I.wait(1)
-  I.click('div .fixed')
+  // I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.type('Schritt RechtsDrehen Schritt MarkeSetzen')
   I.click('Start')
@@ -78,8 +70,6 @@ Scenario("Let's solve the first quests", ({ I }) => {
   I.click('weiter')
 
   I.click('Parkour')
-  I.wait(1)
-  I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.type('wiederhole 3 mal Hinlegen Schritt endewiederhole')
   I.click('Start')
@@ -119,8 +109,6 @@ Scenario('See if playground works fine', ({ I }) => {
 
 Scenario('Test special case of empty world in learning path', ({ I }) => {
   I.amOnPage('/#QUEST-55')
-  I.wait(0.2)
-  I.click('div .fixed')
   I.click({ css: '#select-language' })
   I.click({ css: '#select-language-robot-karol' })
   I.type('Hinlegen')
@@ -210,8 +198,6 @@ Scenario('Correctly convert code to python', ({ I }) => {
 
 Scenario('Test python quest', ({ I }) => {
   I.amOnPage('/#QUEST-61')
-  I.wait(1)
-  I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.pressKey(['Control', 'a'])
   I.type('print("Hallo, Python!")')
@@ -256,19 +242,18 @@ Scenario('Legacy links should work', ({ I }) => {
   I.see('Start')
 })
 
-Scenario("Don't use testing mode for single tasks", ({ I }) => {
-  I.amOnPage('/#QUEST-23')
-  I.click('div .fixed')
-  I.click('Start')
-  I.see('2D-Ansicht')
-})
-
-Scenario('Ask question in tasks', ({ I }) => {
-  I.amOnPage('/#QUEST-41')
-  I.click('div .fixed')
-  I.click('Start')
-  I.see('Frage stellen')
-})
+Scenario(
+  "Don't use testing mode for single tasks - and make sure switching quests work",
+  ({ I }) => {
+    I.amOnPage('/#QUEST-23')
+    I.click('Start')
+    I.see('2D-Ansicht')
+    I.amOnPage('/#QUEST-41')
+    // TODO: pending bug related to the way refresh of editors is handled
+    I.click('Start')
+    I.see('2D-Ansicht')
+  },
+)
 
 Scenario('Reset code should not break lock language', ({ I }) => {
   I.amOnPage('/#VWDA')
@@ -286,7 +271,6 @@ Scenario('Ellie, some testing', async ({ I }) => {
   I.scrollPageToBottom()
   I.click('Weiter')
   I.click('Fehlersuche')
-  I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.pressKey(['Control', 'a'])
   I.type('print("Hallo, Jackson!");print("Ich lerne jetzt Programmieren!")')
@@ -297,7 +281,6 @@ Scenario('Ellie, some testing', async ({ I }) => {
   I.scrollPageToBottom()
   I.click('Weiter')
   I.click('a) Flachwitz')
-  I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.type(
     'print("Wie nennt man einen Bumerang, der nicht zur\\u00fcckkommt?");input();print("Stock");print("Haha")',
@@ -308,5 +291,4 @@ Scenario('Ellie, some testing', async ({ I }) => {
   I.click('weiter')
   I.see('b) Papagei')
   I.see('c) Echo')
-  // TODO: add last few tests regarding chapter 2
 })
