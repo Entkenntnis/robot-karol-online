@@ -25,10 +25,8 @@ import { SurveyModal } from './modals/SurveyModal'
 import { InspirationOld } from './pages/InspirationOld'
 import { PyodideWorker } from './ide/PyodideWorker'
 import { useEffect, useRef } from 'react'
-import { hydrateFromHash } from '../lib/commands/router'
+import { hydrate, navigate } from '../lib/commands/router'
 import { LoadingScreen } from './helper/LoadingScreen'
-import { submitAnalyzeEvent } from '../lib/commands/analyze'
-import { setLockToKarolCode } from '../lib/storage/storage'
 import { Karolmania } from './pages/Karolmania'
 import { KarolmaniaGame } from './pages/KarolmaniaGame'
 import { Donate } from './pages/Donate'
@@ -43,50 +41,32 @@ export function App() {
   const core = useCore()
 
   useEffect(() => {
-    function onHashChange() {
-      hydrateFromHash(core)
+    function rehydrate() {
+      hydrate(core)
     }
 
-    window.addEventListener('hashchange', onHashChange)
+    // @ts-ignore TESTING
+    window.nav = function (url) {
+      navigate(core, url)
+    }
+
+    window.addEventListener('popstate', rehydrate)
     return () => {
-      window.removeEventListener('hashchange', onHashChange)
+      window.removeEventListener('popstate', rehydrate)
     }
   }, [core])
 
-  // ok, not good, but prevent react double rendering to call hydrate twice
+  // ok, not good, but prevents react double rendering to call hydrate twice
   const currentlyHydrating = useRef<boolean>(false)
 
   useEffect(() => {
-    async function hydrate() {
+    async function hydrate_debounced() {
       currentlyHydrating.current = true
-      await hydrateFromHash(core)
+      await hydrate(core)
       currentlyHydrating.current = false
     }
 
-    // take care of search parameters here
-
-    const parameterList = new URLSearchParams(window.location.search)
-
-    const code = parameterList.get('code')
-    if (code) {
-      setLockToKarolCode()
-      window.open('/', '_self')
-      return
-    }
-
-    const id = parameterList.get('id')
-
-    if (id) {
-      if (id == 'Z9xO1rVGj') {
-        submitAnalyzeEvent(core, 'ev_show_playgroundLegacyLink')
-        window.open('/#SPIELWIESE', '_self')
-        return
-      }
-      window.open('/#LEGACY:' + id, '_self')
-      return
-    }
-
-    if (!currentlyHydrating.current) hydrate()
+    if (!currentlyHydrating.current) hydrate_debounced()
   }, [core])
 
   return (

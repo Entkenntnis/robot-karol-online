@@ -17,7 +17,7 @@ export const config: CodeceptJS.MainConfig = {
   helpers: {
     Playwright: {
       browser: browser,
-      url: 'http://localhost:4173',
+      url: 'http://localhost:3000',
       show: true,
       restart: 'session',
       keepBrowserState: true,

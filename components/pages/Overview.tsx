@@ -482,17 +482,17 @@ export function Overview() {
                 }}
               >
                 <img
-                  src="klecks1.png"
+                  src="/klecks1.png"
                   className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
                   alt="Farbklecks 1"
                 />
                 <img
-                  src="klecks2.png"
+                  src="/klecks2.png"
                   className="w-[170px] top-[500px] left-[900px] absolute user-select-none"
                   alt="Farbklecks 2"
                 />
                 <img
-                  src="klecks3.png"
+                  src="/klecks3.png"
                   className="w-[150px] top-[1100px] left-[300px] absolute user-select-none"
                   alt="Farbklecks 3"
                 />
@@ -943,7 +943,7 @@ export function Overview() {
                     >
                       <p className="text-center mb-2">Hack The Web</p>
                       <img
-                        src="htw.png"
+                        src="/htw.png"
                         alt="H"
                         className="w-[32px] mx-auto mb-2"
                       />
