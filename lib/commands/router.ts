@@ -85,6 +85,9 @@ export async function hydrate(core: Core) {
     'ev_show_hash_' + (rewrite ? rewrite : page.slice(0, 100)),
   )
 
+  // all paths use the root path for now
+  setCanonical('')
+
   // PHASE 0: reset
   // const previousWs = core.ws
   core.reset()
@@ -380,4 +383,16 @@ export async function hydrate(core: Core) {
 
   // fall back
   await navigate(core, '')
+}
+
+function setCanonical(url: string) {
+  let link = document.querySelector(
+    'link[rel="canonical"]',
+  ) as HTMLLinkElement | null
+  if (!link) {
+    link = document.createElement('link')
+    link.rel = 'canonical'
+    document.head.appendChild(link)
+  }
+  link.href = 'https://karol.arrrg.de/' + url
 }
