@@ -27,8 +27,6 @@ import { exitBench } from '../../lib/commands/bench'
 import { PythonConsole } from '../helper/PythonConsole'
 import { left, right, forward } from '../../lib/commands/world'
 import { useEffect } from 'react'
-import { showModal } from '../../lib/commands/modal'
-import { pythonKarolExamples } from '../../lib/data/pythonExamples'
 
 export function Output() {
   const core = useCore()

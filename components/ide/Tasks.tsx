@@ -4,7 +4,6 @@ import {
   faArrowUp,
   faCheck,
   faClone,
-  faComment,
   faFlagCheckered,
   faInfoCircle,
   faPaintBrush,
