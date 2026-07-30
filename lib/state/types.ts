@@ -33,7 +33,6 @@ export interface Ui {
   messages: Message[]
   gutter: number
   state: 'ready' | 'loading' | 'running' | 'error'
-  needsTextRefresh: boolean
   errorMessages: string[]
   pythonProCanSwitch: boolean
   proMode: boolean

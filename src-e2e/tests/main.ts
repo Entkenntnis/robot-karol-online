@@ -249,7 +249,6 @@ Scenario(
     I.click('Start')
     I.see('2D-Ansicht')
     I.amOnPage('/#QUEST-41')
-    // TODO: pending bug related to the way refresh of editors is handled
     I.click('Start')
     I.see('2D-Ansicht')
   },

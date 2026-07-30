@@ -6,12 +6,10 @@ import {
   faPlay,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
-import { forceLinting } from '@codemirror/lint'
 
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { Editor } from './Editor'
-import { textRefreshDone } from '../../lib/commands/json'
 import { JavaEditor } from './JavaEditor'
 import clsx from 'clsx'
 import { PythonEditor } from './PythonEditor'
@@ -24,6 +22,7 @@ import { startBench } from '../../lib/commands/bench'
 import { InteractiveClassDiagram } from './InteractiveClassDiagram'
 import { closeOutput } from '../../lib/commands/quest'
 import { setQuestPreview } from '../../lib/commands/editor'
+import { refreshEditArea } from '../../lib/commands/editing'
 
 export function EditArea() {
   const core = useCore()
@@ -37,26 +36,6 @@ export function EditArea() {
   }, [core.ws.settings.language, core.ws.settings.mode, core.ws.ui.isBench])
 
   core.view = view
-
-  useEffect(() => {
-    if (core.ws.ui.needsTextRefresh && view.current) {
-      view.current.dispatch({
-        changes: {
-          from: 0,
-          to: view.current.state.doc.length,
-          insert: core.ws.ui.editQuestScript
-            ? core.ws.editor.questScript
-            : core.ws.settings.language == 'robot karol'
-              ? core.ws.code
-              : core.ws.settings.language == 'python-pro'
-                ? core.ws.pythonCode
-                : core.ws.javaCode,
-        },
-      })
-      forceLinting(view.current)
-      textRefreshDone(core)
-    }
-  })
 
   if (core.ws.settings.mode == 'code') {
     if (core.ws.settings.language == 'python-pro' && core.ws.ui.isBench) {
@@ -128,8 +107,8 @@ export function EditArea() {
                         core.mutateWs((ws) => {
                           ws.pythonCode =
                             ws.editor.originalCode ?? ws.pythonCode
-                          ws.ui.needsTextRefresh = true
                         })
+                        refreshEditArea(core)
                       }}
                     >
                       X
@@ -151,9 +130,7 @@ export function EditArea() {
                         core.mutateWs(({ ui }) => {
                           ui.editQuestScript = checked
                         })
-                        core.mutateWs((ws) => {
-                          ws.ui.needsTextRefresh = true
-                        })
+                        refreshEditArea(core)
                         if (checked) {
                           core.mutateWs(({ editor }) => {
                             editor.editOptions = 'python-pro-only'

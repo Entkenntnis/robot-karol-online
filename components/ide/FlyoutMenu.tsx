@@ -24,6 +24,7 @@ import { createWorldCmd } from '../../lib/commands/world'
 import { createWorld } from '../../lib/state/create'
 import { startButtonClicked } from '../../lib/commands/start'
 import { navigate } from '../../lib/commands/router'
+import { refreshEditArea } from '../../lib/commands/editing'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -161,19 +162,8 @@ export function FlyoutMenu() {
                     } else {
                       s.code = code
                     }
-                    s.ui.needsTextRefresh = true
                   })
-                  if (core.ws.settings.mode == 'blocks') {
-                    setMode(core, 'code')
-                    const check = () => {
-                      if (core.ws.ui.needsTextRefresh) {
-                        setTimeout(check, 10)
-                      } else {
-                        setMode(core, 'blocks')
-                      }
-                    }
-                    check()
-                  }
+                  refreshEditArea(core)
                   // }
                   closeFlyoutMenu()
                 }
@@ -212,30 +202,12 @@ export function FlyoutMenu() {
 
                   if (language == 'blocks') {
                     loadProgram(core, program, language as any)
-                    if (core.ws.settings.mode == 'blocks') {
-                      setMode(core, 'code')
-                      core.mutateWs((ws) => {
-                        ws.ui.needsTextRefresh = true
-                      })
-                      const check = () => {
-                        if (core.ws.ui.needsTextRefresh) {
-                          setTimeout(check, 10)
-                        } else {
-                          setMode(core, 'blocks')
-                        }
-                      }
-                      check()
-                    } else {
-                      setMode(core, 'blocks')
-                    }
                   } else {
                     setMode(core, 'code')
                     setLanguage(core, language as any)
-                    core.mutateWs((ws) => {
-                      ws.ui.needsTextRefresh = true
-                    })
                     loadProgram(core, program, language as any)
                   }
+                  refreshEditArea(core)
                 }}
               >
                 <FaIcon icon={faRotateRight} className="mr-2" />
@@ -258,8 +230,8 @@ export function FlyoutMenu() {
                   core.ws.settings.lng == 'de' ? questData[id] : questDataEn[id]
                 core.mutateWs((ws) => {
                   ws.pythonCode = data.script!.program
-                  ws.ui.needsTextRefresh = true
                 })
+                refreshEditArea(core)
               }}
             >
               <FaIcon icon={faRotateRight} className="mr-2" />
