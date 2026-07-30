@@ -7,6 +7,7 @@ import type {
   SerialWorld_MUST_STAY_COMPATIBLE,
   World,
 } from '../state/types'
+import { refreshEditArea } from './editing'
 import { setLanguage } from './language'
 import {
   attemptToLoadProgramFromLocalStorage,
@@ -111,8 +112,8 @@ export function deserialize(core: Core, file?: string) {
       if (mode) {
         state.settings.mode = mode
       }
-      state.ui.needsTextRefresh = true
     })
+    refreshEditArea(core)
     core.mutateCore((state) => {
       state.workspace.quest.tasks = [
         { start: world, title: 'Welt', target: null },
@@ -124,12 +125,6 @@ export function deserialize(core: Core, file?: string) {
   } catch (e) {
     alert(e ?? 'Laden fehlgeschlagen')
   }
-}
-
-export function textRefreshDone(core: Core) {
-  core.mutateWs((ws) => {
-    ws.ui.needsTextRefresh = false
-  })
 }
 
 export function deserializeQuest(
@@ -156,8 +151,6 @@ export function deserializeQuest(
         target: noTarget ? null : target,
       }
     })
-
-    ws.ui.needsTextRefresh = true
 
     if (updateLng) {
       if (quest.lng === 'en') {

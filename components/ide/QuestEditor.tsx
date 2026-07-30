@@ -9,6 +9,7 @@ import { useCore } from '../../lib/state/core'
 import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
 import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { refreshEditArea } from '../../lib/commands/editing'
 
 export function QuestEditor() {
   const core = useCore()
@@ -39,8 +40,8 @@ export function QuestEditor() {
             setQuestPreview(core, false)
             core.mutateWs((ws) => {
               ws.pythonCode = ws.editor.originalCode ?? ws.pythonCode
-              ws.ui.needsTextRefresh = true
             })
+            refreshEditArea(core)
           }}
         >
           {core.strings.editor.edit}
@@ -57,8 +58,8 @@ export function QuestEditor() {
             core.mutateWs((ws) => {
               ws.editor.originalCode = ws.pythonCode
               ws.ui.editQuestScript = false
-              ws.ui.needsTextRefresh = true
             })
+            refreshEditArea(core)
           }}
         >
           {core.strings.editor.preview}

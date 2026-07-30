@@ -251,7 +251,6 @@ export function restoreEditorSnapshot(core: Core) {
         ws.code = snapshot.code
         ws.javaCode = snapshot.javaCode
         ws.pythonCode = snapshot.pythonCode
-        ws.ui.needsTextRefresh = true
         ws.ui.isChatMode = snapshot.isChatMode
         if (snapshot.isChatMode) {
           ws.ui.lockLanguage = 'python-pro'

@@ -21,7 +21,7 @@ import { refreshEditArea } from './editing'
 import { addNewTask } from './editor'
 import { deserializeQuest } from './json'
 import { loadLegacyProject, loadQuest } from './load'
-import { setLng, setMode } from './mode'
+import { setLng } from './mode'
 import { startQuest } from './quest'
 
 const bluejPlaygroundHash =
@@ -141,6 +141,7 @@ export async function hydrate(core: Core) {
     addNewTask(core)
     document.title = 'Editor | Robot Karol Online'
     restoreEditorSnapshot(core)
+    refreshEditArea(core)
     return
   }
 
@@ -152,7 +153,6 @@ export async function hydrate(core: Core) {
       ws.quest.tasks = [
         { title: 'Spielwiese', start: createWorld(15, 10, 6), target: null },
       ]
-      ws.ui.needsTextRefresh = true
 
       ws.ui.isPlayground = true
       ws.page = 'imported' // playground should get a separate page, but this is a battle for another day
@@ -202,29 +202,12 @@ export async function hydrate(core: Core) {
         } else {
           s.code = code
         }
-        s.ui.needsTextRefresh = true
       })
-      if (core.ws.settings.mode == 'blocks') {
-        // This "hack" is necessary to force an update for blockly
-        // there is probably a better way of doing it
-        // leaving it here for another day
-        core.mutateWs((ws) => {
-          ws.ui.state = 'ready'
-        })
-        setMode(core, 'code')
-        const check = () => {
-          if (core.ws.ui.needsTextRefresh) {
-            setTimeout(check, 10)
-          } else {
-            setMode(core, 'blocks')
-          }
-        }
-        check()
-      }
       if (rewrite != 'BLUEJ-PLAYGROUND') {
         submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
       }
     }
+    refreshEditArea(core)
     return
   }
 
@@ -381,6 +364,7 @@ export async function hydrate(core: Core) {
     core.mutateWs((ws) => {
       ws.page = 'shared'
     })
+    refreshEditArea(core)
     return
   }
 

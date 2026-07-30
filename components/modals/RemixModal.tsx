@@ -8,6 +8,7 @@ import { useCore } from '../../lib/state/core'
 import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
 import { questDataEn } from '../../lib/data/questsEn'
 import { setMode } from '../../lib/commands/mode'
+import { refreshEditArea } from '../../lib/commands/editing'
 
 export function RemixModal() {
   const [selected, setSelected] = useState(-1)
@@ -115,7 +116,6 @@ export function RemixModal() {
                   if (obj.script) {
                     ws.settings.language = 'python-pro'
                     ws.settings.mode = 'code'
-                    ws.ui.needsTextRefresh = true
                     ws.pythonCode = obj.script.program
                     ws.editor.questScript = obj.script.questScript
                     ws.ui.editQuestScript = false
@@ -127,6 +127,7 @@ export function RemixModal() {
                     ws.ui.lockLanguage = 'python-pro'
                   }
                 })
+                refreshEditArea(core)
               }
               closeModal(core)
             }}
