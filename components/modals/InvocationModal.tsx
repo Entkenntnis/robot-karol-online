@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
 import { executeInBench } from '../../lib/commands/bench'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { capitalize } from '../../lib/helper/capitalize'
 
 export function InvocationModal() {

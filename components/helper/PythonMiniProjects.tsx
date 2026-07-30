@@ -5,7 +5,7 @@ import {
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons'
 import { useCore } from '../../lib/state/core'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import {
   setLearningPathScroll,

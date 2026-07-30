@@ -10,7 +10,7 @@ import {
   setUserName as setUserNameStorage,
 } from '../storage/storage'
 import { showModal } from './modal'
-import { saveCodeToLocalStorage } from './save'
+import { updatePlaygroundHashToMode } from './save'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
   if (core.ws.settings.mode == 'blocks') {
@@ -139,18 +139,8 @@ export function openImage(core: Core, img: string) {
   showModal(core, 'lightbox')
 }
 
-export function closeHighlightDescription(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.isHighlightDescription = false
-  })
-}
-
 export function setLng(core: Core, lng: 'de' | 'en') {
   core.mutateWs(({ settings }) => {
     settings.lng = lng
   })
-}
-
-export function updatePlaygroundHashToMode(core: Core) {
-  saveCodeToLocalStorage(core, true)
 }

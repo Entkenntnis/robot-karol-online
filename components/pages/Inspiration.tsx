@@ -16,7 +16,7 @@ import { useCore } from '../../lib/state/core'
 import { View } from '../helper/View'
 import { deserializeWorld } from '../../lib/commands/json'
 import { tagsById } from '../../lib/data/tagsById'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import RenderIfVisible from '../helper/RenderIfVisible'
 

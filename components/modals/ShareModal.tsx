@@ -10,7 +10,7 @@ import { share } from '../../lib/commands/share'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { replaceWithJSX } from '../../lib/helper/replaceWithJSX'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import clsx from 'clsx'
 
 export function ShareModal() {

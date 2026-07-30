@@ -10,7 +10,7 @@ import {
 import { FaIcon } from '../helper/FaIcon'
 import { useCore } from '../../lib/state/core'
 import clsx from 'clsx'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { startButtonClicked } from '../../lib/commands/start'
 import { setMode } from '../../lib/commands/mode'
 import { setLanguage } from '../../lib/commands/language'
@@ -85,7 +85,6 @@ export function InteractionBar() {
             <a
               className={clsx(
                 'absolute top-0 left-0 px-3 py-1 border-gray-300 bg-fuchsia-200 rounded-full transition duration-150 ease-in-out hover:bg-fuchsia-300 ml-2 cursor-pointer',
-                core.ws.ui.isHighlightDescription && 'z-[1000]',
               )}
               id="ide-back-button"
               href="#"

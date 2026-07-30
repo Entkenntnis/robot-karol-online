@@ -31,7 +31,7 @@ import {
   getBestTimeForLevel,
 } from '../../lib/storage/storage'
 import { levels } from '../../lib/data/karolmaniaLevels'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 
 export function KarolmaniaGame() {
   const core = useCore()

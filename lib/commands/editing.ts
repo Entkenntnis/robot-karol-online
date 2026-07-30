@@ -16,6 +16,12 @@ export function resetUIAfterChange(core: Core) {
   setExecutionMarker(core, 0)
 }
 
+export function refreshEditArea(core: Core) {
+  core.mutateWs((ws) => {
+    ws.editAreaRenderCounter += 1
+  })
+}
+
 export function lint(core: Core, view: EditorView) {
   if (core.ws.ui.state == 'running' || !view) {
     abort(core) // stop program

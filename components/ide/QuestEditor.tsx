@@ -8,7 +8,7 @@ import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
 import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 
 export function QuestEditor() {
   const core = useCore()

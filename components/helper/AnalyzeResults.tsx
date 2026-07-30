@@ -2,9 +2,9 @@ import { useCore } from '../../lib/state/core'
 import { questData } from '../../lib/data/quests'
 import { levels as karolmaniaLevels } from '../../lib/data/karolmaniaLevels' // Import level data
 import clsx from 'clsx'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
 import { FaIcon } from './FaIcon'
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 
 // Helper function to format time in seconds to MM:SS:hh
 function formatTime(seconds: number) {

@@ -199,7 +199,6 @@ export function startQuest(core: Core, id: number) {
     ws.ui.isTesting = false
     ws.ui.controlBarShowFinishQuest = false
     ws.ui.taskScroll = 0
-    ws.ui.isHighlightDescription = true
     ws.ui.audioStarted = false
     ui.speedSliderValue = 7
     ui.showPreview = true
@@ -242,14 +241,8 @@ export function startQuest(core: Core, id: number) {
   // switchToPage(core, 'quest')
   if ((id == 1 || core.ws.page == 'demo') && !getUserName()) {
     showModal(core, 'name')
-    core.mutateWs(({ ui }) => {
-      ui.isHighlightDescription = false
-    })
   }
   if (id == 1) {
-    core.mutateWs(({ ui }) => {
-      ui.isHighlightDescription = false
-    })
     if (!isQuestDone(1) && core.ws.modal !== 'name') {
       core.mutateWs((ws) => {
         ws.ui.tourModePage = 1
@@ -280,11 +273,9 @@ export function storeQuestToSession(core: Core) {
 }
 
 export function exitQuest(core: Core) {
-  if (!core.ws.ui.isHighlightDescription) {
-    // reshow highlight
-    storeQuestToSession(core)
-    setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
-  }
+  storeQuestToSession(core)
+  setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
+
   closeModal(core)
   navigate(
     core,
@@ -311,12 +302,6 @@ export function restoreQuestFromSessionData(
     ws.settings.mode = data.mode
     ws.ui.isAlreadyCompleted = data.completed
     ws.quest.completedOnce = data.completedOnce
-    if (data.completedOnce) {
-      ws.ui.isHighlightDescription = false
-    }
-    if (ws.code) {
-      ws.ui.isHighlightDescription = false
-    }
     if (data.language) {
       ws.settings.language =
         data.language == 'python' ? 'python-pro' : data.language

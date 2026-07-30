@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { navigate } from '../../lib/commands/router'
 import { useCore } from '../../lib/state/core'
 import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { flashcards } from '../../lib/data/flashcards'
 import { FaIcon } from '../helper/FaIcon'
 import {

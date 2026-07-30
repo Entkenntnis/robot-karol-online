@@ -11,7 +11,7 @@ import {
 } from '../../lib/codemirror/basicSetup'
 import { pythonLanguage } from '../../lib/codemirror/pythonParser/pythonLanguage'
 import { javaLanguage } from '../../lib/codemirror/javaParser/javaLanguage'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { useCore } from '../../lib/state/core'
 import clsx from 'clsx'
 

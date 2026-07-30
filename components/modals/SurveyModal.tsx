@@ -1,4 +1,4 @@
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { closeModal } from '../../lib/commands/modal'
 import { getProgram } from '../../lib/commands/save'
 import { useCore } from '../../lib/state/core'

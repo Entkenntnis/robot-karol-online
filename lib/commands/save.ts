@@ -230,3 +230,7 @@ export function getProgram(core: Core) {
   }
   return { language: 'blocks', program: '' }
 }
+
+export function updatePlaygroundHashToMode(core: Core) {
+  saveCodeToLocalStorage(core, true)
+}

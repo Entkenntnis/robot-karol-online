@@ -11,7 +11,8 @@
     "grammar-python": "lezer-generator ./lib/codemirror/pythonParser/python.grammar -o ./lib/codemirror/pythonParser/parser.js",
     "pack": "nodemon --watch lib/data/chapters --ext \"*\" scripts/pack.js",
     "update-gallery": "node scripts/generate-dictionary.js",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "check-cycles": "npx dpdm app/main.tsx"
   },
   "dependencies": {
     "@blockly/field-slider": "^8.0.0",

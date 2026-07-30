@@ -14,7 +14,7 @@ import {
   faStar,
   faUndo,
 } from '@fortawesome/free-solid-svg-icons'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { backend } from '../../backend'
 import { karolDefaultImage, karolOldDefaultImage } from '../../lib/data/images'
 
@@ -69,8 +69,7 @@ export function AppearanceModal() {
   // Unterstützt sowohl Maus- als auch Touch-Events.
   const getCanvasCoordinates = (
     e:
-      | React.MouseEvent<HTMLCanvasElement>
-      | React.TouchEvent<HTMLCanvasElement>,
+      React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>,
   ) => {
     const canvas = canvasRef.current
     if (!canvas) return { x: -1, y: -1 }

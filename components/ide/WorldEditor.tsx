@@ -29,7 +29,7 @@ import {
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { View } from '../helper/View'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 
 export function WorldEditor() {
   const actions: { [key: string]: () => void } = {

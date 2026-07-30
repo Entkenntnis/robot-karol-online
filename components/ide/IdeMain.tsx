@@ -1,18 +1,18 @@
 import {
   faArrowDown,
   faArrowLeft,
-  faCaretRight,
   faCode,
   faPlayCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import { useEffect, useState } from 'react'
+
 import {
   ReflexContainer,
   ReflexElement,
   ReflexSplitter,
 } from '../helper/reflex'
 
-import { closeHighlightDescription } from '../../lib/commands/mode'
 import { useCore } from '../../lib/state/core'
 import { EditArea } from './EditArea'
 import { FaIcon } from '../helper/FaIcon'
@@ -21,9 +21,8 @@ import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
 import { WorldEditor } from './WorldEditor'
 import { HFullStyles } from '../helper/HFullStyles'
-import { useEffect, useState } from 'react'
 import { JavaInfo } from './JavaInfo'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { InteractionBar } from './InteractionBar'
 import { FlyoutMenu } from './FlyoutMenu'
 import { exitQuest } from '../../lib/commands/quest'
@@ -34,8 +33,6 @@ import { pythonKarolExamples } from '../../lib/data/pythonExamples'
 
 export function IdeMain() {
   const core = useCore()
-
-  const [toH, setToH] = useState<NodeJS.Timeout | null>(null)
 
   const [activeTab, setActiveTab] = useState<'program' | 'output'>('output')
   const [isMobileView, setIsMobileView] = useState<boolean>(false)
@@ -67,49 +64,6 @@ export function IdeMain() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [core.ws.ui.state])
-
-  useEffect(() => {
-    if (core.ws.ui.isHighlightDescription && window.innerWidth < 640) {
-      closeHighlightDescription(core)
-      core.mutateWs((ws) => {
-        ws.ui.collapseDescription = true
-      })
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [core.ws.ui.isHighlightDescription])
-
-  useEffect(() => {
-    const skipWait = core.ws.quest.description.length < 100
-
-    core.mutateWs((ws) => {
-      ws.ui.showOk = skipWait
-    })
-
-    function test() {
-      const el = document.getElementById('progress-bar')
-      if (el) {
-        el.style.width = '0%'
-        el.style.backgroundColor = '#a21caf'
-        setToH(
-          setTimeout(
-            () => {
-              core.mutateWs((ws) => {
-                ws.ui.showOk = true
-              })
-            },
-            skipWait ? 0 : 5000,
-          ),
-        )
-      } else {
-        setTimeout(test, 10)
-      }
-    }
-
-    if (core.ws.ui.isHighlightDescription && !core.ws.ui.showOk) {
-      test()
-    }
-  }, [core, core.ws.ui.isHighlightDescription])
 
   return (
     <>
@@ -205,17 +159,6 @@ export function IdeMain() {
             }
           }}
         >
-          {core.ws.ui.isHighlightDescription && (
-            <div
-              className="fixed inset-0 bg-black/30 z-[200]"
-              onClick={() => {
-                if (!core.ws.ui.showOk && toH !== null) {
-                  clearTimeout(toH)
-                }
-                closeHighlightDescription(core)
-              }}
-            ></div>
-          )}
           <div className={clsx('flex flex-col h-full')}>
             <InteractionBar />
             <EditArea />
@@ -282,37 +225,6 @@ export function IdeMain() {
                 </div>
               </AnimateInView>
             </div>
-          )}
-          {core.ws.ui.isHighlightDescription && (
-            <span>
-              <div
-                className={clsx(
-                  'absolute right-4 top-10 p-2 bg-white z-[300] rounded',
-                )}
-              >
-                <p>{core.strings.ide.read}</p>
-                <p className="text-center mt-2">
-                  <button
-                    onClick={() => {
-                      closeHighlightDescription(core)
-                    }}
-                    className={clsx(
-                      'px-2 py-0.5 rounded bg-green-200 hover:bg-green-300 transition-colors disabled:bg-gray-200',
-                    )}
-                    disabled={!core.ws.ui.showOk}
-                  >
-                    OK
-                  </button>
-                </p>
-              </div>
-              <div
-                className={clsx(
-                  'absolute right-0.5 top-10 text-white text-3xl z-[300]',
-                )}
-              >
-                <FaIcon icon={faCaretRight} />
-              </div>
-            </span>
           )}
         </ReflexElement>
 

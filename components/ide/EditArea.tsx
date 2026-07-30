@@ -1,5 +1,5 @@
 import { EditorView } from '@codemirror/view'
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import {
   faCircleExclamation,
   faExternalLink,
@@ -15,7 +15,7 @@ import { textRefreshDone } from '../../lib/commands/json'
 import { JavaEditor } from './JavaEditor'
 import clsx from 'clsx'
 import { PythonEditor } from './PythonEditor'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { BlockEditor } from './BlockEditor'
 import { QuestPrompt } from '../helper/QuestPrompt'
 import { Cheatsheet } from '../helper/Cheatsheet'
@@ -265,7 +265,7 @@ export function EditArea() {
   }
 
   return (
-    <>
+    <Fragment key={core.ws.editAreaRenderCounter}>
       <BlockEditor />
       {core.ws.ui.state == 'error' && (
         <div
@@ -292,12 +292,15 @@ export function EditArea() {
           </div>
         </div>
       )}
-    </>
+    </Fragment>
   )
 
   function renderEditor() {
     return (
-      <div className="flex h-full overflow-y-auto relative flex-shrink">
+      <div
+        className="flex h-full overflow-y-auto relative flex-shrink"
+        key={core.ws.editAreaRenderCounter}
+      >
         <div className="w-full overflow-auto h-full flex">
           {(core.ws.settings.language == 'python-pro' ||
             core.ws.settings.language == 'robot karol') &&

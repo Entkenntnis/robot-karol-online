@@ -21,7 +21,7 @@ import { View } from '../helper/View'
 import { abort } from '../../lib/commands/vm'
 import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { View2D } from '../helper/View2D'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { exitBench } from '../../lib/commands/bench'
 import { PythonConsole } from '../helper/PythonConsole'
@@ -234,8 +234,7 @@ export function Output() {
             className="bg-lime-200 px-2 py-3 flex gap-4 items-baseline absolute top-0 left-0 right-0 z-10"
             onSubmit={(e) => {
               const el = document.getElementById('input-prompt') as
-                | HTMLInputElement
-                | undefined
+                HTMLInputElement | undefined
               if (el && core.worker) {
                 core.worker.input(el.value)
               }

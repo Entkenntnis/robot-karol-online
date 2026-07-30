@@ -53,7 +53,7 @@ import { searchKeymap } from '@codemirror/search'
 import { getParserWithLng } from './parser/get-parser-with-lng'
 import { deKeywords, enKeywords } from '../language/robot karol/compiler'
 import { Core } from '../state/core'
-import { submitAnalyzeEvent } from '../commands/analyze'
+import { submitAnalyzeEvent } from '../helper/submit'
 
 function parserWithMetadata(lng: 'de' | 'en') {
   return getParserWithLng(lng).configure({

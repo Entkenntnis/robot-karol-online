@@ -1,7 +1,7 @@
 import { backend } from '../../backend'
 import { submit_event } from '../helper/submit'
 import { Core } from '../state/core'
-import { submitAnalyzeEvent } from './analyze'
+import { submitAnalyzeEvent } from '../helper/submit'
 import { serializeQuest } from './json'
 
 export async function share(core: Core) {

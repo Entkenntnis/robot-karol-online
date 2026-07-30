@@ -1,6 +1,6 @@
 import { pythonKarolExamples } from '../data/pythonExamples'
 import { Core } from '../state/core'
-import { submitAnalyzeEvent } from './analyze'
+import { submitAnalyzeEvent } from '../helper/submit'
 
 export function addMessage(core: Core, text: string) {
   const ts = Date.now()
