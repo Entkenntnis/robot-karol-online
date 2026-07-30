@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # if /src-e2e constains the string Scenario.only, fail the job
       - name: Check for Scenario.only
@@ -19,7 +19,7 @@ jobs:
           fi
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
 
@@ -39,7 +39,7 @@ jobs:
           npm install
           npx playwright install firefox chromium
           HEADLESS=true npm run test:all
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: e2e-screenshots-on-fail
