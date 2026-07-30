@@ -42,6 +42,8 @@ export function createWorkspaceState(): WorkspaceState {
       isTestingAborted: false,
       controlBarShowFinishQuest: false,
       imageLightbox: null,
+      isHighlightDescription: false,
+      showOk: false,
       audioStarted: false,
       cmdBlockPositions: {},
       snippets: [],

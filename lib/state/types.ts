@@ -50,6 +50,8 @@ export interface Ui {
   isTestingAborted: boolean
   controlBarShowFinishQuest: boolean
   imageLightbox: string | null
+  isHighlightDescription: boolean
+  showOk: boolean
   audioStarted: boolean
   cmdBlockPositions: CmdBlockPositions
   snippets: string[]
@@ -421,7 +423,13 @@ interface BaseOp {
 export interface ActionOp extends BaseOp {
   type: 'action'
   command:
-    'forward' | 'left' | 'right' | 'brick' | 'unbrick' | 'setMark' | 'resetMark'
+    | 'forward'
+    | 'left'
+    | 'right'
+    | 'brick'
+    | 'unbrick'
+    | 'setMark'
+    | 'resetMark'
   useParameterFromStack?: boolean
   setActiveRobot?: number
 }

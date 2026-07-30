@@ -45,6 +45,7 @@ export function Tasks() {
   const core = useCore()
 
   const taskContainer = createRef<HTMLDivElement>()
+  const skipWait = core.ws.quest.description.length < 100
 
   const editChat =
     core.ws.ui.isChatMode &&
@@ -78,7 +79,12 @@ export function Tasks() {
               <ChatVisual />
             ) : (
               <>
-                <div className={clsx('pt-4 pb-1 px-7 bg-yellow-100')}>
+                <div
+                  className={clsx(
+                    'pt-4 pb-1 px-7 bg-yellow-100',
+                    core.ws.ui.isHighlightDescription && 'z-[300] relative',
+                  )}
+                >
                   {core.ws.page == 'editor' ? (
                     <QuestEditor />
                   ) : (
@@ -109,6 +115,14 @@ export function Tasks() {
                         )}
                       </h1>
                       <div>{processMarkdown(core.ws.quest.description)}</div>
+                      {!skipWait && core.ws.ui.isHighlightDescription && (
+                        <div className="absolute left-0 right-0 top-0 h-1 w-full flex justify-end">
+                          <div
+                            className="transition-width w-full h-1 bg-yellow-500 duration-[5000ms] ease-linear"
+                            id="progress-bar"
+                          ></div>
+                        </div>
+                      )}
                     </>
                   )}
                 </div>
@@ -437,10 +451,16 @@ export function Tasks() {
                     className={clsx(
                       'm-3 rounded-xl bg-white flex justify-start',
                       core.ws.page != 'editor' &&
+                        (core.ws.ui.isHighlightDescription
+                          ? 'relative z-[300]'
+                          : 'cursor-pointer hover:bg-gray-50'),
+                      core.ws.page != 'editor' &&
+                        core.ws.ui.isHighlightDescription &&
+                        core.ws.ui.showOk &&
                         'cursor-pointer hover:bg-gray-50',
                       core.ws.page == 'editor' &&
                         core.ws.editor.showQuestPreview &&
-                        'cursor-pointer hover:bg-gray-50',
+                        'cursor-pointer',
                     )}
                     key={index}
                     tabIndex={0}
@@ -455,11 +475,24 @@ export function Tasks() {
                         }
                         return
                       }
+                      if (
+                        core.ws.ui.isHighlightDescription &&
+                        !core.ws.ui.showOk
+                      )
+                        return
+                      if (core.ws.ui.isHighlightDescription) {
+                        core.mutateWs((ws) => {
+                          ws.ui.isHighlightDescription = false
+                        })
+                      }
                       openTask(core, index)
                     }}
                   >
                     <div
-                      className={clsx('h-48 mb-6 mx-8 cursor-pointer')}
+                      className={clsx(
+                        'h-48 mb-6 mx-8',
+                        !core.ws.ui.isHighlightDescription && 'cursor-pointer',
+                      )}
                       onClick={() => {
                         if (
                           core.ws.page == 'editor' &&
