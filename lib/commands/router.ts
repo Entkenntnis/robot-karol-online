@@ -13,6 +13,7 @@ import {
   getKarolmaniaCarouselIndex,
   restoreEditorSnapshot,
   getMiniProjectCollapsed,
+  setLockToKarolCode,
 } from '../storage/storage'
 import { analyze, submitAnalyzeEvent } from './analyze'
 import { addNewTask } from './editor'
@@ -24,8 +25,8 @@ import { startQuest } from './quest'
 const bluejPlaygroundHash =
   '#SPIELWIESE-PYTHON:%23 Spielwiese%3A 15%2C 10%2C 6%0A%0A%23 Hallo! Die Spielwiese hat einen neuen Modus. Sobald du Python aktivierst%2C%0A%23 kannst du auf das interaktive Klassendiagramm zugreifen.%0A%0A%23 Dort kannst du Objekte erzeugen und Methoden aufrufen wie in BlueJ.%0A%0A%23 Probiere es jetzt aus! Klicke jetzt auf interaktives Klassendiagramm%2C%0A%23 erzeuge einen Robot und steuere Karol direkt über die Objektkarte.%0A%0A%0A%0A%23 Das Ganze funktioniert auch mit eigenen Klassen%3A%0A%23 (zum Testen auskommentieren)%0A%0A"""%0Aclass MeineKlasse%3A%0A%20%20%20 def hallo(self)%3A%0A%20%20%20%20%20%20%20 "Das ist ein Docstring für die Methode hallo"%0A%20%20%20%20%20%20%20 print("Hallo %3A)")%0A"""'
 
-export async function navigate(core: Core, hash: string) {
-  history.pushState(null, '', '/' + hash)
+export async function navigate(core: Core, url: string) {
+  history.pushState(null, '', '/' + url)
 
   // push state is not triggering hash change event, so hydrate manually
   await hydrate(core)
@@ -38,13 +39,32 @@ export async function hydrate(core: Core) {
   let raw_hash = window.location.hash
   const path = window.location.pathname
   const parameterList = new URLSearchParams(window.location.search)
-  let rewrite = ''
 
   console.log(
     `-> hydrate path:${path}, hash:${raw_hash}, search:${parameterList}`,
   )
 
+  // search parameter redirects (heavy)
+  const code = parameterList.get('code')
+  if (code) {
+    setLockToKarolCode()
+    window.open('/', '_self')
+    return
+  }
+
+  const id = parameterList.get('id')
+  if (id) {
+    if (id == 'Z9xO1rVGj') {
+      submitAnalyzeEvent(core, 'ev_show_playgroundLegacyLink')
+      window.open('/#SPIELWIESE', '_self')
+      return
+    }
+    window.open('/#LEGACY:' + id, '_self')
+    return
+  }
+
   // internal rewrites
+  let rewrite = ''
   if (raw_hash.toLocaleUpperCase() == '#BLUEJ-PLAYGROUND') {
     raw_hash = bluejPlaygroundHash
     rewrite = 'BLUEJ-PLAYGROUND'

@@ -27,8 +27,6 @@ import { PyodideWorker } from './ide/PyodideWorker'
 import { useEffect, useRef } from 'react'
 import { hydrate, navigate } from '../lib/commands/router'
 import { LoadingScreen } from './helper/LoadingScreen'
-import { submitAnalyzeEvent } from '../lib/commands/analyze'
-import { setLockToKarolCode } from '../lib/storage/storage'
 import { Karolmania } from './pages/Karolmania'
 import { KarolmaniaGame } from './pages/KarolmaniaGame'
 import { Donate } from './pages/Donate'
@@ -43,8 +41,7 @@ export function App() {
   const core = useCore()
 
   useEffect(() => {
-    function onHashChange() {
-      console.log('on hash change triggered')
+    function rehydrate() {
       hydrate(core)
     }
 
@@ -53,46 +50,20 @@ export function App() {
       navigate(core, url)
     }
 
-    // window.addEventListener('hashchange', onHashChange)
-    window.addEventListener('popstate', onHashChange)
+    window.addEventListener('popstate', rehydrate)
     return () => {
-      // window.removeEventListener('hashchange', onHashChange)
-      window.removeEventListener('popstate', onHashChange)
+      window.removeEventListener('popstate', rehydrate)
     }
   }, [core])
 
-  // ok, not good, but prevent react double rendering to call hydrate twice
+  // ok, not good, but prevents react double rendering to call hydrate twice
   const currentlyHydrating = useRef<boolean>(false)
 
   useEffect(() => {
     async function hydrate_debounced() {
-      console.log('hydrate debounced')
       currentlyHydrating.current = true
       await hydrate(core)
       currentlyHydrating.current = false
-    }
-
-    // take care of search parameters here
-
-    const parameterList = new URLSearchParams(window.location.search)
-
-    const code = parameterList.get('code')
-    if (code) {
-      setLockToKarolCode()
-      window.open('/', '_self')
-      return
-    }
-
-    const id = parameterList.get('id')
-
-    if (id) {
-      if (id == 'Z9xO1rVGj') {
-        submitAnalyzeEvent(core, 'ev_show_playgroundLegacyLink')
-        window.open('/#SPIELWIESE', '_self')
-        return
-      }
-      window.open('/#LEGACY:' + id, '_self')
-      return
     }
 
     if (!currentlyHydrating.current) hydrate_debounced()
