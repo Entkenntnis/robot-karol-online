@@ -139,12 +139,6 @@ export function openImage(core: Core, img: string) {
   showModal(core, 'lightbox')
 }
 
-export function closeHighlightDescription(core: Core) {
-  core.mutateWs(({ ui }) => {
-    ui.isHighlightDescription = false
-  })
-}
-
 export function setLng(core: Core, lng: 'de' | 'en') {
   core.mutateWs(({ settings }) => {
     settings.lng = lng
