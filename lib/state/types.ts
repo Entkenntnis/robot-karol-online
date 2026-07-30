@@ -224,6 +224,7 @@ export interface WorkspaceState {
     | null
 
   renderCounter: number // e.g. if storage is updated
+  editAreaRenderCounter: number
 
   appearance: Appearance
 

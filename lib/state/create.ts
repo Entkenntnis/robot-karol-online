@@ -18,6 +18,7 @@ export function createWorkspaceState(): WorkspaceState {
       legs: 3,
     },
     renderCounter: 0,
+    editAreaRenderCounter: 0,
     world: createWorld(5, 10, 6),
     __activeRobot: 0,
     code: '',

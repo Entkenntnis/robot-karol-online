@@ -17,6 +17,7 @@ import {
   setLockToKarolCode,
 } from '../storage/storage'
 import { analyze } from './analyze'
+import { refreshEditArea } from './editing'
 import { addNewTask } from './editor'
 import { deserializeQuest } from './json'
 import { loadLegacyProject, loadQuest } from './load'
@@ -238,6 +239,7 @@ export async function hydrate(core: Core) {
   if (page.startsWith('QUEST-')) {
     const questId = parseInt(page.substring(6))
     startQuest(core, questId)
+    refreshEditArea(core)
     document.title = core.ws.quest.title + ' | Robot Karol Online'
     return
   }
