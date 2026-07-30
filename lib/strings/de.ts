@@ -7,7 +7,7 @@ export const deStrings = {
     load: 'Fortschritt importieren',
     loadTooltip: 'Aus einer Datei laden',
     gameState: 'spielstand',
-    version: 'Version: September 2025',
+    version: 'Version: August 2026',
     playground: 'Spielwiese',
     imprint: 'Impressum',
     privacy: 'Datenschutz',

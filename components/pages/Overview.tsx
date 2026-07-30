@@ -786,9 +786,6 @@ export function Overview() {
                             Variablen und Schleifen bis hin zu ihrem großen
                             Projekt.
                           </p>
-                          <div className="absolute -top-3 -right-3 bg-rose-500 text-white font-bold rounded-full px-2 text-sm">
-                            NEU
-                          </div>
                         </div>
                       </AnimateInView>
                     </div>
