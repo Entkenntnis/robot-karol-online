@@ -184,7 +184,7 @@ Scenario('Bug with profile and langauge switch', ({ I }) => {
 
 Scenario('Changing speed is breaking debugger', ({ I }) => {
   I.amOnPage(
-    '/#SPIELWIESE:%2F%2F Spielwiese%3A 15%2C 10%2C 6%0A%0Awiederhole immer%20%0A%20 LinksDrehen%0Aendewiederhole'
+    '/#SPIELWIESE:%2F%2F Spielwiese%3A 15%2C 10%2C 6%0A%0Awiederhole immer%20%0A%20 LinksDrehen%0Aendewiederhole',
   )
   I.click('Start')
   I.see('Stopp')
@@ -197,7 +197,7 @@ Scenario('Changing speed is breaking debugger', ({ I }) => {
 
 Scenario('Correctly convert code to python', ({ I }) => {
   I.amOnPage(
-    '/#SPIELWIESE-CODE:%2F%2F Spielwiese%3A 15%2C 10%2C 6%0A%0ATueEtwas%0A%0AAnweisung TueEtwas%0A%20 Schritt%0AendeAnweisung'
+    '/#SPIELWIESE-CODE:%2F%2F Spielwiese%3A 15%2C 10%2C 6%0A%0ATueEtwas%0A%0AAnweisung TueEtwas%0A%20 Schritt%0AendeAnweisung',
   )
 
   I.click({ css: '#select-language' })
@@ -234,17 +234,17 @@ Scenario('Toggles in output', ({ I }) => {
 
 Scenario('Dangling keywords should not break compiler', ({ I }) => {
   I.amOnPage(
-    '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0A*Anweisung'
+    '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0A*Anweisung',
   )
   I.dontSee('internal error')
   I.see('Start')
   I.amOnPage(
-    '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0Aendewiederhole'
+    '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0Aendewiederhole',
   )
   I.dontSee('internal error')
   I.see('Start')
   I.amOnPage(
-    '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0Amal'
+    '#SPIELWIESE-CODE:%2F%2F%20Spielwiese%3A%2015%2C%2010%2C%206%0A%0Amal',
   )
   I.dontSee('internal error')
   I.see('Start')
@@ -300,7 +300,7 @@ Scenario('Ellie, some testing', async ({ I }) => {
   I.click('div .fixed')
   I.click('div .cm-activeLine')
   I.type(
-    'print("Wie nennt man einen Bumerang, der nicht zur\\u00fcckkommt?");input();print("Stock");print("Haha")'
+    'print("Wie nennt man einen Bumerang, der nicht zur\\u00fcckkommt?");input();print("Stock");print("Haha")',
   )
   I.wait(5)
   I.click('Start')

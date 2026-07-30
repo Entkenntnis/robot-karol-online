@@ -44,6 +44,7 @@ export function App() {
 
   useEffect(() => {
     function onHashChange() {
+      console.log('on hash change triggered')
       hydrate(core)
     }
 
@@ -52,10 +53,10 @@ export function App() {
       navigate(core, url)
     }
 
-    window.addEventListener('hashchange', onHashChange)
+    // window.addEventListener('hashchange', onHashChange)
     window.addEventListener('popstate', onHashChange)
     return () => {
-      window.removeEventListener('hashchange', onHashChange)
+      // window.removeEventListener('hashchange', onHashChange)
       window.removeEventListener('popstate', onHashChange)
     }
   }, [core])
@@ -65,6 +66,7 @@ export function App() {
 
   useEffect(() => {
     async function hydrate_debounced() {
+      console.log('hydrate debounced')
       currentlyHydrating.current = true
       await hydrate(core)
       currentlyHydrating.current = false
