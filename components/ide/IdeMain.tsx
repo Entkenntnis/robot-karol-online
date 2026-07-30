@@ -6,13 +6,14 @@ import {
   faPlayCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
+import { useEffect, useState } from 'react'
+
 import {
   ReflexContainer,
   ReflexElement,
   ReflexSplitter,
 } from '../helper/reflex'
 
-import { closeHighlightDescription } from '../../lib/commands/mode'
 import { useCore } from '../../lib/state/core'
 import { EditArea } from './EditArea'
 import { FaIcon } from '../helper/FaIcon'
@@ -21,9 +22,8 @@ import { Structogram } from './Structogram'
 import { Tasks } from './Tasks'
 import { WorldEditor } from './WorldEditor'
 import { HFullStyles } from '../helper/HFullStyles'
-import { useEffect, useState } from 'react'
 import { JavaInfo } from './JavaInfo'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { InteractionBar } from './InteractionBar'
 import { FlyoutMenu } from './FlyoutMenu'
 import { exitQuest } from '../../lib/commands/quest'
@@ -70,7 +70,6 @@ export function IdeMain() {
 
   useEffect(() => {
     if (core.ws.ui.isHighlightDescription && window.innerWidth < 640) {
-      closeHighlightDescription(core)
       core.mutateWs((ws) => {
         ws.ui.collapseDescription = true
       })
@@ -212,7 +211,6 @@ export function IdeMain() {
                 if (!core.ws.ui.showOk && toH !== null) {
                   clearTimeout(toH)
                 }
-                closeHighlightDescription(core)
               }}
             ></div>
           )}
@@ -293,9 +291,7 @@ export function IdeMain() {
                 <p>{core.strings.ide.read}</p>
                 <p className="text-center mt-2">
                   <button
-                    onClick={() => {
-                      closeHighlightDescription(core)
-                    }}
+                    onClick={() => {}}
                     className={clsx(
                       'px-2 py-0.5 rounded bg-green-200 hover:bg-green-300 transition-colors disabled:bg-gray-200',
                     )}

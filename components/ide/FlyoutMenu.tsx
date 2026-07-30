@@ -11,7 +11,7 @@ import {
   faTimes,
   faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { setLng, setMode } from '../../lib/commands/mode'
 import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
 import { saveEditorSnapshot, setLngStorage } from '../../lib/storage/storage'

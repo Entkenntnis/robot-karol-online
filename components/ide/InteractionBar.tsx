@@ -10,7 +10,7 @@ import {
 import { FaIcon } from '../helper/FaIcon'
 import { useCore } from '../../lib/state/core'
 import clsx from 'clsx'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { startButtonClicked } from '../../lib/commands/start'
 import { setMode } from '../../lib/commands/mode'
 import { setLanguage } from '../../lib/commands/language'

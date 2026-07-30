@@ -5,7 +5,6 @@ import { questList } from '../data/overview'
 import { questData } from '../data/quests'
 import { isSetName } from '../helper/events'
 import { Core } from '../state/core'
-import { submit_event } from '../helper/submit'
 import { levels } from '../data/karolmaniaLevels'
 import { robotImageDictionary } from '../data/robotImageDictionary'
 
@@ -552,8 +551,4 @@ export async function analyze(core: Core) {
     ws.analyze.userEvents = userEvents
     ws.page = 'analyze'
   })
-}
-
-export function submitAnalyzeEvent(core: Core, key: string) {
-  submit_event(key, core)
 }

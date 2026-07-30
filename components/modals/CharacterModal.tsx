@@ -1,4 +1,4 @@
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { closeModal } from '../../lib/commands/modal'
 import {
   amongay,

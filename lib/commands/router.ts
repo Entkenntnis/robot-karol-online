@@ -1,5 +1,6 @@
 import { levels } from '../data/karolmaniaLevels'
 import { pythonKarolExamples } from '../data/pythonExamples'
+import { submitAnalyzeEvent } from '../helper/submit'
 import { CanvasObjects } from '../state/canvas-objects'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
@@ -15,7 +16,7 @@ import {
   getMiniProjectCollapsed,
   setLockToKarolCode,
 } from '../storage/storage'
-import { analyze, submitAnalyzeEvent } from './analyze'
+import { analyze } from './analyze'
 import { addNewTask } from './editor'
 import { deserializeQuest } from './json'
 import { loadLegacyProject, loadQuest } from './load'

@@ -28,7 +28,7 @@ import {
 } from '../../lib/storage/storage'
 import { deserializeWorld } from '../../lib/commands/json'
 import { BubbleBackground } from '../helper/BubbleBackground'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 
 export function Karolmania() {
   const core = useCore()

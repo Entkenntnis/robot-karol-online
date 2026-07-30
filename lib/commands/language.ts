@@ -3,7 +3,7 @@ import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
 import type { Settings } from '../state/types'
-import { updatePlaygroundHashToMode } from './mode'
+import { updatePlaygroundHashToMode } from './save'
 
 export function setLanguage(core: Core, language: Settings['language']) {
   core.mutateWs((state) => {

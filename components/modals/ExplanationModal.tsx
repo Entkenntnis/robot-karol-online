@@ -5,7 +5,7 @@ import { FaIcon } from '../helper/FaIcon'
 import { chapterData } from '../../lib/data/chapters'
 import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { setQuestData } from '../../lib/storage/storage'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 
 export function ExplanationModal() {
   const core = useCore()

@@ -37,7 +37,7 @@ import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import { ChatVisual } from './ChatVisual'
 

@@ -5,7 +5,7 @@ import { io } from 'socket.io-client'
 import { getUserId } from '../../lib/storage/storage'
 import clsx from 'clsx'
 import { backend } from '../../backend'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { useCore } from '../../lib/state/core'
 
 export function Reactions() {

@@ -2,7 +2,7 @@ import { setDiagnostics } from '@codemirror/lint'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
-import { submitAnalyzeEvent } from './analyze'
+import { submitAnalyzeEvent } from '../helper/submit'
 import { addConsoleMessage } from './messages'
 import { endExecution, testCondition } from './vm'
 import {

@@ -1,6 +1,6 @@
 import { useCore } from '../../lib/state/core'
 import { showModal } from '../../lib/commands/modal'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import clsx from 'clsx'
 
 interface ClassDiagramProps {

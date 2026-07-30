@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { FaIcon } from '../helper/FaIcon'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { showModal } from '../../lib/commands/modal'
-import { submitAnalyzeEvent } from '../../lib/commands/analyze'
+import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { CodeBox } from '../helper/Cheatsheet'
 
 export function InteractiveClassDiagram() {
