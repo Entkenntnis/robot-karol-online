@@ -200,6 +200,7 @@ export interface WorkspaceState {
     | 'karolmania-game'
     | 'donate'
     | 'flashcards'
+    | 'python-path'
 
   modal:
     | 'name'

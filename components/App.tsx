@@ -36,6 +36,7 @@ import { Flashcards } from './pages/Flashcards'
 import { CharacterModal } from './modals/CharacterModal'
 import { ChatGuide } from './modals/ChatGuide'
 import { PythonListing } from './modals/PythonListing'
+import { PythonPath } from './pages/PythonPath'
 
 export function App() {
   const core = useCore()
@@ -109,6 +110,8 @@ export function App() {
       return <Donate />
     } else if (core.ws.page == 'flashcards') {
       return <Flashcards />
+    } else if (core.ws.page == 'python-path') {
+      return <PythonPath />
     } else {
       return null
     }

@@ -121,6 +121,14 @@ export async function hydrate(core: Core) {
     })
   }*/
 
+  if (path == '/python' && page == '') {
+    core.mutateWs((ws) => {
+      ws.page = 'python-path'
+    })
+    document.title = 'Robot Karol Online - Python'
+    return
+  }
+
   // PHASE 2: hydrate page
   if (page == '') {
     core.mutateWs((ws) => {
