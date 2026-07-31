@@ -54,6 +54,7 @@ import { chapterData } from '../../lib/data/chapters'
 import { Reactions } from '../helper/Reactions'
 import { SpinningRobot } from '../helper/SpinningRobot'
 import { PersistNotice } from '../helper/PersistNotice'
+import { Discover } from '../helper/Discover'
 
 export function Overview() {
   const core = useCore()
@@ -272,37 +273,6 @@ export function Overview() {
                     />{' '}
                     {core.strings.overview.load}
                   </button>
-                </li>{' '}
-                <li>
-                  <button
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_promotePython')
-                      try {
-                        navigate(core, 'python')
-                        // document
-                        //   .getElementById('python-listing-button')
-                        //   ?.scrollIntoView({
-                        //     behavior: 'smooth',
-                        //     block: 'center',
-                        //   })
-                        // // @ts-ignore
-                        // document.activeElement?.blur()
-                        // const dropdown = document.querySelector(
-                        //   '.dropdown.dropdown-hover',
-                        // ) as HTMLDivElement
-                        // dropdown.classList.remove('dropdown-hover')
-                        // setTimeout(() => {
-                        //   dropdown.classList.add('dropdown-hover')
-                        // }, 50)
-                      } catch (e) {}
-                    }}
-                  >
-                    <img
-                      src={'/python-logo-only.png'}
-                      className="w-4 inline-block mr-1"
-                    />{' '}
-                    Python-Lernpfad
-                  </button>
                 </li>
                 <li>
                   <a
@@ -430,649 +400,560 @@ export function Overview() {
           )}
           {!core.ws.overview.showOverviewList &&
             !core.ws.overview.showProfile && (
-              <div
-                className="w-[1240px] mx-auto relative mt-5"
-                style={{
-                  height: `${mapYAfterMiniProjects + 300}px`,
-                }}
-              >
-                <img
-                  src="/klecks1.png"
-                  className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
-                  alt="Farbklecks 1"
-                />
-                <img
-                  src="/klecks2.png"
-                  className="w-[170px] top-[500px] left-[900px] absolute user-select-none"
-                  alt="Farbklecks 2"
-                />
-                <img
-                  src="/klecks3.png"
-                  className="w-[150px] top-[1100px] left-[300px] absolute user-select-none"
-                  alt="Farbklecks 3"
-                />
-                {core.ws.settings.lng === 'de' &&
-                  numberOfSolvedQuestsRKO == 0 &&
-                  core.ws.page !== 'demo' &&
-                  core.ws.page !== 'analyze' && (
-                    <div className="absolute top-[160px] left-[270px] z-10">
-                      <AnimateInView>
-                        <div className="relative">
-                          <div
-                            className="bg-yellow-100/80 rounded-lg p-3 shadow-lg transform rotate-6 border-2 border-yellow-300 cursor-pointer"
-                            onClick={() => {
-                              submitAnalyzeEvent(
-                                core,
-                                'ev_click_landing_tourStart',
-                              )
-                              setQuestReturnToMode(
-                                core.ws.page == 'demo' ? 'demo' : 'path',
-                              )
-                              setLearningPathScroll(
-                                document.getElementById('scroll-container')
-                                  ?.scrollTop ?? -1,
-                              )
-                              navigate(core, '#QUEST-1')
-                            }}
-                          >
-                            <p className="text-lg">
-                              Willkommen 👋 entdecke hier
-                              <br />
-                              die Welt der Algorithmen!
-                            </p>
+              <>
+                <div
+                  className="w-[1240px] mx-auto relative mt-5"
+                  style={{
+                    height: `${mapYAfterMiniProjects + 300}px`,
+                  }}
+                >
+                  <img
+                    src="/klecks1.png"
+                    className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
+                    alt="Farbklecks 1"
+                  />
+                  <img
+                    src="/klecks2.png"
+                    className="w-[170px] top-[500px] left-[900px] absolute user-select-none"
+                    alt="Farbklecks 2"
+                  />
+                  <img
+                    src="/klecks3.png"
+                    className="w-[150px] top-[1100px] left-[300px] absolute user-select-none"
+                    alt="Farbklecks 3"
+                  />
+                  {core.ws.settings.lng === 'de' &&
+                    numberOfSolvedQuestsRKO == 0 &&
+                    core.ws.page !== 'demo' &&
+                    core.ws.page !== 'analyze' && (
+                      <div className="absolute top-[160px] left-[270px] z-10">
+                        <AnimateInView>
+                          <div className="relative">
+                            <div
+                              className="bg-yellow-100/80 rounded-lg p-3 shadow-lg transform rotate-6 border-2 border-yellow-300 cursor-pointer"
+                              onClick={() => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_landing_tourStart',
+                                )
+                                setQuestReturnToMode(
+                                  core.ws.page == 'demo' ? 'demo' : 'path',
+                                )
+                                setLearningPathScroll(
+                                  document.getElementById('scroll-container')
+                                    ?.scrollTop ?? -1,
+                                )
+                                navigate(core, '#QUEST-1')
+                              }}
+                            >
+                              <p className="text-lg">
+                                Willkommen 👋 entdecke hier
+                                <br />
+                                die Welt der Algorithmen!
+                              </p>
+                            </div>
+                            <svg
+                              className="absolute -left-24 -top-10"
+                              width="120"
+                              height="130"
+                              viewBox="0 0 120 130"
+                            >
+                              <path
+                                d="M 20,10 C 40,40 90,0 100,20"
+                                fill="none"
+                                stroke="#eab308"
+                                strokeWidth="6"
+                                strokeLinecap="round"
+                                className="animate-pulse"
+                              />
+                              <polygon points="15,22 30,5 7,0" fill="#eab308" />
+                            </svg>
                           </div>
-                          <svg
-                            className="absolute -left-24 -top-10"
-                            width="120"
-                            height="130"
-                            viewBox="0 0 120 130"
-                          >
-                            <path
-                              d="M 20,10 C 40,40 90,0 100,20"
-                              fill="none"
-                              stroke="#eab308"
-                              strokeWidth="6"
-                              strokeLinecap="round"
-                              className="animate-pulse"
-                            />
-                            <polygon points="15,22 30,5 7,0" fill="#eab308" />
-                          </svg>
-                        </div>
-                      </AnimateInView>
-                    </div>
-                  )}
-                <div className="absolute top-[200px] left-[1010px] z-10">
-                  <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
-                    <button
-                      className={clsx(
-                        'hover:bg-gray-100/60 rounded-xl',
-                        'w-[100px] cursor-pointer',
-                      )}
-                      onClick={() => {
-                        // open feedback form in new tab
-                        submitAnalyzeEvent(core, 'ev_click_landing_appearance')
-                        showModal(core, 'appearance')
-                      }}
-                    >
-                      <p className="text-center">
-                        Figur
-                        <br />
-                        zeichnen
-                      </p>
-                      <FaIcon
-                        icon={faPaintBrush}
-                        className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
-                      />
-                    </button>
-                  </AnimateInView>
-                </div>
-                <div className="absolute top-[300px] left-[1020px] z-10 hidden">
-                  <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
-                    <button
-                      className={clsx(
-                        'hover:bg-gray-100/60 rounded-xl',
-                        'w-[80px] cursor-pointer text-gray-700',
-                      )}
-                      onClick={() => {
-                        // open feedback form in new tab
-                        submitAnalyzeEvent(core, 'ev_click_landing_login')
-                        alert(
-                          'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.',
-                        )
-                      }}
-                    >
-                      <p className="text-center">(Login)</p>
-                      <FaIcon
-                        icon={faUserCircle}
-                        className="text-3xl text-gray-400 inline-block mt-2 pb-2"
-                      />
-                    </button>
-                  </AnimateInView>
-                </div>
-                <div className="absolute left-[35px] top-[530px] z-10 pointer-events-none">
-                  <Reactions />
-                </div>
-                {
-                  <a
-                    href={'/#DANCE'}
-                    className="absolute top-[743px] left-[350px] w-[110px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
-                    onClick={(e) => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_dancedance')
-                      setQuestReturnToMode(
-                        core.ws.page == 'demo' ? 'demo' : 'path',
-                      )
-                      setLearningPathScroll(
-                        document.getElementById('scroll-container')
-                          ?.scrollTop ?? -1,
-                      )
-                      navigate(core, '#DANCE')
-                      e.preventDefault()
-                    }}
-                  >
-                    <p className="text-center">Dance, Dance</p>
-                    <img
-                      src="/dance.png"
-                      alt=""
-                      className="w-[40px] mx-auto mt-2"
-                    />
-                  </a>
-                }
-                <div className="absolute left-[4px] top-[750px] z-10">
-                  <ul
-                    tabIndex={0}
-                    className="bg-white/20 rounded-lg w-60 p-2 mt-1 [&>li]:px-4 [&>li]:py-2 [&>li]:cursor-pointer hover:[&>li]:bg-gray-300/20 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50 [&_a]:block"
-                  >
-                    <li className="!pb-0">
-                      <a
-                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
-                        onClick={() => {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_robotGallery',
-                          )
-                          setTimeout(() => {
-                            window.open(
-                              'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
-                              '_self',
-                            )
-                          }, 50)
-                        }}
-                      >
-                        <SpinningRobot /> Figuren-Galerie
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/#INSPIRATION"
-                        onClick={() => {
-                          submitAnalyzeEvent(core, 'ev_click_landing_gallery')
-                          setLearningPathScroll(
-                            document.getElementById('scroll-container')
-                              ?.scrollTop ?? -1,
-                          )
-                        }}
-                      >
-                        💫 Aufgaben-Galerie
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/#KAROLMANIA"
-                        onClick={() => {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_karolmania',
-                          )
-                          setLearningPathScroll(
-                            document.getElementById('scroll-container')
-                              ?.scrollTop ?? -1,
-                          )
-                        }}
-                      >
-                        <FaIcon icon={faMedal} className="mr-2 text-teal-600" />
-                        Karolmania
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        target="_blank"
-                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/MATERIAL-LEHRKRAEFTE.md"
-                        onClick={() => {
-                          // open feedback form in new tab
-                          submitAnalyzeEvent(core, 'ev_click_landing_material')
-                        }}
-                      >
-                        Material für Lehrkräfte{' '}
-                        <FaIcon
-                          icon={faExternalLink}
-                          className="text-gray-600 text-xs"
-                        />
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        target="_blank"
-                        href="https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8"
-                        onClick={() => {
-                          // open feedback form in new tab
-                          submitAnalyzeEvent(core, 'ev_click_landing_video')
-                        }}
-                      >
-                        Video-Erklärungen{' '}
-                        <FaIcon
-                          icon={faExternalLink}
-                          className="text-gray-600 text-xs"
-                        />
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        target="_blank"
-                        href="https://github.com/Entkenntnis/robot-karol-online#readme"
-                        onClick={() => {
-                          // open feedback form in new tab
-                          submitAnalyzeEvent(core, 'ev_click_landing_docs')
-                        }}
-                      >
-                        {core.strings.overview.docs}{' '}
-                        <FaIcon
-                          icon={faExternalLink}
-                          className="text-gray-600 text-xs"
-                        />
-                      </a>
-                    </li>
-                    {core.ws.settings.lng == 'de' ? (
-                      <li
-                        onClick={() => {
-                          setLng(core, 'en')
-                          setLngStorage('en')
-                          submitAnalyzeEvent(core, 'ev_click_landing_english')
-                          // scroll to top
-                          document.getElementById(
-                            'scroll-container',
-                          )!.scrollTop = 0
-                        }}
-                      >
-                        <button>Switch to English Version</button>
-                      </li>
-                    ) : (
-                      <li
-                        onClick={() => {
-                          setLng(core, 'de')
-                          setLngStorage('de')
-                          submitAnalyzeEvent(core, 'ev_click_landing_german')
-                          // scroll to top
-                          document.getElementById(
-                            'scroll-container',
-                          )!.scrollTop = 0
-                        }}
-                      >
-                        <button>Zur deutsche Version</button>
-                      </li>
+                        </AnimateInView>
+                      </div>
                     )}
-                  </ul>
-                </div>
-                <div
-                  className="absolute left-[301px] z-10 hidden"
-                  style={{ top: `${mapYAfterMiniProjects + 140}px` }}
-                >
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <h2 className="text-lg bg-white/20 pl-2 pr-4 py-0.5 rounded-lg">
-                      Entdecke auch:
-                    </h2>
-                  </AnimateInView>
-                </div>
-                <div
-                  className="absolute left-[598px] z-10 hidden"
-                  style={{ top: `${mapYAfterMiniProjects + 190}px` }}
-                >
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <a
-                      href={`/#BLUEJ-PLAYGROUND`}
-                      className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
-                      onClick={(e) => {
-                        submitAnalyzeEvent(
-                          core,
-                          'ev_click_landing_blueJPlayground',
-                        )
-                        setLearningPathScroll(
-                          document.getElementById('scroll-container')
-                            ?.scrollTop ?? -1,
-                        )
-                        navigate(core, '#BLUEJ-PLAYGROUND')
-                        e.preventDefault()
-                      }}
-                    >
-                      <p className="text-center">
-                        BlueJ-
-                        <br />
-                        Spielwiese
-                      </p>
-                      <img
-                        src="/bluej.png"
-                        alt=""
-                        className="w-[50px] mx-auto inline-block mt-2"
-                      />
-                    </a>
-                  </AnimateInView>
-                </div>
-                {core.ws.ui.newRobotImage && (
-                  <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
-                    <p className="mb-2">Neue Figur verfügbar:</p>
-                    <img
-                      src={core.ws.ui.newRobotImage}
-                      alt="Karol"
-                      className="border-2 border-gray-200 shadow-lg"
-                    />
-                    <p className="text-center mt-2">
+                  <div className="absolute top-[200px] left-[1010px] z-10">
+                    <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
                       <button
-                        className="hover:underline mr-3"
+                        className={clsx(
+                          'hover:bg-gray-100/60 rounded-xl',
+                          'w-[100px] cursor-pointer',
+                        )}
                         onClick={() => {
-                          core.mutateWs((ws) => {
-                            ws.ui.newRobotImage = undefined
-                          })
+                          // open feedback form in new tab
                           submitAnalyzeEvent(
                             core,
-                            'ev_click_landing_closeNewKarol',
+                            'ev_click_landing_appearance',
                           )
+                          showModal(core, 'appearance')
                         }}
                       >
-                        schließen
-                      </button>
-                      <button
-                        className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
-                        onClick={() => {
-                          core.mutateWs((ws) => {
-                            ws.robotImageDataUrl = ws.ui.newRobotImage
-                            ws.ui.newRobotImage = undefined
-                          })
-                          setRobotImage(core.ws.robotImageDataUrl)
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_saveNewKarol',
-                          )
-                        }}
-                      >
-                        Laden
-                      </button>
-                    </p>
-                  </div>
-                )}
-                {false && core.ws.settings.lng == 'de' && (
-                  <div
-                    className="absolute left-[660px] z-10"
-                    style={{ top: `${mapYAfterMiniProjects + 200}px` }}
-                  >
-                    <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                      <button
-                        className="w-[120px] hover:bg-gray-100/60 rounded-xl"
-                        onClick={() => {
-                          submitAnalyzeEvent(core, 'ev_click_landing_einhorn')
-                          window.open('https://einhorn.arrrg.de', '_blank')
-                        }}
-                      >
-                        <p className="text-center mb-2">
-                          Einhorn der Mathematik
+                        <p className="text-center">
+                          Figur
+                          <br />
+                          zeichnen
                         </p>
-                        <img
-                          src="/einhorn.png"
-                          alt="Einhorn"
-                          className="w-[50px] mx-auto"
+                        <FaIcon
+                          icon={faPaintBrush}
+                          className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
                         />
                       </button>
                     </AnimateInView>
                   </div>
-                )}
-                <div
-                  className="absolute left-[400px] z-10 hidden"
-                  style={{ top: `${mapYAfterMiniProjects + 230}px` }}
-                >
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <button
-                      className=" w-[120px] block hover:bg-gray-100/60 rounded-xl"
-                      onClick={() => {
-                        submitAnalyzeEvent(core, 'ev_click_landing_hacktheweb')
-                        window.open(
-                          'https://hack.arrrg.de/' +
-                            (core.ws.settings.lng === 'en' ? 'en' : ''),
-                          '_blank',
-                        )
-                      }}
-                    >
-                      <p className="text-center mb-2">Hack The Web</p>
-                      <img
-                        src="/htw.png"
-                        alt="H"
-                        className="w-[32px] mx-auto mb-2"
-                      />
-                    </button>
-                  </AnimateInView>
-                </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox={`0 0 1240 ${mapYAfterMiniProjects + 300}`}
-                  className="relative"
-                >
-                  <defs>
-                    <filter id="organicTexture">
-                      <feTurbulence
-                        type="fractalNoise"
-                        baseFrequency="0.05"
-                        numOctaves="3"
-                        result="noise"
-                      />
-                      <feDisplacementMap
-                        in="SourceGraphic"
-                        in2="noise"
-                        scale="8"
-                        xChannelSelector="R"
-                        yChannelSelector="G"
-                      />
-                    </filter>
-                    <filter id="organicTexture2">
-                      <feTurbulence
-                        type="fractalNoise"
-                        baseFrequency="0.05"
-                        numOctaves="3"
-                        result="noise"
-                      />
-                      <feDisplacementMap
-                        in="SourceGraphic"
-                        in2="noise"
-                        scale="2"
-                        xChannelSelector="R"
-                        yChannelSelector="G"
-                      />
-                    </filter>
-                  </defs>
-                  {Object.entries(mapData).map(([id, data]) => {
-                    if (isQuestVisible(parseInt(id))) {
-                      return (
-                        <Fragment key={id}>
-                          {data.deps.map((dep) => {
-                            if (
-                              isQuestDone(dep) ||
-                              core.ws.page == 'analyze' ||
-                              core.ws.page == 'demo'
-                            ) {
-                              return (
-                                <line
-                                  key={`connect-${id}-${dep}`}
-                                  x1={data.x + 26}
-                                  y1={data.y + 76}
-                                  x2={mapData[dep].x + 26}
-                                  y2={mapData[dep].y + 76}
-                                  strokeWidth="10"
-                                  filter="url(#organicTexture2)"
-                                  stroke="rgba(148, 163, 184, 0.8)"
-                                />
-                              )
-                            } else {
-                              return null
-                            }
-                          })}
-                        </Fragment>
-                      )
-                    }
-                    return null
-                  })}
-                </svg>
-                {Object.entries(mapData).map((entry) => {
-                  const id = parseInt(entry[0])
-                  if (!isQuestVisible(id)) return null
-                  if (id >= 10000) {
-                    // chapter marker
-                    // lower bound 48 = 0%, 14 = 100%
-                    let colorHeight = isQuestDone(id) ? 14 : 48
-                    let isPerfect = false
-                    // check if this chapter is the latest one, e.g. the next id is not done
-                    const isLatestChapter = !isQuestDone(id + 1)
-                    const idsInThisChapter = Object.entries(mapData)
-                      .filter(([, data]) => data.chapter === id)
-                      .map(([i]) => parseInt(i))
-                    const doneCount =
-                      idsInThisChapter.filter(isQuestDone).length
-
-                    isPerfect =
-                      doneCount == idsInThisChapter.length &&
-                      doneCount > chapterData[id].requiredCount &&
-                      doneCount > 0
-                    if (isLatestChapter && isQuestDone(id)) {
-                      const percentage =
-                        100 *
-                        ((doneCount + 1) / (chapterData[id].requiredCount + 1))
-
-                      colorHeight = Math.max(
-                        14,
-                        Math.min(
-                          48,
-                          Math.round(
-                            ((100 - percentage) / 100) * (48 - 14) + 14,
-                          ),
-                        ),
-                      )
-                    }
-
-                    return (
-                      <div
-                        className="absolute z-10"
-                        key={id}
-                        style={{
-                          left: `${entry[1].x - 22}px`,
-                          top: `${entry[1].y + 20}px`,
+                  <div className="absolute top-[300px] left-[1020px] z-10 hidden">
+                    <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
+                      <button
+                        className={clsx(
+                          'hover:bg-gray-100/60 rounded-xl',
+                          'w-[80px] cursor-pointer text-gray-700',
+                        )}
+                        onClick={() => {
+                          // open feedback form in new tab
+                          submitAnalyzeEvent(core, 'ev_click_landing_login')
+                          alert(
+                            'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.',
+                          )
                         }}
                       >
-                        <AnimateInView
-                          dontFade={numberOfSolvedQuests > 0 || id != 10001}
-                        >
-                          <button
-                            className="w-[100px] block hover:bg-white/20 rounded-xl cursor-pointer text-center"
-                            onClick={() => {
-                              submitAnalyzeEvent(
-                                core,
-                                'ev_click_landing_explanation_chapter_' + id,
+                        <p className="text-center">(Login)</p>
+                        <FaIcon
+                          icon={faUserCircle}
+                          className="text-3xl text-gray-400 inline-block mt-2 pb-2"
+                        />
+                      </button>
+                    </AnimateInView>
+                  </div>
+                  <div className="absolute left-[4px] top-[750px] z-10">
+                    <ul
+                      tabIndex={0}
+                      className="bg-white/20 rounded-lg w-60 p-2 mt-1 [&>li]:px-4 [&>li]:py-2 [&>li]:cursor-pointer hover:[&>li]:bg-gray-300/20 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50 [&_a]:block"
+                    >
+                      <li className="!pb-0">
+                        <a
+                          href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
+                          onClick={() => {
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_robotGallery',
+                            )
+                            setTimeout(() => {
+                              window.open(
+                                'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
+                                '_self',
                               )
-                              core.mutateWs((ws) => {
-                                ws.overview.explanationId = id
-                              })
-                              showModal(core, 'explanation')
-                            }}
-                            id={`explanation-icon-${id}`}
+                            }, 50)
+                          }}
+                        >
+                          <SpinningRobot /> Figuren-Galerie
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/#INSPIRATION"
+                          onClick={() => {
+                            submitAnalyzeEvent(core, 'ev_click_landing_gallery')
+                            setLearningPathScroll(
+                              document.getElementById('scroll-container')
+                                ?.scrollTop ?? -1,
+                            )
+                          }}
+                        >
+                          💫 Aufgaben-Galerie
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          target="_blank"
+                          href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/MATERIAL-LEHRKRAEFTE.md"
+                          onClick={() => {
+                            // open feedback form in new tab
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_material',
+                            )
+                          }}
+                        >
+                          Material für Lehrkräfte{' '}
+                          <FaIcon
+                            icon={faExternalLink}
+                            className="text-gray-600 text-xs"
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          target="_blank"
+                          href="https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8"
+                          onClick={() => {
+                            // open feedback form in new tab
+                            submitAnalyzeEvent(core, 'ev_click_landing_video')
+                          }}
+                        >
+                          Video-Erklärungen{' '}
+                          <FaIcon
+                            icon={faExternalLink}
+                            className="text-gray-600 text-xs"
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          target="_blank"
+                          href="https://github.com/Entkenntnis/robot-karol-online#readme"
+                          onClick={() => {
+                            // open feedback form in new tab
+                            submitAnalyzeEvent(core, 'ev_click_landing_docs')
+                          }}
+                        >
+                          {core.strings.overview.docs}{' '}
+                          <FaIcon
+                            icon={faExternalLink}
+                            className="text-gray-600 text-xs"
+                          />
+                        </a>
+                      </li>
+                      {core.ws.settings.lng == 'de' ? (
+                        <li
+                          onClick={() => {
+                            setLng(core, 'en')
+                            setLngStorage('en')
+                            submitAnalyzeEvent(core, 'ev_click_landing_english')
+                            // scroll to top
+                            document.getElementById(
+                              'scroll-container',
+                            )!.scrollTop = 0
+                          }}
+                        >
+                          <button>Switch to English Version</button>
+                        </li>
+                      ) : (
+                        <li
+                          onClick={() => {
+                            setLng(core, 'de')
+                            setLngStorage('de')
+                            submitAnalyzeEvent(core, 'ev_click_landing_german')
+                            // scroll to top
+                            document.getElementById(
+                              'scroll-container',
+                            )!.scrollTop = 0
+                          }}
+                        >
+                          <button>Zur deutsche Version</button>
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+
+                  <div
+                    className="absolute left-[598px] z-10 hidden"
+                    style={{ top: `${mapYAfterMiniProjects + 190}px` }}
+                  >
+                    <AnimateInView dontFade={numberOfSolvedQuests > 0}>
+                      <a
+                        href={`/#BLUEJ-PLAYGROUND`}
+                        className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+                        onClick={(e) => {
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_click_landing_blueJPlayground',
+                          )
+                          setLearningPathScroll(
+                            document.getElementById('scroll-container')
+                              ?.scrollTop ?? -1,
+                          )
+                          navigate(core, '#BLUEJ-PLAYGROUND')
+                          e.preventDefault()
+                        }}
+                      >
+                        <p className="text-center">
+                          BlueJ-
+                          <br />
+                          Spielwiese
+                        </p>
+                        <img
+                          src="/bluej.png"
+                          alt=""
+                          className="w-[50px] mx-auto inline-block mt-2"
+                        />
+                      </a>
+                    </AnimateInView>
+                  </div>
+                  {core.ws.ui.newRobotImage && (
+                    <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
+                      <p className="mb-2">Neue Figur verfügbar:</p>
+                      <img
+                        src={core.ws.ui.newRobotImage}
+                        alt="Karol"
+                        className="border-2 border-gray-200 shadow-lg"
+                      />
+                      <p className="text-center mt-2">
+                        <button
+                          className="hover:underline mr-3"
+                          onClick={() => {
+                            core.mutateWs((ws) => {
+                              ws.ui.newRobotImage = undefined
+                            })
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_closeNewKarol',
+                            )
+                          }}
+                        >
+                          schließen
+                        </button>
+                        <button
+                          className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
+                          onClick={() => {
+                            core.mutateWs((ws) => {
+                              ws.robotImageDataUrl = ws.ui.newRobotImage
+                              ws.ui.newRobotImage = undefined
+                            })
+                            setRobotImage(core.ws.robotImageDataUrl)
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_saveNewKarol',
+                            )
+                          }}
+                        >
+                          Laden
+                        </button>
+                      </p>
+                    </div>
+                  )}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox={`0 0 1240 ${mapYAfterMiniProjects + 300}`}
+                    className="relative"
+                  >
+                    <defs>
+                      <filter id="organicTexture">
+                        <feTurbulence
+                          type="fractalNoise"
+                          baseFrequency="0.05"
+                          numOctaves="3"
+                          result="noise"
+                        />
+                        <feDisplacementMap
+                          in="SourceGraphic"
+                          in2="noise"
+                          scale="8"
+                          xChannelSelector="R"
+                          yChannelSelector="G"
+                        />
+                      </filter>
+                      <filter id="organicTexture2">
+                        <feTurbulence
+                          type="fractalNoise"
+                          baseFrequency="0.05"
+                          numOctaves="3"
+                          result="noise"
+                        />
+                        <feDisplacementMap
+                          in="SourceGraphic"
+                          in2="noise"
+                          scale="2"
+                          xChannelSelector="R"
+                          yChannelSelector="G"
+                        />
+                      </filter>
+                    </defs>
+                    {Object.entries(mapData).map(([id, data]) => {
+                      if (isQuestVisible(parseInt(id))) {
+                        return (
+                          <Fragment key={id}>
+                            {data.deps.map((dep) => {
+                              if (
+                                isQuestDone(dep) ||
+                                core.ws.page == 'analyze' ||
+                                core.ws.page == 'demo'
+                              ) {
+                                return (
+                                  <line
+                                    key={`connect-${id}-${dep}`}
+                                    x1={data.x + 26}
+                                    y1={data.y + 76}
+                                    x2={mapData[dep].x + 26}
+                                    y2={mapData[dep].y + 76}
+                                    strokeWidth="10"
+                                    filter="url(#organicTexture2)"
+                                    stroke="rgba(148, 163, 184, 0.8)"
+                                  />
+                                )
+                              } else {
+                                return null
+                              }
+                            })}
+                          </Fragment>
+                        )
+                      }
+                      return null
+                    })}
+                  </svg>
+                  {Object.entries(mapData).map((entry) => {
+                    const id = parseInt(entry[0])
+                    if (!isQuestVisible(id)) return null
+                    if (id >= 10000) {
+                      // chapter marker
+                      // lower bound 48 = 0%, 14 = 100%
+                      let colorHeight = isQuestDone(id) ? 14 : 48
+                      let isPerfect = false
+                      // check if this chapter is the latest one, e.g. the next id is not done
+                      const isLatestChapter = !isQuestDone(id + 1)
+                      const idsInThisChapter = Object.entries(mapData)
+                        .filter(([, data]) => data.chapter === id)
+                        .map(([i]) => parseInt(i))
+                      const doneCount =
+                        idsInThisChapter.filter(isQuestDone).length
+
+                      isPerfect =
+                        doneCount == idsInThisChapter.length &&
+                        doneCount > chapterData[id].requiredCount &&
+                        doneCount > 0
+                      if (isLatestChapter && isQuestDone(id)) {
+                        const percentage =
+                          100 *
+                          ((doneCount + 1) /
+                            (chapterData[id].requiredCount + 1))
+
+                        colorHeight = Math.max(
+                          14,
+                          Math.min(
+                            48,
+                            Math.round(
+                              ((100 - percentage) / 100) * (48 - 14) + 14,
+                            ),
+                          ),
+                        )
+                      }
+
+                      return (
+                        <div
+                          className="absolute z-10"
+                          key={id}
+                          style={{
+                            left: `${entry[1].x - 22}px`,
+                            top: `${entry[1].y + 20}px`,
+                          }}
+                        >
+                          <AnimateInView
+                            dontFade={numberOfSolvedQuests > 0 || id != 10001}
                           >
-                            <p className="text-center whitespace-nowrap flex justify-center">
-                              <span className="bg-white/85 px-2 rounded">
-                                {chapterData[id].title}
-                              </span>
-                              {core.ws.page == 'analyze' && (
-                                <span>
-                                  [{core.ws.analyze.chapters[id]?.explanation}]
+                            <button
+                              className="w-[100px] block hover:bg-white/20 rounded-xl cursor-pointer text-center"
+                              onClick={() => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_landing_explanation_chapter_' + id,
+                                )
+                                core.mutateWs((ws) => {
+                                  ws.overview.explanationId = id
+                                })
+                                showModal(core, 'explanation')
+                              }}
+                              id={`explanation-icon-${id}`}
+                            >
+                              <p className="text-center whitespace-nowrap flex justify-center">
+                                <span className="bg-white/85 px-2 rounded">
+                                  {chapterData[id].title}
                                 </span>
-                              )}
-                            </p>
-                            <div className="w-[80px] h-[60px] relative mx-auto mb-2 isolate">
-                              <img
-                                src={'/motte.png'}
-                                alt=""
-                                className="w-[80px] inset-0 absolute z-10"
-                              />
-                              <img
-                                src={'/motte_farbe.png'}
-                                alt=""
-                                className="w-[80px] inset-0 absolute z-20 object-cover object-bottom"
-                                style={{
-                                  top: `${colorHeight}px`,
-                                  height: `${60 - colorHeight}px`,
-                                }}
-                              />
-                              {isPerfect && (
+                                {core.ws.page == 'analyze' && (
+                                  <span>
+                                    [{core.ws.analyze.chapters[id]?.explanation}
+                                    ]
+                                  </span>
+                                )}
+                              </p>
+                              <div className="w-[80px] h-[60px] relative mx-auto mb-2 isolate">
                                 <img
-                                  className="absolute bottom-1.5 right-3 w-[22px] z-30 
+                                  src={'/motte.png'}
+                                  alt=""
+                                  className="w-[80px] inset-0 absolute z-10"
+                                />
+                                <img
+                                  src={'/motte_farbe.png'}
+                                  alt=""
+                                  className="w-[80px] inset-0 absolute z-20 object-cover object-bottom"
+                                  style={{
+                                    top: `${colorHeight}px`,
+                                    height: `${60 - colorHeight}px`,
+                                  }}
+                                />
+                                {isPerfect && (
+                                  <img
+                                    className="absolute bottom-1.5 right-3 w-[22px] z-30 
                                     [--tw-drop-shadow:drop-shadow(0_0_8px_rgba(255,215,0,0.8))] 
                                     hover:[--tw-drop-shadow:drop-shadow(0_0_12px_rgba(255,215,0,1))]
                                     filter transition-all duration-300"
-                                  src="/stern.png"
-                                  alt="Perfect Score Star"
-                                />
-                              )}
-                            </div>
-                          </button>
-                        </AnimateInView>
-                      </div>
-                    )
-                  }
-                  return (
-                    <QuestIcon
-                      x={entry[1].x}
-                      y={entry[1].y}
-                      title={questData[parseInt(entry[0])].title}
-                      solved={
-                        isQuestDone(parseInt(entry[0])) &&
-                        core.ws.page != 'demo'
-                      }
-                      onClick={() => {
-                        if (parseInt(entry[0]) == 1) {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_startKarol',
-                          )
+                                    src="/stern.png"
+                                    alt="Perfect Score Star"
+                                  />
+                                )}
+                              </div>
+                            </button>
+                          </AnimateInView>
+                        </div>
+                      )
+                    }
+                    return (
+                      <QuestIcon
+                        x={entry[1].x}
+                        y={entry[1].y}
+                        title={questData[parseInt(entry[0])].title}
+                        solved={
+                          isQuestDone(parseInt(entry[0])) &&
+                          core.ws.page != 'demo'
                         }
-                        setQuestReturnToMode(
-                          core.ws.page == 'demo' ? 'demo' : 'path',
-                        )
-                        setLearningPathScroll(
-                          document.getElementById('scroll-container')
-                            ?.scrollTop ?? -1,
-                        )
-                        navigate(core, '#QUEST-' + entry[0])
-                      }}
-                      key={entry[0]}
-                      dir={entry[1].dir}
-                      id={parseInt(entry[0])}
-                      python={
-                        questData[parseInt(entry[0])].script && entry[0] != '60'
-                      }
-                      dontFade
-                    />
-                  )
-                })}
-              </div>
-            )}
-          <div className="flex-auto"></div>
-
-          <div className="flex justify-center mt-12">
-            <div className="w-[600px] bg-pink-200">
-              Neuigkeiten (TODO: Move to component)
-              <details>
-                <summary>Neue Aufteilung in zwei Bereiche, yuhei.</summary>
-                <div className="h-[300px]">
-                  Der Python-Lernpfad erhält nun eine eigene Seite und kann über
-                  eine URL auch direkt erreicht werden. Und so lala, also es ist
-                  schon eine schöne Bescherung, was wir hier haben.
+                        onClick={() => {
+                          if (parseInt(entry[0]) == 1) {
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_startKarol',
+                            )
+                          }
+                          setQuestReturnToMode(
+                            core.ws.page == 'demo' ? 'demo' : 'path',
+                          )
+                          setLearningPathScroll(
+                            document.getElementById('scroll-container')
+                              ?.scrollTop ?? -1,
+                          )
+                          navigate(core, '#QUEST-' + entry[0])
+                        }}
+                        key={entry[0]}
+                        dir={entry[1].dir}
+                        id={parseInt(entry[0])}
+                        python={
+                          questData[parseInt(entry[0])].script &&
+                          entry[0] != '60'
+                        }
+                        dontFade
+                      />
+                    )
+                  })}
                 </div>
-              </details>
-            </div>
-          </div>
+                <div className="justify-center mt-12 mb-20 hidden">
+                  <div className="w-[600px] bg-pink-200">
+                    Neuigkeiten (TODO: Move to component)
+                    <details>
+                      <summary>
+                        Neue Aufteilung in zwei Bereiche, yuhei.
+                      </summary>
+                      <div className="h-[300px]">
+                        Der Python-Lernpfad erhält nun eine eigene Seite und
+                        kann über eine URL auch direkt erreicht werden. Und so
+                        lala, also es ist schon eine schöne Bescherung, was wir
+                        hier haben.
+                      </div>
+                    </details>
+                  </div>
+                </div>
+                {core.ws.settings.lng == 'de' && <Discover />}
 
+                <div className="absolute right-[35px] bottom-[15px] z-10 pointer-events-none">
+                  <Reactions />
+                </div>
+              </>
+            )}
           <div className="text-center mb-12 mt-24">
             <span className="text-gray-700 mr-7">
               {core.strings.overview.version}
