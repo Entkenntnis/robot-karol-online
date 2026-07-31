@@ -152,20 +152,21 @@ export function PythonPath() {
         )}
         id="scroll-container"
       >
-        <div className="flex flex-col relative min-h-full min-w-fit background-element">
+        <div className="flex flex-col relative min-h-full min-w-fit background-element-python">
           <div className="flex md:justify-center justify-start mt-6 ml-3 md:m-0">
             <div
               className={clsx(
                 'flex mt-8 items-center rounded-xl',
-                'p-2 px-6 bg-white/30',
+                'p-2 px-6 bg-[#3776ab]/40',
               )}
             >
-              <h1 className="text-2xl whitespace-nowrap">
-                Robot Karol - Python Lernpfad
+              <h1 className="text-3xl whitespace-nowrap">
+                Python Lernpfad{' '}
+                <span className="text-xl">(ft. Robot Karol)</span>
               </h1>
             </div>
           </div>
-          <div className="fixed top-2 right-2 z-[1000]">
+          <div className="fixed top-2 right-2 z-[1000] hidden">
             <button
               className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
               onClick={() => {
@@ -176,7 +177,7 @@ export function PythonPath() {
               Spenden
             </button>
           </div>
-          <div className="mx-8 md:mx-auto mt-6">
+          <div className="mx-8 md:mx-auto mt-6 hidden">
             <a
               href="/#SPIELWIESE"
               className="hover:underline mr-8"
@@ -356,7 +357,7 @@ export function PythonPath() {
               numberOfSolvedQuestsPython == 0 &&
               core.ws.page !== 'demo' &&
               core.ws.page !== 'analyze' && (
-                <div className="absolute top-[1670px] left-[690px] z-10">
+                <div className="absolute top-[270px] left-[690px] z-10">
                   <AnimateInView dontFade={numberOfSolvedQuestsPython > 0}>
                     <div
                       className="bg-white/50 rounded-lg p-2 w-[410px] shadow-lg rainbow ranbow-always cursor-pointer relative"
@@ -380,7 +381,7 @@ export function PythonPath() {
                   </AnimateInView>
                 </div>
               )}
-            <div className="absolute top-[1730px] left-[90px] z-10">
+            <div className="absolute top-[330px] left-[90px] z-10">
               <AnimateInView dontFade={numberOfSolvedQuests > 0}>
                 <button
                   id="python-listing-button"
@@ -613,7 +614,7 @@ export function PythonPath() {
                 strokeDasharray="20 28"
                 style={{ transition: 'all 0.3s ease' }}
               />
-            </svg>{' '}
+            </svg>
             {Object.entries(mapData).map((entry) => {
               const id = parseInt(entry[0])
               if (!isQuestVisible(id)) return null
@@ -773,60 +774,11 @@ export function PythonPath() {
             {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
           </div>
           <PersistNotice />
-          {/*!isPersisted() &&
-            numberOfSolvedQuests > 0 &&
-            core.ws.overview.showSaveHint &&
-            core.ws.page != 'analyze' && (
-              <>
-                <div className="fixed left-0 right-0 bottom-0 pb-1.5 sm:pb-0 sm:h-10 bg-yellow-100 text-center pt-1.5 z-20">
-                  {core.strings.overview.storeOnDevice}{' '}
-                  <div className="relative inline-block">
-                    <div className="-top-[170px] -left-24 absolute bg-yellow-100/90 p-4 mx-auto w-[400px] rounded-xl border-2 border-yellow-300 shadow-lg">
-                      <div className="text-center text-2xl font-bold text-yellow-800 mb-4">
-                        Wir empfehlen dir, deinen Fortschritt zu speichern.
-                      </div>{' '}
-                      <div className="flex justify-center">
-                        <div className="relative animate-bounce">
-                          <FaIcon
-                            icon={faArrowDown}
-                            className="text-4xl text-yellow-600"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <button
-                      className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 ml-6 rounded"
-                      onClick={() => {
-                        setPersist(core, true)
-                        hideSaveHint(core)
-                        forceRerender(core)
-                        //showModal(core, 'sync')
-                        submitAnalyzeEvent(
-                          core,
-                          'ev_click_landing_syncProgress'
-                        )
-                      }}
-                    >
-                      {core.strings.overview.syncProgress}
-                    </button>
-                  </div>{' '}
-                  <button
-                    className="text-gray-500 underline ml-6"
-                    onClick={() => {
-                      hideSaveHint(core)
-                      submitAnalyzeEvent(core, 'ev_click_landing_syncLater')
-                    }}
-                  >
-                    {core.strings.overview.later}
-                  </button>
-                </div>
-              </>
-            )*/}
         </div>
       </div>
-      {(core.ws.page == 'overview' || core.ws.page == 'demo') && (
-        <HFullStyles />
-      )}
+      {(core.ws.page == 'overview' ||
+        core.ws.page == 'demo' ||
+        core.ws.page == 'python-path') && <HFullStyles />}
     </>
   )
 
@@ -847,6 +799,7 @@ export function PythonPath() {
   }
 
   function isQuestVisible(id: number) {
+    if (id < 100) return false // ignore non-python stuff
     const position = questList.indexOf(id)
 
     const questsInPreviousChapter = Object.entries(mapData)

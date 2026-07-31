@@ -12,7 +12,7 @@ import {
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { Fragment, useEffect, useMemo } from 'react'
+import { Fragment, useEffect } from 'react'
 
 import {
   forceRerender,
@@ -51,12 +51,9 @@ import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 import { twoWorldsEqual } from '../../lib/commands/world'
 import { chapterData } from '../../lib/data/chapters'
-import { pythonKarolExamples } from '../../lib/data/pythonExamples'
 import { Reactions } from '../helper/Reactions'
 import { SpinningRobot } from '../helper/SpinningRobot'
 import { PersistNotice } from '../helper/PersistNotice'
-import { PythonMiniProjects } from '../helper/PythonMiniProjects'
-import type { PythonProjectGroup } from '../../lib/state/types'
 
 export function Overview() {
   const core = useCore()
@@ -73,28 +70,9 @@ export function Overview() {
     (id) => parseInt(id) < 100 && isQuestDone(parseInt(id)),
   ).length
 
-  const numberOfSolvedQuestsPython = Object.keys(mapData).filter(
-    (id) =>
-      parseInt(id) >= 100 && parseInt(id) < 10000 && isQuestDone(parseInt(id)),
-  ).length
+  const maxMapY = 1300
 
-  const maxMapY =
-    Math.max(
-      ...Object.entries(mapData)
-        .filter(([id]) => isQuestVisible(parseInt(id)))
-        .map(([, quest]) => quest.y),
-    ) +
-    (core.ws.page == 'demo' || core.ws.page == 'analyze'
-      ? 250
-      : !isQuestDone(10001)
-        ? 1000
-        : isQuestDone(10010)
-          ? 250
-          : 1000)
-  // todo: if all quests are unlocked, I can reduce the spacing a bit, but I'm not at that point yet
-
-  const mapYAfterMiniProjects =
-    maxMapY + (core.ws.ui.miniProjectsOpen ? 880 : 200)
+  const mapYAfterMiniProjects = maxMapY
 
   useEffect(() => {
     if (
@@ -117,30 +95,6 @@ export function Overview() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const groupedExamples = useMemo(() => {
-    const groups: PythonProjectGroup[] = []
-    let currentGroup: PythonProjectGroup | null = null
-
-    pythonKarolExamples
-      .filter((e) => !e.hidden)
-      .forEach((example) => {
-        // A "spacer" item marks the beginning of a new category
-        if (example.link === 'spacer') {
-          currentGroup = {
-            title: example.title,
-            color: example.color,
-            highlightColor: example.highlightColor,
-            tasks: [],
-          }
-          groups.push(currentGroup)
-        } else if (currentGroup) {
-          // Add the task to the currently active group
-          currentGroup.tasks.push(example)
-        }
-      })
-    return groups
-  }, [pythonKarolExamples]) // Re-calculates only if data changes
 
   return (
     <>
@@ -324,21 +278,22 @@ export function Overview() {
                     onClick={() => {
                       submitAnalyzeEvent(core, 'ev_click_landing_promotePython')
                       try {
-                        document
-                          .getElementById('python-listing-button')
-                          ?.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center',
-                          })
-                        // @ts-ignore
-                        document.activeElement?.blur()
-                        const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover',
-                        ) as HTMLDivElement
-                        dropdown.classList.remove('dropdown-hover')
-                        setTimeout(() => {
-                          dropdown.classList.add('dropdown-hover')
-                        }, 50)
+                        navigate(core, 'python')
+                        // document
+                        //   .getElementById('python-listing-button')
+                        //   ?.scrollIntoView({
+                        //     behavior: 'smooth',
+                        //     block: 'center',
+                        //   })
+                        // // @ts-ignore
+                        // document.activeElement?.blur()
+                        // const dropdown = document.querySelector(
+                        //   '.dropdown.dropdown-hover',
+                        // ) as HTMLDivElement
+                        // dropdown.classList.remove('dropdown-hover')
+                        // setTimeout(() => {
+                        //   dropdown.classList.add('dropdown-hover')
+                        // }, 50)
                       } catch (e) {}
                     }}
                   >
@@ -757,62 +712,8 @@ export function Overview() {
                     )}
                   </ul>
                 </div>
-                {core.ws.settings.lng === 'de' &&
-                  !isQuestDone(10001) &&
-                  numberOfSolvedQuestsPython == 0 &&
-                  core.ws.page !== 'demo' &&
-                  core.ws.page !== 'analyze' && (
-                    <div className="absolute top-[1670px] left-[690px] z-10">
-                      <AnimateInView dontFade={numberOfSolvedQuestsPython > 0}>
-                        <div
-                          className="bg-white/50 rounded-lg p-2 w-[410px] shadow-lg rainbow ranbow-always cursor-pointer relative"
-                          onClick={() => {
-                            submitAnalyzeEvent(
-                              core,
-                              'ev_click_landing_pythonIntro',
-                            )
-                            core.mutateWs((ws) => {
-                              ws.overview.explanationId = 10001
-                            })
-                            showModal(core, 'explanation')
-                          }}
-                        >
-                          <p>
-                            In den ruhigen Jahren in Jackson beschließt Ellie,
-                            sich das Programmieren beizubringen. Keine einfache
-                            Sache! Zum Glück stehen ihr Joel und das Dorf immer
-                            treu zur Seite. Begleite Ellie, wie sie die
-                            Grundlagen von Python lernt, von Ein-/Ausgabe über
-                            Variablen und Schleifen bis hin zu ihrem großen
-                            Projekt.
-                          </p>
-                        </div>
-                      </AnimateInView>
-                    </div>
-                  )}
-                <div className="absolute top-[1730px] left-[90px] z-10">
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <button
-                      id="python-listing-button"
-                      className="px-2 py-0.5 bg-white/30 rounded hover:bg-white/50"
-                      onClick={() => {
-                        submitAnalyzeEvent(
-                          core,
-                          'ev_click_landing_pythonListing',
-                        )
-                        showModal(core, 'python-listing')
-                      }}
-                    >
-                      Übersicht Python-Lernpfad
-                    </button>
-                  </AnimateInView>
-                </div>
-                <PythonMiniProjects
-                  maxMapY={maxMapY}
-                  groups={groupedExamples}
-                />
                 <div
-                  className="absolute left-[301px] z-10"
+                  className="absolute left-[301px] z-10 hidden"
                   style={{ top: `${mapYAfterMiniProjects + 140}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
@@ -897,7 +798,7 @@ export function Overview() {
                     </p>
                   </div>
                 )}
-                {core.ws.settings.lng == 'de' && (
+                {false && core.ws.settings.lng == 'de' && (
                   <div
                     className="absolute left-[660px] z-10"
                     style={{ top: `${mapYAfterMiniProjects + 200}px` }}
@@ -923,7 +824,7 @@ export function Overview() {
                   </div>
                 )}
                 <div
-                  className="absolute left-[400px] z-10"
+                  className="absolute left-[400px] z-10 hidden"
                   style={{ top: `${mapYAfterMiniProjects + 230}px` }}
                 >
                   <AnimateInView dontFade={numberOfSolvedQuests > 0}>
@@ -953,20 +854,6 @@ export function Overview() {
                   className="relative"
                 >
                   <defs>
-                    <linearGradient
-                      id="pythonGradient"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="0%"
-                    >
-                      <stop offset="0%" stopColor="rgb(53, 114, 165)" />
-                      <stop offset="25%" stopColor="rgb(100, 105, 160)" />
-                      <stop offset="50%" stopColor="rgb(150, 140, 135)" />
-                      <stop offset="75%" stopColor="rgb(210, 175, 104)" />
-                      <stop offset="100%" stopColor="rgb(255, 213, 79)" />
-                    </linearGradient>
-
                     <filter id="organicTexture">
                       <feTurbulence
                         type="fractalNoise"
@@ -1029,18 +916,7 @@ export function Overview() {
                     }
                     return null
                   })}
-
-                  <path
-                    d="M 100 1700 C 393 1711 588 1648 726 1547 S 942 1374 1150 1400"
-                    stroke="url(#pythonGradient)"
-                    strokeWidth="6"
-                    fill="none"
-                    filter="url(#organicTexture)"
-                    strokeLinecap="round"
-                    strokeDasharray="20 28"
-                    style={{ transition: 'all 0.3s ease' }}
-                  />
-                </svg>{' '}
+                </svg>
                 {Object.entries(mapData).map((entry) => {
                   const id = parseInt(entry[0])
                   if (!isQuestVisible(id)) return null
@@ -1183,6 +1059,10 @@ export function Overview() {
             )}
           <div className="flex-auto"></div>
 
+          <div className="flex justify-center mt-12">
+            <div className="w-[600px] h-[200px] bg-pink-200">Neuigkeiten</div>
+          </div>
+
           <div className="text-center mb-12 mt-24">
             <span className="text-gray-700 mr-7">
               {core.strings.overview.version}
@@ -1282,6 +1162,10 @@ export function Overview() {
   }
 
   function isQuestVisible(id: number) {
+    if (id >= 100) {
+      // we disable all python related quests
+      return false
+    }
     const position = questList.indexOf(id)
 
     const questsInPreviousChapter = Object.entries(mapData)

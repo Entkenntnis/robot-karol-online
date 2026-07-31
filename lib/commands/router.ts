@@ -125,7 +125,7 @@ export async function hydrate(core: Core) {
     core.mutateWs((ws) => {
       ws.page = 'python-path'
     })
-    document.title = 'Robot Karol Online - Python'
+    document.title = 'Python Lernpfad'
     return
   }
 
