@@ -19,7 +19,7 @@ export function Discover() {
 
       <a
         href={'/python'}
-        className="absolute top-[23px] left-[170px] w-[120px] block hover:bg-gray-100/60 rounded-xl cursor-pointer"
+        className="absolute top-[23px] left-[170px] w-[130px] block hover:bg-gray-100/60 rounded-xl cursor-pointer"
         onClick={(e) => {
           navigate(core, 'python')
           setLearningPathScroll(
