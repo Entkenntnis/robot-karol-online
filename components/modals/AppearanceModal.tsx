@@ -11,11 +11,11 @@ import {
   faEraser,
   faFillDrip,
   faPaintBrush,
-  faStar,
+  // faStar,
   faUndo,
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/helper/submit'
-import { backend } from '../../backend'
+// import { backend } from '../../backend'
 import { karolDefaultImage, karolOldDefaultImage } from '../../lib/data/images'
 
 export function AppearanceModal() {

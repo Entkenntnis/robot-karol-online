@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import TimeAgo from 'timeago-react'
 import de from 'timeago.js/lib/lang/de'
 import en from 'timeago.js/lib/lang/en_US'
 import * as timeago from 'timeago.js'
 
-import { backend } from '../../backend'
+// import { backend } from '../../backend'
 import clsx from 'clsx'
 import { useCore } from '../../lib/state/core'
 import { getUserId } from '../../lib/storage/storage'
-import { questList } from '../../lib/data/overview'
+// import { questList } from '../../lib/data/overview'
 import { navigate } from '../../lib/commands/router'
 import { FaIcon } from '../helper/FaIcon'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -34,7 +34,7 @@ timeago.register('en', function (number, index, total_sec) {
 export function Highscore() {
   const core = useCore()
 
-  const [data, setData] = useState<
+  const [data, _setData] = useState<
     {
       userId: string
       firstActive: number
@@ -44,61 +44,61 @@ export function Highscore() {
     }[]
   >([])
 
-  const [mode, setMode] = useState<'count' | 'active'>('count')
+  const [mode, _setMode] = useState<'count' | 'active'>('count')
 
   const [showAll, setShowAll] = useState(false)
   const [showAllRecent] = useState(false)
 
   const userId = getUserId()
 
-  function sortData(m: typeof mode) {
-    setData((d) => {
-      const data = JSON.parse(JSON.stringify(d)) as typeof d
-      //console.log(data)
-      if (m == 'count') {
-        data.sort((a, b) =>
-          a.solved.length == b.solved.length
-            ? b.lastActive - a.lastActive
-            : b.solved.length - a.solved.length,
-        )
-      } else {
-        data.sort((a, b) => b.lastActive - a.lastActive)
-      }
-      return data
-    })
-  }
+  // function sortData(m: typeof mode) {
+  //   setData((d) => {
+  //     const data = JSON.parse(JSON.stringify(d)) as typeof d
+  //     //console.log(data)
+  //     if (m == 'count') {
+  //       data.sort((a, b) =>
+  //         a.solved.length == b.solved.length
+  //           ? b.lastActive - a.lastActive
+  //           : b.solved.length - a.solved.length,
+  //       )
+  //     } else {
+  //       data.sort((a, b) => b.lastActive - a.lastActive)
+  //     }
+  //     return data
+  //   })
+  // }
 
-  useEffect(() => {
-    if (backend.highscoreEndpoint) {
-      fetch(backend.highscoreEndpoint)
-        .then((res) => res.json())
-        .then((val: typeof data) => {
-          //console.log(val)
-          val.forEach((entry) => {
-            entry.solved = entry.solved.filter(
-              (id) => questList.includes(id) && id < 10000,
-            )
-            if (entry.solved.length > 35) {
-              /*console.log(
-                entry.solved.length,
-                (entry.lastActive - entry.firstActive) / 1000 / 60,
-                'min'
-              )*/
-            }
-          })
-          val.sort((a, b) =>
-            a.solved.length == b.solved.length
-              ? b.lastActive - a.lastActive
-              : b.solved.length - a.solved.length,
-          )
-          setMode('count')
-          sortData('count')
-          setData(val)
-        })
-    }
-    // only on first render
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   if (backend.highscoreEndpoint) {
+  //     fetch(backend.highscoreEndpoint)
+  //       .then((res) => res.json())
+  //       .then((val: typeof data) => {
+  //         //console.log(val)
+  //         val.forEach((entry) => {
+  //           entry.solved = entry.solved.filter(
+  //             (id) => questList.includes(id) && id < 10000,
+  //           )
+  //           if (entry.solved.length > 35) {
+  //             /*console.log(
+  //               entry.solved.length,
+  //               (entry.lastActive - entry.firstActive) / 1000 / 60,
+  //               'min'
+  //             )*/
+  //           }
+  //         })
+  //         val.sort((a, b) =>
+  //           a.solved.length == b.solved.length
+  //             ? b.lastActive - a.lastActive
+  //             : b.solved.length - a.solved.length,
+  //         )
+  //         setMode('count')
+  //         sortData('count')
+  //         setData(val)
+  //       })
+  //   }
+  //   // only on first render
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   /*useEffect(() => {
     if (mode == 'count') {

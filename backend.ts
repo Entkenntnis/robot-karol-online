@@ -1,25 +1,25 @@
-// const host = 'http://localhost:3006'
-const host = 'https://karol.arrrg.de/backend'
+const host = 'http://localhost:3006'
+// const host = 'https://karol.arrrg.de/backend'
 
 export const backend = {
   host,
   // statistics endpoint for logging events
   // events are used to generate highscore
-  statsEndpoint: host + '/submit',
+  // statsEndpoint: host + '/submit',
 
   // loading projects and quests
   legacyEndpoint: host + '/load',
   questEndpoint: host + '/quest/load',
 
-  highscoreEndpoint: host + '/highscore',
+  // highscoreEndpoint: host + '/highscore',
 
   // sharing quests in editor
   questShareEndpoint: host + '/quest_share',
 
   // url shortener for robot iamge gallery
-  urlShortenerEndpoint: host + '/share_image',
+  // urlShortenerEndpoint: host + '/share_image',
 
   // internal routes
-  analyzeEndpoint: host + '/export',
-  solutionAnalyzeEndpoint: host + '/exportSolutions',
+  // analyzeEndpoint: host + '/export',
+  // solutionAnalyzeEndpoint: host + '/exportSolutions',
 }
