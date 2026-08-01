@@ -4,12 +4,9 @@ import {
   faExternalLink,
   faFloppyDisk,
   faFolderOpen,
-  faGlobe,
-  faMedal,
   faPaintBrush,
   faPencil,
   faTable,
-  faUserCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -49,12 +46,11 @@ import { AnalyzeResults } from '../helper/AnalyzeResults'
 import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
-import { twoWorldsEqual } from '../../lib/commands/world'
-import { chapterData } from '../../lib/data/chapters'
 import { Reactions } from '../helper/Reactions'
 import { SpinningRobot } from '../helper/SpinningRobot'
 import { PersistNotice } from '../helper/PersistNotice'
 import { Discover } from '../helper/Discover'
+import { News } from '../helper/News'
 
 export function Overview() {
   const core = useCore()
@@ -70,10 +66,6 @@ export function Overview() {
   const numberOfSolvedQuestsRKO = Object.keys(mapData).filter(
     (id) => parseInt(id) < 100 && isQuestDone(parseInt(id)),
   ).length
-
-  const maxMapY = 1300
-
-  const mapYAfterMiniProjects = maxMapY
 
   useEffect(() => {
     if (
@@ -118,7 +110,7 @@ export function Overview() {
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
           </div>
-          <div className="absolute top-2 right-24 hidden">
+          {/*<div className="absolute top-2 right-24">
             <label>
               <span className="hidden">Sprache</span>
               <FaIcon icon={faGlobe} />
@@ -142,26 +134,8 @@ export function Overview() {
                 <option value="en">English</option>
               </select>
             </label>
-          </div>
-          {/*<div className="fixed top-1.5 right-24 z-[1000]">
-            <button
-              className={clsx('hover:bg-gray-100/60 rounded-xl px-2 py-0.5')}
-              onClick={() => {
-                // open feedback form in new tab
-                submitAnalyzeEvent(core, 'ev_click_landing_login')
-                alert(
-                  'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.',
-                )
-              }}
-            >
-              <FaIcon
-                icon={faUserCircle}
-                className="text-2xl text-gray-400 inline-block mr-2 pt-2"
-              />
-              (Login)
-            </button>
           </div>*/}
-          <div className="fixed top-2 right-2 z-[1000]">
+          <div className="absolute top-2 right-2 z-[1000]">
             <button
               className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
               onClick={() => {
@@ -401,12 +375,7 @@ export function Overview() {
           {!core.ws.overview.showOverviewList &&
             !core.ws.overview.showProfile && (
               <>
-                <div
-                  className="w-[1240px] mx-auto relative mt-5"
-                  style={{
-                    height: `${mapYAfterMiniProjects + 300}px`,
-                  }}
-                >
+                <div className="w-[1240px] h-[1600px] mx-auto relative mt-5">
                   <img
                     src="/klecks1.png"
                     className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
@@ -496,29 +465,6 @@ export function Overview() {
                         <FaIcon
                           icon={faPaintBrush}
                           className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
-                        />
-                      </button>
-                    </AnimateInView>
-                  </div>
-                  <div className="absolute top-[300px] left-[1020px] z-10 hidden">
-                    <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
-                      <button
-                        className={clsx(
-                          'hover:bg-gray-100/60 rounded-xl',
-                          'w-[80px] cursor-pointer text-gray-700',
-                        )}
-                        onClick={() => {
-                          // open feedback form in new tab
-                          submitAnalyzeEvent(core, 'ev_click_landing_login')
-                          alert(
-                            'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.',
-                          )
-                        }}
-                      >
-                        <p className="text-center">(Login)</p>
-                        <FaIcon
-                          icon={faUserCircle}
-                          className="text-3xl text-gray-400 inline-block mt-2 pb-2"
                         />
                       </button>
                     </AnimateInView>
@@ -644,40 +590,6 @@ export function Overview() {
                     </ul>
                   </div>
 
-                  <div
-                    className="absolute left-[598px] z-10 hidden"
-                    style={{ top: `${mapYAfterMiniProjects + 190}px` }}
-                  >
-                    <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                      <a
-                        href={`/#BLUEJ-PLAYGROUND`}
-                        className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
-                        onClick={(e) => {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_blueJPlayground',
-                          )
-                          setLearningPathScroll(
-                            document.getElementById('scroll-container')
-                              ?.scrollTop ?? -1,
-                          )
-                          navigate(core, '#BLUEJ-PLAYGROUND')
-                          e.preventDefault()
-                        }}
-                      >
-                        <p className="text-center">
-                          BlueJ-
-                          <br />
-                          Spielwiese
-                        </p>
-                        <img
-                          src="/bluej.png"
-                          alt=""
-                          className="w-[50px] mx-auto inline-block mt-2"
-                        />
-                      </a>
-                    </AnimateInView>
-                  </div>
                   {core.ws.ui.newRobotImage && (
                     <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
                       <p className="mb-2">Neue Figur verfügbar:</p>
@@ -722,7 +634,7 @@ export function Overview() {
                   )}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox={`0 0 1240 ${mapYAfterMiniProjects + 300}`}
+                    viewBox={`0 0 1240 1600`}
                     className="relative"
                   >
                     <defs>
@@ -792,108 +704,6 @@ export function Overview() {
                   {Object.entries(mapData).map((entry) => {
                     const id = parseInt(entry[0])
                     if (!isQuestVisible(id)) return null
-                    if (id >= 10000) {
-                      // chapter marker
-                      // lower bound 48 = 0%, 14 = 100%
-                      let colorHeight = isQuestDone(id) ? 14 : 48
-                      let isPerfect = false
-                      // check if this chapter is the latest one, e.g. the next id is not done
-                      const isLatestChapter = !isQuestDone(id + 1)
-                      const idsInThisChapter = Object.entries(mapData)
-                        .filter(([, data]) => data.chapter === id)
-                        .map(([i]) => parseInt(i))
-                      const doneCount =
-                        idsInThisChapter.filter(isQuestDone).length
-
-                      isPerfect =
-                        doneCount == idsInThisChapter.length &&
-                        doneCount > chapterData[id].requiredCount &&
-                        doneCount > 0
-                      if (isLatestChapter && isQuestDone(id)) {
-                        const percentage =
-                          100 *
-                          ((doneCount + 1) /
-                            (chapterData[id].requiredCount + 1))
-
-                        colorHeight = Math.max(
-                          14,
-                          Math.min(
-                            48,
-                            Math.round(
-                              ((100 - percentage) / 100) * (48 - 14) + 14,
-                            ),
-                          ),
-                        )
-                      }
-
-                      return (
-                        <div
-                          className="absolute z-10"
-                          key={id}
-                          style={{
-                            left: `${entry[1].x - 22}px`,
-                            top: `${entry[1].y + 20}px`,
-                          }}
-                        >
-                          <AnimateInView
-                            dontFade={numberOfSolvedQuests > 0 || id != 10001}
-                          >
-                            <button
-                              className="w-[100px] block hover:bg-white/20 rounded-xl cursor-pointer text-center"
-                              onClick={() => {
-                                submitAnalyzeEvent(
-                                  core,
-                                  'ev_click_landing_explanation_chapter_' + id,
-                                )
-                                core.mutateWs((ws) => {
-                                  ws.overview.explanationId = id
-                                })
-                                showModal(core, 'explanation')
-                              }}
-                              id={`explanation-icon-${id}`}
-                            >
-                              <p className="text-center whitespace-nowrap flex justify-center">
-                                <span className="bg-white/85 px-2 rounded">
-                                  {chapterData[id].title}
-                                </span>
-                                {core.ws.page == 'analyze' && (
-                                  <span>
-                                    [{core.ws.analyze.chapters[id]?.explanation}
-                                    ]
-                                  </span>
-                                )}
-                              </p>
-                              <div className="w-[80px] h-[60px] relative mx-auto mb-2 isolate">
-                                <img
-                                  src={'/motte.png'}
-                                  alt=""
-                                  className="w-[80px] inset-0 absolute z-10"
-                                />
-                                <img
-                                  src={'/motte_farbe.png'}
-                                  alt=""
-                                  className="w-[80px] inset-0 absolute z-20 object-cover object-bottom"
-                                  style={{
-                                    top: `${colorHeight}px`,
-                                    height: `${60 - colorHeight}px`,
-                                  }}
-                                />
-                                {isPerfect && (
-                                  <img
-                                    className="absolute bottom-1.5 right-3 w-[22px] z-30 
-                                    [--tw-drop-shadow:drop-shadow(0_0_8px_rgba(255,215,0,0.8))] 
-                                    hover:[--tw-drop-shadow:drop-shadow(0_0_12px_rgba(255,215,0,1))]
-                                    filter transition-all duration-300"
-                                    src="/stern.png"
-                                    alt="Perfect Score Star"
-                                  />
-                                )}
-                              </div>
-                            </button>
-                          </AnimateInView>
-                        </div>
-                      )
-                    }
                     return (
                       <QuestIcon
                         x={entry[1].x}
@@ -922,31 +732,12 @@ export function Overview() {
                         key={entry[0]}
                         dir={entry[1].dir}
                         id={parseInt(entry[0])}
-                        python={
-                          questData[parseInt(entry[0])].script &&
-                          entry[0] != '60'
-                        }
                         dontFade
                       />
                     )
                   })}
                 </div>
-                <div className="justify-center mt-12 mb-20 hidden">
-                  <div className="w-[600px] bg-pink-200">
-                    Neuigkeiten (TODO: Move to component)
-                    <details>
-                      <summary>
-                        Neue Aufteilung in zwei Bereiche, yuhei.
-                      </summary>
-                      <div className="h-[300px]">
-                        Der Python-Lernpfad erhält nun eine eigene Seite und
-                        kann über eine URL auch direkt erreicht werden. Und so
-                        lala, also es ist schon eine schöne Bescherung, was wir
-                        hier haben.
-                      </div>
-                    </details>
-                  </div>
-                </div>
+                {core.ws.settings.lng == 'de' && <News />}
                 {core.ws.settings.lng == 'de' && <Discover />}
 
                 <div className="absolute right-[35px] bottom-[15px] z-10 pointer-events-none">
@@ -1005,27 +796,18 @@ export function Overview() {
 
   function isQuestVisible(id: number) {
     if (id >= 100) {
-      // we disable all python related quests
+      // we disable all python-path related quests
       return false
     }
     const position = questList.indexOf(id)
-
-    const questsInPreviousChapter = Object.entries(mapData)
-      .filter(([i, data]) => data.chapter === id - 1 && parseInt(i) < 10000)
-      .map(([id]) => parseInt(id))
 
     return (
       core.ws.page == 'demo' ||
       core.ws.page == 'analyze' ||
       core.ws.overview.showOverviewList ||
       position == 0 ||
-      id == 10001 || // Einleitung
       isQuestDone(id) ||
-      (id < 10000
-        ? mapData[id]?.deps.some(isQuestDone)
-        : questsInPreviousChapter.filter(isQuestDone).length >
-            chapterData[id - 1]?.requiredCount - 1 ||
-          (questsInPreviousChapter.length == 0 && isQuestDone(id - 1)))
+      mapData[id]?.deps.some(isQuestDone)
     )
   }
 
@@ -1049,7 +831,6 @@ export function Overview() {
     //const reachableCount = core.ws.analyze.reachable[index]
 
     const task = questData[index].tasks[0]
-    const showPython = data.script && index != 60
 
     //const times = quartiles(core.ws.analyze.questTimes[index] ?? [0])
 
@@ -1105,14 +886,7 @@ export function Overview() {
                   preview={
                     task.target === null ? undefined : { world: task.target }
                   }
-                  hideKarol={
-                    questDone ||
-                    !!(
-                      showPython &&
-                      task.target &&
-                      twoWorldsEqual(task.start, task.target)
-                    )
-                  }
+                  hideKarol={questDone}
                   wireframe={false}
                   className={clsx(
                     'block mx-auto max-h-full',
@@ -1130,16 +904,6 @@ export function Overview() {
                 )}
               </div>
             </div>
-            {showPython && (
-              <img
-                src="/python-logo-only.png"
-                className={clsx(
-                  'absolute bottom-0 right-2 h-8 bg-white/30 rounded-lg pointer-events-auto',
-                  questDone && 'opacity-30',
-                )}
-                alt=""
-              />
-            )}
           </a>
         </div>
       </Fragment>

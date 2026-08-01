@@ -19,7 +19,7 @@ export function Discover() {
 
       <a
         href={'/python'}
-        className="absolute top-[13px] left-[170px] w-[120px] block hover:bg-gray-100/60 rounded-xl cursor-pointer"
+        className="absolute top-[23px] left-[170px] w-[120px] block hover:bg-gray-100/60 rounded-xl cursor-pointer"
         onClick={(e) => {
           navigate(core, 'python')
           setLearningPathScroll(
@@ -38,7 +38,7 @@ export function Discover() {
 
       <a
         href={'/#DANCE'}
-        className="absolute top-[3px] left-[380px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer"
+        className="absolute top-[13px] left-[380px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer"
         onClick={(e) => {
           submitAnalyzeEvent(core, 'ev_click_landing_dancedance')
           setQuestReturnToMode(core.ws.page == 'demo' ? 'demo' : 'path')
@@ -59,7 +59,7 @@ export function Discover() {
 
       <a
         href="/#KAROLMANIA"
-        className="absolute top-[5px] left-[580px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
+        className="absolute top-[15px] left-[580px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
         onClick={(e) => {
           submitAnalyzeEvent(core, 'ev_click_landing_karolmania')
           setLearningPathScroll(
@@ -80,7 +80,7 @@ export function Discover() {
         />
       </a>
 
-      <div className="absolute left-[275px] z-10 top-[138px]">
+      <div className="absolute left-[275px] z-10 top-[140px]">
         <button
           className=" w-[120px] block hover:bg-gray-100/60 rounded-xl"
           onClick={() => {
@@ -96,7 +96,7 @@ export function Discover() {
         </button>
       </div>
 
-      <div className="absolute left-[490px] z-10 top-[122px]">
+      <div className="absolute left-[490px] z-10 top-[125px]">
         <button
           className="w-[120px] hover:bg-gray-100/60 rounded-xl"
           onClick={() => {
