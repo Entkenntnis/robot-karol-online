@@ -1,24 +1,29 @@
+import { faMessage } from '@fortawesome/free-regular-svg-icons'
 import { useCore } from '../../lib/state/core'
+import { FaIcon } from './FaIcon'
+import { showModal } from '../../lib/commands/modal'
 
 export function News() {
   const core = useCore()
   return (
-    <div className="w-[760px] md:mx-auto border-orange-700 border rounded mx-3 mb-24 px-4 pt-2">
+    <div className="w-[760px] md:mx-auto border-emerald-600 border rounded mx-3 mb-32 px-4 pt-2 [&_a]:text-blue-500 hover:[&_a]:underline">
       <h2 className="text-2xl">Neuigkeiten</h2>
-      <p className="h-[100px] bg-white"></p>
+      <p className="my-4">
+        <b>31. Juli 2026</b>: Der Python Lernpfad erhält unter{' '}
+        <a href="/python">karol.arrrg.de/python</a> ein neues Zuhause. Damit ist
+        wieder mehr Platz auf der Hauptseite hier, z.B. für diesen neuen
+        Nachrichten-Bereich.
+      </p>
+      <div className="flex justify-center mb-4 mt-8">
+        <button
+          className="inline-block px-3 py-1 bg-emerald-600 text-white rounded-lg hover:bg-emerald-500 transition-colors"
+          onClick={() => {
+            showModal(core, 'survey')
+          }}
+        >
+          <FaIcon icon={faMessage} /> <b>Feedback geben</b>
+        </button>
+      </div>
     </div>
-    // <div className="justify-center mt-12 mb-20 flex">
-    //   <div className="w-[600px] bg-pink-200">
-    //     Neuigkeiten (TODO: Move to component)
-    //     <details>
-    //       <summary>Neue Aufteilung in zwei Bereiche, yuhei.</summary>
-    //       <div className="h-[300px]">
-    //         Der Python-Lernpfad erhält nun eine eigene Seite und kann über eine
-    //         URL auch direkt erreicht werden. Und so lala, also es ist schon eine
-    //         schöne Bescherung, was wir hier haben.
-    //       </div>
-    //     </details>
-    //   </div>
-    // </div>
   )
 }

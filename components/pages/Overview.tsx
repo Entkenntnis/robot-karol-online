@@ -746,9 +746,6 @@ export function Overview() {
               </>
             )}
           <div className="text-center mb-12 mt-24">
-            <span className="text-gray-700 mr-7">
-              {core.strings.overview.version}
-            </span>
             <button
               className="hover:underline mr-6"
               onClick={() => {
