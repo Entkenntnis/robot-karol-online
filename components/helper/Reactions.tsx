@@ -5,7 +5,7 @@ import { io } from 'socket.io-client'
 import { getUserId } from '../../lib/storage/storage'
 import clsx from 'clsx'
 import { backend } from '../../backend'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { useCore } from '../../lib/state/core'
 
 export function Reactions() {
@@ -181,7 +181,7 @@ export function Reactions() {
         <button
           ref={buttonRef}
           onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_landing_spawnHeart')
+            ____submitAnalyzeEvent(core, 'ev_click_landing_spawnHeart')
             socket.current?.emit('spawnHeart')
           }}
           className="mx-auto w-11 h-11 border-red-400 border-2 rounded-full flex items-center justify-center bg-red-50 hover:bg-red-100 transition-colors pointer-events-auto"

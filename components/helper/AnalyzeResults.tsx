@@ -4,7 +4,7 @@ import { levels as karolmaniaLevels } from '../../lib/data/karolmaniaLevels' // 
 import clsx from 'clsx'
 import { FaIcon } from './FaIcon'
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 
 // Helper function to format time in seconds to MM:SS:hh
 function formatTime(seconds: number) {
@@ -245,7 +245,7 @@ export function AnalyzeResults() {
                             core.mutateWs((ws) => {
                               ws.analyze.markedQuestions.push(`${id}-${q.ts}`)
                             })
-                            submitAnalyzeEvent(
+                            ____submitAnalyzeEvent(
                               core,
                               `ev_markQuestion_${id}-${q.ts}`,
                             )

@@ -7,7 +7,6 @@ import { questData as QuestDataDe } from '../../lib/data/quests'
 import { useCore } from '../../lib/state/core'
 import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
 import { questDataEn } from '../../lib/data/questsEn'
-import { setMode } from '../../lib/commands/mode'
 import { refreshEditArea } from '../../lib/commands/editing'
 
 export function RemixModal() {
@@ -104,11 +103,19 @@ export function RemixModal() {
               const obj = questData[selected]
               if (obj) {
                 // This block of code is kinda sad to look at
-                setMode(core, 'blocks')
                 core.mutateWs((ws) => {
+                  ws.code = ''
+                  ws.javaCode = ''
+                  ws.pythonCode = ''
+                  ws.settings.mode = 'blocks'
+                  ws.ui.gutter = 0
+                  ws.ui.breakpoints = []
+
                   ws.ui.isChatMode = false // adapt if chat mode quests are coming in
                   ws.ui.lockLanguage = undefined
                   ws.editor.editOptions = 'all'
+                  ws.ui.proMode = false
+                  ws.ui.pythonProCanSwitch = true
 
                   ws.quest.title = obj.title
                   ws.quest.description = obj.description

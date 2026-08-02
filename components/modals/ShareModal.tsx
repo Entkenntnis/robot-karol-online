@@ -10,7 +10,7 @@ import { share } from '../../lib/commands/share'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { replaceWithJSX } from '../../lib/helper/replaceWithJSX'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import clsx from 'clsx'
 
 export function ShareModal() {
@@ -109,7 +109,7 @@ export function ShareModal() {
                   'mr-3 text-sm text-gray-700 underline',
                 )}
                 onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_editor_downloadJson')
+                  ____submitAnalyzeEvent(core, 'ev_click_editor_downloadJson')
                   // offer download
                   const blob = new Blob(
                     [JSON.stringify(serializeQuest(core))],

@@ -13,7 +13,7 @@ import { Editor } from './Editor'
 import { JavaEditor } from './JavaEditor'
 import clsx from 'clsx'
 import { PythonEditor } from './PythonEditor'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { BlockEditor } from './BlockEditor'
 import { QuestPrompt } from '../helper/QuestPrompt'
 import { Cheatsheet } from '../helper/Cheatsheet'
@@ -56,7 +56,10 @@ export function EditArea() {
                     href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/QUESTSCRIPT.md#questscript"
                     target="_blank"
                     onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_ide_questscriptGuide')
+                      ____submitAnalyzeEvent(
+                        core,
+                        'ev_click_ide_questscriptGuide',
+                      )
                     }}
                   >
                     Anleitung{' '}
@@ -69,7 +72,10 @@ export function EditArea() {
                       showCheatSheet && 'text-purple-600',
                     )}
                     onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_ide_pythoncheatsheet')
+                      ____submitAnalyzeEvent(
+                        core,
+                        'ev_click_ide_pythoncheatsheet',
+                      )
                       setShowCheatSheet((prev) => !prev)
                     }}
                   >
@@ -83,7 +89,7 @@ export function EditArea() {
                         'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed',
                       )}
                       onClick={() => {
-                        submitAnalyzeEvent(core, 'ev_click_ide_bench')
+                        ____submitAnalyzeEvent(core, 'ev_click_ide_bench')
                         startBench(core)
                       }}
                       disabled={core.ws.ui.state != 'ready'}
@@ -163,7 +169,7 @@ export function EditArea() {
                 <button
                   className={clsx('link', showCheatSheet && 'text-purple-600')}
                   onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_ide_karolcheatsheet')
+                    ____submitAnalyzeEvent(core, 'ev_click_ide_karolcheatsheet')
                     setShowCheatSheet((prev) => !prev)
                   }}
                 >

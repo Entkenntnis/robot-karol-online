@@ -21,7 +21,7 @@ import { View } from '../helper/View'
 import { abort } from '../../lib/commands/vm'
 import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { View2D } from '../helper/View2D'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { exitBench } from '../../lib/commands/bench'
 import { PythonConsole } from '../helper/PythonConsole'
@@ -111,7 +111,10 @@ export function Output() {
           <button
             className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
             onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_ide_toggleDescriptionCollapse')
+              ____submitAnalyzeEvent(
+                core,
+                'ev_click_ide_toggleDescriptionCollapse',
+              )
               core.mutateWs((ws) => {
                 ws.ui.collapseDescription = !ws.ui.collapseDescription
               })
@@ -398,7 +401,7 @@ export function Output() {
                     className="cursor-pointer"
                     checked={core.ws.ui.showPreview}
                     onChange={(e) => {
-                      submitAnalyzeEvent(core, 'ev_click_ide_togglePreview')
+                      ____submitAnalyzeEvent(core, 'ev_click_ide_togglePreview')
                       core.mutateWs((ws) => {
                         ws.ui.showPreview = e.target.checked
                       })
@@ -416,7 +419,7 @@ export function Output() {
                   className="cursor-pointer"
                   checked={core.ws.ui.show2D}
                   onChange={(e) => {
-                    submitAnalyzeEvent(core, 'ev_click_ide_toggle2DView')
+                    ____submitAnalyzeEvent(core, 'ev_click_ide_toggle2DView')
                     core.mutateWs((ws) => {
                       ws.ui.show2D = e.target.checked
                     })
@@ -433,7 +436,7 @@ export function Output() {
         !core.ws.ui.isTesting && (
           <button
             onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_ide_clear')
+              ____submitAnalyzeEvent(core, 'ev_click_ide_clear')
               resetOutput(core)
             }}
             className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2 hover:bg-gray-300"

@@ -11,7 +11,7 @@ import {
   faTimes,
   faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { setLng, setMode } from '../../lib/commands/mode'
 import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
 import { saveEditorSnapshot, setLngStorage } from '../../lib/storage/storage'
@@ -87,7 +87,10 @@ export function FlyoutMenu() {
             <button
               className="px-2 py-0.5 hover:bg-gray-300 rounded"
               onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_ide_playgroundChangeSize')
+                ____submitAnalyzeEvent(
+                  core,
+                  'ev_click_ide_playgroundChangeSize',
+                )
                 core.mutateWs((ws) => {
                   ws.world = ws.quest.tasks[0].start
                 })
@@ -105,7 +108,7 @@ export function FlyoutMenu() {
           <button
             className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left"
             onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_ide_saveToFile')
+              ____submitAnalyzeEvent(core, 'ev_click_ide_saveToFile')
               saveCodeToFile(core)
               closeFlyoutMenu()
             }}
@@ -118,7 +121,7 @@ export function FlyoutMenu() {
           <button
             className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left"
             onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_ide_loadFromFile')
+              ____submitAnalyzeEvent(core, 'ev_click_ide_loadFromFile')
               const input = document.createElement('input')
               input.type = 'file'
               input.accept =
@@ -196,7 +199,7 @@ export function FlyoutMenu() {
                 className="px-2 py-0.5 hover:bg-red-100 rounded"
                 onClick={() => {
                   closeFlyoutMenu()
-                  submitAnalyzeEvent(core, 'ev_click_ide_resetQuestCode')
+                  ____submitAnalyzeEvent(core, 'ev_click_ide_resetQuestCode')
                   const [language, program] =
                     core.ws.ui.resetCode[core.ws.ui.sharedQuestId!]
 
@@ -224,7 +227,10 @@ export function FlyoutMenu() {
               className="px-2 py-0.5 hover:bg-red-100 rounded"
               onClick={() => {
                 closeFlyoutMenu()
-                submitAnalyzeEvent(core, 'ev_click_ide_resetQuestScriptProgram')
+                ____submitAnalyzeEvent(
+                  core,
+                  'ev_click_ide_resetQuestScriptProgram',
+                )
                 const id = core.ws.quest.id
                 const data =
                   core.ws.settings.lng == 'de' ? questData[id] : questDataEn[id]
@@ -249,7 +255,7 @@ export function FlyoutMenu() {
                     startButtonClicked(core)
                   }
                   closeFlyoutMenu()
-                  submitAnalyzeEvent(core, 'ev_click_ide_openInEditor')
+                  ____submitAnalyzeEvent(core, 'ev_click_ide_openInEditor')
                   // TODO: handle data dependencies
                   const questId = core.ws.ui.sharedQuestId
                   if (questId && core.ws.ui.resetCode[questId]) {
@@ -286,9 +292,9 @@ export function FlyoutMenu() {
                       setLng(core, lng)
                       setLngStorage(lng)
                       if (lng == 'en') {
-                        submitAnalyzeEvent(core, 'ev_click_ide_english')
+                        ____submitAnalyzeEvent(core, 'ev_click_ide_english')
                       } else if (lng == 'de') {
-                        submitAnalyzeEvent(core, 'ev_click_ide_german')
+                        ____submitAnalyzeEvent(core, 'ev_click_ide_german')
                       }
                     }
                     closeFlyoutMenu()
@@ -310,7 +316,7 @@ export function FlyoutMenu() {
             className="ml-2 hover:underline"
             onClick={() => {
               closeFlyoutMenu()
-              submitAnalyzeEvent(core, 'ev_click_ide_fullscreen')
+              ____submitAnalyzeEvent(core, 'ev_click_ide_fullscreen')
               // open fullscreen via browser API
               if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen()

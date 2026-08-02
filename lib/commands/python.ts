@@ -2,7 +2,7 @@ import { setDiagnostics } from '@codemirror/lint'
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
-import { submitAnalyzeEvent } from '../helper/submit'
+import { ____submitAnalyzeEvent, submitEvent } from '../helper/submit'
 import { addConsoleMessage } from './messages'
 import { endExecution, testCondition } from './vm'
 import {
@@ -279,7 +279,7 @@ export function setupWorker(core: Core) {
       typeof event.data === 'object' &&
       event.data.type === 'submit'
     ) {
-      submitAnalyzeEvent(core, event.data.key)
+      submitEvent(event.data.key, event.data.value)
     }
     if (
       event.data &&

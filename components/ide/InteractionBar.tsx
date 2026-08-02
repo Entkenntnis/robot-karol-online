@@ -10,7 +10,7 @@ import {
 import { FaIcon } from '../helper/FaIcon'
 import { useCore } from '../../lib/state/core'
 import clsx from 'clsx'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { startButtonClicked } from '../../lib/commands/start'
 import { setMode } from '../../lib/commands/mode'
 import { setLanguage } from '../../lib/commands/language'
@@ -71,7 +71,7 @@ export function InteractionBar() {
         <button
           className="whitespace-nowrap px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
           onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_ide_menu')
+            ____submitAnalyzeEvent(core, 'ev_click_ide_menu')
             core.mutateWs(({ ui }) => {
               ui.showFlyoutMenu = true
             })
@@ -134,7 +134,7 @@ export function InteractionBar() {
             disabled={dontChangeLanguage}
             onClick={() => {
               if (!dontChangeLanguage) {
-                submitAnalyzeEvent(core, 'ev_click_ide_blocks')
+                ____submitAnalyzeEvent(core, 'ev_click_ide_blocks')
                 setMode(core, 'blocks')
               }
             }}
@@ -155,11 +155,11 @@ export function InteractionBar() {
               id="toggleSwitch"
               onChange={() => {
                 if (core.ws.settings.mode == 'blocks') {
-                  submitAnalyzeEvent(core, 'ev_click_ide_code')
+                  ____submitAnalyzeEvent(core, 'ev_click_ide_code')
                   setMode(core, 'code')
                   setLanguage(core, core.ws.settings.language)
                 } else {
-                  submitAnalyzeEvent(core, 'ev_click_ide_blocks')
+                  ____submitAnalyzeEvent(core, 'ev_click_ide_blocks')
                   setMode(core, 'blocks')
                 }
               }}
@@ -202,7 +202,7 @@ export function InteractionBar() {
           <button
             className="absolute -bottom-[38px] -left-[52px] px-3 py-1 bg-purple-300 hover:bg-purple-400 transition-colors rounded active:bg-purple-500 "
             onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_ide_singleStep')
+              ____submitAnalyzeEvent(core, 'ev_click_ide_singleStep')
               if (debugPython) {
                 core.worker?.step()
               }
@@ -222,7 +222,7 @@ export function InteractionBar() {
             )}
             onClick={() => {
               if (!core.ws.vm.isDebugging) {
-                submitAnalyzeEvent(core, 'ev_click_ide_debugger')
+                ____submitAnalyzeEvent(core, 'ev_click_ide_debugger')
                 if (debugPython) {
                   core.worker?.pause()
                 }
@@ -231,7 +231,7 @@ export function InteractionBar() {
                   ws.vm.debuggerRequestNextStep = true
                 })
               } else {
-                submitAnalyzeEvent(core, 'ev_click_ide_continue')
+                ____submitAnalyzeEvent(core, 'ev_click_ide_continue')
                 if (debugPython) {
                   core.worker?.resume()
                 }
@@ -261,7 +261,7 @@ export function InteractionBar() {
           )}
           onClick={() => {
             if (core.ws.ui.state == 'running') {
-              submitAnalyzeEvent(core, 'ev_click_ide_stop')
+              ____submitAnalyzeEvent(core, 'ev_click_ide_stop')
             }
             if (
               core.ws.ui.state == 'ready' &&
@@ -276,7 +276,7 @@ export function InteractionBar() {
                 core.ws.ui.resetCode[core.ws.ui.sharedQuestId][1],
                 core.ws.pythonCode,
               )
-              submitAnalyzeEvent(
+              ____submitAnalyzeEvent(
                 core,
                 `ev_click_ide_pythonExampleStart_${d}_${getExampleId(
                   pythonKarolExamples.find(
@@ -449,7 +449,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
                 e.preventDefault()
               }}
               onClick={() => {
-                submitAnalyzeEvent(
+                ____submitAnalyzeEvent(
                   core,
                   'ev_click_ide_language-' + option.value,
                 )

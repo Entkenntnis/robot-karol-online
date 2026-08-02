@@ -3,7 +3,7 @@ import { setExecutionMarker } from '../codemirror/basicSetup'
 import { questData } from '../data/quests'
 import { questDataEn } from '../data/questsEn'
 import { isQuestDone } from '../helper/session'
-import { submit_event } from '../helper/submit'
+import { ____submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { CanvasObjects } from '../state/canvas-objects'
@@ -383,7 +383,7 @@ export function startTesting(core: Core) {
 export function finishQuest(core: Core, stay: boolean = false) {
   if (core.ws.quest.id < 0) {
     if (core.ws.page != 'editor') {
-      submit_event(
+      ____submit_event(
         `custom_quest_complete_${window.location.hash.substring(1)}`,
         core,
       )
@@ -411,7 +411,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
 
   storeQuestToSession(core)
   setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
-  submit_event(`quest_complete_${core.ws.quest.id}`, core)
+  ____submit_event(`quest_complete_${core.ws.quest.id}`, core)
   if (!stay) {
     navigate(core, getQuestReturnToPath(''))
   } else {

@@ -10,7 +10,7 @@ import {
 import clsx from 'clsx'
 
 import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
-import { submit_event } from '../../lib/helper/submit'
+import { ____submit_event } from '../../lib/helper/submit'
 
 interface DataEntry {
   content: string
@@ -27,7 +27,7 @@ export function InspirationOld() {
     void (async () => {
       const res = await fetch('/data/inspirationData.json')
       const obj = await res.json()
-      submit_event('show_inspiration', core)
+      ____submit_event('show_inspiration', core)
       obj.reverse()
       setData(obj)
     })()

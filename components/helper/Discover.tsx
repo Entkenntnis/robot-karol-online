@@ -1,5 +1,5 @@
 import { faExternalLink, faMedal } from '@fortawesome/free-solid-svg-icons'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from './FaIcon'
 import {
@@ -19,7 +19,7 @@ export function Discover() {
 
       <a
         href={'/python'}
-        className="absolute top-[23px] left-[170px] w-[130px] block hover:bg-gray-100/60 rounded-xl cursor-pointer"
+        className="absolute top-[23px] left-[170px] w-[150px] block hover:bg-gray-100/60 rounded-xl cursor-pointer"
         onClick={(e) => {
           navigate(core, 'python')
           setLearningPathScroll(
@@ -28,7 +28,7 @@ export function Discover() {
           e.preventDefault()
         }}
       >
-        <p className="text-center mb-2">Python Lernpfad</p>
+        <p className="text-center mb-2 text-lg">Python Lernpfad</p>
         <img
           src="/python-logo-only.png"
           alt="Python Logo"
@@ -40,7 +40,7 @@ export function Discover() {
         href={'/#DANCE'}
         className="absolute top-[13px] left-[380px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer"
         onClick={(e) => {
-          submitAnalyzeEvent(core, 'ev_click_landing_dancedance')
+          ____submitAnalyzeEvent(core, 'ev_click_landing_dancedance')
           setQuestReturnToMode(core.ws.page == 'demo' ? '#DEMO' : '')
           setLearningPathScroll(
             document.getElementById('scroll-container')?.scrollTop ?? -1,
@@ -52,7 +52,7 @@ export function Discover() {
         <p className="text-center">
           Dance, Dance
           <br />
-          (Rhythm Game)
+          <span className="text-sm">(Rhythm Game)</span>
         </p>
         <img src="/dance.png" alt="" className="w-[40px] mx-auto mt-2" />
       </a>
@@ -61,7 +61,7 @@ export function Discover() {
         href="/#KAROLMANIA"
         className="absolute top-[15px] left-[580px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
         onClick={(e) => {
-          submitAnalyzeEvent(core, 'ev_click_landing_karolmania')
+          ____submitAnalyzeEvent(core, 'ev_click_landing_karolmania')
           setLearningPathScroll(
             document.getElementById('scroll-container')?.scrollTop ?? -1,
           )
@@ -72,7 +72,7 @@ export function Discover() {
         <p className="text-center">
           Karolmania
           <br />
-          (Mini Game)
+          <span className="text-sm">(Mini Game)</span>
         </p>
         <FaIcon
           icon={faMedal}
@@ -84,7 +84,7 @@ export function Discover() {
         <button
           className=" w-[120px] block hover:bg-gray-100/60 rounded-xl"
           onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_landing_hacktheweb')
+            ____submitAnalyzeEvent(core, 'ev_click_landing_hacktheweb')
             window.open('https://hack.arrrg.de/', '_blank')
           }}
         >
@@ -100,7 +100,7 @@ export function Discover() {
         <button
           className="w-[120px] hover:bg-gray-100/60 rounded-xl"
           onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_landing_einhorn')
+            ____submitAnalyzeEvent(core, 'ev_click_landing_einhorn')
             window.open('https://einhorn.arrrg.de', '_blank')
           }}
         >

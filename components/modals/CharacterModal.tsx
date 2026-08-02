@@ -1,4 +1,4 @@
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { closeModal } from '../../lib/commands/modal'
 import {
   amongay,
@@ -25,7 +25,7 @@ export function CharacterModal() {
             <View
               onClick={() => {
                 submit(karolDefaultImage)
-                submitAnalyzeEvent(core, 'ev_click_character_karol')
+                ____submitAnalyzeEvent(core, 'ev_click_character_karol')
               }}
               robotImageDataUrl={karolDefaultImage}
               world={{
@@ -49,7 +49,7 @@ export function CharacterModal() {
             <View
               onClick={() => {
                 submit(amongay)
-                submitAnalyzeEvent(core, 'ev_click_character_amongay')
+                ____submitAnalyzeEvent(core, 'ev_click_character_amongay')
               }}
               robotImageDataUrl={amongay}
               world={{
@@ -73,7 +73,7 @@ export function CharacterModal() {
             <View
               onClick={() => {
                 submit(karolOldDefaultImage)
-                submitAnalyzeEvent(core, 'ev_click_character_emma')
+                ____submitAnalyzeEvent(core, 'ev_click_character_emma')
               }}
               robotImageDataUrl={karolOldDefaultImage}
               world={{

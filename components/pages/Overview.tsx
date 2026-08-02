@@ -35,17 +35,13 @@ import {
   setQuestReturnToMode,
   setRobotImage,
 } from '../../lib/storage/storage'
-import {
-  loadFromJSON,
-  resetStorage,
-  saveToJSON,
-} from '../../lib/storage/quest'
+import { loadFromJSON, resetStorage, saveToJSON } from '../../lib/storage/quest'
 import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
 import { questDataEn } from '../../lib/data/questsEn'
 import { AnalyzeResults } from '../helper/AnalyzeResults'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 import { Reactions } from '../helper/Reactions'
@@ -141,7 +137,7 @@ export function Overview() {
             <button
               className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
               onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_landing_donate')
+                ____submitAnalyzeEvent(core, 'ev_click_landing_donate')
                 window.open('https://paypal.me/Dav1dL1', '_blank')
               }}
             >
@@ -153,7 +149,7 @@ export function Overview() {
               href="/#SPIELWIESE"
               className="hover:underline mr-8"
               onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_landing_playground')
+                ____submitAnalyzeEvent(core, 'ev_click_landing_playground')
               }}
             >
               {core.strings.overview.playground}
@@ -164,7 +160,7 @@ export function Overview() {
               onClick={() => {
                 setOverviewScroll(0)
                 setLearningPathScroll(0)
-                submitAnalyzeEvent(core, 'ev_click_landing_editor')
+                ____submitAnalyzeEvent(core, 'ev_click_landing_editor')
               }}
             >
               {core.strings.overview.editor}
@@ -187,7 +183,7 @@ export function Overview() {
                   <a
                     href="/#OVERVIEW"
                     onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_listOfAll')
+                      ____submitAnalyzeEvent(core, 'ev_click_landing_listOfAll')
                       //  document.getElementById('scroll-container')!.scrollTop = 0
                       try {
                         // @ts-ignore
@@ -210,7 +206,7 @@ export function Overview() {
                   <button
                     title={core.strings.overview.saveTooltip}
                     onClick={() => {
-                      submitAnalyzeEvent(
+                      ____submitAnalyzeEvent(
                         core,
                         'ev_click_landing_exportProgress',
                       )
@@ -228,7 +224,7 @@ export function Overview() {
                   <button
                     title={core.strings.overview.loadTooltip}
                     onClick={async () => {
-                      submitAnalyzeEvent(
+                      ____submitAnalyzeEvent(
                         core,
                         'ev_click_landing_importProgress',
                       )
@@ -254,7 +250,7 @@ export function Overview() {
                   <a
                     href="/#PROFIL"
                     onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_profile')
+                      ____submitAnalyzeEvent(core, 'ev_click_landing_profile')
                       try {
                         // @ts-ignore
                         document.activeElement?.blur()
@@ -277,7 +273,7 @@ export function Overview() {
                     onClick={() => {
                       setOverviewScroll(0)
                       setLearningPathScroll(0)
-                      submitAnalyzeEvent(core, 'ev_click_landing_highscore')
+                      ____submitAnalyzeEvent(core, 'ev_click_landing_highscore')
                     }}
                   >
                     Highscore
@@ -324,7 +320,10 @@ export function Overview() {
                     type="checkbox"
                     checked={isPersisted()}
                     onChange={(e) => {
-                      submitAnalyzeEvent(core, 'ev_click_profile_togglePersist')
+                      ____submitAnalyzeEvent(
+                        core,
+                        'ev_click_profile_togglePersist',
+                      )
                       setPersist(core, e.target.checked)
                       hideSaveHint(core)
                       forceRerender(core)
@@ -339,7 +338,7 @@ export function Overview() {
                   onClick={() => {
                     const res = confirm(core.strings.profile.resetConfirm)
                     if (res) {
-                      submitAnalyzeEvent(core, 'ev_click_profile_reset')
+                      ____submitAnalyzeEvent(core, 'ev_click_profile_reset')
                       resetStorage()
                       forceRerender(core)
                       setLngStorage('de')
@@ -403,7 +402,7 @@ export function Overview() {
                             <div
                               className="bg-yellow-100/80 rounded-lg p-3 shadow-lg transform rotate-6 border-2 border-yellow-300 cursor-pointer"
                               onClick={() => {
-                                submitAnalyzeEvent(
+                                ____submitAnalyzeEvent(
                                   core,
                                   'ev_click_landing_tourStart',
                                 )
@@ -452,7 +451,7 @@ export function Overview() {
                         )}
                         onClick={() => {
                           // open feedback form in new tab
-                          submitAnalyzeEvent(
+                          ____submitAnalyzeEvent(
                             core,
                             'ev_click_landing_appearance',
                           )
@@ -480,7 +479,7 @@ export function Overview() {
                         <a
                           href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
                           onClick={() => {
-                            submitAnalyzeEvent(
+                            ____submitAnalyzeEvent(
                               core,
                               'ev_click_landing_robotGallery',
                             )
@@ -499,7 +498,10 @@ export function Overview() {
                         <a
                           href="/#INSPIRATION"
                           onClick={() => {
-                            submitAnalyzeEvent(core, 'ev_click_landing_gallery')
+                            ____submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_gallery',
+                            )
                             setLearningPathScroll(
                               document.getElementById('scroll-container')
                                 ?.scrollTop ?? -1,
@@ -515,7 +517,7 @@ export function Overview() {
                           href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/MATERIAL-LEHRKRAEFTE.md"
                           onClick={() => {
                             // open feedback form in new tab
-                            submitAnalyzeEvent(
+                            ____submitAnalyzeEvent(
                               core,
                               'ev_click_landing_material',
                             )
@@ -534,7 +536,10 @@ export function Overview() {
                           href="https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8"
                           onClick={() => {
                             // open feedback form in new tab
-                            submitAnalyzeEvent(core, 'ev_click_landing_video')
+                            ____submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_video',
+                            )
                           }}
                         >
                           Video-Erklärungen{' '}
@@ -550,7 +555,10 @@ export function Overview() {
                           href="https://github.com/Entkenntnis/robot-karol-online#readme"
                           onClick={() => {
                             // open feedback form in new tab
-                            submitAnalyzeEvent(core, 'ev_click_landing_docs')
+                            ____submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_docs',
+                            )
                           }}
                         >
                           {core.strings.overview.docs}{' '}
@@ -565,7 +573,10 @@ export function Overview() {
                           onClick={() => {
                             setLng(core, 'en')
                             setLngStorage('en')
-                            submitAnalyzeEvent(core, 'ev_click_landing_english')
+                            ____submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_english',
+                            )
                             // scroll to top
                             document.getElementById(
                               'scroll-container',
@@ -579,7 +590,10 @@ export function Overview() {
                           onClick={() => {
                             setLng(core, 'de')
                             setLngStorage('de')
-                            submitAnalyzeEvent(core, 'ev_click_landing_german')
+                            ____submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_german',
+                            )
                             // scroll to top
                             document.getElementById(
                               'scroll-container',
@@ -607,7 +621,7 @@ export function Overview() {
                             core.mutateWs((ws) => {
                               ws.ui.newRobotImage = undefined
                             })
-                            submitAnalyzeEvent(
+                            ____submitAnalyzeEvent(
                               core,
                               'ev_click_landing_closeNewKarol',
                             )
@@ -623,7 +637,7 @@ export function Overview() {
                               ws.ui.newRobotImage = undefined
                             })
                             setRobotImage(core.ws.robotImageDataUrl)
-                            submitAnalyzeEvent(
+                            ____submitAnalyzeEvent(
                               core,
                               'ev_click_landing_saveNewKarol',
                             )
@@ -717,7 +731,7 @@ export function Overview() {
                         }
                         onClick={() => {
                           if (parseInt(entry[0]) == 1) {
-                            submitAnalyzeEvent(
+                            ____submitAnalyzeEvent(
                               core,
                               'ev_click_landing_startKarol',
                             )
@@ -751,7 +765,7 @@ export function Overview() {
             <button
               className="hover:underline mr-6"
               onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_landing_impressum')
+                ____submitAnalyzeEvent(core, 'ev_click_landing_impressum')
                 showModal(core, 'impressum')
               }}
             >
@@ -760,7 +774,7 @@ export function Overview() {
             <button
               className="hover:underline mr-6"
               onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_landing_privacy')
+                ____submitAnalyzeEvent(core, 'ev_click_landing_privacy')
                 showModal(core, 'privacy')
               }}
             >
@@ -784,7 +798,10 @@ export function Overview() {
         target="_blank"
         rel="noreferrer"
         onClick={() => {
-          submitAnalyzeEvent(core, 'ev_click_landing_' + title.toLowerCase())
+          ____submitAnalyzeEvent(
+            core,
+            'ev_click_landing_' + title.toLowerCase(),
+          )
         }}
       >
         <span className="hover:underline">{title}</span>{' '}

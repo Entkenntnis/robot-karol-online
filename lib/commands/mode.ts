@@ -1,13 +1,10 @@
 import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
-import { submit_event } from '../helper/submit'
+import { ____submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
-import {
-  copyLocalToSession,
-  copySessionToLocal,
-} from '../storage/quest'
+import { copyLocalToSession, copySessionToLocal } from '../storage/quest'
 import { setUserName as setUserNameStorage } from '../storage/storage'
 import { showModal } from './modal'
 import { updatePlaygroundHashToMode } from './save'
@@ -121,7 +118,7 @@ export function setPersist(_: Core, val: boolean) {
 }
 
 export function setUserName(core: Core, name: string) {
-  submit_event('set_name_' + name, core)
+  ____submit_event('set_name_' + name, core)
   setUserNameStorage(name)
 }
 
@@ -135,7 +132,7 @@ export function openImage(core: Core, img: string) {
   core.mutateWs(({ ui }) => {
     ui.imageLightbox = img
   })
-  submit_event('open_image_' + img, core)
+  ____submit_event('open_image_' + img, core)
   showModal(core, 'lightbox')
 }
 

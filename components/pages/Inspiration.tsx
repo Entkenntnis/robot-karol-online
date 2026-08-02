@@ -16,7 +16,7 @@ import { useCore } from '../../lib/state/core'
 import { View } from '../helper/View'
 import { deserializeWorld } from '../../lib/commands/json'
 import { tagsById } from '../../lib/data/tagsById'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import RenderIfVisible from '../helper/RenderIfVisible'
 
@@ -104,7 +104,7 @@ export function Inspiration() {
 
   // Toggles a tag in the selectedTags array
   const toggleTag = (tag: string) => {
-    submitAnalyzeEvent(core, 'ev_click_inspiration_toggleTag_' + tag)
+    ____submitAnalyzeEvent(core, 'ev_click_inspiration_toggleTag_' + tag)
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     )
@@ -259,7 +259,7 @@ export function Inspiration() {
             placeholder="Freitextsuche..."
             value={searchTerm}
             onChange={(e) => {
-              submitAnalyzeEvent(core, 'ev_type_inspiration_search')
+              ____submitAnalyzeEvent(core, 'ev_type_inspiration_search')
               setSearchTerm(e.target.value)
             }}
             className="w-full p-2 pr-8 border border-gray-300 rounded"
@@ -375,7 +375,7 @@ function Entry({ entry }: { entry: EntryType }) {
         <button
           className="px-2 py-0.5 bg-pink-100 hover:bg-pink-200 rounded my-3"
           onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_inspiration_openQuest')
+            ____submitAnalyzeEvent(core, 'ev_click_inspiration_openQuest')
             window.open(
               '/#' + entry.id,
               '__TAURI_INTERNALS__' in window ? '_self' : '_blank',

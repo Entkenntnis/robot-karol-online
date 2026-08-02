@@ -1,7 +1,7 @@
 import { backend } from '../../backend'
-import { submit_event } from '../helper/submit'
+import { ____submit_event } from '../helper/submit'
 import { Core } from '../state/core'
-import { submitAnalyzeEvent } from '../helper/submit'
+import { ____submitAnalyzeEvent } from '../helper/submit'
 import { serializeQuest } from './json'
 
 export async function share(core: Core) {
@@ -9,9 +9,9 @@ export async function share(core: Core) {
   const obj = serializeQuest(core)
   const json = JSON.stringify(obj)
   const id = await shareRequest(json)
-  submit_event(`publish_custom_quest_${id}`, core)
+  ____submit_event(`publish_custom_quest_${id}`, core)
   if (obj.editOptions) {
-    submitAnalyzeEvent(core, `ev_event_limitEditOptions-${obj.editOptions}`)
+    ____submitAnalyzeEvent(core, `ev_event_limitEditOptions-${obj.editOptions}`)
   }
   return id
 }

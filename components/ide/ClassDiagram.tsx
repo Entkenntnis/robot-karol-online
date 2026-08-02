@@ -1,6 +1,6 @@
 import { useCore } from '../../lib/state/core'
 import { showModal } from '../../lib/commands/modal'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import clsx from 'clsx'
 
 interface ClassDiagramProps {
@@ -17,7 +17,7 @@ export default function ClassDiagram({ classes }: ClassDiagramProps) {
           key={index}
           onClick={() => {
             if (core.ws.bench.locked) return
-            submitAnalyzeEvent(core, 'ev_click_bench_createClass')
+            ____submitAnalyzeEvent(core, 'ev_click_bench_createClass')
             core.mutateWs(({ bench }) => {
               bench.invocationMode = 'constructor'
               bench.invocationClass = className

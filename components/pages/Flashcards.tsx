@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { navigate } from '../../lib/commands/router'
 import { useCore } from '../../lib/state/core'
 import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { flashcards } from '../../lib/data/flashcards'
 import { FaIcon } from '../helper/FaIcon'
 import {
@@ -41,7 +41,7 @@ export function Flashcards() {
       showAnswer: false,
       againCards: [],
     })
-    submitAnalyzeEvent(core, 'ev_flashcards_initialize')
+    ____submitAnalyzeEvent(core, 'ev_flashcards_initialize')
   }, [core])
 
   const goToNextCard = useCallback(() => {
@@ -71,7 +71,7 @@ export function Flashcards() {
 
   const handleResponse = useCallback(
     (action: 'again' | 'good') => {
-      submitAnalyzeEvent(core, `ev_flashcards_${action}`)
+      ____submitAnalyzeEvent(core, `ev_flashcards_${action}`)
 
       if (action === 'again') {
         setState((prev) => ({
@@ -88,7 +88,7 @@ export function Flashcards() {
   )
 
   const revealAnswer = useCallback(() => {
-    submitAnalyzeEvent(core, 'ev_flashcards_reveal')
+    ____submitAnalyzeEvent(core, 'ev_flashcards_reveal')
     setState((prev) => ({ ...prev, showAnswer: true }))
   }, [core])
 

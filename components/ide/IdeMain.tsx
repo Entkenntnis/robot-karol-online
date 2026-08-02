@@ -22,7 +22,7 @@ import { Tasks } from './Tasks'
 import { WorldEditor } from './WorldEditor'
 import { HFullStyles } from '../helper/HFullStyles'
 import { JavaInfo } from './JavaInfo'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { InteractionBar } from './InteractionBar'
 import { FlyoutMenu } from './FlyoutMenu'
 import { exitQuest } from '../../lib/commands/quest'
@@ -106,7 +106,7 @@ export function IdeMain() {
               : 'text-gray-600',
           )}
           onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_ide_mobileTabProgram')
+            ____submitAnalyzeEvent(core, 'ev_click_ide_mobileTabProgram')
             setActiveTab('program')
             if (core.blockyResize) {
               setTimeout(() => {
@@ -134,7 +134,7 @@ export function IdeMain() {
               : 'text-gray-600',
           )}
           onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_ide_mobileTabOutput')
+            ____submitAnalyzeEvent(core, 'ev_click_ide_mobileTabOutput')
             setActiveTab('output')
           }}
         >
