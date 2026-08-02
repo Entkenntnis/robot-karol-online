@@ -5,7 +5,7 @@ import {
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons'
 import { useCore } from '../../lib/state/core'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import {
   setLearningPathScroll,
@@ -39,7 +39,10 @@ export function PythonMiniProjects({
             aria-expanded={core.ws.ui.miniProjectsOpen}
             aria-controls="python-mini-projects-content"
             onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_landing_toggleMiniProjects')
+              ____submitAnalyzeEvent(
+                core,
+                'ev_click_landing_toggleMiniProjects',
+              )
               core.mutateWs((ws) => {
                 ws.ui.miniProjectsOpen = !ws.ui.miniProjectsOpen
                 if (ws.ui.miniProjectsOpen) {
@@ -71,7 +74,7 @@ export function PythonMiniProjects({
             href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/RKO-MODULE.md"
             target="_blank"
             onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_landing_moduleDocs')
+              ____submitAnalyzeEvent(core, 'ev_click_landing_moduleDocs')
             }}
           >
             <code>rko</code> Modul Dokumentation{' '}
@@ -116,7 +119,7 @@ export function PythonMiniProjects({
                             : 'border-transparent',
                         )}
                         onClick={(e) => {
-                          submitAnalyzeEvent(
+                          ____submitAnalyzeEvent(
                             core,
                             `ev_click__landing_pythonExample_${getExampleId(
                               example.title,

@@ -1,6 +1,6 @@
 import { levels } from '../data/karolmaniaLevels'
 import { pythonKarolExamples } from '../data/pythonExamples'
-import { submitAnalyzeEvent } from '../helper/submit'
+import { ____submitAnalyzeEvent } from '../helper/submit'
 import { CanvasObjects } from '../state/canvas-objects'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
@@ -57,7 +57,7 @@ export async function hydrate(core: Core) {
   const id = parameterList.get('id')
   if (id) {
     if (id == 'Z9xO1rVGj') {
-      submitAnalyzeEvent(core, 'ev_show_playgroundLegacyLink')
+      ____submitAnalyzeEvent(core, 'ev_show_playgroundLegacyLink')
       window.open('/#SPIELWIESE', '_self')
       return
     }
@@ -82,7 +82,7 @@ export async function hydrate(core: Core) {
   const colonIndex = hash.indexOf(':')
   const data = colonIndex !== -1 ? hash.substring(colonIndex + 1) : ''
 
-  submitAnalyzeEvent(
+  ____submitAnalyzeEvent(
     core,
     'ev_show_hash_' + (rewrite ? rewrite : page.slice(0, 100)),
   )
@@ -218,7 +218,7 @@ export async function hydrate(core: Core) {
         }
       })
       if (rewrite != 'BLUEJ-PLAYGROUND') {
-        submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
+        ____submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
       }
     }
     refreshEditArea(core)
@@ -272,7 +272,7 @@ export async function hydrate(core: Core) {
     core.mutateWs((ws) => {
       ws.ui.newRobotImage = decodedData
     })
-    submitAnalyzeEvent(
+    ____submitAnalyzeEvent(
       core,
       'ev_show_robotImage_' +
         (decodedData.length > 50 ? decodedData.slice(-50) : decodedData),

@@ -8,7 +8,7 @@ import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
 import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { refreshEditArea } from '../../lib/commands/editing'
 
 export function QuestEditor() {
@@ -36,7 +36,7 @@ export function QuestEditor() {
               'border-b-yellow-500 border-b-2',
           )}
           onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_editor_disablePreview')
+            ____submitAnalyzeEvent(core, 'ev_click_editor_disablePreview')
             setQuestPreview(core, false)
             core.mutateWs((ws) => {
               ws.pythonCode = ws.editor.originalCode ?? ws.pythonCode
@@ -53,7 +53,7 @@ export function QuestEditor() {
             'ml-3',
           )}
           onClick={() => {
-            submitAnalyzeEvent(core, 'ev_click_editor_enablePreview')
+            ____submitAnalyzeEvent(core, 'ev_click_editor_enablePreview')
             setQuestPreview(core, true)
             core.mutateWs((ws) => {
               ws.editor.originalCode = ws.pythonCode

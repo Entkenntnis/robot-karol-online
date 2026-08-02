@@ -29,7 +29,7 @@ import {
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { View } from '../helper/View'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 
 export function WorldEditor() {
   const actions: { [key: string]: () => void } = {
@@ -141,7 +141,10 @@ export function WorldEditor() {
             <button
               className="absolute right-2 bottom-2 px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
               onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_editor_copyStartIntoTarget')
+                ____submitAnalyzeEvent(
+                  core,
+                  'ev_click_editor_copyStartIntoTarget',
+                )
                 cloneStartIntoTarget(core)
                 handlerDiv.current?.focus()
               }}
@@ -154,7 +157,7 @@ export function WorldEditor() {
           <button
             className="absolute right-2 top-2 px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_editor_deleteWorld')
+              ____submitAnalyzeEvent(core, 'ev_click_editor_deleteWorld')
               createWorldCmd(
                 core,
                 core.ws.world.dimX,

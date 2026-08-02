@@ -1,6 +1,6 @@
 import { pythonKarolExamples } from '../data/pythonExamples'
 import { Core } from '../state/core'
-import { submitAnalyzeEvent } from '../helper/submit'
+import { ____submitAnalyzeEvent } from '../helper/submit'
 
 export function addMessage(core: Core, text: string) {
   const ts = Date.now()
@@ -34,7 +34,7 @@ export function addConsoleMessage(core: Core, text: string) {
     const score = parseInt(text.split(' ')[0])
     const title =
       core.ws.quest.tasks[core.ws.quest.lastStartedTask!]?.title || ''
-    submitAnalyzeEvent(core, `ev_dance_score_${score}_${title}`)
+    ____submitAnalyzeEvent(core, `ev_dance_score_${score}_${title}`)
   }
   // =========================================
 

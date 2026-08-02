@@ -5,7 +5,7 @@ import { FaIcon } from '../helper/FaIcon'
 import { chapterData } from '../../lib/data/chapters'
 import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { setQuestData } from '../../lib/storage/storage'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 
 export function ExplanationModal() {
   const core = useCore()
@@ -68,7 +68,7 @@ export function ExplanationModal() {
                       mode: 'blocks',
                       completedOnce: true,
                     })
-                    submitAnalyzeEvent(
+                    ____submitAnalyzeEvent(
                       core,
                       'ev_click_explanation_continue_' +
                         core.ws.overview.explanationId,

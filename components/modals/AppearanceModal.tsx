@@ -14,7 +14,7 @@ import {
   // faStar,
   faUndo,
 } from '@fortawesome/free-solid-svg-icons'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 // import { backend } from '../../backend'
 import { karolDefaultImage, karolOldDefaultImage } from '../../lib/data/images'
 
@@ -484,7 +484,7 @@ export function AppearanceModal() {
 
   // Reset: speichert aktuellen Zustand und setzt auf das Standardbild zurück.
   const handleReset = () => {
-    submitAnalyzeEvent(core, 'ev_click_appearance_resetFigure')
+    ____submitAnalyzeEvent(core, 'ev_click_appearance_resetFigure')
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
@@ -543,7 +543,7 @@ export function AppearanceModal() {
           <button
             className="py-1 px-3 rounded-full bg-red-200 hover:bg-red-300 mr-3"
             onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_appearance_abort')
+              ____submitAnalyzeEvent(core, 'ev_click_appearance_abort')
               core.mutateWs((ws) => {
                 ws.robotImageDataUrl = originalImage
               })
@@ -555,7 +555,7 @@ export function AppearanceModal() {
           <button
             className="py-1 px-3 rounded-full bg-green-200 hover:bg-green-300"
             onClick={() => {
-              submitAnalyzeEvent(core, 'ev_click_appearance_save')
+              ____submitAnalyzeEvent(core, 'ev_click_appearance_save')
               setRobotImage(core.ws.robotImageDataUrl)
               closeModal(core)
             }}
@@ -774,7 +774,10 @@ export function AppearanceModal() {
               </button>
               <button
                 onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_appearance_openGallery')
+                  ____submitAnalyzeEvent(
+                    core,
+                    'ev_click_appearance_openGallery',
+                  )
                   setTimeout(() => {
                     window.open(
                       'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
@@ -789,7 +792,7 @@ export function AppearanceModal() {
               <button
                 className="px-4 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
                 onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_appearance_copyLink')
+                  ____submitAnalyzeEvent(core, 'ev_click_appearance_copyLink')
                   const dataUrl = canvasRef.current?.toDataURL()
 
                   if (dataUrl) {
@@ -854,7 +857,7 @@ export function AppearanceModal() {
                         setBaseImage(karolDefaultImage)
                         baseImageRef.current = karolDefaultImage
                       }
-                      submitAnalyzeEvent(
+                      ____submitAnalyzeEvent(
                         core,
                         'ev_click_appearance_selectBaseFigure_' + value,
                       )
@@ -870,7 +873,10 @@ export function AppearanceModal() {
                 <button
                   className="text-sm bg-gray-500 hover:bg-gray-400 px-1 rounded"
                   onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_appearance_resetCanvas')
+                    ____submitAnalyzeEvent(
+                      core,
+                      'ev_click_appearance_resetCanvas',
+                    )
                     pushUndoState()
                     // Leinwand löschen.
                     const canvas = canvasRef.current

@@ -16,7 +16,7 @@ import {
 import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import { chapterData } from '../../lib/data/chapters'
 import { pythonKarolExamples } from '../../lib/data/pythonExamples'
@@ -191,7 +191,7 @@ export function PythonPath() {
                       <button
                         className="block relative rainbow rainbow-always px-6 py-2 text-lg bg-green-300 rounded-lg"
                         onClick={() => {
-                          submitAnalyzeEvent(
+                          ____submitAnalyzeEvent(
                             core,
                             'ev_click_landing_pythonIntro',
                           )
@@ -212,7 +212,7 @@ export function PythonPath() {
                 id="python-listing-button"
                 className="px-2 py-0.5 bg-yellow-500/50 rounded hover:bg-yellow-500/80"
                 onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_landing_pythonListing')
+                  ____submitAnalyzeEvent(core, 'ev_click_landing_pythonListing')
                   showModal(core, 'python-listing')
                 }}
               >
@@ -330,7 +330,7 @@ export function PythonPath() {
                     <button
                       className="w-[100px] block hover:bg-white/20 rounded-xl cursor-pointer text-center"
                       onClick={() => {
-                        submitAnalyzeEvent(
+                        ____submitAnalyzeEvent(
                           core,
                           'ev_click_landing_explanation_chapter_' + id,
                         )
@@ -391,7 +391,10 @@ export function PythonPath() {
                   }
                   onClick={() => {
                     if (parseInt(entry[0]) == 1) {
-                      submitAnalyzeEvent(core, 'ev_click_landing_startKarol')
+                      ____submitAnalyzeEvent(
+                        core,
+                        'ev_click_landing_startKarol',
+                      )
                     }
                     setQuestReturnToMode(
                       core.ws.ui.demoModus ? 'python#DEMO' : 'python',
@@ -419,7 +422,7 @@ export function PythonPath() {
             <button
               className="hover:underline mr-6"
               onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_landing_impressum')
+                ____submitAnalyzeEvent(core, 'ev_click_landing_impressum')
                 showModal(core, 'impressum')
               }}
             >
@@ -428,7 +431,7 @@ export function PythonPath() {
             <button
               className="hover:underline mr-6"
               onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_landing_privacy')
+                ____submitAnalyzeEvent(core, 'ev_click_landing_privacy')
                 showModal(core, 'privacy')
               }}
             >

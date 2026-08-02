@@ -11,7 +11,7 @@ import {
 } from '../../lib/codemirror/basicSetup'
 import { pythonLanguage } from '../../lib/codemirror/pythonParser/pythonLanguage'
 import { javaLanguage } from '../../lib/codemirror/javaParser/javaLanguage'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { useCore } from '../../lib/state/core'
 import clsx from 'clsx'
 
@@ -24,7 +24,7 @@ export function Cheatsheet({ language }: CheatsheetProps) {
   const [copied, setCopied] = useState<string | null>(null)
 
   const handleCopy = (text: string) => {
-    submitAnalyzeEvent(core, 'ev_click_ide_pythoncheatsheet_copy')
+    ____submitAnalyzeEvent(core, 'ev_click_ide_pythoncheatsheet_copy')
     navigator.clipboard.writeText(text)
     setCopied(text)
     setTimeout(() => setCopied(null), 2000)

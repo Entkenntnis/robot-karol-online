@@ -36,7 +36,7 @@ import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import { ChatVisual } from './ChatVisual'
 
@@ -147,7 +147,7 @@ export function Tasks() {
                             onChange={(e) => {
                               const isChatMode = e.target.value === 'chat'
                               if (isChatMode) {
-                                submitAnalyzeEvent(
+                                ____submitAnalyzeEvent(
                                   core,
                                   'ev_click_ide_chatMode',
                                 )
@@ -490,7 +490,7 @@ export function Tasks() {
                               <button
                                 className="rounded px-2 py-0.5 bg-gray-100 hover:bg-gray-200"
                                 onClick={() => {
-                                  submitAnalyzeEvent(
+                                  ____submitAnalyzeEvent(
                                     core,
                                     'ev_click_editor_testWorld',
                                   )
@@ -503,7 +503,7 @@ export function Tasks() {
                               <button
                                 className="ml-3 rounded px-2 py-0.5 bg-blue-100 hover:bg-blue-200"
                                 onClick={() => {
-                                  submitAnalyzeEvent(
+                                  ____submitAnalyzeEvent(
                                     core,
                                     'ev_click_editor_editWorld',
                                   )
@@ -519,7 +519,7 @@ export function Tasks() {
                                 className="hover:text-black disabled:text-gray-200"
                                 disabled={index == 0}
                                 onClick={() => {
-                                  submitAnalyzeEvent(
+                                  ____submitAnalyzeEvent(
                                     core,
                                     'ev_click_editor_moveUp',
                                   )
@@ -535,7 +535,7 @@ export function Tasks() {
                                   index + 1 == core.ws.quest.tasks.length
                                 }
                                 onClick={() => {
-                                  submitAnalyzeEvent(
+                                  ____submitAnalyzeEvent(
                                     core,
                                     'ev_click_editor_moveDown',
                                   )
@@ -548,7 +548,7 @@ export function Tasks() {
                               <button
                                 className="hover:text-black ml-5"
                                 onClick={() => {
-                                  submitAnalyzeEvent(
+                                  ____submitAnalyzeEvent(
                                     core,
                                     'ev_click_editor_cloneTask',
                                   )
@@ -561,7 +561,7 @@ export function Tasks() {
                               <button
                                 className="hover:text-red-600 ml-5"
                                 onClick={() => {
-                                  submitAnalyzeEvent(
+                                  ____submitAnalyzeEvent(
                                     core,
                                     'ev_click_editor_deleteTask',
                                   )
@@ -685,11 +685,11 @@ export function Tasks() {
               className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"
               onClick={() => {
                 if (core.ws.page == 'editor') {
-                  submitAnalyzeEvent(core, 'ev_click_ide_remix')
+                  ____submitAnalyzeEvent(core, 'ev_click_ide_remix')
                   showModal(core, 'remix')
                 } else {
                   setShowStructogram(core, true)
-                  submitAnalyzeEvent(core, 'ev_click_ide_structogram')
+                  ____submitAnalyzeEvent(core, 'ev_click_ide_structogram')
                 }
               }}
             >
@@ -703,7 +703,7 @@ export function Tasks() {
               <button
                 className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"
                 onClick={() => {
-                  submitAnalyzeEvent(core, 'ev_click_ide_appearance')
+                  ____submitAnalyzeEvent(core, 'ev_click_ide_appearance')
                   showModal(core, 'appearance')
                 }}
               >
@@ -714,7 +714,7 @@ export function Tasks() {
             <button
               className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"
               onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_ide_chatGuide')
+                ____submitAnalyzeEvent(core, 'ev_click_ide_chatGuide')
                 showModal(core, 'chat-guide')
               }}
             >

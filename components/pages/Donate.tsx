@@ -2,7 +2,7 @@ import { faExternalLink } from '@fortawesome/free-solid-svg-icons'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { HFullStyles } from '../helper/HFullStyles'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import clsx from 'clsx'
 import { View } from '../helper/View'
@@ -36,7 +36,7 @@ export function Donate() {
   }, [])
 
   const handleExternalLinkClick = (linkName: string, url: string) => {
-    submitAnalyzeEvent(core, `ev_click_donate_${linkName}`)
+    ____submitAnalyzeEvent(core, `ev_click_donate_${linkName}`)
     window.open(url, '_blank')
   }
 

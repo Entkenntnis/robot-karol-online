@@ -31,7 +31,7 @@ import {
   getBestTimeForLevel,
 } from '../../lib/storage/storage'
 import { levels } from '../../lib/data/karolmaniaLevels'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 
 export function KarolmaniaGame() {
   const core = useCore()
@@ -301,7 +301,7 @@ export function KarolmaniaGame() {
   }, [])
 
   const toggleMusic = useCallback(() => {
-    submitAnalyzeEvent(core, 'ev_click_karolmania_toggleMusic')
+    ____submitAnalyzeEvent(core, 'ev_click_karolmania_toggleMusic')
     const newState = !isMusicPlaying
     setIsMusicPlaying(newState)
     setKarolmaniaMusicEnabled(newState)
@@ -314,7 +314,7 @@ export function KarolmaniaGame() {
   }, [core, isMusicPlaying, isDone, playMusic, pauseMusic])
 
   const toggleSoundEffects = useCallback(() => {
-    submitAnalyzeEvent(core, 'ev_click_karolmania_toggleSoundEffects')
+    ____submitAnalyzeEvent(core, 'ev_click_karolmania_toggleSoundEffects')
     setIsSoundEffectsEnabled((prev) => {
       setKarolmaniaSoundEffectsEnabled(!prev)
       return !prev
@@ -452,7 +452,7 @@ export function KarolmaniaGame() {
         setNewMedal(null)
       }
 
-      submitAnalyzeEvent(
+      ____submitAnalyzeEvent(
         core,
         `ev_submit_karolmania_pb_${levelId}_${timeInSeconds}`,
       )
@@ -824,7 +824,7 @@ export function KarolmaniaGame() {
         <div className="fixed bottom-24 left-0 right-0 flex justify-center">
           <button
             onClick={() => {
-              submitAnalyzeEvent(core, `ev_click_karolmania_improve`)
+              ____submitAnalyzeEvent(core, `ev_click_karolmania_improve`)
               resetGame()
             }}
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg text-xl transition-transform transform hover:scale-105"

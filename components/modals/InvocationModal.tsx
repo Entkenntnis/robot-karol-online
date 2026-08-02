@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
 import { executeInBench } from '../../lib/commands/bench'
-import { submitAnalyzeEvent } from '../../lib/helper/submit'
+import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { capitalize } from '../../lib/helper/capitalize'
 
 export function InvocationModal() {
@@ -68,7 +68,7 @@ export function InvocationModal() {
       : core.ws.bench.classInfo[invocationClass].methods[invocationMethod].doc
 
   const handleSubmit = (e: React.FormEvent) => {
-    submitAnalyzeEvent(core, 'ev_click_bench_invocationExecute')
+    ____submitAnalyzeEvent(core, 'ev_click_bench_invocationExecute')
     e.preventDefault()
     core.mutateWs(({ bench }) => {
       if (bench.history) {

@@ -34,7 +34,7 @@ const throwFauxTypeError = (cls, member, expected_args, rest) => {
     throw TypeError(
       `${cls}.${member}() only takes ${expected_args} argument(s) (${
         expected_args + rest.length
-      } were given)`
+      } were given)`,
     )
 }
 
@@ -548,7 +548,7 @@ self.onmessage = async (event) => {
         },
         tasteGedrückt: (key) => {
           const sharedBuffer = new SharedArrayBuffer(
-            Int32Array.BYTES_PER_ELEMENT
+            Int32Array.BYTES_PER_ELEMENT,
           )
           const sharedArray = new Int32Array(sharedBuffer)
           Atomics.store(sharedArray, 0, 42) // no data yet
@@ -795,7 +795,7 @@ self.onmessage = async (event) => {
       },
       __ide_prompt: (message, confirm) => {
         const confirmBuffer = new SharedArrayBuffer(
-          Int32Array.BYTES_PER_ELEMENT
+          Int32Array.BYTES_PER_ELEMENT,
         )
         const sharedArray = new Int32Array(confirmBuffer)
         sharedArray[0] = 42 // no data yet
@@ -809,10 +809,11 @@ self.onmessage = async (event) => {
         sleep(100)
         lastStepTs = performance.now() * 1000
       },
-      __ide_submit: (key) => {
+      __ide_submit: (key, value) => {
         self.postMessage({
           type: 'submit',
           key,
+          value,
         })
       },
       __ide_get_outputs: () => {
@@ -974,7 +975,7 @@ def input(prompt=''):
     print(prompt)
   return __internal_input()
         `,
-        { globals }
+        { globals },
       )
       pyodide.runPython(code, { globals })
       // extract global variables
@@ -1127,7 +1128,7 @@ def get_class_info():
 json.dumps(get_class_info())
 
 `,
-          { globals: benchGlobals }
+          { globals: benchGlobals },
         )
         self.postMessage({
           type: 'bench',
@@ -1153,7 +1154,7 @@ def find_objects():
     return json.dumps(results)
 find_objects()
 `,
-          { globals: benchGlobals }
+          { globals: benchGlobals },
         )
         self.postMessage({
           type: 'bench',
