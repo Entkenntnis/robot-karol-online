@@ -85,7 +85,7 @@ export async function hydrate(core: Core) {
   const data = colonIndex !== -1 ? hash.substring(colonIndex + 1) : ''
 
   // This is what we count
-  if (!isBot(navigator.userAgent)) {
+  if (!isBot(navigator.userAgent) && window.location.host == 'karol.arrrg.de') {
     // register pageview
     fetch(backend.pageviewEndpoint, { method: 'POST' })
   }

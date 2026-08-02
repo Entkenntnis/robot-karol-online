@@ -15,5 +15,5 @@ export const backend = {
   eventEndpoint: host + '/persistent_event',
 
   // ping for every page view
-  pageviewEndpoint: '/pageview',
+  pageviewEndpoint: host + '/pageview',
 }
