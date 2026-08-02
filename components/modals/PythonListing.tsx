@@ -50,7 +50,7 @@ export function PythonListing() {
             <FaIcon icon={faTimes} />
           </button>
           <h1 className="font-bold text-2xl text-center">
-            Übersicht Python-Lernpfad
+            Übersicht Python Lernpfad
           </h1>
         </div>
         <div id="scroll-container" className="overflow-auto p-6">
@@ -78,7 +78,7 @@ export function PythonListing() {
                             : 'bg-gray-50 hover:bg-gray-100',
                         )}
                         onClick={() => {
-                          setQuestReturnToMode('path')
+                          setQuestReturnToMode('python')
                           const scroll =
                             document.getElementById('scroll-container')
                               ?.scrollTop ?? -1

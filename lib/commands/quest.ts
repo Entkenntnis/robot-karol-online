@@ -11,7 +11,7 @@ import { Core } from '../state/core'
 import type { QuestSessionData_MUST_STAY_COMPATIBLE } from '../state/types'
 import {
   getQuestData,
-  getQuestReturnToMode,
+  getQuestReturnToPath,
   getUserName,
   restorePreferredQuestSettings,
   setPreferredQuestSettings,
@@ -277,14 +277,7 @@ export function exitQuest(core: Core) {
   setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
 
   closeModal(core)
-  navigate(
-    core,
-    getQuestReturnToMode() == 'path'
-      ? ''
-      : getQuestReturnToMode() == 'demo'
-        ? '#DEMO'
-        : '#OVERVIEW',
-  )
+  navigate(core, getQuestReturnToPath(''))
 }
 
 export function restoreQuestFromSessionData(
@@ -420,14 +413,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
   setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
   submit_event(`quest_complete_${core.ws.quest.id}`, core)
   if (!stay) {
-    navigate(
-      core,
-      getQuestReturnToMode() == 'path'
-        ? ''
-        : getQuestReturnToMode() == 'demo'
-          ? '#DEMO'
-          : '#OVERVIEW',
-    )
+    navigate(core, getQuestReturnToPath(''))
   } else {
     core.mutateWs((ws) => {
       ws.ui.isAlreadyCompleted = true

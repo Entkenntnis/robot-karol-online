@@ -1,42 +1,27 @@
 import {
+  faArrowLeft,
   faCaretDown,
-  faCheckCircle,
   faExternalLink,
   faFloppyDisk,
   faFolderOpen,
-  faGlobe,
-  faMedal,
-  faPaintBrush,
-  faPencil,
   faTable,
-  faUserCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect, useMemo } from 'react'
 
-import {
-  forceRerender,
-  hideSaveHint,
-  setLng,
-  setPersist,
-} from '../../lib/commands/mode'
-import { questList, questListByCategory } from '../../lib/data/overview'
+import { forceRerender, setLng } from '../../lib/commands/mode'
+import { questList } from '../../lib/data/overview'
 import { questData as questDataDe } from '../../lib/data/quests'
-import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
+import { isQuestDone } from '../../lib/helper/session'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
-import { View } from '../helper/View'
 import { showModal } from '../../lib/commands/modal'
 import {
   getLng,
   getRobotImage,
-  getUserName,
-  isPersisted,
   loadFromJSON,
-  resetStorage,
   saveToJSON,
   setLearningPathScroll,
-  setLngStorage,
   setOverviewScroll,
   setQuestReturnToMode,
   setRobotImage,
@@ -45,15 +30,11 @@ import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
 import { questDataEn } from '../../lib/data/questsEn'
-import { AnalyzeResults } from '../helper/AnalyzeResults'
 import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
-import { twoWorldsEqual } from '../../lib/commands/world'
 import { chapterData } from '../../lib/data/chapters'
 import { pythonKarolExamples } from '../../lib/data/pythonExamples'
-import { Reactions } from '../helper/Reactions'
-import { SpinningRobot } from '../helper/SpinningRobot'
 import { PersistNotice } from '../helper/PersistNotice'
 import { PythonMiniProjects } from '../helper/PythonMiniProjects'
 import type { PythonProjectGroup } from '../../lib/state/types'
@@ -61,16 +42,10 @@ import type { PythonProjectGroup } from '../../lib/state/types'
 export function PythonPath() {
   const core = useCore()
 
-  const name = getUserName()
-
   const questData = core.ws.settings.lng == 'de' ? questDataDe : questDataEn
 
   const numberOfSolvedQuests = Object.keys(mapData).filter(
     (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id)),
-  ).length
-
-  const numberOfSolvedQuestsRKO = Object.keys(mapData).filter(
-    (id) => parseInt(id) < 100 && isQuestDone(parseInt(id)),
   ).length
 
   const numberOfSolvedQuestsPython = Object.keys(mapData).filter(
@@ -153,6 +128,20 @@ export function PythonPath() {
         id="scroll-container"
       >
         <div className="flex flex-col relative min-h-full min-w-fit background-element-python">
+          <div className="absolute top-3 left-3">
+            <a
+              href="/"
+              className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+              onClick={(e) => {
+                setOverviewScroll(0)
+                setLearningPathScroll(0)
+                navigate(core, '')
+                e.preventDefault()
+              }}
+            >
+              <FaIcon icon={faArrowLeft} /> zurück zu Robot Karol Online
+            </a>
+          </div>
           <div className="flex md:justify-center justify-start mt-6 ml-3 md:m-0">
             <div
               className={clsx(
@@ -160,10 +149,7 @@ export function PythonPath() {
                 'p-2 px-6 bg-[#3776ab]/40',
               )}
             >
-              <h1 className="text-3xl whitespace-nowrap">
-                Python Lernpfad{' '}
-                <span className="text-xl">(ft. Robot Karol)</span>
-              </h1>
+              <h1 className="text-3xl whitespace-nowrap">Python Lernpfad</h1>
             </div>
           </div>
           <div className="fixed top-2 right-2 z-[1000] hidden">
@@ -382,61 +368,18 @@ export function PythonPath() {
                 </div>
               )}
             <div className="absolute top-[330px] left-[90px] z-10">
-              <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                <button
-                  id="python-listing-button"
-                  className="px-2 py-0.5 bg-white/30 rounded hover:bg-white/50"
-                  onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_landing_pythonListing')
-                    showModal(core, 'python-listing')
-                  }}
-                >
-                  Übersicht Python-Lernpfad
-                </button>
-              </AnimateInView>
+              <button
+                id="python-listing-button"
+                className="px-2 py-0.5 bg-yellow-500/50 rounded hover:bg-yellow-500/80"
+                onClick={() => {
+                  submitAnalyzeEvent(core, 'ev_click_landing_pythonListing')
+                  showModal(core, 'python-listing')
+                }}
+              >
+                Übersicht aller Aufgaben
+              </button>
             </div>
             <PythonMiniProjects maxMapY={maxMapY} groups={groupedExamples} />
-            <div
-              className="absolute left-[301px] z-10"
-              style={{ top: `${mapYAfterMiniProjects + 140}px` }}
-            >
-              <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                <h2 className="text-lg bg-white/20 pl-2 pr-4 py-0.5 rounded-lg">
-                  Entdecke auch:
-                </h2>
-              </AnimateInView>
-            </div>
-            <div
-              className="absolute left-[598px] z-10 hidden"
-              style={{ top: `${mapYAfterMiniProjects + 190}px` }}
-            >
-              <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                <a
-                  href={`/#BLUEJ-PLAYGROUND`}
-                  className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
-                  onClick={(e) => {
-                    submitAnalyzeEvent(core, 'ev_click_landing_blueJPlayground')
-                    setLearningPathScroll(
-                      document.getElementById('scroll-container')?.scrollTop ??
-                        -1,
-                    )
-                    navigate(core, '#BLUEJ-PLAYGROUND')
-                    e.preventDefault()
-                  }}
-                >
-                  <p className="text-center">
-                    BlueJ-
-                    <br />
-                    Spielwiese
-                  </p>
-                  <img
-                    src="/bluej.png"
-                    alt=""
-                    className="w-[50px] mx-auto inline-block mt-2"
-                  />
-                </a>
-              </AnimateInView>
-            </div>
             {core.ws.ui.newRobotImage && (
               <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
                 <p className="mb-2">Neue Figur verfügbar:</p>
@@ -473,74 +416,12 @@ export function PythonPath() {
                 </p>
               </div>
             )}
-            {core.ws.settings.lng == 'de' && (
-              <div
-                className="absolute left-[660px] z-10"
-                style={{ top: `${mapYAfterMiniProjects + 200}px` }}
-              >
-                <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                  <button
-                    className="w-[120px] hover:bg-gray-100/60 rounded-xl"
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_einhorn')
-                      window.open('https://einhorn.arrrg.de', '_blank')
-                    }}
-                  >
-                    <p className="text-center mb-2">Einhorn der Mathematik</p>
-                    <img
-                      src="/einhorn.png"
-                      alt="Einhorn"
-                      className="w-[50px] mx-auto"
-                    />
-                  </button>
-                </AnimateInView>
-              </div>
-            )}
-            <div
-              className="absolute left-[400px] z-10"
-              style={{ top: `${mapYAfterMiniProjects + 230}px` }}
-            >
-              <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                <button
-                  className=" w-[120px] block hover:bg-gray-100/60 rounded-xl"
-                  onClick={() => {
-                    submitAnalyzeEvent(core, 'ev_click_landing_hacktheweb')
-                    window.open(
-                      'https://hack.arrrg.de/' +
-                        (core.ws.settings.lng === 'en' ? 'en' : ''),
-                      '_blank',
-                    )
-                  }}
-                >
-                  <p className="text-center mb-2">Hack The Web</p>
-                  <img
-                    src="/htw.png"
-                    alt="H"
-                    className="w-[32px] mx-auto mb-2"
-                  />
-                </button>
-              </AnimateInView>
-            </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox={`0 0 1240 ${mapYAfterMiniProjects + 300}`}
               className="relative"
             >
               <defs>
-                <linearGradient
-                  id="pythonGradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="0%"
-                >
-                  <stop offset="0%" stopColor="rgb(53, 114, 165)" />
-                  <stop offset="25%" stopColor="rgb(100, 105, 160)" />
-                  <stop offset="50%" stopColor="rgb(150, 140, 135)" />
-                  <stop offset="75%" stopColor="rgb(210, 175, 104)" />
-                  <stop offset="100%" stopColor="rgb(255, 213, 79)" />
-                </linearGradient>
-
                 <filter id="organicTexture">
                   <feTurbulence
                     type="fractalNoise"
@@ -603,17 +484,6 @@ export function PythonPath() {
                 }
                 return null
               })}
-
-              <path
-                d="M 100 1700 C 393 1711 588 1648 726 1547 S 942 1374 1150 1400"
-                stroke="url(#pythonGradient)"
-                strokeWidth="6"
-                fill="none"
-                filter="url(#organicTexture)"
-                strokeLinecap="round"
-                strokeDasharray="20 28"
-                style={{ transition: 'all 0.3s ease' }}
-              />
             </svg>
             {Object.entries(mapData).map((entry) => {
               const id = parseInt(entry[0])
@@ -728,7 +598,7 @@ export function PythonPath() {
                       submitAnalyzeEvent(core, 'ev_click_landing_startKarol')
                     }
                     setQuestReturnToMode(
-                      core.ws.page == 'demo' ? 'demo' : 'path',
+                      core.ws.page == 'demo' ? '#DEMO' : 'python',
                     )
                     setLearningPathScroll(
                       document.getElementById('scroll-container')?.scrollTop ??
@@ -815,111 +685,6 @@ export function PythonPath() {
         : questsInPreviousChapter.filter(isQuestDone).length >
             chapterData[id - 1]?.requiredCount - 1 ||
           (questsInPreviousChapter.length == 0 && isQuestDone(id - 1)))
-    )
-  }
-
-  function renderQuest(index: number) {
-    const data = questData[index]
-
-    const questDone = core.ws.page == 'analyze' ? false : isQuestDone(index)
-
-    //const reachableCount = core.ws.analyze.reachable[index]
-
-    const task = questData[index].tasks[0]
-    const showPython = data.script && index != 60
-
-    //const times = quartiles(core.ws.analyze.questTimes[index] ?? [0])
-
-    return (
-      <Fragment key={index}>
-        <div className="m-2">
-          <a
-            href={`/#QUEST-${index}`}
-            className={clsx(
-              'p-3 bg-white rounded-md relative z-10',
-              'w-[200px] cursor-pointer',
-              !questDone && 'rainbow',
-              core.ws.page == 'analyze' ? 'h-[230px]' : 'h-[210px]',
-              'block',
-            )}
-            tabIndex={0}
-            onClick={(e) => {
-              setQuestReturnToMode('overview')
-              setOverviewScroll(
-                document.getElementById('scroll-container')?.scrollTop ?? -1,
-              )
-              navigate(core, '#QUEST-' + index)
-              e.preventDefault()
-            }}
-          >
-            <div>
-              <div>
-                <span
-                  className={clsx(
-                    'py-1 inline-block',
-                    questDone ? 'text-gray-600' : 'font-bold',
-                  )}
-                >
-                  {data.title}
-                  {core.ws.page == 'analyze' && <small>&nbsp;({index})</small>}
-                </span>
-              </div>
-            </div>
-            <div className="">
-              {!questDone && (
-                <div className="absolute right-3 top-3">
-                  {isQuestStarted(index) && (
-                    <span className="text-yellow-600">
-                      <FaIcon icon={faPencil} />
-                    </span>
-                  )}
-                </div>
-              )}
-
-              <div className="overflow-hidden -mt-6 h-[144px]">
-                <View
-                  world={questDone ? task.target! : task.start}
-                  preview={
-                    task.target === null ? undefined : { world: task.target }
-                  }
-                  hideKarol={
-                    questDone ||
-                    !!(
-                      showPython &&
-                      task.target &&
-                      twoWorldsEqual(task.start, task.target)
-                    )
-                  }
-                  wireframe={false}
-                  className={clsx(
-                    'block mx-auto max-h-full',
-                    questDone && 'opacity-30',
-                  )}
-                  robotImageDataUrl={core.ws.robotImageDataUrl}
-                />{' '}
-                {questDone && (
-                  <div className="absolute inset-0 flex justify-center items-center">
-                    <FaIcon
-                      icon={faCheckCircle}
-                      className="text-green-300/40 text-[72px]"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-            {showPython && (
-              <img
-                src="/python-logo-only.png"
-                className={clsx(
-                  'absolute bottom-0 right-2 h-8 bg-white/30 rounded-lg pointer-events-auto',
-                  questDone && 'opacity-30',
-                )}
-                alt=""
-              />
-            )}
-          </a>
-        </div>
-      </Fragment>
     )
   }
 }

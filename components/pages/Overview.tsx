@@ -406,7 +406,7 @@ export function Overview() {
                                   'ev_click_landing_tourStart',
                                 )
                                 setQuestReturnToMode(
-                                  core.ws.page == 'demo' ? 'demo' : 'path',
+                                  core.ws.page == 'demo' ? '#DEMO' : '',
                                 )
                                 setLearningPathScroll(
                                   document.getElementById('scroll-container')
@@ -721,7 +721,7 @@ export function Overview() {
                             )
                           }
                           setQuestReturnToMode(
-                            core.ws.page == 'demo' ? 'demo' : 'path',
+                            core.ws.page == 'demo' ? '#DEMO' : '',
                           )
                           setLearningPathScroll(
                             document.getElementById('scroll-container')
@@ -845,7 +845,7 @@ export function Overview() {
             )}
             tabIndex={0}
             onClick={(e) => {
-              setQuestReturnToMode('overview')
+              setQuestReturnToMode('#OVERVIEW')
               setOverviewScroll(
                 document.getElementById('scroll-container')?.scrollTop ?? -1,
               )

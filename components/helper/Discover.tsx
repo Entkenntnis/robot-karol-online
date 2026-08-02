@@ -41,7 +41,7 @@ export function Discover() {
         className="absolute top-[13px] left-[380px] w-[120px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer"
         onClick={(e) => {
           submitAnalyzeEvent(core, 'ev_click_landing_dancedance')
-          setQuestReturnToMode(core.ws.page == 'demo' ? 'demo' : 'path')
+          setQuestReturnToMode(core.ws.page == 'demo' ? '#DEMO' : '')
           setLearningPathScroll(
             document.getElementById('scroll-container')?.scrollTop ?? -1,
           )
