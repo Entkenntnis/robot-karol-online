@@ -10,9 +10,10 @@ export function News() {
       <h2 className="text-2xl">Neuigkeiten</h2>
       <p className="my-4">
         <b>31. Juli 2026</b>: Der Python Lernpfad erhält unter{' '}
-        <a href="/python">karol.arrrg.de/python</a> ein neues Zuhause. Damit ist
-        wieder mehr Platz auf der Hauptseite hier, z.B. für diesen
-        Nachrichten-Bereich.
+        <a href="/python">karol.arrrg.de/python</a> ein neues Zuhause und damit
+        mehr Platz, sich in Zukunft weiterzuentwickeln, auch unabhängig vom
+        Hauptpfad hier. Die Gestaltung wurde so angepasst, dass beide Lernpfade
+        leichter zu unterscheiden sind.
       </p>
       <div className="flex justify-center mb-4 mt-8">
         <button
