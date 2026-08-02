@@ -8,7 +8,7 @@ _Abends in der Bar. Es ist der einzige Ort im Dorf, an dem nach Einbruch der Dun
 **Ellie**: Sozusagen. Ist aber langweiliger, als es klingt.  
 **Tommy**: Langweilig? Ich könnte gerade jemanden gebrauchen, der für uns rechnet. Jim vergisst nach zwei Bier immer die Hälfte der Punkte ...
 
-_Ellie zuckt mit den Schultern, aber in ihrem Kopf beginnt es zu ratten. Beim Dart fängt man mit 501 Punkten an. Ein fester Startwert. Eine Variable, Punkte abziehen. Eine Subtraktion. Immer und immer wieder ... wie die Schleife, die sie Maria gezeigt hat. Ein Gedanke formt sich._
+_Ellie zuckt mit den Schultern, aber in ihrem Kopf beginnt es zu rattern. Beim Dart fängt man mit 501 Punkten an. Ein fester Startwert. Eine Variable, Punkte abziehen. Eine Subtraktion. Immer und immer wieder ... wie die Schleife, die sie Maria gezeigt hat. Ein Gedanke formt sich._
 
 **Ellie**: Warte mal ... wie viele Würfe braucht ihr so für ein Spiel?  
 **Tommy**: Puh, wenn wir gut sind, vielleicht zwanzig. Wenn wir schlecht sind ... oder viel getrunken haben ... auch mal dreißig oder vierzig.  
