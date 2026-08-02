@@ -343,28 +343,40 @@ export function PythonPath() {
               numberOfSolvedQuestsPython == 0 &&
               core.ws.page !== 'demo' &&
               core.ws.page !== 'analyze' && (
-                <div className="absolute top-[270px] left-[690px] z-10">
-                  <AnimateInView dontFade={numberOfSolvedQuestsPython > 0}>
-                    <div
-                      className="bg-white/50 rounded-lg p-2 w-[410px] shadow-lg rainbow ranbow-always cursor-pointer relative"
-                      onClick={() => {
-                        submitAnalyzeEvent(core, 'ev_click_landing_pythonIntro')
-                        core.mutateWs((ws) => {
-                          ws.overview.explanationId = 10001
-                        })
-                        showModal(core, 'explanation')
-                      }}
-                    >
-                      <p>
-                        In den ruhigen Jahren in Jackson beschließt Ellie, sich
-                        das Programmieren beizubringen. Keine einfache Sache!
-                        Zum Glück stehen ihr Joel und das Dorf immer treu zur
-                        Seite. Begleite Ellie, wie sie die Grundlagen von Python
-                        lernt, von Ein-/Ausgabe über Variablen und Schleifen bis
-                        hin zu ihrem großen Projekt.
-                      </p>
-                    </div>
-                  </AnimateInView>
+                <div className="absolute top-[270px] left-[590px] z-10">
+                  <div className="bg-white/80 rounded-lg p-2 w-[540px] shadow-lg cursor-pointer relative">
+                    <p>
+                      In den ruhigen Jahren in Jackson beschließt Ellie, sich
+                      das Programmieren beizubringen. Keine einfache Sache! Zum
+                      Glück stehen ihr Joel und das Dorf immer treu zur Seite.
+                      Begleite Ellie, wie sie die Grundlagen von Python lernt,
+                      von Ein-/Ausgabe über Variablen und Schleifen bis hin zu
+                      ihrem großen Projekt.
+                    </p>
+                    <p className="mt-4 text-gray-600 italic">
+                      Der Lernpfad ist für komplette AnfängerInnen geeignet,
+                      aber anspruchsvoll. Ein bisschen Programmier-Vorerfahrung
+                      oder irgendeine Form von weiterer Unterstütztung ist
+                      hilfreich für die Bearbeitung.
+                    </p>
+                    <p className="mt-6 flex justify-center z-10 isolate">
+                      <button
+                        className="block relative rainbow rainbow-always px-6 py-2 text-lg bg-green-300 rounded-lg"
+                        onClick={() => {
+                          submitAnalyzeEvent(
+                            core,
+                            'ev_click_landing_pythonIntro',
+                          )
+                          core.mutateWs((ws) => {
+                            ws.overview.explanationId = 10001
+                          })
+                          showModal(core, 'explanation')
+                        }}
+                      >
+                        Starten
+                      </button>
+                    </p>
+                  </div>
                 </div>
               )}
             <div className="absolute top-[330px] left-[90px] z-10">
@@ -638,32 +650,13 @@ export function PythonPath() {
             >
               {core.strings.overview.privacy}
             </button>
-            {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
           </div>
           <PersistNotice />
         </div>
       </div>
-      {(core.ws.page == 'overview' ||
-        core.ws.page == 'demo' ||
-        core.ws.page == 'python-path') && <HFullStyles />}
+      <HFullStyles />
     </>
   )
-
-  function renderExternalLink(title: string, href: string) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noreferrer"
-        onClick={() => {
-          submitAnalyzeEvent(core, 'ev_click_landing_' + title.toLowerCase())
-        }}
-      >
-        <span className="hover:underline">{title}</span>{' '}
-        <FaIcon icon={faExternalLink} className="text-xs text-gray-600" />
-      </a>
-    )
-  }
 
   function isQuestVisible(id: number) {
     if (id < 100) return false // ignore non-python stuff

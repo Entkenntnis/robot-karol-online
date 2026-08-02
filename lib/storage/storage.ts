@@ -433,5 +433,6 @@ export function setMiniProjectCollapsed(collapsed: boolean) {
 
 export function getMiniProjectCollapsed(): boolean {
   const value = sessionStorage.getItem(miniProjectCollapsedKey)
+  if (value === null) return true
   return value === '1'
 }
