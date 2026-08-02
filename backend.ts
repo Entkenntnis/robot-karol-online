@@ -12,5 +12,5 @@ export const backend = {
   questShareEndpoint: host + '/quest_share',
 
   // store events on the server, like survey or feedback
-  eventEndpoint: 'http://localhost:3006/persistent_event',
+  eventEndpoint: host + '/persistent_event',
 }
