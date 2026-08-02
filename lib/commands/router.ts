@@ -121,9 +121,15 @@ export async function hydrate(core: Core) {
     })
   }*/
 
-  if (path == '/python' && page == '') {
+  if (path == '/python' && (page == '' || page == 'DEMO')) {
     core.mutateWs((ws) => {
       ws.page = 'python-path'
+      if (page == 'DEMO') {
+        ws.ui.demoModus = true
+      }
+      ws.settings.lng = 'de' // I don't know, do I need this? Because, yes, the system is localised.
+      // and I guess the path is broken if people switch to python, ... but yeah, otherwise, I don't know.
+      // language versions are hard
     })
     document.title = 'Python Lernpfad'
     return

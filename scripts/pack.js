@@ -182,7 +182,10 @@ const chaptersData = chapters.map((chapterDir, index) => {
   return {
     id,
     dirName: chapterDir,
-    title: `${index}. ${meta?.title || chapterDir}`,
+    title:
+      index == 0
+        ? `Intro: ${meta?.title || chapterDir}`
+        : `${index}. ${meta?.title || chapterDir}`,
     originalTitle: meta?.title || chapterDir,
     requiredCount: meta?.requiredCount || 1,
     description: info || '', // Add the info.md content as description

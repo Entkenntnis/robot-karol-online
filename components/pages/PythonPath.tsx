@@ -1,37 +1,22 @@
-import {
-  faArrowLeft,
-  faCaretDown,
-  faExternalLink,
-  faFloppyDisk,
-  faFolderOpen,
-  faTable,
-} from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect, useMemo } from 'react'
 
-import { forceRerender, setLng } from '../../lib/commands/mode'
 import { questList } from '../../lib/data/overview'
-import { questData as questDataDe } from '../../lib/data/quests'
+import { questData } from '../../lib/data/quests'
 import { isQuestDone } from '../../lib/helper/session'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { showModal } from '../../lib/commands/modal'
 import {
-  getLng,
-  getRobotImage,
-  loadFromJSON,
-  saveToJSON,
   setLearningPathScroll,
   setOverviewScroll,
   setQuestReturnToMode,
-  setRobotImage,
 } from '../../lib/storage/storage'
 import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
-import { questDataEn } from '../../lib/data/questsEn'
 import { submitAnalyzeEvent } from '../../lib/helper/submit'
-import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 import { chapterData } from '../../lib/data/chapters'
 import { pythonKarolExamples } from '../../lib/data/pythonExamples'
@@ -42,31 +27,12 @@ import type { PythonProjectGroup } from '../../lib/state/types'
 export function PythonPath() {
   const core = useCore()
 
-  const questData = core.ws.settings.lng == 'de' ? questDataDe : questDataEn
-
-  const numberOfSolvedQuests = Object.keys(mapData).filter(
-    (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id)),
-  ).length
-
   const numberOfSolvedQuestsPython = Object.keys(mapData).filter(
     (id) =>
       parseInt(id) >= 100 && parseInt(id) < 10000 && isQuestDone(parseInt(id)),
   ).length
 
-  const maxMapY =
-    Math.max(
-      ...Object.entries(mapData)
-        .filter(([id]) => isQuestVisible(parseInt(id)))
-        .map(([, quest]) => quest.y),
-    ) +
-    (core.ws.page == 'demo' || core.ws.page == 'analyze'
-      ? 250
-      : !isQuestDone(10001)
-        ? 1000
-        : isQuestDone(10010)
-          ? 250
-          : 1000)
-  // todo: if all quests are unlocked, I can reduce the spacing a bit, but I'm not at that point yet
+  const maxMapY = 1700 // TODO: check if this is a good value
 
   const mapYAfterMiniProjects =
     maxMapY + (core.ws.ui.miniProjectsOpen ? 880 : 200)
@@ -120,11 +86,7 @@ export function PythonPath() {
   return (
     <>
       <div
-        className={clsx(
-          'h-full overflow-auto',
-          // this fixes a bug where scrolling is not possible on big content
-          core.ws.page !== 'analyze' && 'overscroll-none',
-        )}
+        className={clsx('h-full overflow-auto overscroll-none')}
         id="scroll-container"
       >
         <div className="flex flex-col relative min-h-full min-w-fit background-element-python">
@@ -152,76 +114,9 @@ export function PythonPath() {
               <h1 className="text-3xl whitespace-nowrap">Python Lernpfad</h1>
             </div>
           </div>
-          <div className="fixed top-2 right-2 z-[1000] hidden">
-            <button
-              className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
-              onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_landing_donate')
-                window.open('https://paypal.me/Dav1dL1', '_blank')
-              }}
-            >
-              Spenden
-            </button>
-          </div>
-          <div className="mx-8 md:mx-auto mt-6 hidden">
-            <a
-              href="/#SPIELWIESE"
-              className="hover:underline mr-8"
-              onClick={() => {
-                submitAnalyzeEvent(core, 'ev_click_landing_playground')
-              }}
-            >
-              {core.strings.overview.playground}
-            </a>
-            <a
-              href="/#EDITOR"
-              className="mr-2 hover:underline cursor-pointer"
-              onClick={() => {
-                setOverviewScroll(0)
-                setLearningPathScroll(0)
-                submitAnalyzeEvent(core, 'ev_click_landing_editor')
-              }}
-            >
-              {core.strings.overview.editor}
-            </a>
-            <div className="dropdown dropdown-hover">
-              <div
-                tabIndex={0}
-                role="button"
-                className="hover:underline cursor-pointer ml-6 mr-2 select-none pb-1"
-                id="overview-self-learning-path"
-              >
-                {core.strings.overview.path}{' '}
-                <FaIcon icon={faCaretDown} className="text-gray-600" />
-              </div>
-              <ul
-                tabIndex={0}
-                className="dropdown-content bg-white rounded-lg z-[11] w-56 p-2 shadow [&>li>a]:px-4 [&>li>*]:py-2 [&>li>*]:cursor-pointer hover:[&>li]:bg-gray-200/50 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50  [&_a]:block [&_button]:block [&_button]:w-full [&_button]:text-left [&_button]:pl-4"
-              >
-                <li>
-                  <a
-                    href="/#OVERVIEW"
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_listOfAll')
-                      //  document.getElementById('scroll-container')!.scrollTop = 0
-                      try {
-                        // @ts-ignore
-                        document.activeElement?.blur()
-                        const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover',
-                        ) as HTMLDivElement
-                        dropdown.classList.remove('dropdown-hover')
-                        setTimeout(() => {
-                          dropdown.classList.add('dropdown-hover')
-                        }, 50)
-                      } catch (e) {}
-                    }}
-                  >
-                    <FaIcon icon={faTable} className="text-gray-600 mr-1" />{' '}
-                    {core.strings.overview.showAll}
-                  </a>
-                </li>
-                <li>
+          {/*
+          
+          <li>
                   <button
                     title={core.strings.overview.saveTooltip}
                     onClick={() => {
@@ -264,85 +159,18 @@ export function PythonPath() {
                     />{' '}
                     {core.strings.overview.load}
                   </button>
-                </li>{' '}
-                <li>
-                  <button
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_promotePython')
-                      try {
-                        document
-                          .getElementById('python-listing-button')
-                          ?.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center',
-                          })
-                        // @ts-ignore
-                        document.activeElement?.blur()
-                        const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover',
-                        ) as HTMLDivElement
-                        dropdown.classList.remove('dropdown-hover')
-                        setTimeout(() => {
-                          dropdown.classList.add('dropdown-hover')
-                        }, 50)
-                      } catch (e) {}
-                    }}
-                  >
-                    <img
-                      src={'/python-logo-only.png'}
-                      className="w-4 inline-block mr-1"
-                    />{' '}
-                    Python-Lernpfad
-                  </button>
                 </li>
-                <li>
-                  <a
-                    href="/#PROFIL"
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_profile')
-                      try {
-                        // @ts-ignore
-                        document.activeElement?.blur()
-                        const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover',
-                        ) as HTMLDivElement
-                        dropdown.classList.remove('dropdown-hover')
-                        setTimeout(() => {
-                          dropdown.classList.add('dropdown-hover')
-                        }, 50)
-                      } catch (e) {}
-                    }}
-                  >
-                    {core.strings.overview.profile}
-                  </a>
-                </li>
-                <li className="hidden">
-                  <a
-                    href="/#HIGHSCORE"
-                    onClick={() => {
-                      setOverviewScroll(0)
-                      setLearningPathScroll(0)
-                      submitAnalyzeEvent(core, 'ev_click_landing_highscore')
-                    }}
-                  >
-                    Highscore
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
+                
+          */}
           <div
             className="w-[1240px] mx-auto relative mt-5"
             style={{
-              height: `${mapYAfterMiniProjects + 300}px`,
+              height: `${mapYAfterMiniProjects + 220}px`,
             }}
           >
-            {core.ws.settings.lng === 'de' &&
-              !isQuestDone(10001) &&
+            {!isQuestDone(10001) &&
               numberOfSolvedQuestsPython == 0 &&
-              core.ws.page !== 'demo' &&
-              core.ws.page !== 'analyze' && (
+              !core.ws.ui.demoModus && (
                 <div className="absolute top-[270px] left-[590px] z-10">
                   <div className="bg-white/80 rounded-lg p-2 w-[540px] shadow-lg cursor-pointer relative">
                     <p>
@@ -392,42 +220,6 @@ export function PythonPath() {
               </button>
             </div>
             <PythonMiniProjects maxMapY={maxMapY} groups={groupedExamples} />
-            {core.ws.ui.newRobotImage && (
-              <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
-                <p className="mb-2">Neue Figur verfügbar:</p>
-                <img
-                  src={core.ws.ui.newRobotImage}
-                  alt="Karol"
-                  className="border-2 border-gray-200 shadow-lg"
-                />
-                <p className="text-center mt-2">
-                  <button
-                    className="hover:underline mr-3"
-                    onClick={() => {
-                      core.mutateWs((ws) => {
-                        ws.ui.newRobotImage = undefined
-                      })
-                      submitAnalyzeEvent(core, 'ev_click_landing_closeNewKarol')
-                    }}
-                  >
-                    schließen
-                  </button>
-                  <button
-                    className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
-                    onClick={() => {
-                      core.mutateWs((ws) => {
-                        ws.robotImageDataUrl = ws.ui.newRobotImage
-                        ws.ui.newRobotImage = undefined
-                      })
-                      setRobotImage(core.ws.robotImageDataUrl)
-                      submitAnalyzeEvent(core, 'ev_click_landing_saveNewKarol')
-                    }}
-                  >
-                    Laden
-                  </button>
-                </p>
-              </div>
-            )}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox={`0 0 1240 ${mapYAfterMiniProjects + 300}`}
@@ -470,11 +262,7 @@ export function PythonPath() {
                   return (
                     <Fragment key={id}>
                       {data.deps.map((dep) => {
-                        if (
-                          isQuestDone(dep) ||
-                          core.ws.page == 'analyze' ||
-                          core.ws.page == 'demo'
-                        ) {
+                        if (isQuestDone(dep) || core.ws.ui.demoModus) {
                           return (
                             <line
                               key={`connect-${id}-${dep}`}
@@ -539,61 +327,57 @@ export function PythonPath() {
                       top: `${entry[1].y + 20}px`,
                     }}
                   >
-                    <AnimateInView
-                      dontFade={numberOfSolvedQuests > 0 || id != 10001}
+                    <button
+                      className="w-[100px] block hover:bg-white/20 rounded-xl cursor-pointer text-center"
+                      onClick={() => {
+                        submitAnalyzeEvent(
+                          core,
+                          'ev_click_landing_explanation_chapter_' + id,
+                        )
+                        core.mutateWs((ws) => {
+                          ws.overview.explanationId = id
+                        })
+                        showModal(core, 'explanation')
+                      }}
+                      id={`explanation-icon-${id}`}
                     >
-                      <button
-                        className="w-[100px] block hover:bg-white/20 rounded-xl cursor-pointer text-center"
-                        onClick={() => {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_explanation_chapter_' + id,
-                          )
-                          core.mutateWs((ws) => {
-                            ws.overview.explanationId = id
-                          })
-                          showModal(core, 'explanation')
-                        }}
-                        id={`explanation-icon-${id}`}
-                      >
-                        <p className="text-center whitespace-nowrap flex justify-center">
-                          <span className="bg-white/85 px-2 rounded">
-                            {chapterData[id].title}
+                      <p className="text-center whitespace-nowrap flex justify-center">
+                        <span className="bg-white/85 px-2 rounded">
+                          {chapterData[id].title}
+                        </span>
+                        {core.ws.page == 'analyze' && (
+                          <span>
+                            [{core.ws.analyze.chapters[id]?.explanation}]
                           </span>
-                          {core.ws.page == 'analyze' && (
-                            <span>
-                              [{core.ws.analyze.chapters[id]?.explanation}]
-                            </span>
-                          )}
-                        </p>
-                        <div className="w-[80px] h-[60px] relative mx-auto mb-2 isolate">
+                        )}
+                      </p>
+                      <div className="w-[80px] h-[60px] relative mx-auto mb-2 isolate">
+                        <img
+                          src={'/motte.png'}
+                          alt=""
+                          className="w-[80px] inset-0 absolute z-10"
+                        />
+                        <img
+                          src={'/motte_farbe.png'}
+                          alt=""
+                          className="w-[80px] inset-0 absolute z-20 object-cover object-bottom"
+                          style={{
+                            top: `${colorHeight}px`,
+                            height: `${60 - colorHeight}px`,
+                          }}
+                        />
+                        {isPerfect && (
                           <img
-                            src={'/motte.png'}
-                            alt=""
-                            className="w-[80px] inset-0 absolute z-10"
-                          />
-                          <img
-                            src={'/motte_farbe.png'}
-                            alt=""
-                            className="w-[80px] inset-0 absolute z-20 object-cover object-bottom"
-                            style={{
-                              top: `${colorHeight}px`,
-                              height: `${60 - colorHeight}px`,
-                            }}
-                          />
-                          {isPerfect && (
-                            <img
-                              className="absolute bottom-1.5 right-3 w-[22px] z-30 
+                            className="absolute bottom-1.5 right-3 w-[22px] z-30 
                                     [--tw-drop-shadow:drop-shadow(0_0_8px_rgba(255,215,0,0.8))] 
                                     hover:[--tw-drop-shadow:drop-shadow(0_0_12px_rgba(255,215,0,1))]
                                     filter transition-all duration-300"
-                              src="/stern.png"
-                              alt="Perfect Score Star"
-                            />
-                          )}
-                        </div>
-                      </button>
-                    </AnimateInView>
+                            src="/stern.png"
+                            alt="Perfect Score Star"
+                          />
+                        )}
+                      </div>
+                    </button>
                   </div>
                 )
               }
@@ -610,7 +394,7 @@ export function PythonPath() {
                       submitAnalyzeEvent(core, 'ev_click_landing_startKarol')
                     }
                     setQuestReturnToMode(
-                      core.ws.page == 'demo' ? '#DEMO' : 'python',
+                      core.ws.ui.demoModus ? 'python#DEMO' : 'python',
                     )
                     setLearningPathScroll(
                       document.getElementById('scroll-container')?.scrollTop ??
@@ -667,8 +451,7 @@ export function PythonPath() {
       .map(([id]) => parseInt(id))
 
     return (
-      core.ws.page == 'demo' ||
-      core.ws.page == 'analyze' ||
+      core.ws.ui.demoModus ||
       core.ws.overview.showOverviewList ||
       position == 0 ||
       id == 10001 || // Einleitung

@@ -128,7 +128,7 @@ export function PythonMiniProjects({
                             })
                           }
                           setQuestReturnToMode(
-                            core.ws.page == 'demo' ? '#DEMO' : 'python',
+                            core.ws.ui.demoModus ? 'python#DEMO' : 'python',
                           )
                           setLearningPathScroll(
                             document.getElementById('scroll-container')

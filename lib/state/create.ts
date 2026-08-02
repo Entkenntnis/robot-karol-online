@@ -61,6 +61,7 @@ export function createWorkspaceState(): WorkspaceState {
       isChatMode: false,
       notCompletedReason: '',
       miniProjectsOpen: false,
+      demoModus: false,
     },
     vm: {
       pc: 0,

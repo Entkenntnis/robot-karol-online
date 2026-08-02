@@ -16,7 +16,10 @@ export function PythonListing() {
   const core = useCore()
   // load all python examples from questList
   const pythonCategories = questListByCategory
-    .filter((category) => category.title.includes('.'))
+    .filter(
+      (category) =>
+        category.title.includes('.') || category.title.includes('Intro:'),
+    )
     .map((category) => {
       return {
         ...category,
@@ -78,7 +81,9 @@ export function PythonListing() {
                             : 'bg-gray-50 hover:bg-gray-100',
                         )}
                         onClick={() => {
-                          setQuestReturnToMode('python')
+                          setQuestReturnToMode(
+                            core.ws.ui.demoModus ? 'python#DEMO' : 'python',
+                          )
                           const scroll =
                             document.getElementById('scroll-container')
                               ?.scrollTop ?? -1
@@ -92,8 +97,7 @@ export function PythonListing() {
                   </ul>
                 ) : (
                   <p className="text-gray-500 italic">
-                    Dieses Kapitel befindet sich im Aufbau und ist demnächst
-                    verfügbar.
+                    Dieses Kapitel enthält keine Aufgaben.
                   </p>
                 )}
               </div>

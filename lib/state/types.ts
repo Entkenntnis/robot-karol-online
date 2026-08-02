@@ -77,6 +77,7 @@ export interface Ui {
   isChatMode: boolean
   notCompletedReason: string
   miniProjectsOpen: boolean
+  demoModus: boolean
 }
 
 export interface Vm {
