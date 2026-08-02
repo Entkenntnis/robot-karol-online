@@ -138,7 +138,7 @@ export function Tasks() {
                           </select>
                         </div>
                       )}
-                      <div>
+                      <div className="invisible">
                         <label>
                           Auftragstyp:{' '}
                           <select
