@@ -7,8 +7,8 @@ import { Core } from '../state/core'
 import {
   copyLocalToSession,
   copySessionToLocal,
-  setUserName as setUserNameStorage,
-} from '../storage/storage'
+} from '../storage/quest'
+import { setUserName as setUserNameStorage } from '../storage/storage'
 import { showModal } from './modal'
 import { updatePlaygroundHashToMode } from './save'
 

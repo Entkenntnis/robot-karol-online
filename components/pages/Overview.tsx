@@ -29,15 +29,17 @@ import {
   getRobotImage,
   getUserName,
   isPersisted,
-  loadFromJSON,
-  resetStorage,
-  saveToJSON,
   setLearningPathScroll,
   setLngStorage,
   setOverviewScroll,
   setQuestReturnToMode,
   setRobotImage,
 } from '../../lib/storage/storage'
+import {
+  loadFromJSON,
+  resetStorage,
+  saveToJSON,
+} from '../../lib/storage/quest'
 import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
