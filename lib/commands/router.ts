@@ -266,7 +266,7 @@ export async function hydrate(core: Core) {
       ws.page = 'overview'
       ws.overview.showOverviewList = true
     })
-    document.title = core.strings.overview.showAll + ' | Robot Karol Online'
+    document.title = 'Robot Karol Online'
     return
   }
 

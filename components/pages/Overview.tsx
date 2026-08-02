@@ -6,7 +6,6 @@ import {
   faFolderOpen,
   faPaintBrush,
   faPencil,
-  faTable,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -180,29 +179,6 @@ export function Overview() {
                 className="dropdown-content bg-white rounded-lg z-[11] w-56 p-2 shadow [&>li>a]:px-4 [&>li>*]:py-2 [&>li>*]:cursor-pointer hover:[&>li]:bg-gray-200/50 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50  [&_a]:block [&_button]:block [&_button]:w-full [&_button]:text-left [&_button]:pl-4"
               >
                 <li>
-                  <a
-                    href="/#OVERVIEW"
-                    onClick={() => {
-                      ____submitAnalyzeEvent(core, 'ev_click_landing_listOfAll')
-                      //  document.getElementById('scroll-container')!.scrollTop = 0
-                      try {
-                        // @ts-ignore
-                        document.activeElement?.blur()
-                        const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover',
-                        ) as HTMLDivElement
-                        dropdown.classList.remove('dropdown-hover')
-                        setTimeout(() => {
-                          dropdown.classList.add('dropdown-hover')
-                        }, 50)
-                      } catch (e) {}
-                    }}
-                  >
-                    <FaIcon icon={faTable} className="text-gray-600 mr-1" />{' '}
-                    {core.strings.overview.showAll}
-                  </a>
-                </li>
-                <li>
                   <button
                     title={core.strings.overview.saveTooltip}
                     onClick={() => {
@@ -351,24 +327,36 @@ export function Overview() {
               </div>
             </div>
           )}
+          <div className="my-8 flex ml-8 md:ml-0 md:justify-center">
+            <div className="border-2 border-slate-600 rounded-lg flex flex-row text-lg overflow-hidden">
+              <button
+                className={clsx(
+                  'px-6 py-1',
+                  !core.ws.overview.showOverviewList && 'bg-yellow-200',
+                )}
+                onClick={() => {
+                  navigate(core, '')
+                }}
+              >
+                Lernpfad
+              </button>
+              <div className=" border border-slate-600"></div>
+              <button
+                className={clsx(
+                  'px-6 py-1',
+                  core.ws.overview.showOverviewList && 'bg-yellow-200',
+                )}
+                onClick={() => {
+                  navigate(core, '#Overview')
+                }}
+              >
+                freies Üben
+              </button>
+            </div>
+          </div>
           {core.ws.overview.showOverviewList && (
             <>
-              <h1 className="mt-10 text-2xl text-center">
-                Liste aller Aufgaben
-              </h1>
-              <p className="text-center mt-6">
-                <a
-                  href="/#"
-                  onClick={(e) => {
-                    navigate(core, '')
-                    e.preventDefault()
-                  }}
-                  className="link"
-                >
-                  schließen
-                </a>
-              </p>
-              <div className="px-6 mt-6 min-w-[360px] relative bg-white/50">
+              <div className="px-6 mt-6 min-w-[360px] relative bg-white/50 mb-24">
                 {questListByCategory.map(renderQuestCategory)}
               </div>
             </>
@@ -753,14 +741,14 @@ export function Overview() {
                     )
                   })}
                 </div>
-                {core.ws.settings.lng == 'de' && <News />}
-                {core.ws.settings.lng == 'de' && <Discover />}
-
-                <div className="absolute right-[35px] bottom-[15px] z-10 pointer-events-none">
-                  <Reactions />
-                </div>
               </>
             )}
+          {core.ws.settings.lng == 'de' && <News />}
+          {core.ws.settings.lng == 'de' && <Discover />}
+
+          <div className="absolute right-[35px] bottom-[15px] z-10 pointer-events-none">
+            <Reactions />
+          </div>
           <div className="text-center mb-12 mt-24">
             <button
               className="hover:underline mr-6"
