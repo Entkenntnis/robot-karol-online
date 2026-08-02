@@ -138,7 +138,7 @@ export function Tasks() {
                           </select>
                         </div>
                       )}
-                      <div>
+                      <div className="invisible">
                         <label>
                           Auftragstyp:{' '}
                           <select
@@ -698,9 +698,7 @@ export function Tasks() {
                 : core.strings.ide.structogram}
             </button>
           )}
-          {(core.ws.page === 'shared' ||
-            core.ws.page === 'imported' ||
-            core.ws.page === 'quest') &&
+          {(core.ws.page === 'shared' || core.ws.page === 'imported') &&
             !core.ws.ui.isChatMode && (
               <button
                 className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"

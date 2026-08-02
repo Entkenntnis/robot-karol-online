@@ -10,6 +10,10 @@ button {
   background-image: url('/canvas_background.jpg');
 }
 
+.background-element-python {
+  background-image: url('/python-background.jpg');
+}
+
 .rainbow:before {
   content: '';
   background: linear-gradient(

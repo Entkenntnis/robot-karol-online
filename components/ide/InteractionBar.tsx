@@ -54,6 +54,11 @@ export function InteractionBar() {
     core.ws.settings.language == 'python-pro' &&
     core.ws.settings.mode == 'code' &&
     core.worker?.mainWorkerReady
+
+  const isPythonExample = pythonKarolExamples.some(
+    (el) => el.link.substring(1) === core.ws.ui.sharedQuestId,
+  )
+
   return (
     <div
       className={clsx(
@@ -77,9 +82,7 @@ export function InteractionBar() {
         </button>
         {(core.ws.page == 'quest' ||
           core.ws.ui.isPlayground ||
-          pythonKarolExamples.some(
-            (el) => el.link.substring(1) === core.ws.ui.sharedQuestId,
-          ) ||
+          isPythonExample ||
           core.ws.page == 'editor') && (
           <div className="hidden sm:inline-block relative h-[24px] w-[18px] flex-shrink-0">
             <a
@@ -90,7 +93,7 @@ export function InteractionBar() {
               href="#"
               onClick={(e) => {
                 e.preventDefault()
-                if (core.ws.page == 'quest') {
+                if (core.ws.page == 'quest' || isPythonExample) {
                   exitQuest(core)
                 } else if (
                   core.ws.ui.isPlayground ||

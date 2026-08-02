@@ -264,9 +264,9 @@ Scenario('Reset code should not break lock language', ({ I }) => {
 })
 
 Scenario('Ellie, some testing', async ({ I }) => {
-  I.amOnPage('/')
+  I.amOnPage('/python')
   I.dontSee('1. Glücksbringer')
-  I.click('0. Alles ist scheiße')
+  I.click('Intro: Alles ist scheiße')
   I.scrollPageToBottom()
   I.click('Weiter')
   I.click('Fehlersuche')

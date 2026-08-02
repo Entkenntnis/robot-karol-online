@@ -11,11 +11,11 @@ import {
   faEraser,
   faFillDrip,
   faPaintBrush,
-  faStar,
+  // faStar,
   faUndo,
 } from '@fortawesome/free-solid-svg-icons'
 import { submitAnalyzeEvent } from '../../lib/helper/submit'
-import { backend } from '../../backend'
+// import { backend } from '../../backend'
 import { karolDefaultImage, karolOldDefaultImage } from '../../lib/data/images'
 
 export function AppearanceModal() {
@@ -805,7 +805,7 @@ export function AppearanceModal() {
               >
                 Link kopieren
               </button>
-              <button
+              {/*<button
                 className="px-4 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
                 onClick={async () => {
                   submitAnalyzeEvent(core, 'ev_click_appearance_sendToGallery')
@@ -837,7 +837,7 @@ export function AppearanceModal() {
                 }}
               >
                 <FaIcon icon={faStar} className="mr-1" /> Einsenden zur Galerie
-              </button>
+              </button>*/}
             </div>
             <div className="flex-grow flex-shrink flex justify-center items-center bg-gray-800 relative">
               <div className="absolute top-2 left-2 hidden">

@@ -94,12 +94,14 @@ export function SuccessModal() {
               <>🎉{positive.replace('!', '')}</>
             )}
           </h1>
-          <div className="text-sm text-gray-600">
-            Aufgabe gelöst in{' '}
-            {core.ws.vm.functionEvaluation == 1
-              ? 'einem Schritt'
-              : `${core.ws.vm.functionEvaluation} Schritten`}
-          </div>
+          {core.ws.vm.functionEvaluation > 0 && (
+            <div className="text-sm text-gray-600">
+              Aufgabe gelöst in{' '}
+              {core.ws.vm.functionEvaluation == 1
+                ? 'einem Schritt'
+                : `${core.ws.vm.functionEvaluation} Schritten`}
+            </div>
+          )}
           {
             /* (
             <>

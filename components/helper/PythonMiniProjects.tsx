@@ -31,7 +31,7 @@ export function PythonMiniProjects({
       className="absolute left-[200px] z-10"
       style={{ top: `${maxMapY + 100}px` }}
     >
-      <div className="bg-white/20 rounded-lg p-4 shadow-lg w-[880px]">
+      <div className="bg-white/50 rounded-lg p-4 shadow-lg w-[880px]">
         <div className="flex items-center justify-between">
           <button
             type="button"
@@ -128,7 +128,7 @@ export function PythonMiniProjects({
                             })
                           }
                           setQuestReturnToMode(
-                            core.ws.page == 'demo' ? 'demo' : 'path',
+                            core.ws.ui.demoModus ? 'python#DEMO' : 'python',
                           )
                           setLearningPathScroll(
                             document.getElementById('scroll-container')

@@ -18,7 +18,7 @@ import { levels } from '../../lib/data/karolmaniaLevels'
 import { HFullStyles } from '../helper/HFullStyles'
 import { navigate } from '../../lib/commands/router'
 import {
-  getQuestReturnToMode,
+  getQuestReturnToPath,
   setKarolmaniaCarouselIndex,
   getKarolmaniaMusicEnabled,
   setKarolmaniaMusicEnabled,
@@ -321,14 +321,7 @@ export function Karolmania() {
         {/* Back button */}
         <button
           onClick={() => {
-            navigate(
-              core,
-              getQuestReturnToMode() == 'path'
-                ? ''
-                : getQuestReturnToMode() == 'demo'
-                  ? '#DEMO'
-                  : '#OVERVIEW',
-            )
+            navigate(core, getQuestReturnToPath(''))
           }}
           className="absolute top-4 left-4 bg-white/30 hover:bg-white/50 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-lg z-10 transition-all hover:scale-105"
           aria-label="Zurück zur Startseite"

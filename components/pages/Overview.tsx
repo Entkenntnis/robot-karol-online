@@ -4,15 +4,12 @@ import {
   faExternalLink,
   faFloppyDisk,
   faFolderOpen,
-  faGlobe,
-  faMedal,
   faPaintBrush,
   faPencil,
   faTable,
-  faUserCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { Fragment, useEffect, useMemo } from 'react'
+import { Fragment, useEffect } from 'react'
 
 import {
   forceRerender,
@@ -32,15 +29,17 @@ import {
   getRobotImage,
   getUserName,
   isPersisted,
-  loadFromJSON,
-  resetStorage,
-  saveToJSON,
   setLearningPathScroll,
   setLngStorage,
   setOverviewScroll,
   setQuestReturnToMode,
   setRobotImage,
 } from '../../lib/storage/storage'
+import {
+  loadFromJSON,
+  resetStorage,
+  saveToJSON,
+} from '../../lib/storage/quest'
 import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
@@ -49,14 +48,11 @@ import { AnalyzeResults } from '../helper/AnalyzeResults'
 import { submitAnalyzeEvent } from '../../lib/helper/submit'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
-import { twoWorldsEqual } from '../../lib/commands/world'
-import { chapterData } from '../../lib/data/chapters'
-import { pythonKarolExamples } from '../../lib/data/pythonExamples'
 import { Reactions } from '../helper/Reactions'
 import { SpinningRobot } from '../helper/SpinningRobot'
 import { PersistNotice } from '../helper/PersistNotice'
-import { PythonMiniProjects } from '../helper/PythonMiniProjects'
-import type { PythonProjectGroup } from '../../lib/state/types'
+import { Discover } from '../helper/Discover'
+import { News } from '../helper/News'
 
 export function Overview() {
   const core = useCore()
@@ -72,29 +68,6 @@ export function Overview() {
   const numberOfSolvedQuestsRKO = Object.keys(mapData).filter(
     (id) => parseInt(id) < 100 && isQuestDone(parseInt(id)),
   ).length
-
-  const numberOfSolvedQuestsPython = Object.keys(mapData).filter(
-    (id) =>
-      parseInt(id) >= 100 && parseInt(id) < 10000 && isQuestDone(parseInt(id)),
-  ).length
-
-  const maxMapY =
-    Math.max(
-      ...Object.entries(mapData)
-        .filter(([id]) => isQuestVisible(parseInt(id)))
-        .map(([, quest]) => quest.y),
-    ) +
-    (core.ws.page == 'demo' || core.ws.page == 'analyze'
-      ? 250
-      : !isQuestDone(10001)
-        ? 1000
-        : isQuestDone(10010)
-          ? 250
-          : 1000)
-  // todo: if all quests are unlocked, I can reduce the spacing a bit, but I'm not at that point yet
-
-  const mapYAfterMiniProjects =
-    maxMapY + (core.ws.ui.miniProjectsOpen ? 880 : 200)
 
   useEffect(() => {
     if (
@@ -118,30 +91,6 @@ export function Overview() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const groupedExamples = useMemo(() => {
-    const groups: PythonProjectGroup[] = []
-    let currentGroup: PythonProjectGroup | null = null
-
-    pythonKarolExamples
-      .filter((e) => !e.hidden)
-      .forEach((example) => {
-        // A "spacer" item marks the beginning of a new category
-        if (example.link === 'spacer') {
-          currentGroup = {
-            title: example.title,
-            color: example.color,
-            highlightColor: example.highlightColor,
-            tasks: [],
-          }
-          groups.push(currentGroup)
-        } else if (currentGroup) {
-          // Add the task to the currently active group
-          currentGroup.tasks.push(example)
-        }
-      })
-    return groups
-  }, [pythonKarolExamples]) // Re-calculates only if data changes
-
   return (
     <>
       <div
@@ -163,7 +112,7 @@ export function Overview() {
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
           </div>
-          <div className="absolute top-2 right-24 hidden">
+          {/*<div className="absolute top-2 right-24">
             <label>
               <span className="hidden">Sprache</span>
               <FaIcon icon={faGlobe} />
@@ -187,26 +136,8 @@ export function Overview() {
                 <option value="en">English</option>
               </select>
             </label>
-          </div>
-          {/*<div className="fixed top-1.5 right-24 z-[1000]">
-            <button
-              className={clsx('hover:bg-gray-100/60 rounded-xl px-2 py-0.5')}
-              onClick={() => {
-                // open feedback form in new tab
-                submitAnalyzeEvent(core, 'ev_click_landing_login')
-                alert(
-                  'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.',
-                )
-              }}
-            >
-              <FaIcon
-                icon={faUserCircle}
-                className="text-2xl text-gray-400 inline-block mr-2 pt-2"
-              />
-              (Login)
-            </button>
           </div>*/}
-          <div className="fixed top-2 right-2 z-[1000]">
+          <div className="absolute top-2 right-2 z-[1000]">
             <button
               className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
               onClick={() => {
@@ -317,36 +248,6 @@ export function Overview() {
                       className="text-yellow-500 mr-1"
                     />{' '}
                     {core.strings.overview.load}
-                  </button>
-                </li>{' '}
-                <li>
-                  <button
-                    onClick={() => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_promotePython')
-                      try {
-                        document
-                          .getElementById('python-listing-button')
-                          ?.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center',
-                          })
-                        // @ts-ignore
-                        document.activeElement?.blur()
-                        const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover',
-                        ) as HTMLDivElement
-                        dropdown.classList.remove('dropdown-hover')
-                        setTimeout(() => {
-                          dropdown.classList.add('dropdown-hover')
-                        }, 50)
-                      } catch (e) {}
-                    }}
-                  >
-                    <img
-                      src={'/python-logo-only.png'}
-                      className="w-4 inline-block mr-1"
-                    />{' '}
-                    Python-Lernpfad
                   </button>
                 </li>
                 <li>
@@ -475,718 +376,378 @@ export function Overview() {
           )}
           {!core.ws.overview.showOverviewList &&
             !core.ws.overview.showProfile && (
-              <div
-                className="w-[1240px] mx-auto relative mt-5"
-                style={{
-                  height: `${mapYAfterMiniProjects + 300}px`,
-                }}
-              >
-                <img
-                  src="/klecks1.png"
-                  className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
-                  alt="Farbklecks 1"
-                />
-                <img
-                  src="/klecks2.png"
-                  className="w-[170px] top-[500px] left-[900px] absolute user-select-none"
-                  alt="Farbklecks 2"
-                />
-                <img
-                  src="/klecks3.png"
-                  className="w-[150px] top-[1100px] left-[300px] absolute user-select-none"
-                  alt="Farbklecks 3"
-                />
-                {core.ws.settings.lng === 'de' &&
-                  numberOfSolvedQuestsRKO == 0 &&
-                  core.ws.page !== 'demo' &&
-                  core.ws.page !== 'analyze' && (
-                    <div className="absolute top-[160px] left-[270px] z-10">
-                      <AnimateInView>
-                        <div className="relative">
-                          <div
-                            className="bg-yellow-100/80 rounded-lg p-3 shadow-lg transform rotate-6 border-2 border-yellow-300 cursor-pointer"
-                            onClick={() => {
-                              submitAnalyzeEvent(
-                                core,
-                                'ev_click_landing_tourStart',
-                              )
-                              setQuestReturnToMode(
-                                core.ws.page == 'demo' ? 'demo' : 'path',
-                              )
-                              setLearningPathScroll(
-                                document.getElementById('scroll-container')
-                                  ?.scrollTop ?? -1,
-                              )
-                              navigate(core, '#QUEST-1')
-                            }}
-                          >
-                            <p className="text-lg">
-                              Willkommen 👋 entdecke hier
-                              <br />
-                              die Welt der Algorithmen!
-                            </p>
+              <>
+                <div className="w-[1240px] h-[1600px] mx-auto relative mt-5">
+                  <img
+                    src="/klecks1.png"
+                    className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
+                    alt="Farbklecks 1"
+                  />
+                  <img
+                    src="/klecks2.png"
+                    className="w-[170px] top-[500px] left-[900px] absolute user-select-none"
+                    alt="Farbklecks 2"
+                  />
+                  <img
+                    src="/klecks3.png"
+                    className="w-[150px] top-[1100px] left-[300px] absolute user-select-none"
+                    alt="Farbklecks 3"
+                  />
+                  {core.ws.settings.lng === 'de' &&
+                    numberOfSolvedQuestsRKO == 0 &&
+                    core.ws.page !== 'demo' &&
+                    core.ws.page !== 'analyze' && (
+                      <div className="absolute top-[160px] left-[270px] z-10">
+                        <AnimateInView>
+                          <div className="relative">
+                            <div
+                              className="bg-yellow-100/80 rounded-lg p-3 shadow-lg transform rotate-6 border-2 border-yellow-300 cursor-pointer"
+                              onClick={() => {
+                                submitAnalyzeEvent(
+                                  core,
+                                  'ev_click_landing_tourStart',
+                                )
+                                setQuestReturnToMode(
+                                  core.ws.page == 'demo' ? '#DEMO' : '',
+                                )
+                                setLearningPathScroll(
+                                  document.getElementById('scroll-container')
+                                    ?.scrollTop ?? -1,
+                                )
+                                navigate(core, '#QUEST-1')
+                              }}
+                            >
+                              <p className="text-lg">
+                                Willkommen 👋 entdecke hier
+                                <br />
+                                die Welt der Algorithmen!
+                              </p>
+                            </div>
+                            <svg
+                              className="absolute -left-24 -top-10"
+                              width="120"
+                              height="130"
+                              viewBox="0 0 120 130"
+                            >
+                              <path
+                                d="M 20,10 C 40,40 90,0 100,20"
+                                fill="none"
+                                stroke="#eab308"
+                                strokeWidth="6"
+                                strokeLinecap="round"
+                                className="animate-pulse"
+                              />
+                              <polygon points="15,22 30,5 7,0" fill="#eab308" />
+                            </svg>
                           </div>
-                          <svg
-                            className="absolute -left-24 -top-10"
-                            width="120"
-                            height="130"
-                            viewBox="0 0 120 130"
-                          >
-                            <path
-                              d="M 20,10 C 40,40 90,0 100,20"
-                              fill="none"
-                              stroke="#eab308"
-                              strokeWidth="6"
-                              strokeLinecap="round"
-                              className="animate-pulse"
-                            />
-                            <polygon points="15,22 30,5 7,0" fill="#eab308" />
-                          </svg>
-                        </div>
-                      </AnimateInView>
-                    </div>
-                  )}
-                <div className="absolute top-[200px] left-[1010px] z-10">
-                  <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
-                    <button
-                      className={clsx(
-                        'hover:bg-gray-100/60 rounded-xl',
-                        'w-[100px] cursor-pointer',
-                      )}
-                      onClick={() => {
-                        // open feedback form in new tab
-                        submitAnalyzeEvent(core, 'ev_click_landing_appearance')
-                        showModal(core, 'appearance')
-                      }}
-                    >
-                      <p className="text-center">
-                        Figur
-                        <br />
-                        zeichnen
-                      </p>
-                      <FaIcon
-                        icon={faPaintBrush}
-                        className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
-                      />
-                    </button>
-                  </AnimateInView>
-                </div>
-                <div className="absolute top-[300px] left-[1020px] z-10 hidden">
-                  <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
-                    <button
-                      className={clsx(
-                        'hover:bg-gray-100/60 rounded-xl',
-                        'w-[80px] cursor-pointer text-gray-700',
-                      )}
-                      onClick={() => {
-                        // open feedback form in new tab
-                        submitAnalyzeEvent(core, 'ev_click_landing_login')
-                        alert(
-                          'Danke für dein Interesse! Bei ausreichender Nachfrage wird es demnächst eine Login-Funktion geben. Bis dahin kannst du Robot Karol Online ohne Login nutzen.',
-                        )
-                      }}
-                    >
-                      <p className="text-center">(Login)</p>
-                      <FaIcon
-                        icon={faUserCircle}
-                        className="text-3xl text-gray-400 inline-block mt-2 pb-2"
-                      />
-                    </button>
-                  </AnimateInView>
-                </div>
-                <div className="absolute left-[35px] top-[530px] z-10 pointer-events-none">
-                  <Reactions />
-                </div>
-                {
-                  <a
-                    href={'/#DANCE'}
-                    className="absolute top-[743px] left-[350px] w-[110px] block z-10 hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
-                    onClick={(e) => {
-                      submitAnalyzeEvent(core, 'ev_click_landing_dancedance')
-                      setQuestReturnToMode(
-                        core.ws.page == 'demo' ? 'demo' : 'path',
-                      )
-                      setLearningPathScroll(
-                        document.getElementById('scroll-container')
-                          ?.scrollTop ?? -1,
-                      )
-                      navigate(core, '#DANCE')
-                      e.preventDefault()
-                    }}
-                  >
-                    <p className="text-center">Dance, Dance</p>
-                    <img
-                      src="/dance.png"
-                      alt=""
-                      className="w-[40px] mx-auto mt-2"
-                    />
-                  </a>
-                }
-                <div className="absolute left-[4px] top-[750px] z-10">
-                  <ul
-                    tabIndex={0}
-                    className="bg-white/20 rounded-lg w-60 p-2 mt-1 [&>li]:px-4 [&>li]:py-2 [&>li]:cursor-pointer hover:[&>li]:bg-gray-300/20 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50 [&_a]:block"
-                  >
-                    <li className="!pb-0">
-                      <a
-                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
-                        onClick={() => {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_robotGallery',
-                          )
-                          setTimeout(() => {
-                            window.open(
-                              'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
-                              '_self',
-                            )
-                          }, 50)
-                        }}
-                      >
-                        <SpinningRobot /> Figuren-Galerie
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/#INSPIRATION"
-                        onClick={() => {
-                          submitAnalyzeEvent(core, 'ev_click_landing_gallery')
-                          setLearningPathScroll(
-                            document.getElementById('scroll-container')
-                              ?.scrollTop ?? -1,
-                          )
-                        }}
-                      >
-                        💫 Aufgaben-Galerie
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/#KAROLMANIA"
-                        onClick={() => {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_karolmania',
-                          )
-                          setLearningPathScroll(
-                            document.getElementById('scroll-container')
-                              ?.scrollTop ?? -1,
-                          )
-                        }}
-                      >
-                        <FaIcon icon={faMedal} className="mr-2 text-teal-600" />
-                        Karolmania
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        target="_blank"
-                        href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/MATERIAL-LEHRKRAEFTE.md"
-                        onClick={() => {
-                          // open feedback form in new tab
-                          submitAnalyzeEvent(core, 'ev_click_landing_material')
-                        }}
-                      >
-                        Material für Lehrkräfte{' '}
-                        <FaIcon
-                          icon={faExternalLink}
-                          className="text-gray-600 text-xs"
-                        />
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        target="_blank"
-                        href="https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8"
-                        onClick={() => {
-                          // open feedback form in new tab
-                          submitAnalyzeEvent(core, 'ev_click_landing_video')
-                        }}
-                      >
-                        Video-Erklärungen{' '}
-                        <FaIcon
-                          icon={faExternalLink}
-                          className="text-gray-600 text-xs"
-                        />
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        target="_blank"
-                        href="https://github.com/Entkenntnis/robot-karol-online#readme"
-                        onClick={() => {
-                          // open feedback form in new tab
-                          submitAnalyzeEvent(core, 'ev_click_landing_docs')
-                        }}
-                      >
-                        {core.strings.overview.docs}{' '}
-                        <FaIcon
-                          icon={faExternalLink}
-                          className="text-gray-600 text-xs"
-                        />
-                      </a>
-                    </li>
-                    {core.ws.settings.lng == 'de' ? (
-                      <li
-                        onClick={() => {
-                          setLng(core, 'en')
-                          setLngStorage('en')
-                          submitAnalyzeEvent(core, 'ev_click_landing_english')
-                          // scroll to top
-                          document.getElementById(
-                            'scroll-container',
-                          )!.scrollTop = 0
-                        }}
-                      >
-                        <button>Switch to English Version</button>
-                      </li>
-                    ) : (
-                      <li
-                        onClick={() => {
-                          setLng(core, 'de')
-                          setLngStorage('de')
-                          submitAnalyzeEvent(core, 'ev_click_landing_german')
-                          // scroll to top
-                          document.getElementById(
-                            'scroll-container',
-                          )!.scrollTop = 0
-                        }}
-                      >
-                        <button>Zur deutsche Version</button>
-                      </li>
+                        </AnimateInView>
+                      </div>
                     )}
-                  </ul>
-                </div>
-                {core.ws.settings.lng === 'de' &&
-                  !isQuestDone(10001) &&
-                  numberOfSolvedQuestsPython == 0 &&
-                  core.ws.page !== 'demo' &&
-                  core.ws.page !== 'analyze' && (
-                    <div className="absolute top-[1670px] left-[690px] z-10">
-                      <AnimateInView dontFade={numberOfSolvedQuestsPython > 0}>
-                        <div
-                          className="bg-white/50 rounded-lg p-2 w-[410px] shadow-lg rainbow ranbow-always cursor-pointer relative"
-                          onClick={() => {
-                            submitAnalyzeEvent(
-                              core,
-                              'ev_click_landing_pythonIntro',
-                            )
-                            core.mutateWs((ws) => {
-                              ws.overview.explanationId = 10001
-                            })
-                            showModal(core, 'explanation')
-                          }}
-                        >
-                          <p>
-                            In den ruhigen Jahren in Jackson beschließt Ellie,
-                            sich das Programmieren beizubringen. Keine einfache
-                            Sache! Zum Glück stehen ihr Joel und das Dorf immer
-                            treu zur Seite. Begleite Ellie, wie sie die
-                            Grundlagen von Python lernt, von Ein-/Ausgabe über
-                            Variablen und Schleifen bis hin zu ihrem großen
-                            Projekt.
-                          </p>
-                        </div>
-                      </AnimateInView>
-                    </div>
-                  )}
-                <div className="absolute top-[1730px] left-[90px] z-10">
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <button
-                      id="python-listing-button"
-                      className="px-2 py-0.5 bg-white/30 rounded hover:bg-white/50"
-                      onClick={() => {
-                        submitAnalyzeEvent(
-                          core,
-                          'ev_click_landing_pythonListing',
-                        )
-                        showModal(core, 'python-listing')
-                      }}
-                    >
-                      Übersicht Python-Lernpfad
-                    </button>
-                  </AnimateInView>
-                </div>
-                <PythonMiniProjects
-                  maxMapY={maxMapY}
-                  groups={groupedExamples}
-                />
-                <div
-                  className="absolute left-[301px] z-10"
-                  style={{ top: `${mapYAfterMiniProjects + 140}px` }}
-                >
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <h2 className="text-lg bg-white/20 pl-2 pr-4 py-0.5 rounded-lg">
-                      Entdecke auch:
-                    </h2>
-                  </AnimateInView>
-                </div>
-                <div
-                  className="absolute left-[598px] z-10 hidden"
-                  style={{ top: `${mapYAfterMiniProjects + 190}px` }}
-                >
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <a
-                      href={`/#BLUEJ-PLAYGROUND`}
-                      className="w-[100px] block hover:bg-gray-100/60 rounded-xl cursor-pointer text-center"
-                      onClick={(e) => {
-                        submitAnalyzeEvent(
-                          core,
-                          'ev_click_landing_blueJPlayground',
-                        )
-                        setLearningPathScroll(
-                          document.getElementById('scroll-container')
-                            ?.scrollTop ?? -1,
-                        )
-                        navigate(core, '#BLUEJ-PLAYGROUND')
-                        e.preventDefault()
-                      }}
-                    >
-                      <p className="text-center">
-                        BlueJ-
-                        <br />
-                        Spielwiese
-                      </p>
-                      <img
-                        src="/bluej.png"
-                        alt=""
-                        className="w-[50px] mx-auto inline-block mt-2"
-                      />
-                    </a>
-                  </AnimateInView>
-                </div>
-                {core.ws.ui.newRobotImage && (
-                  <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
-                    <p className="mb-2">Neue Figur verfügbar:</p>
-                    <img
-                      src={core.ws.ui.newRobotImage}
-                      alt="Karol"
-                      className="border-2 border-gray-200 shadow-lg"
-                    />
-                    <p className="text-center mt-2">
+                  <div className="absolute top-[200px] left-[1010px] z-10">
+                    <AnimateInView dontFade={numberOfSolvedQuestsRKO > 0}>
                       <button
-                        className="hover:underline mr-3"
+                        className={clsx(
+                          'hover:bg-gray-100/60 rounded-xl',
+                          'w-[100px] cursor-pointer',
+                        )}
                         onClick={() => {
-                          core.mutateWs((ws) => {
-                            ws.ui.newRobotImage = undefined
-                          })
+                          // open feedback form in new tab
                           submitAnalyzeEvent(
                             core,
-                            'ev_click_landing_closeNewKarol',
+                            'ev_click_landing_appearance',
                           )
+                          showModal(core, 'appearance')
                         }}
                       >
-                        schließen
-                      </button>
-                      <button
-                        className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
-                        onClick={() => {
-                          core.mutateWs((ws) => {
-                            ws.robotImageDataUrl = ws.ui.newRobotImage
-                            ws.ui.newRobotImage = undefined
-                          })
-                          setRobotImage(core.ws.robotImageDataUrl)
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_saveNewKarol',
-                          )
-                        }}
-                      >
-                        Laden
-                      </button>
-                    </p>
-                  </div>
-                )}
-                {core.ws.settings.lng == 'de' && (
-                  <div
-                    className="absolute left-[660px] z-10"
-                    style={{ top: `${mapYAfterMiniProjects + 200}px` }}
-                  >
-                    <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                      <button
-                        className="w-[120px] hover:bg-gray-100/60 rounded-xl"
-                        onClick={() => {
-                          submitAnalyzeEvent(core, 'ev_click_landing_einhorn')
-                          window.open('https://einhorn.arrrg.de', '_blank')
-                        }}
-                      >
-                        <p className="text-center mb-2">
-                          Einhorn der Mathematik
+                        <p className="text-center">
+                          Figur
+                          <br />
+                          zeichnen
                         </p>
-                        <img
-                          src="/einhorn.png"
-                          alt="Einhorn"
-                          className="w-[50px] mx-auto"
+                        <FaIcon
+                          icon={faPaintBrush}
+                          className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
                         />
                       </button>
                     </AnimateInView>
                   </div>
-                )}
-                <div
-                  className="absolute left-[400px] z-10"
-                  style={{ top: `${mapYAfterMiniProjects + 230}px` }}
-                >
-                  <AnimateInView dontFade={numberOfSolvedQuests > 0}>
-                    <button
-                      className=" w-[120px] block hover:bg-gray-100/60 rounded-xl"
-                      onClick={() => {
-                        submitAnalyzeEvent(core, 'ev_click_landing_hacktheweb')
-                        window.open(
-                          'https://hack.arrrg.de/' +
-                            (core.ws.settings.lng === 'en' ? 'en' : ''),
-                          '_blank',
-                        )
-                      }}
+                  <div className="absolute left-[4px] top-[750px] z-10">
+                    <ul
+                      tabIndex={0}
+                      className="bg-white/20 rounded-lg w-60 p-2 mt-1 [&>li]:px-4 [&>li]:py-2 [&>li]:cursor-pointer hover:[&>li]:bg-gray-300/20 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50 [&_a]:block"
                     >
-                      <p className="text-center mb-2">Hack The Web</p>
-                      <img
-                        src="/htw.png"
-                        alt="H"
-                        className="w-[32px] mx-auto mb-2"
-                      />
-                    </button>
-                  </AnimateInView>
-                </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox={`0 0 1240 ${mapYAfterMiniProjects + 300}`}
-                  className="relative"
-                >
-                  <defs>
-                    <linearGradient
-                      id="pythonGradient"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="0%"
-                    >
-                      <stop offset="0%" stopColor="rgb(53, 114, 165)" />
-                      <stop offset="25%" stopColor="rgb(100, 105, 160)" />
-                      <stop offset="50%" stopColor="rgb(150, 140, 135)" />
-                      <stop offset="75%" stopColor="rgb(210, 175, 104)" />
-                      <stop offset="100%" stopColor="rgb(255, 213, 79)" />
-                    </linearGradient>
-
-                    <filter id="organicTexture">
-                      <feTurbulence
-                        type="fractalNoise"
-                        baseFrequency="0.05"
-                        numOctaves="3"
-                        result="noise"
-                      />
-                      <feDisplacementMap
-                        in="SourceGraphic"
-                        in2="noise"
-                        scale="8"
-                        xChannelSelector="R"
-                        yChannelSelector="G"
-                      />
-                    </filter>
-                    <filter id="organicTexture2">
-                      <feTurbulence
-                        type="fractalNoise"
-                        baseFrequency="0.05"
-                        numOctaves="3"
-                        result="noise"
-                      />
-                      <feDisplacementMap
-                        in="SourceGraphic"
-                        in2="noise"
-                        scale="2"
-                        xChannelSelector="R"
-                        yChannelSelector="G"
-                      />
-                    </filter>
-                  </defs>
-                  {Object.entries(mapData).map(([id, data]) => {
-                    if (isQuestVisible(parseInt(id))) {
-                      return (
-                        <Fragment key={id}>
-                          {data.deps.map((dep) => {
-                            if (
-                              isQuestDone(dep) ||
-                              core.ws.page == 'analyze' ||
-                              core.ws.page == 'demo'
-                            ) {
-                              return (
-                                <line
-                                  key={`connect-${id}-${dep}`}
-                                  x1={data.x + 26}
-                                  y1={data.y + 76}
-                                  x2={mapData[dep].x + 26}
-                                  y2={mapData[dep].y + 76}
-                                  strokeWidth="10"
-                                  filter="url(#organicTexture2)"
-                                  stroke="rgba(148, 163, 184, 0.8)"
-                                />
+                      <li className="!pb-0">
+                        <a
+                          href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
+                          onClick={() => {
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_robotGallery',
+                            )
+                            setTimeout(() => {
+                              window.open(
+                                'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
+                                '_self',
                               )
-                            } else {
-                              return null
-                            }
-                          })}
-                        </Fragment>
-                      )
-                    }
-                    return null
-                  })}
-
-                  <path
-                    d="M 100 1700 C 393 1711 588 1648 726 1547 S 942 1374 1150 1400"
-                    stroke="url(#pythonGradient)"
-                    strokeWidth="6"
-                    fill="none"
-                    filter="url(#organicTexture)"
-                    strokeLinecap="round"
-                    strokeDasharray="20 28"
-                    style={{ transition: 'all 0.3s ease' }}
-                  />
-                </svg>{' '}
-                {Object.entries(mapData).map((entry) => {
-                  const id = parseInt(entry[0])
-                  if (!isQuestVisible(id)) return null
-                  if (id >= 10000) {
-                    // chapter marker
-                    // lower bound 48 = 0%, 14 = 100%
-                    let colorHeight = isQuestDone(id) ? 14 : 48
-                    let isPerfect = false
-                    // check if this chapter is the latest one, e.g. the next id is not done
-                    const isLatestChapter = !isQuestDone(id + 1)
-                    const idsInThisChapter = Object.entries(mapData)
-                      .filter(([, data]) => data.chapter === id)
-                      .map(([i]) => parseInt(i))
-                    const doneCount =
-                      idsInThisChapter.filter(isQuestDone).length
-
-                    isPerfect =
-                      doneCount == idsInThisChapter.length &&
-                      doneCount > chapterData[id].requiredCount &&
-                      doneCount > 0
-                    if (isLatestChapter && isQuestDone(id)) {
-                      const percentage =
-                        100 *
-                        ((doneCount + 1) / (chapterData[id].requiredCount + 1))
-
-                      colorHeight = Math.max(
-                        14,
-                        Math.min(
-                          48,
-                          Math.round(
-                            ((100 - percentage) / 100) * (48 - 14) + 14,
-                          ),
-                        ),
-                      )
-                    }
-
-                    return (
-                      <div
-                        className="absolute z-10"
-                        key={id}
-                        style={{
-                          left: `${entry[1].x - 22}px`,
-                          top: `${entry[1].y + 20}px`,
-                        }}
-                      >
-                        <AnimateInView
-                          dontFade={numberOfSolvedQuests > 0 || id != 10001}
+                            }, 50)
+                          }}
                         >
-                          <button
-                            className="w-[100px] block hover:bg-white/20 rounded-xl cursor-pointer text-center"
-                            onClick={() => {
-                              submitAnalyzeEvent(
-                                core,
-                                'ev_click_landing_explanation_chapter_' + id,
-                              )
-                              core.mutateWs((ws) => {
-                                ws.overview.explanationId = id
-                              })
-                              showModal(core, 'explanation')
-                            }}
-                            id={`explanation-icon-${id}`}
-                          >
-                            <p className="text-center whitespace-nowrap flex justify-center">
-                              <span className="bg-white/85 px-2 rounded">
-                                {chapterData[id].title}
-                              </span>
-                              {core.ws.page == 'analyze' && (
-                                <span>
-                                  [{core.ws.analyze.chapters[id]?.explanation}]
-                                </span>
-                              )}
-                            </p>
-                            <div className="w-[80px] h-[60px] relative mx-auto mb-2 isolate">
-                              <img
-                                src={'/motte.png'}
-                                alt=""
-                                className="w-[80px] inset-0 absolute z-10"
-                              />
-                              <img
-                                src={'/motte_farbe.png'}
-                                alt=""
-                                className="w-[80px] inset-0 absolute z-20 object-cover object-bottom"
-                                style={{
-                                  top: `${colorHeight}px`,
-                                  height: `${60 - colorHeight}px`,
-                                }}
-                              />
-                              {isPerfect && (
-                                <img
-                                  className="absolute bottom-1.5 right-3 w-[22px] z-30 
-                                    [--tw-drop-shadow:drop-shadow(0_0_8px_rgba(255,215,0,0.8))] 
-                                    hover:[--tw-drop-shadow:drop-shadow(0_0_12px_rgba(255,215,0,1))]
-                                    filter transition-all duration-300"
-                                  src="/stern.png"
-                                  alt="Perfect Score Star"
-                                />
-                              )}
-                            </div>
-                          </button>
-                        </AnimateInView>
-                      </div>
-                    )
-                  }
-                  return (
-                    <QuestIcon
-                      x={entry[1].x}
-                      y={entry[1].y}
-                      title={questData[parseInt(entry[0])].title}
-                      solved={
-                        isQuestDone(parseInt(entry[0])) &&
-                        core.ws.page != 'demo'
-                      }
-                      onClick={() => {
-                        if (parseInt(entry[0]) == 1) {
-                          submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_startKarol',
-                          )
-                        }
-                        setQuestReturnToMode(
-                          core.ws.page == 'demo' ? 'demo' : 'path',
-                        )
-                        setLearningPathScroll(
-                          document.getElementById('scroll-container')
-                            ?.scrollTop ?? -1,
-                        )
-                        navigate(core, '#QUEST-' + entry[0])
-                      }}
-                      key={entry[0]}
-                      dir={entry[1].dir}
-                      id={parseInt(entry[0])}
-                      python={
-                        questData[parseInt(entry[0])].script && entry[0] != '60'
-                      }
-                      dontFade
-                    />
-                  )
-                })}
-              </div>
-            )}
-          <div className="flex-auto"></div>
+                          <SpinningRobot /> Figuren-Galerie
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/#INSPIRATION"
+                          onClick={() => {
+                            submitAnalyzeEvent(core, 'ev_click_landing_gallery')
+                            setLearningPathScroll(
+                              document.getElementById('scroll-container')
+                                ?.scrollTop ?? -1,
+                            )
+                          }}
+                        >
+                          💫 Aufgaben-Galerie
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          target="_blank"
+                          href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/MATERIAL-LEHRKRAEFTE.md"
+                          onClick={() => {
+                            // open feedback form in new tab
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_material',
+                            )
+                          }}
+                        >
+                          Material für Lehrkräfte{' '}
+                          <FaIcon
+                            icon={faExternalLink}
+                            className="text-gray-600 text-xs"
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          target="_blank"
+                          href="https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8"
+                          onClick={() => {
+                            // open feedback form in new tab
+                            submitAnalyzeEvent(core, 'ev_click_landing_video')
+                          }}
+                        >
+                          Video-Erklärungen{' '}
+                          <FaIcon
+                            icon={faExternalLink}
+                            className="text-gray-600 text-xs"
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          target="_blank"
+                          href="https://github.com/Entkenntnis/robot-karol-online#readme"
+                          onClick={() => {
+                            // open feedback form in new tab
+                            submitAnalyzeEvent(core, 'ev_click_landing_docs')
+                          }}
+                        >
+                          {core.strings.overview.docs}{' '}
+                          <FaIcon
+                            icon={faExternalLink}
+                            className="text-gray-600 text-xs"
+                          />
+                        </a>
+                      </li>
+                      {core.ws.settings.lng == 'de' ? (
+                        <li
+                          onClick={() => {
+                            setLng(core, 'en')
+                            setLngStorage('en')
+                            submitAnalyzeEvent(core, 'ev_click_landing_english')
+                            // scroll to top
+                            document.getElementById(
+                              'scroll-container',
+                            )!.scrollTop = 0
+                          }}
+                        >
+                          <button>Switch to English Version</button>
+                        </li>
+                      ) : (
+                        <li
+                          onClick={() => {
+                            setLng(core, 'de')
+                            setLngStorage('de')
+                            submitAnalyzeEvent(core, 'ev_click_landing_german')
+                            // scroll to top
+                            document.getElementById(
+                              'scroll-container',
+                            )!.scrollTop = 0
+                          }}
+                        >
+                          <button>Zur deutsche Version</button>
+                        </li>
+                      )}
+                    </ul>
+                  </div>
 
+                  {core.ws.ui.newRobotImage && (
+                    <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
+                      <p className="mb-2">Neue Figur verfügbar:</p>
+                      <img
+                        src={core.ws.ui.newRobotImage}
+                        alt="Karol"
+                        className="border-2 border-gray-200 shadow-lg"
+                      />
+                      <p className="text-center mt-2">
+                        <button
+                          className="hover:underline mr-3"
+                          onClick={() => {
+                            core.mutateWs((ws) => {
+                              ws.ui.newRobotImage = undefined
+                            })
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_closeNewKarol',
+                            )
+                          }}
+                        >
+                          schließen
+                        </button>
+                        <button
+                          className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
+                          onClick={() => {
+                            core.mutateWs((ws) => {
+                              ws.robotImageDataUrl = ws.ui.newRobotImage
+                              ws.ui.newRobotImage = undefined
+                            })
+                            setRobotImage(core.ws.robotImageDataUrl)
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_saveNewKarol',
+                            )
+                          }}
+                        >
+                          Laden
+                        </button>
+                      </p>
+                    </div>
+                  )}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox={`0 0 1240 1600`}
+                    className="relative"
+                  >
+                    <defs>
+                      <filter id="organicTexture">
+                        <feTurbulence
+                          type="fractalNoise"
+                          baseFrequency="0.05"
+                          numOctaves="3"
+                          result="noise"
+                        />
+                        <feDisplacementMap
+                          in="SourceGraphic"
+                          in2="noise"
+                          scale="8"
+                          xChannelSelector="R"
+                          yChannelSelector="G"
+                        />
+                      </filter>
+                      <filter id="organicTexture2">
+                        <feTurbulence
+                          type="fractalNoise"
+                          baseFrequency="0.05"
+                          numOctaves="3"
+                          result="noise"
+                        />
+                        <feDisplacementMap
+                          in="SourceGraphic"
+                          in2="noise"
+                          scale="2"
+                          xChannelSelector="R"
+                          yChannelSelector="G"
+                        />
+                      </filter>
+                    </defs>
+                    {Object.entries(mapData).map(([id, data]) => {
+                      if (isQuestVisible(parseInt(id))) {
+                        return (
+                          <Fragment key={id}>
+                            {data.deps.map((dep) => {
+                              if (
+                                isQuestDone(dep) ||
+                                core.ws.page == 'analyze' ||
+                                core.ws.page == 'demo'
+                              ) {
+                                return (
+                                  <line
+                                    key={`connect-${id}-${dep}`}
+                                    x1={data.x + 26}
+                                    y1={data.y + 76}
+                                    x2={mapData[dep].x + 26}
+                                    y2={mapData[dep].y + 76}
+                                    strokeWidth="10"
+                                    filter="url(#organicTexture2)"
+                                    stroke="rgba(148, 163, 184, 0.8)"
+                                  />
+                                )
+                              } else {
+                                return null
+                              }
+                            })}
+                          </Fragment>
+                        )
+                      }
+                      return null
+                    })}
+                  </svg>
+                  {Object.entries(mapData).map((entry) => {
+                    const id = parseInt(entry[0])
+                    if (!isQuestVisible(id)) return null
+                    return (
+                      <QuestIcon
+                        x={entry[1].x}
+                        y={entry[1].y}
+                        title={questData[parseInt(entry[0])].title}
+                        solved={
+                          isQuestDone(parseInt(entry[0])) &&
+                          core.ws.page != 'demo'
+                        }
+                        onClick={() => {
+                          if (parseInt(entry[0]) == 1) {
+                            submitAnalyzeEvent(
+                              core,
+                              'ev_click_landing_startKarol',
+                            )
+                          }
+                          setQuestReturnToMode(
+                            core.ws.page == 'demo' ? '#DEMO' : '',
+                          )
+                          setLearningPathScroll(
+                            document.getElementById('scroll-container')
+                              ?.scrollTop ?? -1,
+                          )
+                          navigate(core, '#QUEST-' + entry[0])
+                        }}
+                        key={entry[0]}
+                        dir={entry[1].dir}
+                        id={parseInt(entry[0])}
+                        dontFade
+                      />
+                    )
+                  })}
+                </div>
+                {core.ws.settings.lng == 'de' && <News />}
+                {core.ws.settings.lng == 'de' && <Discover />}
+
+                <div className="absolute right-[35px] bottom-[15px] z-10 pointer-events-none">
+                  <Reactions />
+                </div>
+              </>
+            )}
           <div className="text-center mb-12 mt-24">
-            <span className="text-gray-700 mr-7">
-              {core.strings.overview.version}
-            </span>
             <button
               className="hover:underline mr-6"
               onClick={() => {
@@ -1208,55 +769,6 @@ export function Overview() {
             {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
           </div>
           <PersistNotice />
-          {/*!isPersisted() &&
-            numberOfSolvedQuests > 0 &&
-            core.ws.overview.showSaveHint &&
-            core.ws.page != 'analyze' && (
-              <>
-                <div className="fixed left-0 right-0 bottom-0 pb-1.5 sm:pb-0 sm:h-10 bg-yellow-100 text-center pt-1.5 z-20">
-                  {core.strings.overview.storeOnDevice}{' '}
-                  <div className="relative inline-block">
-                    <div className="-top-[170px] -left-24 absolute bg-yellow-100/90 p-4 mx-auto w-[400px] rounded-xl border-2 border-yellow-300 shadow-lg">
-                      <div className="text-center text-2xl font-bold text-yellow-800 mb-4">
-                        Wir empfehlen dir, deinen Fortschritt zu speichern.
-                      </div>{' '}
-                      <div className="flex justify-center">
-                        <div className="relative animate-bounce">
-                          <FaIcon
-                            icon={faArrowDown}
-                            className="text-4xl text-yellow-600"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <button
-                      className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 ml-6 rounded"
-                      onClick={() => {
-                        setPersist(core, true)
-                        hideSaveHint(core)
-                        forceRerender(core)
-                        //showModal(core, 'sync')
-                        submitAnalyzeEvent(
-                          core,
-                          'ev_click_landing_syncProgress'
-                        )
-                      }}
-                    >
-                      {core.strings.overview.syncProgress}
-                    </button>
-                  </div>{' '}
-                  <button
-                    className="text-gray-500 underline ml-6"
-                    onClick={() => {
-                      hideSaveHint(core)
-                      submitAnalyzeEvent(core, 'ev_click_landing_syncLater')
-                    }}
-                  >
-                    {core.strings.overview.later}
-                  </button>
-                </div>
-              </>
-            )*/}
         </div>
       </div>
       {(core.ws.page == 'overview' || core.ws.page == 'demo') && (
@@ -1282,29 +794,25 @@ export function Overview() {
   }
 
   function isQuestVisible(id: number) {
+    if (id >= 100) {
+      // we disable all python-path related quests
+      return false
+    }
     const position = questList.indexOf(id)
-
-    const questsInPreviousChapter = Object.entries(mapData)
-      .filter(([i, data]) => data.chapter === id - 1 && parseInt(i) < 10000)
-      .map(([id]) => parseInt(id))
 
     return (
       core.ws.page == 'demo' ||
       core.ws.page == 'analyze' ||
       core.ws.overview.showOverviewList ||
       position == 0 ||
-      id == 10001 || // Einleitung
       isQuestDone(id) ||
-      (id < 10000
-        ? mapData[id]?.deps.some(isQuestDone)
-        : questsInPreviousChapter.filter(isQuestDone).length >
-            chapterData[id - 1]?.requiredCount - 1 ||
-          (questsInPreviousChapter.length == 0 && isQuestDone(id - 1)))
+      mapData[id]?.deps.some(isQuestDone)
     )
   }
 
   function renderQuestCategory(cat: (typeof questListByCategory)[number]) {
-    if (cat.title.includes('.')) return null // skip python quests
+    if (cat.quests.some((id) => id >= 100) || cat.quests.length == 0)
+      return null // skip python quests
     return (
       <div key={cat.title} className="mb-6">
         <h2 className="text-xl ml-6 my-4">
@@ -1323,7 +831,6 @@ export function Overview() {
     //const reachableCount = core.ws.analyze.reachable[index]
 
     const task = questData[index].tasks[0]
-    const showPython = data.script && index != 60
 
     //const times = quartiles(core.ws.analyze.questTimes[index] ?? [0])
 
@@ -1341,7 +848,7 @@ export function Overview() {
             )}
             tabIndex={0}
             onClick={(e) => {
-              setQuestReturnToMode('overview')
+              setQuestReturnToMode('#OVERVIEW')
               setOverviewScroll(
                 document.getElementById('scroll-container')?.scrollTop ?? -1,
               )
@@ -1379,14 +886,7 @@ export function Overview() {
                   preview={
                     task.target === null ? undefined : { world: task.target }
                   }
-                  hideKarol={
-                    questDone ||
-                    !!(
-                      showPython &&
-                      task.target &&
-                      twoWorldsEqual(task.start, task.target)
-                    )
-                  }
+                  hideKarol={questDone}
                   wireframe={false}
                   className={clsx(
                     'block mx-auto max-h-full',
@@ -1404,16 +904,6 @@ export function Overview() {
                 )}
               </div>
             </div>
-            {showPython && (
-              <img
-                src="/python-logo-only.png"
-                className={clsx(
-                  'absolute bottom-0 right-2 h-8 bg-white/30 rounded-lg pointer-events-auto',
-                  questDone && 'opacity-30',
-                )}
-                alt=""
-              />
-            )}
           </a>
         </div>
       </Fragment>
