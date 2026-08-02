@@ -33,6 +33,7 @@
     "date-fns": "^4.0.0",
     "fastest-levenshtein": "^1.0.16",
     "immer": "^11.0.0",
+    "isbot": "^5.2.1",
     "lodash.throttle": "^4.1.1",
     "markdown-to-jsx": "^8.0.0",
     "pullstate": "^2.0.0-pre.0",

@@ -13,4 +13,7 @@ export const backend = {
 
   // store events on the server, like survey or feedback
   eventEndpoint: host + '/persistent_event',
+
+  // ping for every page view
+  pageviewEndpoint: '/pageview',
 }
