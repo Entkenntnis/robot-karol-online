@@ -152,12 +152,14 @@ export function Overview() {
               {core.strings.overview.playground}
             </a>
             <a
-              href="/#EDITOR"
+              href="/editor"
               className="mr-9 hover:underline cursor-pointer"
-              onClick={() => {
+              onClick={(e) => {
                 setOverviewScroll(0)
                 setLearningPathScroll(0)
                 ____submitAnalyzeEvent(core, 'ev_click_landing_editor')
+                navigate(core, 'editor')
+                e.preventDefault()
               }}
             >
               {core.strings.overview.editor}

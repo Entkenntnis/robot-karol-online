@@ -124,6 +124,7 @@ export async function hydrate(core: Core) {
     })
   }*/
 
+  // PHASE 2: hydrate page
   if (path == '/python' && (page == '' || page == 'DEMO')) {
     core.mutateWs((ws) => {
       ws.page = 'python-path'
@@ -135,19 +136,11 @@ export async function hydrate(core: Core) {
       // language versions are hard
     })
     document.title = 'Python Lernpfad'
+    setCanonical('python')
     return
   }
 
-  // PHASE 2: hydrate page
-  if (page == '') {
-    core.mutateWs((ws) => {
-      ws.page = 'overview'
-    })
-    document.title = 'Robot Karol Online'
-    return
-  }
-
-  if (page == 'EDITOR') {
+  if (page == 'EDITOR' || (path == '/editor' && page == '')) {
     core.mutateWs((ws) => {
       ws.page = 'editor'
       const { quest } = ws
@@ -159,6 +152,7 @@ export async function hydrate(core: Core) {
     document.title = 'Editor | Robot Karol Online'
     restoreEditorSnapshot(core)
     refreshEditArea(core)
+    setCanonical('editor')
     return
   }
 
@@ -225,6 +219,14 @@ export async function hydrate(core: Core) {
       }
     }
     refreshEditArea(core)
+    return
+  }
+
+  if (page == '') {
+    core.mutateWs((ws) => {
+      ws.page = 'overview'
+    })
+    document.title = 'Robot Karol Online'
     return
   }
 
