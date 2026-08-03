@@ -190,6 +190,7 @@ Scenario('Test python quest', ({ I }) => {
   I.click('div .cm-activeLine')
   I.pressKey(['Control', 'a'])
   I.type('print("Hallo, Python!")')
+  I.wait(5)
   I.click('Start')
   I.click("Ja, los geht's!")
   I.waitForText('Perfekt gemacht', 3)
