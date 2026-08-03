@@ -9,12 +9,7 @@ import {
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
 
-import {
-  forceRerender,
-  hideSaveHint,
-  setLng,
-  setPersist,
-} from '../../lib/commands/mode'
+import { forceRerender, setLng } from '../../lib/commands/mode'
 import { questList, questListByCategory } from '../../lib/data/overview'
 import { questData as questDataDe } from '../../lib/data/quests'
 import { isQuestDone, isQuestStarted } from '../../lib/helper/session'
@@ -26,7 +21,6 @@ import {
   getLng,
   getRobotImage,
   getUserName,
-  isPersisted,
   setLearningPathScroll,
   setLngStorage,
   setOverviewScroll,
@@ -38,7 +32,6 @@ import { HFullStyles } from '../helper/HFullStyles'
 import { QuestIcon } from '../helper/QuestIcon'
 import { mapData } from '../../lib/data/map'
 import { questDataEn } from '../../lib/data/questsEn'
-import { AnalyzeResults } from '../helper/AnalyzeResults'
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
@@ -195,59 +188,6 @@ export function Overview() {
               {core.strings.overview.load}
             </button>
           </div>
-          {core.ws.page == 'analyze' && <AnalyzeResults />}
-          {core.ws.overview.showProfile && (
-            <div className="mx-auto w-[600px] mt-12 p-3 bg-white/50 rounded relative">
-              <h2 className="text-lg font-bold">
-                {core.strings.profile.title}
-              </h2>
-              <div className="absolute right-2 top-3">
-                <button
-                  className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
-                  onClick={() => {
-                    navigate(core, '')
-                  }}
-                >
-                  {core.strings.profile.close}
-                </button>
-              </div>
-              <div className="my-4">
-                {core.strings.profile.username}:{' '}
-                {name ? (
-                  <strong>{name}</strong>
-                ) : (
-                  <span className="italic text-gray-600">
-                    {core.strings.profile.noname}
-                  </span>
-                )}
-              </div>
-              <div className="my-4">
-                {core.strings.profile.solved}:{' '}
-                <strong>{numberOfSolvedQuests}</strong>{' '}
-                {core.strings.profile.of}{' '}
-                {Object.keys(mapData).filter((x) => parseInt(x) < 10000).length}
-              </div>
-              <div className="my-4">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={isPersisted()}
-                    onChange={(e) => {
-                      ____submitAnalyzeEvent(
-                        core,
-                        'ev_click_profile_togglePersist',
-                      )
-                      setPersist(core, e.target.checked)
-                      hideSaveHint(core)
-                      forceRerender(core)
-                    }}
-                  />{' '}
-                  {core.strings.profile.persist}
-                </label>
-              </div>
-              <div className="mt-8 text-right"></div>
-            </div>
-          )}
           <div className="my-8 flex ml-8 md:ml-0 md:justify-center">
             <div className="border-2 border-slate-600 rounded-lg flex flex-row text-lg overflow-hidden">
               <button
