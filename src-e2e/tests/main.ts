@@ -159,17 +159,6 @@ Scenario('Empty world should not continue testing', ({ I }) => {
   I.see('Ausführung beendet')
 })
 
-Scenario('Bug with profile and langauge switch', ({ I }) => {
-  I.amOnPage('/')
-  I.click({ css: '#overview-self-learning-path' })
-  I.click('Profil')
-  I.click('Fortschritt dauerhaft auf diesem Gerät speichern')
-  I.click('Fortschritt dauerhaft auf diesem Gerät speichern')
-  I.click('Schließen')
-  I.dontSee('Playground')
-  I.see('Spielwiese')
-})
-
 Scenario('Changing speed is breaking debugger', ({ I }) => {
   I.amOnPage(
     '/#SPIELWIESE:%2F%2F Spielwiese%3A 15%2C 10%2C 6%0A%0Awiederhole immer%20%0A%20 LinksDrehen%0Aendewiederhole',

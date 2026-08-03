@@ -1,12 +1,10 @@
 import {
-  faCaretDown,
   faCheckCircle,
   faExternalLink,
   faFloppyDisk,
   faFolderOpen,
   faPaintBrush,
   faPencil,
-  faTable,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { Fragment, useEffect } from 'react'
@@ -46,7 +44,6 @@ import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 import { Reactions } from '../helper/Reactions'
 import { SpinningRobot } from '../helper/SpinningRobot'
-import { PersistNotice } from '../helper/PersistNotice'
 import { Discover } from '../helper/Discover'
 import { News } from '../helper/News'
 
@@ -144,7 +141,7 @@ export function Overview() {
               Spenden
             </button>
           </div>
-          <div className="mx-8 md:mx-auto mt-6">
+          <div className="mx-8 md:mx-auto mt-6 mb-2">
             <a
               href="/#SPIELWIESE"
               className="hover:underline mr-8"
@@ -155,132 +152,48 @@ export function Overview() {
               {core.strings.overview.playground}
             </a>
             <a
-              href="/#EDITOR"
-              className="mr-2 hover:underline cursor-pointer"
-              onClick={() => {
+              href="/editor"
+              className="mr-9 hover:underline cursor-pointer"
+              onClick={(e) => {
                 setOverviewScroll(0)
                 setLearningPathScroll(0)
                 ____submitAnalyzeEvent(core, 'ev_click_landing_editor')
+                navigate(core, 'editor')
+                e.preventDefault()
               }}
             >
               {core.strings.overview.editor}
             </a>
-            <div className="dropdown dropdown-hover">
-              <div
-                tabIndex={0}
-                role="button"
-                className="hover:underline cursor-pointer ml-6 mr-2 select-none pb-1"
-                id="overview-self-learning-path"
-              >
-                {core.strings.overview.path}{' '}
-                <FaIcon icon={faCaretDown} className="text-gray-600" />
-              </div>
-              <ul
-                tabIndex={0}
-                className="dropdown-content bg-white rounded-lg z-[11] w-56 p-2 shadow [&>li>a]:px-4 [&>li>*]:py-2 [&>li>*]:cursor-pointer hover:[&>li]:bg-gray-200/50 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50  [&_a]:block [&_button]:block [&_button]:w-full [&_button]:text-left [&_button]:pl-4"
-              >
-                <li>
-                  <a
-                    href="/#OVERVIEW"
-                    onClick={() => {
-                      ____submitAnalyzeEvent(core, 'ev_click_landing_listOfAll')
-                      //  document.getElementById('scroll-container')!.scrollTop = 0
-                      try {
-                        // @ts-ignore
-                        document.activeElement?.blur()
-                        const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover',
-                        ) as HTMLDivElement
-                        dropdown.classList.remove('dropdown-hover')
-                        setTimeout(() => {
-                          dropdown.classList.add('dropdown-hover')
-                        }, 50)
-                      } catch (e) {}
-                    }}
-                  >
-                    <FaIcon icon={faTable} className="text-gray-600 mr-1" />{' '}
-                    {core.strings.overview.showAll}
-                  </a>
-                </li>
-                <li>
-                  <button
-                    title={core.strings.overview.saveTooltip}
-                    onClick={() => {
-                      ____submitAnalyzeEvent(
-                        core,
-                        'ev_click_landing_exportProgress',
-                      )
-                      saveToJSON(core)
-                    }}
-                  >
-                    <FaIcon
-                      icon={faFloppyDisk}
-                      className="text-green-600 mr-1"
-                    />{' '}
-                    {core.strings.overview.save}
-                  </button>
-                </li>
-                <li>
-                  <button
-                    title={core.strings.overview.loadTooltip}
-                    onClick={async () => {
-                      ____submitAnalyzeEvent(
-                        core,
-                        'ev_click_landing_importProgress',
-                      )
-                      await loadFromJSON()
-                      const image = getRobotImage()
-                      if (image) {
-                        core.mutateWs((ws) => {
-                          ws.robotImageDataUrl = image
-                        })
-                      }
-                      setLng(core, getLng())
-                      forceRerender(core)
-                    }}
-                  >
-                    <FaIcon
-                      icon={faFolderOpen}
-                      className="text-yellow-500 mr-1"
-                    />{' '}
-                    {core.strings.overview.load}
-                  </button>
-                </li>
-                <li>
-                  <a
-                    href="/#PROFIL"
-                    onClick={() => {
-                      ____submitAnalyzeEvent(core, 'ev_click_landing_profile')
-                      try {
-                        // @ts-ignore
-                        document.activeElement?.blur()
-                        const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover',
-                        ) as HTMLDivElement
-                        dropdown.classList.remove('dropdown-hover')
-                        setTimeout(() => {
-                          dropdown.classList.add('dropdown-hover')
-                        }, 50)
-                      } catch (e) {}
-                    }}
-                  >
-                    {core.strings.overview.profile}
-                  </a>
-                </li>
-                <li className="hidden">
-                  <a
-                    href="/#HIGHSCORE"
-                    onClick={() => {
-                      setOverviewScroll(0)
-                      setLearningPathScroll(0)
-                      ____submitAnalyzeEvent(core, 'ev_click_landing_highscore')
-                    }}
-                  >
-                    Highscore
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <button
+              title={core.strings.overview.saveTooltip}
+              onClick={() => {
+                ____submitAnalyzeEvent(core, 'ev_click_landing_exportProgress')
+                saveToJSON(core)
+              }}
+              className="hover:underline mr-6"
+            >
+              <FaIcon icon={faFloppyDisk} className="text-green-600 mr-1" />{' '}
+              {core.strings.overview.save}
+            </button>
+            <button
+              title={core.strings.overview.loadTooltip}
+              className="hover:underline"
+              onClick={async () => {
+                ____submitAnalyzeEvent(core, 'ev_click_landing_importProgress')
+                await loadFromJSON()
+                const image = getRobotImage()
+                if (image) {
+                  core.mutateWs((ws) => {
+                    ws.robotImageDataUrl = image
+                  })
+                }
+                setLng(core, getLng())
+                forceRerender(core)
+              }}
+            >
+              <FaIcon icon={faFolderOpen} className="text-yellow-500 mr-1" />{' '}
+              {core.strings.overview.load}
+            </button>
           </div>
           {core.ws.page == 'analyze' && <AnalyzeResults />}
           {core.ws.overview.showProfile && (
@@ -332,43 +245,39 @@ export function Overview() {
                   {core.strings.profile.persist}
                 </label>
               </div>
-              <div className="mt-8 text-right">
-                <button
-                  className="hover:underline text-red-500"
-                  onClick={() => {
-                    const res = confirm(core.strings.profile.resetConfirm)
-                    if (res) {
-                      ____submitAnalyzeEvent(core, 'ev_click_profile_reset')
-                      resetStorage()
-                      forceRerender(core)
-                      setLngStorage('de')
-                      navigate(core, '')
-                    }
-                  }}
-                >
-                  {core.strings.profile.reset}
-                </button>
-              </div>
+              <div className="mt-8 text-right"></div>
             </div>
           )}
+          <div className="my-8 flex ml-8 md:ml-0 md:justify-center">
+            <div className="border-2 border-slate-600 rounded-lg flex flex-row text-lg overflow-hidden">
+              <button
+                className={clsx(
+                  'px-6 py-1',
+                  !core.ws.overview.showOverviewList && 'bg-yellow-200',
+                )}
+                onClick={() => {
+                  navigate(core, '')
+                }}
+              >
+                Lernpfad
+              </button>
+              <div className=" border border-slate-600"></div>
+              <button
+                className={clsx(
+                  'px-6 py-1',
+                  core.ws.overview.showOverviewList && 'bg-yellow-200',
+                )}
+                onClick={() => {
+                  navigate(core, '#Overview')
+                }}
+              >
+                freies Üben
+              </button>
+            </div>
+          </div>
           {core.ws.overview.showOverviewList && (
             <>
-              <h1 className="mt-10 text-2xl text-center">
-                Liste aller Aufgaben
-              </h1>
-              <p className="text-center mt-6">
-                <a
-                  href="/#"
-                  onClick={(e) => {
-                    navigate(core, '')
-                    e.preventDefault()
-                  }}
-                  className="link"
-                >
-                  schließen
-                </a>
-              </p>
-              <div className="px-6 mt-6 min-w-[360px] relative bg-white/50">
+              <div className="px-6 mt-6 min-w-[360px] relative bg-white/50 mb-24">
                 {questListByCategory.map(renderQuestCategory)}
               </div>
             </>
@@ -753,14 +662,14 @@ export function Overview() {
                     )
                   })}
                 </div>
-                {core.ws.settings.lng == 'de' && <News />}
-                {core.ws.settings.lng == 'de' && <Discover />}
-
-                <div className="absolute right-[35px] bottom-[15px] z-10 pointer-events-none">
-                  <Reactions />
-                </div>
               </>
             )}
+          {core.ws.settings.lng == 'de' && <News />}
+          {core.ws.settings.lng == 'de' && <Discover />}
+
+          <div className="absolute right-[35px] bottom-[15px] z-10 pointer-events-none">
+            <Reactions />
+          </div>
           <div className="text-center mb-12 mt-24">
             <button
               className="hover:underline mr-6"
@@ -781,8 +690,22 @@ export function Overview() {
               {core.strings.overview.privacy}
             </button>
             {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
+            <button
+              className="hover:underline text-red-900 hover:text-red-500 transition-colors ml-12"
+              onClick={() => {
+                const res = confirm(core.strings.profile.resetConfirm)
+                if (res) {
+                  ____submitAnalyzeEvent(core, 'ev_click_profile_reset')
+                  resetStorage()
+                  forceRerender(core)
+                  setLngStorage('de')
+                  navigate(core, '')
+                }
+              }}
+            >
+              {core.strings.profile.reset}
+            </button>
           </div>
-          <PersistNotice />
         </div>
       </div>
       {(core.ws.page == 'overview' || core.ws.page == 'demo') && (

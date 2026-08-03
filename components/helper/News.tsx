@@ -9,6 +9,11 @@ export function News() {
     <div className="w-[760px] md:mx-auto border-emerald-600 border rounded mx-3 mb-32 px-4 pt-2 [&_a]:text-blue-500 hover:[&_a]:underline">
       <h2 className="text-2xl">Neuigkeiten</h2>
       <p className="my-4">
+        <b>4. August 2026</b>: Das Layout der Startseite wurde überarbeitet und
+        bietet direkteren Zugriff auf wichtige Funktionen, wie die Auflistung
+        aller Aufgaben oder dem Speichern des Fortschritts.
+      </p>
+      <p className="my-4">
         <b>31. Juli 2026</b>: Der Python Lernpfad erhält unter{' '}
         <a href="/python">karol.arrrg.de/python</a> ein neues Zuhause und damit
         mehr Platz, sich in Zukunft weiterzuentwickeln, auch unabhängig vom
