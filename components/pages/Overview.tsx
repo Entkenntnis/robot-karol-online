@@ -20,7 +20,6 @@ import { showModal } from '../../lib/commands/modal'
 import {
   getLng,
   getRobotImage,
-  getUserName,
   setLearningPathScroll,
   setLngStorage,
   setOverviewScroll,
@@ -43,13 +42,7 @@ import { News } from '../helper/News'
 export function Overview() {
   const core = useCore()
 
-  const name = getUserName()
-
   const questData = core.ws.settings.lng == 'de' ? questDataDe : questDataEn
-
-  const numberOfSolvedQuests = Object.keys(mapData).filter(
-    (id) => parseInt(id) < 10000 && isQuestDone(parseInt(id)),
-  ).length
 
   const numberOfSolvedQuestsRKO = Object.keys(mapData).filter(
     (id) => parseInt(id) < 100 && isQuestDone(parseInt(id)),
