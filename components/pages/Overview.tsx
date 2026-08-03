@@ -1,5 +1,4 @@
 import {
-  faCaretDown,
   faCheckCircle,
   faExternalLink,
   faFloppyDisk,
@@ -45,7 +44,6 @@ import { AnimateInView } from '../helper/AnimateIntoView'
 import { navigate } from '../../lib/commands/router'
 import { Reactions } from '../helper/Reactions'
 import { SpinningRobot } from '../helper/SpinningRobot'
-import { PersistNotice } from '../helper/PersistNotice'
 import { Discover } from '../helper/Discover'
 import { News } from '../helper/News'
 
@@ -143,7 +141,7 @@ export function Overview() {
               Spenden
             </button>
           </div>
-          <div className="mx-8 md:mx-auto mt-6">
+          <div className="mx-8 md:mx-auto mt-6 mb-2">
             <a
               href="/#SPIELWIESE"
               className="hover:underline mr-8"
@@ -155,7 +153,7 @@ export function Overview() {
             </a>
             <a
               href="/#EDITOR"
-              className="mr-2 hover:underline cursor-pointer"
+              className="mr-9 hover:underline cursor-pointer"
               onClick={() => {
                 setOverviewScroll(0)
                 setLearningPathScroll(0)
@@ -164,99 +162,36 @@ export function Overview() {
             >
               {core.strings.overview.editor}
             </a>
-            <div className="dropdown dropdown-hover">
-              <div
-                tabIndex={0}
-                role="button"
-                className="hover:underline cursor-pointer ml-6 mr-2 select-none pb-1"
-                id="overview-self-learning-path"
-              >
-                {core.strings.overview.path}{' '}
-                <FaIcon icon={faCaretDown} className="text-gray-600" />
-              </div>
-              <ul
-                tabIndex={0}
-                className="dropdown-content bg-white rounded-lg z-[11] w-56 p-2 shadow [&>li>a]:px-4 [&>li>*]:py-2 [&>li>*]:cursor-pointer hover:[&>li]:bg-gray-200/50 [&>li]:text-sm [&>li]:rounded-lg [&>li]:transition-colors active:[&>li]:bg-gray-500/50  [&_a]:block [&_button]:block [&_button]:w-full [&_button]:text-left [&_button]:pl-4"
-              >
-                <li>
-                  <button
-                    title={core.strings.overview.saveTooltip}
-                    onClick={() => {
-                      ____submitAnalyzeEvent(
-                        core,
-                        'ev_click_landing_exportProgress',
-                      )
-                      saveToJSON(core)
-                    }}
-                  >
-                    <FaIcon
-                      icon={faFloppyDisk}
-                      className="text-green-600 mr-1"
-                    />{' '}
-                    {core.strings.overview.save}
-                  </button>
-                </li>
-                <li>
-                  <button
-                    title={core.strings.overview.loadTooltip}
-                    onClick={async () => {
-                      ____submitAnalyzeEvent(
-                        core,
-                        'ev_click_landing_importProgress',
-                      )
-                      await loadFromJSON()
-                      const image = getRobotImage()
-                      if (image) {
-                        core.mutateWs((ws) => {
-                          ws.robotImageDataUrl = image
-                        })
-                      }
-                      setLng(core, getLng())
-                      forceRerender(core)
-                    }}
-                  >
-                    <FaIcon
-                      icon={faFolderOpen}
-                      className="text-yellow-500 mr-1"
-                    />{' '}
-                    {core.strings.overview.load}
-                  </button>
-                </li>
-                <li>
-                  <a
-                    href="/#PROFIL"
-                    onClick={() => {
-                      ____submitAnalyzeEvent(core, 'ev_click_landing_profile')
-                      try {
-                        // @ts-ignore
-                        document.activeElement?.blur()
-                        const dropdown = document.querySelector(
-                          '.dropdown.dropdown-hover',
-                        ) as HTMLDivElement
-                        dropdown.classList.remove('dropdown-hover')
-                        setTimeout(() => {
-                          dropdown.classList.add('dropdown-hover')
-                        }, 50)
-                      } catch (e) {}
-                    }}
-                  >
-                    {core.strings.overview.profile}
-                  </a>
-                </li>
-                <li className="hidden">
-                  <a
-                    href="/#HIGHSCORE"
-                    onClick={() => {
-                      setOverviewScroll(0)
-                      setLearningPathScroll(0)
-                      ____submitAnalyzeEvent(core, 'ev_click_landing_highscore')
-                    }}
-                  >
-                    Highscore
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <button
+              title={core.strings.overview.saveTooltip}
+              onClick={() => {
+                ____submitAnalyzeEvent(core, 'ev_click_landing_exportProgress')
+                saveToJSON(core)
+              }}
+              className="hover:underline mr-6"
+            >
+              <FaIcon icon={faFloppyDisk} className="text-green-600 mr-1" />{' '}
+              {core.strings.overview.save}
+            </button>
+            <button
+              title={core.strings.overview.loadTooltip}
+              className="hover:underline"
+              onClick={async () => {
+                ____submitAnalyzeEvent(core, 'ev_click_landing_importProgress')
+                await loadFromJSON()
+                const image = getRobotImage()
+                if (image) {
+                  core.mutateWs((ws) => {
+                    ws.robotImageDataUrl = image
+                  })
+                }
+                setLng(core, getLng())
+                forceRerender(core)
+              }}
+            >
+              <FaIcon icon={faFolderOpen} className="text-yellow-500 mr-1" />{' '}
+              {core.strings.overview.load}
+            </button>
           </div>
           {core.ws.page == 'analyze' && <AnalyzeResults />}
           {core.ws.overview.showProfile && (
@@ -308,23 +243,7 @@ export function Overview() {
                   {core.strings.profile.persist}
                 </label>
               </div>
-              <div className="mt-8 text-right">
-                <button
-                  className="hover:underline text-red-500"
-                  onClick={() => {
-                    const res = confirm(core.strings.profile.resetConfirm)
-                    if (res) {
-                      ____submitAnalyzeEvent(core, 'ev_click_profile_reset')
-                      resetStorage()
-                      forceRerender(core)
-                      setLngStorage('de')
-                      navigate(core, '')
-                    }
-                  }}
-                >
-                  {core.strings.profile.reset}
-                </button>
-              </div>
+              <div className="mt-8 text-right"></div>
             </div>
           )}
           <div className="my-8 flex ml-8 md:ml-0 md:justify-center">
@@ -769,8 +688,22 @@ export function Overview() {
               {core.strings.overview.privacy}
             </button>
             {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
+            <button
+              className="hover:underline text-red-900 hover:text-red-500 transition-colors ml-12"
+              onClick={() => {
+                const res = confirm(core.strings.profile.resetConfirm)
+                if (res) {
+                  ____submitAnalyzeEvent(core, 'ev_click_profile_reset')
+                  resetStorage()
+                  forceRerender(core)
+                  setLngStorage('de')
+                  navigate(core, '')
+                }
+              }}
+            >
+              {core.strings.profile.reset}
+            </button>
           </div>
-          <PersistNotice />
         </div>
       </div>
       {(core.ws.page == 'overview' || core.ws.page == 'demo') && (

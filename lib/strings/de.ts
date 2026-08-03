@@ -2,9 +2,9 @@ export const deStrings = {
   overview: {
     profile: 'Profil',
     editor: 'Aufgaben-Editor',
-    save: 'Fortschritt exportieren',
+    save: 'Fortschritt speichern',
     saveTooltip: 'Als Datei herunterladen',
-    load: 'Fortschritt importieren',
+    load: 'Fortschritt laden',
     loadTooltip: 'Aus einer Datei laden',
     gameState: 'spielstand',
     playground: 'Spielwiese',
@@ -89,7 +89,8 @@ export const deStrings = {
     of: 'von',
     persist: 'Fortschritt dauerhaft auf diesem Gerät speichern',
     reset: 'Fortschritt zurücksetzen',
-    resetConfirm: 'Fortschritt jetzt zurücksetzen?',
+    resetConfirm:
+      'Fortschritt jetzt zurücksetzen? Die Aktion kann nicht rückgängig gemacht werden.',
   },
   highscore: {
     close: 'Schließen',
