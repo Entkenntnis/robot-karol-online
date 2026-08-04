@@ -8,6 +8,7 @@ import { useCore } from '../../lib/state/core'
 import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
 import { questDataEn } from '../../lib/data/questsEn'
 import { refreshEditArea } from '../../lib/commands/editing'
+import { superfetch } from '../../lib/helper/superfetch'
 
 export function RemixModal() {
   const [selected, setSelected] = useState(-1)
@@ -36,7 +37,7 @@ export function RemixModal() {
               async function handler() {
                 if (code.length == 4) {
                   try {
-                    const res = await fetch(
+                    const res = await superfetch(
                       `${backend.questEndpoint}/${code.toUpperCase()}`,
                     )
                     const text = await res.text()

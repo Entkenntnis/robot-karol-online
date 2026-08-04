@@ -2,6 +2,7 @@ import { backend } from '../../backend'
 import { levels } from '../data/karolmaniaLevels'
 import { pythonKarolExamples } from '../data/pythonExamples'
 import { ____submitAnalyzeEvent } from '../helper/submit'
+import { superfetch } from '../helper/superfetch'
 import { CanvasObjects } from '../state/canvas-objects'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
@@ -86,7 +87,7 @@ export async function hydrate(core: Core) {
 
   // This is what we count
   if (!isBot(navigator.userAgent) && window.location.host == 'karol.arrrg.de') {
-    // register pageview
+    // register pageview, fire-and-forget
     fetch(backend.pageviewEndpoint, { method: 'POST' })
   }
 
@@ -359,8 +360,8 @@ export async function hydrate(core: Core) {
     try {
       // extract url
       const url = data
-      // fetch data
-      const response = await fetch(url)
+      // fetch data, a more reliable fetch is useful here I think
+      const response = await superfetch(url)
       const text = await response.text()
       const obj = JSON.parse(
         text ?? '{}',

@@ -1,4 +1,5 @@
 import { setExecutionMarker } from '../codemirror/basicSetup'
+import { wait } from '../helper/wait'
 import { Core } from '../state/core'
 import { showModal } from './modal'
 
@@ -327,10 +328,6 @@ function* runnerGenerator(core: Core) {
   })
 
   showModal(core, 'success')
-}
-
-async function wait(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 function scrollChatCursorIntoView() {
