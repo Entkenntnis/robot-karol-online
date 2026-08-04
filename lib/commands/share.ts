@@ -3,6 +3,7 @@ import { ____submit_event } from '../helper/submit'
 import { Core } from '../state/core'
 import { ____submitAnalyzeEvent } from '../helper/submit'
 import { serializeQuest } from './json'
+import { superfetch } from '../helper/superfetch'
 
 export async function share(core: Core) {
   // TODO: rewrite this method
@@ -17,7 +18,7 @@ export async function share(core: Core) {
 }
 
 async function shareRequest(content: string) {
-  const rawResponse = await fetch(backend.questShareEndpoint, {
+  const rawResponse = await superfetch(backend.questShareEndpoint, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
