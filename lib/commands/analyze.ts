@@ -238,10 +238,6 @@ export async function analyze(core: Core) {
   //         ws.analyze.showStructogram++
   //         continue
   //       }
-  //       if (entry.event == 'persist_progress') {
-  //         ws.analyze.usePersist++
-  //         continue
-  //       }
   //       if (entry.event == 'use_java') {
   //         ws.analyze.useJava++
   //         continue

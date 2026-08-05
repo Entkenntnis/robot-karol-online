@@ -11,7 +11,6 @@ import type {
 export const userIdKey = 'robot_karol_online_tmp_id'
 export const userNameKey = 'robot_karol_online_name'
 export const questKey = (id: number) => `karol_quest_beta_${id}`
-export const persistKey = 'karol_quest_beta_persist'
 export const lngKey = 'robot_karol_online_lng'
 export const robotImageKey = 'robot_karol_online_robot_image'
 const karolmaniaCarouselIndexKey =
@@ -24,34 +23,24 @@ const miniProjectCollapsedKey = 'robot_karol_online_mini_project_collapsed'
 const experimentEventsKey = 'robot_karol_online_experiment_events'
 
 export function getUserId() {
-  if (!sessionStorage.getItem(userIdKey) && !localStorage.getItem(userIdKey)) {
-    sessionStorage.setItem(userIdKey, Math.random().toString())
+  let userId = localStorage.getItem(userIdKey)
+  if (!userId) {
+    userId = Math.random().toString()
+    localStorage.setItem(userIdKey, userId)
   }
-
-  return localStorage.getItem(userIdKey) ?? sessionStorage.getItem(userIdKey)
+  return userId
 }
 
 export function getUserName() {
-  return (
-    localStorage.getItem(userNameKey) ??
-    sessionStorage.getItem(userNameKey) ??
-    ''
-  ).trim()
+  return (localStorage.getItem(userNameKey) ?? '').trim()
 }
 
 export function getLng() {
-  return (localStorage.getItem(lngKey) ||
-    sessionStorage.getItem(lngKey) ||
-    'de') == 'de'
-    ? 'de'
-    : 'en'
+  return (localStorage.getItem(lngKey) || 'de') == 'de' ? 'de' : 'en'
 }
 
 export function setLngStorage(lng: 'de' | 'en') {
-  if (isPersisted()) {
-    localStorage.setItem(lngKey, lng)
-  }
-  sessionStorage.setItem(lngKey, lng)
+  localStorage.setItem(lngKey, lng)
 }
 
 export function setRobotImage(image?: string | null) {
@@ -64,34 +53,20 @@ export function getRobotImage() {
   return localStorage.getItem(robotImageKey)
 }
 
-export function isPersisted() {
-  return !!localStorage.getItem(persistKey)
-}
-
 export function setUserName(name: string) {
-  if (isPersisted()) {
-    localStorage.setItem(userNameKey, name)
-  }
-  sessionStorage.setItem(userNameKey, name)
+  localStorage.setItem(userNameKey, name)
 }
 
 export function getQuestData(id: number) {
-  const rawSes = sessionStorage.getItem(questKey(id))
   const rawLoc = localStorage.getItem(questKey(id))
   if (rawLoc) {
     return JSON.parse(rawLoc) as QuestSessionData_MUST_STAY_COMPATIBLE
-  }
-  if (rawSes) {
-    return JSON.parse(rawSes) as QuestSessionData_MUST_STAY_COMPATIBLE
   }
   return null
 }
 
 export function setQuestData(data: QuestSessionData_MUST_STAY_COMPATIBLE) {
-  if (isPersisted()) {
-    localStorage.setItem(questKey(data.id), JSON.stringify(data))
-  }
-  sessionStorage.setItem(questKey(data.id), JSON.stringify(data))
+  localStorage.setItem(questKey(data.id), JSON.stringify(data))
 }
 
 export function saveEditorSnapshot(core: Core) {
@@ -331,10 +306,6 @@ export function submitExperimentEventOnce(key: string): boolean {
     return false
   }
   const events = [...new Set([...getExperimentEvents(), key])]
-  const value = JSON.stringify(events)
-  if (isPersisted()) {
-    localStorage.setItem(experimentEventsKey, value)
-  }
-  sessionStorage.setItem(experimentEventsKey, value)
+  localStorage.setItem(experimentEventsKey, JSON.stringify(events))
   return true
 }

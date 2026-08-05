@@ -9,10 +9,8 @@ import {
   getRobotImage,
   getUserId,
   getUserName,
-  isPersisted,
   karolmaniaProgressKey,
   lngKey,
-  persistKey,
   questKey,
   robotImageKey,
   setKarolmaniaProgress,
@@ -28,7 +26,6 @@ export function saveToJSON(core: Core) {
   let data: Record<string, any> = {
     [userIdKey]: getUserId(),
     [userNameKey]: getUserName(),
-    [persistKey]: isPersisted(),
     [lngKey]: getLng(),
     [robotImageKey]: getRobotImage(),
     [karolmaniaProgressKey]: getKarolmaniaProgress(),
@@ -71,9 +68,6 @@ export async function loadFromJSON() {
     reader.addEventListener('load', (e) => {
       if (e.target != null && typeof e.target.result === 'string') {
         const data = JSON.parse(e.target.result)
-        if (data[persistKey]) {
-          localStorage.setItem(persistKey, '1')
-        }
         setUserName(data[userNameKey])
         //setAppearance(data[appearanceKey])
         for (const id of questList) {
@@ -107,45 +101,11 @@ export async function loadFromJSON() {
   })
 }
 
-export function copySessionToLocal() {
-  localStorage.setItem(userIdKey, sessionStorage.getItem(userIdKey) ?? '')
-
-  localStorage.setItem(persistKey, '1')
-
-  localStorage.setItem(userNameKey, sessionStorage.getItem(userNameKey) ?? '')
-
-  localStorage.setItem(lngKey, sessionStorage.getItem(lngKey) ?? 'de')
-
-  for (const id of questList) {
-    const qd = getQuestData(id)
-    if (qd) {
-      localStorage.setItem(questKey(id), JSON.stringify(qd))
-    }
-  }
-}
-
-export function copyLocalToSession() {
-  sessionStorage.setItem(userIdKey, localStorage.getItem(userIdKey) ?? '')
-  localStorage.removeItem(userIdKey)
-
-  localStorage.removeItem(persistKey)
-
-  sessionStorage.setItem(userNameKey, localStorage.getItem(userNameKey) ?? '')
-  localStorage.removeItem(userNameKey)
-
-  sessionStorage.setItem(lngKey, localStorage.getItem(lngKey) ?? '')
-  localStorage.removeItem(lngKey)
-
-  for (const id of questList) {
-    const qd = getQuestData(id)
-    if (qd) {
-      localStorage.removeItem(questKey(id))
-      sessionStorage.setItem(questKey(id), JSON.stringify(qd))
-    }
-  }
-}
-
 export function resetStorage() {
-  copyLocalToSession()
-  sessionStorage.clear()
+  localStorage.removeItem(userIdKey)
+  localStorage.removeItem(userNameKey)
+  localStorage.removeItem(lngKey)
+  for (const id of questList) {
+    localStorage.removeItem(questKey(id))
+  }
 }

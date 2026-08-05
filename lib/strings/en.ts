@@ -88,7 +88,6 @@ export const enStrings: typeof deStrings = {
     noname: 'No name set yet',
     solved: 'Solved Tasks',
     of: 'of',
-    persist: 'Save progress permanently on this device',
     reset: 'Reset progress',
     resetConfirm: 'Reset progress now?',
   },

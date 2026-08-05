@@ -322,7 +322,6 @@ export interface Analyze {
   showHighscore: number
   showDemo: number
   showStructogram: number
-  usePersist: number
   useJava: number
   usePython: number
   proMode: number

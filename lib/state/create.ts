@@ -124,7 +124,6 @@ export function createWorkspaceState(): WorkspaceState {
       showHighscore: 0,
       showDemo: 0,
       showStructogram: 0,
-      usePersist: 0,
       useJava: 0,
       usePython: 0,
       playSnake: 0,

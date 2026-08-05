@@ -87,7 +87,6 @@ export const deStrings = {
     noname: 'noch kein Name gesetzt',
     solved: 'Gelöste Aufgaben',
     of: 'von',
-    persist: 'Fortschritt dauerhaft auf diesem Gerät speichern',
     reset: 'Fortschritt zurücksetzen',
     resetConfirm:
       'Fortschritt jetzt zurücksetzen? Die Aktion kann nicht rückgängig gemacht werden.',

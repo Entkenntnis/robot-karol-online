@@ -4,7 +4,6 @@ import { ____submit_event } from '../helper/submit'
 import { robotKarol2Java } from '../language/java/robotKarol2Java'
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
-import { copyLocalToSession, copySessionToLocal } from '../storage/quest'
 import { setUserName as setUserNameStorage } from '../storage/storage'
 import { showModal } from './modal'
 import { updatePlaygroundHashToMode } from './save'
@@ -104,17 +103,6 @@ export function forceRerender(core: Core) {
   core.mutateWs((ws) => {
     ws.renderCounter++
   })
-}
-
-export function setPersist(_: Core, val: boolean) {
-  if (val) {
-    //submit_event('persist_progress', core)
-  }
-  if (val) {
-    copySessionToLocal()
-  } else {
-    copyLocalToSession()
-  }
 }
 
 export function setUserName(core: Core, name: string) {

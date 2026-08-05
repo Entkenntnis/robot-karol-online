@@ -20,7 +20,6 @@ import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import { chapterData } from '../../lib/data/chapters'
 import { pythonKarolExamples } from '../../lib/data/pythonExamples'
-import { PersistNotice } from '../helper/PersistNotice'
 import { PythonMiniProjects } from '../helper/PythonMiniProjects'
 import type { PythonProjectGroup } from '../../lib/state/types'
 
@@ -438,7 +437,6 @@ export function PythonPath() {
               {core.strings.overview.privacy}
             </button>
           </div>
-          <PersistNotice />
         </div>
       </div>
       <HFullStyles />
