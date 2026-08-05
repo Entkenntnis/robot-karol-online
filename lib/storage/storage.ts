@@ -21,6 +21,7 @@ const karolmaniaSoundEffectsEnabledKey =
 export const karolmaniaProgressKey = 'robot_karol_online_karolmania_progress'
 const miniProjectCollapsedKey = 'robot_karol_online_mini_project_collapsed'
 export const experimentEventsKey = 'robot_karol_online_experiment_events'
+const previewParticipationKey = 'robot_karol_online_preview_participation'
 
 export function getUserId() {
   let userId = localStorage.getItem(userIdKey)
@@ -284,6 +285,18 @@ export function getMiniProjectCollapsed(): boolean {
   const value = sessionStorage.getItem(miniProjectCollapsedKey)
   if (value === null) return true
   return value === '1'
+}
+
+export function getPreviewParticipation() {
+  const value = localStorage.getItem(previewParticipationKey)
+  if (value === null) {
+    return true
+  }
+  return value == '1'
+}
+
+export function setPreviewParticipation(value: boolean) {
+  localStorage.setItem(previewParticipationKey, value ? '1' : '0')
 }
 
 function getExperimentEvents(): string[] {

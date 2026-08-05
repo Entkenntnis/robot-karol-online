@@ -1,8 +1,13 @@
+import { useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
+import { getPreviewParticipation, setPreviewParticipation } from '../../lib/storage/storage'
 
 export function PrivacyModal() {
   const core = useCore()
+  const [previewParticipation, setPreviewParticipationState] = useState(() =>
+    getPreviewParticipation(),
+  )
   return (
     <div
       className="bg-black/20 fixed inset-0 flex justify-center items-center z-[150]"
@@ -31,36 +36,60 @@ export function PrivacyModal() {
                 nicht an Dritte weitergegeben und werden ausschließlich in
                 Deutschland verarbeitet.
               </p>
-              <h2 className="font-bold my-3">Gast-Profil</h2>
+              <h2 className="font-bold my-3">Fortschritt</h2>
               <p>
-                Beim Besuch von Robot Karol Online wird ein temporäres
-                Gast-Profil angelegt. Mithilfe dieses Profils wird dein
-                Fortschritt und dein Code gespeichert und erlaubt es, dich in
-                der Highscore zu platzieren. Beim Schließen des Browser-Tabs
-                wird das Gast-Profil endgültig gelöscht und es kann nicht mehr
-                darauf zugegriffen werden. Ein erneuter Besuch der Seite legt
-                wieder ein neues Gast-Profil an. Dadurch kann kein Tracking
-                stattfinden.
+                Bei der Nutzung von Robot Karol Online wird dein Fortschritt
+                lokal auf deinem Gerät gespeichert. Du kannst den Fortschritt
+                jederzeit speichern und laden. Der Fortschritt selbst bleibt auf
+                deinem Gerät und wird nicht an den Server übertragen. Ausnahmen:
+                Zur Anzeige der Anzahl online aktiver Nutzer*innen wird eine
+                zufällige ID an den Server übertragen. Wenn du eine Aufgabe
+                freigibst, wird diese auf dem Server gespeichert. Zudem werden
+                anonymisierte Nutzungsdaten übertragen (siehe Abschnitt
+                „Protokolle“). Achtung: Der Browser kann entscheiden, diese
+                Daten jederzeit zu löschen. Es wird empfohlen, sich den
+                Fortschritt regelmäßig herunterzuladen.
               </p>
               <h2 className="font-bold my-3">Protokolle</h2>
               <p>
                 Zur Verbesserung der Plattform werden Protokolle geführt und
-                ausgewertet. Dabei werden keine personenbezogenen Daten
-                gespeichert (außer du speicherst deinen Fortschritt, siehe
-                nächsten Abschnitt). Diese Protokolle umfassen
-                Nutzungshäufigkeiten verschiedener Funktionen. Diese
-                Informationen helfen bei der Weiterentwicklung der Plattform und
-                stellen sicher, dass bei Problemen schnell reagiert werden kann.
+                ausgewertet. Diese Protokolle umfassen Nutzungshäufigkeiten
+                verschiedener Funktionen und sind nicht an dein Profil geknüpft.
+                Diese Informationen helfen bei der Weiterentwicklung der
+                Plattform und stellen sicher, dass bei Problemen schnell
+                reagiert werden kann.
               </p>
-              <h2 className="font-bold my-3">Fortschritt speichern</h2>
+              <h2 className="font-bold my-3">Vorschau neuer Funktionen</h2>
               <p>
-                Du hast die Option, deinen Fortschritt dauerhaft auf deinem
-                aktuellen Gerät zu speichern. Dabei wird das Gast-Profil in ein
-                dauerhaftes Profil umgewandelt. Das Profil enthält eine
-                eindeutige ID, dadurch wird dein Gerät für Robot Karol Online
-                identifizierbar. Diese ID ist technisch notwendig, um dir ein
-                Weiterarbeiten an den Aufgaben zu ermöglichen.
+                Neue Funktionen werden teilweise als Vorschau einer ausgewählten
+                Nutzergruppe zur Verfügung gestellt, um die Wirkung besser zu
+                verstehen. Du kannst hier einstellen, ob du an der Vorschau
+                neuer Funktionen teilnehmen möchtest:
               </p>
+              <label className="block my-1">
+                <input
+                  type="radio"
+                  name="preview-participation"
+                  checked={previewParticipation}
+                  onChange={() => {
+                    setPreviewParticipation(true)
+                    setPreviewParticipationState(true)
+                  }}
+                />{' '}
+                An Vorschau teilnehmen
+              </label>
+              <label className="block my-1">
+                <input
+                  type="radio"
+                  name="preview-participation"
+                  checked={!previewParticipation}
+                  onChange={() => {
+                    setPreviewParticipation(false)
+                    setPreviewParticipationState(false)
+                  }}
+                />{' '}
+                Nicht an Vorschau teilnehmen
+              </label>
               <h2 className="font-bold my-3">Hosting</h2>
               <p>
                 Robot Karol Online wird auf einem uberspace
@@ -80,33 +109,57 @@ export function PrivacyModal() {
                 improving the platform. Data is not shared with third parties
                 and is processed exclusively in Germany.
               </p>
-              <h2 className="font-bold my-3">Guest Profile</h2>
+              <h2 className="font-bold my-3">Progress</h2>
               <p>
-                When visiting Robot Karol Online, a temporary guest profile is
-                created. This profile stores your progress and code, allowing
-                you to be placed in the high score. When closing the browser
-                tab, the guest profile is permanently deleted, and access to it
-                is no longer possible. A revisit to the site creates a new guest
-                profile. This ensures that no tracking takes place.
+                When using Robot Karol Online, your progress is stored locally
+                on your device. You can save and load your progress at any time.
+                The progress itself stays on your device and is not transferred
+                to the server. Exceptions: A random ID is sent to the server to
+                display the number of online users. If you share a task, it is
+                stored on the server. In addition, anonymized usage data is
+                transmitted (see the &quot;Logs&quot; section). Please note:
+                Your browser may decide to delete this data at any time. It is
+                recommended to download your progress regularly.
               </p>
               <h2 className="font-bold my-3">Logs</h2>
               <p>
-                To improve the platform, logs are kept and evaluated. No
-                personally identifiable information is stored (unless you save
-                your progress, see the next section). These logs include the
-                frequency of use of different features and solutions to tasks.
-                This information helps in the further development of the
-                platform and ensures quick response to problems.
+                To improve the platform, logs are kept and evaluated. These logs
+                include the frequency of use of different features and are not
+                linked to your profile. This information helps in the further
+                development of the platform and ensures quick response to
+                problems.
               </p>
-              <h2 className="font-bold my-3">Save Progress</h2>
+              <h2 className="font-bold my-3">Preview of New Features</h2>
               <p>
-                You have the option to save your progress permanently on your
-                current device. The guest profile is converted into a permanent
-                profile. The profile includes a unique ID, allowing your device
-                to be identifiable for Robot Karol Online. This ID is
-                technically necessary to enable you to continue working on
-                tasks.
+                New features are sometimes provided as a preview to a selected
+                group of users to better understand their impact. You can choose
+                here whether you want to participate in the preview of new
+                features:
               </p>
+              <label className="block my-1">
+                <input
+                  type="radio"
+                  name="preview-participation"
+                  checked={previewParticipation}
+                  onChange={() => {
+                    setPreviewParticipation(true)
+                    setPreviewParticipationState(true)
+                  }}
+                />{' '}
+                Participate in preview
+              </label>
+              <label className="block my-1">
+                <input
+                  type="radio"
+                  name="preview-participation"
+                  checked={!previewParticipation}
+                  onChange={() => {
+                    setPreviewParticipation(false)
+                    setPreviewParticipationState(false)
+                  }}
+                />{' '}
+                Do not participate in preview
+              </label>
               <h2 className="font-bold my-3">Hosting</h2>
               <p>
                 Robot Karol Online is hosted on uberspace
