@@ -20,7 +20,7 @@ const karolmaniaSoundEffectsEnabledKey =
   'robot_karol_online_karolmania_sound_effects_enabled'
 export const karolmaniaProgressKey = 'robot_karol_online_karolmania_progress'
 const miniProjectCollapsedKey = 'robot_karol_online_mini_project_collapsed'
-const experimentEventsKey = 'robot_karol_online_experiment_events'
+export const experimentEventsKey = 'robot_karol_online_experiment_events'
 
 export function getUserId() {
   let userId = localStorage.getItem(userIdKey)

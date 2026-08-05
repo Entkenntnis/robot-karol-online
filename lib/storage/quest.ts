@@ -3,6 +3,7 @@
 import { questList } from '../data/overview'
 import { Core } from '../state/core'
 import {
+  experimentEventsKey,
   getKarolmaniaProgress,
   getLng,
   getQuestData,
@@ -105,6 +106,9 @@ export function resetStorage() {
   localStorage.removeItem(userIdKey)
   localStorage.removeItem(userNameKey)
   localStorage.removeItem(lngKey)
+  localStorage.removeItem(robotImageKey)
+  localStorage.removeItem(karolmaniaProgressKey)
+  localStorage.removeItem(experimentEventsKey)
   for (const id of questList) {
     localStorage.removeItem(questKey(id))
   }
