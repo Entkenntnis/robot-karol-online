@@ -21,6 +21,7 @@ const karolmaniaSoundEffectsEnabledKey =
   'robot_karol_online_karolmania_sound_effects_enabled'
 export const karolmaniaProgressKey = 'robot_karol_online_karolmania_progress'
 const miniProjectCollapsedKey = 'robot_karol_online_mini_project_collapsed'
+const experimentEventsKey = 'robot_karol_online_experiment_events'
 
 export function getUserId() {
   if (!sessionStorage.getItem(userIdKey) && !localStorage.getItem(userIdKey)) {
@@ -308,4 +309,32 @@ export function getMiniProjectCollapsed(): boolean {
   const value = sessionStorage.getItem(miniProjectCollapsedKey)
   if (value === null) return true
   return value === '1'
+}
+
+function getExperimentEvents(): string[] {
+  for (const store of [localStorage, sessionStorage]) {
+    const raw = store.getItem(experimentEventsKey)
+    if (raw != null) {
+      try {
+        const parsed = JSON.parse(raw)
+        if (Array.isArray(parsed)) {
+          return parsed
+        }
+      } catch {}
+    }
+  }
+  return []
+}
+
+export function submitExperimentEventOnce(key: string): boolean {
+  if (getExperimentEvents().includes(key)) {
+    return false
+  }
+  const events = [...new Set([...getExperimentEvents(), key])]
+  const value = JSON.stringify(events)
+  if (isPersisted()) {
+    localStorage.setItem(experimentEventsKey, value)
+  }
+  sessionStorage.setItem(experimentEventsKey, value)
+  return true
 }

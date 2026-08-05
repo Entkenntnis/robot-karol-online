@@ -36,6 +36,7 @@
     "isbot": "^5.2.1",
     "lodash.throttle": "^4.1.1",
     "markdown-to-jsx": "^8.0.0",
+    "nanoid": "^6.0.1",
     "pullstate": "^2.0.0-pre.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
