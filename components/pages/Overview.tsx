@@ -307,7 +307,7 @@ export function Overview() {
                         </p>
                         <FaIcon
                           icon={faPaintBrush}
-                          className="text-3xl animate-pastel-fade inline-block mt-2 pb-2"
+                          className="text-3xl inline-block mt-2 pb-2 text-[#C08081]"
                         />
                       </button>
                     </AnimateInView>
