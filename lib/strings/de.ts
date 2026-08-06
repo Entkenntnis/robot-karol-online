@@ -171,6 +171,7 @@ export const deStrings = {
     create: 'Welt erstellen',
     editOptions: 'Eingabeoptionen',
     all: 'alle erlauben',
+    codeOnly: 'nur Code (alle Sprachen)',
     karolOnly: 'nur Karol Code',
     pythonOnly: 'nur Karol-Python-Code [veraltet]',
     javaOnly: 'nur Karol Java',

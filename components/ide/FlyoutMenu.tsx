@@ -270,6 +270,8 @@ export function FlyoutMenu() {
                       editor.editOptions = 'karol-only'
                     } else if (ui.lockLanguage == 'python-pro') {
                       editor.editOptions = 'python-pro-only'
+                    } else if (core.ws.editor.editOptions === 'code-only') {
+                      editor.editOptions = 'code-only'
                     }
                   })
                   saveEditorSnapshot(core)
