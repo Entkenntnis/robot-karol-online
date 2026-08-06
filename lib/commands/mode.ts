@@ -9,6 +9,13 @@ import { showModal } from './modal'
 import { updatePlaygroundHashToMode } from './save'
 
 export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
+  if (
+    mode == 'blocks' &&
+    core.ws.editor.editOptions === 'code-only' &&
+    core.ws.page !== 'editor'
+  ) {
+    return // block editor is disabled
+  }
   if (core.ws.settings.mode == 'blocks') {
     if (
       core.ws.ui.state == 'running' ||

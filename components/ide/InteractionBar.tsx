@@ -44,6 +44,9 @@ export function InteractionBar() {
     core.ws.ui.proMode ||
     core.ws.ui.editQuestScript
 
+  const codeOnly =
+    core.ws.editor.editOptions === 'code-only' && core.ws.page !== 'editor'
+
   const debuggable =
     core.ws.ui.state == 'running' &&
     !core.ws.editor.questScript &&
@@ -130,6 +133,7 @@ export function InteractionBar() {
             className={clsx(
               'font-semibold mr-1 select-none disabled:cursor-default ml-9',
               core.ws.settings.mode == 'code' && 'text-gray-600',
+              codeOnly && 'hidden',
             )}
             disabled={dontChangeLanguage}
             onClick={() => {
@@ -148,6 +152,7 @@ export function InteractionBar() {
               dontChangeLanguage
                 ? 'opacity-30 cursor-not-allowed'
                 : 'cursor-pointer',
+              codeOnly && 'invisible w-0',
             )}
           >
             <input

@@ -186,6 +186,12 @@ export function deserializeQuest(
       ws.editor.saveProgram = !!(quest.program && quest.language)
     })
   } else if (quest.editOptions) {
+    if (quest.editOptions === 'code-only') {
+      core.mutateWs((ws) => {
+        ws.settings.mode = 'code'
+        ws.editor.editOptions = 'code-only'
+      })
+    }
     if (quest.editOptions === 'python-only') {
       setLanguage(core, 'python-pro')
       core.mutateWs((ws) => {

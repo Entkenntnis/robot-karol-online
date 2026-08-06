@@ -135,6 +135,9 @@ export function Tasks() {
                             <option value="python-pro-only">
                               {core.strings.editor.pythonProOnly}
                             </option>
+                            <option value="code-only">
+                              {core.strings.editor.codeOnly}
+                            </option>
                           </select>
                         </div>
                       )}

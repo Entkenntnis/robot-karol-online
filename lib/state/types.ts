@@ -129,7 +129,8 @@ export interface Editor {
   editWorld: number | null
   currentlyEditing: 'start' | 'target'
   showWorldPreview: boolean
-  editOptions: 'all' | 'java-only' | 'karol-only' | 'python-pro-only'
+  editOptions:
+    'all' | 'code-only' | 'java-only' | 'karol-only' | 'python-pro-only'
   saveProgram: boolean
   keepQuest: boolean
   questScript: string
@@ -543,7 +544,8 @@ export interface QuestSerialFormat_MUST_STAY_COMPATIBLE {
     target: SerialWorld_MUST_STAY_COMPATIBLE
   }[]
   lng?: 'de' | 'en'
-  editOptions?: 'python-only' | 'java-only' | 'karol-only' | 'python-pro-only'
+  editOptions?:
+    'python-only' | 'code-only' | 'java-only' | 'karol-only' | 'python-pro-only'
   program?: string
   language?: 'blocks' | 'karol' | 'python' | 'java' | 'python-pro'
   questScript?: string

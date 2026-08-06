@@ -38,6 +38,8 @@ export async function loadQuest(core: Core, id: string) {
           ui.resetCode[id] = ['python', '']
         } else if (obj.editOptions == 'karol-only') {
           ui.resetCode[id] = ['karol', '']
+        } else if (obj.editOptions == 'code-only') {
+          ui.resetCode[id] = ['karol', '']
         } else {
           ui.resetCode[id] = ['blocks', '']
         }
