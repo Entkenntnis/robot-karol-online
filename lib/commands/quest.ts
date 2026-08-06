@@ -17,6 +17,7 @@ import {
   setPreferredQuestSettings,
   setQuestData,
 } from '../storage/storage'
+import { triggerEvent } from './experiment'
 import { closeModal, showModal } from './modal'
 import { runPythonCode } from './python'
 import { navigate } from './router'
@@ -412,6 +413,8 @@ export function finishQuest(core: Core, stay: boolean = false) {
   storeQuestToSession(core)
   setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
   ____submit_event(`quest_complete_${core.ws.quest.id}`, core)
+  triggerEvent(core, 'complete-quest-' + core.ws.quest.id)
+
   if (!stay) {
     navigate(core, getQuestReturnToPath(''))
   } else {

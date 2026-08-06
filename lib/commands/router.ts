@@ -21,6 +21,7 @@ import {
 import { analyze } from './analyze'
 import { refreshEditArea } from './editing'
 import { addNewTask } from './editor'
+import { triggerEvent } from './experiment'
 import { deserializeQuest } from './json'
 import { loadLegacyProject, loadQuest } from './load'
 import { setLng } from './mode'
@@ -228,6 +229,7 @@ export async function hydrate(core: Core) {
       ws.page = 'overview'
     })
     document.title = 'Robot Karol Online'
+    triggerEvent(core, 'visit-landing')
     return
   }
 
@@ -243,6 +245,7 @@ export async function hydrate(core: Core) {
     const questId = parseInt(page.substring(6))
     startQuest(core, questId)
     refreshEditArea(core)
+    triggerEvent(core, 'start-quest-' + questId)
     document.title = core.ws.quest.title + ' | Robot Karol Online'
     return
   }
@@ -287,6 +290,7 @@ export async function hydrate(core: Core) {
     core.mutateWs((ws) => {
       ws.page = 'overview'
     })
+    triggerEvent(core, 'load-robot-image')
     return
   }
 

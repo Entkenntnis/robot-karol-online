@@ -24,6 +24,8 @@ function fnv1a(str: string): number {
 }
 
 export function triggerEvent(core: Core, key: string) {
+  console.log('event: ' + key)
+
   if (core.ws.settings.lng !== 'de') return
   if (!getPreviewParticipation()) return
 

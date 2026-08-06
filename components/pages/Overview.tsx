@@ -38,6 +38,7 @@ import { Reactions } from '../helper/Reactions'
 import { SpinningRobot } from '../helper/SpinningRobot'
 import { Discover } from '../helper/Discover'
 import { News } from '../helper/News'
+import { triggerEvent } from '../../lib/commands/experiment'
 
 export function Overview() {
   const core = useCore()
@@ -325,6 +326,7 @@ export function Overview() {
                               core,
                               'ev_click_landing_robotGallery',
                             )
+                            triggerEvent(core, 'click-robot-gallery')
                             setTimeout(() => {
                               window.open(
                                 'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
@@ -483,6 +485,7 @@ export function Overview() {
                               core,
                               'ev_click_landing_saveNewKarol',
                             )
+                            triggerEvent(core, 'apply-new-robot')
                           }}
                         >
                           Laden
