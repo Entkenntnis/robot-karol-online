@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
-import { getPreviewParticipation, setPreviewParticipation } from '../../lib/storage/storage'
+import {
+  getPreviewParticipation,
+  setPreviewParticipation,
+} from '../../lib/storage/storage'
 
 export function PrivacyModal() {
   const core = useCore()
@@ -41,14 +44,10 @@ export function PrivacyModal() {
                 Bei der Nutzung von Robot Karol Online wird dein Fortschritt
                 lokal auf deinem Gerät gespeichert. Du kannst den Fortschritt
                 jederzeit speichern und laden. Der Fortschritt selbst bleibt auf
-                deinem Gerät und wird nicht an den Server übertragen. Ausnahmen:
-                Zur Anzeige der Anzahl online aktiver Nutzer*innen wird eine
-                zufällige ID an den Server übertragen. Wenn du eine Aufgabe
-                freigibst, wird diese auf dem Server gespeichert. Zudem werden
-                anonymisierte Nutzungsdaten übertragen (siehe Abschnitt
-                „Protokolle“). Achtung: Der Browser kann entscheiden, diese
-                Daten jederzeit zu löschen. Es wird empfohlen, sich den
-                Fortschritt regelmäßig herunterzuladen.
+                deinem Gerät und wird nicht an den Server übertragen. Achtung:
+                Der Browser kann entscheiden, diese Daten jederzeit zu löschen.
+                Es wird empfohlen, sich den Fortschritt regelmäßig
+                herunterzuladen.
               </p>
               <h2 className="font-bold my-3">Protokolle</h2>
               <p>
@@ -114,12 +113,9 @@ export function PrivacyModal() {
                 When using Robot Karol Online, your progress is stored locally
                 on your device. You can save and load your progress at any time.
                 The progress itself stays on your device and is not transferred
-                to the server. Exceptions: A random ID is sent to the server to
-                display the number of online users. If you share a task, it is
-                stored on the server. In addition, anonymized usage data is
-                transmitted (see the &quot;Logs&quot; section). Please note:
-                Your browser may decide to delete this data at any time. It is
-                recommended to download your progress regularly.
+                to the server. Please note: Your browser may decide to delete
+                this data at any time. It is recommended to download your
+                progress regularly.
               </p>
               <h2 className="font-bold my-3">Logs</h2>
               <p>

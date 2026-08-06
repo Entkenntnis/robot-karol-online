@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FaIcon } from './FaIcon'
 import { io } from 'socket.io-client'
-import { getUserId } from '../../lib/storage/storage'
 import clsx from 'clsx'
 import { backend } from '../../backend'
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
@@ -36,7 +35,6 @@ export function Reactions() {
         ? backend.host
         : 'https://karol.arrrg.de',
       {
-        auth: { userId: getUserId() },
         path: backend.host.includes('localhost') ? '' : '/backend/socket.io',
       },
     )
