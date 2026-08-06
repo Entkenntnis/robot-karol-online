@@ -664,3 +664,12 @@ export interface PythonProjectGroup {
   highlightColor?: string
   tasks: (typeof pythonKarolExamples)[number][]
 }
+
+export interface Experiment {
+  id: number
+  startTs: number
+  endTs: number
+  description: string
+  startEvent: string
+  endEvent: string
+}

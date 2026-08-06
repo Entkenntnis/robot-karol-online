@@ -314,11 +314,11 @@ function getExperimentEvents(): string[] {
   return []
 }
 
-export function submitExperimentEventOnce(key: string): boolean {
-  if (getExperimentEvents().includes(key)) {
-    return false
-  }
+export function experimentEventAlreadySubmitted(key: string): boolean {
+  return getExperimentEvents().includes(key)
+}
+
+export function markExperimentAsSubmitted(key: string) {
   const events = [...new Set([...getExperimentEvents(), key])]
   localStorage.setItem(experimentEventsKey, JSON.stringify(events))
-  return true
 }

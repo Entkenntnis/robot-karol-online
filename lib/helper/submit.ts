@@ -1,6 +1,6 @@
 import { backend } from '../../backend'
 import { Core } from '../state/core'
-import { submitExperimentEventOnce, getPreviewParticipation } from '../storage/storage'
+import { markExperimentAsSubmitted } from '../storage/storage'
 import { superfetch } from './superfetch'
 import { nanoid } from 'nanoid'
 
@@ -34,18 +34,13 @@ export function submitEvent(key: string, value: string) {
 
 export function submitExperimentEvent(key: string) {
   if (backend.experimentEndpoint) {
-    if (!getPreviewParticipation()) {
-      return
-    }
     if (
       window.location.host !== 'karol.arrrg.de' &&
       !backend.experimentEndpoint.includes('localhost')
     ) {
       return
     }
-    if (!submitExperimentEventOnce(key)) {
-      return
-    }
+    markExperimentAsSubmitted(key)
     superfetch(backend.experimentEndpoint, {
       method: 'POST',
       headers: {
