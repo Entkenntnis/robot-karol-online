@@ -198,17 +198,11 @@ Scenario('Test python quest', ({ I }) => {
 })
 
 Scenario.only('Reproduce Race Condition in PyodideWorker', ({ I }) => {
-  I.amOnPage('/')
-  I.click('Spielwiese')
-  I.click({ css: '#select-language' })
-  I.click({ css: '#select-language-python-pro' })
+  I.amOnPage('/#QUEST-61')
   I.click('Start')
 
-  I.amOnPage('#SPIELWIESE')
-  I.click({ css: '#select-language' })
-  I.click({ css: '#select-language-python-pro' })
+  I.amOnPage('/#SPIELWIESE-PYTHON')
   I.click('Start')
-  I.waitForText('Ausführung beendet', 10)
 
   I.amOnPage('/#QUEST-61')
   I.click('Start')
