@@ -183,7 +183,7 @@ export function FlyoutMenu() {
           core.ws.ui.resetCode[core.ws.ui.sharedQuestId] && (
             <p className="px-2 pt-4">
               <button
-                className="px-2 py-0.5 hover:bg-red-100 rounded"
+                className="hover:bg-red-100 px-2 py-2 rounded w-full text-left"
                 onClick={() => {
                   closeFlyoutMenu()
                   ____submitAnalyzeEvent(core, 'ev_click_ide_resetQuestCode')
@@ -234,41 +234,6 @@ export function FlyoutMenu() {
         )}
         {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
           <>
-            <p className="px-2 pt-4">
-              <button
-                className="px-2 py-0.5 hover:bg-yellow-300 rounded"
-                onClick={() => {
-                  if (core.ws.ui.state == 'running' || core.ws.ui.isBench) {
-                    startButtonClicked(core)
-                  }
-                  closeFlyoutMenu()
-                  ____submitAnalyzeEvent(core, 'ev_click_ide_openInEditor')
-                  // TODO: handle data dependencies
-                  const questId = core.ws.ui.sharedQuestId
-                  if (questId && core.ws.ui.resetCode[questId]) {
-                    const [language, program] = core.ws.ui.resetCode[questId]
-                    loadProgram(core, program, language as any)
-                  }
-                  core.mutateWs(({ editor, ui }) => {
-                    editor.editOptions = 'all'
-                    if (ui.lockLanguage == 'java') {
-                      editor.editOptions = 'java-only'
-                    } else if (ui.lockLanguage == 'karol') {
-                      editor.editOptions = 'karol-only'
-                    } else if (ui.lockLanguage == 'python-pro') {
-                      editor.editOptions = 'python-pro-only'
-                    } else if (core.ws.editor.editOptions === 'code-only') {
-                      editor.editOptions = 'code-only'
-                    }
-                  })
-                  saveEditorSnapshot(core)
-                  navigate(core, '#EDITOR')
-                }}
-              >
-                <FaIcon icon={faPencil} className="mr-2" />{' '}
-                {core.strings.ide.openInEditor}
-              </button>
-            </p>
             <p className="px-2 pt-4">
               <span className="inline-block mx-2 border px-1 rounded bg-white">
                 <FaIcon icon={faGlobe} />
