@@ -36,6 +36,7 @@ import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
 import { QuestEditor } from './QuestEditor'
 import { View } from '../helper/View'
+import { View2D } from '../helper/View2D'
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import { ChatVisual } from './ChatVisual'
@@ -448,7 +449,10 @@ export function Tasks() {
                     }}
                   >
                     <div
-                      className={clsx('h-48 mb-6 mx-8 cursor-pointer')}
+                      className={clsx(
+                        'h-48 cursor-pointer',
+                        core.ws.ui.show2D ? 'mx-8 my-3' : 'mb-6 mx-8',
+                      )}
                       onClick={() => {
                         if (
                           core.ws.page == 'editor' &&
@@ -458,18 +462,30 @@ export function Tasks() {
                         }
                       }}
                     >
-                      <View
-                        world={task.start}
-                        preview={
-                          task.target === null
-                            ? undefined
-                            : { world: task.target }
-                        }
-                        hideKarol={false}
-                        wireframe={false}
-                        className="h-full w-full object-contain"
-                        robotImageDataUrl={core.ws.robotImageDataUrl}
-                      />
+                      {core.ws.ui.show2D ? (
+                        <View2D
+                          world={task.start}
+                          preview={
+                            task.target === null
+                              ? undefined
+                              : { world: task.target }
+                          }
+                          className="h-full w-full object-contain"
+                        />
+                      ) : (
+                        <View
+                          world={task.start}
+                          preview={
+                            task.target === null
+                              ? undefined
+                              : { world: task.target }
+                          }
+                          hideKarol={false}
+                          wireframe={false}
+                          className="h-full w-full object-contain"
+                          robotImageDataUrl={core.ws.robotImageDataUrl}
+                        />
+                      )}
                     </div>
                     <div className="ml-4 mt-6">
                       <h2 className="text-lg font-bold">

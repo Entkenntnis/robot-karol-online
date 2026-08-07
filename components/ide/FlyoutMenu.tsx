@@ -20,8 +20,6 @@ import { setLanguage } from '../../lib/commands/language'
 import { useEffect } from 'react'
 import { questData } from '../../lib/data/quests'
 import { questDataEn } from '../../lib/data/questsEn'
-import { createWorldCmd } from '../../lib/commands/world'
-import { createWorld } from '../../lib/state/create'
 import { startButtonClicked } from '../../lib/commands/start'
 import { navigate } from '../../lib/commands/router'
 import { refreshEditArea } from '../../lib/commands/editing'
@@ -137,26 +135,15 @@ export function FlyoutMenu() {
                   //   switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'shared')
                   // } else {
                   let code = e.target.result
-                  if (core.ws.ui.isPlayground) {
-                    // check for playground pragma and extract world size
-                    const match = code.match(
-                      /(\/\/|#) Spielwiese: (\d+), (\d+), (\d+)\n\n/,
-                    )
-                    if (match) {
-                      const dimX = parseInt(match[2])
-                      const dimY = parseInt(match[3])
-                      const height = parseInt(match[4])
-                      createWorldCmd(core, dimX, dimY, height)
-                      core.mutateWs((ws) => {
-                        ws.quest.tasks[0].start = createWorld(
-                          dimX,
-                          dimY,
-                          height,
-                        )
-                      })
-                      code = code.replace(match[0], '')
-                    }
-                  }
+                  // remove headers prepended by save.ts
+                  code = code.replace(
+                    /^(\/\/|#) Spielwiese: \d+, \d+, \d+\n\n/,
+                    '',
+                  )
+                  code = code.replace(
+                    /^(\/\/|#) Bearbeitung von ".*" \(.*\)\n\n/,
+                    '',
+                  )
                   core.mutateWs((s) => {
                     if (core.ws.settings.language == 'java') {
                       s.javaCode = code
@@ -224,7 +211,7 @@ export function FlyoutMenu() {
             questData[core.ws.quest.id].script!.program.length > 0)) && (
           <p className="px-2 pt-4">
             <button
-              className="px-2 py-0.5 hover:bg-red-100 rounded"
+              className="hover:bg-red-100 px-2 py-2 rounded w-full text-left"
               onClick={() => {
                 closeFlyoutMenu()
                 ____submitAnalyzeEvent(
@@ -313,9 +300,27 @@ export function FlyoutMenu() {
             </p>
           </>
         )}
-        <p className="px-2 pt-4">
+        <hr className="my-3 mx-4" />
+        {!core.ws.ui.isChatMode && (
+          <p className="px-2 pb-4">
+            <label className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left block cursor-pointer">
+              <input
+                type="checkbox"
+                className="cursor-pointer mr-1"
+                checked={core.ws.ui.show2D}
+                onChange={(e) => {
+                  core.mutateWs((ws) => {
+                    ws.ui.show2D = e.target.checked
+                  })
+                }}
+              />{' '}
+              2D-Ansicht
+            </label>
+          </p>
+        )}
+        <p className="px-2">
           <button
-            className="ml-2 hover:underline"
+            className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left"
             onClick={() => {
               closeFlyoutMenu()
               ____submitAnalyzeEvent(core, 'ev_click_ide_fullscreen')
@@ -325,7 +330,7 @@ export function FlyoutMenu() {
               }
             }}
           >
-            <FaIcon icon={faExpand} /> Vollbild
+            <FaIcon icon={faExpand} className="mr-1" /> Vollbild
           </button>
         </p>
       </div>
