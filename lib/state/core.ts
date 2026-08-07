@@ -105,9 +105,6 @@ export class Core {
 
   reset() {
     const previousEditAreaRenderCounter = this.ws.editAreaRenderCounter
-    if (this.worker && !this.worker.isFresh) {
-      this.worker.reset()
-    }
     this.executionEndCallback = undefined
 
     const cleanState = createDefaultCoreState()
@@ -118,5 +115,9 @@ export class Core {
       instrument.dispose()
     })
     this.instruments.clear()
+
+    if (this.worker && !this.worker.isFresh) {
+      this.worker.reset()
+    }
   }
 }

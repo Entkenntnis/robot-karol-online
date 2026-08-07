@@ -685,13 +685,13 @@ export function setupWorker(core: Core) {
     type: 'module',
   })
 
-  core.worker.mainWorker.addEventListener('message', messageHandlerMain)
+  core.worker.mainWorker.onmessage = messageHandlerMain
 
   core.worker.backupWorker = new Worker('/pyodide/karol-worker.mjs', {
     type: 'module',
   })
 
-  core.worker.backupWorker.addEventListener('message', messageHandlerBackup)
+  core.worker.backupWorker.onmessage = messageHandlerBackup
 
   core.worker.init = async () => {
     if (!core.worker || !core.worker.mainWorker || !core.worker.backupWorker)
@@ -782,6 +782,8 @@ export function setupWorker(core: Core) {
   core.worker.reset = () => {
     if (!core.worker || !core.worker.mainWorker || !core.worker.backupWorker)
       return
+
+    console.log('reset in progress')
 
     core.worker.mainWorker.terminate()
     core.worker.mainWorker = core.worker.backupWorker
