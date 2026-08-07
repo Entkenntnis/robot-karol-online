@@ -6,7 +6,6 @@ import {
   faFloppyDisk,
   faFolderOpen,
   faGlobe,
-  faPencil,
   faRotateRight,
   faTimes,
   faUpRightAndDownLeftFromCenter,
@@ -14,14 +13,12 @@ import {
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { setLng, setMode } from '../../lib/commands/mode'
 import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
-import { saveEditorSnapshot, setLngStorage } from '../../lib/storage/storage'
+import { setLngStorage } from '../../lib/storage/storage'
 import { showModal } from '../../lib/commands/modal'
 import { setLanguage } from '../../lib/commands/language'
 import { useEffect } from 'react'
 import { questData } from '../../lib/data/quests'
 import { questDataEn } from '../../lib/data/questsEn'
-import { startButtonClicked } from '../../lib/commands/start'
-import { navigate } from '../../lib/commands/router'
 import { refreshEditArea } from '../../lib/commands/editing'
 
 export function FlyoutMenu() {
