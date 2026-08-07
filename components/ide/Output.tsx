@@ -411,24 +411,6 @@ export function Output() {
                 </label>
               </span>
             )}
-          {!core.ws.ui.isTesting && !minimalModeForQuestScript && (
-            <span className="ml-6 bg-white/80 rounded p-1">
-              <label className="select-none cursor-pointer text-gray-600">
-                <input
-                  type="checkbox"
-                  className="cursor-pointer"
-                  checked={core.ws.ui.show2D}
-                  onChange={(e) => {
-                    ____submitAnalyzeEvent(core, 'ev_click_ide_toggle2DView')
-                    core.mutateWs((ws) => {
-                      ws.ui.show2D = e.target.checked
-                    })
-                  }}
-                />{' '}
-                2D-Ansicht
-              </label>
-            </span>
-          )}
         </div>
       )}
       {core.ws.ui.isEndOfRun &&
