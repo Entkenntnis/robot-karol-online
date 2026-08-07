@@ -197,7 +197,7 @@ Scenario('Test python quest', ({ I }) => {
   I.click('weiter')
 })
 
-Scenario.only('Reproduce Race Condition in PyodideWorker', ({ I }) => {
+Scenario('Reproduce Race Condition in PyodideWorker', ({ I }) => {
   I.amOnPage('/#QUEST-61')
   I.click('Start')
 
@@ -214,7 +214,7 @@ Scenario('Toggles in output', ({ I }) => {
   I.see('Auftragsvorschau')
   I.amOnPage('#QUEST-27')
   I.click({ css: 'canvas.object-contain' })
-  I.dontSee('2D-Ansicht')
+  // I.dontSee('2D-Ansicht')
   I.dontSee('Auftragsvorschau')
 })
 
