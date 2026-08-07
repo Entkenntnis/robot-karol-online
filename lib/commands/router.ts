@@ -383,6 +383,24 @@ export async function hydrate(core: Core) {
     }
   }
 
+  if (page == 'LOCAL') {
+    try {
+      const obj = JSON.parse(
+        decodeURIComponent(data) ?? '{}',
+      ) as QuestSerialFormat_MUST_STAY_COMPATIBLE
+      if (obj.version !== 'v1') {
+        throw 'bad format'
+      }
+      deserializeQuest(core, obj)
+      core.mutateWs((ws) => {
+        ws.page = 'shared'
+      })
+      return
+    } catch (e) {
+      alert(e)
+    }
+  }
+
   if (page.length == 4) {
     await loadQuest(core, page)
     core.mutateWs((ws) => {
