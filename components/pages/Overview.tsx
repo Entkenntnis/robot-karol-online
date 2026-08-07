@@ -213,6 +213,45 @@ export function Overview() {
             <>
               <div className="px-6 mt-6 min-w-[360px] relative bg-white/50 mb-24">
                 {questListByCategory.map(renderQuestCategory)}
+
+                <div className="p-3 flex justify-end">
+                  <button
+                    className={clsx(
+                      'px-2 py-1 hover:bg-gray-300 bg-gray-200 rounded transition-colors',
+                    )}
+                    onClick={() => {
+                      const input = document.createElement('input')
+                      input.type = 'file'
+                      input.accept = '.json'
+                      const reader = new FileReader()
+                      reader.addEventListener('load', (e) => {
+                        if (
+                          e.target != null &&
+                          typeof e.target.result === 'string'
+                        ) {
+                          navigate(
+                            core,
+                            '#LOCAL:' + encodeURIComponent(e.target.result),
+                          )
+                        }
+                      })
+                      input.addEventListener('change', () => {
+                        if (input.files != null && input.files[0]) {
+                          reader.readAsText(input.files[0])
+                        }
+                      })
+                      input.dispatchEvent(
+                        new MouseEvent('click', {
+                          view: window,
+                          bubbles: true,
+                          cancelable: true,
+                        }),
+                      )
+                    }}
+                  >
+                    Aufgabe aus Datei laden
+                  </button>
+                </div>
               </div>
             </>
           )}
