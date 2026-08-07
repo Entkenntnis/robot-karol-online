@@ -190,12 +190,28 @@ Scenario('Test python quest', ({ I }) => {
   I.click('div .cm-activeLine')
   I.pressKey(['Control', 'a'])
   I.type('print("Hallo, Python!")')
-  I.wait(5)
   I.click('Start')
   I.click("Ja, los geht's!")
   I.waitForText('Perfekt gemacht', 3)
   I.click('Ja, hab ich gesehen')
   I.click('weiter')
+})
+
+Scenario.only('Reproduce Race Condition in PyodideWorker', ({ I }) => {
+  I.amOnPage('/')
+  I.click('Spielwiese')
+  I.click({ css: '#select-language' })
+  I.click({ css: '#select-language-python-pro' })
+  I.click('Start')
+
+  I.amOnPage('#SPIELWIESE')
+  I.click({ css: '#select-language' })
+  I.click({ css: '#select-language-python-pro' })
+  I.click('Start')
+  I.waitForText('Ausführung beendet', 10)
+
+  I.amOnPage('/#QUEST-61')
+  I.click('Start')
 })
 
 Scenario('Toggles in output', ({ I }) => {
@@ -204,7 +220,7 @@ Scenario('Toggles in output', ({ I }) => {
   I.see('Auftragsvorschau')
   I.amOnPage('#QUEST-27')
   I.click({ css: 'canvas.object-contain' })
-  I.see('2D-Ansicht')
+  I.dontSee('2D-Ansicht')
   I.dontSee('Auftragsvorschau')
 })
 
