@@ -20,8 +20,6 @@ import { setLanguage } from '../../lib/commands/language'
 import { useEffect } from 'react'
 import { questData } from '../../lib/data/quests'
 import { questDataEn } from '../../lib/data/questsEn'
-import { createWorldCmd } from '../../lib/commands/world'
-import { createWorld } from '../../lib/state/create'
 import { startButtonClicked } from '../../lib/commands/start'
 import { navigate } from '../../lib/commands/router'
 import { refreshEditArea } from '../../lib/commands/editing'
@@ -137,26 +135,15 @@ export function FlyoutMenu() {
                   //   switchToPage_DEPRECATED_WILL_BE_REMOVED(core, 'shared')
                   // } else {
                   let code = e.target.result
-                  if (core.ws.ui.isPlayground) {
-                    // check for playground pragma and extract world size
-                    const match = code.match(
-                      /(\/\/|#) Spielwiese: (\d+), (\d+), (\d+)\n\n/,
-                    )
-                    if (match) {
-                      const dimX = parseInt(match[2])
-                      const dimY = parseInt(match[3])
-                      const height = parseInt(match[4])
-                      createWorldCmd(core, dimX, dimY, height)
-                      core.mutateWs((ws) => {
-                        ws.quest.tasks[0].start = createWorld(
-                          dimX,
-                          dimY,
-                          height,
-                        )
-                      })
-                      code = code.replace(match[0], '')
-                    }
-                  }
+                  // remove headers prepended by save.ts
+                  code = code.replace(
+                    /^(\/\/|#) Spielwiese: \d+, \d+, \d+\n\n/,
+                    '',
+                  )
+                  code = code.replace(
+                    /^(\/\/|#) Bearbeitung von ".*" \(.*\)\n\n/,
+                    '',
+                  )
                   core.mutateWs((s) => {
                     if (core.ws.settings.language == 'java') {
                       s.javaCode = code

@@ -32,8 +32,8 @@ export const deStrings = {
   },
   ide: {
     backToOverview: 'zurück zur Übersicht',
-    save: 'Speichern',
-    load: 'Öffnen',
+    save: 'Bearbeitung speichern',
+    load: 'Bearbeitung laden',
     blocks: 'Blöcke',
     structogram: 'Struktogramm',
     welcome:

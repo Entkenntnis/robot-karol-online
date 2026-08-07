@@ -44,14 +44,23 @@ const debouncedReplaceState = (() => {
 })()
 
 export function saveCodeToFile(core: Core) {
+  // Create header
+  let header = ''
+
+  if (
+    window.location.host === 'karol.arrrg.de' ||
+    window.location.host.includes('localhost')
+  ) {
+    if (core.ws.quest.id >= 1) {
+      // I'm within the context of a quest
+      header = `${core.ws.settings.language == 'python-pro' ? '#' : '//'} Bearbeitung von "${core.ws.quest.title}" (${window.location.toString()})\n\n`
+    }
+  }
+
   // 3. Create a Blob from the string
   const blob = new Blob(
     [
-      `${core.ws.settings.language == 'python-pro' ? '#' : '//'} Spielwiese: ${
-        core.ws.quest.tasks[0].start.dimX
-      }, ${core.ws.quest.tasks[0].start.dimY}, ${
-        core.ws.quest.tasks[0].start.height
-      }\n\n` +
+      header +
         (core.ws.settings.language == 'robot karol' ||
         core.ws.settings.mode == 'blocks'
           ? core.ws.code
@@ -70,10 +79,11 @@ export function saveCodeToFile(core: Core) {
   // 5. Create an anchor element for the download link
   const a = document.createElement('a')
   a.href = url
-  a.download = `${core.ws.quest.title.replace(/[^A-Za-z0-9äüöÄÜÖß]/g, '_')}-${
-    core.ws.ui.sharedQuestId ? core.ws.ui.sharedQuestId + '-' : ''
-  }karol.${
-    core.ws.settings.language == 'robot karol'
+  a.download = `${core.ws.quest.title.replace(/[^A-Za-z0-9äüöÄÜÖß]/g, '_')}${
+    core.ws.ui.sharedQuestId ? '-' + core.ws.ui.sharedQuestId : ''
+  }.${
+    core.ws.settings.language == 'robot karol' ||
+    core.ws.settings.mode == 'blocks'
       ? 'txt'
       : core.ws.settings.language == 'python-pro'
         ? 'py'
