@@ -32,7 +32,7 @@ export function submitEvent(key: string, value: string) {
   }
 }
 
-export function submitExperimentEvent(key: string) {
+export function submitExperimentEvent(event: string) {
   if (backend.experimentEndpoint) {
     if (
       window.location.host !== 'karol.arrrg.de' &&
@@ -40,13 +40,13 @@ export function submitExperimentEvent(key: string) {
     ) {
       return
     }
-    markExperimentAsSubmitted(key)
+    markExperimentAsSubmitted(event)
     superfetch(backend.experimentEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ key, id: nanoid() }),
+      body: JSON.stringify({ id: nanoid(), event: event }),
     })
   }
 }
