@@ -39,8 +39,7 @@ export function PythonPath() {
   useEffect(() => {
     if (
       core.ws.overview.overviewScroll > 0 &&
-      core.ws.overview.showOverviewList &&
-      !core.ws.overview.showProfile
+      core.ws.overview.showOverviewList
     ) {
       document.getElementById('scroll-container')!.scrollTop =
         core.ws.overview.overviewScroll
@@ -48,8 +47,7 @@ export function PythonPath() {
     }
     if (
       core.ws.overview.learningPathScroll > 0 &&
-      !core.ws.overview.showOverviewList &&
-      !core.ws.overview.showProfile
+      !core.ws.overview.showOverviewList
     ) {
       document.getElementById('scroll-container')!.scrollTop =
         core.ws.overview.learningPathScroll
@@ -344,11 +342,6 @@ export function PythonPath() {
                         <span className="bg-white/85 px-2 rounded">
                           {chapterData[id].title}
                         </span>
-                        {core.ws.page == 'analyze' && (
-                          <span>
-                            [{core.ws.analyze.chapters[id]?.explanation}]
-                          </span>
-                        )}
                       </p>
                       <div className="w-[80px] h-[60px] relative mx-auto mb-2 isolate">
                         <img

@@ -143,18 +143,6 @@ export function PythonMiniProjects({
                       >
                         <span className="font-medium text-left">
                           {example.title}
-                          {core.ws.page == 'analyze' && (
-                            <span>
-                              {' '}
-                              [
-                              {
-                                core.ws.analyze.pythonKarol[
-                                  getExampleId(example.title)
-                                ]?.count
-                              }
-                              ]
-                            </span>
-                          )}
                         </span>
                       </a>
                     ))}

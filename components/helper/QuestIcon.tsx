@@ -33,10 +33,7 @@ export function QuestIcon({
   const core = useCore()
   return (
     <a
-      className={clsx(
-        'absolute block',
-        (solved || core.ws.page == 'analyze') && 'pt-5',
-      )}
+      className={clsx('absolute block', solved && 'pt-5')}
       style={{ left: `${x}px`, top: `${y}px` }}
       onClick={(e) => {
         onClick()
@@ -45,11 +42,7 @@ export function QuestIcon({
       key={title}
       href={'/#QUEST-' + id}
     >
-      <AnimateInView
-        dontFade={
-          dontFade || core.ws.page == 'analyze' || core.ws.page == 'demo'
-        }
-      >
+      <AnimateInView dontFade={dontFade || core.ws.page == 'demo'}>
         <div
           className={clsx(
             'flex items-center flex-col w-[64px] cursor-pointer group pointer-events-none',
@@ -66,7 +59,7 @@ export function QuestIcon({
               ? 'Hallo, ' + getUserName() + '!'
               : title}
           </button>
-          {solved || core.ws.page == 'analyze' ? (
+          {solved ? (
             <div className="w-16 pt-3 flex justify-center items-center">
               <div className="bg-green-100 rounded-full w-6 h-6 pointer-events-auto mr-3">
                 <FaIcon icon={faCheck} className="ml-[5px] text-green-500" />
@@ -106,59 +99,6 @@ export function QuestIcon({
                 />
               )}
             </>
-          )}
-          {core.ws.page == 'analyze' && (
-            <div className="whitespace-nowrap text-xs">
-              {(() => {
-                const entry = core.ws.analyze.quests[id]
-                if (id == 1 && entry) {
-                  return <span>{entry.complete} Spieler*innen</span>
-                }
-                if (entry) {
-                  return (
-                    <span>
-                      {entry.complete} /{' '}
-                      <strong>
-                        {Math.round((entry.complete / entry.reachable) * 100)}%
-                      </strong>{' '}
-                      [{entry.completedAll}]
-                    </span>
-                  )
-                }
-                return null
-              })()}
-              {/*<div
-            className="[&>span]:align-[2px] pointer-events-auto"
-            title={`${
-              core.ws.analyze.ratings[id]?.values.filter((x) => x == 1)
-                .length ?? 0
-            } / ${
-              core.ws.analyze.ratings[id]?.values.filter((x) => x == 2)
-                .length ?? 0
-            } / ${
-              core.ws.analyze.ratings[id]?.values.filter((x) => x == 3)
-                .length ?? 0
-            } / ${
-              core.ws.analyze.ratings[id]?.values.filter((x) => x == 4)
-                .length ?? 0
-            } / ${
-              core.ws.analyze.ratings[id]?.values.filter((x) => x == 5)
-                .length ?? 0
-            }`}
-          >
-            <Rating
-              SVGclassName="inline"
-              readonly
-              allowFraction
-              initialValue={core.ws.analyze.ratings[id]?.average ?? 0}
-              size={16}
-            />{' '}
-            <small className="inline-block">
-              {Math.round(core.ws.analyze.ratings[id]?.average * 10) / 10} /{' '}
-              {core.ws.analyze.ratings[id]?.count ?? 0} Bew.
-            </small>
-          </div>*/}
-            </div>
           )}
         </div>
       </AnimateInView>

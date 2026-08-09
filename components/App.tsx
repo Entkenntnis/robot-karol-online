@@ -2,7 +2,6 @@ import { useCore } from '../lib/state/core'
 import { Quest } from './pages/Quest'
 import { Overview } from './pages/Overview'
 import { Editor } from './pages/Editor'
-import { Highscore } from './pages/Highscore'
 import { Imported } from './pages/Imported'
 import { Shared } from './pages/Shared'
 import { ErrorModal } from './modals/ErrorModal'
@@ -13,7 +12,6 @@ import { PrivacyModal } from './modals/PrivacyModal'
 import { RemixModal } from './modals/RemixModal'
 import { ResizeWorldModal } from './modals/ResizeWorldModal'
 import { ShareModal } from './modals/ShareModal'
-import { Analyze } from './pages/Analyze'
 import { Demo } from './pages/Demo'
 import { SuccessModal } from './modals/SuccessModal'
 import { AppearanceModal } from './modals/AppearanceModal'
@@ -22,17 +20,14 @@ import ErrorBoundary from './ErrorBoundary'
 import { Inspiration } from './pages/Inspiration'
 import { SyncModal } from './modals/SyncModal'
 import { SurveyModal } from './modals/SurveyModal'
-import { InspirationOld } from './pages/InspirationOld'
 import { PyodideWorker } from './ide/PyodideWorker'
 import { useEffect, useRef } from 'react'
 import { hydrate, navigate } from '../lib/commands/router'
 import { LoadingScreen } from './helper/LoadingScreen'
 import { Karolmania } from './pages/Karolmania'
 import { KarolmaniaGame } from './pages/KarolmaniaGame'
-import { Donate } from './pages/Donate'
 import { InvocationModal } from './modals/InvocationModal'
 import { ExplanationModal } from './modals/ExplanationModal'
-import { Flashcards } from './pages/Flashcards'
 import { CharacterModal } from './modals/CharacterModal'
 import { ChatGuide } from './modals/ChatGuide'
 import { PythonListing } from './modals/PythonListing'
@@ -83,8 +78,6 @@ export function App() {
   function renderPage() {
     if (core.ws.page == 'editor') {
       return <Editor />
-    } else if (core.ws.page == 'highscore') {
-      return <Highscore />
     } else if (core.ws.page == 'imported') {
       return <Imported />
     } else if (core.ws.page == 'init') {
@@ -95,22 +88,14 @@ export function App() {
       return <Quest />
     } else if (core.ws.page == 'shared') {
       return <Shared />
-    } else if (core.ws.page == 'analyze') {
-      return <Analyze />
     } else if (core.ws.page == 'demo') {
       return <Demo />
     } else if (core.ws.page == 'inspiration') {
       return <Inspiration />
-    } else if (core.ws.page == 'inspiration-old') {
-      return <InspirationOld />
     } else if (core.ws.page == 'karolmania') {
       return <Karolmania />
     } else if (core.ws.page == 'karolmania-game') {
       return <KarolmaniaGame />
-    } else if (core.ws.page == 'donate') {
-      return <Donate />
-    } else if (core.ws.page == 'flashcards') {
-      return <Flashcards />
     } else if (core.ws.page == 'python-path') {
       return <PythonPath />
     } else if (core.ws.page == 'flightdeck') {

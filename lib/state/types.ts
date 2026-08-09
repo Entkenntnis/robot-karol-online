@@ -157,7 +157,6 @@ export interface Overview {
   learningPathScroll: number
   showSaveHint: boolean
   showOverviewList: boolean
-  showProfile: boolean
   explanationId: number
 }
 
@@ -181,7 +180,6 @@ export interface WorkspaceState {
   canvas: Canvas
 
   // Overview
-  analyze: Analyze
   overview: Overview
 
   // System
@@ -189,19 +187,14 @@ export interface WorkspaceState {
     | 'init'
     | 'overview'
     | 'quest'
-    | 'highscore'
     | 'editor'
     | 'quest'
     | 'shared'
     | 'imported'
-    | 'analyze'
     | 'demo'
     | 'inspiration'
-    | 'inspiration-old'
     | 'karolmania'
     | 'karolmania-game'
-    | 'donate'
-    | 'flashcards'
     | 'python-path'
     | 'flightdeck'
 
@@ -313,85 +306,6 @@ export interface ChatTask {
 export interface ChatMessage {
   text: string
   role: 'out' | 'in'
-}
-
-export interface Analyze {
-  published: { id: string; date: string }[]
-  cutoff: string
-  count: number
-  showEditor: number
-  showPlayground: number
-  showHighscore: number
-  showDemo: number
-  showStructogram: number
-  useJava: number
-  usePython: number
-  proMode: number
-  playSnake: number
-  lngEn: number
-  limitEditOptions: number
-  showQuestList: number
-  showMaterials: number
-  showInspiration: number
-  customQuests: { [key: string]: { start: number; complete: number } }
-  legacy: { [key: string]: { count: number } }
-  appearance: { [key: string]: { count: number } }
-  brushColors: { [key: string]: { count: number } }
-  loadedRobotImages: { [key: string]: { count: number } }
-  quests: {
-    [key: string]: { reachable: number; complete: number; completedAll: number }
-  }
-  karolmania: {
-    [key: number]: { times: number[] }
-  }
-  userTimes: number[]
-  solutions: {
-    [questId: string]: {
-      solution: string
-      isCode: boolean
-      isAttempt: boolean
-      createdAt: string
-    }[]
-  }
-  userEvents: {
-    [key: string]: {
-      events: {
-        userId: string
-        event: string
-        createdAt: string
-      }[]
-    }
-  }
-  survey: { value: string; ts: number }[]
-  ratings: {
-    [key: string]: { count: number; average: number; values: number[] }
-  }
-  newEventStats: {
-    uniqueUsers: number
-    stats: { [key: string]: { sessions: number; average: number } }
-  }
-  chapters: {
-    [key: number]: { selected: number; explanation: number }
-  }
-  pythonKarol: {
-    [key: string]: { count: number }
-  }
-  questions: {
-    [key: number]: { questions: { text: string; ts: number }[] }
-  }
-  markedQuestions: string[]
-  pythonExampleLevenshtein: {
-    [name: string]: {
-      distances: number[]
-      count: number
-      sessions: string[]
-    }
-  }
-  danceScores: {
-    [key: string]: {
-      scores: number[]
-    }
-  }
 }
 
 export interface CoreState {

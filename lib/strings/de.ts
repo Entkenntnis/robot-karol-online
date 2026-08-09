@@ -92,27 +92,6 @@ export const deStrings = {
     resetConfirm:
       'Fortschritt jetzt zurücksetzen? Die Aktion kann nicht rückgängig gemacht werden.',
   },
-  highscore: {
-    close: 'Schließen',
-    rank: 'Platz',
-    name: 'Name',
-    solved: 'gelöste Aufgaben',
-    lastActive: 'zuletzt aktiv',
-    sortByActivity: 'sortieren nach letzter Aktivität',
-    sortBySolved: 'sortieren nach gelösten Aufgaben',
-    currentPlayers: 'Spieler*innen in den letzten 28 Tagen',
-    joined: 'beigetreten',
-    loading: 'Daten werden geladen ...',
-  },
-  outfit: {
-    title: 'Passe das Aussehen von Karol an',
-    close: 'Schließen',
-    cap: 'Kopf',
-    shirt: 'Oberteil',
-    legs: 'Unterteil',
-    skin: 'Hautton',
-    suggest: 'Outfit vorschlagen',
-  },
   imprint: {
     title: 'Impressum',
     close: 'Schließen',

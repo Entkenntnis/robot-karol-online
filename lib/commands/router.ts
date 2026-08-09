@@ -17,8 +17,8 @@ import {
   restoreEditorSnapshot,
   getMiniProjectCollapsed,
   setLockToKarolCode,
+  setLngStorage,
 } from '../storage/storage'
-import { analyze } from './analyze'
 import { refreshEditArea } from './editing'
 import { addNewTask } from './editor'
 import { triggerEvent } from './experiment'
@@ -133,10 +133,10 @@ export async function hydrate(core: Core) {
       if (page == 'DEMO') {
         ws.ui.demoModus = true
       }
-      ws.settings.lng = 'de' // I don't know, do I need this? Because, yes, the system is localised.
-      // and I guess the path is broken if people switch to python, ... but yeah, otherwise, I don't know.
+      ws.settings.lng = 'de'
       // language versions are hard
     })
+    setLngStorage('de') // make sure UI is in German, because the whole mode only works with German
     document.title = 'Python Lernpfad'
     setCanonical('python')
     return
@@ -258,23 +258,6 @@ export async function hydrate(core: Core) {
     return
   }
 
-  if (page == 'HIGHSCORE') {
-    core.mutateWs((ws) => {
-      ws.page = 'highscore'
-    })
-    document.title = 'Highscore | Robot Karol Online'
-    return
-  }
-
-  if (page == 'PROFIL') {
-    core.mutateWs((ws) => {
-      ws.page = 'overview'
-      ws.overview.showProfile = true
-    })
-    document.title = 'Profil | Robot Karol Online'
-    return
-  }
-
   if (page == 'OVERVIEW') {
     core.mutateWs((ws) => {
       ws.page = 'overview'
@@ -311,24 +294,11 @@ export async function hydrate(core: Core) {
     return
   }
 
-  if (page == 'ANALYZE') {
-    await analyze(core)
-    document.title = 'Analyse-Dashboard'
-    return
-  }
-
   if (page == 'DEMO') {
     core.mutateWs((ws) => {
       ws.page = 'demo'
     })
     document.title = 'Demo | Robot Karol Online'
-    return
-  }
-  if (page == 'FLASHCARDS') {
-    core.mutateWs((ws) => {
-      ws.page = 'flashcards'
-    })
-    document.title = 'Python Crash-Kurs'
     return
   }
 
@@ -357,14 +327,6 @@ export async function hydrate(core: Core) {
       ws.world = ws.quest.tasks[0].start
     })
     document.title = 'Karolmania - ' + level.quest.title
-    return
-  }
-
-  if (page == 'SPENDEN') {
-    core.mutateWs((ws) => {
-      ws.page = 'donate'
-    })
-    document.title = 'Spenden | Robot Karol Online'
     return
   }
 
