@@ -67,6 +67,7 @@ function Code({
   className?: string
   children: string
 }) {
+  const core = useCore()
   if (!className) {
     return (
       <code className="font-[hack] font-bold" {...props}>
@@ -84,6 +85,7 @@ function Code({
             ? 'python-pro'
             : 'robot karol'
         }
+        lng={core.ws.settings.lng}
       />
     </div>
   )

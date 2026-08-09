@@ -81,7 +81,7 @@ export function QuestPrompt() {
               }
             }}
           >
-            {core.ws.ui.questPromptConfirm ?? 'weiter'}
+            {core.ws.ui.questPromptConfirm ?? core.strings.ide.questPromptContinue}
           </button>
         </div>
       </div>

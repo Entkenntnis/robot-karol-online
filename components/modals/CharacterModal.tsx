@@ -20,7 +20,9 @@ export function CharacterModal() {
         }}
       >
         <div className="py-3">
-          <h2 className="text-yellow-800 font-bold">Wähle deine Figur:</h2>
+          <h2 className="text-yellow-800 font-bold">
+            {core.strings.character.choose}
+          </h2>
           <div className="flex justify-around my-10">
             <View
               onClick={() => {
@@ -96,7 +98,7 @@ export function CharacterModal() {
             />
           </div>
           <p className="text-sm italic text-center mt-4">
-            In der Figuren-Galerie findest du viele weitere Figuren.
+            {core.strings.character.galleryHint}
           </p>
         </div>
       </div>

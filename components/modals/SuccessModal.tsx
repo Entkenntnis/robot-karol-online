@@ -96,10 +96,12 @@ export function SuccessModal() {
           </h1>
           {core.ws.vm.functionEvaluation > 0 && (
             <div className="text-sm text-gray-600">
-              Aufgabe gelöst in{' '}
               {core.ws.vm.functionEvaluation == 1
-                ? 'einem Schritt'
-                : `${core.ws.vm.functionEvaluation} Schritten`}
+                ? core.strings.success.solvedInOneStep
+                : core.strings.success.solvedInSteps.replace(
+                    '{n}',
+                    String(core.ws.vm.functionEvaluation),
+                  )}
             </div>
           )}
           {
@@ -193,8 +195,8 @@ export function SuccessModal() {
                   saveCodeToFile(core)
                 }}
               >
-                <FaIcon icon={faDownload} className="mr-1" /> Programmcode
-                speichern
+                <FaIcon icon={faDownload} className="mr-1" />{' '}
+                {core.strings.success.saveCode}
               </button>
             </div>
           )}

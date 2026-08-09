@@ -56,7 +56,10 @@ export function QuestIcon({
             )}
           >
             {title == 'Start' && getUserName()
-              ? 'Hallo, ' + getUserName() + '!'
+              ? core.strings.overview.greeting.replace(
+                  '{name}',
+                  getUserName(),
+                )
               : title}
           </button>
           {solved ? (

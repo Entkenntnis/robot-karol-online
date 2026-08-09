@@ -49,7 +49,7 @@ export function NameModal() {
                 }}
                 className="mt-3 text-3xl border-yellow-400 border-2 rounded-lg text-center py-1 px-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white/80 max-w-[70vw] placeholder:text-gray-200 placeholder:text-xl"
                 maxLength={30}
-                placeholder="Dein Name..."
+                placeholder={core.strings.nameModal.placeholder}
               />
               <button
                 type="button"

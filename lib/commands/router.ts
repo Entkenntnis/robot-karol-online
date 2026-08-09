@@ -159,12 +159,16 @@ export async function hydrate(core: Core) {
   }
 
   if (page.startsWith('SPIELWIESE')) {
-    document.title = 'Spielwiese | Robot Karol Online'
+    document.title = core.strings.overview.playground + ' | Robot Karol Online'
     core.mutateWs((ws) => {
-      ws.quest.title = 'Spielwiese'
-      ws.quest.description = 'Programmiere frei und baue dein Herzensprojekt.'
+      ws.quest.title = core.strings.overview.playground
+      ws.quest.description = core.strings.overview.playgroundDescription
       ws.quest.tasks = [
-        { title: 'Spielwiese', start: createWorld(15, 10, 6), target: null },
+        {
+          title: core.strings.overview.playground,
+          start: createWorld(15, 10, 6),
+          target: null,
+        },
       ]
 
       ws.ui.isPlayground = true
@@ -199,7 +203,7 @@ export async function hydrate(core: Core) {
         core.mutateWs((ws) => {
           ws.quest.tasks = [
             {
-              title: 'Spielwiese',
+              title: core.strings.overview.playground,
               start: createWorld(dimX, dimY, height),
               target: null,
             },

@@ -1,6 +1,6 @@
 import { TreeCursor } from '@lezer/common'
 import clsx from 'clsx'
-import { parser } from '../../lib/codemirror/parser/parser'
+import { getParserWithLng } from '../../lib/codemirror/parser/get-parser-with-lng'
 import { setShowStructogram } from '../../lib/commands/mode'
 import { useCore } from '../../lib/state/core'
 import type { ReactNode } from 'react'
@@ -66,7 +66,7 @@ export function Structogram() {
         </button>
       </div>
       <h1 className="ml-8 text-2xl pt-8">{core.strings.ide.structogram}</h1>
-      <h2 className="mt-5 font-bold ml-8">Hauptprogramm</h2>
+      <h2 className="mt-5 font-bold ml-8">{core.strings.ide.mainProgram}</h2>
       <div className="overflow-auto flex-auto">
         <div className="ml-4 p-4">
           <div className="inline-block">{renderStructogram()}</div>
@@ -79,13 +79,13 @@ export function Structogram() {
     if (core.ws.ui.state == 'error')
       return (
         <em>
-          Probleme im Programm
+          {core.strings.ide.problemsInProgram}
           <br />
           {core.ws.ui.errorMessages.join(', ')}
         </em>
       )
 
-    const tree = parser.parse(code)
+    const tree = getParserWithLng(core.ws.settings.lng).parse(code)
 
     let nodes: Node[] = []
 
@@ -93,11 +93,11 @@ export function Structogram() {
       nodes = cursorToNodes(tree.cursor())
     } catch (e) {
       console.log(e)
-      return <em>Fehler bei der Generierung des Struktogramms.</em>
+      return <em>{core.strings.ide.structogramError}</em>
     }
 
     if (nodes.length == 0) {
-      return <em>Leeres Programm</em>
+      return <em>{core.strings.ide.emptyProgram}</em>
     }
 
     // debug
@@ -365,11 +365,11 @@ export function Structogram() {
       } else {
         let heading = null
         if (node.type == 'repeat-forever') {
-          heading = <strong>wiederhole immer</strong>
+          heading = <strong>{core.strings.ide.repeatForever}</strong>
         } else if (node.type == 'repeat-while') {
           heading = (
             <>
-              <strong>wiederhole solange</strong>{' '}
+              <strong>{core.strings.ide.repeatWhile}</strong>{' '}
               {isJavaOrPython
                 ? node.condition.slice(0, 1).toLowerCase() +
                   node.condition.slice(1) +
@@ -380,7 +380,8 @@ export function Structogram() {
         } else {
           heading = (
             <>
-              <strong>wiederhole</strong> {node.count} <strong>mal</strong>
+              <strong>{core.strings.ide.repeat}</strong> {node.count}{' '}
+              <strong>{core.strings.ide.times}</strong>
             </>
           )
         }

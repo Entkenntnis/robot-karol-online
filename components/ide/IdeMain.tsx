@@ -124,7 +124,7 @@ export function IdeMain() {
             }
           }}
         >
-          <FaIcon icon={faCode} className="mr-2" /> Programm
+          <FaIcon icon={faCode} className="mr-2" /> {core.strings.ide.program}
         </button>
         <button
           className={clsx(
@@ -138,7 +138,7 @@ export function IdeMain() {
             setActiveTab('output')
           }}
         >
-          <FaIcon icon={faPlayCircle} className="mr-2" /> Welt
+          <FaIcon icon={faPlayCircle} className="mr-2" /> {core.strings.ide.world}
         </button>
       </div>
       <ReflexContainer
@@ -171,8 +171,7 @@ export function IdeMain() {
                 <AnimateInView>
                   <div className="relative bg-yellow-100/90 p-4 mx-auto max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg">
                     <div className="text-center text-2xl font-bold text-yellow-800 mb-2">
-                      Legen wir los! Ziehe den Befehl „Schritt“ auf die
-                      Arbeitsfläche
+                      {core.strings.ide.tourStepDrag}
                     </div>
                     <div className="absolute -bottom-36 -left-12">
                       <div className="flex justify-center">
@@ -207,8 +206,7 @@ export function IdeMain() {
               <AnimateInView>
                 <div className="relative bg-yellow-100/90 p-6 max-w-[560px] rounded-xl border-2 border-yellow-300 shadow-lg mx-auto">
                   <div className="text-center text-xl font-bold text-yellow-800 mb-4">
-                    Sehr gut! Schreibe das Programm fertig: Gehe mit Karol zwei
-                    Schritte und lege einen Ziegel.
+                    {core.strings.ide.tourComplete}
                   </div>
                   <div className="flex justify-center mt-4">
                     <button
@@ -219,7 +217,7 @@ export function IdeMain() {
                         })
                       }}
                     >
-                      OK
+                      {core.strings.ide.ok}
                     </button>
                   </div>
                 </div>

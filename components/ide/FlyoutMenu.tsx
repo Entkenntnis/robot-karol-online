@@ -291,7 +291,7 @@ export function FlyoutMenu() {
                   })
                 }}
               />{' '}
-              2D-Ansicht
+              {core.strings.ide.view2D}
             </label>
           </p>
         )}
@@ -307,7 +307,7 @@ export function FlyoutMenu() {
               }
             }}
           >
-            <FaIcon icon={faExpand} className="mr-1" /> Vollbild
+            <FaIcon icon={faExpand} className="mr-1" /> {core.strings.ide.fullscreen}
           </button>
         </p>
       </div>

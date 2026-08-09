@@ -8,11 +8,10 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import { useMemo } from 'react'
 
 import { setSpeedSliderValue } from '../../lib/commands/mode'
 import { finishQuest } from '../../lib/commands/quest'
-import { positiveText } from '../../lib/helper/positiveText'
+import { positiveText, positiveTextEn } from '../../lib/helper/positiveText'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { useCore } from '../../lib/state/core'
 import { FaIcon } from '../helper/FaIcon'
@@ -20,7 +19,8 @@ import { FaIcon } from '../helper/FaIcon'
 export function ControlBar() {
   const core = useCore()
 
-  const text = useMemo(positiveText, [])
+  const text =
+    core.ws.settings.lng == 'de' ? positiveText() : positiveTextEn()
 
   if (core.ws.ui.controlBarShowFinishQuest) {
     return (
@@ -95,8 +95,8 @@ export function ControlBar() {
         <span className="text-red-600">
           {' '}
           <FaIcon icon={faExclamationTriangle} className="mr-1" />{' '}
-          {core.ws.ui.karolCrashMessage.includes('Aua') ||
-          core.ws.ui.karolCrashMessage.includes('Endlos') ? (
+          {core.ws.ui.karolCrashMessage === core.strings.crash.invalidMove ||
+          core.ws.ui.karolCrashMessage === core.strings.vm.endlessLoop ? (
             core.ws.ui.karolCrashMessage
           ) : (
             <>
@@ -161,7 +161,7 @@ export function ControlBar() {
             {core.ws.quest.progress ? '' : core.strings.ide.not}{' '}
             {core.strings.ide.completed}
             {core.ws.ui.notCompletedReason}{' '}
-            {core.ws.ui.isManualAbort ? ' (abgebrochen)' : ''}
+            {core.ws.ui.isManualAbort ? ` (${core.strings.ide.aborted})` : ''}
           </span>
         )
       }

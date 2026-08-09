@@ -164,8 +164,7 @@ function* executeProgramAsGenerator(core: Core) {
     if (stepCounter++ >= 1000) {
       console.log('possible dead loop')
       core.mutateWs((ws) => {
-        ws.ui.karolCrashMessage =
-          'Hilfe, Karol ist in einer Endlosschleife gefangen!'
+        ws.ui.karolCrashMessage = core.strings.vm.endlessLoop
       })
       yield 'interrupt'
       stepCounter = 0
@@ -503,7 +502,7 @@ export function endExecution(core: Core) {
   if (!core.ws.ui.karolCrashMessage) {
     setExecutionMarker(core, 0)
   }
-  if (core.ws.ui.karolCrashMessage?.includes('Endlos')) {
+  if (core.ws.ui.karolCrashMessage === core.strings.vm.endlessLoop) {
     core.mutateWs((ws) => {
       ws.ui.karolCrashMessage = undefined
     })
@@ -558,6 +557,8 @@ export function endExecution(core: Core) {
 
       // AI GENERATED =====================
 
+      const S = core.strings.vm
+
       const problemClauses = []
 
       // 1. Systematically check for brick-related problems (with singular/plural handling)
@@ -567,12 +568,15 @@ export function endExecution(core: Core) {
           // Too many bricks
           const clause =
             diff === 1
-              ? '1 Ziegel zu viel vorhanden ist'
-              : `${diff} Ziegel zu viel vorhanden sind`
+              ? S.notCompletedBricksTooManyOne
+              : S.notCompletedBricksTooMany.replace('{n}', String(diff))
           problemClauses.push(clause)
         } else {
           // Too few bricks
-          const clause = diff === 1 ? '1 Ziegel fehlt' : `${diff} Ziegel fehlen`
+          const clause =
+            diff === 1
+              ? S.notCompletedBricksMissingOne
+              : S.notCompletedBricksMissing.replace('{n}', String(diff))
           problemClauses.push(clause)
         }
       }
@@ -581,8 +585,8 @@ export function endExecution(core: Core) {
         // Correct quantity, but wrong placement
         const clause =
           misplacedBricks === 1
-            ? '1 Ziegel an der falschen Stelle liegt'
-            : `${misplacedBricks} Ziegel an der falschen Stelle liegen`
+            ? S.notCompletedBricksMisplacedOne
+            : S.notCompletedBricksMisplaced.replace('{n}', String(misplacedBricks))
         problemClauses.push(clause)
       }
 
@@ -593,12 +597,15 @@ export function endExecution(core: Core) {
           // Too many marks
           const clause =
             diff === 1
-              ? '1 Marke zu viel gesetzt ist'
-              : `${diff} Marken zu viel gesetzt sind`
+              ? S.notCompletedMarksTooManyOne
+              : S.notCompletedMarksTooMany.replace('{n}', String(diff))
           problemClauses.push(clause)
         } else {
           // Too few marks
-          const clause = diff === 1 ? '1 Marke fehlt' : `${diff} Marken fehlen`
+          const clause =
+            diff === 1
+              ? S.notCompletedMarksMissingOne
+              : S.notCompletedMarksMissing.replace('{n}', String(diff))
           problemClauses.push(clause)
         }
       }
@@ -607,8 +614,8 @@ export function endExecution(core: Core) {
         // Correct quantity, but wrong placement
         const clause =
           misplacedMarks === 1
-            ? '1 Marke an der falschen Stelle ist'
-            : `${misplacedMarks} Marken an der falschen Stelle sind`
+            ? S.notCompletedMarksMisplacedOne
+            : S.notCompletedMarksMisplaced.replace('{n}', String(misplacedMarks))
         problemClauses.push(clause)
       }
 
@@ -617,12 +624,12 @@ export function endExecution(core: Core) {
         let finalMessage = ', '
 
         if (problemClauses.length === 1) {
-          // e.g., "..., weil 1 Ziegel fehlt."
-          finalMessage += `weil ${problemClauses[0]}.`
+          // e.g., "..., because 1 brick is missing."
+          finalMessage += `${S.notCompletedPrefix} ${problemClauses[0]}.`
         } else {
-          // e.g., "..., weil 1 Ziegel fehlt und 3 Marken zu viel gesetzt sind."
+          // e.g., "..., because 1 brick is missing and 3 marks are set too many times."
           const lastClause = problemClauses.pop()
-          finalMessage += `weil ${problemClauses.join(', ')} und ${lastClause}.`
+          finalMessage += `${S.notCompletedPrefix} ${problemClauses.join(', ')}${S.notCompletedAnd}${lastClause}.`
         }
 
         core.mutateWs(({ ui }) => {

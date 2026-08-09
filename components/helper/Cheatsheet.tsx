@@ -185,61 +185,117 @@ export function Cheatsheet({ language }: CheatsheetProps) {
                 ],
               },
             ]
-          : [
-              {
-                category: 'Befehle',
-                items: [
-                  'Schritt\nSchritt(3)\nLinksDrehen\nLinksDrehen(2)\nRechtsDrehen\nRechtsDrehen(2)',
-                  'Hinlegen\nHinlegen(5)\nAufheben\nAufheben(3)\nMarkeSetzen\nMarkeLöschen\nBeenden',
-                ],
-              },
+          : core.ws.settings.lng == 'en'
+            ? [
+                {
+                  category: 'Commands',
+                  items: [
+                    'step\nstep(3)\nturn_left\nturn_left(2)\nturn_right\nturn_right(2)',
+                    'set_down\nset_down(5)\npick_up\npick_up(3)\nmark_field\nunmark_field\nexit',
+                  ],
+                },
 
-              {
-                category: 'Wiederholungen',
-                items: [
-                  'wiederhole 4 mal\n  Schritt\nendewiederhole',
-                  'wiederhole solange IstZiegel\n  Aufheben\nendewiederhole',
-                  'wiederhole immer\n  LinksDrehen\nendewiederhole',
-                ],
-              },
-              {
-                category: 'Bedingte Anweisungen',
-                items: [
-                  'wenn NichtIstMarke dann\n  MarkeSetzen\nendewenn',
-                  'wenn IstZiegel dann\n  Hinlegen\nsonst\n Schritt\nendewenn',
-                ],
-              },
-              {
-                category: 'Bedingungen',
-                items: [
-                  'IstWand\nNichtIstWand\nIstMarke\nNichtIstMarke\nIstZiegel\nNichtIstZiegel\nIstZiegel(2)\nNichtIstZiegel(2)',
-                  'IstNorden\nNichtIstNorden\nIstOsten\nNichtIstOsten\nIstSüden\nNichtIstSüden\nIstWesten\nNichtIstWesten',
-                ],
-              },
-              {
-                category: 'Eigene Anweisungen',
-                items: [
-                  'Anweisung Umdrehen\n  LinksDrehen(2)\nendeAnweisung\n\nSchritt\nUmdrehen',
-                ],
-              },
-              {
-                category: 'Kommentare',
-                items: [
-                  '{ Das ist ein Kommentar }',
-                  '// Das ist auch ein Kommentar',
-                ],
-              },
-              {
-                category: 'Objekt-Schreibweise (optional)',
-                items: [
-                  'wenn karol.istWand() dann\n  karol.linksDrehen()\nendewenn',
-                ],
-              },
-              {
-                category: 'Sternchen-Schreibweise (optional)',
-                items: ['wiederhole 10 mal\n  Hinlegen\n*wiederhole'],
-              },
-            ]
+                {
+                  category: 'Loops',
+                  items: [
+                    'repeat 4 times\n  step\nend_repeat',
+                    'repeat while is_brick\n  pick_up\nend_repeat',
+                    'repeat always\n  turn_left\nend_repeat',
+                  ],
+                },
+                {
+                  category: 'Conditional statements',
+                  items: [
+                    'if not_is_mark then\n  mark_field\nend_if',
+                    'if is_brick then\n  set_down\nelse\n  step\nend_if',
+                  ],
+                },
+                {
+                  category: 'Conditions',
+                  items: [
+                    'is_wall\nnot_is_wall\nis_mark\nnot_is_mark\nis_brick\nnot_is_brick\nis_brick(2)\nnot_is_brick(2)',
+                    'is_north\nnot_is_north\nis_east\nnot_is_east\nis_south\nnot_is_south\nis_west\nnot_is_west',
+                  ],
+                },
+                {
+                  category: 'Custom commands',
+                  items: [
+                    'command TurnAround\n  turn_left(2)\nend_command\n\nstep\nTurnAround',
+                  ],
+                },
+                {
+                  category: 'Comments',
+                  items: [
+                    '{ This is a comment }',
+                    '// This is also a comment',
+                  ],
+                },
+                {
+                  category: 'Object notation (optional)',
+                  items: [
+                    'if karol.is_wall() then\n  karol.turn_left()\nend_if',
+                  ],
+                },
+                {
+                  category: 'Star notation (optional)',
+                  items: ['repeat 10 times\n  set_down\n*repeat'],
+                },
+              ]
+            : [
+                {
+                  category: 'Befehle',
+                  items: [
+                    'Schritt\nSchritt(3)\nLinksDrehen\nLinksDrehen(2)\nRechtsDrehen\nRechtsDrehen(2)',
+                    'Hinlegen\nHinlegen(5)\nAufheben\nAufheben(3)\nMarkeSetzen\nMarkeLöschen\nBeenden',
+                  ],
+                },
+
+                {
+                  category: 'Wiederholungen',
+                  items: [
+                    'wiederhole 4 mal\n  Schritt\nendewiederhole',
+                    'wiederhole solange IstZiegel\n  Aufheben\nendewiederhole',
+                    'wiederhole immer\n  LinksDrehen\nendewiederhole',
+                  ],
+                },
+                {
+                  category: 'Bedingte Anweisungen',
+                  items: [
+                    'wenn NichtIstMarke dann\n  MarkeSetzen\nendewenn',
+                    'wenn IstZiegel dann\n  Hinlegen\nsonst\n Schritt\nendewenn',
+                  ],
+                },
+                {
+                  category: 'Bedingungen',
+                  items: [
+                    'IstWand\nNichtIstWand\nIstMarke\nNichtIstMarke\nIstZiegel\nNichtIstZiegel\nIstZiegel(2)\nNichtIstZiegel(2)',
+                    'IstNorden\nNichtIstNorden\nIstOsten\nNichtIstOsten\nIstSüden\nNichtIstSüden\nIstWesten\nNichtIstWesten',
+                  ],
+                },
+                {
+                  category: 'Eigene Anweisungen',
+                  items: [
+                    'Anweisung Umdrehen\n  LinksDrehen(2)\nendeAnweisung\n\nSchritt\nUmdrehen',
+                  ],
+                },
+                {
+                  category: 'Kommentare',
+                  items: [
+                    '{ Das ist ein Kommentar }',
+                    '// Das ist auch ein Kommentar',
+                  ],
+                },
+                {
+                  category: 'Objekt-Schreibweise (optional)',
+                  items: [
+                    'wenn karol.istWand() dann\n  karol.linksDrehen()\nendewenn',
+                  ],
+                },
+                {
+                  category: 'Sternchen-Schreibweise (optional)',
+                  items: ['wiederhole 10 mal\n  Hinlegen\n*wiederhole'],
+                },
+              ]
 
   return (
     <div
@@ -250,16 +306,16 @@ export function Cheatsheet({ language }: CheatsheetProps) {
     >
       <div className="flex items-center gap-2 mb-6">
         <FaIcon icon={faBook} className="text-purple-600" />
-        <h1 className="text-xl font-bold text-gray-800">
-          {language == 'python-chat'
-            ? 'Python'
-            : language == 'python-pro'
+          <h1 className="text-xl font-bold text-gray-800">
+            {language == 'python-chat'
               ? 'Python'
-              : language == 'java'
-                ? 'Karol Java'
-                : 'Karol Code'}{' '}
-          Spickzettel
-        </h1>
+              : language == 'python-pro'
+                ? 'Python'
+                : language == 'java'
+                  ? 'Karol Java'
+                  : 'Karol Code'}{' '}
+            {core.strings.ide.cheatsheet}
+          </h1>
       </div>
 
       {commands.map((section, index) => (
@@ -274,7 +330,11 @@ export function Cheatsheet({ language }: CheatsheetProps) {
                 className="group relative py-2 bg-white rounded-lg border border-gray-200 "
                 onClick={() => handleCopy(cmd)}
               >
-                <CodeBox doc={cmd} language={language} />
+                <CodeBox
+                  doc={cmd}
+                  language={language}
+                  lng={core.ws.settings.lng}
+                />
                 <div className="absolute right-3 top-1 opacity-60 group-hover:opacity-100 cursor-pointer">
                   {copied === cmd ? (
                     <FaIcon icon={faCheck} className="text-green-500" />
@@ -290,7 +350,7 @@ export function Cheatsheet({ language }: CheatsheetProps) {
 
       {copied && (
         <div className="fixed bottom-4 left-4 bg-green-100 text-green-700 px-4 py-2 rounded-md text-sm">
-          In Zwischenablage kopiert!
+          {core.strings.ide.copiedToClipboard}
         </div>
       )}
     </div>
@@ -300,9 +360,11 @@ export function Cheatsheet({ language }: CheatsheetProps) {
 export function CodeBox({
   doc,
   language,
+  lng = 'de',
 }: {
   doc: string
   language: CheatsheetProps['language']
+  lng?: 'de' | 'en'
 }) {
   const editorDiv = useRef(null)
 
@@ -321,7 +383,7 @@ export function CodeBox({
               ? pythonLanguage
               : language == 'java'
                 ? javaLanguage
-                : exampleLanguage('de'),
+                : exampleLanguage(lng),
             EditorView.theme({
               '&': {
                 outline: 'none !important',

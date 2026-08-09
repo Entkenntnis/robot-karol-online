@@ -79,7 +79,7 @@ export function EditArea() {
                       setShowCheatSheet((prev) => !prev)
                     }}
                   >
-                    Spickzettel
+                    {core.strings.ide.cheatsheet}
                   </button>
                 )}
                 {core.ws.ui.isPlayground &&
@@ -173,7 +173,7 @@ export function EditArea() {
                     setShowCheatSheet((prev) => !prev)
                   }}
                 >
-                  Spickzettel
+                  {core.strings.ide.cheatsheet}
                 </button>
               </div>
             </div>
@@ -239,7 +239,7 @@ export function EditArea() {
         {core.ws.vm.chatCursor && core.ws.vm.inspector && (
           <div className="absolute right-3 left-3 bottom-3">
             <div className="rounded bg-gray-200/40 p-2 text-sm overflow-scroll">
-              Variablen: {core.ws.vm.inspector}
+              {core.strings.ide.variables} {core.ws.vm.inspector}
             </div>
           </div>
         )}

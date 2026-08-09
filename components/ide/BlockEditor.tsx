@@ -254,7 +254,10 @@ export function BlockEditor() {
       })
       saveCodeToLocalStorage(core)
 
-      if (core.ws.ui.tourModePage === 1 && newCode.includes('Schritt')) {
+      if (
+        core.ws.ui.tourModePage === 1 &&
+        (newCode.includes('Schritt') || newCode.includes('step'))
+      ) {
         setTimeout(() => {
           core.mutateWs((ws) => {
             ws.ui.tourModePage = 2

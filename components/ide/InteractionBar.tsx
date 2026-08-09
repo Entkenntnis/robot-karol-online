@@ -197,7 +197,7 @@ export function InteractionBar() {
                   </div>
                 </div>
                 <div className="text-center text-2xl font-bold text-yellow-800 mt-2">
-                  Klicke auf Start!
+                  {core.strings.ide.tourClickStart}
                 </div>
               </div>
             </AnimateInView>
@@ -293,7 +293,9 @@ export function InteractionBar() {
             startButtonClicked(core)
           }}
           title={
-            core.ws.ui.state == 'error' ? 'Bitte behebe zuerst Probleme!' : ''
+            core.ws.ui.state == 'error'
+              ? core.strings.ide.fixProblemsFirst
+              : ''
           }
           disabled={
             core.ws.ui.state == 'error' || core.ws.ui.state == 'loading'
@@ -339,7 +341,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
     {
       value: 'robot karol',
       label: 'Karol Code',
-      title: 'Die Original-Sprache von Robot Karol',
+      title: core.strings.ide.originalLanguage,
     },
     ...(core.ws.settings.lng == 'de'
       ? [

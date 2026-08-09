@@ -119,7 +119,7 @@ export function Overview() {
                 window.open('https://paypal.me/Dav1dL1', '_blank')
               }}
             >
-              Spenden
+              {core.strings.overview.donate}
             </button>
           </div>
           <div className="mx-8 md:mx-auto mt-6 mb-2">
@@ -187,7 +187,7 @@ export function Overview() {
                   navigate(core, '')
                 }}
               >
-                Lernpfad
+                {core.strings.overview.learningPath}
               </button>
               <div className=" border border-slate-600"></div>
               <button
@@ -199,7 +199,7 @@ export function Overview() {
                   navigate(core, '#OVERVIEW')
                 }}
               >
-                freies Üben
+                {core.strings.overview.freePractice}
               </button>
             </div>
           </div>
@@ -243,7 +243,7 @@ export function Overview() {
                       )
                     }}
                   >
-                    Aufgabe aus Datei laden
+                    {core.strings.overview.loadQuestFromFile}
                   </button>
                 </div>
               </div>
@@ -291,9 +291,9 @@ export function Overview() {
                             }}
                           >
                             <p className="text-lg">
-                              Willkommen 👋 entdecke hier
+                              {core.strings.overview.welcome1}
                               <br />
-                              die Welt der Algorithmen!
+                              {core.strings.overview.welcome2}
                             </p>
                           </div>
                           <svg
@@ -333,9 +333,9 @@ export function Overview() {
                       }}
                     >
                       <p className="text-center">
-                        Figur
+                        {core.strings.overview.drawFigure1}
                         <br />
-                        zeichnen
+                        {core.strings.overview.drawFigure2}
                       </p>
                       <FaIcon
                         icon={faPaintBrush}
@@ -366,7 +366,7 @@ export function Overview() {
                           }, 50)
                         }}
                       >
-                        <SpinningRobot /> Figuren-Galerie
+                        <SpinningRobot /> {core.strings.overview.figureGallery}
                       </a>
                     </li>
                     <li>
@@ -383,7 +383,7 @@ export function Overview() {
                           )
                         }}
                       >
-                        💫 Aufgaben-Galerie
+                        {core.strings.overview.taskGallery}
                       </a>
                     </li>
                     <li>
@@ -398,7 +398,7 @@ export function Overview() {
                           )
                         }}
                       >
-                        Material für Lehrkräfte{' '}
+                        {core.strings.overview.teacherMaterial}{' '}
                         <FaIcon
                           icon={faExternalLink}
                           className="text-gray-600 text-xs"
@@ -414,7 +414,7 @@ export function Overview() {
                           ____submitAnalyzeEvent(core, 'ev_click_landing_video')
                         }}
                       >
-                        Video-Erklärungen{' '}
+                        {core.strings.overview.videoExplanations}{' '}
                         <FaIcon
                           icon={faExternalLink}
                           className="text-gray-600 text-xs"
@@ -469,7 +469,7 @@ export function Overview() {
                           )!.scrollTop = 0
                         }}
                       >
-                        <button>Zur deutsche Version</button>
+                        <button>{core.strings.overview.switchToGerman}</button>
                       </li>
                     )}
                   </ul>
@@ -477,7 +477,7 @@ export function Overview() {
 
                 {core.ws.ui.newRobotImage && (
                   <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
-                    <p className="mb-2">Neue Figur verfügbar:</p>
+                    <p className="mb-2">{core.strings.overview.newFigureAvailable}</p>
                     <img
                       src={core.ws.ui.newRobotImage}
                       alt="Karol"
@@ -496,7 +496,7 @@ export function Overview() {
                           )
                         }}
                       >
-                        schließen
+                        {core.strings.overview.close}
                       </button>
                       <button
                         className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
@@ -513,7 +513,7 @@ export function Overview() {
                           triggerEvent(core, 'apply-new-robot')
                         }}
                       >
-                        Laden
+                        {core.strings.overview.loadFigure}
                       </button>
                     </p>
                   </div>

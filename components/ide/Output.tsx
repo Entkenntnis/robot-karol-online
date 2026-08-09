@@ -206,7 +206,9 @@ export function Output() {
           core.ws.ui.proMode &&
           core.ws.settings.language == 'java' &&
           varStr && (
-            <div className="absolute left-2 top-2">Variablen: {varStr}</div>
+            <div className="absolute left-2 top-2">
+              {core.strings.ide.variables} {varStr}
+            </div>
           )}
         {core.ws.ui.inputPrompt && (
           <form
@@ -242,7 +244,7 @@ export function Output() {
         )}
         {core.ws.ui.keybindings.length > 0 && (
           <div className="top-3 left-3 absolute">
-            <div>Tasten:</div>
+            <div>{core.strings.ide.keys}</div>
             <div className="flex gap-4 mt-2">
               {core.ws.ui.keybindings.map((el, i) => {
                 return (
@@ -312,7 +314,7 @@ export function Output() {
               onContextMenu={(e) => {
                 e.preventDefault()
               }}
-              title="Schritt"
+              title={core.strings.ide.manualStep}
             >
               <FaIcon icon={faUpLong} />
             </button>
@@ -326,7 +328,7 @@ export function Output() {
               onContextMenu={(e) => {
                 e.preventDefault()
               }}
-              title="LinksDrehen"
+              title={core.strings.ide.manualTurnLeft}
             >
               <FaIcon icon={faLeftLong} />
             </button>
@@ -339,7 +341,7 @@ export function Output() {
               onContextMenu={(e) => {
                 e.preventDefault()
               }}
-              title="RechtsDrehen"
+              title={core.strings.ide.manualTurnRight}
             >
               <FaIcon icon={faRightLong} />
             </button>
@@ -353,7 +355,7 @@ export function Output() {
               onContextMenu={(e) => {
                 e.preventDefault()
               }}
-              title="Zurück"
+              title={core.strings.ide.manualBack}
               style={{ marginTop: 0 }}
             >
               <FaIcon icon={faDownLong} />
