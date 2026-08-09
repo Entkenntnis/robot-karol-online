@@ -27,6 +27,7 @@ import { exitBench } from '../../lib/commands/bench'
 import { PythonConsole } from '../helper/PythonConsole'
 import { left, right, forward } from '../../lib/commands/world'
 import { useEffect } from 'react'
+import { getTaskPreview } from '../../lib/helper/preview'
 
 export function Output() {
   const core = useCore()
@@ -88,19 +89,10 @@ export function Output() {
     core.ws.quest.lastStartedTask !== undefined &&
     !!core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target
 
-  const preview = core.ws.ui.isTesting
-    ? core.ws.quest.lastStartedTask !== undefined
-      ? {
-          world:
-            core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target ??
-            core.ws.quest.tasks[core.ws.quest.lastStartedTask!].start,
-        }
-      : undefined
-    : hasPreview && core.ws.ui.showPreview
-      ? {
-          world: core.ws.quest.tasks[core.ws.quest.lastStartedTask!].target!,
-        }
-      : undefined
+  const preview = getTaskPreview(
+    core,
+    core.ws.quest.tasks[core.ws.quest.lastStartedTask!],
+  )
 
   const minimalModeForQuestScript = core.ws.editor.questScript && !hasPreview
 
@@ -389,28 +381,6 @@ export function Output() {
             <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
             {core.strings.ide.back}
           </button>
-          {!core.ws.ui.isPlayground &&
-            !core.ws.ui.isTesting &&
-            core.ws.quest.id <= 0 &&
-            !minimalModeForQuestScript &&
-            hasPreview && (
-              <span className="ml-12 bg-white/80 rounded p-1 small:inline">
-                <label className="select-none cursor-pointer text-gray-600">
-                  <input
-                    type="checkbox"
-                    className="cursor-pointer"
-                    checked={core.ws.ui.showPreview}
-                    onChange={(e) => {
-                      ____submitAnalyzeEvent(core, 'ev_click_ide_togglePreview')
-                      core.mutateWs((ws) => {
-                        ws.ui.showPreview = e.target.checked
-                      })
-                    }}
-                  />{' '}
-                  {core.strings.ide.preview}
-                </label>
-              </span>
-            )}
         </div>
       )}
       {core.ws.ui.isEndOfRun &&

@@ -6,6 +6,7 @@ import {
   utils,
   svgResize,
   Events,
+  ContextMenuRegistry,
 } from 'blockly'
 import { useRef, useState, useEffect } from 'react'
 import { Text } from '@codemirror/state'
@@ -63,6 +64,8 @@ export function BlockEditor() {
       return
     }
     //console.log('inject blockly')
+
+    ContextMenuRegistry.registry.unregister('blockInline')
 
     const initialXml = codeToXml(
       core.ws.code,

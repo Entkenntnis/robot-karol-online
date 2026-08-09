@@ -40,6 +40,7 @@ import { View2D } from '../helper/View2D'
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { navigate } from '../../lib/commands/router'
 import { ChatVisual } from './ChatVisual'
+import { getTaskPreview } from '../../lib/helper/preview'
 
 export function Tasks() {
   const core = useCore()
@@ -465,21 +466,13 @@ export function Tasks() {
                       {core.ws.ui.show2D ? (
                         <View2D
                           world={task.start}
-                          preview={
-                            task.target === null
-                              ? undefined
-                              : { world: task.target }
-                          }
+                          preview={getTaskPreview(core, task)}
                           className="h-full w-full object-contain"
                         />
                       ) : (
                         <View
                           world={task.start}
-                          preview={
-                            task.target === null
-                              ? undefined
-                              : { world: task.target }
-                          }
+                          preview={getTaskPreview(core, task)}
                           hideKarol={false}
                           wireframe={false}
                           className="h-full w-full object-contain"

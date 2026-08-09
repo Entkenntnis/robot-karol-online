@@ -5,15 +5,13 @@ import {
   faExpand,
   faFloppyDisk,
   faFolderOpen,
-  faGlobe,
   faRotateRight,
   faTimes,
   faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
-import { setLng, setMode } from '../../lib/commands/mode'
+import { forceRerender, setMode } from '../../lib/commands/mode'
 import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
-import { setLngStorage } from '../../lib/storage/storage'
 import { showModal } from '../../lib/commands/modal'
 import { setLanguage } from '../../lib/commands/language'
 import { useEffect } from 'react'
@@ -229,7 +227,7 @@ export function FlyoutMenu() {
             </button>
           </p>
         )}
-        {(core.ws.page === 'shared' || core.ws.page === 'imported') && (
+        {/*(core.ws.page === 'shared' || core.ws.page === 'imported') && (
           <>
             <p className="px-2 pt-4">
               <span className="inline-block mx-2 border px-1 rounded bg-white">
@@ -261,8 +259,25 @@ export function FlyoutMenu() {
               </span>
             </p>
           </>
-        )}
+        )*/}
         <hr className="my-3 mx-4" />
+        {core.ws.page == 'shared' && (
+          <p className="px-2 pb-4">
+            <label className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left block cursor-pointer">
+              <input
+                type="checkbox"
+                className="cursor-pointer mr-1"
+                checked={core.ws.ui.showPreview}
+                onChange={(e) => {
+                  core.mutateWs((ws) => {
+                    ws.ui.showPreview = e.target.checked
+                  })
+                }}
+              />{' '}
+              {core.strings.ide.preview}
+            </label>
+          </p>
+        )}
         {!core.ws.ui.isChatMode && (
           <p className="px-2 pb-4">
             <label className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left block cursor-pointer">

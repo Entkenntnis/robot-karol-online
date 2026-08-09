@@ -77,12 +77,6 @@ button {
   }
 }
 
-/* temporary, should be fixed in upstream soon */
-#blocklyArea path,
-#blocklyArea g {
-  outline: none !important; /* Prevent outline on focus */
-}
-
 /* daisy ui polyfills */
 
 .link {
