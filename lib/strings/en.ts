@@ -27,7 +27,7 @@ export const enStrings: typeof deStrings = {
     donate: 'Donate',
     learningPath: 'Learning path',
     freePractice: 'Free practice',
-    loadQuestFromFile: 'Load task from file',
+    loadQuestFromFile: 'Load exercise from file',
     welcome1: 'Welcome 👋 discover',
     welcome2: 'the world of algorithms here!',
     drawFigure1: 'Draw',
