@@ -61,6 +61,7 @@ export const enStrings: typeof deStrings = {
     aborted: 'aborted',
     clear: 'Clear output',
     taskCompleted: 'completed',
+    showDescription: 'Show description',
     thereAreErrors: 'The following issues occurred while loading the program:',
     close: 'Close',
     connectAll:

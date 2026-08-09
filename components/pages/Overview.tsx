@@ -202,7 +202,7 @@ export function Overview() {
                   core.ws.overview.showOverviewList && 'bg-yellow-200',
                 )}
                 onClick={() => {
-                  navigate(core, '#Overview')
+                  navigate(core, '#OVERVIEW')
                 }}
               >
                 freies Üben

@@ -59,6 +59,7 @@ export const deStrings = {
     aborted: 'abgebrochen',
     clear: 'Ausgabe leeren',
     taskCompleted: 'abgeschlossen',
+    showDescription: 'Beschreibung einblenden',
     thereAreErrors:
       'Folgende Probleme sind beim Einlesen des Programms aufgetreten:',
     close: 'Schließen',

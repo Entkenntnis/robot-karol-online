@@ -21,6 +21,7 @@ export function Flightdeck() {
         headers: { Authorization: 'Bearer ' + key },
       })
       const shares = await resp2.json()
+      console.log(persistent_data)
       console.log(shares)
 
       // TODO: continue with loading data from server

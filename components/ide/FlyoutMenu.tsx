@@ -10,7 +10,7 @@ import {
   faUpRightAndDownLeftFromCenter,
 } from '@fortawesome/free-solid-svg-icons'
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
-import { forceRerender, setMode } from '../../lib/commands/mode'
+import { setMode } from '../../lib/commands/mode'
 import { loadProgram, saveCodeToFile } from '../../lib/commands/save'
 import { showModal } from '../../lib/commands/modal'
 import { setLanguage } from '../../lib/commands/language'

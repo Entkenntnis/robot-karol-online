@@ -1,6 +1,5 @@
 import {
   faArrowLeft,
-  faCaretDown,
   faCaretUp,
   faCheck,
   faComment,
@@ -96,28 +95,24 @@ export function Output() {
 
   const minimalModeForQuestScript = core.ws.editor.questScript && !hasPreview
 
+  function toggleDescription() {
+    core.mutateWs((ws) => {
+      ws.ui.collapseDescription = !ws.ui.collapseDescription
+    })
+  }
+
   return (
     <div className="flex flex-col h-full relative">
       <div className="border-b-2 border-gray-200">
         <div className="pt-4 pb-1 px-7 bg-yellow-100 relative">
-          <button
-            className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
-            onClick={() => {
-              ____submitAnalyzeEvent(
-                core,
-                'ev_click_ide_toggleDescriptionCollapse',
-              )
-              core.mutateWs((ws) => {
-                ws.ui.collapseDescription = !ws.ui.collapseDescription
-              })
-            }}
-          >
-            {!core.ws.ui.collapseDescription ? (
+          {!core.ws.ui.collapseDescription && (
+            <button
+              className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
+              onClick={toggleDescription}
+            >
               <FaIcon className="text-xl" icon={faCaretUp} />
-            ) : (
-              <FaIcon className="text-xl" icon={faCaretDown} />
-            )}
-          </button>
+            </button>
+          )}
           <h1
             className={clsx(
               'text-xl font-bold mt-1',
@@ -131,7 +126,14 @@ export function Output() {
               </span>
             )}
           </h1>
-          {!core.ws.ui.collapseDescription && (
+          {core.ws.ui.collapseDescription ? (
+            <button
+              className="mb-2 underline text-blue-600 hover:text-blue-800 cursor-pointer"
+              onClick={toggleDescription}
+            >
+              + {core.strings.ide.showDescription}
+            </button>
+          ) : (
             <div>{processMarkdown(core.ws.quest.description)}</div>
           )}
         </div>
