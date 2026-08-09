@@ -11,7 +11,10 @@ export function News() {
       <p className="my-4">
         <b>4. August 2026</b>: Das Layout der Startseite wurde überarbeitet und
         bietet direkteren Zugriff auf wichtige Funktionen, wie die Auflistung
-        aller Aufgaben oder dem Speichern des Fortschritts.
+        aller Aufgaben oder dem Speichern des Fortschritts. Außerdem wurde
+        insgesamt die Benutzeroberfläche etwas aufgeräumt, um Platz für neue
+        Features zu schaffen. Falls etwas dadurch kaputt gegangen ist: Geben Sie
+        hier bitte ein Feedback 🙏 DANKE
       </p>
       <p className="my-4">
         <b>31. Juli 2026</b>: Der Python Lernpfad erhält unter{' '}
