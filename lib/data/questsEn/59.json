@@ -4,7 +4,7 @@
   "description": "Like Marker Indicator 2. However, if a brick is already present on a field, no second brick should be placed.",
   "tasks": [
     {
-      "title": "Welt 1",
+      "title": "World 1",
       "start": {
         "dimX": 7,
         "dimY": 7,
@@ -75,7 +75,7 @@
       }
     },
     {
-      "title": "Welt 2",
+      "title": "World 2",
       "start": {
         "dimX": 7,
         "dimY": 7,
@@ -156,7 +156,7 @@
       }
     },
     {
-      "title": "Welt 3",
+      "title": "World 3",
       "start": {
         "dimX": 7,
         "dimY": 7,
@@ -235,7 +235,7 @@
       }
     }
   ],
-  "lng": "de",
+  "lng": "en",
   "language": "blocks",
   "program": "wiederhole solange NichtIstWand\n  wenn NichtIstZiegel dann\n    Hinlegen\n  endewenn\n  Schritt\n  wenn IstMarke dann\n    RechtsDrehen\n  endewenn\nendewiederhole"
 }

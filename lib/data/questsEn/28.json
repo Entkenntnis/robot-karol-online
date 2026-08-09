@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Way Home",
-  "description": "Guide Karol back to the upper left corner. Use `not is north`.",
+  "description": "Guide Karol back to the upper left corner. Proceed in three parts:\n\n1. Turn north, use `not is north`.\n2. Walk to the wall and turn left.\n3. Walk to the wall again and place the mark.",
   "tasks": [
     {
       "title": "Path 1",
@@ -190,5 +190,6 @@
         }
       }
     }
-  ]
+  ],
+  "lng": "en"
 }

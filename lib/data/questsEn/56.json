@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Mark Mover 1",
-  "description": "Karol lays a row of bricks with curves. She should turn right at the marks.\n\nProgram a single step that lays a brick. `if` Karol is on a mark, `then` she should first turn right.",
+  "description": "In this task series, you teach Karol to lay a row of bricks with curves. Let's first look at the turn and a single step.\n\nWrite a program of two parts:\n\n1. `if` Karol is standing on a mark, `then` she should turn right.\n2. After that, place a brick and take a step.",
   "tasks": [
     {
       "title": "Position 1",
@@ -379,7 +379,7 @@
       }
     }
   ],
-  "lng": "de",
+  "lng": "en",
   "language": "blocks",
   "program": ""
 }

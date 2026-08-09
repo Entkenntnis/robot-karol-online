@@ -70,6 +70,7 @@ export function EditArea() {
                     className={clsx(
                       'link',
                       showCheatSheet && 'text-purple-600',
+                      core.ws.settings.lng == 'en' && 'invisible',
                     )}
                     onClick={() => {
                       ____submitAnalyzeEvent(

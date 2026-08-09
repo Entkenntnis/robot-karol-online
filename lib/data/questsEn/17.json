@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Gap",
-  "description": "It seems there's a small mistake while building the stairs ... mission is to overcome the 2 bricks and rebuild the stairs to the initial state.",
+  "description": "It seems there's a small mistake while building the stairs ... mission is to overcome the 2 bricks and rebuild the stairs to the initial state.\n\n<details>\n<summary>Hints</summary>\nThe height difference between the second and third step is too big. Change the stairs: remove bricks and place bricks in a targeted way to overcome the obstacle.\n\nTo solve the task, the stairs must look exactly the same at the end as at the beginning.\n\nThis is a puzzle task - it's okay if it looks a bit tricky at first glance 💡\n</details>",
   "tasks": [
     {
       "title": "Stairs with Gap",
@@ -60,5 +60,6 @@
         }
       }
     }
-  ]
+  ],
+  "lng": "en"
 }

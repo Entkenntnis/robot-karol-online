@@ -1,0 +1,242 @@
+{
+  "version": "v1",
+  "title": "Box Stacking",
+  "description": "Karol wants to place a stack of 7 boxes on each of the marked spots. She doesn't know in advance where the marks are.\n\nHelp her solve this task.\n\n<details>\n<summary>Approach</summary>\nWalk to the wall using a conditional loop.\n\nIf Karol is standing on a mark, this sequence is elegant: take one step, turn around and place 7 bricks. Turn around again and continue with the loop.\n\nOtherwise (Karol is not standing on a mark), take one step forward and continue with the loop.\n</details>",
+  "tasks": [
+    {
+      "title": "World 1",
+      "start": {
+        "dimX": 14,
+        "dimY": 3,
+        "height": 10,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 11,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true
+            ]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 14,
+        "dimY": 3,
+        "height": 10,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 11,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[7, 0, 7, 7, 0, 7, 0, 7, 0, 7, 7]]
+        },
+        "marks": {
+          "dimX": 11,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              true
+            ]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "World 2",
+      "start": {
+        "dimX": 14,
+        "dimY": 3,
+        "height": 10,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 11,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 1,
+          "data": [
+            [
+              true,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 14,
+        "dimY": 3,
+        "height": 10,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 11,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 1,
+          "data": [[7, 7, 0, 0, 7, 7, 7, 7, 7, 0, 7]]
+        },
+        "marks": {
+          "dimX": 11,
+          "dimY": 1,
+          "offsetX": 2,
+          "offsetY": 1,
+          "data": [
+            [
+              true,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true
+            ]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    },
+    {
+      "title": "World 3",
+      "start": {
+        "dimX": 14,
+        "dimY": 3,
+        "height": 10,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 10,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, false, false, false, true, false, false, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 14,
+        "dimY": 3,
+        "height": 10,
+        "karol": { "x": 0, "y": 1, "dir": "east" },
+        "bricks": {
+          "dimX": 10,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [[7, 0, 0, 0, 0, 7, 0, 0, 0, 7]]
+        },
+        "marks": {
+          "dimX": 10,
+          "dimY": 1,
+          "offsetX": 1,
+          "offsetY": 1,
+          "data": [
+            [true, false, false, false, false, true, false, false, false, true]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "en",
+  "questScript": "",
+  "language": "blocks",
+  "program": ""
+}

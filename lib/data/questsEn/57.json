@@ -4,7 +4,7 @@
   "description": "Extend the mark mover so that Karol performs steps as long as there is no wall in front of her. You can use the individual step from Mark Mover 1.",
   "tasks": [
     {
-      "title": "Welt 1",
+      "title": "World 1",
       "start": {
         "dimX": 7,
         "dimY": 7,
@@ -68,7 +68,7 @@
       }
     },
     {
-      "title": "Welt 2",
+      "title": "World 2",
       "start": {
         "dimX": 7,
         "dimY": 7,
@@ -142,7 +142,7 @@
       }
     },
     {
-      "title": "Welt 3",
+      "title": "World 3",
       "start": {
         "dimX": 7,
         "dimY": 7,
@@ -217,7 +217,7 @@
       }
     }
   ],
-  "lng": "de",
+  "lng": "en",
   "language": "blocks",
   "program": ""
 }

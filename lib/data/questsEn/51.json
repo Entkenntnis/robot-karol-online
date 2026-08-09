@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Dynamic Square",
-  "description": "Build a square with the same side length as the number of bricks in front of Karol.",
+  "description": "Build a square with the same side length as the number of bricks in front of Karol. Also remove all the bricks.\n\nThe task can be solved with blocks. If you want to use variables, you can switch to Python or Java mode.",
   "tasks": [
     {
       "title": "3x3",
@@ -194,5 +194,5 @@
       }
     }
   ],
-  "lng": "de"
+  "lng": "en"
 }

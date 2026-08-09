@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "while not is wall",
-  "description": "",
+  "description": "Walk until the wall and **place a mark**.",
   "tasks": [
     {
       "title": "Over the Hill",

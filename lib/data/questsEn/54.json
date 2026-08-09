@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Smart Step 2",
-  "description": "Change direction! No problem for you.",
+  "description": "Change direction! No problem for you.\n\n*Orient yourself on the previous task \"Smart Step 1\"*",
   "tasks": [
     {
       "title": "Position 1",
@@ -232,7 +232,7 @@
       }
     }
   ],
-  "lng": "de",
+  "lng": "en",
   "language": "blocks",
   "program": ""
 }

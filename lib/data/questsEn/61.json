@@ -1,0 +1,87 @@
+{
+  "version": "v1",
+  "title": "Departure",
+  "description": "The world of programming doesn't end with blocks and Karol code. Most software is developed in a \"big\" programming language, and this is your chance to get to know such a language!\n\n**Work on the script on the left and click on Start 🚀**\n\nAccidentally deleted too much? Reset your program via the menu 🔄",
+  "tasks": [
+    {
+      "title": "Let'sss goooo!",
+      "start": {
+        "dimX": 9,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 8,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 0, 1, 1, 1, 1, 1],
+            [0, 0, 1, 1, 0, 1, 1, 1],
+            [0, 0, 1, 1, 1, 1, 1, 1],
+            [0, 0, 0, 0, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 0, 0, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 2,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [[true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 9,
+        "dimY": 9,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "dimX": 8,
+          "dimY": 8,
+          "offsetX": 0,
+          "offsetY": 1,
+          "data": [
+            [0, 0, 0, 1, 1, 1, 1, 1],
+            [0, 0, 1, 1, 0, 1, 1, 1],
+            [0, 0, 1, 1, 1, 1, 1, 1],
+            [0, 0, 0, 0, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 0, 0, 0, 0, 0]
+          ]
+        },
+        "marks": {
+          "dimX": 2,
+          "dimY": 1,
+          "offsetX": 0,
+          "offsetY": 2,
+          "data": [[true, true]]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "en",
+  "editOptions": "python-pro-only",
+  "questScript": "__ide_prompt(\"Your first Python script is being executed. Are you excited?\", \"Yes, let's go!\")\n\n__ide_run_client()\n\n__ide_sleep(0.4)\n\nstdout = __ide_get_outputs()\n\nif len(stdout) == 0:\n    __ide_prompt(\"You didn't print anything. `\" +\n                 \"Use the `print()` command in your program.\",\n                 \"Close\")\n    __ide_exit()\n\nif len(stdout) > 1:\n    __ide_prompt(\"Please print only one text.\", \"Close\")\n    __ide_exit()\n\nif not stdout[0].strip().lower() == \"hello, python!\":\n    __ide_prompt(\"You printed a text, but something isn't right yet.\", \"Fix it\")\n    __ide_exit()\n\n__ide_set_progress(True)\n__ide_prompt(\"Perfectly done 🎉 In the right window you can see your output.\", \"Yes, I've seen it\")",
+  "language": "python-pro",
+  "program": "# Change the output to \"Hello, Python!\"\n\nprint(\"lalala\")"
+}

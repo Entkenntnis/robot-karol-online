@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Mark Search",
-  "description": "Somewhere at the edge, there is marked field. Move there and unmark it.",
+  "description": "Somewhere at the edge, there is marked field. Move there and unmark it.\n\n*Tip: Walk around the edge once. After each step, check if Karol is standing on a mark. If so, unmark it and end the program.*",
   "tasks": [
     {
       "title": "Test 1",
@@ -174,5 +174,6 @@
         }
       }
     }
-  ]
+  ],
+  "lng": "en"
 }

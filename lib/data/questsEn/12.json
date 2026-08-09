@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Remove All",
-  "description": "Move from left to right, pick up all bricks and unmark all fields.",
+  "description": "Move from left to right, pick up all bricks and unmark all fields.\n\nUse a loop to walk to the wall and another loop to pick up the brick stacks.",
   "tasks": [
     {
       "title": "Test 1",
@@ -174,5 +174,6 @@
         }
       }
     }
-  ]
+  ],
+  "lng": "en"
 }

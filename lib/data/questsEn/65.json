@@ -1,14 +1,14 @@
 {
   "version": "v1",
-  "title": "Corners",
-  "description": "Use your nimble fingers to write your program faster. This works with the <ImageButton text=\"Code Editor\" src=\"/quests/ecken_2.png\" />.\n\nYou can switch at any time - if you want - between <ImageButton text=\"Blocks and Code\" src=\"/quests/ecken.png\" />.\n\nPlace a brick with Karol in each corner of the room.",
+  "title": "Soccer Field",
+  "description": "Build a soccer field.",
   "tasks": [
     {
-      "title": "Bricks in the Four Corners",
+      "title": "Soccer",
       "start": {
-        "dimX": 5,
-        "dimY": 5,
-        "height": 6,
+        "dimX": 15,
+        "dimY": 10,
+        "height": 10,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
           "offsetX": -1,
@@ -33,21 +33,26 @@
         }
       },
       "target": {
-        "dimX": 5,
-        "dimY": 5,
-        "height": 6,
-        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "dimX": 15,
+        "dimY": 10,
+        "height": 10,
+        "karol": { "x": 14, "y": 2, "dir": "east" },
         "bricks": {
-          "dimX": 5,
-          "dimY": 5,
+          "dimX": 15,
+          "dimY": 10,
           "offsetX": 0,
           "offsetY": 0,
           "data": [
-            [1, 0, 0, 0, 1],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [1, 0, 0, 0, 1]
+            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
+            [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
+            [1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
           ]
         },
         "marks": {
@@ -67,5 +72,8 @@
       }
     }
   ],
-  "lng": "en"
+  "lng": "en",
+  "questScript": "",
+  "language": "blocks",
+  "program": ""
 }

@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Secret",
-  "description": "What lies behind the bricks? Remove the bricks to peek behind and uncover the secret. Find the secret spot to mark and place back the bricks.",
+  "description": "What lies behind the bricks? Remove the bricks to peek behind and uncover the secret. Find the secret spot to mark and place back the bricks.\n\n<details>\n<summary>Hint</summary>\n<div>\nRemove the bricks to look behind them and uncover the secret. Place a mark at the secret spot with the cross and **then put all the bricks back**.\n\nFor professionals: The task can be solved with 4 lines of code.\n</div>\n<details>\n<summary>Solution suggestion</summary>\n```karol\nSchritt\nLinksDrehen\nSchritt(X) // <---- find the right number for X\nMarkeSetzen\n```\n</details>\n</details>",
   "tasks": [
     {
       "title": "???",
@@ -60,5 +60,6 @@
         }
       }
     }
-  ]
+  ],
+  "lng": "en"
 }

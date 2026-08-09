@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Castle",
-  "description": "Awaken the child in you and start your big castle-building project.\n\nBuild the castle shown with Karol - here's a <ImageButton text=\"preview\" src=\"/quests/burg_2.png\" />.",
+  "description": "Awaken the child in you and start your big castle-building project.\n\nBuild the castle shown with Karol - here's a <ImageButton text=\"preview\" src=\"/quests/burg_2.png\" />.\n\nTo let your imagination run wild, you can use the playground. There you can easily build large castles and save the code.",
   "tasks": [
     {
       "title": "Castle with Battlements",
@@ -66,5 +66,6 @@
         }
       }
     }
-  ]
+  ],
+  "lng": "en"
 }

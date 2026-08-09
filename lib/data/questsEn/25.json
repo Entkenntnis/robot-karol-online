@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Sprint",
-  "description": "Run to the mark and delete it. Use the sensor `not is mark` with the control structure `repeat while`.",
+  "description": "Run to the mark and delete it. Your program consists of two parts:\n\n1. Use the sensor `not is mark` with the control structure `repeat while` to run to the mark.\n2. You are standing on the mark and can now delete it.",
   "tasks": [
     {
       "title": "Short",
@@ -174,5 +174,6 @@
         }
       }
     }
-  ]
+  ],
+  "lng": "en"
 }

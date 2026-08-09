@@ -1,10 +1,10 @@
 {
   "version": "v1",
   "title": "Conditional Statement",
-  "description": "Karol's sensors help her navigate the world, for example, to detect whether there are bricks in front of her or not. Together with a conditional statement (`if then`), she can always react appropriately.\n\nFill in the blank series. Only `if` there is no brick in front of Karol, `then` does she place a brick.",
+  "description": "Karol's sensors help her navigate the world, for example, to detect whether there are bricks in front of her or not. Together with a conditional statement (`if then`), she can always react appropriately.\n\nWrite the code for a single step: Only `if` there is no brick in front of Karol, `then` does she place a brick.\n\nNote: Karol does not have to move forward, she only has to check the one field in front of her.\n\n<details>\n<summary>Solution suggestion</summary>\n```karol\nwenn NichtIstZiegel dann\n  Hinlegen\nendewenn\n```\n</details>",
   "tasks": [
     {
-      "title": "Schritt 1",
+      "title": "Step 1",
       "start": {
         "dimX": 10,
         "dimY": 1,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "title": "Schritt 2",
+      "title": "Step 2",
       "start": {
         "dimX": 10,
         "dimY": 1,
@@ -118,7 +118,7 @@
       }
     },
     {
-      "title": "Schritt 3",
+      "title": "Step 3",
       "start": {
         "dimX": 10,
         "dimY": 1,
@@ -175,7 +175,7 @@
       }
     },
     {
-      "title": "Schritt 4",
+      "title": "Step 4",
       "start": {
         "dimX": 10,
         "dimY": 1,
@@ -232,7 +232,7 @@
       }
     },
     {
-      "title": "Schritt 5",
+      "title": "Step 5",
       "start": {
         "dimX": 10,
         "dimY": 1,
@@ -289,7 +289,7 @@
       }
     },
     {
-      "title": "Schritt 6",
+      "title": "Step 6",
       "start": {
         "dimX": 10,
         "dimY": 1,
@@ -346,7 +346,7 @@
       }
     },
     {
-      "title": "Schritt 7",
+      "title": "Step 7",
       "start": {
         "dimX": 10,
         "dimY": 1,
@@ -403,7 +403,7 @@
       }
     },
     {
-      "title": "Schritt 8",
+      "title": "Step 8",
       "start": {
         "dimX": 10,
         "dimY": 1,
@@ -460,7 +460,7 @@
       }
     },
     {
-      "title": "Schritt 9",
+      "title": "Step 9",
       "start": {
         "dimX": 10,
         "dimY": 1,
@@ -517,7 +517,7 @@
       }
     }
   ],
-  "lng": "de",
+  "lng": "en",
   "language": "blocks",
   "program": ""
 }

@@ -1,0 +1,81 @@
+{
+  "version": "v1",
+  "title": "Survey",
+  "description": "This task is less about Karol and more about you. How are you doing with your learning? How can I help you make learning even better?\n\nFill out the survey by setting the variables to the appropriate values. When you are done, click on `Start` and your answers will be submitted.\n\nBroke something? You can reset your code in the menu.",
+  "tasks": [
+    {
+      "title": "Submit",
+      "start": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, true, false, false],
+            [false, false, false, true, false],
+            [true, true, true, true, true],
+            [false, false, false, true, false],
+            [false, false, true, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      },
+      "target": {
+        "dimX": 5,
+        "dimY": 5,
+        "height": 6,
+        "karol": { "x": 0, "y": 0, "dir": "south" },
+        "bricks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        },
+        "marks": {
+          "dimX": 5,
+          "dimY": 5,
+          "offsetX": 0,
+          "offsetY": 0,
+          "data": [
+            [false, false, true, false, false],
+            [false, false, false, true, false],
+            [true, true, true, true, true],
+            [false, false, false, true, false],
+            [false, false, true, false, false]
+          ]
+        },
+        "blocks": {
+          "offsetX": -1,
+          "offsetY": -1,
+          "dimX": 0,
+          "dimY": 0,
+          "data": []
+        }
+      }
+    }
+  ],
+  "lng": "en",
+  "editOptions": "python-pro-only",
+  "questScript": "__ide_run_client()\n__karol = Robot()\n\nif not isinstance(aussage1, int) or not 1 <= aussage1 <= 5:\n    __ide_prompt(\"🐞 Statement 1: Please choose a number between 1 (strongly disagree) and 5 (strongly agree).\", \"OK\")\n    __karol.beenden()\n\nif not isinstance(aussage2, int) or not 1 <= aussage2 <= 5:\n    __ide_prompt(\"🐞 Statement 2: Please choose a number between 1 (strongly disagree) and 5 (strongly agree).\", \"OK\")\n    __karol.beenden()\n\nif not isinstance(aussage3, int) or not 1 <= aussage3 <= 5:\n    __ide_prompt(\"🐞 Statement 3: Please choose a number between 1 (strongly disagree) and 5 (strongly agree).\", \"OK\")\n    __karol.beenden()\n\nif not isinstance(verbessern, str):\n    __ide_prompt(\"Free text 1: Expected a text.\", \"OK\")\n    __karol.beenden()\n\nif len(verbessern) == 0:\n    __ide_prompt(\"Please enter something in Free text 1.\", \"OK\")\n    __ide_exit()\n\n    \nif not isinstance(spaß, str):\n    __ide_prompt(\"Free text 2: Expected a text.\", \"OK\")\n    __karol.beenden()\n    \nif len(spaß) == 0:\n    __ide_prompt(\"Please enter something in Free text 2.\", \"OK\")\n    __ide_exit()\n\nif not isinstance(zustimmung, bool):\n    __ide_prompt(\"Consent: Expected True or False.\", \"OK\")\n    __karol.beenden()\n\nevent_str = f\"{aussage1}_{aussage2}_{aussage3}_{zustimmung}_{verbessern.replace('_', '-')}_{spaß.replace('_', '-')}\"\n\nif len(event_str) >= 999:\n    __ide_prompt(f\"Maximum length exceeded by {len(event_str) - 998} characters. Please shorten your answer or send it directly to karol@arrrg.de, thanks!\")\n    __karol.beenden()\n\n__ide_submit(\"karol-survey\", event_str)\n\n__karol.schritt(2)\n__karol.linksDrehen()\n\n__ide_prompt(\"Thank you for taking part in the survey!\", \"close\")\n__ide_set_progress(True)\n",
+  "language": "python-pro",
+  "program": "# Statement 1: The goal of each task is clearly understandable to me.\n# 1 = strongly disagree, 5 = strongly agree\naussage1 = 0\n\n\n# Statement 2: The description was enough to start solving the task.\n# 1 = strongly disagree, 5 = strongly agree\naussage2 = 0\n\n\n# Statement 3: I would recommend Robot Karol to a friend.\n# 1 = strongly disagree, 5 = strongly agree\naussage3 = 0\n\n\n# Free text 1: What would you improve about Robot Karol?\n# verbessern = \"Write your answer between the quotation marks\"\nverbessern = \"\"\n\n\n# Free text 2: Which task/feature did you enjoy the most – and why?\n# spaß = \"Write your answer between the quotation marks\"\nspaß = \"\"\n\n\n# May we show your answers in a public statistic?\n# False: no, the data will never be made publicly visible\n# True: yes, your answers may be published anonymously in a statistic.\n\n# zustimmung = True\nzustimmung = False\n\n\n# --------------- END --------------------"
+}

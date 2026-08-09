@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Labyrinth (+instructions)",
-  "description": "A labyrinth? That's easily solved... thought Karol. But then it took a while for her to find the ultimate algorithm.\n\nIn every labyrinth, the goal is to find the brick and pick it up. In the simple examples, you can reach the goal using the right-hand or left-hand rule. In more complicated labyrinths, there can be islands where Karol ends up going in circles.\n\nThere, you'll need markers to mark the visited fields. But in the end, all auxiliary markings must be removed!\n\nFeel free to try this challenge yourself. You can find a complete guide to this task (sorry, currently only german) at https://karol.arrrg.de/anleitungen/labyrinth.pdf.",
+  "description": "A labyrinth? That's easily solved... thought Karol. But then it took a while for her to find the ultimate algorithm.\n\nIn every labyrinth, the goal is to find the brick and pick it up. In the simple examples, you can reach the goal using the [right-hand rule](https://en.wikipedia.org/wiki/Maze-solving_algorithm#Wall_follower). In more complicated labyrinths, there can be islands where Karol ends up going in circles.\n\nThere, you'll need markers to mark the visited fields. But in the end, all auxiliary markings must be removed!\n\nFeel free to try this challenge yourself. You can find a complete guide to this task at [https://karol.arrrg.de/anleitungen/labyrinth.pdf](https://karol.arrrg.de/anleitungen/labyrinth.pdf) (sorry, currently only german).",
   "tasks": [
     {
       "title": "Small 1",
@@ -1008,5 +1008,5 @@
       }
     }
   ],
-  "lng": "de"
+  "lng": "en"
 }

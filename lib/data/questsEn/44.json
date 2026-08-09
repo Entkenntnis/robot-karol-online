@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Parkour",
-  "description": "Overcome the obstacle with Karol and set down the missing bricks.\n\nYour program performs the same movement in both worlds.",
+  "description": "Overcome the obstacle together with Karol and set down the three bricks shown. Karol can overcome a maximum of one brick height, so the parkour is no problem for her.\n\nAnd don't worry that there are two parkours: you only have to write your program once, the program is executed in the same way in both worlds.",
   "tasks": [
     {
       "title": "Parkour 1",
@@ -129,5 +129,6 @@
         }
       }
     }
-  ]
+  ],
+  "lng": "en"
 }

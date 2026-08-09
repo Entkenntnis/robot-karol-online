@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Catwalk",
-  "description": "",
+  "description": "Go with Karol to the end of the brick row and place a mark there.",
   "tasks": [
     {
       "title": "Catwalk",
@@ -202,5 +202,6 @@
         }
       }
     }
-  ]
+  ],
+  "lng": "en"
 }

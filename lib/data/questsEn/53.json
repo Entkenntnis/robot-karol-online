@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Smart Step 1",
-  "description": "Be smart! Check if there is a wall before moving forward with Karol.\n\nIn other words: `if` there is a wall in front of Karol, `then` she turns left once. After that, she can comfortably take one step and place a mark.",
+  "description": "Be smart! Check if there is a wall before moving forward with Karol.\n\nIn other words: `if` there is a wall in front of Karol, `then` she turns left once. After that, she can comfortably take one step and place a mark.\n\nYour program should react to the world and work for all positions.\n\n<details>\n<summary>Solution suggestion</summary>\n```karol\n// Check for wall\nwenn IstWand dann\n  LinksDrehen\nendewenn\n\n// Take step and place mark\nSchritt\nMarkeSetzen\n```\n</details>",
   "tasks": [
     {
       "title": "Position 1",
@@ -232,7 +232,7 @@
       }
     }
   ],
-  "lng": "de",
+  "lng": "en",
   "language": "blocks",
   "program": ""
 }
