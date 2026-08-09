@@ -19,4 +19,6 @@ export const backend = {
 
   // ping for every page view
   pageviewEndpoint: host + '/pageview',
+
+  exportEndpoint: host + '/export',
 }

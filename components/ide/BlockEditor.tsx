@@ -65,7 +65,9 @@ export function BlockEditor() {
     }
     //console.log('inject blockly')
 
-    ContextMenuRegistry.registry.unregister('blockInline')
+    if (ContextMenuRegistry.registry.getItem('blockInline') !== null) {
+      ContextMenuRegistry.registry.unregister('blockInline')
+    }
 
     const initialXml = codeToXml(
       core.ws.code,

@@ -224,6 +224,14 @@ export async function hydrate(core: Core) {
     return
   }
 
+  if (path == '/flightdeck' && page == '') {
+    core.mutateWs((ws) => {
+      ws.page = 'flightdeck'
+    })
+    document.title = '[ Flightdeck ]'
+    return
+  }
+
   if (page == '') {
     core.mutateWs((ws) => {
       ws.page = 'overview'
@@ -406,6 +414,7 @@ export async function hydrate(core: Core) {
     core.mutateWs((ws) => {
       ws.page = 'shared'
     })
+    document.title = `${document.title} | #${page}`
     refreshEditArea(core)
     return
   }

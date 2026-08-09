@@ -37,6 +37,7 @@ import { CharacterModal } from './modals/CharacterModal'
 import { ChatGuide } from './modals/ChatGuide'
 import { PythonListing } from './modals/PythonListing'
 import { PythonPath } from './pages/PythonPath'
+import { Flightdeck } from './pages/Flightdeck'
 
 export function App() {
   const core = useCore()
@@ -112,6 +113,8 @@ export function App() {
       return <Flashcards />
     } else if (core.ws.page == 'python-path') {
       return <PythonPath />
+    } else if (core.ws.page == 'flightdeck') {
+      return <Flightdeck />
     } else {
       return null
     }

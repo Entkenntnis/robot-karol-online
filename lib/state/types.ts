@@ -203,6 +203,7 @@ export interface WorkspaceState {
     | 'donate'
     | 'flashcards'
     | 'python-path'
+    | 'flightdeck'
 
   modal:
     | 'name'

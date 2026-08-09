@@ -22,6 +22,7 @@ export const karolmaniaProgressKey = 'robot_karol_online_karolmania_progress'
 const miniProjectCollapsedKey = 'robot_karol_online_mini_project_collapsed'
 export const experimentEventsKey = 'robot_karol_online_experiment_events'
 const previewParticipationKey = 'robot_karol_online_preview_participation'
+export const flightdeckAccessKey = 'robot_karol_online_flighdeck_access_key'
 
 export function getUserId() {
   let userId = localStorage.getItem(userIdKey)
