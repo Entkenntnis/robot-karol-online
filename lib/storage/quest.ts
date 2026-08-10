@@ -45,7 +45,7 @@ export function saveToJSON(core: Core) {
     getUserName()
       ? `${getUserName().replace(/[^A-Za-z0-9äüöÄÜÖß]/g, '_')}-`
       : ''
-  }${core.strings.overview.gameState}_robot_karol_online.json`
+  }${core.ttung('spielstand')}_robot_karol_online.json`
   link.href = window.URL.createObjectURL(blob)
   link.dataset.downloadurl = ['text/json', link.download, link.href].join(':')
 

@@ -22,7 +22,7 @@ function walk(dir) {
 const files = INCLUDED_DIRS.flatMap((dir) => walk(path.join(ROOT, dir)))
 
 // I will just accept this REGEX magic sauce
-const TTUNG_RE = /\bttung\(\s*(['"`])((?:\\.|(?!\1)[\s\S])*)\1\s*\)/g
+const TTUNG_RE = /\bttung\(\s*(['"`])((?:\\.|(?!\1)[\s\S])*)\1\s*,?\s*\)/g
 
 function extractTtungCalls(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8')
@@ -41,15 +41,15 @@ const DE2EN_PATH = path.join(ROOT, 'lib', 'strings', 'de2en.ts')
 
 // and again, I trust in regex magic
 const ENTRY_RE =
-  /^\s*(?:'((?:\\.|[^'\\])*)'|([^\s:'",]+))\s*:\s*'((?:\\.|[^'\\])*)'/gm
+  /^\s*(?:(['"])((?:\\.|(?!\1)[\s\S])*)\1|([^\s:'",]+))\s*:\s*(['"])((?:\\.|(?!\4)[\s\S])*)\4/gm
 
 function readDe2en() {
   const content = fs.readFileSync(DE2EN_PATH, 'utf-8')
   const entries = {}
   let m
   while ((m = ENTRY_RE.exec(content))) {
-    const key = (m[1] ?? m[2]).replace(/\\(['\\])/g, '$1')
-    entries[key] = m[3].replace(/\\(['\\])/g, '$1')
+    const key = (m[2] ?? m[3]).replace(/\\(['\\])/g, '$1')
+    entries[key] = m[5].replace(/\\(['\\])/g, '$1')
   }
   return entries
 }

@@ -69,7 +69,7 @@ export function lint(core: Core, view: EditorView) {
       ui.errorMessages = warnings
         .map(
           (w) =>
-            `${core.strings.ide.line} ${
+            `${core.ttung('Zeile')} ${
               view.state.doc.lineAt(w.from).number
             }: ${w.message}`,
         )

@@ -20,7 +20,7 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
   )
 
   if (!target) {
-    karolCrashed(core, core.strings.crash.invalidMove)
+    karolCrashed(core, core.ttung('Aua! Karol ist gegen eine Wand gelaufen.'))
     return false
   }
 
@@ -29,7 +29,7 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
   const targetBrickCount = bricks[target.y][target.x]
 
   if (Math.abs(currentBrickCount - targetBrickCount) > 1) {
-    karolCrashed(core, core.strings.crash.invalidHeight)
+    karolCrashed(core, core.ttung('Karol kann diese Höhe nicht überwinden.'))
     return false
   }
 
@@ -67,12 +67,12 @@ export function brick(core: Core) {
   )
 
   if (!pos) {
-    karolCrashed(core, core.strings.crash.invalidBrick)
+    karolCrashed(core, core.ttung('Karol kann hier keinen Ziegel aufstellen.'))
     return false
   }
 
   /*if (bricks[pos.y][pos.x] >= height) {
-    karolCrashed(core, core.strings.crash.maxHeight)
+    karolCrashed(core, core.ttung('Maximale Stapelhöhe erreicht.'))
     return false
   }*/
 
@@ -99,12 +99,12 @@ export function unbrick(core: Core) {
   )
 
   if (!pos) {
-    karolCrashed(core, core.strings.crash.invalidPick)
+    karolCrashed(core, core.ttung('Karol kann hier keine Ziegel aufheben.'))
     return false
   }
 
   if (bricks[pos.y][pos.x] <= 0) {
-    karolCrashed(core, core.strings.crash.noBricks)
+    karolCrashed(core, core.ttung('Keine Ziegel zum Aufheben'))
     return false
   }
 
@@ -205,7 +205,7 @@ export function toggleBlock(core: Core) {
   )
 
   if (!pos) {
-    karolCrashed(core, core.strings.crash.invalidBlock)
+    karolCrashed(core, core.ttung('Karol kann hier keinen Quader aufstellen.'))
     return false
   }
 
@@ -222,11 +222,11 @@ export function toggleBlock(core: Core) {
     return true
   } else {
     if (bricks[pos.y][pos.x] > 0) {
-      karolCrashed(core, core.strings.crash.noBlockOnBrick)
+      karolCrashed(core, core.ttung('Karol kann keinen Quader auf Ziegel stellen.'))
       return false
     }
     if (marks[pos.y][pos.x]) {
-      karolCrashed(core, core.strings.crash.noBlockOnMark)
+      karolCrashed(core, core.ttung('Karol kann keinen Quader auf eine Marke stellen.'))
       return false
     }
     core.mutateWs(({ world }) => {

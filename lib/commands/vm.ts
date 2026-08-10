@@ -164,7 +164,7 @@ function* executeProgramAsGenerator(core: Core) {
     if (stepCounter++ >= 1000) {
       console.log('possible dead loop')
       core.mutateWs((ws) => {
-        ws.ui.karolCrashMessage = core.strings.vm.endlessLoop
+        ws.ui.karolCrashMessage = core.ttung('Hilfe, Karol ist in einer Endlosschleife gefangen!')
       })
       yield 'interrupt'
       stepCounter = 0
@@ -502,7 +502,7 @@ export function endExecution(core: Core) {
   if (!core.ws.ui.karolCrashMessage) {
     setExecutionMarker(core, 0)
   }
-  if (core.ws.ui.karolCrashMessage === core.strings.vm.endlessLoop) {
+  if (core.ws.ui.karolCrashMessage === core.ttung('Hilfe, Karol ist in einer Endlosschleife gefangen!')) {
     core.mutateWs((ws) => {
       ws.ui.karolCrashMessage = undefined
     })

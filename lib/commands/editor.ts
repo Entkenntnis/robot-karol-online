@@ -21,12 +21,12 @@ export function setQuestPreview(core: Core, val: boolean) {
 
 export function addNewTask(core: Core) {
   core.mutateWs(({ quest }) => {
-    let title = core.strings.editor.newTask
+    let title = core.ttung('Neuer Auftrag')
 
     if (quest.tasks.some((x) => x.title == title)) {
       let counter = 2
       do {
-        title = `${core.strings.editor.newTask} ${counter++}`
+        title = `${core.ttung('Neuer Auftrag')} ${counter++}`
       } while (quest.tasks.some((x) => x.title == title))
     }
 
@@ -45,7 +45,7 @@ export function setTaskTitle(core: Core, index: number, title: string) {
 }
 
 export function deleteTask(core: Core, index: number) {
-  const result = confirm(core.strings.editor.delete + '?')
+  const result = confirm(core.ttung('Auftrag löschen') + '?')
   if (result) {
     core.mutateWs(({ quest }) => {
       quest.tasks.splice(index, 1)
