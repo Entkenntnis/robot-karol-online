@@ -104,7 +104,11 @@ export function InteractionBar() {
                 ) {
                   navigate(core, '')
                 } else if (core.ws.page == 'editor') {
-                  const res = confirm(core.ttung('Beachte dass die Daten nicht gespeichert werden. Verlassen?'))
+                  const res = confirm(
+                    core.ttung(
+                      'Beachte dass die Daten nicht gespeichert werden. Verlassen?',
+                    ),
+                  )
                   if (res) {
                     deleteEditorSnapshot()
                     navigate(core, '')
@@ -320,7 +324,9 @@ export function InteractionBar() {
             )}
           />
           <span className="text-xl sm:inline hidden">
-            {core.ttung(mainButtonState == 'stop' ? 'Stopp' : 'Start')}
+            {mainButtonState == 'stop'
+              ? core.ttung('Stopp')
+              : core.ttung('Start')}
           </span>
         </button>
       </div>
