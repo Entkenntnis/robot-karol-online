@@ -63,7 +63,7 @@ export function FlyoutMenu() {
         }}
       >
         <h2 className="font-semibold pl-4 pt-4 mb-4">
-          {core.strings.ide.menu}
+          {core.ttung('Menü')}
         </h2>
         <hr />
         <button
@@ -72,7 +72,7 @@ export function FlyoutMenu() {
             closeFlyoutMenu()
           }}
         >
-          <FaIcon icon={faTimes} /> {core.strings.ide.close}
+          <FaIcon icon={faTimes} /> {core.ttung('Schließen')}
         </button>
 
         {core.ws.ui.isPlayground && (
@@ -92,7 +92,7 @@ export function FlyoutMenu() {
               }}
             >
               <FaIcon icon={faUpRightAndDownLeftFromCenter} className="mr-2" />
-              {core.strings.editor.changeSize}
+              {core.ttung('Größe der Welt ändern')}
             </button>
           </p>
         )}
@@ -107,7 +107,7 @@ export function FlyoutMenu() {
             }}
           >
             <FaIcon icon={faFloppyDisk} className="mr-1" />{' '}
-            {core.strings.ide.save}
+            {core.ttung('Bearbeitung speichern')}
           </button>
         </p>
         <p className="px-2 pt-4">
@@ -171,7 +171,7 @@ export function FlyoutMenu() {
             }}
           >
             <FaIcon icon={faFolderOpen} className="mr-1" />{' '}
-            {core.strings.ide.load}
+            {core.ttung('Bearbeitung laden')}
           </button>
         </p>
         {core.ws.ui.sharedQuestId &&
@@ -196,7 +196,7 @@ export function FlyoutMenu() {
                 }}
               >
                 <FaIcon icon={faRotateRight} className="mr-2" />
-                {core.strings.ide.resetCode}
+                {core.ttung('Code zurücksetzen')}
               </button>
             </p>
           )}
@@ -223,7 +223,7 @@ export function FlyoutMenu() {
               }}
             >
               <FaIcon icon={faRotateRight} className="mr-2" />
-              {core.strings.ide.resetCode}
+              {core.ttung('Code zurücksetzen')}
             </button>
           </p>
         )}
@@ -274,7 +274,7 @@ export function FlyoutMenu() {
                   })
                 }}
               />{' '}
-              {core.strings.ide.preview}
+              {core.ttung('Auftragsvorschau')}
             </label>
           </p>
         )}
@@ -291,7 +291,7 @@ export function FlyoutMenu() {
                   })
                 }}
               />{' '}
-              {core.strings.ide.view2D}
+              {core.ttung('2D-Ansicht')}
             </label>
           </p>
         )}
@@ -307,7 +307,7 @@ export function FlyoutMenu() {
               }
             }}
           >
-            <FaIcon icon={faExpand} className="mr-1" /> {core.strings.ide.fullscreen}
+            <FaIcon icon={faExpand} className="mr-1" /> {core.ttung('Vollbild')}
           </button>
         </p>
       </div>

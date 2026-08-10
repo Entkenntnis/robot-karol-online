@@ -34,18 +34,13 @@ export function ShareModal() {
           e.stopPropagation()
         }}
       >
-        <h1 className="m-3 mt-8 text-xl font-bold">
-          {core.strings.editor.share}
-        </h1>
+        <h1 className="m-3 mt-8 text-xl font-bold">{core.ttung('Teilen')}</h1>
         <p className="m-3 -mt-6">
           {replaceWithJSX(
             [
-              core.ws.ui.isPlayground
-                ? core.strings.editor.shareDescription.replace(
-                    /Aufgabe/g,
-                    'Spielwiese',
-                  )
-                : core.strings.editor.shareDescription,
+              core.ttung(
+                'Gib deine Aufgabe frei und mache sie online verfügbar. Dazu werden die Daten auf dem Server gespeichert. Durch die Freigabe stimmst du zu, dass die Aufgabe unter {{CC0}} gestellt wird und weiterverwendet werden darf.',
+              ),
             ],
             /(\{\{CC0\}\})/,
             () => (
@@ -74,7 +69,7 @@ export function ShareModal() {
                 window.open(link, '_blank')
               }}
             >
-              {core.strings.editor.openInNewTab}{' '}
+              {core.ttung('Link in neuem Tab öffnen')}{' '}
               <FaIcon icon={faExternalLinkSquare} />
             </button>
           </div>
@@ -96,10 +91,10 @@ export function ShareModal() {
               {pending ? (
                 <>
                   <FaIcon icon={faSpinner} className="animate-spin" />{' '}
-                  {core.strings.editor.loading}
+                  {core.ttung('wird geladen ...')}
                 </>
               ) : (
-                core.strings.editor.createLink
+                core.ttung('Link erstellen')
               )}
             </button>
             <span>
@@ -126,7 +121,7 @@ export function ShareModal() {
                   URL.revokeObjectURL(url)
                 }}
               >
-                {core.strings.editor.downloadJSON}
+                {core.ttung('Als JSON herunterladen')}
               </button>
             </span>
           </p>
@@ -138,7 +133,7 @@ export function ShareModal() {
               closeModal(core)
             }}
           >
-            {core.strings.editor.close}
+            {core.ttung('Schließen')}
           </button>
         </p>
       </div>

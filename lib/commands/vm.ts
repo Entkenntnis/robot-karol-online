@@ -164,7 +164,7 @@ function* executeProgramAsGenerator(core: Core) {
     if (stepCounter++ >= 1000) {
       console.log('possible dead loop')
       core.mutateWs((ws) => {
-        ws.ui.karolCrashMessage = core.strings.vm.endlessLoop
+        ws.ui.karolCrashMessage = core.ttung('Hilfe, Karol ist in einer Endlosschleife gefangen!')
       })
       yield 'interrupt'
       stepCounter = 0
@@ -502,7 +502,7 @@ export function endExecution(core: Core) {
   if (!core.ws.ui.karolCrashMessage) {
     setExecutionMarker(core, 0)
   }
-  if (core.ws.ui.karolCrashMessage === core.strings.vm.endlessLoop) {
+  if (core.ws.ui.karolCrashMessage === core.ttung('Hilfe, Karol ist in einer Endlosschleife gefangen!')) {
     core.mutateWs((ws) => {
       ws.ui.karolCrashMessage = undefined
     })
@@ -557,8 +557,6 @@ export function endExecution(core: Core) {
 
       // AI GENERATED =====================
 
-      const S = core.strings.vm
-
       const problemClauses = []
 
       // 1. Systematically check for brick-related problems (with singular/plural handling)
@@ -568,15 +566,15 @@ export function endExecution(core: Core) {
           // Too many bricks
           const clause =
             diff === 1
-              ? S.notCompletedBricksTooManyOne
-              : S.notCompletedBricksTooMany.replace('{n}', String(diff))
+              ? core.ttung('1 Ziegel zu viel vorhanden ist')
+              : core.ttung('{n} Ziegel zu viel vorhanden sind').replace('{n}', String(diff))
           problemClauses.push(clause)
         } else {
           // Too few bricks
           const clause =
             diff === 1
-              ? S.notCompletedBricksMissingOne
-              : S.notCompletedBricksMissing.replace('{n}', String(diff))
+              ? core.ttung('1 Ziegel fehlt')
+              : core.ttung('{n} Ziegel fehlen').replace('{n}', String(diff))
           problemClauses.push(clause)
         }
       }
@@ -585,8 +583,8 @@ export function endExecution(core: Core) {
         // Correct quantity, but wrong placement
         const clause =
           misplacedBricks === 1
-            ? S.notCompletedBricksMisplacedOne
-            : S.notCompletedBricksMisplaced.replace('{n}', String(misplacedBricks))
+            ? core.ttung('1 Ziegel an der falschen Stelle liegt')
+            : core.ttung('{n} Ziegel an der falschen Stelle liegen').replace('{n}', String(misplacedBricks))
         problemClauses.push(clause)
       }
 
@@ -597,15 +595,15 @@ export function endExecution(core: Core) {
           // Too many marks
           const clause =
             diff === 1
-              ? S.notCompletedMarksTooManyOne
-              : S.notCompletedMarksTooMany.replace('{n}', String(diff))
+              ? core.ttung('1 Marke zu viel gesetzt ist')
+              : core.ttung('{n} Marken zu viel gesetzt sind').replace('{n}', String(diff))
           problemClauses.push(clause)
         } else {
           // Too few marks
           const clause =
             diff === 1
-              ? S.notCompletedMarksMissingOne
-              : S.notCompletedMarksMissing.replace('{n}', String(diff))
+              ? core.ttung('1 Marke fehlt')
+              : core.ttung('{n} Marken fehlen').replace('{n}', String(diff))
           problemClauses.push(clause)
         }
       }
@@ -614,8 +612,8 @@ export function endExecution(core: Core) {
         // Correct quantity, but wrong placement
         const clause =
           misplacedMarks === 1
-            ? S.notCompletedMarksMisplacedOne
-            : S.notCompletedMarksMisplaced.replace('{n}', String(misplacedMarks))
+            ? core.ttung('1 Marke an der falschen Stelle ist')
+            : core.ttung('{n} Marken an der falschen Stelle sind').replace('{n}', String(misplacedMarks))
         problemClauses.push(clause)
       }
 
@@ -625,11 +623,11 @@ export function endExecution(core: Core) {
 
         if (problemClauses.length === 1) {
           // e.g., "..., because 1 brick is missing."
-          finalMessage += `${S.notCompletedPrefix} ${problemClauses[0]}.`
+          finalMessage += `${core.ttung('weil')} ${problemClauses[0]}.`
         } else {
           // e.g., "..., because 1 brick is missing and 3 marks are set too many times."
           const lastClause = problemClauses.pop()
-          finalMessage += `${S.notCompletedPrefix} ${problemClauses.join(', ')}${S.notCompletedAnd}${lastClause}.`
+          finalMessage += `${core.ttung('weil')} ${problemClauses.join(', ')}${core.ttung(' und ')}${lastClause}.`
         }
 
         core.mutateWs(({ ui }) => {

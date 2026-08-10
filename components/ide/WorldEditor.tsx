@@ -82,7 +82,7 @@ export function WorldEditor() {
           }}
         >
           <FaIcon icon={faCaretLeft} className="mr-1" />
-          {core.strings.editor.back}
+          {core.ttung('zurück')}
         </button>
         <div className="rounded-full border-2 border-gray-400 bg-white">
           <button
@@ -97,7 +97,7 @@ export function WorldEditor() {
               handlerDiv.current?.focus()
             }}
           >
-            {core.strings.editor.startWorld}
+            {core.ttung('Startwelt')}
           </button>
           <button
             className={clsx(
@@ -108,7 +108,7 @@ export function WorldEditor() {
               showPreview(core)
             }}
           >
-            {core.strings.editor.preview}
+            {core.ttung('Vorschau')}
           </button>
           <button
             className={clsx(
@@ -122,7 +122,7 @@ export function WorldEditor() {
               handlerDiv.current?.focus()
             }}
           >
-            {core.strings.editor.endWorld}
+            {core.ttung('Zielwelt')}
           </button>
         </div>
         <button
@@ -132,7 +132,7 @@ export function WorldEditor() {
           }}
         >
           <FaIcon icon={faUpRightAndDownLeftFromCenter} className="mr-2" />
-          {core.strings.editor.changeSize}
+          {core.ttung('Größe der Welt ändern')}
         </button>
       </div>
       <div className="flex-grow flex-shrink flex justify-center overflow-auto relative">
@@ -150,7 +150,7 @@ export function WorldEditor() {
               }}
             >
               <FaIcon icon={faClone} className="mr-2" />
-              {core.strings.editor.copyStartToEnd}
+              {core.ttung('Start in Ziel kopieren')}
             </button>
           )}
         {!core.ws.editor.showWorldPreview && (
@@ -168,7 +168,7 @@ export function WorldEditor() {
             }}
           >
             <FaIcon icon={faTrashCan} className="mr-2" />
-            {core.strings.editor.deleteWorld}
+            {core.ttung('Welt löschen')}
           </button>
         )}
         <div className="absolute bottom-2 left-2 bg-gray-50">

@@ -31,7 +31,7 @@ export function RemixModal() {
       >
         <div />
         <div>
-          <p>{core.strings.editor.fromCode}:</p>
+          <p>{core.ttung('Aus freigegebener Aufgabe, gib den vierstelligen Code ein')}:</p>
           <form
             onSubmit={(e) => {
               async function handler() {
@@ -74,21 +74,21 @@ export function RemixModal() {
                 type="submit"
                 disabled={code.length != 4}
               >
-                {core.strings.editor.load}
+                {core.ttung('Laden')}
               </button>
             </p>
           </form>
         </div>
         <hr />
         <div>
-          <p className="mt-2">{core.strings.editor.fromQuest}:</p>
+          <p className="mt-2">{core.ttung('Aus einer vorhandenen Aufgabe')}:</p>
           <select
             value={selected}
             onChange={(e) => {
               setSelected(parseInt(e.target.value))
             }}
           >
-            <option value={-1}>{core.strings.editor.pleaseChoose}</option>
+            <option value={-1}>{core.ttung('--- bitte auswählen ---')}</option>
             {questList
               .filter((id) => id < 10000)
               .map((id) => (
@@ -140,7 +140,7 @@ export function RemixModal() {
               closeModal(core)
             }}
           >
-            {core.strings.editor.load}
+            {core.ttung('Laden')}
           </button>
         </div>
         <hr />
@@ -176,7 +176,7 @@ export function RemixModal() {
               closeModal(core)
             }}
           >
-            {core.strings.editor.close}
+            {core.ttung('Schließen')}
           </button>
         </p>
       </div>

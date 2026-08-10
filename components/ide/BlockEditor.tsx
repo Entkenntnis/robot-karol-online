@@ -176,9 +176,9 @@ export function BlockEditor() {
       if (topBlocks.length > 1) {
         let error = ''
         if (mainBlocks.length > 1) {
-          error = core.strings.ide.multipleMains
+          error = core.ttung('Mehr als ein Hauptprogramm - erwarte höchstens ein Hauptprogramm.')
         } else if (mainBlocks.length == 0) {
-          error = core.strings.ide.connectAll
+          error = core.ttung('Blöcke sind nicht zusammenhängend. Verbinde die Blöcke zu einem Programm oder nutze den Hauptprogramm-Block.')
         }
 
         if (error) {
@@ -284,7 +284,7 @@ export function BlockEditor() {
           ui.errorMessages = warnings
             .map(
               (w) =>
-                `${core.strings.ide.line} ${doc.lineAt(w.from).number}: ${
+                `${core.ttung('Zeile')} ${doc.lineAt(w.from).number}: ${
                   w.message
                 }`,
             )

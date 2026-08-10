@@ -95,7 +95,7 @@ function Tutorial() {
   const core = useCore()
   return (
     <>
-      <p>{core.strings.ide.welcome}</p>
+      <p>{core.ttung('Herzlich Willkommen! Hier lernst du Schritt für Schritt die Welt von Karol kennen. Das Tutorial zeigt dir die ersten Grundlagen für die Programmierung.')}</p>
       <div className="mt-6 mb-2">
         <button
           className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"
@@ -103,7 +103,7 @@ function Tutorial() {
             showModal(core, 'tutorial')
           }}
         >
-          {core.strings.ide.tutorialButton}
+          {core.ttung('Tutorial anzeigen')}
         </button>
       </div>
     </>

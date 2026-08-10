@@ -86,51 +86,29 @@ export function Overview() {
               <h1 className="text-2xl whitespace-nowrap">Robot Karol Online</h1>
             </div>
           </div>
-          {/*<div className="absolute top-2 right-24">
-            <label>
-              <span className="hidden">Sprache</span>
-              <FaIcon icon={faGlobe} />
-              <select
-                className="p-1 ml-2 bg-white/40 rounded cursor-pointer"
-                value={core.ws.settings.lng}
-                onChange={(e) => {
-                  const lng = e.target.value
-                  if (lng == 'de' || lng == 'en') {
-                    setLng(core, lng)
-                    setLngStorage(lng)
-                    if (lng == 'en') {
-                      submitAnalyzeEvent(core, 'ev_click_landing_english')
-                    } else if (lng == 'de') {
-                      submitAnalyzeEvent(core, 'ev_click_landing_german')
-                    }
-                  }
-                }}
-              >
-                <option value="de">Deutsch</option>
-                <option value="en">English</option>
-              </select>
-            </label>
-          </div>*/}
+
           <div className="absolute top-2 right-2 z-[1000]">
             <button
               className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
               onClick={() => {
-                ____submitAnalyzeEvent(core, 'ev_click_landing_donate')
                 window.open('https://paypal.me/Dav1dL1', '_blank')
               }}
             >
-              {core.strings.overview.donate}
+              {core.ttung('Spenden')}
             </button>
           </div>
           <div className="mx-8 md:mx-auto mt-6 mb-2">
             <a
               href="/#SPIELWIESE"
               className="hover:underline mr-8"
-              onClick={() => {
-                ____submitAnalyzeEvent(core, 'ev_click_landing_playground')
+              onClick={(e) => {
+                setOverviewScroll(0)
+                setLearningPathScroll(0)
+                navigate(core, '#SPIELWIESE')
+                e.preventDefault()
               }}
             >
-              {core.strings.overview.playground}
+              {core.ttung('Spielwiese')}
             </a>
             <a
               href="/editor"
@@ -138,29 +116,26 @@ export function Overview() {
               onClick={(e) => {
                 setOverviewScroll(0)
                 setLearningPathScroll(0)
-                ____submitAnalyzeEvent(core, 'ev_click_landing_editor')
                 navigate(core, 'editor')
                 e.preventDefault()
               }}
             >
-              {core.strings.overview.editor}
+              {core.ttung('Aufgaben-Editor')}
             </a>
             <button
-              title={core.strings.overview.saveTooltip}
+              title={core.ttung('Als Datei herunterladen')}
               onClick={() => {
-                ____submitAnalyzeEvent(core, 'ev_click_landing_exportProgress')
                 saveToJSON(core)
               }}
               className="hover:underline mr-6"
             >
               <FaIcon icon={faFloppyDisk} className="text-green-600 mr-1" />{' '}
-              {core.strings.overview.save}
+              {core.ttung('Fortschritt speichern')}
             </button>
             <button
-              title={core.strings.overview.loadTooltip}
+              title={core.ttung('Aus einer Datei laden')}
               className="hover:underline"
               onClick={async () => {
-                ____submitAnalyzeEvent(core, 'ev_click_landing_importProgress')
                 await loadFromJSON()
                 const image = getRobotImage()
                 if (image) {
@@ -173,7 +148,7 @@ export function Overview() {
               }}
             >
               <FaIcon icon={faFolderOpen} className="text-yellow-500 mr-1" />{' '}
-              {core.strings.overview.load}
+              {core.ttung('Fortschritt laden')}
             </button>
           </div>
           <div className="my-8 flex ml-8 md:ml-0 md:justify-center">
@@ -187,7 +162,7 @@ export function Overview() {
                   navigate(core, '')
                 }}
               >
-                {core.strings.overview.learningPath}
+                {core.ttung('Lernpfad')}
               </button>
               <div className=" border border-slate-600"></div>
               <button
@@ -199,7 +174,7 @@ export function Overview() {
                   navigate(core, '#OVERVIEW')
                 }}
               >
-                {core.strings.overview.freePractice}
+                {core.ttung('freies Üben')}
               </button>
             </div>
           </div>
@@ -243,7 +218,7 @@ export function Overview() {
                       )
                     }}
                   >
-                    {core.strings.overview.loadQuestFromFile}
+                    {core.ttung('Aufgabe aus Datei laden')}
                   </button>
                 </div>
               </div>
@@ -276,10 +251,6 @@ export function Overview() {
                           <div
                             className="bg-yellow-100/80 rounded-lg p-3 shadow-lg transform rotate-6 border-2 border-yellow-300 cursor-pointer"
                             onClick={() => {
-                              ____submitAnalyzeEvent(
-                                core,
-                                'ev_click_landing_tourStart',
-                              )
                               setQuestReturnToMode(
                                 core.ws.page == 'demo' ? '#DEMO' : '',
                               )
@@ -291,9 +262,9 @@ export function Overview() {
                             }}
                           >
                             <p className="text-lg">
-                              {core.strings.overview.welcome1}
+                              {core.ttung('Willkommen 👋 entdecke hier')}
                               <br />
-                              {core.strings.overview.welcome2}
+                              {core.ttung('die Welt der Algorithmen!')}
                             </p>
                           </div>
                           <svg
@@ -325,17 +296,11 @@ export function Overview() {
                       )}
                       onClick={() => {
                         // open feedback form in new tab
-                        ____submitAnalyzeEvent(
-                          core,
-                          'ev_click_landing_appearance',
-                        )
                         showModal(core, 'appearance')
                       }}
                     >
                       <p className="text-center">
-                        {core.strings.overview.drawFigure1}
-                        <br />
-                        {core.strings.overview.drawFigure2}
+                        {core.ttung('Figur zeichnen')}
                       </p>
                       <FaIcon
                         icon={faPaintBrush}
@@ -353,10 +318,6 @@ export function Overview() {
                       <a
                         href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
                         onClick={() => {
-                          ____submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_robotGallery',
-                          )
                           triggerEvent(core, 'click-robot-gallery')
                           setTimeout(() => {
                             window.open(
@@ -366,39 +327,28 @@ export function Overview() {
                           }, 50)
                         }}
                       >
-                        <SpinningRobot /> {core.strings.overview.figureGallery}
+                        <SpinningRobot /> {core.ttung('Figuren-Galerie')}
                       </a>
                     </li>
                     <li>
                       <a
                         href="/#INSPIRATION"
                         onClick={() => {
-                          ____submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_gallery',
-                          )
                           setLearningPathScroll(
                             document.getElementById('scroll-container')
                               ?.scrollTop ?? -1,
                           )
                         }}
                       >
-                        {core.strings.overview.taskGallery}
+                        {core.ttung('💫 Aufgaben-Galerie')}
                       </a>
                     </li>
                     <li>
                       <a
                         target="_blank"
                         href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/MATERIAL-LEHRKRAEFTE.md"
-                        onClick={() => {
-                          // open feedback form in new tab
-                          ____submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_material',
-                          )
-                        }}
                       >
-                        {core.strings.overview.teacherMaterial}{' '}
+                        {core.ttung('Material für Lehrkräfte')}{' '}
                         <FaIcon
                           icon={faExternalLink}
                           className="text-gray-600 text-xs"
@@ -409,12 +359,8 @@ export function Overview() {
                       <a
                         target="_blank"
                         href="https://www.youtube.com/watch?v=xF3YrWzp400&list=PLhnCUqIsz29Bda_ovQPpags58MQcwQSd8"
-                        onClick={() => {
-                          // open feedback form in new tab
-                          ____submitAnalyzeEvent(core, 'ev_click_landing_video')
-                        }}
                       >
-                        {core.strings.overview.videoExplanations}{' '}
+                        {core.ttung('Video-Erklärungen')}{' '}
                         <FaIcon
                           icon={faExternalLink}
                           className="text-gray-600 text-xs"
@@ -425,12 +371,8 @@ export function Overview() {
                       <a
                         target="_blank"
                         href="https://github.com/Entkenntnis/robot-karol-online#readme"
-                        onClick={() => {
-                          // open feedback form in new tab
-                          ____submitAnalyzeEvent(core, 'ev_click_landing_docs')
-                        }}
                       >
-                        {core.strings.overview.docs}{' '}
+                        {core.ttung('Dokumentation')}{' '}
                         <FaIcon
                           icon={faExternalLink}
                           className="text-gray-600 text-xs"
@@ -442,10 +384,6 @@ export function Overview() {
                         onClick={() => {
                           setLng(core, 'en')
                           setLngStorage('en')
-                          ____submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_english',
-                          )
                           // scroll to top
                           document.getElementById(
                             'scroll-container',
@@ -459,17 +397,13 @@ export function Overview() {
                         onClick={() => {
                           setLng(core, 'de')
                           setLngStorage('de')
-                          ____submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_german',
-                          )
                           // scroll to top
                           document.getElementById(
                             'scroll-container',
                           )!.scrollTop = 0
                         }}
                       >
-                        <button>{core.strings.overview.switchToGerman}</button>
+                        <button>{core.ttung('Zur deutsche Version')}</button>
                       </li>
                     )}
                   </ul>
@@ -477,7 +411,9 @@ export function Overview() {
 
                 {core.ws.ui.newRobotImage && (
                   <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
-                    <p className="mb-2">{core.strings.overview.newFigureAvailable}</p>
+                    <p className="mb-2">
+                      {core.ttung('Neue Figur verfügbar:')}
+                    </p>
                     <img
                       src={core.ws.ui.newRobotImage}
                       alt="Karol"
@@ -490,13 +426,9 @@ export function Overview() {
                           core.mutateWs((ws) => {
                             ws.ui.newRobotImage = undefined
                           })
-                          ____submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_closeNewKarol',
-                          )
                         }}
                       >
-                        {core.strings.overview.close}
+                        {core.ttung('schließen')}
                       </button>
                       <button
                         className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded"
@@ -506,14 +438,10 @@ export function Overview() {
                             ws.ui.newRobotImage = undefined
                           })
                           setRobotImage(core.ws.robotImageDataUrl)
-                          ____submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_saveNewKarol',
-                          )
                           triggerEvent(core, 'apply-new-robot')
                         }}
                       >
-                        {core.strings.overview.loadFigure}
+                        {core.ttung('Laden')}
                       </button>
                     </p>
                   </div>
@@ -596,12 +524,6 @@ export function Overview() {
                         core.ws.page != 'demo'
                       }
                       onClick={() => {
-                        if (parseInt(entry[0]) == 1) {
-                          ____submitAnalyzeEvent(
-                            core,
-                            'ev_click_landing_startKarol',
-                          )
-                        }
                         setQuestReturnToMode(
                           core.ws.page == 'demo' ? '#DEMO' : '',
                         )
@@ -631,11 +553,10 @@ export function Overview() {
             <button
               className="hover:underline mr-6"
               onClick={() => {
-                ____submitAnalyzeEvent(core, 'ev_click_landing_impressum')
                 showModal(core, 'impressum')
               }}
             >
-              {core.strings.overview.imprint}
+              {core.ttung('Impressum')}
             </button>
             <button
               className="hover:underline mr-6"
@@ -644,15 +565,19 @@ export function Overview() {
                 showModal(core, 'privacy')
               }}
             >
-              {core.strings.overview.privacy}
+              {core.ttung('Datenschutz')}
             </button>
-            {renderExternalLink('Blog', 'https://blog.arrrg.de/')}
+            {core.ws.settings.lng == 'de' &&
+              renderExternalLink('Blog', 'https://blog.arrrg.de/')}
             <button
               className="hover:underline text-red-900 hover:text-red-500 transition-colors ml-12"
               onClick={() => {
-                const res = confirm(core.strings.profile.resetConfirm)
+                const res = confirm(
+                  core.ttung(
+                    'Fortschritt jetzt zurücksetzen? Die Aktion kann nicht rückgängig gemacht werden.',
+                  ),
+                )
                 if (res) {
-                  ____submitAnalyzeEvent(core, 'ev_click_profile_reset')
                   resetStorage()
                   forceRerender(core)
                   setLngStorage('de')
@@ -660,7 +585,7 @@ export function Overview() {
                 }
               }}
             >
-              {core.strings.profile.reset}
+              {core.ttung('Fortschritt zurücksetzen')}
             </button>
           </div>
         </div>
@@ -673,17 +598,7 @@ export function Overview() {
 
   function renderExternalLink(title: string, href: string) {
     return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noreferrer"
-        onClick={() => {
-          ____submitAnalyzeEvent(
-            core,
-            'ev_click_landing_' + title.toLowerCase(),
-          )
-        }}
-      >
+      <a href={href} target="_blank" rel="noreferrer">
         <span className="hover:underline">{title}</span>{' '}
         <FaIcon icon={faExternalLink} className="text-xs text-gray-600" />
       </a>

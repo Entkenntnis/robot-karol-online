@@ -56,7 +56,7 @@ export function QuestIcon({
             )}
           >
             {title == 'Start' && getUserName()
-              ? core.strings.overview.greeting.replace(
+              ? core.ttung('Hallo, {name}!').replace(
                   '{name}',
                   getUserName(),
                 )

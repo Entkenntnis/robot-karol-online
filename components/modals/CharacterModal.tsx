@@ -21,7 +21,7 @@ export function CharacterModal() {
       >
         <div className="py-3">
           <h2 className="text-yellow-800 font-bold">
-            {core.strings.character.choose}
+            {core.ttung('Wähle deine Figur:')}
           </h2>
           <div className="flex justify-around my-10">
             <View
@@ -98,7 +98,7 @@ export function CharacterModal() {
             />
           </div>
           <p className="text-sm italic text-center mt-4">
-            {core.strings.character.galleryHint}
+            {core.ttung('In der Figuren-Galerie findest du viele weitere Figuren.')}
           </p>
         </div>
       </div>

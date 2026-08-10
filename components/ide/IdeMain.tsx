@@ -86,7 +86,7 @@ export function IdeMain() {
                 ) {
                   navigate(core, '')
                 } else if (core.ws.page == 'editor') {
-                  const res = confirm(core.strings.editor.leaveWarning)
+                  const res = confirm(core.ttung('Beachte dass die Daten nicht gespeichert werden. Verlassen?'))
                   if (res) {
                     deleteEditorSnapshot()
                     navigate(core, '')
@@ -124,7 +124,7 @@ export function IdeMain() {
             }
           }}
         >
-          <FaIcon icon={faCode} className="mr-2" /> {core.strings.ide.program}
+          <FaIcon icon={faCode} className="mr-2" /> {core.ttung('Programm')}
         </button>
         <button
           className={clsx(
@@ -138,7 +138,7 @@ export function IdeMain() {
             setActiveTab('output')
           }}
         >
-          <FaIcon icon={faPlayCircle} className="mr-2" /> {core.strings.ide.world}
+          <FaIcon icon={faPlayCircle} className="mr-2" /> {core.ttung('Welt')}
         </button>
       </div>
       <ReflexContainer
@@ -171,7 +171,7 @@ export function IdeMain() {
                 <AnimateInView>
                   <div className="relative bg-yellow-100/90 p-4 mx-auto max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg">
                     <div className="text-center text-2xl font-bold text-yellow-800 mb-2">
-                      {core.strings.ide.tourStepDrag}
+                      {core.ttung('Legen wir los! Ziehe den Befehl „Schritt" auf die Arbeitsfläche')}
                     </div>
                     <div className="absolute -bottom-36 -left-12">
                       <div className="flex justify-center">
@@ -206,7 +206,7 @@ export function IdeMain() {
               <AnimateInView>
                 <div className="relative bg-yellow-100/90 p-6 max-w-[560px] rounded-xl border-2 border-yellow-300 shadow-lg mx-auto">
                   <div className="text-center text-xl font-bold text-yellow-800 mb-4">
-                    {core.strings.ide.tourComplete}
+                    {core.ttung('Sehr gut! Schreibe das Programm fertig: Gehe mit Karol zwei Schritte und lege einen Ziegel.')}
                   </div>
                   <div className="flex justify-center mt-4">
                     <button
@@ -217,7 +217,7 @@ export function IdeMain() {
                         })
                       }}
                     >
-                      {core.strings.ide.ok}
+                      {core.ttung('OK')}
                     </button>
                   </div>
                 </div>

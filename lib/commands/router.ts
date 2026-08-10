@@ -146,8 +146,8 @@ export async function hydrate(core: Core) {
     core.mutateWs((ws) => {
       ws.page = 'editor'
       const { quest } = ws
-      quest.title = core.strings.editor.title
-      quest.description = core.strings.editor.description
+      quest.title = core.ttung('Titel der Aufgabe')
+      quest.description = core.ttung('Beschreibe, um was es bei der Aufgabe geht ...')
       quest.tasks = []
     })
     addNewTask(core)
@@ -159,13 +159,13 @@ export async function hydrate(core: Core) {
   }
 
   if (page.startsWith('SPIELWIESE')) {
-    document.title = core.strings.overview.playground + ' | Robot Karol Online'
+    document.title = core.ttung('Spielwiese') + ' | Robot Karol Online'
     core.mutateWs((ws) => {
-      ws.quest.title = core.strings.overview.playground
-      ws.quest.description = core.strings.overview.playgroundDescription
+      ws.quest.title = core.ttung('Spielwiese')
+      ws.quest.description = core.ttung('Programmiere frei und baue dein Herzensprojekt.')
       ws.quest.tasks = [
         {
-          title: core.strings.overview.playground,
+          title: core.ttung('Spielwiese'),
           start: createWorld(15, 10, 6),
           target: null,
         },
@@ -203,7 +203,7 @@ export async function hydrate(core: Core) {
         core.mutateWs((ws) => {
           ws.quest.tasks = [
             {
-              title: core.strings.overview.playground,
+              title: core.ttung('Spielwiese'),
               start: createWorld(dimX, dimY, height),
               target: null,
             },

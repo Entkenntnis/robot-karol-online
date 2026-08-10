@@ -550,7 +550,7 @@ export function AppearanceModal() {
               closeModal(core)
             }}
           >
-            {core.strings.appearance.cancel}
+            {core.ttung('abbrechen')}
           </button>
           <button
             className="py-1 px-3 rounded-full bg-green-200 hover:bg-green-300"
@@ -560,7 +560,7 @@ export function AppearanceModal() {
               closeModal(core)
             }}
           >
-            {core.strings.appearance.saveAndClose}
+            {core.ttung('Speichern und schließen')}
           </button>
         </div>
         <div className="flex w-full h-full">
@@ -609,7 +609,7 @@ export function AppearanceModal() {
             </div>
             <div className="flex flex-wrap justify-center justify-items-center gap-2 mt-2">
               <button
-                title={core.strings.appearance.brush}
+                title={core.ttung('Pinsel')}
                 className={`h-8 w-10 flex justify-center items-center border rounded ${
                   tool === 'brush' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -621,7 +621,7 @@ export function AppearanceModal() {
                 <FaIcon icon={faPaintBrush} />
               </button>
               <button
-                title={core.strings.appearance.fill}
+                title={core.ttung('Füllen')}
                 className={`h-8 w-10 flex justify-center items-center border rounded ${
                   tool === 'paintBucket' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -633,7 +633,7 @@ export function AppearanceModal() {
                 <FaIcon icon={faFillDrip} />
               </button>
               <button
-                title={core.strings.appearance.line}
+                title={core.ttung('Linie')}
                 className={`h-8 w-10 flex justify-center items-center border rounded ${
                   tool === 'line' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -668,7 +668,7 @@ export function AppearanceModal() {
                 </svg>
               </button>*/}
               <button
-                title={core.strings.appearance.ellipse}
+                title={core.ttung('Ellipse')}
                 className={`h-8 w-10 flex justify-center items-center border rounded ${
                   tool === 'ellipse' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -691,7 +691,7 @@ export function AppearanceModal() {
                 </svg>
               </button>
               <button
-                title={core.strings.appearance.eraser}
+                title={core.ttung('Radierer')}
                 className={`h-8 w-10 flex justify-center items-center border rounded ${
                   tool === 'eraser' ? 'bg-gray-300' : 'bg-white'
                 }`}
@@ -703,7 +703,7 @@ export function AppearanceModal() {
                 <FaIcon icon={faEraser} />
               </button>
               <button
-                title={core.strings.appearance.undo}
+                title={core.ttung('Rückgängig')}
                 className="h-8 w-10 flex justify-center items-center bg-purple-200 hover:bg-purple-300 rounded"
                 onClick={handleUndo}
               >
@@ -770,7 +770,7 @@ export function AppearanceModal() {
                 className="px-4 py-0.5 bg-gray-200 hover:bg-gray-300 rounded ml-4"
                 onClick={handleReset}
               >
-                {core.strings.appearance.resetFigure}
+                {core.ttung('Figur zurücksetzen')}
               </button>
               <button
                 onClick={() => {
@@ -787,7 +787,7 @@ export function AppearanceModal() {
                 }}
                 className="hover:underline"
               >
-                {core.strings.appearance.gallery}
+                {core.ttung('Figuren-Galerie')}
               </button>
               <button
                 className="px-4 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
@@ -799,12 +799,12 @@ export function AppearanceModal() {
                     // Absoluten Link konstruieren und in die Zwischenablage kopieren.
                     const link = `${window.location.origin}/#ROBOT:${dataUrl}`
                     navigator.clipboard.writeText(link).then(() => {
-                      alert(core.strings.appearance.linkCopied)
+                      alert(core.ttung('Link kopiert! Öffne den Link in einem Browser, um deine Figur zu laden.'))
                     })
                   }
                 }}
               >
-                {core.strings.appearance.copyLink}
+                {core.ttung('Link kopieren')}
               </button>
               {/*<button
                 className="px-4 py-0.5 bg-yellow-200 hover:bg-yellow-300 rounded"
@@ -884,11 +884,11 @@ export function AppearanceModal() {
                     updateImageDataUrl(canvas)
                   }}
                 >
-                  {core.strings.appearance.clearCanvas}
+                  {core.ttung('Leinwand löschen')}
                 </button>
               </div>
               <div className="absolute right-3 bottom-2 text-gray-500 text-sm">
-                {core.strings.appearance.zoomHint}
+                {core.ttung('Nutze zum Zoomen Strg + / -')}
               </div>
               <div className="mt-4 flex flex-col items-center">
                 {/* Container mit verfeinertem Rautenmuster */}

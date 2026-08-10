@@ -62,11 +62,11 @@ export function Structogram() {
             setShowStructogram(core, false)
           }}
         >
-          {core.strings.ide.close}
+          {core.ttung('Schließen')}
         </button>
       </div>
-      <h1 className="ml-8 text-2xl pt-8">{core.strings.ide.structogram}</h1>
-      <h2 className="mt-5 font-bold ml-8">{core.strings.ide.mainProgram}</h2>
+      <h1 className="ml-8 text-2xl pt-8">{core.ttung('Struktogramm')}</h1>
+      <h2 className="mt-5 font-bold ml-8">{core.ttung('Hauptprogramm')}</h2>
       <div className="overflow-auto flex-auto">
         <div className="ml-4 p-4">
           <div className="inline-block">{renderStructogram()}</div>
@@ -79,7 +79,7 @@ export function Structogram() {
     if (core.ws.ui.state == 'error')
       return (
         <em>
-          {core.strings.ide.problemsInProgram}
+          {core.ttung('Probleme im Programm')}
           <br />
           {core.ws.ui.errorMessages.join(', ')}
         </em>
@@ -93,11 +93,11 @@ export function Structogram() {
       nodes = cursorToNodes(tree.cursor())
     } catch (e) {
       console.log(e)
-      return <em>{core.strings.ide.structogramError}</em>
+      return <em>{core.ttung('Fehler bei der Generierung des Struktogramms.')}</em>
     }
 
     if (nodes.length == 0) {
-      return <em>{core.strings.ide.emptyProgram}</em>
+      return <em>{core.ttung('Leeres Programm')}</em>
     }
 
     // debug
@@ -365,11 +365,11 @@ export function Structogram() {
       } else {
         let heading = null
         if (node.type == 'repeat-forever') {
-          heading = <strong>{core.strings.ide.repeatForever}</strong>
+          heading = <strong>{core.ttung('wiederhole immer')}</strong>
         } else if (node.type == 'repeat-while') {
           heading = (
             <>
-              <strong>{core.strings.ide.repeatWhile}</strong>{' '}
+              <strong>{core.ttung('wiederhole solange')}</strong>{' '}
               {isJavaOrPython
                 ? node.condition.slice(0, 1).toLowerCase() +
                   node.condition.slice(1) +
@@ -380,8 +380,8 @@ export function Structogram() {
         } else {
           heading = (
             <>
-              <strong>{core.strings.ide.repeat}</strong> {node.count}{' '}
-              <strong>{core.strings.ide.times}</strong>
+              <strong>{core.ttung('wiederhole')}</strong> {node.count}{' '}
+              <strong>{core.ttung('mal')}</strong>
             </>
           )
         }

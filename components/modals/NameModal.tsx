@@ -29,7 +29,7 @@ export function NameModal() {
         </button>
         <div className="py-3">
           <p className="font-bold text-2xl mt-3 mb-4 text-center text-yellow-800">
-            👋 {core.strings.nameModal.invite}
+            👋 {core.ttung('Wie heißt du?')}
           </p>
           <form
             onSubmit={(e) => {
@@ -49,7 +49,7 @@ export function NameModal() {
                 }}
                 className="mt-3 text-3xl border-yellow-400 border-2 rounded-lg text-center py-1 px-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white/80 max-w-[70vw] placeholder:text-gray-200 placeholder:text-xl"
                 maxLength={30}
-                placeholder={core.strings.nameModal.placeholder}
+                placeholder={core.ttung('Dein Name...')}
               />
               <button
                 type="button"
@@ -73,7 +73,7 @@ export function NameModal() {
                 className="px-5 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-lg disabled:bg-gray-200 disabled:text-gray-700 text-yellow-900 font-medium transform transition-all duration-200 hover:scale-105 shadow-md disabled:cursor-not-allowed"
                 disabled={!name.trim()}
               >
-                ✨ {core.strings.nameModal.start} ✨
+                ✨ {core.ttung('Loslegen!')} ✨
               </button>
             </div>
           </form>

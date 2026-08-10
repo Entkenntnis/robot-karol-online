@@ -115,7 +115,7 @@ export function PythonPath() {
           
           <li>
                   <button
-                    title={core.strings.overview.saveTooltip}
+                    title={core.ttung('Als Datei herunterladen')}
                     onClick={() => {
                       submitAnalyzeEvent(
                         core,
@@ -128,12 +128,12 @@ export function PythonPath() {
                       icon={faFloppyDisk}
                       className="text-green-600 mr-1"
                     />{' '}
-                    {core.strings.overview.save}
+                    {core.ttung('Fortschritt speichern')}
                   </button>
                 </li>
                 <li>
                   <button
-                    title={core.strings.overview.loadTooltip}
+                    title={core.ttung('Aus einer Datei laden')}
                     onClick={async () => {
                       submitAnalyzeEvent(
                         core,
@@ -154,7 +154,7 @@ export function PythonPath() {
                       icon={faFolderOpen}
                       className="text-yellow-500 mr-1"
                     />{' '}
-                    {core.strings.overview.load}
+                    {core.ttung('Fortschritt laden')}
                   </button>
                 </li>
                 
@@ -418,7 +418,7 @@ export function PythonPath() {
                 showModal(core, 'impressum')
               }}
             >
-              {core.strings.overview.imprint}
+              {core.ttung('Impressum')}
             </button>
             <button
               className="hover:underline mr-6"
@@ -427,7 +427,7 @@ export function PythonPath() {
                 showModal(core, 'privacy')
               }}
             >
-              {core.strings.overview.privacy}
+              {core.ttung('Datenschutz')}
             </button>
           </div>
         </div>

@@ -133,7 +133,7 @@ export function TutorialModal() {
                 }
               }}
             >
-              {isEnd ? core.strings.ide.done : core.strings.ide.continue}
+              {isEnd ? core.ttung('Fertig') : core.ttung('Weiter')}
             </button>
           </div>
         </div>
