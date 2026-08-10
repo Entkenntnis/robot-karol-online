@@ -91,7 +91,14 @@ export function Flightdeck() {
           content: string
           createdAt: string
         }[]
-        void shares
+        const resp3 = await fetch(backend.exportEndpoint + '/experiments', {
+          headers: { Authorization: 'Bearer ' + key },
+        })
+        const experiments = (await resp3.json()) as {
+          id: number
+          event: string
+          createdAt: string
+        }[]
 
         // Womit fande ich denn am besten an? Karol-Umfrage wahrscheinlich.
         const karolSurveyData: KarolSurveyData = []
@@ -157,6 +164,9 @@ export function Flightdeck() {
         alert('Fehler!')
         localStorage.removeItem(flightdeckAccessKey)
       }
+
+      // TODO: A/B-Testing Daten auswerten
+
       setLoading(false)
     })()
   }, [])
