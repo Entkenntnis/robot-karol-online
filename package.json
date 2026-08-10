@@ -12,7 +12,8 @@
     "pack": "nodemon --watch lib/data/chapters --ext \"*\" scripts/pack.js",
     "update-gallery": "node scripts/generate-dictionary.js",
     "tauri": "tauri",
-    "check-cycles": "npx dpdm app/main.tsx"
+    "check-cycles": "npx dpdm app/main.tsx",
+    "ttung": "node scripts/ttung.js"
   },
   "dependencies": {
     "@blockly/field-slider": "^8.0.0",

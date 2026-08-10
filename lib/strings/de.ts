@@ -39,8 +39,7 @@ export const deStrings = {
     close: 'schließen',
     loadFigure: 'Laden',
     greeting: 'Hallo, {name}!',
-    playgroundDescription:
-      'Programmiere frei und baue dein Herzensprojekt.',
+    playgroundDescription: 'Programmiere frei und baue dein Herzensprojekt.',
   },
   nameModal: {
     title: 'Herzlich Willkommen!',

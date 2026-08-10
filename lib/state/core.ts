@@ -22,6 +22,7 @@ import { createDefaultCoreState } from './create'
 import { deStrings } from '../strings/de'
 import { enStrings } from '../strings/en'
 import { Instrument } from 'tone/build/esm/instrument/Instrument'
+import { de2en } from '../strings/de2en'
 
 // set up core within app
 export function useCreateCore() {
@@ -101,6 +102,13 @@ export class Core {
     this.mutateCore((state) => {
       updater(state.workspace)
     })
+  }
+
+  ttung(de: string) {
+    if (this.state.workspace.settings.lng == 'en' && de in de2en) {
+      return de2en[de]
+    }
+    return de
   }
 
   reset() {

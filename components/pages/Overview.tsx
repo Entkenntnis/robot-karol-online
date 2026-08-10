@@ -143,7 +143,7 @@ export function Overview() {
                 e.preventDefault()
               }}
             >
-              {core.strings.overview.editor}
+              {core.ttung('Aufgaben-Editor')}
             </a>
             <button
               title={core.strings.overview.saveTooltip}
@@ -154,7 +154,7 @@ export function Overview() {
               className="hover:underline mr-6"
             >
               <FaIcon icon={faFloppyDisk} className="text-green-600 mr-1" />{' '}
-              {core.strings.overview.save}
+              {core.ttung('Fortschritt speichern')}
             </button>
             <button
               title={core.strings.overview.loadTooltip}
@@ -477,7 +477,9 @@ export function Overview() {
 
                 {core.ws.ui.newRobotImage && (
                   <div className="fixed right-4 bottom-4 bg-white rounded-lg p-3 z-[200] shadow">
-                    <p className="mb-2">{core.strings.overview.newFigureAvailable}</p>
+                    <p className="mb-2">
+                      {core.strings.overview.newFigureAvailable}
+                    </p>
                     <img
                       src={core.ws.ui.newRobotImage}
                       alt="Karol"
