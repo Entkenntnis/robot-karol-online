@@ -314,7 +314,7 @@ export function Cheatsheet({ language }: CheatsheetProps) {
                 : language == 'java'
                   ? 'Karol Java'
                   : 'Karol Code'}{' '}
-            {core.strings.ide.cheatsheet}
+            {core.ttung('Spickzettel')}
           </h1>
       </div>
 
@@ -350,7 +350,7 @@ export function Cheatsheet({ language }: CheatsheetProps) {
 
       {copied && (
         <div className="fixed bottom-4 left-4 bg-green-100 text-green-700 px-4 py-2 rounded-md text-sm">
-          {core.strings.ide.copiedToClipboard}
+          {core.ttung('In Zwischenablage kopiert!')}
         </div>
       )}
     </div>

@@ -81,7 +81,7 @@ export function InteractionBar() {
           }}
         >
           <FaIcon icon={faBars} className="sm:mr-2" />
-          <span className="hidden sm:inline"> {core.strings.ide.menu}</span>
+          <span className="hidden sm:inline"> {core.ttung('Menü')}</span>
         </button>
         {(core.ws.page == 'quest' ||
           core.ws.ui.isPlayground ||
@@ -104,7 +104,7 @@ export function InteractionBar() {
                 ) {
                   navigate(core, '')
                 } else if (core.ws.page == 'editor') {
-                  const res = confirm(core.strings.editor.leaveWarning)
+                  const res = confirm(core.ttung('Beachte dass die Daten nicht gespeichert werden. Verlassen?'))
                   if (res) {
                     deleteEditorSnapshot()
                     navigate(core, '')
@@ -143,7 +143,7 @@ export function InteractionBar() {
               }
             }}
           >
-            {core.strings.ide.blocks}
+            {core.ttung('Blöcke')}
           </button>
           <label
             htmlFor="toggleSwitch"
@@ -197,7 +197,7 @@ export function InteractionBar() {
                   </div>
                 </div>
                 <div className="text-center text-2xl font-bold text-yellow-800 mt-2">
-                  {core.strings.ide.tourClickStart}
+                  {core.ttung('Klicke auf Start!')}
                 </div>
               </div>
             </AnimateInView>
@@ -216,7 +216,7 @@ export function InteractionBar() {
               })
             }}
           >
-            {core.strings.ide.step}
+            {core.ttung('Einzelschritt')}
           </button>
         )}
         {debuggable && (
@@ -294,7 +294,7 @@ export function InteractionBar() {
           }}
           title={
             core.ws.ui.state == 'error'
-              ? core.strings.ide.fixProblemsFirst
+              ? core.ttung('Bitte behebe zuerst Probleme!')
               : ''
           }
           disabled={
@@ -320,7 +320,7 @@ export function InteractionBar() {
             )}
           />
           <span className="text-xl sm:inline hidden">
-            {core.strings.ide[mainButtonState]}
+            {core.ttung(mainButtonState == 'stop' ? 'Stopp' : 'Start')}
           </span>
         </button>
       </div>
@@ -341,7 +341,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
     {
       value: 'robot karol',
       label: 'Karol Code',
-      title: core.strings.ide.originalLanguage,
+      title: core.ttung('Die Original-Sprache von Robot Karol'),
     },
     ...(core.ws.settings.lng == 'de'
       ? [

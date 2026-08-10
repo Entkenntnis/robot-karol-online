@@ -19,7 +19,7 @@ export function ErrorModal() {
         <div>
           {' '}
           <p className="ml-4 font-bold text-lg mt-2 mb-4">
-            {core.strings.ide.thereAreErrors}
+            {core.ttung('Folgende Probleme sind beim Einlesen des Programms aufgetreten:')}
           </p>
           <div className="overflow-auto max-h-[170px]">
             {core.ws.ui.errorMessages.map((err, i) => (
@@ -36,7 +36,7 @@ export function ErrorModal() {
               closeModal(core)
             }}
           >
-            {core.strings.ide.close}
+            {core.ttung('Schließen')}
           </button>
         </p>
       </div>

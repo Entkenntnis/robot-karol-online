@@ -80,7 +80,7 @@ export function EditArea() {
                       setShowCheatSheet((prev) => !prev)
                     }}
                   >
-                    {core.strings.ide.cheatsheet}
+                    {core.ttung('Spickzettel')}
                   </button>
                 )}
                 {core.ws.ui.isPlayground &&
@@ -174,7 +174,7 @@ export function EditArea() {
                     setShowCheatSheet((prev) => !prev)
                   }}
                 >
-                  {core.strings.ide.cheatsheet}
+                  {core.ttung('Spickzettel')}
                 </button>
               </div>
             </div>
@@ -221,7 +221,7 @@ export function EditArea() {
                         icon={faCircleExclamation}
                         className="text-red-600 mr-2"
                       />
-                      {core.strings.ide.problems}:
+                      {core.ttung('Es sind folgende Probleme aufgetreten')}:
                     </p>
                     {core.ws.ui.errorMessages.map((err, i) => (
                       <p className="mb-2" key={err + i.toString()}>
@@ -240,7 +240,7 @@ export function EditArea() {
         {core.ws.vm.chatCursor && core.ws.vm.inspector && (
           <div className="absolute right-3 left-3 bottom-3">
             <div className="rounded bg-gray-200/40 p-2 text-sm overflow-scroll">
-              {core.strings.ide.variables} {core.ws.vm.inspector}
+              {core.ttung('Variablen:')} {core.ws.vm.inspector}
             </div>
           </div>
         )}
@@ -265,7 +265,7 @@ export function EditArea() {
                   icon={faCircleExclamation}
                   className="text-red-600 mr-2"
                 />
-                {core.strings.ide.problems}:
+                {core.ttung('Es sind folgende Probleme aufgetreten')}:
               </p>
               {core.ws.ui.errorMessages.map((err, i) => (
                 <p className="mb-2" key={err + i.toString()}>

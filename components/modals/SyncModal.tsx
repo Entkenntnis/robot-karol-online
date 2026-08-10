@@ -19,9 +19,9 @@ export function SyncModal() {
       >
         <div>
           <div className="mt-6 text-xl ml-6">
-            {core.strings.overview.syncTitle}
+            {core.ttung('Dein Fortschritt in guten Händen')}
           </div>
-          <div className="mx-5 mt-6">{core.strings.overview.syncBody}</div>
+          <div className="mx-5 mt-6">{core.ttung('Gelösten Aufgaben und deine Programme werden ab jetzt in diesem Browser automatisch gespeichert und sind auch nach dem Schließen des Fensters weiter verfügbar.')}</div>
         </div>
         <p className="text-center mb-5 mt-3">
           <button

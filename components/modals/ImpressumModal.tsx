@@ -21,7 +21,7 @@ export function ImpressumModal() {
         <div>
           {' '}
           <p className="font-bold text-lg mt-6 mb-4 text-center">
-            {core.strings.imprint.title}
+            {core.ttung('Impressum')}
           </p>
           <p className="m-3 mb-6 text-center">
             {impressum.name}
@@ -46,7 +46,7 @@ export function ImpressumModal() {
               closeModal(core)
             }}
           >
-            {core.strings.imprint.close}
+            {core.ttung('Schließen')}
           </button>
         </p>
       </div>

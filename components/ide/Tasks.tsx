@@ -92,7 +92,7 @@ export function Tasks() {
                         {core.ws.ui.isAlreadyCompleted && (
                           <span className="text-base font-normal text-green-600 ml-4">
                             <FaIcon icon={faCheck} />{' '}
-                            {core.strings.ide.taskCompleted}
+                            {core.ttung('abgeschlossen')}
                           </span>
                         )}
                       </h1>
@@ -110,7 +110,7 @@ export function Tasks() {
                         </div>
                       ) : (
                         <div>
-                          {core.strings.editor.editOptions}:
+                          {core.ttung('Eingabeoptionen')}:
                           <select
                             className={clsx(
                               'p-1 rounded ml-3',
@@ -126,19 +126,19 @@ export function Tasks() {
                             }}
                           >
                             <option value="all">
-                              {core.strings.editor.all}
+                              {core.ttung('alle erlauben')}
                             </option>
                             <option value="karol-only">
-                              {core.strings.editor.karolOnly}
+                              {core.ttung('nur Karol Code')}
                             </option>
                             <option value="java-only">
-                              {core.strings.editor.javaOnly}
+                              {core.ttung('nur Karol Java')}
                             </option>
                             <option value="python-pro-only">
-                              {core.strings.editor.pythonProOnly}
+                              {core.ttung('nur Python')}
                             </option>
                             <option value="code-only">
-                              {core.strings.editor.codeOnly}
+                              {core.ttung('nur Code (alle Sprachen)')}
                             </option>
                           </select>
                         </div>
@@ -510,7 +510,7 @@ export function Tasks() {
                                 }}
                               >
                                 <FaIcon icon={faPlay} className="mr-2" />
-                                {core.strings.editor.test}
+                                {core.ttung('Testen')}
                               </button>
                               <button
                                 className="ml-3 rounded px-2 py-0.5 bg-blue-100 hover:bg-blue-200"
@@ -523,7 +523,7 @@ export function Tasks() {
                                 }}
                               >
                                 <FaIcon icon={faPencil} className="mr-2" />
-                                {core.strings.editor.editWorld}
+                                {core.ttung('Welt bearbeiten')}
                               </button>
                             </p>
                             <p className="mt-20 text-sm text-gray-700">
@@ -539,7 +539,7 @@ export function Tasks() {
                                 }}
                               >
                                 <FaIcon icon={faArrowUp} />{' '}
-                                {core.strings.editor.up}
+                                {core.ttung('hoch')}
                               </button>
                               <button
                                 className="hover:text-black disabled:text-gray-200 ml-5"
@@ -555,7 +555,7 @@ export function Tasks() {
                                 }}
                               >
                                 <FaIcon icon={faArrowDown} />{' '}
-                                {core.strings.editor.down}
+                                {core.ttung('runter')}
                               </button>
                               <button
                                 className="hover:text-black ml-5"
@@ -568,7 +568,7 @@ export function Tasks() {
                                 }}
                               >
                                 <FaIcon icon={faClone} className="mr-0.5" />{' '}
-                                {core.strings.editor.duplicate}
+                                {core.ttung('Auftrag duplizieren')}
                               </button>
                               <button
                                 className="hover:text-red-600 ml-5"
@@ -584,7 +584,7 @@ export function Tasks() {
                                   icon={faTrashCan}
                                   className="text-gray-500 mr-0.5"
                                 />{' '}
-                                {core.strings.editor.delete}
+                                {core.ttung('Auftrag löschen')}
                               </button>
                             </p>
                           </>
@@ -637,7 +637,7 @@ export function Tasks() {
                 <FaIcon icon={faPlus} className="mr-2" />
                 {core.ws.ui.isChatMode
                   ? 'Chat hinzufügen'
-                  : core.strings.editor.addTask}
+                  : core.ttung('Auftrag hinzufügen')}
               </button>
 
               <button
@@ -652,7 +652,7 @@ export function Tasks() {
                 }}
               >
                 <FaIcon icon={faShareNodes} className="mr-2" />
-                {core.strings.editor.publish}
+                {core.ttung('Aufgabe freigeben')}
               </button>
             </p>
           ) : core.ws.page == 'quest' ? null : core.ws.page == 'shared' ||
@@ -691,8 +691,8 @@ export function Tasks() {
               }}
             >
               {core.ws.page == 'editor'
-                ? core.strings.editor.loadFrom
-                : core.strings.ide.structogram}
+                ? core.ttung('Aus Vorlage laden')
+                : core.ttung('Struktogramm')}
             </button>
           )}
           {(core.ws.page === 'shared' || core.ws.page === 'imported') &&

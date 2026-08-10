@@ -26,7 +26,7 @@ export function PrivacyModal() {
       >
         <div>
           <h1 className="ml-4 font-bold text-lg mt-2 mb-4">
-            {core.strings.overview.privacy}
+            {core.ttung('Datenschutz')}
           </h1>
           {core.ws.settings.lng == 'de' && (
             <div className="m-3 ml-4 mb-6">
@@ -173,7 +173,7 @@ export function PrivacyModal() {
               closeModal(core)
             }}
           >
-            {core.strings.imprint.close}
+            {core.ttung('Schließen')}
           </button>
         </p>
       </div>

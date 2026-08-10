@@ -82,7 +82,7 @@ export function ControlBar() {
             .toFixed(1)
             .replace('.', ',') +
             ' ' +
-            core.strings.ide.steps}
+            core.ttung('Schritte pro Sekunde')}
         </p>
       </div>
     </div>
@@ -95,12 +95,12 @@ export function ControlBar() {
         <span className="text-red-600">
           {' '}
           <FaIcon icon={faExclamationTriangle} className="mr-1" />{' '}
-          {core.ws.ui.karolCrashMessage === core.strings.crash.invalidMove ||
-          core.ws.ui.karolCrashMessage === core.strings.vm.endlessLoop ? (
+          {core.ws.ui.karolCrashMessage === core.ttung('Aua! Karol ist gegen eine Wand gelaufen.') ||
+          core.ws.ui.karolCrashMessage === core.ttung('Hilfe, Karol ist in einer Endlosschleife gefangen!') ? (
             core.ws.ui.karolCrashMessage
           ) : (
             <>
-              {core.strings.ide.error}: {core.ws.ui.karolCrashMessage}
+              {core.ttung('Fehler')}: {core.ws.ui.karolCrashMessage}
             </>
           )}
         </span>
@@ -110,18 +110,18 @@ export function ControlBar() {
       return (
         <span>
           <FaIcon icon={faExclamationTriangle} className="mr-1" />{' '}
-          {core.strings.ide.programError}
+          {core.ttung('Programm unvollständig')}
         </span>
       )
     }
     /*if (state == 'loading' && !core.ws.ui.isEndOfRun) {
-      return <span className="text-gray-400">{core.strings.ide.loading}</span>
+      return <span className="text-gray-400">{core.ttung('Programm wird eingelesen ...')}</span>
     }*/
     if (state == 'running') {
       return (
         <span>
           <FaIcon icon={faPersonWalking} className="mr-1" />{' '}
-          {core.strings.ide.running}
+          {core.ttung('Programm wird ausgeführt')}
         </span>
       )
     } else {
@@ -134,8 +134,8 @@ export function ControlBar() {
           return (
             <span>
               <FaIcon icon={faGenderless} className="mr-1" />{' '}
-              {core.strings.ide.endOfRun}
-              {core.ws.ui.isManualAbort ? ` (${core.strings.ide.aborted})` : ''}
+              {core.ttung('Ausführung beendet')}
+              {core.ws.ui.isManualAbort ? ` (${core.ttung('abgebrochen')})` : ''}
             </span>
           )
         }
@@ -143,7 +143,7 @@ export function ControlBar() {
           return (
             <span>
               <FaIcon icon={faGenderless} className="mr-1" />
-              {core.strings.ide.aborted}
+              {core.ttung('abgebrochen')}
             </span>
           )
         }
@@ -157,17 +157,17 @@ export function ControlBar() {
               icon={core.ws.quest.progress ? faCheck : faTimes}
               className="mr-1"
             />{' '}
-            {core.strings.ide.assignment}{' '}
-            {core.ws.quest.progress ? '' : core.strings.ide.not}{' '}
-            {core.strings.ide.completed}
+            {core.ttung('Auftrag')}{' '}
+            {core.ws.quest.progress ? '' : core.ttung('nicht')}{' '}
+            {core.ttung('erfüllt')}
             {core.ws.ui.notCompletedReason}{' '}
-            {core.ws.ui.isManualAbort ? ` (${core.strings.ide.aborted})` : ''}
+            {core.ws.ui.isManualAbort ? ` (${core.ttung('abgebrochen')})` : ''}
           </span>
         )
       }
       return (
         <span>
-          <FaIcon icon={faThumbsUp} className="mr-2" /> {core.strings.ide.ready}
+          <FaIcon icon={faThumbsUp} className="mr-2" /> {core.ttung('bereit')}
         </span>
       )
     }

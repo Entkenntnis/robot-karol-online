@@ -122,7 +122,7 @@ export function Output() {
             {core.ws.quest.title}
             {core.ws.ui.isAlreadyCompleted && (
               <span className="text-base font-normal text-green-600 ml-4">
-                <FaIcon icon={faCheck} /> {core.strings.ide.taskCompleted}
+                <FaIcon icon={faCheck} /> {core.ttung('abgeschlossen')}
               </span>
             )}
           </h1>
@@ -131,7 +131,7 @@ export function Output() {
               className="mb-2 underline text-blue-600 hover:text-blue-800 cursor-pointer"
               onClick={toggleDescription}
             >
-              + {core.strings.ide.showDescription}
+              + {core.ttung('Beschreibung einblenden')}
             </button>
           ) : (
             <div>{processMarkdown(core.ws.quest.description)}</div>
@@ -207,7 +207,7 @@ export function Output() {
           core.ws.settings.language == 'java' &&
           varStr && (
             <div className="absolute left-2 top-2">
-              {core.strings.ide.variables} {varStr}
+              {core.ttung('Variablen:')} {varStr}
             </div>
           )}
         {core.ws.ui.inputPrompt && (
@@ -244,7 +244,7 @@ export function Output() {
         )}
         {core.ws.ui.keybindings.length > 0 && (
           <div className="top-3 left-3 absolute">
-            <div>{core.strings.ide.keys}</div>
+            <div>{core.ttung('Tasten:')}</div>
             <div className="flex gap-4 mt-2">
               {core.ws.ui.keybindings.map((el, i) => {
                 return (
@@ -314,7 +314,7 @@ export function Output() {
               onContextMenu={(e) => {
                 e.preventDefault()
               }}
-              title={core.strings.ide.manualStep}
+              title={core.ttung('Schritt')}
             >
               <FaIcon icon={faUpLong} />
             </button>
@@ -328,7 +328,7 @@ export function Output() {
               onContextMenu={(e) => {
                 e.preventDefault()
               }}
-              title={core.strings.ide.manualTurnLeft}
+              title={core.ttung('LinksDrehen')}
             >
               <FaIcon icon={faLeftLong} />
             </button>
@@ -341,7 +341,7 @@ export function Output() {
               onContextMenu={(e) => {
                 e.preventDefault()
               }}
-              title={core.strings.ide.manualTurnRight}
+              title={core.ttung('RechtsDrehen')}
             >
               <FaIcon icon={faRightLong} />
             </button>
@@ -355,7 +355,7 @@ export function Output() {
               onContextMenu={(e) => {
                 e.preventDefault()
               }}
-              title={core.strings.ide.manualBack}
+              title={core.ttung('Zurück')}
               style={{ marginTop: 0 }}
             >
               <FaIcon icon={faDownLong} />
@@ -383,7 +383,7 @@ export function Output() {
             }}
           >
             <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
-            {core.strings.ide.back}
+            {core.ttung('zurück')}
           </button>
         </div>
       )}
@@ -398,7 +398,7 @@ export function Output() {
             className="px-2 py-0.5 rounded bg-gray-200 ml-3 absolute bottom-2 right-2 hover:bg-gray-300"
           >
             <FaIcon icon={faTrashCan} className="mr-1" />
-            {core.strings.ide.clear}
+            {core.ttung('Ausgabe leeren')}
           </button>
         )}
       <div className="max-h-[30%] flex-grow flex-shrink-0 overflow-auto bg-gray-100 pl-32">

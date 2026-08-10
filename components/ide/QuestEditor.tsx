@@ -18,14 +18,14 @@ export function QuestEditor() {
       <div className="absolute right-3 top-4 text-gray-600 hover:text-black hidden">
         <button
           onClick={() => {
-            const res = confirm(core.strings.editor.leaveWarning)
+            const res = confirm(core.ttung('Beachte dass die Daten nicht gespeichert werden. Verlassen?'))
             if (res) {
               deleteEditorSnapshot()
               navigate(core, '')
             }
           }}
         >
-          {core.strings.editor.leave}
+          {core.ttung('Editor verlassen')}
         </button>
       </div>
       <div className="mb-4 -mt-2">
@@ -44,7 +44,7 @@ export function QuestEditor() {
             refreshEditArea(core)
           }}
         >
-          {core.strings.editor.edit}
+          {core.ttung('Bearbeiten')}
         </button>
         <button
           className={clsx(
@@ -62,7 +62,7 @@ export function QuestEditor() {
             refreshEditArea(core)
           }}
         >
-          {core.strings.editor.preview}
+          {core.ttung('Vorschau')}
         </button>
       </div>
       {core.ws.editor.showQuestPreview ? (

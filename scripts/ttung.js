@@ -47,7 +47,10 @@ function readDe2en() {
   const content = fs.readFileSync(DE2EN_PATH, 'utf-8')
   const entries = {}
   let m
-  while ((m = ENTRY_RE.exec(content))) entries[m[1] ?? m[2]] = m[3]
+  while ((m = ENTRY_RE.exec(content))) {
+    const key = (m[1] ?? m[2]).replace(/\\(['\\])/g, '$1')
+    entries[key] = m[3].replace(/\\(['\\])/g, '$1')
+  }
   return entries
 }
 

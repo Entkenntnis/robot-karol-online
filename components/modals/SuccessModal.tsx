@@ -97,8 +97,8 @@ export function SuccessModal() {
           {core.ws.vm.functionEvaluation > 0 && (
             <div className="text-sm text-gray-600">
               {core.ws.vm.functionEvaluation == 1
-                ? core.strings.success.solvedInOneStep
-                : core.strings.success.solvedInSteps.replace(
+                ? core.ttung('Aufgabe gelöst in einem Schritt')
+                : core.ttung('Aufgabe gelöst in {n} Schritten').replace(
                     '{n}',
                     String(core.ws.vm.functionEvaluation),
                   )}
@@ -153,7 +153,7 @@ export function SuccessModal() {
                     closeModal(core)
                   }}
                 >
-                  {core.strings.ide.stay}
+                  {core.ttung('bleiben')}
                 </button>
                 <button
                   onClick={() => {
@@ -165,7 +165,7 @@ export function SuccessModal() {
                     'bg-green-200 text-lg',
                   )}
                 >
-                  {core.strings.ide.exit}
+                  {core.ttung('weiter')}
                 </button>
               </>
             ) : (
@@ -196,7 +196,7 @@ export function SuccessModal() {
                 }}
               >
                 <FaIcon icon={faDownload} className="mr-1" />{' '}
-                {core.strings.success.saveCode}
+                {core.ttung('Programmcode speichern')}
               </button>
             </div>
           )}
