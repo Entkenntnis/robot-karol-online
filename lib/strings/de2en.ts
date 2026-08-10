@@ -23,7 +23,7 @@ export const de2en: { [key: string]: string } = {
   'Als Datei herunterladen': 'Save to a file',
   'Als JSON herunterladen': 'Download as JSON',
   'Aua! Karol ist gegen eine Wand gelaufen.':
-    'Karol cannot move in this direction.',
+    'Ouch! Karol cannot move in this direction.',
   'Aufgabe aus Datei laden': 'Load exercise from file',
   'Aufgabe freigeben': 'Publish Exercise',
   'Aufgabe gelöst in {n} Schritten': 'Task solved in {n} steps',

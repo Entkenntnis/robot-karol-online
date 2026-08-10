@@ -164,7 +164,9 @@ function* executeProgramAsGenerator(core: Core) {
     if (stepCounter++ >= 1000) {
       console.log('possible dead loop')
       core.mutateWs((ws) => {
-        ws.ui.karolCrashMessage = core.ttung('Hilfe, Karol ist in einer Endlosschleife gefangen!')
+        ws.ui.karolCrashMessage = core.ttung(
+          'Hilfe, Karol ist in einer Endlosschleife gefangen!',
+        )
       })
       yield 'interrupt'
       stepCounter = 0
@@ -502,7 +504,10 @@ export function endExecution(core: Core) {
   if (!core.ws.ui.karolCrashMessage) {
     setExecutionMarker(core, 0)
   }
-  if (core.ws.ui.karolCrashMessage === core.ttung('Hilfe, Karol ist in einer Endlosschleife gefangen!')) {
+  if (
+    core.ws.ui.karolCrashMessage?.includes('Endlosschleife') ||
+    core.ws.ui.karolCrashMessage?.includes('infinite')
+  ) {
     core.mutateWs((ws) => {
       ws.ui.karolCrashMessage = undefined
     })
@@ -567,7 +572,9 @@ export function endExecution(core: Core) {
           const clause =
             diff === 1
               ? core.ttung('1 Ziegel zu viel vorhanden ist')
-              : core.ttung('{n} Ziegel zu viel vorhanden sind').replace('{n}', String(diff))
+              : core
+                  .ttung('{n} Ziegel zu viel vorhanden sind')
+                  .replace('{n}', String(diff))
           problemClauses.push(clause)
         } else {
           // Too few bricks
@@ -584,7 +591,9 @@ export function endExecution(core: Core) {
         const clause =
           misplacedBricks === 1
             ? core.ttung('1 Ziegel an der falschen Stelle liegt')
-            : core.ttung('{n} Ziegel an der falschen Stelle liegen').replace('{n}', String(misplacedBricks))
+            : core
+                .ttung('{n} Ziegel an der falschen Stelle liegen')
+                .replace('{n}', String(misplacedBricks))
         problemClauses.push(clause)
       }
 
@@ -596,7 +605,9 @@ export function endExecution(core: Core) {
           const clause =
             diff === 1
               ? core.ttung('1 Marke zu viel gesetzt ist')
-              : core.ttung('{n} Marken zu viel gesetzt sind').replace('{n}', String(diff))
+              : core
+                  .ttung('{n} Marken zu viel gesetzt sind')
+                  .replace('{n}', String(diff))
           problemClauses.push(clause)
         } else {
           // Too few marks
@@ -613,7 +624,9 @@ export function endExecution(core: Core) {
         const clause =
           misplacedMarks === 1
             ? core.ttung('1 Marke an der falschen Stelle ist')
-            : core.ttung('{n} Marken an der falschen Stelle sind').replace('{n}', String(misplacedMarks))
+            : core
+                .ttung('{n} Marken an der falschen Stelle sind')
+                .replace('{n}', String(misplacedMarks))
         problemClauses.push(clause)
       }
 

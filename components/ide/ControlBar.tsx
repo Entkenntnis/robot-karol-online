@@ -19,8 +19,7 @@ import { FaIcon } from '../helper/FaIcon'
 export function ControlBar() {
   const core = useCore()
 
-  const text =
-    core.ws.settings.lng == 'de' ? positiveText() : positiveTextEn()
+  const text = core.ws.settings.lng == 'de' ? positiveText() : positiveTextEn()
 
   if (core.ws.ui.controlBarShowFinishQuest) {
     return (
@@ -95,8 +94,10 @@ export function ControlBar() {
         <span className="text-red-600">
           {' '}
           <FaIcon icon={faExclamationTriangle} className="mr-1" />{' '}
-          {core.ws.ui.karolCrashMessage === core.ttung('Aua! Karol ist gegen eine Wand gelaufen.') ||
-          core.ws.ui.karolCrashMessage === core.ttung('Hilfe, Karol ist in einer Endlosschleife gefangen!') ? (
+          {core.ws.ui.karolCrashMessage.includes('Aua') ||
+          core.ws.ui.karolCrashMessage.includes('Ouch') ||
+          core.ws.ui.karolCrashMessage.includes('Endlosschleife') ||
+          core.ws.ui.karolCrashMessage.includes('infinite') ? (
             core.ws.ui.karolCrashMessage
           ) : (
             <>
@@ -135,7 +136,9 @@ export function ControlBar() {
             <span>
               <FaIcon icon={faGenderless} className="mr-1" />{' '}
               {core.ttung('Ausführung beendet')}
-              {core.ws.ui.isManualAbort ? ` (${core.ttung('abgebrochen')})` : ''}
+              {core.ws.ui.isManualAbort
+                ? ` (${core.ttung('abgebrochen')})`
+                : ''}
             </span>
           )
         }
