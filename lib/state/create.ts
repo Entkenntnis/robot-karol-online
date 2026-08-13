@@ -62,6 +62,7 @@ export function createWorkspaceState(): WorkspaceState {
       notCompletedReason: '',
       miniProjectsOpen: false,
       demoModus: false,
+      flightdeckTab: 'karol',
     },
     vm: {
       pc: 0,

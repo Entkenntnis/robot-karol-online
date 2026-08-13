@@ -28,6 +28,8 @@ export interface Preview {
 
 export type CmdBlockPositions = { [key: string]: { x: number; y: number } }
 
+export type Tab = 'karol' | 'python' | 'feedback' | 'freigaben' | 'ab'
+
 export interface Ui {
   // this state is only for ide
   messages: Message[]
@@ -78,6 +80,7 @@ export interface Ui {
   notCompletedReason: string
   miniProjectsOpen: boolean
   demoModus: boolean
+  flightdeckTab: Tab
 }
 
 export interface Vm {

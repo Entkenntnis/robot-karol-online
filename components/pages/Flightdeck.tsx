@@ -1,9 +1,13 @@
-import { Fragment, useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useState } from 'react'
 import { flightdeckAccessKey } from '../../lib/storage/storage'
 import { backend } from '../../backend'
 import { LoadingScreen } from '../helper/LoadingScreen'
 import { experimentDefs } from '../../lib/data/experimentDefs'
 import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
+import clsx from 'clsx'
+import { flightdeckTabs } from '../../lib/data/flightdeckTabs'
+import { navigate } from '../../lib/commands/router'
+import { useCore } from '../../lib/state/core'
 
 type KarolSurveyData = {
   fun: string
@@ -102,32 +106,6 @@ function formatP(value: number) {
   return value < 0.001 ? '<0.001' : value.toFixed(3)
 }
 
-function IncrementalList({
-  items,
-  step = 10,
-}: {
-  items: ReactNode[]
-  step?: number
-}) {
-  const [visible, setVisible] = useState(step)
-  const remaining = items.length - visible
-  return (
-    <>
-      {items.slice(0, visible).map((item, i) => (
-        <Fragment key={i}>{item}</Fragment>
-      ))}
-      {remaining > 0 && (
-        <button
-          className="ml-8 italic text-sm hover:underline text-gray-500"
-          onClick={() => setVisible((v) => v + step)}
-        >
-          Mehr anzeigen
-        </button>
-      )}
-    </>
-  )
-}
-
 export function Flightdeck() {
   const [karolSurvey, setKarolSurvey] = useState<KarolSurveyData>([])
   const [pythonSurvey, setPythonSurvey] = useState<PythonSurveyData>([])
@@ -135,6 +113,9 @@ export function Flightdeck() {
   const [shares, setShares] = useState<SharesData>([])
   const [experiments, setExperiments] = useState<ExperimentData>([])
   const [loading, setLoading] = useState(true)
+
+  const core = useCore()
+  const tab = core.ws.ui.flightdeckTab
 
   useEffect(() => {
     ;(async () => {
@@ -289,135 +270,159 @@ export function Flightdeck() {
   return (
     <div className="bg-fuchsia-500 h-full w-full overflow-auto">
       <div className="mx-auto max-w-[1200px] p-4 bg-white">
-        <h1>Welcome to the Flightdeck.</h1>
-        <h2 className="mt-16 ml-4">Karol-Umfrage</h2>
-        <p className="small text-gray-500 ml-12 mt-2">
-          Welche Aufgabe/Feature hat dir am meisten Spaß gemacht – und warum?
-        </p>
-        <p className="small text-gray-500 ml-12 mb-4">
-          Was würdest du an Robot Karol verbessern?
-        </p>
-        <IncrementalList
-          items={karolSurvey.map((entry) => (
-            <p className="ml-8 mb-2">
-              <span className="text-gray-500">
-                {new Date(entry.ts).toLocaleString()}
-              </span>
-              <span className="ml-3">{entry.fun}</span>
-              <span className="mx-4">•</span>
-              <span className="text-pink-400">{entry.improve}</span>
+        <h1 className="mb-8">Welcome to the Flightdeck.</h1>
+        {flightdeckTabs.map((t) => (
+          <button
+            key={t.id}
+            onClick={() => {
+              navigate(core, 'flightdeck#' + t.id)
+            }}
+            className={clsx(
+              'px-3 pb-1 transition-colors',
+              tab == t.id
+                ? 'text-gray-800 border-b-2 border-fuchsia-500 -mb-px'
+                : 'text-gray-400 hover:text-gray-600',
+            )}
+          >
+            {t.label}
+          </button>
+        ))}
+        {tab == 'karol' && (
+          <>
+            <p className="small text-gray-500 ml-12 mt-8">
+              Welche Aufgabe/Feature hat dir am meisten Spaß gemacht – und
+              warum?
             </p>
-          ))}
-        />
-        <h2 className="mt-16 ml-4">Python-Umfrage</h2>
-        <p className="small text-gray-500 ml-12 mt-2">
-          Was gefällt dir am Python-Lernpfad besonders?
-        </p>
-        <p className="small text-gray-500 ml-12 mb-4">
-          Würdest du etwas am Python-Lernpfad verbessern?
-        </p>
-        <IncrementalList
-          items={pythonSurvey.map((entry) => (
-            <p className="ml-8 mb-2">
-              <span className="text-gray-500">
-                {new Date(entry.ts).toLocaleString()}
-              </span>
-              <span className="ml-3">{entry.fun}</span>
-              <span className="mx-4">•</span>
-              <span className="text-pink-400">{entry.improve}</span>
+            <p className="small text-gray-500 ml-12 mb-8">
+              Was würdest du an Robot Karol verbessern?
             </p>
-          ))}
-        />
-        <h2 className="mt-16 ml-4">Feedback</h2>
-        <p className="small text-gray-500 ml-12 mt-2 mb-4">
-          Wie können wir Robot Karol Online für dich besser gestalten?
-        </p>
-        <IncrementalList
-          items={feedback.map((entry) => (
-            <p className="ml-8 mb-2">
-              <span className="text-gray-500">
-                {new Date(entry.ts).toLocaleString()}
-              </span>
-              <span className="ml-3">{entry.feedback}</span>
+            {karolSurvey.map((entry) => (
+              <p className="ml-8 mb-2">
+                <span className="text-gray-500">
+                  {new Date(entry.ts).toLocaleString()}
+                </span>
+                <span className="ml-3">{entry.fun}</span>
+                <span className="mx-4">•</span>
+                <span className="text-pink-400">{entry.improve}</span>
+              </p>
+            ))}
+          </>
+        )}
+        {tab == 'python' && (
+          <>
+            <p className="small text-gray-500 ml-12 mt-8">
+              Was gefällt dir am Python-Lernpfad besonders?
             </p>
-          ))}
-        />
-        <h2 className="mt-16 ml-4 mb-4">Freigegebene Aufgaben</h2>
-        <IncrementalList
-          items={shares.map((entry) => (
-            <p className="ml-8 mb-2">
-              <span className="text-gray-500">
-                {new Date(entry.ts).toLocaleString()}
-              </span>
-              <span className="ml-3">{entry.title}</span>
-              <a className="link ml-4" target="_blank" href={'/#' + entry.id}>
-                {entry.id}
-              </a>
+            <p className="small text-gray-500 ml-12 mb-8">
+              Würdest du etwas am Python-Lernpfad verbessern?
             </p>
-          ))}
-        />
-        <h2 className="mt-16 ml-4 mb-4">A/B-Tests</h2>
-        <div className="ml-8">
-          <table className="text-sm">
-            <thead>
-              <tr className="text-left text-gray-500">
-                <th className="pr-4">ID</th>
-                <th className="pr-4">Beschreibung</th>
-                <th className="pr-4">Start-Event</th>
-                <th className="pr-4">End-Event</th>
-                <th className="text-right pr-4">C-START</th>
-                <th className="text-right pr-4">C-END</th>
-                <th className="text-right pr-4">T-START</th>
-                <th className="text-right pr-4">T-END</th>
-                <th className="text-right pr-4">C-Rate</th>
-                <th className="text-right pr-4">T-Rate</th>
-                <th className="text-right pr-4">Uplift (95%-KI)</th>
-                <th className="text-right pr-4">p-Wert</th>
-              </tr>
-            </thead>
-            <tbody>
-              {experiments.map((entry) => {
-                const r = computeRates(
-                  entry.cStart,
-                  entry.cEnd,
-                  entry.tStart,
-                  entry.tEnd,
-                )
-                return (
-                  <tr key={entry.id} className="border-t">
-                    <td className="pr-4 py-1">{entry.id}</td>
-                    <td className="pr-4 py-1">{entry.description}</td>
-                    <td className="pr-4 py-1">{entry.startEvent}</td>
-                    <td className="pr-4 py-1">{entry.endEvent}</td>
-                    <td className="text-right pr-4 py-1">{entry.cStart}</td>
-                    <td className="text-right pr-4 py-1">{entry.cEnd}</td>
-                    <td className="text-right pr-4 py-1">{entry.tStart}</td>
-                    <td className="text-right pr-4 py-1">{entry.tEnd}</td>
-                    <td className="text-right pr-4 py-1">
-                      {r ? formatPct(r.cRate) : '–'}
-                    </td>
-                    <td className="text-right pr-4 py-1">
-                      {r ? formatPct(r.tRate) : '–'}
-                    </td>
-                    <td className="text-right pr-4 py-1">
-                      {r
-                        ? formatPct(r.uplift) +
-                          ' [' +
-                          formatPct(r.lo) +
-                          ';' +
-                          formatPct(r.hi) +
-                          ']'
-                        : '–'}
-                    </td>
-                    <td className="text-right pr-4 py-1">
-                      {r ? formatP(r.p) : '–'}
-                    </td>
+            {pythonSurvey.map((entry) => (
+              <p className="ml-8 mb-2">
+                <span className="text-gray-500">
+                  {new Date(entry.ts).toLocaleString()}
+                </span>
+                <span className="ml-3">{entry.fun}</span>
+                <span className="mx-4">•</span>
+                <span className="text-pink-400">{entry.improve}</span>
+              </p>
+            ))}
+          </>
+        )}
+        {tab == 'feedback' && (
+          <>
+            <p className="small text-gray-500 ml-12 mt-8 mb-8">
+              Wie können wir Robot Karol Online für dich besser gestalten?
+            </p>
+            {feedback.map((entry) => (
+              <p className="ml-8 mb-2">
+                <span className="text-gray-500">
+                  {new Date(entry.ts).toLocaleString()}
+                </span>
+                <span className="ml-3">{entry.feedback}</span>
+              </p>
+            ))}
+          </>
+        )}
+        {tab == 'freigaben' && (
+          <div className="mt-8">
+            {shares.map((entry) => (
+              <p className="ml-8 mb-2">
+                <span className="text-gray-500">
+                  {new Date(entry.ts).toLocaleString()}
+                </span>
+                <span className="ml-3">{entry.title}</span>
+                <a className="link ml-4" target="_blank" href={'/#' + entry.id}>
+                  {entry.id}
+                </a>
+              </p>
+            ))}
+          </div>
+        )}
+        {tab == 'ab' && (
+          <>
+            <div className="ml-8 mt-8">
+              <table className="text-sm">
+                <thead>
+                  <tr className="text-left text-gray-500">
+                    <th className="pr-4">ID</th>
+                    <th className="pr-4">Beschreibung</th>
+                    <th className="pr-4">Start-Event</th>
+                    <th className="pr-4">End-Event</th>
+                    <th className="text-right pr-4">C-START</th>
+                    <th className="text-right pr-4">C-END</th>
+                    <th className="text-right pr-4">T-START</th>
+                    <th className="text-right pr-4">T-END</th>
+                    <th className="text-right pr-4">C-Rate</th>
+                    <th className="text-right pr-4">T-Rate</th>
+                    <th className="text-right pr-4">Uplift (95%-KI)</th>
+                    <th className="text-right pr-4">p-Wert</th>
                   </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
+                </thead>
+                <tbody>
+                  {experiments.map((entry) => {
+                    const r = computeRates(
+                      entry.cStart,
+                      entry.cEnd,
+                      entry.tStart,
+                      entry.tEnd,
+                    )
+                    return (
+                      <tr key={entry.id} className="border-t">
+                        <td className="pr-4 py-1">{entry.id}</td>
+                        <td className="pr-4 py-1">{entry.description}</td>
+                        <td className="pr-4 py-1">{entry.startEvent}</td>
+                        <td className="pr-4 py-1">{entry.endEvent}</td>
+                        <td className="text-right pr-4 py-1">{entry.cStart}</td>
+                        <td className="text-right pr-4 py-1">{entry.cEnd}</td>
+                        <td className="text-right pr-4 py-1">{entry.tStart}</td>
+                        <td className="text-right pr-4 py-1">{entry.tEnd}</td>
+                        <td className="text-right pr-4 py-1">
+                          {r ? formatPct(r.cRate) : '–'}
+                        </td>
+                        <td className="text-right pr-4 py-1">
+                          {r ? formatPct(r.tRate) : '–'}
+                        </td>
+                        <td className="text-right pr-4 py-1">
+                          {r
+                            ? formatPct(r.uplift) +
+                              ' [' +
+                              formatPct(r.lo) +
+                              ';' +
+                              formatPct(r.hi) +
+                              ']'
+                            : '–'}
+                        </td>
+                        <td className="text-right pr-4 py-1">
+                          {r ? formatP(r.p) : '–'}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
         <div className="h-[300px]"></div>
       </div>
     </div>

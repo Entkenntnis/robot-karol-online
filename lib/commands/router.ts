@@ -1,4 +1,5 @@
 import { backend } from '../../backend'
+import { flightdeckTabs } from '../data/flightdeckTabs'
 import { levels } from '../data/karolmaniaLevels'
 import { pythonKarolExamples } from '../data/pythonExamples'
 import { ____submitAnalyzeEvent } from '../helper/submit'
@@ -6,7 +7,10 @@ import { superfetch } from '../helper/superfetch'
 import { CanvasObjects } from '../state/canvas-objects'
 import { Core } from '../state/core'
 import { createWorld } from '../state/create'
-import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../state/types'
+import type {
+  QuestSerialFormat_MUST_STAY_COMPATIBLE,
+  Tab,
+} from '../state/types'
 import {
   getLearningPathScroll,
   getLng,
@@ -147,7 +151,9 @@ export async function hydrate(core: Core) {
       ws.page = 'editor'
       const { quest } = ws
       quest.title = core.ttung('Titel der Aufgabe')
-      quest.description = core.ttung('Beschreibe, um was es bei der Aufgabe geht ...')
+      quest.description = core.ttung(
+        'Beschreibe, um was es bei der Aufgabe geht ...',
+      )
       quest.tasks = []
     })
     addNewTask(core)
@@ -162,7 +168,9 @@ export async function hydrate(core: Core) {
     document.title = core.ttung('Spielwiese') + ' | Robot Karol Online'
     core.mutateWs((ws) => {
       ws.quest.title = core.ttung('Spielwiese')
-      ws.quest.description = core.ttung('Programmiere frei und baue dein Herzensprojekt.')
+      ws.quest.description = core.ttung(
+        'Programmiere frei und baue dein Herzensprojekt.',
+      )
       ws.quest.tasks = [
         {
           title: core.ttung('Spielwiese'),
@@ -228,11 +236,17 @@ export async function hydrate(core: Core) {
     return
   }
 
-  if (path == '/flightdeck' && page == '') {
+  if (
+    path == '/flightdeck' &&
+    (page == '' || flightdeckTabs.find((el) => el.id == page.toLowerCase()))
+  ) {
+    const tab = (page.toLowerCase() || 'karol') as Tab
     core.mutateWs((ws) => {
       ws.page = 'flightdeck'
+      ws.ui.flightdeckTab = tab
     })
-    document.title = '[ Flightdeck ]'
+    const tabTitle = flightdeckTabs.find((el) => el.id == tab)!.label
+    document.title = `[ Flightdeck | ${tabTitle} ]`
     return
   }
 
