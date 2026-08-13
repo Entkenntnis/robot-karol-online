@@ -250,7 +250,7 @@ export async function hydrate(core: Core) {
       ws.ui.flightdeckTab = tab
     })
     const tabTitle = flightdeckTabs.find((el) => el.id == tab)!.label
-    document.title = `[ Flightdeck | ${tabTitle} ]`
+    document.title = `Flightdeck | ${tabTitle}`
     return
   }
 
