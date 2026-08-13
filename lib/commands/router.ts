@@ -91,7 +91,11 @@ export async function hydrate(core: Core) {
   const data = colonIndex !== -1 ? hash.substring(colonIndex + 1) : ''
 
   // This is what we count
-  if (!isBot(navigator.userAgent) && window.location.host == 'karol.arrrg.de') {
+  if (
+    !isBot(navigator.userAgent) &&
+    window.location.host == 'karol.arrrg.de' &&
+    path !== '/flightdeck'
+  ) {
     // register pageview, fire-and-forget
     fetch(backend.pageviewEndpoint, { method: 'POST' })
   }
