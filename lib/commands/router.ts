@@ -1,7 +1,6 @@
 import { backend } from '../../backend'
 import { flightdeckTabs } from '../data/flightdeckTabs'
 import { levels } from '../data/karolmaniaLevels'
-import { pythonKarolExamples } from '../data/pythonExamples'
 import { ____submitAnalyzeEvent } from '../helper/submit'
 import { superfetch } from '../helper/superfetch'
 import { CanvasObjects } from '../state/canvas-objects'
@@ -31,6 +30,7 @@ import { loadLegacyProject, loadQuest } from './load'
 import { setLng } from './mode'
 import { startQuest } from './quest'
 import { isBot } from 'isbot'
+import danceQuestData from '../data/Dance__Dance.json'
 
 export async function navigate(core: Core, url: string) {
   history.pushState(null, '', '/' + url)
@@ -68,13 +68,6 @@ export async function hydrate(core: Core) {
     }
     window.open('/#LEGACY:' + id, '_self')
     return
-  }
-
-  // internal rewrites
-  if (raw_hash.toLocaleUpperCase() == '#DANCE') {
-    raw_hash =
-      pythonKarolExamples.find((el) => el.title == 'Dance, Dance')?.link || ''
-    // rewrite = 'DANCE'
   }
 
   const hash = raw_hash.replace(/^#/, '')
@@ -240,6 +233,20 @@ export async function hydrate(core: Core) {
     })
     const tabTitle = flightdeckTabs.find((el) => el.id == tab)!.label
     document.title = `Flightdeck | ${tabTitle}`
+    return
+  }
+
+  if (page == 'DANCE') {
+    deserializeQuest(
+      core,
+      danceQuestData as QuestSerialFormat_MUST_STAY_COMPATIBLE,
+    )
+    core.mutateWs((ws) => {
+      ws.page = 'shared'
+      ws.ui.sharedQuestId = 'DZR7'
+    })
+    document.title = 'Dance, Dance | Robot Karol Online'
+    refreshEditArea(core)
     return
   }
 
