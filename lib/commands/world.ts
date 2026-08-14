@@ -222,11 +222,17 @@ export function toggleBlock(core: Core) {
     return true
   } else {
     if (bricks[pos.y][pos.x] > 0) {
-      karolCrashed(core, core.ttung('Karol kann keinen Quader auf Ziegel stellen.'))
+      karolCrashed(
+        core,
+        core.ttung('Karol kann keinen Quader auf Ziegel stellen.'),
+      )
       return false
     }
     if (marks[pos.y][pos.x]) {
-      karolCrashed(core, core.ttung('Karol kann keinen Quader auf eine Marke stellen.'))
+      karolCrashed(
+        core,
+        core.ttung('Karol kann keinen Quader auf eine Marke stellen.'),
+      )
       return false
     }
     core.mutateWs(({ world }) => {
@@ -331,13 +337,7 @@ function karolCrashed(core: Core, error: string) {
       ui.karolCrashMessage = error
     })
     if (core.worker) {
-      if (core.ws.ui.isBench) {
-        core.mutateWs((ws) => {
-          ws.bench.locked = false
-        })
-      } else {
-        core.worker.reset()
-      }
+      core.worker.reset()
     }
     endExecution(core)
   }

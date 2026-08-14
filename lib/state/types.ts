@@ -72,7 +72,6 @@ export interface Ui {
   questPrompt?: string
   questPromptConfirm?: string
   editQuestScript: boolean
-  isBench?: boolean
   karolmaniaLevelId?: number
   karolmaniaCarouselIndex?: number
   tourModePage?: number
@@ -178,7 +177,6 @@ export interface WorkspaceState {
   // IDE Modes
   quest: Quest
   editor: Editor
-  bench: Bench
 
   // canvas
   canvas: Canvas
@@ -216,7 +214,6 @@ export interface WorkspaceState {
     | 'tutorial'
     | 'sync'
     | 'survey'
-    | 'invocation'
     | 'explanation'
     | 'character'
     | 'chat-guide'
@@ -236,44 +233,6 @@ export interface Appearance {
   skin: number
   shirt: number
   legs: number
-}
-
-export interface Bench {
-  classInfo: { [key: string]: ClassInfo }
-  objects: ObjectInfo[]
-  invocationMode: 'constructor' | 'method'
-  invocationParameters: ParameterInfo[]
-  // only constructor
-  invocationClass: string
-  // only method
-  invocationObject: string
-  invocationMethod: string
-
-  locked: boolean
-  history: string
-}
-
-export interface ObjectInfo {
-  name: string
-  className: string
-}
-
-export interface ClassInfo {
-  name: string
-  doc: string
-  constructor: FunctionInfo
-  methods: { [key: string]: FunctionInfo }
-}
-
-export interface FunctionInfo {
-  name: string
-  doc: string
-  parameters: ParameterInfo[]
-}
-
-export interface ParameterInfo {
-  name: string
-  default?: any
 }
 
 export interface Canvas {
@@ -535,14 +494,10 @@ export interface PyodideWorker {
   step: () => void
   addBreakpoint: (line: number) => void
   removeBreakpoint: (line: number) => void
-  prepareBench: () => Promise<object>
-  messageBench: (payload: object) => Promise<object>
   sharedArrayDelay: Int32Array
   debugInterface: Int32Array
   questPromptConfirm?: Int32Array
   isFresh: boolean
-  benchMessageIdCounter: number
-  benchMessageResolvers: Map<number, (value: object) => void>
 }
 
 export interface PlaygroundHashData {

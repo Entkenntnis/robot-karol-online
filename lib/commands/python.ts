@@ -77,8 +77,6 @@ export function setupWorker(core: Core) {
     step: () => {},
     addBreakpoint: (_: number) => {},
     removeBreakpoint: (_: number) => {},
-    prepareBench: () => new Promise(() => {}),
-    messageBench: () => new Promise(() => {}),
     mainWorker: null,
     backupWorker: null,
     mainWorkerReady: false,
@@ -86,8 +84,6 @@ export function setupWorker(core: Core) {
     sharedArrayDelay: new Int32Array(1),
     debugInterface: new Int32Array(129),
     isFresh: true,
-    benchMessageIdCounter: 1,
-    benchMessageResolvers: new Map(),
   }
 
   let mainWorkerInitPromiseResolve: (() => void) | null = null
@@ -147,7 +143,6 @@ export function setupWorker(core: Core) {
         core.worker.reset()
         core.mutateWs(({ ui }) => {
           ui.isManualAbort = false
-          ui.isBench = false
         })
       }
       core.mutateWs(({ vm }) => {
@@ -194,18 +189,6 @@ export function setupWorker(core: Core) {
         quest.progress = false
       })
       endExecution(core)
-      if (
-        core.ws.ui.isBench &&
-        event.data.error.includes('Action') &&
-        event.data.error.includes('failed')
-      ) {
-        return
-      }
-      if (core.ws.ui.isBench) {
-        core.mutateWs(({ bench }) => {
-          bench.locked = false
-        })
-      }
       core.mutateWs(({ ui }) => {
         ui.state = 'ready'
         ui.errorMessages = [filterTraceback(event.data.error)]
@@ -387,21 +370,6 @@ export function setupWorker(core: Core) {
               type == 'brick' ? count : count > 0
           }
         })
-      }
-    }
-
-    if (
-      event.data &&
-      typeof event.data === 'object' &&
-      event.data.type === 'bench'
-    ) {
-      const { payload, id } = event.data
-      if (core.worker.benchMessageResolvers.has(id)) {
-        const resolve = core.worker.benchMessageResolvers.get(id)
-        core.worker.benchMessageResolvers.delete(id)
-        if (resolve) {
-          resolve(payload)
-        }
       }
     }
 
@@ -904,63 +872,6 @@ export function setupWorker(core: Core) {
         return
       }
     }
-  }
-
-  core.worker.prepareBench = async () => {
-    if (
-      !core.worker ||
-      !core.worker.mainWorker ||
-      !core.worker.backupWorker ||
-      !core.worker.mainWorkerReady
-    )
-      throw new Error('Worker not ready')
-
-    core.worker.isFresh = false
-
-    const id = core.worker.benchMessageIdCounter++
-
-    const delayBuffer = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT)
-    core.worker.sharedArrayDelay = new Int32Array(delayBuffer)
-
-    Atomics.store(
-      core.worker.sharedArrayDelay,
-      0,
-      Math.round(sliderToDelay(core.ws.ui.speedSliderValue) * 1000),
-    )
-
-    core.worker.mainWorker.postMessage({
-      type: 'bench',
-      command: 'prepare',
-      id,
-      delayBuffer: core.worker.sharedArrayDelay,
-    })
-
-    return new Promise((resolve) => {
-      core.worker!.benchMessageResolvers.set(id, resolve)
-    })
-  }
-
-  core.worker.messageBench = async (payload: object) => {
-    if (
-      !core.worker ||
-      !core.worker.mainWorker ||
-      !core.worker.backupWorker ||
-      !core.worker.mainWorkerReady
-    )
-      throw new Error('Worker not ready')
-
-    const id = core.worker.benchMessageIdCounter++
-
-    core.worker.mainWorker.postMessage({
-      type: 'bench',
-      command: 'message',
-      payload,
-      id,
-    })
-
-    return new Promise((resolve) => {
-      core.worker!.benchMessageResolvers.set(id, resolve)
-    })
   }
 }
 

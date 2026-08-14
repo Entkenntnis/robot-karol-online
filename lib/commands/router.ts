@@ -32,9 +32,6 @@ import { setLng } from './mode'
 import { startQuest } from './quest'
 import { isBot } from 'isbot'
 
-const bluejPlaygroundHash =
-  '#SPIELWIESE-PYTHON:%23 Spielwiese%3A 15%2C 10%2C 6%0A%0A%23 Hallo! Die Spielwiese hat einen neuen Modus. Sobald du Python aktivierst%2C%0A%23 kannst du auf das interaktive Klassendiagramm zugreifen.%0A%0A%23 Dort kannst du Objekte erzeugen und Methoden aufrufen wie in BlueJ.%0A%0A%23 Probiere es jetzt aus! Klicke jetzt auf interaktives Klassendiagramm%2C%0A%23 erzeuge einen Robot und steuere Karol direkt über die Objektkarte.%0A%0A%0A%0A%23 Das Ganze funktioniert auch mit eigenen Klassen%3A%0A%23 (zum Testen auskommentieren)%0A%0A"""%0Aclass MeineKlasse%3A%0A%20%20%20 def hallo(self)%3A%0A%20%20%20%20%20%20%20 "Das ist ein Docstring für die Methode hallo"%0A%20%20%20%20%20%20%20 print("Hallo %3A)")%0A"""'
-
 export async function navigate(core: Core, url: string) {
   history.pushState(null, '', '/' + url)
 
@@ -75,10 +72,6 @@ export async function hydrate(core: Core) {
 
   // internal rewrites
   let rewrite = ''
-  if (raw_hash.toLocaleUpperCase() == '#BLUEJ-PLAYGROUND') {
-    raw_hash = bluejPlaygroundHash
-    rewrite = 'BLUEJ-PLAYGROUND'
-  }
   if (raw_hash.toLocaleUpperCase() == '#DANCE') {
     raw_hash =
       pythonKarolExamples.find((el) => el.title == 'Dance, Dance')?.link || ''
@@ -232,9 +225,6 @@ export async function hydrate(core: Core) {
           s.code = code
         }
       })
-      if (rewrite != 'BLUEJ-PLAYGROUND') {
-        ____submitAnalyzeEvent(core, 'ev_show_modifier_playgroundWithDataHash')
-      }
     }
     refreshEditArea(core)
     return

@@ -3,7 +3,6 @@ import { Fragment, useEffect, useRef, useState } from 'react'
 import {
   faCircleExclamation,
   faExternalLink,
-  faPlay,
   faQuestion,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
@@ -19,8 +18,6 @@ import { BlockEditor } from './BlockEditor'
 import { QuestPrompt } from '../helper/QuestPrompt'
 import { Cheatsheet } from '../helper/Cheatsheet'
 import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
-import { startBench } from '../../lib/commands/bench'
-import { InteractiveClassDiagram } from './InteractiveClassDiagram'
 import { closeOutput } from '../../lib/commands/quest'
 import { setQuestPreview } from '../../lib/commands/editor'
 import { refreshEditArea } from '../../lib/commands/editing'
@@ -34,14 +31,11 @@ export function EditArea() {
 
   useEffect(() => {
     setShowCheatSheet(false)
-  }, [core.ws.settings.language, core.ws.settings.mode, core.ws.ui.isBench])
+  }, [core.ws.settings.language, core.ws.settings.mode])
 
   core.view = view
 
   if (core.ws.settings.mode == 'code') {
-    if (core.ws.settings.language == 'python-pro' && core.ws.ui.isBench) {
-      return <InteractiveClassDiagram />
-    }
     return (
       <div className="h-full flex flex-col overflow-y-auto relative">
         {core.ws.settings.language === 'python-pro' &&
@@ -49,7 +43,7 @@ export function EditArea() {
             <>
               <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between whitespace-nowrap">
                 <div>
-                  {core.ws.ui.editQuestScript ? (
+                  {core.ws.ui.editQuestScript && (
                     <a
                       className={clsx(
                         'link',
@@ -67,23 +61,7 @@ export function EditArea() {
                       Anleitung{' '}
                       <FaIcon icon={faExternalLink} className="text-xs" />
                     </a>
-                  ) : null}
-                  {core.ws.ui.isPlayground &&
-                    core.ws.pythonCode.includes('class') && (
-                      <button
-                        className={clsx(
-                          'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed',
-                        )}
-                        onClick={() => {
-                          ____submitAnalyzeEvent(core, 'ev_click_ide_bench')
-                          startBench(core)
-                        }}
-                        disabled={core.ws.ui.state != 'ready'}
-                      >
-                        <FaIcon icon={faPlay} className="text-xs" />{' '}
-                        Interaktives Klassendiagramm
-                      </button>
-                    )}
+                  )}
                 </div>
 
                 {core.ws.page == 'editor' &&

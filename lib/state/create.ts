@@ -102,17 +102,6 @@ export function createWorkspaceState(): WorkspaceState {
       keepQuest: false,
       questScript: '',
     },
-    bench: {
-      classInfo: {},
-      objects: [],
-      invocationMode: 'constructor',
-      invocationParameters: [],
-      invocationClass: '',
-      invocationMethod: '',
-      invocationObject: '',
-      locked: false,
-      history: '',
-    },
     canvas: {
       manualControl: false,
       instrumentIdCounter: 1,

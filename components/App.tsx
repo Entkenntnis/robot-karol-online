@@ -26,7 +26,6 @@ import { hydrate, navigate } from '../lib/commands/router'
 import { LoadingScreen } from './helper/LoadingScreen'
 import { Karolmania } from './pages/Karolmania'
 import { KarolmaniaGame } from './pages/KarolmaniaGame'
-import { InvocationModal } from './modals/InvocationModal'
 import { ExplanationModal } from './modals/ExplanationModal'
 import { CharacterModal } from './modals/CharacterModal'
 import { ChatGuide } from './modals/ChatGuide'
@@ -132,8 +131,6 @@ export function App() {
       return <SyncModal />
     } else if (core.ws.modal == 'survey') {
       return <SurveyModal />
-    } else if (core.ws.modal == 'invocation') {
-      return <InvocationModal />
     } else if (core.ws.modal == 'explanation') {
       return <ExplanationModal />
     } else if (core.ws.modal == 'character') {

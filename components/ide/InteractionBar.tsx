@@ -29,8 +29,7 @@ import { distance } from 'fastest-levenshtein'
 
 export function InteractionBar() {
   const core = useCore()
-  const mainButtonState =
-    core.ws.ui.state == 'running' || core.ws.ui.isBench ? 'stop' : 'start'
+  const mainButtonState = core.ws.ui.state == 'running' ? 'stop' : 'start'
 
   const dontChangeLanguage =
     (core.ws.ui.state !== 'ready' &&
@@ -50,7 +49,6 @@ export function InteractionBar() {
   const debuggable =
     core.ws.ui.state == 'running' &&
     !core.ws.editor.questScript &&
-    !core.ws.ui.isBench &&
     !core.ws.ui.isChatMode
 
   const debugPython =

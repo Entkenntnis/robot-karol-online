@@ -1,5 +1,4 @@
 import { Core } from '../state/core'
-import { exitBench } from './bench'
 import { startChatRunner, stopChatRunner } from './chat'
 import {
   runTask,
@@ -12,11 +11,6 @@ import { abort } from './vm'
 import { twoWorldsEqual } from './world'
 
 export function startButtonClicked(core: Core) {
-  if (core.ws.ui.isBench) {
-    exitBench(core)
-    return
-  }
-
   if (core.ws.ui.isChatMode) {
     if (core.ws.ui.state == 'ready') {
       startChatRunner(core)
