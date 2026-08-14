@@ -30,6 +30,7 @@ import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { pythonKarolExamples } from '../../lib/data/pythonExamples'
+import { QuickReference } from '../helper/QuickReference'
 
 export function IdeMain() {
   const core = useCore()
@@ -86,7 +87,11 @@ export function IdeMain() {
                 ) {
                   navigate(core, '')
                 } else if (core.ws.page == 'editor') {
-                  const res = confirm(core.ttung('Beachte dass die Daten nicht gespeichert werden. Verlassen?'))
+                  const res = confirm(
+                    core.ttung(
+                      'Beachte dass die Daten nicht gespeichert werden. Verlassen?',
+                    ),
+                  )
                   if (res) {
                     deleteEditorSnapshot()
                     navigate(core, '')
@@ -171,7 +176,9 @@ export function IdeMain() {
                 <AnimateInView>
                   <div className="relative bg-yellow-100/90 p-4 mx-auto max-w-lg rounded-xl border-2 border-yellow-300 shadow-lg">
                     <div className="text-center text-2xl font-bold text-yellow-800 mb-2">
-                      {core.ttung('Legen wir los! Ziehe den Befehl „Schritt" auf die Arbeitsfläche')}
+                      {core.ttung(
+                        'Legen wir los! Ziehe den Befehl „Schritt" auf die Arbeitsfläche',
+                      )}
                     </div>
                     <div className="absolute -bottom-36 -left-12">
                       <div className="flex justify-center">
@@ -206,7 +213,9 @@ export function IdeMain() {
               <AnimateInView>
                 <div className="relative bg-yellow-100/90 p-6 max-w-[560px] rounded-xl border-2 border-yellow-300 shadow-lg mx-auto">
                   <div className="text-center text-xl font-bold text-yellow-800 mb-4">
-                    {core.ttung('Sehr gut! Schreibe das Programm fertig: Gehe mit Karol zwei Schritte und lege einen Ziegel.')}
+                    {core.ttung(
+                      'Sehr gut! Schreibe das Programm fertig: Gehe mit Karol zwei Schritte und lege einen Ziegel.',
+                    )}
                   </div>
                   <div className="flex justify-center mt-4">
                     <button
@@ -249,6 +258,7 @@ export function IdeMain() {
           ) : (
             <Tasks />
           )}
+          {core.ws.ui.showQuickReference && <QuickReference />}
         </ReflexElement>
       </ReflexContainer>
       <HFullStyles />

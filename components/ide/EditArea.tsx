@@ -4,6 +4,7 @@ import {
   faCircleExclamation,
   faExternalLink,
   faPlay,
+  faQuestion,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -43,126 +44,110 @@ export function EditArea() {
     }
     return (
       <div className="h-full flex flex-col overflow-y-auto relative">
-        {core.ws.settings.language === 'python-pro' && (
-          <>
-            <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between whitespace-nowrap">
-              <div>
-                {core.ws.ui.editQuestScript ? (
-                  <a
-                    className={clsx(
-                      'link',
-                      showCheatSheet && 'text-purple-600',
-                    )}
-                    href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/QUESTSCRIPT.md#questscript"
-                    target="_blank"
-                    onClick={() => {
-                      ____submitAnalyzeEvent(
-                        core,
-                        'ev_click_ide_questscriptGuide',
-                      )
-                    }}
-                  >
-                    Anleitung{' '}
-                    <FaIcon icon={faExternalLink} className="text-xs" />
-                  </a>
-                ) : (
-                  <button
-                    className={clsx(
-                      'link',
-                      showCheatSheet && 'text-purple-600',
-                      core.ws.settings.lng == 'en' && 'invisible',
-                    )}
-                    onClick={() => {
-                      ____submitAnalyzeEvent(
-                        core,
-                        'ev_click_ide_pythoncheatsheet',
-                      )
-                      setShowCheatSheet((prev) => !prev)
-                    }}
-                  >
-                    {core.ttung('Spickzettel')}
-                  </button>
-                )}
-                {core.ws.ui.isPlayground &&
-                  core.ws.pythonCode.includes('class') && (
-                    <button
+        {core.ws.settings.language === 'python-pro' &&
+          core.ws.page == 'editor' && (
+            <>
+              <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between whitespace-nowrap">
+                <div>
+                  {core.ws.ui.editQuestScript ? (
+                    <a
                       className={clsx(
-                        'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed',
+                        'link',
+                        showCheatSheet && 'text-purple-600',
                       )}
+                      href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/QUESTSCRIPT.md#questscript"
+                      target="_blank"
                       onClick={() => {
-                        ____submitAnalyzeEvent(core, 'ev_click_ide_bench')
-                        startBench(core)
-                      }}
-                      disabled={core.ws.ui.state != 'ready'}
-                    >
-                      <FaIcon icon={faPlay} className="text-xs" /> Interaktives
-                      Klassendiagramm
-                    </button>
-                  )}
-              </div>
-
-              {core.ws.page == 'editor' &&
-                (core.ws.editor.showQuestPreview &&
-                core.ws.settings.language == 'python-pro' &&
-                core.ws.settings.mode == 'code' ? (
-                  <div className="bg-yellow-300 px-2 rounded">
-                    Code wird beim Verlassen der Vorschau zurückgesetzt.{' '}
-                    <button
-                      onClick={() => {
-                        closeOutput(core)
-                        setQuestPreview(core, false)
-                        core.mutateWs((ws) => {
-                          ws.pythonCode =
-                            ws.editor.originalCode ?? ws.pythonCode
-                        })
-                        refreshEditArea(core)
+                        ____submitAnalyzeEvent(
+                          core,
+                          'ev_click_ide_questscriptGuide',
+                        )
                       }}
                     >
-                      X
-                    </button>
-                  </div>
-                ) : (
-                  <label
-                    className={clsx(
-                      'ml-8 text-gray-500 cursor-pointer select-none',
-                      core.ws.editor.questScript && 'font-semibold',
-                      core.ws.ui.isChatMode && 'hidden',
+                      Anleitung{' '}
+                      <FaIcon icon={faExternalLink} className="text-xs" />
+                    </a>
+                  ) : null}
+                  {core.ws.ui.isPlayground &&
+                    core.ws.pythonCode.includes('class') && (
+                      <button
+                        className={clsx(
+                          'px-2 rounded bg-purple-300 hover:bg-purple-400 ml-5 text-black transition-opacity disabled:opacity-50 disabled:cursor-not-allowed',
+                        )}
+                        onClick={() => {
+                          ____submitAnalyzeEvent(core, 'ev_click_ide_bench')
+                          startBench(core)
+                        }}
+                        disabled={core.ws.ui.state != 'ready'}
+                      >
+                        <FaIcon icon={faPlay} className="text-xs" />{' '}
+                        Interaktives Klassendiagramm
+                      </button>
                     )}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={core.ws.ui.editQuestScript}
-                      onChange={(e) => {
-                        const checked = e.target.checked
-                        core.mutateWs(({ ui }) => {
-                          ui.editQuestScript = checked
-                        })
-                        refreshEditArea(core)
-                        if (checked) {
-                          core.mutateWs(({ editor }) => {
-                            editor.editOptions = 'python-pro-only'
-                          })
-                        }
-                        setShowCheatSheet(false)
-                      }}
-                    ></input>{' '}
-                    QuestScript bearbeiten
-                  </label>
-                ))}
-              {core.ws.editor.questScript && core.ws.page == 'shared' && (
-                <div
-                  className="select-none text-purple-400 ml-2"
-                  title="Diese Aufgabe wird über ein QuestScript gesteuert"
-                  onClick={() => {
-                    console.log(core.ws.editor.questScript)
-                  }}
-                >
-                  QuestScript
                 </div>
-              )}
-            </div>
-          </>
-        )}
+
+                {core.ws.page == 'editor' &&
+                  (core.ws.editor.showQuestPreview &&
+                  core.ws.settings.language == 'python-pro' &&
+                  core.ws.settings.mode == 'code' ? (
+                    <div className="bg-yellow-300 px-2 rounded">
+                      Code wird beim Verlassen der Vorschau zurückgesetzt.{' '}
+                      <button
+                        onClick={() => {
+                          closeOutput(core)
+                          setQuestPreview(core, false)
+                          core.mutateWs((ws) => {
+                            ws.pythonCode =
+                              ws.editor.originalCode ?? ws.pythonCode
+                          })
+                          refreshEditArea(core)
+                        }}
+                      >
+                        X
+                      </button>
+                    </div>
+                  ) : (
+                    <label
+                      className={clsx(
+                        'ml-8 text-gray-500 cursor-pointer select-none',
+                        core.ws.editor.questScript && 'font-semibold',
+                        core.ws.ui.isChatMode && 'hidden',
+                      )}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={core.ws.ui.editQuestScript}
+                        onChange={(e) => {
+                          const checked = e.target.checked
+                          core.mutateWs(({ ui }) => {
+                            ui.editQuestScript = checked
+                          })
+                          refreshEditArea(core)
+                          if (checked) {
+                            core.mutateWs(({ editor }) => {
+                              editor.editOptions = 'python-pro-only'
+                            })
+                          }
+                          setShowCheatSheet(false)
+                        }}
+                      ></input>{' '}
+                      QuestScript bearbeiten
+                    </label>
+                  ))}
+                {core.ws.editor.questScript /*&& core.ws.page == 'shared'*/ && (
+                  <div
+                    className="select-none text-purple-400 ml-2"
+                    title="Diese Aufgabe wird über ein QuestScript gesteuert"
+                    onClick={() => {
+                      console.log(core.ws.editor.questScript)
+                    }}
+                  >
+                    QuestScript
+                  </div>
+                )}
+              </div>
+            </>
+          )}
         {core.ws.settings.language === 'robot karol' && (
           <>
             <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between">
@@ -181,6 +166,25 @@ export function EditArea() {
           </>
         )}
         {renderEditor()}
+        {core.ws.settings.language == 'python-pro' && (
+          <div className="absolute right-2 bottom-4">
+            <button
+              className={clsx(
+                'flex justify-center items-center w-9 rounded-full h-9',
+                core.ws.ui.showQuickReference
+                  ? 'bg-indigo-300 hover:bg-indigo-400'
+                  : 'bg-gray-200 hover:bg-gray-300',
+              )}
+              onClick={() => {
+                core.mutateWs((ws) => {
+                  ws.ui.showQuickReference = !ws.ui.showQuickReference
+                })
+              }}
+            >
+              <FaIcon icon={faQuestion} className="text-xl" />
+            </button>
+          </div>
+        )}
         {(core.ws.ui.state == 'error' ||
           (core.ws.settings.language == 'python-pro' &&
             core.ws.ui.errorMessages.length > 0)) && (

@@ -51,6 +51,7 @@ export function setMode(core: Core, mode: Core['ws']['settings']['mode']) {
     settings.mode = mode
     ui.gutter = 0
     ui.breakpoints = []
+    ui.showQuickReference = false
   })
   setExecutionMarker(core, 0)
   if (mode == 'code') {
