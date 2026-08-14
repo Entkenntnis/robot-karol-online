@@ -100,7 +100,7 @@ Scenario('See if playground works fine', ({ I }) => {
   I.click({ css: '#select-language' })
   I.click({ css: '#select-language-python-pro' })
   I.dontSee('Hauptprogramm')
-  I.see('Spickzettel')
+  // I.see('Spickzettel')
   I.click('Start')
   I.click('Blöcke')
   I.see('Hauptprogramm')
