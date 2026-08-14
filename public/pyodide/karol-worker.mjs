@@ -19,14 +19,120 @@ let runId = { current: 1 }
 
 const compileScript = (code) => `
 import ast
+import json
+import builtins
+
 def check_syntax(code):
     try:
         compile(code, "<string>", "exec", ast.PyCF_ALLOW_TOP_LEVEL_AWAIT)
         return "ok"
     except SyntaxError as e:
-        return f"[{e.lineno}, {e.offset}, {e.end_lineno}, {e.end_offset}, \\"{e.msg}\\"]"
+        return json.dumps([
+          [e.lineno, e.offset, e.end_lineno, e.end_offset, e.msg]
+        ])
 
-check_syntax(${JSON.stringify(code)})
+def analyze(code):
+  # AI generated, manually typed
+  # manually tested
+
+  try:
+    import rko
+  except Exception:
+    rko = None
+  
+  known = set(dir(builtins))
+  robot_methods = set()
+
+  if rko is not None:
+    for name in dir(rko):
+      known.add(name)
+    try:
+      robot_methods = {m for m in dir(rko.Robot) if not m.startswith("_")}
+    except Exception:
+      robot_methods = set()
+  
+  tree = ast.parse(code)
+  
+  defined = set(known)
+  wildcard = False
+
+  for node in ast.walk(tree):
+    if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Store):
+      defined.add(node.id)
+    elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+      defined.add(node.name)
+    elif isinstance(node, ast.Import):
+      for alias in node.names:
+        defined.add(alias.asname or alias.name.split(".")[0])
+    elif isinstance(node, ast.ImportFrom):
+      for alias in node.names:
+        if alias.name == "*":
+          whildcard = True
+        else:
+          defined.add(alias.asname or alias.name)
+    elif isinstance(node, ast.arg):
+      defined.add(node.arg)
+    elif isinstance(node, (ast.Global, ast.Nonlocal)):
+      for name in node.names:
+        defined.add(name)
+
+  robot_vars = set()
+  for stmt in tree.body:
+    if (
+      isinstance(stmt, ast.Assign)
+      and len(stmt.targets) == 1
+      and isinstance(stmt.targets[0], ast.Name)
+      and isinstance(stmt.value, ast.Call)
+      and isinstance(stmt.value.func, ast.Name)
+      and stmt.value.func.id == "Robot"
+    ):
+      robot_vars.add(stmt.targets[0].id)
+  
+  dynamic = any(
+    isinstance(n, ast.Name)
+    and isinstance(n.ctx, ast.Load)
+    and n.id in {"eval", "exec", "globals", "locals", "vars", "getattr", "setattr", "delattr", "__import__", "compile"}
+    for n in ast.walk(tree)
+  )
+  
+  diags = []
+
+  def diag(node, msg):
+    end_lineno = node.end_lineno if node.end_lineno is not None else node.lineno
+    end_col = node.end_col_offset if node.end_col_offset is not None else node.col_offset + 1
+    diags.append([
+      node.lineno,
+      node.col_offset + 1,
+      end_lineno,
+      end_col,
+      msg
+    ])
+  
+  for node in ast.walk(tree):
+    if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
+      if not wildcard and not dynamic and node.id not in defined:
+        diag(node, f"name {node.id} is not defined")
+    elif isinstance(node, ast.Attribute):
+      if (
+        isinstance(node.value, ast.Name)
+        and node.value.id in robot_vars
+        and node.attr not in robot_methods
+        and not node.attr.startswith("_")
+      ):
+        diag(node, f"'Robot' object has no attribute {node.attr}")
+  
+  return json.dumps(diags) if len(diags) > 0 else "ok"
+  
+def check(code):
+  result = check_syntax(code)
+  if result != "ok":
+    return result
+  try:
+    return analyze(code)
+  except Exception as e:
+    return "ok bad: " + e.msg
+
+check(${JSON.stringify(code)})
 `
 
 const throwFauxTypeError = (cls, member, expected_args, rest) => {
