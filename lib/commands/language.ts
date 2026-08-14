@@ -18,6 +18,7 @@ export function setLanguage(core: Core, language: Settings['language']) {
     ui.showJavaInfo = false
     ui.gutter = 0
     state.ui.errorMessages = []
+    ui.showQuickReference = false
   })
   setExecutionMarker(core, 0)
   setTimeout(() => {

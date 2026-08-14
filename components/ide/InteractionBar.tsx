@@ -135,7 +135,7 @@ export function InteractionBar() {
         <div className="pt-1 whitespace-nowrap">
           <button
             className={clsx(
-              'font-semibold mr-1 select-none disabled:cursor-default ml-9',
+              'font-semibold mr-1 select-none disabled:cursor-not-allowed ml-9',
               core.ws.settings.mode == 'code' && 'text-gray-600',
               codeOnly && 'hidden',
             )}

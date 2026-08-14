@@ -63,6 +63,7 @@ export function createWorkspaceState(): WorkspaceState {
       miniProjectsOpen: false,
       demoModus: false,
       flightdeckTab: 'karol',
+      showQuickReference: false,
     },
     vm: {
       pc: 0,

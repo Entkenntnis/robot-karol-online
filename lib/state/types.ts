@@ -81,6 +81,7 @@ export interface Ui {
   miniProjectsOpen: boolean
   demoModus: boolean
   flightdeckTab: Tab
+  showQuickReference: boolean
 }
 
 export interface Vm {
