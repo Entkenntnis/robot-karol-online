@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { FaIcon } from './FaIcon'
 import { faBook, faCheck, faCopy } from '@fortawesome/free-solid-svg-icons'
-import { EditorView } from '@codemirror/view'
+import { EditorView, lineNumbers } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { indentUnit, syntaxHighlighting } from '@codemirror/language'
 import {
@@ -225,10 +225,7 @@ export function Cheatsheet({ language }: CheatsheetProps) {
                 },
                 {
                   category: 'Comments',
-                  items: [
-                    '{ This is a comment }',
-                    '// This is also a comment',
-                  ],
+                  items: ['{ This is a comment }', '// This is also a comment'],
                 },
                 {
                   category: 'Object notation (optional)',
@@ -306,16 +303,16 @@ export function Cheatsheet({ language }: CheatsheetProps) {
     >
       <div className="flex items-center gap-2 mb-6">
         <FaIcon icon={faBook} className="text-purple-600" />
-          <h1 className="text-xl font-bold text-gray-800">
-            {language == 'python-chat'
+        <h1 className="text-xl font-bold text-gray-800">
+          {language == 'python-chat'
+            ? 'Python'
+            : language == 'python-pro'
               ? 'Python'
-              : language == 'python-pro'
-                ? 'Python'
-                : language == 'java'
-                  ? 'Karol Java'
-                  : 'Karol Code'}{' '}
-            {core.ttung('Spickzettel')}
-          </h1>
+              : language == 'java'
+                ? 'Karol Java'
+                : 'Karol Code'}{' '}
+          {core.ttung('Spickzettel')}
+        </h1>
       </div>
 
       {commands.map((section, index) => (
@@ -376,6 +373,7 @@ export function CodeBox({
         state: EditorState.create({
           doc,
           extensions: [
+            lineNumbers(),
             syntaxHighlighting(defaultHighlightStyle),
             indentUnit.of(language == 'python-pro' ? '    ' : '  '),
             editable.of(EditorView.editable.of(false)),
