@@ -87,16 +87,21 @@ export function Overview() {
             </div>
           </div>
 
-          <div className="absolute top-2 right-2 z-[1000]">
-            <button
-              className="rounded-full bg-yellow-300 hover:bg-yellow-400 transition-colors py-0.5 px-2"
-              onClick={() => {
-                window.open('https://paypal.me/Dav1dL1', '_blank')
-              }}
-            >
-              {core.ttung('Spenden')}
-            </button>
-          </div>
+          {core.ws.settings.lng == 'de' && (
+            <div className="absolute left-2 bottom-2 z-[1000] text-left bg-lime-100 border border-lime-300 rounded p-2">
+              Dieses Projekt wird ehrenamtlich entwickelt.
+              <br />
+              Unterstützen Sie es mit einer{' '}
+              <a
+                href="https://paypal.me/Dav1dL1"
+                target="_blank"
+                className="link text-blue-700 hover:text-blue-600"
+              >
+                Spende
+              </a>
+              .
+            </div>
+          )}
           <div className="mx-8 md:mx-auto mt-6 mb-2">
             <a
               href="/#SPIELWIESE"

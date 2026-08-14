@@ -169,7 +169,6 @@ export const de2en: { [key: string]: string } = {
   'Sehr gut! Schreibe das Programm fertig: Gehe mit Karol zwei Schritte und lege einen Ziegel.':
     'Great! Finish the program: make Karol take two steps and set down a brick.',
   'Speichern und schließen': 'Save and close',
-  Spenden: 'Donate',
   Spickzettel: 'Cheat sheet',
   spielstand: 'gamestate',
   Spielwiese: 'Playground',
