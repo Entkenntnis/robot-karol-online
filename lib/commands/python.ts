@@ -291,7 +291,10 @@ export function setupWorker(core: Core) {
     ) {
       const diagnostics = event.data.diagnostics
       if (core.view?.current) {
-        if (diagnostics === 'ok') {
+        if (
+          diagnostics === 'ok' ||
+          (typeof diagnostics === 'string' && diagnostics.startsWith('ok'))
+        ) {
           core.view.current.dispatch(
             setDiagnostics(core.view.current.state, []),
           )
@@ -302,29 +305,41 @@ export function setupWorker(core: Core) {
           })
         } else {
           try {
-            const [lineno, offset, end_lineno, end_offset, msg] =
-              JSON.parse(diagnostics)
-            const from =
-              core.view.current.state.doc.line(lineno).from +
-              Math.max(offset - 1, 0)
-            const to = Math.max(
-              from + 1,
-              core.view.current.state.doc.line(end_lineno).from + end_offset,
-            )
+            // INTEGRATE NEW SYSTEM
+            const diags = JSON.parse(diagnostics) as [
+              number, // 0: lineno
+              number, // 1: offset
+              number, // 2: end_lineno
+              number, // 3: end_offset
+              string, // 4: msg
+            ][]
+
+            const view = core.view.current
+
+            const cmDiags = diags.map((item) => {
+              const from =
+                view.state.doc.line(item[0]).from + Math.max(item[1] - 1, 0)
+              const to = Math.max(
+                from + 1,
+                view.state.doc.line(item[2] ?? item[0]).from +
+                  (item[3] ?? item[1] + 1),
+              ) // guard None end positions (ai suggested, better safe than sorry)
+              return {
+                from,
+                to,
+                severity: 'error' as const,
+                message: item[4],
+              }
+            })
+
             core.view.current.dispatch(
-              setDiagnostics(core.view.current.state, [
-                {
-                  from: Math.max(0, from),
-                  to: Math.min(to, core.view.current.state.doc.length),
-                  severity: 'error',
-                  message: msg,
-                },
-              ]),
+              setDiagnostics(core.view.current.state, cmDiags),
             )
             core.mutateWs(({ ui }) => {
               ui.state = 'error'
-              ui.errorMessages = [`Line ${lineno}: ${msg}`]
-              //ui.preview = undefined
+              ui.errorMessages = diags.map(
+                (item) => `Line ${item[0]}: ${item[4]}`,
+              )
             })
           } catch (e) {
             // ignore errors here, because sometimes, diagnostics are not perfect or stale or whatever ...
