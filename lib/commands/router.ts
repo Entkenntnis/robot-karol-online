@@ -71,11 +71,10 @@ export async function hydrate(core: Core) {
   }
 
   // internal rewrites
-  let rewrite = ''
   if (raw_hash.toLocaleUpperCase() == '#DANCE') {
     raw_hash =
       pythonKarolExamples.find((el) => el.title == 'Dance, Dance')?.link || ''
-    rewrite = 'DANCE'
+    // rewrite = 'DANCE'
   }
 
   const hash = raw_hash.replace(/^#/, '')
