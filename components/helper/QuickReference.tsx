@@ -8,6 +8,12 @@ import { useCore } from '../../lib/state/core'
 import { CodeBox } from './Cheatsheet'
 import { useState } from 'react'
 import clsx from 'clsx'
+import {
+  cursorLineEnd,
+  insertNewline,
+  simplifySelection,
+} from '@codemirror/commands'
+import { faPaste } from '@fortawesome/free-regular-svg-icons'
 
 export function QuickReference() {
   const [openSections, setOpenSections] = useState<Set<number>>(new Set())
@@ -29,7 +35,7 @@ export function QuickReference() {
     <div className="absolute inset-0 bg-black/20">
       <div className="absolute bottom-6 left-3 bg-white border-indigo-600 border-[2px] w-[400px] top-6 rounded flex flex-col shadow shadow-indigo-200/80">
         <div className="h-10 flex justify-between items-center bg-indigo-100">
-          <h2 className="ml-3 text-lg">PROGRAMMIERHILFE</h2>
+          <h2 className="ml-3 text-lg">Programmierhilfe</h2>
           <button
             className="h-10 w-10 flex justify-center items-center bg-indigo-200 hover:bg-indigo-300"
             onClick={() => {
@@ -42,6 +48,39 @@ export function QuickReference() {
           </button>
         </div>
         <div className="overflow-auto flex-grow">
+          {section(
+            4,
+            <h3 className="font-bold">Karol-Befehle</h3>,
+            <>
+              {listing(
+                'Beispiel',
+                `# einmal am Anfang des Programms
+karol = Robot()
+
+# geht ein Feld in Blickrichtung
+karol.schritt()
+karol.schritt(5)
+
+karol.linksDrehen()
+karol.linksDrehen(2)
+karol.rechtsDrehen()
+karol.rechtsDrehen(2)
+
+# legt Ziegel auf Feld VOR sich
+karol.hinlegen()
+karol.hinlegen(2)
+karol.aufheben()
+karol.aufheben(2)
+
+# setzt Marke auf Feld UNTER sich
+karol.markeSetzen()
+karol.markeLöschen()
+
+karol.beenden()`,
+              )}
+            </>,
+          )}
+          <hr className="mt-4 -mb-2" />
           {section(
             0,
             <h3 className="font-bold">
@@ -79,7 +118,7 @@ export function QuickReference() {
               <div className="h-0.5"></div>
               {listing(
                 'Beispiel',
-                'while karol.istZiegel():\n    karol.aufheben() ',
+                'while karol.istZiegel():\n    karol.aufheben()',
               )}
             </>,
           )}
@@ -140,71 +179,67 @@ export function QuickReference() {
             </>,
           )}
           <hr className="mt-4 -mb-2" />
-          {section(
-            4,
-            <h3 className="font-bold">Karol-Befehle</h3>,
-            <>
-              {listing(
-                'Beispiel',
-                `# einmal am Anfang des Programms
-karol = Robot()
 
-# geht ein Feld in Blickrichtung
-karol.schritt()
-karol.schritt(5)
-
-karol.linksDrehen()
-karol.linksDrehen(2)
-karol.rechtsDrehen()
-karol.rechtsDrehen(2)
-
-# legt Ziegel auf Feld VOR sich
-karol.hinlegen()
-karol.hinlegen(2)
-karol.aufheben()
-karol.aufheben(2)
-
-# setzt Marke auf Feld UNTER sich
-karol.markeSetzen()
-karol.markeLöschen()
-
-karol.beenden()`,
-              )}
-            </>,
-          )}
           {section(
             5,
-            <h3 className="font-bold">Karol-Bedingungen</h3>,
+            <h3 className="font-bold">Liste aller Karol-Abfragen</h3>,
             <>
-              {listing(
-                'Liste',
-                `# Rand oder Quader
-karol.istWand()
-karol.nichtIstWand()
-
-# prüft Marke UNTER sich
-karol.istMarke()
-karol.nichtIstMarke()
-
-# MINDESTENS ein Ziegel auf Feld voraus
-karol.istZiegel()
-# KEIN Ziegel
-karol.nichtIstZiegel()
-
-# GENAU 2 Ziegel
-karol.istZiegel(2)
-karol.nichtIstZiegel(2)
-
-# Oben = Norden
-karol.istNorden()
-karol.nichtIstNorden()
-karol.istOsten()
-karol.nichtIstOsten()
-karol.istSüden()
-karol.nichtIstSüden()
-karol.istWesten()
-karol.nichtIstWesten()`,
-              )}
+              <p className="ml-6 mt-2">
+                Verwende{' '}
+                <span
+                  style={{ fontFamily: 'Hack, monospace' }}
+                  className="text-sm"
+                >
+                  karol.<span className="text-purple-600">&lt;ABFRAGE&gt;</span>
+                </span>{' '}
+                in while, if, elif:
+              </p>
+              <p
+                className="ml-6 mt-5 text-purple-600 text-sm leading-relaxed"
+                style={{ fontFamily: 'Hack, monospace' }}
+              >
+                istWand(){' '}
+                <span className="text-gray-500 ml-3"># Rand oder Quader</span>
+                <br />
+                nichtIstWand()
+                <br />
+                <br />
+                istMarke()
+                <br />
+                nichtIstMarke()
+                <br />
+                <br />
+                istZiegel(){' '}
+                <span className="text-gray-500 ml-3">
+                  # MINDESTENS ein Ziegel
+                </span>
+                <br />
+                nichtIstZiegel(){' '}
+                <span className="text-gray-500 ml-3"># KEIN Ziegel</span>
+                <br />
+                istZiegel(2){' '}
+                <span className="text-gray-500 ml-3"># GENAU zwei Ziegel</span>
+                <br />
+                nichtIstZiegel(2)
+                <br />
+                <br />
+                istNorden(){' '}
+                <span className="text-gray-500 ml-3"># Norden = Oben</span>
+                <br />
+                nichtIstNorden()
+                <br />
+                istOsten()
+                <br />
+                nichtIstOsten()
+                <br />
+                istSüden()
+                <br />
+                nichtIstSüden
+                <br />
+                istWesten()
+                <br />
+                nichtIstWesten()
+              </p>
             </>,
           )}
           <hr className="mt-4 -mb-2" />
@@ -250,11 +285,19 @@ karol.nichtIstWesten()`,
         {title && (
           <div
             className={clsx(
-              'pl-2 text-sm py-0.5',
+              'flex justify-between',
               title.includes('Aufbau') ? 'bg-indigo-50' : 'bg-pink-50',
             )}
           >
-            {title}
+            <div className={clsx('pl-2 text-sm py-0.5')}>{title}</div>
+            <button
+              onClick={() => {
+                insertCodeSnippet(code.split('\n'), code.length)
+              }}
+              className="text-gray-600 hover:text-black mr-1"
+            >
+              <FaIcon icon={faPaste} />
+            </button>
           </div>
         )}
         <CodeBox doc={code} language="python-pro" />
@@ -271,7 +314,7 @@ karol.nichtIstWesten()`,
     return (
       <div className="mt-6">
         <button
-          className="flex items-center ml-1"
+          className="flex items-center pl-1 w-full"
           onClick={() => {
             toggleSection(index)
           }}
@@ -285,5 +328,44 @@ karol.nichtIstWesten()`,
         {open && content}
       </div>
     )
+  }
+
+  function insertCodeSnippet(codeLines: string[], cursorOffset: number) {
+    const view = core.view
+    if (view && view.current) {
+      simplifySelection(view.current)
+      cursorLineEnd(view.current)
+      const { from, to } = view.current.state.doc.lineAt(
+        view.current.state.selection.main.anchor,
+      )
+      let lineText = view.current.state.sliceDoc(from, to)
+      let spaces = ''
+      while (lineText.startsWith(' ')) {
+        spaces += ' '
+        lineText = lineText.slice(1)
+      }
+
+      if (lineText.trim().length > 0) {
+        insertNewline(view.current)
+      }
+
+      const range = view.current.state.selection.main
+      view.current.dispatch({
+        changes: {
+          from: range.to,
+          to: range.to,
+          insert:
+            (lineText.trim().length > 0 ? spaces : '') +
+            codeLines.join('\n' + spaces),
+        },
+        selection: {
+          anchor:
+            range.to +
+            cursorOffset +
+            (lineText.trim().length > 0 ? spaces.length : 0),
+        },
+      })
+      view.current.focus()
+    }
   }
 }
