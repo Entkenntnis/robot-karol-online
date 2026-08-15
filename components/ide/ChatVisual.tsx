@@ -153,13 +153,11 @@ export function ChatVisual() {
           world={{
             dimX: 1,
             dimY: 1,
-            karol: [
-              {
-                x: 0,
-                y: 0,
-                dir: core.ws.vm.chatVisualRole == 'in' ? 'west' : 'south',
-              },
-            ],
+            karol: {
+              x: 0,
+              y: 0,
+              dir: core.ws.vm.chatVisualRole == 'in' ? 'west' : 'south',
+            },
             blocks: [[false]],
             marks: [[false]],
             bricks: [[0]],

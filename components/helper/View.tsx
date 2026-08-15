@@ -27,7 +27,6 @@ interface ViewProps {
   robotImageDataUrl?: string | null
   hideWorld?: boolean
   animationDuration?: number
-  activeRobot?: number
   canvas?: Canvas
   onClick?: () => void
 }
@@ -56,7 +55,6 @@ export function View({
   robotImageDataUrl,
   hideWorld,
   animationDuration,
-  activeRobot,
   canvas,
 }: ViewProps) {
   const canvasElement = useRef<HTMLCanvasElement>(null)
@@ -76,8 +74,6 @@ export function View({
     }
   }
 
-  const i = activeRobot ?? 0
-
   const prevWorld = useRef(world)
   const animationFrameRef = useRef<number | null>(null)
 
@@ -86,20 +82,18 @@ export function View({
   // this approach is avoiding a flickering effect
   const [renderCounter, setRenderCounter] = useState(0)
   const animatedRobotData = useRef({
-    x: world.karol[i].x,
-    y: world.karol[i].y,
+    x: world.karol.x,
+    y: world.karol.y,
     z:
-      world.karol[i].y >= 0 && world.karol[i].x >= 0
-        ? world.bricks[world.karol[i].y][world.karol[i].x]
+      world.karol.y >= 0 && world.karol.x >= 0
+        ? world.bricks[world.karol.y][world.karol.x]
         : 0,
-    i,
   })
 
   useEffect(() => {
     if (
       !twoWorldsEqual(prevWorld.current, world) ||
-      prevWorld.current.karol.length !== world.karol.length ||
-      prevWorld.current.karol[i].dir !== world.karol[i].dir ||
+      prevWorld.current.karol.dir !== world.karol.dir ||
       !animationDuration
     ) {
       if (animationFrameRef.current) {
@@ -111,26 +105,25 @@ export function View({
         x: -1,
         y: -1,
         z: -1,
-        i: -1,
       }
       setRenderCounter((c) => c + 1)
       return
     }
 
-    const currentX = world.karol[i].x
-    const currentY = world.karol[i].y
+    const currentX = world.karol.x
+    const currentY = world.karol.y
     const currentZ =
       currentX >= 0 && currentY >= 0 ? world.bricks[currentY][currentX] : 0
 
-    const prevX = prevWorld.current.karol[i].x
-    const prevY = prevWorld.current.karol[i].y
+    const prevX = prevWorld.current.karol.x
+    const prevY = prevWorld.current.karol.y
     const prevZ =
       prevY >= 0 && prevX >= 0 ? prevWorld.current.bricks[prevY][prevX] : 0
 
     const step = moveRaw(
       prevX,
       prevY,
-      prevWorld.current.karol[i].dir,
+      prevWorld.current.karol.dir,
       prevWorld.current,
     )
 
@@ -156,13 +149,13 @@ export function View({
           (currentZ - prevZ) * progress +
           Math.sin(progress * Math.PI) * (currentZ == prevZ ? 0.25 : 0.5)
 
-        animatedRobotData.current = { x: newX, y: newY, z: newZ, i }
+        animatedRobotData.current = { x: newX, y: newY, z: newZ }
         setRenderCounter((c) => c + 1)
 
         if (progress < 1) {
           animationFrameRef.current = requestAnimationFrame(animate)
         } else {
-          animatedRobotData.current = { x: -1, y: -1, z: -1, i: -1 }
+          animatedRobotData.current = { x: -1, y: -1, z: -1 }
           setRenderCounter((c) => c + 1)
           animationFrameRef.current = null
         }
@@ -176,7 +169,7 @@ export function View({
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
-      animatedRobotData.current = { x: -1, y: -1, z: -1, i: -1 }
+      animatedRobotData.current = { x: -1, y: -1, z: -1 }
       prevWorld.current = world
       setRenderCounter((c) => c + 1)
     }
@@ -319,9 +312,9 @@ export function View({
       }
       // ============== DEBUGGING ==============
 
-      const drawKarol = (x: number, y: number, z: number, i: number) => {
+      const drawKarol = (x: number, y: number, z: number) => {
         const point = to2d(x, y, z)
-        const dir = world.karol[i].dir
+        const dir = world.karol.dir
         const sx = {
           north: 40,
           east: 0,
@@ -344,10 +337,6 @@ export function View({
           40,
           71,
         )
-        if (world.karol.length > 1) {
-          ctx.font = '22px sans-serif'
-          ctx.fillText((i + 1).toString(), Math.round(dx), Math.round(dy) + 10)
-        }
       }
 
       for (let x = 0; x < world.dimX; x++) {
@@ -451,19 +440,16 @@ export function View({
           if (!hideKarol) {
             if (
               Math.round(animatedRobotData.current.x) == x &&
-              Math.round(animatedRobotData.current.y) == y &&
-              animatedRobotData.current.i == i
+              Math.round(animatedRobotData.current.y) == y
             ) {
               const { x: animX, y: animY, z: animZ } = animatedRobotData.current
-              drawKarol(animX, animY, animZ, i)
+              drawKarol(animX, animY, animZ)
             } else {
-              for (let k = 0; k < world.karol.length; k++) {
-                if (k == animatedRobotData.current.i) continue
-                if (x == world.karol[k].x && y == world.karol[k].y) {
-                  const { x, y } = world.karol[k]
-                  const z = world.bricks[y][x]
-                  drawKarol(x, y, z, k)
-                }
+              if (animatedRobotData.current.x >= 0) continue
+              if (x == world.karol.x && y == world.karol.y) {
+                const { x, y } = world.karol
+                const z = world.bricks[y][x]
+                drawKarol(x, y, z)
               }
             }
           }

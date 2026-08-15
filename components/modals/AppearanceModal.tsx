@@ -591,15 +591,13 @@ export function AppearanceModal() {
                 world={{
                   dimX: 1,
                   dimY: 1,
-                  karol: [
-                    {
-                      x: 0,
-                      y: 0,
-                      dir: ['east', 'north', 'west', 'south'][
-                        count % 4
-                      ] as Heading,
-                    },
-                  ],
+                  karol: {
+                    x: 0,
+                    y: 0,
+                    dir: ['east', 'north', 'west', 'south'][
+                      count % 4
+                    ] as Heading,
+                  },
                   blocks: [[false]],
                   marks: [[false]],
                   bricks: [[0]],
@@ -799,7 +797,11 @@ export function AppearanceModal() {
                     // Absoluten Link konstruieren und in die Zwischenablage kopieren.
                     const link = `${window.location.origin}/#ROBOT:${dataUrl}`
                     navigator.clipboard.writeText(link).then(() => {
-                      alert(core.ttung('Link kopiert! Öffne den Link in einem Browser, um deine Figur zu laden.'))
+                      alert(
+                        core.ttung(
+                          'Link kopiert! Öffne den Link in einem Browser, um deine Figur zu laden.',
+                        ),
+                      )
                     })
                   }
                 }}

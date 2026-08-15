@@ -8,13 +8,11 @@ export function SpinningRobot() {
       world={{
         dimX: 1,
         dimY: 1,
-        karol: [
-          {
-            x: 0,
-            y: 0,
-            dir: 'east',
-          },
-        ],
+        karol: {
+          x: 0,
+          y: 0,
+          dir: 'east',
+        },
         blocks: [[false]],
         marks: [[false]],
         bricks: [[0]],

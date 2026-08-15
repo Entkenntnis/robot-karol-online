@@ -24,9 +24,6 @@ export function patch(core: Core, bytecode: Op[]) {
 type MarkerMode = 'lastExecuted' | 'currentlyExecuting' | 'newOnCallStack'
 
 export function run(core: Core) {
-  core.mutateWs((ws) => {
-    ws.__activeRobot = 0
-  })
   core.mutateWs(({ ui, vm }) => {
     ui.state = 'running'
     ui.showJavaInfo = false
@@ -206,12 +203,6 @@ function* executeProgramAsGenerator(core: Core) {
     }
 
     if (op.type == 'action') {
-      const { setActiveRobot } = op
-      if (setActiveRobot !== undefined) {
-        core.mutateWs((ws) => {
-          ws.__activeRobot = setActiveRobot
-        })
-      }
       let repetitions = 1
       if (op.useParameterFromStack) {
         core.mutateWs(({ vm }) => {
@@ -268,17 +259,6 @@ function* executeProgramAsGenerator(core: Core) {
         // console.log('step', pc, op.type, [...frame.opstack]) // DEBUG
 
         switch (op.type) {
-          case 'add-robot': {
-            core.mutateWs(({ world }) => {
-              world.karol.push({
-                x: 0,
-                y: 0,
-                dir: 'south',
-              })
-            })
-            // why am I not updating pc here?
-            break
-          }
           case 'sense': {
             const condition: Condition = {
               type: op.condition.type,
@@ -286,12 +266,6 @@ function* executeProgramAsGenerator(core: Core) {
             }
             if (op.condition.type == 'brick_count') {
               condition.count = frame.opstack.pop()
-            }
-            const { setActiveRobot } = op
-            if (setActiveRobot !== undefined) {
-              core.mutateWs((ws) => {
-                ws.__activeRobot = setActiveRobot
-              })
             }
             frame.opstack.push(testCondition(core, condition) ? 1 : 0)
             vm.functionEvaluation++
@@ -423,7 +397,7 @@ function* executeProgramAsGenerator(core: Core) {
 }
 
 export function testCondition(core: Core, cond: Condition) {
-  const { x, y, dir } = core.ws.world.karol[core.ws.__activeRobot]
+  const { x, y, dir } = core.ws.world.karol
   if (cond.type == 'mark') {
     const val = core.ws.world.marks[y][x]
     if (cond.negated) {
@@ -497,9 +471,6 @@ export function endExecution(core: Core) {
     state.ui.isEndOfRun = true
     state.ui.questPrompt = undefined
     state.vm.isDebugging = false
-  })
-  core.mutateWs((ws) => {
-    ws.__activeRobot = 0
   })
   if (!core.ws.ui.karolCrashMessage) {
     setExecutionMarker(core, 0)

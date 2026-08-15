@@ -33,13 +33,11 @@ export function CharacterModal() {
               world={{
                 dimX: 1,
                 dimY: 1,
-                karol: [
-                  {
-                    x: 0,
-                    y: 0,
-                    dir: 'east',
-                  },
-                ],
+                karol: {
+                  x: 0,
+                  y: 0,
+                  dir: 'east',
+                },
                 blocks: [[false]],
                 marks: [[false]],
                 bricks: [[0]],
@@ -57,13 +55,11 @@ export function CharacterModal() {
               world={{
                 dimX: 1,
                 dimY: 1,
-                karol: [
-                  {
-                    x: 0,
-                    y: 0,
-                    dir: 'east',
-                  },
-                ],
+                karol: {
+                  x: 0,
+                  y: 0,
+                  dir: 'east',
+                },
                 blocks: [[false]],
                 marks: [[false]],
                 bricks: [[0]],
@@ -81,13 +77,11 @@ export function CharacterModal() {
               world={{
                 dimX: 1,
                 dimY: 1,
-                karol: [
-                  {
-                    x: 0,
-                    y: 0,
-                    dir: 'east',
-                  },
-                ],
+                karol: {
+                  x: 0,
+                  y: 0,
+                  dir: 'east',
+                },
                 blocks: [[false]],
                 marks: [[false]],
                 bricks: [[0]],
@@ -98,7 +92,9 @@ export function CharacterModal() {
             />
           </div>
           <p className="text-sm italic text-center mt-4">
-            {core.ttung('In der Figuren-Galerie findest du viele weitere Figuren.')}
+            {core.ttung(
+              'In der Figuren-Galerie findest du viele weitere Figuren.',
+            )}
           </p>
         </div>
       </div>

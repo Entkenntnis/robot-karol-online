@@ -137,20 +137,10 @@ export function View2D({ world, preview, className, canvas }: View2DProps) {
 
     // Karol einzeichnen – als spitzes Dreieck, das in die jeweilige Blickrichtung zeigt.
     if (world.karol) {
-      for (let i = 0; i < world.karol.length; i++) {
-        const { x, y, dir } = world.karol[i]
-        const cx = x * cellSize + cellSize / 2
-        const cy = y * cellSize + cellSize / 2
-        drawKarol(ctx, cx, cy, dir, cellSize)
-
-        if (world.karol.length > 1) {
-          ctx.font = '12px sans-serif'
-          ctx.fillStyle = 'black'
-          ctx.textAlign = 'right'
-          ctx.textBaseline = 'top'
-          ctx.fillText((i + 1).toString(), cx + 10, cy + 3)
-        }
-      }
+      const { x, y, dir } = world.karol
+      const cx = x * cellSize + cellSize / 2
+      const cy = y * cellSize + cellSize / 2
+      drawKarol(ctx, cx, cy, dir, cellSize)
     }
   }, [world, preview, width, height, cellSize, canvas, co])
 

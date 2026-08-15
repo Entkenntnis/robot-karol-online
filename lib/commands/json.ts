@@ -58,7 +58,7 @@ export function serializeWorld(world: World): SerialWorld_MUST_STAY_COMPATIBLE {
     dimX,
     dimY,
     height,
-    karol: karol[0],
+    karol,
     bricks: compress2dArray(bricks, 0),
     marks: compress2dArray(marks, false),
     blocks: compress2dArray(blocks, false),
@@ -104,8 +104,7 @@ export function deserialize(core: Core, file?: string) {
         }
       }
     }
-    // @ts-ignore Compatibility with old worlds
-    world.karol = [world.karol]
+    world.karol = world.karol
     endExecution(core)
     core.mutateWs((state) => {
       state.code = code ?? ''
@@ -262,7 +261,7 @@ export function deserializeWorld(
     dimX,
     dimY,
     height,
-    karol: [karol],
+    karol,
     bricks: decompress2dArray(bricks, dimX, dimY, 0),
     marks: decompress2dArray(marks, dimX, dimY, false),
     blocks: decompress2dArray(blocks, dimX, dimY, false),

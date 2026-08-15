@@ -391,46 +391,11 @@ export function setupWorker(core: Core) {
     if (
       event.data &&
       typeof event.data === 'object' &&
-      event.data.type === 'spawn-robot'
-    ) {
-      core.mutateWs(({ world }) => {
-        world.karol.push({
-          x: 0,
-          y: 0,
-          dir: 'south',
-        })
-      })
-    }
-
-    if (
-      event.data &&
-      typeof event.data === 'object' &&
       event.data.type === 'set-canvas'
     ) {
       // very low level implementation
       CanvasObjects.update((s) => {
         s.objects = JSON.parse(event.data.canvas)
-      })
-    }
-
-    if (
-      event.data &&
-      typeof event.data === 'object' &&
-      event.data.type === 'set-active-robot'
-    ) {
-      core.mutateWs((ws) => {
-        ws.__activeRobot = event.data.id
-      })
-    }
-
-    if (
-      event.data &&
-      typeof event.data === 'object' &&
-      event.data.type === 'hide-robot'
-    ) {
-      core.mutateWs((ws) => {
-        ws.world.karol[event.data.id].x = -1
-        ws.world.karol[event.data.id].y = -1
       })
     }
 
@@ -452,7 +417,7 @@ export function setupWorker(core: Core) {
       const { buffer } = event.data
       const syncArray = new Int32Array(buffer, 0, 1)
       const dataArray = new Uint32Array(buffer, 4)
-      const karol = core.ws.world.karol[core.ws.__activeRobot]
+      const karol = core.ws.world.karol
       const x = karol.x
       const y = karol.y
       dataArray[0] = x
@@ -469,7 +434,7 @@ export function setupWorker(core: Core) {
       const { buffer } = event.data
       const syncArray = new Int32Array(buffer, 0, 1)
       const dataArray = new Uint32Array(buffer, 4)
-      const dir = core.ws.world.karol[core.ws.__activeRobot].dir
+      const dir = core.ws.world.karol.dir
       dataArray[0] = ['north', 'east', 'south', 'west'].indexOf(dir)
       syncArray[0] = 1
       Atomics.notify(syncArray, 0)
@@ -482,8 +447,8 @@ export function setupWorker(core: Core) {
     ) {
       const { x, y } = event.data
       core.mutateWs((ws) => {
-        ws.world.karol[ws.__activeRobot].x = x
-        ws.world.karol[ws.__activeRobot].y = y
+        ws.world.karol.x = x
+        ws.world.karol.y = y
       })
     }
 
@@ -494,7 +459,7 @@ export function setupWorker(core: Core) {
     ) {
       const { heading } = event.data
       core.mutateWs((ws) => {
-        ws.world.karol[ws.__activeRobot].dir = heading
+        ws.world.karol.dir = heading
       })
     }
 
@@ -732,9 +697,6 @@ export function setupWorker(core: Core) {
       core.worker.debugInterface[i + 1] = core.ws.ui.breakpoints[i]
     }
 
-    core.mutateWs((ws) => {
-      ws.__activeRobot = 0
-    })
     core.mutateWs(({ ui, vm, canvas }) => {
       ui.state = 'running'
       ui.showJavaInfo = false

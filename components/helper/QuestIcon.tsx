@@ -56,10 +56,7 @@ export function QuestIcon({
             )}
           >
             {title == 'Start' && getUserName()
-              ? core.ttung('Hallo, {name}!').replace(
-                  '{name}',
-                  getUserName(),
-                )
+              ? core.ttung('Hallo, {name}!').replace('{name}', getUserName())
               : title}
           </button>
           {solved ? (
@@ -75,13 +72,11 @@ export function QuestIcon({
                 world={{
                   dimX: 1,
                   dimY: 1,
-                  karol: [
-                    {
-                      x: 0,
-                      y: 0,
-                      dir: dir == 'west' ? 'east' : (dir ?? 'east'),
-                    },
-                  ],
+                  karol: {
+                    x: 0,
+                    y: 0,
+                    dir: dir == 'west' ? 'east' : (dir ?? 'east'),
+                  },
                   blocks: [[false]],
                   marks: [[false]],
                   bricks: [[0]],

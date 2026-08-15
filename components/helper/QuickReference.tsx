@@ -279,7 +279,7 @@ karol.markeLöschen()`,
           <div
             className={clsx(
               'flex justify-between',
-              title.includes('Aufbau') ? 'bg-indigo-50' : 'bg-pink-50',
+              title.includes('Aufbau') ? 'bg-pink-50' : 'bg-indigo-50',
             )}
           >
             <div className={clsx('pl-2 text-sm py-0.5')}>{title}</div>

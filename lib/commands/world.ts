@@ -9,23 +9,15 @@ const readOnlyMessage = '---'
 export function forward(core: Core, opts?: { reverse: boolean }) {
   const { world } = core.ws
   const { karol, bricks } = world
-  const dir = opts?.reverse
-    ? reverse(karol[core.ws.__activeRobot].dir)
-    : karol[core.ws.__activeRobot].dir
-  const target = move(
-    karol[core.ws.__activeRobot].x,
-    karol[core.ws.__activeRobot].y,
-    dir,
-    world,
-  )
+  const dir = opts?.reverse ? reverse(karol.dir) : karol.dir
+  const target = move(karol.x, karol.y, dir, world)
 
   if (!target) {
     karolCrashed(core, core.ttung('Aua! Karol ist gegen eine Wand gelaufen.'))
     return false
   }
 
-  const currentBrickCount =
-    bricks[karol[core.ws.__activeRobot].y][karol[core.ws.__activeRobot].x]
+  const currentBrickCount = bricks[karol.y][karol.x]
   const targetBrickCount = bricks[target.y][target.x]
 
   if (Math.abs(currentBrickCount - targetBrickCount) > 1) {
@@ -34,37 +26,28 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
   }
 
   core.mutateWs(({ world }) => {
-    world.karol[core.ws.__activeRobot].x = target.x
-    world.karol[core.ws.__activeRobot].y = target.y
+    world.karol.x = target.x
+    world.karol.y = target.y
   })
   return true
 }
 
 export function left(core: Core) {
   core.mutateWs(({ world }) => {
-    world.karol[core.ws.__activeRobot].dir = turnLeft(
-      world.karol[core.ws.__activeRobot].dir,
-    )
+    world.karol.dir = turnLeft(world.karol.dir)
   })
 }
 
 export function right(core: Core) {
   core.mutateWs(({ world }) => {
-    world.karol[core.ws.__activeRobot].dir = turnRight(
-      world.karol[core.ws.__activeRobot].dir,
-    )
+    world.karol.dir = turnRight(world.karol.dir)
   })
 }
 
 export function brick(core: Core) {
   const { world } = core.ws
   const { karol } = world
-  const pos = move(
-    karol[core.ws.__activeRobot].x,
-    karol[core.ws.__activeRobot].y,
-    karol[core.ws.__activeRobot].dir,
-    world,
-  )
+  const pos = move(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
     karolCrashed(core, core.ttung('Karol kann hier keinen Ziegel aufstellen.'))
@@ -91,12 +74,7 @@ export function brick(core: Core) {
 export function unbrick(core: Core) {
   const { world } = core.ws
   const { karol, bricks } = world
-  const pos = move(
-    karol[core.ws.__activeRobot].x,
-    karol[core.ws.__activeRobot].y,
-    karol[core.ws.__activeRobot].dir,
-    world,
-  )
+  const pos = move(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
     karolCrashed(core, core.ttung('Karol kann hier keine Ziegel aufheben.'))
@@ -123,24 +101,14 @@ export function unbrick(core: Core) {
 export function toggleMark(core: Core) {
   const karol = core.ws.world.karol
 
-  if (
-    isReadOnly(
-      core,
-      karol[core.ws.__activeRobot].x,
-      karol[core.ws.__activeRobot].y,
-    )
-  ) {
+  if (isReadOnly(core, karol.x, karol.y)) {
     karolCrashed(core, readOnlyMessage)
     return false
   }
 
   core.mutateWs(({ world }) => {
-    world.marks[world.karol[core.ws.__activeRobot].y][
-      world.karol[core.ws.__activeRobot].x
-    ] =
-      !world.marks[world.karol[core.ws.__activeRobot].y][
-        world.karol[core.ws.__activeRobot].x
-      ]
+    world.marks[world.karol.y][world.karol.x] =
+      !world.marks[world.karol.y][world.karol.x]
   })
   onWorldChange(core)
   return true
@@ -150,21 +118,13 @@ export function setMark(core: Core) {
   const { world } = core.ws
   const karol = world.karol
 
-  if (
-    isReadOnly(
-      core,
-      karol[core.ws.__activeRobot].x,
-      karol[core.ws.__activeRobot].y,
-    )
-  ) {
+  if (isReadOnly(core, karol.x, karol.y)) {
     karolCrashed(core, readOnlyMessage)
     return false
   }
 
   core.mutateWs(({ world }) => {
-    world.marks[world.karol[core.ws.__activeRobot].y][
-      world.karol[core.ws.__activeRobot].x
-    ] = true
+    world.marks[world.karol.y][world.karol.x] = true
   })
   onWorldChange(core)
   return true
@@ -174,21 +134,13 @@ export function resetMark(core: Core) {
   const { world } = core.ws
   const karol = world.karol
 
-  if (
-    isReadOnly(
-      core,
-      karol[core.ws.__activeRobot].x,
-      karol[core.ws.__activeRobot].y,
-    )
-  ) {
+  if (isReadOnly(core, karol.x, karol.y)) {
     karolCrashed(core, readOnlyMessage)
     return false
   }
 
   core.mutateWs(({ world }) => {
-    world.marks[world.karol[core.ws.__activeRobot].y][
-      world.karol[core.ws.__activeRobot].x
-    ] = false
+    world.marks[world.karol.y][world.karol.x] = false
   })
   onWorldChange(core)
   return true
@@ -197,12 +149,7 @@ export function resetMark(core: Core) {
 export function toggleBlock(core: Core) {
   const { world } = core.ws
   const { karol, blocks, bricks, marks } = world
-  const pos = moveRaw(
-    karol[core.ws.__activeRobot].x,
-    karol[core.ws.__activeRobot].y,
-    karol[core.ws.__activeRobot].dir,
-    world,
-  )
+  const pos = moveRaw(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
     karolCrashed(core, core.ttung('Karol kann hier keinen Quader aufstellen.'))

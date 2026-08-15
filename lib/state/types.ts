@@ -10,7 +10,7 @@ export interface World {
     x: number
     y: number
     dir: Heading
-  }[]
+  }
   bricks: number[][]
   marks: boolean[][]
   blocks: boolean[][]
@@ -166,7 +166,6 @@ export interface Overview {
 export interface WorkspaceState {
   // IDE
   world: World
-  __activeRobot: number
   ui: Ui
   code: string
   javaCode: string
@@ -303,7 +302,6 @@ export interface ActionOp extends BaseOp {
   command:
     'forward' | 'left' | 'right' | 'brick' | 'unbrick' | 'setMark' | 'resetMark'
   useParameterFromStack?: boolean
-  setActiveRobot?: number
 }
 
 export interface CompareOp extends BaseOp {
@@ -320,7 +318,6 @@ export interface CompareOp extends BaseOp {
 export interface SenseOp extends BaseOp {
   type: 'sense'
   condition: Condition
-  setActiveRobot?: number
 }
 
 export interface JumpOp extends BaseOp {
@@ -365,10 +362,6 @@ export interface StoreOp extends BaseOp {
   variable: string
 }
 
-export interface AddRobotOp extends BaseOp {
-  type: 'add-robot'
-}
-
 export interface PopOp extends BaseOp {
   type: 'pop'
 }
@@ -385,7 +378,6 @@ export type Op =
   | LoadOp
   | StoreOp
   | CompareOp
-  | AddRobotOp
   | PopOp
 
 export interface QuestData {
