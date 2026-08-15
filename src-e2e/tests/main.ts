@@ -100,11 +100,11 @@ Scenario('See if playground works fine', ({ I }) => {
   I.click({ css: '#select-language' })
   I.click({ css: '#select-language-python-pro' })
   I.dontSee('Hauptprogramm')
-  // I.see('Spickzettel')
+  I.see('Programmierhilfe')
   I.click('Start')
   I.click('Blöcke')
   I.see('Hauptprogramm')
-  I.dontSee('Spickzettel')
+  I.dontSee('Programmierhilfe')
 })
 
 Scenario('Test special case of empty world in learning path', ({ I }) => {

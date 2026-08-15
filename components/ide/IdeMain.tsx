@@ -30,7 +30,6 @@ import { navigate } from '../../lib/commands/router'
 import { deleteEditorSnapshot } from '../../lib/storage/storage'
 import { AnimateInView } from '../helper/AnimateIntoView'
 import { pythonKarolExamples } from '../../lib/data/pythonExamples'
-import { QuickReference } from '../helper/QuickReference'
 
 export function IdeMain() {
   const core = useCore()
@@ -258,7 +257,6 @@ export function IdeMain() {
           ) : (
             <Tasks />
           )}
-          {core.ws.ui.showQuickReference && <QuickReference />}
         </ReflexElement>
       </ReflexContainer>
       <HFullStyles />
