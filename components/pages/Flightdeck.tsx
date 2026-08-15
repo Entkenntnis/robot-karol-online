@@ -152,7 +152,6 @@ export function Flightdeck() {
           headers: { Authorization: 'Bearer ' + key },
         })
         const rawExperiments = (await resp3.json()) as {
-          id: string
           event: string
           createdAt: string
         }[]
