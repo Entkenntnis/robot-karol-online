@@ -1,6 +1,8 @@
 import { experimentDefs } from '../data/experimentDefs'
+import { deepEqual } from '../helper/deepEqual'
 import { submitExperimentEvent } from '../helper/submit'
 import type { Core } from '../state/core'
+import type { ExperimentEvent } from '../state/types'
 import {
   experimentEventAlreadySubmitted,
   getPreviewParticipation,
@@ -23,9 +25,7 @@ function fnv1a(str: string): number {
   return hash >>> 0 // unsigned 32-bit
 }
 
-export function triggerEvent(core: Core, key: string) {
-  console.log('event: ' + key)
-
+export function triggerEvent(core: Core, key: ExperimentEvent) {
   if (core.ws.settings.lng !== 'de') return
   if (!getPreviewParticipation()) return
 
@@ -34,7 +34,7 @@ export function triggerEvent(core: Core, key: string) {
     (exp) =>
       now >= exp.startTs &&
       now <= exp.endTs &&
-      (exp.startEvent == key || exp.endEvent == key),
+      (deepEqual(exp.startEvent, key) || deepEqual(exp.endEvent, key)),
   )
   if (relevant.length == 0) return
 
@@ -43,13 +43,13 @@ export function triggerEvent(core: Core, key: string) {
     const startKey = `${exp.id}-${group}-START`
     const endKey = `${exp.id}-${group}-END`
 
-    if (exp.startEvent == key) {
+    if (deepEqual(exp.startEvent, key)) {
       // just submit
       if (!experimentEventAlreadySubmitted(startKey)) {
         submitExperimentEvent(startKey)
       }
     }
-    if (exp.endEvent == key) {
+    if (deepEqual(exp.endEvent, key)) {
       // check for invalid user
       if (!experimentEventAlreadySubmitted(startKey)) {
         // oh, bad, this user is out

@@ -255,7 +255,7 @@ export async function hydrate(core: Core) {
       ws.page = 'overview'
     })
     document.title = 'Robot Karol Online'
-    triggerEvent(core, 'visit-landing')
+    triggerEvent(core, { key: 'visit-landing' })
     return
   }
 
@@ -271,7 +271,7 @@ export async function hydrate(core: Core) {
     const questId = parseInt(page.substring(6))
     startQuest(core, questId)
     refreshEditArea(core)
-    triggerEvent(core, 'start-quest-' + questId)
+    triggerEvent(core, { key: 'start-quest', id: questId })
     document.title = core.ws.quest.title + ' | Robot Karol Online'
     return
   }
@@ -299,7 +299,7 @@ export async function hydrate(core: Core) {
     core.mutateWs((ws) => {
       ws.page = 'overview'
     })
-    triggerEvent(core, 'load-robot-image')
+    triggerEvent(core, { key: 'load-robot-image' })
     return
   }
 

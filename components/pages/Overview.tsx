@@ -323,7 +323,7 @@ export function Overview() {
                       <a
                         href="https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md"
                         onClick={() => {
-                          triggerEvent(core, 'click-robot-gallery')
+                          triggerEvent(core, { key: 'click-robot-gallery' })
                           setTimeout(() => {
                             window.open(
                               'https://github.com/Entkenntnis/robot-karol-online/blob/main/FIGUREN-GALERIE.md',
@@ -443,7 +443,7 @@ export function Overview() {
                             ws.ui.newRobotImage = undefined
                           })
                           setRobotImage(core.ws.robotImageDataUrl)
-                          triggerEvent(core, 'apply-new-robot')
+                          triggerEvent(core, { key: 'apply-new-robot' })
                         }}
                       >
                         {core.ttung('Laden')}

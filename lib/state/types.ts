@@ -533,11 +533,19 @@ export interface PythonProjectGroup {
   tasks: (typeof pythonKarolExamples)[number][]
 }
 
+export type ExperimentEvent =
+  | { key: 'visit-landing' }
+  | { key: 'complete-quest'; id: number }
+  | { key: 'start-quest'; id: number }
+  | { key: 'click-robot-gallery' }
+  | { key: 'load-robot-image' }
+  | { key: 'apply-new-robot' }
+
 export interface Experiment {
   id: number
   startTs: number
   endTs: number
   description: string
-  startEvent: string
-  endEvent: string
+  startEvent: ExperimentEvent
+  endEvent: ExperimentEvent
 }

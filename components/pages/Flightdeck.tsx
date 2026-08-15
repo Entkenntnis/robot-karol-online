@@ -246,8 +246,8 @@ export function Flightdeck() {
           experimentData.push({
             id: exp.id,
             description: exp.description,
-            startEvent: exp.startEvent,
-            endEvent: exp.endEvent,
+            startEvent: JSON.stringify(exp.startEvent),
+            endEvent: JSON.stringify(exp.endEvent),
             ...counts,
           })
         }

@@ -413,7 +413,7 @@ export function finishQuest(core: Core, stay: boolean = false) {
   storeQuestToSession(core)
   setPreferredQuestSettings(core.ws.settings.mode, core.ws.settings.language)
   ____submit_event(`quest_complete_${core.ws.quest.id}`, core)
-  triggerEvent(core, 'complete-quest-' + core.ws.quest.id)
+  triggerEvent(core, { key: 'complete-quest', id: core.ws.quest.id })
 
   if (!stay) {
     navigate(core, getQuestReturnToPath(''))
