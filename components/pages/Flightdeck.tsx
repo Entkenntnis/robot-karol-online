@@ -38,6 +38,8 @@ type SharesData = {
 type ExperimentData = {
   id: number
   description: string
+  startTs: number
+  endTs: number
   startEvent: string
   endEvent: string
   cStart: number
@@ -115,6 +117,28 @@ function formatEvent(ev: ExperimentEvent) {
     output += '-' + ev.id
   }
   return output
+}
+
+const WEEK_MS = 7 * 24 * 60 * 60 * 1000
+
+type ExperimentStatus = 'preparation' | 'active' | 'completed'
+
+function getExperimentStatus(startTs: number, endTs: number): ExperimentStatus {
+  const now = Date.now()
+  if (now < startTs) return 'preparation'
+  if (now <= endTs) return 'active'
+  return 'completed'
+}
+
+function formatPeriodTitle(startTs: number, endTs: number) {
+  const fmt = (ts: number) =>
+    new Date(ts).toLocaleDateString('de-DE') +
+    ' ' +
+    new Date(ts).toLocaleTimeString('de-DE', {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  return fmt(startTs) + ' – ' + fmt(endTs)
 }
 
 export function Flightdeck() {
@@ -257,12 +281,28 @@ export function Flightdeck() {
           experimentData.push({
             id: exp.id,
             description: exp.description,
+            startTs: exp.startTs,
+            endTs: exp.endTs,
             startEvent: formatEvent(exp.startEvent),
             endEvent: formatEvent(exp.endEvent),
             ...counts,
           })
         }
-        experimentData.sort((a, b) => a.id - b.id)
+        experimentData.sort((a, b) => {
+          const order = { preparation: 0, active: 1, completed: 2 } as const
+          const statusA = getExperimentStatus(a.startTs, a.endTs)
+          const statusB = getExperimentStatus(b.startTs, b.endTs)
+          if (order[statusA] !== order[statusB]) {
+            return order[statusA] - order[statusB]
+          }
+          if (statusA == 'active') {
+            return a.endTs - b.endTs
+          }
+          if (statusA == 'completed') {
+            return b.endTs - a.endTs
+          }
+          return a.id - b.id
+        })
         setExperiments(experimentData)
       } catch (e) {
         alert('Fehler!')
@@ -371,15 +411,15 @@ export function Flightdeck() {
         {tab == 'ab' && (
           <>
             <div className="ml-8 mt-8">
-              <table className="text-sm">
+              <table className="text-sm w-full">
                 <thead>
                   <tr className="text-left text-gray-500">
                     <th className="pr-4">ID</th>
                     <th className="pr-4">Status</th>
-                    <th className="pr-4">Beschreibung</th>
+                    <th className="pr-4">Titel</th>
                     <th className="pr-4">Events</th>
-                    <th className="text-right pr-4">START/END/RATE</th>
-                    <th className="text-right pr-4">Uplift (95%-KI)</th>
+                    <th className="pr-4">START/END/RATE</th>
+                    <th className="pr-4">Uplift (95%-KI)</th>
                     <th className="text-right pr-4">p-Wert</th>
                   </tr>
                 </thead>
@@ -391,26 +431,72 @@ export function Flightdeck() {
                       entry.tStart,
                       entry.tEnd,
                     )
+                    const status = getExperimentStatus(
+                      entry.startTs,
+                      entry.endTs,
+                    )
                     return (
-                      <tr key={entry.id} className="border-t">
+                      <tr key={entry.id} className="border-t align-top">
                         <td className="pr-4 py-1">{entry.id}</td>
-                        <td className="pr-4 py-1">TODO</td>
+                        <td
+                          className="pr-4 py-1 whitespace-nowrap"
+                          title={formatPeriodTitle(entry.startTs, entry.endTs)}
+                        >
+                          {status == 'preparation' && (
+                            <>
+                              <span className="text-yellow-600">
+                                in Vorbereitung
+                              </span>
+                              <br />
+                              startet am{' '}
+                              {new Date(entry.startTs).toLocaleDateString(
+                                'de-DE',
+                              )}
+                            </>
+                          )}
+                          {status == 'active' && (
+                            <>
+                              <span className="text-green-600">aktiv</span>
+                              <br />
+                              Woche{' '}
+                              {Math.floor(
+                                (Date.now() - entry.startTs) / WEEK_MS,
+                              ) + 1}{' '}
+                              /{' '}
+                              {Math.round(
+                                (entry.endTs - entry.startTs) / WEEK_MS,
+                              )}
+                            </>
+                          )}
+                          {status == 'completed' && (
+                            <>
+                              <span className="text-blue-600">
+                                abgeschlossen
+                              </span>
+                              <br />
+                              {Math.round(
+                                (entry.endTs - entry.startTs) / WEEK_MS,
+                              )}{' '}
+                              Wochen
+                            </>
+                          )}
+                        </td>
                         <td className="pr-4 py-1">{entry.description}</td>
-                        <td className="pr-4 py-1">
+                        <td className="pr-4 py-1 whitespace-nowrap">
                           <span className="text-gray-500">START:</span>{' '}
                           {entry.startEvent}
                           <br />
                           <span className="text-gray-500">END:</span>{' '}
                           {entry.endEvent}
                         </td>
-                        <td className="pr-4 py-1">
+                        <td className="pr-4 py-1 whitespace-nowrap">
                           C: {entry.cStart} / {entry.cEnd} /{' '}
                           {r ? formatPct(r.cRate) : '–'}
                           <br />
                           T: {entry.tStart} / {entry.tEnd} /{' '}
                           {r ? formatPct(r.tRate) : '–'}
                         </td>
-                        <td className="pr-4 py-1">
+                        <td className="pr-4 py-1 whitespace-nowrap">
                           {r ? (
                             <>
                               {formatPct(r.uplift)}
@@ -435,6 +521,9 @@ export function Flightdeck() {
                   })}
                 </tbody>
               </table>
+              <p className="mt-12">
+                TODO: Nachvollziehbare Dokumentation der Experimente
+              </p>
             </div>
           </>
         )}
