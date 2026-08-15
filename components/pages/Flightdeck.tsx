@@ -3,7 +3,10 @@ import { flightdeckAccessKey } from '../../lib/storage/storage'
 import { backend } from '../../backend'
 import { LoadingScreen } from '../helper/LoadingScreen'
 import { experimentDefs } from '../../lib/data/experimentDefs'
-import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
+import type {
+  ExperimentEvent,
+  QuestSerialFormat_MUST_STAY_COMPATIBLE,
+} from '../../lib/state/types'
 import clsx from 'clsx'
 import { flightdeckTabs } from '../../lib/data/flightdeckTabs'
 import { navigate } from '../../lib/commands/router'
@@ -104,6 +107,14 @@ function formatPct(value: number) {
 
 function formatP(value: number) {
   return value < 0.001 ? '<0.001' : value.toFixed(3)
+}
+
+function formatEvent(ev: ExperimentEvent) {
+  let output = ev.key
+  if ('id' in ev) {
+    output += '-' + ev.id
+  }
+  return output
 }
 
 export function Flightdeck() {
@@ -246,8 +257,8 @@ export function Flightdeck() {
           experimentData.push({
             id: exp.id,
             description: exp.description,
-            startEvent: JSON.stringify(exp.startEvent),
-            endEvent: JSON.stringify(exp.endEvent),
+            startEvent: formatEvent(exp.startEvent),
+            endEvent: formatEvent(exp.endEvent),
             ...counts,
           })
         }
@@ -364,15 +375,10 @@ export function Flightdeck() {
                 <thead>
                   <tr className="text-left text-gray-500">
                     <th className="pr-4">ID</th>
+                    <th className="pr-4">Status</th>
                     <th className="pr-4">Beschreibung</th>
-                    <th className="pr-4">Start-Event</th>
-                    <th className="pr-4">End-Event</th>
-                    <th className="text-right pr-4">C-START</th>
-                    <th className="text-right pr-4">C-END</th>
-                    <th className="text-right pr-4">T-START</th>
-                    <th className="text-right pr-4">T-END</th>
-                    <th className="text-right pr-4">C-Rate</th>
-                    <th className="text-right pr-4">T-Rate</th>
+                    <th className="pr-4">Events</th>
+                    <th className="text-right pr-4">START/END/RATE</th>
                     <th className="text-right pr-4">Uplift (95%-KI)</th>
                     <th className="text-right pr-4">p-Wert</th>
                   </tr>
@@ -388,28 +394,38 @@ export function Flightdeck() {
                     return (
                       <tr key={entry.id} className="border-t">
                         <td className="pr-4 py-1">{entry.id}</td>
+                        <td className="pr-4 py-1">TODO</td>
                         <td className="pr-4 py-1">{entry.description}</td>
-                        <td className="pr-4 py-1">{entry.startEvent}</td>
-                        <td className="pr-4 py-1">{entry.endEvent}</td>
-                        <td className="text-right pr-4 py-1">{entry.cStart}</td>
-                        <td className="text-right pr-4 py-1">{entry.cEnd}</td>
-                        <td className="text-right pr-4 py-1">{entry.tStart}</td>
-                        <td className="text-right pr-4 py-1">{entry.tEnd}</td>
-                        <td className="text-right pr-4 py-1">
-                          {r ? formatPct(r.cRate) : '–'}
+                        <td className="pr-4 py-1">
+                          <span className="text-gray-500">START:</span>{' '}
+                          {entry.startEvent}
+                          <br />
+                          <span className="text-gray-500">END:</span>{' '}
+                          {entry.endEvent}
                         </td>
-                        <td className="text-right pr-4 py-1">
+                        <td className="pr-4 py-1">
+                          C: {entry.cStart} / {entry.cEnd} /{' '}
+                          {r ? formatPct(r.cRate) : '–'}
+                          <br />
+                          T: {entry.tStart} / {entry.tEnd} /{' '}
                           {r ? formatPct(r.tRate) : '–'}
                         </td>
-                        <td className="text-right pr-4 py-1">
-                          {r
-                            ? formatPct(r.uplift) +
-                              ' [' +
-                              formatPct(r.lo) +
-                              ';' +
-                              formatPct(r.hi) +
-                              ']'
-                            : '–'}
+                        <td className="pr-4 py-1">
+                          {r ? (
+                            <>
+                              {formatPct(r.uplift)}
+                              <br />
+                              <span className="text-gray-500">
+                                {'(' +
+                                  formatPct(r.lo) +
+                                  ' | ' +
+                                  formatPct(r.hi) +
+                                  ')'}
+                              </span>
+                            </>
+                          ) : (
+                            '–'
+                          )}
                         </td>
                         <td className="text-right pr-4 py-1">
                           {r ? formatP(r.p) : '–'}
