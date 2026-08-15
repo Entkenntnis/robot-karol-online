@@ -190,12 +190,8 @@ Header set Cross-Origin-Opener-Policy "same-origin"
 AddType text/javascript .mjs
 
 
-# Spezifisch für meine Anwendung
-Header set Content-Security-Policy "frame-ancestors *"
-SetEnvIf Request_URI "^/backend/" no-cache
-Header set Cache-Control "no-cache" env=no-cache
-Header set Pragma "no-cache" env=no-cache
-Header set Expires 0 env=no-cache
+# I-Frames erlauben
+# Header set Content-Security-Policy "frame-ancestors *"
 
 
 RewriteEngine On
