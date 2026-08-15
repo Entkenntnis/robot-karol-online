@@ -31,7 +31,7 @@ export function QuickReference() {
 
   const core = useCore()
   return (
-    <div className="w-[360px] bg-white border-r-4 border-indigo-200 flex flex-col flex-shrink-0 overflow-hidden">
+    <div className="w-[360px] bg-white border-r-4 border-indigo-300 flex flex-col flex-shrink-0 overflow-hidden">
       <div className="overflow-auto flex-grow -mt-2">
         {section(
           4,

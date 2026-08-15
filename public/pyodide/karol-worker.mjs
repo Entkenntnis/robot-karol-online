@@ -52,6 +52,18 @@ def analyze(code):
       robot_methods = set()
   
   tree = ast.parse(code)
+  diags = []
+
+  def diag(node, msg):
+    end_lineno = node.end_lineno if node.end_lineno is not None else node.lineno
+    end_col = node.end_col_offset if node.end_col_offset is not None else node.col_offset + 1
+    diags.append([
+      node.lineno,
+      node.col_offset + 1,
+      end_lineno,
+      end_col,
+      msg
+    ])
   
   defined = set(known)
   wildcard = False
@@ -77,6 +89,7 @@ def analyze(code):
         defined.add(name)
 
   robot_vars = set()
+  robot_calls = []
   for stmt in tree.body:
     if (
       isinstance(stmt, ast.Assign)
@@ -87,6 +100,11 @@ def analyze(code):
       and stmt.value.func.id == "Robot"
     ):
       robot_vars.add(stmt.targets[0].id)
+      robot_calls.append(stmt.value.func)
+  
+  if len(robot_calls) > 1:
+    for call in robot_calls[1:]:
+      diag(call, "Robot() kann nur einmal erzeugt werden")
   
   dynamic = any(
     isinstance(n, ast.Name)
@@ -94,19 +112,6 @@ def analyze(code):
     and n.id in {"eval", "exec", "globals", "locals", "vars", "getattr", "setattr", "delattr", "__import__", "compile"}
     for n in ast.walk(tree)
   )
-  
-  diags = []
-
-  def diag(node, msg):
-    end_lineno = node.end_lineno if node.end_lineno is not None else node.lineno
-    end_col = node.end_col_offset if node.end_col_offset is not None else node.col_offset + 1
-    diags.append([
-      node.lineno,
-      node.col_offset + 1,
-      end_lineno,
-      end_col,
-      msg
-    ])
   
   for node in ast.walk(tree):
     if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
