@@ -189,11 +189,27 @@ Header set Cross-Origin-Embedder-Policy "require-corp"
 Header set Cross-Origin-Opener-Policy "same-origin"
 AddType text/javascript .mjs
 
+
+# Spezifisch für meine Anwendung
+Header set Content-Security-Policy "frame-ancestors *"
+SetEnvIf Request_URI "^/backend/" no-cache
+Header set Cache-Control "no-cache" env=no-cache
+Header set Pragma "no-cache" env=no-cache
+Header set Expires 0 env=no-cache
+
+
 RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [L]
+
+<Files "index.html">
+    Header set Cache-Control "no-cache"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+</Files>
+
 ```
 
 Das Backend findet sich in https://github.com/Entkenntnis/stats-karol. Passe die Endpunkte in `backend.ts` an. Das Impressum kann in `impressum.ts` angepasst werden.
