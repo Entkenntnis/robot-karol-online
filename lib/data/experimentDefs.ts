@@ -3,7 +3,7 @@ import type { Experiment } from '../state/types'
 export const experimentDefs: Experiment[] = [
   {
     id: 1,
-    title: 'Batch of A/A Tests',
+    title: 'First Batch of A/A Tests',
     startTs: new Date('2026-08-08 00:01 GMT+0200').getTime(),
     endTs: new Date('2026-09-19 00:01 GMT+0200').getTime(),
     startEvent: { key: 'visit-landing' },
@@ -11,7 +11,7 @@ export const experimentDefs: Experiment[] = [
   },
   {
     id: 2,
-    title: 'Batch of A/A Tests',
+    title: 'First Batch of A/A Tests',
     startTs: new Date('2026-08-08 00:02 GMT+0200').getTime(),
     endTs: new Date('2026-09-19 00:02 GMT+0200').getTime(),
     startEvent: { key: 'start-quest', id: 1 },
@@ -19,7 +19,7 @@ export const experimentDefs: Experiment[] = [
   },
   {
     id: 3,
-    title: 'Batch of A/A Tests',
+    title: 'First Batch of A/A Tests',
     startTs: new Date('2026-08-08 00:03 GMT+0200').getTime(),
     endTs: new Date('2026-09-19 00:03 GMT+0200').getTime(),
     startEvent: { key: 'visit-landing' },
@@ -27,7 +27,7 @@ export const experimentDefs: Experiment[] = [
   },
   {
     id: 4,
-    title: 'Batch of A/A Tests',
+    title: 'First Batch of A/A Tests',
     startTs: new Date('2026-08-08 00:04 GMT+0200').getTime(),
     endTs: new Date('2026-09-19 00:04 GMT+0200').getTime(),
     startEvent: { key: 'start-quest', id: 48 },
@@ -35,7 +35,7 @@ export const experimentDefs: Experiment[] = [
   },
   {
     id: 5,
-    title: 'Batch of A/A Tests',
+    title: 'First Batch of A/A Tests',
     startTs: new Date('2026-08-08 00:05 GMT+0200').getTime(),
     endTs: new Date('2026-09-19 00:05 GMT+0200').getTime(),
     startEvent: { key: 'start-quest', id: 47 },
@@ -43,7 +43,7 @@ export const experimentDefs: Experiment[] = [
   },
   {
     id: 6,
-    title: 'Batch of A/A Tests',
+    title: 'First Batch of A/A Tests',
     startTs: new Date('2026-08-08 00:06 GMT+0200').getTime(),
     endTs: new Date('2026-09-19 00:06 GMT+0200').getTime(),
     startEvent: { key: 'start-quest', id: 39 },
@@ -51,7 +51,7 @@ export const experimentDefs: Experiment[] = [
   },
   {
     id: 7,
-    title: 'Batch of A/A Tests',
+    title: 'First Batch of A/A Tests',
     startTs: new Date('2026-08-08 00:07 GMT+0200').getTime(),
     endTs: new Date('2026-09-19 00:07 GMT+0200').getTime(),
     startEvent: { key: 'start-quest', id: 100 },
@@ -59,7 +59,7 @@ export const experimentDefs: Experiment[] = [
   },
   {
     id: 8,
-    title: 'Batch of A/A Tests',
+    title: 'First Batch of A/A Tests',
     startTs: new Date('2026-08-08 00:08 GMT+0200').getTime(),
     endTs: new Date('2026-09-19 00:08 GMT+0200').getTime(),
     startEvent: { key: 'click-robot-gallery' },
@@ -67,7 +67,7 @@ export const experimentDefs: Experiment[] = [
   },
   {
     id: 9,
-    title: 'Batch of A/A Tests',
+    title: 'First Batch of A/A Tests',
     startTs: new Date('2026-08-08 00:09 GMT+0200').getTime(),
     endTs: new Date('2026-09-19 00:09 GMT+0200').getTime(),
     startEvent: { key: 'load-robot-image' },
@@ -75,7 +75,7 @@ export const experimentDefs: Experiment[] = [
   },
   {
     id: 10,
-    title: 'Batch of A/A Tests',
+    title: 'First Batch of A/A Tests',
     startTs: new Date('2026-08-08 00:10 GMT+0200').getTime(),
     endTs: new Date('2026-09-19 00:10 GMT+0200').getTime(),
     startEvent: { key: 'click-robot-gallery' },
