@@ -156,7 +156,8 @@ export function Overview() {
               {core.ttung('Fortschritt laden')}
             </button>
           </div>
-          <div className="my-8 flex ml-8 md:ml-0 md:justify-center">
+          <div className="my-8 flex ml-8 md:ml-0 md:justify-center items-center">
+            <div className="hidden md:block w-[280px] h-[2px] bg-gradient-to-l rounded-full from-gray-400 to-gray-500/0 mr-2"></div>
             <div className="border-2 border-slate-600 rounded-lg flex flex-row text-lg overflow-hidden">
               <button
                 className={clsx(
@@ -182,6 +183,7 @@ export function Overview() {
                 {core.ttung('freies Üben')}
               </button>
             </div>
+            <div className="hidden md:block w-[280px] h-[2px] bg-gradient-to-r rounded-full from-gray-400 to-gray-500/0 ml-2"></div>
           </div>
           {core.ws.overview.showOverviewList && (
             <>
@@ -548,6 +550,9 @@ export function Overview() {
               </div>
             </>
           )}
+          <div className="w-full flex justify-center mb-24">
+            <div className="w-[600px] h-[2px] bg-gradient-to-r rounded-full from-gray-400/0 to-gray-400/0 via-gray-400 ml-2"></div>
+          </div>
           {core.ws.settings.lng == 'de' && <News />}
           {core.ws.settings.lng == 'de' && <Discover />}
 
@@ -615,8 +620,6 @@ export function Overview() {
       // we disable all python-path related quests
       return false
     }
-
-    console.log('check quest ' + id)
 
     return (
       core.ws.page == 'demo' ||
