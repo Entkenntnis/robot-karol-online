@@ -179,6 +179,9 @@ export async function hydrate(core: Core) {
       if (page == 'SPIELWIESE-PYTHON' || page == 'SPIELWIESE-PYTHON-PRO') {
         ws.settings.mode = 'code'
         ws.settings.language = 'python-pro'
+        if (ws.pythonCode == '') {
+          ws.pythonCode = `karol = Robot()\n\n`
+        }
         document.title = 'Spielwiese Python | Robot Karol Online'
       }
 
@@ -213,6 +216,9 @@ export async function hydrate(core: Core) {
           s.javaCode = code
         } else if (core.ws.settings.language == 'python-pro') {
           s.pythonCode = code
+          if (code == '') {
+            s.pythonCode = `karol = Robot()\n\n`
+          }
         } else {
           s.code = code
         }
