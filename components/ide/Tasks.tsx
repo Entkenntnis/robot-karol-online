@@ -592,7 +592,7 @@ export function Tasks() {
                   </div>
                 ))
               )}
-              {!core.ws.editor.showQuestPreview && (
+              {core.ws.page == 'editor' && !core.ws.editor.showQuestPreview && (
                 <div className="flex justify-center mt-6 mb-24">
                   <button
                     className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded mr-4 text-sm"
