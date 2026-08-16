@@ -551,7 +551,7 @@ export function Overview() {
             </>
           )}
           <div className="w-full flex justify-center mb-24">
-            <div className="w-[600px] h-[2px] bg-gradient-to-r rounded-full from-gray-400/0 to-gray-400/0 via-gray-400 ml-2"></div>
+            <div className="w-[1000px] h-[2px] bg-gradient-to-r rounded-full from-gray-400/0 to-gray-400/0 via-gray-400 ml-2"></div>
           </div>
           {core.ws.settings.lng == 'de' && <News />}
           {core.ws.settings.lng == 'de' && <Discover />}
