@@ -62,7 +62,16 @@ export function setUserName(name: string) {
 export function getQuestData(id: number) {
   const rawLoc = localStorage.getItem(questKey(id))
   if (rawLoc) {
-    return JSON.parse(rawLoc) as QuestSessionData_MUST_STAY_COMPATIBLE
+    try {
+      const parsed = JSON.parse(rawLoc)
+      if (
+        parsed &&
+        typeof parsed === 'object' &&
+        typeof parsed.code === 'string'
+      ) {
+        return parsed as QuestSessionData_MUST_STAY_COMPATIBLE
+      }
+    } catch {}
   }
   return null
 }
