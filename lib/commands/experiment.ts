@@ -1,14 +1,30 @@
 import { experimentDefs } from '../data/experimentDefs'
-import { deepEqual } from '../helper/deepEqual'
 import { submitExperimentEvent } from '../helper/submit'
 import type { Core } from '../state/core'
-import type { ExperimentEvent } from '../state/types'
+import type { Experiment, ExperimentEvent } from '../state/types'
 import {
   experimentEventAlreadySubmitted,
   getPreviewParticipation,
   getUserId,
   markExperimentAsSubmitted,
 } from '../storage/storage'
+
+// Experiment Cache for faster local lookup
+type IndexEntry = { exp: Experiment; side: 'start' | 'end' }
+const experimentIndex = new Map<string, IndexEntry[]>()
+
+for (const exp of experimentDefs) {
+  if (exp.endTs < Date.now()) continue // stale experiments
+  addToIndex(formatEvent(exp.startEvent), { exp, side: 'start' })
+  addToIndex(formatEvent(exp.endEvent), { exp, side: 'end' })
+}
+
+function addToIndex(key: string, entry: IndexEntry) {
+  const bucket = experimentIndex.get(key)
+  if (bucket) bucket.push(entry)
+  else experimentIndex.set(key, [entry])
+}
+// END
 
 function getUserGroup(id: number) {
   const key = `experiment-${id}-for-user-${getUserId()}`
@@ -25,31 +41,34 @@ function fnv1a(str: string): number {
   return hash >>> 0 // unsigned 32-bit
 }
 
+export function formatEvent(ev: ExperimentEvent): string {
+  let output = ev.key
+  if ('id' in ev) {
+    output += ':' + ev.id
+  }
+  return output
+}
+
 export function triggerEvent(core: Core, key: ExperimentEvent) {
   if (core.ws.settings.lng !== 'de') return
   if (!getPreviewParticipation()) return
 
   const now = Date.now()
-  const relevant = experimentDefs.filter(
-    (exp) =>
-      now >= exp.startTs &&
-      now <= exp.endTs &&
-      (deepEqual(exp.startEvent, key) || deepEqual(exp.endEvent, key)),
-  )
-  if (relevant.length == 0) return
+  const bucket = experimentIndex.get(formatEvent(key))
+  if (!bucket) return
+  for (const { exp, side } of bucket) {
+    if (now < exp.startTs || now > exp.endTs) continue
 
-  for (const exp of relevant) {
     const group = getUserGroup(exp.id)
     const startKey = `${exp.id}-${group}-START`
     const endKey = `${exp.id}-${group}-END`
 
-    if (deepEqual(exp.startEvent, key)) {
+    if (side == 'start') {
       // just submit
       if (!experimentEventAlreadySubmitted(startKey)) {
         submitExperimentEvent(startKey)
       }
-    }
-    if (deepEqual(exp.endEvent, key)) {
+    } else {
       // check for invalid user
       if (!experimentEventAlreadySubmitted(startKey)) {
         // oh, bad, this user is out

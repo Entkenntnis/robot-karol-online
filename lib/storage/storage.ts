@@ -301,16 +301,14 @@ export function setPreviewParticipation(value: boolean) {
 }
 
 function getExperimentEvents(): string[] {
-  for (const store of [localStorage, sessionStorage]) {
-    const raw = store.getItem(experimentEventsKey)
-    if (raw != null) {
-      try {
-        const parsed = JSON.parse(raw)
-        if (Array.isArray(parsed)) {
-          return parsed
-        }
-      } catch {}
-    }
+  const raw = localStorage.getItem(experimentEventsKey)
+  if (raw != null) {
+    try {
+      const parsed = JSON.parse(raw)
+      if (Array.isArray(parsed)) {
+        return parsed
+      }
+    } catch {}
   }
   return []
 }

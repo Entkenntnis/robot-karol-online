@@ -3,14 +3,12 @@ import { flightdeckAccessKey } from '../../lib/storage/storage'
 import { backend } from '../../backend'
 import { LoadingScreen } from '../helper/LoadingScreen'
 import { experimentDefs } from '../../lib/data/experimentDefs'
-import type {
-  ExperimentEvent,
-  QuestSerialFormat_MUST_STAY_COMPATIBLE,
-} from '../../lib/state/types'
+import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/types'
 import clsx from 'clsx'
 import { flightdeckTabs } from '../../lib/data/flightdeckTabs'
 import { navigate } from '../../lib/commands/router'
 import { useCore } from '../../lib/state/core'
+import { formatEvent } from '../../lib/commands/experiment'
 
 type KarolSurveyData = {
   fun: string
@@ -109,14 +107,6 @@ function formatPct(value: number) {
 
 function formatP(value: number) {
   return value < 0.001 ? '<0.001' : value.toFixed(3)
-}
-
-function formatEvent(ev: ExperimentEvent) {
-  let output = ev.key
-  if ('id' in ev) {
-    output += '-' + ev.id
-  }
-  return output
 }
 
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000
