@@ -592,6 +592,38 @@ export function Tasks() {
                   </div>
                 ))
               )}
+              {!core.ws.editor.showQuestPreview && (
+                <div className="flex justify-center mt-6 mb-24">
+                  <button
+                    className="px-2 py-0.5 bg-green-200 hover:bg-green-300 rounded mr-4 text-sm"
+                    onClick={() => {
+                      if (core.ws.ui.isChatMode) {
+                        let counter = core.ws.quest.chats.length + 1
+                        while (
+                          core.ws.quest.chats.some(
+                            (x) => x.title === `Chat ${counter}`,
+                          )
+                        ) {
+                          counter++
+                        }
+                        core.mutateWs((ws) => {
+                          ws.quest.chats.push({
+                            title: `Chat ${counter}`,
+                            messages: [],
+                          })
+                        })
+                      } else {
+                        addNewTask(core)
+                      }
+                    }}
+                  >
+                    <FaIcon icon={faPlus} className="mr-2" />
+                    {core.ws.ui.isChatMode
+                      ? 'Chat hinzufügen'
+                      : core.ttung('Auftrag hinzufügen')}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -610,35 +642,6 @@ export function Tasks() {
         <div className="flex justify-start relative items-center flex-grow">
           {core.ws.page == 'editor' ? (
             <p className="w-full ml-4">
-              <button
-                className="px-2 py-0.5 bg-green-300 hover:bg-green-400 rounded mr-4"
-                onClick={() => {
-                  if (core.ws.ui.isChatMode) {
-                    let counter = core.ws.quest.chats.length + 1
-                    while (
-                      core.ws.quest.chats.some(
-                        (x) => x.title === `Chat ${counter}`,
-                      )
-                    ) {
-                      counter++
-                    }
-                    core.mutateWs((ws) => {
-                      ws.quest.chats.push({
-                        title: `Chat ${counter}`,
-                        messages: [],
-                      })
-                    })
-                  } else {
-                    addNewTask(core)
-                  }
-                }}
-              >
-                <FaIcon icon={faPlus} className="mr-2" />
-                {core.ws.ui.isChatMode
-                  ? 'Chat hinzufügen'
-                  : core.ttung('Auftrag hinzufügen')}
-              </button>
-
               <button
                 className="px-2 py-0.5 bg-yellow-300 hover:bg-yellow-400 rounded"
                 onClick={() => {
