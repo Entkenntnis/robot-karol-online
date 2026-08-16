@@ -231,7 +231,7 @@ export function Overview() {
           )}
           {!core.ws.overview.showOverviewList && (
             <>
-              <div className="w-[1240px] h-[1600px] mx-auto relative mt-5">
+              <div className="w-[1240px] h-[1900px] mx-auto relative mt-5">
                 <img
                   src="/klecks1.png"
                   className="w-[150px] top-[10px] left-[50px] absolute user-select-none"
@@ -453,7 +453,7 @@ export function Overview() {
                 )}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox={`0 0 1240 1600`}
+                  viewBox={`0 0 1240 1900`}
                   className="relative"
                 >
                   <defs>
@@ -610,19 +610,19 @@ export function Overview() {
     )
   }
 
-  function isQuestVisible(id: number) {
+  function isQuestVisible(id: number): boolean {
     if (id >= 100) {
       // we disable all python-path related quests
       return false
     }
-    const position = questList.indexOf(id)
+
+    console.log('check quest ' + id)
 
     return (
       core.ws.page == 'demo' ||
       core.ws.overview.showOverviewList ||
-      position == 0 ||
-      isQuestDone(id) ||
-      mapData[id]?.deps.some(isQuestDone)
+      questList.indexOf(id) == 0 ||
+      mapData[id]?.deps.some((dep) => isQuestDone(dep) && isQuestVisible(dep))
     )
   }
 
