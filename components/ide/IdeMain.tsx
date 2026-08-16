@@ -236,7 +236,7 @@ export function IdeMain() {
 
         <ReflexSplitter
           style={{ width: 6 }}
-          className="!bg-gray-300 !border-0 hover:!bg-blue-400 active:!bg-blue-400 hidden sm:block"
+          className="!bg-gray-300 !border-0 hover:!bg-pink-400 active:!bg-pink-400 hidden sm:block"
         />
 
         <ReflexElement
