@@ -695,7 +695,8 @@ export function Tasks() {
             </button>
           )}
           {(core.ws.page === 'shared' || core.ws.page === 'imported') &&
-            !core.ws.ui.isChatMode && (
+            !core.ws.ui.isChatMode &&
+            !core.ws.ui.isPlayground && (
               <button
                 className="mx-1 px-2 bg-gray-200 py-0.5 hover:bg-gray-300 rounded text-gray-600 hidden sm:inline"
                 onClick={() => {
