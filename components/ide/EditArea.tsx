@@ -56,6 +56,11 @@ export function EditArea() {
                       triggerEvent(core, {
                         key: 'open-python-help',
                       })
+                      if (core.ws.quest.id >= 1 && core.ws.quest.id < 100) {
+                        triggerEvent(core, {
+                          key: 'open-python-help-in-quest',
+                        })
+                      }
                     }
                   }}
                 >

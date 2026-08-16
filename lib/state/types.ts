@@ -540,6 +540,7 @@ export type ExperimentEvent =
   | { key: 'load-robot-image' }
   | { key: 'apply-new-robot' }
   | { key: 'open-python-help' }
+  | { key: 'open-python-help-in-quest' }
   | { key: 'open-python-help-section'; id: number }
   | { key: 'python-help-paste-snippet' }
 
