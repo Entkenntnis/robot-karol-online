@@ -197,6 +197,7 @@ export interface WorkspaceState {
     | 'karolmania-game'
     | 'python-path'
     | 'flightdeck'
+    | 'spielwiese'
 
   modal:
     | 'name'

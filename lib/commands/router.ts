@@ -135,6 +135,16 @@ export async function hydrate(core: Core) {
     return
   }
 
+  if (path == '/spielwiese') {
+    core.mutateWs((ws) => {
+      ws.page = 'spielwiese'
+    })
+    document.title = core.ttung('Spielwiese') + ' | Robot Karol Online'
+    setCanonical('spielwiese')
+    refreshEditArea(core)
+    return
+  }
+
   if (page == 'EDITOR' || (path == '/editor' && page == '')) {
     core.mutateWs((ws) => {
       ws.page = 'editor'

@@ -104,12 +104,12 @@ export function Overview() {
           )}
           <div className="mx-8 md:mx-auto mt-6 mb-2">
             <a
-              href="/#SPIELWIESE"
+              href="/spielwiese"
               className="hover:underline mr-8"
               onClick={(e) => {
                 setOverviewScroll(0)
                 setLearningPathScroll(0)
-                navigate(core, '#SPIELWIESE')
+                navigate(core, 'spielwiese')
                 e.preventDefault()
               }}
             >

@@ -32,6 +32,7 @@ import { ChatGuide } from './modals/ChatGuide'
 import { PythonListing } from './modals/PythonListing'
 import { PythonPath } from './pages/PythonPath'
 import { Flightdeck } from './pages/Flightdeck'
+import { Spielwiese } from './pages/Spielwiese'
 
 export function App() {
   const core = useCore()
@@ -99,6 +100,8 @@ export function App() {
       return <PythonPath />
     } else if (core.ws.page == 'flightdeck') {
       return <Flightdeck />
+    } else if (core.ws.page == 'spielwiese') {
+      return <Spielwiese />
     } else {
       return null
     }
