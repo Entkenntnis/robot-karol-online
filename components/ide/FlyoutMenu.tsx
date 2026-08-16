@@ -99,13 +99,14 @@ export function FlyoutMenu() {
           <button
             className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left"
             onClick={() => {
-              ____submitAnalyzeEvent(core, 'ev_click_ide_saveToFile')
               saveCodeToFile(core)
               closeFlyoutMenu()
             }}
           >
             <FaIcon icon={faFloppyDisk} className="mr-1" />{' '}
-            {core.ttung('Bearbeitung speichern')}
+            {core.ws.page == 'spielwiese'
+              ? core.ttung('Programm speichern')
+              : core.ttung('Bearbeitung speichern')}
           </button>
         </p>
         <p className="px-2 pt-4">
@@ -169,7 +170,9 @@ export function FlyoutMenu() {
             }}
           >
             <FaIcon icon={faFolderOpen} className="mr-1" />{' '}
-            {core.ttung('Bearbeitung laden')}
+            {core.ws.page == 'spielwiese'
+              ? core.ttung('Programm laden')
+              : core.ttung('Bearbeitung laden')}
           </button>
         </p>
         {core.ws.ui.sharedQuestId &&

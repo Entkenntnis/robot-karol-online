@@ -18,7 +18,11 @@ export function QuestEditor() {
       <div className="absolute right-3 top-4 text-gray-600 hover:text-black hidden">
         <button
           onClick={() => {
-            const res = confirm(core.ttung('Beachte dass die Daten nicht gespeichert werden. Verlassen?'))
+            const res = confirm(
+              core.ttung(
+                'Beachte dass die Daten nicht gespeichert werden. Verlassen?',
+              ),
+            )
             if (res) {
               deleteEditorSnapshot()
               navigate(core, '')
@@ -80,7 +84,9 @@ export function QuestEditor() {
               }}
               className="font-bold text-xl"
             />
-            <small className="italic text-gray-500">Markdown verfügbar</small>
+            <small className="italic text-gray-500">
+              {core.ttung('Markdown verfügbar')}
+            </small>
           </p>
           <p className="mt-3 mb-2">
             <textarea

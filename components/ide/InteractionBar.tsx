@@ -84,6 +84,7 @@ export function InteractionBar() {
         {(core.ws.page == 'quest' ||
           core.ws.ui.isPlayground ||
           isPythonExample ||
+          core.ws.page == 'spielwiese' ||
           core.ws.page == 'editor') && (
           <div className="hidden sm:inline-block relative h-[24px] w-[18px] flex-shrink-0">
             <a
@@ -98,6 +99,7 @@ export function InteractionBar() {
                   exitQuest(core)
                 } else if (
                   core.ws.ui.isPlayground ||
+                  core.ws.page == 'spielwiese' ||
                   core.ws.page == 'shared'
                 ) {
                   navigate(core, '')
