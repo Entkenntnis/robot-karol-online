@@ -89,7 +89,7 @@ export function runTask(core: Core, index: number) {
     }
     if (
       core.ws.settings.mode == 'code' &&
-      core.ws.settings.language == 'python-pro'
+      core.ws.settings.language == 'python'
     ) {
       runPythonCode(core)
     } else {
@@ -207,7 +207,7 @@ export function startQuest(core: Core, id: number) {
     ui.collapseDescription = window.innerHeight < 660
     ui.show2D = false
     ui.lockLanguage = undefined
-    ui.pythonProCanSwitch = true
+    ui.pythonCanSwitch = true
     ui.isPlayground = false
     ui.editQuestScript = false
     ws.editor.questScript = ''
@@ -215,13 +215,10 @@ export function startQuest(core: Core, id: number) {
       // I'm only setting python pro on default for quests that have a script
       ws.pythonCode = data.script.program
       ws.editor.questScript = data.script.questScript
-      ws.settings.language = 'python-pro'
-      ws.ui.lockLanguage = 'python-pro'
+      ws.settings.language = 'python'
+      ws.ui.lockLanguage = 'python'
       ws.settings.mode = 'code'
-    } else if (
-      ws.settings.language == 'python-pro' &&
-      ws.settings.mode == 'code'
-    ) {
+    } else if (ws.settings.language == 'python' && ws.settings.mode == 'code') {
       // Users always have to explicitly select python pro for quests
       ws.settings.language = 'robot karol'
       ws.settings.mode = 'blocks'
@@ -298,7 +295,7 @@ export function restoreQuestFromSessionData(
     ws.quest.completedOnce = data.completedOnce
     if (data.language) {
       ws.settings.language =
-        data.language == 'python' ? 'python-pro' : data.language
+        data.language == 'python-pro' ? 'python' : data.language
     }
   })
 }

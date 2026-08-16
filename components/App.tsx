@@ -70,7 +70,7 @@ export function App() {
       {renderPage()}
       {renderModal()}
       {core.ws.settings.mode == 'code' &&
-        core.ws.settings.language == 'python-pro' && <PyodideWorker />}
+        core.ws.settings.language == 'python' && <PyodideWorker />}
     </ErrorBoundary>
   )
 

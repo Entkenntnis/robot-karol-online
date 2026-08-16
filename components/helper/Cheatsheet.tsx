@@ -16,7 +16,7 @@ import { useCore } from '../../lib/state/core'
 import clsx from 'clsx'
 
 interface CheatsheetProps {
-  language: 'python-pro' | 'robot karol' | 'java' | 'python-chat'
+  language: 'python' | 'robot karol' | 'java' | 'python-chat'
 }
 
 export function Cheatsheet({ language }: CheatsheetProps) {
@@ -82,7 +82,7 @@ export function Cheatsheet({ language }: CheatsheetProps) {
             ],
           },
         ]
-      : language == 'python-pro'
+      : language == 'python'
         ? [
             {
               category: 'Initialisierung',
@@ -298,7 +298,7 @@ export function Cheatsheet({ language }: CheatsheetProps) {
     <div
       className={clsx(
         'bg-gray-50 p-4 border-r border-gray-200  overflow-y-auto flex-shrink-0',
-        language == 'python-pro' ? 'w-[300px]' : 'w-[320px]',
+        language == 'python' ? 'w-[300px]' : 'w-[320px]',
       )}
     >
       <div className="flex items-center gap-2 mb-6">
@@ -306,7 +306,7 @@ export function Cheatsheet({ language }: CheatsheetProps) {
         <h1 className="text-xl font-bold text-gray-800">
           {language == 'python-chat'
             ? 'Python'
-            : language == 'python-pro'
+            : language == 'python'
               ? 'Python'
               : language == 'java'
                 ? 'Karol Java'
@@ -375,9 +375,9 @@ export function CodeBox({
           extensions: [
             lineNumbers(),
             syntaxHighlighting(defaultHighlightStyle),
-            indentUnit.of(language == 'python-pro' ? '    ' : '  '),
+            indentUnit.of(language == 'python' ? '    ' : '  '),
             editable.of(EditorView.editable.of(false)),
-            language.startsWith('python-')
+            language.startsWith('python')
               ? pythonLanguage
               : language == 'java'
                 ? javaLanguage

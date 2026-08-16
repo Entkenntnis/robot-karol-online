@@ -104,7 +104,7 @@ export function restoreEditorSnapshot(core: Core) {
         ws.pythonCode = snapshot.pythonCode
         ws.ui.isChatMode = snapshot.isChatMode
         if (snapshot.isChatMode) {
-          ws.ui.lockLanguage = 'python-pro'
+          ws.ui.lockLanguage = 'python'
         }
       })
     }
@@ -182,6 +182,12 @@ export function restorePreferredQuestSettings(core: Core) {
   )
   if (raw) {
     const { mode, language } = JSON.parse(raw)
+    // COMPAT, remove later
+    if (language == 'python-pro') {
+      sessionStorage.removeItem('robot_karol_online_preferred_quest_settings')
+      return
+    }
+    // END COMPAT
     core.mutateWs((ws) => {
       ws.settings.mode = mode
       ws.settings.language = language

@@ -19,7 +19,7 @@ export function PythonConsole() {
 
   return (
     <>
-      {core.ws.settings.language == 'python-pro' && messages.length > 0 && (
+      {core.ws.settings.language == 'python' && messages.length > 0 && (
         <div
           ref={containerRef}
           className={clsx(

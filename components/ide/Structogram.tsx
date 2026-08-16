@@ -50,7 +50,7 @@ export function Structogram() {
   const keyCounter = { val: 0 }
 
   const isJavaOrPython =
-    core.ws.settings.language === 'python-pro' ||
+    core.ws.settings.language === 'python' ||
     core.ws.settings.language === 'java'
 
   return (
@@ -93,7 +93,9 @@ export function Structogram() {
       nodes = cursorToNodes(tree.cursor())
     } catch (e) {
       console.log(e)
-      return <em>{core.ttung('Fehler bei der Generierung des Struktogramms.')}</em>
+      return (
+        <em>{core.ttung('Fehler bei der Generierung des Struktogramms.')}</em>
+      )
     }
 
     if (nodes.length == 0) {

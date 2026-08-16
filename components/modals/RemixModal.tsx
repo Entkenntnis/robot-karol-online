@@ -31,7 +31,12 @@ export function RemixModal() {
       >
         <div />
         <div>
-          <p>{core.ttung('Aus freigegebener Aufgabe, gib den vierstelligen Code ein')}:</p>
+          <p>
+            {core.ttung(
+              'Aus freigegebener Aufgabe, gib den vierstelligen Code ein',
+            )}
+            :
+          </p>
           <form
             onSubmit={(e) => {
               async function handler() {
@@ -116,23 +121,23 @@ export function RemixModal() {
                   ws.ui.lockLanguage = undefined
                   ws.editor.editOptions = 'all'
                   ws.ui.proMode = false
-                  ws.ui.pythonProCanSwitch = true
+                  ws.ui.pythonCanSwitch = true
 
                   ws.quest.title = obj.title
                   ws.quest.description = obj.description
                   ws.quest.tasks = obj.tasks
                   if (obj.script) {
-                    ws.settings.language = 'python-pro'
+                    ws.settings.language = 'python'
                     ws.settings.mode = 'code'
                     ws.pythonCode = obj.script.program
                     ws.editor.questScript = obj.script.questScript
                     ws.ui.editQuestScript = false
-                    ws.editor.editOptions = 'python-pro-only'
+                    ws.editor.editOptions = 'python-only'
                   }
                   if (obj.chats) {
                     ws.ui.isChatMode = true
                     ws.quest.chats = obj.chats
-                    ws.ui.lockLanguage = 'python-pro'
+                    ws.ui.lockLanguage = 'python'
                   }
                 })
                 refreshEditArea(core)

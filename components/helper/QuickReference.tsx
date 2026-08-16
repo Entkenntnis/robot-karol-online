@@ -297,7 +297,7 @@ karol.markeLöschen()`,
             </button>
           </div>
         )}
-        <CodeBox doc={code} language="python-pro" />
+        <CodeBox doc={code} language="python" />
       </div>
     )
   }

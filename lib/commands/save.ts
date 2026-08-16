@@ -53,7 +53,7 @@ export function saveCodeToFile(core: Core) {
   ) {
     if (core.ws.quest.id >= 1) {
       // I'm within the context of a quest
-      header = `${core.ws.settings.language == 'python-pro' ? '#' : '//'} Bearbeitung von "${core.ws.quest.title}" (${window.location.toString()})\n\n`
+      header = `${core.ws.settings.language == 'python' ? '#' : '//'} Bearbeitung von "${core.ws.quest.title}" (${window.location.toString()})\n\n`
     }
   }
 
@@ -64,7 +64,7 @@ export function saveCodeToFile(core: Core) {
         (core.ws.settings.language == 'robot karol' ||
         core.ws.settings.mode == 'blocks'
           ? core.ws.code
-          : core.ws.settings.language == 'python-pro'
+          : core.ws.settings.language == 'python'
             ? core.ws.pythonCode
             : core.ws.javaCode),
     ],
@@ -85,7 +85,7 @@ export function saveCodeToFile(core: Core) {
     core.ws.settings.language == 'robot karol' ||
     core.ws.settings.mode == 'blocks'
       ? 'txt'
-      : core.ws.settings.language == 'python-pro'
+      : core.ws.settings.language == 'python'
         ? 'py'
         : 'java.txt'
   }` // specify the filename
@@ -114,7 +114,7 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
               ? 'CODE'
               : core.ws.settings.language == 'java'
                 ? 'JAVA'
-                : core.ws.settings.language == 'python-pro'
+                : core.ws.settings.language == 'python'
                   ? 'PYTHON'
                   : 'PYTHON'
           }`
@@ -127,13 +127,13 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
           ? ''
           : core.ws.settings.language == 'java'
             ? ' Karol Java'
-            : core.ws.settings.language == 'python-pro'
+            : core.ws.settings.language == 'python'
               ? ' Python'
               : ' Karol Python')
     const code =
       (core.ws.ui.isPlayground
         ? `${
-            core.ws.settings.language == 'python-pro' ? '#' : '//'
+            core.ws.settings.language == 'python' ? '#' : '//'
           } Spielwiese: ${core.ws.quest.tasks[0].start.dimX}, ${
             core.ws.quest.tasks[0].start.dimY
           }, ${core.ws.quest.tasks[0].start.height}\n\n`
@@ -141,7 +141,7 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
       (core.ws.settings.language == 'robot karol' ||
       core.ws.settings.mode == 'blocks'
         ? core.ws.code
-        : core.ws.settings.language == 'python-pro'
+        : core.ws.settings.language == 'python'
           ? core.ws.pythonCode
           : core.ws.javaCode)
     const hash = encodeURIComponent(code)
@@ -202,7 +202,7 @@ export function loadProgram(
     }
     if (language == 'python') {
       ws.settings.mode = 'code'
-      ws.settings.language = 'python-pro'
+      ws.settings.language = 'python'
       ws.pythonCode = program
     }
     if (language == 'java') {
@@ -212,7 +212,7 @@ export function loadProgram(
     }
     if (language == 'python-pro') {
       ws.settings.mode = 'code'
-      ws.settings.language = 'python-pro'
+      ws.settings.language = 'python'
       ws.pythonCode = program
       const lines = program.split('\n').map((line) => line.trim())
       if (lines.find((line) => line == '#Ausführung: sehr schnell')) {
@@ -226,7 +226,10 @@ export function loadProgram(
   })
 }
 
-export function getProgram(core: Core) {
+export function getProgram(core: Core): {
+  language: QuestSerialFormat_MUST_STAY_COMPATIBLE['language']
+  program: string
+} {
   if (core.ws.settings.mode == 'blocks') {
     return { language: 'blocks', program: core.ws.code }
   } else {
@@ -234,8 +237,8 @@ export function getProgram(core: Core) {
       return { language: 'karol', program: core.ws.code }
     } else if (core.ws.settings.language == 'java') {
       return { language: 'java', program: core.ws.javaCode }
-    } else if (core.ws.settings.language == 'python-pro') {
-      return { language: 'python-pro', program: core.ws.pythonCode }
+    } else if (core.ws.settings.language == 'python') {
+      return { language: 'python', program: core.ws.pythonCode }
     }
   }
   return { language: 'blocks', program: '' }

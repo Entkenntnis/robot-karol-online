@@ -39,7 +39,7 @@ export function EditArea() {
   if (core.ws.settings.mode == 'code') {
     return (
       <div className="h-full flex flex-col overflow-y-auto relative">
-        {core.ws.settings.language === 'python-pro' && (
+        {core.ws.settings.language === 'python' && (
           <>
             <div className="bg-gray-100 px-3 py-2 text-gray-600 flex justify-between whitespace-nowrap">
               <div>
@@ -78,7 +78,7 @@ export function EditArea() {
 
               {core.ws.page == 'editor' &&
                 (core.ws.editor.showQuestPreview &&
-                core.ws.settings.language == 'python-pro' &&
+                core.ws.settings.language == 'python' &&
                 core.ws.settings.mode == 'code' ? (
                   <div className="bg-yellow-300 px-2 rounded">
                     Code wird beim Verlassen der Vorschau zurückgesetzt.{' '}
@@ -115,7 +115,7 @@ export function EditArea() {
                         refreshEditArea(core)
                         if (checked) {
                           core.mutateWs(({ editor }) => {
-                            editor.editOptions = 'python-pro-only'
+                            editor.editOptions = 'python-only'
                           })
                         }
                         setShowCheatSheet(false)
@@ -157,12 +157,12 @@ export function EditArea() {
         )}
         {renderEditor()}
         {(core.ws.ui.state == 'error' ||
-          (core.ws.settings.language == 'python-pro' &&
+          (core.ws.settings.language == 'python' &&
             core.ws.ui.errorMessages.length > 0)) && (
           <div
             className={clsx(
               'absolute right-12 rounded bottom-4 overflow-auto min-h-[47px] max-h-[200px] flex-grow flex-shrink-0 bg-red-50',
-              core.ws.settings.language == 'python-pro'
+              core.ws.settings.language == 'python'
                 ? core.ws.ui.showQuickReference
                   ? 'left-[440px]'
                   : 'left-20'
@@ -171,7 +171,7 @@ export function EditArea() {
           >
             <div className="flex justify-between mt-[9px] relative">
               <div className="px-3 pb-1 pt-0">
-                {core.ws.settings.language == 'python-pro' &&
+                {core.ws.settings.language == 'python' &&
                 core.ws.ui.state !== 'error' ? (
                   <>
                     <pre>{core.ws.ui.errorMessages[0]}</pre>
@@ -261,7 +261,7 @@ export function EditArea() {
         key={core.ws.editAreaRenderCounter}
       >
         <div className="w-full overflow-auto h-full flex">
-          {(core.ws.settings.language == 'python-pro' ||
+          {(core.ws.settings.language == 'python' ||
             core.ws.settings.language == 'robot karol') &&
             showCheatSheet && (
               <Cheatsheet

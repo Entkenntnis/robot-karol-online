@@ -14,7 +14,7 @@ export function PyodideWorker() {
   useEffect(() => {
     if (core.worker) {
       if (
-        core.ws.settings.language == 'python-pro' &&
+        core.ws.settings.language == 'python' &&
         !core.worker.mainWorkerReady
       ) {
         core.mutateWs(({ ui }) => {

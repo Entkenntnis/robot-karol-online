@@ -61,7 +61,7 @@ export function startButtonClicked(core: Core) {
   }
 
   if (core.ws.ui.state == 'running') {
-    if (core.ws.settings.language == 'python-pro') {
+    if (core.ws.settings.language == 'python') {
       core.worker?.reset()
     } else {
       abort(core)

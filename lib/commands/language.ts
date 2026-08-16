@@ -11,7 +11,7 @@ export function setLanguage(core: Core, language: Settings['language']) {
     if (settings.language != 'java' && language == 'java') {
       state.javaCode = robotKarol2Java(state.code)
     }
-    if (settings.language != 'python-pro' && language == 'python-pro') {
+    if (settings.language != 'python' && language == 'python') {
       state.pythonCode = robotKarol2Python(state.code)
     }
     settings.language = language

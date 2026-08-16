@@ -28,7 +28,7 @@ export function createWorkspaceState(): WorkspaceState {
       gutter: 0,
       state: 'loading',
       errorMessages: [],
-      pythonProCanSwitch: true,
+      pythonCanSwitch: true,
       showOutput: false,
       speedSliderValue: 7,
       isManualAbort: false,

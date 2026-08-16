@@ -62,9 +62,7 @@ export function FlyoutMenu() {
           e.stopPropagation()
         }}
       >
-        <h2 className="font-semibold pl-4 pt-4 mb-4">
-          {core.ttung('Menü')}
-        </h2>
+        <h2 className="font-semibold pl-4 pt-4 mb-4">{core.ttung('Menü')}</h2>
         <hr />
         <button
           className="absolute top-4 left-4 text-gray-600 hover:text-gray-800 rounded-lg bg-gray-50 hover:bg-gray-100 px-2 py-0.5"
@@ -118,7 +116,7 @@ export function FlyoutMenu() {
               const input = document.createElement('input')
               input.type = 'file'
               input.accept =
-                core.ws.settings.language == 'python-pro' ? '.py' : '.txt'
+                core.ws.settings.language == 'python' ? '.py' : '.txt'
 
               const reader = new FileReader()
               reader.addEventListener('load', (e) => {
@@ -142,7 +140,7 @@ export function FlyoutMenu() {
                   core.mutateWs((s) => {
                     if (core.ws.settings.language == 'java') {
                       s.javaCode = code
-                    } else if (core.ws.settings.language == 'python-pro') {
+                    } else if (core.ws.settings.language == 'python') {
                       s.pythonCode = code
                     } else {
                       s.code = code

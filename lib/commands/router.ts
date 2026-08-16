@@ -178,7 +178,7 @@ export async function hydrate(core: Core) {
 
       if (page == 'SPIELWIESE-PYTHON' || page == 'SPIELWIESE-PYTHON-PRO') {
         ws.settings.mode = 'code'
-        ws.settings.language = 'python-pro'
+        ws.settings.language = 'python'
         if (ws.pythonCode == '') {
           ws.pythonCode = `karol = Robot()\n\n`
         }
@@ -214,7 +214,7 @@ export async function hydrate(core: Core) {
       core.mutateWs((s) => {
         if (core.ws.settings.language == 'java') {
           s.javaCode = code
-        } else if (core.ws.settings.language == 'python-pro') {
+        } else if (core.ws.settings.language == 'python') {
           s.pythonCode = code
           if (code == '') {
             s.pythonCode = `karol = Robot()\n\n`

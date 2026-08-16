@@ -95,7 +95,7 @@ export function setupWorker(core: Core) {
       core.worker.mainWorkerReady = true
       // only continue if we are still in python mode
       if (
-        core.ws.settings.language == 'python-pro' &&
+        core.ws.settings.language == 'python' &&
         core.ws.settings.mode == 'code'
       ) {
         core.mutateWs(({ ui }) => {
@@ -286,7 +286,7 @@ export function setupWorker(core: Core) {
       event.data &&
       typeof event.data === 'object' &&
       event.data.type === 'diagnostics' &&
-      core.ws.settings.language == 'python-pro' &&
+      core.ws.settings.language == 'python' &&
       core.ws.settings.mode == 'code'
     ) {
       const diagnostics = event.data.diagnostics

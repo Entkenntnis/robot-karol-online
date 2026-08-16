@@ -98,7 +98,7 @@ Scenario('See if playground works fine', ({ I }) => {
   I.see('Programmiere frei und baue dein Herzensprojekt.')
 
   I.click({ css: '#select-language' })
-  I.click({ css: '#select-language-python-pro' })
+  I.click({ css: '#select-language-python' })
   I.dontSee('Hauptprogramm')
   I.see('Programmierhilfe')
   I.click('Start')
@@ -178,7 +178,7 @@ Scenario('Correctly convert code to python', ({ I }) => {
   )
 
   I.click({ css: '#select-language' })
-  I.click({ css: '#select-language-python-pro' })
+  I.click({ css: '#select-language-python' })
 
   I.click('Start')
   I.waitForText('Ausführung beendet', 10)

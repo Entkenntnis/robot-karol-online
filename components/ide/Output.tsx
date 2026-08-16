@@ -367,7 +367,7 @@ export function Output() {
             className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
             onClick={() => {
               if (
-                core.ws.settings.language == 'python-pro' &&
+                core.ws.settings.language == 'python' &&
                 core.worker &&
                 core.ws.ui.state == 'running'
               ) {

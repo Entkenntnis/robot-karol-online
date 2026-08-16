@@ -34,12 +34,12 @@ export function InteractionBar() {
   const dontChangeLanguage =
     (core.ws.ui.state !== 'ready' &&
       !(
-        core.ws.settings.language == 'python-pro' &&
+        core.ws.settings.language == 'python' &&
         core.worker &&
         !core.worker.mainWorkerReady
       )) ||
     !!core.ws.ui.lockLanguage ||
-    !core.ws.ui.pythonProCanSwitch ||
+    !core.ws.ui.pythonCanSwitch ||
     core.ws.ui.proMode ||
     core.ws.ui.editQuestScript
 
@@ -52,7 +52,7 @@ export function InteractionBar() {
     !core.ws.ui.isChatMode
 
   const debugPython =
-    core.ws.settings.language == 'python-pro' &&
+    core.ws.settings.language == 'python' &&
     core.ws.settings.mode == 'code' &&
     core.worker?.mainWorkerReady
 
@@ -125,7 +125,7 @@ export function InteractionBar() {
             ? 'Karol Code'
             : core.ws.ui.lockLanguage == 'java'
               ? 'Karol Java'
-              : core.ws.ui.lockLanguage == 'python-pro'
+              : core.ws.ui.lockLanguage == 'python'
                 ? 'Python'
                 : ''}
         </div>
@@ -308,7 +308,7 @@ export function InteractionBar() {
               mainButtonState == 'stop' || core.ws.vm.isDebugging
                 ? faStop
                 : core.ws.ui.state == 'loading' &&
-                    core.ws.settings.language == 'python-pro' &&
+                    core.ws.settings.language == 'python' &&
                     !core.worker?.mainWorkerReady
                   ? faSpinner
                   : faPlay
@@ -316,7 +316,7 @@ export function InteractionBar() {
             className={clsx(
               'mr-2 pl-6 pr-4 inline-block sm:p-0',
               core.ws.ui.state == 'loading' &&
-                core.ws.settings.language == 'python-pro' &&
+                core.ws.settings.language == 'python' &&
                 !core.worker?.mainWorkerReady &&
                 'animate-spin-slow',
             )}
@@ -355,7 +355,7 @@ function DropdownComponent({ dontChangeLanguage }: Props) {
             title: 'Reduzierte Version Java für Karol',
           },
           {
-            value: 'python-pro',
+            value: 'python',
             label: 'Python',
             title: 'Nutze den vollen Funktionsumfang von Python 3.12',
           },

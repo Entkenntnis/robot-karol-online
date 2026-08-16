@@ -40,7 +40,6 @@ import {
 } from '@codemirror/commands'
 import { lintKeymap, linter } from '@codemirror/lint'
 import { searchKeymap } from '@codemirror/search'
-import { patch } from '../../lib/commands/vm'
 import { resetUIAfterChange, setLoading } from '../../lib/commands/editing'
 import {
   autocompletion,
@@ -111,10 +110,7 @@ export const PythonEditor = ({ innerRef }: EditorProps) => {
               if (e.transactions.length > 0) {
                 const t = e.transactions[0]
                 if (t.docChanged) {
-                  if (
-                    core.ws.ui.state == 'ready' /*&&
-                    core.ws.settings.language != 'python-pro'*/
-                  ) {
+                  if (core.ws.ui.state == 'ready') {
                     setLoading(core)
                   }
                 }
@@ -158,16 +154,11 @@ export function lint(core: Core, view: EditorView) {
   resetUIAfterChange(core)
 
   const tree = ensureSyntaxTree(view.state, 1000000, 1000)!
-  const { warnings, output, rkCode } = compilePython(tree, view.state.doc)
+  const { warnings, rkCode } = compilePython(tree, view.state.doc)
 
-  if (core.ws.settings.language == 'python-pro') {
-    /*if (core.worker?.mainWorkerReady) {
-      core.mutateWs(({ ui }) => {
-        ui.state = 'ready'
-      })
-    }*/
+  if (core.ws.settings.language == 'python') {
     core.mutateWs((ws) => {
-      ws.ui.pythonProCanSwitch = warnings.length == 0
+      ws.ui.pythonCanSwitch = warnings.length == 0
       if (rkCode !== undefined) {
         ws.code = rkCode
       }
@@ -175,34 +166,8 @@ export function lint(core: Core, view: EditorView) {
     if (core.worker?.mainWorkerReady) {
       core.worker.lint(code)
     }
-    return []
   }
-
-  warnings.sort((a, b) => a.from - b.from)
-
-  if (warnings.length == 0) {
-    patch(core, output)
-    if (rkCode !== undefined) {
-      core.mutateWs((ws) => {
-        ws.code = rkCode
-      })
-    }
-  } else {
-    core.mutateWs(({ vm, ui }) => {
-      vm.bytecode = undefined
-      vm.pc = 0
-      ui.state = 'error'
-      ui.errorMessages = warnings
-        .map(
-          (w) => `Zeile ${view.state.doc.lineAt(w.from).number}: ${w.message}`,
-        )
-        .filter(function (item, i, arr) {
-          return arr.indexOf(item) == i
-        })
-      //ui.preview = undefined
-    })
-  }
-  return warnings
+  return []
 }
 
 function myTabExtension(): Command {

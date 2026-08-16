@@ -134,7 +134,7 @@ export function Tasks() {
                             <option value="java-only">
                               {core.ttung('nur Karol Java')}
                             </option>
-                            <option value="python-pro-only">
+                            <option value="python-only">
                               {core.ttung('nur Python')}
                             </option>
                             <option value="code-only">
@@ -169,9 +169,9 @@ export function Tasks() {
                                   ]
                                 }
                                 if (isChatMode) {
-                                  editor.editOptions = 'python-pro-only'
-                                  ui.lockLanguage = 'python-pro'
-                                  settings.language = 'python-pro'
+                                  editor.editOptions = 'python-only'
+                                  ui.lockLanguage = 'python'
+                                  settings.language = 'python'
                                 } else {
                                   ui.lockLanguage = undefined
                                   editor.editOptions = 'all'
@@ -538,8 +538,7 @@ export function Tasks() {
                                   moveTaskUp(core, index)
                                 }}
                               >
-                                <FaIcon icon={faArrowUp} />{' '}
-                                {core.ttung('hoch')}
+                                <FaIcon icon={faArrowUp} /> {core.ttung('hoch')}
                               </button>
                               <button
                                 className="hover:text-black disabled:text-gray-200 ml-5"
@@ -676,7 +675,7 @@ export function Tasks() {
         <div className={clsx('flex-grow-0 flex-shrink-0')}>
           {(core.ws.page == 'editor' ||
             (!core.ws.ui.proMode &&
-              core.ws.ui.pythonProCanSwitch &&
+              core.ws.ui.pythonCanSwitch &&
               !core.ws.ui.isChatMode)) && (
             <button
               className="mx-2 py-0.5 bg-gray-200 hover:bg-gray-300 px-2 rounded"

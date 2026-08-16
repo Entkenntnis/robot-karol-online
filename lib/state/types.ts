@@ -36,7 +36,7 @@ export interface Ui {
   gutter: number
   state: 'ready' | 'loading' | 'running' | 'error'
   errorMessages: string[]
-  pythonProCanSwitch: boolean
+  pythonCanSwitch: boolean
   proMode: boolean
   showOutput: boolean
   speedSliderValue: number
@@ -55,7 +55,7 @@ export interface Ui {
   cmdBlockPositions: CmdBlockPositions
   snippets: string[]
   showJavaInfo: boolean
-  lockLanguage?: 'java' | 'karol' | 'python-pro'
+  lockLanguage?: 'java' | 'karol' | 'python'
   isPlayground: boolean
   showPreview: boolean
   show2D: boolean
@@ -123,7 +123,7 @@ export interface ChatVm {
 
 export interface Settings {
   mode: 'code' | 'blocks'
-  language: 'robot karol' | 'java' | 'python-pro'
+  language: 'robot karol' | 'java' | 'python'
   lng: 'de' | 'en'
 }
 
@@ -132,8 +132,7 @@ export interface Editor {
   editWorld: number | null
   currentlyEditing: 'start' | 'target'
   showWorldPreview: boolean
-  editOptions:
-    'all' | 'code-only' | 'java-only' | 'karol-only' | 'python-pro-only'
+  editOptions: 'all' | 'code-only' | 'java-only' | 'karol-only' | 'python-only'
   saveProgram: boolean
   keepQuest: boolean
   questScript: string

@@ -82,7 +82,7 @@ function Code({
         doc={children.trim()}
         language={
           className == 'lang-py' || className == 'lang-python'
-            ? 'python-pro'
+            ? 'python'
             : 'robot karol'
         }
         lng={core.ws.settings.lng}
@@ -95,7 +95,11 @@ function Tutorial() {
   const core = useCore()
   return (
     <>
-      <p>{core.ttung('Herzlich Willkommen! Hier lernst du Schritt für Schritt die Welt von Karol kennen. Das Tutorial zeigt dir die ersten Grundlagen für die Programmierung.')}</p>
+      <p>
+        {core.ttung(
+          'Herzlich Willkommen! Hier lernst du Schritt für Schritt die Welt von Karol kennen. Das Tutorial zeigt dir die ersten Grundlagen für die Programmierung.',
+        )}
+      </p>
       <div className="mt-6 mb-2">
         <button
           className="px-4 py-2 rounded-lg bg-blue-200 hover:bg-blue-300 font-bold"

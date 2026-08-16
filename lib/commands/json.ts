@@ -44,7 +44,7 @@ export function serializeQuest(
 
   if (core.ws.editor.saveProgram) {
     const editorState = getProgram(core)
-    output.language = editorState.language as any //
+    output.language = editorState.language
     output.program = editorState.program
   }
 
@@ -166,7 +166,7 @@ export function deserializeQuest(
     if (quest.chats) {
       ws.ui.isChatMode = true
       ws.quest.chats = quest.chats
-      ws.ui.lockLanguage = 'python-pro'
+      ws.ui.lockLanguage = 'python'
     }
   })
 
@@ -177,8 +177,9 @@ export function deserializeQuest(
   if (core.ws.page === 'editor') {
     core.mutateWs((ws) => {
       ws.editor.editOptions =
-        quest.editOptions == 'python-only'
-          ? 'python-pro-only'
+        quest.editOptions == 'python-only' ||
+        quest.editOptions == 'python-pro-only'
+          ? 'python-only'
           : quest.editOptions
             ? quest.editOptions
             : 'all'
@@ -191,17 +192,13 @@ export function deserializeQuest(
         ws.editor.editOptions = 'code-only'
       })
     }
-    if (quest.editOptions === 'python-only') {
-      setLanguage(core, 'python-pro')
+    if (
+      quest.editOptions === 'python-only' ||
+      quest.editOptions === 'python-pro-only'
+    ) {
+      setLanguage(core, 'python')
       core.mutateWs((ws) => {
-        ws.ui.lockLanguage = 'python-pro'
-        ws.settings.mode = 'code'
-      })
-    }
-    if (quest.editOptions === 'python-pro-only') {
-      setLanguage(core, 'python-pro')
-      core.mutateWs((ws) => {
-        ws.ui.lockLanguage = 'python-pro'
+        ws.ui.lockLanguage = 'python'
         ws.settings.mode = 'code'
       })
     }
