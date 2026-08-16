@@ -186,7 +186,7 @@ export function PythonPath() {
                     </p>
                     <p className="mt-6 flex justify-center z-10 isolate">
                       <button
-                        className="block relative rainbow rainbow-always px-6 py-2 text-lg bg-green-300 rounded-lg hover:bg-green-400 transition-colors"
+                        className="block relative rainbow px-6 py-2 text-lg bg-green-300 rounded-lg hover:bg-green-400 transition-colors"
                         onClick={() => {
                           ____submitAnalyzeEvent(
                             core,
