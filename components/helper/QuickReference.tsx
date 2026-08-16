@@ -177,10 +177,10 @@ karol.markeLöschen()`,
 
         {section(
           5,
-          <h3 className="font-bold">Liste aller Karol-Abfragen</h3>,
+          <h3 className="font-bold">Liste aller Karol-Bedingungen</h3>,
           <>
             <p className="ml-4 mt-2">
-              Verwende{' '}
+              Nutze{' '}
               <span
                 style={{ fontFamily: 'Hack, monospace' }}
                 className="text-sm"
