@@ -189,6 +189,15 @@ export async function hydrate(core: Core) {
         ws.settings.mode = 'code'
         ws.settings.language = 'java'
         document.title = 'Spielwiese Karol Java | Robot Karol Online'
+        if (ws.javaCode == '') {
+          ws.javaCode = `class Programm {
+  Robot karol = new Robot();
+
+  void main() {
+    
+  }
+}`
+        }
       }
     })
     if (data) {
@@ -214,6 +223,15 @@ export async function hydrate(core: Core) {
       core.mutateWs((s) => {
         if (core.ws.settings.language == 'java') {
           s.javaCode = code
+          if (code == '') {
+            s.javaCode = `class Programm {
+  Robot karol = new Robot();
+
+  void main() {
+    
+  }
+}`
+          }
         } else if (core.ws.settings.language == 'python') {
           s.pythonCode = code
           if (code == '') {
