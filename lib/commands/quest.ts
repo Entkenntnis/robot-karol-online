@@ -284,18 +284,24 @@ export function restoreQuestFromSessionData(
 ) {
   core.mutateWs((ws) => {
     ws.code = data.code
-    if (data.javaCode) {
-      ws.javaCode = data.javaCode
+    if (core.ws.settings.lng == 'de') {
+      if (data.javaCode) {
+        ws.javaCode = data.javaCode
+      }
+      if (data.pythonCode) {
+        ws.pythonCode = data.pythonCode
+      }
+      ws.settings.mode = data.mode
     }
-    if (data.pythonCode) {
-      ws.pythonCode = data.pythonCode
-    }
-    ws.settings.mode = data.mode
     ws.ui.isAlreadyCompleted = data.completed
     ws.quest.completedOnce = data.completedOnce
-    if (data.language) {
-      ws.settings.language =
-        data.language == 'python-pro' ? 'python' : data.language
+    if (core.ws.settings.lng == 'de') {
+      if (data.language) {
+        ws.settings.language =
+          data.language == 'python-pro' ? 'python' : data.language
+      }
+    } else {
+      ws.settings.language = 'robot karol'
     }
   })
 }
