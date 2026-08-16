@@ -13,6 +13,7 @@ import {
   simplifySelection,
 } from '@codemirror/commands'
 import { faPaste } from '@fortawesome/free-regular-svg-icons'
+import { triggerEvent } from '../../lib/commands/experiment'
 
 export function QuickReference() {
   const [openSections, setOpenSections] = useState<Set<number>>(new Set())
@@ -34,7 +35,7 @@ export function QuickReference() {
     <div className="w-[360px] bg-white border-r-4 border-indigo-300 flex flex-col flex-shrink-0 overflow-hidden">
       <div className="overflow-auto flex-grow -mt-2">
         {section(
-          4,
+          0,
           <h3 className="font-bold">Karol-Befehle</h3>,
           <>
             {listing(
@@ -76,7 +77,7 @@ karol.markeLöschen()`,
         )}
         <hr className="mt-4 -mb-2" />
         {section(
-          0,
+          1,
           <h3 className="font-bold">
             Wiederholung (Zählschleife){' '}
             <img
@@ -98,7 +99,7 @@ karol.markeLöschen()`,
           </>,
         )}
         {section(
-          1,
+          2,
           <h3 className="font-bold">
             Bedingte Wiederholung{' '}
             <img
@@ -117,7 +118,7 @@ karol.markeLöschen()`,
           </>,
         )}
         {section(
-          2,
+          3,
           <h3 className="font-bold">
             Bedingte Anweisungen{' '}
             <img
@@ -154,7 +155,7 @@ karol.markeLöschen()`,
           </>,
         )}
         {section(
-          3,
+          4,
           <h3 className="font-bold">
             Funktionen{' '}
             <img
@@ -286,6 +287,9 @@ karol.markeLöschen()`,
             <button
               onClick={() => {
                 insertCodeSnippet(code.split('\n'), code.length)
+                triggerEvent(core, {
+                  key: 'python-help-paste-snippet',
+                })
               }}
               className="text-gray-600 hover:text-black mr-1"
             >
@@ -309,6 +313,12 @@ karol.markeLöschen()`,
         <button
           className="flex items-center pl-1 w-full"
           onClick={() => {
+            if (!open) {
+              triggerEvent(core, {
+                key: 'open-python-help-section',
+                id: index,
+              })
+            }
             toggleSection(index)
           }}
         >

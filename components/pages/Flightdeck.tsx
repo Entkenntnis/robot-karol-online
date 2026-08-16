@@ -35,7 +35,7 @@ type SharesData = {
 
 type ExperimentData = {
   id: number
-  description: string
+  title: string
   startTs: number
   endTs: number
   startEvent: string
@@ -266,11 +266,13 @@ export function Flightdeck() {
         }
         const experimentData: ExperimentData = []
         for (const exp of experimentDefs) {
-          const counts = experimentCounts.get(exp.id)
-          if (!counts) continue
+          let counts = experimentCounts.get(exp.id)
+          if (!counts) {
+            counts = { cStart: 0, cEnd: 0, tStart: 0, tEnd: 0 }
+          }
           experimentData.push({
             id: exp.id,
-            description: exp.description,
+            title: exp.title,
             startTs: exp.startTs,
             endTs: exp.endTs,
             startEvent: formatEvent(exp.startEvent),
@@ -471,7 +473,7 @@ export function Flightdeck() {
                             </>
                           )}
                         </td>
-                        <td className="pr-4 py-1">{entry.description}</td>
+                        <td className="pr-4 py-1">{entry.title}</td>
                         <td className="pr-4 py-1 whitespace-nowrap">
                           <span className="text-gray-500">START:</span>{' '}
                           {entry.startEvent}

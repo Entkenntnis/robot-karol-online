@@ -50,6 +50,10 @@ export function formatEvent(ev: ExperimentEvent): string {
 }
 
 export function triggerEvent(core: Core, key: ExperimentEvent) {
+  if (window.location.host.includes('localhost')) {
+    console.log('event: ' + JSON.stringify(key))
+  }
+
   if (core.ws.settings.lng !== 'de') return
   if (!getPreviewParticipation()) return
 

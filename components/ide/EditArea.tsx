@@ -21,6 +21,7 @@ import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
 import { closeOutput } from '../../lib/commands/quest'
 import { setQuestPreview } from '../../lib/commands/editor'
 import { refreshEditArea } from '../../lib/commands/editing'
+import { triggerEvent } from '../../lib/commands/experiment'
 
 export function EditArea() {
   const core = useCore()
@@ -51,6 +52,11 @@ export function EditArea() {
                     core.mutateWs((ws) => {
                       ws.ui.showQuickReference = !ws.ui.showQuickReference
                     })
+                    if (core.ws.ui.showQuickReference) {
+                      triggerEvent(core, {
+                        key: 'open-python-help',
+                      })
+                    }
                   }}
                 >
                   Programmierhilfe
@@ -63,12 +69,6 @@ export function EditArea() {
                     )}
                     href="https://github.com/Entkenntnis/robot-karol-online/blob/main/material/QUESTSCRIPT.md#questscript"
                     target="_blank"
-                    onClick={() => {
-                      ____submitAnalyzeEvent(
-                        core,
-                        'ev_click_ide_questscriptGuide',
-                      )
-                    }}
                   >
                     Anleitung{' '}
                     <FaIcon icon={faExternalLink} className="text-xs" />

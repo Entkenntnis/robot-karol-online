@@ -540,12 +540,15 @@ export type ExperimentEvent =
   | { key: 'click-robot-gallery' }
   | { key: 'load-robot-image' }
   | { key: 'apply-new-robot' }
+  | { key: 'open-python-help' }
+  | { key: 'open-python-help-section'; id: number }
+  | { key: 'python-help-paste-snippet' }
 
 export interface Experiment {
   id: number
   startTs: number
   endTs: number
-  description: string
+  title: string
   startEvent: ExperimentEvent
   endEvent: ExperimentEvent
 }
