@@ -102,41 +102,43 @@ export function Output() {
 
   return (
     <div className="flex flex-col h-full relative">
-      <div className="border-b-2 border-gray-200">
-        <div className="pt-4 pb-1 px-7 bg-yellow-100 relative">
-          {!core.ws.ui.collapseDescription && (
-            <button
-              className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
-              onClick={toggleDescription}
-            >
-              <FaIcon className="text-xl" icon={faCaretUp} />
-            </button>
-          )}
-          <h1
-            className={clsx(
-              'text-xl font-bold mt-1',
-              core.ws.ui.collapseDescription ? 'mb-2' : 'mb-4',
+      {core.ws.page != 'spielwiese' && (
+        <div className="border-b-2 border-gray-200">
+          <div className="pt-4 pb-1 px-7 bg-yellow-100 relative">
+            {!core.ws.ui.collapseDescription && (
+              <button
+                className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
+                onClick={toggleDescription}
+              >
+                <FaIcon className="text-xl" icon={faCaretUp} />
+              </button>
             )}
-          >
-            {core.ws.quest.title}
-            {core.ws.ui.isAlreadyCompleted && (
-              <span className="text-base font-normal text-green-600 ml-4">
-                <FaIcon icon={faCheck} /> {core.ttung('abgeschlossen')}
-              </span>
-            )}
-          </h1>
-          {core.ws.ui.collapseDescription ? (
-            <button
-              className="mb-2 underline text-blue-600 hover:text-blue-800 cursor-pointer"
-              onClick={toggleDescription}
+            <h1
+              className={clsx(
+                'text-xl font-bold mt-1',
+                core.ws.ui.collapseDescription ? 'mb-2' : 'mb-4',
+              )}
             >
-              + {core.ttung('Beschreibung einblenden')}
-            </button>
-          ) : (
-            <div>{processMarkdown(core.ws.quest.description)}</div>
-          )}
+              {core.ws.quest.title}
+              {core.ws.ui.isAlreadyCompleted && (
+                <span className="text-base font-normal text-green-600 ml-4">
+                  <FaIcon icon={faCheck} /> {core.ttung('abgeschlossen')}
+                </span>
+              )}
+            </h1>
+            {core.ws.ui.collapseDescription ? (
+              <button
+                className="mb-2 underline text-blue-600 hover:text-blue-800 cursor-pointer"
+                onClick={toggleDescription}
+              >
+                + {core.ttung('Beschreibung einblenden')}
+              </button>
+            ) : (
+              <div>{processMarkdown(core.ws.quest.description)}</div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
       <div
         className={clsx(
           'flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100',
@@ -361,28 +363,29 @@ export function Output() {
           </div>
         </div>
       )}
-      {core.ws.quest.lastStartedTask !== undefined && (
-        <div className="absolute bottom-1.5 left-2 whitespace-nowrap">
-          <button
-            className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
-            onClick={() => {
-              if (
-                core.ws.settings.language == 'python' &&
-                core.worker &&
-                core.ws.ui.state == 'running'
-              ) {
-                core.worker.reset()
-              } else if (core.ws.ui.state == 'running') {
-                abort(core)
-              }
-              closeOutput(core)
-            }}
-          >
-            <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
-            {core.ttung('zurück')}
-          </button>
-        </div>
-      )}
+      {core.ws.quest.lastStartedTask !== undefined &&
+        core.ws.page != 'spielwiese' && (
+          <div className="absolute bottom-1.5 left-2 whitespace-nowrap">
+            <button
+              className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+              onClick={() => {
+                if (
+                  core.ws.settings.language == 'python' &&
+                  core.worker &&
+                  core.ws.ui.state == 'running'
+                ) {
+                  core.worker.reset()
+                } else if (core.ws.ui.state == 'running') {
+                  abort(core)
+                }
+                closeOutput(core)
+              }}
+            >
+              <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
+              {core.ttung('zurück')}
+            </button>
+          </div>
+        )}
       {core.ws.ui.isEndOfRun &&
         !core.ws.ui.controlBarShowFinishQuest &&
         !core.ws.ui.isTesting && (

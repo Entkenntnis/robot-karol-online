@@ -28,7 +28,7 @@ export function runTask(core: Core, index: number) {
   const task = core.ws.quest.tasks[index]
 
   core.mutateWs((ws) => {
-    if (ws.editor.editWorld === null) {
+    if (ws.editor.editWorld === null && ws.page != 'spielwiese') {
       ws.world = task.start
     }
     ws.ui.showOutput = true

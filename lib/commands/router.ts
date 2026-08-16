@@ -138,6 +138,17 @@ export async function hydrate(core: Core) {
   if (path == '/spielwiese') {
     core.mutateWs((ws) => {
       ws.page = 'spielwiese'
+      // ws.world =
+      ws.quest.tasks = [
+        {
+          title: core.ttung('Spielwiese'),
+          start: createWorld(15, 10, 6),
+          target: null,
+        },
+      ]
+      ws.world = ws.quest.tasks[0].start
+      ws.quest.lastStartedTask = 0
+      ws.ui.showOutput = true
     })
     document.title = core.ttung('Spielwiese') + ' | Robot Karol Online'
     setCanonical('spielwiese')
