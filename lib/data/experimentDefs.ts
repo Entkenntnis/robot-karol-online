@@ -86,7 +86,7 @@ export const experimentDefs: Experiment[] = [
     title: 'Programmierhilfe A/A Probes',
     startTs: new Date('2026-08-17 00:01 GMT+0200').getTime(),
     endTs: new Date('2026-10-12 00:01 GMT+0200').getTime(),
-    startEvent: { key: 'open-python-help' },
+    startEvent: { key: 'open-python-help-in-quest' },
     endEvent: { key: 'open-python-help-section', id: 0 },
   },
   {
@@ -94,7 +94,7 @@ export const experimentDefs: Experiment[] = [
     title: 'Programmierhilfe A/A Probes',
     startTs: new Date('2026-08-17 00:02 GMT+0200').getTime(),
     endTs: new Date('2026-10-12 00:02 GMT+0200').getTime(),
-    startEvent: { key: 'open-python-help' },
+    startEvent: { key: 'open-python-help-in-quest' },
     endEvent: { key: 'open-python-help-section', id: 1 },
   },
   {
@@ -102,7 +102,7 @@ export const experimentDefs: Experiment[] = [
     title: 'Programmierhilfe A/A Probes',
     startTs: new Date('2026-08-17 00:03 GMT+0200').getTime(),
     endTs: new Date('2026-10-12 00:03 GMT+0200').getTime(),
-    startEvent: { key: 'open-python-help' },
+    startEvent: { key: 'open-python-help-in-quest' },
     endEvent: { key: 'open-python-help-section', id: 2 },
   },
   {
@@ -110,7 +110,7 @@ export const experimentDefs: Experiment[] = [
     title: 'Programmierhilfe A/A Probes',
     startTs: new Date('2026-08-17 00:04 GMT+0200').getTime(),
     endTs: new Date('2026-10-12 00:04 GMT+0200').getTime(),
-    startEvent: { key: 'open-python-help' },
+    startEvent: { key: 'open-python-help-in-quest' },
     endEvent: { key: 'open-python-help-section', id: 3 },
   },
   {
@@ -118,7 +118,7 @@ export const experimentDefs: Experiment[] = [
     title: 'Programmierhilfe A/A Probes',
     startTs: new Date('2026-08-17 00:05 GMT+0200').getTime(),
     endTs: new Date('2026-10-12 00:05 GMT+0200').getTime(),
-    startEvent: { key: 'open-python-help' },
+    startEvent: { key: 'open-python-help-in-quest' },
     endEvent: { key: 'open-python-help-section', id: 4 },
   },
   {
@@ -126,7 +126,7 @@ export const experimentDefs: Experiment[] = [
     title: 'Programmierhilfe A/A Probes',
     startTs: new Date('2026-08-17 00:06 GMT+0200').getTime(),
     endTs: new Date('2026-10-12 00:06 GMT+0200').getTime(),
-    startEvent: { key: 'open-python-help' },
+    startEvent: { key: 'open-python-help-in-quest' },
     endEvent: { key: 'open-python-help-section', id: 5 },
   },
   {
@@ -134,7 +134,7 @@ export const experimentDefs: Experiment[] = [
     title: 'Programmierhilfe A/A Probes',
     startTs: new Date('2026-08-17 00:07 GMT+0200').getTime(),
     endTs: new Date('2026-10-12 00:07 GMT+0200').getTime(),
-    startEvent: { key: 'open-python-help' },
+    startEvent: { key: 'open-python-help-in-quest' },
     endEvent: { key: 'open-python-help-section', id: 6 },
   },
   {
@@ -142,7 +142,7 @@ export const experimentDefs: Experiment[] = [
     title: 'Programmierhilfe A/A Probes',
     startTs: new Date('2026-08-17 00:08 GMT+0200').getTime(),
     endTs: new Date('2026-10-12 00:08 GMT+0200').getTime(),
-    startEvent: { key: 'open-python-help' },
+    startEvent: { key: 'open-python-help-in-quest' },
     endEvent: { key: 'open-python-help-section', id: 7 },
   },
   {
@@ -150,7 +150,7 @@ export const experimentDefs: Experiment[] = [
     title: 'Programmierhilfe A/A Probes',
     startTs: new Date('2026-08-17 00:09 GMT+0200').getTime(),
     endTs: new Date('2026-10-12 00:09 GMT+0200').getTime(),
-    startEvent: { key: 'open-python-help' },
+    startEvent: { key: 'open-python-help-in-quest' },
     endEvent: { key: 'open-python-help-section', id: 8 },
   },
   {
@@ -158,7 +158,15 @@ export const experimentDefs: Experiment[] = [
     title: 'Programmierhilfe A/A Probes',
     startTs: new Date('2026-08-17 00:10 GMT+0200').getTime(),
     endTs: new Date('2026-10-12 00:10 GMT+0200').getTime(),
-    startEvent: { key: 'open-python-help' },
+    startEvent: { key: 'open-python-help-in-quest' },
     endEvent: { key: 'python-help-paste-snippet' },
+  },
+  {
+    id: 21,
+    title: 'Programmierhilfe A/A Probes',
+    startTs: new Date('2026-08-17 00:11 GMT+0200').getTime(),
+    endTs: new Date('2026-10-12 00:11 GMT+0200').getTime(),
+    startEvent: { key: 'open-python-help' },
+    endEvent: { key: 'open-python-help-in-quest' },
   },
 ]
