@@ -169,4 +169,12 @@ export const experimentDefs: Experiment[] = [
     startEvent: { key: 'open-python-help' },
     endEvent: { key: 'open-python-help-in-quest' },
   },
+  {
+    id: 22,
+    title: 'Spielwiese A/A Probe',
+    startTs: new Date('2026-08-18 00:01 GMT+0200').getTime(),
+    endTs: new Date('2026-10-13 00:01 GMT+0200').getTime(),
+    startEvent: { key: 'visit-spielwiese' },
+    endEvent: { key: 'spielwiese-manual-control' },
+  },
 ]

@@ -152,6 +152,7 @@ export async function hydrate(core: Core) {
       ws.quest.lastStartedTask = 0
       ws.ui.showOutput = true
     })
+    triggerEvent(core, { key: 'visit-spielwiese' })
     document.title = core.ttung('Spielwiese') + ' | Robot Karol Online'
     setCanonical('spielwiese')
     refreshEditArea(core)

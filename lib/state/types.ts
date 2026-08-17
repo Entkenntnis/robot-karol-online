@@ -545,6 +545,8 @@ export type ExperimentEvent =
   | { key: 'open-python-help-in-quest' }
   | { key: 'open-python-help-section'; id: number }
   | { key: 'python-help-paste-snippet' }
+  | { key: 'visit-spielwiese' }
+  | { key: 'spielwiese-manual-control' }
 
 export interface Experiment {
   id: number

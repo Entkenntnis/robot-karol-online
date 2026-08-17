@@ -37,6 +37,7 @@ import {
 } from '../../lib/commands/world'
 import { useEffect } from 'react'
 import { getTaskPreview } from '../../lib/helper/preview'
+import { triggerEvent } from '../../lib/commands/experiment'
 
 export function Output() {
   const core = useCore()
@@ -71,6 +72,7 @@ export function Output() {
   }
 
   function runAction(action: string) {
+    triggerEvent(core, { key: 'spielwiese-manual-control' })
     if (!actions[action]()) {
       core.mutateWs((ws) => {
         ws.ui.karolCrashMessage = undefined
