@@ -78,10 +78,6 @@ export function FlyoutMenu() {
             <button
               className="px-2 py-0.5 hover:bg-gray-300 rounded"
               onClick={() => {
-                ____submitAnalyzeEvent(
-                  core,
-                  'ev_click_ide_playgroundChangeSize',
-                )
                 core.mutateWs((ws) => {
                   ws.world = ws.quest.tasks[0].start
                 })
@@ -262,6 +258,23 @@ export function FlyoutMenu() {
           </>
         )*/}
         <hr className="my-3 mx-4" />
+        {core.ws.page == 'spielwiese' && (
+          <p className="px-2 pb-4">
+            <button
+              className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left"
+              onClick={() => {
+                // core.mutateWs((ws) => {
+                //   ws.world = ws.quest.tasks[0].start
+                // })
+                showModal(core, 'resize')
+                closeFlyoutMenu()
+              }}
+            >
+              <FaIcon icon={faUpRightAndDownLeftFromCenter} className="mr-2" />
+              {core.ttung('Größe der Welt ändern')}
+            </button>
+          </p>
+        )}
         {core.ws.page == 'shared' && (
           <p className="px-2 pb-4">
             <label className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left block cursor-pointer">

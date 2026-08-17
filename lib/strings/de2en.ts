@@ -198,6 +198,7 @@ export const de2en: { [key: string]: string } = {
   Welt: 'World',
   'Welt bearbeiten': 'Edit World',
   'Welt erstellen': 'Create World',
+  'Welt leeren': 'Reset world',
   'Welt löschen': 'Delete World Content',
   'Wie heißt du?': 'What is your name?',
   wiederhole: 'repeat',
