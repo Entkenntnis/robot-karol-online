@@ -9,7 +9,7 @@ export function News() {
     <div className="w-[760px] md:mx-auto border-emerald-600 border rounded mx-3 mb-32 px-4 pt-2 [&_a]:text-blue-500 hover:[&_a]:underline">
       <h2 className="text-2xl">Neuigkeiten</h2>
       <p className="my-4">
-        <b>XX. August 2026</b>: Die Spielwiese wurde überarbeitet und verhält
+        <b>18. August 2026</b>: Die Spielwiese wurde überarbeitet und verhält
         sich jetzt viel ähnlicher zum ursprünglichen Robot Karol: Die Welt
         bleibt erhalten und Karol kann manuell gesteuert werden.
       </p>
