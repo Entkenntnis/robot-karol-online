@@ -8,6 +8,7 @@ import {
   faRightLong,
   faTrashCan,
   faUpLong,
+  faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { closeOutput, resetOutput } from '../../lib/commands/quest'
@@ -162,7 +163,7 @@ export function Output() {
           </div>
         </div>
       ) : (
-        <div className="bg-emerald-100 py-2 text-center">
+        <div className="bg-yellow-200 py-2 text-center">
           <span className="mr-4 text-xl font-bold">
             {core.ttung('Spielwiese')}
           </span>
@@ -336,8 +337,8 @@ export function Output() {
       </div>
       <div className="absolute bottom-2 left-2 bg-gray-50">
         {core.ws.ui.messages.map((m) => (
-          <div key={`${m.ts}`}>
-            {m.text}
+          <div key={`${m.ts}`} className="text-red-700">
+            <FaIcon icon={faWarning} /> {m.text}
             {m.count > 1 && <span> (x{m.count})</span>}
           </div>
         ))}

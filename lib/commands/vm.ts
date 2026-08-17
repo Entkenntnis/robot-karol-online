@@ -2,6 +2,7 @@ import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import type { Condition, Op } from '../state/types'
+import { addMessage } from './messages'
 import {
   forward,
   left,
@@ -160,11 +161,16 @@ function* executeProgramAsGenerator(core: Core) {
     const pc = core.ws.vm.pc
     if (stepCounter++ >= 1000) {
       console.log('possible dead loop')
-      core.mutateWs((ws) => {
-        ws.ui.karolCrashMessage = core.ttung(
-          'Hilfe, Karol ist in einer Endlosschleife gefangen!',
-        )
-      })
+      const msg = core.ttung(
+        'Hilfe, Karol ist in einer Endlosschleife gefangen!',
+      )
+      if (core.ws.page == 'spielwiese') {
+        addMessage(core, msg)
+      } else {
+        core.mutateWs((ws) => {
+          ws.ui.karolCrashMessage = msg
+        })
+      }
       yield 'interrupt'
       stepCounter = 0
     }
@@ -448,6 +454,25 @@ export function abort(core: Core) {
 }
 
 export function endExecution(core: Core) {
+  if (core.ws.page == 'spielwiese') {
+    if (core.ws.ui.karolCrashMessage) {
+      addMessage(core, core.ws.ui.karolCrashMessage)
+      core.mutateWs((ws) => {
+        ws.ui.karolCrashMessage = ''
+      })
+    }
+    core.mutateWs((state) => {
+      state.ui.gutter = 0
+      state.ui.state = 'ready'
+      state.vm.pc = 0
+      state.ui.questPrompt = undefined
+      state.vm.isDebugging = false
+      state.ui.isEndOfRun = false
+    })
+    setExecutionMarker(core, 0)
+    return
+  }
+
   // update gutter after crash to show line that caused the crash
   if (
     core.ws.ui.karolCrashMessage &&
