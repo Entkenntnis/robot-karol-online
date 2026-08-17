@@ -46,6 +46,8 @@ export const de2en: { [key: string]: string } = {
   Bearbeiten: 'Edit',
   'Bearbeitung laden': 'Load',
   'Bearbeitung speichern': 'Save',
+  'Beim Starten des Programms wird die Welt beibehalten.':
+    'World is not reset on program start.',
   bereit: 'ready',
   'Beschreibe, um was es bei der Aufgabe geht ...':
     'Describe what the exercise is about ...',
@@ -134,6 +136,7 @@ export const de2en: { [key: string]: string } = {
   LinksDrehen: 'turn left',
   'Loslegen!': 'Get started!',
   mal: 'times',
+  'Markdown verfügbar': 'Markdown available',
   'Material für Lehrkräfte': 'Material for teachers',
   'Maximale Stapelhöhe erreicht.': 'Maximum stack height reached.',
   'Mehr als ein Hauptprogramm - erwarte höchstens ein Hauptprogramm.':
@@ -152,6 +155,8 @@ export const de2en: { [key: string]: string } = {
   Pinsel: 'Brush',
   'Probleme im Programm': 'Problems in the program',
   Programm: 'Program',
+  'Programm laden': 'Load program',
+  'Programm speichern': 'Save program',
   'Programm unvollständig': 'Incomplete program',
   'Programm wird ausgeführt': 'Running program',
   'Programm wird eingelesen ...': 'Loading program ...',
@@ -193,6 +198,7 @@ export const de2en: { [key: string]: string } = {
   Welt: 'World',
   'Welt bearbeiten': 'Edit World',
   'Welt erstellen': 'Create World',
+  'Welt leeren': 'Reset world',
   'Welt löschen': 'Delete World Content',
   'Wie heißt du?': 'What is your name?',
   wiederhole: 'repeat',

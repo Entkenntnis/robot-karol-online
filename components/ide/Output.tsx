@@ -5,9 +5,12 @@ import {
   faComment,
   faDownLong,
   faLeftLong,
+  faMinusCircle,
+  faPlusCircle,
   faRightLong,
   faTrashCan,
   faUpLong,
+  faWarning,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import { closeOutput, resetOutput } from '../../lib/commands/quest'
@@ -23,7 +26,15 @@ import { View2D } from '../helper/View2D'
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { PythonConsole } from '../helper/PythonConsole'
-import { left, right, forward } from '../../lib/commands/world'
+import {
+  left,
+  right,
+  forward,
+  brick,
+  unbrick,
+  toggleMark,
+  toggleBlock,
+} from '../../lib/commands/world'
 import { useEffect } from 'react'
 import { getTaskPreview } from '../../lib/helper/preview'
 
@@ -45,6 +56,18 @@ export function Output() {
     ArrowDown: () => {
       return forward(core, { reverse: true })
     },
+    KeyH: () => {
+      return brick(core)
+    },
+    KeyA: () => {
+      return unbrick(core)
+    },
+    KeyM: () => {
+      return toggleMark(core)
+    },
+    KeyQ: () => {
+      return toggleBlock(core)
+    },
   }
 
   function runAction(action: string) {
@@ -57,9 +80,12 @@ export function Output() {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (core.ws.ui.state == 'running' && core.ws.canvas.manualControl) {
+      if (
+        (core.ws.ui.state == 'running' && core.ws.canvas.manualControl) ||
+        core.ws.page == 'spielwiese'
+      ) {
         const action = e.code
-        if (actions[action]) {
+        if (actions[action] && e.target == document.body) {
           e.preventDefault()
           runAction(action)
         }
@@ -102,41 +128,49 @@ export function Output() {
 
   return (
     <div className="flex flex-col h-full relative">
-      <div className="border-b-2 border-gray-200">
-        <div className="pt-4 pb-1 px-7 bg-yellow-100 relative">
-          {!core.ws.ui.collapseDescription && (
-            <button
-              className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
-              onClick={toggleDescription}
-            >
-              <FaIcon className="text-xl" icon={faCaretUp} />
-            </button>
-          )}
-          <h1
-            className={clsx(
-              'text-xl font-bold mt-1',
-              core.ws.ui.collapseDescription ? 'mb-2' : 'mb-4',
+      {core.ws.page != 'spielwiese' ? (
+        <div className="border-b-2 border-gray-200">
+          <div className="pt-4 pb-1 px-7 bg-yellow-100 relative">
+            {!core.ws.ui.collapseDescription && (
+              <button
+                className="absolute top-2 right-4 w-8 h-8 rounded-full bg-gray-200/50"
+                onClick={toggleDescription}
+              >
+                <FaIcon className="text-xl" icon={faCaretUp} />
+              </button>
             )}
-          >
-            {core.ws.quest.title}
-            {core.ws.ui.isAlreadyCompleted && (
-              <span className="text-base font-normal text-green-600 ml-4">
-                <FaIcon icon={faCheck} /> {core.ttung('abgeschlossen')}
-              </span>
-            )}
-          </h1>
-          {core.ws.ui.collapseDescription ? (
-            <button
-              className="mb-2 underline text-blue-600 hover:text-blue-800 cursor-pointer"
-              onClick={toggleDescription}
+            <h1
+              className={clsx(
+                'text-xl font-bold mt-1',
+                core.ws.ui.collapseDescription ? 'mb-2' : 'mb-4',
+              )}
             >
-              + {core.ttung('Beschreibung einblenden')}
-            </button>
-          ) : (
-            <div>{processMarkdown(core.ws.quest.description)}</div>
-          )}
+              {core.ws.quest.title}
+              {core.ws.ui.isAlreadyCompleted && (
+                <span className="text-base font-normal text-green-600 ml-4">
+                  <FaIcon icon={faCheck} /> {core.ttung('abgeschlossen')}
+                </span>
+              )}
+            </h1>
+            {core.ws.ui.collapseDescription ? (
+              <button
+                className="mb-2 underline text-blue-600 hover:text-blue-800 cursor-pointer"
+                onClick={toggleDescription}
+              >
+                + {core.ttung('Beschreibung einblenden')}
+              </button>
+            ) : (
+              <div>{processMarkdown(core.ws.quest.description)}</div>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="bg-yellow-200 py-2 text-center">
+          <span className="mr-4 text-xl font-bold">
+            {core.ttung('Spielwiese')}
+          </span>
+        </div>
+      )}
       <div
         className={clsx(
           'flex-grow-0 flex-shrink-0 min-h-[82px] bg-gray-100',
@@ -150,7 +184,9 @@ export function Output() {
           className={clsx(
             'absolute top-0 left-0 right-0',
             'overflow-auto bg-white',
-            core.ws.ui.isTesting ? 'bottom-0' : 'bottom-10',
+            core.ws.ui.isTesting || core.ws.page == 'spielwiese'
+              ? 'bottom-0'
+              : 'bottom-10',
           )}
         >
           <div className="flex flex-col h-full">
@@ -208,6 +244,18 @@ export function Output() {
               {core.ttung('Variablen:')} {varStr}
             </div>
           )}
+        {core.ws.page == 'spielwiese' && (
+          <button
+            onClick={(e) => {
+              resetOutput(core)
+              e.currentTarget.blur()
+            }}
+            className="px-2 py-0.5 rounded bg-gray-100 ml-3 absolute top-2 right-2 hover:bg-gray-200"
+          >
+            <FaIcon icon={faTrashCan} className="mr-2 text-sm text-gray-700" />
+            {core.ttung('Welt leeren')}
+          </button>
+        )}
         {core.ws.ui.inputPrompt && (
           <form
             className="bg-lime-200 px-2 py-3 flex gap-4 items-baseline absolute top-0 left-0 right-0 z-10"
@@ -301,13 +349,97 @@ export function Output() {
         )}
         <PythonConsole />
       </div>
-      {core.ws.canvas.manualControl && core.ws.ui.state == 'running' && (
+      <div className="absolute bottom-2 left-2 bg-gray-50">
+        {core.ws.ui.messages.map((m) => (
+          <div key={`${m.ts}`} className="text-red-700">
+            <FaIcon icon={faWarning} /> {m.text}
+            {m.count > 1 && <span> (x{m.count})</span>}
+          </div>
+        ))}
+      </div>
+      {core.ws.page == 'spielwiese' && (
+        <div className="absolute right-2 bottom-[190px]">
+          <div className="mb-3 bg-white">
+            <button
+              className="border-2 rounded w-[60px] h-[60px] flex justify-center items-center relative active:bg-yellow-300"
+              onClick={(e) => {
+                runAction('KeyH')
+                e.currentTarget.blur()
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+              }}
+              title={core.ttung('Hinlegen')}
+            >
+              <img src="/Ziegel.png" className="w-[46px] h-[31px]" />
+              <div className="text-lg absolute bottom-0 right-0 text-gray-500">
+                <FaIcon icon={faPlusCircle} />
+              </div>
+              <div className="absolute -top-0.5 left-0.5 rounded">H</div>
+            </button>
+          </div>
+          <div className="mb-3 bg-white">
+            <button
+              className="border-2 rounded w-[60px] h-[60px] flex justify-center items-center relative active:bg-yellow-300"
+              onClick={(e) => {
+                runAction('KeyA')
+                e.currentTarget.blur()
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+              }}
+              title={core.ttung('Aufheben')}
+            >
+              <img src="/Ziegel.png" className="w-[46px] h-[31px]" />
+              <div className="text-lg absolute bottom-0 right-0 text-gray-500">
+                <FaIcon icon={faMinusCircle} />
+              </div>
+              <div className="absolute -top-0.5 left-0.5 rounded">A</div>
+            </button>
+          </div>
+          <div className="mb-3 bg-white">
+            <button
+              className="border-2 rounded w-[60px] h-[60px] flex justify-center items-center relative active:bg-yellow-300"
+              onClick={(e) => {
+                runAction('KeyM')
+                e.currentTarget.blur()
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+              }}
+              title={core.ttung('MarkeSetzen/MarkeLöschen')}
+            >
+              <img src="/marke.png" className="w-[46px] h-[31px]" />
+              <div className="absolute -top-0.5 left-0.5 rounded">M</div>
+            </button>
+          </div>
+          <div className="mb-3 bg-white">
+            <button
+              className="border-2 rounded w-[60px] h-[60px] flex justify-center items-center relative active:bg-yellow-300"
+              onClick={(e) => {
+                runAction('KeyQ')
+                e.currentTarget.blur()
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+              }}
+              title={core.ttung('Quader')}
+            >
+              <img src="/quader.png" className="w-[36px] h-[36px]" />
+              <div className="absolute -top-0.5 left-0.5 rounded">Q</div>
+            </button>
+          </div>
+        </div>
+      )}
+      {((core.ws.canvas.manualControl && core.ws.ui.state == 'running') ||
+        core.ws.page == 'spielwiese') && (
         <div className="absolute bottom-6 right-2 bg-gray-200/30 rounded-[50px] flex flex-col items-center select-none w-[130px] h-[120px] justify-between">
           <div className="flex justify-center h-[30px]">
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all mt-1"
-              onClick={() => {
+              onClick={(e) => {
                 runAction('ArrowUp')
+                e.currentTarget.blur()
               }}
               onContextMenu={(e) => {
                 e.preventDefault()
@@ -320,8 +452,9 @@ export function Output() {
           <div className="flex flex-row justify-center items-center mt-2">
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all mr-2"
-              onClick={() => {
+              onClick={(e) => {
                 runAction('ArrowLeft')
+                e.currentTarget.blur()
               }}
               onContextMenu={(e) => {
                 e.preventDefault()
@@ -333,8 +466,9 @@ export function Output() {
             <div style={{ width: '20px' }}></div>
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all ml-2"
-              onClick={() => {
+              onClick={(e) => {
                 runAction('ArrowRight')
+                e.currentTarget.blur()
               }}
               onContextMenu={(e) => {
                 e.preventDefault()
@@ -347,8 +481,9 @@ export function Output() {
           <div className="flex justify-center -mt-1 mb-1">
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all"
-              onClick={() => {
+              onClick={(e) => {
                 runAction('ArrowDown')
+                e.currentTarget.blur()
               }}
               onContextMenu={(e) => {
                 e.preventDefault()
@@ -361,28 +496,29 @@ export function Output() {
           </div>
         </div>
       )}
-      {core.ws.quest.lastStartedTask !== undefined && (
-        <div className="absolute bottom-1.5 left-2 whitespace-nowrap">
-          <button
-            className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
-            onClick={() => {
-              if (
-                core.ws.settings.language == 'python' &&
-                core.worker &&
-                core.ws.ui.state == 'running'
-              ) {
-                core.worker.reset()
-              } else if (core.ws.ui.state == 'running') {
-                abort(core)
-              }
-              closeOutput(core)
-            }}
-          >
-            <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
-            {core.ttung('zurück')}
-          </button>
-        </div>
-      )}
+      {core.ws.quest.lastStartedTask !== undefined &&
+        core.ws.page != 'spielwiese' && (
+          <div className="absolute bottom-1.5 left-2 whitespace-nowrap">
+            <button
+              className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
+              onClick={() => {
+                if (
+                  core.ws.settings.language == 'python' &&
+                  core.worker &&
+                  core.ws.ui.state == 'running'
+                ) {
+                  core.worker.reset()
+                } else if (core.ws.ui.state == 'running') {
+                  abort(core)
+                }
+                closeOutput(core)
+              }}
+            >
+              <FaIcon icon={faArrowLeft} className="mx-1" />{' '}
+              {core.ttung('zurück')}
+            </button>
+          </div>
+        )}
       {core.ws.ui.isEndOfRun &&
         !core.ws.ui.controlBarShowFinishQuest &&
         !core.ws.ui.isTesting && (

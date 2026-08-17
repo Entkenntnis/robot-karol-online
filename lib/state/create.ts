@@ -25,6 +25,7 @@ export function createWorkspaceState(): WorkspaceState {
     pythonCode: '',
     ui: {
       messages: [],
+      pythonMessages: [],
       gutter: 0,
       state: 'loading',
       errorMessages: [],

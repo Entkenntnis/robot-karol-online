@@ -123,13 +123,18 @@ export function ResizeWorldModal() {
   }
 
   function exec() {
+    if (core.ws.page == 'spielwiese') {
+      createWorldCmd(core, localDimX, localDimY, localHeight, keep)
+      core.mutateWs((ws) => {
+        ws.quest.tasks[0].start = createWorld(localDimX, localDimY, localHeight)
+      })
+      closeModal(core)
+      return
+    }
     if (core.ws.ui.isPlayground) {
       if (core.ws.ui.showOutput) {
         createWorldCmd(core, localDimX, localDimY, localHeight, keep)
       }
-      core.mutateWs((ws) => {
-        ws.quest.tasks[0].start = createWorld(localDimX, localDimY, localHeight)
-      })
       saveCodeToLocalStorage(core)
       closeModal(core)
       return

@@ -90,7 +90,7 @@ function escape(s) {
 const lines = ['export const de2en: { [key: string]: string } = {']
 for (const e of untranslated) {
   lines.push(`  // TODO: NEUE Übersetzung (${e.locations.length}x verwendet)`)
-  lines.push(`  '${escape(e.de)}': '${escape(e.de)}',`)
+  lines.push(`  '${escape(e.de)}': '',`)
 }
 for (const e of translated) {
   lines.push(`  '${escape(e.de)}': '${escape(de2en[e.de])}',`)

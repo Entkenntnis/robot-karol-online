@@ -135,6 +135,29 @@ export async function hydrate(core: Core) {
     return
   }
 
+  if (path == '/spielwiese') {
+    core.mutateWs((ws) => {
+      ws.page = 'spielwiese'
+      // ws.world =
+      ws.quest.tasks = [
+        {
+          title: core.ttung(
+            'Beim Starten des Programms wird die Welt beibehalten.',
+          ),
+          start: createWorld(15, 10, 6),
+          target: null,
+        },
+      ]
+      ws.world = ws.quest.tasks[0].start
+      ws.quest.lastStartedTask = 0
+      ws.ui.showOutput = true
+    })
+    document.title = core.ttung('Spielwiese') + ' | Robot Karol Online'
+    setCanonical('spielwiese')
+    refreshEditArea(core)
+    return
+  }
+
   if (page == 'EDITOR' || (path == '/editor' && page == '')) {
     core.mutateWs((ws) => {
       ws.page = 'editor'

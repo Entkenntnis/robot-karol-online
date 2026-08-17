@@ -79,16 +79,19 @@ export function saveCodeToFile(core: Core) {
   // 5. Create an anchor element for the download link
   const a = document.createElement('a')
   a.href = url
-  a.download = `${core.ws.quest.title.replace(/[^A-Za-z0-9äüöÄÜÖß]/g, '_')}${
-    core.ws.ui.sharedQuestId ? '-' + core.ws.ui.sharedQuestId : ''
-  }.${
+  const extension =
     core.ws.settings.language == 'robot karol' ||
     core.ws.settings.mode == 'blocks'
       ? 'txt'
       : core.ws.settings.language == 'python'
         ? 'py'
         : 'java.txt'
-  }` // specify the filename
+  a.download =
+    core.ws.page == 'spielwiese'
+      ? core.ttung('Programm') + '.' + extension
+      : `${core.ws.quest.title.replace(/[^A-Za-z0-9äüöÄÜÖß]/g, '_')}${
+          core.ws.ui.sharedQuestId ? '-' + core.ws.ui.sharedQuestId : ''
+        }.${extension}` // specify the filename
 
   // 6. Simulate a click on the anchor element to trigger the download
   a.click()

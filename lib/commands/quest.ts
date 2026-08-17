@@ -28,7 +28,7 @@ export function runTask(core: Core, index: number) {
   const task = core.ws.quest.tasks[index]
 
   core.mutateWs((ws) => {
-    if (ws.editor.editWorld === null) {
+    if (ws.editor.editWorld === null && ws.page != 'spielwiese') {
       ws.world = task.start
     }
     ws.ui.showOutput = true
@@ -142,6 +142,7 @@ export function closeOutput(core: Core) {
     ws.ui.karolCrashMessage = undefined
     ws.quest.progress = false
     ws.ui.messages = []
+    ws.ui.pythonMessages = []
     ws.canvas.manualControl = false
   })
   CanvasObjects.update((s) => {
@@ -166,6 +167,7 @@ export function resetOutput(core: Core) {
     core.mutateWs((ws) => {
       ws.world = ws.quest.tasks[core.ws.quest.lastStartedTask!].start
       ws.ui.messages = []
+      ws.ui.pythonMessages = []
       ws.quest.progress = false
       ws.ui.isEndOfRun = false
       ws.ui.karolCrashMessage = undefined

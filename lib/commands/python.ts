@@ -208,7 +208,7 @@ export function setupWorker(core: Core) {
       const dataArray = new Uint8Array(buffer, 8)
 
       core.mutateWs(({ ui }) => {
-        const lastMessage = ui.messages.pop()
+        const lastMessage = ui.pythonMessages.pop()
         ui.inputPrompt = lastMessage?.text ?? 'Eingabe:'
       })
 
@@ -569,7 +569,7 @@ export function setupWorker(core: Core) {
       event.data.type == 'clear-output'
     ) {
       core.mutateWs(({ ui }) => {
-        ui.messages = []
+        ui.pythonMessages = []
       })
     }
 
@@ -705,7 +705,7 @@ export function setupWorker(core: Core) {
       ui.isEndOfRun = false
       ui.karolCrashMessage = undefined
       vm.isDebugging = false
-      ui.messages = []
+      ui.pythonMessages = []
       ui.inputPrompt = undefined
       ui.errorMessages = []
       ui.keybindings = []

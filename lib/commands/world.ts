@@ -247,9 +247,9 @@ export function moveRaw(x: number, y: number, dir: Heading, world: World) {
 }
 
 export function reverse(h: Heading) {
-  return { north: 'south', south: 'north', east: 'west', west: 'east' }[
-    h
-  ] as Heading
+  return (
+    { north: 'south', south: 'north', east: 'west', west: 'east' } as const
+  )[h]
 }
 
 export function turnLeft(h: Heading) {
@@ -277,7 +277,10 @@ function karolCrashed(core: Core, error: string) {
   if (core.ws.canvas.manualControl) {
     return // ignore
   }
-  if (core.ws.page == 'editor' && core.ws.ui.state !== 'running') {
+  if (
+    (core.ws.page == 'editor' || core.ws.page == 'spielwiese') &&
+    core.ws.ui.state !== 'running'
+  ) {
     addMessage(core, error)
   } else {
     core.mutateWs(({ ui }) => {

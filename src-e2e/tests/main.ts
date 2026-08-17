@@ -95,7 +95,7 @@ Scenario('See if playground works fine', ({ I }) => {
   I.seeTitleEquals('Robot Karol Online')
 
   I.click('Spielwiese')
-  I.see('Programmiere frei und baue dein Herzensprojekt.')
+  I.see('Spielwiese')
 
   I.click({ css: '#select-language' })
   I.click({ css: '#select-language-python' })
