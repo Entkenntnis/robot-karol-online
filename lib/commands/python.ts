@@ -709,6 +709,7 @@ export function setupWorker(core: Core) {
       ui.inputPrompt = undefined
       ui.errorMessages = []
       ui.keybindings = []
+      ui.notCompletedReason = ''
       canvas.manualControl = false
     })
     CanvasObjects.update((s) => {
