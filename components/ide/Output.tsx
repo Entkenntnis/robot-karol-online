@@ -5,6 +5,8 @@ import {
   faComment,
   faDownLong,
   faLeftLong,
+  faMinusCircle,
+  faPlusCircle,
   faRightLong,
   faTrashCan,
   faUpLong,
@@ -244,8 +246,9 @@ export function Output() {
           )}
         {core.ws.page == 'spielwiese' && (
           <button
-            onClick={() => {
+            onClick={(e) => {
               resetOutput(core)
+              e.currentTarget.blur()
             }}
             className="px-2 py-0.5 rounded bg-gray-100 ml-3 absolute top-2 right-2 hover:bg-gray-200"
           >
@@ -354,6 +357,80 @@ export function Output() {
           </div>
         ))}
       </div>
+      {core.ws.page == 'spielwiese' && (
+        <div className="absolute right-2 bottom-[190px]">
+          <div className="mb-3 bg-white">
+            <button
+              className="border-2 rounded w-[60px] h-[60px] flex justify-center items-center relative active:bg-yellow-300"
+              onClick={(e) => {
+                runAction('KeyH')
+                e.currentTarget.blur()
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+              }}
+              title={core.ttung('Hinlegen')}
+            >
+              <img src="/Ziegel.png" className="w-[46px] h-[31px]" />
+              <div className="text-lg absolute bottom-0 right-0 text-gray-500">
+                <FaIcon icon={faPlusCircle} />
+              </div>
+              <div className="absolute -top-0.5 left-0.5 rounded">H</div>
+            </button>
+          </div>
+          <div className="mb-3 bg-white">
+            <button
+              className="border-2 rounded w-[60px] h-[60px] flex justify-center items-center relative active:bg-yellow-300"
+              onClick={(e) => {
+                runAction('KeyA')
+                e.currentTarget.blur()
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+              }}
+              title={core.ttung('Aufheben')}
+            >
+              <img src="/Ziegel.png" className="w-[46px] h-[31px]" />
+              <div className="text-lg absolute bottom-0 right-0 text-gray-500">
+                <FaIcon icon={faMinusCircle} />
+              </div>
+              <div className="absolute -top-0.5 left-0.5 rounded">A</div>
+            </button>
+          </div>
+          <div className="mb-3 bg-white">
+            <button
+              className="border-2 rounded w-[60px] h-[60px] flex justify-center items-center relative active:bg-yellow-300"
+              onClick={(e) => {
+                runAction('KeyM')
+                e.currentTarget.blur()
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+              }}
+              title={core.ttung('MarkeSetzen/MarkeLöschen')}
+            >
+              <img src="/marke.png" className="w-[46px] h-[31px]" />
+              <div className="absolute -top-0.5 left-0.5 rounded">M</div>
+            </button>
+          </div>
+          <div className="mb-3 bg-white">
+            <button
+              className="border-2 rounded w-[60px] h-[60px] flex justify-center items-center relative active:bg-yellow-300"
+              onClick={(e) => {
+                runAction('KeyQ')
+                e.currentTarget.blur()
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+              }}
+              title={core.ttung('Quader')}
+            >
+              <img src="/quader.png" className="w-[36px] h-[36px]" />
+              <div className="absolute -top-0.5 left-0.5 rounded">Q</div>
+            </button>
+          </div>
+        </div>
+      )}
       {((core.ws.canvas.manualControl && core.ws.ui.state == 'running') ||
         core.ws.page == 'spielwiese') && (
         <div className="absolute bottom-6 right-2 bg-gray-200/30 rounded-[50px] flex flex-col items-center select-none w-[130px] h-[120px] justify-between">
