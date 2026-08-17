@@ -33,6 +33,7 @@ export type Tab = 'karol' | 'python' | 'feedback' | 'freigaben' | 'ab'
 export interface Ui {
   // this state is only for ide
   messages: Message[]
+  pythonMessages: Message[]
   gutter: number
   state: 'ready' | 'loading' | 'running' | 'error'
   errorMessages: string[]

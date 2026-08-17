@@ -141,7 +141,9 @@ export async function hydrate(core: Core) {
       // ws.world =
       ws.quest.tasks = [
         {
-          title: core.ttung('Spielwiese'),
+          title: core.ttung(
+            'Beim Starten des Programms wird die Welt beibehalten.',
+          ),
           start: createWorld(15, 10, 6),
           target: null,
         },

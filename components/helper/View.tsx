@@ -15,7 +15,7 @@ import {
   ziegelBild,
   ziegelWeg,
 } from '../../lib/data/images'
-import { moveRaw, twoWorldsEqual } from '../../lib/commands/world'
+import { moveRaw, reverse, twoWorldsEqual } from '../../lib/commands/world'
 import { CanvasObjects } from '../../lib/state/canvas-objects'
 
 interface ViewProps {
@@ -120,14 +120,18 @@ export function View({
     const prevZ =
       prevY >= 0 && prevX >= 0 ? prevWorld.current.bricks[prevY][prevX] : 0
 
-    const step = moveRaw(
-      prevX,
-      prevY,
-      prevWorld.current.karol.dir,
-      prevWorld.current,
-    )
+    const dir = prevWorld.current.karol.dir
+    const oppositeDir = reverse(dir)
 
-    if (step && step.x == currentX && step.y == currentY) {
+    const forwardStep = moveRaw(prevX, prevY, dir, prevWorld.current)
+    const backwardStep = moveRaw(prevX, prevY, oppositeDir, prevWorld.current)
+
+    const isForward = forwardStep?.x === currentX && forwardStep?.y === currentY
+
+    const isBackward =
+      backwardStep?.x === currentX && backwardStep?.y === currentY
+
+    if (isForward || isBackward) {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }

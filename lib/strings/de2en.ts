@@ -46,6 +46,8 @@ export const de2en: { [key: string]: string } = {
   Bearbeiten: 'Edit',
   'Bearbeitung laden': 'Load',
   'Bearbeitung speichern': 'Save',
+  'Beim Starten des Programms wird die Welt beibehalten.':
+    'World is not reset on program start.',
   bereit: 'ready',
   'Beschreibe, um was es bei der Aufgabe geht ...':
     'Describe what the exercise is about ...',

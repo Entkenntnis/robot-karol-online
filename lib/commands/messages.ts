@@ -1,5 +1,4 @@
 import { Core } from '../state/core'
-import { ____submitAnalyzeEvent } from '../helper/submit'
 
 export function addMessage(core: Core, text: string) {
   const ts = Date.now()
@@ -32,7 +31,7 @@ export function addConsoleMessage(core: Core, text: string) {
     // } else {
     const lines = text.split('\n')
     for (const line of lines) {
-      ui.messages.push({ text: line, ts: Math.random(), count: 1 })
+      ui.pythonMessages.push({ text: line, ts: Math.random(), count: 1 })
     }
     // }
   })

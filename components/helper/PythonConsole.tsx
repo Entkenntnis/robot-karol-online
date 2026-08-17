@@ -5,7 +5,7 @@ import { useCore } from '../../lib/state/core'
 export function PythonConsole() {
   const core = useCore()
   const containerRef = useRef<HTMLDivElement>(null)
-  const messages = core.ws.ui.messages
+  const messages = core.ws.ui.pythonMessages
   const isAtBottom = useRef(true)
 
   // Combined effect for scroll handling

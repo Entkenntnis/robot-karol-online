@@ -23,7 +23,15 @@ import { View2D } from '../helper/View2D'
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 import { sliderToDelay } from '../../lib/helper/speedSlider'
 import { PythonConsole } from '../helper/PythonConsole'
-import { left, right, forward } from '../../lib/commands/world'
+import {
+  left,
+  right,
+  forward,
+  brick,
+  unbrick,
+  toggleMark,
+  toggleBlock,
+} from '../../lib/commands/world'
 import { useEffect } from 'react'
 import { getTaskPreview } from '../../lib/helper/preview'
 
@@ -45,6 +53,18 @@ export function Output() {
     ArrowDown: () => {
       return forward(core, { reverse: true })
     },
+    KeyH: () => {
+      return brick(core)
+    },
+    KeyA: () => {
+      return unbrick(core)
+    },
+    KeyM: () => {
+      return toggleMark(core)
+    },
+    KeyQ: () => {
+      return toggleBlock(core)
+    },
   }
 
   function runAction(action: string) {
@@ -57,9 +77,12 @@ export function Output() {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (core.ws.ui.state == 'running' && core.ws.canvas.manualControl) {
+      if (
+        (core.ws.ui.state == 'running' && core.ws.canvas.manualControl) ||
+        core.ws.page == 'spielwiese'
+      ) {
         const action = e.code
-        if (actions[action]) {
+        if (actions[action] && e.target == document.body) {
           e.preventDefault()
           runAction(action)
         }
@@ -102,7 +125,7 @@ export function Output() {
 
   return (
     <div className="flex flex-col h-full relative">
-      {core.ws.page != 'spielwiese' && (
+      {core.ws.page != 'spielwiese' ? (
         <div className="border-b-2 border-gray-200">
           <div className="pt-4 pb-1 px-7 bg-yellow-100 relative">
             {!core.ws.ui.collapseDescription && (
@@ -138,6 +161,12 @@ export function Output() {
             )}
           </div>
         </div>
+      ) : (
+        <div className="bg-emerald-100 py-2 text-center">
+          <span className="mr-4 text-xl font-bold">
+            {core.ttung('Spielwiese')}
+          </span>
+        </div>
       )}
       <div
         className={clsx(
@@ -152,7 +181,9 @@ export function Output() {
           className={clsx(
             'absolute top-0 left-0 right-0',
             'overflow-auto bg-white',
-            core.ws.ui.isTesting ? 'bottom-0' : 'bottom-10',
+            core.ws.ui.isTesting || core.ws.page == 'spielwiese'
+              ? 'bottom-0'
+              : 'bottom-10',
           )}
         >
           <div className="flex flex-col h-full">
@@ -303,13 +334,23 @@ export function Output() {
         )}
         <PythonConsole />
       </div>
-      {core.ws.canvas.manualControl && core.ws.ui.state == 'running' && (
+      <div className="absolute bottom-2 left-2 bg-gray-50">
+        {core.ws.ui.messages.map((m) => (
+          <div key={`${m.ts}`}>
+            {m.text}
+            {m.count > 1 && <span> (x{m.count})</span>}
+          </div>
+        ))}
+      </div>
+      {((core.ws.canvas.manualControl && core.ws.ui.state == 'running') ||
+        core.ws.page == 'spielwiese') && (
         <div className="absolute bottom-6 right-2 bg-gray-200/30 rounded-[50px] flex flex-col items-center select-none w-[130px] h-[120px] justify-between">
           <div className="flex justify-center h-[30px]">
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all mt-1"
-              onClick={() => {
+              onClick={(e) => {
                 runAction('ArrowUp')
+                e.currentTarget.blur()
               }}
               onContextMenu={(e) => {
                 e.preventDefault()
@@ -322,8 +363,9 @@ export function Output() {
           <div className="flex flex-row justify-center items-center mt-2">
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all mr-2"
-              onClick={() => {
+              onClick={(e) => {
                 runAction('ArrowLeft')
+                e.currentTarget.blur()
               }}
               onContextMenu={(e) => {
                 e.preventDefault()
@@ -335,8 +377,9 @@ export function Output() {
             <div style={{ width: '20px' }}></div>
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all ml-2"
-              onClick={() => {
+              onClick={(e) => {
                 runAction('ArrowRight')
+                e.currentTarget.blur()
               }}
               onContextMenu={(e) => {
                 e.preventDefault()
@@ -349,8 +392,9 @@ export function Output() {
           <div className="flex justify-center -mt-1 mb-1">
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm active:bg-yellow-300 text-gray-700 text-xl disabled:text-gray-300 transition-all"
-              onClick={() => {
+              onClick={(e) => {
                 runAction('ArrowDown')
+                e.currentTarget.blur()
               }}
               onContextMenu={(e) => {
                 e.preventDefault()
