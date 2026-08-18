@@ -709,6 +709,7 @@ export function KarolmaniaGame() {
             world={core.ws.world}
             preview={{ world: core.ws.quest.tasks[0].target! }}
             className="object-contain max-w-full max-h-full"
+            externallyScaled
           />
         </div>
       </div>

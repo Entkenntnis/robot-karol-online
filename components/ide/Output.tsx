@@ -214,6 +214,7 @@ export function Output() {
                       core.ws.ui.karolCrashMessage && 'border-4 border-red-300',
                     )}
                     canvas={core.ws.canvas}
+                    scale={getZoom(core)}
                   />
                 ) : (
                   <View

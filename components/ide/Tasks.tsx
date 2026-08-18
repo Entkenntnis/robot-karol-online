@@ -468,6 +468,8 @@ export function Tasks() {
                           world={task.start}
                           preview={getTaskPreview(core, task)}
                           className="h-full w-full object-contain"
+                          externallyScaled
+                          lowQuality
                         />
                       ) : (
                         <View
@@ -478,6 +480,7 @@ export function Tasks() {
                           className="h-full w-full object-contain"
                           robotImageDataUrl={core.ws.robotImageDataUrl}
                           externallyScaled
+                          lowQuality
                         />
                       )}
                     </div>

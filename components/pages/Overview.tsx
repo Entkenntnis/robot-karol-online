@@ -711,6 +711,7 @@ export function Overview() {
                     questDone && 'opacity-30',
                   )}
                   robotImageDataUrl={core.ws.robotImageDataUrl}
+                  lowQuality
                 />{' '}
                 {questDone && (
                   <div className="absolute inset-0 flex justify-center items-center">

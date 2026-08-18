@@ -30,6 +30,7 @@ interface ViewProps {
   canvas?: Canvas
   onClick?: () => void
   externallyScaled?: boolean
+  lowQuality?: boolean
   scale?: number
 }
 
@@ -59,6 +60,7 @@ export function View({
   animationDuration,
   canvas,
   externallyScaled,
+  lowQuality,
   scale = 1,
 }: ViewProps) {
   const canvasElement = useRef<HTMLCanvasElement>(null)
@@ -69,7 +71,7 @@ export function View({
   const height = 15 * world.dimY + 15 * world.height + 1 + 61
 
   const maxCanvasDimension = 5000
-  const maxRenderScale = 3
+  const maxRenderScale = lowQuality ? 1 : 3
 
   // größter ganzzahliger Faktor, der beide Seiten ≤ maxCanvasDimension hält, bevorzugt 3x, Deckelung bei 1
   const renderScale = Math.max(
@@ -260,7 +262,7 @@ export function View({
       } = resources
 
       ctx.save()
-      if (!externallyScaled) {
+      if (!lowQuality) {
         ctx.imageSmoothingEnabled = false
       }
       ctx.scale(renderScale, renderScale)
