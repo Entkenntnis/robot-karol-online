@@ -690,6 +690,7 @@ export function KarolmaniaGame() {
             preview={{ world: core.ws.quest.tasks[0].target! }}
             animationDuration={100}
             className="ml-2 -mt-2 mr-2"
+            lowQuality
           />
         </div>
 
@@ -709,6 +710,8 @@ export function KarolmaniaGame() {
             world={core.ws.world}
             preview={{ world: core.ws.quest.tasks[0].target! }}
             className="object-contain max-w-full max-h-full"
+            externallyScaled
+            lowQuality
           />
         </div>
       </div>

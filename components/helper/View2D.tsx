@@ -8,14 +8,37 @@ interface View2DProps {
   preview?: Preview
   className?: string
   canvas?: Canvas
+  externallyScaled?: boolean
+  lowQuality?: boolean
+  scale?: number
 }
 
-export function View2D({ world, preview, className, canvas }: View2DProps) {
+export function View2D({
+  world,
+  preview,
+  className,
+  canvas,
+  externallyScaled,
+  lowQuality,
+  scale = 1,
+}: View2DProps) {
   const co = CanvasObjects.useState()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const cellSize = world.dimX > 9 || world.dimY > 9 ? 34 : 50
   const width = world.dimX * cellSize + 1
   const height = world.dimY * cellSize + 1
+
+  const maxCanvasDimension = 5000
+  const maxRenderScale = lowQuality ? 1 : 3
+
+  const renderScale = Math.max(
+    1,
+    Math.min(
+      maxRenderScale,
+      Math.floor(maxCanvasDimension / width),
+      Math.floor(maxCanvasDimension / height),
+    ),
+  )
 
   useEffect(() => {
     const canvasElement = canvasRef.current
@@ -23,7 +46,11 @@ export function View2D({ world, preview, className, canvas }: View2DProps) {
     const ctx = canvasElement.getContext('2d')
     if (!ctx) return
 
-    // Canvas leeren
+    ctx.save()
+    if (!lowQuality) {
+      ctx.imageSmoothingEnabled = false
+    }
+    ctx.scale(renderScale, renderScale)
     ctx.clearRect(0, 0, width, height)
 
     for (let y = 0; y < world.dimY; y++) {
@@ -40,7 +67,7 @@ export function View2D({ world, preview, className, canvas }: View2DProps) {
 
     if (co) {
       ctx.save()
-      ctx.setTransform(cellSize, 0, 0, cellSize, 0, 0)
+      ctx.transform(cellSize, 0, 0, cellSize, 0, 0)
       ctx.beginPath()
       ctx.rect(0, 0, world.dimX, world.dimY)
       ctx.clip()
@@ -142,13 +169,24 @@ export function View2D({ world, preview, className, canvas }: View2DProps) {
       const cy = y * cellSize + cellSize / 2
       drawKarol(ctx, cx, cy, dir, cellSize)
     }
+
+    ctx.restore()
   }, [world, preview, width, height, cellSize, canvas, co])
 
   return (
     <canvas
       ref={canvasRef}
-      width={width}
-      height={height}
+      width={width * renderScale}
+      height={height * renderScale}
+      style={
+        externallyScaled
+          ? {}
+          : {
+              width: 'auto',
+              height: height * scale,
+              boxSizing: 'content-box',
+            }
+      }
       className={className}
     />
   )

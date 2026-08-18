@@ -26,6 +26,7 @@ import {
   pythonKarolExamples,
 } from '../../lib/data/pythonExamples'
 import { distance } from 'fastest-levenshtein'
+import { triggerEvent } from '../../lib/commands/experiment'
 
 export function InteractionBar() {
   const core = useCore()
@@ -39,8 +40,12 @@ export function InteractionBar() {
         !core.worker.mainWorkerReady
       )) ||
     !!core.ws.ui.lockLanguage ||
-    !core.ws.ui.pythonCanSwitch ||
-    core.ws.ui.proMode ||
+    (!core.ws.ui.pythonCanSwitch &&
+      core.ws.settings.language == 'python' &&
+      core.ws.settings.mode == 'code') ||
+    (core.ws.ui.proMode &&
+      core.ws.settings.language == 'java' &&
+      core.ws.settings.mode == 'code') ||
     core.ws.ui.editQuestScript
 
   const codeOnly =
@@ -72,10 +77,10 @@ export function InteractionBar() {
         <button
           className="whitespace-nowrap px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
           onClick={() => {
-            ____submitAnalyzeEvent(core, 'ev_click_ide_menu')
             core.mutateWs(({ ui }) => {
               ui.showFlyoutMenu = true
             })
+            triggerEvent(core, { key: 'open-flyout' })
           }}
         >
           <FaIcon icon={faBars} className="sm:mr-2" />
@@ -268,7 +273,7 @@ export function InteractionBar() {
                     'bg-yellow-500 hover:bg-yellow-600',
                 ),
           )}
-          onClick={() => {
+          onClick={(e) => {
             if (core.ws.ui.state == 'running') {
               ____submitAnalyzeEvent(core, 'ev_click_ide_stop')
             }
@@ -295,6 +300,7 @@ export function InteractionBar() {
               )
             }
             startButtonClicked(core)
+            e.currentTarget.blur()
           }}
           title={
             core.ws.ui.state == 'error'

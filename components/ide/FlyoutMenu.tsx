@@ -5,6 +5,8 @@ import {
   faExpand,
   faFloppyDisk,
   faFolderOpen,
+  faMinusCircle,
+  faPlusCircle,
   faRotateRight,
   faTimes,
   faUpRightAndDownLeftFromCenter,
@@ -18,6 +20,12 @@ import { useEffect } from 'react'
 import { questData } from '../../lib/data/quests'
 import { questDataEn } from '../../lib/data/questsEn'
 import { refreshEditArea } from '../../lib/commands/editing'
+import {
+  decreaseZoomLevel,
+  getZoom,
+  increaseZoomLevel,
+} from '../../lib/commands/zoom'
+import { triggerEvent } from '../../lib/commands/experiment'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -91,7 +99,7 @@ export function FlyoutMenu() {
           </p>
         )}
 
-        <p className="px-2 pt-4">
+        <p className="px-2 py-4">
           <button
             className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left"
             onClick={() => {
@@ -105,7 +113,7 @@ export function FlyoutMenu() {
               : core.ttung('Bearbeitung speichern')}
           </button>
         </p>
-        <p className="px-2 pt-4">
+        <p className="px-2">
           <button
             className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left"
             onClick={() => {
@@ -257,9 +265,8 @@ export function FlyoutMenu() {
             </p>
           </>
         )*/}
-        <hr className="my-3 mx-4" />
         {core.ws.page == 'spielwiese' && (
-          <p className="px-2 pb-4">
+          <p className="px-2 pt-4">
             <button
               className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left"
               onClick={() => {
@@ -275,39 +282,75 @@ export function FlyoutMenu() {
             </button>
           </p>
         )}
-        {core.ws.page == 'shared' && (
-          <p className="px-2 pb-4">
-            <label className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left block cursor-pointer">
-              <input
-                type="checkbox"
-                className="cursor-pointer mr-1"
-                checked={core.ws.ui.showPreview}
-                onChange={(e) => {
-                  core.mutateWs((ws) => {
-                    ws.ui.showPreview = e.target.checked
-                  })
-                }}
-              />{' '}
-              {core.ttung('Auftragsvorschau')}
-            </label>
-          </p>
-        )}
+        <hr className="my-3 mx-4" />
         {!core.ws.ui.isChatMode && (
-          <p className="px-2 pb-4">
-            <label className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left block cursor-pointer">
-              <input
-                type="checkbox"
-                className="cursor-pointer mr-1"
-                checked={core.ws.ui.show2D}
-                onChange={(e) => {
-                  core.mutateWs((ws) => {
-                    ws.ui.show2D = e.target.checked
-                  })
-                }}
-              />{' '}
-              {core.ttung('2D-Ansicht')}
-            </label>
-          </p>
+          <>
+            <p className="px-4 pb-4 pt-1 flex justify-between">
+              <span>Zoom:</span>
+              <span>
+                <button
+                  onClick={() => {
+                    decreaseZoomLevel(core)
+                    triggerEvent(core, { key: 'use-zoom' })
+                  }}
+                >
+                  <FaIcon
+                    icon={faMinusCircle}
+                    className="text-gray-500 hover:text-gray-600 ml-10"
+                  />
+                </button>
+                <input
+                  readOnly
+                  disabled
+                  value={Math.round(getZoom(core) * 100) + '%'}
+                  className="mx-4 inline-block w-[70px] outline-none border-2 rounded text-center"
+                />
+                <button
+                  onClick={() => {
+                    increaseZoomLevel(core)
+                    triggerEvent(core, { key: 'use-zoom' })
+                  }}
+                >
+                  <FaIcon
+                    icon={faPlusCircle}
+                    className="text-gray-500 hover:text-gray-600"
+                  />
+                </button>
+              </span>
+            </p>
+            {core.ws.page == 'shared' && (
+              <p className="px-2 pb-4">
+                <label className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left block cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="cursor-pointer mr-1"
+                    checked={core.ws.ui.showPreview}
+                    onChange={(e) => {
+                      core.mutateWs((ws) => {
+                        ws.ui.showPreview = e.target.checked
+                      })
+                    }}
+                  />{' '}
+                  {core.ttung('Auftragsvorschau')}
+                </label>
+              </p>
+            )}
+            <p className="px-2 pb-4">
+              <label className="hover:bg-gray-200 px-2 py-2 rounded w-full text-left block cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="cursor-pointer mr-1"
+                  checked={core.ws.ui.show2D}
+                  onChange={(e) => {
+                    core.mutateWs((ws) => {
+                      ws.ui.show2D = e.target.checked
+                    })
+                  }}
+                />{' '}
+                {core.ttung('2D-Ansicht')}
+              </label>
+            </p>
+          </>
         )}
         <p className="px-2">
           <button

@@ -38,6 +38,7 @@ import {
 import { useEffect } from 'react'
 import { getTaskPreview } from '../../lib/helper/preview'
 import { triggerEvent } from '../../lib/commands/experiment'
+import { getZoom } from '../../lib/commands/zoom'
 
 export function Output() {
   const core = useCore()
@@ -213,6 +214,7 @@ export function Output() {
                       core.ws.ui.karolCrashMessage && 'border-4 border-red-300',
                     )}
                     canvas={core.ws.canvas}
+                    scale={getZoom(core)}
                   />
                 ) : (
                   <View
@@ -232,6 +234,7 @@ export function Output() {
                           )
                     }
                     canvas={core.ws.canvas}
+                    scale={getZoom(core)}
                   />
                 )}
               </div>

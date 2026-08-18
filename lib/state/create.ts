@@ -64,6 +64,7 @@ export function createWorkspaceState(): WorkspaceState {
       demoModus: false,
       flightdeckTab: 'karol',
       showQuickReference: false,
+      zoomLevelIndex: 8,
     },
     vm: {
       pc: 0,

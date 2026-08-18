@@ -31,6 +31,7 @@ import { setLng } from './mode'
 import { startQuest } from './quest'
 import { isBot } from 'isbot'
 import danceQuestData from '../data/Dance__Dance.json'
+import { loadZoomLevel } from './zoom'
 
 export async function navigate(core: Core, url: string) {
   history.pushState(null, '', '/' + url)
@@ -111,6 +112,10 @@ export async function hydrate(core: Core) {
     ws.overview.learningPathScroll = getLearningPathScroll()
     ws.quest.lockToKarolCode = getLockToKarolCode()
     ws.ui.miniProjectsOpen = !getMiniProjectCollapsed()
+    const zoomLevel = loadZoomLevel()
+    if (zoomLevel !== null) {
+      ws.ui.zoomLevelIndex = zoomLevel
+    }
   })
 
   /*if (previousWs.ui.tourModePage == 4) {

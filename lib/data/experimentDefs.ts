@@ -177,4 +177,12 @@ export const experimentDefs: Experiment[] = [
     startEvent: { key: 'visit-spielwiese' },
     endEvent: { key: 'spielwiese-manual-control' },
   },
+  {
+    id: 23,
+    title: 'Zoom A/A Probe',
+    startTs: new Date('2026-08-19 00:01 GMT+0200').getTime(),
+    endTs: new Date('2026-10-14 00:01 GMT+0200').getTime(),
+    startEvent: { key: 'open-flyout' },
+    endEvent: { key: 'use-zoom' },
+  },
 ]

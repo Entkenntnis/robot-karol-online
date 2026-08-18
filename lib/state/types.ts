@@ -82,6 +82,7 @@ export interface Ui {
   demoModus: boolean
   flightdeckTab: Tab
   showQuickReference: boolean
+  zoomLevelIndex: number
 }
 
 export interface Vm {
@@ -547,6 +548,8 @@ export type ExperimentEvent =
   | { key: 'python-help-paste-snippet' }
   | { key: 'visit-spielwiese' }
   | { key: 'spielwiese-manual-control' }
+  | { key: 'open-flyout' }
+  | { key: 'use-zoom' }
 
 export interface Experiment {
   id: number
