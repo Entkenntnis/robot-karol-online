@@ -477,6 +477,7 @@ export function Tasks() {
                           wireframe={false}
                           className="h-full w-full object-contain"
                           robotImageDataUrl={core.ws.robotImageDataUrl}
+                          externallyScaled
                         />
                       )}
                     </div>

@@ -82,6 +82,7 @@ export interface Ui {
   demoModus: boolean
   flightdeckTab: Tab
   showQuickReference: boolean
+  zoomLevelIndex: number
 }
 
 export interface Vm {

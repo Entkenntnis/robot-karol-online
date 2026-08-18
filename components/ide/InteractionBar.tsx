@@ -268,7 +268,7 @@ export function InteractionBar() {
                     'bg-yellow-500 hover:bg-yellow-600',
                 ),
           )}
-          onClick={() => {
+          onClick={(e) => {
             if (core.ws.ui.state == 'running') {
               ____submitAnalyzeEvent(core, 'ev_click_ide_stop')
             }
@@ -295,6 +295,7 @@ export function InteractionBar() {
               )
             }
             startButtonClicked(core)
+            e.currentTarget.blur()
           }}
           title={
             core.ws.ui.state == 'error'

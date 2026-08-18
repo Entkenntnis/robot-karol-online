@@ -20,6 +20,7 @@ export function SpinningRobot() {
       }}
       hideWorld
       className={`inline-block h-8 mr-1.5 -mt-2 transition-opacity ease-in-out duration-1000`}
+      externallyScaled
     />
   )
 }

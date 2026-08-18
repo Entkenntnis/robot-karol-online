@@ -29,6 +29,8 @@ interface ViewProps {
   animationDuration?: number
   canvas?: Canvas
   onClick?: () => void
+  externallyScaled?: boolean
+  scale?: number
 }
 
 interface Resources {
@@ -56,6 +58,8 @@ export function View({
   hideWorld,
   animationDuration,
   canvas,
+  externallyScaled,
+  scale = 1,
 }: ViewProps) {
   const canvasElement = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
@@ -63,6 +67,19 @@ export function View({
 
   const width = 30 * world.dimX + 15 * world.dimY + 1
   const height = 15 * world.dimY + 15 * world.height + 1 + 61
+
+  const maxCanvasDimension = 5000
+  const maxRenderScale = 3
+
+  // größter ganzzahliger Faktor, der beide Seiten ≤ maxCanvasDimension hält, bevorzugt 3x, Deckelung bei 1
+  const renderScale = Math.max(
+    1,
+    Math.min(
+      maxRenderScale,
+      Math.floor(maxCanvasDimension / width),
+      Math.floor(maxCanvasDimension / height),
+    ),
+  )
 
   const originX = 15 * world.dimY
   const originY = 15 * world.height + 61
@@ -243,6 +260,10 @@ export function View({
       } = resources
 
       ctx.save()
+      if (!externallyScaled) {
+        ctx.imageSmoothingEnabled = false
+      }
+      ctx.scale(renderScale, renderScale)
       ctx.clearRect(0, 0, width, height)
 
       ctx.strokeStyle = 'blue'
@@ -292,7 +313,7 @@ export function View({
 
       if (co) {
         ctx.save()
-        ctx.setTransform(30, 0, -15, 15, originX, originY)
+        ctx.transform(30, 0, -15, 15, originX, originY)
         ctx.beginPath()
         ctx.rect(0, 0, world.dimX, world.dimY)
         ctx.clip()
@@ -479,8 +500,17 @@ export function View({
   return (
     <canvas
       ref={canvasElement}
-      width={width}
-      height={height}
+      width={width * renderScale}
+      height={height * renderScale}
+      style={
+        externallyScaled
+          ? {}
+          : {
+              width: 'auto',
+              height: height * scale,
+              boxSizing: 'content-box',
+            }
+      }
       className={className}
       onClick={onClick}
     ></canvas>
