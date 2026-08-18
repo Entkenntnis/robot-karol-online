@@ -40,8 +40,12 @@ export function InteractionBar() {
         !core.worker.mainWorkerReady
       )) ||
     !!core.ws.ui.lockLanguage ||
-    !core.ws.ui.pythonCanSwitch ||
-    core.ws.ui.proMode ||
+    (!core.ws.ui.pythonCanSwitch &&
+      core.ws.settings.language == 'python' &&
+      core.ws.settings.mode == 'code') ||
+    (core.ws.ui.proMode &&
+      core.ws.settings.language == 'java' &&
+      core.ws.settings.mode == 'code') ||
     core.ws.ui.editQuestScript
 
   const codeOnly =
