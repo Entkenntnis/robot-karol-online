@@ -29,6 +29,7 @@ export const de2en: { [key: string]: string } = {
   'Aufgabe gelöst in {n} Schritten': 'Task solved in {n} steps',
   'Aufgabe gelöst in einem Schritt': 'Task solved in one step',
   'Aufgaben-Editor': 'Editor',
+  Aufheben: 'Pick up',
   Auftrag: 'Assignment',
   'Auftrag duplizieren': 'Duplicate Task',
   'Auftrag hinzufügen': 'Add Task',
@@ -99,6 +100,7 @@ export const de2en: { [key: string]: string } = {
     "Welcome! Here, you'll step by step get to know the world of Karol. The tutorial will guide you through the fundamental aspects of programming.",
   'Hilfe, Karol ist in einer Endlosschleife gefangen!':
     'Help, Karol is stuck in an infinite loop!',
+  Hinlegen: 'Set Down',
   hoch: 'Up',
   Höhe: 'Height',
   Impressum: 'Imprint',
@@ -137,6 +139,7 @@ export const de2en: { [key: string]: string } = {
   'Loslegen!': 'Get started!',
   mal: 'times',
   'Markdown verfügbar': 'Markdown available',
+  'MarkeSetzen/MarkeLöschen': 'Mark/unmark',
   'Material für Lehrkräfte': 'Material for teachers',
   'Maximale Stapelhöhe erreicht.': 'Maximum stack height reached.',
   'Mehr als ein Hauptprogramm - erwarte höchstens ein Hauptprogramm.':
@@ -163,6 +166,7 @@ export const de2en: { [key: string]: string } = {
   'Programmcode speichern': 'Save program code',
   'Programmiere frei und baue dein Herzensprojekt.':
     'Program freely and build your passion project.',
+  Quader: 'Stone',
   Radierer: 'Eraser',
   RechtsDrehen: 'turn right',
   Rückgängig: 'Undo',
