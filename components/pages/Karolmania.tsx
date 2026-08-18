@@ -496,6 +496,7 @@ export function Karolmania() {
                         robotImageDataUrl={core.ws.robotImageDataUrl}
                         className="max-w-full max-h-full mb-3"
                         externallyScaled
+                        lowQuality
                       />
                     </div>
                     <div className="px-3 py-2 flex-1 flex flex-col select-none">
