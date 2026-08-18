@@ -26,6 +26,7 @@ import {
   pythonKarolExamples,
 } from '../../lib/data/pythonExamples'
 import { distance } from 'fastest-levenshtein'
+import { triggerEvent } from '../../lib/commands/experiment'
 
 export function InteractionBar() {
   const core = useCore()
@@ -72,10 +73,10 @@ export function InteractionBar() {
         <button
           className="whitespace-nowrap px-2 py-0.5 border border-gray-300 text-gray-600 bg-white rounded transition duration-150 ease-in-out hover:bg-gray-100"
           onClick={() => {
-            ____submitAnalyzeEvent(core, 'ev_click_ide_menu')
             core.mutateWs(({ ui }) => {
               ui.showFlyoutMenu = true
             })
+            triggerEvent(core, { key: 'open-flyout' })
           }}
         >
           <FaIcon icon={faBars} className="sm:mr-2" />

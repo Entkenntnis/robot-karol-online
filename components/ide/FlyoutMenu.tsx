@@ -25,6 +25,7 @@ import {
   getZoom,
   increaseZoomLevel,
 } from '../../lib/commands/zoom'
+import { triggerEvent } from '../../lib/commands/experiment'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -290,6 +291,7 @@ export function FlyoutMenu() {
                 <button
                   onClick={() => {
                     decreaseZoomLevel(core)
+                    triggerEvent(core, { key: 'use-zoom' })
                   }}
                 >
                   <FaIcon
@@ -306,6 +308,7 @@ export function FlyoutMenu() {
                 <button
                   onClick={() => {
                     increaseZoomLevel(core)
+                    triggerEvent(core, { key: 'use-zoom' })
                   }}
                 >
                   <FaIcon
