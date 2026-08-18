@@ -23,6 +23,7 @@ const miniProjectCollapsedKey = 'robot_karol_online_mini_project_collapsed'
 export const experimentEventsKey = 'robot_karol_online_experiment_events'
 const previewParticipationKey = 'robot_karol_online_preview_participation'
 export const flightdeckAccessKey = 'robot_karol_online_flighdeck_access_key'
+export const zoomLevelKey = 'robot_karol_online_zoom_level'
 
 export function getUserId() {
   let userId = localStorage.getItem(userIdKey)
