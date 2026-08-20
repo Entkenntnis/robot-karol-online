@@ -550,6 +550,7 @@ export type ExperimentEvent =
   | { key: 'spielwiese-manual-control' }
   | { key: 'open-flyout' }
   | { key: 'use-zoom' }
+  | { key: 'visit-overview' }
 
 export interface Experiment {
   id: number

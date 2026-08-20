@@ -334,6 +334,7 @@ export async function hydrate(core: Core) {
       ws.page = 'overview'
       ws.overview.showOverviewList = true
     })
+    triggerEvent(core, { key: 'visit-overview' })
     document.title = 'Robot Karol Online'
     return
   }

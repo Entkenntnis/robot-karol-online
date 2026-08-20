@@ -185,4 +185,12 @@ export const experimentDefs: Experiment[] = [
     startEvent: { key: 'open-flyout' },
     endEvent: { key: 'use-zoom' },
   },
+  {
+    id: 24,
+    title: 'Landing to Overview A/A Probe',
+    startTs: new Date('2026-08-21 00:01 GMT+0200').getTime(),
+    endTs: new Date('2026-10-18 00:01 GMT+0200').getTime(),
+    startEvent: { key: 'visit-landing' },
+    endEvent: { key: 'visit-overview' },
+  },
 ]
