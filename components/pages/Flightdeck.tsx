@@ -411,6 +411,7 @@ export function Flightdeck() {
                     <th className="pr-4">Titel</th>
                     <th className="pr-4">Events</th>
                     <th className="pr-4">START/END/RATE</th>
+                    <th className="pr-4">MDE</th>
                     <th className="pr-4">Uplift (95%-KI)</th>
                     <th className="text-right pr-4">p-Wert</th>
                   </tr>
@@ -482,13 +483,33 @@ export function Flightdeck() {
                           {entry.endEvent}
                         </td>
                         <td className="pr-4 py-1 whitespace-nowrap">
-                          C: {entry.cStart} / {entry.cEnd} /{' '}
+                          <span className="text-gray-500">C:</span>{' '}
+                          {entry.cStart} / {entry.cEnd} /{' '}
                           {r ? formatPct(r.cRate) : '–'}
                           <br />
-                          T: {entry.tStart} / {entry.tEnd} /{' '}
+                          <span className="text-gray-500">T:</span>{' '}
+                          {entry.tStart} / {entry.tEnd} /{' '}
                           {r ? formatPct(r.tRate) : '–'}
                         </td>
                         <td className="pr-4 py-1 whitespace-nowrap">
+                          {r
+                            ? formatPct(
+                                (2.80158 *
+                                  Math.sqrt(
+                                    r.cRate *
+                                      (1 - r.cRate) *
+                                      (1 / entry.cStart + 1 / entry.tStart),
+                                  )) /
+                                  r.cRate,
+                              )
+                            : '-'}
+                        </td>
+                        <td
+                          className={clsx(
+                            'pr-4 py-1 whitespace-nowrap',
+                            status != 'completed' && 'opacity-30',
+                          )}
+                        >
                           {r ? (
                             <>
                               {formatPct(r.uplift)}
@@ -505,7 +526,12 @@ export function Flightdeck() {
                             '–'
                           )}
                         </td>
-                        <td className="text-right pr-4 py-1">
+                        <td
+                          className={clsx(
+                            'text-right pr-4 py-1',
+                            status != 'completed' && 'text-gray-300',
+                          )}
+                        >
                           {r ? formatP(r.p) : '–'}
                         </td>
                       </tr>
@@ -513,9 +539,6 @@ export function Flightdeck() {
                   })}
                 </tbody>
               </table>
-              <p className="mt-[300px]">
-                TODO: Nachvollziehbare Dokumentation der Experimente
-              </p>
             </div>
           </>
         )}
