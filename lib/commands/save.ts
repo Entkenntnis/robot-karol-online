@@ -108,6 +108,26 @@ export function saveCodeToLocalStorage(core: Core, immediate = false) {
       JSON.stringify(state),
     )
   }
+  if (core.ws.page == 'spielwiese') {
+    let hash = ''
+    if (core.ws.settings.mode == 'code') {
+      if (core.ws.settings.language == 'robot karol') {
+        hash = '#CODE'
+      } else if (core.ws.settings.language == 'java') {
+        hash = '#JAVA'
+      } else if (core.ws.settings.language == 'python') {
+        hash = '#PYTHON'
+      }
+    }
+    if (window.location.hash == hash) {
+      return
+    }
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.pathname + hash,
+    )
+  }
   if (core.ws.ui.isPlayground) {
     const prefix = `#SPIELWIESE${
       core.ws.settings.mode == 'blocks'

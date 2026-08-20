@@ -156,6 +156,24 @@ export async function hydrate(core: Core) {
       ws.world = ws.quest.tasks[0].start
       ws.quest.lastStartedTask = 0
       ws.ui.showOutput = true
+      if (page != '') {
+        ws.settings.mode = 'code'
+        if (page == 'PYTHON') {
+          ws.settings.language = 'python'
+          ws.pythonCode = `karol = Robot()\n\n`
+        } else if (page == 'JAVA') {
+          ws.settings.language = 'java'
+          ws.javaCode = `class Programm {
+  Robot karol = new Robot();
+
+  void main() {
+    
+  }
+}`
+        } else {
+          ws.settings.language = 'robot karol'
+        }
+      }
     })
     triggerEvent(core, { key: 'visit-spielwiese' })
     document.title = core.ttung('Spielwiese') + ' | Robot Karol Online'
