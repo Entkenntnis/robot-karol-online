@@ -710,6 +710,7 @@ export function setupWorker(core: Core) {
       ui.errorMessages = []
       ui.keybindings = []
       ui.notCompletedReason = ''
+      vm.functionEvaluation = 0
       canvas.manualControl = false
     })
     CanvasObjects.update((s) => {
