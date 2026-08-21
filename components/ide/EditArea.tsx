@@ -22,6 +22,7 @@ import { closeOutput } from '../../lib/commands/quest'
 import { setQuestPreview } from '../../lib/commands/editor'
 import { refreshEditArea } from '../../lib/commands/editing'
 import { triggerEvent } from '../../lib/commands/experiment'
+import { isClassicQuest } from '../../lib/commands/categories'
 
 export function EditArea() {
   const core = useCore()
@@ -56,7 +57,7 @@ export function EditArea() {
                       triggerEvent(core, {
                         key: 'open-python-help',
                       })
-                      if (core.ws.quest.id >= 1 && core.ws.quest.id < 100) {
+                      if (isClassicQuest(core.ws.quest.id)) {
                         triggerEvent(core, {
                           key: 'open-python-help-in-quest',
                         })

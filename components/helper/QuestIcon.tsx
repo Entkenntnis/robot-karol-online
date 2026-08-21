@@ -46,12 +46,12 @@ export function QuestIcon({
         <div
           className={clsx(
             'flex items-center flex-col w-[64px] cursor-pointer group pointer-events-none',
-            id >= 100 && 'mt-0.5',
+            python && 'mt-0.5',
           )}
         >
           <button
             className={clsx(
-              id < 100 && 'text-lg',
+              !python && 'text-lg',
               'bg-gray-100/70 px-1 py-0.5 rounded group-hover:bg-white/80 pointer-events-auto whitespace-nowrap -ml-2',
             )}
           >

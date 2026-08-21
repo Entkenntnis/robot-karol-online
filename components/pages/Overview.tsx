@@ -39,6 +39,7 @@ import { SpinningRobot } from '../helper/SpinningRobot'
 import { Discover } from '../helper/Discover'
 import { News } from '../helper/News'
 import { triggerEvent } from '../../lib/commands/experiment'
+import { isClassicQuest, isPythonQuest } from '../../lib/commands/categories'
 
 export function Overview() {
   const core = useCore()
@@ -46,7 +47,7 @@ export function Overview() {
   const questData = core.ws.settings.lng == 'de' ? questDataDe : questDataEn
 
   const numberOfSolvedQuestsRKO = Object.keys(mapData).filter(
-    (id) => parseInt(id) < 100 && isQuestDone(parseInt(id)),
+    (id) => isClassicQuest(parseInt(id)) && isQuestDone(parseInt(id)),
   ).length
 
   useEffect(() => {
@@ -616,7 +617,7 @@ export function Overview() {
   }
 
   function isQuestVisible(id: number): boolean {
-    if (id >= 100) {
+    if (!isClassicQuest(id)) {
       // we disable all python-path related quests
       return false
     }
@@ -630,13 +631,12 @@ export function Overview() {
   }
 
   function renderQuestCategory(cat: (typeof questListByCategory)[number]) {
-    if (cat.quests.some((id) => id >= 100) || cat.quests.length == 0)
-      return null // skip python quests
+    if (cat.quests.some(isPythonQuest) || cat.quests.length == 0) return null // skip python quests
+    const title = core.ws.settings.lng == 'de' ? cat.title : cat.titleEn
+    if (!title) return // no title e.g. for de only quests
     return (
       <div key={cat.title} className="mb-6">
-        <h2 className="text-xl ml-6 my-4">
-          {core.ws.settings.lng == 'de' ? cat.title : cat.titleEn}
-        </h2>
+        <h2 className="text-xl ml-6 my-4">{title}</h2>
         <div className="flex flex-wrap">{cat.quests.map(renderQuest)}</div>
       </div>
     )
@@ -648,7 +648,6 @@ export function Overview() {
     const questDone = isQuestDone(index)
 
     //const reachableCount = core.ws.analyze.reachable[index]
-
     const task = questData[index].tasks[0]
 
     //const times = quartiles(core.ws.analyze.questTimes[index] ?? [0])
