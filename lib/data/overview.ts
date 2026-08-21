@@ -11,7 +11,7 @@ export const questListByCategory = [
     titleEn: 'Loops',
     quests: [43, 2, 40, 31, 22, 42, 7, 23, 10, 9, 32, 65],
   },
-  { title: 'Bauprojekte (XXL)', titleEn: '', quests: [1000] },
+  { title: 'Bauprojekte (XXL)', titleEn: '', quests: [1001, 1000] },
   {
     title: 'Bedingte Wiederholung (Schleife mit Anfangsbedingung)',
     titleEn: 'Conditional Loops',
