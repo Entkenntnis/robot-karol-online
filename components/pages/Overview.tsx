@@ -634,9 +634,34 @@ export function Overview() {
     if (cat.quests.some(isPythonQuest) || cat.quests.length == 0) return null // skip python quests
     const title = core.ws.settings.lng == 'de' ? cat.title : cat.titleEn
     if (!title) return // no title e.g. for de only quests
+    const isSpecial = title.includes('XXL')
     return (
-      <div key={cat.title} className="mb-6">
-        <h2 className="text-xl ml-6 my-4">{title}</h2>
+      <div
+        key={cat.title}
+        className={clsx(
+          'mb-6',
+          isSpecial && 'border-2 border-yellow-500 pb-4 pt-2 rounded-lg',
+        )}
+      >
+        <h2 className="text-xl ml-6 my-4">
+          {title}
+          {isSpecial && (
+            <>
+              {' '}
+              <span className="px-3 py-0.5 bg-yellow-300 rounded-full">
+                neu
+              </span>
+            </>
+          )}
+        </h2>
+        {isSpecial && (
+          <p className="text-sm ml-6 mb-4">
+            Habe Spaß beim Bauen größerer Projekte. Nutze Wiederholungen und
+            eigene Anweisungen, um effizient zu arbeiten. In Java und Python
+            stehen auch Methoden mit Parameter zur Verfügung. Achtung: hier
+            vergisst du ganz leicht die Zeit.
+          </p>
+        )}
         <div className="flex flex-wrap">{cat.quests.map(renderQuest)}</div>
       </div>
     )

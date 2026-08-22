@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "title": "Snoopy",
-  "description": "Das Leben ist weniger flach, als es aussieht - *Snoopy, wahrscheinlich*",
+  "description": "Das Leben ist weniger flach, als es aussieht. - *Snoopy, wahrscheinlich*\n\n<details>\n<summary>Bauhilfe untere Hälfte ab Halsband</summary>\n\n`_ _ X _ _ _ X _ _`<br>`_ _ X _ X _ _ X _`<br>`_ _ X _ X _ _ X`<br>`_ X _ _ X _ _ _ X`\n<br>`_ X _ _ X _ _ _ X`<br>`_ _ X X _ _ _ _ X`<br>`_ X X _ _ _ _ X _`<br>`X _ _ _ _ _ X _ _`<br>\n`_ X X X _ X _ _ _`<br>`_ _ X _ _ _ X X _`<br>`_ X _ _ _ _ _ _ X`<br>`_ X X X X X X X X`\n\n</details>",
   "tasks": [
     {
       "title": "Snoopy",
