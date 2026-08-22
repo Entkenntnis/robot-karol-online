@@ -26,6 +26,7 @@ import {
   increaseZoomLevel,
 } from '../../lib/commands/zoom'
 import { triggerEvent } from '../../lib/commands/experiment'
+import { isPythonQuest } from '../../lib/commands/categories'
 
 export function FlyoutMenu() {
   const core = useCore()
@@ -206,7 +207,7 @@ export function FlyoutMenu() {
             </p>
           )}
         {((core.ws.quest.id > 0 && core.ws.editor.questScript) ||
-          (core.ws.quest.id > 100 &&
+          (isPythonQuest(core.ws.quest.id) &&
             questData[core.ws.quest.id].script &&
             questData[core.ws.quest.id].script!.program.length > 0)) && (
           <p className="px-2 pt-4">

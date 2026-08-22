@@ -1,14 +1,14 @@
 {
   "version": "v1",
-  "title": "Fußballfeld ",
-  "description": "Baue ein Fußballfeld. Finde weitere solche Aufgaben unter *freies Üben* > *Bauprojekte*.",
+  "title": "Creeper",
+  "description": "Passe auf, wenn die Nacht anbricht.\n\n<details>\n<summary>Anleitung</summary>\n\n`X X X X X X X X`<br>`X X X X X X X X`<br>\n`X _ _ X X _ _ X`<br>`X _ _ X X _ _ X`<br>`X X X _ _ X X X`<br>\n`X X _ _ _ _ X X`<br>`X X _ _ _ _ X X`<br>`X X _ X X _ X X`\n\n</details>",
   "tasks": [
     {
-      "title": "Fußball",
+      "title": "Creeper",
       "start": {
-        "dimX": 15,
+        "dimX": 10,
         "dimY": 10,
-        "height": 10,
+        "height": 6,
         "karol": { "x": 0, "y": 0, "dir": "south" },
         "bricks": {
           "offsetX": -1,
@@ -33,26 +33,24 @@
         }
       },
       "target": {
-        "dimX": 15,
+        "dimX": 10,
         "dimY": 10,
-        "height": 10,
-        "karol": { "x": 14, "y": 2, "dir": "east" },
+        "height": 6,
+        "karol": { "x": 4, "y": 0, "dir": "east" },
         "bricks": {
-          "dimX": 15,
-          "dimY": 10,
-          "offsetX": 0,
-          "offsetY": 0,
+          "dimX": 8,
+          "dimY": 8,
+          "offsetX": 1,
+          "offsetY": 1,
           "data": [
-            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
-            [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0],
-            [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0],
-            [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0],
-            [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
-            [1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
-            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 1, 1, 0, 0, 1],
+            [1, 0, 0, 1, 1, 0, 0, 1],
+            [1, 1, 1, 0, 0, 1, 1, 1],
+            [1, 1, 0, 0, 0, 0, 1, 1],
+            [1, 1, 0, 0, 0, 0, 1, 1],
+            [1, 1, 0, 1, 1, 0, 1, 1]
           ]
         },
         "marks": {
