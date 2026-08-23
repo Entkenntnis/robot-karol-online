@@ -22,13 +22,17 @@ import { chapterData } from '../../lib/data/chapters'
 import { pythonKarolExamples } from '../../lib/data/pythonExamples'
 import { PythonMiniProjects } from '../helper/PythonMiniProjects'
 import type { PythonProjectGroup } from '../../lib/state/types'
+import {
+  isChapter,
+  isClassicQuest,
+  isPythonQuest,
+} from '../../lib/commands/categories'
 
 export function PythonPath() {
   const core = useCore()
 
   const numberOfSolvedQuestsPython = Object.keys(mapData).filter(
-    (id) =>
-      parseInt(id) >= 100 && parseInt(id) < 10000 && isQuestDone(parseInt(id)),
+    (id) => isPythonQuest(parseInt(id)) && isQuestDone(parseInt(id)),
   ).length
 
   const maxMapY = 1700 // TODO: check if this is a good value
@@ -285,7 +289,7 @@ export function PythonPath() {
             {Object.entries(mapData).map((entry) => {
               const id = parseInt(entry[0])
               if (!isQuestVisible(id)) return null
-              if (id >= 10000) {
+              if (isChapter(id)) {
                 // chapter marker
                 // lower bound 48 = 0%, 14 = 100%
                 let colorHeight = isQuestDone(id) ? 14 : 48
@@ -400,9 +404,7 @@ export function PythonPath() {
                   key={entry[0]}
                   dir={entry[1].dir}
                   id={parseInt(entry[0])}
-                  python={
-                    questData[parseInt(entry[0])].script && entry[0] != '60'
-                  }
+                  python={true}
                   dontFade
                 />
               )
@@ -437,11 +439,11 @@ export function PythonPath() {
   )
 
   function isQuestVisible(id: number) {
-    if (id < 100) return false // ignore non-python stuff
+    if (isClassicQuest(id)) return false // ignore non-python stuff
     const position = questList.indexOf(id)
 
     const questsInPreviousChapter = Object.entries(mapData)
-      .filter(([i, data]) => data.chapter === id - 1 && parseInt(i) < 10000)
+      .filter(([i, data]) => data.chapter === id - 1 && !isChapter(parseInt(i)))
       .map(([id]) => parseInt(id))
 
     return (
@@ -450,7 +452,7 @@ export function PythonPath() {
       position == 0 ||
       id == 10001 || // Einleitung
       isQuestDone(id) ||
-      (id < 10000
+      (!isChapter(id)
         ? mapData[id]?.deps.some(isQuestDone)
         : questsInPreviousChapter.filter(isQuestDone).length >
             chapterData[id - 1]?.requiredCount - 1 ||

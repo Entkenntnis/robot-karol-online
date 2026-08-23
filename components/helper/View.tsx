@@ -13,6 +13,7 @@ import {
   markeWeg,
   quaderBild,
   ziegelBild,
+  ziegelPlus,
   ziegelWeg,
 } from '../../lib/data/images'
 import { moveRaw, reverse, twoWorldsEqual } from '../../lib/commands/world'
@@ -37,6 +38,8 @@ interface ViewProps {
 interface Resources {
   ziegel: HTMLImageElement
   ziegel_weg: HTMLImageElement
+  ziegel_plus: HTMLImageElement
+  ziegel_plus_bright: HTMLCanvasElement[]
   robot: HTMLImageElement
   marke: HTMLImageElement
   marke_weg: HTMLImageElement
@@ -222,6 +225,7 @@ export function View({
             marke_weg,
             ziegel_weg,
             markeKlein,
+            ziegel_plus,
           ] = await Promise.all([
             loadImage(ziegelBild),
             loadImage(robotImageDataUrl ?? karolDefaultImage),
@@ -230,7 +234,13 @@ export function View({
             loadImage(markeWeg),
             loadImage(ziegelWeg),
             loadImage(markeVorschau),
+            loadImage(ziegelPlus),
           ])
+
+          // Pre-brightened variants (exact brightness multipliers)
+          const ziegel_plus_bright = [1.13, 1.22, 1.31, 1.35, 1.41].map(
+            (brightness) => createBrightenedImage(ziegel_plus, brightness),
+          )
 
           setResources({
             ziegel,
@@ -241,6 +251,8 @@ export function View({
             marke_weg,
             ziegel_weg,
             markeKlein,
+            ziegel_plus,
+            ziegel_plus_bright,
           })
         }
       }
@@ -259,6 +271,8 @@ export function View({
         marke_weg,
         ziegel_weg,
         markeKlein,
+        ziegel_plus,
+        ziegel_plus_bright,
       } = resources
 
       ctx.save()
@@ -410,9 +424,10 @@ export function View({
           }
           if (!world.marks[y][x] && preview?.world.marks[y][x]) {
             mark = 'preview'
-            markHeight = preview
-              ? Math.max(world.bricks[y][x], preview.world.bricks[y][x])
-              : world.bricks[y][x]
+            markHeight = world.bricks[y][x]
+            //  preview
+            // ? Math.max(world.bricks[y][x], preview.world.bricks[y][x])
+            // :
           }
           if (world.marks[y][x] && preview && !preview?.world.marks[y][x]) {
             mark = 'excess'
@@ -439,19 +454,39 @@ export function View({
           if (bricks.length == 0) {
             drawMark()
           } else {
+            let previewBrickIndex = 0
             for (let i = 0; i < bricks.length; i++) {
               if (i == markHeight) {
                 drawMark()
               }
               const p = to2d(x, y, i) // crossed out
-              ctx.save()
-              ctx.globalAlpha = bricks[i] == 'preview' ? 0.4 : 1
+
+              // Use pre-brightened images (exact brightness effect)
+              let previewImage: HTMLImageElement | HTMLCanvasElement =
+                ziegel_plus
+
+              if (bricks[i] === 'preview') {
+                if (previewBrickIndex > 0) {
+                  previewImage =
+                    ziegel_plus_bright[
+                      Math.min(
+                        ziegel_plus_bright.length - 1,
+                        previewBrickIndex - 1,
+                      )
+                    ]
+                }
+                previewBrickIndex++
+              }
+
               ctx.drawImage(
-                bricks[i] == 'excess' ? ziegel_weg : ziegel,
+                bricks[i] == 'excess'
+                  ? ziegel_weg
+                  : bricks[i] == 'preview'
+                    ? previewImage
+                    : ziegel,
                 p.x - 15,
                 p.y - 16,
               )
-              ctx.restore()
             }
             if (markHeight == bricks.length) {
               drawMark()
@@ -562,6 +597,37 @@ async function loadImage(src: string) {
     image.src = src
   })
   return image
+}
+
+function createBrightenedImage(
+  img: HTMLImageElement,
+  brightness: number,
+): HTMLCanvasElement {
+  const canvas = document.createElement('canvas')
+  canvas.width = img.naturalWidth || img.width
+  canvas.height = img.naturalHeight || img.height
+
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })
+  if (!ctx) return canvas
+
+  // Draw original image
+  ctx.drawImage(img, 0, 0)
+
+  // Get pixel data
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+  const data = imageData.data
+
+  // Multiply RGB channels by brightness, clamp to 255
+  for (let i = 0; i < data.length; i += 4) {
+    data[i] = Math.min(255, data[i] * brightness) // R
+    data[i + 1] = Math.min(255, data[i + 1] * brightness) // G
+    data[i + 2] = Math.min(255, data[i + 2] * brightness) // B
+    // Alpha (data[i + 3]) remains unchanged
+  }
+
+  // Write back modified pixels
+  ctx.putImageData(imageData, 0, 0)
+  return canvas
 }
 
 export function drawCanvasObject(

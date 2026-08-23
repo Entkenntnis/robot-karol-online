@@ -9,6 +9,7 @@ import type { QuestSerialFormat_MUST_STAY_COMPATIBLE } from '../../lib/state/typ
 import { questDataEn } from '../../lib/data/questsEn'
 import { refreshEditArea } from '../../lib/commands/editing'
 import { superfetch } from '../../lib/helper/superfetch'
+import { isChapter } from '../../lib/commands/categories'
 
 export function RemixModal() {
   const [selected, setSelected] = useState(-1)
@@ -95,7 +96,7 @@ export function RemixModal() {
           >
             <option value={-1}>{core.ttung('--- bitte auswählen ---')}</option>
             {questList
-              .filter((id) => id < 10000)
+              .filter((id) => !isChapter(id))
               .map((id) => (
                 <option key={id} value={id}>
                   {questData[id].title} (id {id})
