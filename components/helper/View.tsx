@@ -39,6 +39,7 @@ interface Resources {
   ziegel: HTMLImageElement
   ziegel_weg: HTMLImageElement
   ziegel_plus: HTMLImageElement
+  ziegel_plus_bright: HTMLCanvasElement[]
   robot: HTMLImageElement
   marke: HTMLImageElement
   marke_weg: HTMLImageElement
@@ -236,6 +237,11 @@ export function View({
             loadImage(ziegelPlus),
           ])
 
+          // Pre-brightened variants (exact brightness multipliers)
+          const ziegel_plus_bright = [1.13, 1.22, 1.31, 1.35, 1.41].map(
+            (brightness) => createBrightenedImage(ziegel_plus, brightness),
+          )
+
           setResources({
             ziegel,
             ctx,
@@ -246,6 +252,7 @@ export function View({
             ziegel_weg,
             markeKlein,
             ziegel_plus,
+            ziegel_plus_bright,
           })
         }
       }
@@ -265,6 +272,7 @@ export function View({
         ziegel_weg,
         markeKlein,
         ziegel_plus,
+        ziegel_plus_bright,
       } = resources
 
       ctx.save()
@@ -452,30 +460,33 @@ export function View({
                 drawMark()
               }
               const p = to2d(x, y, i) // crossed out
-              ctx.save()
+
+              // Use pre-brightened images (exact brightness effect)
+              let previewImage: HTMLImageElement | HTMLCanvasElement =
+                ziegel_plus
 
               if (bricks[i] === 'preview') {
-                previewBrickIndex += 1
-
-                if (previewBrickIndex > 1) {
-                  const extraPreview = previewBrickIndex - 1
-
-                  // Brightness > 1 makes the brick lighter without transparency.
-                  // Tune the multiplier to your liking.
-                  ctx.filter = `brightness(${Math.min(1.4, 1 + extraPreview * 0.1)})`
+                if (previewBrickIndex > 0) {
+                  previewImage =
+                    ziegel_plus_bright[
+                      Math.min(
+                        ziegel_plus_bright.length - 1,
+                        previewBrickIndex - 1,
+                      )
+                    ]
                 }
+                previewBrickIndex++
               }
 
               ctx.drawImage(
                 bricks[i] == 'excess'
                   ? ziegel_weg
                   : bricks[i] == 'preview'
-                    ? ziegel_plus
+                    ? previewImage
                     : ziegel,
                 p.x - 15,
                 p.y - 16,
               )
-              ctx.restore()
             }
             if (markHeight == bricks.length) {
               drawMark()
@@ -586,6 +597,37 @@ async function loadImage(src: string) {
     image.src = src
   })
   return image
+}
+
+function createBrightenedImage(
+  img: HTMLImageElement,
+  brightness: number,
+): HTMLCanvasElement {
+  const canvas = document.createElement('canvas')
+  canvas.width = img.naturalWidth || img.width
+  canvas.height = img.naturalHeight || img.height
+
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })
+  if (!ctx) return canvas
+
+  // Draw original image
+  ctx.drawImage(img, 0, 0)
+
+  // Get pixel data
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+  const data = imageData.data
+
+  // Multiply RGB channels by brightness, clamp to 255
+  for (let i = 0; i < data.length; i += 4) {
+    data[i] = Math.min(255, data[i] * brightness) // R
+    data[i + 1] = Math.min(255, data[i + 1] * brightness) // G
+    data[i + 2] = Math.min(255, data[i + 2] * brightness) // B
+    // Alpha (data[i + 3]) remains unchanged
+  }
+
+  // Write back modified pixels
+  ctx.putImageData(imageData, 0, 0)
+  return canvas
 }
 
 export function drawCanvasObject(
