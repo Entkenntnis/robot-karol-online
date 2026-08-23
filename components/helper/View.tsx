@@ -446,13 +446,26 @@ export function View({
           if (bricks.length == 0) {
             drawMark()
           } else {
+            let previewBrickIndex = 0
             for (let i = 0; i < bricks.length; i++) {
               if (i == markHeight) {
                 drawMark()
               }
               const p = to2d(x, y, i) // crossed out
               ctx.save()
-              // ctx.globalAlpha = bricks[i] == 'preview' ?  : 1
+
+              if (bricks[i] === 'preview') {
+                previewBrickIndex += 1
+
+                if (previewBrickIndex > 1) {
+                  const extraPreview = previewBrickIndex - 1
+
+                  // Brightness > 1 makes the brick lighter without transparency.
+                  // Tune the multiplier to your liking.
+                  ctx.filter = `brightness(${Math.min(1.4, 1 + extraPreview * 0.1)})`
+                }
+              }
+
               ctx.drawImage(
                 bricks[i] == 'excess'
                   ? ziegel_weg

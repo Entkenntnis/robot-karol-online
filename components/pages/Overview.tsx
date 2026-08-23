@@ -658,8 +658,7 @@ export function Overview() {
           <p className="text-sm ml-6 mb-4">
             Habe Spaß beim Bauen größerer Projekte. Nutze Wiederholungen und
             eigene Anweisungen, um effizient zu arbeiten. In Java und Python
-            stehen auch Methoden mit Parameter zur Verfügung. Achtung: hier
-            vergisst du ganz leicht die Zeit.
+            stehen auch Methoden mit Parameter zur Verfügung.
           </p>
         )}
         <div className="flex flex-wrap">{cat.quests.map(renderQuest)}</div>
