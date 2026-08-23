@@ -13,6 +13,7 @@ import {
   markeWeg,
   quaderBild,
   ziegelBild,
+  ziegelPlus,
   ziegelWeg,
 } from '../../lib/data/images'
 import { moveRaw, reverse, twoWorldsEqual } from '../../lib/commands/world'
@@ -37,6 +38,7 @@ interface ViewProps {
 interface Resources {
   ziegel: HTMLImageElement
   ziegel_weg: HTMLImageElement
+  ziegel_plus: HTMLImageElement
   robot: HTMLImageElement
   marke: HTMLImageElement
   marke_weg: HTMLImageElement
@@ -222,6 +224,7 @@ export function View({
             marke_weg,
             ziegel_weg,
             markeKlein,
+            ziegel_plus,
           ] = await Promise.all([
             loadImage(ziegelBild),
             loadImage(robotImageDataUrl ?? karolDefaultImage),
@@ -230,6 +233,7 @@ export function View({
             loadImage(markeWeg),
             loadImage(ziegelWeg),
             loadImage(markeVorschau),
+            loadImage(ziegelPlus),
           ])
 
           setResources({
@@ -241,6 +245,7 @@ export function View({
             marke_weg,
             ziegel_weg,
             markeKlein,
+            ziegel_plus,
           })
         }
       }
@@ -259,6 +264,7 @@ export function View({
         marke_weg,
         ziegel_weg,
         markeKlein,
+        ziegel_plus,
       } = resources
 
       ctx.save()
@@ -410,9 +416,10 @@ export function View({
           }
           if (!world.marks[y][x] && preview?.world.marks[y][x]) {
             mark = 'preview'
-            markHeight = preview
-              ? Math.max(world.bricks[y][x], preview.world.bricks[y][x])
-              : world.bricks[y][x]
+            markHeight = world.bricks[y][x]
+            //  preview
+            // ? Math.max(world.bricks[y][x], preview.world.bricks[y][x])
+            // :
           }
           if (world.marks[y][x] && preview && !preview?.world.marks[y][x]) {
             mark = 'excess'
@@ -445,9 +452,13 @@ export function View({
               }
               const p = to2d(x, y, i) // crossed out
               ctx.save()
-              ctx.globalAlpha = bricks[i] == 'preview' ? 0.4 : 1
+              // ctx.globalAlpha = bricks[i] == 'preview' ?  : 1
               ctx.drawImage(
-                bricks[i] == 'excess' ? ziegel_weg : ziegel,
+                bricks[i] == 'excess'
+                  ? ziegel_weg
+                  : bricks[i] == 'preview'
+                    ? ziegel_plus
+                    : ziegel,
                 p.x - 15,
                 p.y - 16,
               )
