@@ -250,16 +250,32 @@ export function Output() {
             </div>
           )}
         {core.ws.page == 'spielwiese' && (
-          <button
-            onClick={(e) => {
-              resetOutput(core)
-              e.currentTarget.blur()
-            }}
-            className="px-2 py-0.5 rounded bg-gray-100 ml-3 absolute top-2 right-2 hover:bg-gray-200"
-          >
-            <FaIcon icon={faTrashCan} className="mr-2 text-sm text-gray-700" />
-            {core.ttung('Welt leeren')}
-          </button>
+          <div className="absolute top-2 right-2">
+            <button
+              className="py-0.5 bg-gray-100 hover:bg-gray-200 px-2 rounded"
+              onClick={() => {
+                core.mutateWs(({ ui }) => {
+                  ui.showStructogram = true
+                  ui.showOutput = false
+                })
+              }}
+            >
+              {core.ttung('Struktogramm')}
+            </button>
+            <button
+              onClick={(e) => {
+                resetOutput(core)
+                e.currentTarget.blur()
+              }}
+              className="px-2 py-0.5 rounded bg-gray-100 ml-3 hover:bg-gray-200"
+            >
+              <FaIcon
+                icon={faTrashCan}
+                className="mr-2 text-sm text-gray-700"
+              />
+              {core.ttung('Welt leeren')}
+            </button>
+          </div>
         )}
         {core.ws.ui.inputPrompt && (
           <form

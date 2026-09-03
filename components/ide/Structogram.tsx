@@ -60,6 +60,11 @@ export function Structogram() {
           className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 rounded"
           onClick={() => {
             setShowStructogram(core, false)
+            if (core.ws.page == 'spielwiese') {
+              core.mutateWs(({ ui }) => {
+                ui.showOutput = true
+              })
+            }
           }}
         >
           {core.ttung('Schließen')}
