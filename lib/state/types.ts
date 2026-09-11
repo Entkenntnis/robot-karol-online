@@ -2,15 +2,19 @@ import type { pythonKarolExamples } from '../data/pythonExamples'
 
 export type Heading = 'north' | 'east' | 'south' | 'west'
 
+export interface Robot {
+  id: string
+  x: number
+  y: number
+  dir: Heading
+  visible: boolean
+}
+
 export interface World {
   dimX: number
   dimY: number
   height: number
-  karol: {
-    x: number
-    y: number
-    dir: Heading
-  }
+  robots: Robot[]
   bricks: number[][]
   marks: boolean[][]
   blocks: boolean[][]
@@ -83,6 +87,7 @@ export interface Ui {
   flightdeckTab: Tab
   showQuickReference: boolean
   zoomLevelIndex: number
+  activeRobotId?: string
 }
 
 export interface Vm {

@@ -123,11 +123,15 @@ export function createWorld(dimX: number, dimY: number, height: number): World {
     dimX,
     dimY,
     height,
-    karol: {
-      x: 0,
-      y: 0,
-      dir: 'south',
-    },
+    robots: [
+      {
+        id: 'r0',
+        x: 0,
+        y: 0,
+        dir: 'south',
+        visible: true,
+      },
+    ],
     bricks: Array(dimY)
       .fill(0)
       .map(() => Array(dimX).fill(0)),

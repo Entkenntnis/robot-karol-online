@@ -17,6 +17,7 @@ import {
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 // import { backend } from '../../backend'
 import { karolDefaultImage, karolOldDefaultImage } from '../../lib/data/images'
+import { createSingleRobotWorld } from '../../lib/commands/robots'
 
 export function AppearanceModal() {
   const [count, setCount] = useState(0)
@@ -588,21 +589,9 @@ export function AppearanceModal() {
             <div className="w-full h-[120px] flex justify-center items-center -mt-3">
               <View
                 robotImageDataUrl={core.ws.robotImageDataUrl}
-                world={{
-                  dimX: 1,
-                  dimY: 1,
-                  karol: {
-                    x: 0,
-                    y: 0,
-                    dir: ['east', 'north', 'west', 'south'][
-                      count % 4
-                    ] as Heading,
-                  },
-                  blocks: [[false]],
-                  marks: [[false]],
-                  bricks: [[0]],
-                  height: 1,
-                }}
+                world={createSingleRobotWorld(
+                  ['east', 'north', 'west', 'south'][count % 4] as Heading,
+                )}
               />
             </div>
             <div className="flex flex-wrap justify-center justify-items-center gap-2 mt-2">

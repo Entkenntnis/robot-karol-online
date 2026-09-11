@@ -50,7 +50,10 @@ karol.schritt(5)
 karol.linksDrehen()
 karol.linksDrehen(2)
 karol.rechtsDrehen()
-karol.rechtsDrehen(2)`,
+karol.rechtsDrehen(2)
+
+# Erzeuge weitere Roboter-Objekte
+k2 = Robot()`,
             )}
             <div className="h-0.5"></div>
             {listing(

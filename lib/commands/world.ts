@@ -2,13 +2,19 @@ import { Core } from '../state/core'
 import { createWorld } from '../state/create'
 import type { Heading, World } from '../state/types'
 import { addMessage } from './messages'
+import { getRobot } from './robots'
 import { endExecution } from './vm'
 
 const readOnlyMessage = '---'
 
-export function forward(core: Core, opts?: { reverse: boolean }) {
+export function forward(
+  core: Core,
+  robotId?: string,
+  opts?: { reverse: boolean },
+) {
   const { world } = core.ws
-  const { karol, bricks } = world
+  const { bricks } = world
+  const [karol, index] = getRobot(world, robotId)
   const dir = opts?.reverse ? reverse(karol.dir) : karol.dir
   const target = move(karol.x, karol.y, dir, world)
 
@@ -26,27 +32,29 @@ export function forward(core: Core, opts?: { reverse: boolean }) {
   }
 
   core.mutateWs(({ world }) => {
-    world.karol.x = target.x
-    world.karol.y = target.y
+    world.robots[index].x = target.x
+    world.robots[index].y = target.y
   })
   return true
 }
 
-export function left(core: Core) {
+export function left(core: Core, robotId?: string) {
+  const [, index] = getRobot(core.ws.world, robotId)
   core.mutateWs(({ world }) => {
-    world.karol.dir = turnLeft(world.karol.dir)
+    world.robots[index].dir = turnLeft(world.robots[index].dir)
   })
 }
 
-export function right(core: Core) {
+export function right(core: Core, robotId?: string) {
+  const [, index] = getRobot(core.ws.world, robotId)
   core.mutateWs(({ world }) => {
-    world.karol.dir = turnRight(world.karol.dir)
+    world.robots[index].dir = turnRight(world.robots[index].dir)
   })
 }
 
-export function brick(core: Core) {
+export function brick(core: Core, robotId?: string) {
   const { world } = core.ws
-  const { karol } = world
+  const [karol] = getRobot(world, robotId)
   const pos = move(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
@@ -71,9 +79,10 @@ export function brick(core: Core) {
   return true
 }
 
-export function unbrick(core: Core) {
+export function unbrick(core: Core, robotId?: string) {
   const { world } = core.ws
-  const { karol, bricks } = world
+  const { bricks } = world
+  const [karol] = getRobot(world, robotId)
   const pos = move(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
@@ -98,8 +107,8 @@ export function unbrick(core: Core) {
   return true
 }
 
-export function toggleMark(core: Core) {
-  const karol = core.ws.world.karol
+export function toggleMark(core: Core, robotId?: string) {
+  const [karol, index] = getRobot(core.ws.world, robotId)
 
   if (isReadOnly(core, karol.x, karol.y)) {
     karolCrashed(core, readOnlyMessage)
@@ -107,16 +116,16 @@ export function toggleMark(core: Core) {
   }
 
   core.mutateWs(({ world }) => {
-    world.marks[world.karol.y][world.karol.x] =
-      !world.marks[world.karol.y][world.karol.x]
+    world.marks[world.robots[index].y][world.robots[index].x] =
+      !world.marks[world.robots[index].y][world.robots[index].x]
   })
   onWorldChange(core)
   return true
 }
 
-export function setMark(core: Core) {
+export function setMark(core: Core, robotId?: string) {
   const { world } = core.ws
-  const karol = world.karol
+  const [karol, index] = getRobot(world, robotId)
 
   if (isReadOnly(core, karol.x, karol.y)) {
     karolCrashed(core, readOnlyMessage)
@@ -124,15 +133,15 @@ export function setMark(core: Core) {
   }
 
   core.mutateWs(({ world }) => {
-    world.marks[world.karol.y][world.karol.x] = true
+    world.marks[world.robots[index].y][world.robots[index].x] = true
   })
   onWorldChange(core)
   return true
 }
 
-export function resetMark(core: Core) {
+export function resetMark(core: Core, robotId?: string) {
   const { world } = core.ws
-  const karol = world.karol
+  const [karol, index] = getRobot(world, robotId)
 
   if (isReadOnly(core, karol.x, karol.y)) {
     karolCrashed(core, readOnlyMessage)
@@ -140,15 +149,16 @@ export function resetMark(core: Core) {
   }
 
   core.mutateWs(({ world }) => {
-    world.marks[world.karol.y][world.karol.x] = false
+    world.marks[world.robots[index].y][world.robots[index].x] = false
   })
   onWorldChange(core)
   return true
 }
 
-export function toggleBlock(core: Core) {
+export function toggleBlock(core: Core, robotId?: string) {
   const { world } = core.ws
-  const { karol, blocks, bricks, marks } = world
+  const { blocks, bricks, marks } = world
+  const [karol] = getRobot(world, robotId)
   const pos = moveRaw(karol.x, karol.y, karol.dir, world)
 
   if (!pos) {
@@ -211,7 +221,7 @@ export function createWorldCmd(
           }
         }
       }
-      state.world.karol = previous.karol
+      state.world.robots = previous.robots
     }
   })
 }

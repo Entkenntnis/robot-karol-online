@@ -6,6 +6,7 @@ import { useCore } from '../../lib/state/core'
 import type { Heading } from '../../lib/state/types'
 import { AnimateInView } from './AnimateIntoView'
 import { getUserName } from '../../lib/storage/storage'
+import { createSingleRobotWorld } from '../../lib/commands/robots'
 
 interface QuestIconProps {
   title: string
@@ -69,19 +70,9 @@ export function QuestIcon({
             <>
               <View
                 robotImageDataUrl={core.ws.robotImageDataUrl}
-                world={{
-                  dimX: 1,
-                  dimY: 1,
-                  karol: {
-                    x: 0,
-                    y: 0,
-                    dir: dir == 'west' ? 'east' : (dir ?? 'east'),
-                  },
-                  blocks: [[false]],
-                  marks: [[false]],
-                  bricks: [[0]],
-                  height: 1,
-                }}
+                world={createSingleRobotWorld(
+                  dir == 'west' ? 'east' : (dir ?? 'east'),
+                )}
                 hideWorld
                 className={clsx(
                   'pointer-events-auto -mt-2',

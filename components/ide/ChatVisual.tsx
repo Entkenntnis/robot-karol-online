@@ -6,6 +6,7 @@ import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
 import { faWarning } from '@fortawesome/free-solid-svg-icons'
 import { FaIcon } from '../helper/FaIcon'
 import { stopChatRunner } from '../../lib/commands/chat'
+import { createSingleRobotWorld } from '../../lib/commands/robots'
 
 export function ChatVisual() {
   const core = useCore()
@@ -150,19 +151,9 @@ export function ChatVisual() {
         </div>
         <View
           robotImageDataUrl={core.ws.robotImageDataUrl || karolDefaultImage}
-          world={{
-            dimX: 1,
-            dimY: 1,
-            karol: {
-              x: 0,
-              y: 0,
-              dir: core.ws.vm.chatVisualRole == 'in' ? 'west' : 'south',
-            },
-            blocks: [[false]],
-            marks: [[false]],
-            bricks: [[0]],
-            height: 1,
-          }}
+          world={createSingleRobotWorld(
+            core.ws.vm.chatVisualRole == 'in' ? 'west' : 'south',
+          )}
           hideWorld
           className="flex-shrink-0 h-fit"
         />
