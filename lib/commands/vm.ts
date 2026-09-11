@@ -2,6 +2,7 @@ import { setExecutionMarker } from '../codemirror/basicSetup'
 import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import type { Condition, Op } from '../state/types'
+import { getRobot, primaryRobotId } from '../robot/robots'
 import { addMessage } from './messages'
 import {
   forward,
@@ -209,6 +210,7 @@ function* executeProgramAsGenerator(core: Core) {
     }
 
     if (op.type == 'action') {
+      const robotId = primaryRobotId(core.ws.world)
       let repetitions = 1
       if (op.useParameterFromStack) {
         core.mutateWs(({ vm }) => {
@@ -223,25 +225,25 @@ function* executeProgramAsGenerator(core: Core) {
         }
         let result = undefined
         if (op.command == 'forward') {
-          result = forward(core)
+          result = forward(core, robotId)
         }
         if (op.command == 'left') {
-          left(core)
+          left(core, robotId)
         }
         if (op.command == 'right') {
-          right(core)
+          right(core, robotId)
         }
         if (op.command == 'brick') {
-          result = brick(core)
+          result = brick(core, robotId)
         }
         if (op.command == 'unbrick') {
-          result = unbrick(core)
+          result = unbrick(core, robotId)
         }
         if (op.command == 'setMark') {
-          result = setMark(core)
+          result = setMark(core, robotId)
         }
         if (op.command == 'resetMark') {
-          result = resetMark(core)
+          result = resetMark(core, robotId)
         }
         if (result === false) {
           return 'end' // something went wrong
@@ -273,7 +275,11 @@ function* executeProgramAsGenerator(core: Core) {
             if (op.condition.type == 'brick_count') {
               condition.count = frame.opstack.pop()
             }
-            frame.opstack.push(testCondition(core, condition) ? 1 : 0)
+            frame.opstack.push(
+              testCondition(core, condition, primaryRobotId(core.ws.world))
+                ? 1
+                : 0,
+            )
             vm.functionEvaluation++
             vm.pc++
             break
@@ -402,8 +408,8 @@ function* executeProgramAsGenerator(core: Core) {
   }
 }
 
-export function testCondition(core: Core, cond: Condition) {
-  const { x, y, dir } = core.ws.world.karol
+export function testCondition(core: Core, cond: Condition, robotId: string) {
+  const { x, y, dir } = getRobot(core.ws.world, robotId)
   if (cond.type == 'mark') {
     const val = core.ws.world.marks[y][x]
     if (cond.negated) {

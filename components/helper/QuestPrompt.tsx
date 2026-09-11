@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { processMarkdown } from '../../lib/helper/processMiniMarkdown'
 import { useCore } from '../../lib/state/core'
+import { createRobot } from '../../lib/state/create'
 import clsx from 'clsx'
 import { View } from './View'
 
@@ -45,11 +46,7 @@ export function QuestPrompt() {
           world={{
             dimX: 1,
             dimY: 1,
-            karol: {
-              x: 0,
-              y: 0,
-              dir: 'east',
-            },
+            robots: [createRobot('r0', 0, 0, 'east')],
             blocks: [[false]],
             marks: [[false]],
             bricks: [[0]],

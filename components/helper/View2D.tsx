@@ -163,11 +163,20 @@ export function View2D({
     }
 
     // Karol einzeichnen – als spitzes Dreieck, das in die jeweilige Blickrichtung zeigt.
-    if (world.karol) {
-      const { x, y, dir } = world.karol
-      const cx = x * cellSize + cellSize / 2
-      const cy = y * cellSize + cellSize / 2
-      drawKarol(ctx, cx, cy, dir, cellSize)
+    for (let index = 0; index < world.robots.length; index++) {
+      const robot = world.robots[index]
+      if (!robot.visible) continue
+      const cx = robot.x * cellSize + cellSize / 2
+      const cy = robot.y * cellSize + cellSize / 2
+      drawKarol(ctx, cx, cy, robot.dir, cellSize)
+
+      if (world.robots.length > 1) {
+        ctx.font = '12px sans-serif'
+        ctx.fillStyle = 'black'
+        ctx.textAlign = 'right'
+        ctx.textBaseline = 'top'
+        ctx.fillText((index + 1).toString(), cx + 10, cy + 3)
+      }
     }
 
     ctx.restore()

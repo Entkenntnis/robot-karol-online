@@ -6,6 +6,7 @@ import {
   karolOldDefaultImage,
 } from '../../lib/data/images'
 import { useCore } from '../../lib/state/core'
+import { createRobot } from '../../lib/state/create'
 import { setRobotImage } from '../../lib/storage/storage'
 import { View } from '../helper/View'
 
@@ -33,11 +34,7 @@ export function CharacterModal() {
               world={{
                 dimX: 1,
                 dimY: 1,
-                karol: {
-                  x: 0,
-                  y: 0,
-                  dir: 'east',
-                },
+                robots: [createRobot('r0', 0, 0, 'east')],
                 blocks: [[false]],
                 marks: [[false]],
                 bricks: [[0]],
@@ -55,11 +52,7 @@ export function CharacterModal() {
               world={{
                 dimX: 1,
                 dimY: 1,
-                karol: {
-                  x: 0,
-                  y: 0,
-                  dir: 'east',
-                },
+                robots: [createRobot('r0', 0, 0, 'east')],
                 blocks: [[false]],
                 marks: [[false]],
                 bricks: [[0]],
@@ -77,11 +70,7 @@ export function CharacterModal() {
               world={{
                 dimX: 1,
                 dimY: 1,
-                karol: {
-                  x: 0,
-                  y: 0,
-                  dir: 'east',
-                },
+                robots: [createRobot('r0', 0, 0, 'east')],
                 blocks: [[false]],
                 marks: [[false]],
                 bricks: [[0]],

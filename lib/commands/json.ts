@@ -1,9 +1,12 @@
 import { robotKarol2Python } from '../language/python/robotKarol2Python'
 import { Core } from '../state/core'
+import { createRobot } from '../state/create'
 import type {
   Compressed2D_MUST_STAY_COMPATIBLE,
+  Heading,
   QuestData,
   QuestSerialFormat_MUST_STAY_COMPATIBLE,
+  Robot,
   SerialWorld_MUST_STAY_COMPATIBLE,
   World,
 } from '../state/types'
@@ -52,17 +55,22 @@ export function serializeQuest(
 }
 
 export function serializeWorld(world: World): SerialWorld_MUST_STAY_COMPATIBLE {
-  const { dimX, dimY, height, blocks, bricks, karol, marks } = world
+  const { dimX, dimY, height, blocks, bricks, robots, marks } = world
 
   return {
     dimX,
     dimY,
     height,
-    karol,
+    karol: { x: robots[0].x, y: robots[0].y, dir: robots[0].dir },
     bricks: compress2dArray(bricks, 0),
     marks: compress2dArray(marks, false),
     blocks: compress2dArray(blocks, false),
   }
+}
+
+interface LegacyWorld extends Omit<World, 'robots'> {
+  robots?: Robot[]
+  karol?: { x: number; y: number; dir: Heading }
 }
 
 export function deserialize(core: Core, file?: string) {
@@ -73,7 +81,7 @@ export function deserialize(core: Core, file?: string) {
       tabs,
       mode,
     }: {
-      world: World
+      world: LegacyWorld
       code?: string
       tabs?: [string, string, string, string]
       mode?: Core['ws']['settings']['mode']
@@ -104,7 +112,19 @@ export function deserialize(core: Core, file?: string) {
         }
       }
     }
-    world.karol = world.karol
+    const convertedWorld: World = {
+      dimX: world.dimX,
+      dimY: world.dimY,
+      height: world.height,
+      robots:
+        world.robots ??
+        (world.karol
+          ? [createRobot('r0', world.karol.x, world.karol.y, world.karol.dir)]
+          : [createRobot('r0')]),
+      bricks: world.bricks,
+      marks: world.marks,
+      blocks: world.blocks,
+    }
     endExecution(core)
     core.mutateWs((state) => {
       state.code = code ?? ''
@@ -115,7 +135,7 @@ export function deserialize(core: Core, file?: string) {
     refreshEditArea(core)
     core.mutateCore((state) => {
       state.workspace.quest.tasks = [
-        { start: world, title: 'Welt', target: null },
+        { start: convertedWorld, title: 'Welt', target: null },
       ]
       state.workspace.quest.title = 'Importiertes Projekt'
       state.workspace.quest.description =
@@ -258,7 +278,7 @@ export function deserializeWorld(
     dimX,
     dimY,
     height,
-    karol,
+    robots: [createRobot('r0', karol.x, karol.y, karol.dir)],
     bricks: decompress2dArray(bricks, dimX, dimY, 0),
     marks: decompress2dArray(marks, dimX, dimY, false),
     blocks: decompress2dArray(blocks, dimX, dimY, false),

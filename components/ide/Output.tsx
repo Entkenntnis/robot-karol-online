@@ -39,36 +39,37 @@ import { useEffect } from 'react'
 import { getTaskPreview } from '../../lib/helper/preview'
 import { triggerEvent } from '../../lib/commands/experiment'
 import { getZoom } from '../../lib/commands/zoom'
+import { primaryRobotId } from '../../lib/robot/robots'
 
 export function Output() {
   const core = useCore()
 
   const actions: { [key: string]: () => boolean } = {
     ArrowLeft: () => {
-      left(core)
+      left(core, primaryRobotId(core.ws.world))
       return true
     },
     ArrowRight: () => {
-      right(core)
+      right(core, primaryRobotId(core.ws.world))
       return true
     },
     ArrowUp: () => {
-      return forward(core)
+      return forward(core, primaryRobotId(core.ws.world))
     },
     ArrowDown: () => {
-      return forward(core, { reverse: true })
+      return forward(core, primaryRobotId(core.ws.world), { reverse: true })
     },
     KeyH: () => {
-      return brick(core)
+      return brick(core, primaryRobotId(core.ws.world))
     },
     KeyA: () => {
-      return unbrick(core)
+      return unbrick(core, primaryRobotId(core.ws.world))
     },
     KeyM: () => {
-      return toggleMark(core)
+      return toggleMark(core, primaryRobotId(core.ws.world))
     },
     KeyQ: () => {
-      return toggleBlock(core)
+      return toggleBlock(core, primaryRobotId(core.ws.world))
     },
   }
 

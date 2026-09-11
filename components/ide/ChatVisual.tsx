@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { karolDefaultImage } from '../../lib/data/images'
 import { useCore } from '../../lib/state/core'
+import { createRobot } from '../../lib/state/create'
 import { View } from '../helper/View'
 import { setExecutionMarker } from '../../lib/codemirror/basicSetup'
 import { faWarning } from '@fortawesome/free-solid-svg-icons'
@@ -153,11 +154,14 @@ export function ChatVisual() {
           world={{
             dimX: 1,
             dimY: 1,
-            karol: {
-              x: 0,
-              y: 0,
-              dir: core.ws.vm.chatVisualRole == 'in' ? 'west' : 'south',
-            },
+            robots: [
+              createRobot(
+                'r0',
+                0,
+                0,
+                core.ws.vm.chatVisualRole == 'in' ? 'west' : 'south',
+              ),
+            ],
             blocks: [[false]],
             marks: [[false]],
             bricks: [[0]],

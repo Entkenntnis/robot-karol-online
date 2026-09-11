@@ -14,6 +14,7 @@ let debug = new Int32Array(129)
 let outputs = []
 let inputs = []
 let robotIndex = { current: 0 }
+let runId = { current: 0 }
 let highlight = { current: null }
 
 const compileScript = (code) => `
@@ -88,7 +89,6 @@ def analyze(code):
         defined.add(name)
 
   robot_vars = set()
-  robot_calls = []
   for stmt in tree.body:
     if (
       isinstance(stmt, ast.Assign)
@@ -99,11 +99,6 @@ def analyze(code):
       and stmt.value.func.id == "Robot"
     ):
       robot_vars.add(stmt.targets[0].id)
-      robot_calls.append(stmt.value.func)
-  
-  if len(robot_calls) > 1:
-    for call in robot_calls[1:]:
-      diag(call, "Robot() kann nur einmal erzeugt werden")
   
   dynamic = any(
     isinstance(n, ast.Name)
@@ -153,10 +148,11 @@ export function buildInternalRobot() {
     ;(highlight.current || (() => {}))()
   }
   return () => {
-    if (robotIndex.current == 1) {
-      throw Error('Es kann nur einen Roboter geben.')
+    const index = robotIndex.current++
+    const id = `${runId.current}:${index}`
+    if (index > 0) {
+      self.postMessage({ type: 'spawn-robot', robotId: id })
     }
-    robotIndex.current++
     return {
       schritt: (n, ...rest) => {
         throwFauxTypeError('Robot', 'schritt', 1, rest)
@@ -164,7 +160,7 @@ export function buildInternalRobot() {
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
           checkDebug()
-          runAction('schritt')
+          runAction('schritt', id)
           sleepWithDelay()
         }
       },
@@ -174,7 +170,7 @@ export function buildInternalRobot() {
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
           checkDebug()
-          runAction('linksDrehen')
+          runAction('linksDrehen', id)
           sleepWithDelay()
         }
       },
@@ -184,7 +180,7 @@ export function buildInternalRobot() {
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
           checkDebug()
-          runAction('rechtsDrehen')
+          runAction('rechtsDrehen', id)
           sleepWithDelay()
         }
       },
@@ -194,7 +190,7 @@ export function buildInternalRobot() {
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
           checkDebug()
-          runAction('hinlegen')
+          runAction('hinlegen', id)
           sleepWithDelay()
         }
       },
@@ -204,7 +200,7 @@ export function buildInternalRobot() {
         for (let i = 0; i < count; i++) {
           highlightCurrentLine()
           checkDebug()
-          runAction('aufheben')
+          runAction('aufheben', id)
           sleepWithDelay()
         }
       },
@@ -212,85 +208,94 @@ export function buildInternalRobot() {
         throwFauxTypeError('Robot', 'markeSetzen', 0, rest)
         highlightCurrentLine()
         checkDebug()
-        runAction('markeSetzen')
+        runAction('markeSetzen', id)
         sleepWithDelay()
       },
       markeLöschen: (...rest) => {
         throwFauxTypeError('Robot', 'markeLöschen', 0, rest)
         highlightCurrentLine()
         checkDebug()
-        runAction('markeLöschen')
+        runAction('markeLöschen', id)
         sleepWithDelay()
       },
       istWand: (...rest) => {
         throwFauxTypeError('Robot', 'istWand', 0, rest)
         //if (!direction) direction = null
-        return checkCondition({ type: 'wall', negated: false }) // direction is not handled by testCondition, removed
+        return checkCondition({ type: 'wall', negated: false }, id) // direction is not handled by testCondition, removed
       },
       nichtIstWand: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstWand', 0, rest)
         //if (!direction) direction = null
-        return checkCondition({ type: 'wall', negated: true }) // direction is not handled by testCondition, removed
+        return checkCondition({ type: 'wall', negated: true }, id) // direction is not handled by testCondition, removed
       },
       istMarke: (...rest) => {
         throwFauxTypeError('Robot', 'istMarke', 0, rest)
-        return checkCondition({ type: 'mark', negated: false })
+        return checkCondition({ type: 'mark', negated: false }, id)
       },
       nichtIstMarke: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstMarke', 0, rest)
-        return checkCondition({ type: 'mark', negated: true })
+        return checkCondition({ type: 'mark', negated: true }, id)
       },
       istZiegel: (count, ...rest) => {
         throwFauxTypeError('Robot', 'istZiegel', 1, rest)
         if (count !== undefined)
-          return checkCondition({
-            type: 'brick_count',
-            negated: false,
-            count,
-          })
-        return checkCondition({ type: 'brick', negated: false, count })
+          return checkCondition(
+            {
+              type: 'brick_count',
+              negated: false,
+              count,
+            },
+            id,
+          )
+        return checkCondition({ type: 'brick', negated: false, count }, id)
       },
       nichtIstZiegel: (count, ...rest) => {
         throwFauxTypeError('Robot', 'nichtIstZiegel', 1, rest)
         if (count !== undefined)
-          return checkCondition({ type: 'brick_count', negated: true, count })
-        return checkCondition({ type: 'brick', negated: true, count })
+          return checkCondition(
+            { type: 'brick_count', negated: true, count },
+            id,
+          )
+        return checkCondition({ type: 'brick', negated: true, count }, id)
       },
       istNorden: (...rest) => {
         throwFauxTypeError('Robot', 'istNorden', 0, rest)
-        return checkCondition({ type: 'north', negated: false })
+        return checkCondition({ type: 'north', negated: false }, id)
       },
       nichtIstNorden: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstNorden', 0, rest)
-        return checkCondition({ type: 'north', negated: true })
+        return checkCondition({ type: 'north', negated: true }, id)
       },
       istOsten: (...rest) => {
         throwFauxTypeError('Robot', 'istOsten', 0, rest)
-        return checkCondition({ type: 'east', negated: false })
+        return checkCondition({ type: 'east', negated: false }, id)
       },
       nichtIstOsten: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstOsten', 0, rest)
-        return checkCondition({ type: 'east', negated: true })
+        return checkCondition({ type: 'east', negated: true }, id)
       },
       istSüden: (...rest) => {
         throwFauxTypeError('Robot', 'istSüden', 0, rest)
-        return checkCondition({ type: 'south', negated: false })
+        return checkCondition({ type: 'south', negated: false }, id)
       },
       nichtIstSüden: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstSüden', 0, rest)
-        return checkCondition({ type: 'south', negated: true })
+        return checkCondition({ type: 'south', negated: true }, id)
       },
       istWesten: (...rest) => {
         throwFauxTypeError('Robot', 'istWesten', 0, rest)
-        return checkCondition({ type: 'west', negated: false })
+        return checkCondition({ type: 'west', negated: false }, id)
       },
       nichtIstWesten: (...rest) => {
         throwFauxTypeError('Robot', 'nichtIstWesten', 0, rest)
-        return checkCondition({ type: 'west', negated: true })
+        return checkCondition({ type: 'west', negated: true }, id)
       },
       beenden: (...rest) => {
         throwFauxTypeError('Robot', 'beenden', 0, rest)
-        self.postMessage({ type: 'action', action: 'beenden' })
+        self.postMessage({ type: 'action', action: 'beenden', robotId: id })
+      },
+      _verstecken: () => {
+        self.postMessage({ type: 'hide-robot', robotId: id })
       },
     }
   }
@@ -370,6 +375,10 @@ class Robot:
 
   def __init__(self):
     self._internal_Robot = _internal_Robot()
+
+  def __del__(self):
+    self._internal_Robot._verstecken()
+    del self._internal_Robot
 
 
 import json
@@ -802,6 +811,7 @@ self.onmessage = async (event) => {
     delay = new Int32Array(event.data.delayBuffer)
     debug = new Int32Array(event.data.debugInterfaceBuffer, 0, 129)
     robotIndex.current = 0
+    runId.current = event.data.runId ?? 0
     const debugRef = { current: debug }
     const traceback = pyodide.pyimport('traceback')
     const enableHighlight = { current: true }
@@ -1108,13 +1118,14 @@ function checkDebug() {
   }
 }
 
-function runAction(action) {
+function runAction(action, robotId) {
   const sharedBuffer = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT)
   const sharedArray = new Int32Array(sharedBuffer)
   Atomics.store(sharedArray, 0, 42) // no data yet
   self.postMessage({
     type: 'action',
     action,
+    robotId,
     sharedBuffer,
   })
   Atomics.wait(sharedArray, 0, 42)
@@ -1123,12 +1134,13 @@ function runAction(action) {
   }
 }
 
-function checkCondition(cond) {
+function checkCondition(cond, robotId) {
   const sharedBuffer = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT)
   const sharedArray = new Int32Array(sharedBuffer)
   Atomics.store(sharedArray, 0, 42) // no data yet
   self.postMessage({
     type: 'check',
+    robotId,
     sharedBuffer,
     condition: JSON.stringify(cond),
   })

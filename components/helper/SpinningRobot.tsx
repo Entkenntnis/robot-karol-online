@@ -1,4 +1,5 @@
 import { robotGalleryPreview } from '../../lib/data/images'
+import { createRobot } from '../../lib/state/create'
 import { View } from './View'
 
 export function SpinningRobot() {
@@ -8,11 +9,7 @@ export function SpinningRobot() {
       world={{
         dimX: 1,
         dimY: 1,
-        karol: {
-          x: 0,
-          y: 0,
-          dir: 'east',
-        },
+        robots: [createRobot('r0', 0, 0, 'east')],
         blocks: [[false]],
         marks: [[false]],
         bricks: [[0]],

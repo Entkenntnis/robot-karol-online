@@ -1,4 +1,4 @@
-import type { CoreState, WorkspaceState, World } from './types'
+import type { CoreState, Heading, Robot, WorkspaceState, World } from './types'
 
 export function createDefaultCoreState(): CoreState {
   return {
@@ -118,16 +118,21 @@ export function createWorkspaceState(): WorkspaceState {
   return ws
 }
 
+export function createRobot(
+  id: string,
+  x = 0,
+  y = 0,
+  dir: Heading = 'south',
+): Robot {
+  return { id, x, y, dir, visible: true }
+}
+
 export function createWorld(dimX: number, dimY: number, height: number): World {
   const world: World = {
     dimX,
     dimY,
     height,
-    karol: {
-      x: 0,
-      y: 0,
-      dir: 'south',
-    },
+    robots: [createRobot('r0')],
     bricks: Array(dimY)
       .fill(0)
       .map(() => Array(dimX).fill(0)),

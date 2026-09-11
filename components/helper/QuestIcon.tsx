@@ -3,6 +3,7 @@ import { FaIcon } from './FaIcon'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { View } from './View'
 import { useCore } from '../../lib/state/core'
+import { createRobot } from '../../lib/state/create'
 import type { Heading } from '../../lib/state/types'
 import { AnimateInView } from './AnimateIntoView'
 import { getUserName } from '../../lib/storage/storage'
@@ -72,11 +73,14 @@ export function QuestIcon({
                 world={{
                   dimX: 1,
                   dimY: 1,
-                  karol: {
-                    x: 0,
-                    y: 0,
-                    dir: dir == 'west' ? 'east' : (dir ?? 'east'),
-                  },
+                  robots: [
+                    createRobot(
+                      'r0',
+                      0,
+                      0,
+                      dir == 'west' ? 'east' : (dir ?? 'east'),
+                    ),
+                  ],
                   blocks: [[false]],
                   marks: [[false]],
                   bricks: [[0]],

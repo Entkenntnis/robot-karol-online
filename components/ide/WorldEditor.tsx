@@ -27,6 +27,7 @@ import {
   createWorldCmd,
 } from '../../lib/commands/world'
 import { useCore } from '../../lib/state/core'
+import { primaryRobotId } from '../../lib/robot/robots'
 import { FaIcon } from '../helper/FaIcon'
 import { View } from '../helper/View'
 import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
@@ -34,28 +35,28 @@ import { ____submitAnalyzeEvent } from '../../lib/helper/submit'
 export function WorldEditor() {
   const actions: { [key: string]: () => void } = {
     ArrowLeft: () => {
-      left(core)
+      left(core, primaryRobotId(core.ws.world))
     },
     ArrowRight: () => {
-      right(core)
+      right(core, primaryRobotId(core.ws.world))
     },
     ArrowUp: () => {
-      forward(core)
+      forward(core, primaryRobotId(core.ws.world))
     },
     ArrowDown: () => {
-      forward(core, { reverse: true })
+      forward(core, primaryRobotId(core.ws.world), { reverse: true })
     },
     KeyM: () => {
-      toggleMark(core)
+      toggleMark(core, primaryRobotId(core.ws.world))
     },
     KeyH: () => {
-      brick(core)
+      brick(core, primaryRobotId(core.ws.world))
     },
     KeyQ: () => {
-      toggleBlock(core)
+      toggleBlock(core, primaryRobotId(core.ws.world))
     },
     KeyA: () => {
-      unbrick(core)
+      unbrick(core, primaryRobotId(core.ws.world))
     },
   }
 

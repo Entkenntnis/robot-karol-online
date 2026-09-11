@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import type {
   Canvas,
+  Heading,
   ICanvsObjects,
   Preview,
   World,
@@ -103,102 +104,123 @@ export function View({
   // update robot position immediately, maybe rerender if there are further changes
   // this approach is avoiding a flickering effect
   const [renderCounter, setRenderCounter] = useState(0)
-  const animatedRobotData = useRef({
-    x: world.karol.x,
-    y: world.karol.y,
-    z:
-      world.karol.y >= 0 && world.karol.x >= 0
-        ? world.bricks[world.karol.y][world.karol.x]
-        : 0,
-  })
+  const animatedRobotData = useRef<
+    Map<string, { x: number; y: number; z: number }>
+  >(new Map())
 
   useEffect(() => {
-    if (
-      !twoWorldsEqual(prevWorld.current, world) ||
-      prevWorld.current.karol.dir !== world.karol.dir ||
-      !animationDuration
-    ) {
+    if (!twoWorldsEqual(prevWorld.current, world) || !animationDuration) {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
         animationFrameRef.current = null
       }
+      animatedRobotData.current = new Map()
       prevWorld.current = world
-      animatedRobotData.current = {
-        x: -1,
-        y: -1,
-        z: -1,
-      }
       setRenderCounter((c) => c + 1)
       return
     }
 
-    const currentX = world.karol.x
-    const currentY = world.karol.y
-    const currentZ =
-      currentX >= 0 && currentY >= 0 ? world.bricks[currentY][currentX] : 0
+    interface ActiveAnimation {
+      id: string
+      prevX: number
+      prevY: number
+      prevZ: number
+      currentX: number
+      currentY: number
+      currentZ: number
+    }
+    const animations: ActiveAnimation[] = []
 
-    const prevX = prevWorld.current.karol.x
-    const prevY = prevWorld.current.karol.y
-    const prevZ =
-      prevY >= 0 && prevX >= 0 ? prevWorld.current.bricks[prevY][prevX] : 0
+    for (const robot of world.robots) {
+      const before = prevWorld.current.robots.find(
+        (entry) => entry.id === robot.id,
+      )
+      if (!before) continue
+      if (before.x === robot.x && before.y === robot.y) continue
 
-    const dir = prevWorld.current.karol.dir
-    const oppositeDir = reverse(dir)
+      const currentX = robot.x
+      const currentY = robot.y
+      const currentZ =
+        currentX >= 0 && currentY >= 0 ? world.bricks[currentY][currentX] : 0
+      const prevX = before.x
+      const prevY = before.y
+      const prevZ =
+        prevY >= 0 && prevX >= 0 ? prevWorld.current.bricks[prevY][prevX] : 0
 
-    const forwardStep = moveRaw(prevX, prevY, dir, prevWorld.current)
-    const backwardStep = moveRaw(prevX, prevY, oppositeDir, prevWorld.current)
+      const forwardStep = moveRaw(prevX, prevY, before.dir, prevWorld.current)
+      const backwardStep = moveRaw(
+        prevX,
+        prevY,
+        reverse(before.dir),
+        prevWorld.current,
+      )
+      const isForward =
+        forwardStep?.x === currentX && forwardStep?.y === currentY
+      const isBackward =
+        backwardStep?.x === currentX && backwardStep?.y === currentY
+      if (!isForward && !isBackward) continue
 
-    const isForward = forwardStep?.x === currentX && forwardStep?.y === currentY
+      animations.push({
+        id: robot.id,
+        prevX,
+        prevY,
+        prevZ,
+        currentX,
+        currentY,
+        currentZ,
+      })
+    }
 
-    const isBackward =
-      backwardStep?.x === currentX && backwardStep?.y === currentY
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current)
+      animationFrameRef.current = null
+    }
 
-    if (isForward || isBackward) {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-      }
-      // the robot is in an new position that is not yet updated, so start animation
-      const startTime = Date.now()
-      const duration = animationDuration
-
-      const animate = () => {
-        const now = Date.now()
-        const rawProgress = Math.min((now - startTime) / duration, 1)
-        const progress = easeInOutCubic(rawProgress)
-
-        const dx = currentX - prevX
-        const dy = currentY - prevY
-        const newX = prevX + dx * progress
-        const newY = prevY + dy * progress
-        const newZ =
-          prevZ +
-          (currentZ - prevZ) * progress +
-          Math.sin(progress * Math.PI) * (currentZ == prevZ ? 0.25 : 0.5)
-
-        animatedRobotData.current = { x: newX, y: newY, z: newZ }
-        setRenderCounter((c) => c + 1)
-
-        if (progress < 1) {
-          animationFrameRef.current = requestAnimationFrame(animate)
-        } else {
-          animatedRobotData.current = { x: -1, y: -1, z: -1 }
-          setRenderCounter((c) => c + 1)
-          animationFrameRef.current = null
-        }
-      }
-
-      animate()
-
-      prevWorld.current = world
-    } else {
-      // and here, yeah, probably cancel as well
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-      }
-      animatedRobotData.current = { x: -1, y: -1, z: -1 }
+    if (animations.length === 0) {
+      animatedRobotData.current = new Map()
       prevWorld.current = world
       setRenderCounter((c) => c + 1)
+      return
     }
+
+    // the robots are in new positions that are not yet updated, so start animation
+    const startTime = Date.now()
+    const duration = animationDuration
+
+    const animate = () => {
+      const now = Date.now()
+      const rawProgress = Math.min((now - startTime) / duration, 1)
+      const progress = easeInOutCubic(rawProgress)
+
+      const next = new Map<string, { x: number; y: number; z: number }>()
+      for (const animation of animations) {
+        const dx = animation.currentX - animation.prevX
+        const dy = animation.currentY - animation.prevY
+        const newX = animation.prevX + dx * progress
+        const newY = animation.prevY + dy * progress
+        const newZ =
+          animation.prevZ +
+          (animation.currentZ - animation.prevZ) * progress +
+          Math.sin(progress * Math.PI) *
+            (animation.currentZ === animation.prevZ ? 0.25 : 0.5)
+
+        next.set(animation.id, { x: newX, y: newY, z: newZ })
+      }
+      animatedRobotData.current = next
+      setRenderCounter((c) => c + 1)
+
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(animate)
+      } else {
+        animatedRobotData.current = new Map()
+        setRenderCounter((c) => c + 1)
+        animationFrameRef.current = null
+      }
+    }
+
+    animate()
+
+    prevWorld.current = world
     // only care for world changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [world])
@@ -353,9 +375,15 @@ export function View({
       }
       // ============== DEBUGGING ==============
 
-      const drawKarol = (x: number, y: number, z: number) => {
+      const drawKarol = (
+        x: number,
+        y: number,
+        z: number,
+        dir: Heading,
+        index: number,
+        total: number,
+      ) => {
         const point = to2d(x, y, z)
-        const dir = world.karol.dir
         const sx = {
           north: 40,
           east: 0,
@@ -378,6 +406,14 @@ export function View({
           40,
           71,
         )
+        if (total > 1) {
+          ctx.font = '22px sans-serif'
+          ctx.fillText(
+            (index + 1).toString(),
+            Math.round(dx),
+            Math.round(dy) + 10,
+          )
+        }
       }
 
       for (let x = 0; x < world.dimX; x++) {
@@ -500,18 +536,26 @@ export function View({
             ctx.drawImage(quader, p.x - 15, p.y - 30)
           }
           if (!hideKarol) {
-            if (
-              Math.round(animatedRobotData.current.x) == x &&
-              Math.round(animatedRobotData.current.y) == y
-            ) {
-              const { x: animX, y: animY, z: animZ } = animatedRobotData.current
-              drawKarol(animX, animY, animZ)
-            } else {
-              if (animatedRobotData.current.x >= 0) continue
-              if (x == world.karol.x && y == world.karol.y) {
-                const { x, y } = world.karol
-                const z = world.bricks[y][x]
-                drawKarol(x, y, z)
+            for (let index = 0; index < world.robots.length; index++) {
+              const robotEntry = world.robots[index]
+              if (!robotEntry.visible) continue
+              const animated = animatedRobotData.current.get(robotEntry.id)
+              const robotX = animated ? animated.x : robotEntry.x
+              const robotY = animated ? animated.y : robotEntry.y
+              const robotZ = animated
+                ? animated.z
+                : robotEntry.y >= 0 && robotEntry.x >= 0
+                  ? world.bricks[robotEntry.y][robotEntry.x]
+                  : 0
+              if (Math.round(robotX) == x && Math.round(robotY) == y) {
+                drawKarol(
+                  robotX,
+                  robotY,
+                  robotZ,
+                  robotEntry.dir,
+                  index,
+                  world.robots.length,
+                )
               }
             }
           }

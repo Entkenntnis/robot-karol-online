@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { closeModal } from '../../lib/commands/modal'
 import { useCore } from '../../lib/state/core'
+import { createRobot } from '../../lib/state/create'
 import { View } from '../helper/View'
 import type { Heading } from '../../lib/state/types'
 import { setRobotImage } from '../../lib/storage/storage'
@@ -591,13 +592,14 @@ export function AppearanceModal() {
                 world={{
                   dimX: 1,
                   dimY: 1,
-                  karol: {
-                    x: 0,
-                    y: 0,
-                    dir: ['east', 'north', 'west', 'south'][
-                      count % 4
-                    ] as Heading,
-                  },
+                  robots: [
+                    createRobot(
+                      'r0',
+                      0,
+                      0,
+                      ['east', 'north', 'west', 'south'][count % 4] as Heading,
+                    ),
+                  ],
                   blocks: [[false]],
                   marks: [[false]],
                   bricks: [[0]],

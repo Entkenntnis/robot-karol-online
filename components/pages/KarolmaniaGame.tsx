@@ -13,6 +13,7 @@ import {
 } from '../../lib/commands/world'
 import { View2D } from '../helper/View2D'
 import clsx from 'clsx'
+import { primaryRobotId } from '../../lib/robot/robots'
 import { navigate } from '../../lib/commands/router'
 import { FaIcon } from '../helper/FaIcon'
 import {
@@ -502,25 +503,25 @@ export function KarolmaniaGame() {
 
       const actions: { [key: string]: () => void } = {
         ArrowLeft: () => {
-          left(core)
+          left(core, primaryRobotId(core.ws.world))
         },
         ArrowRight: () => {
-          right(core)
+          right(core, primaryRobotId(core.ws.world))
         },
         ArrowUp: () => {
-          forward(core)
+          forward(core, primaryRobotId(core.ws.world))
         },
         ArrowDown: () => {
-          forward(core, { reverse: true })
+          forward(core, primaryRobotId(core.ws.world), { reverse: true })
         },
         KeyM: () => {
-          toggleMark(core)
+          toggleMark(core, primaryRobotId(core.ws.world))
         },
         KeyH: () => {
-          brick(core)
+          brick(core, primaryRobotId(core.ws.world))
         },
         KeyA: () => {
-          unbrick(core)
+          unbrick(core, primaryRobotId(core.ws.world))
         },
       }
 

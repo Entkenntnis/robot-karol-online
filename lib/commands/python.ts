@@ -6,6 +6,13 @@ import { ____submitAnalyzeEvent, submitEvent } from '../helper/submit'
 import { addConsoleMessage } from './messages'
 import { endExecution, testCondition } from './vm'
 import {
+  addRobot,
+  getRobot,
+  hideRobot,
+  mutateRobot,
+  primaryRobotId,
+} from '../robot/robots'
+import {
   forward,
   left,
   right,
@@ -25,6 +32,9 @@ import {
 import { CanvasObjects } from '../state/canvas-objects'
 import { Instrument } from 'tone/build/esm/instrument/Instrument'
 import { chatDone, chatError, chatInput, chatOutput } from './chat'
+import { createRobot } from '../state/create'
+
+let pythonRunId = 0
 
 function supportsWorkerType() {
   let supports = false
@@ -123,21 +133,22 @@ export function setupWorker(core: Core) {
       event.data.type === 'action'
     ) {
       const action = event.data.action
+      const robotId = event.data.robotId ?? primaryRobotId(core.ws.world)
       let result = true
       if (action === 'schritt') {
-        result = forward(core)
+        result = forward(core, robotId)
       } else if (action === 'linksDrehen') {
-        left(core)
+        left(core, robotId)
       } else if (action === 'rechtsDrehen') {
-        right(core)
+        right(core, robotId)
       } else if (action === 'hinlegen') {
-        result = brick(core)
+        result = brick(core, robotId)
       } else if (action === 'aufheben') {
-        result = unbrick(core)
+        result = unbrick(core, robotId)
       } else if (action === 'markeSetzen') {
-        result = setMark(core)
+        result = setMark(core, robotId)
       } else if (action === 'markeLöschen') {
-        result = resetMark(core)
+        result = resetMark(core, robotId)
       } else if (action == 'beenden') {
         endExecution(core)
         core.worker.reset()
@@ -162,7 +173,10 @@ export function setupWorker(core: Core) {
       // console.log('main thread check:istWand')
       const { sharedBuffer, condition } = event.data
       const sharedArray = new Int32Array(sharedBuffer)
-      sharedArray[0] = testCondition(core, JSON.parse(condition)) ? 1 : 0
+      const robotId = event.data.robotId ?? primaryRobotId(core.ws.world)
+      sharedArray[0] = testCondition(core, JSON.parse(condition), robotId)
+        ? 1
+        : 0
       core.mutateWs(({ vm }) => {
         vm.functionEvaluation++
       })
@@ -402,6 +416,22 @@ export function setupWorker(core: Core) {
     if (
       event.data &&
       typeof event.data === 'object' &&
+      event.data.type === 'spawn-robot'
+    ) {
+      addRobot(core, event.data.robotId)
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'hide-robot'
+    ) {
+      hideRobot(core, event.data.robotId)
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
       event.data.type === 'enable-manual-control'
     ) {
       core.mutateWs((ws) => {
@@ -417,7 +447,8 @@ export function setupWorker(core: Core) {
       const { buffer } = event.data
       const syncArray = new Int32Array(buffer, 0, 1)
       const dataArray = new Uint32Array(buffer, 4)
-      const karol = core.ws.world.karol
+      const robotId = event.data.robotId ?? primaryRobotId(core.ws.world)
+      const karol = getRobot(core.ws.world, robotId)
       const x = karol.x
       const y = karol.y
       dataArray[0] = x
@@ -434,7 +465,8 @@ export function setupWorker(core: Core) {
       const { buffer } = event.data
       const syncArray = new Int32Array(buffer, 0, 1)
       const dataArray = new Uint32Array(buffer, 4)
-      const dir = core.ws.world.karol.dir
+      const robotId = event.data.robotId ?? primaryRobotId(core.ws.world)
+      const dir = getRobot(core.ws.world, robotId).dir
       dataArray[0] = ['north', 'east', 'south', 'west'].indexOf(dir)
       syncArray[0] = 1
       Atomics.notify(syncArray, 0)
@@ -446,9 +478,10 @@ export function setupWorker(core: Core) {
       event.data.type == 'set-karol-position'
     ) {
       const { x, y } = event.data
-      core.mutateWs((ws) => {
-        ws.world.karol.x = x
-        ws.world.karol.y = y
+      const robotId = event.data.robotId ?? primaryRobotId(core.ws.world)
+      mutateRobot(core, robotId, (robot) => {
+        robot.x = x
+        robot.y = y
       })
     }
 
@@ -458,8 +491,9 @@ export function setupWorker(core: Core) {
       event.data.type == 'set-karol-heading'
     ) {
       const { heading } = event.data
-      core.mutateWs((ws) => {
-        ws.world.karol.dir = heading
+      const robotId = event.data.robotId ?? primaryRobotId(core.ws.world)
+      mutateRobot(core, robotId, (robot) => {
+        robot.dir = heading
       })
     }
 
@@ -717,8 +751,24 @@ export function setupWorker(core: Core) {
       s.objects = []
     })
 
+    // start each run with a single, freshly identified primary robot
+    pythonRunId++
+    const runId = pythonRunId
+    core.mutateWs(({ world }) => {
+      const primary = world.robots[0]
+      world.robots = [
+        createRobot(
+          `${runId}:0`,
+          primary?.x ?? 0,
+          primary?.y ?? 0,
+          primary?.dir ?? 'south',
+        ),
+      ]
+    })
+
     core.worker.mainWorker.postMessage({
       type: 'run',
+      runId,
       code,
       questScript: core.ws.editor.questScript, // todo: currently only working within the editor
       delayBuffer,
