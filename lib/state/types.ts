@@ -87,6 +87,7 @@ export interface Ui {
   flightdeckTab: Tab
   showQuickReference: boolean
   zoomLevelIndex: number
+  activeRobotId?: string
 }
 
 export interface Vm {

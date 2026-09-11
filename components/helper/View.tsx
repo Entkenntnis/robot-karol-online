@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import type {
   Canvas,
+  Heading,
   ICanvsObjects,
   Preview,
   World,
@@ -18,6 +19,7 @@ import {
 } from '../../lib/data/images'
 import { moveRaw, reverse, twoWorldsEqual } from '../../lib/commands/world'
 import { CanvasObjects } from '../../lib/state/canvas-objects'
+import { getRobot } from '../../lib/commands/robots'
 
 interface ViewProps {
   world: World
@@ -33,6 +35,7 @@ interface ViewProps {
   externallyScaled?: boolean
   lowQuality?: boolean
   scale?: number
+  activeRobot?: string
 }
 
 interface Resources {
@@ -65,10 +68,12 @@ export function View({
   externallyScaled,
   lowQuality,
   scale = 1,
+  activeRobot,
 }: ViewProps) {
   const canvasElement = useRef<HTMLCanvasElement>(null)
   const [resources, setResources] = useState<Resources | null>(null)
   const co = CanvasObjects.useState()
+  const [, index] = getRobot(world, activeRobot)
 
   const width = 30 * world.dimX + 15 * world.dimY + 1
   const height = 15 * world.dimY + 15 * world.height + 1 + 61
@@ -104,18 +109,18 @@ export function View({
   // this approach is avoiding a flickering effect
   const [renderCounter, setRenderCounter] = useState(0)
   const animatedRobotData = useRef({
-    x: world.karol.x,
-    y: world.karol.y,
+    x: world.robots[index].x,
+    y: world.robots[index].y,
     z:
-      world.karol.y >= 0 && world.karol.x >= 0
-        ? world.bricks[world.karol.y][world.karol.x]
+      world.robots[index].y >= 0 && world.robots[index].x >= 0
+        ? world.bricks[world.robots[index].y][world.robots[index].x]
         : 0,
   })
 
   useEffect(() => {
     if (
       !twoWorldsEqual(prevWorld.current, world) ||
-      prevWorld.current.karol.dir !== world.karol.dir ||
+      prevWorld.current.robots[index].dir !== world.robots[index].dir ||
       !animationDuration
     ) {
       if (animationFrameRef.current) {
@@ -132,17 +137,17 @@ export function View({
       return
     }
 
-    const currentX = world.karol.x
-    const currentY = world.karol.y
+    const currentX = world.robots[index].x
+    const currentY = world.robots[index].y
     const currentZ =
       currentX >= 0 && currentY >= 0 ? world.bricks[currentY][currentX] : 0
 
-    const prevX = prevWorld.current.karol.x
-    const prevY = prevWorld.current.karol.y
+    const prevX = prevWorld.current.robots[index].x
+    const prevY = prevWorld.current.robots[index].y
     const prevZ =
       prevY >= 0 && prevX >= 0 ? prevWorld.current.bricks[prevY][prevX] : 0
 
-    const dir = prevWorld.current.karol.dir
+    const dir = prevWorld.current.robots[index].dir
     const oppositeDir = reverse(dir)
 
     const forwardStep = moveRaw(prevX, prevY, dir, prevWorld.current)
@@ -353,9 +358,15 @@ export function View({
       }
       // ============== DEBUGGING ==============
 
-      const drawKarol = (x: number, y: number, z: number) => {
+      const drawKarol = (
+        x: number,
+        y: number,
+        z: number,
+        dir: Heading,
+        i: number,
+        total: number,
+      ) => {
         const point = to2d(x, y, z)
-        const dir = world.karol.dir
         const sx = {
           north: 40,
           east: 0,
@@ -378,6 +389,10 @@ export function View({
           40,
           71,
         )
+        if (total > 1) {
+          ctx.font = '22px sans-serif'
+          ctx.fillText((i + 1).toString(), Math.round(dx), Math.round(dy) + 10)
+        }
       }
 
       for (let x = 0; x < world.dimX; x++) {
@@ -500,18 +515,28 @@ export function View({
             ctx.drawImage(quader, p.x - 15, p.y - 30)
           }
           if (!hideKarol) {
-            if (
-              Math.round(animatedRobotData.current.x) == x &&
-              Math.round(animatedRobotData.current.y) == y
-            ) {
-              const { x: animX, y: animY, z: animZ } = animatedRobotData.current
-              drawKarol(animX, animY, animZ)
-            } else {
-              if (animatedRobotData.current.x >= 0) continue
-              if (x == world.karol.x && y == world.karol.y) {
-                const { x, y } = world.karol
-                const z = world.bricks[y][x]
-                drawKarol(x, y, z)
+            for (let i = 0; i < world.robots.length; i++) {
+              const robotEntry = world.robots[i]
+              const animated =
+                i === index && animatedRobotData.current.x >= 0
+                  ? animatedRobotData.current
+                  : null
+              const robotX = animated ? animated.x : robotEntry.x
+              const robotY = animated ? animated.y : robotEntry.y
+              const robotZ = animated
+                ? animated.z
+                : robotEntry.y >= 0 && robotEntry.x >= 0
+                  ? world.bricks[robotEntry.y][robotEntry.x]
+                  : 0
+              if (Math.round(robotX) == x && Math.round(robotY) == y) {
+                drawKarol(
+                  robotX,
+                  robotY,
+                  robotZ,
+                  robotEntry.dir,
+                  i,
+                  world.robots.length,
+                )
               }
             }
           }

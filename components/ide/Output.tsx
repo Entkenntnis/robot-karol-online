@@ -235,6 +235,7 @@ export function Output() {
                     }
                     canvas={core.ws.canvas}
                     scale={getZoom(core)}
+                    activeRobot={core.ws.ui.activeRobotId}
                   />
                 )}
               </div>
