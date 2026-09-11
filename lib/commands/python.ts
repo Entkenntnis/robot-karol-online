@@ -25,6 +25,7 @@ import {
 import { CanvasObjects } from '../state/canvas-objects'
 import { Instrument } from 'tone/build/esm/instrument/Instrument'
 import { chatDone, chatError, chatInput, chatOutput } from './chat'
+import { getRobot } from './robots'
 
 function supportsWorkerType() {
   let supports = false
@@ -417,7 +418,7 @@ export function setupWorker(core: Core) {
       const { buffer } = event.data
       const syncArray = new Int32Array(buffer, 0, 1)
       const dataArray = new Uint32Array(buffer, 4)
-      const karol = core.ws.world.karol
+      const [karol] = getRobot(core.ws.world)
       const x = karol.x
       const y = karol.y
       dataArray[0] = x
@@ -434,7 +435,8 @@ export function setupWorker(core: Core) {
       const { buffer } = event.data
       const syncArray = new Int32Array(buffer, 0, 1)
       const dataArray = new Uint32Array(buffer, 4)
-      const dir = core.ws.world.karol.dir
+      const [karol] = getRobot(core.ws.world)
+      const dir = karol.dir
       dataArray[0] = ['north', 'east', 'south', 'west'].indexOf(dir)
       syncArray[0] = 1
       Atomics.notify(syncArray, 0)
@@ -446,9 +448,10 @@ export function setupWorker(core: Core) {
       event.data.type == 'set-karol-position'
     ) {
       const { x, y } = event.data
+      const [, index] = getRobot(core.ws.world)
       core.mutateWs((ws) => {
-        ws.world.karol.x = x
-        ws.world.karol.y = y
+        ws.world.robots[index].x = x
+        ws.world.robots[index].y = y
       })
     }
 
@@ -458,8 +461,9 @@ export function setupWorker(core: Core) {
       event.data.type == 'set-karol-heading'
     ) {
       const { heading } = event.data
+      const [, index] = getRobot(core.ws.world)
       core.mutateWs((ws) => {
-        ws.world.karol.dir = heading
+        ws.world.robots[index].dir = heading
       })
     }
 
