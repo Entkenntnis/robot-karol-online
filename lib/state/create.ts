@@ -131,7 +131,6 @@ export function createWorld(dimX: number, dimY: number, height: number): World {
         dir: 'south',
         visible: true,
       },
-      { id: 'r1', x: 4, y: 4, dir: 'south', visible: true },
     ],
     bricks: Array(dimY)
       .fill(0)

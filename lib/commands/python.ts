@@ -26,6 +26,7 @@ import { CanvasObjects } from '../state/canvas-objects'
 import { Instrument } from 'tone/build/esm/instrument/Instrument'
 import { chatDone, chatError, chatInput, chatOutput } from './chat'
 import { getRobot } from './robots'
+import type { Robot } from '../state/types'
 
 function supportsWorkerType() {
   let supports = false
@@ -123,22 +124,26 @@ export function setupWorker(core: Core) {
       typeof event.data === 'object' &&
       event.data.type === 'action'
     ) {
-      const action = event.data.action
+      const { action, robotId } = event.data
+
       let result = true
       if (action === 'schritt') {
-        result = forward(core)
+        core.mutateWs((ws) => {
+          ws.ui.activeRobotId = robotId
+        })
+        result = forward(core, robotId)
       } else if (action === 'linksDrehen') {
-        left(core)
+        left(core, robotId)
       } else if (action === 'rechtsDrehen') {
-        right(core)
+        right(core, robotId)
       } else if (action === 'hinlegen') {
-        result = brick(core)
+        result = brick(core, robotId)
       } else if (action === 'aufheben') {
-        result = unbrick(core)
+        result = unbrick(core, robotId)
       } else if (action === 'markeSetzen') {
-        result = setMark(core)
+        result = setMark(core, robotId)
       } else if (action === 'markeLöschen') {
-        result = resetMark(core)
+        result = resetMark(core, robotId)
       } else if (action == 'beenden') {
         endExecution(core)
         core.worker.reset()
@@ -161,9 +166,11 @@ export function setupWorker(core: Core) {
     }
     if (event.data.type && event.data.type == 'check') {
       // console.log('main thread check:istWand')
-      const { sharedBuffer, condition } = event.data
+      const { sharedBuffer, condition, robotId } = event.data
       const sharedArray = new Int32Array(sharedBuffer)
-      sharedArray[0] = testCondition(core, JSON.parse(condition)) ? 1 : 0
+      sharedArray[0] = testCondition(core, JSON.parse(condition), robotId)
+        ? 1
+        : 0
       core.mutateWs(({ vm }) => {
         vm.functionEvaluation++
       })
@@ -398,6 +405,36 @@ export function setupWorker(core: Core) {
       CanvasObjects.update((s) => {
         s.objects = JSON.parse(event.data.canvas)
       })
+    }
+
+    if (
+      event.data &&
+      typeof event.data === 'object' &&
+      event.data.type === 'ensure-robot'
+    ) {
+      const { robotId } = event.data
+      if (!core.ws.world.robots.find((r) => r.id == robotId)) {
+        // I need to create a new robot
+        const robot: Robot = {
+          id: robotId,
+          x: 0,
+          y: 0,
+          dir: 'south',
+          visible: true,
+        }
+
+        if (core.ws.quest.lastStartedTask !== undefined) {
+          const origin =
+            core.ws.quest.tasks[core.ws.quest.lastStartedTask].start.robots[0]
+          robot.x = origin.x
+          robot.y = origin.y
+          robot.dir = origin.dir
+        }
+
+        core.mutateWs((ws) => {
+          ws.world.robots.push(robot)
+        })
+      }
     }
 
     if (
