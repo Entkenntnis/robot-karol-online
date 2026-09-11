@@ -3,6 +3,7 @@ import { sliderToDelay } from '../helper/speedSlider'
 import { Core } from '../state/core'
 import type { Condition, Op } from '../state/types'
 import { addMessage } from './messages'
+import { getRobot } from './robots'
 import {
   forward,
   left,
@@ -402,8 +403,10 @@ function* executeProgramAsGenerator(core: Core) {
   }
 }
 
-export function testCondition(core: Core, cond: Condition) {
-  const { x, y, dir } = core.ws.world.karol
+export function testCondition(core: Core, cond: Condition, robotId?: string) {
+  const [karol] = getRobot(core.ws.world, robotId)
+  const { x, y, dir } = karol
+
   if (cond.type == 'mark') {
     const val = core.ws.world.marks[y][x]
     if (cond.negated) {

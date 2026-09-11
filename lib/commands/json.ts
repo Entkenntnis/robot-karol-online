@@ -52,20 +52,23 @@ export function serializeQuest(
 }
 
 export function serializeWorld(world: World): SerialWorld_MUST_STAY_COMPATIBLE {
-  const { dimX, dimY, height, blocks, bricks, karol, marks } = world
+  const { dimX, dimY, height, blocks, bricks, robots, marks } = world
 
   return {
     dimX,
     dimY,
     height,
-    karol,
+    karol: { x: robots[0].x, y: robots[0].y, dir: robots[0].dir },
     bricks: compress2dArray(bricks, 0),
     marks: compress2dArray(marks, false),
     blocks: compress2dArray(blocks, false),
   }
 }
 
-export function deserialize(core: Core, file?: string) {
+export function deserialize_legacy_super_old_code_bad_bad(
+  core: Core,
+  file?: string,
+) {
   try {
     let {
       world,
@@ -104,7 +107,19 @@ export function deserialize(core: Core, file?: string) {
         }
       }
     }
-    world.karol = world.karol
+    world.robots = [
+      {
+        // Serial World contains exactly one robot, map it to first entry in robots array
+        //@ts-expect-error
+        x: world.karol.x,
+        //@ts-expect-error
+        y: world.karol.y,
+        //@ts-expect-error
+        dir: world.karol.dir,
+        id: 'r0',
+        visible: true,
+      },
+    ]
     endExecution(core)
     core.mutateWs((state) => {
       state.code = code ?? ''
@@ -252,13 +267,21 @@ export function deserializeQuestToData(
 export function deserializeWorld(
   world: SerialWorld_MUST_STAY_COMPATIBLE,
 ): World {
-  const { dimX, dimY, height, blocks, bricks, karol, marks } = world
+  const {
+    dimX,
+    dimY,
+    height,
+    blocks,
+    bricks,
+    karol: { x, y, dir },
+    marks,
+  } = world
 
   return {
     dimX,
     dimY,
     height,
-    karol,
+    robots: [{ id: 'r0', x, y, dir, visible: true }],
     bricks: decompress2dArray(bricks, dimX, dimY, 0),
     marks: decompress2dArray(marks, dimX, dimY, false),
     blocks: decompress2dArray(blocks, dimX, dimY, false),

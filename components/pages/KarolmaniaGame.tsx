@@ -511,7 +511,7 @@ export function KarolmaniaGame() {
           forward(core)
         },
         ArrowDown: () => {
-          forward(core, { reverse: true })
+          forward(core, undefined, { reverse: true })
         },
         KeyM: () => {
           toggleMark(core)

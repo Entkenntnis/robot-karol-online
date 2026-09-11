@@ -56,7 +56,7 @@ export function Output() {
       return forward(core)
     },
     ArrowDown: () => {
-      return forward(core, { reverse: true })
+      return forward(core, undefined, { reverse: true })
     },
     KeyH: () => {
       return brick(core)

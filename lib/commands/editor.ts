@@ -119,7 +119,7 @@ export function switchCurrentlyEditedWorld(
     } else {
       ws.editor.currentlyEditing = 'target'
       ws.world = ws.quest.tasks[ws.editor.editWorld!].target!
-      ws.world.karol = ws.quest.tasks[ws.editor.editWorld!].start.karol
+      ws.world.robots = ws.quest.tasks[ws.editor.editWorld!].start.robots
     }
   })
 }
