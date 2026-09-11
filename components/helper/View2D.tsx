@@ -28,8 +28,11 @@ export function View2D({
   const width = world.dimX * cellSize + 1
   const height = world.dimY * cellSize + 1
 
+  const devicePixelRatio = window.devicePixelRatio ?? 1
+
   const maxCanvasDimension = 5000
-  const maxRenderScale = lowQuality ? 1 : 3
+  const maxRenderScale =
+    lowQuality || (devicePixelRatio == 1 && scale == 1) ? 1 : 3
 
   const renderScale = Math.max(
     1,
@@ -180,7 +183,7 @@ export function View2D({
     }
 
     ctx.restore()
-  }, [world, preview, width, height, cellSize, canvas, co])
+  }, [world, preview, width, height, cellSize, canvas, co, renderScale])
 
   return (
     <canvas
