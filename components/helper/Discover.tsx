@@ -82,7 +82,7 @@ export function Discover() {
 
       <div className="absolute left-[275px] z-10 top-[140px]">
         <button
-          className=" w-[120px] block hover:bg-gray-100/60 rounded-xl"
+          className=" w-[130px] block hover:bg-gray-100/60 rounded-xl"
           onClick={() => {
             ____submitAnalyzeEvent(core, 'ev_click_landing_hacktheweb')
             window.open('https://hack.arrrg.de/', '_blank')
