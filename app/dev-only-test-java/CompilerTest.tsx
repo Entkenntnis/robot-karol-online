@@ -8,7 +8,7 @@ import { faCheckCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Text } from '@codemirror/state'
 import { compileJava } from '../../lib/language/java/compileJava'
 import type { CompilerTestCase } from './page'
-import { parser } from '../../lib/codemirror/javaParser/parser'
+import { parser } from '@lezer/java'
 import {
   cursorToAstNode,
   prettyPrintAstNode,

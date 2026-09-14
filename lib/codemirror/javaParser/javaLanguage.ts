@@ -1,4 +1,4 @@
-import { parser } from './parser'
+import { parser } from '@lezer/java'
 import {
   flatIndent,
   continuedIndent,

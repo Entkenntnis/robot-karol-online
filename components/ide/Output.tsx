@@ -252,17 +252,21 @@ export function Output() {
           )}
         {core.ws.page == 'spielwiese' && (
           <div className="absolute top-2 right-2">
-            <button
-              className="py-0.5 bg-gray-100 hover:bg-gray-200 px-2 rounded"
-              onClick={() => {
-                core.mutateWs(({ ui }) => {
-                  ui.showStructogram = true
-                  ui.showOutput = false
-                })
-              }}
-            >
-              {core.ttung('Struktogramm')}
-            </button>
+            {!core.ws.ui.proMode &&
+              core.ws.ui.pythonCanSwitch &&
+              !core.ws.ui.isChatMode && (
+                <button
+                  className="py-0.5 bg-gray-100 hover:bg-gray-200 px-2 rounded"
+                  onClick={() => {
+                    core.mutateWs(({ ui }) => {
+                      ui.showStructogram = true
+                      ui.showOutput = false
+                    })
+                  }}
+                >
+                  {core.ttung('Struktogramm')}
+                </button>
+              )}
             <button
               onClick={(e) => {
                 resetOutput(core)
