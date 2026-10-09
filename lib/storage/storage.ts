@@ -108,6 +108,13 @@ export function restoreEditorSnapshot(core: Core) {
       core.mutateWs((ws) => {
         ws.settings = snapshot.settings
         ws.editor = snapshot.editor
+
+        // Weltbearbeitung nie aus dem Snapshot wiederherstellen –
+        // ws.world gehört nicht zum Snapshot und wäre stale
+        ws.editor.editWorld = null
+        ws.editor.currentlyEditing = 'start'
+        ws.editor.showWorldPreview = false
+
         ws.quest = snapshot.quest
         ws.code = snapshot.code
         ws.javaCode = snapshot.javaCode
